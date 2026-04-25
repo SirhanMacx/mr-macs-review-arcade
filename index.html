@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Mr. Mac's Review Arcade</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #03050d;
+  --ink: #f7fbff;
+  --soft: #b8c8e8;
+  --dim: #7e8faf;
+  --cyan: #64f4ff;
+  --blue: #6aa8ff;
+  --gold: #ffd36a;
+  --pink: #ff68c8;
+  --green: #50f0a4;
+  --panel: rgba(8, 13, 27, .72);
+  --panel-strong: rgba(7, 12, 26, .9);
+  --stroke: rgba(255, 255, 255, .16);
+  --stroke-strong: rgba(255, 255, 255, .28);
+  --hero: url("assets/arcade-hero.png");
+  --portal: url("assets/portal-card.png");
+}
+* { box-sizing: border-box; }
+html { min-height: 100%; scroll-behavior: smooth; }
+body {
+  min-height: 100%;
+  margin: 0;
+  color: var(--ink);
+  background: var(--bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+button, input, select { font: inherit; }
+button { color: inherit; cursor: pointer; }
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -8;
+  background:
+    linear-gradient(180deg, rgba(3, 5, 13, .08), rgba(3, 5, 13, .72) 54%, #03050d 96%),
+    linear-gradient(90deg, rgba(3, 5, 13, .84), rgba(3, 5, 13, .18) 34%, rgba(3, 5, 13, .78)),
+    var(--hero) center top / cover no-repeat;
+  filter: saturate(1.18) contrast(1.07);
+}
+.bg::before,
+.bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.bg::before {
+  background:
+    radial-gradient(circle at var(--mx, 52%) var(--my, 32%), rgba(100, 244, 255, .22), transparent 20%),
+    radial-gradient(circle at 82% 20%, rgba(255, 211, 106, .14), transparent 24%),
+    radial-gradient(circle at 14% 72%, rgba(255, 104, 200, .16), transparent 25%);
+  mix-blend-mode: screen;
+}
+.bg::after {
+  opacity: .48;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.026) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: linear-gradient(180deg, transparent, #000 16%, #000 82%, transparent);
+  animation: driftGrid 15s linear infinite;
+}
+#fx {
+  position: fixed;
+  inset: 0;
+  z-index: -4;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px clamp(16px, 3vw, 42px);
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  background: rgba(3, 6, 16, .72);
+  backdrop-filter: blur(20px) saturate(1.3);
+}
+.brand {
+  display: inline-grid;
+  grid-template-columns: 42px auto;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.brand-mark {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(100,244,255,.58);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle, rgba(100,244,255,.95), rgba(100,244,255,.12) 34%, transparent 56%),
+    linear-gradient(135deg, rgba(255,211,106,.34), rgba(255,104,200,.26));
+  box-shadow: 0 0 28px rgba(100,244,255,.28), inset 0 0 18px rgba(255,255,255,.16);
+}
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(255,255,255,.56);
+  border-radius: 50%;
+}
+.brand-text strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.brand-text span {
+  color: var(--dim);
+  font-size: 12px;
+}
+.top-status {
+  justify-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.status-pill {
+  min-height: 31px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  background: rgba(255,255,255,.07);
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 850;
+}
+.status-pill::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 14px var(--green);
+}
+.top-jump {
+  justify-self: end;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(100,244,255,.46);
+  color: #021018;
+  background: linear-gradient(135deg, var(--cyan), #ffffff);
+  text-decoration: none;
+  font-weight: 950;
+  box-shadow: 0 0 24px rgba(100,244,255,.24);
+}
+.app {
+  width: min(1560px, calc(100% - clamp(28px, 5vw, 70px)));
+  margin: 0 auto;
+  padding: 24px 0 44px;
+}
+.hero {
+  min-height: 580px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(390px, .9fr);
+  align-items: center;
+  gap: clamp(26px, 4vw, 70px);
+  padding: 28px 0 26px;
+}
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 13px;
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+.kicker::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+  box-shadow: 0 0 14px rgba(100,244,255,.5);
+}
+h1 {
+  max-width: 820px;
+  margin: 0;
+  font-size: 78px;
+  line-height: .93;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-wrap: balance;
+  text-shadow: 0 0 30px rgba(100,244,255,.34), 0 18px 42px rgba(0,0,0,.76);
+}
+.tagline {
+  max-width: 720px;
+  margin: 18px 0 0;
+  color: #dce8ff;
+  font-size: 21px;
+  line-height: 1.35;
+  text-shadow: 0 9px 24px rgba(0,0,0,.72);
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+.action {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 8px;
+  background: rgba(255,255,255,.08);
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 950;
+}
+.action.primary {
+  border-color: rgba(255,211,106,.62);
+  color: #151006;
+  background: linear-gradient(135deg, var(--gold), #fff1ae);
+  box-shadow: 0 18px 38px rgba(0,0,0,.34), 0 0 32px rgba(255,211,106,.22);
+}
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(96px, 1fr));
+  gap: 10px;
+  max-width: 720px;
+  margin-top: 28px;
+}
+.metric {
+  min-height: 88px;
+  padding: 13px 14px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.045));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+}
+.metric strong {
+  display: block;
+  font-size: 29px;
+  line-height: 1;
+}
+.metric span {
+  display: block;
+  margin-top: 8px;
+  color: var(--dim);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+.stage {
+  position: relative;
+  min-height: 430px;
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(1,5,14,.18), rgba(1,5,14,.82)),
+    radial-gradient(circle at 50% 8%, rgba(100,244,255,.24), transparent 32%),
+    var(--portal) center / cover no-repeat;
+  box-shadow: 0 28px 90px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.18);
+  overflow: hidden;
+  transform: perspective(1100px) rotateY(-4deg) rotateX(2deg);
+}
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: -80px;
+  background: conic-gradient(from 0deg, transparent, rgba(100,244,255,.24), transparent, rgba(255,211,106,.18), transparent);
+  animation: spinAura 12s linear infinite;
+  opacity: .44;
+}
+.stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 12%, rgba(255,255,255,.12) 48%, transparent 62%);
+  transform: translateX(-92%);
+  animation: scanStage 5.6s ease-in-out infinite;
+}
+.stage-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 394px;
+  align-content: space-between;
+}
+.stage-title {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+}
+.stage-title span {
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+.stage-title strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 26px;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.pulse-orb {
+  width: 58px;
+  height: 58px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.32);
+  background:
+    radial-gradient(circle, #fff, rgba(100,244,255,.88) 19%, rgba(100,244,255,.16) 46%, transparent 68%);
+  box-shadow: 0 0 36px rgba(100,244,255,.58);
+  animation: breathe 2.8s ease-in-out infinite;
+}
+.spotlight {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.spot-card {
+  min-height: 86px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 8px;
+  background: rgba(3, 8, 20, .64);
+  text-align: left;
+  box-shadow: inset 3px 0 0 var(--accent, var(--cyan));
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+.spot-card:hover,
+.spot-card:focus-visible {
+  outline: none;
+  transform: translateX(-5px);
+  border-color: rgba(100,244,255,.62);
+  background: rgba(8, 18, 38, .82);
+}
+.spot-card small {
+  display: block;
+  color: var(--accent, var(--cyan));
+  font-size: 11px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+.spot-card strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 17px;
+  line-height: 1.08;
+}
+.spot-card em {
+  color: var(--soft);
+  font-size: 12px;
+  font-style: normal;
+}
+.spot-card .launch-tag {
+  min-width: 72px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #021018;
+  background: linear-gradient(135deg, var(--accent, var(--cyan)), #fff);
+  font-size: 12px;
+  font-weight: 950;
+}
+.library {
+  margin-top: 18px;
+  padding-top: 20px;
+  scroll-margin-top: 96px;
+}
+.library-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.library h2 {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.library-sub {
+  margin: 8px 0 0;
+  color: var(--dim);
+  line-height: 1.4;
+}
+#countLabel {
+  color: var(--soft);
+  font-size: 14px;
+  font-weight: 900;
+}
+.command {
+  position: sticky;
+  top: 70px;
+  z-index: 16;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.11), rgba(6,12,28,.82)),
+    radial-gradient(circle at 14% 0%, rgba(100,244,255,.16), transparent 30%);
+  box-shadow: 0 22px 60px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.14);
+  backdrop-filter: blur(20px) saturate(1.25);
+}
+.filters {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) repeat(4, minmax(148px, 210px));
+  gap: 9px;
+}
+.field {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 13px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 8px;
+  outline: none;
+  color: var(--ink);
+  background: rgba(1, 5, 15, .74);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+.field:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(100,244,255,.16), 0 0 24px rgba(100,244,255,.18);
+}
+select.field option { color: #06101e; }
+.course-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.course-tab {
+  min-height: 36px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 999px;
+  background: rgba(255,255,255,.07);
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 900;
+}
+.course-tab.active {
+  border-color: rgba(100,244,255,.65);
+  color: #021018;
+  background: linear-gradient(135deg, var(--cyan), #ffffff);
+}
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.stat {
+  padding: 7px 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  background: rgba(255,255,255,.055);
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 850;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(286px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+.card {
+  position: relative;
+  min-height: 286px;
+  overflow: hidden;
+  display: grid;
+  align-content: space-between;
+  padding: 15px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(3, 7, 18, .18), rgba(3, 7, 18, .72) 58%, rgba(3, 7, 18, .96)),
+    radial-gradient(circle at 20% 9%, color-mix(in srgb, var(--accent, var(--cyan)) 26%, transparent), transparent 32%),
+    var(--portal) center / cover no-repeat;
+  text-align: left;
+  box-shadow: 0 20px 48px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.13);
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(0);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.card::before {
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--accent, var(--cyan)), transparent 18%, transparent 82%, rgba(255,255,255,.18)),
+    linear-gradient(180deg, rgba(255,255,255,.14), transparent 24%);
+  opacity: .38;
+}
+.card::after {
+  inset: -80%;
+  background: linear-gradient(115deg, transparent 0 44%, rgba(255,255,255,.32) 50%, transparent 58%);
+  transform: translateX(-58%) rotate(9deg);
+  transition: transform .58s ease;
+}
+.card:hover,
+.card:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--accent, var(--cyan)) 72%, white);
+  filter: brightness(1.08) saturate(1.08);
+  box-shadow: 0 28px 70px rgba(0,0,0,.48), 0 0 34px color-mix(in srgb, var(--accent, var(--cyan)) 28%, transparent), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.card:hover::after,
+.card:focus-visible::after { transform: translateX(54%) rotate(9deg); }
+.card-top,
+.card-bottom {
+  position: relative;
+  z-index: 1;
+}
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.badge {
+  min-height: 27px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 8px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  background: rgba(0,0,0,.35);
+  color: #edf5ff;
+  font-size: 11px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+.badge.accent {
+  color: #020913;
+  background: linear-gradient(135deg, var(--accent, var(--cyan)), #ffffff);
+}
+.card h3 {
+  margin: 42px 0 8px;
+  font-size: 25px;
+  line-height: 1.02;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-shadow: 0 5px 18px rgba(0,0,0,.82);
+}
+.card p {
+  margin: 0;
+  color: #d8e5ff;
+  line-height: 1.31;
+}
+.card-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+  margin-top: 18px;
+}
+.tiny {
+  color: var(--soft);
+  font-size: 12px;
+  line-height: 1.3;
+}
+.play {
+  min-width: 82px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #03101c;
+  background: linear-gradient(135deg, var(--accent, var(--cyan)), #ffffff);
+  font-size: 12px;
+  font-weight: 1000;
+  box-shadow: 0 12px 28px rgba(0,0,0,.34), 0 0 20px color-mix(in srgb, var(--accent, var(--cyan)) 24%, transparent);
+}
+.empty {
+  grid-column: 1 / -1;
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  padding: 26px;
+  border: 1px dashed rgba(255,255,255,.24);
+  border-radius: 8px;
+  background: rgba(0,0,0,.26);
+  color: var(--soft);
+}
+.player {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  grid-template-rows: auto minmax(0, 1fr);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(100,244,255,.16), transparent 28%),
+    rgba(2, 5, 13, .94);
+  backdrop-filter: blur(20px) saturate(1.2);
+}
+.player.show { display: grid; }
+.playerbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px clamp(12px, 2vw, 20px);
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  background: rgba(6, 12, 27, .86);
+}
+.playerbar strong {
+  display: block;
+  font-size: 18px;
+  line-height: 1.12;
+}
+.playerbar span {
+  display: block;
+  margin-top: 3px;
+  color: var(--soft);
+  font-size: 12px;
+}
+.player-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: 8px;
+}
+.btn {
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 8px;
+  background: rgba(255,255,255,.08);
+  color: var(--ink);
+  font-weight: 950;
+}
+.btn.primary {
+  border-color: rgba(255,211,106,.64);
+  color: #151006;
+  background: linear-gradient(135deg, var(--gold), #fff3b8);
+}
+.framewrap {
+  position: relative;
+  min-height: 0;
+  padding: 10px;
+}
+.loader {
+  position: absolute;
+  inset: 10px;
+  display: none;
+  place-items: center;
+  border: 1px solid rgba(100,244,255,.24);
+  border-radius: 8px;
+  background: rgba(2,6,16,.86);
+  color: var(--cyan);
+  font-weight: 950;
+  text-transform: uppercase;
+  z-index: 2;
+}
+.player.loading .loader { display: grid; }
+iframe {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 8px;
+  background: #050711;
+  box-shadow: 0 24px 80px rgba(0,0,0,.45);
+}
+@keyframes driftGrid {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 0 80px, 80px 0; }
+}
+@keyframes spinAura {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes scanStage {
+  0%, 36% { transform: translateX(-92%); opacity: 0; }
+  48% { opacity: .9; }
+  72%, 100% { transform: translateX(92%); opacity: 0; }
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(.96); opacity: .74; }
+  50% { transform: scale(1.07); opacity: 1; }
+}
+@media (max-width: 1120px) {
+  .topbar { grid-template-columns: auto 1fr; }
+  .top-status { justify-self: end; }
+  .top-jump { display: none; }
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: 42px;
+  }
+  .stage { transform: none; }
+  .filters { grid-template-columns: 1fr 1fr; }
+  .filters .search { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .topbar {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+  }
+  .top-status { justify-self: stretch; justify-content: flex-start; }
+  .status-pill { font-size: 11px; }
+  .app { width: calc(100% - 20px); padding-top: 12px; }
+  .hero { gap: 18px; }
+  h1 { font-size: 42px; }
+  .tagline { font-size: 17px; }
+  .hero-actions { gap: 9px; }
+  .action { width: 100%; }
+  .hero-metrics { grid-template-columns: 1fr 1fr; }
+  .stage { min-height: 360px; padding: 13px; }
+  .stage-inner { min-height: 334px; }
+  .stage-title strong { font-size: 21px; }
+  .spot-card { grid-template-columns: 1fr; }
+  .spot-card span { width: 100%; }
+  .library-head { grid-template-columns: 1fr; }
+  .command {
+    position: relative;
+    top: auto;
+  }
+  .filters { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; }
+  .card { min-height: 258px; }
+  .playerbar { grid-template-columns: 1fr; }
+  .player-actions { justify-content: stretch; }
+  .btn { flex: 1; }
+}
+@media (max-width: 430px) {
+  h1 { font-size: 38px; }
+  .metric { min-height: 74px; padding: 11px 12px; }
+  .metric strong { font-size: 25px; }
+  .card h3 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<header class="topbar">
+  <a class="brand" href="#library" aria-label="Mr. Mac's Review Arcade home">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-text"><strong>Mr. Mac's Arcade</strong><span>Review OS</span></span>
+  </a>
+  <div class="top-status" id="topStatus"></div>
+  <a class="top-jump" href="#library">Game Library</a>
+</header>
+<main class="app">
+  <section class="hero" aria-label="Arcade overview">
+    <div class="hero-copy">
+      <div class="kicker">Student online player</div>
+      <h1>Mr. Mac's Review Arcade</h1>
+      <p class="tagline">A single launch hub for Regents review, AP Psychology, unit practice, cumulative missions, and future classroom game formats.</p>
+      <div class="hero-actions">
+        <button class="action primary" id="launchFeatured" type="button">Launch Featured Game</button>
+        <a class="action" href="#library">Browse All Games</a>
+      </div>
+      <div class="hero-metrics" id="heroMetrics"></div>
+    </div>
+    <aside class="stage" aria-label="Featured games">
+      <div class="stage-inner">
+        <div class="stage-title">
+          <div>
+            <span>Live queue</span>
+            <strong>Featured review missions</strong>
+          </div>
+          <div class="pulse-orb" aria-hidden="true"></div>
+        </div>
+        <div class="spotlight" id="spotlight"></div>
+      </div>
+    </aside>
+  </section>
+  <section class="library" id="library" aria-label="Game library">
+    <div class="library-head">
+      <div>
+        <h2>Game Library</h2>
+        <p class="library-sub">Search by topic, course, unit, exam skill, person, event, or concept.</p>
+      </div>
+      <span id="countLabel"></span>
+    </div>
+    <section class="command" aria-label="Game filters">
+      <div class="filters">
+        <input class="field search" id="search" type="search" autocomplete="off" placeholder="Search Cold War, imperialism, memory, civil rights...">
+        <select class="field" id="courseFilter"></select>
+        <select class="field" id="subjectFilter"></select>
+        <select class="field" id="typeFilter"></select>
+        <select class="field" id="sortFilter">
+          <option value="course">Sort: Course</option>
+          <option value="title">Sort: Title</option>
+          <option value="type">Sort: Game Type</option>
+        </select>
+      </div>
+      <div class="course-tabs" id="courseTabs"></div>
+      <div class="stats" id="stats"></div>
+    </section>
+    <div class="grid" id="grid"></div>
+  </section>
+</main>
+<section class="player" id="player" aria-label="Online game player">
+  <div class="playerbar">
+    <div>
+      <strong id="playerTitle">Game</strong>
+      <span id="playerMeta"></span>
+    </div>
+    <div class="player-actions">
+      <button class="btn primary" id="fullscreenBtn" type="button">Fullscreen</button>
+      <button class="btn" id="openBtn" type="button">Open Tab</button>
+      <button class="btn" id="closeBtn" type="button">Close</button>
+    </div>
+  </div>
+  <div class="framewrap">
+    <div class="loader">Loading game</div>
+    <iframe id="gameFrame" title="Review game player"></iframe>
+  </div>
+</section>
+<script>
+const GAMES = [{"id":"global-9-01-development-of-civilization-jeopardy-review-html","title":"Development of Civilization","subtitle":"A full Jeopardy-style practice game for Grade 9 Global History I, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 1","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/01%20-%20Development%20of%20Civilization%20Jeopardy%20Review.html","originalFile":"01 - Development of Civilization Jeopardy Review.html","collection":"global-9","categories":["Core Terms","People + Events","Causes + Effects","Docs + History Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Development of Civilization","Unit 1","Grade 9 Global History I Year Review","Core Terms","Paleolithic Era","Neolithic Revolution","Domestication","Surplus food","Specialization","People + Events","Social hierarchy","Civilization","Mesopotamia","City-state","Ziggurat","Causes + Effects","Cuneiform","Hammurabi's Code","Nile River","Pharaoh","Polytheism","Docs + History Skills","Historical context","context","Point of view","POV","perspective","Indus Valley","Harappa and Mohenjo-Daro","Synthesis","Shang Dynasty","Oracle bones","Eight features of civilization","how humans moved from hunter-gatherer communities to complex civilizations"]},{"id":"global-9-02-belief-systems-jeopardy-review-html","title":"Belief Systems","subtitle":"A full Jeopardy-style practice game for Grade 9 Global History I, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 2","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/02%20-%20Belief%20Systems%20Jeopardy%20Review.html","originalFile":"02 - Belief Systems Jeopardy Review.html","collection":"global-9","categories":["Core Terms","People + Events","Causes + Effects","Docs + History Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Belief Systems","Unit 2","Grade 9 Global History I Year Review","Core Terms","Hinduism","Caste system","Dharma","Karma","Reincarnation","People + Events","Moksha","Buddhism","Four Noble Truths","Eightfold Path","Nirvana","Causes + Effects","Ashoka","Judaism","Monotheism","Covenant","Christianity","Docs + History Skills","Historical context","context","Point of view","POV","perspective","Islam","Five Pillars","Synthesis","Quran","Confucianism","Filial piety","how belief systems answer human questions and shape societies"]},{"id":"global-9-03-classical-civilizations-jeopardy-review-html","title":"Classical Civilizations","subtitle":"A full Jeopardy-style practice game for Grade 9 Global History I, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 3","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/03%20-%20Classical%20Civilizations%20Jeopardy%20Review.html","originalFile":"03 - Classical Civilizations Jeopardy Review.html","collection":"global-9","categories":["Core Terms","People + Events","Causes + Effects","Docs + History Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Classical Civilizations","Unit 3","Grade 9 Global History I Year Review","Core Terms","Classical civilization","Polis","Athens","Sparta","Direct democracy","People + Events","Pericles","Persian Wars","Peloponnesian War","Alexander the Great","Hellenistic culture","Causes + Effects","Roman Republic","Twelve Tables","Julius Caesar","Augustus","Pax Romana","Docs + History Skills","Historical context","context","Point of view","POV","perspective","Han Dynasty","Civil service exam","Synthesis","Maurya Empire","Gupta Empire","Classical Maya","how classical societies built political systems, cultural achievements, and lasting legacies"]},{"id":"global-9-04-trade-networks-jeopardy-review-html","title":"Trade Networks","subtitle":"A full Jeopardy-style practice game for Grade 9 Global History I, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 4","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/04%20-%20Trade%20Networks%20Jeopardy%20Review.html","originalFile":"04 - Trade Networks Jeopardy Review.html","collection":"global-9","categories":["Core Terms","People + Events","Causes + Effects","Docs + History Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Trade Networks","Unit 4","Grade 9 Global History I Year Review","Core Terms","Silk Roads","Indian Ocean trade","Trans-Saharan trade","Gold-salt trade","Cultural diffusion","People + Events","Caravan","Camel saddle","Monsoon winds","Lateen sail","Compass","Causes + Effects","Mali Empire","Mansa Musa","Timbuktu","Ibn Battuta","Marco Polo","Docs + History Skills","Historical context","context","Point of view","POV","perspective","Swahili Coast","Great Zimbabwe","Synthesis","Black Death","Pax Mongolica","Slavery before 1500","how trade moved goods, ideas, technologies, religions, disease, and power"]},{"id":"global-9-05-postclassical-powers-jeopardy-review-html","title":"Postclassical Powers","subtitle":"A full Jeopardy-style practice game for Grade 9 Global History I, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 5","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/05%20-%20Postclassical%20Powers%20Jeopardy%20Review.html","originalFile":"05 - Postclassical Powers Jeopardy Review.html","collection":"global-9","categories":["Core Terms","People + Events","Causes + Effects","Docs + History Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Postclassical Powers","Unit 5","Grade 9 Global History I Year Review","Core Terms","Byzantine Empire","Constantinople","Justinian Code","Eastern Orthodox Christianity","Great Schism","People + Events","Roman Catholic Church","Feudalism","Manorialism","Charlemagne","Islamic Golden Age","Causes + Effects","Abbasid Caliphate","House of Wisdom","Tang Dynasty","Song Dynasty","Mongol Empire","Docs + History Skills","Historical context","context","Point of view","POV","perspective","Kublai Khan","Feudal Japan","Synthesis","Shogun","Samurai","East-to-West innovation transfer","how empires and states rebuilt power after the classical age"]},{"id":"global-9-06-social-and-cultural-conflict-jeopardy-review-html","title":"Social and Cultural Conflict","subtitle":"A full Jeopardy-style practice game for Grade 9 Global History I, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 6","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/06%20-%20Social%20and%20Cultural%20Conflict%20Jeopardy%20Review.html","originalFile":"06 - Social and Cultural Conflict Jeopardy Review.html","collection":"global-9","categories":["Core Terms","People + Events","Causes + Effects","Docs + History Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Social and Cultural Conflict","Unit 6","Grade 9 Global History I Year Review","Core Terms","Sunni-Shia split","Caliph","East-West Schism","Crusades","Pope Urban II","People + Events","Holy Land","Seljuk Turks","Delhi Sultanate","Sikhism","Guru Nanak","Causes + Effects","Black Death","Bubonic plague","Trade routes","Anti-Jewish violence","Labor shortages","Docs + History Skills","Historical context","context","Point of view","POV","perspective","Religious conflict","Pilgrimage","Synthesis","Cultural blending","Scapegoating","Long-term impact of plague","how belief and crisis can unify societies, divide communities, and reshape power"]},{"id":"global-9-07-ottoman-and-ming-worlds-jeopardy-review-html","title":"Ottoman and Ming Worlds","subtitle":"A full Jeopardy-style practice game for Grade 9 Global History I, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 7","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/07%20-%20Ottoman%20and%20Ming%20Worlds%20Jeopardy%20Review.html","originalFile":"07 - Ottoman and Ming Worlds Jeopardy Review.html","collection":"global-9","categories":["Core Terms","People + Events","Causes + Effects","Docs + History Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Ottoman and Ming Worlds","Unit 7","Grade 9 Global History I Year Review","Core Terms","Ottoman Empire","Mehmed II","Fall of Constantinople","Suleiman the Magnificent","Janissaries","People + Events","Devshirme","Millet system","Sharia","Istanbul","Ming Dynasty","Causes + Effects","Hongwu Emperor","Forbidden City","Zheng He","Treasure ships","Tribute system","Docs + History Skills","Historical context","context","Point of view","POV","perspective","Macau","Jesuits","Synthesis","Isolation","Gunpowder empire","Bureaucracy","how major states used belief, bureaucracy, trade, and self-image to project power"]},{"id":"global-9-08-africa-and-the-americas-before-1600-jeopardy-review-html","title":"Africa and the Americas Before 1600","subtitle":"A full Jeopardy-style practice game for Grade 9 Global History I, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 8","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/08%20-%20Africa%20and%20the%20Americas%20Before%201600%20Jeopardy%20Review.html","originalFile":"08 - Africa and the Americas Before 1600 Jeopardy Review.html","collection":"global-9","categories":["Core Terms","People + Events","Causes + Effects","Docs + History Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Africa and the Americas Before 1600","Unit 8","Grade 9 Global History I Year Review","Core Terms","Songhai Empire","Askia Muhammad","Swahili Coast","Great Zimbabwe","Animism","People + Events","Ancestor veneration","Aztec Empire","Tenochtitlan","Triple Alliance","Chinampas","Causes + Effects","Human sacrifice","Inca Empire","Cuzco","Quipu","Mit'a","Docs + History Skills","Historical context","context","Point of view","POV","perspective","Road system","Codices","Synthesis","Atlantic worlds","Pre-Columbian","Cultural achievement","how African and American societies built power, belief, trade, and culture before Atlantic conquest"]},{"id":"global-9-09-western-europe-and-russia-jeopardy-review-html","title":"Western Europe and Russia","subtitle":"A full Jeopardy-style practice game for Grade 9 Global History I, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 9","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/09%20-%20Western%20Europe%20and%20Russia%20Jeopardy%20Review.html","originalFile":"09 - Western Europe and Russia Jeopardy Review.html","collection":"global-9","categories":["Core Terms","People + Events","Causes + Effects","Docs + History Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Western Europe and Russia","Unit 9","Grade 9 Global History I Year Review","Core Terms","Renaissance","Humanism","Patrons","Italian city-states","Printing press","People + Events","Martin Luther","95 Theses","Indulgences","Council of Trent","Jesuits","Causes + Effects","Thirty Years' War","Peace of Westphalia","Divine right","Louis XIV","Versailles","Docs + History Skills","Historical context","context","Point of view","POV","perspective","Ivan III","Ivan IV","Synthesis","Peter the Great","Scientific Revolution","Galileo","how knowledge, religion, science, monarchy, and rights transformed Europe and Russia"]},{"id":"global-9-10-interactions-and-disruptions-jeopardy-review-html","title":"Interactions and Disruptions","subtitle":"A full Jeopardy-style practice game for Grade 9 Global History I, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 10","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/10%20-%20Interactions%20and%20Disruptions%20Jeopardy%20Review.html","originalFile":"10 - Interactions and Disruptions Jeopardy Review.html","collection":"global-9","categories":["Core Terms","People + Events","Causes + Effects","Docs + History Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Interactions and Disruptions","Unit 10","Grade 9 Global History I Year Review","Core Terms","Caravel","Astrolabe","Compass","Reconquista","Christopher Columbus","People + Events","Treaty of Tordesillas","Columbian Exchange","Smallpox","Tenochtitlan","Hernan Cortes","Causes + Effects","Tlaxcala Alliance","La Malinche","Atahualpa","Cajamarca","Encomienda","Docs + History Skills","Historical context","context","Point of view","POV","perspective","Bartolome de Las Casas","Valladolid Debate","Synthesis","Casta system","Peninsulares","Creoles","how exploration, conquest, exchange, labor systems, and Atlantic trade reshaped the world"]},{"id":"global-9-99-cumulative-yearlong-jeopardy-review-html","title":"Grade 9 Yearlong Review","subtitle":"A cumulative Jeopardy-style review game for the full Grade 9 Global History I course.","day":"Cumulative","course":"Grade 9 Global History I","subject":"Global History","grade":"9","gameType":"Unit + Cumulative","file":"games/global-9/99%20-%20Cumulative%20Yearlong%20Jeopardy%20Review.html","originalFile":"99 - Cumulative Yearlong Jeopardy Review.html","collection":"global-9","categories":["Early Worlds","Belief + Rule","Classical + Trade","Empires + States","Early Modern Change"],"clueCount":25,"hasFinal":true,"tags":["Grade 9 Global History I","Global History","9","Unit + Cumulative","Grade 9 Yearlong Review","Cumulative","Grade 9 Global History I Year Review","Early Worlds","Neolithic Revolution","Hammurabi's Code","Nile River","Indus Valley","Shang Dynasty","Belief + Rule","Hinduism","Buddhism","Islam","Confucianism","Crusades","Classical + Trade","Athens","Pax Romana","Han Dynasty","Silk Roads","Mansa Musa","Empires + States","Byzantine Empire","Mongol Empire","Ottoman Empire","Ming Dynasty","Inca Empire","Early Modern Change","Renaissance","Protestant Reformation","Scientific Revolution","Columbian Exchange","Middle Passage","civilization, belief, trade, empire, cultural exchange, and global disruption before 1750"]},{"id":"global-10-units-01-world-in-1750-jeopardy-review-html","title":"World in 1750","subtitle":"A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 1","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Unit Review","file":"games/global-10-units/01%20-%20World%20in%201750%20Jeopardy%20Review.html","originalFile":"01 - World in 1750 Jeopardy Review.html","collection":"global-10-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Unit Review","World in 1750","Unit 1","NYS Global History Regents 2026 Review","Core Terms","Ottoman Empire","Mughal Empire","Qing China","Tokugawa Japan","Bourbon France","People + Events","Absolutism","Indian Ocean trade","Silk Road","Maritime empires","Land-based empires","Causes + Effects","Mercantilism","Divine right","Louis XIV","Versailles","Peter the Great","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Akbar","Suleiman the Magnificent","Synthesis","Janissaries","Shogun","Daimyo","empires, trade networks, and global diversity before revolutions"]},{"id":"global-10-units-02-enlightenment-and-atlantic-revolutions-jeopardy-review-html","title":"Enlightenment and Atlantic Revolutions","subtitle":"A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 2","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Unit Review","file":"games/global-10-units/02%20-%20Enlightenment%20and%20Atlantic%20Revolutions%20Jeopardy%20Review.html","originalFile":"02 - Enlightenment and Atlantic Revolutions Jeopardy Review.html","collection":"global-10-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Unit Review","Enlightenment and Atlantic Revolutions","Unit 2","NYS Global History Regents 2026 Review","Core Terms","Scientific Revolution","John Locke","Montesquieu","Voltaire","Rousseau","People + Events","Mary Wollstonecraft","Declaration of Independence","French Revolution","Reign of Terror","Napoleon","Causes + Effects","Haitian Revolution","Simon Bolivar","Natural rights","Social contract","Consent of the governed","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Separation of powers","Checks and balances","Synthesis","Salons","Encyclopedia","Estates-General","new ideas about rights challenged old political orders"]},{"id":"global-10-units-03-industrial-revolution-jeopardy-review-html","title":"Industrial Revolution","subtitle":"A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 3","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Unit Review","file":"games/global-10-units/03%20-%20Industrial%20Revolution%20Jeopardy%20Review.html","originalFile":"03 - Industrial Revolution Jeopardy Review.html","collection":"global-10-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Unit Review","Industrial Revolution","Unit 3","NYS Global History Regents 2026 Review","Core Terms","Textile factory","Steam engine","Railroads","Urbanization","People + Events","Working class","Labor unions","Adam Smith","Karl Marx","Laissez-faire","Causes + Effects","Socialism","Agricultural Revolution","Enclosure movement","Factory system","Mass production","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Division of labor","Cottage industry","Synthesis","James Watt","Coal","Iron","technology transformed labor, cities, and economic ideas"]},{"id":"global-10-units-04-imperialism-jeopardy-review-html","title":"Imperialism","subtitle":"A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 4","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Unit Review","file":"games/global-10-units/04%20-%20Imperialism%20Jeopardy%20Review.html","originalFile":"04 - Imperialism Jeopardy Review.html","collection":"global-10-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Unit Review","Imperialism","Unit 4","NYS Global History Regents 2026 Review","Core Terms","Social Darwinism","White Man's Burden","British Raj","Sepoy Mutiny","People + Events","Opium Wars","Spheres of influence","Berlin Conference","Scramble for Africa","Menelik II","Causes + Effects","Meiji Restoration","Nationalism","Raw materials","Markets","Missionaries","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Direct rule","Indirect rule","Synthesis","Assimilation","Unequal treaties","Boxer Rebellion","industrial powers expanded control and colonized much of the world"]},{"id":"global-10-units-05-global-conflict-world-war-i-to-world-war-ii-jeopardy-review-html","title":"Global Conflict: World War I to World War II","subtitle":"A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 5","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Unit Review","file":"games/global-10-units/05%20-%20Global%20Conflict%20World%20War%20I%20to%20World%20War%20II%20Jeopardy%20Review.html","originalFile":"05 - Global Conflict World War I to World War II Jeopardy Review.html","collection":"global-10-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Unit Review","Global Conflict: World War I to World War II","Unit 5","NYS Global History Regents 2026 Review","Core Terms","MAIN causes","militarism alliances imperialism nationalism","Archduke Franz Ferdinand","Trench warfare","Treaty of Versailles","Russian Revolution","People + Events","Lenin","Fascism","Mussolini","Hitler","Appeasement","Causes + Effects","Holocaust","Atomic bomb","Militarism","Alliances","Imperialism","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Nationalism","Total war","Synthesis","Propaganda","League of Nations","Weimar Republic","global wars, revolution, totalitarianism, and genocide"]},{"id":"global-10-units-06-cold-war-1945-1991-jeopardy-review-html","title":"Cold War 1945-1991","subtitle":"A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 6","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Unit Review","file":"games/global-10-units/06%20-%20Cold%20War%201945-1991%20Jeopardy%20Review.html","originalFile":"06 - Cold War 1945-1991 Jeopardy Review.html","collection":"global-10-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Unit Review","Cold War 1945-1991","Unit 6","NYS Global History Regents 2026 Review","Core Terms","Cold War","Iron Curtain","Containment","Truman Doctrine","Marshall Plan","People + Events","NATO","Berlin Blockade","Korean War","Cuban Missile Crisis","Vietnam War","Causes + Effects","Detente","Glasnost and perestroika","Superpowers","Communism","Capitalism","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Satellite nations","Warsaw Pact","Synthesis","Arms race","Space race","Sputnik","ideological rivalry shaped alliances, proxy wars, and reform"]},{"id":"global-10-units-07-decolonization-and-nationalism-jeopardy-review-html","title":"Decolonization and Nationalism","subtitle":"A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 7","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Unit Review","file":"games/global-10-units/07%20-%20Decolonization%20and%20Nationalism%20Jeopardy%20Review.html","originalFile":"07 - Decolonization and Nationalism Jeopardy Review.html","collection":"global-10-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Unit Review","Decolonization and Nationalism","Unit 7","NYS Global History Regents 2026 Review","Core Terms","Decolonization","India Partition","Gandhi","Nehru","Jinnah","People + Events","Ho Chi Minh","Mao Zedong","Great Leap Forward","Cultural Revolution","Kwame Nkrumah","Causes + Effects","Nelson Mandela","Apartheid","National self-determination","Civil disobedience","Salt March","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Nonviolence","Muslim League","Synthesis","Indian National Congress","Vietnamese independence","Dien Bien Phu","colonized peoples fought for independence and shaped new nations"]},{"id":"global-10-units-08-modernization-tensions-jeopardy-review-html","title":"Modernization Tensions","subtitle":"A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 8","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Unit Review","file":"games/global-10-units/08%20-%20Modernization%20Tensions%20Jeopardy%20Review.html","originalFile":"08 - Modernization Tensions Jeopardy Review.html","collection":"global-10-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Unit Review","Modernization Tensions","Unit 8","NYS Global History Regents 2026 Review","Core Terms","Modernization","Tradition","Mustafa Kemal Ataturk","Iranian Revolution","Ayatollah Khomeini","People + Events","Deng Xiaoping","Tiananmen Square","Women's rights","Religious fundamentalism","Technology","Causes + Effects","Secularism","Westernization","Kemalism","Shah of Iran","Theocracy","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Islamic republic","Cultural diffusion","Synthesis","One-child policy","Four Modernizations","Special Economic Zones","SEZs","states balanced modernization, tradition, religion, and rights"]},{"id":"global-10-units-09-globalization-jeopardy-review-html","title":"Globalization","subtitle":"A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 9","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Unit Review","file":"games/global-10-units/09%20-%20Globalization%20Jeopardy%20Review.html","originalFile":"09 - Globalization Jeopardy Review.html","collection":"global-10-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Unit Review","Globalization","Unit 9","NYS Global History Regents 2026 Review","Core Terms","NAFTA","European Union","EU","WTO","Internet","People + Events","Social media","Climate change","Paris Agreement","HIV/AIDS","COVID-19","Causes + Effects","Arab Spring","Interdependence","Multinational corporation","Outsourcing","Free trade","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Tariffs","Cultural diffusion","Synthesis","Cultural homogenization","McDonaldization","Microfinance","connections across borders create opportunity, conflict, and interdependence"]},{"id":"global-10-units-10-human-rights-violations-jeopardy-review-html","title":"Human Rights Violations","subtitle":"A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 10","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Unit Review","file":"games/global-10-units/10%20-%20Human%20Rights%20Violations%20Jeopardy%20Review.html","originalFile":"10 - Human Rights Violations Jeopardy Review.html","collection":"global-10-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Unit Review","Human Rights Violations","Unit 10","NYS Global History Regents 2026 Review","Core Terms","Universal Declaration of Human Rights","UDHR","Genocide","Holocaust","Nuremberg Trials","Khmer Rouge","People + Events","Apartheid","Truth and Reconciliation Commission","TRC","Rwandan Genocide","Srebrenica","Darfur","Causes + Effects","International Criminal Court","ICC","Rohingya","Crimes against humanity","War crimes","Ethnic cleansing","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Armenian Genocide","Stalin's purges","Synthesis","Gulag","Cambodian Genocide","Pol Pot","human rights law, genocide, accountability, and prevention"]},{"id":"global-regents-sprint-day-1-geography-turning-points-review-game-html","title":"The Map and the Moment","subtitle":"Geography foundations and 8 historical turning points that made the modern world","day":"Day 1 of 5","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Regents Sprint","file":"games/global-regents-sprint/Day%201%20-%20Geography%20Turning%20Points%20Review%20Game.html","originalFile":"Day 1 - Geography Turning Points Review Game.html","collection":"global-regents-sprint","categories":["Map Language","Landforms + Biomes","Turning Points A","Turning Points B","Regents Pattern Plays"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Regents Sprint","The Map and the Moment","Day 1 of 5","NYS Global History and Geography II Regents - June 17, 2026 - 12:00 PM","Map Language","Latitude","Longitude","Topography","Eastern Hemisphere","Natural resources","Landforms + Biomes","River valley","Steppes","Steppe","Pampas","Archipelago","Monsoon","Turning Points A","Scientific Revolution","Sci Rev","Industrial Revolution","French Revolution","Russian Revolution","Bolshevik Revolution","October Revolution","Meiji Restoration","Meiji","Turning Points B","Chinese Communist Revolution","Chinese Revolution","Mao's Revolution","Mao Zedong","Iranian Revolution","Islamic Revolution","End of the Cold War","Cold War ended","Fall of the Soviet Union","Collapse of the USSR","Modernization","Anti-modernization","Reaction against modernization","Rejecting modernization","Traditionalism","Regents Pattern Plays","Impact","Effect","Consequence","Long-term effect","Power","Innovation","Geography","GEO","Legitimacy","Scientific Revolution -> Enlightenment -> French Revolution"]},{"id":"global-regents-sprint-day-2-economic-political-systems-review-game-html","title":"How the World Organizes Itself","subtitle":"Economic systems and political systems: five frameworks for wealth, nine for power","day":"Day 2 of 5","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Regents Sprint","file":"games/global-regents-sprint/Day%202%20-%20Economic%20Political%20Systems%20Review%20Game.html","originalFile":"Day 2 - Economic Political Systems Review Game.html","collection":"global-regents-sprint","categories":["Economic Systems","Capitalism vs Socialism","Power Systems","Authoritarian Systems","Regents Comparisons"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Regents Sprint","How the World Organizes Itself","Day 2 of 5","NYS Global History and Geography II Regents - June 17, 2026 - 12:00 PM","Economic Systems","Encomienda","Mercantilism","Feudalism","Manorialism","Feudalism and manorialism","Capitalism","Market economy","Free market","Laissez-faire","Socialism","Communism","Socialism / Communism","Marxism","Capitalism vs Socialism","The Communist Manifesto","Communist Manifesto","Supply and demand","Means of production","Central planning","Command economy","Planned economy","Power Systems","Direct democracy","Athenian democracy","Theocracy","Absolute monarchy","Divine-right monarchy","Republic","Representative republic","Parliamentary democracy","Parliamentary system","Authoritarian Systems","Totalitarianism","Totalitarian dictatorship","Dictatorship","Fascism","Divine right","Divine right of kings","Communist political system","One-party communist state","Secret police","Regents Comparisons","England","Great Britain","Britain","United Kingdom","UK","Limited monarchy","Constitutional monarchy","Factories land and capital","Productive property","Totalitarian","Inequity","Inequality","How to distribute wealth and how to distribute power"]},{"id":"global-regents-sprint-day-3-conflicts-human-rights-review-game-html","title":"Conflicts and Human Rights","subtitle":"Wars, genocides, the twentieth-century reckoning, and the limits of global promises","day":"Day 3 of 5","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Regents Sprint","file":"games/global-regents-sprint/Day%203%20-%20Conflicts%20Human%20Rights%20Review%20Game.html","originalFile":"Day 3 - Conflicts Human Rights Review Game.html","collection":"global-regents-sprint","categories":["World Wars","Cold War + Proxies","Modern Conflicts","HR Before 1945","HR After 1945"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Regents Sprint","Conflicts and Human Rights","Day 3 of 5","NYS Global History and Geography II Regents - June 17, 2026 - 12:00 PM","World Wars","MAIN","Militarism alliances imperialism nationalism","Treaty of Versailles","Versailles","Appeasement","Total war","Nuclear age","Atomic age","Nuclear weapons age","Cold War + Proxies","Containment","Iron Curtain","Proxy war","Cuban Missile Crisis","Glasnost and perestroika","Perestroika and glasnost","Gorbachev reforms","Modern Conflicts","Partition of India","Partition","Arab-Israeli conflict","Israeli-Palestinian conflict","Israel-Palestine conflict","The Troubles","Northern Ireland conflict","Northern Ireland","Persian Gulf War","Gulf War","Operation Desert Storm","Chechnya","Chechen Wars","War in Chechnya","HR Before 1945","Irish Potato Famine","Irish Famine","Great Famine","Pogrom","Pogroms","Russian pogroms","Armenian Genocide","Holodomor","Ukrainian famine","The Holocaust","Holocaust","Shoah","HR After 1945","Universal Declaration of Human Rights","UDHR","Declaration of Human Rights","Cultural Revolution","Great Proletarian Cultural Revolution","Cambodia","Cambodian Genocide","Khmer Rouge","Apartheid","Rwanda","Rwandan Genocide","Nuremberg Trials -> Universal Declaration of Human Rights -> Genocide Convention"]},{"id":"global-regents-sprint-day-4-current-issues-names-1-42-review-game-html","title":"Current Issues and 42 Names","subtitle":"Environment, politics, disease, economic globalization, and the people behind the patterns","day":"Day 4 of 5","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Regents Sprint","file":"games/global-regents-sprint/Day%204%20-%20Current%20Issues%20Names%201-42%20Review%20Game.html","originalFile":"Day 4 - Current Issues Names 1-42 Review Game.html","collection":"global-regents-sprint","categories":["Current Issues","Global Responses","Names 1-12","Revolution + Reform","Names 22-42"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Regents Sprint","Current Issues and 42 Names","Day 4 of 5","NYS Global History and Geography II Regents - June 17, 2026 - 12:00 PM","Current Issues","Globalization","Deforestation","Pandemic","Nuclear proliferation","Proliferation","Nuclear-armed states","Nuclear powers","Nuclear countries","Global Responses","Paris Agreement","Paris Accord","Paris Climate Agreement","Nuclear Non-Proliferation Treaty","NPT","Non-Proliferation Treaty","Mexico","European Union","EU","Belt and Road Initiative","Belt and Road","BRI","New Silk Road","Names 1-12","Martin Luther","Galileo Galilei","Galileo","Louis XIV","Louis 14","Sun King","John Locke","Montesquieu","Baron de Montesquieu","Revolution + Reform","Maximilien Robespierre","Robespierre","Toussaint L'Ouverture","Toussaint Louverture","L'Ouverture","Simon Bolivar","Bolivar","El Libertador","Karl Marx","Marx","Otto von Bismarck","Bismarck","Names 22-42","Mahatma Gandhi","Mohandas Gandhi","Gandhi","Joseph Stalin","Stalin","Mao Zedong","Mao","Deng Xiaoping","Deng","Nelson Mandela","Mandela","Mustafa Kemal Ataturk and Ayatollah Khomeini"]},{"id":"global-regents-sprint-day-5-names-43-85-eie-review-game-html","title":"Final Names and EIE Drill","subtitle":"Important individuals 43-85, Jon's five primary sources, and the Regents essay method","day":"Day 5 of 5","course":"Grade 10 Global History II","subject":"Global History","grade":"10","gameType":"Regents Sprint","file":"games/global-regents-sprint/Day%205%20-%20Names%2043-85%20EIE%20Review%20Game.html","originalFile":"Day 5 - Names 43-85 EIE Review Game.html","collection":"global-regents-sprint","categories":["Dictators + Tyrants","Revolutionaries + Statesmen","Thinkers + Builders","EIE Documents","Essay Power Moves"],"clueCount":25,"hasFinal":true,"tags":["Grade 10 Global History II","Global History","10","Regents Sprint","Final Names and EIE Drill","Day 5 of 5","NYS Global History and Geography II Regents - June 17, 2026 - 12:00 PM","Dictators + Tyrants","Adolf Hitler","Hitler","Benito Mussolini","Mussolini","Pol Pot","Khmer Rouge","Saddam Hussein","Saddam","Slobodan Milosevic","Milosevic","Revolutionaries + Statesmen","Vladimir Lenin","Lenin","Anwar Sadat","Sadat","F.W. de Klerk","de Klerk","FW de Klerk","Desmond Tutu","Bishop Desmond Tutu","Tutu","Wangari Maathai","Maathai","Thinkers + Builders","Adam Smith","Smith","Isaac Newton","Sir Isaac Newton","Newton","Niccolo Machiavelli","Machiavelli","Mansa Musa","William Wilberforce","Wilberforce","EIE Documents","Pericles","Pericles' Funeral Oration","Funeral Oration","Ashoka","Asoka","Edicts of Ashoka","Rock Edicts","Globalization","Early globalization","Interregional trade","Triangular Trade","Atlantic slave trade","Transatlantic slave trade","Luther's 95 Theses","95 Theses","Martin Luther's 95 Theses","Essay Power Moves","Three documents","3 documents","At least 3 documents","Outside information","Outside info","Outside knowledge","Continuity and change","Continuity change","Change and continuity","Identify, define, argue","Identify define and argue","IDA","Summary","Summarizing","Document summary","Power and inequity"]},{"id":"us-history-units-01-colonial-foundations-jeopardy-review-html","title":"Colonial Foundations","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 1","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/01%20-%20Colonial%20Foundations%20Jeopardy%20Review.html","originalFile":"01 - Colonial Foundations Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","Colonial Foundations","Unit 1","NYS U.S. History Regents 2026 Review","Core Terms","Mayflower Compact","Virginia House of Burgesses","Mercantilism","Navigation Acts","Salutary neglect","People + Events","Triangular trade","French and Indian War","Proclamation of 1763","Jamestown","Plymouth","Causes + Effects","Colonial self-government","Headright system","Bacon's Rebellion","House of Burgesses","Town meetings","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Puritans","Quakers","Synthesis","Middle Passage","Cash crops","Religious toleration","colonial self-government and imperial control"]},{"id":"us-history-units-02-constitutional-foundations-jeopardy-review-html","title":"Constitutional Foundations","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 2","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/02%20-%20Constitutional%20Foundations%20Jeopardy%20Review.html","originalFile":"02 - Constitutional Foundations Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","Constitutional Foundations","Unit 2","NYS U.S. History Regents 2026 Review","Core Terms","Declaration of Independence","Natural rights","Articles of Confederation","AOC","Shays' Rebellion","Great Compromise","People + Events","Federalism","Separation of powers","Checks and balances","Bill of Rights","Marbury v. Madison","Causes + Effects","Judicial review","Common Sense","Thomas Jefferson","Popular sovereignty","Limited government","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Republicanism","Federalists","Synthesis","Anti-Federalists","Federalist Papers","Three-Fifths Compromise","limited government and republican constitutional design"]},{"id":"us-history-units-03-expansion-and-reform-jeopardy-review-html","title":"Expansion and Reform","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 3","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/03%20-%20Expansion%20and%20Reform%20Jeopardy%20Review.html","originalFile":"03 - Expansion and Reform Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","Expansion and Reform","Unit 3","NYS U.S. History Regents 2026 Review","Core Terms","Louisiana Purchase","Indian Removal Act","Trail of Tears","Manifest Destiny","Mexican-American War","People + Events","Cotton gin","Abolition movement","Seneca Falls Convention","Sectionalism","Compromise of 1850","Causes + Effects","Election of 1860","Lewis and Clark","Monroe Doctrine","Missouri Compromise","Nullification crisis","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Andrew Jackson","Cherokee Nation v. Georgia","Synthesis","Worcester v. Georgia","Oregon Trail","Texas annexation","territorial expansion, reform movements, and sectional conflict"]},{"id":"us-history-units-04-civil-war-and-reconstruction-jeopardy-review-html","title":"Civil War and Reconstruction","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 4","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/04%20-%20Civil%20War%20and%20Reconstruction%20Jeopardy%20Review.html","originalFile":"04 - Civil War and Reconstruction Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","Civil War and Reconstruction","Unit 4","NYS U.S. History Regents 2026 Review","Core Terms","Fort Sumter","Anaconda Plan","Emancipation Proclamation","Gettysburg","Appomattox","People + Events","13th Amendment","14th Amendment","15th Amendment","Freedmen's Bureau","Sharecropping","Causes + Effects","Compromise of 1877","Secession","Confederacy","Union","Abraham Lincoln","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Jefferson Davis","Ulysses S. Grant","Synthesis","Robert E. Lee","Battle of Antietam","Vicksburg","union, emancipation, and the unfinished struggle over citizenship"]},{"id":"us-history-units-05-industrialization-and-the-gilded-age-jeopardy-review-html","title":"Industrialization and the Gilded Age","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 5","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/05%20-%20Industrialization%20and%20the%20Gilded%20Age%20Jeopardy%20Review.html","originalFile":"05 - Industrialization and the Gilded Age Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","Industrialization and the Gilded Age","Unit 5","NYS U.S. History Regents 2026 Review","Core Terms","Transcontinental Railroad","Andrew Carnegie","John D. Rockefeller","Vertical integration","Horizontal integration","People + Events","Sherman Antitrust Act","Knights of Labor","American Federation of Labor","AFL","Homestead Strike","Ellis Island","Causes + Effects","Populism","Bessemer process","Corporation","Monopoly","Trust","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Social Darwinism","Gospel of Wealth","Synthesis","Laissez-faire","Interstate Commerce Act","Haymarket Affair","industrial growth, inequality, immigration, and reform pressure"]},{"id":"us-history-units-06-imperialism-progressivism-and-world-war-i-jeopardy-review-html","title":"Imperialism, Progressivism, and World War I","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 6","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/06%20-%20Imperialism%2C%20Progressivism%2C%20and%20World%20War%20I%20Jeopardy%20Review.html","originalFile":"06 - Imperialism, Progressivism, and World War I Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","Imperialism, Progressivism, and World War I","Unit 6","NYS U.S. History Regents 2026 Review","Core Terms","Spanish-American War","Yellow journalism","Roosevelt Corollary","Panama Canal","Muckrakers","People + Events","Square Deal","19th Amendment","Lusitania","Zimmermann Telegram","Treaty of Versailles","Causes + Effects","First Red Scare","Alfred Thayer Mahan","Open Door Policy","Philippine-American War","Platt Amendment","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Big Stick diplomacy","Dollar diplomacy","Synthesis","Moral diplomacy","Pure Food and Drug Act","Meat Inspection Act","reform at home and expanded power abroad"]},{"id":"us-history-units-07-prosperity-and-depression-jeopardy-review-html","title":"Prosperity and Depression","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 7","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/07%20-%20Prosperity%20and%20Depression%20Jeopardy%20Review.html","originalFile":"07 - Prosperity and Depression Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","Prosperity and Depression","Unit 7","NYS U.S. History Regents 2026 Review","Core Terms","Harlem Renaissance","Consumer credit","Red Scare","Scopes Trial","Stock market crash","People + Events","Buying on margin","Overproduction","Dust Bowl","New Deal","Social Security Act","Causes + Effects","FDIC","Prohibition","Speakeasies","Flappers","Great Migration","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Sacco and Vanzetti","Nativism","Synthesis","Quota Acts","Installment buying","Speculation","boom, collapse, and federal response to economic crisis"]},{"id":"us-history-units-08-world-war-ii-jeopardy-review-html","title":"World War II","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 8","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/08%20-%20World%20War%20II%20Jeopardy%20Review.html","originalFile":"08 - World War II Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","World War II","Unit 8","NYS U.S. History Regents 2026 Review","Core Terms","Neutrality Acts","Lend-Lease","Pearl Harbor","Rosie the Riveter","Korematsu v. United States","People + Events","D-Day","Midway","Island hopping","Manhattan Project","Hiroshima","Causes + Effects","United Nations","Fascism","Adolf Hitler","Benito Mussolini","Hideki Tojo","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Appeasement","Munich Agreement","Synthesis","Blitzkrieg","Atlantic Charter","War Production Board","total war, mobilization, civil liberties, and global leadership"]},{"id":"us-history-units-09-cold-war-jeopardy-review-html","title":"Cold War","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 9","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/09%20-%20Cold%20War%20Jeopardy%20Review.html","originalFile":"09 - Cold War Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","Cold War","Unit 9","NYS U.S. History Regents 2026 Review","Core Terms","Containment","Truman Doctrine","Marshall Plan","NATO","Berlin Airlift","People + Events","Korean War","McCarthyism","Cuban Missile Crisis","Vietnam War","War Powers Resolution","Causes + Effects","Detente","Soviet Union","Iron Curtain","Warsaw Pact","Arms race","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Space race","Sputnik","Synthesis","House Un-American Activities Committee","HUAC","Rosenbergs","Domino theory","containment, proxy conflicts, and ideological competition"]},{"id":"us-history-units-10-civil-rights-jeopardy-review-html","title":"Civil Rights","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 10","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/10%20-%20Civil%20Rights%20Jeopardy%20Review.html","originalFile":"10 - Civil Rights Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","Civil Rights","Unit 10","NYS U.S. History Regents 2026 Review","Core Terms","Brown v. Board of Education","Little Rock Nine","Montgomery Bus Boycott","Martin Luther King Jr.","MLK","Sit-ins","People + Events","Freedom Riders","Birmingham Campaign","March on Washington","Civil Rights Act of 1964","Voting Rights Act of 1965","Causes + Effects","Black Power","Rosa Parks","NAACP","Thurgood Marshall","SCLC","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","SNCC","CORE","Synthesis","Jim Crow laws","De jure segregation","De facto segregation","grassroots activism, federal power, and expanding rights"]},{"id":"us-history-units-11-modern-era-jeopardy-review-html","title":"Modern Era","subtitle":"A full Jeopardy-style practice game for Grade 11 U.S. History, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 11","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Unit Review","file":"games/us-history-units/11%20-%20Modern%20Era%20Jeopardy%20Review.html","originalFile":"11 - Modern Era Jeopardy Review.html","collection":"us-history-units","categories":["Core Terms","People + Events","Causes + Effects","Docs + Regents Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Unit Review","Modern Era","Unit 11","NYS U.S. History Regents 2026 Review","Core Terms","Reaganomics","Supply-side economics","End of the Cold War","Bill Clinton","September 11 attacks","9/11","People + Events","War on Terror","Patriot Act","2008 financial crisis","Barack Obama","Affordable Care Act","ACA","Obamacare","Causes + Effects","Modern social movements","Watergate","Richard Nixon","Gerald Ford","Jimmy Carter","Docs + Regents Skills","Historical context","context","Point of view","POV","perspective","Moral Majority","New Right","Synthesis","Deregulation","NAFTA","Globalization","conservative politics, globalization, security, and modern debates"]},{"id":"us-regents-sprint-day-1-colonial-constitution-supreme-court-review-game-html","title":"Foundations of America","subtitle":"Colonial Government, Constitution, and Supreme Court","day":"Day 1 of 5","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Regents Sprint","file":"games/us-regents-sprint/Day%201%20-%20Colonial%20Constitution%20Supreme%20Court%20Review%20Game.html","originalFile":"Day 1 - Colonial Constitution Supreme Court Review Game.html","collection":"us-regents-sprint","categories":["Colonial Self-Government","Road to Revolution","Articles to Constitution","Constitution Principles","Supreme Court Landmarks"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Regents Sprint","Foundations of America","Day 1 of 5","NYS U.S. History Regents - June 23, 2026 - 8:15 AM","Colonial Self-Government","Mayflower Compact","Virginia House of Burgesses","John Peter Zenger trial","Navigation Acts","French and Indian War","Road to Revolution","Stamp Act","Boston Tea Party","Second Continental Congress","Declaration of Independence","John Locke","Articles to Constitution","Articles of Confederation","Shays' Rebellion","Northwest Ordinance","Great Compromise","Federalists","Constitution Principles","Popular sovereignty","Federalism","Separation of powers","Bill of Rights","Judicial review","Supreme Court Landmarks","Marbury v. Madison","McCulloch v. Maryland","Gibbons v. Ogden","Plessy v. Ferguson","Brown v. Board of Education","Declaration of Independence -> Constitution and Bill of Rights -> Brown v. Board / Supreme Court enforcement"]},{"id":"us-regents-sprint-day-2-amendments-documents-laws-review-game-html","title":"Amendments, Documents, and Laws","subtitle":"27 Amendments, major documents, and landmark statutes","day":"Day 2 of 5","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Regents Sprint","file":"games/us-regents-sprint/Day%202%20-%20Amendments%20Documents%20Laws%20Review%20Game.html","originalFile":"Day 2 - Amendments Documents Laws Review Game.html","collection":"us-regents-sprint","categories":["Amendment Match","Rights and Process","Major Documents","Landmark Laws","Modern Federal Power"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Regents Sprint","Amendments, Documents, and Laws","Day 2 of 5","NYS U.S. History Regents - June 23, 2026 - 8:15 AM","Amendment Match","Bill of Rights","13th Amendment","14th Amendment","15th Amendment","16th, 17th, 18th, and 19th Amendments","Rights and Process","Equal Protection Clause","Incorporation","24th Amendment","26th Amendment","Three-fourths of the states","Major Documents","Declaration of Independence","Federalist Papers","Monroe Doctrine","Emancipation Proclamation","Letter from Birmingham Jail","Landmark Laws","Alien and Sedition Acts","Homestead Act","Chinese Exclusion Act","Sherman Antitrust Act","Social Security Act","Modern Federal Power","Civil Rights Act of 1964","Voting Rights Act of 1965","Hart-Celler Immigration Act","Americans with Disabilities Act","Affordable Care Act","14th Amendment -> Letter from Birmingham Jail -> Civil Rights Act and Voting Rights Act"]},{"id":"us-regents-sprint-day-3-foreign-policy-wars-review-game-html","title":"Foreign Policy and Wars","subtitle":"From Washington's Farewell to the War on Terror","day":"Day 3 of 5","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Regents Sprint","file":"games/us-regents-sprint/Day%203%20-%20Foreign%20Policy%20Wars%20Review%20Game.html","originalFile":"Day 3 - Foreign Policy Wars Review Game.html","collection":"us-regents-sprint","categories":["Doctrines","Cold War Strategy","Global Flashpoints","Wars: 1812 to WWI","Wars: WWII to Modern"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Regents Sprint","Foreign Policy and Wars","Day 3 of 5","NYS U.S. History Regents - June 23, 2026 - 8:15 AM","Doctrines","Permanent alliances","Monroe Doctrine","Manifest Destiny","Open Door Policy","Big Stick diplomacy","Cold War Strategy","Containment","Truman Doctrine","Marshall Plan","NATO","Detente","Global Flashpoints","Berlin Blockade","Cuban Missile Crisis","United Nations","INF Treaty","War on Terror","Wars: 1812 to WWI","War of 1812","Mexican-American War","Emancipation Proclamation","Spanish-American War","World War I","Wars: WWII to Modern","Pearl Harbor","Korean War","Gulf of Tonkin Resolution","Gulf War","Korematsu v. United States","Lincoln suspends habeas corpus -> FDR issues Executive Order 9066 -> War Powers Resolution of 1973"]},{"id":"us-regents-sprint-day-4-presidents-reformers-movements-review-game-html","title":"Presidents, Reformers, and Movements","subtitle":"Crisis presidents, reform voices, and the movements that changed America","day":"Day 4 of 5","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Regents Sprint","file":"games/us-regents-sprint/Day%204%20-%20Presidents%20Reformers%20Movements%20Review%20Game.html","originalFile":"Day 4 - Presidents Reformers Movements Review Game.html","collection":"us-regents-sprint","categories":["Presidents: Early Era","Presidents: Heavy Hitters","Reformer Lineup","Movements","Civil Rights and Identity"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Regents Sprint","Presidents, Reformers, and Movements","Day 4 of 5","NYS U.S. History Regents - June 23, 2026 - 8:15 AM","Presidents: Early Era","George Washington","Thomas Jefferson","James Monroe","Andrew Jackson","James K. Polk","Presidents: Heavy Hitters","Abraham Lincoln","Theodore Roosevelt","Franklin D. Roosevelt","Lyndon B. Johnson","Donald Trump","Reformer Lineup","Frederick Douglass","Elizabeth Cady Stanton and Susan B. Anthony","Samuel Gompers","Jane Addams","W.E.B. Du Bois","Movements","Abolition movement","Women's suffrage movement","Temperance / Prohibition movement","Labor movement","Progressive movement","Civil Rights and Identity","Martin Luther King Jr.","Rosa Parks","Thurgood Marshall","LGBTQ+ rights movement","Second-wave feminism / women's liberation","Garrison/abolition -> Lincoln -> 13th Amendment; muckrakers -> TR/Taft -> Progressive reforms; King/Parks -> LBJ -> Civil Rights Act and Voting Rights Act"]},{"id":"us-regents-sprint-day-5-modern-issues-miscellaneous-review-game-html","title":"Modern Issues and Miscellaneous","subtitle":"Modern rights, federal power, regulation, Congress, and Reconstruction","day":"Day 5 of 5","course":"Grade 11 U.S. History","subject":"U.S. History","grade":"11","gameType":"Regents Sprint","file":"games/us-regents-sprint/Day%205%20-%20Modern%20Issues%20Miscellaneous%20Review%20Game.html","originalFile":"Day 5 - Modern Issues Miscellaneous Review Game.html","collection":"us-regents-sprint","categories":["Modern Rights","Immigration and Identity","Industry and Regulation","Government Structure","Civil War and Reconstruction"],"clueCount":25,"hasFinal":true,"tags":["Grade 11 U.S. History","U.S. History","11","Regents Sprint","Modern Issues and Miscellaneous","Day 5 of 5","NYS U.S. History Regents - June 23, 2026 - 8:15 AM","Modern Rights","Affordable Care Act","Dobbs v. Jackson Women's Health Organization","Obergefell v. Hodges","Students for Fair Admissions v. Harvard","District of Columbia v. Heller","Immigration and Identity","Chinese Exclusion Act","National Origins Quota Acts","Hart-Celler Act","DACA","Americans with Disabilities Act","Industry and Regulation","Cotton gin","Horizontal integration","Federal Reserve System","Relief, Recovery, Reform","Dodd-Frank Act","Government Structure","Commander-in-chief","House of Representatives","Senate","Unwritten Constitution","Commerce Clause","Civil War and Reconstruction","Missouri Compromise","Compromise of 1850","Kansas-Nebraska Act","13th, 14th, and 15th Amendments","Compromise of 1877","14th Amendment -> Brown v. Board -> Obergefell v. Hodges"]},{"id":"ap-psychology-01-research-methods-jeopardy-review-html","title":"Research Methods","subtitle":"A full Jeopardy-style practice game for AP Psychology, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 0","course":"AP Psychology","subject":"Psychology","grade":"AP","gameType":"Unit + AP Final","file":"games/ap-psychology/01%20-%20Research%20Methods%20Jeopardy%20Review.html","originalFile":"01 - Research Methods Jeopardy Review.html","collection":"ap-psychology","categories":["Core Terms","Concepts + People","Causes + Effects","AP Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["AP Psychology","Psychology","AP","Unit + AP Final","Research Methods","Unit 0","AP Psychology Review","Core Terms","Operational definition","Hypothesis","Independent variable","IV","Dependent variable","DV","Confounding variable","Concepts + People","Random assignment","Random sample","Correlation","Experiment","Descriptive statistics","Causes + Effects","Inferential statistics","Informed consent","Theory","Replication","Case study","AP Skills","Synthesis","Naturalistic observation","Survey","Population","Sample","Placebo effect","how psychologists ask testable questions and evaluate evidence"]},{"id":"ap-psychology-02-biological-bases-jeopardy-review-html","title":"Biological Bases","subtitle":"A full Jeopardy-style practice game for AP Psychology, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 1","course":"AP Psychology","subject":"Psychology","grade":"AP","gameType":"Unit + AP Final","file":"games/ap-psychology/02%20-%20Biological%20Bases%20Jeopardy%20Review.html","originalFile":"02 - Biological Bases Jeopardy Review.html","collection":"ap-psychology","categories":["Core Terms","Concepts + People","Causes + Effects","AP Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["AP Psychology","Psychology","AP","Unit + AP Final","Biological Bases","Unit 1","AP Psychology Review","Core Terms","Neuron","Action potential","Neurotransmitter","Dopamine","Serotonin","Concepts + People","Nervous system","Endocrine system","Amygdala","Hippocampus","Cerebral cortex","Causes + Effects","Split-brain research","Plasticity","Axon","Dendrites","Myelin sheath","AP Skills","Synthesis","Synapse","Reuptake","Agonist","Antagonist","Autonomic nervous system","how the nervous system, brain, senses, and biology shape behavior"]},{"id":"ap-psychology-03-cognition-jeopardy-review-html","title":"Cognition","subtitle":"A full Jeopardy-style practice game for AP Psychology, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 2","course":"AP Psychology","subject":"Psychology","grade":"AP","gameType":"Unit + AP Final","file":"games/ap-psychology/03%20-%20Cognition%20Jeopardy%20Review.html","originalFile":"03 - Cognition Jeopardy Review.html","collection":"ap-psychology","categories":["Core Terms","Concepts + People","Causes + Effects","AP Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["AP Psychology","Psychology","AP","Unit + AP Final","Cognition","Unit 2","AP Psychology Review","Core Terms","Bottom-up processing","Top-down processing","Schema","Prototype","Heuristic","Concepts + People","Confirmation bias","Encoding","Storage","Retrieval","Working memory","Causes + Effects","Long-term memory","Elizabeth Loftus","Selective attention","Inattentional blindness","Chunking","AP Skills","Synthesis","Rehearsal","Spacing effect","Testing effect","Ebbinghaus forgetting curve","Proactive interference","how people perceive, think, remember, decide, and measure intelligence"]},{"id":"ap-psychology-04-development-and-learning-jeopardy-review-html","title":"Development and Learning","subtitle":"A full Jeopardy-style practice game for AP Psychology, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 3","course":"AP Psychology","subject":"Psychology","grade":"AP","gameType":"Unit + AP Final","file":"games/ap-psychology/04%20-%20Development%20and%20Learning%20Jeopardy%20Review.html","originalFile":"04 - Development and Learning Jeopardy Review.html","collection":"ap-psychology","categories":["Core Terms","Concepts + People","Causes + Effects","AP Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["AP Psychology","Psychology","AP","Unit + AP Final","Development and Learning","Unit 3","AP Psychology Review","Core Terms","Nature-nurture","Teratogen","Attachment","Piaget","Erikson","Concepts + People","Adolescence","Classical conditioning","Unconditioned stimulus","UCS","Conditioned response","CR","Operant conditioning","Causes + Effects","Reinforcement","Punishment","Bandura","Maturation","Critical period","AP Skills","Synthesis","Secure attachment","Stranger situation","Sensorimotor stage","Object permanence","Preoperational stage","how people grow, learn, adapt, and change across the lifespan"]},{"id":"ap-psychology-05-social-psychology-and-personality-jeopardy-review-html","title":"Social Psychology and Personality","subtitle":"A full Jeopardy-style practice game for AP Psychology, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 4","course":"AP Psychology","subject":"Psychology","grade":"AP","gameType":"Unit + AP Final","file":"games/ap-psychology/05%20-%20Social%20Psychology%20and%20Personality%20Jeopardy%20Review.html","originalFile":"05 - Social Psychology and Personality Jeopardy Review.html","collection":"ap-psychology","categories":["Core Terms","Concepts + People","Causes + Effects","AP Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["AP Psychology","Psychology","AP","Unit + AP Final","Social Psychology and Personality","Unit 4","AP Psychology Review","Core Terms","Fundamental attribution error","Cognitive dissonance","Conformity","Asch","Obedience","Concepts + People","Milgram","Groupthink","Freud","Defense mechanisms","Humanistic psychology","Causes + Effects","Maslow","Big Five","Dispositional attribution","Situational attribution","Foot-in-the-door phenomenon","AP Skills","Synthesis","Normative social influence","Informational social influence","Social facilitation","Social loafing","Deindividuation","how situations, groups, traits, and self-concepts shape behavior"]},{"id":"ap-psychology-06-clinical-and-positive-psychology-jeopardy-review-html","title":"Clinical and Positive Psychology","subtitle":"A full Jeopardy-style practice game for AP Psychology, with auto scoring, explanations, Daily Double, and Final Wager.","day":"Unit 5","course":"AP Psychology","subject":"Psychology","grade":"AP","gameType":"Unit + AP Final","file":"games/ap-psychology/06%20-%20Clinical%20and%20Positive%20Psychology%20Jeopardy%20Review.html","originalFile":"06 - Clinical and Positive Psychology Jeopardy Review.html","collection":"ap-psychology","categories":["Core Terms","Concepts + People","Causes + Effects","AP Skills","Synthesis"],"clueCount":25,"hasFinal":true,"tags":["AP Psychology","Psychology","AP","Unit + AP Final","Clinical and Positive Psychology","Unit 5","AP Psychology Review","Core Terms","DSM-5-TR","Anxiety disorders","OCD","obsessive compulsive disorder","PTSD","posttraumatic stress disorder","Major depressive disorder","Concepts + People","Bipolar disorder","Schizophrenia","Personality disorders","Substance-use disorder","Cognitive-behavioral therapy","CBT","Causes + Effects","Exposure therapy","Positive psychology","Medical model","Biopsychosocial approach","Phobia","AP Skills","Synthesis","Generalized anxiety disorder","Panic disorder","Dissociative disorders","Delusions","Hallucinations","how psychologists classify, explain, treat, and support mental health"]},{"id":"ap-psychology-99-ap-psychology-final-exam-comprehensive-review-html","title":"AP Psychology Final Exam Review","subtitle":"A comprehensive final AP Psychology Jeopardy review game across research skills, all five AP units, AAQ, and EBQ thinking.","day":"AP Final","course":"AP Psychology","subject":"Psychology","grade":"AP","gameType":"Unit + AP Final","file":"games/ap-psychology/99%20-%20AP%20Psychology%20Final%20Exam%20Comprehensive%20Review.html","originalFile":"99 - AP Psychology Final Exam Comprehensive Review.html","collection":"ap-psychology","categories":["Research + Exam Skills","Biological Bases","Cognition","Development + Learning","Social + Mental Health"],"clueCount":25,"hasFinal":true,"tags":["AP Psychology","Psychology","AP","Unit + AP Final","AP Psychology Final Exam Review","AP Final","AP Psychology Review","Research + Exam Skills","Operational definition","Random assignment","Correlation","Article Analysis Question","AAQ","Evidence-Based Question","EBQ","Biological Bases","Action potential","Neurotransmitter","Amygdala","Endocrine system","Signal detection theory","Cognition","Top-down processing","Working memory","Misinformation effect","Availability heuristic","Validity","Development + Learning","Object permanence","Secure attachment","Classical conditioning","Operant conditioning","Observational learning","Social + Mental Health","Fundamental attribution error","Cognitive dissonance","Big Five","DSM-5-TR","Cognitive-behavioral therapy","CBT","psychologists use research methods and evidence to explain biological, cognitive, developmental, social, personality, and mental health patterns"]}];
+const state = { query: "", course: "All Courses", subject: "All Subjects", type: "All Game Types", sort: "course" };
+const grid = document.getElementById("grid");
+const player = document.getElementById("player");
+const frame = document.getElementById("gameFrame");
+let currentGame = null;
+
+function uniq(values) {
+  return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function accentFor(game) {
+  if (game.course.includes("AP Psychology")) return "#ff68c8";
+  if (game.course.includes("U.S.")) return "#ffd36a";
+  if (game.course.includes("Grade 9")) return "#50f0a4";
+  if (game.gameType.includes("Regents")) return "#64f4ff";
+  return "#6aa8ff";
+}
+
+function fillSelect(id, label, values) {
+  const select = document.getElementById(id);
+  select.innerHTML = [label, ...values].map((value) => '<option value="' + escapeHtml(value) + '">' + escapeHtml(value) + '</option>').join("");
+}
+
+function initFilters() {
+  fillSelect("courseFilter", "All Courses", uniq(GAMES.map((game) => game.course)));
+  fillSelect("subjectFilter", "All Subjects", uniq(GAMES.map((game) => game.subject)));
+  fillSelect("typeFilter", "All Game Types", uniq(GAMES.map((game) => game.gameType)));
+  document.getElementById("search").addEventListener("input", (event) => { state.query = event.target.value; render(); });
+  document.getElementById("courseFilter").addEventListener("change", (event) => { state.course = event.target.value; render(); });
+  document.getElementById("subjectFilter").addEventListener("change", (event) => { state.subject = event.target.value; render(); });
+  document.getElementById("typeFilter").addEventListener("change", (event) => { state.type = event.target.value; render(); });
+  document.getElementById("sortFilter").addEventListener("change", (event) => { state.sort = event.target.value; render(); });
+}
+
+function searchable(game) {
+  return [game.title, game.subtitle, game.day, game.course, game.subject, game.grade, game.gameType, ...game.tags].join(" ").toLowerCase();
+}
+
+function filteredGames() {
+  const query = state.query.trim().toLowerCase();
+  return GAMES.filter((game) => {
+    if (state.course !== "All Courses" && game.course !== state.course) return false;
+    if (state.subject !== "All Subjects" && game.subject !== state.subject) return false;
+    if (state.type !== "All Game Types" && game.gameType !== state.type) return false;
+    if (query && !searchable(game).includes(query)) return false;
+    return true;
+  }).sort((a, b) => {
+    if (state.sort === "title") return a.title.localeCompare(b.title, undefined, { numeric: true });
+    if (state.sort === "type") return (a.gameType + a.course + a.title).localeCompare(b.gameType + b.course + b.title, undefined, { numeric: true });
+    return (a.course + a.originalFile).localeCompare(b.course + b.originalFile, undefined, { numeric: true });
+  });
+}
+
+function syncCourseFilter(value) {
+  state.course = value;
+  document.getElementById("courseFilter").value = value;
+  render();
+}
+
+function renderCourseTabs() {
+  const courses = ["All Courses", ...uniq(GAMES.map((game) => game.course))];
+  const tabs = document.getElementById("courseTabs");
+  tabs.innerHTML = courses.map((course) => {
+    const active = course === state.course ? " active" : "";
+    return '<button class="course-tab' + active + '" type="button" data-course="' + escapeHtml(course) + '">' + escapeHtml(course) + '</button>';
+  }).join("");
+  tabs.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => syncCourseFilter(button.dataset.course));
+  });
+}
+
+function renderMetrics() {
+  const courseCount = uniq(GAMES.map((game) => game.course)).length;
+  const typeCount = uniq(GAMES.map((game) => game.gameType)).length;
+  const clueCount = GAMES.reduce((sum, game) => sum + Number(game.clueCount || 0), 0);
+  document.getElementById("heroMetrics").innerHTML = [
+    ["49", "games online"],
+    [String(courseCount), "courses"],
+    [String(typeCount), "game lanes"],
+    [String(clueCount), "review clues"]
+  ].map((item) => '<div class="metric"><strong>' + escapeHtml(item[0]) + '</strong><span>' + escapeHtml(item[1]) + '</span></div>').join("");
+  document.getElementById("topStatus").innerHTML = [
+    GAMES.length + " games live",
+    courseCount + " courses",
+    "static web ready"
+  ].map((text) => '<span class="status-pill">' + escapeHtml(text) + '</span>').join("");
+}
+
+function renderStats(games) {
+  const stats = document.getElementById("stats");
+  const current = games.length === 1 ? "1 game showing" : games.length + " games showing";
+  stats.innerHTML = [
+    GAMES.length + " total",
+    uniq(games.map((game) => game.course)).length + " active courses",
+    uniq(games.map((game) => game.gameType)).length + " active lanes",
+    current
+  ].map((text) => '<span class="stat">' + escapeHtml(text) + '</span>').join("");
+  document.getElementById("countLabel").textContent = current;
+}
+
+function pickFeatured() {
+  const picks = [
+    GAMES.find((game) => /AP Psychology Final/i.test(game.title)),
+    GAMES.find((game) => /Cumulative Yearlong/i.test(game.title)),
+    GAMES.find((game) => game.course.includes("U.S.") && /Cold War/i.test(game.title)),
+    GAMES.find((game) => game.gameType.includes("Regents") && game.course.includes("Global"))
+  ].filter(Boolean);
+  return [...new Map(picks.map((game) => [game.id, game])).values()].slice(0, 3);
+}
+
+function renderSpotlight() {
+  const games = pickFeatured();
+  document.getElementById("spotlight").innerHTML = games.map((game) => {
+    const meta = game.course + " · " + game.gameType;
+    return '<button class="spot-card" type="button" style="--accent:' + accentFor(game) + '" data-id="' + escapeHtml(game.id) + '">' +
+      '<div class="spot-copy"><small>' + escapeHtml(game.day || game.grade) + '</small><strong>' + escapeHtml(game.title) + '</strong><em>' + escapeHtml(meta) + '</em></div>' +
+      '<span class="launch-tag">Launch</span>' +
+    '</button>';
+  }).join("");
+  document.querySelectorAll(".spot-card").forEach((button) => {
+    button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
+  });
+  const first = games[0];
+  document.getElementById("launchFeatured").onclick = () => first && openGame(first);
+}
+
+function card(game) {
+  const subtitle = game.subtitle || game.categories.slice(0, 3).join(" · ") || "Review mission";
+  const categoryLine = game.categories.slice(0, 3).join(" / ");
+  const meta = game.clueCount + " clues · " + (game.hasFinal ? "Final wager" : "Practice board");
+  return '<button class="card" type="button" style="--accent:' + accentFor(game) + '" data-id="' + escapeHtml(game.id) + '">' +
+    '<div class="card-top">' +
+      '<div class="badges">' +
+        '<span class="badge accent">' + escapeHtml(game.day || game.grade) + '</span>' +
+        '<span class="badge">' + escapeHtml(game.gameType) + '</span>' +
+        '<span class="badge">' + escapeHtml(game.course) + '</span>' +
+      '</div>' +
+      '<h3>' + escapeHtml(game.title) + '</h3>' +
+      '<p>' + escapeHtml(subtitle) + '</p>' +
+    '</div>' +
+    '<div class="card-bottom">' +
+      '<span class="tiny">' + escapeHtml(meta) + (categoryLine ? '<br>' + escapeHtml(categoryLine) : '') + '</span>' +
+      '<span class="play">Play</span>' +
+    '</div>' +
+  '</button>';
+}
+
+function render() {
+  const games = filteredGames();
+  renderCourseTabs();
+  renderStats(games);
+  grid.innerHTML = games.length
+    ? games.map(card).join("")
+    : '<div class="empty">No games match that search yet. Clear a filter or try another topic.</div>';
+  grid.querySelectorAll(".card").forEach((button) => {
+    button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
+  });
+}
+
+function openGame(game) {
+  if (!game) return;
+  currentGame = game;
+  document.getElementById("playerTitle").textContent = game.title;
+  document.getElementById("playerMeta").textContent = game.course + " · " + game.gameType + " · " + (game.day || game.grade);
+  player.classList.add("show", "loading");
+  frame.src = game.file;
+  frame.focus();
+}
+
+function closeGame() {
+  player.classList.remove("show", "loading");
+  frame.src = "about:blank";
+  currentGame = null;
+}
+
+frame.addEventListener("load", () => {
+  if (frame.getAttribute("src") !== "about:blank") player.classList.remove("loading");
+});
+document.getElementById("closeBtn").addEventListener("click", closeGame);
+document.getElementById("openBtn").addEventListener("click", () => {
+  if (currentGame) window.open(currentGame.file, "_blank", "noopener");
+});
+document.getElementById("fullscreenBtn").addEventListener("click", async () => {
+  const target = document.querySelector(".framewrap");
+  if (!document.fullscreenElement) await target.requestFullscreen?.();
+  else await document.exitFullscreen?.();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && player.classList.contains("show")) closeGame();
+});
+document.addEventListener("pointermove", (event) => {
+  document.documentElement.style.setProperty("--mx", Math.round(event.clientX / innerWidth * 100) + "%");
+  document.documentElement.style.setProperty("--my", Math.round(event.clientY / innerHeight * 100) + "%");
+}, { passive: true });
+grid.addEventListener("pointermove", (event) => {
+  const target = event.target.closest(".card");
+  if (!target) return;
+  const rect = target.getBoundingClientRect();
+  const x = (event.clientX - rect.left) / rect.width - .5;
+  const y = (event.clientY - rect.top) / rect.height - .5;
+  target.style.setProperty("--rx", (-y * 4).toFixed(2) + "deg");
+  target.style.setProperty("--ry", (x * 5).toFixed(2) + "deg");
+});
+grid.addEventListener("pointerout", (event) => {
+  const target = event.target.closest(".card");
+  if (!target || target.contains(event.relatedTarget)) return;
+  target.style.setProperty("--rx", "0deg");
+  target.style.setProperty("--ry", "0deg");
+});
+
+function initCanvas() {
+  const canvas = document.getElementById("fx");
+  const ctx = canvas.getContext("2d");
+  let motes = [];
+  let beams = [];
+  function resize() {
+    const scale = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(innerWidth * scale);
+    canvas.height = Math.floor(innerHeight * scale);
+    motes = Array.from({ length: Math.min(220, Math.floor(innerWidth / 6)) }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      s: .4 + Math.random() * 1.8,
+      v: .12 + Math.random() * .55,
+      hue: Math.random()
+    }));
+    beams = Array.from({ length: 10 }, (_, i) => ({ y: (i + 1) / 11, phase: Math.random() * 6.28 }));
+  }
+  function draw() {
+    const scale = Math.min(devicePixelRatio || 1, 2);
+    const time = performance.now() * .001;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+    for (const mote of motes) {
+      mote.y += mote.v * scale;
+      mote.x += Math.sin(time + mote.y * .004) * .08 * scale;
+      if (mote.y > canvas.height + 10) {
+        mote.y = -10;
+        mote.x = Math.random() * canvas.width;
+      }
+      ctx.beginPath();
+      ctx.fillStyle = mote.hue > .72 ? "rgba(255,211,106,.64)" : mote.hue > .42 ? "rgba(255,104,200,.48)" : "rgba(100,244,255,.58)";
+      ctx.arc(mote.x, mote.y, mote.s * scale, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    beams.forEach((beam, i) => {
+      const y = canvas.height * beam.y + Math.sin(time * .8 + beam.phase) * 26 * scale;
+      const x = canvas.width * (.18 + ((Math.sin(time * .42 + beam.phase) + 1) * .32));
+      const len = canvas.width * (.12 + (i % 4) * .035);
+      const grad = ctx.createLinearGradient(x - len, y, x + len, y);
+      grad.addColorStop(0, "rgba(100,244,255,0)");
+      grad.addColorStop(.5, i % 3 === 0 ? "rgba(255,211,106,.22)" : "rgba(100,244,255,.18)");
+      grad.addColorStop(1, "rgba(100,244,255,0)");
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = (1 + (i % 3)) * scale;
+      ctx.beginPath();
+      ctx.moveTo(x - len, y);
+      ctx.lineTo(x + len, y + Math.cos(time + i) * 16 * scale);
+      ctx.stroke();
+    });
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  resize();
+  addEventListener("resize", resize);
+  draw();
+}
+
+initFilters();
+renderMetrics();
+renderSpotlight();
+initCanvas();
+render();
+</script>
+</body>
+</html>
