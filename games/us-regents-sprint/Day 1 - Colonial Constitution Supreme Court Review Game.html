@@ -279,6 +279,10 @@ h1 {
   box-shadow: 0 0 28px var(--glow), inset 0 0 50px rgba(255,255,255,.04);
   animation: activePulse 1.9s ease-in-out infinite;
 }
+.team.solo {
+  border-color: var(--accent2);
+  box-shadow: 0 0 30px rgba(77,213,255,.22), inset 0 0 50px rgba(255,255,255,.04);
+}
 @keyframes activePulse {
   0%, 100% { filter: brightness(1); }
   50% { filter: brightness(1.12); }
@@ -793,6 +797,7 @@ body.game-booted .tile:not(.used) {
     </div>
     <div class="controls">
       <button class="btn primary" id="finalBtn">Final Wager</button>
+      <button class="btn" id="soloBtn">Solo Play</button>
       <button class="btn" id="addTeamBtn">Add Team</button>
       <button class="btn ghost" id="resetBtn">Reset</button>
       <button class="btn" id="musicBtn">Sound On</button>
@@ -835,10 +840,12 @@ let pending = null;
 let audio = { ctx: null, master: null, musicTimer: null, musicOn: false, step: 0 };
 let transitionLock = false;
 
-function defaultState() {
+function defaultState(mode = "teams") {
+  const solo = mode === "solo";
   return {
-    names: ["Team 1", "Team 2"],
-    scores: [0, 0],
+    mode: solo ? "solo" : "teams",
+    names: solo ? ["Solo Player"] : ["Team 1", "Team 2"],
+    scores: solo ? [0] : [0, 0],
     active: 0,
     used: [],
     finalPlayed: false
@@ -848,7 +855,13 @@ function defaultState() {
 function loadState() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (saved && Array.isArray(saved.names) && Array.isArray(saved.scores)) return saved;
+    if (saved && Array.isArray(saved.names) && Array.isArray(saved.scores)) {
+      saved.mode = saved.mode || (saved.names.length === 1 ? "solo" : "teams");
+      if (!saved.names.length) saved.names = saved.mode === "solo" ? ["Solo Player"] : ["Team 1", "Team 2"];
+      while (saved.scores.length < saved.names.length) saved.scores.push(0);
+      saved.active = Math.min(Math.max(Number(saved.active) || 0, 0), saved.names.length - 1);
+      return saved;
+    }
   } catch (error) {}
   return defaultState();
 }
@@ -1016,18 +1029,24 @@ function teamName(index) {
   return state.names[index] || ("Team " + (index + 1));
 }
 
+function isSoloMode() {
+  return state.mode === "solo" || state.names.length === 1;
+}
+
 function renderTeams() {
   const root = document.getElementById("teams");
   root.innerHTML = "";
   state.names.forEach((name, index) => {
     const card = document.createElement("div");
-    card.className = "team" + (index === state.active ? " active" : "");
+    const solo = isSoloMode();
+    card.className = "team" + (index === state.active ? " active" : "") + (solo ? " solo" : "");
+    const activeButton = solo ? "" : '<button title="Make active team" data-active="' + index + '">A</button>';
     card.innerHTML =
-      '<input aria-label="Team name" value="' + escapeHtml(name) + '" data-name="' + index + '">' +
+      '<input aria-label="' + (solo ? "Player name" : "Team name") + '" value="' + escapeHtml(name) + '" data-name="' + index + '">' +
       '<div class="score">' +
       '<strong>$' + state.scores[index] + '</strong>' +
       '<div class="score-actions">' +
-      '<button title="Make active team" data-active="' + index + '">A</button>' +
+      activeButton +
       '<button title="Add 100" data-bump="' + index + '" data-delta="100">+</button>' +
       '<button title="Subtract 100" data-bump="' + index + '" data-delta="-100">-</button>' +
       '</div></div>';
@@ -1035,7 +1054,8 @@ function renderTeams() {
   });
   root.querySelectorAll("[data-name]").forEach((input) => {
     input.addEventListener("input", (event) => {
-      state.names[Number(event.target.dataset.name)] = event.target.value || ("Team " + (Number(event.target.dataset.name) + 1));
+      const index = Number(event.target.dataset.name);
+      state.names[index] = event.target.value || (isSoloMode() ? "Solo Player" : ("Team " + (index + 1)));
       saveState();
       updateStatus();
     });
@@ -1092,10 +1112,13 @@ function renderBoard() {
 }
 
 function updateStatus() {
-  document.getElementById("activeStatus").textContent = "Active team: " + teamName(state.active);
+  const solo = isSoloMode();
+  document.getElementById("activeStatus").textContent = solo ? "Solo player: " + teamName(0) : "Active team: " + teamName(state.active);
   document.getElementById("progressStatus").textContent = state.used.length + " of 25 clues complete";
   document.getElementById("finalBtn").disabled = state.finalPlayed;
   document.getElementById("finalBtn").textContent = state.finalPlayed ? "Final Played" : "Final Wager";
+  document.getElementById("soloBtn").textContent = solo ? "Team Play" : "Solo Play";
+  document.getElementById("addTeamBtn").disabled = solo;
 }
 
 function renderAll() {
@@ -1298,7 +1321,7 @@ function openFinal() {
       '<input type="number" min="0" max="' + cap + '" value="0" data-final-wager="' + index + '"></div>';
   }).join("");
   openModal("Final Wager", GAME.final.category,
-    '<div class="clue-text">Lock each team wager. Then reveal the final clue.</div>' +
+    '<div class="clue-text">' + (isSoloMode() ? "Lock your wager. Then reveal the final clue." : "Lock each team wager. Then reveal the final clue.") + '</div>' +
     '<div class="wager-grid">' + cards + '</div>' +
     '<div class="action-row"><button class="btn primary" id="lockFinal">Reveal Final Clue</button></div>', "final");
   document.getElementById("lockFinal").addEventListener("click", lockFinal);
@@ -1375,6 +1398,7 @@ function applyFinal() {
 }
 
 function addTeam() {
+  if (isSoloMode()) return;
   if (state.names.length >= 4) return;
   state.names.push("Team " + (state.names.length + 1));
   state.scores.push(0);
@@ -1382,9 +1406,19 @@ function addTeam() {
   renderAll();
 }
 
+function toggleSoloMode() {
+  const nextMode = isSoloMode() ? "teams" : "solo";
+  const hasProgress = state.used.length || state.finalPlayed || state.scores.some((score) => score !== 0);
+  if (hasProgress && !confirm("Switch play modes and reset this game's board and scores?")) return;
+  state = defaultState(nextMode);
+  saveState();
+  playSfx("select");
+  renderAll();
+}
+
 function resetGame() {
   if (!confirm("Reset this game's board and scores?")) return;
-  state = defaultState();
+  state = defaultState(isSoloMode() ? "solo" : "teams");
   saveState();
   playSfx("reset");
   renderAll();
@@ -1739,6 +1773,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeModal();
 });
 document.getElementById("addTeamBtn").addEventListener("click", addTeam);
+document.getElementById("soloBtn").addEventListener("click", toggleSoloMode);
 document.getElementById("resetBtn").addEventListener("click", resetGame);
 document.getElementById("finalBtn").addEventListener("click", openFinal);
 document.getElementById("musicBtn").addEventListener("click", toggleMusic);
