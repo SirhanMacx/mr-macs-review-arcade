@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Regents Gauntlet - Mr. Mac's Review Arcade</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark"></span><div><small>Mr. Mac's Arcade</small><strong>Regents Gauntlet</strong></div></div>
+    <div class="top-stats" id="topStats"></div>
+  </header>
+
+  <section class="screen setup active" id="setupScreen">
+    <div class="hero">
+      <div class="kicker">MCQ-powered review game</div>
+      <h1>Regents Gauntlet</h1>
+      <p>Run a serious MCQ review mission using large answer-keyed question banks from your course folders.</p>
+      <div class="metrics" id="metrics"></div>
+    </div>
+    <div class="panel">
+      <h2>Build The Mission</h2>
+      <div class="form-grid">
+        <label>Course<select id="courseSelect"></select></label>
+        <label>Question Set<select id="setSelect"></select></label>
+        <label>Length<select id="lengthSelect"><option value="10">10-question sprint</option><option value="25" selected>25-question gauntlet</option><option value="50">50-question full run</option><option value="999">Endless mode</option></select></label>
+        <label>Mode<select id="modeSelect"><option value="solo">Solo Play</option><option value="team">Team Battle</option></select></label>
+      </div>
+      <div class="teams hidden" id="teams">
+        <label>Team 1<input value="Team 1" data-team="0"></label>
+        <label>Team 2<input value="Team 2" data-team="1"></label>
+      </div>
+      <div class="preview" id="preview"></div>
+      <div class="actions">
+        <button class="btn primary" id="startBtn">Start Gauntlet</button>
+        <button class="btn" id="randomBtn">Random Mixed Run</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen battle" id="battleScreen">
+    <div class="hud">
+      <div class="hud-card"><span>Progress</span><strong id="progressText">1 / 25</strong><div class="bar"><i id="progressBar"></i></div></div>
+      <div class="hud-card"><span>Lives</span><strong id="livesText">3</strong><div class="bar danger"><i id="livesBar"></i></div></div>
+      <div class="hud-card"><span>Streak</span><strong id="streakText">0</strong><div class="bar gold"><i id="streakBar"></i></div></div>
+    </div>
+    <div class="arena">
+      <aside class="status-panel">
+        <div class="portal"><span></span></div>
+        <h2 id="missionTitle">Mission</h2>
+        <p id="missionMeta">Course and set</p>
+        <div class="score-grid" id="scoreGrid"></div>
+      </aside>
+      <section class="question-panel">
+        <div class="question-tags" id="questionTags"></div>
+        <h2 id="questionStem">Question stem</h2>
+        <div class="choices" id="choices"></div>
+        <div class="feedback hidden" id="feedback"></div>
+        <div class="actions">
+          <button class="btn primary hidden" id="nextBtn">Next Question</button>
+          <button class="btn ghost" id="quitBtn">End Run</button>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="screen summary" id="summaryScreen">
+    <div class="summary-card">
+      <div class="kicker">Run complete</div>
+      <h1 id="summaryTitle">Results</h1>
+      <div class="metrics" id="summaryMetrics"></div>
+      <h2>Study Next</h2>
+      <div class="missed" id="missedList"></div>
+      <div class="actions"><button class="btn primary" id="againBtn">Run It Back</button><button class="btn" id="setupBtn">Change Mission</button></div>
+    </div>
+  </section>
+</main>
+<script type="module" src="game.js"></script>
+</body>
+</html>

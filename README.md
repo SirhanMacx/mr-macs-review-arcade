@@ -6,7 +6,8 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 
 ## What Is Included
 
-- 50 browser-playable review games
+- 51 browser-playable review games
+- Regents Gauntlet, a multi-file MCQ game powered by answer-keyed review questions from the course folders
 - Boss Rush Arena, a master game that can switch courses, units, and comprehensive review runs
 - Grade 9 Global History I
 - Grade 10 Global History II
@@ -15,6 +16,7 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - Unit games, cumulative games, and final review games
 - Search, filters, featured games, and embedded in-page player
 - Solo and team play options
+- Shared data files for newer game modes, starting with `data/regents-gauntlet-bank.json`
 
 ## Content Rule
 
@@ -58,6 +60,7 @@ The live site is built from static files:
 
 - `index.html`
 - `games.json`
+- `data/`
 - `assets/`
 - `games/`
 
