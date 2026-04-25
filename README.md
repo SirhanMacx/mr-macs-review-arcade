@@ -6,13 +6,15 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 
 ## What Is Included
 
-- 49 browser-playable review games
+- 50 browser-playable review games
+- Boss Rush Arena, a master game that can switch courses, units, and comprehensive review runs
 - Grade 9 Global History I
 - Grade 10 Global History II
 - Grade 11 U.S. History
 - AP Psychology
 - Unit games, cumulative games, and final review games
 - Search, filters, featured games, and embedded in-page player
+- Solo and team play options
 
 ## Content Rule
 
