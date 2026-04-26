@@ -1,23 +1,32 @@
 # Mr. Mac's Review Arcade
 
-Student-facing review arcade for social studies and AP Psychology games.
+Student-facing review arcade for Social Studies 9-12, AP courses, Regents prep, and AP Psychology games.
 
 Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 
 ## What Is Included
 
-- 52 browser-playable review games
-- Time Pilot, a 3D flight mission prototype using the shared 300-question stimulus bank and source-first checkpoint scans
-- Regents Gauntlet, a multi-file MCQ game with 300 answer-keyed Regents questions and embedded original stimulus pages
+- 129 browser-playable review games
+- Regents Gauntlet, a multi-file MCQ game with 349 answer-keyed Regents questions and cropped original stimulus images
 - Boss Rush Arena, a master game that can switch courses, units, and comprehensive review runs
 - Grade 9 Global History I
 - Grade 10 Global History II
 - Grade 11 U.S. History
 - AP Psychology
+- AP United States History
+- AP World History: Modern
+- AP European History
+- AP Human Geography
+- AP U.S. Government and Politics
+- AP Macroeconomics
+- AP Microeconomics
+- AP Macro/Micro Combined
+- Economics
+- Civics and Participation in Government
 - Unit games, cumulative games, and final review games
 - Search, filters, featured games, and embedded in-page player
 - Solo and team play options
-- Shared data and source-image files for newer game modes, starting with `data/regents-gauntlet-bank.json`, `assets/regents-gauntlet-stimuli/`, and the Time Pilot flight assets
+- Shared data and source-image files for newer game modes, starting with `data/regents-gauntlet-bank.json` and `assets/regents-gauntlet-stimuli/`
 
 ## Content Rule
 
@@ -42,6 +51,7 @@ Do not add teacher-facing test-skill columns such as:
 - Enduring Issues
 - Essay Power Moves
 - broad essential-question prompts
+- placeholder clue stems such as "Name this content item"
 
 ## Performance Rule
 
@@ -54,8 +64,8 @@ Current performance choices:
 - animation loops are throttled
 - card tilt effects are disabled on smaller screens
 - games remain static HTML files with no backend required
-- stimulus pages are compressed JPG assets and reused by Gauntlet and newer game modes
-- Time Pilot is built as a static Three.js browser game with capped rendering settings
+- stimulus images are cropped compressed JPG assets and reused by Gauntlet and newer game modes
+- future game modes should use shared assets instead of repeating large art inside each game file
 
 ## Updating Games
 
