@@ -14,13 +14,16 @@
   --panel-strong: rgba(9, 15, 30, .94);
 }
 * { box-sizing: border-box; }
-html, body { min-height: 100%; }
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 body {
   margin: 0;
   color: var(--ink);
   background: var(--bg);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  overflow-x: hidden;
 }
 button, input, select { font: inherit; }
 button {
@@ -72,12 +75,17 @@ button:disabled {
   animation: gridDrift 20s linear infinite;
 }
 .shell {
-  width: min(1780px, calc(100% - 20px));
+  width: 100vw;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: 64px minmax(0, 1fr);
+  gap: 8px;
   margin: 0 auto;
-  padding: 10px 0;
+  padding: 8px;
 }
 .topbar {
-  min-height: 68px;
+  min-height: 0;
+  height: 64px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 14px;
@@ -146,12 +154,21 @@ button:disabled {
   color: var(--gold);
   font-size: 18px;
 }
+.hud-action {
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  color: var(--cyan);
+  font-size: 12px;
+  text-transform: uppercase;
+}
 .game {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 390px;
+  grid-template-columns: minmax(0, 1fr) 370px;
   gap: 12px;
   align-items: start;
-  padding: 12px;
+  min-height: 0;
+  padding: 0;
   border: 1px solid var(--line);
   border-top: 0;
   border-radius: 0 0 12px 12px;
@@ -160,7 +177,8 @@ button:disabled {
 }
 .stage {
   position: relative;
-  min-height: 640px;
+  min-height: 0;
+  height: 100%;
   overflow: hidden;
   border: 1px solid rgba(103,239,255,.18);
   border-radius: 12px;
@@ -170,8 +188,10 @@ button:disabled {
 #arena {
   display: block;
   width: 100%;
-  height: clamp(560px, 64vh, 700px);
-  min-height: 560px;
+  height: 100%;
+  min-height: 0;
+  cursor: crosshair;
+  touch-action: none;
 }
 .mission-panel {
   position: absolute;
@@ -208,16 +228,21 @@ button:disabled {
   display: none;
 }
 .question-console {
-  position: relative;
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
   display: grid;
   gap: 9px;
-  margin: 12px 18px 18px;
+  max-height: min(38%, 295px);
+  margin: 0;
   padding: 14px;
   border: 1px solid rgba(255,215,107,.24);
   border-radius: 10px;
   background: linear-gradient(180deg, rgba(8,12,24,.92), rgba(5,8,16,.78));
   backdrop-filter: blur(18px) saturate(1.16);
   box-shadow: 0 20px 62px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.11);
+  overflow: auto;
 }
 .question-head {
   display: flex;
@@ -323,6 +348,9 @@ label select:focus {
   display: grid;
   align-content: start;
   gap: 12px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding-right: 2px;
 }
 .panel {
   display: grid;
@@ -428,6 +456,9 @@ select option { color: #06101d; }
   background-size: 520px auto;
   background-position: center;
 }
+.orientation-gate {
+  display: none;
+}
 @keyframes gridDrift {
   from { transform: translate3d(0,0,0); }
   to { transform: translate3d(78px,78px,0); }
@@ -438,29 +469,146 @@ select option { color: #06101d; }
   72% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1.08); filter: blur(8px); }
 }
-@media (max-width: 1180px) {
-  .game { grid-template-columns: 1fr; }
-  .command { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  #arena { height: 640px; min-height: 560px; }
-}
-@media (max-width: 760px) {
-  .shell { width: 100%; padding: 0; }
-  .topbar,
-  .game { border-radius: 0; }
-  .topbar { grid-template-columns: 1fr; }
-  .hud { justify-content: start; }
-  .game { padding: 8px; }
-  .stage { min-height: 560px; }
-  #arena { height: 560px; min-height: 500px; }
+@media (max-width: 1120px) and (orientation: landscape) {
+  .shell {
+    grid-template-rows: 50px minmax(0, 1fr);
+    gap: 4px;
+    padding: 4px;
+  }
+  .topbar {
+    height: 50px;
+    padding: 5px 8px;
+    border-radius: 0;
+  }
+  .brand {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 8px;
+  }
+  .sigil {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+  .brand strong { font-size: 15px; }
+  .brand em { display: none; }
+  .hud {
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+  .hud span,
+  .hud-action {
+    min-height: 30px;
+    padding: 4px 7px;
+    font-size: 10px;
+  }
+  .hud b { font-size: 15px; }
+  .game {
+    grid-template-columns: minmax(0, 1fr) 282px;
+    gap: 4px;
+    border-radius: 0;
+  }
+  .stage { border-radius: 8px; }
   .mission-panel {
-    position: static;
-    width: auto;
-    margin: 8px;
+    left: 8px;
+    top: 8px;
+    width: 235px;
+    padding: 7px 8px;
+  }
+  .mission-panel span,
+  .panel-title span,
+  .question-head span {
+    font-size: 9px;
+  }
+  .mission-panel strong {
+    font-size: 14px;
   }
   .question-console {
-    margin: 8px;
+    left: 7px;
+    right: 7px;
+    bottom: 7px;
+    max-height: 34%;
+    padding: 8px;
+    gap: 6px;
   }
-  .choices,
-  .typed-form,
-  .command { grid-template-columns: 1fr; }
+  #questionPrompt {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+  .choices { gap: 5px; }
+  .choices button {
+    min-height: 30px;
+    padding: 6px;
+    font-size: 10px;
+  }
+  .typed-form {
+    grid-template-columns: minmax(0, 1fr) 70px;
+    gap: 5px;
+  }
+  .typed-form input,
+  label select,
+  button {
+    min-height: 32px;
+    border-radius: 8px;
+  }
+  .feedback { display: none; }
+  .command {
+    gap: 5px;
+  }
+  .panel {
+    gap: 6px;
+    padding: 8px;
+    border-radius: 8px;
+  }
+  .mini-grid { gap: 5px; }
+  .tower-card,
+  .power-card {
+    min-height: 48px;
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    gap: 7px;
+    padding: 5px;
+  }
+  .tower-icon,
+  .power-icon {
+    width: 42px;
+    height: 42px;
+  }
+  .tower-card strong,
+  .power-card strong {
+    font-size: 10px;
+  }
+  .tower-card span,
+  .power-card span {
+    margin-top: 2px;
+    font-size: 9px;
+  }
+  .upgrade-preview { height: 64px; }
+  .selected-panel p {
+    font-size: 10px;
+  }
+}
+@media (orientation: portrait) and (max-width: 900px) {
+  .orientation-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 24px;
+    color: var(--ink);
+    background: rgba(2,5,11,.94);
+    text-align: center;
+  }
+  .orientation-gate strong {
+    color: var(--gold);
+    font-size: 30px;
+    text-transform: uppercase;
+  }
+  .orientation-gate span {
+    max-width: 280px;
+    color: var(--paper);
+    line-height: 1.35;
+  }
 }

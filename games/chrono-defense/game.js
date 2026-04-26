@@ -27,6 +27,7 @@
     pauseBtn: $("pauseBtn"),
     soundBtn: $("soundBtn"),
     resetBtn: $("resetBtn"),
+    fullscreenBtn: $("fullscreenBtn"),
     missionTitle: $("missionTitle"),
     missionText: $("missionText"),
     questionMeta: $("questionMeta"),
@@ -43,6 +44,8 @@
 
   const ctx = els.canvas.getContext("2d", { alpha: false });
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const ROAD_CLEARANCE = 78;
+  const TOWER_CLEARANCE = 92;
 
   const assetPaths = {
     arena: "../../assets/chrono-defense-road-map.webp",
@@ -155,18 +158,11 @@
   ];
 
   const pathPoints = [
-    { x: -90, y: 405 }, { x: 110, y: 410 }, { x: 280, y: 425 },
-    { x: 430, y: 430 }, { x: 520, y: 512 }, { x: 520, y: 650 },
-    { x: 635, y: 705 }, { x: 790, y: 655 }, { x: 920, y: 575 },
-    { x: 1085, y: 532 }, { x: 1230, y: 555 }, { x: 1390, y: 500 },
-    { x: 1690, y: 410 }
-  ];
-
-  const sockets = [
-    { x: 205, y: 615 }, { x: 318, y: 742 }, { x: 372, y: 218 },
-    { x: 594, y: 226 }, { x: 710, y: 350 }, { x: 780, y: 785 },
-    { x: 955, y: 315 }, { x: 1010, y: 725 }, { x: 1168, y: 352 },
-    { x: 1238, y: 710 }, { x: 1372, y: 275 }, { x: 1442, y: 615 }
+    { x: -90, y: 376 }, { x: 92, y: 378 }, { x: 270, y: 390 },
+    { x: 430, y: 366 }, { x: 505, y: 430 }, { x: 504, y: 555 },
+    { x: 592, y: 637 }, { x: 742, y: 650 }, { x: 900, y: 575 },
+    { x: 1045, y: 510 }, { x: 1195, y: 500 }, { x: 1352, y: 510 },
+    { x: 1508, y: 452 }, { x: 1690, y: 360 }
   ];
 
   const state = {
@@ -201,6 +197,8 @@
     freezeUntil: 0,
     surgeUntil: 0,
     shake: 0,
+    hover: null,
+    reactorFlash: 0,
     pathLength: 0,
     segments: []
   };
@@ -312,7 +310,6 @@
     renderPowerups();
     applyFilters();
     updateHud();
-    showBanner("Chrono Defense Online");
     els.missionTitle.textContent = "Build, answer, survive";
     els.missionText.textContent = "Place social studies towers, answer the reactor prompts, and hold the path through infinite review waves.";
     prepareQuestion();
@@ -415,7 +412,8 @@
       state.insight += reward;
       state.score += 220 + state.streak * 35 + state.wave * 10;
       precisionStrike(95 + state.wave * 9 + state.streak * 4);
-      els.feedback.textContent = `Correct. ${q.explanation || q.answer} +${reward} insight.`;
+      state.reactorFlash = 1;
+      els.feedback.textContent = `Source strike fired. ${q.explanation || q.answer} +${reward} insight.`;
       els.feedback.className = "feedback good";
       audio.correct();
     } else {
@@ -454,6 +452,13 @@
     els.resetBtn.addEventListener("click", resetGame);
     els.upgradeBtn.addEventListener("click", upgradeSelected);
     els.sellBtn.addEventListener("click", sellSelected);
+    els.fullscreenBtn.addEventListener("click", toggleFullscreen);
+    els.canvas.addEventListener("pointermove", (event) => {
+      state.hover = canvasPoint(event);
+    });
+    els.canvas.addEventListener("pointerleave", () => {
+      state.hover = null;
+    });
     els.canvas.addEventListener("click", handleCanvasClick);
   }
 
@@ -486,6 +491,15 @@
     els.powerList.querySelectorAll(".power-card").forEach((button) => {
       button.addEventListener("click", () => usePower(button.dataset.power));
     });
+  }
+
+  function toggleFullscreen() {
+    const root = document.documentElement;
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.();
+      return;
+    }
+    root.requestFullscreen?.();
   }
 
   function towerIconStyle(tower, tier) {
@@ -602,16 +616,19 @@
 
   function handleCanvasClick(event) {
     const pos = canvasPoint(event);
-    const clickedTower = state.towers.find((tower) => Math.hypot(tower.x - pos.x, tower.y - pos.y) < 48);
+    const clickedTower = state.towers.find((tower) => Math.hypot(tower.x - pos.x, tower.y - pos.y) < 58);
     if (clickedTower) {
       state.selectedTower = clickedTower;
       updateSelectedPanel();
       return;
     }
-    const socket = sockets.find((spot) => Math.hypot(spot.x - pos.x, spot.y - pos.y) < 48);
-    if (!socket) return;
-    if (state.towers.some((tower) => Math.hypot(tower.x - socket.x, tower.y - socket.y) < 20)) return;
     const type = towerTypes.find((tower) => tower.id === state.selectedBuild);
+    const placement = placementStatus(pos);
+    if (!placement.ok) {
+      showBanner(placement.reason);
+      state.hover = pos;
+      return;
+    }
     if (!type || state.insight < type.cost) {
       showBanner("Need More Insight");
       return;
@@ -620,8 +637,8 @@
     const tower = {
       id: crypto.randomUUID ? crypto.randomUUID() : String(Math.random()),
       type,
-      x: socket.x,
-      y: socket.y,
+      x: pos.x,
+      y: pos.y,
       level: 1,
       cooldown: Math.random() * .4,
       targetId: null,
@@ -634,6 +651,36 @@
     updateSelectedPanel();
     updateHud();
     addBurst(tower.x, tower.y, type.color, 18);
+  }
+
+  function placementStatus(pos) {
+    if (!pos) return { ok: false, reason: "Choose Open Ground" };
+    if (pos.x < 52 || pos.x > BASE_W - 52 || pos.y < 58 || pos.y > BASE_H - 58) {
+      return { ok: false, reason: "Too Close To Edge" };
+    }
+    if (distanceToTrack(pos) < ROAD_CLEARANCE) return { ok: false, reason: "Road Is Blocked" };
+    if (state.towers.some((tower) => Math.hypot(tower.x - pos.x, tower.y - pos.y) < TOWER_CLEARANCE)) {
+      return { ok: false, reason: "Too Close To Tower" };
+    }
+    return { ok: true, reason: "Build Here" };
+  }
+
+  function distanceToTrack(point) {
+    let best = Infinity;
+    for (const seg of state.segments) {
+      best = Math.min(best, distanceToSegment(point, seg.a, seg.b));
+    }
+    return best;
+  }
+
+  function distanceToSegment(p, a, b) {
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const lenSq = dx * dx + dy * dy || 1;
+    const t = clamp(((p.x - a.x) * dx + (p.y - a.y) * dy) / lenSq, 0, 1);
+    const x = a.x + dx * t;
+    const y = a.y + dy * t;
+    return Math.hypot(p.x - x, p.y - y);
   }
 
   function canvasPoint(event) {
@@ -685,7 +732,7 @@
       const type = towerTypes.find((item) => item.id === state.selectedBuild);
       els.selectedTowerName.textContent = type.name;
       els.upgradeTitle.textContent = "Build selected tower";
-      els.upgradeText.textContent = `${type.name}: ${type.role}. Click a glowing socket in the arena.`;
+      els.upgradeText.textContent = `${type.name}: ${type.role}. Build anywhere on open ground away from the road.`;
       els.upgradePreview.style = towerIconStyle(type, 0);
       els.upgradeBtn.disabled = true;
       els.sellBtn.disabled = true;
@@ -781,6 +828,7 @@
     updateProjectiles(dt);
     updateParticles(dt);
     updateTexts(dt);
+    state.reactorFlash = Math.max(0, state.reactorFlash - dt * 1.9);
     if (state.running && !state.spawnQueue.length && !state.enemies.length && state.wave > 0) {
       state.running = false;
       state.insight += 95 + state.wave * 14;
@@ -1010,10 +1058,10 @@
     ctx.save();
     ctx.translate(shake, shake * .4);
     drawBackground(time);
-    drawPath(time);
-    drawSockets(time);
+    drawReactorPulse(time);
     drawTowers(time);
     drawEnemies(time);
+    drawPlacementPreview(time);
     drawProjectiles(time);
     drawParticles();
     drawTexts();
@@ -1041,15 +1089,11 @@
     ctx.save();
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = "rgba(255,255,255,.38)";
-    ctx.strokeStyle = "rgba(10,20,32,.14)";
-    ctx.lineWidth = 18;
-    drawPathLine();
+    ctx.shadowBlur = 0;
     ctx.setLineDash([22, 44]);
-    ctx.lineDashOffset = -time * 78;
-    ctx.strokeStyle = "rgba(255,255,255,.54)";
-    ctx.lineWidth = 5;
+    ctx.lineDashOffset = -time * 62;
+    ctx.strokeStyle = "rgba(255,255,255,.30)";
+    ctx.lineWidth = 4;
     drawPathLine();
     ctx.restore();
   }
@@ -1067,23 +1111,42 @@
     ctx.stroke();
   }
 
-  function drawSockets(time) {
-    for (const spot of sockets) {
-      const occupied = state.towers.some((tower) => Math.hypot(tower.x - spot.x, tower.y - spot.y) < 20);
-      ctx.save();
-      ctx.translate(spot.x, spot.y);
-      ctx.globalAlpha = occupied ? .48 : .92;
-      drawPieceSprite(occupied ? 0 : 1, 0, 0, 96, 96, 0);
-      if (!occupied) {
-        ctx.globalAlpha = .38 + Math.sin(time * 3.5 + spot.x) * .12;
-        ctx.strokeStyle = "rgba(255,255,255,.74)";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(0, -4, 34, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-      ctx.restore();
-    }
+  function drawReactorPulse(time) {
+    if (state.reactorFlash <= 0) return;
+    ctx.save();
+    ctx.globalAlpha = state.reactorFlash * .45;
+    ctx.strokeStyle = "#ffd76b";
+    ctx.shadowColor = "#ffd76b";
+    ctx.shadowBlur = 22;
+    ctx.lineWidth = 7 + state.reactorFlash * 8;
+    ctx.setLineDash([30, 22]);
+    ctx.lineDashOffset = -time * 160;
+    drawPathLine();
+    ctx.restore();
+  }
+
+  function drawPlacementPreview(time) {
+    const hover = state.hover;
+    if (!hover || state.selectedTower) return;
+    const type = towerTypes.find((tower) => tower.id === state.selectedBuild);
+    if (!type) return;
+    const placement = placementStatus(hover);
+    const color = placement.ok ? type.color : "#ff6479";
+    ctx.save();
+    ctx.translate(hover.x, hover.y);
+    ctx.globalAlpha = placement.ok ? .82 : .58;
+    ctx.fillStyle = placement.ok ? "rgba(102,242,172,.09)" : "rgba(255,100,121,.10)";
+    ctx.strokeStyle = color;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = placement.ok ? 16 : 8;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(0, 0, 43 + Math.sin(time * 5) * 2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.globalAlpha = placement.ok ? .9 : .45;
+    drawTowerSprite({ type, level: 1 }, -45, -72, 90, 90);
+    ctx.restore();
   }
 
   function drawTowers(time) {

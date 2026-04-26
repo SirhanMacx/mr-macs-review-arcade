@@ -20,6 +20,7 @@
       <span><b id="lives">25</b> lives</span>
       <span><b id="insight">650</b> insight</span>
       <span><b id="score">0</b> score</span>
+      <button id="fullscreenBtn" class="hud-action" type="button" aria-label="Enter fullscreen">Fullscreen</button>
     </div>
   </header>
 
@@ -33,11 +34,11 @@
       </div>
       <div class="question-console" id="questionConsole">
         <div class="question-head">
-          <span id="questionMeta">Review Reactor</span>
+          <span id="questionMeta">Strike Reactor</span>
           <strong id="questionStreak">0 streak</strong>
         </div>
         <div class="question-body">
-          <p id="questionPrompt">Answer review prompts to charge global strikes, stun enemy waves, and earn faster upgrades.</p>
+          <p id="questionPrompt">Answer correctly to fire source strikes, earn insight, and slow the wave.</p>
           <div class="stimulus-strip" id="stimulusStrip"></div>
           <div class="choices" id="choices"></div>
           <form id="typedForm" class="typed-form">
@@ -84,7 +85,7 @@
           <strong id="upgradeTitle">Select a tower</strong>
         </div>
         <div class="upgrade-preview" id="upgradePreview"></div>
-        <p id="upgradeText">Build on a glowing socket, then upgrade through three unique visual tiers.</p>
+        <p id="upgradeText">Build on open ground away from the road, then upgrade through three unique visual tiers.</p>
         <div class="mini-grid">
           <button id="upgradeBtn" class="primary" type="button">Upgrade</button>
           <button id="sellBtn" type="button">Sell</button>
@@ -101,6 +102,7 @@
     </aside>
   </section>
 </main>
+<div class="orientation-gate" aria-hidden="true"><strong>Rotate Device</strong><span>Chrono Defense is built for horizontal full-screen play.</span></div>
 
 <script src="../../assets/arcade-analytics.js"></script>
 <script src="game.js"></script>
