@@ -51,6 +51,18 @@ button { color: inherit; cursor: pointer; }
   z-index: 2;
   pointer-events: none;
 }
+#ui::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0 9%, rgba(89,234,255,.16) 9.1% 9.22%, transparent 9.32% 90.7%, rgba(89,234,255,.13) 90.78% 90.9%, transparent 91%),
+    linear-gradient(180deg, transparent 0 12%, rgba(255,215,109,.13) 12.08% 12.18%, transparent 12.28% 88%, rgba(89,234,255,.13) 88.08% 88.18%, transparent 88.28%),
+    radial-gradient(ellipse at center, transparent 0 44%, rgba(3,8,19,.18) 66%, rgba(3,8,19,.54) 100%);
+  mix-blend-mode: screen;
+  opacity: .58;
+}
 #ui button, #ui select { pointer-events: auto; }
 .panel, .meter, .mission-card, .answer-panel, .touch-controls button {
   border: 1px solid var(--line);
