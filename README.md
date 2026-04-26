@@ -26,6 +26,8 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - Unit games, cumulative games, and final review games
 - Generated arcade hub artwork, search, filters, featured missions, and embedded in-page player
 - Solo and team play options
+- Jeopardy boards are normalized during publishing so each category ramps from lower-value recall clues to higher-value challenge clues
+- Anonymous traffic counter for site visits, game opens, game page views, and completions
 - Shared data and source-image files for newer game modes, starting with `data/regents-gauntlet-bank.json` and `assets/regents-gauntlet-stimuli/`
 
 ## Content Rule
@@ -79,23 +81,24 @@ The live site is built from static files:
 
 When new games are added, rebuild the arcade package, sync the updated files into this repo, commit, and push to `main`. GitHub Pages republishes automatically.
 
-## Analytics
+## Traffic Counter
 
-GitHub Pages does not provide a good student-facing analytics dashboard by itself.
+The current static site includes a lightweight anonymous traffic counter. It tracks:
 
-Recommended free option: Cloudflare Web Analytics. It is free, privacy-focused, and does not use cookies or localStorage. It can count page views and show which game URLs students open.
+- total site visits
+- game launches from the arcade hub
+- direct game page views
+- game completions for newer modes that support completion events
 
-Other options:
+The counter does not collect student names, logins, typed answers, or class rosters. It uses browser local storage for a local fallback and a public counter endpoint for broad totals.
 
-- Google Analytics 4: free and more detailed, but heavier and less privacy-friendly.
-- GoatCounter: lightweight and free for reasonable public usage.
+If the arcade gets real student traction, move tracking to a hosted privacy-focused analytics service or a small private backend.
 
-Best first tracking goal:
+Good next options:
 
-- total visits
-- visits by game page
-- top referrers
-- countries/devices at a broad level
+- Cloudflare Web Analytics: free, privacy-focused, and good for public traffic trends.
+- GoatCounter: lightweight public web analytics.
+- Supabase or Cloudflare Workers: better if the arcade later needs private game-level events, leaderboards, or class-safe progress tracking.
 
 Avoid student-name tracking unless the arcade later gets a real login system and a school-approved privacy plan.
 
