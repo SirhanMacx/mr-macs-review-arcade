@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>Mr. Mac's Atlas Arcade</title>
+<title>Mr. Mac's Review Arcade</title>
 <script>
 if (location.protocol === "file:") {
   location.replace("https://sirhanmacx.github.io/mr-macs-review-arcade/");
@@ -15,18 +15,19 @@ if (location.protocol === "file:") {
   color-scheme: dark;
   --ink: #f8fbff;
   --paper: #e7eefb;
-  --muted: #9dabca;
+  --muted: #aab8d4;
   --line: rgba(255,255,255,.14);
   --strong: rgba(255,255,255,.26);
-  --bg: #03050b;
-  --panel: rgba(5, 9, 20, .76);
-  --cyan: #66efff;
-  --gold: #ffd66b;
-  --violet: #b892ff;
-  --green: #69f0aa;
-  --hero: url("assets/arcade-hero.png");
-  --tile: url("assets/portal-card.png");
-  --logo: url("assets/atlas-emblem.png");
+  --bg: #02040a;
+  --panel: rgba(5, 9, 20, .78);
+  --cyan: #6af3ff;
+  --gold: #ffcf5a;
+  --violet: #c58aff;
+  --green: #72f5b3;
+  --rose: #ff72d2;
+  --hero: url("assets/arcade-lobby-v3.webp");
+  --tile: url("assets/portal-card.webp");
+  --logo: url("assets/atlas-emblem.webp");
 }
 * { box-sizing: border-box; }
 html { min-height: 100%; scroll-behavior: smooth; }
@@ -34,7 +35,10 @@ body {
   min-height: 100%;
   margin: 0;
   color: var(--ink);
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 16% -8%, rgba(106,243,255,.13), transparent 30%),
+    radial-gradient(circle at 86% 3%, rgba(255,207,90,.11), transparent 24%),
+    var(--bg);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden;
 }
@@ -46,10 +50,11 @@ button:active { transform: translateY(1px); }
   inset: 0;
   z-index: -4;
   background:
-    linear-gradient(90deg, rgba(3,5,11,.9), rgba(3,5,11,.38) 46%, rgba(3,5,11,.84)),
-    linear-gradient(180deg, rgba(3,5,11,.12), rgba(3,5,11,.5) 52%, #03050b 95%),
+    linear-gradient(90deg, rgba(2,4,10,.98) 0%, rgba(2,4,10,.74) 31%, rgba(2,4,10,.34) 57%, rgba(2,4,10,.88) 100%),
+    linear-gradient(180deg, rgba(2,4,10,.06), rgba(2,4,10,.42) 55%, #02040a 96%),
     var(--hero) center top / cover no-repeat;
-  filter: saturate(1.08) contrast(1.03);
+  filter: saturate(1.14) contrast(1.06);
+  transform: scale(1.012);
 }
 .hero-bg::after {
   content: "";
@@ -58,8 +63,9 @@ button:active { transform: translateY(1px); }
   background:
     linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,.024) 1px, transparent 1px);
-  background-size: 88px 88px;
+  background-size: 86px 86px;
   mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 72%, transparent 100%);
+  animation: gridDrift 18s linear infinite;
 }
 #fx {
   position: fixed;
@@ -68,7 +74,7 @@ button:active { transform: translateY(1px); }
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: .78;
+  opacity: .7;
   mix-blend-mode: screen;
 }
 .shell {
@@ -79,9 +85,10 @@ button:active { transform: translateY(1px); }
   position: sticky;
   top: 0;
   z-index: 20;
-  border-bottom: 1px solid var(--line);
-  background: rgba(3, 6, 14, .78);
-  backdrop-filter: blur(18px) saturate(1.2);
+  border-bottom: 1px solid rgba(106,243,255,.16);
+  background: linear-gradient(180deg, rgba(3, 7, 16, .86), rgba(3, 7, 16, .64));
+  backdrop-filter: blur(22px) saturate(1.25);
+  box-shadow: 0 18px 70px rgba(0,0,0,.28);
 }
 .topbar-inner {
   min-height: 68px;
@@ -92,7 +99,7 @@ button:active { transform: translateY(1px); }
 }
 .brand {
   display: inline-grid;
-  grid-template-columns: 44px auto;
+  grid-template-columns: 48px auto;
   gap: 12px;
   align-items: center;
   color: var(--ink);
@@ -101,16 +108,16 @@ button:active { transform: translateY(1px); }
 .brand-mark {
   width: 48px;
   height: 48px;
-  border: 1px solid rgba(102,239,255,.4);
+  border: 1px solid rgba(106,243,255,.46);
   border-radius: 8px;
   background: var(--logo) center / 135% no-repeat;
-  box-shadow: 0 0 32px rgba(102,239,255,.28), inset 0 0 18px rgba(255,255,255,.14);
+  box-shadow: 0 0 32px rgba(106,243,255,.3), inset 0 0 18px rgba(255,255,255,.14);
 }
 .brand strong {
   display: block;
   font-size: 14px;
   line-height: 1;
-  letter-spacing: .08em;
+  letter-spacing: .04em;
   text-transform: uppercase;
 }
 .brand span:last-child {
@@ -134,7 +141,7 @@ button:active { transform: translateY(1px); }
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--paper);
-  background: rgba(255,255,255,.07);
+  background: rgba(255,255,255,.065);
   font-size: 12px;
   font-weight: 850;
 }
@@ -152,20 +159,21 @@ button:active { transform: translateY(1px); }
   align-items: center;
   justify-content: center;
   padding: 10px 14px;
-  border: 1px solid rgba(255,214,107,.5);
+  border: 1px solid rgba(255,207,90,.52);
   border-radius: 8px;
   color: #10100b;
   background: linear-gradient(135deg, var(--gold), #fff2b7);
   text-decoration: none;
   font-weight: 950;
+  box-shadow: 0 0 26px rgba(255,207,90,.18);
 }
 .hero {
-  min-height: min(760px, calc(100vh - 68px));
+  min-height: min(790px, calc(100vh - 68px));
   display: grid;
   grid-template-columns: minmax(0, .98fr) minmax(360px, .72fr);
   gap: clamp(24px, 4vw, 70px);
   align-items: center;
-  padding: clamp(28px, 5vw, 76px) 0 44px;
+  padding: clamp(38px, 5vw, 86px) 0 48px;
 }
 .eyebrow {
   display: inline-flex;
@@ -186,18 +194,18 @@ button:active { transform: translateY(1px); }
 h1 {
   max-width: 940px;
   margin: 14px 0 0;
-  font-size: clamp(54px, 7.2vw, 118px);
-  line-height: .86;
+  font-size: clamp(52px, 6.2vw, 100px);
+  line-height: .88;
   letter-spacing: 0;
   text-transform: uppercase;
   text-wrap: balance;
-  text-shadow: 0 18px 48px rgba(0,0,0,.8), 0 0 34px rgba(102,239,255,.24);
+  text-shadow: 0 20px 54px rgba(0,0,0,.82), 0 0 40px rgba(106,243,255,.24);
 }
 .tagline {
   max-width: 790px;
   margin: 20px 0 0;
   color: #e4ecfb;
-  font-size: clamp(18px, 2vw, 25px);
+  font-size: clamp(18px, 1.9vw, 24px);
   line-height: 1.35;
   text-shadow: 0 10px 28px rgba(0,0,0,.74);
 }
@@ -219,12 +227,21 @@ h1 {
   background: rgba(255,255,255,.08);
   text-decoration: none;
   font-weight: 950;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.11);
+  transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease;
 }
 .action.primary {
-  border-color: rgba(255,214,107,.68);
+  border-color: rgba(255,207,90,.68);
   color: #111006;
   background: linear-gradient(135deg, var(--gold), #fff0ad);
-  box-shadow: 0 20px 44px rgba(0,0,0,.34), 0 0 32px rgba(255,214,107,.18);
+  box-shadow: 0 20px 44px rgba(0,0,0,.34), 0 0 34px rgba(255,207,90,.2);
+}
+.action:hover,
+.action:focus-visible {
+  outline: none;
+  transform: translateY(-2px);
+  border-color: rgba(106,243,255,.52);
+  background: rgba(255,255,255,.12);
 }
 .metrics {
   display: grid;
@@ -238,8 +255,9 @@ h1 {
   padding: 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(4, 9, 20, .66);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.045));
+  backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 18px 44px rgba(0,0,0,.18);
 }
 .metric strong {
   display: block;
@@ -256,15 +274,30 @@ h1 {
   text-transform: uppercase;
 }
 .command-deck {
+  position: relative;
+  overflow: hidden;
   display: grid;
   gap: 12px;
-  padding: 16px;
-  border: 1px solid var(--line);
+  padding: 18px;
+  border: 1px solid rgba(106,243,255,.2);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(5,10,22,.42), rgba(5,10,22,.86)),
+    linear-gradient(180deg, rgba(5,10,22,.5), rgba(5,10,22,.92)),
     var(--tile) center / cover no-repeat;
-  box-shadow: 0 30px 90px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.14);
+  box-shadow: 0 34px 105px rgba(0,0,0,.54), inset 0 1px 0 rgba(255,255,255,.15);
+}
+.command-deck::before {
+  content: "";
+  position: absolute;
+  inset: -30% -20%;
+  background: linear-gradient(115deg, transparent 24%, rgba(106,243,255,.16) 39%, rgba(255,207,90,.12) 47%, transparent 61%);
+  transform: translateX(-42%);
+  animation: portalSweep 8s ease-in-out infinite;
+  pointer-events: none;
+}
+.command-deck > * {
+  position: relative;
+  z-index: 1;
 }
 .deck-head {
   display: flex;
@@ -290,10 +323,10 @@ h1 {
 .deck-badge {
   flex: 0 0 auto;
   padding: 8px 10px;
-  border: 1px solid rgba(255,214,107,.48);
+  border: 1px solid rgba(255,207,90,.48);
   border-radius: 999px;
   color: var(--gold);
-  background: rgba(255,214,107,.08);
+  background: rgba(255,207,90,.08);
   font-size: 11px;
   font-weight: 950;
   text-transform: uppercase;
@@ -303,6 +336,8 @@ h1 {
   gap: 10px;
 }
 .mode-button {
+  position: relative;
+  overflow: hidden;
   min-height: 96px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -311,17 +346,35 @@ h1 {
   padding: 13px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(3, 7, 17, .74);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent, var(--cyan)) 13%, rgba(3,7,17,.88)), rgba(3,7,17,.72)),
+    rgba(3, 7, 17, .78);
   text-align: left;
   box-shadow: inset 4px 0 0 var(--accent, var(--cyan));
-  transition: transform .16s ease, border-color .16s ease, background .16s ease;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease;
+}
+.mode-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent, var(--cyan)) 20%, transparent), transparent);
+  opacity: 0;
+  transform: translateX(-70%);
+  transition: opacity .16s ease, transform .28s ease;
+  pointer-events: none;
 }
 .mode-button:hover,
 .mode-button:focus-visible {
   outline: none;
-  transform: translateX(-4px);
+  transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--accent, var(--cyan)) 62%, white);
   background: rgba(7, 14, 30, .9);
+  box-shadow: 0 18px 52px rgba(0,0,0,.35), 0 0 28px color-mix(in srgb, var(--accent, var(--cyan)) 22%, transparent);
+}
+.mode-button:hover::after,
+.mode-button:focus-visible::after {
+  opacity: 1;
+  transform: translateX(70%);
 }
 .mode-button small {
   display: block;
@@ -358,12 +411,14 @@ h1 {
 }
 .mission-map {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 12px;
   margin-top: -6px;
   padding-bottom: 34px;
 }
 .course-tile {
+  position: relative;
+  overflow: hidden;
   min-height: 156px;
   display: grid;
   align-content: space-between;
@@ -371,9 +426,19 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(5,10,22,.4), rgba(5,10,22,.88)),
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--accent, var(--cyan)) 26%, transparent), transparent 42%),
+    linear-gradient(180deg, rgba(5,10,22,.54), rgba(5,10,22,.92)),
     var(--tile) center / cover no-repeat;
   text-align: left;
+  box-shadow: 0 20px 58px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.12);
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.course-tile:hover,
+.course-tile:focus-visible {
+  outline: none;
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent, var(--cyan)) 58%, white);
+  box-shadow: 0 30px 72px rgba(0,0,0,.36), 0 0 26px color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent);
 }
 .course-tile small {
   color: var(--accent, var(--cyan));
@@ -429,9 +494,9 @@ h2 {
   grid-template-columns: minmax(250px, 1fr) repeat(4, minmax(150px, 210px));
   gap: 10px;
   padding: 12px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(106,243,255,.18);
   border-radius: 8px;
-  background: rgba(4, 8, 18, .84);
+  background: rgba(4, 8, 18, .88);
   backdrop-filter: blur(18px) saturate(1.16);
   box-shadow: 0 20px 60px rgba(0,0,0,.36);
 }
@@ -443,11 +508,11 @@ h2 {
   border-radius: 8px;
   outline: none;
   color: var(--ink);
-  background: rgba(1, 4, 12, .78);
+  background: rgba(1, 4, 12, .84);
 }
 .field:focus {
   border-color: var(--cyan);
-  box-shadow: 0 0 0 2px rgba(102,239,255,.16);
+  box-shadow: 0 0 0 2px rgba(106,243,255,.16);
 }
 select.field option { color: #07111d; }
 .library-grid {
@@ -457,6 +522,8 @@ select.field option { color: #07111d; }
   margin-top: 16px;
 }
 .game-card {
+  position: relative;
+  overflow: hidden;
   min-height: 238px;
   display: grid;
   align-content: space-between;
@@ -464,11 +531,20 @@ select.field option { color: #07111d; }
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(5,9,19,.74), rgba(5,9,19,.96)),
-    radial-gradient(circle at 16% 0%, color-mix(in srgb, var(--accent, var(--cyan)) 20%, transparent), transparent 34%);
+    linear-gradient(180deg, rgba(5,9,19,.66), rgba(5,9,19,.96)),
+    radial-gradient(circle at 14% 0%, color-mix(in srgb, var(--accent, var(--cyan)) 30%, transparent), transparent 38%),
+    var(--tile) center / cover no-repeat;
   text-align: left;
   box-shadow: 0 18px 48px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.12);
   transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-top: 3px solid var(--accent, var(--cyan));
+  opacity: .78;
+  pointer-events: none;
 }
 .game-card:hover,
 .game-card:focus-visible {
@@ -494,6 +570,10 @@ select.field option { color: #07111d; }
   font-size: 11px;
   font-weight: 950;
   text-transform: uppercase;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .badge.hot {
   color: #091018;
@@ -534,6 +614,7 @@ select.field option { color: #07111d; }
   background: linear-gradient(135deg, var(--accent, var(--cyan)), #fff);
   font-size: 12px;
   font-weight: 1000;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--accent, var(--cyan)) 26%, transparent);
 }
 .empty {
   grid-column: 1 / -1;
@@ -633,11 +714,17 @@ iframe {
 }
 @media (max-width: 720px) {
   .shell { width: calc(100% - 20px); }
-  .topbar-inner { gap: 10px; padding: 10px 0; }
+  .topbar-inner { grid-template-columns: 1fr auto; gap: 10px; padding: 10px 0; }
+  .brand { grid-template-columns: 40px auto; min-width: 0; }
+  .brand-mark { width: 40px; height: 40px; }
+  .brand strong { font-size: 12px; }
+  .brand > span > span,
+  .nav-pills { display: none; }
   .nav-link { display: none; }
-  .hero { min-height: auto; padding-top: 34px; }
+  .hero { min-height: auto; padding-top: 42px; }
+  h1 { font-size: clamp(42px, 14vw, 60px); }
   .hero-actions .action { width: 100%; }
-  .metrics,
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .filters,
   .library-grid { grid-template-columns: 1fr; }
   .command-deck { padding: 12px; }
@@ -649,6 +736,15 @@ iframe {
   .player-actions { justify-content: stretch; }
   .btn { flex: 1; }
 }
+@keyframes gridDrift {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 86px 86px, 86px 86px; }
+}
+@keyframes portalSweep {
+  0%, 28% { transform: translateX(-52%); opacity: 0; }
+  42% { opacity: 1; }
+  74%, 100% { transform: translateX(52%); opacity: 0; }
+}
 </style>
 </head>
 <body>
@@ -656,9 +752,9 @@ iframe {
 <canvas id="fx" aria-hidden="true"></canvas>
 <header class="topbar">
   <div class="shell topbar-inner">
-    <a class="brand" href="#library" aria-label="Mr. Mac's Atlas Arcade home">
+    <a class="brand" href="#library" aria-label="Mr. Mac's Review Arcade home">
       <span class="brand-mark" aria-hidden="true"></span>
-      <span><strong>Mr. Mac's Atlas Arcade</strong><span>AI Review OS</span></span>
+      <span><strong>Mr. Mac's Review Arcade</strong><span>AI learning arcade</span></span>
     </a>
     <div class="nav-pills" id="statusPills"></div>
     <a class="nav-link" href="#library">Enter Arcade</a>
@@ -667,18 +763,18 @@ iframe {
 <main class="shell">
   <section class="hero" aria-label="Arcade overview">
     <div>
-      <div class="eyebrow">Frontier social studies review</div>
-      <h1>History review, built like an arcade.</h1>
-      <p class="tagline">Regents, AP Psychology, unit practice, source work, and comprehensive exam prep in one polished student player.</p>
+      <div class="eyebrow">Social studies review arcade</div>
+      <h1>Mr. Mac's Review Arcade</h1>
+      <p class="tagline">A polished student player for Regents, AP Psychology, AP social studies, unit review, source practice, and full-year exam prep.</p>
       <div class="hero-actions">
-        <button class="action primary" id="launchFeatured" type="button">Launch Best Game</button>
+        <button class="action primary" id="launchFeatured" type="button">Enter Boss Rush</button>
         <a class="action" href="#library">Browse Review Library</a>
       </div>
       <div class="metrics" id="metrics"></div>
     </div>
     <aside class="command-deck" aria-label="Featured game modes">
       <div class="deck-head">
-        <div><span>Live arcade stack</span><strong>Choose a review mode</strong></div>
+        <div><span>Featured missions</span><strong>Choose a review mode</strong></div>
         <div class="deck-badge">Student ready</div>
       </div>
       <div class="mode-list" id="featuredModes"></div>
@@ -771,8 +867,8 @@ function searchable(game) {
   return [game.title, game.subtitle, game.day, game.course, game.subject, game.grade, game.gameType].concat(game.tags || []).join(" ").toLowerCase();
 }
 function priority(game) {
-  if (game.id === "regents-gauntlet") return 0;
-  if (game.id === "boss-rush-arena") return 1;
+  if (game.id === "boss-rush-arena") return 0;
+  if (game.id === "regents-gauntlet") return 1;
   if (/AP Psychology Final/i.test(game.title)) return 2;
   if (/Cumulative Yearlong|Yearlong Review/i.test(game.title)) return 3;
   if (game.gameType.includes("Regents")) return 4;
@@ -794,7 +890,7 @@ function filteredGames() {
   });
 }
 function featuredGames() {
-  const ids = ["regents-gauntlet", "boss-rush-arena"];
+  const ids = ["boss-rush-arena", "regents-gauntlet"];
   const picks = ids.map((id) => GAMES.find((game) => game.id === id));
   picks.push(GAMES.find((game) => /AP Psychology Final/i.test(game.title)));
   picks.push(GAMES.find((game) => /Cumulative Yearlong|Yearlong Review/i.test(game.title)));
