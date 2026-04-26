@@ -65,4 +65,4 @@ addEventListener("keydown",e=>{state.keys[e.key]=true;if(e.key==="Escape")pause(
 addEventListener("keyup",e=>{state.keys[e.key]=false});
 addEventListener("pointermove",e=>{if(state.phase==="flight"||state.phase==="answer")state.pointer={x:e.clientX/innerWidth,y:e.clientY/innerHeight}});
 addEventListener("pointerleave",()=>state.pointer=null);
-fetch("../../data/regents-gauntlet-bank.json?v=20260426-time-pilot-runner2").then(r=>r.json()).then(bank=>{state.bank=bank;renderSetup()});
+fetch("../../data/regents-gauntlet-bank.json?v=20260426-time-pilot-embedfix").then(r=>r.json()).then(bank=>{state.bank=bank;renderSetup()});
