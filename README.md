@@ -6,7 +6,8 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 
 ## What Is Included
 
-- 129 browser-playable review games
+- 130 browser-playable review games
+- Chrono Defense Infinite, an original endless social-studies tower defense game using the full 3,651-prompt review library
 - Regents Gauntlet, a multi-file MCQ game with 349 answer-keyed Regents questions and cropped original stimulus images
 - Boss Rush Arena, a master game with generated arena/boss art, animated attacks, HP/shield/combo scoring, course switching, unit review, and comprehensive review runs
 - Grade 9 Global History I

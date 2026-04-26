@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Chrono Defense Infinite</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg"></div>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <span class="sigil"></span>
+      <span><strong>Chrono Defense Infinite</strong><em>Social Studies Tower Defense</em></span>
+    </div>
+    <div class="hud">
+      <span><b id="wave">0</b> wave</span>
+      <span><b id="lives">25</b> lives</span>
+      <span><b id="insight">650</b> insight</span>
+      <span><b id="score">0</b> score</span>
+    </div>
+  </header>
+
+  <section class="game">
+    <div class="stage">
+      <canvas id="arena" width="1600" height="900" aria-label="Chrono Defense game arena"></canvas>
+      <div class="mission-panel" id="missionPanel">
+        <span>Infinite Review Engine</span>
+        <strong id="missionTitle">Loading question library...</strong>
+        <p id="missionText">Course filters, endless waves, upgrades, bosses, and answer-powered strikes are coming online.</p>
+      </div>
+      <div class="question-console" id="questionConsole">
+        <div class="question-head">
+          <span id="questionMeta">Review Reactor</span>
+          <strong id="questionStreak">0 streak</strong>
+        </div>
+        <div class="question-body">
+          <p id="questionPrompt">Answer review prompts to charge global strikes, stun enemy waves, and earn faster upgrades.</p>
+          <div class="stimulus-strip" id="stimulusStrip"></div>
+          <div class="choices" id="choices"></div>
+          <form id="typedForm" class="typed-form">
+            <input id="typedAnswer" autocomplete="off" placeholder="Type the answer">
+            <button type="submit">Strike</button>
+          </form>
+          <p class="feedback" id="feedback"></p>
+        </div>
+      </div>
+      <div class="wave-banner" id="waveBanner">Prepare the Archive</div>
+    </div>
+
+    <aside class="command">
+      <section class="panel">
+        <div class="panel-title">
+          <span>Question Feed</span>
+          <strong id="bankCount">0 prompts</strong>
+        </div>
+        <label>Course
+          <select id="courseFilter"></select>
+        </label>
+        <label>Content Set
+          <select id="setFilter"></select>
+        </label>
+        <div class="mini-grid">
+          <button id="startWave" class="primary" type="button">Launch Wave</button>
+          <button id="pauseBtn" type="button">Pause</button>
+          <button id="soundBtn" type="button">Sound On</button>
+          <button id="resetBtn" type="button">Reset</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <span>Tower Foundry</span>
+          <strong id="selectedTowerName">Archive Cannon</strong>
+        </div>
+        <div class="tower-list" id="towerList"></div>
+      </section>
+
+      <section class="panel selected-panel">
+        <div class="panel-title">
+          <span>Upgrade Bay</span>
+          <strong id="upgradeTitle">Select a tower</strong>
+        </div>
+        <div class="upgrade-preview" id="upgradePreview"></div>
+        <p id="upgradeText">Build on a glowing socket, then upgrade through three unique visual tiers.</p>
+        <div class="mini-grid">
+          <button id="upgradeBtn" class="primary" type="button">Upgrade</button>
+          <button id="sellBtn" type="button">Sell</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <span>Powerups</span>
+          <strong id="powerCharge">ready</strong>
+        </div>
+        <div class="power-list" id="powerList"></div>
+      </section>
+    </aside>
+  </section>
+</main>
+
+<script src="../../assets/arcade-analytics.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
