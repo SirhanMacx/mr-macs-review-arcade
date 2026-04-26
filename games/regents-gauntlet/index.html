@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>Regents Gauntlet - Mr. Mac's Review Arcade</title>
-<link rel="stylesheet" href="styles.css?v=20260426">
+<link rel="stylesheet" href="styles.css?v=20260426-stimulus-ui">
 </head>
 <body>
 <div class="bg" aria-hidden="true"></div>
@@ -18,17 +18,22 @@
 
   <section class="screen setup active" id="setupScreen">
     <div class="hero">
-      <div class="kicker">MCQ-powered review game</div>
-      <h1>Regents Gauntlet</h1>
-      <p>Run a serious MCQ review mission using large answer-keyed question banks from your course folders.</p>
+      <div>
+        <div class="kicker">Stimulus-based Regents arena</div>
+        <h1>Regents Gauntlet</h1>
+        <p>Original Regents-style MCQs with embedded maps, cartoons, excerpts, and source pages beside the question.</p>
+      </div>
       <div class="metrics" id="metrics"></div>
     </div>
     <div class="panel">
-      <h2>Build The Mission</h2>
+      <div class="panel-head">
+        <span>Mission Control</span>
+        <h2>Build The Run</h2>
+      </div>
       <div class="form-grid">
         <label>Course<select id="courseSelect"></select></label>
         <label>Question Set<select id="setSelect"></select></label>
-        <label>Length<select id="lengthSelect"><option value="10">10-question sprint</option><option value="25" selected>25-question gauntlet</option><option value="50">50-question full run</option><option value="999">Endless mode</option></select></label>
+        <label>Length<select id="lengthSelect"><option value="10">10-question sprint</option><option value="25" selected>25-question gauntlet</option><option value="50">50-question full run</option><option value="999">Full bank mode</option></select></label>
         <label>Mode<select id="modeSelect"><option value="solo">Solo Play</option><option value="team">Team Battle</option></select></label>
       </div>
       <div class="teams hidden" id="teams">
@@ -37,8 +42,8 @@
       </div>
       <div class="preview" id="preview"></div>
       <div class="actions">
-        <button class="btn primary" id="startBtn">Start Gauntlet</button>
-        <button class="btn" id="randomBtn">Random Mixed Run</button>
+        <button class="btn primary" id="startBtn">Start Run</button>
+        <button class="btn" id="randomBtn">Mixed Review</button>
       </div>
     </div>
   </section>
@@ -58,8 +63,19 @@
       </aside>
       <section class="question-panel">
         <div class="question-tags" id="questionTags"></div>
-        <h2 id="questionStem">Question stem</h2>
-        <div class="choices" id="choices"></div>
+        <div class="question-layout">
+          <aside class="stimulus-panel hidden" id="stimulusPanel">
+            <div class="stimulus-head">
+              <span>Original Stimulus</span>
+              <button class="mini-btn" id="stimulusToggle" type="button">Expand</button>
+            </div>
+            <div class="stimulus-strip" id="stimulusStrip"></div>
+          </aside>
+          <div class="question-card">
+            <h2 id="questionStem">Question stem</h2>
+            <div class="choices" id="choices"></div>
+          </div>
+        </div>
         <div class="feedback hidden" id="feedback"></div>
         <div class="actions">
           <button class="btn primary hidden" id="nextBtn">Next Question</button>
@@ -80,6 +96,6 @@
     </div>
   </section>
 </main>
-<script type="module" src="game.js?v=20260426-clean"></script>
+<script type="module" src="game.js?v=20260426-stimulus"></script>
 </body>
 </html>
