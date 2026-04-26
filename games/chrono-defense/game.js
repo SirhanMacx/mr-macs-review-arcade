@@ -27,6 +27,9 @@
     pauseBtn: $("pauseBtn"),
     soundBtn: $("soundBtn"),
     resetBtn: $("resetBtn"),
+    libraryBtn: $("libraryBtn"),
+    libraryPanel: $("libraryPanel"),
+    libraryStatus: $("libraryStatus"),
     fullscreenBtn: $("fullscreenBtn"),
     missionTitle: $("missionTitle"),
     missionText: $("missionText"),
@@ -161,11 +164,13 @@
   ];
 
   const pathPoints = [
-    { x: -90, y: 376 }, { x: 92, y: 378 }, { x: 270, y: 390 },
-    { x: 430, y: 366 }, { x: 505, y: 430 }, { x: 504, y: 555 },
-    { x: 592, y: 637 }, { x: 742, y: 650 }, { x: 900, y: 575 },
-    { x: 1045, y: 510 }, { x: 1195, y: 500 }, { x: 1352, y: 510 },
-    { x: 1508, y: 452 }, { x: 1690, y: 360 }
+    { x: 138.8, y: 246.8 }, { x: 138.8, y: 304.1 }, { x: 177.0, y: 350.1 },
+    { x: 234.4, y: 383.5 }, { x: 325.4, y: 411.3 }, { x: 449.8, y: 390.2 },
+    { x: 569.4, y: 346.2 }, { x: 669.9, y: 344.3 }, { x: 733.0, y: 396.0 },
+    { x: 759.8, y: 492.6 }, { x: 751.2, y: 597.8 }, { x: 824.9, y: 650.4 },
+    { x: 956.9, y: 648.5 }, { x: 1077.5, y: 593.0 }, { x: 1188.5, y: 521.3 },
+    { x: 1309.1, y: 506.9 }, { x: 1418.2, y: 530.8 }, { x: 1519.6, y: 470.6 },
+    { x: 1650.7, y: 386.4 }
   ];
 
   const state = {
@@ -204,6 +209,7 @@
     reactorFlash: 0,
     questionCollapsed: false,
     pathLength: 0,
+    routePoints: [],
     segments: []
   };
 
@@ -270,15 +276,40 @@
   }
 
   function buildPath() {
+    state.routePoints = sampleRoute(pathPoints, 12);
     state.segments = [];
     state.pathLength = 0;
-    for (let i = 0; i < pathPoints.length - 1; i++) {
-      const a = pathPoints[i];
-      const b = pathPoints[i + 1];
+    for (let i = 0; i < state.routePoints.length - 1; i++) {
+      const a = state.routePoints[i];
+      const b = state.routePoints[i + 1];
       const len = dist(a, b);
       state.segments.push({ a, b, len, start: state.pathLength });
       state.pathLength += len;
     }
+  }
+
+  function sampleRoute(points, stepsPerSegment) {
+    const route = [];
+    for (let i = 0; i < points.length - 1; i++) {
+      const p0 = points[Math.max(0, i - 1)];
+      const p1 = points[i];
+      const p2 = points[i + 1];
+      const p3 = points[Math.min(points.length - 1, i + 2)];
+      for (let step = 0; step < stepsPerSegment; step++) {
+        route.push(catmullRom(p0, p1, p2, p3, step / stepsPerSegment));
+      }
+    }
+    route.push(points[points.length - 1]);
+    return route;
+  }
+
+  function catmullRom(p0, p1, p2, p3, t) {
+    const t2 = t * t;
+    const t3 = t2 * t;
+    return {
+      x: .5 * ((2 * p1.x) + (-p0.x + p2.x) * t + (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 + (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3),
+      y: .5 * ((2 * p1.y) + (-p0.y + p2.y) * t + (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 + (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3)
+    };
   }
 
   function pointAt(distance) {
@@ -356,6 +387,7 @@
     });
     state.queue = shuffle(state.filtered);
     els.bankCount.textContent = `${state.filtered.length.toLocaleString()} prompts`;
+    els.libraryStatus.textContent = `${course} / ${set}`;
     els.missionTitle.textContent = course === "All Courses" ? "Full Arcade Mixed Review" : course;
     els.missionText.textContent = set === "All Sets"
       ? "Endless waves will pull from the selected course library."
@@ -459,6 +491,7 @@
     els.resetBtn.addEventListener("click", resetGame);
     els.upgradeBtn.addEventListener("click", upgradeSelected);
     els.sellBtn.addEventListener("click", sellSelected);
+    els.libraryBtn.addEventListener("click", focusLibrary);
     els.fullscreenBtn.addEventListener("click", toggleFullscreen);
     els.toggleQuestion.addEventListener("click", () => setQuestionCollapsed(true));
     els.reactorDock.addEventListener("click", () => setQuestionCollapsed(!state.questionCollapsed));
@@ -480,6 +513,14 @@
     if (!collapsed && els.typedForm.style.display !== "none") {
       els.typedAnswer.focus({ preventScroll: true });
     }
+  }
+
+  function focusLibrary() {
+    els.libraryPanel.classList.remove("is-highlighted");
+    void els.libraryPanel.offsetWidth;
+    els.libraryPanel.classList.add("is-highlighted");
+    els.libraryPanel.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    els.courseFilter.focus({ preventScroll: true });
   }
 
   function renderTowerList() {
@@ -609,7 +650,7 @@
   function spawnEnemy(typeIndex) {
     const base = enemyTypes[typeIndex];
     const scale = 1 + state.wave * .19 + Math.max(0, state.wave - 12) * .035;
-    const entrance = 95 + Math.random() * 36;
+    const entrance = Math.random() * 18;
     const point = pointAt(entrance);
     const enemy = {
       id: crypto.randomUUID ? crypto.randomUUID() : String(Math.random()),
@@ -1119,15 +1160,10 @@
   }
 
   function drawPathLine() {
+    const points = state.routePoints.length ? state.routePoints : pathPoints;
     ctx.beginPath();
-    ctx.moveTo(pathPoints[0].x, pathPoints[0].y);
-    for (let i = 1; i < pathPoints.length - 1; i++) {
-      const current = pathPoints[i];
-      const next = pathPoints[i + 1];
-      ctx.quadraticCurveTo(current.x, current.y, (current.x + next.x) / 2, (current.y + next.y) / 2);
-    }
-    const last = pathPoints[pathPoints.length - 1];
-    ctx.lineTo(last.x, last.y);
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
     ctx.stroke();
   }
 
@@ -1228,10 +1264,13 @@
       ctx.shadowColor = enemy.boss ? "#ffd76b" : enemy.row === 2 ? "#c981ff" : "#67efff";
       ctx.drawImage(images.villains, rect.x, rect.y, rect.w, rect.h, -size / 2, -size / 2, size, size);
       const pct = clamp(enemy.hp / enemy.maxHp, 0, 1);
+      const barW = size * .72;
+      const barH = enemy.boss ? 10 : 7;
+      const barY = -size * .58;
       ctx.fillStyle = "rgba(0,0,0,.58)";
-      ctx.fillRect(-size / 2, size * .44, size, 8);
+      ctx.fillRect(-barW / 2, barY, barW, barH);
       ctx.fillStyle = pct > .45 ? "#66f2ac" : pct > .2 ? "#ffd76b" : "#ff6479";
-      ctx.fillRect(-size / 2, size * .44, size * pct, 8);
+      ctx.fillRect(-barW / 2, barY, barW * pct, barH);
       if (state.elapsed < enemy.slowUntil || state.elapsed < enemy.stunUntil) {
         ctx.strokeStyle = state.elapsed < enemy.stunUntil ? "#c981ff" : "#67efff";
         ctx.lineWidth = 3;

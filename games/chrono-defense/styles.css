@@ -162,6 +162,10 @@ button:disabled {
   font-size: 12px;
   text-transform: uppercase;
 }
+.library-action {
+  border-color: rgba(255,215,107,.46);
+  color: var(--gold);
+}
 .game {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 370px;
@@ -177,18 +181,25 @@ button:disabled {
 }
 .stage {
   position: relative;
+  align-self: start;
+  width: 100%;
   min-height: 0;
   height: 100%;
+  max-height: 100%;
   overflow: hidden;
   border: 1px solid rgba(103,239,255,.18);
   border-radius: 12px;
-  background: rgba(1,4,10,.9);
+  background:
+    linear-gradient(180deg, rgba(1,4,10,0), rgba(1,4,10,.72)),
+    url("../../assets/chrono-defense-road-map.webp") center / cover no-repeat,
+    rgba(1,4,10,.9);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.11), 0 24px 70px rgba(0,0,0,.34);
 }
 #arena {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
   min-height: 0;
   cursor: crosshair;
   touch-action: none;
@@ -412,6 +423,30 @@ label select {
   padding: 0 10px;
 }
 select option { color: #06101d; }
+.selector-kicker,
+.library-status {
+  border: 1px solid rgba(103,239,255,.18);
+  border-radius: 8px;
+  background: rgba(103,239,255,.055);
+}
+.selector-kicker {
+  padding: 8px 10px;
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 1000;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.library-status {
+  padding: 9px 10px;
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.25;
+}
+.library-panel.is-highlighted {
+  animation: libraryPulse 1.35s ease both;
+}
 .mini-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -494,6 +529,10 @@ select option { color: #06101d; }
   72% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1.08); filter: blur(8px); }
 }
+@keyframes libraryPulse {
+  0%, 100% { border-color: var(--line); box-shadow: inset 0 1px 0 rgba(255,255,255,.09); }
+  28% { border-color: rgba(255,215,107,.85); box-shadow: 0 0 34px rgba(255,215,107,.24), inset 0 1px 0 rgba(255,255,255,.16); }
+}
 @media (max-width: 1120px) and (orientation: landscape) {
   .shell {
     grid-template-rows: 50px minmax(0, 1fr);
@@ -525,6 +564,10 @@ select option { color: #06101d; }
     min-height: 30px;
     padding: 4px 7px;
     font-size: 10px;
+  }
+  .library-action {
+    display: inline-flex;
+    align-items: center;
   }
   .hud b { font-size: 15px; }
   .game {
@@ -589,6 +632,11 @@ select option { color: #06101d; }
   button {
     min-height: 32px;
     border-radius: 8px;
+  }
+  .selector-kicker,
+  .library-status {
+    padding: 6px 8px;
+    font-size: 9px;
   }
   .feedback { display: none; }
   .command {

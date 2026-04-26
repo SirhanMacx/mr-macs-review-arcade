@@ -20,6 +20,7 @@
       <span><b id="lives">25</b> lives</span>
       <span><b id="insight">650</b> insight</span>
       <span><b id="score">0</b> score</span>
+      <button id="libraryBtn" class="hud-action library-action" type="button" aria-label="Open review library">Library</button>
       <button id="fullscreenBtn" class="hud-action" type="button" aria-label="Enter fullscreen">Fullscreen</button>
     </div>
   </header>
@@ -55,18 +56,20 @@
     </div>
 
     <aside class="command">
-      <section class="panel">
+      <section class="panel library-panel" id="libraryPanel">
         <div class="panel-title">
-          <span>Question Feed</span>
+          <span>Review Library</span>
           <strong id="bankCount">0 prompts</strong>
         </div>
-        <button id="reactorDock" class="reactor-dock" type="button" aria-controls="questionConsole" aria-expanded="true">Hide Question Panel</button>
+        <div class="selector-kicker">Course Content Selector</div>
         <label>Course
           <select id="courseFilter"></select>
         </label>
-        <label>Content Set
+        <label>Unit / Exam Content
           <select id="setFilter"></select>
         </label>
+        <div class="library-status" id="libraryStatus">All Courses / All Sets</div>
+        <button id="reactorDock" class="reactor-dock" type="button" aria-controls="questionConsole" aria-expanded="true">Hide Question Panel</button>
         <div class="mini-grid">
           <button id="startWave" class="primary" type="button">Launch Wave</button>
           <button id="pauseBtn" type="button">Pause</button>
