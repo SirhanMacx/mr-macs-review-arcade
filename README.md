@@ -7,7 +7,7 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 ## What Is Included
 
 - 52 browser-playable review games
-- Chrono Rift, a 3D mobile-style history runner using the shared 300-question stimulus bank
+- Time Pilot, a 3D flight mission prototype using the shared 300-question stimulus bank and source-first checkpoint scans
 - Regents Gauntlet, a multi-file MCQ game with 300 answer-keyed Regents questions and embedded original stimulus pages
 - Boss Rush Arena, a master game that can switch courses, units, and comprehensive review runs
 - Grade 9 Global History I
@@ -17,7 +17,7 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - Unit games, cumulative games, and final review games
 - Search, filters, featured games, and embedded in-page player
 - Solo and team play options
-- Shared data and source-image files for newer game modes, starting with `data/regents-gauntlet-bank.json`, `assets/regents-gauntlet-stimuli/`, and the Chrono Rift arena assets
+- Shared data and source-image files for newer game modes, starting with `data/regents-gauntlet-bank.json`, `assets/regents-gauntlet-stimuli/`, and the Time Pilot flight assets
 
 ## Content Rule
 
@@ -55,7 +55,7 @@ Current performance choices:
 - card tilt effects are disabled on smaller screens
 - games remain static HTML files with no backend required
 - stimulus pages are compressed JPG assets and reused by Gauntlet and newer game modes
-- the 3D runner is built as a static browser game with Three.js and capped rendering settings
+- Time Pilot is built as a static Three.js browser game with capped rendering settings
 
 ## Updating Games
 
