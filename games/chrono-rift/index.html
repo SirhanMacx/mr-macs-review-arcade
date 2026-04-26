@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:,">
+<title>Chrono Rift | Mr. Mac's Review Arcade</title>
+<link rel="stylesheet" href="styles.css?v=20260426-chrono-rift">
+</head>
+<body>
+<div class="backdrop"></div>
+<main id="app">
+  <canvas id="stage"></canvas>
+  <section id="hud" class="hud hidden">
+    <div class="hud-top">
+      <div class="chip"><span>Score</span><strong id="scoreText">0</strong></div>
+      <div class="chip"><span>Streak</span><strong id="streakText">0</strong></div>
+      <div class="chip"><span>Shields</span><strong id="shieldText">3</strong></div>
+      <button id="pauseBtn" class="hud-btn" type="button">Pause</button>
+    </div>
+    <div class="prompt">
+      <div class="prompt-main">
+        <span id="missionText">Mission</span>
+        <strong id="questionText">Loading...</strong>
+      </div>
+      <button id="sourceBtn" class="source-btn" type="button">Source</button>
+    </div>
+    <div id="choiceDock" class="choice-dock"></div>
+    <div id="toast" class="toast hidden"></div>
+  </section>
+
+  <section id="setup" class="panel setup">
+    <div class="brand">Mr. Mac's Review Arcade</div>
+    <h1>Chrono Rift</h1>
+    <p>Steer through a 3D history rift, collect energy, dodge hazards, and hit the correct answer portal before it reaches you.</p>
+    <div id="stats" class="stats"></div>
+    <div class="actions setup-actions">
+      <button id="startBtn" class="btn primary" type="button">Enter Rift</button>
+      <button id="arcadeBtn" class="btn ghost" type="button">Arcade Home</button>
+    </div>
+    <div class="controls-grid">
+      <label>Course
+        <select id="courseSelect"></select>
+      </label>
+      <label>Review Set
+        <select id="setSelect"></select>
+      </label>
+      <label>Run Length
+        <select id="lengthSelect">
+          <option value="12">12 gates</option>
+          <option value="20" selected>20 gates</option>
+          <option value="40">40 gates</option>
+        </select>
+      </label>
+      <label>Speed
+        <select id="speedSelect">
+          <option value="0.86">Cruise</option>
+          <option value="1" selected>Arcade</option>
+          <option value="1.16">Insane</option>
+        </select>
+      </label>
+    </div>
+    <div id="preview" class="preview"></div>
+  </section>
+
+  <section id="sourcePanel" class="source-panel hidden">
+    <div class="source-head">
+      <div>
+        <span>Source Shard</span>
+        <strong id="sourceTitle">Original page</strong>
+      </div>
+      <button id="closeSourceBtn" type="button">Close</button>
+    </div>
+    <div id="sourceImages" class="source-images"></div>
+  </section>
+
+  <section id="pausePanel" class="panel pause hidden">
+    <h2>Rift Paused</h2>
+    <p id="pauseMeta">Keep the streak alive.</p>
+    <div class="actions">
+      <button id="resumeBtn" class="btn primary" type="button">Resume</button>
+      <button id="endBtn" class="btn ghost" type="button">End Run</button>
+    </div>
+  </section>
+
+  <section id="summary" class="panel summary hidden">
+    <span>Run Complete</span>
+    <h1 id="summaryTitle">Chrono Rift Results</h1>
+    <div id="summaryStats" class="stats"></div>
+    <div class="missed">
+      <strong>Study Targets</strong>
+      <div id="missedList"></div>
+    </div>
+    <div class="actions">
+      <button id="againBtn" class="btn primary" type="button">Run Again</button>
+      <button id="settingsBtn" class="btn ghost" type="button">Settings</button>
+    </div>
+  </section>
+
+  <nav id="mobileControls" class="mobile-controls hidden" aria-label="Runner controls">
+    <button id="leftBtn" type="button" aria-label="Move left">Left</button>
+    <button id="rightBtn" type="button" aria-label="Move right">Right</button>
+  </nav>
+</main>
+<script type="module" src="game.js?v=20260426-chrono-rift"></script>
+</body>
+</html>
