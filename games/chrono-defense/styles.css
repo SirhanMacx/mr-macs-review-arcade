@@ -244,16 +244,41 @@ button:disabled {
   box-shadow: 0 20px 62px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.11);
   overflow: auto;
 }
+.question-console.is-collapsed {
+  display: none;
+}
 .question-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
+.question-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
 .question-head strong {
   color: var(--gold);
   font-size: 12px;
   text-transform: uppercase;
+}
+.reactor-toggle,
+.reactor-dock {
+  min-height: 32px;
+  border-color: rgba(103,239,255,.32);
+  color: var(--cyan);
+  background: linear-gradient(180deg, rgba(103,239,255,.12), rgba(103,239,255,.045));
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.reactor-toggle {
+  padding: 0 11px;
+  border-radius: 999px;
+}
+.reactor-dock {
+  width: 100%;
 }
 .question-body {
   display: grid;
@@ -529,6 +554,21 @@ select option { color: #06101d; }
     max-height: 34%;
     padding: 8px;
     gap: 6px;
+  }
+  .question-actions {
+    gap: 5px;
+  }
+  .question-head strong {
+    font-size: 10px;
+  }
+  .reactor-toggle,
+  .reactor-dock {
+    min-height: 28px;
+    border-radius: 8px;
+    font-size: 9px;
+  }
+  .reactor-toggle {
+    padding: 0 8px;
   }
   #questionPrompt {
     font-size: 12px;

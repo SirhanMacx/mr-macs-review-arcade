@@ -30,6 +30,7 @@
     fullscreenBtn: $("fullscreenBtn"),
     missionTitle: $("missionTitle"),
     missionText: $("missionText"),
+    questionConsole: $("questionConsole"),
     questionMeta: $("questionMeta"),
     questionStreak: $("questionStreak"),
     questionPrompt: $("questionPrompt"),
@@ -37,6 +38,8 @@
     choices: $("choices"),
     typedForm: $("typedForm"),
     typedAnswer: $("typedAnswer"),
+    toggleQuestion: $("toggleQuestion"),
+    reactorDock: $("reactorDock"),
     feedback: $("feedback"),
     waveBanner: $("waveBanner"),
     powerCharge: $("powerCharge")
@@ -199,6 +202,7 @@
     shake: 0,
     hover: null,
     reactorFlash: 0,
+    questionCollapsed: false,
     pathLength: 0,
     segments: []
   };
@@ -312,6 +316,9 @@
     updateHud();
     els.missionTitle.textContent = "Build, answer, survive";
     els.missionText.textContent = "Place social studies towers, answer the reactor prompts, and hold the path through infinite review waves.";
+    if (matchMedia("(max-width: 1120px) and (orientation: landscape)").matches) {
+      setQuestionCollapsed(true);
+    }
     prepareQuestion();
     requestAnimationFrame(loop);
   }
@@ -396,7 +403,7 @@
     } else {
       els.choices.style.display = "none";
       els.typedForm.style.display = "grid";
-      els.typedAnswer.focus({ preventScroll: true });
+      if (!state.questionCollapsed) els.typedAnswer.focus({ preventScroll: true });
     }
   }
 
@@ -453,6 +460,8 @@
     els.upgradeBtn.addEventListener("click", upgradeSelected);
     els.sellBtn.addEventListener("click", sellSelected);
     els.fullscreenBtn.addEventListener("click", toggleFullscreen);
+    els.toggleQuestion.addEventListener("click", () => setQuestionCollapsed(true));
+    els.reactorDock.addEventListener("click", () => setQuestionCollapsed(!state.questionCollapsed));
     els.canvas.addEventListener("pointermove", (event) => {
       state.hover = canvasPoint(event);
     });
@@ -460,6 +469,17 @@
       state.hover = null;
     });
     els.canvas.addEventListener("click", handleCanvasClick);
+  }
+
+  function setQuestionCollapsed(collapsed) {
+    state.questionCollapsed = collapsed;
+    els.questionConsole.classList.toggle("is-collapsed", collapsed);
+    els.toggleQuestion.setAttribute("aria-expanded", String(!collapsed));
+    els.reactorDock.setAttribute("aria-expanded", String(!collapsed));
+    els.reactorDock.textContent = collapsed ? "Show Question Panel" : "Hide Question Panel";
+    if (!collapsed && els.typedForm.style.display !== "none") {
+      els.typedAnswer.focus({ preventScroll: true });
+    }
   }
 
   function renderTowerList() {
