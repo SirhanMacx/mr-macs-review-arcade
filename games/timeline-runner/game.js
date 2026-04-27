@@ -127,7 +127,8 @@
     sawFirstGate: false,
     runCourse: "All Courses",
     runSet: "All Sets",
-    runIntensity: "standard"
+    runIntensity: "standard",
+    stage: { scale: 1, ox: 0, oy: 0, width: BASE_W, height: BASE_H }
   };
 
   class AudioBus {
@@ -854,6 +855,7 @@
     player.jumpTime = Math.max(0, player.jumpTime - dt);
     player.slideTime = Math.max(0, player.slideTime - dt);
     player.visualLane += (player.lane - player.visualLane) * Math.min(1, dt * 12);
+    emitRunSparks(dt);
 
     state.gateTimer -= dt;
     state.obstacleTimer -= dt;
@@ -940,6 +942,29 @@
     };
   }
 
+  function emitRunSparks(dt) {
+    if (reduceMotion || state.particles.length > 170) return;
+    const density = state.boost > 0 ? 4 : 2;
+    const count = Math.max(1, Math.floor(density * state.speedPace));
+    for (let i = 0; i < count; i++) {
+      if (Math.random() > dt * 20) continue;
+      const lane = Math.floor(Math.random() * 3);
+      const p = .68 + Math.random() * .25;
+      const point = lanePoint(lane, p);
+      const color = gateColors[lane];
+      state.particles.push({
+        x: point.x + (Math.random() - .5) * 46 * point.scale,
+        y: point.y + 26 * point.scale,
+        vx: (Math.random() - .5) * 72,
+        vy: 160 + Math.random() * 210,
+        radius: (1.5 + Math.random() * 4.2) * point.scale,
+        color,
+        life: .18 + Math.random() * .34,
+        maxLife: .52
+      });
+    }
+  }
+
   function addParticles(x, y, count, color, power = 1) {
     if (reduceMotion) return;
     for (let i = 0; i < count; i++) {
@@ -981,9 +1006,20 @@
     ctx.fillStyle = "#050711";
     ctx.fillRect(0, 0, rect.width, rect.height);
 
-    const scale = Math.max(rect.width / BASE_W, rect.height / BASE_H);
+    if (images.background) {
+      ctx.save();
+      ctx.filter = "blur(10px) saturate(1.18) brightness(.70)";
+      drawRawImageCover(images.background, -20, -20, rect.width + 40, rect.height + 40);
+      ctx.filter = "none";
+      ctx.fillStyle = "rgba(5,7,17,.50)";
+      ctx.fillRect(0, 0, rect.width, rect.height);
+      ctx.restore();
+    }
+
+    const scale = Math.min(rect.width / BASE_W, rect.height / BASE_H);
     const ox = (rect.width - BASE_W * scale) / 2;
     const oy = (rect.height - BASE_H * scale) / 2;
+    state.stage = { scale, ox, oy, width: BASE_W * scale, height: BASE_H * scale };
     if (state.shake > 0) {
       const s = state.shake;
       ctx.translate((Math.random() - .5) * s, (Math.random() - .5) * s);
@@ -997,6 +1033,7 @@
     beginCanvas();
     drawBackground();
     drawRoad();
+    drawSpeedTunnel();
     drawWorldObjects();
     drawPlayer();
     drawParticles();
@@ -1043,6 +1080,7 @@
       }
       ctx.restore();
     }
+    drawFloatingPanels();
   }
 
   function drawImageCover(img, x, y, w, h) {
@@ -1052,6 +1090,87 @@
     const sx = (img.naturalWidth - sw) / 2;
     const sy = (img.naturalHeight - sh) / 2;
     ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+  }
+
+  function drawRawImageCover(img, x, y, w, h) {
+    const imgW = img.naturalWidth || img.width;
+    const imgH = img.naturalHeight || img.height;
+    const scale = Math.max(w / imgW, h / imgH);
+    const sw = w / scale;
+    const sh = h / scale;
+    const sx = (imgW - sw) / 2;
+    const sy = (imgH - sh) / 2;
+    ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+  }
+
+  function drawFloatingPanels() {
+    if (reduceMotion) return;
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+    for (let i = 0; i < 12; i++) {
+      const side = i % 2 ? -1 : 1;
+      const p = (state.elapsed * .055 + state.distance * .000035 + i * .097) % 1;
+      const drift = Math.sin(state.elapsed * .8 + i * 1.7) * 34;
+      const x = 800 + side * lerp(250, 690, p) + drift;
+      const y = lerp(170, 740, Math.pow(p, 1.18));
+      const w = lerp(54, 170, p);
+      const h = w * .64;
+      const alpha = lerp(.05, .22, p);
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(side * (.12 + Math.sin(state.elapsed + i) * .05));
+      ctx.fillStyle = `rgba(117,236,255,${alpha * .40})`;
+      ctx.strokeStyle = `rgba(${i % 3 === 0 ? "245,196,81" : i % 3 === 1 ? "117,236,255" : "255,123,204"},${alpha})`;
+      ctx.lineWidth = 1.4;
+      roundRect(-w / 2, -h / 2, w, h, 8);
+      ctx.fill();
+      roundRect(-w / 2, -h / 2, w, h, 8);
+      ctx.stroke();
+      ctx.globalAlpha = alpha * 1.8;
+      for (let line = 0; line < 4; line++) {
+        ctx.beginPath();
+        ctx.moveTo(-w * .33, -h * .20 + line * h * .13);
+        ctx.lineTo(w * (.14 + line * .06), -h * .20 + line * h * .13);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  function drawSpeedTunnel() {
+    if (reduceMotion) return;
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+    for (let lane = 0; lane < 3; lane++) {
+      for (let i = 0; i < 8; i++) {
+        const p = (state.distance * .00125 + i / 8 + lane * .13) % 1;
+        const start = lanePoint(lane, clamp(p, .04, .98));
+        const end = lanePoint(lane, clamp(p + .055, .05, .99));
+        const alpha = lerp(.04, .46, p) * (state.boost > 0 ? 1.45 : 1);
+        ctx.strokeStyle = hexToRgba(gateColors[lane], alpha);
+        ctx.lineWidth = lerp(2, 9, p);
+        ctx.shadowColor = gateColors[lane];
+        ctx.shadowBlur = 18;
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(end.x, end.y);
+        ctx.stroke();
+      }
+    }
+
+    for (let i = 0; i < 14; i++) {
+      const p = (state.elapsed * .35 + state.distance * .0009 + i * .071) % 1;
+      const left = lanePoint(0, p);
+      const right = lanePoint(2, p);
+      ctx.strokeStyle = `rgba(255,255,255,${lerp(.02, .16, p)})`;
+      ctx.lineWidth = lerp(1, 3, p);
+      ctx.beginPath();
+      ctx.moveTo(left.x - 78 * p, left.y);
+      ctx.lineTo(right.x + 78 * p, right.y);
+      ctx.stroke();
+    }
+    ctx.restore();
   }
 
   function drawRoad() {
@@ -1116,18 +1235,37 @@
     const point = lanePoint(obj.lane, obj.progress);
     const size = 160 * point.scale;
     const alpha = clamp(obj.progress * 2.4, .15, 1);
+    const pulse = 1 + Math.sin(state.elapsed * 6.5 + obj.lane * 1.7) * .07;
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.globalCompositeOperation = "screen";
-    drawSprite(obj.sprite, point.x, point.y - size * .34, size, alpha);
+    ctx.strokeStyle = obj.color;
+    ctx.lineWidth = Math.max(2, size * .035);
+    ctx.shadowColor = obj.color;
+    ctx.shadowBlur = 28;
+    ctx.beginPath();
+    ctx.ellipse(point.x, point.y - size * .35, size * .52 * pulse, size * .72 * pulse, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.globalAlpha = alpha * .38;
+    ctx.beginPath();
+    ctx.moveTo(point.x, point.y - size * .96);
+    ctx.lineTo(point.x - size * .52, point.y + size * .18);
+    ctx.lineTo(point.x + size * .52, point.y + size * .18);
+    ctx.closePath();
+    ctx.fillStyle = obj.color;
+    ctx.fill();
+    ctx.globalAlpha = alpha;
+    drawSprite(obj.sprite, point.x, point.y - size * .34, size * pulse, alpha);
     ctx.globalCompositeOperation = "source-over";
     drawGateLabel(obj, point.x, point.y - size * .95, size);
     ctx.restore();
   }
 
   function drawGateLabel(obj, x, y, size) {
-    const width = clamp(size * 1.9, 128, 330);
-    const height = clamp(size * .56, 52, 92);
+    const text = cleanText(obj.choice.text);
+    const width = clamp(size * (text.length > 34 ? 2.25 : 1.95), 144, 420);
+    const height = clamp(size * (text.length > 34 ? .74 : .60), 58, 118);
+    x = clamp(x, width / 2 + 24, BASE_W - width / 2 - 24);
     ctx.save();
     ctx.translate(x - width / 2, y - height / 2);
     const grd = ctx.createLinearGradient(0, 0, width, height);
@@ -1144,10 +1282,11 @@
     ctx.stroke();
     ctx.shadowBlur = 0;
     ctx.fillStyle = "#f7f4ec";
-    ctx.font = `800 ${clamp(size * .12, 12, 18)}px Inter, system-ui, sans-serif`;
+    const fontSize = clamp(size * .12 - Math.max(0, text.length - 32) * .035, 10.5, 18);
+    ctx.font = `800 ${fontSize}px Inter, system-ui, sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    wrapCanvasText(obj.choice.text, width / 2, height / 2, width - 22, clamp(size * .14, 13, 19), 2);
+    wrapCanvasText(text, width / 2, height / 2, width - 22, fontSize * 1.18, 3);
     ctx.restore();
   }
 
@@ -1196,8 +1335,10 @@
     const lift = jumpLift() * 142;
     const sliding = player.slideTime > 0;
     const x = p.x;
-    const y = 770 - lift + (sliding ? 24 : 0);
+    const runBob = Math.sin(state.elapsed * 15.5) * (sliding ? 2 : 7);
+    const y = 770 - lift + (sliding ? 24 : 0) + runBob;
     const size = sliding ? 126 : 154;
+    const tilt = (player.lane - player.visualLane) * .18 + Math.sin(state.elapsed * 12) * .025;
     ctx.save();
     ctx.globalAlpha = player.invulnerable > 0 ? .62 + Math.sin(state.elapsed * 28) * .22 : 1;
     ctx.fillStyle = "rgba(0,0,0,.42)";
@@ -1205,6 +1346,11 @@
     ctx.ellipse(x, 806, sliding ? 72 : 58, sliding ? 13 : 18, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.globalCompositeOperation = "screen";
+    for (let i = 3; i > 0; i--) {
+      ctx.globalAlpha = .10 * i;
+      drawSprite(SPRITES.runner, x - i * 22, y + i * 10, size * (1 - i * .04), .22);
+    }
+    ctx.globalAlpha = player.invulnerable > 0 ? .62 + Math.sin(state.elapsed * 28) * .22 : 1;
     if (state.boost > 0) {
       ctx.strokeStyle = "rgba(245,196,81,.65)";
       ctx.lineWidth = 9;
@@ -1220,7 +1366,11 @@
       ctx.lineTo(x - 135, y + 38);
       ctx.stroke();
     }
-    drawSprite(SPRITES.runner, x, y, size, 1);
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(tilt);
+    drawSprite(SPRITES.runner, 0, 0, size, 1);
+    ctx.restore();
     if (state.shields > 0) {
       ctx.strokeStyle = "rgba(117,236,255,.75)";
       ctx.lineWidth = 4;
