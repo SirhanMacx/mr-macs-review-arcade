@@ -423,34 +423,39 @@ select option { color: #07101d; }
     min-height: 0;
     overflow: hidden;
     align-content: start;
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto auto;
   }
   .powers-panel { display: none; }
   label select, .typed-form input, button { min-height: 32px; border-radius: 8px; }
   .selector-kicker, .library-status { padding: 6px 8px; font-size: 9px; }
   #questionPrompt, .question-panel p, .feedback { font-size: 10px; }
   #questionPrompt {
-    padding: 4px 5px;
+    display: block;
+    min-height: 36px;
+    max-height: 58px;
+    overflow-y: auto;
+    padding: 5px 6px;
     border-radius: 6px;
     background: rgba(255,255,255,.045);
     color: #f8fbff;
     font-weight: 850;
-    line-height: 1.22;
+    line-height: 1.2;
   }
   .stimulus { padding: 5px; gap: 4px; }
   .stimulus button {
     grid-template-columns: minmax(0, 1fr);
-    min-height: 28px;
+    min-height: 26px;
     padding: 4px 7px;
   }
   .stimulus img { display: none; }
   .stimulus span { font-size: 9px; }
-  #questionPrompt {
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+  .choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 1px;
   }
-  .choices { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
   .choices button { min-height: 28px; padding: 5px; font-size: 9.5px; }
   .typed-form { grid-template-columns: minmax(0, 1fr) 58px; gap: 5px; }
   .relic-list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
