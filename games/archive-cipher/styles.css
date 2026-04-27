@@ -526,9 +526,8 @@ select {
     border-radius: 16px;
   }
   .clue-panel {
-    max-height: 218px;
-    overflow: auto;
-    scrollbar-width: thin;
+    max-height: none;
+    overflow: visible;
   }
   .panel-kicker,
   label span {
@@ -546,19 +545,20 @@ select {
     line-height: 1.28;
   }
   .meta-row {
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    overflow: visible;
     gap: 6px;
     margin-top: 10px;
-    padding-bottom: 2px;
-    scrollbar-width: none;
   }
   .meta-row::-webkit-scrollbar { display: none; }
   .meta-pill,
   .library-count {
-    flex: 0 0 auto;
+    flex: 0 1 auto;
+    max-width: 100%;
     padding: 7px 9px;
     font-size: 10px;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
   .hint-box {
     min-height: 0;
@@ -619,7 +619,7 @@ select {
 @media (max-width: 520px) {
   .stats div:nth-child(3) { display: none; }
   .stats { grid-template-columns: repeat(3, 1fr); }
-  .clue-panel { max-height: 205px; }
+  .clue-panel { max-height: none; }
   #termTitle { font-size: 27px; }
   #clueText { font-size: 13.5px; }
   .board { gap: 5px; }
@@ -631,7 +631,7 @@ select {
   .cipher-shell { padding-bottom: calc(122px + env(safe-area-inset-bottom)); }
   .brand strong { font-size: 14px; }
   .stats div { padding: 5px 6px; }
-  .clue-panel { max-height: 182px; }
+  .clue-panel { max-height: none; }
   .tile { width: min(7vw, 30px); min-width: 19px; }
   .key { min-height: 34px; font-size: 10px; border-radius: 8px; }
   .keyboard { gap: 5px; padding: 7px; }
@@ -641,7 +641,8 @@ select {
   .cipher-shell {
     min-height: 100dvh;
     padding: 6px 8px calc(100px + env(safe-area-inset-bottom));
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   .topbar {
     grid-template-columns: minmax(170px, 1fr) auto auto;
@@ -669,7 +670,7 @@ select {
     border-radius: 12px;
   }
   .game-stage {
-    height: calc(100dvh - 166px);
+    height: auto;
     min-height: 220px;
     margin-top: 8px;
     grid-template-columns: minmax(210px, .92fr) minmax(320px, 1.08fr) minmax(210px, .8fr);
@@ -679,14 +680,14 @@ select {
   .clue-panel {
     grid-column: auto;
     max-height: none;
-    overflow: auto;
+    overflow: visible;
     padding: 12px;
     border-radius: 16px;
   }
   .control-panel {
     padding: 12px;
     gap: 8px;
-    overflow: auto;
+    overflow: visible;
     border-radius: 16px;
   }
   .panel-kicker,
