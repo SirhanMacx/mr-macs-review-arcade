@@ -2,20 +2,23 @@
   "use strict";
 
   const STORAGE_KEY = "mr-macs-history-hunters-v1";
-  const WORLD_W = 2600;
-  const WORLD_H = 1600;
+  const WORLD_W = 3600;
+  const WORLD_H = 2300;
   const $ = (id) => document.getElementById(id);
 
   const els = {
     canvas: $("world"),
     level: $("level"),
+    partyHp: $("partyHp"),
     rosterCount: $("rosterCount"),
     shards: $("shards"),
     streak: $("streak"),
     courseFilter: $("courseFilter"),
     setFilter: $("setFilter"),
     huntBtn: $("huntBtn"),
+    actionBtn: $("actionBtn"),
     mapBtn: $("mapBtn"),
+    bagBtn: $("bagBtn"),
     rosterBtn: $("rosterBtn"),
     codexBtn: $("codexBtn"),
     activeRegion: $("activeRegion"),
@@ -26,6 +29,15 @@
     rosterPanel: $("rosterPanel"),
     closeRoster: $("closeRoster"),
     rosterList: $("rosterList"),
+    bagPanel: $("bagPanel"),
+    closeBag: $("closeBag"),
+    bagList: $("bagList"),
+    dialoguePanel: $("dialoguePanel"),
+    dialogueKicker: $("dialogueKicker"),
+    dialogueTitle: $("dialogueTitle"),
+    dialogueText: $("dialogueText"),
+    dialogueActions: $("dialogueActions"),
+    closeDialogue: $("closeDialogue"),
     encounter: $("encounter"),
     portrait: $("portrait"),
     portraitMark: $("portraitMark"),
@@ -94,16 +106,146 @@
     archiveBurst: [489, 1280, 305, 166]
   };
   const openWorldSpots = [
-    [324, 300], [620, 288], [970, 276], [1560, 276], [1960, 296], [2280, 336],
-    [270, 610], [650, 610], [1010, 610], [1600, 610], [1980, 620], [2300, 650],
-    [280, 990], [620, 1020], [990, 1010], [1610, 1000], [1980, 1010], [2320, 1030],
-    [360, 1320], [760, 1328], [1130, 1330], [1510, 1324], [1900, 1328], [2240, 1310]
+    [330, 310], [680, 300], [1080, 300], [1540, 300], [2070, 310], [2600, 330], [3150, 360],
+    [300, 650], [690, 650], [1110, 640], [1560, 650], [2070, 660], [2590, 670], [3120, 690],
+    [330, 1060], [720, 1070], [1160, 1060], [1600, 1070], [2070, 1080], [2600, 1090], [3120, 1110],
+    [390, 1480], [800, 1490], [1240, 1500], [1710, 1490], [2140, 1510], [2630, 1510], [3100, 1500],
+    [450, 1900], [910, 1900], [1370, 1905], [1830, 1900], [2290, 1910], [2750, 1900], [3180, 1880]
   ];
   const tallGrassZones = [
-    [180, 180, 520, 240], [780, 170, 340, 250], [1660, 175, 520, 250],
-    [170, 500, 370, 250], [760, 520, 310, 230], [1680, 520, 380, 240],
-    [250, 1120, 430, 260], [760, 1120, 390, 250], [1600, 1120, 520, 250]
+    [160, 180, 560, 250], [880, 160, 420, 260], [1840, 170, 580, 260], [2860, 180, 520, 270],
+    [180, 520, 420, 270], [890, 520, 360, 250], [1840, 520, 430, 260], [2840, 550, 500, 270],
+    [250, 1200, 520, 300], [880, 1200, 470, 280], [1830, 1200, 590, 290], [2820, 1180, 540, 300],
+    [280, 1740, 560, 300], [1060, 1760, 520, 300], [1900, 1760, 560, 300], [2740, 1720, 540, 310]
   ];
+
+  const worldPlaces = [
+    {
+      id: "center",
+      kind: "center",
+      name: "Chronicle Center",
+      x: 1180,
+      y: 1110,
+      icon: "school",
+      text: "Nurse Archive restores your party health and saves the expedition log."
+    },
+    {
+      id: "mart",
+      kind: "shop",
+      name: "Archive Supply",
+      x: 1510,
+      y: 1110,
+      icon: "chest",
+      text: "Buy field items with shards: capsules, notes, lenses, and emergency restores."
+    },
+    {
+      id: "lab",
+      kind: "story",
+      name: "Professor Mac's Lab",
+      x: 1320,
+      y: 820,
+      icon: "gate",
+      text: "Professor Mac tracks your route badge progress and unlocks the next chapter."
+    },
+    {
+      id: "museum",
+      kind: "story",
+      name: "Source Museum",
+      x: 2230,
+      y: 1260,
+      icon: "arch",
+      text: "The museum curator teaches source-based battles and rewards careful evidence reading."
+    },
+    {
+      id: "harbor",
+      kind: "story",
+      name: "Exchange Harbor",
+      x: 3040,
+      y: 1720,
+      icon: "portal",
+      text: "A route hub for global networks, trade, migration, and empire encounters."
+    }
+  ];
+
+  const npcs = [
+    {
+      id: "guide",
+      name: "Guide Maya",
+      x: 1250,
+      y: 930,
+      type: "Guide",
+      text: "Walk into tall grass to trigger wild review encounters. Use Talk / Use near buildings and people.",
+      grant: "starter"
+    },
+    {
+      id: "rival",
+      name: "Rival Carter",
+      x: 1710,
+      y: 920,
+      type: "Route Rival",
+      text: "I am clearing the archive routes with a full roster. Beat my checkpoint questions and prove your party is ready.",
+      action: "battle"
+    },
+    {
+      id: "curator",
+      name: "Curator Rivera",
+      x: 2295,
+      y: 1410,
+      type: "Source Coach",
+      text: "Stimulus questions are not bonus flavor. Read the map, cartoon, chart, or excerpt first, then attack.",
+      grant: "lens"
+    },
+    {
+      id: "captain",
+      name: "Captain Zora",
+      x: 3080,
+      y: 1870,
+      type: "Harbor Captain",
+      text: "Global routes connect goods, ideas, disease, technologies, people, and power. That is how you win the long game.",
+      action: "battle"
+    }
+  ];
+
+  const storyChapters = [
+    "Chapter 1: Get your first historical ally.",
+    "Chapter 2: Build a three-ally party across course types.",
+    "Chapter 3: Clear five review missions and visit the Source Museum.",
+    "Chapter 4: Reach the harbor with a level 5 roster leader.",
+    "Chapter 5: Master mode unlocked. Keep collecting figure lines across every course."
+  ];
+
+  const itemCatalog = {
+    capsule: {
+      label: "Archive Capsule",
+      price: 24,
+      description: "Starts a capture check during battle. Best after a correct answer.",
+      battle: true
+    },
+    fieldNote: {
+      label: "Field Notes",
+      price: 18,
+      description: "Boosts the next correct answer and capture trust.",
+      battle: true
+    },
+    sourceLens: {
+      label: "Source Lens",
+      price: 32,
+      description: "Shows a source-reading hint and boosts stimulus questions.",
+      battle: true
+    },
+    healKit: {
+      label: "Restoration Tea",
+      price: 20,
+      description: "Restores 35 party HP anywhere.",
+      battle: true
+    },
+    treatyPass: {
+      label: "Treaty Pass",
+      price: 45,
+      description: "Safely exits a battle while keeping current streak.",
+      battle: true
+    }
+  };
 
   const palettes = [
     ["#70f2ff", "#ffd66e", "#2f68ff"],
@@ -399,6 +541,8 @@
     queue: [],
     nodes: [],
     selectedNode: null,
+    nearInteraction: null,
+    activeInteraction: null,
     running: false,
     encounterOpen: false,
     locked: false,
@@ -409,7 +553,7 @@
     trial: 0,
     wildSteps: 0,
     wildCooldown: 0,
-    player: { x: WORLD_W * .5, y: WORLD_H * .52, tx: WORLD_W * .5, ty: WORLD_H * .52, speed: 420 },
+    player: { x: 1320, y: 1040, tx: 1320, ty: 1040, speed: 420 },
     camera: { x: 0, y: 0 },
     keys: {},
     particles: [],
@@ -422,12 +566,42 @@
   const sensitiveRe = /(holocaust|genocide|enslaved|enslavement|slavery|slave trade|massacre|terrorism|ethnic cleansing|aids|pandemic|famine|atrocit|segregation|apartheid)/i;
   const sourcePromptRe = /(\bthis\s+(amendment|document|letter|speech|excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\bthese\s+(issues|documents|statements|headlines|conditions|changes|questions|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b|similar\s+to\s+this)/i;
 
+  function defaultStats() {
+    return {
+      rank: 1,
+      shards: 0,
+      streak: 0,
+      bestStreak: 0,
+      roster: [],
+      missions: 0,
+      xp: 0,
+      playerHp: 100,
+      maxHp: 100,
+      storyStep: 0,
+      flags: {},
+      items: { capsule: 3, fieldNote: 2, sourceLens: 1, healKit: 1, treatyPass: 0 }
+    };
+  }
+
+  function normalizeStats(saved) {
+    const base = defaultStats();
+    const stats = Object.assign(base, saved || {});
+    stats.roster = Array.isArray(stats.roster) ? stats.roster : [];
+    stats.items = Object.assign(base.items, saved && saved.items || {});
+    stats.flags = Object.assign({}, saved && saved.flags || {});
+    stats.maxHp = Math.max(100, Number(stats.maxHp || 100));
+    stats.playerHp = clamp(Number(stats.playerHp || stats.maxHp), 0, stats.maxHp);
+    stats.xp = Math.max(0, Number(stats.xp || 0));
+    stats.storyStep = clamp(Number(stats.storyStep || 0), 0, storyChapters.length - 1);
+    return stats;
+  }
+
   function readSave() {
     try {
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-      return Object.assign({ rank: 1, shards: 0, streak: 0, bestStreak: 0, roster: [], missions: 0 }, saved);
+      return normalizeStats(saved);
     } catch {
-      return { rank: 1, shards: 0, streak: 0, bestStreak: 0, roster: [], missions: 0 };
+      return defaultStats();
     }
   }
 
@@ -819,8 +993,9 @@
     const course = els.courseFilter.value;
     const set = els.setFilter.value;
     const label = state.selectedNode ? state.selectedNode.label : (set !== "All Sets" ? set : course);
+    const chapter = storyChapters[state.stats.storyStep || 0] || storyChapters[0];
     els.activeRegion.textContent = label || "Open Archive";
-    els.questText.textContent = `${state.filtered.length.toLocaleString()} prompts available. Move across the map, pick a region, and start hunts to recruit allies or complete archive missions.`;
+    els.questText.textContent = `${chapter} ${state.filtered.length.toLocaleString()} prompts available. Walk routes, talk to NPCs, heal at Chronicle Center, and hunt in tall grass.`;
   }
 
   function fillFilters() {
@@ -940,7 +1115,7 @@
     els.heroType.textContent = hero.type;
     els.enemyName.textContent = enemy.name;
     els.enemyType.textContent = enemy.type || "Review";
-    els.heroHp.style.width = `${clamp(battle.heroHp, 0, 100)}%`;
+    els.heroHp.style.width = `${clamp((battle.heroHp / (state.stats.maxHp || 100)) * 100, 0, 100)}%`;
     els.enemyHp.style.width = `${clamp(battle.enemyHp, 0, 100)}%`;
   }
 
@@ -949,8 +1124,8 @@
     els.battleActions.classList.remove("answering");
     els.battleActions.innerHTML = [
       ["fight", "Fight", "choose a move"],
-      ["study", "Study", "boost next answer"],
-      ["capsule", "Capsule", "answer to capture"],
+      ["study", "Study", `notes x${state.stats.items.fieldNote || 0}`],
+      ["capsule", "Capsule", `capsules x${state.stats.items.capsule || 0}`],
       ["run", "Run", "leave safely"]
     ].map(([action, label, detail]) => (
       `<button type="button" data-action="${action}" class="${action}"><strong>${label}</strong><small>${detail}</small></button>`
@@ -969,14 +1144,22 @@
       return;
     }
     if (action === "study") {
+      if (!spendItem("fieldNote")) {
+        setBattleLog("No Field Notes left. Visit Archive Supply or choose a move.");
+        return;
+      }
       state.battle.studyBoost = true;
-      state.capture = clamp(state.capture + 8, 0, 100);
+      state.capture = clamp(state.capture + 14, 0, 100);
       els.captureBar.style.width = `${state.capture}%`;
-      setBattleLog("Field notes prepared. The next correct answer gets a power boost.");
+      setBattleLog("Field Notes prepared. The next correct answer gets a power and capture boost.");
       clearQuestionArea("Choose Fight or throw an Archive Capsule when ready.");
       return;
     }
     if (action === "capsule") {
+      if (!state.stats.items.capsule) {
+        setBattleLog("No Archive Capsules left. Visit Archive Supply or keep fighting.");
+        return;
+      }
       if (state.capture < 35 && state.battle.enemyHp > 70) {
         setBattleLog("The echo broke free. Build trust with an answer first.");
         return;
@@ -987,6 +1170,7 @@
         return;
       }
       const hero = heroAlly();
+      spendItem("capsule");
       state.battle.pendingMove = { name: "Archive Capsule", type: hero.type, power: 12, captureBoost: true };
       setBattleLog("Archive Capsule armed. Answer the checkpoint to seal the recruit.");
       renderQuestion(q);
@@ -1023,6 +1207,7 @@
   function renderQuestion(q) {
     state.currentQuestion = q;
     state.locked = false;
+    els.encounter.classList.add("answering");
     if (state.battle) state.battle.awaitingAnswer = true;
     els.moveButtons.classList.add("answering");
     if (els.battleActions) els.battleActions.classList.add("answering");
@@ -1048,13 +1233,14 @@
       els.typedForm.style.display = "grid";
       setTimeout(() => els.typedAnswer.focus({ preventScroll: true }), 50);
     }
-    if (innerHeight < 560) {
+    if (innerHeight < 760 || innerWidth < 740) {
       setTimeout(() => els.questionText.scrollIntoView({ block: "center", inline: "nearest" }), 40);
     }
   }
 
   function clearQuestionArea(message) {
     state.currentQuestion = null;
+    els.encounter.classList.remove("answering");
     els.moveButtons.classList.remove("answering", "open");
     if (els.battleActions) els.battleActions.classList.remove("answering");
     els.questionText.textContent = message;
@@ -1068,12 +1254,19 @@
   function openEncounter() {
     const pool = filteredForNode();
     if (!pool.length) return;
+    if ((state.stats.playerHp || 0) <= 0) {
+      setDialogue("Party Health", "Party Exhausted", "Visit the Chronicle Center or use Restoration Tea before starting another battle.", [
+        { action: "close", label: "Close" }
+      ]);
+      return;
+    }
+    els.encounter.classList.remove("answering");
     state.queue = shuffle(pool);
     const q = nextQuestion();
     const ally = makeAlly(q);
     state.currentAlly = ally;
     state.currentQuestion = q;
-    state.battle = { heroHp: 100, enemyHp: 100, pendingMove: null, awaitingAnswer: false };
+    state.battle = { heroHp: state.stats.playerHp || state.stats.maxHp || 100, enemyHp: 100, pendingMove: null, awaitingAnswer: false };
     state.capture = 0;
     state.trial = 0;
     state.encounterOpen = true;
@@ -1093,6 +1286,7 @@
     state.locked = false;
     state.battle = null;
     state.wildCooldown = 4;
+    els.encounter.classList.remove("answering");
     els.encounter.hidden = true;
   }
 
@@ -1142,6 +1336,8 @@
       const gain = (moveUsed.captureBoost ? 46 : q.stimulusRequired ? 34 : 27);
       state.capture = clamp(state.capture + gain + Math.min(13, state.stats.streak) + (multiplier > 1 ? 8 : 0) + (battle.studyBoost ? 8 : 0), 0, 100);
       state.stats.shards += 12 + Math.min(18, state.stats.streak * 2);
+      addXp(18 + Math.round(damage / 3));
+      battle.heroHp = state.stats.playerHp;
       state.pulse = 1;
       burst(state.player.x, state.player.y, ally.palette[0], 22);
       if (moveUsed.captureBoost) {
@@ -1153,7 +1349,8 @@
     } else {
       state.stats.streak = 0;
       const counter = ally.sensitive ? 12 : 16 + Math.floor(Math.random() * 10);
-      battle.heroHp = clamp(battle.heroHp - counter, 0, 100);
+      battle.heroHp = clamp(battle.heroHp - counter, 0, state.stats.maxHp || 100);
+      state.stats.playerHp = battle.heroHp;
       state.capture = clamp(state.capture - (moveUsed.captureBoost ? 16 : 10), 0, 100);
       burst(state.player.x, state.player.y, "#ff789d", 12);
       setBattleLog(moveUsed.captureBoost ? `${ally.name} broke out of the capsule and countered for ${counter}.` : `${shout(target)} countered for ${counter}. ${shout(actor)} needs better evidence.`);
@@ -1162,6 +1359,7 @@
     battle.pendingMove = null;
     battle.awaitingAnswer = false;
     battle.studyBoost = false;
+    state.stats.playerHp = battle.heroHp;
     els.captureBar.style.width = `${state.capture}%`;
     renderBattle();
     updateHud();
@@ -1187,10 +1385,11 @@
 
   function retreatEncounter() {
     state.stats.streak = 0;
+    state.stats.playerHp = Math.max(0, state.battle ? state.battle.heroHp : state.stats.playerHp);
     writeSave();
     updateHud();
-    setFeedback("Retreat. The roster regroups and keeps the study notes. Try another hunt.", "bad");
-    setBattleLog("The field team needs a reset.");
+    setFeedback("Retreat. Visit Chronicle Center or use Restoration Tea if HP is low.", "bad");
+    setBattleLog("The field team needs a reset at Chronicle Center.");
     setTimeout(closeEncounter, 1500);
   }
 
@@ -1200,6 +1399,7 @@
     if (ally.sensitive) {
       state.stats.missions += 1;
       state.stats.shards += 45;
+      addXp(45);
       setFeedback(`Archive mission complete: ${ally.actualName}. Context preserved. +45 shards.`, "done");
       setBattleLog("Archive memory preserved. Context restored without turning harm into a trophy.");
     } else {
@@ -1224,6 +1424,7 @@
           level: 1
         });
         state.stats.roster = state.stats.roster.slice(0, 96);
+        addXp(60);
         setFeedback(`${ally.name} joined your party.`, "done");
         setBattleLog(`${shout(opponentFor(ally))} fainted! ${ally.actualName} joined your roster.`);
       } else {
@@ -1238,11 +1439,12 @@
           }
         }
         state.stats.shards += 35;
+        addXp(45);
         setFeedback(`${rosterAlly ? rosterAlly.name : ally.name} evolved to stage ${rosterAlly ? rosterAlly.level : 2}. +35 shards.`, "done");
         setBattleLog(`${ally.actualName} leveled up through the timeline. Evolution recorded.`);
       }
     }
-    state.stats.rank = 1 + Math.floor((state.stats.roster.length + state.stats.missions) / 5);
+    state.stats.rank = Math.max(state.stats.rank || 1, 1 + Math.floor((state.stats.roster.length + state.stats.missions) / 5));
     writeSave();
     updateHud();
     renderRoster();
@@ -1279,9 +1481,14 @@
 
   function updateHud() {
     els.level.textContent = state.stats.rank || 1;
+    if (els.partyHp) els.partyHp.textContent = `${Math.round(state.stats.playerHp || 0)}/${Math.round(state.stats.maxHp || 100)}`;
     els.rosterCount.textContent = (state.stats.roster || []).length;
     els.shards.textContent = state.stats.shards || 0;
     els.streak.textContent = state.stats.streak || 0;
+    if (els.actionBtn) {
+      const near = state.nearInteraction;
+      els.actionBtn.textContent = near ? (near.kind === "shop" ? "Shop" : near.kind === "center" ? "Heal" : "Talk") : "Talk / Use";
+    }
   }
 
   function burst(x, y, color, count) {
@@ -1345,12 +1552,270 @@
     return tallGrassZones.some(([gx, gy, gw, gh]) => x >= gx && x <= gx + gw && y >= gy && y <= gy + gh);
   }
 
+  function allInteractions() {
+    return worldPlaces.map((place) => Object.assign({ interactionType: "place" }, place))
+      .concat(npcs.map((npc) => Object.assign({ interactionType: "npc" }, npc)));
+  }
+
+  function nearestInteraction(point, radius = 150) {
+    let best = null;
+    let bestDist = Infinity;
+    allInteractions().forEach((item) => {
+      const d = Math.hypot(item.x - point.x, item.y - point.y);
+      if (d < bestDist) {
+        best = item;
+        bestDist = d;
+      }
+    });
+    return bestDist <= radius ? best : null;
+  }
+
+  function setDialogue(kicker, title, text, actions) {
+    els.dialogueKicker.textContent = kicker;
+    els.dialogueTitle.textContent = title;
+    els.dialogueText.textContent = text;
+    els.dialogueActions.innerHTML = (actions || []).map((action) => (
+      `<button type="button" data-action="${escapeHtml(action.action)}" data-item="${escapeHtml(action.item || "")}">${escapeHtml(action.label)}</button>`
+    )).join("");
+    Array.prototype.forEach.call(els.dialogueActions.querySelectorAll("button"), (button) => {
+      button.addEventListener("click", () => handleDialogueAction(button.dataset.action, button.dataset.item));
+    });
+    els.dialoguePanel.hidden = false;
+  }
+
+  function openInteraction(item) {
+    const target = item || state.nearInteraction || nearestInteraction(state.player);
+    if (!target) {
+      setDialogue("Field", "Open Route", "Tap a building, NPC, or route marker to interact. Tall grass starts wild review encounters.", [
+        { action: "hunt", label: "Start Hunt" },
+        { action: "close", label: "Keep Walking" }
+      ]);
+      return;
+    }
+    state.activeInteraction = target;
+    const actions = [];
+    if (target.kind === "center") actions.push({ action: "heal", label: "Heal Party" });
+    if (target.kind === "shop") actions.push({ action: "shop", label: "Open Supply Shop" });
+    if (target.kind === "story") actions.push({ action: "chapter", label: "Check Story" });
+    if (target.grant && !state.stats.flags[target.grant]) actions.push({ action: "grant", label: "Take Help" });
+    if (target.action === "battle") actions.push({ action: "battle", label: "Challenge" });
+    actions.push({ action: "hunt", label: "Start Hunt" }, { action: "close", label: "Close" });
+    setDialogue(target.interactionType === "npc" ? target.type : "Location", target.name, target.text, actions);
+  }
+
+  function handleDialogueAction(action, itemId) {
+    if (action === "close") {
+      els.dialoguePanel.hidden = true;
+      return;
+    }
+    if (action === "hunt") {
+      els.dialoguePanel.hidden = true;
+      openEncounter();
+      return;
+    }
+    if (action === "battle") {
+      els.dialoguePanel.hidden = true;
+      openEncounter();
+      return;
+    }
+    if (action === "heal") {
+      healParty();
+      setDialogue("Chronicle Center", "Party Restored", "Your party health is full. Expedition log saved.", [
+        { action: "close", label: "Back to Route" }
+      ]);
+      return;
+    }
+    if (action === "shop") {
+      renderShop();
+      return;
+    }
+    if (action === "buy") {
+      buyItem(itemId);
+      renderShop();
+      return;
+    }
+    if (action === "grant") {
+      grantNpcHelp(state.activeInteraction);
+      return;
+    }
+    if (action === "chapter") {
+      advanceStory();
+      const chapter = storyChapters[state.stats.storyStep] || storyChapters[storyChapters.length - 1];
+      setDialogue("Story", "Professor Mac's Lab", chapter, [
+        { action: "hunt", label: "Train on Route" },
+        { action: "close", label: "Back to Map" }
+      ]);
+    }
+  }
+
+  function renderShop() {
+    const actions = Object.entries(itemCatalog).map(([id, item]) => ({
+      action: "buy",
+      item: id,
+      label: `${item.label} - ${item.price} shards`
+    })).concat([{ action: "close", label: "Leave Shop" }]);
+    setDialogue("Archive Supply", "Buy Field Items", `Shards: ${state.stats.shards}. Items help during battles but review answers still power every major action.`, actions);
+  }
+
+  function buyItem(id) {
+    const item = itemCatalog[id];
+    if (!item) return;
+    if ((state.stats.shards || 0) < item.price) {
+      els.dialogueText.textContent = `Not enough shards for ${item.label}. Win review battles to earn more.`;
+      return;
+    }
+    state.stats.shards -= item.price;
+    state.stats.items[id] = Number(state.stats.items[id] || 0) + 1;
+    writeSave();
+    updateHud();
+    renderBag();
+  }
+
+  function grantNpcHelp(npc) {
+    if (!npc || !npc.grant || state.stats.flags[npc.grant]) return;
+    if (npc.grant === "starter") {
+      state.stats.items.capsule += 2;
+      state.stats.items.fieldNote += 2;
+      state.stats.shards += 20;
+      state.stats.flags.starter = true;
+      setDialogue("Guide", npc.name, "Starter kit added: 2 Archive Capsules, 2 Field Notes, and 20 shards. Go catch a first figure line.", [
+        { action: "hunt", label: "Start Hunt" },
+        { action: "close", label: "Thanks" }
+      ]);
+    } else if (npc.grant === "lens") {
+      state.stats.items.sourceLens += 2;
+      state.stats.flags.lens = true;
+      setDialogue("Source Coach", npc.name, "Two Source Lenses added. Use them when a question depends on a map, chart, excerpt, cartoon, or image.", [
+        { action: "close", label: "Got It" }
+      ]);
+    }
+    writeSave();
+    updateHud();
+    renderBag();
+  }
+
+  function healParty(amount) {
+    const heal = amount || state.stats.maxHp;
+    state.stats.playerHp = clamp(Number(state.stats.playerHp || 0) + heal, 0, state.stats.maxHp);
+    if (state.battle) {
+      state.battle.heroHp = state.stats.playerHp;
+      renderBattle();
+    }
+    writeSave();
+    updateHud();
+  }
+
+  function addXp(amount) {
+    state.stats.xp = Math.max(0, Number(state.stats.xp || 0) + amount);
+    const newRank = 1 + Math.floor(state.stats.xp / 120);
+    if (newRank > (state.stats.rank || 1)) {
+      state.stats.rank = newRank;
+      state.stats.maxHp = 100 + (newRank - 1) * 8;
+      state.stats.playerHp = state.stats.maxHp;
+      setFeedback(`Level up. Rank ${newRank}. Party health restored.`, "done");
+    }
+    advanceStory();
+  }
+
+  function advanceStory() {
+    const rosterCount = (state.stats.roster || []).length;
+    const missions = Number(state.stats.missions || 0);
+    const rank = Number(state.stats.rank || 1);
+    let step = 0;
+    if (rosterCount >= 1) step = 1;
+    if (rosterCount >= 3) step = 2;
+    if (missions >= 5 || state.stats.flags.lens) step = 3;
+    if (rank >= 5) step = 4;
+    state.stats.storyStep = Math.max(Number(state.stats.storyStep || 0), step);
+    writeSave();
+    updateHud();
+  }
+
+  function renderBag() {
+    const entries = Object.entries(itemCatalog);
+    els.bagList.innerHTML = entries.map(([id, item]) => {
+      const count = Number(state.stats.items[id] || 0);
+      return `<article class="bag-item">` +
+        `<div><strong>${escapeHtml(item.label)}</strong><p>${escapeHtml(item.description)}</p></div>` +
+        `<span>x${count}</span>` +
+        `<button type="button" data-item="${escapeHtml(id)}"${count <= 0 ? " disabled" : ""}>Use</button>` +
+      `</article>`;
+    }).join("");
+    Array.prototype.forEach.call(els.bagList.querySelectorAll("button[data-item]"), (button) => {
+      button.addEventListener("click", () => useItem(button.dataset.item));
+    });
+  }
+
+  function openBag() {
+    renderBag();
+    els.bagPanel.classList.add("show");
+  }
+
+  function spendItem(id) {
+    if (!state.stats.items[id]) return false;
+    state.stats.items[id] -= 1;
+    writeSave();
+    renderBag();
+    updateHud();
+    return true;
+  }
+
+  function useItem(id) {
+    const item = itemCatalog[id];
+    if (!item || !state.stats.items[id]) return;
+    if (id === "healKit") {
+      if (spendItem(id)) {
+        healParty(35);
+        setFeedback("Restoration Tea restored 35 party HP.", "good");
+      }
+      return;
+    }
+    if (id === "fieldNote") {
+      if (!state.battle) {
+        setDialogue("Field Bag", item.label, "Field Notes work during battle. Start an encounter first.", [{ action: "close", label: "Close" }]);
+        return;
+      }
+      if (spendItem(id)) {
+        state.battle.studyBoost = true;
+        state.capture = clamp(state.capture + 12, 0, 100);
+        els.captureBar.style.width = `${state.capture}%`;
+        setBattleLog("Field Notes prepared. The next correct answer gets a power and capture boost.");
+      }
+      return;
+    }
+    if (id === "sourceLens") {
+      if (!state.currentQuestion) {
+        setDialogue("Field Bag", item.label, "Source Lens works after a battle question appears.", [{ action: "close", label: "Close" }]);
+        return;
+      }
+      if (spendItem(id)) {
+        setFeedback(sourceTextFor(state.currentQuestion) ? "Lens hint: cite the stimulus first, then connect it to the answer choices." : `Lens hint: focus on ${cleanText(state.currentQuestion.category || state.currentQuestion.set || "the core term")}.`, "good");
+      }
+      return;
+    }
+    if (id === "capsule") {
+      if (!state.battle) {
+        setDialogue("Field Bag", item.label, "Archive Capsules work during battle after you build trust.", [{ action: "close", label: "Close" }]);
+        return;
+      }
+      chooseAction("capsule");
+      return;
+    }
+    if (id === "treatyPass") {
+      if (spendItem(id)) {
+        setBattleLog("Treaty Pass used. You withdrew safely and kept your streak.");
+        setTimeout(closeEncounter, 450);
+      }
+    }
+  }
+
   function initControls() {
     addEventListener("resize", resize);
     addEventListener("keydown", (event) => {
       state.keys[event.key.toLowerCase()] = true;
-      if (["arrowup", "arrowdown", "arrowleft", "arrowright", " "].includes(event.key.toLowerCase())) event.preventDefault();
+      if (["arrowup", "arrowdown", "arrowleft", "arrowright", " ", "e"].includes(event.key.toLowerCase())) event.preventDefault();
       if (event.key === " " && !state.encounterOpen) openEncounter();
+      if (event.key.toLowerCase() === "e" && !state.encounterOpen) openInteraction();
     });
     addEventListener("keyup", (event) => {
       state.keys[event.key.toLowerCase()] = false;
@@ -1358,6 +1823,13 @@
     els.canvas.addEventListener("pointerdown", (event) => {
       if (state.encounterOpen) return;
       const point = canvasPoint(event);
+      const interaction = nearestInteraction(point);
+      if (interaction) {
+        state.player.tx = interaction.x;
+        state.player.ty = interaction.y + 38;
+        if (Math.hypot(state.player.x - interaction.x, state.player.y - interaction.y) < 170) openInteraction(interaction);
+        return;
+      }
       const node = nearestNode(point);
       if (node) {
         state.selectedNode = node;
@@ -1375,14 +1847,18 @@
     });
     els.setFilter.addEventListener("change", applyFilters);
     els.huntBtn.addEventListener("click", openEncounter);
+    els.actionBtn.addEventListener("click", () => openInteraction());
     els.mapBtn.addEventListener("click", () => {
-      state.player.tx = WORLD_W / 2;
-      state.player.ty = WORLD_H / 2;
+      state.player.tx = worldPlaces[0].x;
+      state.player.ty = worldPlaces[0].y + 80;
     });
+    els.bagBtn.addEventListener("click", openBag);
+    els.closeBag.addEventListener("click", () => els.bagPanel.classList.remove("show"));
     els.rosterBtn.addEventListener("click", () => els.rosterPanel.classList.add("show"));
     els.closeRoster.addEventListener("click", () => els.rosterPanel.classList.remove("show"));
     els.codexBtn.addEventListener("click", () => els.codexPanel.classList.add("show"));
     els.closeCodex.addEventListener("click", () => els.codexPanel.classList.remove("show"));
+    els.closeDialogue.addEventListener("click", () => els.dialoguePanel.hidden = true);
     els.closeEncounter.addEventListener("click", closeEncounter);
     els.beginBtn.addEventListener("click", () => {
       state.running = true;
@@ -1433,6 +1909,21 @@
       state.selectedNode = near;
       updateQuest();
     }
+    const interaction = nearestInteraction({ x: p.x, y: p.y }, 175);
+    if ((interaction && (!state.nearInteraction || interaction.id !== state.nearInteraction.id)) || (!interaction && state.nearInteraction)) {
+      state.nearInteraction = interaction;
+      updateHud();
+      if (interaction) {
+        els.activeRegion.textContent = interaction.name;
+        els.questText.textContent = interaction.kind === "center"
+          ? "Chronicle Center nearby. Heal party health and save progress."
+          : interaction.kind === "shop"
+            ? "Archive Supply nearby. Buy items with shards."
+            : `${interaction.name} nearby. Talk to continue the story or start a checkpoint.`;
+      } else {
+        updateQuest();
+      }
+    }
     state.camera.x += (clamp(p.x - innerWidth * .45, 0, WORLD_W - innerWidth) - state.camera.x) * Math.min(1, dt * 5);
     state.camera.y += (clamp(p.y - innerHeight * .55, 0, WORLD_H - innerHeight) - state.camera.y) * Math.min(1, dt * 5);
     state.pulse = Math.max(0, state.pulse - dt * 1.8);
@@ -1454,6 +1945,7 @@
     ctx.save();
     ctx.translate(-state.camera.x, -state.camera.y);
     drawWorld(now);
+    drawWorldInteractions(now);
     drawNodes(now);
     drawPlayer(now);
     drawParticles();
@@ -1551,15 +2043,18 @@
 
   function drawRetroRoads(context) {
     const roads = [
-      [110, 745, 2380, 118], [1238, 110, 124, 1380],
-      [420, 410, 760, 92], [1420, 410, 710, 92],
-      [390, 1000, 760, 92], [1420, 1000, 710, 92],
-      [270, 1300, 1970, 92], [240, 565, 410, 82],
-      [1960, 610, 360, 82], [2050, 1260, 220, 82]
+      [120, 740, 3360, 118], [1250, 150, 124, 1940], [2460, 230, 124, 1840],
+      [420, 410, 1120, 92], [1600, 410, 1120, 92], [2840, 430, 440, 92],
+      [360, 1010, 1120, 92], [1540, 1010, 1120, 92], [2800, 1030, 440, 92],
+      [290, 1440, 3000, 92], [380, 1880, 2820, 92],
+      [240, 570, 470, 82], [1880, 610, 420, 82], [2850, 650, 440, 82],
+      [2140, 1260, 330, 82], [2930, 1640, 330, 82]
     ];
     roads.forEach(([x, y, w, h]) => drawRoadBlock(context, x, y, w, h));
-    drawRoadBlock(context, 1072, 616, 500, 340, true);
-    drawAtlas(context, "gate", WORLD_W / 2 - 86, WORLD_H / 2 - 152, 172, 132);
+    drawRoadBlock(context, 1040, 770, 620, 430, true);
+    drawRoadBlock(context, 2260, 1140, 430, 320, true);
+    drawRoadBlock(context, 2860, 1540, 420, 320, true);
+    drawAtlas(context, "gate", 1320 - 86, 820 - 152, 172, 132);
   }
 
   function drawRoadBlock(context, x, y, w, h, plaza = false) {
@@ -1583,16 +2078,16 @@
   function drawRetroLandmarks(context) {
     const trees = [
       [230, 270, "treeA"], [360, 1180, "treeB"], [2050, 300, "treeA"], [2300, 1260, "treeB"],
-      [1160, 220, "treeA"], [1460, 1380, "treeB"], [980, 1260, "treeA"], [1840, 1320, "treeA"]
+      [1160, 220, "treeA"], [1460, 1380, "treeB"], [980, 1260, "treeA"], [1840, 1320, "treeA"],
+      [3050, 300, "treeA"], [3300, 1340, "treeB"], [3120, 2060, "treeA"], [640, 2050, "treeB"],
+      [1660, 2050, "treeA"], [2600, 1980, "treeB"]
     ];
     trees.forEach(([x, y, key]) => drawAtlas(context, key, x, y, 116, 126));
-    [[530, 450, "mountainA"], [1880, 560, "mountainB"], [2100, 1000, "mountainA"]]
+    [[530, 450, "mountainA"], [1880, 560, "mountainB"], [2100, 1000, "mountainA"], [3060, 950, "mountainB"], [820, 1660, "mountainA"]]
       .forEach(([x, y, key]) => drawAtlas(context, key, x, y, 150, 126));
-    drawAtlas(context, "school", 306, 682, 184, 138);
-    drawAtlas(context, "portal", 2060, 716, 172, 136);
-    drawAtlas(context, "chest", 588, 1210, 100, 98);
-    drawAtlas(context, "arch", 1784, 1204, 150, 124);
-    drawPixelBox(context, 1110, 630, 380, 92, "MR MACS REVIEW ARCADE", "START FIELD HUNT");
+    drawPixelBox(context, 1110, 620, 420, 92, "MR MACS REVIEW ARCADE", "STORY ROUTE 01");
+    drawPixelBox(context, 2580, 960, 350, 86, "SOURCE ROUTE", "READ FIRST");
+    drawPixelBox(context, 2860, 1500, 410, 86, "EXCHANGE HARBOR", "GLOBAL NETWORKS");
   }
 
   function drawRetroBorder(context) {
@@ -1643,6 +2138,57 @@
     context.font = "900 15px 'Courier New', monospace";
     context.fillText(subtitle, x + w / 2, y + 62);
     context.restore();
+  }
+
+  function drawWorldInteractions(now) {
+    worldPlaces.forEach((place) => {
+      const near = state.nearInteraction && state.nearInteraction.id === place.id;
+      const bob = near && !reduceMotion ? Math.round(Math.sin(now * 7) * 4) : 0;
+      const size = place.kind === "center" || place.kind === "story" ? 124 : 96;
+      ctx.save();
+      ctx.translate(Math.round(place.x), Math.round(place.y + bob));
+      ctx.fillStyle = "rgba(15,56,15,.34)";
+      ctx.fillRect(-64, 48, 128, 16);
+      if (near) drawSelectionFrame(ctx, -84, -84, 168, 154);
+      drawAtlas(ctx, place.icon, -size / 2, -size / 2, size, size);
+      drawMapLabel(ctx, place.name, 0, size / 2 + 24, 210);
+      ctx.restore();
+    });
+    npcs.forEach((npc) => {
+      const near = state.nearInteraction && state.nearInteraction.id === npc.id;
+      const bob = near && !reduceMotion ? Math.round(Math.sin(now * 8) * 5) : 0;
+      ctx.save();
+      ctx.translate(Math.round(npc.x), Math.round(npc.y + bob));
+      ctx.fillStyle = "rgba(15,56,15,.36)";
+      ctx.fillRect(-34, 34, 68, 12);
+      if (near) drawSelectionFrame(ctx, -54, -76, 108, 126);
+      drawAtlas(ctx, npc.action === "battle" ? "playerSideAlt" : "scholar", npc.action === "battle" ? -32 : -44, npc.action === "battle" ? -62 : -70, npc.action === "battle" ? 64 : 88, npc.action === "battle" ? 84 : 76);
+      drawMapLabel(ctx, npc.name, 0, 62, 190);
+      ctx.restore();
+    });
+  }
+
+  function drawSelectionFrame(context, x, y, w, h) {
+    context.fillStyle = GB.ink;
+    context.fillRect(x, y, w, 8);
+    context.fillRect(x, y + h - 8, w, 8);
+    context.fillRect(x, y, 8, h);
+    context.fillRect(x + w - 8, y, 8, h);
+    context.fillStyle = GB.glow;
+    context.fillRect(x + 12, y + 12, w - 24, 5);
+    context.fillRect(x + 12, y + h - 17, w - 24, 5);
+  }
+
+  function drawMapLabel(context, label, x, y, width) {
+    context.fillStyle = GB.ink;
+    context.fillRect(x - width / 2, y, width, 36);
+    context.fillStyle = GB.light;
+    context.fillRect(x - width / 2 + 6, y + 6, width - 12, 24);
+    context.fillStyle = GB.ink;
+    context.font = "900 12px 'Courier New', monospace";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillText(cleanText(label).slice(0, 24), x, y + 18);
   }
 
   function drawNodes(now) {
@@ -1754,6 +2300,7 @@
     initControls();
     updateHud();
     renderRoster();
+    renderBag();
     await Promise.all([
       loadImage("retroTiles", "../../assets/history-hunters/retro-tile-sprite-atlas.png"),
       loadImage("retroSheet", "../../assets/history-hunters/retro-title-battle-sheet.png"),

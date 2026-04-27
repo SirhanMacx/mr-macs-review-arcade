@@ -1038,54 +1038,6 @@ textarea:focus-visible {
   color: var(--muted);
 }
 
-/* ============== Player ============== */
-.player {
-  position: fixed;
-  inset: 6px;
-  z-index: 100;
-  display: none;
-  flex-direction: column;
-  background: #06080f;
-  border: 1px solid var(--line-2);
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 60px 120px rgba(0,0,0,.7);
-}
-.player.show {
-  display: flex;
-  animation: playerIn .4s var(--ease-out);
-}
-@keyframes playerIn {
-  from { opacity: 0; transform: scale(.98); }
-  to { opacity: 1; transform: scale(1); }
-}
-.playerbar {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 16px;
-  padding: 14px 22px;
-  border-bottom: 1px solid var(--line-2);
-  background: rgba(13,17,27,.7);
-}
-.playerbar > div:first-child {
-  display: flex; flex-direction: column; gap: 2px;
-  min-width: 0;
-}
-.playerbar #playerTitle {
-  font-family: "Fraunces", serif;
-  font-weight: 540; font-style: italic;
-  font-size: 18px;
-  color: var(--paper);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.playerbar #playerMeta {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px; letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.player-actions { display: inline-flex; gap: 8px; }
 .btn {
   display: inline-flex; align-items: center;
   height: 38px; padding: 0 14px;
@@ -1104,26 +1056,7 @@ textarea:focus-visible {
   border-color: rgba(245,196,81,.6);
   font-weight: 800;
 }
-.framewrap {
-  position: relative;
-  flex: 1;
-  background: #02030a;
-}
-.framewrap .loader {
-  position: absolute; inset: 0;
-  display: none; align-items: center; justify-content: center;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 12px; letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.player.loading .loader { display: flex; animation: loaderPulse 1.4s ease-in-out infinite; }
 @keyframes loaderPulse { 50% { opacity: .35; } }
-.framewrap iframe {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  border: 0;
-}
 
 /* ============== Reveal animations ============== */
 .reveal {
@@ -1150,32 +1083,6 @@ textarea:focus-visible {
   }
   .hero-bg { transform: none !important; }
   .grain { animation: none; }
-}
-
-body.game-active #fx,
-body.game-active .grain {
-  display: none !important;
-}
-body.game-active .hero-bg,
-body.game-active .hero-bg::before,
-body.game-active .hero-bg::after,
-body.game-active .topbar::after,
-body.game-active .hm-track,
-body.game-active .live-dot,
-body.game-active .loader {
-  animation: none !important;
-  transition: none !important;
-}
-body.game-active .hero-bg {
-  transform: none !important;
-  filter: saturate(1.01) contrast(1.01);
-}
-body.game-active .topbar,
-body.game-active .hero-marquee,
-body.game-active .card,
-body.game-active .playerbar {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
 }
 
 html.lite-startup .hero-bg {
@@ -1208,8 +1115,7 @@ html.lite-startup .topbar,
 html.lite-startup .mode-button,
 html.lite-startup .course-tile,
 html.lite-startup .game-card,
-html.lite-startup .controlbar,
-html.lite-startup .playerbar {
+html.lite-startup .controlbar {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
@@ -1342,24 +1248,6 @@ html.lite-startup .playerbar {
   </div>
 </footer>
 
-<section class="player" id="player" aria-label="Online game player">
-  <div class="playerbar">
-    <div>
-      <strong id="playerTitle">Game</strong>
-      <span id="playerMeta"></span>
-    </div>
-    <div class="player-actions">
-      <button class="btn primary" id="fullscreenBtn" type="button">Fullscreen</button>
-      <button class="btn" id="openBtn" type="button">Open Tab</button>
-      <button class="btn" id="closeBtn" type="button">Close</button>
-    </div>
-  </div>
-	  <div class="framewrap">
-	    <div class="loader">Loading game</div>
-	    <iframe id="gameFrame" title="Review game player" allowfullscreen allow="fullscreen"></iframe>
-	  </div>
-	</section>
-
 <script src="assets/arcade-analytics.js"></script>
 <script>
 let GAMES = []
@@ -1374,9 +1262,6 @@ async function loadGames() {
 
 const state = { query: "", course: "All Courses", subject: "All Subjects", type: "All Game Types", sort: "priority" };
 const grid = document.getElementById("grid");
-const player = document.getElementById("player");
-const frame = document.getElementById("gameFrame");
-let currentGame = null;
 
 function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
@@ -1654,8 +1539,8 @@ function render() {
   });
 }
 
-// ============== Player ==============
-function playerUrl(file) {
+// ============== Full-page launch ==============
+function gameUrl(file) {
   const url = new URL(file, window.location.href);
   if (!url.searchParams.has("fx")) url.searchParams.set("fx", "lite");
   return url.href;
@@ -1663,7 +1548,6 @@ function playerUrl(file) {
 
 function openGame(game) {
   if (!game) return;
-  currentGame = game;
   if (window.MrMacsAnalytics && typeof window.MrMacsAnalytics.track === "function") {
     window.MrMacsAnalytics.track("game_launch", {
       gameId: game.id,
@@ -1672,42 +1556,9 @@ function openGame(game) {
       gameType: game.gameType
     }, { counter: "game-launches", once: false });
   }
-  document.getElementById("playerTitle").textContent = game.title;
-  document.getElementById("playerMeta").textContent = game.course + " · " + game.gameType + " · " + (game.day || game.grade);
-  document.body.classList.add("game-active");
-  player.classList.add("show", "loading");
-  frame.src = playerUrl(game.file);
-  frame.focus();
+  const target = gameUrl(game.file);
+  setTimeout(() => window.location.assign(target), 80);
 }
-	function closeGame() {
-	  player.classList.remove("show", "loading");
-	  document.body.classList.remove("game-active");
-	  frame.src = "about:blank";
-	  currentGame = null;
-	}
-	addEventListener("message", (event) => {
-	  const data = event.data;
-	  if (!data || typeof data !== "object") return;
-	  if (data.type === "mrmac_arcade_close") closeGame();
-	});
-frame.addEventListener("load", () => {
-  if (frame.getAttribute("src") !== "about:blank") player.classList.remove("loading");
-});
-document.getElementById("closeBtn").addEventListener("click", closeGame);
-document.getElementById("openBtn").addEventListener("click", () => {
-  if (currentGame) window.open(playerUrl(currentGame.file), "_blank", "noopener");
-});
-document.getElementById("fullscreenBtn").addEventListener("click", async () => {
-  const target = document.querySelector(".framewrap");
-  if (!document.fullscreenElement) {
-    if (target && target.requestFullscreen) await target.requestFullscreen();
-  } else if (document.exitFullscreen) {
-    await document.exitFullscreen();
-  }
-});
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && player.classList.contains("show")) closeGame();
-});
 
 	// ============== Canvas FX ==============
 	function initFx() {
@@ -1738,7 +1589,7 @@ document.addEventListener("keydown", (event) => {
     canvas.style.width = "100%"; canvas.style.height = "100%";
   }
   function draw(time) {
-    if (document.hidden || document.body.classList.contains("game-active")) {
+    if (document.hidden) {
       requestAnimationFrame(draw);
       return;
     }
@@ -1798,7 +1649,7 @@ document.addEventListener("keydown", (event) => {
 	  let frame = 0;
   function tick() {
     frame = 0;
-    if (document.hidden || document.body.classList.contains("game-active")) return;
+    if (document.hidden) return;
     current += (target - current) * .08;
     bg.style.setProperty("--bgY", current.toFixed(2) + "px");
     if (Math.abs(target - current) > .25) frame = requestAnimationFrame(tick);

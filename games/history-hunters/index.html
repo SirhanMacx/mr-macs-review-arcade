@@ -23,6 +23,7 @@
       </div>
       <div class="statbar">
         <span><strong id="level">1</strong> Rank</span>
+        <span><strong id="partyHp">100</strong> HP</span>
         <span><strong id="rosterCount">0</strong> Allies</span>
         <span><strong id="shards">0</strong> Shards</span>
         <span><strong id="streak">0</strong> Streak</span>
@@ -40,7 +41,9 @@
       </div>
       <div class="filter-row">
         <button id="huntBtn" class="primary" type="button">Start Hunt</button>
+        <button id="actionBtn" type="button">Talk / Use</button>
         <button id="mapBtn" type="button">Map</button>
+        <button id="bagBtn" type="button">Bag</button>
         <button id="rosterBtn" type="button">Roster</button>
         <button id="codexBtn" type="button">Codex</button>
       </div>
@@ -65,6 +68,27 @@
       </figure>
       <div id="codexFamilies" class="codex-list"></div>
     </aside>
+
+    <aside class="hud bag-panel" id="bagPanel" aria-label="Field bag">
+      <div class="panel-head">
+        <div>
+          <span>Field Bag</span>
+          <strong>Items</strong>
+        </div>
+        <button id="closeBag" type="button">Close</button>
+      </div>
+      <div id="bagList" class="bag-list"></div>
+    </aside>
+
+    <section class="hud dialogue-panel" id="dialoguePanel" hidden aria-label="World interaction">
+      <div>
+        <span id="dialogueKicker">Route</span>
+        <strong id="dialogueTitle">Guide</strong>
+        <p id="dialogueText">Welcome to the field.</p>
+      </div>
+      <div id="dialogueActions" class="dialogue-actions"></div>
+      <button id="closeDialogue" type="button">Close</button>
+    </section>
 
     <aside class="hud roster-panel" id="rosterPanel" aria-label="Roster">
       <div class="panel-head">
