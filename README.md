@@ -6,9 +6,11 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 
 ## What Is Included
 
-- 130 browser-playable review games
+- 132 browser-playable review games
+- Time Rift Survivors, a full-library survival arcade game with generated arena art, animated combat, relic upgrades, course filters, stimulus access, and 3,651 review prompts
 - Chrono Defense Infinite, an original endless social-studies tower defense game using the full 3,651-prompt review library
-- Regents Gauntlet, a multi-file MCQ game with 349 answer-keyed Regents questions and cropped original stimulus images
+- Regents Gauntlet, a multi-file MCQ game with 471 answer-keyed Regents questions and cropped original stimulus images
+- Arcade Duel, a wave-based MCQ combat mode that uses the same Regents MCQ bank (energy powerups + study targets)
 - Boss Rush Arena, a master game with generated arena/boss art, animated attacks, HP/shield/combo scoring, course switching, unit review, and comprehensive review runs
 - Grade 9 Global History I
 - Grade 10 Global History II
@@ -80,7 +82,22 @@ The live site is built from static files:
 - `assets/`
 - `games/`
 
-When new games are added, rebuild the arcade package, sync the updated files into this repo, commit, and push to `main`. GitHub Pages republishes automatically.
+When new games are added or curriculum folders change, rebuild the arcade package, sync the updated files into this repo, commit, and push to `main`. GitHub Pages republishes automatically.
+
+Recommended quality gate before publishing:
+
+- Run `python3 scripts/validate_arcade.py`
+- Open `index.html` locally (or via GitHub Pages) and sanity-check:
+  - Boss Rush Arena
+  - Chrono Defense Infinite
+  - Regents Gauntlet
+  - Arcade Duel
+
+Question-bank maintenance:
+
+- Import new Regents MCQ answer-key packets into the shared Gauntlet bank:
+  - `python3 scripts/import_regents_mcq_answerkey.py --help`
+  - This appends only missing question ids and extracts stimulus crops into `assets/regents-gauntlet-stimuli/`.
 
 ## Traffic Counter
 

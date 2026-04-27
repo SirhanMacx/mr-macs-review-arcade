@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06080f">
+  <title>Arcade Duel</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css?v=20260427-mobile">
+</head>
+<body>
+  <div class="bg"></div>
+  <main class="shell" id="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <strong>Arcade Duel</strong>
+          <span>MCQ combat loop · Regents bank</span>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="btn" id="openHub" type="button">Back</button>
+      </div>
+    </header>
+
+    <section class="panel setup" id="setup">
+      <div class="panel-head">
+        <h1>Pick your mission</h1>
+        <p>Fight through MCQs in quick enemy waves. Build energy, eliminate distractors, and keep your streak alive.</p>
+      </div>
+      <div class="form">
+        <label>
+          <span>Course</span>
+          <select id="courseSelect"></select>
+        </label>
+        <label>
+          <span>Set</span>
+          <select id="setSelect"></select>
+        </label>
+        <label>
+          <span>Run length</span>
+          <select id="lengthSelect">
+            <option value="15">15 questions</option>
+            <option value="25" selected>25 questions</option>
+            <option value="35">35 questions</option>
+            <option value="999">Endless</option>
+          </select>
+        </label>
+      </div>
+      <div class="setup-metrics" id="setupMetrics"></div>
+      <div class="setup-actions">
+        <button class="btn primary" id="startBtn" type="button">Start Duel</button>
+      </div>
+      <div class="tiny" id="loadStatus">Loading bank…</div>
+    </section>
+
+    <section class="panel duel hidden" id="duel" aria-live="polite">
+      <header class="hud">
+        <div class="hud-left">
+          <div class="hud-title" id="missionTitle">Mission</div>
+          <div class="hud-sub" id="missionMeta">Loading…</div>
+        </div>
+        <div class="hud-right">
+          <div class="stat">
+            <strong id="waveText">Wave 1</strong>
+            <span>enemy</span>
+          </div>
+          <div class="stat">
+            <strong id="energyText">0</strong>
+            <span>energy</span>
+          </div>
+          <div class="stat">
+            <strong id="streakText">0</strong>
+            <span>streak</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="bars">
+        <div class="bar">
+          <div class="bar-label">You</div>
+          <div class="bar-track"><div class="bar-fill you" id="youBar"></div></div>
+          <div class="bar-meta"><span id="youHpText">3</span> hearts</div>
+        </div>
+        <div class="bar">
+          <div class="bar-label" id="enemyName">Enemy</div>
+          <div class="bar-track"><div class="bar-fill enemy" id="enemyBar"></div></div>
+          <div class="bar-meta"><span id="enemyHpText">0</span> HP</div>
+        </div>
+      </section>
+
+      <section class="combat-stage" id="combatStage" aria-hidden="true">
+        <div class="stage-vignette"></div>
+        <div class="combatant player">
+          <div class="avatar player-avatar"></div>
+          <div class="combat-label">Review Core</div>
+        </div>
+        <div class="stage-center">
+          <div class="stage-callout" id="stageCallout">Wave armed</div>
+          <div class="pulse-ring"></div>
+        </div>
+        <div class="combatant enemy">
+          <div class="avatar enemy-avatar" id="enemyAvatar"></div>
+          <div class="combat-label" id="enemyStageName">Source Warden</div>
+        </div>
+        <div class="impact-burst" id="impactBurst"></div>
+      </section>
+
+      <section class="arena">
+        <aside class="stimulus hidden" id="stimulusPanel" aria-label="Stimulus images">
+          <div class="stimulus-head">
+            <strong>Stimulus</strong>
+            <button class="btn mini" id="toggleStimulus" type="button">Expand</button>
+          </div>
+          <div class="stimulus-strip" id="stimulusStrip"></div>
+        </aside>
+        <section class="question">
+          <div class="q-tags" id="qTags"></div>
+          <h2 class="q-stem" id="qStem"></h2>
+          <div class="choices" id="choices"></div>
+          <div class="tools">
+            <button class="btn tool" id="eliminateBtn" type="button" disabled>Eliminate 2 (2 energy)</button>
+            <button class="btn tool" id="repairBtn" type="button" disabled>Repair +1 (3 energy)</button>
+          </div>
+          <div class="feedback hidden" id="feedback"></div>
+          <button class="btn primary hidden" id="nextBtn" type="button">Next</button>
+        </section>
+      </section>
+    </section>
+
+    <section class="panel end hidden" id="end">
+      <div class="panel-head">
+        <h2 id="endTitle">Run complete</h2>
+        <p id="endMeta"></p>
+      </div>
+      <div class="end-grid" id="endGrid"></div>
+      <div class="missed">
+        <h3>Study targets</h3>
+        <div class="missed-list" id="missedList"></div>
+      </div>
+      <div class="setup-actions">
+        <button class="btn" id="againBtn" type="button">New run</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-analytics.js"></script>
+  <script src="game.js?v=20260427-mobile"></script>
+</body>
+</html>
