@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050711">
+  <title>Timeline Runner - Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css?v=20260427-runner">
+</head>
+<body>
+  <main class="runner-shell" id="app">
+    <canvas id="runnerCanvas" aria-label="Timeline Runner game canvas"></canvas>
+
+    <section class="top-hud" aria-label="Run status">
+      <div class="brand">
+        <span class="mark" aria-hidden="true"></span>
+        <div>
+          <strong>Timeline Runner</strong>
+          <span>Run the archive. Choose the correct gate.</span>
+        </div>
+      </div>
+      <div class="hud-stats">
+        <div><strong id="score">0</strong><span>score</span></div>
+        <div><strong id="streak">0</strong><span>streak</span></div>
+        <div><strong id="health">3</strong><span>hearts</span></div>
+        <div><strong id="speed">1.0x</strong><span>pace</span></div>
+      </div>
+      <button class="icon-btn" id="pauseBtn" type="button">Pause</button>
+      <button class="icon-btn" id="backBtn" type="button">Exit</button>
+    </section>
+
+    <section class="question-card" id="questionCard" aria-live="polite">
+      <div class="question-meta" id="questionMeta">Loading review library...</div>
+      <p id="questionPrompt">Dodge hazards and steer into the correct answer gate.</p>
+      <div class="stimulus-strip" id="stimulusStrip" aria-label="Question stimulus"></div>
+      <div class="lane-chips" id="laneChips"></div>
+      <div class="feedback" id="feedback"></div>
+    </section>
+
+    <section class="bottom-dock" aria-label="Controls">
+      <button class="dock-btn" id="leftBtn" type="button">Left</button>
+      <button class="dock-btn" id="jumpBtn" type="button">Jump</button>
+      <button class="dock-btn" id="slideBtn" type="button">Slide</button>
+      <button class="dock-btn" id="rightBtn" type="button">Right</button>
+    </section>
+
+    <section class="setup-screen show" id="setupScreen" aria-label="Timeline Runner setup">
+      <div class="setup-card">
+        <div class="setup-kicker">Master Game</div>
+        <h1>Timeline Runner</h1>
+        <p class="setup-sub">Sprint through the living archive. Swipe lanes, dodge corrupted sources, collect evidence, and answer review prompts by running through the right gate.</p>
+        <div class="setup-grid">
+          <label>
+            <span>Course</span>
+            <select id="courseFilter"></select>
+          </label>
+          <label>
+            <span>Set</span>
+            <select id="setFilter"></select>
+          </label>
+          <label>
+            <span>Intensity</span>
+            <select id="intensityFilter">
+              <option value="standard" selected>Standard run</option>
+              <option value="exam">Exam sprint</option>
+              <option value="endless">Endless chaos</option>
+            </select>
+          </label>
+        </div>
+        <div class="setup-metrics" id="setupMetrics"></div>
+        <div class="setup-actions">
+          <button class="btn" id="soundBtn" type="button">Sound On</button>
+          <button class="btn" id="fullscreenBtn" type="button">Fullscreen</button>
+          <button class="btn primary" id="startBtn" type="button">Start Run</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="pause-screen" id="pauseScreen" aria-label="Paused">
+      <div class="setup-card compact">
+        <div class="setup-kicker">Paused</div>
+        <h2>Archive suspended</h2>
+        <p class="setup-sub">Resume when ready. Your run and current prompt are still active.</p>
+        <div class="setup-actions">
+          <button class="btn primary" id="resumeBtn" type="button">Resume</button>
+          <button class="btn" id="restartBtn" type="button">Restart</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="end-screen" id="endScreen" aria-label="Run summary">
+      <div class="setup-card compact">
+        <div class="setup-kicker">Run Complete</div>
+        <h2 id="endTitle">Archive sealed</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <div class="study-targets" id="studyTargets"></div>
+        <div class="setup-actions">
+          <button class="btn" id="setupBtn" type="button">Change Course</button>
+          <button class="btn primary" id="againBtn" type="button">Run Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-analytics.js"></script>
+  <script src="game.js?v=20260427-runner"></script>
+</body>
+</html>

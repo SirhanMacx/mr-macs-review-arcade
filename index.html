@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#06080f">
-<meta name="description" content="Mr. Mac's Review Arcade — practice for your exam with Regents, AP, and social studies review games. 132 games. 15 courses.">
+<meta name="description" content="Mr. Mac's Review Arcade — practice for your exam with Regents, AP, and social studies review games. 133 games. 15 courses.">
 <link rel="icon" href="data:,">
 <title>Mr. Mac's Review Arcade</title>
 <script>
@@ -1182,7 +1182,7 @@ textarea:focus-visible {
     <p class="tagline reveal">Practice for your exam.</p>
     <div class="hero-actions reveal">
       <button class="action primary" id="launchFeatured" type="button">
-        <span>Enter Time Rift</span>
+        <span>Enter Arcade</span>
         <span class="arrow" aria-hidden="true">→</span>
       </button>
       <a class="action" href="#library">
@@ -1337,6 +1337,7 @@ function paletteFor(course) {
   return COURSE_PALETTE[course] || { accent: "#b892ff", glyph: "◆" };
 }
 function accentFor(game) {
+  if (game.id === "timeline-runner") return "#69f0aa";
   if (game.id === "time-rift-survivors") return "#72f2ff";
   if (game.id === "arcade-duel") return "#ff7bcc";
   if (game.id === "regents-gauntlet") return "#7af0ff";
@@ -1344,6 +1345,7 @@ function accentFor(game) {
   return paletteFor(game.course).accent;
 }
 function glyphFor(game) {
+  if (game.id === "timeline-runner") return "»";
   if (game.id === "time-rift-survivors") return "∞";
   if (game.id === "arcade-duel") return "⚡";
   if (game.id === "regents-gauntlet") return "⚔";
@@ -1370,11 +1372,12 @@ function searchable(game) {
   return [game.title, game.subtitle, game.day, game.course, game.subject, game.grade, game.gameType].concat(game.tags || []).join(" ").toLowerCase();
 }
 	function priority(game) {
-	  if (game.id === "time-rift-survivors") return 0;
-	  if (game.id === "chrono-defense-infinite") return 1;
-	  if (game.id === "boss-rush-arena") return 2;
-	  if (game.id === "regents-gauntlet") return 3;
-	  if (game.id === "arcade-duel") return 4;
+	  if (game.id === "timeline-runner") return 0;
+	  if (game.id === "time-rift-survivors") return 1;
+	  if (game.id === "chrono-defense-infinite") return 2;
+	  if (game.id === "boss-rush-arena") return 3;
+	  if (game.id === "regents-gauntlet") return 4;
+	  if (game.id === "arcade-duel") return 5;
 	  if (/AP Psychology Final/i.test(game.title)) return 4;
 	  if (/Cumulative Yearlong|Yearlong Review/i.test(game.title)) return 4;
 	  if (game.gameType.includes("Regents")) return 5;
@@ -1396,7 +1399,7 @@ function filteredGames() {
   });
 	}
 	function featuredGames() {
-	  const ids = ["time-rift-survivors", "chrono-defense-infinite", "boss-rush-arena", "regents-gauntlet"];
+	  const ids = ["timeline-runner", "time-rift-survivors", "chrono-defense-infinite", "boss-rush-arena"];
 	  const picks = ids.map((id) => GAMES.find((game) => game.id === id));
 	  return [...new Map(picks.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 4);
 	}
@@ -1436,6 +1439,7 @@ function renderMetrics() {
 function renderFeatured() {
   const games = featuredGames();
   const artMap = {
+    "timeline-runner": "url('assets/timeline-runner/runner-track.png')",
     "time-rift-survivors": "url('assets/time-rift/key-art.webp')",
     "chrono-defense-infinite": "url('assets/chrono-defense-road-map.webp')",
     "boss-rush-arena": "url('assets/boss-rush-arena-v2.webp')",
@@ -1463,6 +1467,8 @@ function renderFeatured() {
   document.querySelectorAll(".mode-button").forEach((button) => {
     button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
   });
+  const launchText = document.querySelector("#launchFeatured span:first-child");
+  if (launchText) launchText.textContent = games[0] ? "Enter " + games[0].title : "Enter Arcade";
   document.getElementById("launchFeatured").onclick = () => games[0] && openGame(games[0]);
 }
 

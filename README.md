@@ -6,7 +6,8 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 
 ## What Is Included
 
-- 132 browser-playable review games
+- 133 browser-playable review games
+- Timeline Runner, a generated-art endless runner where students dodge archive hazards, collect evidence, and answer by steering through course-filtered answer gates from the full 3,651-prompt review library
 - Time Rift Survivors, a full-library survival arcade game with generated arena art, animated combat, relic upgrades, course filters, stimulus access, and 3,651 review prompts
 - Chrono Defense Infinite, an original endless social-studies tower defense game using the full 3,651-prompt review library
 - Regents Gauntlet, a multi-file MCQ game with 471 answer-keyed Regents questions and cropped original stimulus images
