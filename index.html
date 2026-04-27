@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#06080f">
-<meta name="description" content="Mr. Mac's Review Arcade — practice for your exam with Regents, AP, and social studies review games. 134 games. 15 courses.">
+<meta name="description" content="Mr. Mac's Review Arcade — practice for your exam with NYS Social Studies 5-12, Regents, AP, and social studies review games. 170 games. 19 courses.">
 <link rel="icon" href="data:,">
 <title>Mr. Mac's Review Arcade</title>
 <script>
@@ -457,6 +457,7 @@ textarea:focus-visible {
   padding: clamp(56px, 9vh, 110px) 0 clamp(40px, 6vh, 70px);
 }
 .band + .band { padding-top: clamp(40px, 6vh, 70px); }
+.courses-band { overflow: hidden; }
 .band-head {
   display: flex; flex-wrap: wrap; gap: 16px 28px;
   align-items: end;
@@ -1400,6 +1401,10 @@ const COURSE_PALETTE = {
   "AP Microeconomics":                   { accent: "#ffd884", glyph: "%" },
   "AP Macro/Micro Combined":             { accent: "#e8a85c", glyph: "Σ" },
   "AP U.S. Government and Politics":     { accent: "#5dc7ff", glyph: "✦" },
+  "Grade 5 Social Studies":              { accent: "#77f0af", glyph: "5" },
+  "Grade 6 Social Studies":              { accent: "#7af0ff", glyph: "6" },
+  "Grade 7 U.S. History I":              { accent: "#ffd884", glyph: "7" },
+  "Grade 8 U.S. History II":             { accent: "#ffb547", glyph: "8" },
   "Grade 9 Global History I":            { accent: "#69f0aa", glyph: "◇" },
   "Grade 10 Global History II":          { accent: "#8fb4ff", glyph: "◆" },
   "Grade 11 U.S. History":               { accent: "#ffd884", glyph: "✪" },
@@ -1555,6 +1560,10 @@ function renderFeatured() {
 function renderCourseTiles() {
   const courses = uniq(GAMES.map((game) => game.course).filter((course) => course && course !== "All Courses"));
   const order = [
+    "Grade 5 Social Studies",
+    "Grade 6 Social Studies",
+    "Grade 7 U.S. History I",
+    "Grade 8 U.S. History II",
     "Grade 9 Global History I",
     "Grade 10 Global History II",
     "Grade 11 U.S. History",
@@ -1582,7 +1591,7 @@ function renderCourseTiles() {
     const types = uniq(games.map((g) => g.gameType));
     const lead = types[0] || "Review";
     const count = games.length;
-    const labelType = course.startsWith("AP") ? "AP Course" : (course.startsWith("Grade") ? "Regents Course" : "Elective");
+    const labelType = course.startsWith("AP") ? "AP Course" : (course.startsWith("Grade") ? "NYS Course" : "Elective");
     return '<button class="course-tile" type="button" style="--accent:' + palette.accent + ';--course-glyph:\'' + palette.glyph + '\';--i:' + index + '" data-course="' + escapeHtml(course) + '">' +
       '<small>' + escapeHtml(labelType) + '</small>' +
       '<strong>' + escapeHtml(course) + '</strong>' +

@@ -1,20 +1,24 @@
 # Mr. Mac's Review Arcade
 
-Student-facing review arcade for Social Studies 9-12, AP courses, Regents prep, and AP Psychology games.
+Student-facing review arcade for Social Studies 5-12, AP courses, Regents prep, and AP Psychology games.
 
 Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 
 ## What Is Included
 
-- 135 browser-playable review games
+- 170 browser-playable review games
 - Archive Cipher, a generated-art review Wordle-style term decoder with course filters, unit filters, animated tile feedback, hints, and explanations from the full review library
 - History Hunters, an original all-courses social studies RPG with open-world exploration, historical ally recruitment, type-based battles, and answer-powered moves
-- Timeline Runner, a generated-art endless runner where students dodge archive hazards, collect evidence, and answer by steering through course-filtered answer gates from the full 3,651-prompt review library
-- Time Rift Survivors, a full-library survival arcade game with generated arena art, animated combat, relic upgrades, course filters, stimulus access, and 3,651 review prompts
-- Chrono Defense Infinite, an original endless social-studies tower defense game using the full 3,651-prompt review library
+- Timeline Runner, a generated-art endless runner where students dodge archive hazards, collect evidence, and answer by steering through course-filtered answer gates from the full 4,683-prompt review library
+- Time Rift Survivors, a full-library survival arcade game with generated arena art, animated combat, relic upgrades, course filters, stimulus access, and 4,683 review prompts
+- Chrono Defense Infinite, an original endless social-studies tower defense game using the full 4,683-prompt review library
 - Regents Gauntlet, a multi-file MCQ game with 471 answer-keyed Regents questions and cropped original stimulus images
 - Arcade Duel, a wave-based MCQ combat mode that uses the same Regents MCQ bank (energy powerups + study targets)
 - Boss Rush Arena, a master game with generated arena/boss art, animated attacks, HP/shield/combo scoring, course switching, unit review, and comprehensive review runs
+- Grade 5 Social Studies, aligned to the NYS K-8 Social Studies Framework
+- Grade 6 Social Studies, aligned to the NYS K-8 Social Studies Framework
+- Grade 7 U.S. History I, aligned to the NYS K-8 Social Studies Framework
+- Grade 8 U.S. History II, aligned to the NYS K-8 Social Studies Framework
 - Grade 9 Global History I
 - Grade 10 Global History II
 - Grade 11 U.S. History
