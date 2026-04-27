@@ -14,6 +14,7 @@
     backBtn: $("backBtn"),
     termTitle: $("termTitle"),
     clueText: $("clueText"),
+    sourcePanel: $("sourcePanel"),
     metaRow: $("metaRow"),
     hintBox: $("hintBox"),
     board: $("board"),
@@ -133,7 +134,8 @@
   }
 
   function displayPrompt(q) {
-    const raw = cleanText(q?.prompt || "");
+    q = q || {};
+    const raw = cleanText(q.prompt || "");
     const cleaned = raw
       .replace(/^final\s+clue(?:\s+for\s+[^:]+)?:\s*/i, "")
       .replace(/^name\s+this\s+content\s+item:\s*/i, "")
@@ -143,6 +145,26 @@
       .replace(/^these\s+are\s+/i, "Identify: ")
       .trim();
     return cleaned ? cleaned.charAt(0).toUpperCase() + cleaned.slice(1) : raw;
+  }
+
+  function stimulusImages(q) {
+    q = q || {};
+    const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
+    if (list.length) return list.filter((image) => image && image.src);
+    if (q.stimulusImage) return [{ src: q.stimulusImage, label: "Source stimulus" }];
+    return [];
+  }
+
+  function stimulusText(q) {
+    q = q || {};
+    if (q.stimulusText) return cleanText(q.stimulusText);
+    if (typeof q.stimulus === "string") return cleanText(q.stimulus);
+    return "";
+  }
+
+  function hasStimulus(q) {
+    q = q || {};
+    return Boolean(stimulusText(q) || q.stimulusHtml || stimulusImages(q).length);
   }
 
   function explanationFor(term) {
@@ -173,7 +195,7 @@
   function buildTermBank(questions) {
     const byCode = new Map();
     for (const q of questions) {
-      if (!q?.answer || !isGoodTerm(q)) continue;
+      if (!q || !q.answer || !isGoodTerm(q)) continue;
       const code = normalizeTerm(q.answer);
       const existing = byCode.get(`${q.course}|${q.set}|${code}`);
       if (existing && existing.value >= Number(q.value || 0)) continue;
@@ -185,6 +207,7 @@
         set: q.set || q.subject || "Review",
         category: q.category || q.subject || "Review",
         value: Number(q.value || 0),
+        hasStimulus: hasStimulus(q),
         q
       });
     }
@@ -269,6 +292,7 @@
     if (!term) return;
     els.termTitle.textContent = `Term Lock ${term.code.length}`;
     els.clueText.textContent = term.clue;
+    renderStimulus(term);
     els.metaRow.innerHTML = [
       term.course,
       term.set,
@@ -278,6 +302,31 @@
     renderHint();
     renderBoard();
     updateStatsUI();
+  }
+
+  function renderStimulus(term) {
+    const q = term && term.q ? term.q : {};
+    const images = stimulusImages(q);
+    const text = stimulusText(q);
+    const html = q.stimulusHtml ? String(q.stimulusHtml) : "";
+    if (!images.length && !text && !html) {
+      els.sourcePanel.hidden = true;
+      els.sourcePanel.innerHTML = "";
+      return;
+    }
+    const textBlock = html
+      ? `<div class="source-text">${html}</div>`
+      : text
+        ? `<div class="source-text">${escapeHtml(text)}</div>`
+        : "";
+    const imageBlock = images.slice(0, 2).map((image, index) => (
+      `<figure class="source-figure">` +
+        `<img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.label || `Source stimulus ${index + 1}`)}" loading="eager">` +
+        `<figcaption>${escapeHtml(image.label || `Source stimulus ${index + 1}`)}</figcaption>` +
+      `</figure>`
+    )).join("");
+    els.sourcePanel.hidden = false;
+    els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div>${textBlock}${imageBlock}`;
   }
 
   function renderHint() {
@@ -307,8 +356,9 @@
       const rowEl = document.createElement("div");
       rowEl.className = "row";
       rowEl.style.gridTemplateColumns = `repeat(${length}, minmax(0, auto))`;
-      const guess = state.guesses[row]?.guess || (row === state.guesses.length ? state.current : "");
-      const marks = state.guesses[row]?.marks || [];
+      const storedGuess = state.guesses[row];
+      const guess = (storedGuess && storedGuess.guess) || (row === state.guesses.length ? state.current : "");
+      const marks = (storedGuess && storedGuess.marks) || [];
       for (let col = 0; col < length; col++) {
         const tile = document.createElement("div");
         tile.className = "tile";
@@ -373,8 +423,8 @@
     audio.key();
     renderBoard();
     const row = els.board.children[state.guesses.length];
-    const tile = row?.children[state.current.length - 1];
-    tile?.classList.add("pop");
+    const tile = row && row.children ? row.children[state.current.length - 1] : null;
+    if (tile) tile.classList.add("pop");
   }
 
   function submitGuess() {
@@ -442,12 +492,14 @@
       setMessage("Cipher decoded. Explanation unlocked.", "good");
       audio.win();
       burst(36, "#67f0a8");
-      window.MrMacsAnalytics?.track("game_complete", {
-        gameId: "archive-cipher",
-        title: "Archive Cipher",
-        term: state.target.answer,
-        attempts: state.guesses.length
-      }, { counter: "game-completions", once: false });
+      if (window.MrMacsAnalytics && typeof window.MrMacsAnalytics.track === "function") {
+        window.MrMacsAnalytics.track("game_complete", {
+          gameId: "archive-cipher",
+          title: "Archive Cipher",
+          term: state.target.answer,
+          attempts: state.guesses.length
+        }, { counter: "game-completions", once: false });
+      }
     } else {
       state.stats.streak = 0;
       els.ringCore.className = "ring-core loss";

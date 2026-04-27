@@ -8,6 +8,19 @@
 <link rel="icon" href="data:,">
 <title>Mr. Mac's Review Arcade</title>
 <script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  if (params.get("lite") === "0") return;
+  const ua = navigator.userAgent || "";
+  const platform = navigator.platform || "";
+  const touchPoints = navigator.maxTouchPoints || 0;
+  const connection = navigator.connection || {};
+  const iPadLike = /iPad/i.test(ua)
+    || (platform === "MacIntel" && touchPoints > 1)
+    || (touchPoints > 1 && Math.min(screen.width || 0, screen.height || 0) >= 760);
+  const constrainedConnection = connection.saveData || /2g/i.test(connection.effectiveType || "");
+  if (params.get("lite") === "1" || iPadLike || constrainedConnection) document.documentElement.classList.add("lite-startup");
+}());
 if (location.protocol === "file:" && !location.search.includes("local=1")) {
   location.replace("https://sirhanmacx.github.io/mr-macs-review-arcade/");
 }
@@ -40,7 +53,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
   --hero: url("assets/arcade-lobby-v3.webp");
   --emblem: url("assets/atlas-emblem.webp");
   --boss-art: url("assets/boss-rush-arena-v2.webp");
-  --gauntlet-art: url("assets/regents-gauntlet-arena.png");
+  --gauntlet-art: url("assets/regents-gauntlet-arena-lite.jpg");
   --shadow-1: 0 1px 0 rgba(255,255,255,.04) inset, 0 18px 50px rgba(0,0,0,.45);
   --shadow-2: 0 1px 0 rgba(255,255,255,.06) inset, 0 30px 80px rgba(0,0,0,.55);
   --ease: cubic-bezier(.2,.7,.2,1);
@@ -1164,6 +1177,42 @@ body.game-active .playerbar {
   -webkit-backdrop-filter: none !important;
 }
 
+html.lite-startup .hero-bg {
+  background:
+    radial-gradient(90% 70% at 72% 12%, rgba(122,240,255,.13), transparent 62%),
+    radial-gradient(60% 70% at 10% 86%, rgba(245,196,81,.12), transparent 68%),
+    linear-gradient(180deg, #080b14 0%, #05070d 100%) !important;
+  filter: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+html.lite-startup .hero-bg::before,
+html.lite-startup .hero-bg::after,
+html.lite-startup .grain,
+html.lite-startup #fx {
+  display: none !important;
+}
+html.lite-startup .topbar::after,
+html.lite-startup .hm-track,
+html.lite-startup .pill::before,
+html.lite-startup .live-dot,
+html.lite-startup .loader {
+  animation: none !important;
+}
+html.lite-startup .mode-button::before {
+  background-image: none !important;
+  opacity: .08 !important;
+}
+html.lite-startup .topbar,
+html.lite-startup .mode-button,
+html.lite-startup .course-tile,
+html.lite-startup .game-card,
+html.lite-startup .controlbar,
+html.lite-startup .playerbar {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 /* ============== Misc ============== */
 @media (max-width: 700px) {
   .hero-title { font-size: clamp(46px, 13vw, 96px); }
@@ -1313,6 +1362,7 @@ body.game-active .playerbar {
 <script src="assets/arcade-analytics.js"></script>
 <script>
 let GAMES = []
+const LITE_STARTUP = document.documentElement.classList.contains("lite-startup");
 async function loadGames() {
   const res = await fetch("games.json", { cache: "no-cache" });
   if (!res.ok) throw new Error("Failed to load games.json: " + res.status);
@@ -1466,17 +1516,17 @@ function renderMetrics() {
 function renderFeatured() {
   const games = featuredGames();
   const artMap = {
-    "archive-cipher": "url('assets/archive-cipher/archive-cipher-atlas.png')",
-    "timeline-runner": "url('assets/timeline-runner/runner-track.png')",
+    "archive-cipher": "url('assets/archive-cipher/archive-cipher-atlas-lite.jpg')",
+    "timeline-runner": "url('assets/timeline-runner/runner-track-lite.jpg')",
     "time-rift-survivors": "url('assets/time-rift/key-art.webp')",
     "chrono-defense-infinite": "url('assets/chrono-defense-road-map.webp')",
     "boss-rush-arena": "url('assets/boss-rush-arena-v2.webp')",
-    "regents-gauntlet": "url('assets/regents-gauntlet-arena.png')",
-    "arcade-duel": "url('assets/regents-gauntlet-arena.png')"
+    "regents-gauntlet": "url('assets/regents-gauntlet-arena-lite.jpg')",
+    "arcade-duel": "url('assets/regents-gauntlet-arena-lite.jpg')"
   };
   document.getElementById("featuredModes").innerHTML = games.map((game, index) => {
     const accent = accentFor(game);
-    const art = artMap[game.id] || "";
+    const art = LITE_STARTUP ? "" : (artMap[game.id] || "");
     const meta = (game.clueCount || 0) + (game.gameType.includes("Regents") || game.gameType.includes("Gauntlet") ? " MCQs" : " review prompts");
     const pills = (game.categories || []).slice(0, 4).map((c) => '<span class="mb-pill">' + escapeHtml(c) + '</span>').join('');
     return '<button class="mode-button" type="button" style="--accent:' + accent + ';--mode-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
@@ -1604,12 +1654,14 @@ function playerUrl(file) {
 function openGame(game) {
   if (!game) return;
   currentGame = game;
-  window.MrMacsAnalytics?.track("game_launch", {
-    gameId: game.id,
-    title: game.title,
-    course: game.course,
-    gameType: game.gameType
-  }, { counter: "game-launches", once: false });
+  if (window.MrMacsAnalytics && typeof window.MrMacsAnalytics.track === "function") {
+    window.MrMacsAnalytics.track("game_launch", {
+      gameId: game.id,
+      title: game.title,
+      course: game.course,
+      gameType: game.gameType
+    }, { counter: "game-launches", once: false });
+  }
   document.getElementById("playerTitle").textContent = game.title;
   document.getElementById("playerMeta").textContent = game.course + " · " + game.gameType + " · " + (game.day || game.grade);
   document.body.classList.add("game-active");
@@ -1637,8 +1689,11 @@ document.getElementById("openBtn").addEventListener("click", () => {
 });
 document.getElementById("fullscreenBtn").addEventListener("click", async () => {
   const target = document.querySelector(".framewrap");
-  if (!document.fullscreenElement) await target.requestFullscreen?.();
-  else await document.exitFullscreen?.();
+  if (!document.fullscreenElement) {
+    if (target && target.requestFullscreen) await target.requestFullscreen();
+  } else if (document.exitFullscreen) {
+    await document.exitFullscreen();
+  }
 });
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && player.classList.contains("show")) closeGame();
@@ -1649,6 +1704,7 @@ document.addEventListener("keydown", (event) => {
 	  const canvas = document.getElementById("fx");
 	  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 	  const lowFx = reduce
+	    || LITE_STARTUP
 	    || window.innerWidth < 760
 	    || (navigator.deviceMemory && navigator.deviceMemory <= 4)
 	    || (navigator.connection && navigator.connection.saveData);
@@ -1721,6 +1777,7 @@ document.addEventListener("keydown", (event) => {
 	function initParallax() {
 	  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 	  const lowFx = reduce
+	    || LITE_STARTUP
 	    || window.innerWidth < 760
 	    || (navigator.deviceMemory && navigator.deviceMemory <= 4)
 	    || (navigator.connection && navigator.connection.saveData);
