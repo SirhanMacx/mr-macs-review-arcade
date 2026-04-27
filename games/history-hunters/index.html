@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>History Hunters</title>
   <link rel="icon" href="../../assets/history-hunters/recruit-seal.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260427-history-hunters-fullpage-rpg">
+  <link rel="stylesheet" href="styles.css?v=20260427-history-hunters-handheld-rpg">
 </head>
 <body>
   <main class="game-shell">
@@ -90,6 +90,20 @@
       <button id="closeDialogue" type="button">Close</button>
     </section>
 
+    <section class="hud building-panel" id="buildingPanel" hidden aria-label="Building interior">
+      <div class="building-room" id="buildingRoom">
+        <div class="building-counter"></div>
+        <div class="building-clerk"></div>
+        <div class="building-player"></div>
+      </div>
+      <div class="building-text">
+        <span id="buildingKicker">Town</span>
+        <strong id="buildingTitle">Chronicle Center</strong>
+        <p id="buildingText">Welcome.</p>
+        <div id="buildingActions" class="dialogue-actions"></div>
+      </div>
+    </section>
+
     <aside class="hud roster-panel" id="rosterPanel" aria-label="Roster">
       <div class="panel-head">
         <div>
@@ -170,8 +184,23 @@
         <button id="beginBtn" class="primary big" type="button">Enter the Field</button>
       </div>
     </section>
+
+    <div class="handheld-controls" id="handheldControls" aria-label="Handheld controls">
+      <div class="dpad" aria-label="Movement controls">
+        <button type="button" data-dir="up" aria-label="Move up">▲</button>
+        <button type="button" data-dir="left" aria-label="Move left">◀</button>
+        <button type="button" data-dir="right" aria-label="Move right">▶</button>
+        <button type="button" data-dir="down" aria-label="Move down">▼</button>
+      </div>
+      <div class="action-pad">
+        <button type="button" id="aBtn" class="round primary" aria-label="A action">A</button>
+        <button type="button" id="bBtn" class="round" aria-label="B cancel">B</button>
+        <button type="button" id="startMenuBtn" class="start-pill" aria-label="Open menu">START</button>
+      </div>
+      <div class="field-hint" id="fieldHint">A: talk / inspect · START: menu</div>
+    </div>
   </main>
   <script src="../../assets/arcade-analytics.js"></script>
-  <script src="game.js?v=20260427-history-hunters-fullpage-rpg"></script>
+  <script src="game.js?v=20260427-history-hunters-handheld-rpg"></script>
 </body>
 </html>

@@ -38,6 +38,12 @@
     dialogueText: $("dialogueText"),
     dialogueActions: $("dialogueActions"),
     closeDialogue: $("closeDialogue"),
+    buildingPanel: $("buildingPanel"),
+    buildingRoom: $("buildingRoom"),
+    buildingKicker: $("buildingKicker"),
+    buildingTitle: $("buildingTitle"),
+    buildingText: $("buildingText"),
+    buildingActions: $("buildingActions"),
     encounter: $("encounter"),
     portrait: $("portrait"),
     portraitMark: $("portraitMark"),
@@ -66,7 +72,12 @@
     closeEncounter: $("closeEncounter"),
     startScreen: $("startScreen"),
     beginBtn: $("beginBtn"),
-    startStats: $("startStats")
+    startStats: $("startStats"),
+    handheldControls: $("handheldControls"),
+    aBtn: $("aBtn"),
+    bBtn: $("bBtn"),
+    startMenuBtn: $("startMenuBtn"),
+    fieldHint: $("fieldHint")
   };
 
   const ctx = els.canvas.getContext("2d", { alpha: false });
@@ -553,9 +564,10 @@
     trial: 0,
     wildSteps: 0,
     wildCooldown: 0,
-    player: { x: 1320, y: 1040, tx: 1320, ty: 1040, speed: 420 },
+    player: { x: 1320, y: 1040, tx: 1320, ty: 1040, speed: 310, facing: "down" },
     camera: { x: 0, y: 0 },
     keys: {},
+    lastAxis: "y",
     particles: [],
     terrain: null,
     pulse: 0,
@@ -1270,6 +1282,8 @@
     state.capture = 0;
     state.trial = 0;
     state.encounterOpen = true;
+    document.body.classList.add("encounter-open");
+    document.body.classList.remove("menu-open");
     renderAlly(ally);
     renderBattle();
     renderBattleActions();
@@ -1287,6 +1301,7 @@
     state.battle = null;
     state.wildCooldown = 4;
     els.encounter.classList.remove("answering");
+    document.body.classList.remove("encounter-open");
     els.encounter.hidden = true;
   }
 
@@ -1594,9 +1609,7 @@
     }
     state.activeInteraction = target;
     const actions = [];
-    if (target.kind === "center") actions.push({ action: "heal", label: "Heal Party" });
-    if (target.kind === "shop") actions.push({ action: "shop", label: "Open Supply Shop" });
-    if (target.kind === "story") actions.push({ action: "chapter", label: "Check Story" });
+    if (target.interactionType === "place") actions.push({ action: "enter", label: "Enter" });
     if (target.grant && !state.stats.flags[target.grant]) actions.push({ action: "grant", label: "Take Help" });
     if (target.action === "battle") actions.push({ action: "battle", label: "Challenge" });
     actions.push({ action: "hunt", label: "Start Hunt" }, { action: "close", label: "Close" });
@@ -1616,6 +1629,11 @@
     if (action === "battle") {
       els.dialoguePanel.hidden = true;
       openEncounter();
+      return;
+    }
+    if (action === "enter") {
+      els.dialoguePanel.hidden = true;
+      enterBuilding(state.activeInteraction);
       return;
     }
     if (action === "heal") {
@@ -1645,6 +1663,132 @@
         { action: "hunt", label: "Train on Route" },
         { action: "close", label: "Back to Map" }
       ]);
+    }
+  }
+
+  function buildingCopy(place) {
+    if (!place) {
+      return {
+        kicker: "Route",
+        title: "Open Route",
+        text: "The field route continues ahead.",
+        actions: [{ action: "leave", label: "Leave" }]
+      };
+    }
+    if (place.kind === "center") {
+      return {
+        kicker: "Chronicle Center",
+        title: "Party restored",
+        text: "The archive nurse restores party HP and records your expedition log.",
+        actions: [
+          { action: "heal", label: "Heal Party" },
+          { action: "leave", label: "Leave" }
+        ]
+      };
+    }
+    if (place.kind === "shop") {
+      return {
+        kicker: "Archive Supply",
+        title: "Field counter",
+        text: `Shards: ${state.stats.shards || 0}. Buy only what helps your next review route.`,
+        actions: Object.entries(itemCatalog).map(([id, item]) => ({
+          action: "buy",
+          item: id,
+          label: `${item.label} ${item.price}`
+        })).concat([{ action: "leave", label: "Leave" }])
+      };
+    }
+    if (place.id === "lab") {
+      return {
+        kicker: "Professor Mac's Lab",
+        title: "Route assignment",
+        text: storyChapters[state.stats.storyStep || 0] || storyChapters[0],
+        actions: [
+          { action: "chapter", label: "Check Story" },
+          { action: "hunt", label: "Train" },
+          { action: "leave", label: "Leave" }
+        ]
+      };
+    }
+    if (place.id === "museum") {
+      return {
+        kicker: "Source Museum",
+        title: "Read the evidence",
+        text: "Maps, charts, cartoons, excerpts, and photos come before the answer choices.",
+        actions: [
+          { action: "grant", label: state.stats.flags.lens ? "Review Tip" : "Take Lenses" },
+          { action: "hunt", label: "Source Trial" },
+          { action: "leave", label: "Leave" }
+        ]
+      };
+    }
+    return {
+      kicker: place.name,
+      title: "Route hub",
+      text: place.text || "This route connects new review encounters.",
+      actions: [
+        { action: "hunt", label: "Start Route" },
+        { action: "leave", label: "Leave" }
+      ]
+    };
+  }
+
+  function enterBuilding(place) {
+    const copy = buildingCopy(place);
+    state.activeInteraction = place || state.activeInteraction;
+    closePanels();
+    document.body.classList.remove("menu-open");
+    els.buildingPanel.hidden = false;
+    els.buildingRoom.dataset.kind = place && place.kind || "route";
+    els.buildingKicker.textContent = copy.kicker;
+    els.buildingTitle.textContent = copy.title;
+    els.buildingText.textContent = copy.text;
+    els.buildingActions.innerHTML = copy.actions.map((action) => (
+      `<button type="button" data-action="${escapeHtml(action.action)}" data-item="${escapeHtml(action.item || "")}">${escapeHtml(action.label)}</button>`
+    )).join("");
+    Array.prototype.forEach.call(els.buildingActions.querySelectorAll("button"), (button) => {
+      button.addEventListener("click", () => handleBuildingAction(button.dataset.action, button.dataset.item));
+    });
+  }
+
+  function handleBuildingAction(action, itemId) {
+    if (action === "leave") {
+      els.buildingPanel.hidden = true;
+      return;
+    }
+    if (action === "heal") {
+      healParty();
+      els.buildingText.textContent = "Full restore complete. Your party is ready for the next route.";
+      updateHud();
+      return;
+    }
+    if (action === "buy") {
+      buyItem(itemId);
+      const item = itemCatalog[itemId];
+      els.buildingText.textContent = item
+        ? `${item.label}: x${state.stats.items[itemId] || 0}. Shards left: ${state.stats.shards || 0}.`
+        : `Shards left: ${state.stats.shards || 0}.`;
+      return;
+    }
+    if (action === "chapter") {
+      advanceStory();
+      els.buildingText.textContent = storyChapters[state.stats.storyStep] || storyChapters[storyChapters.length - 1];
+      return;
+    }
+    if (action === "grant") {
+      if (!state.stats.flags.lens) {
+        state.stats.items.sourceLens += 2;
+        state.stats.flags.lens = true;
+        writeSave();
+        updateHud();
+        renderBag();
+      }
+      els.buildingText.textContent = "Source Lenses are in your bag. Use them when a question depends on a stimulus.";
+      return;
+    }
+    if (action === "hunt") {
+      els.buildingPanel.hidden = true;
+      openEncounter();
     }
   }
 
@@ -1809,13 +1953,120 @@
     }
   }
 
+  function isTextEntryTarget(target) {
+    if (!target) return false;
+    const tag = String(target.tagName || "").toLowerCase();
+    return tag === "input" || tag === "textarea" || tag === "select" || target.isContentEditable;
+  }
+
+  function closePanels() {
+    els.rosterPanel.classList.remove("show");
+    els.codexPanel.classList.remove("show");
+    els.bagPanel.classList.remove("show");
+    els.dialoguePanel.hidden = true;
+  }
+
+  function toggleMenu(force) {
+    if (state.encounterOpen || !state.running) return;
+    const open = typeof force === "boolean" ? force : !document.body.classList.contains("menu-open");
+    closePanels();
+    els.buildingPanel.hidden = true;
+    document.body.classList.toggle("menu-open", open);
+  }
+
+  function performAction() {
+    if (!state.running) {
+      startField();
+      return;
+    }
+    if (!els.buildingPanel.hidden) return;
+    if (state.encounterOpen) {
+      if (state.currentQuestion && els.typedForm.style.display !== "none") {
+        els.typedAnswer.focus({ preventScroll: true });
+      }
+      return;
+    }
+    if (document.body.classList.contains("menu-open")) {
+      toggleMenu(false);
+      return;
+    }
+    const interaction = state.nearInteraction || nearestInteraction(state.player);
+    if (interaction) {
+      openInteraction(interaction);
+      return;
+    }
+    if (isTallGrass(state.player.x, state.player.y) || state.selectedNode) {
+      openEncounter();
+    } else {
+      setDialogue("Field", "Nothing here", "Move near a person, building, sign, or tall grass, then press A.", [
+        { action: "close", label: "Close" }
+      ]);
+    }
+  }
+
+  function performCancel() {
+    if (!els.buildingPanel.hidden) {
+      els.buildingPanel.hidden = true;
+      return;
+    }
+    if (!els.dialoguePanel.hidden) {
+      els.dialoguePanel.hidden = true;
+      return;
+    }
+    if (document.body.classList.contains("menu-open")) {
+      toggleMenu(false);
+      return;
+    }
+    if (els.bagPanel.classList.contains("show") || els.rosterPanel.classList.contains("show") || els.codexPanel.classList.contains("show")) {
+      closePanels();
+      return;
+    }
+    if (state.encounterOpen && !state.currentQuestion) closeEncounter();
+  }
+
+  function startField() {
+    state.running = true;
+    document.body.classList.add("field-mode");
+    document.body.classList.remove("menu-open");
+    els.startScreen.classList.add("hide");
+    if (els.fieldHint) els.fieldHint.textContent = "A: talk / inspect · B: cancel · START: menu";
+  }
+
+  function setDirection(dir, pressed) {
+    const map = {
+      up: "arrowup",
+      down: "arrowdown",
+      left: "arrowleft",
+      right: "arrowright"
+    };
+    if (map[dir]) state.keys[map[dir]] = pressed;
+  }
+
   function initControls() {
     addEventListener("resize", resize);
     addEventListener("keydown", (event) => {
-      state.keys[event.key.toLowerCase()] = true;
-      if (["arrowup", "arrowdown", "arrowleft", "arrowright", " ", "e"].includes(event.key.toLowerCase())) event.preventDefault();
-      if (event.key === " " && !state.encounterOpen) openEncounter();
-      if (event.key.toLowerCase() === "e" && !state.encounterOpen) openInteraction();
+      const key = event.key;
+      const lower = key.toLowerCase();
+      if (isTextEntryTarget(event.target)) return;
+      if (["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"].includes(lower)) {
+        event.preventDefault();
+        state.keys[lower] = true;
+        return;
+      }
+      if (lower === "e" || key === " " || lower === "enter") {
+        event.preventDefault();
+        performAction();
+        return;
+      }
+      if (lower === "b" || lower === "escape") {
+        event.preventDefault();
+        performCancel();
+        return;
+      }
+      if (lower === "m" || lower === "tab") {
+        event.preventDefault();
+        toggleMenu();
+      }
     });
     addEventListener("keyup", (event) => {
       state.keys[event.key.toLowerCase()] = false;
@@ -1844,29 +2095,57 @@
     els.courseFilter.addEventListener("change", () => {
       fillSets();
       applyFilters();
+      toggleMenu(false);
     });
-    els.setFilter.addEventListener("change", applyFilters);
-    els.huntBtn.addEventListener("click", openEncounter);
-    els.actionBtn.addEventListener("click", () => openInteraction());
+    els.setFilter.addEventListener("change", () => {
+      applyFilters();
+      toggleMenu(false);
+    });
+    els.huntBtn.addEventListener("click", () => {
+      toggleMenu(false);
+      openEncounter();
+    });
+    els.actionBtn.addEventListener("click", performAction);
     els.mapBtn.addEventListener("click", () => {
+      toggleMenu(false);
       state.player.tx = worldPlaces[0].x;
       state.player.ty = worldPlaces[0].y + 80;
     });
-    els.bagBtn.addEventListener("click", openBag);
+    els.bagBtn.addEventListener("click", () => {
+      toggleMenu(false);
+      openBag();
+    });
     els.closeBag.addEventListener("click", () => els.bagPanel.classList.remove("show"));
-    els.rosterBtn.addEventListener("click", () => els.rosterPanel.classList.add("show"));
+    els.rosterBtn.addEventListener("click", () => {
+      toggleMenu(false);
+      els.rosterPanel.classList.add("show");
+    });
     els.closeRoster.addEventListener("click", () => els.rosterPanel.classList.remove("show"));
-    els.codexBtn.addEventListener("click", () => els.codexPanel.classList.add("show"));
+    els.codexBtn.addEventListener("click", () => {
+      toggleMenu(false);
+      els.codexPanel.classList.add("show");
+    });
     els.closeCodex.addEventListener("click", () => els.codexPanel.classList.remove("show"));
     els.closeDialogue.addEventListener("click", () => els.dialoguePanel.hidden = true);
     els.closeEncounter.addEventListener("click", closeEncounter);
-    els.beginBtn.addEventListener("click", () => {
-      state.running = true;
-      els.startScreen.classList.add("hide");
-    });
+    els.beginBtn.addEventListener("click", startField);
     els.typedForm.addEventListener("submit", (event) => {
       event.preventDefault();
       submitAnswer(els.typedAnswer.value);
+    });
+    if (els.aBtn) els.aBtn.addEventListener("click", performAction);
+    if (els.bBtn) els.bBtn.addEventListener("click", performCancel);
+    if (els.startMenuBtn) els.startMenuBtn.addEventListener("click", () => toggleMenu());
+    document.querySelectorAll("[data-dir]").forEach((button) => {
+      const dir = button.dataset.dir;
+      button.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        setDirection(dir, true);
+        button.setPointerCapture(event.pointerId);
+      });
+      button.addEventListener("pointerup", () => setDirection(dir, false));
+      button.addEventListener("pointercancel", () => setDirection(dir, false));
+      button.addEventListener("lostpointercapture", () => setDirection(dir, false));
     });
   }
 
@@ -1874,19 +2153,33 @@
     const p = state.player;
     let dx = 0;
     let dy = 0;
-    if (state.keys.w || state.keys.arrowup) dy -= 1;
-    if (state.keys.s || state.keys.arrowdown) dy += 1;
-    if (state.keys.a || state.keys.arrowleft) dx -= 1;
-    if (state.keys.d || state.keys.arrowright) dx += 1;
+    const canMove = !state.encounterOpen
+      && els.buildingPanel.hidden
+      && els.dialoguePanel.hidden
+      && !document.body.classList.contains("menu-open")
+      && !els.bagPanel.classList.contains("show")
+      && !els.rosterPanel.classList.contains("show")
+      && !els.codexPanel.classList.contains("show");
+    if (canMove) {
+      if (state.keys.w || state.keys.arrowup) dy -= 1;
+      if (state.keys.s || state.keys.arrowdown) dy += 1;
+      if (state.keys.a || state.keys.arrowleft) dx -= 1;
+      if (state.keys.d || state.keys.arrowright) dx += 1;
+    }
+    if (dx && dy) {
+      if (state.lastAxis === "x") dy = 0;
+      else dx = 0;
+    }
     if (dx || dy) {
-      const len = Math.hypot(dx, dy) || 1;
-      p.tx = p.x + dx / len * 80;
-      p.ty = p.y + dy / len * 80;
+      state.lastAxis = dx ? "x" : "y";
+      p.facing = dy < 0 ? "up" : dy > 0 ? "down" : dx < 0 ? "left" : "right";
+      p.tx = p.x + dx * 72;
+      p.ty = p.y + dy * 72;
     }
     const vx = p.tx - p.x;
     const vy = p.ty - p.y;
     const dist = Math.hypot(vx, vy);
-    if (dist > 3 && !state.encounterOpen) {
+    if (dist > 3 && canMove) {
       const step = Math.min(dist, p.speed * dt);
       p.x = clamp(p.x + vx / dist * step, 70, WORLD_W - 70);
       p.y = clamp(p.y + vy / dist * step, 70, WORLD_H - 70);
@@ -1913,6 +2206,9 @@
     if ((interaction && (!state.nearInteraction || interaction.id !== state.nearInteraction.id)) || (!interaction && state.nearInteraction)) {
       state.nearInteraction = interaction;
       updateHud();
+      if (els.fieldHint) els.fieldHint.textContent = interaction
+        ? `A: ${interaction.interactionType === "place" ? "enter " : "talk to "}${interaction.name}`
+        : "A: inspect route · START: menu";
       if (interaction) {
         els.activeRegion.textContent = interaction.name;
         els.questText.textContent = interaction.kind === "center"
@@ -2250,7 +2546,11 @@
     const p = state.player;
     const movingX = Math.abs(p.tx - p.x);
     const movingY = Math.abs(p.ty - p.y);
-    const sprite = movingY > movingX && p.ty < p.y ? "playerBack" : movingX > 10 && p.tx > p.x ? "playerSideAlt" : movingX > 10 ? "playerSide" : "playerFront";
+    if (movingY > movingX && p.ty < p.y) p.facing = "up";
+    else if (movingY > movingX && p.ty > p.y) p.facing = "down";
+    else if (movingX > 10 && p.tx > p.x) p.facing = "right";
+    else if (movingX > 10 && p.tx < p.x) p.facing = "left";
+    const sprite = p.facing === "up" ? "playerBack" : p.facing === "right" ? "playerSideAlt" : p.facing === "left" ? "playerSide" : "playerFront";
     ctx.save();
     ctx.translate(Math.round(p.x), Math.round(p.y));
     const pulse = 1 + state.pulse * .15;
