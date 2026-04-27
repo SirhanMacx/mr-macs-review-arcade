@@ -59,6 +59,39 @@
   const ctx = els.canvas.getContext("2d", { alpha: false });
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const images = {};
+  const GB = {
+    ink: "#0f380f",
+    dark: "#306230",
+    mid: "#8bac0f",
+    light: "#9bbc0f",
+    glow: "#d6ee63"
+  };
+  const TILE_SIZE = 96;
+  const atlas = {
+    grassA: [41, 36, 104, 104],
+    grassB: [154, 36, 100, 104],
+    grassC: [265, 36, 100, 104],
+    pathA: [391, 36, 101, 106],
+    pathB: [514, 36, 110, 105],
+    waterA: [652, 36, 101, 103],
+    waterB: [762, 36, 92, 104],
+    treeA: [42, 384, 103, 112],
+    treeB: [153, 384, 96, 116],
+    mountainA: [525, 392, 116, 105],
+    mountainB: [641, 389, 132, 107],
+    school: [42, 709, 142, 105],
+    gate: [455, 712, 132, 103],
+    arch: [291, 713, 124, 102],
+    portal: [608, 710, 130, 106],
+    sign: [802, 729, 74, 83],
+    chest: [889, 717, 91, 89],
+    playerFront: [231, 857, 96, 118],
+    playerSide: [345, 857, 94, 118],
+    playerBack: [455, 857, 94, 118],
+    playerSideAlt: [569, 857, 94, 118],
+    scholar: [64, 1266, 181, 154],
+    archiveBurst: [489, 1280, 305, 166]
+  };
 
   const palettes = [
     ["#70f2ff", "#ffd66e", "#2f68ff"],
@@ -174,6 +207,7 @@
     camera: { x: 0, y: 0 },
     keys: {},
     particles: [],
+    terrain: null,
     pulse: 0,
     last: 0,
     stats: readSave()
@@ -498,6 +532,7 @@
     }
     state.nodes = nodes;
     state.selectedNode = nodes[0] || null;
+    state.terrain = null;
   }
 
   function nextQuestion() {
@@ -645,6 +680,7 @@
 
   function renderMoveButtons() {
     const hero = heroAlly();
+    els.moveButtons.classList.remove("answering");
     els.moveButtons.innerHTML = hero.moves.map((item, index) => {
       const data = typeData[item.type] || typeData.Ideas;
       return `<button type="button" data-move="${index}" style="--type:${data.color};--effect-y:${typeEffectOffset(item.type)}">` +
@@ -670,6 +706,7 @@
     state.currentQuestion = q;
     state.locked = false;
     if (state.battle) state.battle.awaitingAnswer = true;
+    els.moveButtons.classList.add("answering");
     els.questionText.textContent = displayPrompt(q);
     els.trialMeta.textContent = `${cleanText(q.course || "Social Studies")} / ${cleanText(q.set || "Review")}`;
     els.trialKicker.textContent = state.currentAlly && state.currentAlly.sensitive ? "Archive Mission" : "Recruitment Trial";
@@ -699,6 +736,7 @@
 
   function clearQuestionArea(message) {
     state.currentQuestion = null;
+    els.moveButtons.classList.remove("answering");
     els.questionText.textContent = message;
     els.choices.innerHTML = "";
     els.choices.style.display = "none";
@@ -725,8 +763,8 @@
     els.encounter.hidden = false;
     els.encounter.classList.add("pulse");
     setTimeout(() => els.encounter.classList.remove("pulse"), 650);
-    clearQuestionArea(ally.sensitive ? "This is an archive mission. Pick a move and answer carefully to preserve context." : "Pick a move. Correct answers power the attack and build recruitment trust.");
-    setBattleLog(`${ally.name} appeared. Type: ${ally.type}. ${typeData[ally.type]?.flavor || "review energy"}.`);
+    clearQuestionArea(ally.sensitive ? "Archive mission loaded. Pick a move and answer carefully to preserve context." : "Pick a move. Correct answers power attacks and build recruitment trust.");
+    setBattleLog(`${ally.name} entered the field. Type: ${ally.type}. ${typeData[ally.type]?.flavor || "review energy"}.`);
   }
 
   function closeEncounter() {
@@ -930,6 +968,7 @@
     els.canvas.style.width = innerWidth + "px";
     els.canvas.style.height = innerHeight + "px";
     ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    ctx.imageSmoothingEnabled = false;
   }
 
   function canvasPoint(event) {
@@ -1056,127 +1095,194 @@
   }
 
   function drawWorld(now) {
-    const g = ctx.createLinearGradient(0, 0, WORLD_W, WORLD_H);
-    g.addColorStop(0, "#113f54");
-    g.addColorStop(.38, "#145d5a");
-    g.addColorStop(.65, "#243d6e");
-    g.addColorStop(1, "#0b1224");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, WORLD_W, WORLD_H);
-    if (images.overworld) {
-      ctx.save();
-      ctx.globalAlpha = .78;
-      ctx.drawImage(images.overworld, 0, 0, WORLD_W, WORLD_H);
-      ctx.fillStyle = "rgba(4, 10, 22, .26)";
-      ctx.fillRect(0, 0, WORLD_W, WORLD_H);
-      ctx.restore();
-    }
-
-    ctx.globalAlpha = .12;
-    ctx.strokeStyle = "#9ff7ff";
-    ctx.lineWidth = 2;
-    for (let x = 0; x < WORLD_W; x += 120) {
-      ctx.beginPath();
-      ctx.moveTo(x + Math.sin(now + x) * 14, 0);
-      ctx.lineTo(x + Math.cos(now * .8 + x) * 14, WORLD_H);
-      ctx.stroke();
-    }
-    for (let y = 0; y < WORLD_H; y += 120) {
-      ctx.beginPath();
-      ctx.moveTo(0, y + Math.cos(now + y) * 14);
-      ctx.lineTo(WORLD_W, y + Math.sin(now * .8 + y) * 14);
-      ctx.stroke();
-    }
-    ctx.globalAlpha = 1;
-
-    drawPath();
-    drawLandmarks(now);
+    if (!state.terrain) state.terrain = buildTerrainLayer();
+    ctx.drawImage(state.terrain, 0, 0);
+    drawRetroAmbient(now);
   }
 
-  function drawPath() {
+  function buildTerrainLayer() {
+    const layer = typeof OffscreenCanvas !== "undefined"
+      ? new OffscreenCanvas(WORLD_W, WORLD_H)
+      : document.createElement("canvas");
+    layer.width = WORLD_W;
+    layer.height = WORLD_H;
+    const layerCtx = layer.getContext("2d", { alpha: false });
+    layerCtx.imageSmoothingEnabled = false;
+    drawRetroGround(layerCtx);
+    drawRetroRoads(layerCtx);
+    drawRetroLandmarks(layerCtx);
+    drawRetroBorder(layerCtx);
+    return layer;
+  }
+
+  function drawAtlas(context, name, x, y, w, h, alpha = 1) {
+    const source = atlas[name];
+    const image = images.retroTiles;
+    if (!source || !image) {
+      context.save();
+      context.globalAlpha = alpha;
+      context.fillStyle = name && name.includes("water") ? GB.dark : name && name.includes("path") ? "#c4dc52" : GB.mid;
+      context.fillRect(Math.floor(x), Math.floor(y), Math.floor(w), Math.floor(h));
+      context.restore();
+      return;
+    }
+    context.save();
+    context.globalAlpha = alpha;
+    context.imageSmoothingEnabled = false;
+    context.drawImage(image, source[0], source[1], source[2], source[3], Math.floor(x), Math.floor(y), Math.floor(w), Math.floor(h));
+    context.restore();
+  }
+
+  function drawRetroGround(context) {
+    context.fillStyle = GB.light;
+    context.fillRect(0, 0, WORLD_W, WORLD_H);
+    for (let y = 0; y < WORLD_H + TILE_SIZE; y += TILE_SIZE) {
+      for (let x = 0; x < WORLD_W + TILE_SIZE; x += TILE_SIZE) {
+        const edge = x < 140 || y < 120 || x > WORLD_W - 230 || y > WORLD_H - 180;
+        const value = hash(`${x}|${y}|terrain`);
+        const tile = edge && value % 4 === 0
+          ? (value % 2 ? "waterA" : "waterB")
+          : value % 7 === 0 ? "grassC" : value % 3 === 0 ? "grassB" : "grassA";
+        drawAtlas(context, tile, x, y, TILE_SIZE, TILE_SIZE);
+      }
+    }
+    context.fillStyle = "rgba(15,56,15,.13)";
+    for (let y = 0; y < WORLD_H; y += 24) {
+      for (let x = (y / 24) % 2 ? 12 : 0; x < WORLD_W; x += 48) {
+        if (hash(`${x}-${y}`) % 9 === 0) context.fillRect(x, y, 6, 6);
+      }
+    }
+  }
+
+  function strokeRoute(context, width, color) {
     if (!state.nodes.length) return;
+    context.save();
+    context.lineCap = "square";
+    context.lineJoin = "bevel";
+    context.strokeStyle = color;
+    context.lineWidth = width;
+    context.beginPath();
+    context.moveTo(WORLD_W / 2, WORLD_H / 2);
+    state.nodes.forEach((node, index) => {
+      const elbowX = index % 2 ? node.x : WORLD_W / 2;
+      context.lineTo(elbowX, node.y);
+      context.lineTo(node.x, node.y);
+    });
+    context.stroke();
+    context.restore();
+  }
+
+  function drawRetroRoads(context) {
+    strokeRoute(context, 58, GB.ink);
+    strokeRoute(context, 46, "#d5ec65");
+    strokeRoute(context, 30, "#b7d643");
+    context.save();
+    context.strokeStyle = "rgba(48,98,48,.42)";
+    context.lineWidth = 4;
+    context.setLineDash([18, 18]);
+    strokeRoute(context, 4, "rgba(15,56,15,.44)");
+    context.restore();
+    drawAtlas(context, "gate", WORLD_W / 2 - 86, WORLD_H / 2 - 116, 172, 132);
+  }
+
+  function drawRetroLandmarks(context) {
+    const trees = [
+      [230, 270, "treeA"], [360, 1180, "treeB"], [2050, 300, "treeA"], [2300, 1260, "treeB"],
+      [1160, 220, "treeA"], [1460, 1380, "treeB"], [980, 1260, "treeA"], [1840, 1320, "treeA"]
+    ];
+    trees.forEach(([x, y, key]) => drawAtlas(context, key, x, y, 116, 126));
+    [[530, 450, "mountainA"], [1880, 560, "mountainB"], [2100, 1000, "mountainA"]]
+      .forEach(([x, y, key]) => drawAtlas(context, key, x, y, 150, 126));
+    drawAtlas(context, "school", 306, 682, 184, 138);
+    drawAtlas(context, "portal", 2060, 716, 172, 136);
+    drawAtlas(context, "chest", 588, 1210, 100, 98);
+    drawAtlas(context, "arch", 1784, 1204, 150, 124);
+    drawPixelBox(context, 1110, 630, 380, 92, "MR MACS REVIEW ARCADE", "START FIELD HUNT");
+  }
+
+  function drawRetroBorder(context) {
+    context.save();
+    context.strokeStyle = "rgba(15,56,15,.62)";
+    context.lineWidth = 14;
+    context.strokeRect(7, 7, WORLD_W - 14, WORLD_H - 14);
+    context.strokeStyle = "rgba(155,188,15,.55)";
+    context.lineWidth = 4;
+    context.strokeRect(28, 28, WORLD_W - 56, WORLD_H - 56);
+    context.restore();
+  }
+
+  function drawRetroAmbient(now) {
+    if (reduceMotion) return;
     ctx.save();
-    ctx.strokeStyle = "rgba(255, 221, 126, .26)";
-    ctx.lineWidth = 18;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.beginPath();
-    ctx.moveTo(WORLD_W / 2, WORLD_H / 2);
-    state.nodes.forEach((node) => ctx.lineTo(node.x, node.y));
-    ctx.stroke();
-    ctx.strokeStyle = "rgba(7, 12, 26, .58)";
-    ctx.lineWidth = 6;
-    ctx.stroke();
+    ctx.globalAlpha = .55 + Math.sin(now * 2.8) * .18;
+    ctx.fillStyle = GB.glow;
+    const selected = state.selectedNode;
+    if (selected) {
+      for (let i = 0; i < 5; i++) {
+        const angle = now * 1.6 + i * Math.PI * .4;
+        ctx.fillRect(
+          Math.round(selected.x + Math.cos(angle) * 58),
+          Math.round(selected.y + Math.sin(angle) * 34 - 50),
+          6,
+          6
+        );
+      }
+    }
     ctx.restore();
   }
 
-  function drawLandmarks(now) {
-    const landmarks = [
-      [360, 350, "#ffd66e", "temple"],
-      [2180, 360, "#70f2ff", "portal"],
-      [510, 1260, "#77f0af", "archive"],
-      [2050, 1190, "#c9a0ff", "dome"],
-      [1300, 790, "#ff789d", "spire"]
-    ];
-    landmarks.forEach((item, index) => {
-      ctx.save();
-      ctx.translate(item[0], item[1]);
-      ctx.fillStyle = "rgba(0,0,0,.22)";
-      ctx.beginPath();
-      ctx.ellipse(0, 34, 70, 22, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = item[2];
-      ctx.fillStyle = "rgba(255,255,255,.09)";
-      ctx.lineWidth = 5;
-      if (item[3] === "portal") {
-        ctx.beginPath();
-        ctx.arc(0, 0, 42 + Math.sin(now * 2 + index) * 4, 0, Math.PI * 2);
-        ctx.stroke();
-      } else {
-        ctx.beginPath();
-        ctx.moveTo(0, -58);
-        ctx.lineTo(46, 42);
-        ctx.lineTo(-46, 42);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-      }
-      ctx.restore();
-    });
+  function drawPixelBox(context, x, y, w, h, title, subtitle) {
+    context.save();
+    context.fillStyle = GB.ink;
+    context.fillRect(x, y, w, h);
+    context.fillStyle = GB.light;
+    context.fillRect(x + 8, y + 8, w - 16, h - 16);
+    context.strokeStyle = GB.ink;
+    context.lineWidth = 4;
+    context.strokeRect(x + 16, y + 16, w - 32, h - 32);
+    context.fillStyle = GB.ink;
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.font = "900 22px 'Courier New', monospace";
+    context.fillText(title, x + w / 2, y + 36);
+    context.font = "900 15px 'Courier New', monospace";
+    context.fillText(subtitle, x + w / 2, y + 62);
+    context.restore();
   }
 
   function drawNodes(now) {
-    state.nodes.forEach((node) => {
+    state.nodes.forEach((node, index) => {
       const selected = state.selectedNode === node;
-      const r = selected ? 48 + Math.sin(now * 5) * 3 : 34;
+      const bob = selected && !reduceMotion ? Math.round(Math.sin(now * 7) * 5) : 0;
+      const icon = index % 5 === 0 ? "portal" : index % 4 === 0 ? "chest" : index % 3 === 0 ? "arch" : "sign";
+      const size = selected ? 88 : 68;
       ctx.save();
-      ctx.translate(node.x, node.y);
-      ctx.fillStyle = "rgba(0,0,0,.26)";
-      ctx.beginPath();
-      ctx.ellipse(0, r * .82, r * 1.35, r * .34, 0, 0, Math.PI * 2);
-      ctx.fill();
-      const grad = ctx.createRadialGradient(0, -8, 4, 0, 0, r);
-      grad.addColorStop(0, "#ffffff");
-      grad.addColorStop(.25, node.palette[0]);
-      grad.addColorStop(1, node.palette[2]);
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(0, 0, r, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.lineWidth = selected ? 7 : 4;
-      ctx.strokeStyle = selected ? "#ffd66e" : "rgba(255,255,255,.42)";
-      ctx.stroke();
-      ctx.fillStyle = "#071326";
-      ctx.font = "900 18px Inter, system-ui";
+      ctx.translate(Math.round(node.x), Math.round(node.y + bob));
+      ctx.fillStyle = "rgba(15,56,15,.35)";
+      ctx.fillRect(-46, 36, 92, 14);
+      if (selected) {
+        ctx.fillStyle = GB.ink;
+        ctx.fillRect(-54, -68, 108, 10);
+        ctx.fillRect(-54, 46, 108, 10);
+        ctx.fillRect(-64, -58, 10, 104);
+        ctx.fillRect(54, -58, 10, 104);
+        ctx.fillStyle = GB.glow;
+        ctx.fillRect(-44, -58, 88, 6);
+        ctx.fillRect(-44, 40, 88, 6);
+      }
+      drawAtlas(ctx, icon, -size / 2, -size / 2, size, size);
+      ctx.fillStyle = GB.ink;
+      ctx.font = "900 14px 'Courier New', monospace";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText(String(node.count || 0), 0, 0);
-      ctx.fillStyle = "rgba(7, 12, 26, .84)";
-      roundRect(ctx, -118, r + 16, 236, 44, 13);
-      ctx.fill();
-      ctx.fillStyle = "#f5fbff";
-      ctx.font = "900 13px Inter, system-ui";
-      wrapCanvasText(node.label, 0, r + 32, 210, 15, 2);
+      ctx.fillText(String(node.count || 0), 0, selected ? -60 : -48);
+      ctx.fillStyle = GB.ink;
+      ctx.fillRect(-118, size / 2 + 18, 236, 50);
+      ctx.fillStyle = GB.light;
+      ctx.fillRect(-112, size / 2 + 24, 224, 38);
+      ctx.fillStyle = GB.ink;
+      ctx.font = "900 12px 'Courier New', monospace";
+      wrapCanvasText(node.label, 0, size / 2 + 38, 204, 14, 2);
       ctx.restore();
     });
   }
@@ -1201,41 +1307,30 @@
 
   function drawPlayer(now) {
     const p = state.player;
+    const movingX = Math.abs(p.tx - p.x);
+    const movingY = Math.abs(p.ty - p.y);
+    const sprite = movingY > movingX && p.ty < p.y ? "playerBack" : movingX > 10 && p.tx > p.x ? "playerSideAlt" : movingX > 10 ? "playerSide" : "playerFront";
     ctx.save();
-    ctx.translate(p.x, p.y);
-    const pulse = 1 + state.pulse * .2;
+    ctx.translate(Math.round(p.x), Math.round(p.y));
+    const pulse = 1 + state.pulse * .15;
     ctx.scale(pulse, pulse);
-    ctx.fillStyle = "rgba(0,0,0,.32)";
-    ctx.beginPath();
-    ctx.ellipse(0, 34, 38, 14, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = "#0b1326";
-    ctx.strokeStyle = "#ffd66e";
-    ctx.lineWidth = 5;
-    ctx.beginPath();
-    ctx.arc(0, 0, 31, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
-    ctx.fillStyle = "#70f2ff";
-    ctx.beginPath();
-    ctx.arc(-10, -6, 6, 0, Math.PI * 2);
-    ctx.arc(10, -6, 6, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.strokeStyle = "rgba(112,242,255,.42)";
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.arc(0, 0, 46 + Math.sin(now * 4) * 4, 0, Math.PI * 2);
-    ctx.stroke();
+    ctx.fillStyle = "rgba(15,56,15,.42)";
+    ctx.fillRect(-34, 38, 68, 12);
+    drawAtlas(ctx, sprite, -36, -70, 72, 92);
+    if (state.pulse > 0) {
+      ctx.strokeStyle = GB.glow;
+      ctx.lineWidth = 5;
+      ctx.strokeRect(-48, -78, 96, 110);
+    }
     ctx.restore();
   }
 
   function drawParticles() {
     state.particles.forEach((particle) => {
       ctx.globalAlpha = Math.max(0, particle.life);
-      ctx.fillStyle = particle.color;
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, 4 + particle.life * 5, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.fillStyle = particle.color || GB.ink;
+      const size = Math.max(4, Math.round(5 + particle.life * 7));
+      ctx.fillRect(Math.round(particle.x), Math.round(particle.y), size, size);
     });
     ctx.globalAlpha = 1;
   }
@@ -1265,7 +1360,10 @@
     updateHud();
     renderRoster();
     renderCodex();
-    loadImage("overworld", "../../assets/history-hunters/overworld-map.png");
+    await Promise.all([
+      loadImage("retroTiles", "../../assets/history-hunters/retro-tile-sprite-atlas.png"),
+      loadImage("retroSheet", "../../assets/history-hunters/retro-title-battle-sheet.png")
+    ]);
     const response = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
     state.bank = await response.json();
     els.startStats.innerHTML = [
