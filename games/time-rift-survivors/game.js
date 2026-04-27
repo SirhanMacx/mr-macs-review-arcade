@@ -244,7 +244,63 @@
       .replace(/^this\s+is\s+/i, "Identify: ")
       .replace(/^these\s+are\s+/i, "Identify: ")
       .trim();
-    return cleaned ? cleaned.charAt(0).toUpperCase() + cleaned.slice(1) : raw;
+    const polished = polishStudyText(cleaned);
+    return polished ? polished.charAt(0).toUpperCase() + polished.slice(1) : raw;
+  }
+
+  function polishStudyText(text) {
+    const replacements = [
+      [/\bunited states\b/gi, "United States"],
+      [/\bu\.s\.\b/gi, "U.S."],
+      [/\bnew york\b/gi, "New York"],
+      [/\bvirginia\b/gi, "Virginia"],
+      [/\bmaryland\b/gi, "Maryland"],
+      [/\bamerica\b/gi, "America"],
+      [/\bamerican\b/gi, "American"],
+      [/\beurope\b/gi, "Europe"],
+      [/\beuropean\b/gi, "European"],
+      [/\bafrica\b/gi, "Africa"],
+      [/\bafrican\b/gi, "African"],
+      [/\basia\b/gi, "Asia"],
+      [/\basian\b/gi, "Asian"],
+      [/\bchina\b/gi, "China"],
+      [/\bchinese\b/gi, "Chinese"],
+      [/\bjapan\b/gi, "Japan"],
+      [/\bjapanese\b/gi, "Japanese"],
+      [/\bindia\b/gi, "India"],
+      [/\bindian\b/gi, "Indian"],
+      [/\bbritain\b/gi, "Britain"],
+      [/\bbritish\b/gi, "British"],
+      [/\bfrance\b/gi, "France"],
+      [/\bfrench\b/gi, "French"],
+      [/\bgermany\b/gi, "Germany"],
+      [/\bgerman\b/gi, "German"],
+      [/\brussia\b/gi, "Russia"],
+      [/\brussian\b/gi, "Russian"],
+      [/\bsoviet\b/gi, "Soviet"],
+      [/\bgreek\b/gi, "Greek"],
+      [/\broman\b/gi, "Roman"],
+      [/\bbyzantine\b/gi, "Byzantine"],
+      [/\bstrategic defense initiative\b/gi, "Strategic Defense Initiative"],
+      [/\bsilk road\b/gi, "Silk Road"],
+      [/\bottoman\b/gi, "Ottoman"],
+      [/\bmali\b/gi, "Mali"],
+      [/\bislamic\b/gi, "Islamic"],
+      [/\bcatholic\b/gi, "Catholic"],
+      [/\bprotestant\b/gi, "Protestant"],
+      [/\brenaissance\b/gi, "Renaissance"],
+      [/\benlightenment\b/gi, "Enlightenment"],
+      [/\bindustrial revolution\b/gi, "Industrial Revolution"],
+      [/\bworld war i\b/gi, "World War I"],
+      [/\bworld war ii\b/gi, "World War II"],
+      [/\bcold war\b/gi, "Cold War"],
+      [/\bcongress\b/gi, "Congress"],
+      [/\bconstitution\b/gi, "Constitution"],
+      [/\bsupreme court\b/gi, "Supreme Court"],
+      [/\bpresident\b/gi, "President"],
+      [/\bnew deal\b/gi, "New Deal"]
+    ];
+    return replacements.reduce((value, [pattern, replacement]) => value.replace(pattern, replacement), text);
   }
 
   function loadImage(name, src) {
