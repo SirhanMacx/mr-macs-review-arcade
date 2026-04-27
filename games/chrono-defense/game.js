@@ -278,6 +278,92 @@
       .trim();
   }
 
+  const gradingStopWords = new Set(["and", "or", "of", "in", "to", "for", "with", "on", "by", "from", "as", "at", "is", "are", "was", "were"]);
+
+  function compactKey(value) {
+    return normalize(value).replace(/\s+/g, "");
+  }
+
+  function significantTokens(value) {
+    return normalize(value)
+      .split(" ")
+      .filter((token) => token.length > 1 && !gradingStopWords.has(token));
+  }
+
+  function initialsFor(value) {
+    return normalize(value)
+      .split(" ")
+      .filter((token) => token && !gradingStopWords.has(token))
+      .map((token) => token[0])
+      .join("");
+  }
+
+  function editDistance(a, b) {
+    if (a === b) return 0;
+    if (!a) return b.length;
+    if (!b) return a.length;
+    const prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+    const curr = Array(b.length + 1).fill(0);
+    for (let i = 1; i <= a.length; i++) {
+      curr[0] = i;
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        curr[j] = Math.min(curr[j - 1] + 1, prev[j] + 1, prev[j - 1] + cost);
+      }
+      for (let j = 0; j <= b.length; j++) prev[j] = curr[j];
+    }
+    return prev[b.length];
+  }
+
+  function typoClose(a, b) {
+    const left = compactKey(a);
+    const right = compactKey(b);
+    if (!left || !right) return false;
+    if (left === right) return true;
+    const longer = Math.max(left.length, right.length);
+    const allowed = longer <= 5 ? 1 : longer <= 10 ? 2 : Math.max(2, Math.floor(longer * .16));
+    return editDistance(left, right) <= allowed;
+  }
+
+  function tokenMatch(response, expected) {
+    const responseTokens = significantTokens(response);
+    const expectedTokens = significantTokens(expected);
+    if (!responseTokens.length || !expectedTokens.length) return false;
+    if (responseTokens.length === 1 && responseTokens[0].length >= 5) {
+      return expectedTokens.some((token) => typoClose(responseTokens[0], token));
+    }
+    const matchedExpected = expectedTokens.filter((token) => responseTokens.some((guess) => typoClose(guess, token))).length;
+    const matchedResponse = responseTokens.filter((guess) => expectedTokens.some((token) => typoClose(guess, token))).length;
+    if (expectedTokens.length <= 3) return matchedExpected === expectedTokens.length && matchedResponse === responseTokens.length;
+    return matchedExpected / expectedTokens.length >= .7 && matchedResponse / responseTokens.length >= .8;
+  }
+
+  function answerMatches(raw, accepted) {
+    const answer = normalize(raw);
+    if (!answer) return false;
+    return accepted.some((item) => {
+      if (!item) return false;
+      const itemKey = normalize(item);
+      const answerCompact = compactKey(answer);
+      const itemCompact = compactKey(itemKey);
+      if (answer === itemKey || (itemCompact.length > 1 && answerCompact === itemCompact)) return true;
+      if ((itemKey.length > 5 && answer.includes(itemKey)) || (answer.length > 5 && itemKey.includes(answer))) return true;
+      if (initialsFor(itemKey).length >= 2 && answerCompact === initialsFor(itemKey)) return true;
+      return typoClose(answer, itemKey) || tokenMatch(answer, itemKey);
+    });
+  }
+
+  const sourcePromptRe = /(\bthis\s+(amendment|document|letter|speech|excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\bthese\s+(issues|documents|statements|headlines|conditions|changes|questions|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b|similar\s+to\s+this)/i;
+
+  function stimulusImagesFor(q) {
+    if (!q) return [];
+    const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
+    if (!list.length) return [];
+    if (q.stimulusRequired === true) return list.filter((image) => image && image.src);
+    if (q.stimulusRequired === false) return [];
+    return sourcePromptRe.test(String(q.prompt || q.stem || "")) ? list.filter((image) => image && image.src) : [];
+  }
+
   function buildPath() {
     state.routePoints = sampleRoute(pathPoints, 12);
     state.segments = [];
@@ -420,9 +506,10 @@
     els.questionMeta.textContent = `${q.course} / ${q.set}`;
     els.questionPrompt.textContent = q.prompt;
     els.questionStreak.textContent = `${state.streak} streak`;
-    if (q.stimulusImages?.length) {
+    const stimulusImages = stimulusImagesFor(q);
+    if (stimulusImages.length) {
       els.stimulusStrip.classList.add("show");
-      els.stimulusStrip.innerHTML = q.stimulusImages.slice(0, 2).map((image) => (
+      els.stimulusStrip.innerHTML = stimulusImages.slice(0, 2).map((image) => (
         `<img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.label || "question stimulus")}">`
       )).join("");
     }
@@ -472,9 +559,7 @@
 
   function checkAnswer(q, raw) {
     if (q.type === "mcq") return String(raw) === String(q.correct);
-    const answer = normalize(raw);
-    const accepted = [q.answer, ...(q.aliases || [])].map(normalize).filter(Boolean);
-    return accepted.some((item) => answer === item || (item.length > 5 && answer.includes(item)) || (answer.length > 5 && item.includes(answer)));
+    return answerMatches(raw, [q.answer, ...(q.aliases || [])].map(normalize).filter(Boolean));
   }
 
   function initControls() {

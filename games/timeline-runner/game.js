@@ -295,13 +295,33 @@
     return "Review this item again before the exam.";
   }
 
+  const sourcePromptRe = /(\bthis\s+(amendment|document|letter|speech|excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\bthese\s+(issues|documents|statements|headlines|conditions|changes|questions|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b|similar\s+to\s+this)/i;
+
+  function promptNeedsStimulus(q) {
+    return sourcePromptRe.test(String((q && (q.prompt || q.stem)) || ""));
+  }
+
+  function stimulusImagesFor(q) {
+    if (!q) return [];
+    const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
+    const images = list.length ? list : (q.stimulusImage ? [{ src: q.stimulusImage, label: "Source stimulus" }] : []);
+    if (!images.length) return [];
+    if (q.stimulusRequired === true || q.stimulusImage || q.stimulusText || q.stimulusHtml || typeof q.stimulus === "string") {
+      return images.filter((image) => image && image.src);
+    }
+    if (q.stimulusRequired === false) return [];
+    return promptNeedsStimulus(q) ? images.filter((image) => image && image.src) : [];
+  }
+
+  function hasReliableStimulus(q) {
+    return Boolean((q && (q.stimulus || q.stimulusText || q.stimulusHtml)) || stimulusImagesFor(q).length);
+  }
+
   function isPlayableQuestion(q) {
     if (!q || !q.prompt || !q.answer) return false;
     if (q.type !== "mcq") return true;
-    if (q.stimulus || q.stimulusText || q.stimulusHtml || q.stimulusImage || q.stimulusImages?.length) return true;
-    const prompt = String(q.prompt || "");
-    const missingContext = /(\bthis\s+(amendment|document|letter|speech|excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\bthese\s+(issues|documents|statements|headlines|conditions|changes|questions|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b|similar\s+to\s+this)/i;
-    return !missingContext.test(prompt);
+    if (hasReliableStimulus(q)) return true;
+    return !promptNeedsStimulus(q);
   }
 
   function loadImage(src) {
@@ -410,7 +430,7 @@
   function renderSetupMetrics() {
     const filtered = state.filtered.length;
     const mcq = state.filtered.filter((q) => q.type === "mcq").length;
-    const stimulus = state.filtered.filter((q) => q.stimulusImages?.length).length;
+    const stimulus = state.filtered.filter((q) => stimulusImagesFor(q).length).length;
     const best = Number(localStorage.getItem(`${STORAGE_KEY}:bestScore`) || 0);
     els.setupMetrics.innerHTML = [
       `${formatNumber(filtered)} review prompts loaded`,
@@ -528,7 +548,7 @@
   }
 
   function renderStimulus(q) {
-    const imagesList = q?.stimulusImages || [];
+    const imagesList = stimulusImagesFor(q);
     if (!imagesList.length) {
       els.stimulusStrip.classList.remove("show");
       els.stimulusStrip.innerHTML = "";

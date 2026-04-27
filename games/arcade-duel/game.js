@@ -78,7 +78,7 @@ function renderSetOptions() {
 
 function renderSetupMetrics() {
   const qs = bankQuestions();
-  const stim = qs.filter((q) => (q.stimulusImages || []).length).length;
+  const stim = qs.filter((q) => q.stimulusRequired && (q.stimulusImages || []).length).length;
   $("#setupMetrics").innerHTML = `<strong>${qs.length}</strong> available MCQs · <strong>${stim}</strong> with stimulus crops`;
 }
 
@@ -149,7 +149,7 @@ function current() {
 function renderStimulus(q) {
   const panel = $("#stimulusPanel");
   const strip = $("#stimulusStrip");
-  const imgs = q.stimulusImages || [];
+  const imgs = q.stimulusRequired ? (q.stimulusImages || []) : [];
   panel.classList.toggle("hidden", imgs.length === 0);
   strip.innerHTML = imgs.map((img, i) => (
     `<figure><img loading="lazy" src="${esc(img.src)}" alt="${esc(img.label || ("Stimulus image " + (i + 1)))}"><figcaption>${esc(img.label || ("Stimulus image " + (i + 1)))}</figcaption></figure>`
@@ -167,7 +167,7 @@ function renderQuestion() {
     q.course,
     q.day,
     q.set,
-    (q.stimulusRequired ? "Stimulus Based" : ((q.stimulusImages || []).length ? "Stimulus" : "Content Recall")),
+    (q.stimulusRequired ? "Stimulus Based" : "Content Recall"),
     q.source
   ];
   $("#qTags").innerHTML = tags.filter(Boolean).slice(0, 5).map((t) => `<span>${esc(t)}</span>`).join("");
