@@ -128,6 +128,8 @@
     runCourse: "All Courses",
     runSet: "All Sets",
     runIntensity: "standard",
+    checkpointMode: "standby",
+    debriefUntil: 0,
     stage: { scale: 1, ox: 0, oy: 0, width: BASE_W, height: BASE_H }
   };
 
@@ -467,7 +469,24 @@
     const q = nextQuestion();
     state.currentQuestion = q;
     state.currentChoices = buildChoices(q);
-    renderQuestion();
+    if (state.checkpointMode !== "debrief") renderStandby();
+  }
+
+  function setQuestionMode(mode) {
+    state.checkpointMode = mode;
+    els.questionCard.classList.toggle("standby", mode === "standby");
+    els.questionCard.classList.toggle("checkpoint", mode === "checkpoint");
+    els.questionCard.classList.toggle("debrief", mode === "debrief");
+  }
+
+  function renderStandby() {
+    els.questionMeta.textContent = "Next checkpoint loading";
+    els.questionPrompt.textContent = "";
+    els.laneChips.innerHTML = "";
+    els.feedback.textContent = "";
+    els.feedback.className = "feedback";
+    renderStimulus(null);
+    setQuestionMode("standby");
   }
 
   function renderQuestion() {
@@ -491,6 +510,18 @@
       button.addEventListener("click", () => moveToLane(Number(button.dataset.lane)));
     });
     renderStimulus(q);
+    setQuestionMode("checkpoint");
+  }
+
+  function renderDebrief(q, wasCorrect, answer, explanation) {
+    els.questionMeta.textContent = wasCorrect ? "Checkpoint cleared" : "Checkpoint review";
+    els.questionPrompt.textContent = wasCorrect ? `Correct: ${answer}` : `Correct answer: ${answer}`;
+    els.laneChips.innerHTML = "";
+    renderStimulus(null);
+    els.feedback.textContent = explanation;
+    els.feedback.className = `feedback ${wasCorrect ? "good" : "bad"}`;
+    state.debriefUntil = state.elapsed + (wasCorrect ? 2.5 : 3.5);
+    setQuestionMode("debrief");
   }
 
   function renderStimulus(q) {
@@ -501,7 +532,7 @@
       return;
     }
     els.stimulusStrip.classList.add("show");
-    els.stimulusStrip.innerHTML = imagesList.slice(0, 2).map((item, index) => (
+    els.stimulusStrip.innerHTML = `<span class="source-pill">Source</span>` + imagesList.slice(0, 2).map((item, index) => (
       `<a class="stimulus-thumb" href="${escapeHtml(item.src)}" target="_blank" rel="noopener">` +
       `<img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.label || `Stimulus ${index + 1}`)}">` +
       `<span>${escapeHtml(item.label || `Stimulus ${index + 1}`)}</span>` +
@@ -521,6 +552,10 @@
       els.feedback.className = "feedback";
       state.feedbackUntil = 0;
     }
+    if (state.checkpointMode === "debrief" && state.elapsed > state.debriefUntil) {
+      state.debriefUntil = 0;
+      renderStandby();
+    }
   }
 
   function resetRun() {
@@ -538,7 +573,7 @@
     state.shields = 0;
     state.boost = 0;
     state.speedPace = profile.speed;
-    state.gateTimer = 2.2;
+    state.gateTimer = Math.max(4.4, profile.gateEvery * .62);
     state.obstacleTimer = 1.1;
     state.pickupTimer = 1.8;
     state.objects = [];
@@ -549,6 +584,7 @@
     state.flash = 0;
     state.gateActive = null;
     state.sawFirstGate = false;
+    state.debriefUntil = 0;
     state.runCourse = els.courseFilter.value || "All Courses";
     state.runSet = els.setFilter.value || "All Sets";
     state.runIntensity = els.intensityFilter.value || "standard";
@@ -560,6 +596,7 @@
     prepareQueue();
     prepareQuestion();
     setFeedback("First gate forming. Steer left, center, or right into the best answer.", "");
+    renderStandby();
     hideOverlays();
     updateHud();
   }
@@ -784,7 +821,8 @@
         hit: false
       });
     });
-    setFeedback("Answer gate inbound. Pick a lane and commit.", "");
+    renderQuestion();
+    setFeedback("Choose your lane before the checkpoint gates reach you.", "");
   }
 
   function resolveGate(choice) {
@@ -800,7 +838,7 @@
       state.score += 650 + state.streak * 75;
       state.boost = Math.max(state.boost, 1.2);
       state.flash = Math.max(state.flash, .34);
-      setFeedback(`Previous gate correct: ${answer}. ${explanation}`, "good");
+      renderDebrief(q, true, answer, explanation);
       addText(point.x, point.y - 80, `+${650 + state.streak * 75}`, "#67f0a8");
       addParticles(point.x, point.y - 80, 36, "#67f0a8", 1.3);
       audio.correct();
@@ -816,14 +854,14 @@
       if (state.shields > 0) {
         state.shields -= 1;
         player.invulnerable = .85;
-        setFeedback(`Previous gate missed: ${answer}. ${explanation} Shield absorbed the damage.`, "bad");
+        renderDebrief(q, false, answer, `${explanation} Shield absorbed the damage.`);
       } else {
         state.health -= 1;
         state.streak = 0;
         player.invulnerable = 1.1;
         state.shake = Math.max(state.shake, 16);
         state.flash = Math.max(state.flash, .45);
-        setFeedback(`Previous gate missed: ${answer}. ${explanation}`, "bad");
+        renderDebrief(q, false, answer, explanation);
         if (state.health <= 0) endRun();
       }
     }
@@ -831,7 +869,7 @@
     state.gateActive = null;
     state.currentQuestion = null;
     state.currentChoices = [];
-    state.gateTimer = 1.8;
+    state.gateTimer = Math.max(4.2, (intensityProfiles[state.runIntensity] || intensityProfiles.standard).gateEvery * .70);
     prepareQuestion();
     updateHud();
   }
@@ -1601,7 +1639,7 @@
     requestAnimationFrame(loop);
     try {
       await Promise.all([loadAssets(), loadBank()]);
-      renderQuestion();
+      renderStandby();
       renderSetupMetrics();
       if (new URLSearchParams(window.location.search).get("autostart") === "1") {
         state.sound = false;
