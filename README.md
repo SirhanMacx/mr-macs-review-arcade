@@ -31,7 +31,7 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - Civics and Participation in Government
 - Unit games, cumulative games, and final review games
 - Generated arcade hub artwork, search, filters, featured missions, and embedded in-page player
-- Generated History Hunters RPG assets: character/evolution atlas, type-effect atlas, and overworld map art
+- Generated History Hunters RPG assets: structured character/evolution codex atlas, type-effect atlas, overworld map art, key art, and recruit seal
 - Solo and team play options
 - Jeopardy boards are normalized during publishing so each category ramps from lower-value recall clues to higher-value challenge clues
 - Anonymous traffic counter for site visits, game opens, game page views, and completions

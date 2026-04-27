@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>History Hunters</title>
-  <link rel="stylesheet" href="styles.css?v=20260427-history-hunters">
+  <link rel="stylesheet" href="styles.css?v=20260427-history-hunters-evolutions">
 </head>
 <body>
   <main class="game-shell">
@@ -41,6 +41,7 @@
         <button id="huntBtn" class="primary" type="button">Start Hunt</button>
         <button id="mapBtn" type="button">Map</button>
         <button id="rosterBtn" type="button">Roster</button>
+        <button id="codexBtn" type="button">Codex</button>
       </div>
       <div class="quest-card">
         <span>Active Region</span>
@@ -48,6 +49,21 @@
         <p id="questText">Choose a course and enter the field.</p>
       </div>
     </section>
+
+    <aside class="hud codex-panel" id="codexPanel" aria-label="Evolution codex">
+      <div class="panel-head">
+        <div>
+          <span>Generated Allies</span>
+          <strong>Evolution Codex</strong>
+        </div>
+        <button id="closeCodex" type="button">Close</button>
+      </div>
+      <figure class="atlas-preview">
+        <img src="../../assets/history-hunters/character-evolution-atlas-v2.png" alt="Generated History Hunters character evolution atlas">
+        <figcaption>10 type families / 30 evolution stages</figcaption>
+      </figure>
+      <div id="codexFamilies" class="codex-list"></div>
+    </aside>
 
     <aside class="hud roster-panel" id="rosterPanel" aria-label="Roster">
       <div class="panel-head">
@@ -58,8 +74,8 @@
         <button id="closeRoster" type="button">Close</button>
       </div>
       <figure class="atlas-preview">
-        <img src="../../assets/history-hunters/character-evolution-atlas.png" alt="Generated character and evolution atlas">
-        <figcaption>Generated character and evolution atlas</figcaption>
+        <img src="../../assets/history-hunters/character-evolution-atlas-v2.png" alt="Generated character and evolution atlas">
+        <figcaption>Your recruits evolve through the generated codex</figcaption>
       </figure>
       <div id="rosterList" class="roster-list"></div>
     </aside>
@@ -130,6 +146,6 @@
     </section>
   </main>
   <script src="../../assets/arcade-analytics.js"></script>
-  <script src="game.js?v=20260427-history-hunters"></script>
+  <script src="game.js?v=20260427-history-hunters-evolutions"></script>
 </body>
 </html>

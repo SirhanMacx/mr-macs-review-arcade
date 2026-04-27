@@ -17,8 +17,12 @@
     huntBtn: $("huntBtn"),
     mapBtn: $("mapBtn"),
     rosterBtn: $("rosterBtn"),
+    codexBtn: $("codexBtn"),
     activeRegion: $("activeRegion"),
     questText: $("questText"),
+    codexPanel: $("codexPanel"),
+    closeCodex: $("closeCodex"),
+    codexFamilies: $("codexFamilies"),
     rosterPanel: $("rosterPanel"),
     closeRoster: $("closeRoster"),
     rosterList: $("rosterList"),
@@ -78,6 +82,72 @@
     Psychology: { color: "#f39cff", strong: ["Culture", "Reform"], weak: ["Source"], flavor: "behavior, cognition, learning" }
   };
   const typeOrder = Object.keys(typeData);
+  const familyRows = [
+    {
+      type: "Civic",
+      archetype: "Civic Guardian",
+      names: ["Clause Cub", "Billwarden", "Constitution Sentinel"],
+      line: "Built for rights, laws, institutions, courts, founding principles, and citizenship questions."
+    },
+    {
+      type: "Reform",
+      archetype: "Reform Speaker",
+      names: ["Petition Sprite", "Rally Herald", "Movement Maestro"],
+      line: "Grows stronger around change-makers, organizing, justice movements, and reform eras."
+    },
+    {
+      type: "Conflict",
+      archetype: "Strategy Marshal",
+      names: ["Skirmish Scout", "Turning-Point Captain", "Treaty Titan"],
+      line: "Handles revolutions, wars, diplomacy, imperialism, nationalism, and global power struggles."
+    },
+    {
+      type: "Economy",
+      archetype: "Market Tactician",
+      names: ["Coin Clerk", "Trade Baron", "Policy Magnate"],
+      line: "Tracks trade, scarcity, industrialization, taxes, markets, labor, and economic systems."
+    },
+    {
+      type: "Geography",
+      archetype: "Geo Navigator",
+      names: ["Compass Kid", "Route Ranger", "Worldpath Admiral"],
+      line: "Reads maps, migration, environments, human geography, regions, and spatial patterns."
+    },
+    {
+      type: "Ideas",
+      archetype: "Idea Keeper",
+      names: ["Lightbulb Scribe", "Thesis Sage", "Philosophy Oracle"],
+      line: "Connects beliefs, religions, ideologies, philosophies, revolutions in thought, and worldviews."
+    },
+    {
+      type: "Science",
+      archetype: "Innovation Builder",
+      names: ["Gear Rookie", "Workshop Adept", "Invention Prime"],
+      line: "Covers science, technology, inventions, industrial growth, medicine, and research breakthroughs."
+    },
+    {
+      type: "Culture",
+      archetype: "Culture Curator",
+      names: ["Artifact Imp", "Museum Mystic", "Civilization Muse"],
+      line: "Specializes in art, culture, social patterns, belief systems, identity, and civilization traits."
+    },
+    {
+      type: "Source",
+      archetype: "Source Archivist",
+      names: ["Document Darter", "Evidence Sleuth", "Archive Luminary"],
+      line: "Powers up from stimulus questions, documents, excerpts, maps, charts, images, and sourcing."
+    },
+    {
+      type: "Psychology",
+      archetype: "Mind Scholar",
+      names: ["Neuron Note", "Cognition Crafter", "Mind Palace Sage"],
+      line: "Built for AP Psychology: cognition, learning, development, memory, behavior, and research."
+    }
+  ];
+  const familyByType = familyRows.reduce((acc, family, index) => {
+    acc[family.type] = Object.assign({ row: index }, family);
+    return acc;
+  }, {});
 
   const fallbackMoves = [
     { name: "Primary Source Side-Eye", type: "Source", power: 25, flavor: "Uses evidence so hard the archive blinks first." },
@@ -354,20 +424,32 @@
     return "Common Echo";
   }
 
+  function stageForAlly(ally) {
+    if (ally && Number(ally.level || 0) > 1) return clamp(Number(ally.level) - 1, 0, 2);
+    if (ally && (ally.rarity === "Epic Echo" || ally.rarity === "Source-Rare")) return 2;
+    if (ally && ally.rarity === "Rare Echo") return 1;
+    return 0;
+  }
+
   function makeAlly(q) {
     const name = allyNameFor(q);
     const archetype = archetypeFor(q);
     const palette = paletteFor(name + (q.course || ""));
     const sensitive = isSensitive(q);
+    const type = typeFor(q);
+    const family = familyByType[type] || familyByType.Ideas;
+    const stage = sensitive ? 0 : stageForAlly({ rarity: rarityFor(q) });
     return {
       id: compactKey((q.course || "") + "|" + (q.set || "") + "|" + name).slice(0, 80),
       name: sensitive ? "Archive Memory" : name,
       actualName: name,
       archetype,
-      type: typeFor(q),
+      type,
+      family: family.archetype,
+      species: family.names[stage] || family.names[0],
       role: sensitive
         ? "A respect-first archive mission. Complete the review trial to preserve context and earn shards."
-        : `${archetype} from ${cleanText(q.set || q.course || "the archive")}.`,
+        : `${family.names[stage]} line: ${archetype} from ${cleanText(q.set || q.course || "the archive")}.`,
       course: q.course || "Social Studies",
       set: q.set || "Review",
       rarity: sensitive ? "Memory Mission" : rarityFor(q),
@@ -378,14 +460,13 @@
   }
 
   function spritePosition(ally) {
-    const archetypeIndex = Math.abs(hash((ally.archetype || ally.type || ally.name) + ally.course)) % 12;
-    const stage = ally.rarity === "Epic Echo" || ally.rarity === "Source-Rare" ? 2 : ally.rarity === "Rare Echo" ? 1 : 0;
-    const index = archetypeIndex * 3 + stage;
-    const col = index % 6;
-    const row = Math.floor(index / 6);
+    const family = familyByType[(ally && ally.type) || "Ideas"] || familyByType.Ideas;
+    const stage = stageForAlly(ally);
+    const col = 1 + stage;
+    const row = family.row;
     return {
-      x: `${col * 20}%`,
-      y: `${row * 20}%`
+      x: `${col * 33.333}%`,
+      y: `${row * 11.111}%`
     };
   }
 
@@ -510,6 +591,26 @@
     els.moves.innerHTML = ally.moves.map((move) => (
       `<div class="move-chip"><span>${escapeHtml(move.name)}</span><small>${escapeHtml(move.type)}</small></div>`
     )).join("");
+  }
+
+  function renderCodex() {
+    els.codexFamilies.innerHTML = familyRows.map((family, row) => {
+      const stages = family.names.map((name, stage) => {
+        const sprite = {
+          x: `${(stage + 1) * 33.333}%`,
+          y: `${row * 11.111}%`
+        };
+        return `<div class="codex-stage">` +
+          `<div class="codex-sprite" style="--sprite-x:${sprite.x};--sprite-y:${sprite.y}" role="img" aria-label="${escapeHtml(name)}"></div>` +
+          `<em>${escapeHtml(name)}</em>` +
+        `</div>`;
+      }).join("");
+      return `<article class="codex-family" style="--type:${escapeHtml((typeData[family.type] || typeData.Ideas).color)}">` +
+        `<header><strong>${escapeHtml(family.type)} Type</strong><span>${escapeHtml(family.archetype)}</span></header>` +
+        `<p>${escapeHtml(family.line)}</p>` +
+        `<div class="codex-evolutions">${stages}</div>` +
+      `</article>`;
+    }).join("");
   }
 
   function heroAlly() {
@@ -778,9 +879,12 @@
     }
     els.rosterList.innerHTML = roster.map((ally) => {
       const palette = ally.palette || paletteFor(ally.name);
+      const sprite = spritePosition(ally);
+      const family = familyByType[ally.type || "Ideas"] || familyByType.Ideas;
+      const species = family.names[stageForAlly(ally)] || family.names[0];
       return `<div class="roster-item">` +
-        `<div class="mini-portrait" style="--ally:linear-gradient(135deg,${escapeHtml(palette[0])},${escapeHtml(palette[1])})">${escapeHtml(initials(ally.name))}</div>` +
-        `<div><strong>${escapeHtml(ally.name)}</strong><span>${escapeHtml(ally.type || "Source")} type / Stage ${escapeHtml(String(ally.level || 1))} / ${escapeHtml(ally.course)}</span></div>` +
+        `<div class="mini-portrait" style="--sprite-x:${escapeHtml(sprite.x)};--sprite-y:${escapeHtml(sprite.y)};--ally-a:${escapeHtml(palette[0])};--ally-b:${escapeHtml(palette[1])}" role="img" aria-label="${escapeHtml(species)}"></div>` +
+        `<div><strong>${escapeHtml(ally.name)}</strong><span>${escapeHtml(ally.type || "Source")} type / ${escapeHtml(species)} / Stage ${escapeHtml(String(ally.level || 1))} / ${escapeHtml(ally.course)}</span></div>` +
         `<em>${escapeHtml(ally.rarity)}</em>` +
       `</div>`;
     }).join("");
@@ -885,6 +989,8 @@
     });
     els.rosterBtn.addEventListener("click", () => els.rosterPanel.classList.add("show"));
     els.closeRoster.addEventListener("click", () => els.rosterPanel.classList.remove("show"));
+    els.codexBtn.addEventListener("click", () => els.codexPanel.classList.add("show"));
+    els.closeCodex.addEventListener("click", () => els.codexPanel.classList.remove("show"));
     els.closeEncounter.addEventListener("click", closeEncounter);
     els.beginBtn.addEventListener("click", () => {
       state.running = true;
@@ -1158,13 +1264,14 @@
     initControls();
     updateHud();
     renderRoster();
+    renderCodex();
     loadImage("overworld", "../../assets/history-hunters/overworld-map.png");
     const response = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
     state.bank = await response.json();
     els.startStats.innerHTML = [
       `${state.bank.questions.length.toLocaleString()} prompts`,
       `${state.bank.courses.length} course lanes`,
-      "Open-world review"
+      `${familyRows.length} evolution families`
     ].map((item) => `<span>${escapeHtml(item)}</span>`).join("");
     fillFilters();
     applyFilters();
