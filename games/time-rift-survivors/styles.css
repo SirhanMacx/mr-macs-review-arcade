@@ -487,3 +487,18 @@ select option { color: #07101d; }
   .orientation-gate strong { color: var(--gold); font-size: 30px; text-transform: uppercase; }
   .orientation-gate span { max-width: 280px; color: var(--paper); line-height: 1.35; }
 }
+
+html.perf-lite .backdrop::after,
+html.perf-lite .sigil,
+html.perf-lite .rift-banner.show,
+html.perf-lite .library-panel.is-highlighted {
+  animation: none !important;
+}
+html.perf-lite .topbar,
+html.perf-lite .mission-panel,
+html.perf-lite .question-panel,
+html.perf-lite .panel,
+html.perf-lite .upgrade-screen,
+html.perf-lite .stimulus-zoom {
+  backdrop-filter: none !important;
+}

@@ -583,3 +583,15 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+html.perf-lite .mark,
+html.perf-lite .runner-shell::before,
+html.perf-lite .question-card::before {
+  animation: none !important;
+}
+html.perf-lite .top-hud,
+html.perf-lite .question-card,
+html.perf-lite .bottom-dock,
+html.perf-lite .setup-card {
+  backdrop-filter: none !important;
+}

@@ -6,6 +6,9 @@
   <meta name="theme-color" content="#06080f">
   <title>Arcade Duel</title>
   <link rel="icon" href="data:,">
+  <script>
+    if (new URLSearchParams(location.search).get("fx") !== "full") document.documentElement.classList.add("perf-lite");
+  </script>
   <link rel="stylesheet" href="styles.css?v=20260427-mobile">
 </head>
 <body>

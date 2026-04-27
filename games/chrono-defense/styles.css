@@ -700,3 +700,16 @@ select option { color: #06101d; }
     line-height: 1.35;
   }
 }
+
+html.perf-lite .bg::after,
+html.perf-lite .wave-banner.show,
+html.perf-lite .library-panel.is-highlighted {
+  animation: none !important;
+}
+html.perf-lite .topbar,
+html.perf-lite .mission-panel,
+html.perf-lite .question-console,
+html.perf-lite .panel,
+html.perf-lite .reactor-dock {
+  backdrop-filter: none !important;
+}

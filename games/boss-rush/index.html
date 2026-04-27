@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>Boss Rush Arena - Mr. Mac's Review Arcade</title>
+<script>
+if (new URLSearchParams(location.search).get("fx") !== "full") document.documentElement.classList.add("perf-lite");
+</script>
 <style>
 :root {
   color-scheme: dark;
@@ -843,6 +846,20 @@ select option { color: #08101e; }
   .boss-aura,
   .boss-aura::after { animation: none; }
 }
+html.perf-lite #fx { display: none; }
+html.perf-lite .world::after,
+html.perf-lite .boss-sprite,
+html.perf-lite .preview-boss,
+html.perf-lite .boss-aura,
+html.perf-lite .boss-aura::after {
+  animation: none !important;
+}
+html.perf-lite .panel,
+html.perf-lite .console,
+html.perf-lite .command,
+html.perf-lite .boss-card {
+  backdrop-filter: none !important;
+}
 @media (max-width: 1180px) {
   .setup,
   .combat-grid { grid-template-columns: 1fr; }
@@ -1540,7 +1557,8 @@ function retryMissed() {
   renderBattle();
 }
 function initCanvas() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerWidth < 820) {
+  const liteFx = document.documentElement.classList.contains("perf-lite");
+  if (liteFx || window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerWidth < 820) {
     const canvas = document.getElementById("fx");
     if (canvas) canvas.style.display = "none";
     return;
@@ -1661,6 +1679,7 @@ document.getElementById("backSetup").addEventListener("click", function() {
   renderSetupControls();
 });
 document.addEventListener("pointermove", function(event) {
+  if (document.documentElement.classList.contains("perf-lite")) return;
   document.documentElement.style.setProperty("--mx", Math.round(event.clientX / innerWidth * 100) + "%");
   document.documentElement.style.setProperty("--my", Math.round(event.clientY / innerHeight * 100) + "%");
 }, { passive: true });

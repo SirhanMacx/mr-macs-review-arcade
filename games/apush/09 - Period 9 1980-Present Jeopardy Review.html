@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>Unit 9 - Period 9: 1980-Present Review Game</title>
+<script id="MRMAC_PERF_LITE_BOOT">
+(function(){
+  try {
+    if (new URLSearchParams(location.search).get("fx") !== "full") document.documentElement.classList.add("perf-lite");
+  } catch (error) {
+    document.documentElement.classList.add("perf-lite");
+  }
+}());
+</script>
 <style>
 :root {
   --bg0: #080a13;
@@ -780,6 +789,39 @@ body.game-booted .tile:not(.used) {
   .tile { min-height: 86px; }
   .app { padding-left: 10px; padding-right: 10px; }
 }
+
+/* MRMAC_PERF_LITE_CSS */
+html.perf-lite #space,
+html.perf-lite .stage-wipe,
+html.perf-lite #arenaBg::before {
+  display: none !important;
+}
+html.perf-lite #arenaBg {
+  transform: none !important;
+  transition: none !important;
+  filter: saturate(1.03) contrast(1.01) !important;
+}
+html.perf-lite .scanlines { opacity: .16 !important; mix-blend-mode: normal !important; }
+html.perf-lite .board,
+html.perf-lite .board::before,
+html.perf-lite .tile:not(.selected):not(.revealed),
+html.perf-lite .tile::after,
+html.perf-lite .active,
+html.perf-lite .bars i {
+  animation: none !important;
+}
+html.perf-lite .titleblock,
+html.perf-lite .scoreboard,
+html.perf-lite .team-card,
+html.perf-lite .board,
+html.perf-lite .modal-card,
+html.perf-lite .final-card,
+html.perf-lite .control-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 16px 44px rgba(0,0,0,.38) !important;
+}
+
 </style>
 </head>
 <body>
@@ -1615,7 +1657,7 @@ function toggleMusic() {
 }
 
 function initStageMotion() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (document.documentElement.classList.contains("perf-lite") || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const root = document.documentElement;
   let tx = 0;
   let ty = 0;
@@ -1641,7 +1683,7 @@ function initStageMotion() {
 }
 
 function initCanvas() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerWidth < 900) {
+  if (document.documentElement.classList.contains("perf-lite") || window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerWidth < 900) {
     const canvas = document.getElementById("space");
     if (canvas) canvas.style.display = "none";
     return;

@@ -778,3 +778,21 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+html.perf-lite #fx { display: none; }
+html.perf-lite body::after,
+html.perf-lite .brand-mark,
+html.perf-lite .board-panel::before,
+html.perf-lite .lock-ring,
+html.perf-lite .lock-ring::before,
+html.perf-lite .lock-ring::after {
+  animation: none !important;
+}
+html.perf-lite .topbar,
+html.perf-lite .clue-panel,
+html.perf-lite .board-panel,
+html.perf-lite .control-panel,
+html.perf-lite .keyboard,
+html.perf-lite .result-modal {
+  backdrop-filter: none !important;
+}

@@ -45,6 +45,8 @@
 
   const ctx = els.canvas.getContext("2d", { alpha: false });
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const liteFx = new URLSearchParams(location.search).get("fx") !== "full";
+  document.documentElement.classList.toggle("perf-lite", liteFx);
 
   const assetPaths = {
     background: "../../assets/timeline-runner/runner-track.png",
@@ -97,6 +99,7 @@
     gameOver: false,
     sound: true,
     last: 0,
+    frameStamp: 0,
     elapsed: 0,
     distance: 0,
     score: 0,
@@ -981,7 +984,8 @@
   }
 
   function emitRunSparks(dt) {
-    if (reduceMotion || state.particles.length > 170) return;
+    const particleLimit = liteFx ? 70 : 170;
+    if (reduceMotion || state.particles.length > particleLimit) return;
     const density = state.boost > 0 ? 4 : 2;
     const count = Math.max(1, Math.floor(density * state.speedPace));
     for (let i = 0; i < count; i++) {
@@ -1005,7 +1009,8 @@
 
   function addParticles(x, y, count, color, power = 1) {
     if (reduceMotion) return;
-    for (let i = 0; i < count; i++) {
+    const actual = liteFx ? Math.min(12, Math.ceil(count * .45)) : count;
+    for (let i = 0; i < actual; i++) {
       const angle = Math.random() * Math.PI * 2;
       const speed = (45 + Math.random() * 160) * power;
       state.particles.push({
@@ -1027,7 +1032,7 @@
 
   function resizeCanvas() {
     const rect = els.canvas.getBoundingClientRect();
-    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    const dpr = Math.max(1, Math.min(liteFx ? 1 : 2, window.devicePixelRatio || 1));
     const width = Math.max(1, Math.floor(rect.width * dpr));
     const height = Math.max(1, Math.floor(rect.height * dpr));
     if (els.canvas.width !== width || els.canvas.height !== height) {
@@ -1038,7 +1043,7 @@
 
   function beginCanvas() {
     const rect = els.canvas.getBoundingClientRect();
-    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    const dpr = Math.max(1, Math.min(liteFx ? 1 : 2, window.devicePixelRatio || 1));
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, rect.width, rect.height);
     ctx.fillStyle = "#050711";
@@ -1046,9 +1051,13 @@
 
     if (images.background) {
       ctx.save();
-      ctx.filter = "blur(10px) saturate(1.18) brightness(.70)";
-      drawRawImageCover(images.background, -20, -20, rect.width + 40, rect.height + 40);
-      ctx.filter = "none";
+      if (!liteFx) {
+        ctx.filter = "blur(10px) saturate(1.18) brightness(.70)";
+        drawRawImageCover(images.background, -20, -20, rect.width + 40, rect.height + 40);
+        ctx.filter = "none";
+      } else {
+        drawRawImageCover(images.background, 0, 0, rect.width, rect.height);
+      }
       ctx.fillStyle = "rgba(5,7,17,.50)";
       ctx.fillRect(0, 0, rect.width, rect.height);
       ctx.restore();
@@ -1622,6 +1631,16 @@
 
   function loop(now) {
     const t = now || performance.now();
+    if (document.hidden) {
+      state.last = t;
+      requestAnimationFrame(loop);
+      return;
+    }
+    if (liteFx && state.frameStamp && t - state.frameStamp < 1000 / 45) {
+      requestAnimationFrame(loop);
+      return;
+    }
+    state.frameStamp = t;
     if (!state.last) state.last = t;
     const dt = Math.min(.04, Math.max(0, (t - state.last) / 1000));
     state.last = t;

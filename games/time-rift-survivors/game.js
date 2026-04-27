@@ -45,6 +45,8 @@
 
   const ctx = els.canvas.getContext("2d", { alpha: false });
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const liteFx = new URLSearchParams(location.search).get("fx") !== "full";
+  document.documentElement.classList.toggle("perf-lite", liteFx);
 
   const assetPaths = {
     arena: "../../assets/time-rift/arena.webp",
@@ -103,6 +105,7 @@
     gameOver: false,
     sound: true,
     last: 0,
+    frameStamp: 0,
     elapsed: 0,
     runTime: 0,
     spawnTimer: 0,
@@ -629,6 +632,16 @@
   }
 
   function loop(now) {
+    if (document.hidden) {
+      state.last = now;
+      requestAnimationFrame(loop);
+      return;
+    }
+    if (liteFx && state.frameStamp && now - state.frameStamp < 1000 / 45) {
+      requestAnimationFrame(loop);
+      return;
+    }
+    state.frameStamp = now;
     const dt = Math.min(.05, ((now - (state.last || now)) / 1000) || 0);
     state.last = now;
     if (!state.paused && !state.gameOver && !state.choosingUpgrade) {
@@ -1205,7 +1218,7 @@
   }
 
   function addBurst(x, y, color, count) {
-    const actual = reduceMotion ? Math.min(8, count) : count;
+    const actual = reduceMotion ? Math.min(8, count) : liteFx ? Math.min(18, Math.ceil(count * .45)) : count;
     for (let i = 0; i < actual; i++) {
       const a = Math.random() * Math.PI * 2;
       const s = 40 + Math.random() * 180;

@@ -382,6 +382,18 @@ select {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 
+html.perf-lite .avatar,
+html.perf-lite .pulse-ring {
+  animation: none !important;
+}
+html.perf-lite .topbar,
+html.perf-lite .panel,
+html.perf-lite .combat-stage,
+html.perf-lite .question,
+html.perf-lite .stimulus {
+  backdrop-filter: none !important;
+}
+
 @keyframes idleFloat {
   0%, 100% { transform: translateY(0) scale(1); }
   50% { transform: translateY(-8px) scale(1.015); }

@@ -38,6 +38,8 @@
 
   const ctx = els.fx.getContext("2d");
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const liteFx = new URLSearchParams(location.search).get("fx") !== "full";
+  document.documentElement.classList.toggle("perf-lite", liteFx);
   const keys = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
   const keyRank = { absent: 1, present: 2, correct: 3 };
 
@@ -53,6 +55,7 @@
     hintLevel: 0,
     keyStates: {},
     particles: [],
+    fxFrame: 0,
     last: 0,
     stats: readStats()
   };
@@ -474,8 +477,9 @@
 
   function burst(count, color) {
     if (reduceMotion) return;
+    const actual = liteFx ? Math.min(16, Math.ceil(count * .45)) : count;
     const rect = els.fx.getBoundingClientRect();
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < actual; i++) {
       const angle = Math.random() * Math.PI * 2;
       const speed = 80 + Math.random() * 220;
       state.particles.push({
@@ -489,6 +493,7 @@
         max: 1.2
       });
     }
+    scheduleFx();
   }
 
   function resizeFx() {
@@ -503,15 +508,16 @@
   }
 
   function drawFx(now) {
+    state.fxFrame = 0;
     const t = now || performance.now();
     const dt = Math.min(.05, Math.max(0, (t - state.last) / 1000 || .016));
     state.last = t;
     resizeFx();
     ctx.clearRect(0, 0, innerWidth, innerHeight);
-    if (!reduceMotion) {
+    if (!reduceMotion && !liteFx && !document.hidden) {
       ctx.save();
       ctx.globalCompositeOperation = "screen";
-      for (let i = 0; i < 46; i++) {
+      for (let i = 0; i < 30; i++) {
         const y = ((i * 97 + t * .035) % (innerHeight + 160)) - 80;
         const x = (i * 173 + Math.sin(t * .0008 + i) * 90) % innerWidth;
         const alpha = .04 + (i % 5) * .012;
@@ -536,7 +542,11 @@
       ctx.fill();
     }
     state.particles = state.particles.filter((p) => p.life > 0);
-    requestAnimationFrame(drawFx);
+    if (!document.hidden && (!liteFx || state.particles.length)) scheduleFx();
+  }
+
+  function scheduleFx() {
+    if (!state.fxFrame) state.fxFrame = requestAnimationFrame(drawFx);
   }
 
   function hexToRgba(hex, alpha) {
@@ -584,7 +594,7 @@
     bindEvents();
     renderKeyboard();
     updateStatsUI();
-    requestAnimationFrame(drawFx);
+    scheduleFx();
     try {
       await loadBank();
     } catch (error) {

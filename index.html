@@ -1031,9 +1031,7 @@ textarea:focus-visible {
   z-index: 100;
   display: none;
   flex-direction: column;
-  background: rgba(6,8,15,.96);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  background: #06080f;
   border: 1px solid var(--line-2);
   border-radius: 18px;
   overflow: hidden;
@@ -1138,6 +1136,32 @@ textarea:focus-visible {
   }
   .hero-bg { transform: none !important; }
   .grain { animation: none; }
+}
+
+body.game-active #fx,
+body.game-active .grain {
+  display: none !important;
+}
+body.game-active .hero-bg,
+body.game-active .hero-bg::before,
+body.game-active .hero-bg::after,
+body.game-active .topbar::after,
+body.game-active .hm-track,
+body.game-active .live-dot,
+body.game-active .loader {
+  animation: none !important;
+  transition: none !important;
+}
+body.game-active .hero-bg {
+  transform: none !important;
+  filter: saturate(1.01) contrast(1.01);
+}
+body.game-active .topbar,
+body.game-active .hero-marquee,
+body.game-active .card,
+body.game-active .playerbar {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* ============== Misc ============== */
@@ -1571,6 +1595,12 @@ function render() {
 }
 
 // ============== Player ==============
+function playerUrl(file) {
+  const url = new URL(file, window.location.href);
+  if (!url.searchParams.has("fx")) url.searchParams.set("fx", "lite");
+  return url.href;
+}
+
 function openGame(game) {
   if (!game) return;
   currentGame = game;
@@ -1582,12 +1612,14 @@ function openGame(game) {
   }, { counter: "game-launches", once: false });
   document.getElementById("playerTitle").textContent = game.title;
   document.getElementById("playerMeta").textContent = game.course + " · " + game.gameType + " · " + (game.day || game.grade);
+  document.body.classList.add("game-active");
   player.classList.add("show", "loading");
-  frame.src = game.file;
+  frame.src = playerUrl(game.file);
   frame.focus();
 }
 	function closeGame() {
 	  player.classList.remove("show", "loading");
+	  document.body.classList.remove("game-active");
 	  frame.src = "about:blank";
 	  currentGame = null;
 	}
@@ -1601,7 +1633,7 @@ frame.addEventListener("load", () => {
 });
 document.getElementById("closeBtn").addEventListener("click", closeGame);
 document.getElementById("openBtn").addEventListener("click", () => {
-  if (currentGame) window.open(currentGame.file, "_blank", "noopener");
+  if (currentGame) window.open(playerUrl(currentGame.file), "_blank", "noopener");
 });
 document.getElementById("fullscreenBtn").addEventListener("click", async () => {
   const target = document.querySelector(".framewrap");
@@ -1624,7 +1656,8 @@ document.addEventListener("keydown", (event) => {
 	  const ctx = canvas.getContext("2d", { alpha: true });
 	  if (!ctx) return;
 	  let width = 0, height = 0, dpr = 1;
-	  const particleCount = window.innerWidth < 980 ? 46 : 64;
+	  let lastDraw = 0;
+	  const particleCount = window.innerWidth < 980 ? 24 : 32;
 	  const particles = Array.from({ length: particleCount }, (_, index) => ({
 	    x: (index * 137.5) % 100,
 	    y: (index * 61.7) % 100,
@@ -1632,13 +1665,22 @@ document.addEventListener("keydown", (event) => {
 	    hue: index % 4
 	  }));
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+    dpr = Math.min(window.devicePixelRatio || 1, 1.15);
     width = Math.floor(innerWidth * dpr);
     height = Math.floor(innerHeight * dpr);
     canvas.width = width; canvas.height = height;
     canvas.style.width = "100%"; canvas.style.height = "100%";
   }
   function draw(time) {
+    if (document.hidden || document.body.classList.contains("game-active")) {
+      requestAnimationFrame(draw);
+      return;
+    }
+    if (time - lastDraw < 42) {
+      requestAnimationFrame(draw);
+      return;
+    }
+    lastDraw = time;
     ctx.clearRect(0, 0, width, height);
     const t = time * .00018;
     ctx.save();
@@ -1686,16 +1728,20 @@ document.addEventListener("keydown", (event) => {
 	  const bg = document.querySelector(".hero-bg");
 	  if (!bg) return;
 	  let target = 0, current = 0;
+	  let frame = 0;
   function tick() {
+    frame = 0;
+    if (document.hidden || document.body.classList.contains("game-active")) return;
     current += (target - current) * .08;
     bg.style.setProperty("--bgY", current.toFixed(2) + "px");
-    requestAnimationFrame(tick);
+    if (Math.abs(target - current) > .25) frame = requestAnimationFrame(tick);
   }
   function onScroll() {
     target = -Math.min(window.scrollY * .18, 120);
+    if (!frame) frame = requestAnimationFrame(tick);
   }
   addEventListener("scroll", onScroll, { passive: true });
-  tick();
+  onScroll();
 }
 
 // ============== Scroll reveal ==============
