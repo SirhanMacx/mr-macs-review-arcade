@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>History Hunters</title>
+  <link rel="stylesheet" href="styles.css?v=20260427-history-hunters">
+</head>
+<body>
+  <main class="game-shell">
+    <canvas id="world" aria-label="History Hunters open world"></canvas>
+    <div class="world-vignette" aria-hidden="true"></div>
+
+    <header class="hud top-hud">
+      <a class="back" href="../../index.html">Arcade</a>
+      <div class="brand">
+        <span class="seal"></span>
+        <div>
+          <h1>History Hunters</h1>
+          <p>Massive social studies RPG</p>
+        </div>
+      </div>
+      <div class="statbar">
+        <span><strong id="level">1</strong> Rank</span>
+        <span><strong id="rosterCount">0</strong> Allies</span>
+        <span><strong id="shards">0</strong> Shards</span>
+        <span><strong id="streak">0</strong> Streak</span>
+      </div>
+    </header>
+
+    <section class="hud command-deck" aria-label="Expedition controls">
+      <div class="filter-block">
+        <label for="courseFilter">Course</label>
+        <select id="courseFilter"></select>
+      </div>
+      <div class="filter-block">
+        <label for="setFilter">Unit / Exam Content</label>
+        <select id="setFilter"></select>
+      </div>
+      <div class="filter-row">
+        <button id="huntBtn" class="primary" type="button">Start Hunt</button>
+        <button id="mapBtn" type="button">Map</button>
+        <button id="rosterBtn" type="button">Roster</button>
+      </div>
+      <div class="quest-card">
+        <span>Active Region</span>
+        <strong id="activeRegion">Loading archive...</strong>
+        <p id="questText">Choose a course and enter the field.</p>
+      </div>
+    </section>
+
+    <aside class="hud roster-panel" id="rosterPanel" aria-label="Roster">
+      <div class="panel-head">
+        <div>
+          <span>Chronicle Allies</span>
+          <strong>Roster</strong>
+        </div>
+        <button id="closeRoster" type="button">Close</button>
+      </div>
+      <figure class="atlas-preview">
+        <img src="../../assets/history-hunters/character-evolution-atlas.png" alt="Generated character and evolution atlas">
+        <figcaption>Generated character and evolution atlas</figcaption>
+      </figure>
+      <div id="rosterList" class="roster-list"></div>
+    </aside>
+
+    <section class="hud encounter" id="encounter" hidden aria-label="Encounter">
+      <div class="encounter-stage">
+        <div class="ally-card">
+          <div class="portrait" id="portrait">
+            <div class="portrait-ring"></div>
+            <div class="portrait-mark" id="portraitMark">HH</div>
+          </div>
+          <span id="rarity">Common Echo</span>
+          <h2 id="allyName">Archive Echo</h2>
+          <p id="allyRole">Preparing encounter...</p>
+          <div class="battle-board">
+            <div class="battler enemy">
+              <span id="enemyType">Archive</span>
+              <strong id="enemyName">Wild Echo</strong>
+              <div class="hp"><i id="enemyHp"></i></div>
+            </div>
+            <div class="versus">VS</div>
+            <div class="battler player">
+              <span id="heroType">Research</span>
+              <strong id="heroName">Field Researcher</strong>
+              <div class="hp"><i id="heroHp"></i></div>
+            </div>
+          </div>
+          <div class="moves" id="moves"></div>
+        </div>
+        <div class="trial-card">
+          <div class="trial-top">
+            <div>
+              <span id="trialKicker">Recruitment Trial</span>
+              <strong id="trialMeta">All Courses</strong>
+            </div>
+            <button id="closeEncounter" type="button">Exit</button>
+          </div>
+          <div class="capture-meter" aria-label="Recruitment progress">
+            <span id="captureBar"></span>
+          </div>
+          <div id="battleLog" class="battle-log">Pick a move to begin the encounter.</div>
+          <div id="moveButtons" class="move-buttons"></div>
+          <div id="sourcePanel" class="source-panel" hidden></div>
+          <p id="questionText" class="question-text">Loading question...</p>
+          <div id="choices" class="choices"></div>
+          <form id="typedForm" class="typed-form">
+            <input id="typedAnswer" autocomplete="off" placeholder="Type the answer">
+            <button type="submit">Answer</button>
+          </form>
+          <div id="feedback" class="feedback"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="start-screen" id="startScreen" aria-label="Start expedition">
+      <div class="start-art"></div>
+      <div class="start-card">
+        <span class="eyebrow">Mr. Mac's Review Arcade</span>
+        <h2>History Hunters</h2>
+        <p>Explore a living archive, recruit historical allies through review questions, and build a roster across every course in the library.</p>
+        <div class="start-stats" id="startStats">
+          <span>3,773 prompts</span>
+          <span>18 course lanes</span>
+          <span>Open-world review</span>
+        </div>
+        <button id="beginBtn" class="primary big" type="button">Enter the Field</button>
+      </div>
+    </section>
+  </main>
+  <script src="../../assets/arcade-analytics.js"></script>
+  <script src="game.js?v=20260427-history-hunters"></script>
+</body>
+</html>

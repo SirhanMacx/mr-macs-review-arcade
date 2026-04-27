@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="History Hunters open-world social studies RPG key art">
+  <defs>
+    <radialGradient id="sky" cx="50%" cy="18%" r="78%">
+      <stop offset="0%" stop-color="#64ecff"/>
+      <stop offset="36%" stop-color="#174b7a"/>
+      <stop offset="72%" stop-color="#0c172b"/>
+      <stop offset="100%" stop-color="#070b16"/>
+    </radialGradient>
+    <linearGradient id="land" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#4fd89d"/>
+      <stop offset="38%" stop-color="#24896f"/>
+      <stop offset="67%" stop-color="#1d355f"/>
+      <stop offset="100%" stop-color="#0b1020"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1">
+      <stop offset="0%" stop-color="#fff0a6"/>
+      <stop offset="52%" stop-color="#ffd15d"/>
+      <stop offset="100%" stop-color="#ff9d46"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" x2="1">
+      <stop offset="0%" stop-color="#8ff8ff"/>
+      <stop offset="100%" stop-color="#39a6ff"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.2 0 0 0 0 0.95 0 0 0 0 1 0 0 0 .85 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0v80" fill="none" stroke="#8ff8ff" stroke-opacity=".08" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity=".8"/>
+  <path d="M-20 710C170 570 305 610 454 500c155-114 246-78 392-6 166 82 304 8 461 80 107 49 190 122 313 96v250H-20Z" fill="url(#land)"/>
+  <path d="M103 700c154-87 286-38 396-132 98-83 191-90 290-36 121 66 228 32 331 21 130-14 239 50 367 133" fill="none" stroke="#fff0a6" stroke-opacity=".28" stroke-width="14" stroke-linecap="round"/>
+  <path d="M103 700c154-87 286-38 396-132 98-83 191-90 290-36 121 66 228 32 331 21 130-14 239 50 367 133" fill="none" stroke="#18233d" stroke-opacity=".55" stroke-width="5" stroke-linecap="round"/>
+  <g filter="url(#glow)">
+    <circle cx="388" cy="540" r="54" fill="#0b182d" stroke="url(#gold)" stroke-width="7"/>
+    <path d="M388 498v85M346 540h85" stroke="#ffd15d" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="764" cy="497" r="62" fill="#071326" stroke="url(#cyan)" stroke-width="7"/>
+    <path d="m729 502 34 30 53-68" fill="none" stroke="#8ff8ff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1152" cy="560" r="58" fill="#150f28" stroke="#c49bff" stroke-width="7"/>
+    <path d="M1114 558c34-42 72-42 109 0-37 43-75 43-109 0Z" fill="none" stroke="#e9d8ff" stroke-width="10" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(760 284)" filter="url(#glow)">
+    <circle r="96" fill="#0a1325" stroke="url(#gold)" stroke-width="8"/>
+    <circle r="58" fill="none" stroke="#8ff8ff" stroke-opacity=".72" stroke-width="5"/>
+    <path d="M0-78 17-17 78 0 17 17 0 78-17 17-78 0-17-17Z" fill="url(#gold)"/>
+  </g>
+  <g transform="translate(210 150)">
+    <text x="0" y="0" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="900" fill="#ffffff" letter-spacing="0">History Hunters</text>
+    <text x="4" y="62" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="800" fill="#8ff8ff" letter-spacing="4">OPEN-WORLD SOCIAL STUDIES RPG</text>
+  </g>
+</svg>

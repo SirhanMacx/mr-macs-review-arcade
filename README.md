@@ -6,8 +6,9 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 
 ## What Is Included
 
-- 134 browser-playable review games
+- 135 browser-playable review games
 - Archive Cipher, a generated-art review Wordle-style term decoder with course filters, unit filters, animated tile feedback, hints, and explanations from the full review library
+- History Hunters, an original all-courses social studies RPG with open-world exploration, historical ally recruitment, type-based battles, and answer-powered moves
 - Timeline Runner, a generated-art endless runner where students dodge archive hazards, collect evidence, and answer by steering through course-filtered answer gates from the full 3,651-prompt review library
 - Time Rift Survivors, a full-library survival arcade game with generated arena art, animated combat, relic upgrades, course filters, stimulus access, and 3,651 review prompts
 - Chrono Defense Infinite, an original endless social-studies tower defense game using the full 3,651-prompt review library
@@ -30,6 +31,7 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - Civics and Participation in Government
 - Unit games, cumulative games, and final review games
 - Generated arcade hub artwork, search, filters, featured missions, and embedded in-page player
+- Generated History Hunters RPG assets: character/evolution atlas, type-effect atlas, and overworld map art
 - Solo and team play options
 - Jeopardy boards are normalized during publishing so each category ramps from lower-value recall clues to higher-value challenge clues
 - Anonymous traffic counter for site visits, game opens, game page views, and completions
@@ -91,6 +93,7 @@ Recommended quality gate before publishing:
 - Run `python3 scripts/validate_arcade.py`
 - Open `index.html` locally (or via GitHub Pages) and sanity-check:
   - Boss Rush Arena
+  - History Hunters
   - Chrono Defense Infinite
   - Regents Gauntlet
   - Arcade Duel

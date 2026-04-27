@@ -1,0 +1,1062 @@
+:root {
+  color-scheme: dark;
+  --bg: #060914;
+  --panel: rgba(8, 15, 30, .76);
+  --panel-2: rgba(12, 23, 43, .92);
+  --line: rgba(151, 224, 255, .2);
+  --line-2: rgba(255, 215, 112, .34);
+  --text: #f5fbff;
+  --muted: #9bb2cb;
+  --cyan: #70f2ff;
+  --gold: #ffd66e;
+  --green: #77f0af;
+  --rose: #ff789d;
+  --violet: #c9a0ff;
+  --shadow: 0 24px 80px rgba(0, 0, 0, .48);
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  image-rendering: auto;
+}
+
+button,
+select,
+input {
+  font: inherit;
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+.game-shell {
+  position: relative;
+  height: 100dvh;
+  min-height: 640px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(89, 236, 255, .18), transparent 38%),
+    radial-gradient(circle at 20% 88%, rgba(255, 214, 110, .1), transparent 34%),
+    #060914;
+}
+
+#world {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.world-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(2, 5, 12, .78), transparent 18%, transparent 67%, rgba(2, 5, 12, .82)),
+    radial-gradient(circle at center, transparent 46%, rgba(3, 6, 14, .58));
+}
+
+.hud {
+  position: absolute;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.top-hud {
+  top: max(12px, env(safe-area-inset-top));
+  left: 12px;
+  right: 12px;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 14px;
+  border-radius: 16px;
+}
+
+.back {
+  display: inline-grid;
+  place-items: center;
+  min-width: 74px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 214, 110, .35);
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: 12px;
+  background: rgba(255, 214, 110, .08);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.seal {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: url("../../assets/history-hunters/recruit-seal.svg") center / cover no-repeat;
+  box-shadow: 0 0 28px rgba(112, 242, 255, .28);
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+.brand h1 {
+  font-size: clamp(22px, 2.4vw, 36px);
+  line-height: .92;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.brand p {
+  margin-top: 4px;
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.statbar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(86px, 1fr));
+  gap: 8px;
+}
+
+.statbar span {
+  min-height: 46px;
+  display: grid;
+  place-items: center;
+  padding: 6px 10px;
+  border-radius: 13px;
+  border: 1px solid var(--line);
+  color: #afbed2;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, .04);
+}
+
+.statbar strong {
+  display: block;
+  color: var(--gold);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.command-deck {
+  right: 12px;
+  top: 96px;
+  width: min(360px, calc(100vw - 24px));
+  padding: 14px;
+  border-radius: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.filter-block {
+  display: grid;
+  gap: 7px;
+}
+
+.filter-block label {
+  color: #9fb7d4;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+select,
+input {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(124, 180, 214, .28);
+  background: rgba(2, 7, 16, .82);
+  color: var(--text);
+  padding: 0 12px;
+  outline: none;
+}
+
+select:focus,
+input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(112, 242, 255, .15);
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr .8fr;
+  gap: 8px;
+}
+
+button {
+  min-height: 44px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .04));
+  color: var(--text);
+  font-weight: 950;
+}
+
+button:hover {
+  border-color: rgba(112, 242, 255, .55);
+  transform: translateY(-1px);
+}
+
+.primary {
+  border-color: rgba(255, 214, 110, .52);
+  background: linear-gradient(180deg, #ffe895, #ffbd57);
+  color: #1a1220;
+}
+
+.big {
+  min-height: 58px;
+  padding: 0 22px;
+  font-size: 16px;
+}
+
+.quest-card {
+  padding: 13px;
+  border-radius: 14px;
+  border: 1px solid rgba(112, 242, 255, .22);
+  background: rgba(5, 19, 34, .7);
+}
+
+.quest-card span,
+.panel-head span,
+.ally-card span,
+#trialKicker {
+  display: block;
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.quest-card strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+.quest-card p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.roster-panel {
+  left: 12px;
+  bottom: 12px;
+  width: min(430px, calc(100vw - 24px));
+  max-height: min(430px, calc(100dvh - 120px));
+  display: none;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.roster-panel.show {
+  display: flex;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, .04);
+}
+
+.panel-head strong {
+  display: block;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+.panel-head button,
+#closeEncounter {
+  min-height: 36px;
+  padding: 0 12px;
+}
+
+.atlas-preview {
+  margin: 12px 12px 0;
+  border: 1px solid rgba(112, 242, 255, .18);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .04);
+}
+
+.atlas-preview img {
+  display: block;
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  object-position: top center;
+  image-rendering: pixelated;
+}
+
+.atlas-preview figcaption {
+  padding: 8px 10px;
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.roster-list {
+  display: grid;
+  gap: 9px;
+  padding: 12px;
+  overflow: auto;
+}
+
+.roster-empty,
+.roster-item {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .045);
+  padding: 12px;
+}
+
+.roster-item {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.mini-portrait {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-weight: 1000;
+  color: #071326;
+  background: var(--ally, linear-gradient(135deg, var(--cyan), var(--gold)));
+}
+
+.roster-item strong {
+  display: block;
+  font-size: 14px;
+}
+
+.roster-item span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.roster-item em {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 950;
+}
+
+.encounter {
+  inset: 0;
+  z-index: 20;
+  border: 0;
+  background: rgba(2, 6, 14, .68);
+  display: grid;
+  place-items: center;
+  padding: 92px 20px 20px;
+}
+
+.encounter[hidden] {
+  display: none;
+}
+
+.encounter-stage {
+  width: min(1180px, 100%);
+  max-height: calc(100dvh - 112px);
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 16px;
+}
+
+.ally-card,
+.trial-card {
+  min-height: 0;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--panel-2);
+  box-shadow: var(--shadow);
+}
+
+.ally-card {
+  padding: 18px;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.portrait {
+  position: relative;
+  min-height: 250px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255,255,255,.05) 1px, transparent 1px),
+    radial-gradient(circle at 50% 32%, var(--ally-a, #70f2ff), transparent 26%),
+    radial-gradient(circle at 22% 80%, var(--ally-b, #ffd66e), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .03));
+  background-size: 14px 14px, 14px 14px, auto, auto, auto;
+  image-rendering: pixelated;
+}
+
+.portrait::before {
+  content: "";
+  position: absolute;
+  inset: -45%;
+  background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, .18), transparent, rgba(112, 242, 255, .2), transparent);
+  animation: spin 12s linear infinite;
+}
+
+.portrait::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: min(72%, 190px);
+  height: 84%;
+  transform: translateX(-50%);
+  background-image: url("../../assets/history-hunters/character-evolution-atlas.png");
+  background-repeat: no-repeat;
+  background-size: 600% 600%;
+  background-position: var(--sprite-x, 0%) var(--sprite-y, 0%);
+  image-rendering: pixelated;
+  filter: drop-shadow(0 20px 18px rgba(0, 0, 0, .36));
+  mix-blend-mode: screen;
+  opacity: .96;
+}
+
+.portrait-ring {
+  position: absolute;
+  width: 138px;
+  height: 138px;
+  border-radius: 50%;
+  border: 12px solid rgba(255, 255, 255, .18);
+  box-shadow: inset 0 0 34px rgba(255, 255, 255, .12), 0 0 42px rgba(112, 242, 255, .28);
+}
+
+.portrait-mark {
+  position: relative;
+  z-index: 2;
+  align-self: start;
+  justify-self: start;
+  margin: 14px;
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #fff2a8, #76f2ff);
+  color: #081225;
+  font-size: 19px;
+  font-weight: 1000;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .34);
+  clip-path: polygon(0 12%, 12% 12%, 12% 0, 88% 0, 88% 12%, 100% 12%, 100% 88%, 88% 88%, 88% 100%, 12% 100%, 12% 88%, 0 88%);
+}
+
+.ally-card h2 {
+  font-size: clamp(24px, 3vw, 38px);
+  line-height: 1;
+}
+
+.ally-card p {
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.moves {
+  display: grid;
+  gap: 8px;
+}
+
+.move-chip {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 13px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(255, 255, 255, .055);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.move-chip small {
+  color: var(--gold);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.battle-board {
+  display: grid;
+  grid-template-columns: 1fr 42px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, .2);
+}
+
+.battler {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.battler span {
+  color: var(--cyan);
+  font-size: 9px;
+  letter-spacing: .14em;
+}
+
+.battler strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.hp {
+  height: 10px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .42);
+  overflow: hidden;
+}
+
+.hp i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--green), var(--cyan));
+  transition: width .3s ease;
+}
+
+.battler.enemy .hp i {
+  background: linear-gradient(90deg, var(--rose), var(--gold));
+}
+
+.versus {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  color: #071326;
+  background: var(--gold);
+  font-size: 12px;
+  font-weight: 1000;
+}
+
+.trial-card {
+  padding: 16px;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto minmax(80px, auto) auto auto;
+  gap: 12px;
+  overflow: auto;
+}
+
+.trial-top {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+#trialMeta {
+  display: block;
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+.capture-meter {
+  height: 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(112, 242, 255, .22);
+  overflow: hidden;
+  background: rgba(3, 7, 15, .82);
+}
+
+.capture-meter span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--rose), var(--gold), var(--green), var(--cyan));
+  box-shadow: 0 0 28px rgba(112, 242, 255, .45);
+  transition: width .35s ease;
+}
+
+.battle-log {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 14px;
+  color: #d7e8f7;
+  background: rgba(255, 255, 255, .045);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.move-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.move-buttons button {
+  position: relative;
+  min-height: 58px;
+  padding: 10px 12px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.move-buttons button::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: var(--type, var(--cyan));
+}
+
+.move-buttons button::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background-image: url("../../assets/history-hunters/type-effects-atlas.png");
+  background-repeat: no-repeat;
+  background-size: 300% 1000%;
+  background-position: 0 var(--effect-y, 0%);
+  image-rendering: pixelated;
+  opacity: .76;
+  mix-blend-mode: screen;
+}
+
+.move-buttons strong,
+.move-buttons small {
+  position: relative;
+  padding-right: 48px;
+  display: block;
+}
+
+.move-buttons small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.source-panel {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255, 214, 110, .28);
+  border-radius: 16px;
+  background: rgba(255, 214, 110, .08);
+}
+
+.source-panel img {
+  max-width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.source-panel strong {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 11px;
+}
+
+.question-text {
+  font-size: clamp(19px, 2.2vw, 31px);
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.choices button {
+  min-height: 62px;
+  padding: 12px;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.typed-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 130px;
+  gap: 10px;
+}
+
+.feedback {
+  min-height: 54px;
+  padding: 12px;
+  border-radius: 14px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, .04);
+}
+
+.feedback.good {
+  border: 1px solid rgba(119, 240, 175, .36);
+  color: #caffdf;
+  background: rgba(119, 240, 175, .11);
+}
+
+.feedback.bad {
+  border: 1px solid rgba(255, 120, 157, .38);
+  color: #ffd5df;
+  background: rgba(255, 120, 157, .1);
+}
+
+.feedback.done {
+  border: 1px solid rgba(255, 214, 110, .45);
+  color: #fff4c7;
+  background: rgba(255, 214, 110, .12);
+}
+
+.start-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(380px, .9fr);
+  gap: 28px;
+  align-items: center;
+  padding: max(28px, env(safe-area-inset-top)) max(28px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(28px, env(safe-area-inset-left));
+  background:
+    linear-gradient(90deg, rgba(3, 7, 16, .72), rgba(3, 7, 16, .94)),
+    url("../../assets/history-hunters/character-evolution-atlas.png") left center / min(86vw, 980px) auto no-repeat,
+    url("../../assets/history-hunters/overworld-map.png") center / cover no-repeat,
+    url("../../assets/history-hunters/key-art.svg") center / cover no-repeat;
+}
+
+.start-screen.hide {
+  display: none;
+}
+
+.start-art {
+  min-height: 66vh;
+}
+
+.start-card {
+  max-width: 560px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(6, 11, 23, .84);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.eyebrow {
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.start-card h2 {
+  margin-top: 8px;
+  font-size: clamp(42px, 6vw, 76px);
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+.start-card p {
+  margin-top: 16px;
+  color: #d0d9e7;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.start-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  margin: 18px 0;
+}
+
+.start-stats span {
+  min-height: 62px;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  background: rgba(255, 255, 255, .045);
+}
+
+.pulse {
+  animation: pulse .62s ease;
+}
+
+@keyframes spin {
+  to { transform: rotate(1turn); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 980px) {
+  .game-shell { min-height: 100dvh; }
+  .top-hud {
+    min-height: 62px;
+    padding: 8px;
+  }
+  .back { min-width: 58px; height: 38px; font-size: 10px; }
+  .seal { width: 38px; height: 38px; }
+  .brand h1 { font-size: 20px; }
+  .brand p { display: none; }
+  .statbar {
+    grid-template-columns: repeat(2, minmax(58px, 1fr));
+    gap: 5px;
+  }
+  .statbar span {
+    min-height: 32px;
+    padding: 4px;
+    font-size: 9px;
+  }
+  .statbar strong { font-size: 15px; }
+  .command-deck {
+    left: 10px;
+    right: 10px;
+    top: auto;
+    bottom: 10px;
+    width: auto;
+    padding: 10px;
+    gap: 8px;
+  }
+  .filter-block {
+    grid-template-columns: 74px minmax(0, 1fr);
+    align-items: center;
+  }
+  .filter-block label { font-size: 9px; }
+  select,
+  input,
+  button { min-height: 40px; }
+  .quest-card { display: none; }
+  .encounter { padding: 72px 10px 10px; }
+  .encounter-stage {
+    max-height: calc(100dvh - 82px);
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .ally-card {
+    grid-template-columns: 118px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px;
+  }
+  .portrait { min-height: 126px; border-radius: 16px; }
+  .portrait-ring { width: 76px; height: 76px; border-width: 7px; }
+  .portrait-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 16px;
+    font-size: 15px;
+    margin: 8px;
+  }
+  .ally-card h2 { font-size: 22px; }
+  .ally-card p { font-size: 12px; }
+  .moves {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .battle-board {
+    grid-column: 1 / -1;
+  }
+  .move-chip { padding: 8px; font-size: 11px; }
+  .trial-card {
+    padding: 10px;
+    gap: 9px;
+  }
+  .question-text { font-size: 18px; }
+  .choices {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .move-buttons {
+    grid-template-columns: 1fr;
+  }
+  .choices button { min-height: 48px; }
+  .typed-form { grid-template-columns: 1fr 92px; }
+  .source-panel img { max-height: 150px; }
+  .start-screen {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+  .start-art { display: none; }
+  .start-card { max-width: none; }
+  .start-card p { font-size: 15px; }
+  .start-stats { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 740px) and (orientation: portrait) {
+  .game-shell::after {
+    content: "Rotate for the full open-world view";
+    position: absolute;
+    left: 50%;
+    top: 84px;
+    transform: translateX(-50%);
+    z-index: 10;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--cyan);
+    background: rgba(6, 11, 23, .8);
+    font-size: 11px;
+    font-weight: 950;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    pointer-events: none;
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .encounter {
+    padding: 70px 8px 8px;
+    align-items: stretch;
+  }
+  .encounter-stage {
+    grid-template-columns: 280px minmax(0, 1fr);
+    max-height: calc(100dvh - 78px);
+    align-self: stretch;
+  }
+  .ally-card {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    align-content: start;
+    padding: 10px;
+    gap: 8px;
+  }
+  .portrait {
+    min-height: 104px;
+  }
+  .portrait-ring {
+    width: 66px;
+    height: 66px;
+    border-width: 6px;
+  }
+  .portrait-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 15px;
+    margin: 8px;
+  }
+  .ally-card h2 {
+    font-size: 20px;
+  }
+  .ally-card p {
+    max-height: 48px;
+    overflow: hidden;
+  }
+  .battle-board,
+  .moves {
+    grid-column: 1 / -1;
+  }
+  .moves {
+    max-height: 112px;
+    overflow: auto;
+  }
+  .trial-card {
+    max-height: calc(100dvh - 78px);
+    padding: 10px;
+    gap: 8px;
+  }
+  .move-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .move-buttons button {
+    min-height: 48px;
+    padding: 8px 10px;
+  }
+  .battle-log,
+  .feedback {
+    min-height: 38px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  .question-text {
+    font-size: 17px;
+  }
+  .choices button {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
