@@ -21,6 +21,7 @@
     bagBtn: $("bagBtn"),
     rosterBtn: $("rosterBtn"),
     codexBtn: $("codexBtn"),
+    saveBtn: $("saveBtn"),
     activeRegion: $("activeRegion"),
     questText: $("questText"),
     codexPanel: $("codexPanel"),
@@ -938,28 +939,8 @@
   }
 
   function buildNodes() {
-    const course = els.courseFilter.value;
-    const items = course === "All Courses"
-      ? state.bank.courses.slice()
-      : (state.bank.setsByCourse[course] || []).slice();
-    const count = Math.max(1, items.length);
-    const nodes = [];
-    for (let i = 0; i < count; i++) {
-      const spot = openWorldSpots[i % openWorldSpots.length];
-      const lap = Math.floor(i / openWorldSpots.length);
-      const x = spot[0] + (lap ? (lap % 2 ? 78 : -78) : 0);
-      const y = spot[1] + (lap ? lap * 54 : 0);
-      const label = items[i];
-      nodes.push({
-        label,
-        x: clamp(x, 220, WORLD_W - 220),
-        y: clamp(y, 180, WORLD_H - 180),
-        palette: paletteFor(label),
-        count: state.filtered.filter((q) => course === "All Courses" ? q.course === label : q.set === label).length
-      });
-    }
-    state.nodes = nodes;
-    state.selectedNode = nodes[0] || null;
+    state.nodes = [];
+    state.selectedNode = null;
     state.terrain = null;
   }
 
@@ -975,10 +956,6 @@
       if (!q || !q.prompt || !q.answer) return false;
       if (course !== "All Courses" && q.course !== course) return false;
       if (set !== "All Sets" && q.set !== set) return false;
-      if (state.selectedNode) {
-        if (course === "All Courses" && q.course !== state.selectedNode.label) return false;
-        if (course !== "All Courses" && set === "All Sets" && q.set !== state.selectedNode.label) return false;
-      }
       if (q.type === "mcq" && sourcePromptRe.test(String(q.prompt || "")) && !stimulusImagesFor(q).length && !sourceTextFor(q)) return false;
       return true;
     });
@@ -1223,6 +1200,7 @@
     if (state.battle) state.battle.awaitingAnswer = true;
     els.moveButtons.classList.add("answering");
     if (els.battleActions) els.battleActions.classList.add("answering");
+    els.questionText.style.display = "block";
     els.questionText.textContent = displayPrompt(q);
     els.trialMeta.textContent = `${cleanText(q.course || "Social Studies")} / ${cleanText(q.set || "Review")}`;
     els.trialKicker.textContent = state.currentAlly && state.currentAlly.sensitive ? "Archive Mission" : "Recruitment Trial";
@@ -1256,6 +1234,7 @@
     els.moveButtons.classList.remove("answering", "open");
     if (els.battleActions) els.battleActions.classList.remove("answering");
     els.questionText.textContent = message;
+    els.questionText.style.display = "none";
     els.choices.innerHTML = "";
     els.choices.style.display = "none";
     els.typedForm.style.display = "none";
@@ -1502,7 +1481,7 @@
     els.streak.textContent = state.stats.streak || 0;
     if (els.actionBtn) {
       const near = state.nearInteraction;
-      els.actionBtn.textContent = near ? (near.kind === "shop" ? "Shop" : near.kind === "center" ? "Heal" : "Talk") : "Talk / Use";
+      els.actionBtn.textContent = near ? (near.interactionType === "place" ? "Enter" : "Talk") : "Talk";
     }
   }
 
@@ -1567,9 +1546,63 @@
     return tallGrassZones.some(([gx, gy, gw, gh]) => x >= gx && x <= gx + gw && y >= gy && y <= gy + gh);
   }
 
+  function facingVector() {
+    const facing = state.player.facing || "down";
+    if (facing === "up") return { x: 0, y: -1 };
+    if (facing === "down") return { x: 0, y: 1 };
+    if (facing === "left") return { x: -1, y: 0 };
+    return { x: 1, y: 0 };
+  }
+
+  function facingPoint(distance = 86) {
+    const vec = facingVector();
+    return {
+      x: state.player.x + vec.x * distance,
+      y: state.player.y + vec.y * distance
+    };
+  }
+
+  function placeRect(place, pad = 0) {
+    const wide = place && place.kind === "shop" ? 104 : 142;
+    const tall = place && place.kind === "shop" ? 104 : 132;
+    return {
+      x: (place ? place.x : 0) - wide / 2 - pad,
+      y: (place ? place.y : 0) - tall / 2 - pad,
+      w: wide + pad * 2,
+      h: tall + pad * 2
+    };
+  }
+
+  function pointInRect(point, rect) {
+    return point.x >= rect.x && point.x <= rect.x + rect.w && point.y >= rect.y && point.y <= rect.y + rect.h;
+  }
+
+  function canWalkTo(x, y) {
+    const feet = { x, y: y + 22 };
+    if (x < 96 || y < 96 || x > WORLD_W - 96 || y > WORLD_H - 96) return false;
+    if (x > WORLD_W - 230 || (y > WORLD_H - 180 && x > 1120) || (x < 145 && y > 900)) return false;
+    return !worldPlaces.some((place) => pointInRect(feet, placeRect(place, 18)));
+  }
+
   function allInteractions() {
     return worldPlaces.map((place) => Object.assign({ interactionType: "place" }, place))
       .concat(npcs.map((npc) => Object.assign({ interactionType: "npc" }, npc)));
+  }
+
+  function interactionInFront() {
+    const look = facingPoint(92);
+    const place = worldPlaces.find((item) => pointInRect(look, placeRect(item, 34)));
+    if (place) return Object.assign({ interactionType: "place" }, place);
+    let best = null;
+    let bestDist = Infinity;
+    npcs.forEach((npc) => {
+      const d = Math.hypot(npc.x - look.x, npc.y - look.y);
+      if (d < bestDist) {
+        best = npc;
+        bestDist = d;
+      }
+    });
+    return bestDist <= 104 && best ? Object.assign({ interactionType: "npc" }, best) : null;
   }
 
   function nearestInteraction(point, radius = 150) {
@@ -1990,15 +2023,18 @@
       toggleMenu(false);
       return;
     }
-    const interaction = state.nearInteraction || nearestInteraction(state.player);
+    const interaction = interactionInFront();
     if (interaction) {
       openInteraction(interaction);
       return;
     }
-    if (isTallGrass(state.player.x, state.player.y) || state.selectedNode) {
-      openEncounter();
+    if (isTallGrass(state.player.x, state.player.y)) {
+      setDialogue("Route", "Tall Grass", "The grass rustles. Keep walking and a review encounter may appear.", [
+        { action: "hunt", label: "Search" },
+        { action: "close", label: "Close" }
+      ]);
     } else {
-      setDialogue("Field", "Nothing here", "Move near a person, building, sign, or tall grass, then press A.", [
+      setDialogue("Field", "Nothing here", "Face a person, door, sign, or patch of tall grass, then press A.", [
         { action: "close", label: "Close" }
       ]);
     }
@@ -2029,6 +2065,8 @@
     document.body.classList.add("field-mode");
     document.body.classList.remove("menu-open");
     els.startScreen.classList.add("hide");
+    state.camera.x = clamp(state.player.x - innerWidth * .45, 0, WORLD_W - innerWidth);
+    state.camera.y = clamp(state.player.y - innerHeight * .55, 0, WORLD_H - innerHeight);
     if (els.fieldHint) els.fieldHint.textContent = "A: talk / inspect · B: cancel · START: menu";
   }
 
@@ -2077,8 +2115,8 @@
       const interaction = nearestInteraction(point);
       if (interaction) {
         state.player.tx = interaction.x;
-        state.player.ty = interaction.y + 38;
-        if (Math.hypot(state.player.x - interaction.x, state.player.y - interaction.y) < 170) openInteraction(interaction);
+        state.player.ty = interaction.y + (interaction.interactionType === "place" ? 108 : 74);
+        state.player.facing = "up";
         return;
       }
       const node = nearestNode(point);
@@ -2088,6 +2126,9 @@
         state.player.ty = node.y;
         updateQuest();
       } else {
+        const dx = point.x - state.player.x;
+        const dy = point.y - state.player.y;
+        state.player.facing = Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? "left" : "right") : (dy < 0 ? "up" : "down");
         state.player.tx = clamp(point.x, 50, WORLD_W - 50);
         state.player.ty = clamp(point.y, 50, WORLD_H - 50);
       }
@@ -2109,7 +2150,8 @@
     els.mapBtn.addEventListener("click", () => {
       toggleMenu(false);
       state.player.tx = worldPlaces[0].x;
-      state.player.ty = worldPlaces[0].y + 80;
+      state.player.ty = worldPlaces[0].y + 118;
+      state.player.facing = "up";
     });
     els.bagBtn.addEventListener("click", () => {
       toggleMenu(false);
@@ -2125,6 +2167,15 @@
       toggleMenu(false);
       els.codexPanel.classList.add("show");
     });
+    if (els.saveBtn) {
+      els.saveBtn.addEventListener("click", () => {
+        writeSave();
+        toggleMenu(false);
+        setDialogue("Save", "Progress Saved", "Your History Hunters progress was saved on this device.", [
+          { action: "close", label: "OK" }
+        ]);
+      });
+    }
     els.closeCodex.addEventListener("click", () => els.codexPanel.classList.remove("show"));
     els.closeDialogue.addEventListener("click", () => els.dialoguePanel.hidden = true);
     els.closeEncounter.addEventListener("click", closeEncounter);
@@ -2153,6 +2204,7 @@
     const p = state.player;
     let dx = 0;
     let dy = 0;
+    let movedThisFrame = false;
     const canMove = !state.encounterOpen
       && els.buildingPanel.hidden
       && els.dialoguePanel.hidden
@@ -2160,7 +2212,14 @@
       && !els.bagPanel.classList.contains("show")
       && !els.rosterPanel.classList.contains("show")
       && !els.codexPanel.classList.contains("show");
-    if (canMove) {
+    const pendingX = p.tx - p.x;
+    const pendingY = p.ty - p.y;
+    const pendingDist = Math.hypot(pendingX, pendingY);
+    if (pendingDist <= 3) {
+      p.x = p.tx;
+      p.y = p.ty;
+    }
+    if (canMove && pendingDist <= 3) {
       if (state.keys.w || state.keys.arrowup) dy -= 1;
       if (state.keys.s || state.keys.arrowdown) dy += 1;
       if (state.keys.a || state.keys.arrowleft) dx -= 1;
@@ -2173,8 +2232,15 @@
     if (dx || dy) {
       state.lastAxis = dx ? "x" : "y";
       p.facing = dy < 0 ? "up" : dy > 0 ? "down" : dx < 0 ? "left" : "right";
-      p.tx = p.x + dx * 72;
-      p.ty = p.y + dy * 72;
+      const nextX = p.x + dx * 72;
+      const nextY = p.y + dy * 72;
+      if (canWalkTo(nextX, nextY)) {
+        p.tx = nextX;
+        p.ty = nextY;
+      } else {
+        p.tx = p.x;
+        p.ty = p.y;
+      }
     }
     const vx = p.tx - p.x;
     const vy = p.ty - p.y;
@@ -2183,6 +2249,7 @@
       const step = Math.min(dist, p.speed * dt);
       p.x = clamp(p.x + vx / dist * step, 70, WORLD_W - 70);
       p.y = clamp(p.y + vy / dist * step, 70, WORLD_H - 70);
+      movedThisFrame = step > 0;
       state.wildCooldown = Math.max(0, state.wildCooldown - dt);
       if (isTallGrass(p.x, p.y)) {
         state.wildSteps += step;
@@ -2197,18 +2264,13 @@
     } else {
       state.wildCooldown = Math.max(0, state.wildCooldown - dt);
     }
-    const near = nearestNode({ x: p.x, y: p.y });
-    if (near && state.selectedNode !== near) {
-      state.selectedNode = near;
-      updateQuest();
-    }
-    const interaction = nearestInteraction({ x: p.x, y: p.y }, 175);
+    const interaction = interactionInFront() || nearestInteraction({ x: p.x, y: p.y }, 118);
     if ((interaction && (!state.nearInteraction || interaction.id !== state.nearInteraction.id)) || (!interaction && state.nearInteraction)) {
       state.nearInteraction = interaction;
       updateHud();
       if (els.fieldHint) els.fieldHint.textContent = interaction
         ? `A: ${interaction.interactionType === "place" ? "enter " : "talk to "}${interaction.name}`
-        : "A: inspect route · START: menu";
+        : (isTallGrass(p.x, p.y) ? "Tall grass: walk for encounters · START: menu" : "A: inspect · START: menu");
       if (interaction) {
         els.activeRegion.textContent = interaction.name;
         els.questText.textContent = interaction.kind === "center"
@@ -2219,6 +2281,8 @@
       } else {
         updateQuest();
       }
+    } else if (!interaction && movedThisFrame && els.fieldHint) {
+      els.fieldHint.textContent = isTallGrass(p.x, p.y) ? "Tall grass: walk for encounters · START: menu" : "A: inspect · START: menu";
     }
     state.camera.x += (clamp(p.x - innerWidth * .45, 0, WORLD_W - innerWidth) - state.camera.x) * Math.min(1, dt * 5);
     state.camera.y += (clamp(p.y - innerHeight * .55, 0, WORLD_H - innerHeight) - state.camera.y) * Math.min(1, dt * 5);
@@ -2447,7 +2511,7 @@
       ctx.fillRect(-64, 48, 128, 16);
       if (near) drawSelectionFrame(ctx, -84, -84, 168, 154);
       drawAtlas(ctx, place.icon, -size / 2, -size / 2, size, size);
-      drawMapLabel(ctx, place.name, 0, size / 2 + 24, 210);
+      if (near) drawMapLabel(ctx, place.name, 0, size / 2 + 24, 210);
       ctx.restore();
     });
     npcs.forEach((npc) => {
@@ -2459,7 +2523,7 @@
       ctx.fillRect(-34, 34, 68, 12);
       if (near) drawSelectionFrame(ctx, -54, -76, 108, 126);
       drawAtlas(ctx, npc.action === "battle" ? "playerSideAlt" : "scholar", npc.action === "battle" ? -32 : -44, npc.action === "battle" ? -62 : -70, npc.action === "battle" ? 64 : 88, npc.action === "battle" ? 84 : 76);
-      drawMapLabel(ctx, npc.name, 0, 62, 190);
+      if (near) drawMapLabel(ctx, npc.name, 0, 62, 190);
       ctx.restore();
     });
   }
@@ -2488,40 +2552,7 @@
   }
 
   function drawNodes(now) {
-    state.nodes.forEach((node, index) => {
-      const selected = state.selectedNode === node;
-      const bob = selected && !reduceMotion ? Math.round(Math.sin(now * 7) * 5) : 0;
-      const icon = index % 5 === 0 ? "portal" : index % 4 === 0 ? "chest" : index % 3 === 0 ? "arch" : "sign";
-      const size = selected ? 88 : 68;
-      ctx.save();
-      ctx.translate(Math.round(node.x), Math.round(node.y + bob));
-      ctx.fillStyle = "rgba(15,56,15,.35)";
-      ctx.fillRect(-46, 36, 92, 14);
-      if (selected) {
-        ctx.fillStyle = GB.ink;
-        ctx.fillRect(-54, -68, 108, 10);
-        ctx.fillRect(-54, 46, 108, 10);
-        ctx.fillRect(-64, -58, 10, 104);
-        ctx.fillRect(54, -58, 10, 104);
-        ctx.fillStyle = GB.glow;
-        ctx.fillRect(-44, -58, 88, 6);
-        ctx.fillRect(-44, 40, 88, 6);
-      }
-      drawAtlas(ctx, icon, -size / 2, -size / 2, size, size);
-      ctx.fillStyle = GB.ink;
-      ctx.font = "900 14px 'Courier New', monospace";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(String(node.count || 0), 0, selected ? -60 : -48);
-      ctx.fillStyle = GB.ink;
-      ctx.fillRect(-118, size / 2 + 18, 236, 50);
-      ctx.fillStyle = GB.light;
-      ctx.fillRect(-112, size / 2 + 24, 224, 38);
-      ctx.fillStyle = GB.ink;
-      ctx.font = "900 12px 'Courier New', monospace";
-      wrapCanvasText(node.label, 0, size / 2 + 38, 204, 14, 2);
-      ctx.restore();
-    });
+    // Review content is selected through the START menu; the field stays visually clean.
   }
 
   function wrapCanvasText(text, x, y, maxWidth, lineHeight, maxLines) {
@@ -2544,12 +2575,6 @@
 
   function drawPlayer(now) {
     const p = state.player;
-    const movingX = Math.abs(p.tx - p.x);
-    const movingY = Math.abs(p.ty - p.y);
-    if (movingY > movingX && p.ty < p.y) p.facing = "up";
-    else if (movingY > movingX && p.ty > p.y) p.facing = "down";
-    else if (movingX > 10 && p.tx > p.x) p.facing = "right";
-    else if (movingX > 10 && p.tx < p.x) p.facing = "left";
     const sprite = p.facing === "up" ? "playerBack" : p.facing === "right" ? "playerSideAlt" : p.facing === "left" ? "playerSide" : "playerFront";
     ctx.save();
     ctx.translate(Math.round(p.x), Math.round(p.y));
