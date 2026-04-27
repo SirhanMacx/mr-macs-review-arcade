@@ -43,6 +43,7 @@
     trialMeta: $("trialMeta"),
     captureBar: $("captureBar"),
     battleLog: $("battleLog"),
+    battleActions: $("battleActions"),
     moveButtons: $("moveButtons"),
     sourcePanel: $("sourcePanel"),
     questionText: $("questionText"),
@@ -92,6 +93,17 @@
     scholar: [64, 1266, 181, 154],
     archiveBurst: [489, 1280, 305, 166]
   };
+  const openWorldSpots = [
+    [324, 300], [620, 288], [970, 276], [1560, 276], [1960, 296], [2280, 336],
+    [270, 610], [650, 610], [1010, 610], [1600, 610], [1980, 620], [2300, 650],
+    [280, 990], [620, 1020], [990, 1010], [1610, 1000], [1980, 1010], [2320, 1030],
+    [360, 1320], [760, 1328], [1130, 1330], [1510, 1324], [1900, 1328], [2240, 1310]
+  ];
+  const tallGrassZones = [
+    [180, 180, 520, 240], [780, 170, 340, 250], [1660, 175, 520, 250],
+    [170, 500, 370, 250], [760, 520, 310, 230], [1680, 520, 380, 240],
+    [250, 1120, 430, 260], [760, 1120, 390, 250], [1600, 1120, 520, 250]
+  ];
 
   const palettes = [
     ["#70f2ff", "#ffd66e", "#2f68ff"],
@@ -102,92 +114,284 @@
     ["#8fb4ff", "#77f0af", "#172f75"]
   ];
 
-  const typeData = {
-    Civic: { color: "#70f2ff", strong: ["Conflict", "Reform"], weak: ["Economy"], flavor: "rules, rights, institutions" },
-    Reform: { color: "#77f0af", strong: ["Civic", "Culture"], weak: ["Conflict"], flavor: "movements, rights, change" },
-    Conflict: { color: "#ff789d", strong: ["Economy", "Geography"], weak: ["Civic"], flavor: "wars, revolutions, power struggles" },
-    Economy: { color: "#ffd66e", strong: ["Geography", "Science"], weak: ["Reform"], flavor: "markets, scarcity, production" },
-    Geography: { color: "#8fb4ff", strong: ["Culture", "Economy"], weak: ["Science"], flavor: "maps, migration, environment" },
-    Ideas: { color: "#c9a0ff", strong: ["Civic", "Science"], weak: ["Culture"], flavor: "beliefs, philosophies, ideologies" },
-    Science: { color: "#69f0d2", strong: ["Geography", "Psychology"], weak: ["Ideas"], flavor: "technology, research, innovation" },
-    Culture: { color: "#ffb15f", strong: ["Ideas", "Psychology"], weak: ["Geography"], flavor: "society, art, identity" },
-    Source: { color: "#fff0a8", strong: ["Ideas", "Civic"], weak: ["Conflict"], flavor: "documents, maps, cartoons, evidence" },
-    Psychology: { color: "#f39cff", strong: ["Culture", "Reform"], weak: ["Source"], flavor: "behavior, cognition, learning" }
-  };
-  const typeOrder = Object.keys(typeData);
-  const familyRows = [
-    {
-      type: "Civic",
-      archetype: "Civic Guardian",
-      names: ["Clause Cub", "Billwarden", "Constitution Sentinel"],
-      line: "Built for rights, laws, institutions, courts, founding principles, and citizenship questions."
-    },
-    {
-      type: "Reform",
-      archetype: "Reform Speaker",
-      names: ["Petition Sprite", "Rally Herald", "Movement Maestro"],
-      line: "Grows stronger around change-makers, organizing, justice movements, and reform eras."
-    },
-    {
-      type: "Conflict",
-      archetype: "Strategy Marshal",
-      names: ["Skirmish Scout", "Turning-Point Captain", "Treaty Titan"],
-      line: "Handles revolutions, wars, diplomacy, imperialism, nationalism, and global power struggles."
-    },
-    {
-      type: "Economy",
-      archetype: "Market Tactician",
-      names: ["Coin Clerk", "Trade Baron", "Policy Magnate"],
-      line: "Tracks trade, scarcity, industrialization, taxes, markets, labor, and economic systems."
-    },
-    {
-      type: "Geography",
-      archetype: "Geo Navigator",
-      names: ["Compass Kid", "Route Ranger", "Worldpath Admiral"],
-      line: "Reads maps, migration, environments, human geography, regions, and spatial patterns."
-    },
-    {
-      type: "Ideas",
-      archetype: "Idea Keeper",
-      names: ["Lightbulb Scribe", "Thesis Sage", "Philosophy Oracle"],
-      line: "Connects beliefs, religions, ideologies, philosophies, revolutions in thought, and worldviews."
-    },
-    {
-      type: "Science",
-      archetype: "Innovation Builder",
-      names: ["Gear Rookie", "Workshop Adept", "Invention Prime"],
-      line: "Covers science, technology, inventions, industrial growth, medicine, and research breakthroughs."
-    },
-    {
-      type: "Culture",
-      archetype: "Culture Curator",
-      names: ["Artifact Imp", "Museum Mystic", "Civilization Muse"],
-      line: "Specializes in art, culture, social patterns, belief systems, identity, and civilization traits."
-    },
-    {
-      type: "Source",
-      archetype: "Source Archivist",
-      names: ["Document Darter", "Evidence Sleuth", "Archive Luminary"],
-      line: "Powers up from stimulus questions, documents, excerpts, maps, charts, images, and sourcing."
-    },
-    {
-      type: "Psychology",
-      archetype: "Mind Scholar",
-      names: ["Neuron Note", "Cognition Crafter", "Mind Palace Sage"],
-      line: "Built for AP Psychology: cognition, learning, development, memory, behavior, and research."
-    }
+  const courseTypeRules = [
+    { name: "AP Econ", cluster: "economics", color: "#ffd66e", match: /AP Economics Combined/i, flavor: "graphs, incentives, markets, policy", move: "Model Breaker" },
+    { name: "AP Macro", cluster: "economics", color: "#ffd66e", match: /AP Macroeconomics/i, flavor: "GDP, inflation, money, stabilization", move: "Aggregate Shock" },
+    { name: "AP Micro", cluster: "economics", color: "#ffd66e", match: /AP Microeconomics/i, flavor: "firms, costs, markets, externalities", move: "Marginal Strike" },
+    { name: "Economics", cluster: "economics", color: "#ffd66e", match: /^Economics Course/i, flavor: "scarcity, choices, markets, systems", move: "Scarcity Spark" },
+    { name: "AP Euro", cluster: "global", color: "#c9a0ff", match: /AP European History/i, flavor: "Europe, revolutions, ideas, states", move: "Congress Combo" },
+    { name: "Human Geo", cluster: "geography", color: "#8fb4ff", match: /AP Human Geography/i, flavor: "population, culture, space, land use", move: "Spatial Shift" },
+    { name: "AP Psych", cluster: "psychology", color: "#f39cff", match: /AP Psychology/i, flavor: "behavior, cognition, learning, research", move: "Cognition Burst" },
+    { name: "AP Gov", cluster: "civics", color: "#70f2ff", match: /AP U\.S\. Government|AP US Government/i, flavor: "institutions, rights, elections, policy", move: "Federalism Feint" },
+    { name: "APUSH", cluster: "us", color: "#77f0af", match: /AP U\.S\. History|AP US History/i, flavor: "periods, documents, reform, conflict", move: "Primary Source Rush" },
+    { name: "AP World", cluster: "global", color: "#c9a0ff", match: /AP World History/i, flavor: "networks, empires, revolutions, modernity", move: "Global Network" },
+    { name: "Civics", cluster: "civics", color: "#70f2ff", match: /Civics and PIG/i, flavor: "participation, rights, government, action", move: "Civic Charge" },
+    { name: "Global 10", cluster: "global", color: "#c9a0ff", match: /Grade 10 Global/i, flavor: "modern global history and turning points", move: "Turning Point" },
+    { name: "US Regents", cluster: "us", color: "#77f0af", match: /Grade 11 U\.S\. History|NYS U\.S\. History/i, flavor: "United States history, civics, documents", move: "Regents Rally" },
+    { name: "Grade 5", cluster: "foundations", color: "#ffb15f", match: /Grade 5/i, flavor: "Western Hemisphere peoples, geography, culture", move: "Hemisphere Hop" },
+    { name: "Grade 6", cluster: "global", color: "#c9a0ff", match: /Grade 6/i, flavor: "Eastern Hemisphere civilizations and belief systems", move: "Civilization Spark" },
+    { name: "Grade 7", cluster: "us", color: "#77f0af", match: /Grade 7/i, flavor: "early United States history and government", move: "Republic Rush" },
+    { name: "Grade 8", cluster: "us", color: "#77f0af", match: /Grade 8/i, flavor: "modern United States history and reform", move: "Reform Relay" },
+    { name: "Global 9", cluster: "global", color: "#c9a0ff", match: /Grade 9 Global/i, flavor: "early world history, civilizations, exchange", move: "Empire Echo" },
+    { name: "Global Regents", cluster: "global", color: "#c9a0ff", match: /NYS Global History/i, flavor: "Regents global history, geography, documents", move: "Enduring Issue" },
+    { name: "Review", cluster: "review", color: "#fff0a8", match: /All Courses|Review/i, flavor: "mixed arcade review energy", move: "Archive Pulse" }
   ];
-  const familyByType = familyRows.reduce((acc, family, index) => {
-    acc[family.type] = Object.assign({ row: index }, family);
+
+  const clusterEffects = {
+    economics: { strong: ["civics", "geography"], weak: ["psychology"] },
+    civics: { strong: ["us", "economics"], weak: ["global"] },
+    us: { strong: ["civics", "foundations"], weak: ["global"] },
+    global: { strong: ["geography", "us"], weak: ["economics"] },
+    geography: { strong: ["global", "economics"], weak: ["civics"] },
+    psychology: { strong: ["civics", "economics"], weak: ["geography"] },
+    foundations: { strong: ["global", "geography"], weak: ["economics"] },
+    review: { strong: [], weak: [] }
+  };
+
+  const typeData = courseTypeRules.reduce((acc, lane) => {
+    acc[lane.name] = { color: lane.color, cluster: lane.cluster, flavor: lane.flavor, move: lane.move };
+    return acc;
+  }, {});
+  const typeOrder = courseTypeRules.map((lane) => lane.name);
+
+  const figureFamiliesByType = {
+    "AP Econ": [
+      ["Adam Smith", ["Kirkcaldy Thinker", "Market Smith", "Invisible-Hand Sage"], "Explains incentives, specialization, trade, and market logic."],
+      ["John Maynard Keynes", ["Cambridge Debater", "Demand Doctor", "Policy Stormcaller"], "Powers up on spending, recessions, stabilization, and aggregate demand."],
+      ["Elinor Ostrom", ["Commons Scout", "Institution Builder", "Collective-Action Legend"], "Handles public goods, cooperation, incentives, and resource management."]
+    ],
+    "AP Macro": [
+      ["John Maynard Keynes", ["Cambridge Debater", "Demand Doctor", "Policy Stormcaller"], "Battles recessions, unemployment, inflation, and fiscal policy."],
+      ["Janet Yellen", ["Data Reader", "Fed Chair", "Soft-Landing Strategist"], "Tracks labor markets, inflation signals, and monetary policy decisions."],
+      ["Paul Volcker", ["Rate Rookie", "Inflation Breaker", "Central Bank Titan"], "Specializes in money, interest rates, inflation, and policy trade-offs."]
+    ],
+    "AP Micro": [
+      ["Alfred Marshall", ["Supply Sketcher", "Demand Mapper", "Equilibrium Master"], "Works through supply, demand, elasticity, and market models."],
+      ["Joan Robinson", ["Firm Analyst", "Imperfect Competitor", "Market Power Maven"], "Handles monopoly, competition, costs, and market structures."],
+      ["Elinor Ostrom", ["Commons Scout", "Institution Builder", "Collective-Action Legend"], "Powers up around externalities, public goods, and shared resources."]
+    ],
+    "Economics": [
+      ["Adam Smith", ["Kirkcaldy Thinker", "Market Smith", "Invisible-Hand Sage"], "Covers scarcity, trade, specialization, and market systems."],
+      ["John Maynard Keynes", ["Cambridge Debater", "Demand Doctor", "Policy Stormcaller"], "Connects government policy, downturns, demand, and money."],
+      ["Milton Friedman", ["Money Mapper", "Monetarist Mentor", "Inflation Hawk"], "Focuses on money supply, markets, inflation, and policy limits."]
+    ],
+    "AP Euro": [
+      ["Leonardo da Vinci", ["Workshop Sketcher", "Renaissance Maker", "Universal Genius"], "Thrives on Renaissance, humanism, art, science, and patronage."],
+      ["Martin Luther", ["Wittenberg Monk", "Reformation Spark", "Printing-Press Reformer"], "Powers up around religion, reform, printing, and authority."],
+      ["Napoleon Bonaparte", ["Corsican Cadet", "Consulate Commander", "Code Emperor"], "Connects revolution, nationalism, law, empire, and reaction."]
+    ],
+    "Human Geo": [
+      ["Ibn Battuta", ["Route Walker", "World Traveler", "Network Navigator"], "Reads movement, diffusion, trade routes, and cultural connection."],
+      ["Jane Jacobs", ["Block Observer", "City Critic", "Urban Vitality Guardian"], "Specializes in cities, land use, neighborhoods, and planning."],
+      ["Carl Sauer", ["Landscape Reader", "Culture Mapper", "Human-Environment Sage"], "Handles cultural landscapes, regions, environment, and place."]
+    ],
+    "AP Psych": [
+      ["Wilhelm Wundt", ["Lab Listener", "Introspection Founder", "Psychology Pioneer"], "Starts strong on research methods, history, and experimental psychology."],
+      ["B. F. Skinner", ["Box Builder", "Reinforcement Trainer", "Behavior Master"], "Powers up on learning, conditioning, rewards, and behavior."],
+      ["Jean Piaget", ["Schema Sorter", "Stage Builder", "Development Sage"], "Handles development, cognition, schemas, and childhood thinking."]
+    ],
+    "AP Gov": [
+      ["James Madison", ["Virginia Note-Taker", "Federalist Framer", "Constitution Architect"], "Built for federalism, factions, checks and balances, and founding documents."],
+      ["Thurgood Marshall", ["Courtroom Advocate", "Equal-Protection Champion", "Justice Sentinel"], "Specializes in rights, courts, civil liberties, and civil rights."],
+      ["Barbara Jordan", ["Debate Captain", "Constitution Voice", "Civic Standard-Bearer"], "Powers up with representation, oversight, political principles, and participation."]
+    ],
+    "APUSH": [
+      ["George Washington", ["Mount Vernon Scout", "Continental Commander", "Republic Founder"], "Covers founding, precedent, early republic, and leadership."],
+      ["Frederick Douglass", ["Baltimore Reader", "Abolition Orator", "Freedom Editor"], "Handles abolition, reform, citizenship, rights, and political voice."],
+      ["Franklin D. Roosevelt", ["Hyde Park Organizer", "New Deal Captain", "Four Freedoms Strategist"], "Connects depression, reform, wartime leadership, and federal power."]
+    ],
+    "AP World": [
+      ["Mansa Musa", ["Niani Prince", "Gold Road Ruler", "Mali World Connector"], "Specializes in trade, Islam, wealth, empires, and trans-Saharan networks."],
+      ["Zheng He", ["Harbor Cadet", "Treasure Fleet Admiral", "Indian Ocean Navigator"], "Powers up on maritime trade, Ming China, and exchange networks."],
+      ["Mohandas Gandhi", ["Law Student", "Salt March Organizer", "Nonviolence Strategist"], "Handles nationalism, imperialism, resistance, and decolonization."]
+    ],
+    "Civics": [
+      ["James Madison", ["Virginia Note-Taker", "Federalist Framer", "Constitution Architect"], "Anchors checks and balances, federalism, factions, and rights."],
+      ["Ida B. Wells", ["Memphis Journalist", "Truth Campaigner", "Justice Watchdog"], "Powers up through civic courage, reform, speech, and accountability."],
+      ["Eleanor Roosevelt", ["Newspaper Voice", "UN Delegate", "Human Rights Herald"], "Connects citizenship, rights, global responsibility, and public service."]
+    ],
+    "Global 10": [
+      ["Mohandas Gandhi", ["Law Student", "Salt March Organizer", "Nonviolence Strategist"], "Works through imperialism, nationalism, civil disobedience, and independence."],
+      ["Nelson Mandela", ["Johannesburg Advocate", "Freedom Negotiator", "Reconciliation President"], "Handles apartheid, resistance, justice, and democratic transition."],
+      ["Toussaint Louverture", ["Plantation Coachman", "Revolution General", "Haitian Liberator"], "Connects Atlantic revolutions, freedom, colonialism, and independence."]
+    ],
+    "US Regents": [
+      ["Abraham Lincoln", ["Frontier Reader", "Union President", "Emancipation Statesman"], "Covers Union, constitutional crisis, emancipation, and Reconstruction."],
+      ["Harriet Tubman", ["Maryland Scout", "Freedom Conductor", "Union Spy"], "Specializes in abolition, resistance, Civil War, and freedom networks."],
+      ["Martin Luther King Jr.", ["Atlanta Orator", "Montgomery Organizer", "Dream Keeper"], "Handles civil rights, nonviolent protest, federal action, and reform."]
+    ],
+    "Grade 5": [
+      ["Sacagawea", ["River Guide", "Trail Interpreter", "Western Route Legend"], "Connects geography, exploration, communication, and western routes."],
+      ["Pachacuti", ["Cusco Builder", "Andes Organizer", "Inca Roadmaker"], "Handles Andes geography, empire, roads, labor, and government."],
+      ["Moctezuma II", ["Tenochtitlan Prince", "Triple-Alliance Ruler", "Mexica Memory"], "Connects Mesoamerica, cities, tribute, culture, and encounter."]
+    ],
+    "Grade 6": [
+      ["Hammurabi", ["Babylon Judge", "Law Code Keeper", "Justice Stele Guardian"], "Built for laws, ancient river valleys, power, and order."],
+      ["Confucius", ["Lu Student", "Ethics Teacher", "Harmony Master"], "Handles belief systems, family, government, order, and values."],
+      ["Mansa Musa", ["Niani Prince", "Gold Road Ruler", "Mali World Connector"], "Connects West Africa, trade, Islam, pilgrimage, and wealth."]
+    ],
+    "Grade 7": [
+      ["George Washington", ["Mount Vernon Scout", "Continental Commander", "Republic Founder"], "Covers Revolution, precedent, early republic, and leadership."],
+      ["Alexander Hamilton", ["Caribbean Clerk", "Treasury Builder", "Federalist Financier"], "Handles Constitution, finance, federal power, and political parties."],
+      ["Tecumseh", ["Shawnee Speaker", "Confederacy Builder", "Resistance Strategist"], "Connects Native resistance, land, expansion, and early republic conflict."]
+    ],
+    "Grade 8": [
+      ["Abraham Lincoln", ["Frontier Reader", "Union President", "Emancipation Statesman"], "Covers Civil War, constitutional crisis, emancipation, and Reconstruction."],
+      ["Susan B. Anthony", ["Petition Carrier", "Suffrage Organizer", "Vote-Rights Veteran"], "Powers up on reform, suffrage, citizenship, and rights movements."],
+      ["Theodore Roosevelt", ["Rough Rider", "Trust-Buster", "Square Deal Ranger"], "Handles progressivism, conservation, regulation, and expanding federal power."]
+    ],
+    "Global 9": [
+      ["Hammurabi", ["Babylon Judge", "Law Code Keeper", "Justice Stele Guardian"], "Covers river valleys, law, social order, and authority."],
+      ["Pericles", ["Agora Speaker", "Athenian Strategist", "Democracy Patron"], "Handles Greek democracy, citizenship, culture, and empire."],
+      ["Ibn Battuta", ["Route Walker", "World Traveler", "Network Navigator"], "Reads exchange, travel, Islam, trade, and cultural diffusion."]
+    ],
+    "Global Regents": [
+      ["Mohandas Gandhi", ["Law Student", "Salt March Organizer", "Nonviolence Strategist"], "Works through imperialism, nationalism, civil disobedience, and independence."],
+      ["Nelson Mandela", ["Johannesburg Advocate", "Freedom Negotiator", "Reconciliation President"], "Handles apartheid, resistance, justice, and democratic transition."],
+      ["Mansa Musa", ["Niani Prince", "Gold Road Ruler", "Mali World Connector"], "Connects trade, Islam, wealth, empire, and geography."]
+    ],
+    "Review": [
+      ["Archive Keeper", ["Shelf Scout", "Index Captain", "Chronicle Guardian"], "A flexible arcade companion for mixed review runs."],
+      ["Source Sleuth", ["Clue Reader", "Evidence Tracker", "Document Master"], "Handles maps, excerpts, charts, cartoons, and documents."],
+      ["Context Coach", ["Background Buddy", "Era Expert", "Big-Picture Boss"], "Connects causes, effects, context, and big review patterns."]
+    ]
+  };
+
+  const figureAtlasFiles = [
+    "../../assets/history-hunters/figure-evolution-atlas-1.png",
+    "../../assets/history-hunters/figure-evolution-atlas-2.png",
+    "../../assets/history-hunters/figure-evolution-atlas-3.png",
+    "../../assets/history-hunters/figure-evolution-atlas-4.png",
+    "../../assets/history-hunters/figure-evolution-atlas-5.png",
+    "../../assets/history-hunters/figure-evolution-atlas-6.png",
+    "../../assets/history-hunters/figure-evolution-atlas-7.png",
+    "../../assets/history-hunters/figure-evolution-atlas-8.png",
+    "../../assets/history-hunters/figure-evolution-atlas-9.png",
+    "../../assets/history-hunters/figure-evolution-atlas-10.png"
+  ];
+  const allFigureFamilies = Object.entries(figureFamiliesByType).flatMap(([type, rows]) => (
+    rows.map((row) => ({
+      id: compactKey(`${type}-${row[0]}`),
+      type,
+      historicalName: row[0],
+      names: row[1],
+      line: row[2],
+      archetype: `${type} Figure`
+    }))
+  )).map((family, index) => Object.assign(family, {
+    atlas: Math.floor(index / 6) + 1,
+    row: index % 6,
+    globalIndex: index
+  }));
+  const familiesById = allFigureFamilies.reduce((acc, family) => {
+    acc[family.id] = family;
     return acc;
   }, {});
 
   const fallbackMoves = [
-    { name: "Primary Source Side-Eye", type: "Source", power: 25, flavor: "Uses evidence so hard the archive blinks first." },
-    { name: "Context Clutch", type: "Ideas", power: 22, flavor: "Adds the missing background at the worst possible time." },
-    { name: "Map Trap", type: "Geography", power: 20, flavor: "Weaponized location. Surprisingly legal." },
-    { name: "Thesis Bonk", type: "Civic", power: 18, flavor: "A concise argument with unreasonable confidence." }
+    { name: "Archive Pulse", type: "Review", power: 24, flavor: "A reliable study hit from the whole arcade." },
+    { name: "Source Scan", type: "Review", power: 22, flavor: "Reads the evidence before swinging." },
+    { name: "Context Check", type: "Review", power: 20, flavor: "Adds background and makes the answer less slippery." },
+    { name: "Recall Rush", type: "Review", power: 18, flavor: "Fast, simple, and powered by knowing the term." }
   ];
+
+  const signatureMoves = {
+    "Abraham Lincoln": ["Emancipation Proclamation", "A Union strike powered by constitutional crisis, emancipation, and wartime leadership."],
+    "Adam Smith": ["Invisible Hand", "Turns incentives, specialization, and trade into market pressure."],
+    "Alexander Hamilton": ["Treasury Plan", "Converts debt, credit, and federal power into a financial combo."],
+    "Alfred Marshall": ["Supply Curve", "Plots price, quantity, and equilibrium before landing the hit."],
+    "Archive Keeper": ["Archive Pulse", "Uses the whole review archive to stabilize the timeline."],
+    "B. F. Skinner": ["Reinforcement Loop", "Rewards the correct response and strengthens the behavior."],
+    "Barbara Jordan": ["Constitution Voice", "Uses civic principle and public accountability as a clean hit."],
+    "Carl Sauer": ["Cultural Landscape", "Reads the human marks on place, region, and environment."],
+    "Confucius": ["Harmony Lesson", "Uses order, ethics, family, and government to steady the field."],
+    "Context Coach": ["Big-Picture Link", "Connects cause, context, and consequence before the strike."],
+    "Eleanor Roosevelt": ["Human Rights Charter", "Turns rights, citizenship, and global responsibility into pressure."],
+    "Elinor Ostrom": ["Commons Pact", "Solves the shared-resource problem through cooperation and rules."],
+    "Franklin D. Roosevelt": ["New Deal", "Answers depression pressure with reform, relief, and federal action."],
+    "Frederick Douglass": ["Abolition Press", "Uses speech, print, and citizenship claims to break injustice."],
+    "George Washington": ["Continental Command", "Uses founding precedent and revolutionary leadership."],
+    "Hammurabi": ["Law Code", "Carves order, power, and social hierarchy into the record."],
+    "Harriet Tubman": ["Underground Route", "Moves through resistance networks with courage and precision."],
+    "Ibn Battuta": ["Trade Route", "Crosses networks of exchange, Islam, and cultural diffusion."],
+    "Ida B. Wells": ["Truth Campaign", "Uses evidence, journalism, and reform pressure."],
+    "James Madison": ["Federalist Papers", "Uses factions, federalism, and checks and balances."],
+    "Jane Jacobs": ["Sidewalk Ballet", "Turns city life, neighborhoods, and planning into urban energy."],
+    "Janet Yellen": ["Soft Landing", "Reads labor, inflation, and monetary policy signals."],
+    "Jean Piaget": ["Schema Shift", "Rebuilds thinking through stages, schemas, and development."],
+    "Joan Robinson": ["Market Power", "Breaks down monopoly, competition, cost, and firm behavior."],
+    "John Maynard Keynes": ["Demand Surge", "Answers recession pressure with spending and stabilization."],
+    "Leonardo da Vinci": ["Renaissance Sketch", "Combines art, science, humanism, and invention."],
+    "Mansa Musa": ["Gold Caravan", "Connects wealth, Islam, pilgrimage, and trans-Saharan trade."],
+    "Martin Luther": ["Ninety-Five Theses", "Uses printing, reform, and religious challenge."],
+    "Martin Luther King Jr.": ["Nonviolent March", "Uses civil disobedience, federal action, and moral pressure."],
+    "Milton Friedman": ["Money Supply", "Uses inflation, markets, and policy limits as the attack pattern."],
+    "Mohandas Gandhi": ["Salt March", "Uses civil disobedience, nationalism, and anti-imperial pressure."],
+    "Moctezuma II": ["Tribute Network", "Channels city power, tribute, and Mesoamerican empire."],
+    "Napoleon Bonaparte": ["Code Napoleon", "Combines revolution, law, nationalism, and empire."],
+    "Nelson Mandela": ["Reconciliation", "Turns resistance, justice, and democratic transition into power."],
+    "Pachacuti": ["Inca Road", "Uses mountain geography, labor systems, and imperial organization."],
+    "Paul Volcker": ["Rate Hike", "Pushes back against inflation with central bank force."],
+    "Pericles": ["Agora Speech", "Uses citizenship, democracy, culture, and public debate."],
+    "Sacagawea": ["River Guide", "Reads geography, communication, and western routes."],
+    "Source Sleuth": ["Source Scan", "Reads maps, excerpts, charts, cartoons, and documents."],
+    "Susan B. Anthony": ["Suffrage Petition", "Uses reform organizing, citizenship, and voting rights."],
+    "Tecumseh": ["Confederacy Call", "Uses Native resistance, land defense, and alliance building."],
+    "Theodore Roosevelt": ["Trust Bust", "Uses regulation, conservation, and progressive reform."],
+    "Thurgood Marshall": ["Equal Protection", "Uses courts, rights, and constitutional law."],
+    "Toussaint Louverture": ["Revolution General", "Uses Atlantic revolution, freedom, and anti-colonial strategy."],
+    "Wilhelm Wundt": ["Lab Introspection", "Starts psychology with research, history, and experiment."],
+    "Zheng He": ["Treasure Fleet", "Uses maritime trade, Ming power, and Indian Ocean exchange."]
+  };
+
+  const historicalOpponents = {
+    "Abraham Lincoln": "the Confederacy",
+    "Adam Smith": "mercantilism",
+    "Alexander Hamilton": "the debt crisis",
+    "Alfred Marshall": "market confusion",
+    "Archive Keeper": "the missing timeline",
+    "B. F. Skinner": "the bad habit loop",
+    "Barbara Jordan": "the constitutional crisis",
+    "Carl Sauer": "the blank map",
+    "Confucius": "social chaos",
+    "Context Coach": "the context gap",
+    "Eleanor Roosevelt": "rights denial",
+    "Elinor Ostrom": "the tragedy trap",
+    "Franklin D. Roosevelt": "the Great Depression",
+    "Frederick Douglass": "Slave Power",
+    "George Washington": "the imperial army",
+    "Hammurabi": "disorder",
+    "Harriet Tubman": "the Fugitive Slave System",
+    "Ibn Battuta": "distance barriers",
+    "Ida B. Wells": "the false record",
+    "James Madison": "faction chaos",
+    "Jane Jacobs": "urban decay",
+    "Janet Yellen": "inflation shock",
+    "Jean Piaget": "the schema puzzle",
+    "Joan Robinson": "monopoly power",
+    "John Maynard Keynes": "the depression spiral",
+    "Leonardo da Vinci": "closed-minded limits",
+    "Mansa Musa": "the scarcity myth",
+    "Martin Luther": "the indulgence system",
+    "Martin Luther King Jr.": "Jim Crow",
+    "Milton Friedman": "runaway inflation",
+    "Mohandas Gandhi": "the British Empire",
+    "Moctezuma II": "tribute crisis",
+    "Napoleon Bonaparte": "the Old Regime coalition",
+    "Nelson Mandela": "the apartheid state",
+    "Pachacuti": "the mountain barrier",
+    "Paul Volcker": "inflation surge",
+    "Pericles": "tyranny",
+    "Sacagawea": "the unknown trail",
+    "Source Sleuth": "the missing stimulus",
+    "Susan B. Anthony": "vote denial",
+    "Tecumseh": "the land grab",
+    "Theodore Roosevelt": "the trust monopoly",
+    "Thurgood Marshall": "segregation precedent",
+    "Toussaint Louverture": "French colonial forces",
+    "Wilhelm Wundt": "guesswork",
+    "Zheng He": "maritime isolation"
+  };
 
   const state = {
     bank: null,
@@ -203,6 +407,8 @@
     battle: null,
     capture: 0,
     trial: 0,
+    wildSteps: 0,
+    wildCooldown: 0,
     player: { x: WORLD_W * .5, y: WORLD_H * .52, tx: WORLD_W * .5, ty: WORLD_H * .52, speed: 420 },
     camera: { x: 0, y: 0 },
     keys: {},
@@ -390,36 +596,34 @@
     return answer;
   }
 
-  function archetypeFor(q) {
-    const blob = normalize([q.course, q.subject, q.set, q.category, q.prompt, q.answer, (q.tags || []).join(" ")].join(" "));
-    if (/psych|cognition|brain|behavior|learning|personality/.test(blob)) return "Mind Scholar";
-    if (/econom|market|supply|demand|money|trade|finance|price/.test(blob)) return "Market Strategist";
-    if (/constitution|court|rights|amendment|law|government|civic|congress/.test(blob)) return "Civic Guardian";
-    if (/war|revolution|conflict|cold war|imperialism|military/.test(blob)) return "Conflict Analyst";
-    if (/migration|population|culture|geography|urban|agriculture/.test(blob)) return "Geo Navigator";
-    if (/renaissance|reformation|enlightenment|philosoph|belief|religion/.test(blob)) return "Idea Keeper";
-    if (/industrial|technology|innovation|development/.test(blob)) return "Innovation Builder";
-    return "Chronicle Ally";
+  function courseTypeFor(course) {
+    const text = course || "Review";
+    return courseTypeRules.find((lane) => lane.match.test(text)) || courseTypeRules[courseTypeRules.length - 1];
+  }
+
+  function familiesForType(type) {
+    return figureFamiliesByType[type] || figureFamiliesByType.Review;
+  }
+
+  function figureFamilyFor(q, lane) {
+    const families = familiesForType(lane.name);
+    const index = hash([q.course, q.set, q.category, q.answer, q.id].join("|")) % families.length;
+    const raw = families[index];
+    const id = compactKey(`${lane.name}-${raw[0]}`);
+    return familiesById[id] || allFigureFamilies.find((family) => family.id === id) || allFigureFamilies[0];
   }
 
   function typeFor(q) {
-    const blob = normalize([q.course, q.subject, q.set, q.category, q.prompt, q.answer, (q.tags || []).join(" ")].join(" "));
-    if (/source|document|excerpt|cartoon|map|graph|photograph|poster|passage|stimulus/.test(blob) || q.stimulusRequired) return "Source";
-    if (/psych|cognition|brain|behavior|learning|personality|memory|development/.test(blob)) return "Psychology";
-    if (/constitution|court|rights|amendment|law|government|civic|congress|federalism|election/.test(blob)) return "Civic";
-    if (/reform|movement|suffrage|civil rights|abolition|labor|protest/.test(blob)) return "Reform";
-    if (/war|revolution|conflict|cold war|military|imperialism|nationalism|totalitarian/.test(blob)) return "Conflict";
-    if (/econom|market|supply|demand|money|trade|finance|price|scarcity|tariff|tax|gdp|inflation/.test(blob)) return "Economy";
-    if (/geography|migration|population|urban|agriculture|environment|river|mountain|region|culture hearth/.test(blob)) return "Geography";
-    if (/science|technology|industrial|innovation|research|invention|printing press|steam/.test(blob)) return "Science";
-    if (/culture|religion|belief|renaissance|reformation|islam|hindu|buddh|christian|judaism|art|language/.test(blob)) return "Culture";
-    return "Ideas";
+    return courseTypeFor(q && q.course).name;
   }
 
   function typeEffect(moveType, targetType) {
-    const type = typeData[moveType] || typeData.Ideas;
-    if ((type.strong || []).includes(targetType)) return 1.6;
-    if ((type.weak || []).includes(targetType)) return .65;
+    const move = typeData[moveType] || typeData.Review;
+    const target = typeData[targetType] || typeData.Review;
+    if (moveType === targetType) return 1.25;
+    const chart = clusterEffects[move.cluster] || clusterEffects.review;
+    if ((chart.strong || []).includes(target.cluster)) return 1.55;
+    if ((chart.weak || []).includes(target.cluster)) return .7;
     return 1;
   }
 
@@ -429,24 +633,55 @@
     return "Effective";
   }
 
+  function effectSentence(multiplier) {
+    if (multiplier > 1.2) return "It's super effective!";
+    if (multiplier < .8) return "It's not very effective.";
+    return "It connected.";
+  }
+
   function move(name, type, power, flavor) {
     return { name, type, power, flavor };
   }
 
-  function movesFor(q, archetype) {
+  function signatureMoveFor(family, type) {
+    const signature = signatureMoves[family.historicalName];
+    if (!signature) return move(`${family.historicalName.split(" ").slice(-1)[0]} Combo`, type, 29, "A figure-line move tied to the content theme.");
+    return move(signature[0], type, 33, signature[1]);
+  }
+
+  function opponentFor(ally) {
+    const family = familiesById[ally && ally.familyId] || null;
+    const name = (ally && ally.actualName) || (family && family.historicalName) || "";
+    return historicalOpponents[name] || "the review obstacle";
+  }
+
+  function shout(text) {
+    return cleanText(text || "").toUpperCase();
+  }
+
+  function moveActorName() {
+    const first = (state.stats.roster || [])[0];
+    if (first) return first.actualName || first.name || "Field Team";
+    if (state.currentAlly && state.currentAlly.actualName) return state.currentAlly.actualName;
+    return "Field Team";
+  }
+
+  function movesFor(q, family, lane) {
     const blob = normalize([q.course, q.subject, q.set, q.category, q.prompt, q.answer, (q.tags || []).join(" ")].join(" "));
-    const moves = [];
-    if (/constitution|court|rights|amendment|law|government|civic|congress/.test(blob)) moves.push(move("Checks-and-Balances Bash", "Civic", 29, "No branch gets to act too smug."));
-    if (/war|revolution|conflict|cold war|military|imperialism/.test(blob)) moves.push(move("Turning Point Tackle", "Conflict", 31, "A dramatic shift with a very serious hat."));
-    if (/trade|market|econom|supply|demand|money|price|scarcity/.test(blob)) moves.push(move("Tariff Tickle", "Economy", 27, "It sounds harmless until prices change."));
-    if (/psych|brain|behavior|learning|cognition|memory/.test(blob)) moves.push(move("Cognitive Combo", "Psychology", 28, "Hits twice if you remembered why."));
-    if (/geography|migration|population|urban|agriculture|culture/.test(blob)) moves.push(move("Map Trap", "Geography", 26, "The x-axis had this coming."));
-    if (/source|document|excerpt|cartoon|map|graph|photograph/.test(blob) || q.stimulusRequired) moves.push(move("Primary Source Side-Eye", "Source", 32, "The document gets read closely and feels judged."));
-    if (/reform|rights|movement|suffrage|civil/.test(blob)) moves.push(move("Reform Rally", "Reform", 29, "Grassroots energy, now with extra clipboard."));
-    if (/science|technology|industrial|innovation|research|invention/.test(blob)) moves.push(move("Innovation Spark", "Science", 27, "A new idea with suspiciously good timing."));
-    if (/belief|religion|renaissance|reformation|philosoph|enlightenment|culture/.test(blob)) moves.push(move("Big Idea Beam", "Ideas", 28, "A thesis statement learned martial arts."));
-    moves.push(move("Archive Pulse", "Source", 23, "Evidence, but make it dramatic."));
-    moves.push(move(`${archetype} Flex`, typeFor(q), 24, "Historically grounded confidence."));
+    const type = lane.name;
+    const laneMove = lane.move || "Archive Pulse";
+    const moves = [
+      signatureMoveFor(family, type),
+      move(laneMove, type, 29, `A ${type} type move powered by this course lane.`),
+      move("Context Check", type, 22, "Sets up the question with broader historical context.")
+    ];
+    if (/source|document|excerpt|cartoon|map|graph|photograph|poster|passage|stimulus/.test(blob) || q.stimulusRequired) {
+      moves.splice(1, 0, move("Source Scan", type, 32, "Reads the stimulus before the attack lands."));
+    } else if (/war|revolution|conflict|movement|rights|reform|trade|market|constitution|court|belief|religion|migration|culture/.test(blob)) {
+      moves.splice(1, 0, move("Timeline Combo", type, 27, "Links the turning point to the change that followed."));
+    } else {
+      moves.splice(1, 0, move("Notebook Jab", type, 25, "A clean study-note strike."));
+    }
     return moves.slice(0, 4);
   }
 
@@ -466,47 +701,54 @@
   }
 
   function makeAlly(q) {
-    const name = allyNameFor(q);
-    const archetype = archetypeFor(q);
-    const palette = paletteFor(name + (q.course || ""));
+    const lane = courseTypeFor(q.course);
+    const family = figureFamilyFor(q, lane);
+    const palette = [lane.color, GB.glow, GB.dark];
     const sensitive = isSensitive(q);
-    const type = typeFor(q);
-    const family = familyByType[type] || familyByType.Ideas;
-    const stage = sensitive ? 0 : stageForAlly({ rarity: rarityFor(q) });
+    const id = compactKey(`${lane.name}|${family.historicalName}`).slice(0, 80);
+    const existing = (state.stats.roster || []).find((item) => item.id === id);
+    const stage = sensitive ? 0 : stageForAlly(existing || { level: 1 });
+    const stageName = family.names[stage] || family.names[0];
     return {
-      id: compactKey((q.course || "") + "|" + (q.set || "") + "|" + name).slice(0, 80),
-      name: sensitive ? "Archive Memory" : name,
-      actualName: name,
-      archetype,
-      type,
-      family: family.archetype,
-      species: family.names[stage] || family.names[0],
+      id,
+      name: sensitive ? "Archive Memory" : stageName,
+      actualName: family.historicalName,
+      archetype: family.archetype,
+      type: lane.name,
+      family: family.historicalName,
+      familyId: family.id,
+      spriteRow: family.row,
+      atlas: family.atlas,
+      species: stageName,
+      level: stage + 1,
       role: sensitive
         ? "A respect-first archive mission. Complete the review trial to preserve context and earn shards."
-        : `${family.names[stage]} line: ${archetype} from ${cleanText(q.set || q.course || "the archive")}.`,
+        : `${family.historicalName} line: ${family.line}`,
       course: q.course || "Social Studies",
       set: q.set || "Review",
       rarity: sensitive ? "Memory Mission" : rarityFor(q),
-      moves: movesFor(q, archetype),
+      moves: movesFor(q, family, lane),
       palette,
       sensitive
     };
   }
 
   function spritePosition(ally) {
-    const family = familyByType[(ally && ally.type) || "Ideas"] || familyByType.Ideas;
+    const family = ally && ally.familyId ? familiesById[ally.familyId] : null;
     const stage = stageForAlly(ally);
-    const col = 1 + stage;
-    const row = family.row;
+    const col = clamp(stage, 0, 2);
+    const row = family ? family.row : Number(ally && ally.spriteRow || 0);
+    const atlasIndex = family ? family.atlas : Number(ally && ally.atlas || 1);
     return {
-      x: `${col * 33.333}%`,
-      y: `${row * 11.111}%`
+      image: `url(${figureAtlasFiles[clamp(atlasIndex - 1, 0, figureAtlasFiles.length - 1)]})`,
+      x: `${col * 50}%`,
+      y: `${(row % 6) * 20}%`
     };
   }
 
   function typeEffectOffset(type) {
     const index = Math.max(0, typeOrder.indexOf(type));
-    return `${index * 11.111}%`;
+    return `${(index % 10) * 11.111}%`;
   }
 
   function buildNodes() {
@@ -517,10 +759,10 @@
     const count = Math.max(1, items.length);
     const nodes = [];
     for (let i = 0; i < count; i++) {
-      const ring = i % 2 ? 520 : 760;
-      const angle = (Math.PI * 2 * i / count) - Math.PI / 2;
-      const x = WORLD_W / 2 + Math.cos(angle) * ring + Math.sin(i * 1.7) * 90;
-      const y = WORLD_H / 2 + Math.sin(angle) * ring * .62 + Math.cos(i * 1.1) * 70;
+      const spot = openWorldSpots[i % openWorldSpots.length];
+      const lap = Math.floor(i / openWorldSpots.length);
+      const x = spot[0] + (lap ? (lap % 2 ? 78 : -78) : 0);
+      const y = spot[1] + (lap ? lap * 54 : 0);
       const label = items[i];
       nodes.push({
         label,
@@ -620,6 +862,7 @@
     els.portrait.style.setProperty("--ally-a", ally.palette[0]);
     els.portrait.style.setProperty("--ally-b", ally.palette[1]);
     const sprite = spritePosition(ally);
+    els.portrait.style.setProperty("--sprite-image", sprite.image);
     els.portrait.style.setProperty("--sprite-x", sprite.x);
     els.portrait.style.setProperty("--sprite-y", sprite.y);
     els.portraitMark.textContent = initials(ally.sensitive ? ally.actualName : ally.name);
@@ -629,19 +872,24 @@
   }
 
   function renderCodex() {
-    els.codexFamilies.innerHTML = familyRows.map((family, row) => {
+    const availableTypes = state.bank
+      ? Array.from(new Set((state.bank.courses || []).map((course) => courseTypeFor(course).name)))
+      : typeOrder;
+    const families = allFigureFamilies.filter((family) => availableTypes.includes(family.type));
+    els.codexFamilies.innerHTML = families.map((family) => {
       const stages = family.names.map((name, stage) => {
         const sprite = {
-          x: `${(stage + 1) * 33.333}%`,
-          y: `${row * 11.111}%`
+          image: `url(${figureAtlasFiles[clamp((family.atlas || 1) - 1, 0, figureAtlasFiles.length - 1)]})`,
+          x: `${stage * 50}%`,
+          y: `${(family.row % 6) * 20}%`
         };
         return `<div class="codex-stage">` +
-          `<div class="codex-sprite" style="--sprite-x:${sprite.x};--sprite-y:${sprite.y}" role="img" aria-label="${escapeHtml(name)}"></div>` +
+          `<div class="codex-sprite" style="--sprite-image:${sprite.image};--sprite-x:${sprite.x};--sprite-y:${sprite.y}" role="img" aria-label="${escapeHtml(name)}"></div>` +
           `<em>${escapeHtml(name)}</em>` +
         `</div>`;
       }).join("");
-      return `<article class="codex-family" style="--type:${escapeHtml((typeData[family.type] || typeData.Ideas).color)}">` +
-        `<header><strong>${escapeHtml(family.type)} Type</strong><span>${escapeHtml(family.archetype)}</span></header>` +
+      return `<article class="codex-family" style="--type:${escapeHtml((typeData[family.type] || typeData.Review).color)}">` +
+        `<header><strong>${escapeHtml(family.type)} Type</strong><span>${escapeHtml(family.historicalName)}</span></header>` +
         `<p>${escapeHtml(family.line)}</p>` +
         `<div class="codex-evolutions">${stages}</div>` +
       `</article>`;
@@ -653,15 +901,33 @@
     if (first) {
       return {
         name: first.name,
-        type: first.type || "Source",
+        actualName: first.actualName || first.name,
+        type: first.type || "Review",
         moves: first.moves && first.moves.length ? first.moves : fallbackMoves,
         palette: first.palette || paletteFor(first.name)
       };
     }
+    if (state.currentAlly && state.currentAlly.moves && state.currentAlly.moves.length) {
+      return {
+        name: "Field Researcher",
+        actualName: state.currentAlly.actualName || state.currentAlly.name,
+        type: state.currentAlly.type || "Review",
+        moves: state.currentAlly.moves,
+        palette: state.currentAlly.palette || palettes[0]
+      };
+    }
+    const lane = state.currentAlly
+      ? (typeData[state.currentAlly.type] ? { name: state.currentAlly.type, move: typeData[state.currentAlly.type].move || "Archive Pulse" } : courseTypeFor(state.currentAlly.course))
+      : courseTypeFor(els.courseFilter.value);
     return {
       name: "Field Researcher",
-      type: "Source",
-      moves: fallbackMoves,
+      type: lane.name,
+      moves: [
+        move(lane.move || "Archive Pulse", lane.name, 25, "Starter course-type pressure."),
+        move("Source Scan", lane.name, 22, "Read the evidence before answering."),
+        move("Context Check", lane.name, 20, "Add the missing background."),
+        move("Recall Rush", lane.name, 18, "Fast review recall.")
+      ],
       palette: palettes[0]
     };
   }
@@ -669,20 +935,72 @@
   function renderBattle() {
     const battle = state.battle || { heroHp: 100, enemyHp: 100 };
     const hero = heroAlly();
-    const enemy = state.currentAlly || { name: "Archive Echo", type: "Ideas" };
+    const enemy = state.currentAlly || { name: "Archive Echo", type: "Review" };
     els.heroName.textContent = hero.name;
     els.heroType.textContent = hero.type;
     els.enemyName.textContent = enemy.name;
-    els.enemyType.textContent = enemy.type || "Ideas";
+    els.enemyType.textContent = enemy.type || "Review";
     els.heroHp.style.width = `${clamp(battle.heroHp, 0, 100)}%`;
     els.enemyHp.style.width = `${clamp(battle.enemyHp, 0, 100)}%`;
   }
 
+  function renderBattleActions() {
+    if (!els.battleActions) return;
+    els.battleActions.classList.remove("answering");
+    els.battleActions.innerHTML = [
+      ["fight", "Fight", "choose a move"],
+      ["study", "Study", "boost next answer"],
+      ["capsule", "Capsule", "answer to capture"],
+      ["run", "Run", "leave safely"]
+    ].map(([action, label, detail]) => (
+      `<button type="button" data-action="${action}" class="${action}"><strong>${label}</strong><small>${detail}</small></button>`
+    )).join("");
+    Array.prototype.forEach.call(els.battleActions.querySelectorAll("button"), (button) => {
+      button.addEventListener("click", () => chooseAction(button.dataset.action));
+    });
+  }
+
+  function chooseAction(action) {
+    if (!state.battle || state.battle.awaitingAnswer || state.locked) return;
+    if (action === "run") {
+      setBattleLog("Got away safely. The route stays open.");
+      setFeedback("Retreated from the encounter.", "bad");
+      setTimeout(closeEncounter, 650);
+      return;
+    }
+    if (action === "study") {
+      state.battle.studyBoost = true;
+      state.capture = clamp(state.capture + 8, 0, 100);
+      els.captureBar.style.width = `${state.capture}%`;
+      setBattleLog("Field notes prepared. The next correct answer gets a power boost.");
+      clearQuestionArea("Choose Fight or throw an Archive Capsule when ready.");
+      return;
+    }
+    if (action === "capsule") {
+      if (state.capture < 35 && state.battle.enemyHp > 70) {
+        setBattleLog("The echo broke free. Build trust with an answer first.");
+        return;
+      }
+      const q = state.currentQuestion || nextQuestion();
+      if (!q) {
+        setBattleLog("No checkpoint questions are available in this region.");
+        return;
+      }
+      const hero = heroAlly();
+      state.battle.pendingMove = { name: "Archive Capsule", type: hero.type, power: 12, captureBoost: true };
+      setBattleLog("Archive Capsule armed. Answer the checkpoint to seal the recruit.");
+      renderQuestion(q);
+      return;
+    }
+    els.moveButtons.classList.add("open");
+    setBattleLog("Choose a course-type move. The question will power the attack.");
+  }
+
   function renderMoveButtons() {
     const hero = heroAlly();
-    els.moveButtons.classList.remove("answering");
+    els.moveButtons.classList.remove("answering", "open");
     els.moveButtons.innerHTML = hero.moves.map((item, index) => {
-      const data = typeData[item.type] || typeData.Ideas;
+      const data = typeData[item.type] || typeData.Review;
       return `<button type="button" data-move="${index}" style="--type:${data.color};--effect-y:${typeEffectOffset(item.type)}">` +
         `<strong>${escapeHtml(item.name)}</strong>` +
         `<small>${escapeHtml(item.type)} / ${item.power} power</small>` +
@@ -707,6 +1025,7 @@
     state.locked = false;
     if (state.battle) state.battle.awaitingAnswer = true;
     els.moveButtons.classList.add("answering");
+    if (els.battleActions) els.battleActions.classList.add("answering");
     els.questionText.textContent = displayPrompt(q);
     els.trialMeta.textContent = `${cleanText(q.course || "Social Studies")} / ${cleanText(q.set || "Review")}`;
     els.trialKicker.textContent = state.currentAlly && state.currentAlly.sensitive ? "Archive Mission" : "Recruitment Trial";
@@ -736,7 +1055,8 @@
 
   function clearQuestionArea(message) {
     state.currentQuestion = null;
-    els.moveButtons.classList.remove("answering");
+    els.moveButtons.classList.remove("answering", "open");
+    if (els.battleActions) els.battleActions.classList.remove("answering");
     els.questionText.textContent = message;
     els.choices.innerHTML = "";
     els.choices.style.display = "none";
@@ -759,18 +1079,20 @@
     state.encounterOpen = true;
     renderAlly(ally);
     renderBattle();
+    renderBattleActions();
     renderMoveButtons();
     els.encounter.hidden = false;
     els.encounter.classList.add("pulse");
     setTimeout(() => els.encounter.classList.remove("pulse"), 650);
-    clearQuestionArea(ally.sensitive ? "Archive mission loaded. Pick a move and answer carefully to preserve context." : "Pick a move. Correct answers power attacks and build recruitment trust.");
-    setBattleLog(`${ally.name} entered the field. Type: ${ally.type}. ${typeData[ally.type]?.flavor || "review energy"}.`);
+    clearQuestionArea(ally.sensitive ? "Archive mission loaded. Answer carefully to preserve context." : "What will the field team do?");
+    setBattleLog(`${ally.name} appeared. ${ally.type} type. ${typeData[ally.type]?.flavor || "review energy"}.`);
   }
 
   function closeEncounter() {
     state.encounterOpen = false;
     state.locked = false;
     state.battle = null;
+    state.wildCooldown = 4;
     els.encounter.hidden = true;
   }
 
@@ -785,9 +1107,9 @@
       state.battle.pendingMove = null;
       return;
     }
-    const enemy = state.currentAlly || { type: "Ideas" };
-    const multiplier = typeEffect(selected.type, enemy.type || "Ideas");
-    setBattleLog(`${selected.name}. ${effectLabel(multiplier)} against ${enemy.type}. Answer to power it.`);
+    const enemy = state.currentAlly || { type: "Review" };
+    const multiplier = typeEffect(selected.type, enemy.type || "Review");
+    setBattleLog(`${shout(moveActorName())} used ${shout(selected.name)}! ${effectSentence(multiplier)} Answer to power the move against ${opponentFor(enemy)}.`);
     renderQuestion(q);
   }
 
@@ -807,30 +1129,39 @@
     state.trial += 1;
     const expected = answerLabel(q);
     const moveUsed = battle.pendingMove;
-    const multiplier = typeEffect(moveUsed.type, ally.type || "Ideas");
+    const multiplier = typeEffect(moveUsed.type, ally.type || "Review");
+    const actor = moveActorName();
+    const target = opponentFor(ally);
     if (correct) {
       state.stats.streak += 1;
       state.stats.bestStreak = Math.max(state.stats.bestStreak || 0, state.stats.streak);
-      const damage = Math.round((moveUsed.power || 22) * multiplier + Math.min(14, state.stats.streak * 2));
+      const studyBonus = battle.studyBoost ? 10 : 0;
+      const damage = Math.round((moveUsed.power || 22) * multiplier + Math.min(14, state.stats.streak * 2) + studyBonus);
       battle.enemyHp = clamp(battle.enemyHp - damage, 0, 100);
-      const gain = q.stimulusRequired ? 34 : 27;
-      state.capture = clamp(state.capture + gain + Math.min(13, state.stats.streak) + (multiplier > 1 ? 8 : 0), 0, 100);
+      const fainted = battle.enemyHp <= 0;
+      const gain = (moveUsed.captureBoost ? 46 : q.stimulusRequired ? 34 : 27);
+      state.capture = clamp(state.capture + gain + Math.min(13, state.stats.streak) + (multiplier > 1 ? 8 : 0) + (battle.studyBoost ? 8 : 0), 0, 100);
       state.stats.shards += 12 + Math.min(18, state.stats.streak * 2);
       state.pulse = 1;
       burst(state.player.x, state.player.y, ally.palette[0], 22);
-      setBattleLog(`${moveUsed.name} landed for ${damage}. ${effectLabel(multiplier)}.`);
+      if (moveUsed.captureBoost) {
+        setBattleLog(`ARCHIVE CAPSULE clicked shut! Trust rose to ${state.capture}%.`);
+      } else {
+        setBattleLog(`${shout(actor)} used ${shout(moveUsed.name)}! ${effectSentence(multiplier)} ${target} took ${damage} damage.${fainted ? ` ${shout(target)} fainted!` : ""}`);
+      }
       setFeedback(`Correct. ${q.explanation || "That answer strengthens the bond."}`, "good");
     } else {
       state.stats.streak = 0;
       const counter = ally.sensitive ? 12 : 16 + Math.floor(Math.random() * 10);
       battle.heroHp = clamp(battle.heroHp - counter, 0, 100);
-      state.capture = clamp(state.capture - 10, 0, 100);
+      state.capture = clamp(state.capture - (moveUsed.captureBoost ? 16 : 10), 0, 100);
       burst(state.player.x, state.player.y, "#ff789d", 12);
-      setBattleLog(`${ally.name} countered for ${counter}. The archive demands receipts.`);
+      setBattleLog(moveUsed.captureBoost ? `${ally.name} broke out of the capsule and countered for ${counter}.` : `${shout(target)} countered for ${counter}. ${shout(actor)} needs better evidence.`);
       setFeedback(`Not quite. Answer: ${expected}. ${q.explanation || ""}`, "bad");
     }
     battle.pendingMove = null;
     battle.awaitingAnswer = false;
+    battle.studyBoost = false;
     els.captureBar.style.width = `${state.capture}%`;
     renderBattle();
     updateHud();
@@ -847,9 +1178,10 @@
       const next = nextQuestion();
       state.currentQuestion = next || nextQuestion();
       state.locked = false;
-      clearQuestionArea("Choose the next move. The answer will power it.");
+      clearQuestionArea("What will the field team do next?");
+      renderBattleActions();
       renderMoveButtons();
-      setBattleLog(`${ally.name} is still in the field. Capture trust: ${state.capture}%.`);
+      setBattleLog(`${ally.name} is watching carefully. Capture trust: ${state.capture}%.`);
     }, correct ? 1250 : 1900);
   }
 
@@ -869,14 +1201,21 @@
       state.stats.missions += 1;
       state.stats.shards += 45;
       setFeedback(`Archive mission complete: ${ally.actualName}. Context preserved. +45 shards.`, "done");
+      setBattleLog("Archive memory preserved. Context restored without turning harm into a trophy.");
     } else {
       const exists = state.stats.roster.some((item) => item.id === ally.id);
       if (!exists) {
-        state.stats.roster.unshift({
+      state.stats.roster.unshift({
           id: ally.id,
           name: ally.name,
+          actualName: ally.actualName,
           archetype: ally.archetype,
           type: ally.type,
+          family: ally.family,
+          familyId: ally.familyId,
+          species: ally.species,
+          spriteRow: ally.spriteRow,
+          atlas: ally.atlas,
           course: ally.course,
           set: ally.set,
           rarity: ally.rarity,
@@ -885,12 +1224,22 @@
           level: 1
         });
         state.stats.roster = state.stats.roster.slice(0, 96);
-        setFeedback(`${ally.name} joined your Chronicle team.`, "done");
+        setFeedback(`${ally.name} joined your party.`, "done");
+        setBattleLog(`${shout(opponentFor(ally))} fainted! ${ally.actualName} joined your roster.`);
       } else {
         const rosterAlly = state.stats.roster.find((item) => item.id === ally.id);
-        if (rosterAlly) rosterAlly.level = Math.min(3, Number(rosterAlly.level || 1) + 1);
+        if (rosterAlly) {
+          rosterAlly.level = Math.min(3, Number(rosterAlly.level || 1) + 1);
+          const family = familiesById[rosterAlly.familyId] || familiesById[ally.familyId];
+          if (family) {
+            rosterAlly.name = family.names[stageForAlly(rosterAlly)] || rosterAlly.name;
+            rosterAlly.species = rosterAlly.name;
+            rosterAlly.moves = ally.moves;
+          }
+        }
         state.stats.shards += 35;
-        setFeedback(`${ally.name} bond strengthened. Evolution stage ${rosterAlly ? rosterAlly.level : 2}. +35 shards.`, "done");
+        setFeedback(`${rosterAlly ? rosterAlly.name : ally.name} evolved to stage ${rosterAlly ? rosterAlly.level : 2}. +35 shards.`, "done");
+        setBattleLog(`${ally.actualName} leveled up through the timeline. Evolution recorded.`);
       }
     }
     state.stats.rank = 1 + Math.floor((state.stats.roster.length + state.stats.missions) / 5);
@@ -918,11 +1267,11 @@
     els.rosterList.innerHTML = roster.map((ally) => {
       const palette = ally.palette || paletteFor(ally.name);
       const sprite = spritePosition(ally);
-      const family = familyByType[ally.type || "Ideas"] || familyByType.Ideas;
-      const species = family.names[stageForAlly(ally)] || family.names[0];
+      const family = familiesById[ally.familyId] || figureFamilyFor({ course: ally.course, answer: ally.name }, courseTypeFor(ally.course));
+      const species = ally.species || family.names[stageForAlly(ally)] || family.names[0];
       return `<div class="roster-item">` +
-        `<div class="mini-portrait" style="--sprite-x:${escapeHtml(sprite.x)};--sprite-y:${escapeHtml(sprite.y)};--ally-a:${escapeHtml(palette[0])};--ally-b:${escapeHtml(palette[1])}" role="img" aria-label="${escapeHtml(species)}"></div>` +
-        `<div><strong>${escapeHtml(ally.name)}</strong><span>${escapeHtml(ally.type || "Source")} type / ${escapeHtml(species)} / Stage ${escapeHtml(String(ally.level || 1))} / ${escapeHtml(ally.course)}</span></div>` +
+        `<div class="mini-portrait" style="--sprite-image:${escapeHtml(sprite.image)};--sprite-x:${escapeHtml(sprite.x)};--sprite-y:${escapeHtml(sprite.y)};--ally-a:${escapeHtml(palette[0])};--ally-b:${escapeHtml(palette[1])}" role="img" aria-label="${escapeHtml(species)}"></div>` +
+        `<div><strong>${escapeHtml(ally.name)}</strong><span>${escapeHtml(ally.type || "Review")} type / ${escapeHtml(family.historicalName || species)} line / Stage ${escapeHtml(String(ally.level || 1))} / ${escapeHtml(ally.course)}</span></div>` +
         `<em>${escapeHtml(ally.rarity)}</em>` +
       `</div>`;
     }).join("");
@@ -990,6 +1339,10 @@
       }
     });
     return bestDist < 145 ? best : null;
+  }
+
+  function isTallGrass(x, y) {
+    return tallGrassZones.some(([gx, gy, gw, gh]) => x >= gx && x <= gx + gw && y >= gy && y <= gy + gh);
   }
 
   function initControls() {
@@ -1061,6 +1414,19 @@
       const step = Math.min(dist, p.speed * dt);
       p.x = clamp(p.x + vx / dist * step, 70, WORLD_W - 70);
       p.y = clamp(p.y + vy / dist * step, 70, WORLD_H - 70);
+      state.wildCooldown = Math.max(0, state.wildCooldown - dt);
+      if (isTallGrass(p.x, p.y)) {
+        state.wildSteps += step;
+        if (state.running && state.wildCooldown <= 0 && state.wildSteps > 360 && Math.random() < dt * .38) {
+          state.wildSteps = 0;
+          state.wildCooldown = 8;
+          openEncounter();
+        }
+      } else {
+        state.wildSteps = Math.max(0, state.wildSteps - step * .5);
+      }
+    } else {
+      state.wildCooldown = Math.max(0, state.wildCooldown - dt);
     }
     const near = nearestNode({ x: p.x, y: p.y });
     if (near && state.selectedNode !== near) {
@@ -1138,14 +1504,25 @@
     context.fillRect(0, 0, WORLD_W, WORLD_H);
     for (let y = 0; y < WORLD_H + TILE_SIZE; y += TILE_SIZE) {
       for (let x = 0; x < WORLD_W + TILE_SIZE; x += TILE_SIZE) {
-        const edge = x < 140 || y < 120 || x > WORLD_W - 230 || y > WORLD_H - 180;
+        const water = x > WORLD_W - 250 || (y > WORLD_H - 205 && x > 1160) || (x < 160 && y > 920);
         const value = hash(`${x}|${y}|terrain`);
-        const tile = edge && value % 4 === 0
+        const tile = water
           ? (value % 2 ? "waterA" : "waterB")
           : value % 7 === 0 ? "grassC" : value % 3 === 0 ? "grassB" : "grassA";
         drawAtlas(context, tile, x, y, TILE_SIZE, TILE_SIZE);
       }
     }
+    tallGrassZones.forEach(([gx, gy, gw, gh], patchIndex) => {
+      for (let y = gy; y < gy + gh; y += 72) {
+        for (let x = gx; x < gx + gw; x += 72) {
+          const tile = (hash(`${patchIndex}-${x}-${y}`) % 2) ? "grassB" : "grassC";
+          drawAtlas(context, tile, x, y, 78, 78, .94);
+        }
+      }
+      context.strokeStyle = "rgba(15,56,15,.45)";
+      context.lineWidth = 4;
+      context.strokeRect(gx, gy, gw, gh);
+    });
     context.fillStyle = "rgba(15,56,15,.13)";
     for (let y = 0; y < WORLD_H; y += 24) {
       for (let x = (y / 24) % 2 ? 12 : 0; x < WORLD_W; x += 48) {
@@ -1173,16 +1550,34 @@
   }
 
   function drawRetroRoads(context) {
-    strokeRoute(context, 58, GB.ink);
-    strokeRoute(context, 46, "#d5ec65");
-    strokeRoute(context, 30, "#b7d643");
+    const roads = [
+      [110, 745, 2380, 118], [1238, 110, 124, 1380],
+      [420, 410, 760, 92], [1420, 410, 710, 92],
+      [390, 1000, 760, 92], [1420, 1000, 710, 92],
+      [270, 1300, 1970, 92], [240, 565, 410, 82],
+      [1960, 610, 360, 82], [2050, 1260, 220, 82]
+    ];
+    roads.forEach(([x, y, w, h]) => drawRoadBlock(context, x, y, w, h));
+    drawRoadBlock(context, 1072, 616, 500, 340, true);
+    drawAtlas(context, "gate", WORLD_W / 2 - 86, WORLD_H / 2 - 152, 172, 132);
+  }
+
+  function drawRoadBlock(context, x, y, w, h, plaza = false) {
     context.save();
-    context.strokeStyle = "rgba(48,98,48,.42)";
-    context.lineWidth = 4;
-    context.setLineDash([18, 18]);
-    strokeRoute(context, 4, "rgba(15,56,15,.44)");
+    context.fillStyle = GB.ink;
+    context.fillRect(x - 8, y - 8, w + 16, h + 16);
+    context.fillStyle = "#d5ec65";
+    context.fillRect(x, y, w, h);
+    context.fillStyle = "#b7d643";
+    context.fillRect(x + 10, y + 10, w - 20, h - 20);
+    context.fillStyle = "rgba(15,56,15,.28)";
+    const gap = plaza ? 38 : 46;
+    for (let yy = y + 22; yy < y + h - 10; yy += gap) {
+      for (let xx = x + 22; xx < x + w - 10; xx += 86) {
+        context.fillRect(xx, yy, 38, 5);
+      }
+    }
     context.restore();
-    drawAtlas(context, "gate", WORLD_W / 2 - 86, WORLD_H / 2 - 116, 172, 132);
   }
 
   function drawRetroLandmarks(context) {
@@ -1359,18 +1754,21 @@
     initControls();
     updateHud();
     renderRoster();
-    renderCodex();
     await Promise.all([
       loadImage("retroTiles", "../../assets/history-hunters/retro-tile-sprite-atlas.png"),
-      loadImage("retroSheet", "../../assets/history-hunters/retro-title-battle-sheet.png")
+      loadImage("retroSheet", "../../assets/history-hunters/retro-title-battle-sheet.png"),
+      loadImage("retroItems", "../../assets/history-hunters/retro-items-actions-sheet.png")
     ]);
     const response = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
     state.bank = await response.json();
+    const visibleTypes = new Set((state.bank.courses || []).map((course) => courseTypeFor(course).name));
+    const visibleFamilies = allFigureFamilies.filter((family) => visibleTypes.has(family.type)).length;
     els.startStats.innerHTML = [
       `${state.bank.questions.length.toLocaleString()} prompts`,
-      `${state.bank.courses.length} course lanes`,
-      `${familyRows.length} evolution families`
+      `${visibleTypes.size} course types`,
+      `${visibleFamilies} figure lines`
     ].map((item) => `<span>${escapeHtml(item)}</span>`).join("");
+    renderCodex();
     fillFilters();
     applyFilters();
     requestAnimationFrame(loop);

@@ -411,16 +411,16 @@ button:hover {
 
 .codex-sprite,
 .mini-portrait {
-  background-image: url("../../assets/history-hunters/character-evolution-atlas-v2.png");
+  background-image: var(--sprite-image, url("../../assets/history-hunters/figure-evolution-atlas-1.png"));
   background-repeat: no-repeat;
-  background-size: 400% 1000%;
-  background-position: var(--sprite-x, 33.333%) var(--sprite-y, 0%);
+  background-size: 300% 600%;
+  background-position: var(--sprite-x, 0%) var(--sprite-y, 0%);
   image-rendering: pixelated;
 }
 
 .codex-sprite {
   width: 100%;
-  aspect-ratio: 5 / 3;
+  aspect-ratio: 4 / 3;
   background-color: rgba(7, 19, 38, .72);
 }
 
@@ -546,13 +546,13 @@ button:hover {
   left: 50%;
   bottom: 20px;
   width: min(88%, 280px);
-  aspect-ratio: 5 / 3;
+  aspect-ratio: 4 / 3;
   transform: translateX(-50%);
   z-index: 2;
-  background-image: url("../../assets/history-hunters/character-evolution-atlas-v2.png");
+  background-image: var(--sprite-image, url("../../assets/history-hunters/figure-evolution-atlas-1.png"));
   background-repeat: no-repeat;
-  background-size: 400% 1000%;
-  background-position: var(--sprite-x, 33.333%) var(--sprite-y, 0%);
+  background-size: 300% 600%;
+  background-position: var(--sprite-x, 0%) var(--sprite-y, 0%);
   image-rendering: pixelated;
   filter: drop-shadow(0 20px 18px rgba(0, 0, 0, .36));
   mix-blend-mode: normal;
@@ -1170,6 +1170,95 @@ button:hover {
     animation-duration: .001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
+  }
+}
+
+.battle-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.battle-actions.answering {
+  display: none;
+}
+
+.battle-actions button {
+  position: relative;
+  min-height: 58px;
+  padding: 10px 54px 10px 12px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.battle-actions button::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  transform: translateY(-50%);
+  background-image: url("../../assets/history-hunters/retro-items-actions-sheet.png");
+  background-repeat: no-repeat;
+  background-size: 480px 480px;
+  background-position: var(--item-x, -332px) var(--item-y, -332px);
+  image-rendering: pixelated;
+  filter: grayscale(1) sepia(1) saturate(3) hue-rotate(28deg) contrast(1.35);
+  opacity: .72;
+  mix-blend-mode: multiply;
+}
+
+.battle-actions .fight { --item-x: -332px; --item-y: -332px; }
+.battle-actions .study { --item-x: -259px; --item-y: -187px; }
+.battle-actions .capsule { --item-x: -30px; --item-y: -31px; }
+.battle-actions .run { --item-x: -30px; --item-y: -405px; }
+
+.battle-actions strong,
+.battle-actions small {
+  display: block;
+}
+
+.battle-actions small {
+  margin-top: 4px;
+  color: var(--gb-dark);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.move-buttons {
+  display: none;
+}
+
+.move-buttons.open {
+  display: grid;
+}
+
+.move-buttons.answering {
+  display: none;
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .battle-actions {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .battle-actions button {
+    min-height: 42px;
+    padding: 6px 36px 6px 8px;
+  }
+
+  .battle-actions button::after {
+    right: 5px;
+    width: 26px;
+    height: 26px;
+    background-size: 346px 346px;
+  }
+
+  .battle-actions small {
+    display: none;
   }
 }
 

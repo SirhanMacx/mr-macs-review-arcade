@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>History Hunters</title>
   <link rel="icon" href="../../assets/history-hunters/recruit-seal.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260427-history-hunters-retro">
+  <link rel="stylesheet" href="styles.css?v=20260427-history-hunters-battlelines">
 </head>
 <body>
   <main class="game-shell">
@@ -60,8 +60,8 @@
         <button id="closeCodex" type="button">Close</button>
       </div>
       <figure class="atlas-preview">
-        <img src="../../assets/history-hunters/character-evolution-atlas-v2.png" alt="Generated History Hunters character evolution atlas">
-        <figcaption>10 type families / 30 evolution stages</figcaption>
+        <img src="../../assets/history-hunters/figure-evolution-atlas-1.png" alt="Generated History Hunters figure evolution atlas">
+        <figcaption>Course figure lines / 3 evolution stages each</figcaption>
       </figure>
       <div id="codexFamilies" class="codex-list"></div>
     </aside>
@@ -75,8 +75,8 @@
         <button id="closeRoster" type="button">Close</button>
       </div>
       <figure class="atlas-preview">
-        <img src="../../assets/history-hunters/character-evolution-atlas-v2.png" alt="Generated character and evolution atlas">
-        <figcaption>Your recruits evolve through the generated codex</figcaption>
+        <img src="../../assets/history-hunters/figure-evolution-atlas-2.png" alt="Generated figure evolution atlas">
+        <figcaption>Your party evolves through course-specific figure lines</figcaption>
       </figure>
       <div id="rosterList" class="roster-list"></div>
     </aside>
@@ -118,6 +118,7 @@
             <span id="captureBar"></span>
           </div>
           <div id="battleLog" class="battle-log">Pick a move to begin the encounter.</div>
+          <div id="battleActions" class="battle-actions"></div>
           <div id="moveButtons" class="move-buttons"></div>
           <div id="sourcePanel" class="source-panel" hidden></div>
           <p id="questionText" class="question-text">Loading question...</p>
@@ -136,10 +137,10 @@
       <div class="start-card">
         <span class="eyebrow">Mr. Mac's Review Arcade</span>
         <h2>History Hunters</h2>
-        <p>Explore a retro living archive, battle historical echoes with course content, and build a roster across every social studies lane.</p>
+        <p>Walk routes, meet course-type historical figure echoes, answer review questions to power moves, and evolve your roster across the arcade.</p>
         <div class="start-stats" id="startStats">
-          <span>3,773 prompts</span>
-          <span>18 course lanes</span>
+          <span>4,683 prompts</span>
+          <span>Course-type lanes</span>
           <span>Open-world review</span>
         </div>
         <button id="beginBtn" class="primary big" type="button">Enter the Field</button>
@@ -147,6 +148,6 @@
     </section>
   </main>
   <script src="../../assets/arcade-analytics.js"></script>
-  <script src="game.js?v=20260427-history-hunters-retro"></script>
+  <script src="game.js?v=20260427-history-hunters-battlelines"></script>
 </body>
 </html>
