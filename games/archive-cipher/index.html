@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050711">
+  <title>Archive Cipher - Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css?v=20260427-cipher">
+</head>
+<body>
+  <main class="cipher-shell" id="app">
+    <canvas id="fx" aria-hidden="true"></canvas>
+
+    <section class="topbar" aria-label="Archive Cipher status">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <strong>Archive Cipher</strong>
+          <span>Decode the review term.</span>
+        </div>
+      </div>
+      <div class="stats">
+        <div><strong id="streak">0</strong><span>streak</span></div>
+        <div><strong id="solved">0</strong><span>solved</span></div>
+        <div><strong id="accuracy">--</strong><span>accuracy</span></div>
+        <div><strong id="best">0</strong><span>best</span></div>
+      </div>
+      <button class="hud-btn" id="backBtn" type="button">Exit</button>
+    </section>
+
+    <section class="game-stage" aria-label="Archive Cipher puzzle">
+      <aside class="clue-panel">
+        <div class="panel-kicker">Current Cipher</div>
+        <h1 id="termTitle">Archive Cipher</h1>
+        <p id="clueText">Select a course and start decoding review terms.</p>
+        <div class="meta-row" id="metaRow"></div>
+        <div class="hint-box" id="hintBox"></div>
+      </aside>
+
+      <section class="board-panel">
+        <div class="lock-ring" aria-hidden="true">
+          <div class="ring-core" id="ringCore"></div>
+        </div>
+        <div class="board-wrap">
+          <div class="board" id="board" aria-label="Guess grid"></div>
+        </div>
+        <div class="message" id="message" aria-live="polite">Load the review library to begin.</div>
+      </section>
+
+      <aside class="control-panel">
+        <label>
+          <span>Course</span>
+          <select id="courseFilter"></select>
+        </label>
+        <label>
+          <span>Set</span>
+          <select id="setFilter"></select>
+        </label>
+        <label>
+          <span>Term Length</span>
+          <select id="lengthFilter">
+            <option value="any" selected>Any term</option>
+            <option value="short">Short 4-6</option>
+            <option value="standard">Standard 7-9</option>
+            <option value="challenge">Challenge 10-12</option>
+          </select>
+        </label>
+        <div class="library-count" id="libraryCount">Loading terms...</div>
+        <div class="actions">
+          <button class="btn" id="hintBtn" type="button">Hint</button>
+          <button class="btn" id="skipBtn" type="button">Skip</button>
+          <button class="btn primary" id="newBtn" type="button">New Cipher</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="keyboard" id="keyboard" aria-label="On-screen keyboard"></section>
+
+    <section class="result-modal" id="resultModal" aria-label="Cipher result">
+      <div class="result-card">
+        <div class="panel-kicker" id="resultKicker">Decoded</div>
+        <h2 id="resultTitle">Correct</h2>
+        <p id="resultAnswer"></p>
+        <p id="resultExplain"></p>
+        <div class="actions">
+          <button class="btn" id="closeResultBtn" type="button">Review Board</button>
+          <button class="btn primary" id="nextBtn" type="button">Next Cipher</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-analytics.js"></script>
+  <script src="game.js?v=20260427-cipher"></script>
+</body>
+</html>
