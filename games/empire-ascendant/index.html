@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#071013">
   <title>Empire Ascendant - Mr. Mac's Review Arcade</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css?v=20260428-empire-fit">
+  <link rel="stylesheet" href="styles.css?v=20260428-empire-civ2">
 </head>
 <body>
   <main class="empire-shell" id="app">
@@ -47,6 +47,12 @@
       <div class="selected-card">
         <strong id="selectedTitle">Select a province</strong>
         <span id="selectedMeta">Tap your capital or any bordering tile.</span>
+      </div>
+      <div class="panel-tabs" aria-label="Empire panels">
+        <button class="active" data-panel="province" type="button">Province</button>
+        <button data-panel="research" type="button">Research</button>
+        <button data-panel="wonders" type="button">Wonders</button>
+        <button data-panel="diplomacy" type="button">Diplomacy</button>
       </div>
       <div class="action-grid" id="actionGrid"></div>
       <button class="end-turn" id="endTurnBtn" type="button">End Turn</button>
@@ -122,6 +128,6 @@
   </main>
 
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
-  <script src="game.js?v=20260428-empire-fit"></script>
+  <script src="game.js?v=20260428-empire-civ2"></script>
 </body>
 </html>

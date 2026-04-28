@@ -10,7 +10,7 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - Archive Cipher, a generated-art review Wordle-style term decoder with course filters, unit filters, animated tile feedback, hints, and explanations from the full review library
 - History Hunters, an original all-courses retro handheld social studies RPG with route walking, course-type battles, historical figure companion lines, answer-powered moves, capture capsules, and evolution stages
 - Chrono Pinball, a full-library arcade pinball table with course filters, review lock missions, bumpers, lanes, multipliers, ball save, and multiball
-- Empire Ascendant, a full-library rise-and-fall strategy game where students found an empire, claim provinces, build districts, manage stability, face rival states, advance eras, and resolve review councils
+- Empire Ascendant, a full-library rise-and-fall strategy game with province expansion, city founding, research paths, unlock-gated buildings, wonders, diplomacy, rival relations, era advancement, stability collapse, and review councils
 - Timeline Runner, a generated-art endless runner where students dodge archive hazards, collect evidence, and answer by steering through course-filtered answer gates from the full 4,683-prompt review library
 - Time Rift Survivors, a full-library survival arcade game with generated arena art, animated combat, relic upgrades, course filters, stimulus access, and 4,683 review prompts
 - Chrono Defense Infinite, an original endless social-studies tower defense game using the full 4,683-prompt review library

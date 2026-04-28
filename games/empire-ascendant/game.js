@@ -27,13 +27,39 @@
     desert: { label: "Desert", color: "#9c7a44", edge: "#f2c14e", food: 0, industry: 1, knowledge: 0, culture: 2 }
   };
 
+  const TECHS = [
+    { id: "irrigation", era: 0, name: "Irrigation", cost: 18, unlocks: "stronger farms", effect: { food: 8 }, quote: "River valleys turn surplus into state power." },
+    { id: "writing", era: 0, name: "Writing", cost: 20, unlocks: "academies and records", effect: { knowledge: 5, culture: 2 }, quote: "Records make government larger than memory." },
+    { id: "bronze", era: 0, name: "Bronze Working", cost: 24, unlocks: "forts and trained armies", effect: { industry: 6, stability: 3 }, quote: "Metals change farming, war, and authority." },
+    { id: "navigation", era: 1, name: "Navigation", cost: 32, unlocks: "harbors and sea trade", effect: { culture: 5, knowledge: 3 }, quote: "Coasts become bridges instead of borders." },
+    { id: "civil_service", era: 1, name: "Civil Service", cost: 38, unlocks: "stronger reforms", effect: { stability: 8, culture: 4 }, quote: "A state survives when offices outlast rulers." },
+    { id: "guilds", era: 2, name: "Guilds", cost: 48, unlocks: "urban production", effect: { industry: 10 }, quote: "Specialized labor turns cities into engines." },
+    { id: "printing", era: 3, name: "Printing", cost: 58, unlocks: "mass literacy", effect: { knowledge: 10, culture: 6 }, quote: "Ideas travel faster than armies." },
+    { id: "railroads", era: 4, name: "Railroads", cost: 70, unlocks: "integrated empire", effect: { industry: 14, stability: 6 }, quote: "Distance shrinks when steel links markets." },
+    { id: "constitutionalism", era: 4, name: "Constitutionalism", cost: 76, unlocks: "modern legitimacy", effect: { stability: 14, culture: 8 }, quote: "Power becomes more stable when it is limited." },
+    { id: "globalization", era: 5, name: "Globalization", cost: 90, unlocks: "world systems victory", effect: { knowledge: 18, culture: 12 }, quote: "Trade, migration, and technology bind regions together." }
+  ];
+
+  const WONDERS = [
+    { id: "granary", name: "Royal Granary", era: 0, requires: "irrigation", cost: { industry: 16, food: 8 }, effect: { food: 14, stability: 6 }, line: "Surplus stores protect the dynasty from famine." },
+    { id: "library", name: "Great Library", era: 0, requires: "writing", cost: { industry: 18, culture: 8 }, effect: { knowledge: 18, culture: 5 }, line: "Scholars gather the empire's memory." },
+    { id: "walls", name: "Imperial Walls", era: 0, requires: "bronze", cost: { industry: 22 }, effect: { stability: 12 }, line: "Defenses make the capital feel permanent." },
+    { id: "caravanserai", name: "Silk Road Caravanserai", era: 1, requires: "navigation", cost: { industry: 24, culture: 10 }, effect: { culture: 14, knowledge: 8 }, line: "Merchants carry goods, beliefs, and technologies." },
+    { id: "bureaucracy", name: "Hall of Examinations", era: 1, requires: "civil_service", cost: { industry: 26, culture: 12 }, effect: { stability: 16, knowledge: 8 }, line: "Merit and records discipline the court." },
+    { id: "press", name: "Printing Quarter", era: 3, requires: "printing", cost: { industry: 34, knowledge: 12 }, effect: { culture: 20, knowledge: 14 }, line: "Pamphlets, books, and newspapers reshape public life." },
+    { id: "railhub", name: "Continental Rail Hub", era: 4, requires: "railroads", cost: { industry: 44, culture: 12 }, effect: { industry: 28, stability: 10 }, line: "Resources, soldiers, and migrants move at industrial speed." },
+    { id: "charter", name: "Charter of Rights", era: 4, requires: "constitutionalism", cost: { culture: 30, knowledge: 18 }, effect: { stability: 24, culture: 18 }, line: "Legitimacy grows when people know the rules." }
+  ];
+
+  const CITY_NAMES = ["Aster", "Macopolis", "New Harbor", "Rivergate", "Atlas Ford", "Summit Hold", "Scholar's Port", "Civic Crown", "Liberty Vale", "Meridian"];
+
   const IMPROVEMENTS = {
     farm: { label: "Farms", cost: { industry: 8 }, yield: { food: 3 }, allowed: ["plains", "river", "coast"], color: "#77d99b" },
     workshop: { label: "Workshops", cost: { industry: 12 }, yield: { industry: 3 }, allowed: ["forest", "hills", "mountain", "plains"], color: "#d98a5d" },
-    academy: { label: "Academy", cost: { industry: 14, culture: 4 }, yield: { knowledge: 3 }, allowed: ["river", "plains", "coast", "desert"], color: "#7bdff2" },
+    academy: { label: "Academy", cost: { industry: 14, culture: 4 }, yield: { knowledge: 3 }, allowed: ["river", "plains", "coast", "desert"], color: "#7bdff2", requires: "writing" },
     monument: { label: "Monument", cost: { industry: 10 }, yield: { culture: 3, stability: 1 }, allowed: ["plains", "river", "desert", "coast", "hills"], color: "#f2c14e" },
-    fort: { label: "Fort", cost: { industry: 10, culture: 2 }, yield: { stability: 2 }, allowed: ["plains", "forest", "hills", "mountain", "desert", "river"], color: "#b79cff" },
-    harbor: { label: "Harbor", cost: { industry: 12 }, yield: { food: 1, culture: 2, knowledge: 1 }, allowed: ["coast"], color: "#7bdff2" }
+    fort: { label: "Fort", cost: { industry: 10, culture: 2 }, yield: { stability: 2 }, allowed: ["plains", "forest", "hills", "mountain", "desert", "river"], color: "#b79cff", requires: "bronze" },
+    harbor: { label: "Harbor", cost: { industry: 12 }, yield: { food: 1, culture: 2, knowledge: 1 }, allowed: ["coast"], color: "#7bdff2", requires: "navigation" }
   };
 
   const els = {
@@ -52,6 +78,7 @@
     selectedTitle: document.getElementById("selectedTitle"),
     selectedMeta: document.getElementById("selectedMeta"),
     actionGrid: document.getElementById("actionGrid"),
+    panelTabs: [...document.querySelectorAll(".panel-tabs button")],
     endTurnBtn: document.getElementById("endTurnBtn"),
     setupScreen: document.getElementById("setupScreen"),
     councilScreen: document.getElementById("councilScreen"),
@@ -95,12 +122,17 @@
     filtered: [],
     queue: [],
     mode: "setup",
+    panel: "province",
     tiles: [],
     selected: null,
     pendingAction: null,
     turn: 1,
     era: 0,
     resources: { food: 18, industry: 18, knowledge: 0, culture: 12, stability: 62 },
+    research: { active: "irrigation", progress: 0, completed: [] },
+    rivals: {},
+    wonders: [],
+    lastKnowledgeYield: 0,
     population: 2,
     score: 0,
     councils: 0,
@@ -426,6 +458,8 @@
           city: false,
           capital: false,
           improvement: null,
+          wonder: null,
+          name: "",
           unrest: 0,
           explored: true,
           pulse: Math.random() * Math.PI * 2
@@ -448,6 +482,7 @@
     if (capital) {
       tile.city = true;
       tile.capital = true;
+      tile.name = owner === "player" ? "Macopolis" : `${OWNERS[owner].name} Capital`;
     }
     tile.unrest = 0;
   }
@@ -486,6 +521,15 @@
       culture: frontier ? 16 : 12,
       stability: crisis ? 44 : 62
     };
+    state.panel = "province";
+    state.research = { active: "irrigation", progress: 0, completed: [] };
+    state.rivals = {
+      north: { relation: 38, power: 10, treaty: false, contact: "Northern League" },
+      steppe: { relation: 28, power: 12, treaty: false, contact: "Steppe Confederation" },
+      ocean: { relation: 46, power: 8, treaty: false, contact: "Ocean Compact" }
+    };
+    state.wonders = [];
+    state.lastKnowledgeYield = 0;
     state.population = 2;
     state.score = 0;
     state.councils = 0;
@@ -497,7 +541,8 @@
     state.pendingAction = null;
     generateMap();
     updateHud();
-    renderSelection();
+    renderPanel();
+    updatePanelTabs();
     setAdvisor("Imperial Council", "Found your capital, claim provinces, build districts, and keep stability above collapse.", "The first dynasty rises beside the river.", "good");
     els.setupScreen.classList.remove("show");
     els.endScreen.classList.remove("show");
@@ -531,6 +576,18 @@
     return Object.entries(cost).every(([key, value]) => (state.resources[key] || 0) >= value);
   }
 
+  function hasTech(id) {
+    return !id || state.research.completed.includes(id);
+  }
+
+  function techById(id) {
+    return TECHS.find((tech) => tech.id === id);
+  }
+
+  function wonderById(id) {
+    return WONDERS.find((wonder) => wonder.id === id);
+  }
+
   function spend(cost = {}) {
     for (const [key, value] of Object.entries(cost)) state.resources[key] -= value;
   }
@@ -552,6 +609,18 @@
     return parts.length ? parts.join(", ") : "no yield";
   }
 
+  function updatePanelTabs() {
+    els.panelTabs.forEach((button) => button.classList.toggle("active", button.dataset.panel === state.panel));
+  }
+
+  function renderPanel() {
+    updatePanelTabs();
+    if (state.panel === "research") return renderResearchPanel();
+    if (state.panel === "wonders") return renderWondersPanel();
+    if (state.panel === "diplomacy") return renderDiplomacyPanel();
+    return renderSelection();
+  }
+
   function renderSelection() {
     const tile = state.selected;
     if (!tile) {
@@ -563,21 +632,35 @@
     const owner = tile.owner ? OWNERS[tile.owner].name : "Unclaimed";
     const terrain = TERRAIN[tile.terrain].label;
     const improvement = tile.improvement ? ` | ${IMPROVEMENTS[tile.improvement].label}` : "";
+    const city = tile.city && tile.name ? ` | ${tile.name}` : "";
+    const wonder = tile.wonder ? ` | ${wonderById(tile.wonder)?.name || "Wonder"}` : "";
     els.selectedTitle.textContent = `${terrain} Province`;
-    els.selectedMeta.textContent = `${owner}${tile.capital ? " | Capital" : ""}${improvement}${tile.unrest ? ` | Unrest ${tile.unrest}` : ""}`;
+    els.selectedMeta.textContent = `${owner}${tile.capital ? " | Capital" : ""}${city}${improvement}${wonder}${tile.unrest ? ` | Unrest ${tile.unrest}` : ""}`;
     renderActions(tile);
   }
 
   function renderActions(tile) {
     const actions = [];
     if (tile.owner === "player") {
+      if (!tile.city) {
+        const cityCost = { food: 8, culture: 5 };
+        actions.push({
+          key: "city",
+          label: "Found City",
+          sub: `${costText(cityCost)} | new production center`,
+          cls: "major",
+          disabled: !canAfford(cityCost),
+          action: () => foundCity(tile, cityCost)
+        });
+      }
       for (const [key, item] of Object.entries(IMPROVEMENTS)) {
         if (!tile.improvement && item.allowed.includes(tile.terrain)) {
+          const missingTech = item.requires && !hasTech(item.requires);
           actions.push({
             key: `build:${key}`,
             label: `Build ${item.label}`,
-            sub: `${costText(item.cost)} | ${yieldText(item.yield)}`,
-            disabled: !canAfford(item.cost),
+            sub: missingTech ? `requires ${techById(item.requires)?.name || "research"}` : `${costText(item.cost)} | ${yieldText(item.yield)}`,
+            disabled: missingTech || !canAfford(item.cost),
             action: () => buildImprovement(tile, key)
           });
         }
@@ -633,8 +716,105 @@
         action: () => {}
       });
     }
-    els.actionGrid.innerHTML = actions.slice(0, 6).map((action, index) => (
-      `<button type="button" data-index="${index}" ${action.disabled ? "disabled" : ""}>${escapeHtml(action.label)}<span>${escapeHtml(action.sub)}</span></button>`
+    els.actionGrid.innerHTML = actions.slice(0, 8).map((action, index) => (
+      `<button class="${escapeHtml(action.cls || "")}" type="button" data-index="${index}" ${action.disabled ? "disabled" : ""}>${escapeHtml(action.label)}<span>${escapeHtml(action.sub)}</span></button>`
+    )).join("");
+    els.actionGrid.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const action = actions[Number(button.dataset.index)];
+        if (action && !action.disabled) action.action();
+      });
+    });
+  }
+
+  function renderResearchPanel() {
+    const active = techById(state.research.active) || TECHS.find((tech) => !hasTech(tech.id));
+    els.selectedTitle.textContent = active ? `Research: ${active.name}` : "Research Complete";
+    els.selectedMeta.textContent = active
+      ? `${Math.floor(state.research.progress)}/${active.cost} knowledge | unlocks ${active.unlocks}`
+      : "All available technologies are complete.";
+    const actions = TECHS
+      .filter((tech) => tech.era <= state.era + 1)
+      .slice(0, 10)
+      .map((tech) => {
+        const completed = hasTech(tech.id);
+        const activeTech = state.research.active === tech.id && !completed;
+        return {
+          label: `${completed ? "Known" : activeTech ? "Studying" : "Research"} ${tech.name}`,
+          sub: completed ? tech.quote : `${tech.cost} knowledge | ${tech.unlocks}`,
+          cls: completed ? "completed" : activeTech ? "major" : "",
+          disabled: completed || activeTech,
+          action: () => chooseResearch(tech.id)
+        };
+      });
+    renderActionButtons(actions);
+  }
+
+  function renderWondersPanel() {
+    const city = state.selected?.owner === "player" && state.selected.city ? state.selected : ownedTiles().find((tile) => tile.capital);
+    els.selectedTitle.textContent = "World Wonders";
+    els.selectedMeta.textContent = city ? `Build in ${city.name || "the capital"}. Wonders are one-per-empire power spikes.` : "Found a city before building wonders.";
+    const actions = WONDERS
+      .filter((wonder) => wonder.era <= state.era + 1)
+      .map((wonder) => {
+        const built = state.wonders.includes(wonder.id);
+        const missingTech = wonder.requires && !hasTech(wonder.requires);
+        return {
+          label: built ? `${wonder.name} Built` : `Build ${wonder.name}`,
+          sub: built ? wonder.line : missingTech ? `requires ${techById(wonder.requires)?.name || "research"}` : `${costText(wonder.cost)} | ${yieldText(wonder.effect)}`,
+          cls: built ? "completed" : "major",
+          disabled: built || missingTech || !city || !canAfford(wonder.cost),
+          action: () => openCouncil({ type: "wonder", tile: city, wonder, cost: wonder.cost })
+        };
+      });
+    renderActionButtons(actions);
+  }
+
+  function renderDiplomacyPanel() {
+    els.selectedTitle.textContent = "Diplomacy";
+    els.selectedMeta.textContent = "Trade, envoys, and border wars shift rival relations and power.";
+    const actions = Object.entries(state.rivals).flatMap(([owner, rival]) => {
+      const relation = Math.round(rival.relation);
+      const border = state.tiles.some((tile) => tile.owner === owner && isAdjacentToPlayer(tile));
+      return [
+        {
+          label: `${OWNERS[owner].name}: ${relation}`,
+          sub: `power ${rival.power} | ${rival.treaty ? "trade pact" : border ? "shared border" : "distant rival"}`,
+          cls: relation < 25 ? "warning" : rival.treaty ? "completed" : "",
+          disabled: true,
+          action: () => {}
+        },
+        {
+          label: "Send Envoys",
+          sub: "5 culture | review council improves relations",
+          disabled: !canAfford({ culture: 5 }),
+          action: () => openCouncil({ type: "envoy", owner, cost: { culture: 5 } })
+        },
+        {
+          label: "Trade Mission",
+          sub: "4 food, 4 industry | review council for pact",
+          cls: "major",
+          disabled: !canAfford({ food: 4, industry: 4 }),
+          action: () => openCouncil({ type: "trade", owner, cost: { food: 4, industry: 4 } })
+        },
+        {
+          label: "Border War",
+          sub: border ? "12 industry, 8 culture | seize frontier" : "requires shared border",
+          cls: "warning",
+          disabled: !border || !canAfford({ industry: 12, culture: 8 }),
+          action: () => {
+            const target = state.tiles.find((tile) => tile.owner === owner && isAdjacentToPlayer(tile));
+            openCouncil({ type: "war", owner, tile: target, cost: { industry: 12, culture: 8 } });
+          }
+        }
+      ];
+    });
+    renderActionButtons(actions.slice(0, 12));
+  }
+
+  function renderActionButtons(actions) {
+    els.actionGrid.innerHTML = actions.map((action, index) => (
+      `<button class="${escapeHtml(action.cls || "")}" type="button" data-index="${index}" ${action.disabled ? "disabled" : ""}>${escapeHtml(action.label)}<span>${escapeHtml(action.sub)}</span></button>`
     )).join("");
     els.actionGrid.querySelectorAll("button").forEach((button) => {
       button.addEventListener("click", () => {
@@ -646,7 +826,7 @@
 
   function buildImprovement(tile, key) {
     const improvement = IMPROVEMENTS[key];
-    if (!tile || tile.owner !== "player" || tile.improvement || !improvement || !canAfford(improvement.cost)) return;
+    if (!tile || tile.owner !== "player" || tile.improvement || !improvement || !canAfford(improvement.cost) || !hasTech(improvement.requires)) return;
     spend(improvement.cost);
     tile.improvement = key;
     state.score += 250;
@@ -656,7 +836,32 @@
     banner(tile, improvement.label, improvement.color);
     setAdvisor("Provincial Works", `${improvement.label} changed the local economy. End the turn to collect the new yield.`, `${TERRAIN[tile.terrain].label}: ${yieldText(improvement.yield)}`, "good");
     updateHud();
-    renderSelection();
+    renderPanel();
+  }
+
+  function foundCity(tile, cost) {
+    if (!tile || tile.owner !== "player" || tile.city || !canAfford(cost)) return;
+    spend(cost);
+    tile.city = true;
+    tile.name = CITY_NAMES[ownedTiles().filter((item) => item.city).length % CITY_NAMES.length];
+    state.population += 1;
+    state.score += 520;
+    gain({ stability: 2, culture: 1 });
+    audio.build();
+    burst(tile, "#f2c14e", 24);
+    banner(tile, "CITY FOUNDED", "#f2c14e");
+    setAdvisor("City Founded", `${tile.name} now anchors local government, production, and culture. More cities mean more power and more stability pressure.`, "+population +culture", "good");
+    updateHud();
+    renderPanel();
+  }
+
+  function chooseResearch(id) {
+    if (hasTech(id)) return;
+    state.research.active = id;
+    state.research.progress = 0;
+    const tech = techById(id);
+    setAdvisor("Research Directed", `Scholars now pursue ${tech.name}. End turns to convert knowledge output into progress.`, tech.quote, "good");
+    renderPanel();
   }
 
   function openCouncil(action) {
@@ -676,7 +881,11 @@
       claim: "Expansion Council",
       rival: "Border Crisis",
       reform: "Reform Council",
-      crisis: "Stability Crisis"
+      crisis: "Stability Crisis",
+      wonder: "Wonder Council",
+      envoy: "Diplomatic Mission",
+      trade: "Trade Mission",
+      war: "Border War Council"
     }[action.type] || "Council Review";
     const value = q.value ? ` | ${q.value}` : "";
     els.questionMeta.textContent = `${typeLabel} | ${cleanText(q.course || "Social Studies")}${value}`;
@@ -737,7 +946,7 @@
       audio.wrong();
     }
     updateHud();
-    renderSelection();
+    renderPanel();
     setTimeout(closeCouncil, choice.correct ? 1200 : 2200);
   }
 
@@ -768,6 +977,38 @@
       gain({ stability: 12, culture: 4 });
       state.score += 650;
       setAdvisor("Crisis Contained", "The council response turned unrest into renewed legitimacy.", "+stability", "good");
+    } else if (action.type === "wonder") {
+      state.wonders.push(action.wonder.id);
+      action.tile.wonder = action.wonder.id;
+      gain(action.wonder.effect);
+      state.score += 1600 + action.wonder.era * 350;
+      burst(action.tile, "#f2c14e", 40);
+      banner(action.tile, "WONDER", "#f2c14e");
+      setAdvisor("Wonder Completed", `${action.wonder.name} reshaped the empire. ${action.wonder.line}`, yieldText(action.wonder.effect), "good");
+    } else if (action.type === "envoy") {
+      const rival = state.rivals[action.owner];
+      rival.relation = clamp(rival.relation + 18, 0, 100);
+      gain({ culture: 2, stability: 3 });
+      state.score += 520;
+      setAdvisor("Envoys Welcomed", `${OWNERS[action.owner].name} received your delegation. Relations improved.`, `relation ${Math.round(rival.relation)}`, "good");
+    } else if (action.type === "trade") {
+      const rival = state.rivals[action.owner];
+      rival.relation = clamp(rival.relation + 12, 0, 100);
+      rival.treaty = true;
+      gain({ knowledge: 8, culture: 6, stability: 2 });
+      state.score += 680;
+      setAdvisor("Trade Pact Signed", `${OWNERS[action.owner].name} opened routes with your merchants.`, "+knowledge +culture", "good");
+    } else if (action.type === "war") {
+      const rival = state.rivals[action.owner];
+      const oldOwner = action.tile.owner;
+      setOwner(action.tile, "player");
+      rival.relation = clamp(rival.relation - 24, 0, 100);
+      rival.power = Math.max(1, rival.power - 2);
+      gain({ stability: -4, culture: 2 });
+      state.score += 1150 + state.era * 260;
+      burst(action.tile, OWNERS.player.color, 34);
+      banner(action.tile, "CONQUERED", OWNERS.player.color);
+      setAdvisor("Frontier Captured", `${OWNERS[oldOwner].name} lost a province. Victory brought territory but damaged diplomacy.`, "-relations -stability", "good");
     }
   }
 
@@ -786,6 +1027,25 @@
     } else if (action.type === "crisis") {
       gain({ stability: -16 });
       setAdvisor("Crisis Deepens", "The unrest spread because the council response missed the core issue.", "-stability", "bad");
+    } else if (action.type === "wonder") {
+      gain({ stability: -6, industry: -4 });
+      setAdvisor("Wonder Delayed", "Labor, cost, and legitimacy problems stalled the project.", "Try again after rebuilding resources.", "bad");
+    } else if (action.type === "envoy") {
+      if (canAfford(action.cost)) spend(action.cost);
+      state.rivals[action.owner].relation = clamp(state.rivals[action.owner].relation - 8, 0, 100);
+      gain({ stability: -3 });
+      setAdvisor("Envoys Rebuffed", `${OWNERS[action.owner].name} rejected the message.`, "-relations", "bad");
+    } else if (action.type === "trade") {
+      if (canAfford(action.cost)) spend(action.cost);
+      state.rivals[action.owner].relation = clamp(state.rivals[action.owner].relation - 6, 0, 100);
+      gain({ stability: -4 });
+      setAdvisor("Trade Mission Failed", "The route collapsed before trust could form.", "-stability", "bad");
+    } else if (action.type === "war") {
+      if (canAfford(action.cost)) spend(action.cost);
+      state.rivals[action.owner].power += 2;
+      state.rivals[action.owner].relation = clamp(state.rivals[action.owner].relation - 16, 0, 100);
+      gain({ stability: -14, industry: -5 });
+      setAdvisor("Campaign Failed", `${OWNERS[action.owner].name} held the line and gained confidence.`, "-stability -industry", "bad");
     }
     if (action.tile) {
       burst(action.tile, "#ff6f6f", 22);
@@ -800,12 +1060,13 @@
     checkEra();
     checkCollapse();
     updateHud();
-    renderSelection();
+    renderPanel();
   }
 
   function endTurn() {
     if (state.mode !== "playing") return;
     const yields = collectYields();
+    progressResearch(Math.max(1, state.lastKnowledgeYield || 0));
     state.turn += 1;
     state.score += ownedTiles().length * 42 + state.era * 70;
     state.resources.food -= Math.max(1, Math.floor(ownedTiles().length / 5));
@@ -824,7 +1085,7 @@
     checkEra();
     checkCollapse();
     updateHud();
-    renderSelection();
+    renderPanel();
     audio.turn();
   }
 
@@ -848,20 +1109,41 @@
       if (tile.unrest) totals.stability -= tile.unrest;
     }
     gain(totals);
+    state.lastKnowledgeYield = totals.knowledge;
     return Object.entries(totals)
       .filter(([, value]) => value)
       .map(([key, value]) => `${value > 0 ? "+" : ""}${value} ${key}`)
       .join(", ");
   }
 
+  function progressResearch(points) {
+    const active = techById(state.research.active);
+    if (!active || hasTech(active.id)) return;
+    state.research.progress += points + 2 + Math.max(0, state.era);
+    if (state.research.progress < active.cost) return;
+    state.research.completed.push(active.id);
+    state.research.progress = 0;
+    gain(active.effect);
+    state.score += 800 + active.era * 180;
+    audio.era();
+    for (const tile of ownedTiles()) burst(tile, "#7bdff2", 5);
+    setAdvisor("Technology Discovered", `${active.name}: ${active.quote}`, `${active.unlocks} unlocked. ${yieldText(active.effect)}`, "good");
+    const next = TECHS.find((tech) => tech.era <= state.era + 1 && !hasTech(tech.id));
+    state.research.active = next ? next.id : "";
+  }
+
   function rivalTurn() {
     for (const owner of ["north", "steppe", "ocean"]) {
+      const rival = state.rivals[owner];
       const frontier = state.tiles.filter((tile) => !tile.owner && neighbors(tile).some((near) => near.owner === owner));
       if (!frontier.length) continue;
       const target = shuffle(frontier).sort((a, b) => scoreTileForOwner(b, owner) - scoreTileForOwner(a, owner))[0];
-      if (Math.random() < .72) {
+      const pressure = rival.treaty ? .42 : rival.relation < 25 ? .88 : .68;
+      if (Math.random() < pressure) {
         setOwner(target, owner);
         burst(target, OWNERS[owner].color, 14);
+        rival.power += 1;
+        rival.relation = clamp(rival.relation - (rival.treaty ? 1 : 3), 0, 100);
       }
     }
   }
@@ -1085,6 +1367,17 @@
     const p = hexToPixel(tile);
     if (tile.capital || tile.city) drawCity(p.x, p.y, tile);
     if (tile.improvement) drawImprovement(p.x, p.y, tile.improvement);
+    if (tile.wonder) drawWonder(p.x, p.y, tile.wonder);
+    if (tile.city && tile.name && view.size > 32) {
+      ctx.save();
+      ctx.fillStyle = "rgba(251,245,230,.84)";
+      ctx.font = `900 ${Math.max(10, view.size * .18)}px Inter, system-ui, sans-serif`;
+      ctx.textAlign = "center";
+      ctx.shadowColor = "rgba(0,0,0,.72)";
+      ctx.shadowBlur = 6;
+      ctx.fillText(tile.name.toUpperCase(), p.x, p.y + view.size * .88);
+      ctx.restore();
+    }
     if (tile.unrest) {
       ctx.save();
       ctx.fillStyle = "#ff6f6f";
@@ -1162,6 +1455,29 @@
       ctx.arc(0, -view.size * .05, view.size * .20, 0, Math.PI);
       ctx.stroke();
     }
+    ctx.restore();
+  }
+
+  function drawWonder(x, y, id) {
+    const wonder = wonderById(id);
+    ctx.save();
+    ctx.translate(x, y - view.size * .36);
+    ctx.shadowColor = "#f2c14e";
+    ctx.shadowBlur = 14;
+    ctx.fillStyle = "#f2c14e";
+    ctx.strokeStyle = "rgba(0,0,0,.48)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, -view.size * .22);
+    ctx.lineTo(view.size * .20, view.size * .16);
+    ctx.lineTo(-view.size * .20, view.size * .16);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = "rgba(0,0,0,.58)";
+    ctx.font = `900 ${Math.max(8, view.size * .15)}px Inter, system-ui, sans-serif`;
+    ctx.textAlign = "center";
+    ctx.fillText((wonder?.name || "W").slice(0, 2).toUpperCase(), 0, view.size * .07);
     ctx.restore();
   }
 
@@ -1252,8 +1568,9 @@
       const tile = pixelToTile(event.clientX, event.clientY);
       if (!tile) return;
       state.selected = tile;
+      state.panel = "province";
       audio.select();
-      renderSelection();
+      renderPanel();
       const owner = tile.owner ? OWNERS[tile.owner].name : "Unclaimed";
       setAdvisor("Province Selected", `${TERRAIN[tile.terrain].label} province. ${owner}.`, "Choose an action or end the turn.", "");
     });
@@ -1263,6 +1580,12 @@
     });
     els.setFilter.addEventListener("change", applyFilters);
     els.scenarioFilter.addEventListener("change", renderSetupMetrics);
+    els.panelTabs.forEach((button) => {
+      button.addEventListener("click", () => {
+        state.panel = button.dataset.panel || "province";
+        renderPanel();
+      });
+    });
     els.startBtn.addEventListener("click", startGame);
     els.endTurnBtn.addEventListener("click", endTurn);
     els.pauseBtn.addEventListener("click", () => state.mode === "menu" ? resumeGame() : pauseGame());
