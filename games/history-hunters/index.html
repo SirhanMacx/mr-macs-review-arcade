@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>History Hunters</title>
   <link rel="icon" href="../../assets/history-hunters/recruit-seal.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260427-history-hunters-gen1-rpg">
+  <link rel="stylesheet" href="styles.css?v=20260427-history-hunters-rpg-quests">
 </head>
 <body>
   <main class="game-shell">
@@ -41,6 +41,7 @@
       </div>
       <div class="filter-row">
         <button id="huntBtn" class="primary" type="button">Hunt</button>
+        <button id="questBtn" type="button">Quest</button>
         <button id="actionBtn" type="button">Talk</button>
         <button id="mapBtn" type="button">Town</button>
         <button id="bagBtn" type="button">Bag</button>
@@ -139,7 +140,7 @@
             <div class="versus">VS</div>
             <div class="battler player">
               <span id="heroType">Research</span>
-              <strong id="heroName">Field Researcher</strong>
+              <strong id="heroName">Chronicle Trainer</strong>
               <div class="hp"><i id="heroHp"></i></div>
             </div>
           </div>
@@ -148,7 +149,7 @@
         <div class="trial-card">
           <div class="trial-top">
             <div>
-              <span id="trialKicker">Recruitment Trial</span>
+              <span id="trialKicker">Route Battle</span>
               <strong id="trialMeta">All Courses</strong>
             </div>
             <button id="closeEncounter" type="button">Exit</button>
@@ -176,7 +177,7 @@
       <div class="start-card">
         <span class="eyebrow">Mr. Mac's Review Arcade</span>
         <h2>History Hunters</h2>
-        <p>Walk routes, meet course-type historical figure echoes, answer review questions to power moves, and evolve your roster across the arcade.</p>
+        <p>Walk routes, battle course-type historical figure echoes, recruit them with Archive Capsules, and clear review side quests for XP, shards, and items.</p>
         <div class="start-stats" id="startStats">
           <span>4,683 prompts</span>
           <span>Course-type lanes</span>
@@ -202,6 +203,6 @@
     </div>
   </main>
   <script src="../../assets/arcade-analytics.js"></script>
-  <script src="game.js?v=20260427-history-hunters-gen1-rpg"></script>
+  <script src="game.js?v=20260427-history-hunters-rpg-quests"></script>
 </body>
 </html>

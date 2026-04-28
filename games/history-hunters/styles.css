@@ -501,7 +501,7 @@ button:hover {
 
 .codex-sprite,
 .mini-portrait {
-  background-image: var(--sprite-image, url("../../assets/history-hunters/figure-evolution-atlas-1.png"));
+  background-image: var(--sprite-image, url("../../assets/history-hunters/keyed/figure-evolution-atlas-1-keyed.png"));
   background-repeat: no-repeat;
   background-size: 300% 600%;
   background-position: var(--sprite-x, 0%) var(--sprite-y, 0%);
@@ -639,7 +639,7 @@ button:hover {
   aspect-ratio: 4 / 3;
   transform: translateX(-50%);
   z-index: 2;
-  background-image: var(--sprite-image, url("../../assets/history-hunters/figure-evolution-atlas-1.png"));
+  background-image: var(--sprite-image, url("../../assets/history-hunters/keyed/figure-evolution-atlas-1-keyed.png"));
   background-repeat: no-repeat;
   background-size: 300% 600%;
   background-position: var(--sprite-x, 0%) var(--sprite-y, 0%);
@@ -1305,6 +1305,8 @@ button:hover {
 .battle-actions .fight { --item-x: -332px; --item-y: -332px; }
 .battle-actions .study { --item-x: -259px; --item-y: -187px; }
 .battle-actions .capsule { --item-x: -30px; --item-y: -31px; }
+.battle-actions .item { --item-x: -259px; --item-y: -187px; }
+.battle-actions .talk { --item-x: -184px; --item-y: -259px; }
 .battle-actions .run { --item-x: -30px; --item-y: -405px; }
 
 .battle-actions strong,
@@ -2486,7 +2488,7 @@ body.menu-open .handheld-controls,
   position: absolute;
   width: 62px;
   height: 78px;
-  background-image: url("../../assets/history-hunters/retro-tile-sprite-atlas.png");
+  background-image: url("../../assets/history-hunters/keyed/retro-tile-sprite-atlas-keyed.png");
   background-repeat: no-repeat;
   background-size: 1010px 1450px;
   image-rendering: pixelated;
@@ -3248,5 +3250,338 @@ body.field-mode.menu-open .quest-card {
 
   .source-panel {
     max-height: 27dvh;
+  }
+}
+
+/* Battle sequence polish */
+.encounter {
+  overflow: hidden;
+}
+
+.encounter-stage {
+  grid-template-rows: minmax(0, 66fr) minmax(210px, 34fr);
+}
+
+.ally-card {
+  background:
+    radial-gradient(ellipse at 72% 70%, rgba(15, 56, 15, .35) 0 13%, transparent 14%),
+    radial-gradient(ellipse at 25% 78%, rgba(15, 56, 15, .38) 0 17%, transparent 18%),
+    linear-gradient(180deg, rgba(214, 238, 99, .9) 0 34%, rgba(155, 188, 15, .98) 35% 100%);
+}
+
+.ally-card::before {
+  right: 8%;
+  top: 64%;
+  width: min(380px, 34vw);
+  height: 24px;
+}
+
+.ally-card::after {
+  left: 9%;
+  bottom: 11%;
+  width: min(350px, 34vw);
+  height: 24px;
+}
+
+.ally-card .portrait {
+  right: 5%;
+  top: 9%;
+  width: min(38vw, 410px);
+  height: min(42dvh, 340px);
+  min-height: 220px;
+}
+
+.ally-card .portrait::after {
+  width: min(100%, 430px);
+  height: 100%;
+  filter: grayscale(1) sepia(1) saturate(3.35) hue-rotate(28deg) contrast(1.34) drop-shadow(0 22px 0 rgba(15, 56, 15, .25));
+  mix-blend-mode: normal;
+}
+
+.trial-card {
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 30%);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  padding: clamp(8px, 1.2vw, 16px);
+}
+
+.hp i {
+  transition: width .68s steps(12, end);
+}
+
+.battle-log {
+  position: relative;
+}
+
+.encounter.phase-command .battle-log::after,
+.encounter.phase-intro .battle-log::after,
+.encounter.phase-sendout .battle-log::after,
+.encounter.phase-windup .battle-log::after,
+.encounter.phase-resolve .battle-log::after,
+.encounter.phase-faint .battle-log::after,
+.encounter.phase-capture .battle-log::after {
+  content: "▼";
+  position: absolute;
+  right: 12px;
+  bottom: 7px;
+  animation: battle-caret .7s steps(2, end) infinite;
+}
+
+.battle-board::after {
+  content: "";
+  position: absolute;
+  left: clamp(72px, 13vw, 260px);
+  bottom: clamp(34px, 10dvh, 128px);
+  width: 94px;
+  height: 118px;
+  scale: clamp(1.75, 4.5vw, 2.65);
+  transform-origin: left bottom;
+  background-image: url("../../assets/history-hunters/keyed/player-back-keyed.png");
+  background-repeat: no-repeat;
+  background-size: 94px 118px;
+  background-position: center;
+  image-rendering: pixelated;
+  z-index: 1;
+  filter: grayscale(1) sepia(1) saturate(3.3) hue-rotate(28deg) contrast(1.38) drop-shadow(0 18px 0 rgba(15, 56, 15, .24));
+}
+
+.battler {
+  z-index: 2;
+}
+
+.ally-card .portrait {
+  z-index: 2;
+}
+
+.encounter.phase-intro .battle-actions,
+.encounter.phase-intro .move-buttons,
+.encounter.phase-sendout .battle-actions,
+.encounter.phase-sendout .move-buttons,
+.encounter.phase-windup .battle-actions,
+.encounter.phase-windup .move-buttons,
+.encounter.phase-item .battle-actions,
+.encounter.phase-question .battle-actions,
+.encounter.phase-question .move-buttons,
+.encounter.phase-resolve .battle-actions,
+.encounter.phase-resolve .move-buttons,
+.encounter.phase-faint .battle-actions,
+.encounter.phase-faint .move-buttons,
+.encounter.phase-capture .battle-actions,
+.encounter.phase-capture .move-buttons {
+  display: none !important;
+}
+
+.encounter.phase-move .battle-actions {
+  display: none !important;
+}
+
+.encounter.phase-move .move-buttons.open,
+.encounter.phase-item .move-buttons.open,
+.encounter.phase-command .battle-actions {
+  display: grid !important;
+}
+
+.encounter.quest-mode .encounter-stage {
+  grid-template-rows: 1fr;
+}
+
+.encounter.quest-mode .ally-card {
+  display: none;
+}
+
+.encounter.quest-mode .trial-card {
+  min-height: 100dvh;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  overflow: auto;
+}
+
+.encounter.quest-mode .question-text {
+  grid-row: 3;
+  align-self: center;
+  font-size: clamp(20px, 3vw, 34px);
+}
+
+.encounter.quest-mode .source-panel {
+  grid-row: 3;
+}
+
+.encounter.quest-mode .choices,
+.encounter.quest-mode .typed-form {
+  grid-row: 4;
+}
+
+.encounter.answering .ally-card {
+  display: block;
+}
+
+.encounter.answering .encounter-stage {
+  grid-template-rows: minmax(0, 44fr) minmax(250px, 56fr);
+}
+
+.encounter.answering .trial-card {
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+}
+
+.encounter.phase-intro .battle-board::after {
+  opacity: 0;
+  transform: translate(-60px, 18px);
+}
+
+.encounter.phase-intro .ally-card .portrait {
+  animation: wild-appear .75s steps(5, end);
+}
+
+.encounter.phase-sendout .battle-board::after {
+  animation: hero-sendout .72s steps(5, end);
+}
+
+.encounter.fx-hero-attack .battle-board::after {
+  animation: hero-lunge .5s steps(4, end);
+}
+
+.encounter.fx-enemy-hit .ally-card .portrait {
+  animation: enemy-hit .58s steps(3, end);
+}
+
+.encounter.fx-enemy-hit .battler.enemy {
+  animation: panel-shake .42s steps(3, end);
+}
+
+.encounter.fx-hero-hit .battle-board::after,
+.encounter.fx-hero-hit .battler.player {
+  animation: hero-hit .58s steps(3, end);
+}
+
+.encounter.fx-capsule .ally-card .portrait {
+  animation: capsule-shake .8s steps(6, end);
+}
+
+.encounter.fx-study .battle-log {
+  animation: study-flash .65s steps(4, end);
+}
+
+@keyframes battle-caret {
+  0%, 45% { opacity: 1; }
+  46%, 100% { opacity: 0; }
+}
+
+@keyframes wild-appear {
+  0% { opacity: 0; transform: translateX(90px) scale(.82); }
+  70% { opacity: 1; transform: translateX(-8px) scale(1.05); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes hero-sendout {
+  0% { opacity: 0; transform: translate(-90px, 22px) scale(.72); }
+  70% { opacity: 1; transform: translate(10px, -3px) scale(1.08); }
+  100% { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+
+@keyframes hero-lunge {
+  0% { transform: translate(0, 0); }
+  45% { transform: translate(24px, -14px); filter: brightness(1.25) grayscale(1) sepia(1) saturate(3.1) hue-rotate(28deg) contrast(1.3); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes enemy-hit {
+  0% { transform: translate(0, 0); opacity: 1; }
+  20% { transform: translate(16px, 0); opacity: .35; }
+  42% { transform: translate(-12px, 0); opacity: 1; }
+  64% { transform: translate(9px, 0); opacity: .45; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+
+@keyframes hero-hit {
+  0% { transform: translate(0, 0); opacity: 1; }
+  25% { transform: translate(-18px, 10px); opacity: .35; }
+  55% { transform: translate(10px, -4px); opacity: 1; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+
+@keyframes panel-shake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(8px, 0); }
+  50% { transform: translate(-7px, 0); }
+  75% { transform: translate(4px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes capsule-shake {
+  0% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(-14px, 0) scale(.88); }
+  40% { transform: translate(14px, 0) scale(.88); }
+  60% { transform: translate(-8px, 0) scale(.88); }
+  80% { transform: translate(8px, 0) scale(.88); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes study-flash {
+  0%, 100% { filter: none; }
+  50% { filter: brightness(1.35); }
+}
+
+@media (max-width: 740px) {
+  .encounter-stage {
+    grid-template-rows: minmax(0, 48fr) minmax(0, 52fr);
+  }
+
+  .ally-card .portrait {
+    right: 2%;
+    top: 6%;
+    width: 43vw;
+    height: 25dvh;
+    min-height: 130px;
+  }
+
+  .trial-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 7px;
+    padding: 8px;
+  }
+
+  .battle-log,
+  .battle-actions,
+  .move-buttons {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    width: 100%;
+    align-self: stretch;
+    justify-self: stretch;
+  }
+
+  .battle-log {
+    min-height: 78px;
+  }
+
+  .battle-actions,
+  .move-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .battle-board::after {
+    left: 6%;
+    bottom: 12%;
+    scale: 1.38;
+  }
+
+  .encounter.answering .encounter-stage {
+    grid-template-rows: minmax(0, 31fr) minmax(0, 69fr);
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .encounter-stage {
+    grid-template-rows: minmax(0, 58fr) minmax(180px, 42fr);
+  }
+
+  .ally-card .portrait {
+    top: 3%;
+    height: 43dvh;
+  }
+
+  .battle-board::after {
+    bottom: 11%;
+    scale: 1.45;
   }
 }

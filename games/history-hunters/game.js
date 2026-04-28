@@ -16,6 +16,7 @@
     courseFilter: $("courseFilter"),
     setFilter: $("setFilter"),
     huntBtn: $("huntBtn"),
+    questBtn: $("questBtn"),
     actionBtn: $("actionBtn"),
     mapBtn: $("mapBtn"),
     bagBtn: $("bagBtn"),
@@ -186,7 +187,7 @@
       x: 1250,
       y: 930,
       type: "Guide",
-      text: "Walk into tall grass to trigger wild review encounters. Use Talk / Use near buildings and people.",
+      text: "Walk into tall grass to trigger wild figure battles. Use Talk near buildings and people for quests, items, and lore.",
       grant: "starter"
     },
     {
@@ -195,7 +196,7 @@
       x: 1710,
       y: 920,
       type: "Route Rival",
-      text: "I am clearing the archive routes with a full roster. Beat my checkpoint questions and prove your party is ready.",
+      text: "I am clearing the archive routes with a full roster. Bring real moves, items, and type matchups if you want to pass me.",
       action: "battle"
     },
     {
@@ -204,7 +205,7 @@
       x: 2295,
       y: 1410,
       type: "Source Coach",
-      text: "Stimulus questions are not bonus flavor. Read the map, cartoon, chart, or excerpt first, then attack.",
+      text: "The museum posts source quests. Read the map, cartoon, chart, or excerpt first, then collect XP and shards.",
       grant: "lens"
     },
     {
@@ -230,19 +231,19 @@
     capsule: {
       label: "Archive Capsule",
       price: 24,
-      description: "Starts a capture check during battle. Best after a correct answer.",
+      description: "Attempts a recruitment capture during battle. Best after lowering HP.",
       battle: true
     },
     fieldNote: {
       label: "Field Notes",
       price: 18,
-      description: "Boosts the next correct answer and capture trust.",
+      description: "Boosts your next battle move and helps a figure trust you.",
       battle: true
     },
     sourceLens: {
       label: "Source Lens",
       price: 32,
-      description: "Shows a source-reading hint and boosts stimulus questions.",
+      description: "Shows a source-reading hint during review contracts.",
       battle: true
     },
     healKit: {
@@ -412,16 +413,16 @@
   };
 
   const figureAtlasFiles = [
-    "../../assets/history-hunters/figure-evolution-atlas-1.png",
-    "../../assets/history-hunters/figure-evolution-atlas-2.png",
-    "../../assets/history-hunters/figure-evolution-atlas-3.png",
-    "../../assets/history-hunters/figure-evolution-atlas-4.png",
-    "../../assets/history-hunters/figure-evolution-atlas-5.png",
-    "../../assets/history-hunters/figure-evolution-atlas-6.png",
-    "../../assets/history-hunters/figure-evolution-atlas-7.png",
-    "../../assets/history-hunters/figure-evolution-atlas-8.png",
-    "../../assets/history-hunters/figure-evolution-atlas-9.png",
-    "../../assets/history-hunters/figure-evolution-atlas-10.png"
+    "../../assets/history-hunters/keyed/figure-evolution-atlas-1-keyed.png",
+    "../../assets/history-hunters/keyed/figure-evolution-atlas-2-keyed.png",
+    "../../assets/history-hunters/keyed/figure-evolution-atlas-3-keyed.png",
+    "../../assets/history-hunters/keyed/figure-evolution-atlas-4-keyed.png",
+    "../../assets/history-hunters/keyed/figure-evolution-atlas-5-keyed.png",
+    "../../assets/history-hunters/keyed/figure-evolution-atlas-6-keyed.png",
+    "../../assets/history-hunters/keyed/figure-evolution-atlas-7-keyed.png",
+    "../../assets/history-hunters/keyed/figure-evolution-atlas-8-keyed.png",
+    "../../assets/history-hunters/keyed/figure-evolution-atlas-9-keyed.png",
+    "../../assets/history-hunters/keyed/figure-evolution-atlas-10-keyed.png"
   ];
   const allFigureFamilies = Object.entries(figureFamiliesByType).flatMap(([type, rows]) => (
     rows.map((row) => ({
@@ -557,6 +558,7 @@
     activeInteraction: null,
     running: false,
     encounterOpen: false,
+    questActive: null,
     locked: false,
     currentQuestion: null,
     currentAlly: null,
@@ -842,6 +844,10 @@
     return historicalOpponents[name] || "the review obstacle";
   }
 
+  function playerTitle() {
+    return "Chronicle Trainer";
+  }
+
   function shout(text) {
     return cleanText(text || "").toUpperCase();
   }
@@ -850,7 +856,41 @@
     const first = (state.stats.roster || [])[0];
     if (first) return first.actualName || first.name || "Field Team";
     if (state.currentAlly && state.currentAlly.actualName) return state.currentAlly.actualName;
-    return "Field Team";
+    return playerTitle();
+  }
+
+  function opponentMoveFor(ally) {
+    const target = opponentFor(ally).toLowerCase();
+    if (/british empire|imperial/.test(target)) return "Imperial Pressure";
+    if (/confederacy|secession/.test(target)) return "Secession Surge";
+    if (/depression|panic|inflation/.test(target)) return "Economic Shock";
+    if (/jim crow|segregation|apartheid/.test(target)) return "Barrier Wall";
+    if (/old regime|coalition|monopoly|mercantilism/.test(target)) return "Status Quo";
+    if (/chaos|crisis|disorder/.test(target)) return "Crisis Spiral";
+    if (/colonial|empire|land grab/.test(target)) return "Power Grab";
+    if (/blank map|distance|route|trail/.test(target)) return "Fog of History";
+    return "Context Counter";
+  }
+
+  function loreLineFor(ally, mode) {
+    const family = familiesById[ally && ally.familyId] || null;
+    const name = ally && ally.actualName || family && family.historicalName || ally && ally.name || "This figure";
+    const target = opponentFor(ally);
+    if (mode === "intro") return `${name}'s echo is tangled with ${target}. Win the battle to bring the story back into focus.`;
+    if (mode === "parley") return `${name}: "${cleanText(family && family.line || ally && ally.role || "History is stronger when you know the context.")}"`;
+    if (mode === "capture") return `${name} watches your choices. Lower HP, build trust, then use an Archive Capsule.`;
+    return cleanText(ally && ally.role || `${name} enters the route.`);
+  }
+
+  function attackDamage(moveUsed, attackerType, defenderType, level, boost) {
+    const multiplier = typeEffect(attackerType || moveUsed.type, defenderType || "Review");
+    const base = Number(moveUsed.power || 22);
+    const rankBonus = Math.min(18, Number(level || 1) * 2);
+    const variance = 0.9 + Math.random() * 0.18;
+    return {
+      amount: Math.max(5, Math.round((base + rankBonus + (boost ? 10 : 0)) * multiplier * variance)),
+      multiplier
+    };
   }
 
   function movesFor(q, family, lane) {
@@ -860,7 +900,7 @@
     const moves = [
       signatureMoveFor(family, type),
       move(laneMove, type, 29, `A ${type} type move powered by this course lane.`),
-      move("Context Check", type, 22, "Sets up the question with broader historical context.")
+      move("Context Check", type, 22, "Uses broader historical context as battle pressure.")
     ];
     if (/source|document|excerpt|cartoon|map|graph|photograph|poster|passage|stimulus/.test(blob) || q.stimulusRequired) {
       moves.splice(1, 0, move("Source Scan", type, 32, "Reads the stimulus before the attack lands."));
@@ -984,7 +1024,7 @@
     const label = state.selectedNode ? state.selectedNode.label : (set !== "All Sets" ? set : course);
     const chapter = storyChapters[state.stats.storyStep || 0] || storyChapters[0];
     els.activeRegion.textContent = label || "Open Archive";
-    els.questText.textContent = `${chapter} ${state.filtered.length.toLocaleString()} prompts available. Walk routes, talk to NPCs, heal at Chronicle Center, and hunt in tall grass.`;
+    els.questText.textContent = `${chapter} ${state.filtered.length.toLocaleString()} review contracts available. Hunt figures in tall grass, then take side quests for XP, shards, and items.`;
   }
 
   function fillFilters() {
@@ -1064,7 +1104,7 @@
     const first = (state.stats.roster || [])[0];
     if (first) {
       return {
-        name: first.name,
+        name: first.actualName || first.name,
         actualName: first.actualName || first.name,
         type: first.type || "Review",
         moves: first.moves && first.moves.length ? first.moves : fallbackMoves,
@@ -1073,7 +1113,7 @@
     }
     if (state.currentAlly && state.currentAlly.moves && state.currentAlly.moves.length) {
       return {
-        name: "Field Researcher",
+        name: playerTitle(),
         actualName: state.currentAlly.actualName || state.currentAlly.name,
         type: state.currentAlly.type || "Review",
         moves: state.currentAlly.moves,
@@ -1084,13 +1124,13 @@
       ? (typeData[state.currentAlly.type] ? { name: state.currentAlly.type, move: typeData[state.currentAlly.type].move || "Archive Pulse" } : courseTypeFor(state.currentAlly.course))
       : courseTypeFor(els.courseFilter.value);
     return {
-      name: "Field Researcher",
+      name: playerTitle(),
       type: lane.name,
       moves: [
         move(lane.move || "Archive Pulse", lane.name, 25, "Starter course-type pressure."),
-        move("Source Scan", lane.name, 22, "Read the evidence before answering."),
-        move("Context Check", lane.name, 20, "Add the missing background."),
-        move("Recall Rush", lane.name, 18, "Fast review recall.")
+        move("Source Scan", lane.name, 22, "Reads the evidence trail and finds a weak point."),
+        move("Context Check", lane.name, 20, "Adds the missing background before the strike."),
+        move("Recall Rush", lane.name, 18, "Fast historical recall pressure.")
       ],
       palette: palettes[0]
     };
@@ -1108,13 +1148,50 @@
     els.enemyHp.style.width = `${clamp(battle.enemyHp, 0, 100)}%`;
   }
 
+  function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  function isCurrentBattle(battle) {
+    return state.encounterOpen && state.battle && state.battle === battle;
+  }
+
+  function setEncounterPhase(phase) {
+    ["intro", "sendout", "command", "move", "item", "windup", "question", "resolve", "faint", "capture"].forEach((name) => {
+      els.encounter.classList.toggle(`phase-${name}`, phase === name);
+    });
+    if (state.battle) state.battle.phase = phase;
+  }
+
+  function flashBattleFx(className, duration = 520) {
+    els.encounter.classList.add(className);
+    setTimeout(() => els.encounter.classList.remove(className), duration);
+  }
+
+  async function showBattleMessage(text, ms = 800) {
+    setBattleLog(text);
+    await wait(ms);
+  }
+
+  function prepareCommand(message) {
+    if (!state.battle) return;
+    state.locked = false;
+    state.battle.awaitingAnswer = false;
+    state.battle.pendingMove = null;
+    setEncounterPhase("command");
+    clearQuestionArea(message || `What will ${shout(heroAlly().name)} do?`);
+    renderBattleActions();
+    renderMoveButtons();
+    setBattleLog(message || `What will ${shout(heroAlly().name)} do?`);
+  }
+
   function renderBattleActions() {
     if (!els.battleActions) return;
     els.battleActions.classList.remove("answering");
     els.battleActions.innerHTML = [
       ["fight", "Fight", "choose a move"],
-      ["study", "Study", `notes x${state.stats.items.fieldNote || 0}`],
-      ["capsule", "Capsule", `capsules x${state.stats.items.capsule || 0}`],
+      ["item", "Bag", "items"],
+      ["talk", "Talk", "build trust"],
       ["run", "Run", "leave safely"]
     ].map(([action, label, detail]) => (
       `<button type="button" data-action="${action}" class="${action}"><strong>${label}</strong><small>${detail}</small></button>`
@@ -1124,49 +1201,50 @@
     });
   }
 
-  function chooseAction(action) {
+  async function chooseAction(action) {
     if (!state.battle || state.battle.awaitingAnswer || state.locked) return;
     if (action === "run") {
+      state.locked = true;
+      setEncounterPhase("resolve");
       setBattleLog("Got away safely. The route stays open.");
       setFeedback("Retreated from the encounter.", "bad");
       setTimeout(closeEncounter, 650);
       return;
     }
-    if (action === "study") {
-      if (!spendItem("fieldNote")) {
-        setBattleLog("No Field Notes left. Visit Archive Supply or choose a move.");
-        return;
-      }
-      state.battle.studyBoost = true;
-      state.capture = clamp(state.capture + 14, 0, 100);
-      els.captureBar.style.width = `${state.capture}%`;
-      setBattleLog("Field Notes prepared. The next correct answer gets a power and capture boost.");
-      clearQuestionArea("Choose Fight or throw an Archive Capsule when ready.");
+    if (action === "item") {
+      setEncounterPhase("item");
+      renderBattleItems();
+      els.moveButtons.classList.add("open");
+      setBattleLog("Open the field bag. Items use your turn.");
       return;
     }
-    if (action === "capsule") {
-      if (!state.stats.items.capsule) {
-        setBattleLog("No Archive Capsules left. Visit Archive Supply or keep fighting.");
-        return;
-      }
-      if (state.capture < 35 && state.battle.enemyHp > 70) {
-        setBattleLog("The echo broke free. Build trust with an answer first.");
-        return;
-      }
-      const q = state.currentQuestion || nextQuestion();
-      if (!q) {
-        setBattleLog("No checkpoint questions are available in this region.");
-        return;
-      }
-      const hero = heroAlly();
-      spendItem("capsule");
-      state.battle.pendingMove = { name: "Archive Capsule", type: hero.type, power: 12, captureBoost: true };
-      setBattleLog("Archive Capsule armed. Answer the checkpoint to seal the recruit.");
-      renderQuestion(q);
+    if (action === "talk") {
+      await parleyTurn();
       return;
     }
+    setEncounterPhase("move");
+    renderMoveButtons();
     els.moveButtons.classList.add("open");
-    setBattleLog("Choose a course-type move. The question will power the attack.");
+    setBattleLog(`Choose a move for ${shout(heroAlly().name)}.`);
+  }
+
+  function renderBattleItems() {
+    const items = [
+      ["fieldNote", "Field Notes", `x${state.stats.items.fieldNote || 0}`, "next move + trust"],
+      ["capsule", "Archive Capsule", `x${state.stats.items.capsule || 0}`, "try to recruit"],
+      ["healKit", "Restoration Tea", `x${state.stats.items.healKit || 0}`, "restore 35 HP"],
+      ["treatyPass", "Treaty Pass", `x${state.stats.items.treatyPass || 0}`, "safe exit"]
+    ];
+    els.moveButtons.classList.remove("answering", "open");
+    els.moveButtons.innerHTML = items.map(([id, label, count, detail]) => (
+      `<button type="button" data-item="${id}"${Number(state.stats.items[id] || 0) <= 0 ? " disabled" : ""}>` +
+        `<strong>${escapeHtml(label)} ${escapeHtml(count)}</strong>` +
+        `<small>${escapeHtml(detail)}</small>` +
+      `</button>`
+    )).join("");
+    Array.prototype.forEach.call(els.moveButtons.querySelectorAll("button[data-item]"), (button) => {
+      button.addEventListener("click", () => chooseBattleItem(button.dataset.item));
+    });
   }
 
   function renderMoveButtons() {
@@ -1188,6 +1266,121 @@
     els.battleLog.textContent = text;
   }
 
+  async function enemyCounterTurn(reason) {
+    const battle = state.battle;
+    const ally = state.currentAlly;
+    if (!battle || !ally || battle.enemyHp <= 0) return;
+    state.locked = true;
+    const hero = heroAlly();
+    const counterMove = opponentMoveFor(ally);
+    const enemyLevel = Math.max(1, Number(ally.level || 1));
+    const result = attackDamage({ name: counterMove, type: ally.type, power: reason === "parley" ? 13 : 17 }, ally.type, hero.type, enemyLevel, false);
+    setEncounterPhase("resolve");
+    await showBattleMessage(`${shout(opponentFor(ally))} used ${shout(counterMove)}!`, 620);
+    if (!isCurrentBattle(battle)) return;
+    battle.heroHp = clamp(battle.heroHp - result.amount, 0, state.stats.maxHp || 100);
+    state.stats.playerHp = battle.heroHp;
+    flashBattleFx("fx-hero-hit", 620);
+    renderBattle();
+    await showBattleMessage(`${effectSentence(result.multiplier)} ${shout(hero.name)} lost ${result.amount} HP.`, 760);
+    if (!isCurrentBattle(battle)) return;
+    updateHud();
+    writeSave();
+    if (battle.heroHp <= 0) {
+      retreatEncounter();
+    }
+  }
+
+  async function parleyTurn() {
+    const battle = state.battle;
+    const ally = state.currentAlly;
+    if (!battle || !ally) return;
+    state.locked = true;
+    setEncounterPhase("resolve");
+    flashBattleFx("fx-study", 650);
+    const trust = ally.sensitive ? 18 : 12 + Math.floor(Math.random() * 9);
+    state.capture = clamp(state.capture + trust, 0, 100);
+    els.captureBar.style.width = `${state.capture}%`;
+    await showBattleMessage(loreLineFor(ally, "parley"), 1150);
+    if (!isCurrentBattle(battle)) return;
+    await showBattleMessage(`Trust rose to ${state.capture}%.`, 600);
+    if (!isCurrentBattle(battle)) return;
+    if (Math.random() < .62 && battle.enemyHp > 0) {
+      await enemyCounterTurn("parley");
+      if (!isCurrentBattle(battle) || battle.heroHp <= 0) return;
+    }
+    prepareCommand(`What will ${shout(heroAlly().name)} do?`);
+  }
+
+  async function chooseBattleItem(id) {
+    if (!state.battle || state.locked) return;
+    const battle = state.battle;
+    const ally = state.currentAlly;
+    if (!id || !state.stats.items[id]) {
+      setBattleLog("That pocket is empty.");
+      return;
+    }
+    els.bagPanel.classList.remove("show");
+    state.locked = true;
+    setEncounterPhase("windup");
+    els.moveButtons.classList.remove("open");
+    if (id === "fieldNote") {
+      spendItem(id);
+      battle.studyBoost = true;
+      state.capture = clamp(state.capture + 12, 0, 100);
+      els.captureBar.style.width = `${state.capture}%`;
+      flashBattleFx("fx-study", 700);
+      await showBattleMessage("Field Notes opened. Your next move gets a research boost.", 760);
+      if (!isCurrentBattle(battle)) return;
+      prepareCommand(`Trust rose to ${state.capture}%.`);
+      return;
+    }
+    if (id === "healKit") {
+      spendItem(id);
+      healParty(35);
+      flashBattleFx("fx-study", 600);
+      await showBattleMessage("Restoration Tea restored 35 HP.", 700);
+      if (!isCurrentBattle(battle)) return;
+      await enemyCounterTurn("item");
+      if (!isCurrentBattle(battle) || battle.heroHp <= 0) return;
+      prepareCommand(`What will ${shout(heroAlly().name)} do?`);
+      return;
+    }
+    if (id === "treatyPass") {
+      spendItem(id);
+      await showBattleMessage("Treaty Pass used. You withdrew safely and kept your streak.", 700);
+      if (isCurrentBattle(battle)) closeEncounter();
+      return;
+    }
+    if (id === "capsule") {
+      spendItem(id);
+      const missingHp = 100 - clamp(battle.enemyHp, 0, 100);
+      const baseChance = 18 + missingHp * .48 + state.capture * .44 + (battle.studyBoost ? 9 : 0);
+      const chance = ally && ally.sensitive ? 0 : clamp(baseChance, 12, 92);
+      flashBattleFx("fx-capsule", 900);
+      await showBattleMessage(`${shout(playerTitle())} threw an ARCHIVE CAPSULE!`, 680);
+      if (!isCurrentBattle(battle)) return;
+      await showBattleMessage("Shake... shake...", 760);
+      if (!isCurrentBattle(battle)) return;
+      if (Math.random() * 100 <= chance) {
+        state.capture = 100;
+        els.captureBar.style.width = "100%";
+        setEncounterPhase("capture");
+        await showBattleMessage(`${shout(ally.actualName || ally.name)} joined the Chronicle Roster!`, 880);
+        if (isCurrentBattle(battle)) completeEncounter("capture");
+        return;
+      }
+      state.capture = clamp(state.capture + 8, 0, 100);
+      els.captureBar.style.width = `${state.capture}%`;
+      await showBattleMessage(`${shout(ally.name)} broke free! It is watching you more closely.`, 760);
+      if (!isCurrentBattle(battle)) return;
+      await enemyCounterTurn("item");
+      if (!isCurrentBattle(battle) || battle.heroHp <= 0) return;
+      battle.studyBoost = false;
+      prepareCommand(`Capture chance improves after damage and Talk. Trust: ${state.capture}%.`);
+    }
+  }
+
   function initials(name) {
     const words = cleanText(name).split(/\s+/).filter(Boolean);
     return (words[0] && words[1] ? words[0][0] + words[1][0] : (words[0] || "HH").slice(0, 2)).toUpperCase();
@@ -1196,6 +1389,7 @@
   function renderQuestion(q) {
     state.currentQuestion = q;
     state.locked = false;
+    setEncounterPhase("question");
     els.encounter.classList.add("answering");
     if (state.battle) state.battle.awaitingAnswer = true;
     els.moveButtons.classList.add("answering");
@@ -1203,7 +1397,13 @@
     els.questionText.style.display = "block";
     els.questionText.textContent = displayPrompt(q);
     els.trialMeta.textContent = `${cleanText(q.course || "Social Studies")} / ${cleanText(q.set || "Review")}`;
-    els.trialKicker.textContent = state.currentAlly && state.currentAlly.sensitive ? "Archive Mission" : "Recruitment Trial";
+    els.trialKicker.textContent = state.questActive
+      ? "Side Quest Contract"
+      : state.currentAlly && state.currentAlly.sensitive ? "Archive Mission" : "Route Battle";
+    if (state.questActive) {
+      setBattleLog(state.questActive.log || "Complete the checkpoint to earn XP, shards, and field items.");
+      state.capture = 0;
+    }
     renderSource(q);
     setFeedback("", "");
     els.captureBar.style.width = `${state.capture}%`;
@@ -1242,6 +1442,21 @@
     els.sourcePanel.innerHTML = "";
   }
 
+  async function runBattleIntro(battle, ally) {
+    state.locked = true;
+    setEncounterPhase("intro");
+    clearQuestionArea("");
+    await showBattleMessage(`Wild ${shout(ally.name)} appeared!`, 900);
+    if (!isCurrentBattle(battle)) return;
+    await showBattleMessage(loreLineFor(ally, "intro"), 1150);
+    if (!isCurrentBattle(battle)) return;
+    setEncounterPhase("sendout");
+    flashBattleFx("fx-sendout", 780);
+    await showBattleMessage(`Go! ${shout(heroAlly().name)}!`, 820);
+    if (!isCurrentBattle(battle)) return;
+    prepareCommand(`What will ${shout(heroAlly().name)} do?`);
+  }
+
   function openEncounter() {
     const pool = filteredForNode();
     if (!pool.length) return;
@@ -1256,49 +1471,126 @@
     const q = nextQuestion();
     const ally = makeAlly(q);
     state.currentAlly = ally;
-    state.currentQuestion = q;
-    state.battle = { heroHp: state.stats.playerHp || state.stats.maxHp || 100, enemyHp: 100, pendingMove: null, awaitingAnswer: false };
+    state.currentQuestion = null;
+    state.questActive = null;
+    state.battle = { heroHp: state.stats.playerHp || state.stats.maxHp || 100, enemyHp: 100, pendingMove: null, awaitingAnswer: false, phase: "intro" };
     state.capture = 0;
     state.trial = 0;
     state.encounterOpen = true;
+    els.encounter.classList.remove("quest-mode");
     document.body.classList.add("encounter-open");
     document.body.classList.remove("menu-open");
     renderAlly(ally);
     renderBattle();
     renderBattleActions();
     renderMoveButtons();
+    els.trialKicker.textContent = "Route Battle";
+    els.trialMeta.textContent = `${cleanText(ally.course || "Social Studies")} / ${cleanText(ally.type || "Review")} type`;
+    els.captureBar.style.width = "0%";
     els.encounter.hidden = false;
     els.encounter.classList.add("pulse");
     setTimeout(() => els.encounter.classList.remove("pulse"), 650);
-    clearQuestionArea(ally.sensitive ? "Archive mission loaded. Answer carefully to preserve context." : "What will the field team do?");
-    setBattleLog(`${ally.name} appeared. ${ally.type} type. ${typeData[ally.type]?.flavor || "review energy"}.`);
+    clearQuestionArea("");
+    runBattleIntro(state.battle, ally);
   }
 
   function closeEncounter() {
     state.encounterOpen = false;
+    state.questActive = null;
     state.locked = false;
     state.battle = null;
     state.wildCooldown = 4;
     els.encounter.classList.remove("answering");
+    els.encounter.classList.remove("quest-mode");
+    setEncounterPhase("");
     document.body.classList.remove("encounter-open");
     els.encounter.hidden = true;
   }
 
-  function chooseMove(index) {
+  function questRewardFor(q) {
+    const sourceHeavy = !!(q && (q.stimulusRequired || stimulusImagesFor(q).length || sourceTextFor(q)));
+    const value = Number(q && q.value || 200);
+    return {
+      xp: sourceHeavy ? 34 : 24 + Math.min(16, Math.round(value / 60)),
+      shards: sourceHeavy ? 34 : 20 + Math.min(18, Math.round(value / 40)),
+      item: sourceHeavy ? "sourceLens" : Math.random() < .45 ? "fieldNote" : "capsule"
+    };
+  }
+
+  function openReviewQuest(origin) {
+    const pool = filteredForNode();
+    const questPool = pool.filter((q) => q && q.prompt && q.answer);
+    const q = shuffle(questPool)[0] || nextQuestion();
+    if (!q) {
+      setDialogue("Side Quest", "No Contracts", "No review contracts are available for the current course filter.", [
+        { action: "close", label: "Close" }
+      ]);
+      return;
+    }
+    const reward = questRewardFor(q);
+    state.questActive = {
+      origin: origin || "Route Contract",
+      q,
+      reward,
+      log: `Side quest: clear this ${cleanText(q.course || "social studies")} checkpoint for ${reward.xp} XP, ${reward.shards} shards, and a field item.`
+    };
+    state.battle = null;
+    state.currentAlly = makeAlly(q);
+    state.currentQuestion = q;
+    state.capture = 0;
+    state.trial = 0;
+    state.encounterOpen = true;
+    state.locked = false;
+    document.body.classList.add("encounter-open");
+    document.body.classList.remove("menu-open");
+    els.encounter.classList.add("quest-mode");
+    renderAlly(state.currentAlly);
+    renderBattle();
+    renderBattleActions();
+    renderMoveButtons();
+    els.encounter.hidden = false;
+    renderQuestion(q);
+  }
+
+  async function chooseMove(index) {
     if (!state.battle || state.battle.awaitingAnswer || state.locked) return;
     const hero = heroAlly();
     const selected = hero.moves[index] || hero.moves[0] || fallbackMoves[0];
+    const battle = state.battle;
+    const ally = state.currentAlly || { type: "Review", name: "Archive Echo" };
+    state.locked = true;
     state.battle.pendingMove = selected;
-    const q = state.currentQuestion || nextQuestion();
-    if (!q) {
-      setBattleLog("No questions are available in this region. Change course or unit.");
-      state.battle.pendingMove = null;
+    const result = attackDamage(selected, selected.type, ally.type || "Review", state.stats.rank || 1, battle.studyBoost);
+    setEncounterPhase("windup");
+    els.moveButtons.classList.remove("open");
+    flashBattleFx("fx-hero-attack", 540);
+    await showBattleMessage(`${shout(moveActorName())} used ${shout(selected.name)}!`, 680);
+    if (!isCurrentBattle(battle)) return;
+    battle.enemyHp = clamp(battle.enemyHp - result.amount, 0, 100);
+    const trustGain = Math.round(8 + result.amount * .28 + (battle.studyBoost ? 8 : 0) + (result.multiplier > 1.2 ? 6 : 0));
+    state.capture = clamp(state.capture + trustGain, 0, 100);
+    flashBattleFx("fx-enemy-hit", 620);
+    renderBattle();
+    els.captureBar.style.width = `${state.capture}%`;
+    await showBattleMessage(`${effectSentence(result.multiplier)} ${shout(opponentFor(ally))} took ${result.amount} damage.`, 800);
+    if (!isCurrentBattle(battle)) return;
+    battle.studyBoost = false;
+    battle.pendingMove = null;
+    if (battle.enemyHp <= 0) {
+      setEncounterPhase("faint");
+      await showBattleMessage(`${shout(opponentFor(ally))} fainted!`, 760);
+      if (isCurrentBattle(battle)) completeEncounter("defeat");
       return;
     }
-    const enemy = state.currentAlly || { type: "Review" };
-    const multiplier = typeEffect(selected.type, enemy.type || "Review");
-    setBattleLog(`${shout(moveActorName())} used ${shout(selected.name)}! ${effectSentence(multiplier)} Answer to power the move against ${opponentFor(enemy)}.`);
-    renderQuestion(q);
+    if (state.capture >= 100) {
+      setEncounterPhase("capture");
+      await showBattleMessage(`${shout(ally.actualName || ally.name)} trusts your team and joins the roster!`, 850);
+      if (isCurrentBattle(battle)) completeEncounter("capture");
+      return;
+    }
+    await enemyCounterTurn("attack");
+    if (!isCurrentBattle(battle) || battle.heroHp <= 0) return;
+    prepareCommand(`${ally.name} is still in the fight. Trust: ${state.capture}%.`);
   }
 
   function checkAnswer(q, raw) {
@@ -1306,8 +1598,48 @@
     return typedMatches(raw, [q.answer].concat(q.aliases || []));
   }
 
-  function submitAnswer(raw) {
+  async function submitQuestAnswer(raw) {
     if (state.locked) return;
+    const quest = state.questActive;
+    const q = quest && quest.q || state.currentQuestion;
+    if (!quest || !q) return;
+    state.locked = true;
+    const correct = checkAnswer(q, raw);
+    const expected = answerLabel(q);
+    els.choices.style.display = "none";
+    els.typedForm.style.display = "none";
+    setEncounterPhase("resolve");
+    if (correct) {
+      const reward = quest.reward || questRewardFor(q);
+      state.stats.streak += 1;
+      state.stats.bestStreak = Math.max(state.stats.bestStreak || 0, state.stats.streak);
+      state.stats.missions += 1;
+      state.stats.shards += reward.shards;
+      state.stats.items[reward.item] = Number(state.stats.items[reward.item] || 0) + 1;
+      addXp(reward.xp);
+      setFeedback(`Correct. +${reward.xp} XP, +${reward.shards} shards, +1 ${itemCatalog[reward.item].label}. ${q.explanation || ""}`, "good");
+      setBattleLog(`Contract clear! ${itemCatalog[reward.item].label} added to your bag.`);
+      flashBattleFx("fx-study", 750);
+    } else {
+      state.stats.streak = 0;
+      const consolation = 6;
+      state.stats.shards += consolation;
+      setFeedback(`Not quite. Answer: ${expected}. ${q.explanation || ""}`, "bad");
+      setBattleLog(`Quest logged for retry. You still found ${consolation} shards while studying the route.`);
+    }
+    writeSave();
+    updateHud();
+    renderBag();
+    await wait(correct ? 1450 : 2200);
+    if (state.questActive === quest) closeEncounter();
+  }
+
+  async function submitAnswer(raw) {
+    if (state.locked) return;
+    if (state.questActive) {
+      await submitQuestAnswer(raw);
+      return;
+    }
     const q = state.currentQuestion;
     const ally = state.currentAlly;
     const battle = state.battle;
@@ -1320,6 +1652,10 @@
     const multiplier = typeEffect(moveUsed.type, ally.type || "Review");
     const actor = moveActorName();
     const target = opponentFor(ally);
+    els.choices.style.display = "none";
+    els.typedForm.style.display = "none";
+    els.encounter.classList.remove("answering");
+    setEncounterPhase("resolve");
     if (correct) {
       state.stats.streak += 1;
       state.stats.bestStreak = Math.max(state.stats.bestStreak || 0, state.stats.streak);
@@ -1335,11 +1671,25 @@
       state.pulse = 1;
       burst(state.player.x, state.player.y, ally.palette[0], 22);
       if (moveUsed.captureBoost) {
+        setBattleLog("Correct!");
+        setFeedback(`Correct. ${q.explanation || "That answer strengthens the bond."}`, "good");
+        flashBattleFx("fx-capsule", 900);
+        await wait(650);
+        if (!isCurrentBattle(battle)) return;
         setBattleLog(`ARCHIVE CAPSULE clicked shut! Trust rose to ${state.capture}%.`);
       } else {
-        setBattleLog(`${shout(actor)} used ${shout(moveUsed.name)}! ${effectSentence(multiplier)} ${target} took ${damage} damage.${fainted ? ` ${shout(target)} fainted!` : ""}`);
+        setBattleLog("Correct!");
+        setFeedback(`Correct. ${q.explanation || "That answer strengthens the bond."}`, "good");
+        await wait(520);
+        if (!isCurrentBattle(battle)) return;
+        flashBattleFx("fx-enemy-hit", 620);
+        setBattleLog(`${shout(actor)}'s ${shout(moveUsed.name)} hit ${target}!`);
+        renderBattle();
+        await wait(820);
+        if (!isCurrentBattle(battle)) return;
+        if (fainted) setBattleLog(`${shout(target)} fainted!`);
+        else setBattleLog(`${effectSentence(multiplier)} Trust rose to ${state.capture}%.`);
       }
-      setFeedback(`Correct. ${q.explanation || "That answer strengthens the bond."}`, "good");
     } else {
       state.stats.streak = 0;
       const counter = ally.sensitive ? 12 : 16 + Math.floor(Math.random() * 10);
@@ -1347,8 +1697,15 @@
       state.stats.playerHp = battle.heroHp;
       state.capture = clamp(state.capture - (moveUsed.captureBoost ? 16 : 10), 0, 100);
       burst(state.player.x, state.player.y, "#ff789d", 12);
-      setBattleLog(moveUsed.captureBoost ? `${ally.name} broke out of the capsule and countered for ${counter}.` : `${shout(target)} countered for ${counter}. ${shout(actor)} needs better evidence.`);
+      setBattleLog("Not quite!");
       setFeedback(`Not quite. Answer: ${expected}. ${q.explanation || ""}`, "bad");
+      await wait(1050);
+      if (!isCurrentBattle(battle)) return;
+      flashBattleFx("fx-hero-hit", 620);
+      setBattleLog(moveUsed.captureBoost ? `${ally.name} broke out and countered for ${counter}.` : `${shout(target)} countered for ${counter}.`);
+      renderBattle();
+      await wait(860);
+      if (!isCurrentBattle(battle)) return;
     }
     battle.pendingMove = null;
     battle.awaitingAnswer = false;
@@ -1359,22 +1716,20 @@
     updateHud();
     writeSave();
     if (state.capture >= 100 || battle.enemyHp <= 0) {
-      setTimeout(completeEncounter, 650);
+      setEncounterPhase(battle.enemyHp <= 0 ? "faint" : "capture");
+      await wait(760);
+      if (isCurrentBattle(battle)) completeEncounter();
       return;
     }
     if (battle.heroHp <= 0) {
-      setTimeout(retreatEncounter, 900);
+      await wait(500);
+      if (isCurrentBattle(battle)) retreatEncounter();
       return;
     }
-    setTimeout(() => {
-      const next = nextQuestion();
-      state.currentQuestion = next || nextQuestion();
-      state.locked = false;
-      clearQuestionArea("What will the field team do next?");
-      renderBattleActions();
-      renderMoveButtons();
-      setBattleLog(`${ally.name} is watching carefully. Capture trust: ${state.capture}%.`);
-    }, correct ? 1250 : 1900);
+    await wait(correct ? 760 : 420);
+    if (!isCurrentBattle(battle)) return;
+    state.currentQuestion = nextQuestion() || nextQuestion();
+    prepareCommand(`${ally.name} is watching carefully. Capture trust: ${state.capture}%.`);
   }
 
   function retreatEncounter() {
@@ -1418,8 +1773,9 @@
           level: 1
         });
         state.stats.roster = state.stats.roster.slice(0, 96);
+        state.stats.shards += 40;
         addXp(60);
-        setFeedback(`${ally.name} joined your party.`, "done");
+        setFeedback(`${ally.name} joined your party. +40 shards.`, "done");
         setBattleLog(`${shout(opponentFor(ally))} fainted! ${ally.actualName} joined your roster.`);
       } else {
         const rosterAlly = state.stats.roster.find((item) => item.id === ally.id);
@@ -1457,7 +1813,7 @@
   function renderRoster() {
     const roster = state.stats.roster || [];
     if (!roster.length) {
-      els.rosterList.innerHTML = `<div class="roster-empty">No allies yet. Start a hunt and answer review questions to recruit your first Chronicle Ally.</div>`;
+      els.rosterList.innerHTML = `<div class="roster-empty">No allies yet. Win a figure battle, lower HP, build trust, and use an Archive Capsule to recruit your first Chronicle Ally.</div>`;
       return;
     }
     els.rosterList.innerHTML = roster.map((ally) => {
@@ -1635,6 +1991,7 @@
     const target = item || state.nearInteraction || nearestInteraction(state.player);
     if (!target) {
       setDialogue("Field", "Open Route", "Tap a building, NPC, or route marker to interact. Tall grass starts wild review encounters.", [
+        { action: "quest", label: "Side Quest" },
         { action: "hunt", label: "Start Hunt" },
         { action: "close", label: "Keep Walking" }
       ]);
@@ -1645,7 +2002,7 @@
     if (target.interactionType === "place") actions.push({ action: "enter", label: "Enter" });
     if (target.grant && !state.stats.flags[target.grant]) actions.push({ action: "grant", label: "Take Help" });
     if (target.action === "battle") actions.push({ action: "battle", label: "Challenge" });
-    actions.push({ action: "hunt", label: "Start Hunt" }, { action: "close", label: "Close" });
+    actions.push({ action: "quest", label: "Side Quest" }, { action: "hunt", label: "Start Hunt" }, { action: "close", label: "Close" });
     setDialogue(target.interactionType === "npc" ? target.type : "Location", target.name, target.text, actions);
   }
 
@@ -1657,6 +2014,12 @@
     if (action === "hunt") {
       els.dialoguePanel.hidden = true;
       openEncounter();
+      return;
+    }
+    if (action === "quest") {
+      const source = state.activeInteraction ? state.activeInteraction.name : "Route Contract";
+      els.dialoguePanel.hidden = true;
+      openReviewQuest(source);
       return;
     }
     if (action === "battle") {
@@ -1715,6 +2078,7 @@
         text: "The archive nurse restores party HP and records your expedition log.",
         actions: [
           { action: "heal", label: "Heal Party" },
+          { action: "quest", label: "Nurse's Errand" },
           { action: "leave", label: "Leave" }
         ]
       };
@@ -1728,7 +2092,7 @@
           action: "buy",
           item: id,
           label: `${item.label} ${item.price}`
-        })).concat([{ action: "leave", label: "Leave" }])
+        })).concat([{ action: "quest", label: "Delivery Quest" }, { action: "leave", label: "Leave" }])
       };
     }
     if (place.id === "lab") {
@@ -1738,6 +2102,7 @@
         text: storyChapters[state.stats.storyStep || 0] || storyChapters[0],
         actions: [
           { action: "chapter", label: "Check Story" },
+          { action: "quest", label: "Research Contract" },
           { action: "hunt", label: "Train" },
           { action: "leave", label: "Leave" }
         ]
@@ -1750,7 +2115,8 @@
         text: "Maps, charts, cartoons, excerpts, and photos come before the answer choices.",
         actions: [
           { action: "grant", label: state.stats.flags.lens ? "Review Tip" : "Take Lenses" },
-          { action: "hunt", label: "Source Trial" },
+          { action: "quest", label: "Source Quest" },
+          { action: "hunt", label: "Figure Hunt" },
           { action: "leave", label: "Leave" }
         ]
       };
@@ -1760,6 +2126,7 @@
       title: "Route hub",
       text: place.text || "This route connects new review encounters.",
       actions: [
+        { action: "quest", label: "Side Quest" },
         { action: "hunt", label: "Start Route" },
         { action: "leave", label: "Leave" }
       ]
@@ -1808,6 +2175,12 @@
       els.buildingText.textContent = storyChapters[state.stats.storyStep] || storyChapters[storyChapters.length - 1];
       return;
     }
+    if (action === "quest") {
+      const source = state.activeInteraction ? state.activeInteraction.name : "Town Contract";
+      els.buildingPanel.hidden = true;
+      openReviewQuest(source);
+      return;
+    }
     if (action === "grant") {
       if (!state.stats.flags.lens) {
         state.stats.items.sourceLens += 2;
@@ -1831,7 +2204,7 @@
       item: id,
       label: `${item.label} - ${item.price} shards`
     })).concat([{ action: "close", label: "Leave Shop" }]);
-    setDialogue("Archive Supply", "Buy Field Items", `Shards: ${state.stats.shards}. Items help during battles but review answers still power every major action.`, actions);
+    setDialogue("Archive Supply", "Buy Field Items", `Shards: ${state.stats.shards}. Battle items help in encounters. Review contracts are now side quests for XP, shards, and supplies.`, actions);
   }
 
   function buyItem(id) {
@@ -1862,7 +2235,7 @@
     } else if (npc.grant === "lens") {
       state.stats.items.sourceLens += 2;
       state.stats.flags.lens = true;
-      setDialogue("Source Coach", npc.name, "Two Source Lenses added. Use them when a question depends on a map, chart, excerpt, cartoon, or image.", [
+      setDialogue("Source Coach", npc.name, "Two Source Lenses added. Use them on side quests that depend on a map, chart, excerpt, cartoon, or image.", [
         { action: "close", label: "Got It" }
       ]);
     }
@@ -1940,6 +2313,10 @@
   function useItem(id) {
     const item = itemCatalog[id];
     if (!item || !state.stats.items[id]) return;
+    if (state.battle && ["healKit", "fieldNote", "capsule", "treatyPass"].includes(id)) {
+      chooseBattleItem(id);
+      return;
+    }
     if (id === "healKit") {
       if (spendItem(id)) {
         healParty(35);
@@ -1956,13 +2333,13 @@
         state.battle.studyBoost = true;
         state.capture = clamp(state.capture + 12, 0, 100);
         els.captureBar.style.width = `${state.capture}%`;
-        setBattleLog("Field Notes prepared. The next correct answer gets a power and capture boost.");
+        setBattleLog("Field Notes prepared. The next move gets a power and trust boost.");
       }
       return;
     }
     if (id === "sourceLens") {
       if (!state.currentQuestion) {
-        setDialogue("Field Bag", item.label, "Source Lens works after a battle question appears.", [{ action: "close", label: "Close" }]);
+        setDialogue("Field Bag", item.label, "Source Lens works during review side quests with source or stimulus prompts.", [{ action: "close", label: "Close" }]);
         return;
       }
       if (spendItem(id)) {
@@ -1975,7 +2352,7 @@
         setDialogue("Field Bag", item.label, "Archive Capsules work during battle after you build trust.", [{ action: "close", label: "Close" }]);
         return;
       }
-      chooseAction("capsule");
+      chooseBattleItem("capsule");
       return;
     }
     if (id === "treatyPass") {
@@ -2030,6 +2407,7 @@
     }
     if (isTallGrass(state.player.x, state.player.y)) {
       setDialogue("Route", "Tall Grass", "The grass rustles. Keep walking and a review encounter may appear.", [
+        { action: "quest", label: "Study Contract" },
         { action: "hunt", label: "Search" },
         { action: "close", label: "Close" }
       ]);
@@ -2146,6 +2524,12 @@
       toggleMenu(false);
       openEncounter();
     });
+    if (els.questBtn) {
+      els.questBtn.addEventListener("click", () => {
+        toggleMenu(false);
+        openReviewQuest("Route Contract");
+      });
+    }
     els.actionBtn.addEventListener("click", performAction);
     els.mapBtn.addEventListener("click", () => {
       toggleMenu(false);
@@ -2253,6 +2637,17 @@
       state.wildCooldown = Math.max(0, state.wildCooldown - dt);
       if (isTallGrass(p.x, p.y)) {
         state.wildSteps += step;
+        if (!reduceMotion && Math.random() < dt * 7) {
+          state.particles.push({
+            x: p.x + (Math.random() - .5) * 46,
+            y: p.y + 34 + (Math.random() - .5) * 18,
+            vx: (Math.random() - .5) * 42,
+            vy: -30 - Math.random() * 28,
+            life: .28 + Math.random() * .22,
+            max: 1,
+            color: GB.glow
+          });
+        }
         if (state.running && state.wildCooldown <= 0 && state.wildSteps > 360 && Math.random() < dt * .38) {
           state.wildSteps = 0;
           state.wildCooldown = 8;
@@ -2464,6 +2859,21 @@
   function drawRetroAmbient(now) {
     if (reduceMotion) return;
     ctx.save();
+    ctx.globalAlpha = .22;
+    ctx.fillStyle = GB.ink;
+    for (let i = 0; i < 36; i++) {
+      const x = 140 + (i * 431) % (WORLD_W - 280);
+      const y = 170 + (i * 277) % (WORLD_H - 340);
+      const drift = Math.round(Math.sin(now * 1.8 + i) * 6);
+      if (isTallGrass(x, y)) ctx.fillRect(x + drift, y, 18, 4);
+    }
+    ctx.globalAlpha = .32;
+    ctx.fillStyle = GB.glow;
+    for (let i = 0; i < 18; i++) {
+      const x = WORLD_W - 220 + Math.round(Math.sin(now * 1.5 + i) * 18);
+      const y = 180 + i * 104;
+      ctx.fillRect(x, y, 32, 5);
+    }
     ctx.globalAlpha = .55 + Math.sin(now * 2.8) * .18;
     ctx.fillStyle = GB.glow;
     const selected = state.selectedNode;
@@ -2576,13 +2986,23 @@
   function drawPlayer(now) {
     const p = state.player;
     const sprite = p.facing === "up" ? "playerBack" : p.facing === "right" ? "playerSideAlt" : p.facing === "left" ? "playerSide" : "playerFront";
+    const walking = Math.hypot(p.tx - p.x, p.ty - p.y) > 4;
+    const bob = walking && !reduceMotion ? Math.round(Math.sin(now * 18) * 3) : 0;
+    const sway = walking && !reduceMotion ? Math.round(Math.sin(now * 9) * 2) : 0;
     ctx.save();
-    ctx.translate(Math.round(p.x), Math.round(p.y));
+    ctx.translate(Math.round(p.x + sway), Math.round(p.y + bob));
     const pulse = 1 + state.pulse * .15;
     ctx.scale(pulse, pulse);
     ctx.fillStyle = "rgba(15,56,15,.42)";
     ctx.fillRect(-34, 38, 68, 12);
     drawAtlas(ctx, sprite, -36, -70, 72, 92);
+    if (walking && !reduceMotion) {
+      ctx.fillStyle = GB.ink;
+      ctx.globalAlpha = .38;
+      ctx.fillRect(-26, 47, 14, 5);
+      ctx.fillRect(12, 47, 14, 5);
+      ctx.globalAlpha = 1;
+    }
     if (state.pulse > 0) {
       ctx.strokeStyle = GB.glow;
       ctx.lineWidth = 5;
@@ -2615,8 +3035,8 @@
     const now = nowMs / 1000;
     const dt = Math.min(.05, now - (state.last || now));
     state.last = now;
-    if (state.running && !reduceMotion) update(dt);
-    draw(now);
+    if (state.running && !reduceMotion && !state.encounterOpen) update(dt);
+    if (!state.encounterOpen) draw(now);
     requestAnimationFrame(loop);
   }
 
