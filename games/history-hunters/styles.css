@@ -2931,6 +2931,64 @@ body.field-mode.menu-open .quest-card {
   overflow: hidden;
 }
 
+.battle-effects {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  --hero-x: 23%;
+  --hero-y: 69%;
+  --enemy-x: 75%;
+  --enemy-y: 35%;
+  --move-color: var(--gb-glow);
+}
+
+.battle-effects span {
+  position: absolute;
+  display: block;
+  opacity: 0;
+  image-rendering: pixelated;
+}
+
+.effect-orb {
+  width: clamp(48px, 9vmin, 110px);
+  aspect-ratio: 1;
+  border: 4px solid var(--gb-ink);
+  background:
+    linear-gradient(90deg, rgba(15, 56, 15, .38) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(15, 56, 15, .32) 1px, transparent 1px),
+    radial-gradient(circle, var(--move-color) 0 24%, var(--gb-mid) 25% 46%, transparent 47%);
+  background-size: 9px 9px, 9px 9px, auto;
+  box-shadow: 6px 6px 0 rgba(15, 56, 15, .38);
+}
+
+.effect-slash {
+  width: clamp(120px, 23vw, 340px);
+  height: clamp(24px, 4.8vw, 62px);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 10px, rgba(15, 56, 15, .34) 10px 14px),
+    linear-gradient(90deg, transparent 0 2%, var(--move-color) 10% 62%, rgba(15, 56, 15, .85) 63% 68%, transparent 69%);
+  clip-path: polygon(0 42%, 78% 0, 100% 50%, 78% 100%, 0 58%);
+  filter: drop-shadow(5px 5px 0 rgba(15, 56, 15, .32));
+}
+
+.effect-burst {
+  width: clamp(80px, 15vmin, 180px);
+  aspect-ratio: 1;
+  background:
+    conic-gradient(from 0deg, transparent 0 8%, var(--move-color) 8% 14%, transparent 14% 22%, var(--gb-ink) 22% 27%, transparent 27% 38%, var(--move-color) 38% 46%, transparent 46% 56%, var(--gb-ink) 56% 62%, transparent 62% 74%, var(--move-color) 74% 82%, transparent 82% 100%);
+  border-radius: 50%;
+  filter: drop-shadow(5px 5px 0 rgba(15, 56, 15, .26));
+}
+
+.effect-ring {
+  width: clamp(96px, 18vmin, 210px);
+  aspect-ratio: 1;
+  border: 6px double var(--gb-ink);
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 0 45%, rgba(214, 238, 99, .85) 46% 55%, transparent 56%);
+}
+
 .battler {
   position: absolute;
   width: min(320px, 39vw);
@@ -2964,6 +3022,9 @@ body.field-mode.menu-open .quest-card {
   margin: 2px 0 7px;
   font-size: clamp(16px, 2.3vw, 24px);
   line-height: 1;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
   text-transform: uppercase;
 }
 
@@ -3305,6 +3366,7 @@ body.field-mode.menu-open .quest-card {
 .ally-card .portrait::after {
   width: min(100%, 430px);
   height: 100%;
+  bottom: clamp(-34px, -3dvh, -12px);
   transform: translateX(-50%) translateY(3%);
   clip-path: inset(0);
   filter: grayscale(1) sepia(1) saturate(3.35) hue-rotate(28deg) contrast(1.34) drop-shadow(0 22px 0 rgba(15, 56, 15, .25));
@@ -3395,6 +3457,65 @@ body.field-mode.menu-open .quest-card {
 .encounter.has-party-hero.phase-faint .battle-board::after,
 .encounter.has-party-hero.phase-capture .battle-board::after {
   opacity: 0;
+}
+
+.encounter.fx-hero-charge .effect-orb {
+  left: var(--hero-x);
+  top: var(--hero-y);
+  opacity: 1;
+  animation: hero-charge-orb .42s steps(5, end);
+}
+
+.encounter.fx-enemy-charge .effect-orb {
+  left: var(--enemy-x);
+  top: var(--enemy-y);
+  opacity: 1;
+  animation: enemy-charge-orb .42s steps(5, end);
+}
+
+.encounter.fx-move-shot .effect-slash {
+  left: var(--hero-x);
+  top: var(--hero-y);
+  opacity: 1;
+  animation: hero-shot .48s steps(6, end);
+}
+
+.encounter.fx-enemy-shot .effect-slash {
+  left: var(--enemy-x);
+  top: var(--enemy-y);
+  opacity: 1;
+  animation: enemy-shot .48s steps(6, end);
+}
+
+.encounter.fx-impact .effect-burst,
+.encounter.fx-enemy-hit .effect-burst {
+  left: var(--enemy-x);
+  top: var(--enemy-y);
+  opacity: 1;
+  animation: impact-burst .56s steps(5, end);
+}
+
+.encounter.fx-hero-impact .effect-burst,
+.encounter.fx-hero-hit .effect-burst {
+  left: var(--hero-x);
+  top: var(--hero-y);
+  opacity: 1;
+  animation: impact-burst .56s steps(5, end);
+}
+
+.encounter.fx-victory .effect-ring {
+  left: var(--hero-x);
+  top: var(--hero-y);
+  opacity: 1;
+  animation: victory-ring .9s steps(8, end);
+}
+
+.encounter.fx-faint .ally-card .portrait {
+  animation: enemy-faint .9s steps(7, end) forwards;
+}
+
+.encounter.fx-field-shake .encounter-stage {
+  animation: field-shake .4s steps(4, end);
 }
 
 .battler {
@@ -3575,6 +3696,46 @@ body.field-mode.menu-open .quest-card {
   100% { opacity: 1; transform: translate(0, 0) scaleX(-1) scale(1); }
 }
 
+@keyframes hero-charge-orb {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.25); }
+  45% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(.62); }
+}
+
+@keyframes enemy-charge-orb {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.25); }
+  45% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(.62); }
+}
+
+@keyframes hero-shot {
+  0% { opacity: 0; transform: translate(-40%, -50%) rotate(-10deg) scale(.55); }
+  20% { opacity: 1; transform: translate(-22%, -54%) rotate(-10deg) scale(1); }
+  72% { opacity: 1; transform: translate(150%, -112%) rotate(-10deg) scale(1.1); }
+  100% { opacity: 0; transform: translate(190%, -128%) rotate(-10deg) scale(.6); }
+}
+
+@keyframes enemy-shot {
+  0% { opacity: 0; transform: translate(-10%, -50%) rotate(168deg) scale(.55); }
+  20% { opacity: 1; transform: translate(-24%, -52%) rotate(168deg) scale(1); }
+  72% { opacity: 1; transform: translate(-176%, 82%) rotate(168deg) scale(1.1); }
+  100% { opacity: 0; transform: translate(-214%, 104%) rotate(168deg) scale(.6); }
+}
+
+@keyframes impact-burst {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(0deg); }
+  22% { opacity: 1; transform: translate(-50%, -50%) scale(1.18) rotate(18deg); }
+  68% { opacity: .65; transform: translate(-50%, -50%) scale(.84) rotate(-10deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.42) rotate(28deg); }
+}
+
+@keyframes victory-ring {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.2); }
+  28% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  62% { opacity: .7; transform: translate(-50%, -50%) scale(1.28); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.72); }
+}
+
 @keyframes hero-lunge {
   0% { transform: translate(0, 0); }
   45% { transform: translate(24px, -14px); filter: brightness(1.25) grayscale(1) sepia(1) saturate(3.1) hue-rotate(28deg) contrast(1.3); }
@@ -3593,6 +3754,13 @@ body.field-mode.menu-open .quest-card {
   42% { transform: translate(-12px, 0); opacity: 1; }
   64% { transform: translate(9px, 0); opacity: .45; }
   100% { transform: translate(0, 0); opacity: 1; }
+}
+
+@keyframes enemy-faint {
+  0% { transform: translate(0, 0); opacity: 1; }
+  32% { transform: translate(-10px, 0); opacity: .55; }
+  64% { transform: translate(12px, 20px); opacity: .3; }
+  100% { transform: translate(0, 72px) scale(.88); opacity: 0; }
 }
 
 @keyframes hero-hit {
@@ -3614,6 +3782,14 @@ body.field-mode.menu-open .quest-card {
   25% { transform: translate(8px, 0); }
   50% { transform: translate(-7px, 0); }
   75% { transform: translate(4px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes field-shake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-8px, 3px); }
+  50% { transform: translate(7px, -2px); }
+  75% { transform: translate(-4px, 1px); }
   100% { transform: translate(0, 0); }
 }
 

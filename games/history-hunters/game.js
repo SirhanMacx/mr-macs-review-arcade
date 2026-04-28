@@ -488,16 +488,16 @@
   };
 
   const figureAtlasFiles = [
-    "../../assets/history-hunters/keyed/figure-evolution-atlas-1-keyed.png",
-    "../../assets/history-hunters/keyed/figure-evolution-atlas-2-keyed.png",
-    "../../assets/history-hunters/keyed/figure-evolution-atlas-3-keyed.png",
-    "../../assets/history-hunters/keyed/figure-evolution-atlas-4-keyed.png",
-    "../../assets/history-hunters/keyed/figure-evolution-atlas-5-keyed.png",
-    "../../assets/history-hunters/keyed/figure-evolution-atlas-6-keyed.png",
-    "../../assets/history-hunters/keyed/figure-evolution-atlas-7-keyed.png",
-    "../../assets/history-hunters/keyed/figure-evolution-atlas-8-keyed.png",
-    "../../assets/history-hunters/keyed/figure-evolution-atlas-9-keyed.png",
-    "../../assets/history-hunters/keyed/figure-evolution-atlas-10-keyed.png"
+    "../../assets/history-hunters/keyed/battle-figure-atlas-1-keyed.png",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-2-keyed.png",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-3-keyed.png",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-4-keyed.png",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-5-keyed.png",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-6-keyed.png",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-7-keyed.png",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-8-keyed.png",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-9-keyed.png",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-10-keyed.png"
   ];
   const allFigureFamilies = Object.entries(figureFamiliesByType).flatMap(([type, rows]) => (
     rows.map((row) => ({
@@ -1301,6 +1301,47 @@
     setTimeout(() => els.encounter.classList.remove(className), duration);
   }
 
+  function battleAccent(type) {
+    return (typeData[type] && typeData[type].color) || GB.glow;
+  }
+
+  async function playBattleFx(className, duration = 520, vars) {
+    if (!els.encounter) return;
+    Object.entries(vars || {}).forEach(([key, value]) => {
+      els.encounter.style.setProperty(key, value);
+    });
+    els.encounter.classList.add(className);
+    await wait(duration);
+    els.encounter.classList.remove(className);
+  }
+
+  async function runHeroMoveBeat(battle, selected, result, ally) {
+    const actor = moveActorName();
+    const target = opponentFor(ally);
+    const color = battleAccent(selected.type);
+    setEncounterPhase("windup");
+    els.moveButtons.classList.remove("open");
+    setBattleLog(`${shout(actor)} readied ${shout(selected.name)}.`);
+    await playBattleFx("fx-hero-charge", 360, { "--move-color": color });
+    if (!isCurrentBattle(battle)) return false;
+    setBattleLog(`${shout(actor)} used ${shout(selected.name)}!`);
+    await playBattleFx("fx-hero-attack", 420, { "--move-color": color });
+    if (!isCurrentBattle(battle)) return false;
+    await playBattleFx("fx-move-shot", 360, { "--move-color": color });
+    if (!isCurrentBattle(battle)) return false;
+    battle.enemyHp = clamp(battle.enemyHp - result.amount, 0, 100);
+    const trustGain = Math.round(8 + result.amount * .28 + (battle.studyBoost ? 8 : 0) + (result.multiplier > 1.2 ? 6 : 0));
+    state.capture = clamp(state.capture + trustGain, 0, 100);
+    els.captureBar.style.width = `${state.capture}%`;
+    renderBattle();
+    await playBattleFx("fx-impact", 230, { "--move-color": color });
+    if (!isCurrentBattle(battle)) return false;
+    flashBattleFx("fx-enemy-hit", 480);
+    flashBattleFx("fx-field-shake", 380);
+    await showBattleMessage(`${effectSentence(result.multiplier)} ${shout(target)} took ${result.amount} damage.`, 720);
+    return isCurrentBattle(battle);
+  }
+
   async function showBattleMessage(text, ms = 800) {
     setBattleLog(text);
     await wait(ms);
@@ -1433,13 +1474,22 @@
     const enemyLevel = Math.max(1, Number(ally.level || 1));
     const result = attackDamage({ name: counterMove, type: ally.type, power: reason === "switch" ? 14 : reason === "parley" ? 13 : 17 }, ally.type, hero.type, enemyLevel, false);
     setEncounterPhase("resolve");
-    await showBattleMessage(`${shout(opponentFor(ally))} used ${shout(counterMove)} against ${shout(hero.name)}!`, 620);
+    await showBattleMessage(`${shout(opponentFor(ally))} steadied itself.`, 360);
+    if (!isCurrentBattle(battle)) return;
+    await playBattleFx("fx-enemy-charge", 330, { "--move-color": battleAccent(ally.type) });
+    if (!isCurrentBattle(battle)) return;
+    await showBattleMessage(`${shout(opponentFor(ally))} used ${shout(counterMove)} against ${shout(hero.name)}!`, 520);
+    if (!isCurrentBattle(battle)) return;
+    await playBattleFx("fx-enemy-shot", 360, { "--move-color": battleAccent(ally.type) });
     if (!isCurrentBattle(battle)) return;
     battle.heroHp = clamp(battle.heroHp - result.amount, 0, state.stats.maxHp || 100);
     state.stats.playerHp = battle.heroHp;
-    flashBattleFx("fx-hero-hit", 620);
     renderBattle();
-    await showBattleMessage(`${effectSentence(result.multiplier)} ${shout(hero.name)} lost ${result.amount} HP.`, 760);
+    flashBattleFx("fx-field-shake", 380);
+    await playBattleFx("fx-hero-impact", 220, { "--move-color": battleAccent(ally.type) });
+    if (!isCurrentBattle(battle)) return;
+    flashBattleFx("fx-hero-hit", 520);
+    await showBattleMessage(`${effectSentence(result.multiplier)} ${shout(hero.name)} lost ${result.amount} HP.`, 720);
     if (!isCurrentBattle(battle)) return;
     updateHud();
     writeSave();
@@ -1756,30 +1806,24 @@
     state.locked = true;
     state.battle.pendingMove = selected;
     const result = attackDamage(selected, selected.type, ally.type || "Review", state.stats.rank || 1, battle.studyBoost);
-    setEncounterPhase("windup");
-    els.moveButtons.classList.remove("open");
-    flashBattleFx("fx-hero-attack", 540);
-    await showBattleMessage(`${shout(moveActorName())} used ${shout(selected.name)}!`, 680);
-    if (!isCurrentBattle(battle)) return;
-    battle.enemyHp = clamp(battle.enemyHp - result.amount, 0, 100);
-    const trustGain = Math.round(8 + result.amount * .28 + (battle.studyBoost ? 8 : 0) + (result.multiplier > 1.2 ? 6 : 0));
-    state.capture = clamp(state.capture + trustGain, 0, 100);
-    flashBattleFx("fx-enemy-hit", 620);
-    renderBattle();
-    els.captureBar.style.width = `${state.capture}%`;
-    await showBattleMessage(`${effectSentence(result.multiplier)} ${shout(opponentFor(ally))} took ${result.amount} damage.`, 800);
-    if (!isCurrentBattle(battle)) return;
+    const moveLanded = await runHeroMoveBeat(battle, selected, result, ally);
+    if (!moveLanded) return;
     battle.studyBoost = false;
     battle.pendingMove = null;
     if (battle.enemyHp <= 0) {
       setEncounterPhase("faint");
-      await showBattleMessage(`${shout(opponentFor(ally))} fainted!`, 760);
+      await playBattleFx("fx-faint", 720, { "--move-color": battleAccent(selected.type) });
+      if (!isCurrentBattle(battle)) return;
+      await showBattleMessage(`${shout(opponentFor(ally))} fainted!`, 680);
+      await playBattleFx("fx-victory", 520, { "--move-color": battleAccent(hero.type) });
       if (isCurrentBattle(battle)) completeEncounter("defeat");
       return;
     }
     if (state.capture >= 100) {
       setEncounterPhase("capture");
-      await showBattleMessage(`${shout(ally.actualName || ally.name)} trusts your team and joins the roster!`, 850);
+      await playBattleFx("fx-victory", 520, { "--move-color": battleAccent(hero.type) });
+      if (!isCurrentBattle(battle)) return;
+      await showBattleMessage(`${shout(ally.actualName || ally.name)} trusts your team and joins the roster!`, 780);
       if (isCurrentBattle(battle)) completeEncounter("capture");
       return;
     }
