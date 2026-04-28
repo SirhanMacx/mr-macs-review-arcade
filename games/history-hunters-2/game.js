@@ -3,8 +3,8 @@
 
   const STORAGE_KEY = "mr-macs-history-hunters-2-v1";
   const TILE = 32;
-  const WORLD_W = 128;
-  const WORLD_H = 96;
+  const WORLD_W = 160;
+  const WORLD_H = 120;
   const $ = (id) => document.getElementById(id);
   const view = { w: 960, h: 540, dpr: 1 };
 
@@ -54,7 +54,7 @@
 
   const tileAtlas = loadImage("../../assets/history-hunters/keyed/retro-tile-sprite-atlas-keyed.png");
   const playerBack = loadImage("../../assets/history-hunters/keyed/player-back-keyed.png");
-  const decorSheet = loadImage("../../assets/history-hunters/generated/overworld-decor-sheet-v2.png");
+  const decorSheet = loadImage("../../assets/history-hunters/generated/overworld-decor-sheet-v3.png");
   const figureAtlases = Array.from({ length: 10 }, (_, i) => loadImage(`../../assets/history-hunters/keyed/battle-figure-atlas-${i + 1}-keyed.png`));
 
   const atlas = {
@@ -154,60 +154,81 @@
     { id: "reform", name: "Reform Station", kind: "quest", gx: 74, gy: 57, icon: "gate", text: "Revolution, rights, reform, civil war, and industrial change contracts." },
     { id: "psych", name: "Mind Lab", kind: "quest", gx: 104, gy: 31, icon: "school", text: "AP Psychology contracts, research methods, learning, cognition, and development." },
     { id: "bazaar", name: "Market Bazaar", kind: "quest", gx: 49, gy: 74, icon: "chest", text: "Economics contracts: scarcity, markets, macro policy, trade, and incentives." },
-    { id: "summit", name: "Atlas Summit", kind: "summit", gx: 111, gy: 72, icon: "portal", text: "A late-game route for mixed review and boss challenges." }
+    { id: "summit", name: "Atlas Summit", kind: "summit", gx: 111, gy: 72, icon: "portal", text: "A late-game route for mixed review and boss challenges." },
+    { id: "frontier", name: "Frontier Outpost", kind: "quest", gx: 137, gy: 92, icon: "gate", text: "A long-route station for Grade 7, Grade 8, APUSH, and U.S. Regents battles." },
+    { id: "observatory", name: "World Observatory", kind: "quest", gx: 133, gy: 23, icon: "arch", text: "Global, AP World, AP Euro, and Human Geography routes meet here." },
+    { id: "rights", name: "Rights Court", kind: "quest", gx: 96, gy: 96, icon: "school", text: "Civic action, rights, constitutions, court cases, and reform movements are tested here." }
   ];
 
   const npcs = [
-    { id: "guide", name: "Guide Maya", type: "Route Guide", gx: 18, gy: 14, text: "Tall grass starts historical ally battles. Buildings post review contracts. START opens filters, party, bag, and save.", starter: true },
+    { id: "guide", name: "Guide Maya", type: "Route Guide", gx: 18, gy: 14, text: "Tall grass starts historical ally battles. Buildings post review contracts. START, M, or P opens pause, filters, party, bag, and save.", starter: true },
     { id: "rival", name: "Ranger Carter", type: "Rival", gx: 26, gy: 14, text: "A real roster wins routes. Level allies with battles, then use contracts to earn shards and field items.", battle: true },
     { id: "curator", name: "Curator Rivera", type: "Source Coach", gx: 41, gy: 24, text: "Contracts are where review questions belong. Battle for fun. Study for rewards.", quest: true },
     { id: "organizer", name: "Organizer Noor", type: "Civic Coach", gx: 84, gy: 16, text: "Rights, reform, and government routes are strongest when you know people, laws, and turning points.", quest: true },
     { id: "pilot", name: "Pilot Santos", type: "Route Pilot", gx: 60, gy: 39, text: "Harbor routes pull allies from trade, migration, exchange, geography, and global history.", quest: true },
     { id: "keeper", name: "Keeper Imani", type: "Ancient Coach", gx: 14, gy: 47, text: "Ancient allies reward careful review of geography, law, belief systems, and power.", quest: true },
     { id: "analyst", name: "Analyst Vega", type: "Market Coach", gx: 51, gy: 72, text: "The Market Bazaar favors economics and government moves. Watch your PP before long route battles.", quest: true },
-    { id: "captain", name: "Captain Ellis", type: "Summit Rival", gx: 109, gy: 70, text: "A full party with restored PP matters before the Atlas Summit.", battle: true }
+    { id: "captain", name: "Captain Ellis", type: "Summit Rival", gx: 109, gy: 70, text: "A full party with restored PP matters before the Atlas Summit.", battle: true },
+    { id: "scribe", name: "Scribe Hana", type: "Archive Scout", gx: 132, gy: 21, text: "Trade routes, belief systems, and geography are easier when you know where ideas traveled.", quest: true },
+    { id: "marshal", name: "Marshal Reed", type: "Frontier Rival", gx: 135, gy: 89, text: "The western route is long. Bring tea, capsules, and a party that can handle U.S. history eras.", battle: true },
+    { id: "advocate", name: "Advocate Samira", type: "Rights Coach", gx: 95, gy: 93, text: "Civil rights, human rights, and constitutional rights all reward precise evidence.", quest: true },
+    { id: "quartermaster", name: "Quartermaster Jo", type: "Supply Clerk", gx: 30, gy: 21, text: "Check the bag before boss routes. Capsules recruit allies; tea keeps your party standing.", quest: true }
   ];
 
   const decor = [
-    { type: "sign", gx: 15, gy: 18, w: 54, h: 54 },
-    { type: "fountain", gx: 23, gy: 21, w: 62, h: 54 },
-    { type: "lamp", gx: 28, gy: 16, w: 34, h: 62 },
-    { type: "flowers", gx: 32, gy: 20, w: 54, h: 34 },
+    { type: "milestone", gx: 15, gy: 18, w: 56, h: 62 },
+    { type: "fountain", gx: 23, gy: 21, w: 70, h: 64 },
+    { type: "lamp", gx: 28, gy: 16, w: 48, h: 76 },
+    { type: "flowers", gx: 32, gy: 20, w: 70, h: 48 },
     { type: "bulletin", gx: 18, gy: 10, w: 64, h: 48 },
-    { type: "banner", gx: 31, gy: 17, w: 50, h: 68 },
-    { type: "obelisk", gx: 37, gy: 26, w: 42, h: 62 },
-    { type: "monument", gx: 45, gy: 22, w: 70, h: 64 },
-    { type: "crate", gx: 48, gy: 31, w: 48, h: 48 },
+    { type: "banner", gx: 31, gy: 17, w: 64, h: 78 },
+    { type: "obelisk", gx: 37, gy: 26, w: 54, h: 86 },
+    { type: "statue", gx: 45, gy: 22, w: 74, h: 82 },
+    { type: "crate", gx: 48, gy: 31, w: 58, h: 56 },
     { type: "column", gx: 17, gy: 45, w: 58, h: 64 },
-    { type: "tent", gx: 19, gy: 53, w: 70, h: 62 },
-    { type: "bridge", gx: 61, gy: 35, w: 82, h: 46 },
-    { type: "market", gx: 52, gy: 74, w: 76, h: 62 },
-    { type: "scroll", gx: 73, gy: 55, w: 58, h: 64 },
-    { type: "map", gx: 101, gy: 32, w: 72, h: 54 },
-    { type: "portal", gx: 111, gy: 70, w: 70, h: 76 },
-    { type: "lamp", gx: 83, gy: 20, w: 34, h: 62 },
-    { type: "flowers", gx: 96, gy: 27, w: 54, h: 34 },
-    { type: "sign", gx: 48, gy: 69, w: 54, h: 54 },
-    { type: "obelisk", gx: 116, gy: 76, w: 42, h: 62 }
+    { type: "tent", gx: 19, gy: 53, w: 84, h: 70 },
+    { type: "bridge", gx: 61, gy: 35, w: 98, h: 54 },
+    { type: "market", gx: 52, gy: 74, w: 92, h: 72 },
+    { type: "scroll", gx: 73, gy: 55, w: 66, h: 72 },
+    { type: "milestone", gx: 101, gy: 32, w: 56, h: 62 },
+    { type: "portal", gx: 111, gy: 70, w: 88, h: 88 },
+    { type: "lamp", gx: 83, gy: 20, w: 48, h: 76 },
+    { type: "flowers", gx: 96, gy: 27, w: 70, h: 48 },
+    { type: "milestone", gx: 48, gy: 69, w: 56, h: 62 },
+    { type: "obelisk", gx: 116, gy: 76, w: 54, h: 86 },
+    { type: "bridge", gx: 126, gy: 42, w: 98, h: 54 },
+    { type: "lamp", gx: 130, gy: 20, w: 48, h: 76 },
+    { type: "scroll", gx: 136, gy: 24, w: 66, h: 72 },
+    { type: "statue", gx: 96, gy: 91, w: 74, h: 82 },
+    { type: "banner2", gx: 101, gy: 96, w: 64, h: 78 },
+    { type: "market", gx: 134, gy: 91, w: 92, h: 72 },
+    { type: "crate", gx: 141, gy: 93, w: 58, h: 56 },
+    { type: "tent", gx: 124, gy: 87, w: 84, h: 70 },
+    { type: "portal", gx: 147, gy: 104, w: 88, h: 88 },
+    { type: "flowers", gx: 75, gy: 88, w: 70, h: 48 },
+    { type: "bulletin", gx: 114, gy: 62, w: 74, h: 58 }
   ];
 
   const decorCells = {
-    sign: 0,
-    monument: 1,
-    scroll: 2,
-    fountain: 3,
+    banner: 0,
+    lamp: 1,
+    statue: 2,
+    monument: 2,
+    obelisk: 3,
     market: 4,
-    banner: 5,
-    lamp: 6,
+    fountain: 5,
+    tent: 6,
     bridge: 7,
-    column: 8,
-    flowers: 9,
-    crate: 10,
-    obelisk: 11,
-    bulletin: 12,
-    tent: 13,
-    portal: 14,
-    map: 15
+    milestone: 8,
+    sign: 8,
+    bulletin: 9,
+    flowers: 10,
+    scroll: 11,
+    map: 11,
+    portal: 12,
+    column: 13,
+    crate: 14,
+    banner2: 15
   };
 
   const dirs = {
@@ -496,17 +517,26 @@
     paintEllipse(9, 51, 8, 10, "water");
     paintEllipse(111, 14, 13, 8, "water");
     paintEllipse(101, 82, 17, 7, "water");
+    paintEllipse(139, 39, 13, 9, "water");
+    paintEllipse(128, 106, 16, 8, "water");
     paintRect(3, 62, 18, 69, "water");
     paintRect(55, 6, 70, 12, "water");
+    paintRect(124, 38, 143, 44, "water");
+    paintRect(135, 103, 151, 110, "water");
 
     paintEllipse(39, 10, 13, 7, "tree");
     paintEllipse(93, 49, 16, 10, "tree");
     paintEllipse(31, 83, 18, 9, "tree");
     paintEllipse(116, 51, 7, 22, "tree");
+    paintEllipse(133, 21, 18, 8, "tree");
+    paintEllipse(139, 91, 15, 11, "tree");
+    paintEllipse(76, 94, 14, 10, "tree");
 
     paintRect(66, 6, 82, 14, "mountain");
     paintRect(100, 52, 121, 63, "mountain");
     paintRect(6, 74, 17, 86, "mountain");
+    paintRect(132, 72, 151, 82, "mountain");
+    paintRect(72, 100, 90, 113, "mountain");
 
     paintRect(10, 38, 24, 51, "grass2");
     paintRect(34, 18, 51, 30, "grass2");
@@ -514,6 +544,10 @@
     paintRect(91, 24, 111, 38, "grass2");
     paintRect(39, 67, 60, 82, "grass2");
     paintRect(103, 67, 119, 78, "grass2");
+    paintRect(121, 17, 143, 30, "grass2");
+    paintRect(88, 88, 110, 103, "grass2");
+    paintRect(127, 86, 148, 101, "grass2");
+    paintRect(69, 78, 82, 92, "grass2");
 
     carveRoad(12, 18, 32, 18, 1);
     carveRoad(24, 9, 24, 33, 1);
@@ -526,6 +560,11 @@
     carveRoad(86, 18, 104, 31, 1);
     carveRoad(43, 26, 49, 74, 1);
     carveRoad(49, 74, 111, 72, 1);
+    carveRoad(104, 31, 133, 23, 1);
+    carveRoad(111, 72, 137, 92, 1);
+    carveRoad(74, 57, 96, 96, 1);
+    carveRoad(96, 96, 137, 92, 1);
+    carveRoad(137, 92, 147, 104, 1);
 
     places.forEach((place) => paintRect(place.gx - 3, place.gy - 2, place.gx + 3, place.gy + 3, "path"));
 
@@ -710,6 +749,7 @@
 
   function openMenu(tab) {
     if (state.mode === "battle" || state.mode === "quest") return;
+    if (state.mode === "dialogue") closeDialogue();
     state.mode = "menu";
     els.game.classList.add("in-menu");
     els.menu.hidden = false;
@@ -731,12 +771,18 @@
         <div class="menu-card"><strong>Restoration Tea</strong>x${state.stats.items.tea || 0} - restore party HP in battle.</div>`;
       return;
     }
-    els.menuList.innerHTML = party.length ? party.map((ally, index) => `
+    const controls = `
+      <div class="menu-card">
+        <strong>Pause Controls</strong>
+        Keyboard: M or P pauses. Arrow keys / WASD move. Enter, Space, or E talks. Escape or B cancels.<br>
+        Touch: PAUSE opens this field menu. A talks. B closes.
+      </div>`;
+    els.menuList.innerHTML = controls + (party.length ? party.map((ally, index) => `
       <div class="menu-card">
         <strong>${escapeHtml(index === state.stats.active ? "▶ " : "")}${escapeHtml(ally.actualName)}</strong>
         ${escapeHtml(ally.name)} / ${escapeHtml(ally.type)} / Lv ${ally.level} / HP ${Math.round(ally.hp)}/${ally.maxHp}<br>
         ${(ally.moves || []).map((item) => `${escapeHtml(item.name)} ${item.pp}/${item.maxPp}`).join(" · ")}
-      </div>`).join("") : `<div class="menu-card"><strong>No party yet</strong>Talk to Guide Maya near the lab for a starter.</div>`;
+      </div>`).join("") : `<div class="menu-card"><strong>No party yet</strong>Talk to Guide Maya near the lab for a starter.</div>`);
   }
 
   function fillFilters() {
@@ -895,7 +941,7 @@
       enemyHp: foe ? foe.hp : 90,
       enemyMax: foe ? foe.maxHp : 90,
       menu: "root",
-      log: trainer ? `${foe.actualName} challenges your route team!` : `Wild ${foe.actualName} appeared!`,
+      log: trainer ? `${foe.actualName.toUpperCase()} challenged your route team!` : `Wild ${foe.actualName.toUpperCase()} appeared!`,
       locked: true,
       fx: null,
       fxTime: 0,
@@ -907,11 +953,16 @@
     setBattleLog(battle.log);
     setTimeout(() => {
       if (state.battle === battle) {
+        setBattleLog(`ATLAS RANGER sent out ${battle.hero.actualName.toUpperCase()}!`);
+      }
+    }, 650);
+    setTimeout(() => {
+      if (state.battle === battle) {
         battle.locked = false;
         setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
         renderBattleActions();
       }
-    }, 900);
+    }, 1420);
   }
 
   function setBattleLog(text) {
@@ -1251,14 +1302,17 @@
         drawTile(tile, dx, dy, x, y);
       }
     }
+    drawRouteAtmosphere();
     places.forEach(drawPlace);
     decor.forEach(drawDecor);
     npcs.forEach(drawNpc);
+    drawFollower();
     drawPlayer();
     drawWorldOverlay();
   }
 
   function drawTile(tile, x, y, gx, gy) {
+    const t = performance.now() / 1000;
     const jitter = (hash(`${gx},${gy}`) % 8) - 4;
     const base = tile === "path" ? "#d4b45d"
       : tile === "water" ? "#3da7b8"
@@ -1277,8 +1331,11 @@
       ctx.strokeStyle = "rgba(77, 48, 15, .22)";
       ctx.strokeRect(x + .5, y + .5, TILE, TILE);
     } else if (tile === "water") {
-      ctx.fillRect(x + 3, y + 10 + ((gx + gy) % 5), 24, 3);
-      ctx.fillRect(x + 9, y + 22, 16, 2);
+      const wave = Math.sin(t * 2.4 + gx * .7 + gy * .3) * 2;
+      ctx.fillRect(x + 3, y + 10 + ((gx + gy) % 5) + wave, 24, 3);
+      ctx.fillRect(x + 9, y + 22 - wave * .4, 16, 2);
+      ctx.fillStyle = "rgba(117, 244, 255, .18)";
+      ctx.fillRect(x + 1, y + TILE - 5, TILE - 2, 2);
     } else if (tile === "mountain") {
       drawAtlas("mountainA", x - 4, y - 10, 42, 40);
     } else {
@@ -1288,14 +1345,36 @@
       ctx.fillRect(x, y + TILE - 4, TILE + 1, 4);
     }
     if (tile === "grass2") {
+      const sway = Math.sin(t * 4 + gx * .8 + gy * .5);
       ctx.fillStyle = "rgba(6, 42, 17, .34)";
-      for (let i = 0; i < 6; i += 1) ctx.fillRect(x + 3 + i * 5, y + 17 - (i % 2) * 5, 3, 13);
+      for (let i = 0; i < 6; i += 1) ctx.fillRect(x + 3 + i * 5 + sway * (i % 2 ? 1 : -1), y + 17 - (i % 2) * 5, 3, 13);
     }
     if (tile === "tree") {
       ctx.fillStyle = "#1b551d";
       ctx.fillRect(x, y, TILE + 1, TILE + 1);
       drawAtlas((gx + gy) % 2 ? "treeA" : "treeB", x - 8, y - 20, 48, 54);
     }
+  }
+
+  function drawRouteAtmosphere() {
+    if (view.w < 680 && view.h < 680) return;
+    const t = performance.now() / 1000;
+    const startX = Math.floor(state.camera.x / TILE);
+    const startY = Math.floor(state.camera.y / TILE);
+    const count = Math.min(34, Math.floor(view.w * view.h / 32000));
+    ctx.save();
+    for (let i = 0; i < count; i += 1) {
+      const seed = hash(`${startX + i * 7}:${startY + i * 11}:route`);
+      const wx = ((seed % (WORLD_W * TILE)) + Math.sin(t * .23 + i) * 18) % (WORLD_W * TILE);
+      const wy = ((Math.floor(seed / 97) % (WORLD_H * TILE)) + t * (5 + (seed % 4))) % (WORLD_H * TILE);
+      const x = wx - state.camera.x;
+      const y = wy - state.camera.y;
+      if (x < -20 || y < -20 || x > view.w + 20 || y > view.h + 20) continue;
+      ctx.globalAlpha = .22 + ((seed % 9) / 30);
+      ctx.fillStyle = seed % 3 ? "#edf987" : "#75f4ff";
+      ctx.fillRect(x, y, 3 + (seed % 2), 3 + (seed % 2));
+    }
+    ctx.restore();
   }
 
   function drawPlace(place) {
@@ -1308,8 +1387,34 @@
   function drawNpc(npc) {
     const x = npc.gx * TILE - state.camera.x;
     const y = npc.gy * TILE - state.camera.y;
-    drawAtlas("scholar", x - 11, y - 25, 50, 48);
+    const bob = Math.sin(performance.now() / 1000 * 2 + hash(npc.id) % 8) * 2;
+    const hue = (hash(npc.type) % 360);
+    ctx.fillStyle = `hsla(${hue}, 70%, 58%, .28)`;
+    ctx.beginPath();
+    ctx.ellipse(x + 10, y + 19, 19, 7, 0, 0, Math.PI * 2);
+    ctx.fill();
+    drawAtlas("scholar", x - 11, y - 25 + bob, 50, 48);
+    ctx.fillStyle = `hsl(${hue}, 78%, 62%)`;
+    ctx.fillRect(x + 1, y - 24 + bob, 18, 3);
     label(npc.name.split(" ")[0], x - 14, y - 36, 72);
+  }
+
+  function drawFollower() {
+    if (state.stats.party.length < 1 || state.mode !== "overworld") return;
+    const p = state.player;
+    const dir = dirs[p.dir] || dirs.down;
+    const ally = activeAlly();
+    const x = p.x - dir.x * TILE - state.camera.x;
+    const y = p.y - dir.y * TILE - state.camera.y;
+    const bob = Math.sin((p.step || 0) * Math.PI * 4 + Math.PI) * (p.moving ? 2 : 1);
+    ctx.save();
+    ctx.globalAlpha = .95;
+    ctx.fillStyle = "rgba(7, 21, 12, .34)";
+    ctx.beginPath();
+    ctx.ellipse(x + 5, y + 17, 19, 7, 0, 0, Math.PI * 2);
+    ctx.fill();
+    drawFigure(ally, x - 18, y - 24 + bob, 42, 42, p.dir === "right");
+    ctx.restore();
   }
 
   function drawPlayer() {
@@ -1334,15 +1439,60 @@
   }
 
   function drawWorldOverlay() {
-    if (state.mode === "overworld" && nearestInteraction()) {
+    if (state.mode !== "overworld") return;
+    const touch = view.w <= 780 || (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+    if (!touch && view.w >= 900) drawMiniMap();
+    const promptY = touch ? 56 : view.h - 58;
+    const target = nearestInteraction();
+    if (target) {
       ctx.fillStyle = "rgba(7, 21, 12, .86)";
-      ctx.fillRect(view.w / 2 - 94, view.h - 58, 188, 26);
+      ctx.fillRect(view.w / 2 - 94, promptY, 188, 26);
       ctx.strokeStyle = "#c9ef41";
-      ctx.strokeRect(view.w / 2 - 94, view.h - 58, 188, 26);
+      ctx.strokeRect(view.w / 2 - 94, promptY, 188, 26);
       ctx.fillStyle = "#edf987";
       ctx.font = "12px Courier New";
-      ctx.fillText("A: TALK / ENTER", view.w / 2 - 70, view.h - 40);
+      ctx.fillText("A: TALK / ENTER", view.w / 2 - 70, promptY + 18);
+    } else if (!touch) {
+      const text = "START / M / P: PAUSE";
+      ctx.fillStyle = "rgba(7, 21, 12, .78)";
+      ctx.fillRect(view.w / 2 - 96, promptY, 192, 24);
+      ctx.strokeStyle = "rgba(201, 239, 65, .65)";
+      ctx.strokeRect(view.w / 2 - 96, promptY, 192, 24);
+      ctx.fillStyle = "#edf987";
+      ctx.font = "11px Courier New";
+      ctx.fillText(text, view.w / 2 - 74, promptY + 16);
     }
+  }
+
+  function drawMiniMap() {
+    const w = 142;
+    const h = 104;
+    const x = view.w - w - 18;
+    const y = 64;
+    ctx.save();
+    ctx.fillStyle = "rgba(7, 21, 12, .76)";
+    ctx.fillRect(x, y, w, h);
+    ctx.strokeStyle = "rgba(237, 249, 135, .72)";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, w, h);
+    ctx.fillStyle = "rgba(201, 239, 65, .08)";
+    for (let i = 0; i < 6; i += 1) ctx.fillRect(x + i * 24, y, 1, h);
+    for (let i = 0; i < 5; i += 1) ctx.fillRect(x, y + i * 24, w, 1);
+    places.forEach((place) => {
+      const px = x + 6 + place.gx / WORLD_W * (w - 12);
+      const py = y + 6 + place.gy / WORLD_H * (h - 12);
+      ctx.fillStyle = place.kind === "center" ? "#75f4ff" : place.kind === "summit" ? "#f3cf61" : "#edf987";
+      ctx.fillRect(px - 2, py - 2, 4, 4);
+    });
+    const p = state.player;
+    const px = x + 6 + p.gx / WORLD_W * (w - 12);
+    const py = y + 6 + p.gy / WORLD_H * (h - 12);
+    ctx.fillStyle = "#ff6a8d";
+    ctx.fillRect(px - 3, py - 3, 6, 6);
+    ctx.fillStyle = "#edf987";
+    ctx.font = "9px Courier New";
+    ctx.fillText("ATLAS", x + 8, y + h - 8);
+    ctx.restore();
   }
 
   function renderBattle() {
@@ -1516,7 +1666,7 @@
       } else if (event.key === "Escape" || event.key === "Backspace") {
         cancelButton();
         event.preventDefault();
-      } else if (event.key.toLowerCase() === "m") {
+      } else if (event.key.toLowerCase() === "m" || event.key.toLowerCase() === "p") {
         state.mode === "menu" ? closeMenu() : openMenu();
       }
     });

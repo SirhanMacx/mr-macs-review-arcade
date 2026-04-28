@@ -179,6 +179,10 @@ canvas {
   font-size: 12px;
 }
 
+.game.in-battle .top-hud {
+  display: none;
+}
+
 .dialogue {
   left: max(12px, env(safe-area-inset-left));
   right: max(12px, env(safe-area-inset-right));
