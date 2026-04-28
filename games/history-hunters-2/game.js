@@ -54,6 +54,7 @@
 
   const tileAtlas = loadImage("../../assets/history-hunters/keyed/retro-tile-sprite-atlas-keyed.png");
   const playerBack = loadImage("../../assets/history-hunters/keyed/player-back-keyed.png");
+  const decorSheet = loadImage("../../assets/history-hunters/generated/overworld-decor-sheet-v2.png");
   const figureAtlases = Array.from({ length: 10 }, (_, i) => loadImage(`../../assets/history-hunters/keyed/battle-figure-atlas-${i + 1}-keyed.png`));
 
   const atlas = {
@@ -167,11 +168,53 @@
     { id: "captain", name: "Captain Ellis", type: "Summit Rival", gx: 109, gy: 70, text: "A full party with restored PP matters before the Atlas Summit.", battle: true }
   ];
 
+  const decor = [
+    { type: "sign", gx: 15, gy: 18, w: 54, h: 54 },
+    { type: "fountain", gx: 23, gy: 21, w: 62, h: 54 },
+    { type: "lamp", gx: 28, gy: 16, w: 34, h: 62 },
+    { type: "flowers", gx: 32, gy: 20, w: 54, h: 34 },
+    { type: "bulletin", gx: 18, gy: 10, w: 64, h: 48 },
+    { type: "banner", gx: 31, gy: 17, w: 50, h: 68 },
+    { type: "obelisk", gx: 37, gy: 26, w: 42, h: 62 },
+    { type: "monument", gx: 45, gy: 22, w: 70, h: 64 },
+    { type: "crate", gx: 48, gy: 31, w: 48, h: 48 },
+    { type: "column", gx: 17, gy: 45, w: 58, h: 64 },
+    { type: "tent", gx: 19, gy: 53, w: 70, h: 62 },
+    { type: "bridge", gx: 61, gy: 35, w: 82, h: 46 },
+    { type: "market", gx: 52, gy: 74, w: 76, h: 62 },
+    { type: "scroll", gx: 73, gy: 55, w: 58, h: 64 },
+    { type: "map", gx: 101, gy: 32, w: 72, h: 54 },
+    { type: "portal", gx: 111, gy: 70, w: 70, h: 76 },
+    { type: "lamp", gx: 83, gy: 20, w: 34, h: 62 },
+    { type: "flowers", gx: 96, gy: 27, w: 54, h: 34 },
+    { type: "sign", gx: 48, gy: 69, w: 54, h: 54 },
+    { type: "obelisk", gx: 116, gy: 76, w: 42, h: 62 }
+  ];
+
+  const decorCells = {
+    sign: 0,
+    monument: 1,
+    scroll: 2,
+    fountain: 3,
+    market: 4,
+    banner: 5,
+    lamp: 6,
+    bridge: 7,
+    column: 8,
+    flowers: 9,
+    crate: 10,
+    obelisk: 11,
+    bulletin: 12,
+    tent: 13,
+    portal: 14,
+    map: 15
+  };
+
   const dirs = {
     up: { x: 0, y: -1, key: "playerBack" },
     down: { x: 0, y: 1, key: "playerFront" },
-    left: { x: -1, y: 0, key: "playerSideAlt" },
-    right: { x: 1, y: 0, key: "playerSide" }
+    left: { x: -1, y: 0, key: "playerSide" },
+    right: { x: 1, y: 0, key: "playerSideAlt" }
   };
   const sourcePromptRe = /(\bthis\s+(amendment|document|letter|speech|excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\bthese\s+(issues|documents|statements|headlines|conditions|changes|questions|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b|similar\s+to\s+this)/i;
 
@@ -539,6 +582,48 @@
       ctx.drawImage(img, sx, sy, cellW, cellH, 0, 0, w, h);
     } else {
       ctx.drawImage(img, sx, sy, cellW, cellH, x, y, w, h);
+    }
+    ctx.restore();
+  }
+
+  function drawDecor(item) {
+    if (!decorSheet.complete) return;
+    const index = decorCells[item.type];
+    if (index == null) return;
+    const cell = 256;
+    const sx = (index % 4) * cell;
+    const sy = Math.floor(index / 4) * cell;
+    let x = item.gx * TILE - state.camera.x - item.w / 2 + TILE / 2;
+    let y = item.gy * TILE - state.camera.y - item.h + TILE;
+    const t = performance.now() / 1000 + (hash(`${item.type}:${item.gx}:${item.gy}`) % 100) / 19;
+    const pulse = .5 + Math.sin(t * 2.2) * .5;
+
+    ctx.save();
+    if (item.type === "banner" || item.type === "flowers") {
+      ctx.translate(x + item.w / 2, y + item.h);
+      ctx.rotate(Math.sin(t * 2.4) * .035);
+      x = -item.w / 2;
+      y = -item.h;
+    }
+    if (item.type === "portal" || item.type === "fountain") {
+      y += Math.sin(t * 2) * 2;
+    }
+    if (item.type === "lamp" || item.type === "portal" || item.type === "fountain") {
+      ctx.globalAlpha = item.type === "lamp" ? .24 + pulse * .18 : .13 + pulse * .14;
+      ctx.fillStyle = item.type === "lamp" ? "#edf987" : "#75f4ff";
+      ctx.beginPath();
+      ctx.ellipse(x + item.w / 2, y + item.h * .55, item.w * .7, item.h * .45, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+    ctx.drawImage(decorSheet, sx, sy, cell, cell, x, y, item.w, item.h);
+    if (item.type === "fountain" || item.type === "portal") {
+      ctx.fillStyle = item.type === "portal" ? "#edf987" : "#75f4ff";
+      for (let i = 0; i < 4; i += 1) {
+        const sparkle = (t * 1.7 + i * .31) % 1;
+        ctx.globalAlpha = .7 * (1 - sparkle);
+        ctx.fillRect(x + item.w * (.28 + i * .13), y + item.h * (.34 - sparkle * .22), 3, 3);
+      }
     }
     ctx.restore();
   }
@@ -1167,6 +1252,7 @@
       }
     }
     places.forEach(drawPlace);
+    decor.forEach(drawDecor);
     npcs.forEach(drawNpc);
     drawPlayer();
     drawWorldOverlay();
@@ -1230,8 +1316,13 @@
     const p = state.player;
     const x = p.x - state.camera.x;
     const y = p.y - state.camera.y;
+    const bob = p.moving ? Math.sin(p.step * Math.PI * 4) * 2 : 0;
+    if (p.dir === "up" && playerBack.complete) {
+      ctx.drawImage(playerBack, x - 13, y - 28 + bob, 42, 54);
+      return;
+    }
     const keyName = dirs[p.dir] ? dirs[p.dir].key : "playerFront";
-    drawAtlas(keyName, x - 13, y - 28 + (p.moving ? Math.sin(p.step * Math.PI * 4) * 2 : 0), 42, 54);
+    drawAtlas(keyName, x - 13, y - 28 + bob, 42, 54);
   }
 
   function label(text, x, y, width) {
@@ -1389,6 +1480,12 @@
     }
   }
 
+  function isTypingTarget(target) {
+    if (!target) return false;
+    const tag = String(target.tagName || "").toLowerCase();
+    return target.isContentEditable || tag === "input" || tag === "textarea" || tag === "select";
+  }
+
   function cancelButton() {
     if (state.mode === "dialogue") closeDialogue();
     else if (state.mode === "menu") closeMenu();
@@ -1401,6 +1498,13 @@
 
   function bindEvents() {
     window.addEventListener("keydown", (event) => {
+      if (isTypingTarget(event.target)) {
+        if (event.key === "Escape") {
+          cancelButton();
+          event.preventDefault();
+        }
+        return;
+      }
       const map = { ArrowUp: "up", w: "up", W: "up", ArrowDown: "down", s: "down", S: "down", ArrowLeft: "left", a: "left", A: "left", ArrowRight: "right", d: "right", D: "right" };
       if (map[event.key]) {
         state.player.dir = map[event.key];
