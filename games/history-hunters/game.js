@@ -2,8 +2,8 @@
   "use strict";
 
   const STORAGE_KEY = "mr-macs-history-hunters-v1";
-  const WORLD_W = 3600;
-  const WORLD_H = 2300;
+  const WORLD_W = 5200;
+  const WORLD_H = 3400;
   const $ = (id) => document.getElementById(id);
 
   const els = {
@@ -129,7 +129,9 @@
     [160, 180, 560, 250], [880, 160, 420, 260], [1840, 170, 580, 260], [2860, 180, 520, 270],
     [180, 520, 420, 270], [890, 520, 360, 250], [1840, 520, 430, 260], [2840, 550, 500, 270],
     [250, 1200, 520, 300], [880, 1200, 470, 280], [1830, 1200, 590, 290], [2820, 1180, 540, 300],
-    [280, 1740, 560, 300], [1060, 1760, 520, 300], [1900, 1760, 560, 300], [2740, 1720, 540, 310]
+    [280, 1740, 560, 300], [1060, 1760, 520, 300], [1900, 1760, 560, 300], [2740, 1720, 540, 310],
+    [3650, 260, 620, 300], [4380, 330, 520, 310], [3660, 920, 560, 310], [4400, 1080, 520, 330],
+    [3450, 1710, 610, 330], [4290, 1870, 600, 330], [3350, 2490, 650, 330], [4260, 2700, 620, 350]
   ];
 
   const worldPlaces = [
@@ -177,6 +179,42 @@
       y: 1720,
       icon: "portal",
       text: "A route hub for global networks, trade, migration, and empire encounters."
+    },
+    {
+      id: "capitol",
+      kind: "story",
+      name: "Civic Capitol",
+      x: 3900,
+      y: 720,
+      icon: "school",
+      text: "A rights-and-government district for civics, constitutional principles, courts, and public action."
+    },
+    {
+      id: "forge",
+      kind: "story",
+      name: "Industrial Forge",
+      x: 4540,
+      y: 1370,
+      icon: "gate",
+      text: "Factory routes connect industrialization, labor, capitalism, socialism, reform, and migration."
+    },
+    {
+      id: "psychLab",
+      kind: "story",
+      name: "Mind Lab",
+      x: 3820,
+      y: 2200,
+      icon: "arch",
+      text: "A research wing for psychology, behavior, cognition, learning, and experiments."
+    },
+    {
+      id: "summit",
+      kind: "story",
+      name: "Regents Summit",
+      x: 4620,
+      y: 2860,
+      icon: "portal",
+      text: "The high route mixes cumulative review, final bosses, source work, and endurance quests."
     }
   ];
 
@@ -216,6 +254,42 @@
       type: "Harbor Captain",
       text: "Global routes connect goods, ideas, disease, technologies, people, and power. That is how you win the long game.",
       action: "battle"
+    },
+    {
+      id: "justice",
+      name: "Justice Vega",
+      x: 3970,
+      y: 900,
+      type: "Civic Rival",
+      text: "A court case is a battle over principles. Bring a civics-type ally and watch federalism, rights, and precedent interact.",
+      action: "battle"
+    },
+    {
+      id: "organizer",
+      name: "Organizer Noor",
+      x: 4560,
+      y: 1540,
+      type: "Labor Organizer",
+      text: "Industrial routes hit hard: factories, urbanization, labor systems, reform movements, and new ideologies all stack together.",
+      grant: "forgeNote"
+    },
+    {
+      id: "researcher",
+      name: "Dr. Sato",
+      x: 3740,
+      y: 2360,
+      type: "Research Coach",
+      text: "In the Mind Lab, every claim needs a method. Experiments, ethics, learning, memory, and bias all have battle effects.",
+      grant: "labNote"
+    },
+    {
+      id: "champion",
+      name: "Summit Champion Ari",
+      x: 4610,
+      y: 3060,
+      type: "Summit Champion",
+      text: "You do not clear the summit with one good answer. You need a party, items, type matchups, and real historical range.",
+      action: "battle"
     }
   ];
 
@@ -224,7 +298,8 @@
     "Chapter 2: Build a three-ally party across course types.",
     "Chapter 3: Clear five review missions and visit the Source Museum.",
     "Chapter 4: Reach the harbor with a level 5 roster leader.",
-    "Chapter 5: Master mode unlocked. Keep collecting figure lines across every course."
+    "Chapter 5: Cross the eastern routes and test civics, industry, psychology, and global review.",
+    "Chapter 6: Summit mode unlocked. Build a complete party and clear cumulative contracts."
   ];
 
   const itemCatalog = {
@@ -590,6 +665,7 @@
       roster: [],
       missions: 0,
       xp: 0,
+      activeAlly: 0,
       playerHp: 100,
       maxHp: 100,
       storyStep: 0,
@@ -607,6 +683,7 @@
     stats.maxHp = Math.max(100, Number(stats.maxHp || 100));
     stats.playerHp = clamp(Number(stats.playerHp || stats.maxHp), 0, stats.maxHp);
     stats.xp = Math.max(0, Number(stats.xp || 0));
+    stats.activeAlly = clamp(Number(stats.activeAlly || 0), 0, Math.max(0, stats.roster.length - 1));
     stats.storyStep = clamp(Number(stats.storyStep || 0), 0, storyChapters.length - 1);
     return stats;
   }
@@ -853,10 +930,8 @@
   }
 
   function moveActorName() {
-    const first = (state.stats.roster || [])[0];
-    if (first) return first.actualName || first.name || "Field Team";
-    if (state.currentAlly && state.currentAlly.actualName) return state.currentAlly.actualName;
-    return playerTitle();
+    const hero = heroAlly();
+    return hero.actualName || hero.name || playerTitle();
   }
 
   function opponentMoveFor(ally) {
@@ -876,9 +951,11 @@
     const family = familiesById[ally && ally.familyId] || null;
     const name = ally && ally.actualName || family && family.historicalName || ally && ally.name || "This figure";
     const target = opponentFor(ally);
-    if (mode === "intro") return `${name}'s echo is tangled with ${target}. Win the battle to bring the story back into focus.`;
+    const type = ally && ally.type || "Review";
+    if (mode === "intro") return `${name}'s ${type} echo is tangled with ${target}. ${cleanText(family && family.line || ally && ally.role || "Win the battle to bring the story back into focus.")}`;
     if (mode === "parley") return `${name}: "${cleanText(family && family.line || ally && ally.role || "History is stronger when you know the context.")}"`;
     if (mode === "capture") return `${name} watches your choices. Lower HP, build trust, then use an Archive Capsule.`;
+    if (mode === "victory") return `${name}'s context stabilized. ${shout(target)} faded from the route.`;
     return cleanText(ally && ally.role || `${name} enters the route.`);
   }
 
@@ -1101,20 +1178,23 @@
   }
 
   function heroAlly() {
-    const first = (state.stats.roster || [])[0];
-    if (first) {
+    const roster = state.stats.roster || [];
+    const activeIndex = clamp(Number(state.stats.activeAlly || 0), 0, Math.max(0, roster.length - 1));
+    const active = roster[activeIndex];
+    if (active) {
       return {
-        name: first.actualName || first.name,
-        actualName: first.actualName || first.name,
-        type: first.type || "Review",
-        moves: first.moves && first.moves.length ? first.moves : fallbackMoves,
-        palette: first.palette || paletteFor(first.name)
+        name: active.actualName || active.name,
+        actualName: active.actualName || active.name,
+        type: active.type || "Review",
+        moves: active.moves && active.moves.length ? active.moves : fallbackMoves,
+        palette: active.palette || paletteFor(active.name),
+        rosterIndex: activeIndex
       };
     }
     if (state.currentAlly && state.currentAlly.moves && state.currentAlly.moves.length) {
       return {
         name: playerTitle(),
-        actualName: state.currentAlly.actualName || state.currentAlly.name,
+        actualName: playerTitle(),
         type: state.currentAlly.type || "Review",
         moves: state.currentAlly.moves,
         palette: state.currentAlly.palette || palettes[0]
@@ -1157,7 +1237,7 @@
   }
 
   function setEncounterPhase(phase) {
-    ["intro", "sendout", "command", "move", "item", "windup", "question", "resolve", "faint", "capture"].forEach((name) => {
+    ["intro", "sendout", "command", "move", "item", "party", "windup", "question", "resolve", "faint", "capture"].forEach((name) => {
       els.encounter.classList.toggle(`phase-${name}`, phase === name);
     });
     if (state.battle) state.battle.phase = phase;
@@ -1191,7 +1271,7 @@
     els.battleActions.innerHTML = [
       ["fight", "Fight", "choose a move"],
       ["item", "Bag", "items"],
-      ["talk", "Talk", "build trust"],
+      ["party", "Party", "switch ally"],
       ["run", "Run", "leave safely"]
     ].map(([action, label, detail]) => (
       `<button type="button" data-action="${action}" class="${action}"><strong>${label}</strong><small>${detail}</small></button>`
@@ -1218,8 +1298,11 @@
       setBattleLog("Open the field bag. Items use your turn.");
       return;
     }
-    if (action === "talk") {
-      await parleyTurn();
+    if (action === "party") {
+      setEncounterPhase("party");
+      renderBattleParty();
+      els.moveButtons.classList.add("open");
+      setBattleLog("Choose a Chronicle Ally to send out.");
       return;
     }
     setEncounterPhase("move");
@@ -1244,6 +1327,26 @@
     )).join("");
     Array.prototype.forEach.call(els.moveButtons.querySelectorAll("button[data-item]"), (button) => {
       button.addEventListener("click", () => chooseBattleItem(button.dataset.item));
+    });
+  }
+
+  function renderBattleParty() {
+    const roster = state.stats.roster || [];
+    els.moveButtons.classList.remove("answering", "open");
+    if (!roster.length) {
+      els.moveButtons.innerHTML = `<button type="button" data-party="-1"><strong>No Allies Yet</strong><small>back to commands</small></button>`;
+    } else {
+      els.moveButtons.innerHTML = roster.slice(0, 6).map((ally, index) => {
+        const data = typeData[ally.type] || typeData.Review;
+        const active = index === 0 ? " / active" : "";
+        return `<button type="button" data-party="${index}" style="--type:${data.color};--effect-y:${typeEffectOffset(ally.type)}">` +
+          `<strong>${escapeHtml(ally.actualName || ally.name)}${active}</strong>` +
+          `<small>${escapeHtml(ally.type || "Review")} / stage ${escapeHtml(String(ally.level || 1))}</small>` +
+        `</button>`;
+      }).join("");
+    }
+    Array.prototype.forEach.call(els.moveButtons.querySelectorAll("button[data-party]"), (button) => {
+      button.addEventListener("click", () => choosePartyAlly(Number(button.dataset.party)));
     });
   }
 
@@ -1274,9 +1377,9 @@
     const hero = heroAlly();
     const counterMove = opponentMoveFor(ally);
     const enemyLevel = Math.max(1, Number(ally.level || 1));
-    const result = attackDamage({ name: counterMove, type: ally.type, power: reason === "parley" ? 13 : 17 }, ally.type, hero.type, enemyLevel, false);
+    const result = attackDamage({ name: counterMove, type: ally.type, power: reason === "switch" ? 14 : reason === "parley" ? 13 : 17 }, ally.type, hero.type, enemyLevel, false);
     setEncounterPhase("resolve");
-    await showBattleMessage(`${shout(opponentFor(ally))} used ${shout(counterMove)}!`, 620);
+    await showBattleMessage(`${shout(opponentFor(ally))} used ${shout(counterMove)} against ${shout(hero.name)}!`, 620);
     if (!isCurrentBattle(battle)) return;
     battle.heroHp = clamp(battle.heroHp - result.amount, 0, state.stats.maxHp || 100);
     state.stats.playerHp = battle.heroHp;
@@ -1377,8 +1480,38 @@
       await enemyCounterTurn("item");
       if (!isCurrentBattle(battle) || battle.heroHp <= 0) return;
       battle.studyBoost = false;
-      prepareCommand(`Capture chance improves after damage and Talk. Trust: ${state.capture}%.`);
+      prepareCommand(`Capture chance improves after damage, Field Notes, and low HP. Trust: ${state.capture}%.`);
     }
+  }
+
+  async function choosePartyAlly(index) {
+    const battle = state.battle;
+    const roster = state.stats.roster || [];
+    if (!battle || state.locked) return;
+    if (!roster.length || index < 0 || !roster[index]) {
+      prepareCommand(`No Chronicle Allies are ready yet. ${shout(playerTitle())} stays in.`);
+      return;
+    }
+    const current = clamp(Number(state.stats.activeAlly || 0), 0, Math.max(0, roster.length - 1));
+    const selected = roster[index];
+    if (index === current) {
+      prepareCommand(`${shout(selected.actualName || selected.name)} is already out front.`);
+      return;
+    }
+    state.locked = true;
+    setEncounterPhase("resolve");
+    const previous = roster[current];
+    state.stats.activeAlly = index;
+    writeSave();
+    renderBattle();
+    await showBattleMessage(`Come back, ${shout(previous.actualName || previous.name)}!`, 560);
+    if (!isCurrentBattle(battle)) return;
+    flashBattleFx("fx-sendout", 700);
+    await showBattleMessage(`Go! ${shout(selected.actualName || selected.name)}!`, 700);
+    if (!isCurrentBattle(battle)) return;
+    await enemyCounterTurn("switch");
+    if (!isCurrentBattle(battle) || battle.heroHp <= 0) return;
+    prepareCommand(`What will ${shout(heroAlly().name)} do?`);
   }
 
   function initials(name) {
@@ -1754,7 +1887,7 @@
     } else {
       const exists = state.stats.roster.some((item) => item.id === ally.id);
       if (!exists) {
-      state.stats.roster.unshift({
+        state.stats.roster.unshift({
           id: ally.id,
           name: ally.name,
           actualName: ally.actualName,
@@ -1772,11 +1905,12 @@
           palette: ally.palette,
           level: 1
         });
+        state.stats.activeAlly = 0;
         state.stats.roster = state.stats.roster.slice(0, 96);
         state.stats.shards += 40;
         addXp(60);
         setFeedback(`${ally.name} joined your party. +40 shards.`, "done");
-        setBattleLog(`${shout(opponentFor(ally))} fainted! ${ally.actualName} joined your roster.`);
+        setBattleLog(loreLineFor(ally, "victory") + ` ${ally.actualName} joined your roster.`);
       } else {
         const rosterAlly = state.stats.roster.find((item) => item.id === ally.id);
         if (rosterAlly) {
@@ -1816,15 +1950,16 @@
       els.rosterList.innerHTML = `<div class="roster-empty">No allies yet. Win a figure battle, lower HP, build trust, and use an Archive Capsule to recruit your first Chronicle Ally.</div>`;
       return;
     }
-    els.rosterList.innerHTML = roster.map((ally) => {
+    const activeIndex = clamp(Number(state.stats.activeAlly || 0), 0, Math.max(0, roster.length - 1));
+    els.rosterList.innerHTML = roster.map((ally, index) => {
       const palette = ally.palette || paletteFor(ally.name);
       const sprite = spritePosition(ally);
       const family = familiesById[ally.familyId] || figureFamilyFor({ course: ally.course, answer: ally.name }, courseTypeFor(ally.course));
       const species = ally.species || family.names[stageForAlly(ally)] || family.names[0];
-      return `<div class="roster-item">` +
+      return `<div class="roster-item${index === activeIndex ? " active" : ""}">` +
         `<div class="mini-portrait" style="--sprite-image:${escapeHtml(sprite.image)};--sprite-x:${escapeHtml(sprite.x)};--sprite-y:${escapeHtml(sprite.y)};--ally-a:${escapeHtml(palette[0])};--ally-b:${escapeHtml(palette[1])}" role="img" aria-label="${escapeHtml(species)}"></div>` +
         `<div><strong>${escapeHtml(ally.name)}</strong><span>${escapeHtml(ally.type || "Review")} type / ${escapeHtml(family.historicalName || species)} line / Stage ${escapeHtml(String(ally.level || 1))} / ${escapeHtml(ally.course)}</span></div>` +
-        `<em>${escapeHtml(ally.rarity)}</em>` +
+        `<em>${index === activeIndex ? "Active" : escapeHtml(ally.rarity)}</em>` +
       `</div>`;
     }).join("");
   }
@@ -1990,7 +2125,7 @@
   function openInteraction(item) {
     const target = item || state.nearInteraction || nearestInteraction(state.player);
     if (!target) {
-      setDialogue("Field", "Open Route", "Tap a building, NPC, or route marker to interact. Tall grass starts wild review encounters.", [
+      setDialogue("Field", "Open Route", "Tap a building, NPC, or route marker to interact. Tall grass starts wild figure battles; towns and NPCs post review contracts.", [
         { action: "quest", label: "Side Quest" },
         { action: "hunt", label: "Start Hunt" },
         { action: "close", label: "Keep Walking" }
@@ -2121,10 +2256,58 @@
         ]
       };
     }
+    if (place.id === "capitol") {
+      return {
+        kicker: "Civic Capitol",
+        title: "Rights docket",
+        text: "The court route asks who has power, what limits it, and how rights claims become public action.",
+        actions: [
+          { action: "quest", label: "Civics Contract" },
+          { action: "hunt", label: "Court Battle" },
+          { action: "leave", label: "Leave" }
+        ]
+      };
+    }
+    if (place.id === "forge") {
+      return {
+        kicker: "Industrial Forge",
+        title: "Factory floor",
+        text: "Machines, labor, capital, urban growth, reform pressure, and ideology all collide on this route.",
+        actions: [
+          { action: "quest", label: "Factory Contract" },
+          { action: "hunt", label: "Forge Battle" },
+          { action: "leave", label: "Leave" }
+        ]
+      };
+    }
+    if (place.id === "psychLab") {
+      return {
+        kicker: "Mind Lab",
+        title: "Research wing",
+        text: "Behavior, cognition, memory, learning, development, and research design all need precise evidence.",
+        actions: [
+          { action: "quest", label: "Research Quest" },
+          { action: "hunt", label: "Lab Battle" },
+          { action: "leave", label: "Leave" }
+        ]
+      };
+    }
+    if (place.id === "summit") {
+      return {
+        kicker: "Regents Summit",
+        title: "Cumulative route",
+        text: "The summit mixes units, courses, documents, and historical figures. Bring a real party before you climb.",
+        actions: [
+          { action: "quest", label: "Summit Contract" },
+          { action: "hunt", label: "Summit Battle" },
+          { action: "leave", label: "Leave" }
+        ]
+      };
+    }
     return {
       kicker: place.name,
       title: "Route hub",
-      text: place.text || "This route connects new review encounters.",
+      text: place.text || "This route connects figure battles and review contracts.",
       actions: [
         { action: "quest", label: "Side Quest" },
         { action: "hunt", label: "Start Route" },
@@ -2189,7 +2372,7 @@
         updateHud();
         renderBag();
       }
-      els.buildingText.textContent = "Source Lenses are in your bag. Use them when a question depends on a stimulus.";
+      els.buildingText.textContent = "Source Lenses are in your bag. Use them during source-based review contracts.";
       return;
     }
     if (action === "hunt") {
@@ -2238,6 +2421,22 @@
       setDialogue("Source Coach", npc.name, "Two Source Lenses added. Use them on side quests that depend on a map, chart, excerpt, cartoon, or image.", [
         { action: "close", label: "Got It" }
       ]);
+    } else if (npc.grant === "forgeNote") {
+      state.stats.items.fieldNote += 2;
+      state.stats.shards += 25;
+      state.stats.flags.forgeNote = true;
+      setDialogue("Labor Organizer", npc.name, "Two Field Notes and 25 shards added. Industrial routes reward cause-and-effect thinking about labor, capital, and reform.", [
+        { action: "quest", label: "Factory Contract" },
+        { action: "close", label: "Back" }
+      ]);
+    } else if (npc.grant === "labNote") {
+      state.stats.items.sourceLens += 1;
+      state.stats.items.healKit += 1;
+      state.stats.flags.labNote = true;
+      setDialogue("Research Coach", npc.name, "One Source Lens and one Restoration Tea added. The Mind Lab rewards clean evidence, method, and careful claims.", [
+        { action: "quest", label: "Research Quest" },
+        { action: "close", label: "Back" }
+      ]);
     }
     writeSave();
     updateHud();
@@ -2276,6 +2475,7 @@
     if (rosterCount >= 3) step = 2;
     if (missions >= 5 || state.stats.flags.lens) step = 3;
     if (rank >= 5) step = 4;
+    if (rank >= 8 && rosterCount >= 6) step = 5;
     state.stats.storyStep = Math.max(Number(state.stats.storyStep || 0), step);
     writeSave();
     updateHud();
@@ -2672,7 +2872,7 @@
           ? "Chronicle Center nearby. Heal party health and save progress."
           : interaction.kind === "shop"
             ? "Archive Supply nearby. Buy items with shards."
-            : `${interaction.name} nearby. Talk to continue the story or start a checkpoint.`;
+            : `${interaction.name} nearby. Talk to continue the story, battle, or start a contract.`;
       } else {
         updateQuest();
       }
@@ -2709,7 +2909,11 @@
 
   function drawWorld(now) {
     if (!state.terrain) state.terrain = buildTerrainLayer();
-    ctx.drawImage(state.terrain, 0, 0);
+    const sx = clamp(Math.floor(state.camera.x) - 120, 0, Math.max(0, WORLD_W - 1));
+    const sy = clamp(Math.floor(state.camera.y) - 120, 0, Math.max(0, WORLD_H - 1));
+    const sw = Math.min(WORLD_W - sx, innerWidth + 240);
+    const sh = Math.min(WORLD_H - sy, innerHeight + 240);
+    ctx.drawImage(state.terrain, sx, sy, sw, sh, sx, sy, sw, sh);
     drawRetroAmbient(now);
   }
 
@@ -2799,16 +3003,24 @@
   function drawRetroRoads(context) {
     const roads = [
       [120, 740, 3360, 118], [1250, 150, 124, 1940], [2460, 230, 124, 1840],
+      [3280, 740, 1620, 118], [3820, 520, 124, 2380], [4480, 980, 124, 1960],
       [420, 410, 1120, 92], [1600, 410, 1120, 92], [2840, 430, 440, 92],
+      [3560, 430, 840, 92], [4260, 650, 630, 92],
       [360, 1010, 1120, 92], [1540, 1010, 1120, 92], [2800, 1030, 440, 92],
-      [290, 1440, 3000, 92], [380, 1880, 2820, 92],
+      [3440, 1230, 1340, 92], [290, 1440, 3000, 92], [3380, 1560, 1380, 92], [380, 1880, 2820, 92],
+      [3210, 2040, 1580, 92], [3320, 2520, 1560, 92], [3640, 3000, 1180, 92],
       [240, 570, 470, 82], [1880, 610, 420, 82], [2850, 650, 440, 82],
-      [2140, 1260, 330, 82], [2930, 1640, 330, 82]
+      [2140, 1260, 330, 82], [2930, 1640, 330, 82], [3720, 850, 440, 82],
+      [4340, 1440, 450, 82], [3610, 2290, 420, 82], [4460, 2770, 360, 82]
     ];
     roads.forEach(([x, y, w, h]) => drawRoadBlock(context, x, y, w, h));
     drawRoadBlock(context, 1040, 770, 620, 430, true);
     drawRoadBlock(context, 2260, 1140, 430, 320, true);
     drawRoadBlock(context, 2860, 1540, 420, 320, true);
+    drawRoadBlock(context, 3680, 570, 450, 320, true);
+    drawRoadBlock(context, 4310, 1240, 460, 320, true);
+    drawRoadBlock(context, 3600, 2070, 450, 320, true);
+    drawRoadBlock(context, 4410, 2700, 420, 330, true);
     drawAtlas(context, "gate", 1320 - 86, 820 - 152, 172, 132);
   }
 
@@ -2835,14 +3047,22 @@
       [230, 270, "treeA"], [360, 1180, "treeB"], [2050, 300, "treeA"], [2300, 1260, "treeB"],
       [1160, 220, "treeA"], [1460, 1380, "treeB"], [980, 1260, "treeA"], [1840, 1320, "treeA"],
       [3050, 300, "treeA"], [3300, 1340, "treeB"], [3120, 2060, "treeA"], [640, 2050, "treeB"],
-      [1660, 2050, "treeA"], [2600, 1980, "treeB"]
+      [1660, 2050, "treeA"], [2600, 1980, "treeB"], [3660, 280, "treeA"], [4120, 360, "treeB"],
+      [4890, 520, "treeA"], [3440, 1180, "treeB"], [4260, 1040, "treeA"], [4920, 1330, "treeB"],
+      [3320, 1840, "treeA"], [4070, 1750, "treeB"], [4920, 2070, "treeA"], [3340, 2720, "treeB"],
+      [4150, 2600, "treeA"], [4980, 2940, "treeB"]
     ];
     trees.forEach(([x, y, key]) => drawAtlas(context, key, x, y, 116, 126));
-    [[530, 450, "mountainA"], [1880, 560, "mountainB"], [2100, 1000, "mountainA"], [3060, 950, "mountainB"], [820, 1660, "mountainA"]]
+    [[530, 450, "mountainA"], [1880, 560, "mountainB"], [2100, 1000, "mountainA"], [3060, 950, "mountainB"], [820, 1660, "mountainA"],
+      [3520, 620, "mountainA"], [4700, 880, "mountainB"], [4100, 1780, "mountainA"], [3500, 2860, "mountainB"]]
       .forEach(([x, y, key]) => drawAtlas(context, key, x, y, 150, 126));
     drawPixelBox(context, 1110, 620, 420, 92, "MR MACS REVIEW ARCADE", "STORY ROUTE 01");
     drawPixelBox(context, 2580, 960, 350, 86, "SOURCE ROUTE", "READ FIRST");
     drawPixelBox(context, 2860, 1500, 410, 86, "EXCHANGE HARBOR", "GLOBAL NETWORKS");
+    drawPixelBox(context, 3630, 430, 420, 86, "CIVIC CAPITOL", "RIGHTS + POWER");
+    drawPixelBox(context, 4250, 1170, 460, 86, "INDUSTRIAL FORGE", "LABOR + CAPITAL");
+    drawPixelBox(context, 3530, 1990, 410, 86, "MIND LAB", "METHOD + MEMORY");
+    drawPixelBox(context, 4310, 2580, 470, 86, "REGENTS SUMMIT", "CUMULATIVE ROUTE");
   }
 
   function drawRetroBorder(context) {

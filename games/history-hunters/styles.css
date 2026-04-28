@@ -539,6 +539,11 @@ button:hover {
   gap: 10px;
 }
 
+.roster-item.active {
+  border-color: rgba(214, 238, 99, .72);
+  background: rgba(214, 238, 99, .1);
+}
+
 .mini-portrait {
   width: 42px;
   height: 42px;
@@ -1307,6 +1312,7 @@ button:hover {
 .battle-actions .capsule { --item-x: -30px; --item-y: -31px; }
 .battle-actions .item { --item-x: -259px; --item-y: -187px; }
 .battle-actions .talk { --item-x: -184px; --item-y: -259px; }
+.battle-actions .party { --item-x: -184px; --item-y: -259px; }
 .battle-actions .run { --item-x: -30px; --item-y: -405px; }
 
 .battle-actions strong,
@@ -3359,6 +3365,7 @@ body.field-mode.menu-open .quest-card {
 .encounter.phase-windup .battle-actions,
 .encounter.phase-windup .move-buttons,
 .encounter.phase-item .battle-actions,
+.encounter.phase-party .battle-actions,
 .encounter.phase-question .battle-actions,
 .encounter.phase-question .move-buttons,
 .encounter.phase-resolve .battle-actions,
@@ -3376,6 +3383,7 @@ body.field-mode.menu-open .quest-card {
 
 .encounter.phase-move .move-buttons.open,
 .encounter.phase-item .move-buttons.open,
+.encounter.phase-party .move-buttons.open,
 .encounter.phase-command .battle-actions {
   display: grid !important;
 }
