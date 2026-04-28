@@ -15,6 +15,7 @@
   const els = {
     game: $("game"),
     canvas: $("screen"),
+    exitBtn: $("exitBtn"),
     boot: $("boot"),
     startBtn: $("startBtn"),
     zoneName: $("zoneName"),
@@ -368,7 +369,7 @@
     left: { x: -1, y: 0, key: "playerSide" },
     right: { x: 1, y: 0, key: "playerSideAlt" }
   };
-  const sourcePromptRe = /(\bthis\s+(amendment|document|letter|speech|excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\bthese\s+(issues|documents|statements|headlines|conditions|changes|questions|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b|similar\s+to\s+this)/i;
+  const sourcePromptRe = /(\bthis\s+(letter|speech|excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|timeline|painting|newspaper|headline)\b|\bthese\s+(documents|statements|headlines|sources|passages|figures|maps|graphs|charts|cartoons)\b|\b(shown|pictured|illustrated|accompanying)\b|\b(above|below)\s+(document|source|passage|excerpt|map|cartoon|chart|graph|image|photograph|photo|poster)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|author)\b|\bbased\s+on\s+this\b|\bbased\s+on\s+the\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article)\b|similar\s+to\s+this)/i;
 
   const state = {
     mode: "boot",
@@ -396,8 +397,10 @@
   }
 
   function resizeCanvas() {
-    view.w = Math.max(320, Math.floor(window.innerWidth || 960));
-    view.h = Math.max(320, Math.floor(window.innerHeight || 540));
+    const viewport = window.visualViewport;
+    view.w = Math.max(320, Math.floor((viewport && viewport.width) || window.innerWidth || 960));
+    view.h = Math.max(320, Math.floor((viewport && viewport.height) || window.innerHeight || 540));
+    document.documentElement.style.setProperty("--game-height", `${view.h}px`);
     const coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
     const rawDpr = window.devicePixelRatio || 1;
     view.dpr = FX_LITE || coarse || view.w <= 780 ? 1 : Math.min(1.5, rawDpr);
@@ -1114,15 +1117,41 @@
     return state.queue.pop() || fallback[Math.floor(Math.random() * fallback.length)] || null;
   }
 
-  function sourceTextFor(q) {
+  function promptNeedsStimulus(q) {
+    return sourcePromptRe.test(String((q && (q.prompt || q.stem)) || ""));
+  }
+
+  function stimulusTextFor(q) {
     if (!q) return "";
-    const stimulus = typeof q.stimulus === "string" ? q.stimulus : "";
-    return String(q.stimulusText || stimulus || q.sourceText || q.source || "").trim();
+    const text = [
+      q.stimulusText,
+      q.sourceText,
+      q.passage,
+      q.excerpt,
+      typeof q.stimulus === "string" ? q.stimulus : ""
+    ].find((item) => String(item || "").trim());
+    return String(text || "").trim();
+  }
+
+  function stimulusImagesFor(q) {
+    if (!q) return [];
+    const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
+    const images = list.length ? list : (q.stimulusImage ? [{ src: q.stimulusImage, label: "Source stimulus" }] : []);
+    return images.filter((image) => image && image.src);
+  }
+
+  function hasReliableStimulus(q) {
+    return Boolean(stimulusTextFor(q) || (q && q.stimulusHtml) || stimulusImagesFor(q).length);
+  }
+
+  function sourceTextFor(q) {
+    return stimulusTextFor(q);
   }
 
   function isUsableQuestion(q) {
     if (!q || !q.prompt || !q.answer) return false;
-    if (sourcePromptRe.test(String(q.prompt || "")) && !sourceTextFor(q)) return false;
+    if (q.stimulusRequired === true) return hasReliableStimulus(q);
+    if (promptNeedsStimulus(q) && !hasReliableStimulus(q)) return false;
     return true;
   }
 
@@ -1164,12 +1193,11 @@
     state.mode = "quest";
     state.quest = { q, origin: origin || "Route Contract" };
     els.game.classList.add("in-quest");
+    els.quest.classList.toggle("is-mcq", q.type === "mcq" && q.choices && q.choices.length);
     els.questKicker.textContent = origin || "Review Contract";
     els.questMeta.textContent = `${q.course || "Social Studies"} / ${q.set || "Review"}`;
     els.questPrompt.textContent = q.prompt;
-    const sourceText = sourceTextFor(q);
-    els.questSource.hidden = !sourceText;
-    els.questSource.textContent = sourceText;
+    renderQuestStimulus(q);
     els.questFeedback.textContent = "";
     els.questInput.value = "";
     if (q.type === "mcq" && q.choices && q.choices.length) {
@@ -1184,6 +1212,28 @@
       setTimeout(() => els.questInput.focus({ preventScroll: true }), 50);
     }
     els.quest.hidden = false;
+  }
+
+  function renderQuestStimulus(q) {
+    const sourceText = sourceTextFor(q);
+    const images = stimulusImagesFor(q);
+    if (!sourceText && !images.length) {
+      els.questSource.hidden = true;
+      els.questSource.innerHTML = "";
+      els.quest.classList.remove("has-source");
+      return;
+    }
+    const textBlock = sourceText ? `<p>${escapeHtml(sourceText)}</p>` : "";
+    const imageBlock = images.map((image, index) => {
+      const label = image.label || `Source stimulus ${index + 1}`;
+      return `<figure>
+        <img src="${escapeHtml(image.src)}" alt="${escapeHtml(label)}" loading="eager">
+        <figcaption>${escapeHtml(label)}</figcaption>
+      </figure>`;
+    }).join("");
+    els.questSource.hidden = false;
+    els.questSource.innerHTML = textBlock + imageBlock;
+    els.quest.classList.add("has-source");
   }
 
   function submitQuest(raw) {
@@ -1208,6 +1258,8 @@
     state.mode = "overworld";
     state.quest = null;
     els.quest.hidden = true;
+    els.quest.classList.remove("is-mcq");
+    els.quest.classList.remove("has-source");
     els.game.classList.remove("in-quest");
   }
 
@@ -2056,6 +2108,11 @@
     }
   }
 
+  function goToArcade() {
+    writeSave();
+    window.location.assign(new URL("../../", window.location.href).href);
+  }
+
   function bindEvents() {
     window.addEventListener("keydown", (event) => {
       if (isTypingTarget(event.target)) {
@@ -2096,6 +2153,7 @@
     els.aBtn.addEventListener("click", actionButton);
     els.bBtn.addEventListener("click", cancelButton);
     els.startMenuBtn.addEventListener("click", () => state.mode === "menu" ? closeMenu() : openMenu());
+    els.exitBtn.addEventListener("click", goToArcade);
     els.startBtn.addEventListener("click", () => {
       els.boot.hidden = true;
       state.mode = "overworld";
@@ -2120,6 +2178,7 @@
   async function init() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
+    if (window.visualViewport) window.visualViewport.addEventListener("resize", resizeCanvas);
     window.addEventListener("orientationchange", () => setTimeout(resizeCanvas, 80));
     buildWorld();
     bindEvents();

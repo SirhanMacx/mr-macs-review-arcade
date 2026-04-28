@@ -18,12 +18,13 @@ html,
 body {
   margin: 0;
   width: 100%;
-  height: 100%;
+  height: var(--game-height, 100dvh);
   overflow: hidden;
   background: #050906;
   color: var(--glow);
   font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
-  touch-action: none;
+  touch-action: manipulation;
+  overscroll-behavior: none;
 }
 
 button,
@@ -56,6 +57,7 @@ button:disabled {
 .game {
   position: fixed;
   inset: 0;
+  height: var(--game-height, 100dvh);
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -67,10 +69,23 @@ button:disabled {
 
 canvas {
   width: 100vw;
-  height: 100dvh;
+  height: var(--game-height, 100dvh);
   display: block;
   image-rendering: pixelated;
   background: var(--light);
+  touch-action: none;
+}
+
+.arcade-exit {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  right: max(10px, env(safe-area-inset-right));
+  z-index: 40;
+  min-height: 36px;
+  padding: 0 10px;
+  border-width: 3px;
+  background: var(--gold);
+  font-size: 11px;
 }
 
 .boot {
@@ -154,7 +169,7 @@ canvas {
 .top-hud {
   top: max(10px, env(safe-area-inset-top));
   left: max(10px, env(safe-area-inset-left));
-  right: max(10px, env(safe-area-inset-right));
+  right: max(92px, calc(env(safe-area-inset-right) + 92px));
   display: flex;
   align-items: center;
   gap: 10px;
@@ -230,8 +245,10 @@ canvas {
   top: max(64px, calc(env(safe-area-inset-top) + 64px));
   right: max(12px, env(safe-area-inset-right));
   width: min(430px, calc(100vw - 24px));
-  max-height: calc(100dvh - 82px);
+  max-height: calc(var(--game-height, 100dvh) - 82px);
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   display: grid;
   gap: 10px;
   padding: 12px;
@@ -367,6 +384,8 @@ canvas {
   border: 5px solid var(--glow);
   background: rgba(8, 24, 14, .97);
   box-shadow: 12px 12px 0 rgba(0, 0, 0, .45);
+  overflow: hidden;
+  touch-action: manipulation;
 }
 
 .quest header {
@@ -381,6 +400,9 @@ canvas {
 
 #questPrompt {
   align-self: center;
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   color: var(--glow);
   font-size: clamp(20px, 4vw, 38px);
   font-weight: 950;
@@ -388,18 +410,58 @@ canvas {
 }
 
 .quest-source {
-  max-height: 26dvh;
+  max-height: clamp(120px, 30dvh, 320px);
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 10px;
   padding: 10px;
   border: 2px solid rgba(237, 249, 135, .3);
   background: rgba(237, 249, 135, .07);
   color: rgba(237, 249, 135, .9);
 }
 
+.quest-source p {
+  grid-column: 1 / -1;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.quest-source figure {
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.quest-source img {
+  display: block;
+  width: 100%;
+  max-height: 28dvh;
+  object-fit: contain;
+  border: 3px solid rgba(237, 249, 135, .42);
+  background: #fff;
+  image-rendering: auto;
+}
+
+.quest-source figcaption {
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
 .quest-choices {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 .quest-choices button {
@@ -412,6 +474,11 @@ canvas {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 8px;
+  align-self: end;
+}
+
+#questForm button {
+  min-height: 42px;
 }
 
 #questFeedback {
@@ -539,16 +606,46 @@ canvas {
   }
 
   .quest {
+    inset: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
     gap: 8px;
     padding: 10px;
+  }
+
+  .quest.has-source {
+    grid-template-rows: auto auto minmax(96px, 30vh) minmax(112px, 1fr) auto;
   }
 
   .quest header {
     display: block;
   }
 
+  #questPrompt {
+    align-self: center;
+    font-size: clamp(16px, 4.8vw, 24px);
+  }
+
+  .quest.has-source #questPrompt {
+    align-self: start;
+    max-height: 19vh;
+  }
+
+  .quest-source {
+    max-height: none;
+    padding: 7px;
+  }
+
+  .quest-source img {
+    max-height: 28vh;
+  }
+
   .quest-choices {
     grid-template-columns: 1fr;
+  }
+
+  .quest-choices button {
+    min-height: 46px;
+    font-size: 13px;
   }
 
   #questForm {

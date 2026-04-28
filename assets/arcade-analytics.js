@@ -156,7 +156,7 @@
   function hitGlobal(name, onceKeyValue) {
     if (onceKeyValue) {
       var onceKey = PREFIX + ":hit:" + slug(onceKeyValue);
-      if (sessionStorage.getItem(onceKey)) return requestCounter("get", name).catch(function () { return null; });
+      if (sessionStorage.getItem(onceKey)) return Promise.resolve(null);
       sessionStorage.setItem(onceKey, "1");
     }
     return requestCounter("hit", name).catch(function () { return null; });

@@ -1252,7 +1252,7 @@ html.lite-startup .controlbar {
   </div>
 </footer>
 
-<script src="assets/arcade-analytics.js?v=20260428-traction-clean"></script>
+<script src="assets/arcade-analytics.js?v=20260428-counter-silent"></script>
 <script>
 let GAMES = []
 const LITE_STARTUP = document.documentElement.classList.contains("lite-startup");
@@ -1548,7 +1548,7 @@ function render() {
 function gameUrl(file) {
   const url = new URL(file, window.location.href);
   if (!url.searchParams.has("fx")) url.searchParams.set("fx", "lite");
-  if (!url.searchParams.has("arcadeBuild")) url.searchParams.set("arcadeBuild", "20260428-full-color-region");
+  if (!url.searchParams.has("arcadeBuild")) url.searchParams.set("arcadeBuild", "20260428-stimulus-ipad-exit");
   return url.href;
 }
 

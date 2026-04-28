@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 from pathlib import Path
 from urllib.parse import unquote
@@ -55,6 +56,50 @@ def check_index_uses_games_json() -> list[str]:
     return errors
 
 
+def _norm_text(value: object) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower().replace("&", " and ")).strip()
+
+
+def check_jeopardy_boards() -> list[str]:
+    errors: list[str] = []
+    bad_text = re.compile(
+        r"tighten the most tested|precise vocabulary|state one limitation|policy reasoning|"
+        r"labor policy reference|receipts and outlays|current population survey|"
+        r"sop\s*(?:\u2014|-)|economic data graph|\bconcept \d$|focus \d|"
+        r"VOCABULARY Term Definition|Front-Load|CLASS DEMOGRAPHICS|key content for|"
+        r"find the policy move|monetary policy source|competition policy guide",
+        re.IGNORECASE,
+    )
+    for path in sorted(ROOT.glob("games/**/*.html")):
+        if not re.search(r"(Jeopardy Review|Review Game|Comprehensive Review)\.html$", path.name):
+            continue
+        text = path.read_text(encoding="utf-8")
+        match = re.search(r"const GAME = (\{[\s\S]*?\});\n", text)
+        if not match:
+            continue
+        try:
+            game = json.loads(match.group(1))
+        except json.JSONDecodeError as exc:
+            errors.append(f"{path.relative_to(ROOT)}: invalid GAME JSON ({exc})")
+            continue
+        seen_answers: set[str] = set()
+        seen_prompts: set[str] = set()
+        for category in game.get("categories", []):
+            for clue in category.get("clues", []):
+                answer = _norm_text(clue.get("answer"))
+                prompt = _norm_text(clue.get("clue"))
+                if answer in seen_answers:
+                    errors.append(f"{path.relative_to(ROOT)}: repeated board answer {clue.get('answer')!r}")
+                if prompt in seen_prompts:
+                    errors.append(f"{path.relative_to(ROOT)}: repeated board clue {clue.get('clue')!r}")
+                seen_answers.add(answer)
+                seen_prompts.add(prompt)
+                combined = " ".join(str(clue.get(field, "")) for field in ("answer", "clue", "explanation"))
+                if bad_text.search(combined):
+                    errors.append(f"{path.relative_to(ROOT)}: generated filler leaked into clue {clue.get('answer')!r}")
+    return errors
+
+
 def check_javascript_syntax() -> list[str]:
     errors: list[str] = []
     js_files = sorted([*ROOT.glob("games/**/*.js"), *ROOT.glob("assets/**/*.js")])
@@ -78,6 +123,7 @@ def main() -> int:
         ("games.json file paths", check_games_manifest),
         ("regents stimuli assets", check_regents_stimuli),
         ("index.html games load", check_index_uses_games_json),
+        ("jeopardy board quality", check_jeopardy_boards),
         ("javascript syntax", check_javascript_syntax),
     ]
     all_errors: list[str] = []

@@ -783,10 +783,10 @@ body.game-booted .tile:not(.used) {
   .soundbox { width: auto; }
   h1, .subtitle { max-width: none; }
   .titleblock { min-height: auto; }
-  .board-wrap { padding: 16px 12px 24px; background-position: center; }
-  .board { min-width: 760px; gap: 9px; }
-  .cat { min-height: 82px; }
-  .tile { min-height: 86px; }
+  .board-wrap { padding: 16px 8px 20px; background-position: center; overflow-x: hidden; }
+  .board { min-width: 0; width: 100%; gap: clamp(5px, 1.2vw, 9px); }
+  .cat { min-height: 72px; padding: 7px 5px; font-size: clamp(10px, 2.35vw, 14px); line-height: 1.02; }
+  .tile { min-height: 76px; padding: 6px 4px; font-size: clamp(20px, 6vw, 34px); }
   .app { padding-left: 10px; padding-right: 10px; }
 }
 
@@ -1825,6 +1825,6 @@ initCanvas();
 renderAll();
 setTimeout(() => document.body.classList.add("game-booted"), 1600);
 </script>
-<script src="../../assets/arcade-analytics.js"></script>
+<script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
 </body>
 </html>

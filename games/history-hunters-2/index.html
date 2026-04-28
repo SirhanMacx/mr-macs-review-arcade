@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>History Hunters 2: Atlas Quest</title>
   <link rel="icon" href="../../assets/history-hunters/recruit-seal.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260428-full-color-region">
+  <link rel="stylesheet" href="styles.css?v=20260428-stimulus-ipad-exit">
 </head>
 <body>
   <main class="game" id="game">
     <canvas id="screen" width="960" height="540" aria-label="History Hunters Atlas Quest game screen"></canvas>
+    <button class="arcade-exit" id="exitBtn" type="button" aria-label="Quit to Mr. Mac's Review Arcade">Arcade</button>
 
     <section class="boot" id="boot">
       <div class="boot-art"></div>
@@ -75,7 +76,7 @@
       <div id="questSource" class="quest-source" hidden></div>
       <div id="questChoices" class="quest-choices"></div>
       <form id="questForm">
-        <input id="questInput" autocomplete="off" placeholder="Type answer">
+        <input id="questInput" autocomplete="off" autocapitalize="none" spellcheck="false" inputmode="text" placeholder="Type answer">
         <button type="submit">Submit</button>
       </form>
       <p id="questFeedback"></p>
@@ -95,7 +96,7 @@
       </div>
     </div>
   </main>
-  <script src="../../assets/arcade-analytics.js?v=20260428-traction-clean"></script>
-  <script src="game.js?v=20260428-full-color-region"></script>
+  <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
+  <script src="game.js?v=20260428-stimulus-ipad-exit"></script>
 </body>
 </html>
