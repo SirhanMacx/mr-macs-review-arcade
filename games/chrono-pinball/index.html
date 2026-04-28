@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#03050d">
+  <title>Chrono Pinball - Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css?v=20260428-pinball-fit">
+</head>
+<body>
+  <main class="pinball-shell" id="app">
+    <canvas id="pinballCanvas" aria-label="Chrono Pinball arcade table"></canvas>
+
+    <section class="top-hud" aria-label="Pinball status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div>
+          <strong>Chrono Pinball</strong>
+          <span>Hit locks. Clear missions. Bank review power.</span>
+        </div>
+      </div>
+      <div class="hud-stats">
+        <div><strong id="score">0</strong><span>score</span></div>
+        <div><strong id="balls">3</strong><span>balls</span></div>
+        <div><strong id="multiplier">1x</strong><span>multi</span></div>
+        <div><strong id="locks">0/5</strong><span>locks</span></div>
+      </div>
+      <button class="hud-btn" id="pauseBtn" type="button">Pause</button>
+      <button class="hud-btn" id="exitBtn" type="button">Exit</button>
+    </section>
+
+    <section class="mission-panel" id="missionPanel" aria-live="polite">
+      <div class="mission-kicker" id="missionKicker">Mission loaded</div>
+      <p id="missionText">Launch the archive ball, hit the gold lock targets, and answer review missions for multiball.</p>
+      <div class="mission-feedback" id="missionFeedback"></div>
+    </section>
+
+    <section class="touch-controls" aria-label="Pinball controls">
+      <button class="flipper-btn" id="leftFlip" type="button">Left</button>
+      <button class="launch-btn" id="launchBtn" type="button">Launch</button>
+      <button class="flipper-btn" id="rightFlip" type="button">Right</button>
+    </section>
+
+    <section class="setup-screen show" id="setupScreen" aria-label="Chrono Pinball setup">
+      <div class="setup-card">
+        <div class="setup-kicker">Master Game</div>
+        <h1>Chrono Pinball</h1>
+        <p class="setup-sub">A space-opera review table powered by the full Mr. Mac question library. Course-filter the table, launch the archive ball, light lock targets, and earn multiball by clearing review missions.</p>
+        <div class="setup-grid">
+          <label>
+            <span>Course</span>
+            <select id="courseFilter"></select>
+          </label>
+          <label>
+            <span>Unit / Set</span>
+            <select id="setFilter"></select>
+          </label>
+          <label>
+            <span>Table Mode</span>
+            <select id="modeFilter">
+              <option value="standard" selected>Standard table</option>
+              <option value="exam">Exam lock rush</option>
+              <option value="endless">Endless multiball</option>
+            </select>
+          </label>
+        </div>
+        <div class="setup-metrics" id="setupMetrics"></div>
+        <div class="setup-actions">
+          <button class="btn" id="soundBtn" type="button">Sound On</button>
+          <button class="btn" id="fullscreenBtn" type="button">Fullscreen</button>
+          <button class="btn primary" id="startBtn" type="button">Launch Table</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="question-screen" id="questionScreen" aria-label="Review lock mission">
+      <div class="question-card">
+        <div class="question-meta" id="questionMeta">Review Lock</div>
+        <h2 id="questionPrompt">Loading mission...</h2>
+        <div class="stimulus-box" id="stimulusBox"></div>
+        <div class="choice-grid" id="choiceGrid"></div>
+        <p class="explanation" id="explanation"></p>
+      </div>
+    </section>
+
+    <section class="pause-screen" id="pauseScreen" aria-label="Paused">
+      <div class="setup-card compact">
+        <div class="setup-kicker">Paused</div>
+        <h2>Table suspended</h2>
+        <p class="setup-sub">Resume the ball or restart with the same course filter.</p>
+        <div class="setup-actions">
+          <button class="btn primary" id="resumeBtn" type="button">Resume</button>
+          <button class="btn" id="restartBtn" type="button">Restart</button>
+          <button class="btn" id="pauseExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="end-screen" id="endScreen" aria-label="Game summary">
+      <div class="setup-card compact">
+        <div class="setup-kicker">Game Complete</div>
+        <h2 id="endTitle">Archive table closed</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <div class="study-targets" id="studyTargets"></div>
+        <div class="setup-actions">
+          <button class="btn" id="setupBtn" type="button">Change Course</button>
+          <button class="btn primary" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
+  <script src="game.js?v=20260428-pinball-fit"></script>
+</body>
+</html>

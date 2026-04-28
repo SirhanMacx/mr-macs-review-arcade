@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#071013">
+  <title>Empire Ascendant - Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css?v=20260428-empire-fit">
+</head>
+<body>
+  <main class="empire-shell" id="app">
+    <canvas id="empireCanvas" aria-label="Empire Ascendant strategy map"></canvas>
+
+    <section class="top-hud" aria-label="Empire status">
+      <div class="brand">
+        <span class="standard" aria-hidden="true"></span>
+        <div>
+          <strong>Empire Ascendant</strong>
+          <span>Rise, reform, expand, survive collapse.</span>
+        </div>
+      </div>
+      <div class="resource-bar">
+        <div><strong id="food">0</strong><span>food</span></div>
+        <div><strong id="industry">0</strong><span>industry</span></div>
+        <div><strong id="knowledge">0</strong><span>knowledge</span></div>
+        <div><strong id="culture">0</strong><span>culture</span></div>
+        <div><strong id="stability">0</strong><span>stability</span></div>
+      </div>
+      <button class="hud-btn" id="pauseBtn" type="button">Menu</button>
+      <button class="hud-btn" id="exitBtn" type="button">Exit</button>
+    </section>
+
+    <section class="advisor-panel" id="advisorPanel" aria-live="polite">
+      <div class="advisor-head">
+        <span id="advisorPortrait" aria-hidden="true"></span>
+        <div>
+          <strong id="advisorTitle">Imperial Council</strong>
+          <span id="advisorMeta">Turn 1 | Ancient Era</span>
+        </div>
+      </div>
+      <p id="advisorText">Choose a tile, expand the realm, build districts, and keep stability high as rival powers grow.</p>
+      <div class="advisor-log" id="advisorLog"></div>
+    </section>
+
+    <section class="command-panel" id="commandPanel" aria-label="Empire commands">
+      <div class="selected-card">
+        <strong id="selectedTitle">Select a province</strong>
+        <span id="selectedMeta">Tap your capital or any bordering tile.</span>
+      </div>
+      <div class="action-grid" id="actionGrid"></div>
+      <button class="end-turn" id="endTurnBtn" type="button">End Turn</button>
+    </section>
+
+    <section class="setup-screen show" id="setupScreen" aria-label="Empire setup">
+      <div class="setup-card">
+        <div class="setup-kicker">Master Game</div>
+        <h1>Empire Ascendant</h1>
+        <p class="setup-sub">A turn-based rise-and-fall strategy game for social studies review. Build an empire across eras, manage resources and stability, face rival states, and unlock expansion through course-filtered review councils.</p>
+        <div class="setup-grid">
+          <label>
+            <span>Course</span>
+            <select id="courseFilter"></select>
+          </label>
+          <label>
+            <span>Unit / Set</span>
+            <select id="setFilter"></select>
+          </label>
+          <label>
+            <span>Scenario</span>
+            <select id="scenarioFilter">
+              <option value="balanced" selected>Balanced rise</option>
+              <option value="frontier">Frontier expansion</option>
+              <option value="crisis">Age of crisis</option>
+            </select>
+          </label>
+        </div>
+        <div class="setup-metrics" id="setupMetrics"></div>
+        <div class="setup-actions">
+          <button class="btn" id="soundBtn" type="button">Sound On</button>
+          <button class="btn" id="fullscreenBtn" type="button">Fullscreen</button>
+          <button class="btn primary" id="startBtn" type="button">Found Empire</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="council-screen" id="councilScreen" aria-label="Review council">
+      <div class="council-card">
+        <div class="question-meta" id="questionMeta">Council Review</div>
+        <h2 id="questionPrompt">Loading council...</h2>
+        <div class="stimulus-box" id="stimulusBox"></div>
+        <div class="choice-grid" id="choiceGrid"></div>
+        <p class="explanation" id="explanation"></p>
+      </div>
+    </section>
+
+    <section class="menu-screen" id="menuScreen" aria-label="Game menu">
+      <div class="setup-card compact">
+        <div class="setup-kicker">Empire Menu</div>
+        <h2>Campaign paused</h2>
+        <p class="setup-sub">The map is saved in memory for this session. Resume, restart, or return to the arcade.</p>
+        <div class="setup-actions">
+          <button class="btn primary" id="resumeBtn" type="button">Resume</button>
+          <button class="btn" id="restartBtn" type="button">Restart</button>
+          <button class="btn" id="menuExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="end-screen" id="endScreen" aria-label="Empire summary">
+      <div class="setup-card compact">
+        <div class="setup-kicker">Campaign Complete</div>
+        <h2 id="endTitle">Empire chronicle sealed</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <div class="study-targets" id="studyTargets"></div>
+        <div class="setup-actions">
+          <button class="btn" id="setupBtn" type="button">Change Course</button>
+          <button class="btn primary" id="againBtn" type="button">New Empire</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
+  <script src="game.js?v=20260428-empire-fit"></script>
+</body>
+</html>
