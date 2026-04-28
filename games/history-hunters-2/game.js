@@ -3,8 +3,8 @@
 
   const STORAGE_KEY = "mr-macs-history-hunters-2-v1";
   const TILE = 32;
-  const WORLD_W = 88;
-  const WORLD_H = 68;
+  const WORLD_W = 128;
+  const WORLD_H = 96;
   const $ = (id) => document.getElementById(id);
   const view = { w: 960, h: 540, dpr: 1 };
 
@@ -143,20 +143,28 @@
   const familyById = allFamilies.reduce((acc, family) => (acc[family.id] = family, acc), {});
 
   const places = [
-    { id: "center", name: "Chronicle Center", kind: "center", gx: 19, gy: 17, icon: "school", text: "Restore party health and save your field log." },
-    { id: "mart", name: "Archive Supply", kind: "shop", gx: 24, gy: 17, icon: "chest", text: "Buy capsules, field notes, and restoration tea with shards." },
+    { id: "center", name: "Chronicle Center", kind: "center", gx: 20, gy: 18, icon: "school", text: "Restore party health and save your field log." },
+    { id: "mart", name: "Archive Supply", kind: "shop", gx: 27, gy: 18, icon: "chest", text: "Buy capsules, field notes, and restoration tea with shards." },
     { id: "lab", name: "Professor Mac's Lab", kind: "lab", gx: 20, gy: 12, icon: "gate", text: "Choose a starter, learn the route system, and check progress." },
-    { id: "museum", name: "Source Museum", kind: "quest", gx: 36, gy: 22, icon: "arch", text: "Take source and review contracts for XP, shards, and items." },
-    { id: "harbor", name: "Exchange Harbor", kind: "quest", gx: 54, gy: 29, icon: "portal", text: "Trade-route contracts and global review challenges." },
-    { id: "capitol", name: "Civic Capitol", kind: "quest", gx: 64, gy: 14, icon: "school", text: "Government, rights, court cases, and civic participation contracts." },
-    { id: "summit", name: "Atlas Summit", kind: "summit", gx: 72, gy: 45, icon: "portal", text: "A late-game route for mixed review and boss challenges." }
+    { id: "museum", name: "Source Museum", kind: "quest", gx: 43, gy: 26, icon: "arch", text: "Take source and review contracts for XP, shards, and items." },
+    { id: "harbor", name: "Exchange Harbor", kind: "quest", gx: 61, gy: 37, icon: "portal", text: "Trade-route contracts and global review challenges." },
+    { id: "capitol", name: "Civic Capitol", kind: "quest", gx: 86, gy: 18, icon: "school", text: "Government, rights, court cases, and civic participation contracts." },
+    { id: "ruins", name: "Ancient Ruins", kind: "quest", gx: 16, gy: 49, icon: "arch", text: "River valleys, empires, belief systems, and classical worlds live on this route." },
+    { id: "reform", name: "Reform Station", kind: "quest", gx: 74, gy: 57, icon: "gate", text: "Revolution, rights, reform, civil war, and industrial change contracts." },
+    { id: "psych", name: "Mind Lab", kind: "quest", gx: 104, gy: 31, icon: "school", text: "AP Psychology contracts, research methods, learning, cognition, and development." },
+    { id: "bazaar", name: "Market Bazaar", kind: "quest", gx: 49, gy: 74, icon: "chest", text: "Economics contracts: scarcity, markets, macro policy, trade, and incentives." },
+    { id: "summit", name: "Atlas Summit", kind: "summit", gx: 111, gy: 72, icon: "portal", text: "A late-game route for mixed review and boss challenges." }
   ];
 
   const npcs = [
     { id: "guide", name: "Guide Maya", type: "Route Guide", gx: 18, gy: 14, text: "Tall grass starts historical ally battles. Buildings post review contracts. START opens filters, party, bag, and save.", starter: true },
     { id: "rival", name: "Ranger Carter", type: "Rival", gx: 26, gy: 14, text: "A real roster wins routes. Level allies with battles, then use contracts to earn shards and field items.", battle: true },
-    { id: "curator", name: "Curator Rivera", type: "Source Coach", gx: 39, gy: 24, text: "Contracts are where review questions belong. Battle for fun. Study for rewards.", quest: true },
-    { id: "organizer", name: "Organizer Noor", type: "Civic Coach", gx: 65, gy: 17, text: "Rights, reform, and government routes are strongest when you know people, laws, and turning points.", quest: true }
+    { id: "curator", name: "Curator Rivera", type: "Source Coach", gx: 41, gy: 24, text: "Contracts are where review questions belong. Battle for fun. Study for rewards.", quest: true },
+    { id: "organizer", name: "Organizer Noor", type: "Civic Coach", gx: 84, gy: 16, text: "Rights, reform, and government routes are strongest when you know people, laws, and turning points.", quest: true },
+    { id: "pilot", name: "Pilot Santos", type: "Route Pilot", gx: 60, gy: 39, text: "Harbor routes pull allies from trade, migration, exchange, geography, and global history.", quest: true },
+    { id: "keeper", name: "Keeper Imani", type: "Ancient Coach", gx: 14, gy: 47, text: "Ancient allies reward careful review of geography, law, belief systems, and power.", quest: true },
+    { id: "analyst", name: "Analyst Vega", type: "Market Coach", gx: 51, gy: 72, text: "The Market Bazaar favors economics and government moves. Watch your PP before long route battles.", quest: true },
+    { id: "captain", name: "Captain Ellis", type: "Summit Rival", gx: 109, gy: 70, text: "A full party with restored PP matters before the Atlas Summit.", battle: true }
   ];
 
   const dirs = {
@@ -228,6 +236,7 @@
       stats.items = Object.assign(base.items, saved.items || {});
       stats.flags = Object.assign({}, saved.flags || {});
       stats.party = Array.isArray(saved.party) ? saved.party : [];
+      stats.party.forEach(normalizeAlly);
       stats.active = clamp(Number(stats.active || 0), 0, Math.max(0, stats.party.length - 1));
       stats.maxHp = Math.max(100, Number(stats.maxHp || 100));
       stats.hp = clamp(Number(stats.hp || stats.maxHp), 0, stats.maxHp);
@@ -300,7 +309,8 @@
   }
 
   function move(name, type, power, flavor) {
-    return { name, type, power, flavor };
+    const maxPp = power >= 34 ? 8 : power >= 29 ? 12 : 18;
+    return { name, type, power, flavor, pp: maxPp, maxPp };
   }
 
   function movesFor(family, lane, q) {
@@ -338,6 +348,10 @@
       ? familyById[compactKey(`${lane.name}-${familiesForType(lane.name)[0][0]}`)] || allFamilies[0]
       : familyForQuestion(q || {}, lane);
     const level = starterType ? 1 : 1 + Math.floor(Math.random() * 4) + Math.floor((state.stats.rank || 1) / 3);
+    return makeFamilyAlly(family, lane, level, q || { prompt: family.line, answer: family.historicalName });
+  }
+
+  function makeFamilyAlly(family, lane, level, q) {
     const stage = clamp(Math.floor((level - 1) / 4), 0, 2);
     const id = compactKey(`${lane.name}|${family.historicalName}`).slice(0, 80);
     return {
@@ -358,6 +372,30 @@
     };
   }
 
+  function makeDifferentAlly(hero) {
+    const pool = allFamilies.filter((family) => compactKey(`${family.type}|${family.historicalName}`).slice(0, 80) !== hero.id);
+    const family = pool[Math.floor(Math.random() * pool.length)] || allFamilies[0];
+    const lane = typeRules.find((rule) => rule.name === family.type) || typeRules[typeRules.length - 1];
+    const level = 1 + Math.floor(Math.random() * 4) + Math.floor((state.stats.rank || 1) / 3);
+    return makeFamilyAlly(family, lane, level, { prompt: family.line, answer: family.historicalName });
+  }
+
+  function normalizeAlly(ally) {
+    if (!ally) return ally;
+    const family = familyById[ally.familyId] || allFamilies.find((item) => item.historicalName === ally.actualName) || allFamilies[0];
+    const lane = typeRules.find((rule) => rule.name === ally.type) || typeRules[typeRules.length - 1];
+    const defaults = movesFor(family, lane, { prompt: ally.line || family.line, answer: ally.actualName });
+    ally.moves = defaults.map((base, index) => {
+      const saved = Array.isArray(ally.moves) ? ally.moves[index] : null;
+      const maxPp = Number(saved && saved.maxPp) || base.maxPp;
+      const pp = saved && Number.isFinite(Number(saved.pp)) ? Number(saved.pp) : maxPp;
+      return Object.assign({}, base, saved || {}, { maxPp, pp: clamp(pp, 0, maxPp) });
+    });
+    ally.maxHp = Math.max(60, Number(ally.maxHp || 72 + Number(ally.level || 1) * 7));
+    ally.hp = clamp(Number(ally.hp == null ? ally.maxHp : ally.hp), 0, ally.maxHp);
+    return ally;
+  }
+
   function ensureStarter() {
     if (state.stats.party.length) return;
     state.stats.party = [makeAlly(null, "Global 9")];
@@ -369,26 +407,91 @@
   function activeAlly() {
     ensureStarter();
     state.stats.active = clamp(state.stats.active || 0, 0, state.stats.party.length - 1);
-    return state.stats.party[state.stats.active];
+    return normalizeAlly(state.stats.party[state.stats.active]);
   }
 
   function buildWorld() {
     state.tileMap = [];
     state.blocked = new Set();
     state.grass = new Set();
+    for (let y = 0; y < WORLD_H; y += 1) state.tileMap.push(Array(WORLD_W).fill("grass"));
+
+    const setTile = (x, y, tile) => {
+      if (x >= 0 && y >= 0 && x < WORLD_W && y < WORLD_H) state.tileMap[y][x] = tile;
+    };
+    const paintRect = (x1, y1, x2, y2, tile) => {
+      for (let y = y1; y <= y2; y += 1) for (let x = x1; x <= x2; x += 1) setTile(x, y, tile);
+    };
+    const paintEllipse = (cx, cy, rx, ry, tile) => {
+      for (let y = Math.floor(cy - ry); y <= Math.ceil(cy + ry); y += 1) {
+        for (let x = Math.floor(cx - rx); x <= Math.ceil(cx + rx); x += 1) {
+          if (((x - cx) ** 2) / (rx ** 2) + ((y - cy) ** 2) / (ry ** 2) <= 1) setTile(x, y, tile);
+        }
+      }
+    };
+    const carveRoad = (x1, y1, x2, y2, width = 1) => {
+      const dx = Math.sign(x2 - x1);
+      const dy = Math.sign(y2 - y1);
+      let x = x1;
+      let y = y1;
+      while (x !== x2) {
+        for (let oy = -width; oy <= width; oy += 1) setTile(x, y + oy, "path");
+        x += dx;
+      }
+      while (y !== y2) {
+        for (let ox = -width; ox <= width; ox += 1) setTile(x + ox, y, "path");
+        y += dy;
+      }
+      for (let oy = -width; oy <= width; oy += 1) for (let ox = -width; ox <= width; ox += 1) setTile(x + ox, y + oy, "path");
+    };
+
+    paintRect(0, 0, WORLD_W - 1, 2, "tree");
+    paintRect(0, WORLD_H - 3, WORLD_W - 1, WORLD_H - 1, "tree");
+    paintRect(0, 0, 2, WORLD_H - 1, "tree");
+    paintRect(WORLD_W - 3, 0, WORLD_W - 1, WORLD_H - 1, "tree");
+
+    paintEllipse(9, 51, 8, 10, "water");
+    paintEllipse(111, 14, 13, 8, "water");
+    paintEllipse(101, 82, 17, 7, "water");
+    paintRect(3, 62, 18, 69, "water");
+    paintRect(55, 6, 70, 12, "water");
+
+    paintEllipse(39, 10, 13, 7, "tree");
+    paintEllipse(93, 49, 16, 10, "tree");
+    paintEllipse(31, 83, 18, 9, "tree");
+    paintEllipse(116, 51, 7, 22, "tree");
+
+    paintRect(66, 6, 82, 14, "mountain");
+    paintRect(100, 52, 121, 63, "mountain");
+    paintRect(6, 74, 17, 86, "mountain");
+
+    paintRect(10, 38, 24, 51, "grass2");
+    paintRect(34, 18, 51, 30, "grass2");
+    paintRect(55, 44, 79, 62, "grass2");
+    paintRect(91, 24, 111, 38, "grass2");
+    paintRect(39, 67, 60, 82, "grass2");
+    paintRect(103, 67, 119, 78, "grass2");
+
+    carveRoad(12, 18, 32, 18, 1);
+    carveRoad(24, 9, 24, 33, 1);
+    carveRoad(24, 33, 61, 33, 1);
+    carveRoad(61, 33, 61, 57, 1);
+    carveRoad(61, 57, 111, 57, 1);
+    carveRoad(111, 57, 111, 72, 1);
+    carveRoad(24, 33, 16, 49, 1);
+    carveRoad(32, 18, 86, 18, 1);
+    carveRoad(86, 18, 104, 31, 1);
+    carveRoad(43, 26, 49, 74, 1);
+    carveRoad(49, 74, 111, 72, 1);
+
+    places.forEach((place) => paintRect(place.gx - 3, place.gy - 2, place.gx + 3, place.gy + 3, "path"));
+
     for (let y = 0; y < WORLD_H; y += 1) {
-      const row = [];
       for (let x = 0; x < WORLD_W; x += 1) {
-        let tile = "grass";
-        if (x < 2 || y < 2 || x > WORLD_W - 3 || y > WORLD_H - 3) tile = "tree";
-        if ((x > 10 && x < 78 && Math.abs(y - 17) <= 1) || (y > 8 && y < 55 && Math.abs(x - 24) <= 1) || (x > 20 && x < 75 && Math.abs(y - 33) <= 1) || (y > 16 && y < 58 && Math.abs(x - 58) <= 1)) tile = "path";
-        if ((x > 4 && x < 16 && y > 38 && y < 50) || (x > 70 && x < 84 && y > 6 && y < 14)) tile = "water";
-        if ((x > 30 && x < 47 && y > 6 && y < 14) || (x > 62 && x < 78 && y > 37 && y < 48) || (x > 8 && x < 18 && y > 21 && y < 30)) tile = "grass2";
-        row.push(tile);
-        if (tile === "tree" || tile === "water") state.blocked.add(key(x, y));
+        const tile = tileAt(x, y);
+        if (tile === "tree" || tile === "water" || tile === "mountain") state.blocked.add(key(x, y));
         if (tile === "grass2") state.grass.add(key(x, y));
       }
-      state.tileMap.push(row);
     }
     places.forEach((place) => {
       for (let yy = place.gy - 1; yy <= place.gy + 1; yy += 1) {
@@ -546,7 +649,8 @@
     els.menuList.innerHTML = party.length ? party.map((ally, index) => `
       <div class="menu-card">
         <strong>${escapeHtml(index === state.stats.active ? "▶ " : "")}${escapeHtml(ally.actualName)}</strong>
-        ${escapeHtml(ally.name)} / ${escapeHtml(ally.type)} / Lv ${ally.level} / HP ${Math.round(ally.hp)}/${ally.maxHp}
+        ${escapeHtml(ally.name)} / ${escapeHtml(ally.type)} / Lv ${ally.level} / HP ${Math.round(ally.hp)}/${ally.maxHp}<br>
+        ${(ally.moves || []).map((item) => `${escapeHtml(item.name)} ${item.pp}/${item.maxPp}`).join(" · ")}
       </div>`).join("") : `<div class="menu-card"><strong>No party yet</strong>Talk to Guide Maya near the lab for a starter.</div>`;
   }
 
@@ -683,11 +787,12 @@
   }
 
   function openBattle(enemy, trainer) {
-    const hero = activeAlly();
-    let foe = enemy || makeAlly(nextQuestion());
+    const hero = normalizeAlly(activeAlly());
+    let foe = normalizeAlly(enemy || makeAlly(nextQuestion()));
     for (let i = 0; foe && foe.id === hero.id && i < 6; i += 1) {
-      foe = makeAlly(nextQuestion());
+      foe = normalizeAlly(makeAlly(nextQuestion()));
     }
+    if (!foe || foe.id === hero.id) foe = normalizeAlly(makeDifferentAlly(hero));
     state.mode = "battle";
     els.game.classList.add("in-battle");
     const battle = {
@@ -730,7 +835,7 @@
       return;
     }
     if (battle.menu === "fight") {
-      els.battleActions.innerHTML = battle.hero.moves.map((item, index) => `<button type="button" data-move="${index}"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.type)} / ${item.power}</small></button>`).join("");
+      els.battleActions.innerHTML = battle.hero.moves.map((item, index) => `<button type="button" data-move="${index}" ${item.pp <= 0 ? "disabled" : ""}><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.type)} / ${item.power} / ${item.pp}/${item.maxPp} PP</small></button>`).join("");
       [...els.battleActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => useMove(Number(button.dataset.move))));
       return;
     }
@@ -767,7 +872,7 @@
     } else if (action === "party") {
       const next = (state.stats.active + 1) % state.stats.party.length;
       state.stats.active = next;
-      battle.hero = activeAlly();
+      battle.hero = normalizeAlly(activeAlly());
       battle.heroHp = battle.hero.hp;
       setBattleLog(`Go, ${battle.hero.actualName.toUpperCase()}!`);
       battle.menu = "root";
@@ -798,6 +903,11 @@
     const battle = state.battle;
     if (!battle || battle.locked) return;
     const selected = battle.hero.moves[index] || battle.hero.moves[0];
+    if (!selected || selected.pp <= 0) {
+      setBattleLog("That move is out of PP. Pick another move or visit the Chronicle Center.");
+      return;
+    }
+    selected.pp -= 1;
     battle.locked = true;
     battle.menu = "root";
     renderBattleActions();
@@ -811,6 +921,7 @@
     battle.capture = clamp(battle.capture + 12 + damage * .34, 0, 100);
     battle.fx = { kind: "enemyHit", t: 0, color: selected.color || battle.hero.color };
     setBattleLog(`${effectSentence(mult)} ${battle.enemy.actualName.toUpperCase()} lost ${damage} HP.`);
+    writeSave();
     await wait(880);
     if (state.battle !== battle) return;
     if (battle.enemyHp <= 0) {
@@ -823,7 +934,9 @@
   async function enemyTurn() {
     const battle = state.battle;
     if (!battle) return;
-    const moveUsed = battle.enemy.moves[Math.floor(Math.random() * battle.enemy.moves.length)] || battle.enemy.moves[0];
+    const available = battle.enemy.moves.filter((item) => item.pp > 0);
+    const moveUsed = available[Math.floor(Math.random() * available.length)] || battle.enemy.moves[0];
+    if (moveUsed && moveUsed.pp > 0) moveUsed.pp -= 1;
     setBattleLog(`${battle.enemy.actualName.toUpperCase()} used ${moveUsed.name.toUpperCase()}!`);
     battle.fx = { kind: "enemy", t: 0, color: battle.enemy.color };
     await wait(720);
@@ -943,7 +1056,11 @@
 
   function healParty() {
     state.stats.party.forEach((ally) => {
+      normalizeAlly(ally);
       ally.hp = ally.maxHp;
+      ally.moves.forEach((item) => {
+        item.pp = item.maxPp;
+      });
     });
     state.stats.hp = state.stats.maxHp;
     writeSave();
@@ -1048,13 +1165,43 @@
   }
 
   function drawTile(tile, x, y, gx, gy) {
-    const name = tile === "path" ? ((gx + gy) % 2 ? "pathA" : "pathB") : tile === "water" ? ((gx + gy) % 2 ? "waterA" : "waterB") : tile === "tree" ? ((gx + gy) % 2 ? "grassA" : "grassB") : ((gx + gy) % 3 ? "grassA" : "grassC");
-    drawAtlas(name, x, y, TILE + 1, TILE + 1);
-    if (tile === "grass2") {
-      ctx.fillStyle = "rgba(15, 56, 15, .24)";
-      for (let i = 0; i < 5; i += 1) ctx.fillRect(x + 4 + i * 6, y + 18 - (i % 2) * 4, 3, 10);
+    const jitter = (hash(`${gx},${gy}`) % 8) - 4;
+    const base = tile === "path" ? "#d4b45d"
+      : tile === "water" ? "#3da7b8"
+      : tile === "tree" ? "#2f702b"
+      : tile === "mountain" ? "#8c8d78"
+      : tile === "grass2" ? "#75b928"
+      : "#9fd43c";
+    ctx.fillStyle = base;
+    ctx.fillRect(x, y, TILE + 1, TILE + 1);
+    ctx.fillStyle = tile === "path" ? "rgba(96, 61, 20, .16)"
+      : tile === "water" ? "rgba(237, 249, 135, .22)"
+      : "rgba(237, 249, 135, .12)";
+    if (tile === "path") {
+      ctx.fillRect(x + 2, y + 8 + ((gx + gy) % 3), 10, 3);
+      ctx.fillRect(x + 18, y + 21 + jitter * .2, 12, 3);
+      ctx.strokeStyle = "rgba(77, 48, 15, .22)";
+      ctx.strokeRect(x + .5, y + .5, TILE, TILE);
+    } else if (tile === "water") {
+      ctx.fillRect(x + 3, y + 10 + ((gx + gy) % 5), 24, 3);
+      ctx.fillRect(x + 9, y + 22, 16, 2);
+    } else if (tile === "mountain") {
+      drawAtlas("mountainA", x - 4, y - 10, 42, 40);
+    } else {
+      ctx.fillRect(x + 5, y + 6 + jitter * .25, 4, 9);
+      ctx.fillRect(x + 18, y + 16 - jitter * .2, 3, 10);
+      ctx.fillStyle = "rgba(6, 42, 17, .12)";
+      ctx.fillRect(x, y + TILE - 4, TILE + 1, 4);
     }
-    if (tile === "tree") drawAtlas((gx + gy) % 2 ? "treeA" : "treeB", x - 7, y - 18, 46, 52);
+    if (tile === "grass2") {
+      ctx.fillStyle = "rgba(6, 42, 17, .34)";
+      for (let i = 0; i < 6; i += 1) ctx.fillRect(x + 3 + i * 5, y + 17 - (i % 2) * 5, 3, 13);
+    }
+    if (tile === "tree") {
+      ctx.fillStyle = "#1b551d";
+      ctx.fillRect(x, y, TILE + 1, TILE + 1);
+      drawAtlas((gx + gy) % 2 ? "treeA" : "treeB", x - 8, y - 20, 48, 54);
+    }
   }
 
   function drawPlace(place) {
@@ -1118,10 +1265,33 @@
     const cardW = clamp(w * (portrait ? .33 : .28), 122, 270);
     const cardH = portrait ? 78 : 62;
     battle.layout = { heroX: heroBaseX, heroY: heroBaseY, enemyX: enemyBaseX, enemyY: enemyBaseY };
-    ctx.fillStyle = "#c9ef41";
-    ctx.fillRect(0, 0, w, h);
-    ctx.fillStyle = "#9bc40f";
+    const sky = ctx.createLinearGradient(0, 0, 0, skyH);
+    sky.addColorStop(0, "#edf987");
+    sky.addColorStop(.62, "#c9ef41");
+    sky.addColorStop(1, "#9bc40f");
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, w, skyH);
+    ctx.fillStyle = "rgba(117, 244, 255, .16)";
+    ctx.beginPath();
+    ctx.arc(w * .16, skyH * .38, Math.min(80, w * .08), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "rgba(31, 76, 29, .25)";
+    for (let i = -1; i < 6; i += 1) {
+      ctx.beginPath();
+      ctx.moveTo(i * w * .22, skyH);
+      ctx.lineTo(i * w * .22 + w * .16, skyH * .45);
+      ctx.lineTo(i * w * .22 + w * .34, skyH);
+      ctx.closePath();
+      ctx.fill();
+    }
+    const field = ctx.createLinearGradient(0, skyH, 0, fieldH);
+    field.addColorStop(0, "#98c915");
+    field.addColorStop(.52, "#7db112");
+    field.addColorStop(1, "#c9ef41");
+    ctx.fillStyle = field;
     ctx.fillRect(0, skyH, w, fieldH - skyH);
+    ctx.fillStyle = "rgba(7, 21, 12, .08)";
+    for (let y = skyH + 28; y < fieldH; y += 34) ctx.fillRect(0, y, w, 2);
     ctx.fillStyle = "rgba(15,56,15,.24)";
     ctx.beginPath();
     ctx.ellipse(heroBaseX, heroBaseY + heroW * .46, heroW * .9, heroW * .22, 0, 0, Math.PI * 2);
@@ -1225,6 +1395,7 @@
     window.addEventListener("keydown", (event) => {
       const map = { ArrowUp: "up", w: "up", W: "up", ArrowDown: "down", s: "down", S: "down", ArrowLeft: "left", a: "left", A: "left", ArrowRight: "right", d: "right", D: "right" };
       if (map[event.key]) {
+        state.player.dir = map[event.key];
         state.keys.add(map[event.key]);
         event.preventDefault();
       } else if (event.key === " " || event.key === "Enter" || event.key === "e" || event.key === "E") {
@@ -1243,7 +1414,7 @@
     });
     document.querySelectorAll("[data-dir]").forEach((button) => {
       const dir = button.dataset.dir;
-      const start = (event) => { event.preventDefault(); state.keys.add(dir); };
+      const start = (event) => { event.preventDefault(); state.player.dir = dir; state.keys.add(dir); };
       const end = (event) => { event.preventDefault(); state.keys.delete(dir); };
       button.addEventListener("pointerdown", start);
       button.addEventListener("pointerup", end);
