@@ -38,7 +38,7 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - Generated History Hunters RPG assets: ten figure/evolution avatar atlases, retro tile/sprite atlas, retro title/battle sheet, retro item/action sheet, structured character/evolution codex atlas, type-effect atlas, overworld map art, key art, and recruit seal
 - Solo and team play options
 - Jeopardy boards are normalized during publishing so each category ramps from lower-value recall clues to higher-value challenge clues
-- Anonymous traffic counter for site visits, game opens, game page views, and completions
+- Anonymous traffic counter for visits, engaged sessions, game opens, game views, game plays, completions, daily activity, device class, per-game counters, per-course counters, and per-game-type counters
 - Shared data and source-image files for newer game modes, starting with `data/regents-gauntlet-bank.json` and `assets/regents-gauntlet-stimuli/`
 
 ## Content Rule
@@ -115,11 +115,26 @@ Question-bank maintenance:
 The current static site includes a lightweight anonymous traffic counter. It tracks:
 
 - total site visits
+- engaged sessions after a short dwell time
 - game launches from the arcade hub
 - direct game page views
+- meaningful game plays
 - game completions for newer modes that support completion events
+- daily visit and play counts
+- broad device class counts: desktop, tablet, mobile
+- per-game launch/view/play/completion counters
+- per-course and per-game-type launch/play counters
 
-The counter does not collect student names, logins, typed answers, or class rosters. It uses browser local storage for a local fallback and a public counter endpoint for broad totals.
+The counter does not collect student names, logins, typed answers, or class rosters. It uses browser local storage for a local fallback and a public counter endpoint for anonymous totals.
+
+Current public counter groups use the prefix `mr-macs-review-arcade-v1`, for example:
+
+- `site-visits`
+- `game-launches`
+- `game-plays`
+- `daily-YYYY-MM-DD-site-visits`
+- `game-history-hunters-game-plays`
+- `course-grade-10-global-history-ii-game-plays`
 
 If the arcade gets real student traction, move tracking to a hosted privacy-focused analytics service or a small private backend.
 

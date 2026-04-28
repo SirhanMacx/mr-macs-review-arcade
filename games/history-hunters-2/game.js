@@ -793,6 +793,14 @@
       foe = normalizeAlly(makeAlly(nextQuestion()));
     }
     if (!foe || foe.id === hero.id) foe = normalizeAlly(makeDifferentAlly(hero));
+    if (window.MrMacsAnalytics && typeof window.MrMacsAnalytics.track === "function") {
+      window.MrMacsAnalytics.track("game_play", {
+        gameId: "history-hunters",
+        title: "History Hunters 2: Atlas Quest",
+        course: state.stats.course || "All Courses",
+        gameType: "Open-World RPG"
+      }, { counter: "game-plays", onceKey: "game-play:history-hunters:" + location.pathname });
+    }
     state.mode = "battle";
     els.game.classList.add("in-battle");
     const battle = {

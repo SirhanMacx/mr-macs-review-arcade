@@ -1017,8 +1017,8 @@ textarea:focus-visible {
 }
 .traffic-panel {
   display: grid;
-  grid-template-columns: repeat(4, auto);
-  gap: 22px;
+  grid-template-columns: repeat(4, minmax(78px, auto));
+  gap: 14px 22px;
 }
 .traffic-stat {
   display: flex; flex-direction: column; gap: 2px;
@@ -1241,14 +1241,18 @@ html.lite-startup .controlbar {
     </div>
     <div class="traffic-panel" aria-label="Anonymous arcade traffic counter">
       <div class="traffic-stat"><strong data-traffic="global-visits">--</strong><span>visits</span></div>
+      <div class="traffic-stat"><strong data-traffic="global-today-visits">--</strong><span>today</span></div>
       <div class="traffic-stat"><strong data-traffic="global-game-opens">--</strong><span>opens</span></div>
-      <div class="traffic-stat"><strong data-traffic="global-game-views">--</strong><span>views</span></div>
+      <div class="traffic-stat"><strong data-traffic="global-game-plays">--</strong><span>plays</span></div>
+      <div class="traffic-stat"><strong data-traffic="global-today-plays">--</strong><span>plays today</span></div>
+      <div class="traffic-stat"><strong data-traffic="global-completions">--</strong><span>finishes</span></div>
+      <div class="traffic-stat"><strong data-traffic="global-engaged">--</strong><span>engaged</span></div>
       <div class="traffic-stat"><strong data-traffic="traffic-status">connecting</strong><span>status</span></div>
     </div>
   </div>
 </footer>
 
-<script src="assets/arcade-analytics.js"></script>
+<script src="assets/arcade-analytics.js?v=20260428-traction"></script>
 <script>
 let GAMES = []
 const LITE_STARTUP = document.documentElement.classList.contains("lite-startup");
