@@ -674,6 +674,56 @@
     };
   }
 
+  function starterAllyFor(typeName) {
+    const starterType = typeName === "Review" ? "Global 9" : typeName;
+    const lane = courseTypeRules.find((item) => item.name === starterType) || courseTypeFor(starterType);
+    const families = familiesForType(lane.name);
+    const raw = families[0] || figureFamiliesByType.Review[0];
+    const family = familiesById[compactKey(`${lane.name}-${raw[0]}`)] || allFigureFamilies[0];
+    const starterQuestion = {
+      course: lane.name,
+      subject: lane.flavor,
+      set: "Starter Roster",
+      category: `${lane.name} starter`,
+      prompt: family.line,
+      answer: family.historicalName,
+      tags: ["starter", lane.cluster]
+    };
+    const palette = [lane.color, GB.glow, GB.dark];
+    return {
+      id: compactKey(`starter|${lane.name}|${family.historicalName}`).slice(0, 80),
+      name: family.names[0],
+      actualName: family.historicalName,
+      archetype: family.archetype,
+      type: lane.name,
+      family: family.historicalName,
+      familyId: family.id,
+      spriteRow: family.row,
+      atlas: family.atlas,
+      species: family.names[0],
+      level: 1,
+      role: `${family.historicalName} line: ${family.line}`,
+      course: lane.name,
+      set: "Starter Roster",
+      rarity: "Starter Ally",
+      moves: movesFor(starterQuestion, family, lane),
+      palette,
+      starter: true
+    };
+  }
+
+  function ensureStarterAlly(typeName) {
+    if (state.stats.roster && state.stats.roster.length) return state.stats.roster[0];
+    const starter = starterAllyFor(typeName || courseTypeFor(els.courseFilter.value).name);
+    state.stats.roster = [starter];
+    state.stats.activeAlly = 0;
+    state.stats.flags.starterAlly = true;
+    writeSave();
+    updateHud();
+    renderRoster();
+    return starter;
+  }
+
   function normalizeStats(saved) {
     const base = defaultStats();
     const stats = Object.assign(base, saved || {});
@@ -922,7 +972,7 @@
   }
 
   function playerTitle() {
-    return "Chronicle Trainer";
+    return "Atlas Ranger";
   }
 
   function shout(text) {
@@ -1182,23 +1232,15 @@
     const activeIndex = clamp(Number(state.stats.activeAlly || 0), 0, Math.max(0, roster.length - 1));
     const active = roster[activeIndex];
     if (active) {
-      return {
+      return Object.assign({}, active, {
         name: active.actualName || active.name,
         actualName: active.actualName || active.name,
         type: active.type || "Review",
         moves: active.moves && active.moves.length ? active.moves : fallbackMoves,
         palette: active.palette || paletteFor(active.name),
-        rosterIndex: activeIndex
-      };
-    }
-    if (state.currentAlly && state.currentAlly.moves && state.currentAlly.moves.length) {
-      return {
-        name: playerTitle(),
-        actualName: playerTitle(),
-        type: state.currentAlly.type || "Review",
-        moves: state.currentAlly.moves,
-        palette: state.currentAlly.palette || palettes[0]
-      };
+        rosterIndex: activeIndex,
+        isPartyMember: true
+      });
     }
     const lane = state.currentAlly
       ? (typeData[state.currentAlly.type] ? { name: state.currentAlly.type, move: typeData[state.currentAlly.type].move || "Archive Pulse" } : courseTypeFor(state.currentAlly.course))
@@ -1212,7 +1254,8 @@
         move("Context Check", lane.name, 20, "Adds the missing background before the strike."),
         move("Recall Rush", lane.name, 18, "Fast historical recall pressure.")
       ],
-      palette: palettes[0]
+      palette: palettes[0],
+      isTrainer: true
     };
   }
 
@@ -1220,6 +1263,16 @@
     const battle = state.battle || { heroHp: 100, enemyHp: 100 };
     const hero = heroAlly();
     const enemy = state.currentAlly || { name: "Archive Echo", type: "Review" };
+    els.encounter.classList.toggle("has-party-hero", !!hero.isPartyMember);
+    els.encounter.classList.toggle("trainer-fallback", !hero.isPartyMember);
+    if (hero.isPartyMember) {
+      const sprite = spritePosition(hero);
+      els.encounter.style.setProperty("--hero-sprite-image", sprite.image);
+      els.encounter.style.setProperty("--hero-sprite-x", sprite.x);
+      els.encounter.style.setProperty("--hero-sprite-y", sprite.y);
+      els.encounter.style.setProperty("--hero-a", (hero.palette || palettes[0])[0]);
+      els.encounter.style.setProperty("--hero-b", (hero.palette || palettes[0])[1]);
+    }
     els.heroName.textContent = hero.name;
     els.heroType.textContent = hero.type;
     els.enemyName.textContent = enemy.name;
@@ -1336,9 +1389,10 @@
     if (!roster.length) {
       els.moveButtons.innerHTML = `<button type="button" data-party="-1"><strong>No Allies Yet</strong><small>back to commands</small></button>`;
     } else {
+      const activeIndex = clamp(Number(state.stats.activeAlly || 0), 0, Math.max(0, roster.length - 1));
       els.moveButtons.innerHTML = roster.slice(0, 6).map((ally, index) => {
         const data = typeData[ally.type] || typeData.Review;
-        const active = index === 0 ? " / active" : "";
+        const active = index === activeIndex ? " / active" : "";
         return `<button type="button" data-party="${index}" style="--type:${data.color};--effect-y:${typeEffectOffset(ally.type)}">` +
           `<strong>${escapeHtml(ally.actualName || ally.name)}${active}</strong>` +
           `<small>${escapeHtml(ally.type || "Review")} / stage ${escapeHtml(String(ally.level || 1))}</small>` +
@@ -1501,13 +1555,15 @@
     state.locked = true;
     setEncounterPhase("resolve");
     const previous = roster[current];
-    state.stats.activeAlly = index;
-    writeSave();
     renderBattle();
     await showBattleMessage(`Come back, ${shout(previous.actualName || previous.name)}!`, 560);
     if (!isCurrentBattle(battle)) return;
+    state.stats.activeAlly = index;
+    writeSave();
+    renderBattle();
+    setEncounterPhase("sendout");
     flashBattleFx("fx-sendout", 700);
-    await showBattleMessage(`Go! ${shout(selected.actualName || selected.name)}!`, 700);
+    await showBattleMessage(`${shout(playerTitle())} sent out ${shout(selected.actualName || selected.name)}!`, 700);
     if (!isCurrentBattle(battle)) return;
     await enemyCounterTurn("switch");
     if (!isCurrentBattle(battle) || battle.heroHp <= 0) return;
@@ -1585,7 +1641,12 @@
     if (!isCurrentBattle(battle)) return;
     setEncounterPhase("sendout");
     flashBattleFx("fx-sendout", 780);
-    await showBattleMessage(`Go! ${shout(heroAlly().name)}!`, 820);
+    const hero = heroAlly();
+    if (hero.isPartyMember) {
+      await showBattleMessage(`${shout(playerTitle())} sent out ${shout(hero.name)}!`, 820);
+    } else {
+      await showBattleMessage(`${shout(playerTitle())} has no roster ally yet and steps in personally.`, 900);
+    }
     if (!isCurrentBattle(battle)) return;
     prepareCommand(`What will ${shout(heroAlly().name)} do?`);
   }
@@ -1593,6 +1654,7 @@
   function openEncounter() {
     const pool = filteredForNode();
     if (!pool.length) return;
+    ensureStarterAlly(courseTypeFor(els.courseFilter.value).name);
     if ((state.stats.playerHp || 0) <= 0) {
       setDialogue("Party Health", "Party Exhausted", "Visit the Chronicle Center or use Restoration Tea before starting another battle.", [
         { action: "close", label: "Close" }
@@ -2407,11 +2469,16 @@
   function grantNpcHelp(npc) {
     if (!npc || !npc.grant || state.stats.flags[npc.grant]) return;
     if (npc.grant === "starter") {
+      const hadRoster = !!(state.stats.roster && state.stats.roster.length);
+      const starter = ensureStarterAlly(courseTypeFor(els.courseFilter.value).name);
       state.stats.items.capsule += 2;
       state.stats.items.fieldNote += 2;
       state.stats.shards += 20;
       state.stats.flags.starter = true;
-      setDialogue("Guide", npc.name, "Starter kit added: 2 Archive Capsules, 2 Field Notes, and 20 shards. Go catch a first figure line.", [
+      const starterText = hadRoster
+        ? "Starter kit added: 2 Archive Capsules, 2 Field Notes, and 20 shards."
+        : `${starter.actualName} joined your party as a starter ally. Starter kit added: 2 Archive Capsules, 2 Field Notes, and 20 shards.`;
+      setDialogue("Guide", npc.name, starterText, [
         { action: "hunt", label: "Start Hunt" },
         { action: "close", label: "Thanks" }
       ]);
