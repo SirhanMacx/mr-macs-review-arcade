@@ -61,7 +61,11 @@
   const decorSheet = loadImage("../../assets/history-hunters/generated/overworld-decor-sheet-v3.png");
   const trainerSheet = loadImage("../../assets/history-hunters/generated/trainer-sprite-sheet-v1.png");
   const landmarkSheet = loadImage("../../assets/history-hunters/generated/landmark-sprite-sheet-v1.png");
-  const companionSheet = loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v1.png");
+  const companionSheets = [
+    loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v1.png"),
+    loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v2.png"),
+    loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v3.png")
+  ];
   const figureAtlases = Array.from({ length: 10 }, (_, i) => loadImage(`../../assets/history-hunters/keyed/battle-figure-atlas-${i + 1}-keyed.png`));
 
   const atlas = {
@@ -164,7 +168,13 @@
     { id: "summit", name: "Atlas Summit", kind: "summit", gx: 111, gy: 72, icon: "portal", text: "The late-game summit arena for mixed review and champion route battles.", gym: { id: "summit", leader: "Captain Ellis", badge: "Atlas Badge", type: "Review", roster: ["Archive Keeper", "Mohandas Gandhi", "Nelson Mandela", "Abraham Lincoln"], intro: "Captain Ellis opens the Atlas Gate. This is a champion route." } },
     { id: "frontier", name: "Frontier Outpost", kind: "quest", gx: 137, gy: 92, icon: "gate", text: "A long-route U.S. history station with a frontier gym for Grade 7, Grade 8, APUSH, and Regents.", gym: { id: "frontier", leader: "Marshal Reed", badge: "Republic Badge", type: "US Regents", roster: ["George Washington", "Harriet Tubman", "Martin Luther King Jr."], intro: "Marshal Reed taps the badge. The republic route is not gentle." } },
     { id: "observatory", name: "World Observatory", kind: "quest", gx: 133, gy: 23, icon: "arch", text: "Global, AP World, AP Euro, Human Geography, and the Observatory Gym meet here.", gym: { id: "world", leader: "Scribe Hana", badge: "World Systems Badge", type: "Global 10", roster: ["Mohandas Gandhi", "Toussaint Louverture", "Nelson Mandela"], intro: "Scribe Hana turns the star map. Revolutions align." } },
-    { id: "rights", name: "Rights Court", kind: "quest", gx: 96, gy: 96, icon: "school", text: "Civic action, rights, constitutions, court cases, reform movements, and the Rights Gym.", gym: { id: "rights", leader: "Advocate Samira", badge: "Justice Badge", type: "Civics", roster: ["Ida B. Wells", "Eleanor Roosevelt", "Thurgood Marshall"], intro: "Advocate Samira calls the court to session. Rights are on the line." } }
+    { id: "rights", name: "Rights Court", kind: "quest", gx: 96, gy: 96, icon: "school", text: "Civic action, rights, constitutions, court cases, reform movements, and the Rights Gym.", gym: { id: "rights", leader: "Advocate Samira", badge: "Justice Badge", type: "Civics", roster: ["Ida B. Wells", "Eleanor Roosevelt", "Thurgood Marshall"], intro: "Advocate Samira calls the court to session. Rights are on the line." } },
+    { id: "liberty", name: "Liberty Town", kind: "quest", gx: 151, gy: 18, icon: "school", text: "A U.S. history town route for founding, abolition, civil rights, and constitutional change.", battle: true },
+    { id: "renaissance", name: "Renaissance Gallery", kind: "quest", gx: 154, gy: 56, icon: "arch", text: "AP European and Global review route: Renaissance, Reformation, revolution, and nationalism.", battle: true },
+    { id: "andes", name: "Andes Trail", kind: "quest", gx: 54, gy: 105, icon: "gate", text: "A Grade 5 and ancient Americas route for geography, trade, empire, and encounter.", battle: true },
+    { id: "urban", name: "Urban Grid", kind: "quest", gx: 29, gy: 104, icon: "portal", text: "Human Geography route: cities, regions, diffusion, migration, and cultural landscapes.", battle: true },
+    { id: "press", name: "Press Row", kind: "quest", gx: 151, gy: 115, icon: "school", text: "A civics and reform side route for public opinion, rights campaigns, and media.", battle: true },
+    { id: "industry", name: "Industrial Yard", kind: "quest", gx: 119, gy: 112, icon: "chest", text: "Economics and industrialization route: labor, markets, regulation, and policy choices.", battle: true }
   ];
 
   const npcs = [
@@ -184,7 +194,13 @@
     { id: "worldTraveler", name: "Traveler Mina", type: "World Trainer", gx: 123, gy: 25, sprite: "traveler", text: "A route team should understand trade, belief systems, diffusion, and geography.", battle: true },
     { id: "shopkeeper", name: "Shopkeeper Ren", type: "Route Trainer", gx: 47, gy: 77, sprite: "shopkeeper", text: "Markets are not just money. Scarcity, incentives, and choices decide battles.", battle: true },
     { id: "professor", name: "Professor Vale", type: "Mind Trainer", gx: 107, gy: 34, sprite: "professor", text: "Learning sticks when a move has context. Reinforcement helps too.", battle: true },
-    { id: "badgemaster", name: "Badge Master Arun", type: "Summit Trainer", gx: 113, gy: 75, sprite: "gymLeader", text: "The Atlas Summit checks whether your whole party can survive a full trainer roster.", battle: true }
+    { id: "badgemaster", name: "Badge Master Arun", type: "Summit Trainer", gx: 113, gy: 75, sprite: "gymLeader", text: "The Atlas Summit checks whether your whole party can survive a full trainer roster.", battle: true },
+    { id: "libertyRival", name: "Rival Ellis", type: "Liberty Trainer", gx: 149, gy: 16, sprite: "rival", text: "Liberty Town battles reward parties that can connect founding ideals to later reform movements.", battle: true },
+    { id: "renaissanceGuide", name: "Curator Lucia", type: "Gallery Trainer", gx: 152, gy: 58, sprite: "curator", text: "Renaissance, Reformation, revolution, nationalism: this gallery route is built around turning points.", battle: true },
+    { id: "andesScout", name: "Scout Amaru", type: "Andes Trainer", gx: 56, gy: 103, sprite: "traveler", text: "Geography is the boss here. Mountains, roads, trade, and empire all shape the fight.", battle: true },
+    { id: "urbanPlanner", name: "Planner Jae", type: "Urban Trainer", gx: 27, gy: 102, sprite: "professor", text: "Cities have patterns. Learn the grid, then challenge migration, region, and diffusion battles.", battle: true },
+    { id: "pressEditor", name: "Editor Wells", type: "Press Trainer", gx: 149, gy: 113, sprite: "advocate", text: "Public pressure can move history. Press Row checks reform, rights, and civic voice.", battle: true },
+    { id: "yardForeman", name: "Foreman Kai", type: "Industry Trainer", gx: 117, gy: 110, sprite: "analyst", text: "Industrial Yard battles hit with labor, capital, markets, regulation, and reform.", battle: true }
   ];
 
   const decor = [
@@ -218,7 +234,15 @@
     { type: "tent", gx: 124, gy: 87, w: 84, h: 70 },
     { type: "portal", gx: 147, gy: 104, w: 88, h: 88 },
     { type: "flowers", gx: 75, gy: 88, w: 70, h: 48 },
-    { type: "bulletin", gx: 114, gy: 62, w: 74, h: 58 }
+    { type: "bulletin", gx: 114, gy: 62, w: 74, h: 58 },
+    { type: "banner", gx: 149, gy: 18, w: 64, h: 78 },
+    { type: "statue", gx: 154, gy: 20, w: 74, h: 82 },
+    { type: "scroll", gx: 152, gy: 54, w: 66, h: 72 },
+    { type: "column", gx: 156, gy: 59, w: 58, h: 64 },
+    { type: "tent", gx: 52, gy: 108, w: 84, h: 70 },
+    { type: "map", gx: 31, gy: 107, w: 70, h: 72 },
+    { type: "crate", gx: 121, gy: 113, w: 58, h: 56 },
+    { type: "bulletin", gx: 148, gy: 116, w: 74, h: 58 }
   ];
 
   const decorCells = {
@@ -258,6 +282,12 @@
     frontier: 11,
     observatory: 12,
     rights: 13,
+    liberty: 13,
+    renaissance: 3,
+    andes: 11,
+    urban: 12,
+    press: 14,
+    industry: 9,
     sign: 14,
     badge: 15
   };
@@ -282,22 +312,54 @@
   };
 
   const companionCells = {
-    "Hammurabi": 0,
-    "Confucius": 1,
-    "Mansa Musa": 2,
-    "Mohandas Gandhi": 3,
-    "Nelson Mandela": 4,
-    "Abraham Lincoln": 5,
-    "Harriet Tubman": 6,
-    "Martin Luther King Jr.": 7,
-    "George Washington": 8,
-    "Adam Smith": 9,
-    "John Maynard Keynes": 10,
-    "James Madison": 11,
-    "Theodore Roosevelt": 12,
-    "B. F. Skinner": 13,
-    "Jean Piaget": 14,
-    "Zheng He": 15
+    "Hammurabi": [0, 0],
+    "Confucius": [0, 1],
+    "Mansa Musa": [0, 2],
+    "Mohandas Gandhi": [0, 3],
+    "Nelson Mandela": [0, 4],
+    "Abraham Lincoln": [0, 5],
+    "Harriet Tubman": [0, 6],
+    "Martin Luther King Jr.": [0, 7],
+    "George Washington": [0, 8],
+    "Adam Smith": [0, 9],
+    "John Maynard Keynes": [0, 10],
+    "James Madison": [0, 11],
+    "Theodore Roosevelt": [0, 12],
+    "B. F. Skinner": [0, 13],
+    "Jean Piaget": [0, 14],
+    "Zheng He": [0, 15],
+    "Elinor Ostrom": [1, 0],
+    "Janet Yellen": [1, 1],
+    "Paul Volcker": [1, 2],
+    "Alfred Marshall": [1, 3],
+    "Joan Robinson": [1, 4],
+    "Milton Friedman": [1, 5],
+    "Thurgood Marshall": [1, 6],
+    "Barbara Jordan": [1, 7],
+    "Ida B. Wells": [1, 8],
+    "Eleanor Roosevelt": [1, 9],
+    "Frederick Douglass": [1, 10],
+    "Franklin D. Roosevelt": [1, 11],
+    "Sacagawea": [1, 12],
+    "Pachacuti": [1, 13],
+    "Moctezuma II": [1, 14],
+    "Alexander Hamilton": [1, 15],
+    "Tecumseh": [2, 0],
+    "Susan B. Anthony": [2, 1],
+    "Pericles": [2, 2],
+    "Ibn Battuta": [2, 3],
+    "Toussaint Louverture": [2, 4],
+    "Leonardo da Vinci": [2, 5],
+    "Martin Luther": [2, 6],
+    "Napoleon Bonaparte": [2, 7],
+    "Jane Jacobs": [2, 8],
+    "Carl Sauer": [2, 9],
+    "Wilhelm Wundt": [2, 10],
+    "Archive Keeper": [2, 11],
+    "Source Sleuth": [2, 12],
+    "Context Coach": [2, 13],
+    "Route Messenger": [2, 14],
+    "Map Guardian": [2, 15]
   };
 
   const dirs = {
@@ -715,6 +777,12 @@
     paintRect(88, 88, 110, 103, "grass2");
     paintRect(127, 86, 148, 101, "grass2");
     paintRect(69, 78, 82, 92, "grass2");
+    paintRect(142, 12, 156, 25, "grass2");
+    paintRect(145, 50, 157, 66, "grass2");
+    paintRect(20, 98, 37, 113, "grass2");
+    paintRect(47, 99, 61, 113, "grass2");
+    paintRect(112, 104, 126, 116, "grass2");
+    paintRect(143, 108, 156, 116, "grass2");
 
     carveRoad(12, 18, 32, 18, 1);
     carveRoad(24, 9, 24, 33, 1);
@@ -732,6 +800,13 @@
     carveRoad(74, 57, 96, 96, 1);
     carveRoad(96, 96, 137, 92, 1);
     carveRoad(137, 92, 147, 104, 1);
+    carveRoad(133, 23, 151, 18, 1);
+    carveRoad(151, 18, 154, 56, 1);
+    carveRoad(154, 56, 151, 115, 1);
+    carveRoad(137, 92, 151, 115, 1);
+    carveRoad(96, 96, 54, 105, 1);
+    carveRoad(54, 105, 29, 104, 1);
+    carveRoad(119, 112, 96, 96, 1);
 
     places.forEach((place) => paintRect(place.gx - 3, place.gy - 2, place.gx + 3, place.gy + 3, "path"));
 
@@ -795,12 +870,13 @@
 
   function drawFigure(ally, x, y, w, h, flip) {
     const family = familyById[ally.familyId] || allFamilies[0];
-    const companionIndex = companionCells[family.historicalName] ?? companionCells[ally.actualName];
-    if (companionIndex != null && companionSheet.complete) {
+    const companionRef = companionCells[family.historicalName] || companionCells[ally.actualName] || fallbackCompanionRef(family.historicalName || ally.actualName);
+    const companionSheet = companionSheets[companionRef[0]];
+    if (companionSheet && companionSheet.complete) {
       ctx.save();
       ctx.shadowColor = ally.color || "#edf987";
       ctx.shadowBlur = Math.max(6, Math.floor(w * .09));
-      drawSheetCell(companionSheet, companionIndex, 4, 4, x, y - h * .22, w, h * 1.22, flip);
+      drawSheetCell(companionSheet, companionRef[1], 4, 4, x, y - h * .22, w, h * 1.22, flip);
       ctx.restore();
       return;
     }
@@ -823,6 +899,12 @@
       ctx.drawImage(img, sx, sy, cellW, cellH, x, y, w, h);
     }
     ctx.restore();
+  }
+
+  function fallbackCompanionRef(name) {
+    const sheet = Math.abs(hash(name || "review")) % companionSheets.length;
+    const index = Math.floor(Math.abs(hash(`${name}:sprite`)) % 16);
+    return [sheet, index];
   }
 
   function drawDecor(item) {
