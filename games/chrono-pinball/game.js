@@ -124,6 +124,8 @@
     rightActive: false,
     plungerHeld: false,
     plungerCharge: 0,
+    launchHint: 0,
+    launchInputAt: 0,
     shake: 0,
     last: 0,
     elapsed: 0,
@@ -480,11 +482,12 @@
   function newBall(stuck = true) {
     return {
       x: 762,
-      y: stuck ? 1228 : 1120,
+      y: stuck ? 1206 : 1120,
       vx: stuck ? 0 : -220 + Math.random() * 440,
       vy: stuck ? 0 : -720 - Math.random() * 220,
       r: 17,
       stuck,
+      launchLane: false,
       trail: [],
       spin: Math.random() * Math.PI * 2,
       id: Math.random().toString(36).slice(2)
@@ -501,6 +504,8 @@
     state.correct = 0;
     state.bestCombo = 0;
     state.ballSave = 10;
+    state.launchHint = 3.5;
+    state.launchInputAt = 0;
     state.missionStreak = 0;
     state.currentQuestion = null;
     state.currentChoices = [];
@@ -513,7 +518,7 @@
     resetTargets();
     prepareQueue();
     updateHud();
-    setMission("Chrono table online", "Hold Launch, release, then flip with A/D, arrow keys, or the buttons. Light all five lock targets to open a review mission.", "");
+    setMission("Chrono table online", "Tap Launch to fire the archive ball. Hold it for a stronger serve, then flip with A/D, arrow keys, or the buttons.", "");
   }
 
   function startGame() {
@@ -590,26 +595,56 @@
     if (state.mode !== "playing") return;
     const stuckBall = state.balls.find((ball) => ball.stuck);
     if (!stuckBall) return;
+    state.launchInputAt = performance.now();
     state.plungerHeld = true;
     els.launchBtn.classList.add("active");
     audio.ensure();
   }
 
   function releaseLaunch() {
-    if (!state.plungerHeld) return;
+    if (state.mode !== "playing") {
+      cancelLaunch();
+      return;
+    }
+    if (!state.plungerHeld && !state.balls.some((ball) => ball.stuck)) return;
+    const heldFor = performance.now() - state.launchInputAt;
+    const minimumCharge = heldFor < 150 ? .55 : .22;
+    launchStuckBall(minimumCharge);
+  }
+
+  function quickLaunch() {
+    if (state.mode !== "playing") return;
+    launchStuckBall(.68);
+  }
+
+  function cancelLaunch() {
     state.plungerHeld = false;
     els.launchBtn.classList.remove("active");
-    const stuckBall = state.balls.find((ball) => ball.stuck);
-    if (!stuckBall) return;
-    const charge = clamp(state.plungerCharge, .15, 1);
-    stuckBall.stuck = false;
-    stuckBall.vx = -215 - Math.random() * 90;
-    stuckBall.vy = -840 - charge * 720;
     state.plungerCharge = 0;
+  }
+
+  function launchStuckBall(minimumCharge = .55) {
+    const stuckBall = state.balls.find((ball) => ball.stuck);
+    if (!stuckBall) {
+      cancelLaunch();
+      return false;
+    }
+    const charge = clamp(Math.max(state.plungerCharge, minimumCharge), .22, 1);
+    state.plungerHeld = false;
+    els.launchBtn.classList.remove("active");
+    stuckBall.stuck = false;
+    stuckBall.launchLane = true;
+    stuckBall.x = 768;
+    stuckBall.y = 1198;
+    stuckBall.vx = 0;
+    stuckBall.vy = -1040 - charge * 760;
+    state.plungerCharge = 0;
+    state.launchHint = 0;
     state.shake = .12;
     audio.launch();
     addParticles(stuckBall.x, stuckBall.y + 18, 20, "#f5c451", 1.1);
     setMission("Ball launched", "Use flippers to hit bumpers, lanes, and the five lock targets. A review lock opens when all targets are lit.", "", "");
+    return true;
   }
 
   function setFlipper(side, active) {
@@ -648,8 +683,9 @@
   function update(dt) {
     state.elapsed += dt;
     if (state.mode === "playing") {
+      if (state.launchHint > 0) state.launchHint = Math.max(0, state.launchHint - dt);
       if (state.plungerHeld) {
-        state.plungerCharge = clamp(state.plungerCharge + dt * .78, 0, 1);
+        state.plungerCharge = clamp(state.plungerCharge + dt * 1.2, 0, 1);
       }
       if (state.ballSave > 0) state.ballSave = Math.max(0, state.ballSave - dt);
       for (const target of state.targets) {
@@ -678,8 +714,27 @@
     if (ball.stuck) {
       const spring = Math.sin(state.elapsed * 8) * 2 + state.plungerCharge * 42;
       ball.x = 762;
-      ball.y = 1228 + spring;
+      ball.y = 1206 + spring;
       ball.trail.length = 0;
+      return;
+    }
+
+    if (ball.launchLane) {
+      ball.x = lerp(ball.x, 768, .22);
+      ball.vy = Math.min(ball.vy, -1120);
+      ball.y += ball.vy * dt;
+      ball.spin += ball.vy * dt * .018;
+      ball.trail.push({ x: ball.x, y: ball.y, life: .42 });
+      if (ball.trail.length > 16) ball.trail.shift();
+      if (ball.y <= 168) {
+        ball.launchLane = false;
+        ball.x = 704;
+        ball.y = 178;
+        ball.vx = -520 - Math.random() * 130;
+        ball.vy = 210 + Math.random() * 120;
+        addParticles(ball.x, ball.y, 18, "#75ecff", .8);
+        addText(ball.x - 24, ball.y + 16, "ORBIT ENTRY", "#75ecff");
+      }
       return;
     }
 
@@ -870,7 +925,8 @@
   function serveOrEnd() {
     if (state.ballsLeft > 0) {
       state.balls.push(newBall(true));
-      setMission("Ball drained", "Hold Launch to serve the next ball. Build the lock row again for another review mission.", `${state.ballsLeft} ball${state.ballsLeft === 1 ? "" : "s"} left`, "bad");
+      state.launchHint = 3.5;
+      setMission("Ball drained", "Tap Launch to serve the next ball. Build the lock row again for another review mission.", `${state.ballsLeft} ball${state.ballsLeft === 1 ? "" : "s"} left`, "bad");
     } else {
       endGame();
     }
@@ -1419,6 +1475,24 @@
   function drawPlunger() {
     ctx.save();
     const charge = state.plungerCharge;
+    ctx.save();
+    ctx.globalAlpha = .5 + charge * .35;
+    ctx.strokeStyle = "rgba(245,196,81,.52)";
+    ctx.lineWidth = 4;
+    ctx.setLineDash([16, 12]);
+    ctx.beginPath();
+    ctx.moveTo(768, 1196);
+    ctx.bezierCurveTo(780, 880, 792, 430, 704, 178);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "rgba(245,196,81,.72)";
+    ctx.beginPath();
+    ctx.moveTo(700, 160);
+    ctx.lineTo(721, 194);
+    ctx.lineTo(682, 187);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
     ctx.fillStyle = "rgba(0,0,0,.30)";
     roundRect(ctx, 724, 1080, 88, 230, 28);
     ctx.fill();
@@ -1434,6 +1508,17 @@
     ctx.font = "900 13px Inter, system-ui, sans-serif";
     ctx.textAlign = "center";
     ctx.fillText("LAUNCH", 768, 1064);
+    if (state.launchHint > 0 && state.balls.some((ball) => ball.stuck)) {
+      const alpha = .62 + Math.sin(state.elapsed * 7) * .22;
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = "rgba(245,196,81,.94)";
+      ctx.font = "900 24px Inter, system-ui, sans-serif";
+      ctx.fillText("TAP LAUNCH", 450, 1152);
+      ctx.font = "800 15px Inter, system-ui, sans-serif";
+      ctx.fillStyle = "rgba(251,247,237,.76)";
+      ctx.fillText("or press Space", 450, 1177);
+      ctx.globalAlpha = 1;
+    }
     if (state.ballSave > 0 && state.mode === "playing") {
       ctx.fillStyle = "rgba(105,243,169,.85)";
       ctx.font = "900 16px Inter, system-ui, sans-serif";
@@ -1501,7 +1586,7 @@
       if (state.mode === "playing") pauseGame();
       setFlipper("left", false);
       setFlipper("right", false);
-      releaseLaunch();
+      cancelLaunch();
     });
 
     els.courseFilter.addEventListener("change", () => {
@@ -1530,11 +1615,12 @@
 
     bindHoldButton(els.leftFlip, () => setFlipper("left", true), () => setFlipper("left", false));
     bindHoldButton(els.rightFlip, () => setFlipper("right", true), () => setFlipper("right", false));
-    bindHoldButton(els.launchBtn, holdLaunch, releaseLaunch);
+    bindHoldButton(els.launchBtn, holdLaunch, releaseLaunch, quickLaunch);
 
     canvas.addEventListener("pointerdown", (event) => {
       audio.ensure();
       if (state.mode !== "playing") return;
+      canvas.setPointerCapture?.(event.pointerId);
       if (event.clientX < window.innerWidth * .38) setFlipper("left", true);
       else if (event.clientX > window.innerWidth * .62) {
         const stuck = state.balls.some((ball) => ball.stuck);
@@ -1542,15 +1628,20 @@
         else setFlipper("right", true);
       }
     });
-    canvas.addEventListener("pointerup", () => {
+    canvas.addEventListener("pointerup", (event) => {
       setFlipper("left", false);
       setFlipper("right", false);
       releaseLaunch();
+      canvas.releasePointerCapture?.(event.pointerId);
     });
     canvas.addEventListener("pointercancel", () => {
       setFlipper("left", false);
       setFlipper("right", false);
-      releaseLaunch();
+      cancelLaunch();
+    });
+    canvas.addEventListener("click", (event) => {
+      if (state.mode !== "playing") return;
+      if (event.clientX > window.innerWidth * .62 && state.balls.some((ball) => ball.stuck)) quickLaunch();
     });
 
     window.addEventListener("keydown", (event) => {
@@ -1582,20 +1673,53 @@
     });
   }
 
-  function bindHoldButton(button, down, up) {
+  function bindHoldButton(button, down, up, clickFallback) {
+    let pointerHandledAt = 0;
     button.addEventListener("pointerdown", (event) => {
       event.preventDefault();
+      pointerHandledAt = performance.now();
       button.setPointerCapture?.(event.pointerId);
       down();
     });
     button.addEventListener("pointerup", (event) => {
       event.preventDefault();
+      pointerHandledAt = performance.now();
       up();
       button.releasePointerCapture?.(event.pointerId);
     });
-    button.addEventListener("pointercancel", up);
+    button.addEventListener("pointercancel", () => {
+      pointerHandledAt = performance.now();
+      up();
+    });
     button.addEventListener("mouseleave", () => {
       if (button.classList.contains("active")) up();
+    });
+    button.addEventListener("click", (event) => {
+      if (!clickFallback) return;
+      event.preventDefault();
+      if (performance.now() - pointerHandledAt < 180) {
+        if (state.balls.some((ball) => ball.stuck)) clickFallback();
+        return;
+      }
+      clickFallback();
+    });
+    button.addEventListener("touchstart", (event) => {
+      if (window.PointerEvent) return;
+      event.preventDefault();
+      down();
+    }, { passive: false });
+    button.addEventListener("touchend", (event) => {
+      if (window.PointerEvent) return;
+      event.preventDefault();
+      up();
+    }, { passive: false });
+    button.addEventListener("mousedown", () => {
+      if (window.PointerEvent) return;
+      down();
+    });
+    button.addEventListener("mouseup", () => {
+      if (window.PointerEvent) return;
+      up();
     });
   }
 
