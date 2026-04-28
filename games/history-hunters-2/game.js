@@ -5,6 +5,10 @@
   const TILE = 32;
   const WORLD_W = 160;
   const WORLD_H = 120;
+  const PLAYER_TITLE = "ATLAS RANGER";
+  const params = new URLSearchParams(window.location.search);
+  const FX_LITE = params.get("fx") === "lite" || params.get("fx") === "low";
+  const PREFERS_REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const $ = (id) => document.getElementById(id);
   const view = { w: 960, h: 540, dpr: 1 };
 
@@ -55,6 +59,9 @@
   const tileAtlas = loadImage("../../assets/history-hunters/keyed/retro-tile-sprite-atlas-keyed.png");
   const playerBack = loadImage("../../assets/history-hunters/keyed/player-back-keyed.png");
   const decorSheet = loadImage("../../assets/history-hunters/generated/overworld-decor-sheet-v3.png");
+  const trainerSheet = loadImage("../../assets/history-hunters/generated/trainer-sprite-sheet-v1.png");
+  const landmarkSheet = loadImage("../../assets/history-hunters/generated/landmark-sprite-sheet-v1.png");
+  const companionSheet = loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v1.png");
   const figureAtlases = Array.from({ length: 10 }, (_, i) => loadImage(`../../assets/history-hunters/keyed/battle-figure-atlas-${i + 1}-keyed.png`));
 
   const atlas = {
@@ -148,16 +155,16 @@
     { id: "mart", name: "Archive Supply", kind: "shop", gx: 27, gy: 18, icon: "chest", text: "Buy capsules, field notes, and restoration tea with shards." },
     { id: "lab", name: "Professor Mac's Lab", kind: "lab", gx: 20, gy: 12, icon: "gate", text: "Choose a starter, learn the route system, and check progress." },
     { id: "museum", name: "Source Museum", kind: "quest", gx: 43, gy: 26, icon: "arch", text: "Take source and review contracts for XP, shards, and items." },
-    { id: "harbor", name: "Exchange Harbor", kind: "quest", gx: 61, gy: 37, icon: "portal", text: "Trade-route contracts and global review challenges." },
-    { id: "capitol", name: "Civic Capitol", kind: "quest", gx: 86, gy: 18, icon: "school", text: "Government, rights, court cases, and civic participation contracts." },
-    { id: "ruins", name: "Ancient Ruins", kind: "quest", gx: 16, gy: 49, icon: "arch", text: "River valleys, empires, belief systems, and classical worlds live on this route." },
-    { id: "reform", name: "Reform Station", kind: "quest", gx: 74, gy: 57, icon: "gate", text: "Revolution, rights, reform, civil war, and industrial change contracts." },
-    { id: "psych", name: "Mind Lab", kind: "quest", gx: 104, gy: 31, icon: "school", text: "AP Psychology contracts, research methods, learning, cognition, and development." },
-    { id: "bazaar", name: "Market Bazaar", kind: "quest", gx: 49, gy: 74, icon: "chest", text: "Economics contracts: scarcity, markets, macro policy, trade, and incentives." },
-    { id: "summit", name: "Atlas Summit", kind: "summit", gx: 111, gy: 72, icon: "portal", text: "A late-game route for mixed review and boss challenges." },
-    { id: "frontier", name: "Frontier Outpost", kind: "quest", gx: 137, gy: 92, icon: "gate", text: "A long-route station for Grade 7, Grade 8, APUSH, and U.S. Regents battles." },
-    { id: "observatory", name: "World Observatory", kind: "quest", gx: 133, gy: 23, icon: "arch", text: "Global, AP World, AP Euro, and Human Geography routes meet here." },
-    { id: "rights", name: "Rights Court", kind: "quest", gx: 96, gy: 96, icon: "school", text: "Civic action, rights, constitutions, court cases, and reform movements are tested here." }
+    { id: "harbor", name: "Exchange Harbor", kind: "quest", gx: 61, gy: 37, icon: "portal", text: "Trade-route contracts and the Harbor Gym test exchange, migration, and global routes.", gym: { id: "harbor", leader: "Pilot Santos", badge: "Exchange Badge", type: "AP World", roster: ["Zheng He", "Mansa Musa", "Ibn Battuta"], intro: "Pilot Santos lowers the harbor flags. Trade winds are up." } },
+    { id: "capitol", name: "Civic Capitol", kind: "quest", gx: 86, gy: 18, icon: "school", text: "Government, rights, court cases, civic participation, and the Capitol Gym.", gym: { id: "capitol", leader: "Organizer Noor", badge: "Federalism Badge", type: "AP Gov", roster: ["James Madison", "Thurgood Marshall", "Barbara Jordan"], intro: "Organizer Noor calls the chamber to order." } },
+    { id: "ruins", name: "Ancient Ruins", kind: "quest", gx: 16, gy: 49, icon: "arch", text: "River valleys, empires, belief systems, and the Ancient Gym live on this route.", gym: { id: "ancient", leader: "Keeper Imani", badge: "River Valley Badge", type: "Grade 6", roster: ["Hammurabi", "Confucius", "Mansa Musa"], intro: "Keeper Imani raises the clay seal. Ancient law enters the arena." } },
+    { id: "reform", name: "Reform Station", kind: "quest", gx: 74, gy: 57, icon: "gate", text: "Revolution, rights, reform, civil war, industrial change, and the Reform Gym.", gym: { id: "reform", leader: "Curator Rivera", badge: "Reform Badge", type: "Grade 8", roster: ["Abraham Lincoln", "Susan B. Anthony", "Theodore Roosevelt"], intro: "Curator Rivera opens the reform ledger. Every turn changes the timeline." } },
+    { id: "psych", name: "Mind Lab", kind: "quest", gx: 104, gy: 31, icon: "school", text: "AP Psychology contracts and the Mind Gym: methods, learning, cognition, and development.", gym: { id: "mind", leader: "Professor Vale", badge: "Cognition Badge", type: "AP Psych", roster: ["Wilhelm Wundt", "B. F. Skinner", "Jean Piaget"], intro: "Professor Vale dims the lab lights. The experiment begins." } },
+    { id: "bazaar", name: "Market Bazaar", kind: "quest", gx: 49, gy: 74, icon: "chest", text: "Economics contracts and the Market Gym: scarcity, markets, macro policy, trade, and incentives.", gym: { id: "market", leader: "Analyst Vega", badge: "Incentive Badge", type: "Economics", roster: ["Adam Smith", "John Maynard Keynes", "Milton Friedman"], intro: "Analyst Vega rings the market bell. Supply meets demand." } },
+    { id: "summit", name: "Atlas Summit", kind: "summit", gx: 111, gy: 72, icon: "portal", text: "The late-game summit arena for mixed review and champion route battles.", gym: { id: "summit", leader: "Captain Ellis", badge: "Atlas Badge", type: "Review", roster: ["Archive Keeper", "Mohandas Gandhi", "Nelson Mandela", "Abraham Lincoln"], intro: "Captain Ellis opens the Atlas Gate. This is a champion route." } },
+    { id: "frontier", name: "Frontier Outpost", kind: "quest", gx: 137, gy: 92, icon: "gate", text: "A long-route U.S. history station with a frontier gym for Grade 7, Grade 8, APUSH, and Regents.", gym: { id: "frontier", leader: "Marshal Reed", badge: "Republic Badge", type: "US Regents", roster: ["George Washington", "Harriet Tubman", "Martin Luther King Jr."], intro: "Marshal Reed taps the badge. The republic route is not gentle." } },
+    { id: "observatory", name: "World Observatory", kind: "quest", gx: 133, gy: 23, icon: "arch", text: "Global, AP World, AP Euro, Human Geography, and the Observatory Gym meet here.", gym: { id: "world", leader: "Scribe Hana", badge: "World Systems Badge", type: "Global 10", roster: ["Mohandas Gandhi", "Toussaint Louverture", "Nelson Mandela"], intro: "Scribe Hana turns the star map. Revolutions align." } },
+    { id: "rights", name: "Rights Court", kind: "quest", gx: 96, gy: 96, icon: "school", text: "Civic action, rights, constitutions, court cases, reform movements, and the Rights Gym.", gym: { id: "rights", leader: "Advocate Samira", badge: "Justice Badge", type: "Civics", roster: ["Ida B. Wells", "Eleanor Roosevelt", "Thurgood Marshall"], intro: "Advocate Samira calls the court to session. Rights are on the line." } }
   ];
 
   const npcs = [
@@ -172,7 +179,12 @@
     { id: "scribe", name: "Scribe Hana", type: "Archive Scout", gx: 132, gy: 21, text: "Trade routes, belief systems, and geography are easier when you know where ideas traveled.", quest: true },
     { id: "marshal", name: "Marshal Reed", type: "Frontier Rival", gx: 135, gy: 89, text: "The western route is long. Bring tea, capsules, and a party that can handle U.S. history eras.", battle: true },
     { id: "advocate", name: "Advocate Samira", type: "Rights Coach", gx: 95, gy: 93, text: "Civil rights, human rights, and constitutional rights all reward precise evidence.", quest: true },
-    { id: "quartermaster", name: "Quartermaster Jo", type: "Supply Clerk", gx: 30, gy: 21, text: "Check the bag before boss routes. Capsules recruit allies; tea keeps your party standing.", quest: true }
+    { id: "quartermaster", name: "Quartermaster Jo", type: "Supply Clerk", gx: 30, gy: 21, text: "Check the bag before boss routes. Capsules recruit allies; tea keeps your party standing.", quest: true },
+    { id: "gymGuide", name: "Badge Coach Vale", type: "Gym Coach", gx: 18, gy: 51, sprite: "gymLeader", text: "Major landmarks hold badge battles. Beat every roster to unlock tougher rematches.", battle: true },
+    { id: "worldTraveler", name: "Traveler Mina", type: "World Trainer", gx: 123, gy: 25, sprite: "traveler", text: "A route team should understand trade, belief systems, diffusion, and geography.", battle: true },
+    { id: "shopkeeper", name: "Shopkeeper Ren", type: "Route Trainer", gx: 47, gy: 77, sprite: "shopkeeper", text: "Markets are not just money. Scarcity, incentives, and choices decide battles.", battle: true },
+    { id: "professor", name: "Professor Vale", type: "Mind Trainer", gx: 107, gy: 34, sprite: "professor", text: "Learning sticks when a move has context. Reinforcement helps too.", battle: true },
+    { id: "badgemaster", name: "Badge Master Arun", type: "Summit Trainer", gx: 113, gy: 75, sprite: "gymLeader", text: "The Atlas Summit checks whether your whole party can survive a full trainer roster.", battle: true }
   ];
 
   const decor = [
@@ -231,6 +243,63 @@
     banner2: 15
   };
 
+  const landmarkCells = {
+    center: 0,
+    mart: 1,
+    lab: 2,
+    museum: 3,
+    harbor: 4,
+    capitol: 5,
+    ruins: 6,
+    reform: 7,
+    psych: 8,
+    bazaar: 9,
+    summit: 10,
+    frontier: 11,
+    observatory: 12,
+    rights: 13,
+    sign: 14,
+    badge: 15
+  };
+
+  const trainerCells = {
+    guide: 0,
+    rival: 1,
+    curator: 2,
+    organizer: 3,
+    pilot: 4,
+    keeper: 5,
+    analyst: 6,
+    captain: 7,
+    scribe: 8,
+    marshal: 9,
+    advocate: 10,
+    quartermaster: 11,
+    gymLeader: 12,
+    professor: 13,
+    shopkeeper: 14,
+    traveler: 15
+  };
+
+  const companionCells = {
+    "Hammurabi": 0,
+    "Confucius": 1,
+    "Mansa Musa": 2,
+    "Mohandas Gandhi": 3,
+    "Nelson Mandela": 4,
+    "Abraham Lincoln": 5,
+    "Harriet Tubman": 6,
+    "Martin Luther King Jr.": 7,
+    "George Washington": 8,
+    "Adam Smith": 9,
+    "John Maynard Keynes": 10,
+    "James Madison": 11,
+    "Theodore Roosevelt": 12,
+    "B. F. Skinner": 13,
+    "Jean Piaget": 14,
+    "Zheng He": 15
+  };
+
   const dirs = {
     up: { x: 0, y: -1, key: "playerBack" },
     down: { x: 0, y: 1, key: "playerFront" },
@@ -267,7 +336,9 @@
   function resizeCanvas() {
     view.w = Math.max(320, Math.floor(window.innerWidth || 960));
     view.h = Math.max(320, Math.floor(window.innerHeight || 540));
-    view.dpr = Math.min(2, window.devicePixelRatio || 1);
+    const coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    const rawDpr = window.devicePixelRatio || 1;
+    view.dpr = FX_LITE || coarse || view.w <= 780 ? 1 : Math.min(1.5, rawDpr);
     els.canvas.width = Math.floor(view.w * view.dpr);
     els.canvas.height = Math.floor(view.h * view.dpr);
     els.canvas.style.width = `${view.w}px`;
@@ -377,6 +448,55 @@
     return { name, type, power, flavor, pp: maxPp, maxPp };
   }
 
+  const signatureMoves = {
+    "Adam Smith": "Invisible Hand",
+    "John Maynard Keynes": "Demand Surge",
+    "Elinor Ostrom": "Commons Pact",
+    "Janet Yellen": "Fed Signal",
+    "Paul Volcker": "Rate Hike",
+    "Alfred Marshall": "Supply-Demand Curve",
+    "Joan Robinson": "Market Power",
+    "Milton Friedman": "Money Supply",
+    "James Madison": "Federalist Frame",
+    "Thurgood Marshall": "Equal Protection",
+    "Barbara Jordan": "Constitution Voice",
+    "Ida B. Wells": "Investigative Press",
+    "Eleanor Roosevelt": "Human Rights Charter",
+    "George Washington": "Continental Command",
+    "Frederick Douglass": "Abolition Oratory",
+    "Franklin D. Roosevelt": "New Deal",
+    "Abraham Lincoln": "Emancipation",
+    "Harriet Tubman": "Freedom Line",
+    "Martin Luther King Jr.": "Dream Speech",
+    "Sacagawea": "River Guide",
+    "Pachacuti": "Inca Road",
+    "Moctezuma II": "Tribute Network",
+    "Hammurabi": "Law Code",
+    "Confucius": "Filial Harmony",
+    "Mansa Musa": "Gold Caravan",
+    "Alexander Hamilton": "Treasury Plan",
+    "Tecumseh": "Confederacy Call",
+    "Susan B. Anthony": "Suffrage Petition",
+    "Theodore Roosevelt": "Trust Bust",
+    "Pericles": "Assembly Speech",
+    "Ibn Battuta": "Route Network",
+    "Mohandas Gandhi": "Salt March",
+    "Nelson Mandela": "Reconciliation",
+    "Toussaint Louverture": "Liberation Revolt",
+    "Zheng He": "Treasure Fleet",
+    "Leonardo da Vinci": "Renaissance Sketch",
+    "Martin Luther": "Ninety-Five Theses",
+    "Napoleon Bonaparte": "Civil Code",
+    "Jane Jacobs": "Street Life",
+    "Carl Sauer": "Cultural Landscape",
+    "Wilhelm Wundt": "Lab Method",
+    "B. F. Skinner": "Reinforcement",
+    "Jean Piaget": "Schema Shift",
+    "Archive Keeper": "Archive Pulse",
+    "Source Sleuth": "Source Scan",
+    "Context Coach": "Context Check"
+  };
+
   function movesFor(family, lane, q) {
     const blob = normalize([q && q.prompt, q && q.answer, family.line].join(" "));
     const moves = [
@@ -396,6 +516,7 @@
 
   function signatureFor(family) {
     const last = family.historicalName.split(/\s+/).slice(-1)[0];
+    if (signatureMoves[family.historicalName]) return signatureMoves[family.historicalName];
     if (/Gandhi/.test(family.historicalName)) return "Salt March";
     if (/Washington/.test(family.historicalName)) return "Continental Command";
     if (/Hammurabi/.test(family.historicalName)) return "Law Code";
@@ -442,6 +563,52 @@
     const lane = typeRules.find((rule) => rule.name === family.type) || typeRules[typeRules.length - 1];
     const level = 1 + Math.floor(Math.random() * 4) + Math.floor((state.stats.rank || 1) / 3);
     return makeFamilyAlly(family, lane, level, { prompt: family.line, answer: family.historicalName });
+  }
+
+  function familyByHistoricalName(name, preferredType) {
+    const exact = allFamilies.find((family) => family.historicalName === name && (!preferredType || family.type === preferredType));
+    if (exact) return exact;
+    const looseKey = compactKey(name);
+    return allFamilies.find((family) => compactKey(family.historicalName) === looseKey)
+      || allFamilies.find((family) => compactKey(family.historicalName).includes(looseKey) || looseKey.includes(compactKey(family.historicalName)))
+      || allFamilies[0];
+  }
+
+  function makeRosterAlly(name, preferredType, level, prompt) {
+    const family = familyByHistoricalName(name, preferredType);
+    const lane = typeRules.find((rule) => rule.name === family.type)
+      || typeRules.find((rule) => rule.name === preferredType)
+      || typeRules[typeRules.length - 1];
+    return makeFamilyAlly(family, lane, level, { prompt: prompt || family.line, answer: family.historicalName });
+  }
+
+  function badgeFlag(id) {
+    return `badge:${id}`;
+  }
+
+  function earnedBadges() {
+    return places.filter((place) => place.gym && state.stats.flags[badgeFlag(place.gym.id)]).map((place) => place.gym);
+  }
+
+  function openGymBattle(place) {
+    if (!place || !place.gym) return;
+    const gym = place.gym;
+    const alreadyWon = Boolean(state.stats.flags[badgeFlag(gym.id)]);
+    const baseLevel = Math.max(3, 2 + earnedBadges().length + Math.floor((state.stats.rank || 1) / 2));
+    const roster = (gym.roster || []).map((name, index) => makeRosterAlly(name, gym.type, baseLevel + index + (alreadyWon ? 2 : 0), `${gym.leader} gym battle: ${gym.intro}`));
+    if (!roster.length) return;
+    openBattle(roster[0], true, {
+      trainerName: gym.leader,
+      opening: gym.intro,
+      gym: {
+        id: gym.id,
+        leader: gym.leader,
+        badge: gym.badge,
+        roster,
+        index: 0,
+        rematch: alreadyWon
+      }
+    });
   }
 
   function normalizeAlly(ally) {
@@ -605,8 +772,38 @@
     ctx.restore();
   }
 
+  function drawSheetCell(img, index, cols, rows, x, y, w, h, flip) {
+    if (!img.complete || index == null) return false;
+    const naturalW = img.naturalWidth || img.width;
+    const naturalH = img.naturalHeight || img.height;
+    if (!naturalW || !naturalH) return false;
+    const cellW = naturalW / cols;
+    const cellH = naturalH / rows;
+    const sx = (index % cols) * cellW;
+    const sy = Math.floor(index / cols) * cellH;
+    ctx.save();
+    if (flip) {
+      ctx.translate(x + w, y);
+      ctx.scale(-1, 1);
+      ctx.drawImage(img, sx, sy, cellW, cellH, 0, 0, w, h);
+    } else {
+      ctx.drawImage(img, sx, sy, cellW, cellH, x, y, w, h);
+    }
+    ctx.restore();
+    return true;
+  }
+
   function drawFigure(ally, x, y, w, h, flip) {
     const family = familyById[ally.familyId] || allFamilies[0];
+    const companionIndex = companionCells[family.historicalName] ?? companionCells[ally.actualName];
+    if (companionIndex != null && companionSheet.complete) {
+      ctx.save();
+      ctx.shadowColor = ally.color || "#edf987";
+      ctx.shadowBlur = Math.max(6, Math.floor(w * .09));
+      drawSheetCell(companionSheet, companionIndex, 4, 4, x, y - h * .22, w, h * 1.22, flip);
+      ctx.restore();
+      return;
+    }
     const img = figureAtlases[family.atlas] || figureAtlases[0];
     if (!img.complete) return;
     const cellW = 1024 / 3;
@@ -615,6 +812,9 @@
     const sx = col * cellW;
     const sy = family.row * cellH;
     ctx.save();
+    ctx.shadowColor = ally.color || "#edf987";
+    ctx.shadowBlur = Math.max(6, Math.floor(w * .08));
+    ctx.filter = `sepia(.65) brightness(1.35) saturate(2.35) contrast(1.08) hue-rotate(${(hash(ally.type || ally.actualName) % 80) - 30}deg)`;
     if (flip) {
       ctx.translate(x + w, y);
       ctx.scale(-1, 1);
@@ -634,7 +834,7 @@
     const sy = Math.floor(index / 4) * cell;
     let x = item.gx * TILE - state.camera.x - item.w / 2 + TILE / 2;
     let y = item.gy * TILE - state.camera.y - item.h + TILE;
-    const t = performance.now() / 1000 + (hash(`${item.type}:${item.gx}:${item.gy}`) % 100) / 19;
+    const t = FX_LITE || PREFERS_REDUCED ? 0 : performance.now() / 1000 + (hash(`${item.type}:${item.gx}:${item.gy}`) % 100) / 19;
     const pulse = .5 + Math.sin(t * 2.2) * .5;
 
     ctx.save();
@@ -695,6 +895,7 @@
     if (target.kind === "center") actions.push(["heal", "Heal"]);
     if (target.kind === "shop") actions.push(["shop", "Shop"]);
     if (target.quest || target.kind === "quest" || target.kind === "summit") actions.push(["quest", "Contract"]);
+    if (target.gym) actions.push(["gym", state.stats.flags[badgeFlag(target.gym.id)] ? "Rematch" : "Gym Battle"]);
     if (target.battle) actions.push(["battle", "Battle"]);
     actions.push(["close", "Close"]);
     els.dialogueActions.innerHTML = actions.map(([id, label]) => `<button type="button" data-action="${id}">${escapeHtml(label)}</button>`).join("");
@@ -741,9 +942,14 @@
       openQuest(target && target.name);
       return;
     }
+    if (action === "gym") {
+      closeDialogue();
+      openGymBattle(target);
+      return;
+    }
     if (action === "battle") {
       closeDialogue();
-      openBattle(makeAlly(nextQuestion()), true);
+      openBattle(makeAlly(nextQuestion()), true, { trainerName: target && target.name });
     }
   }
 
@@ -777,7 +983,13 @@
         Keyboard: M or P pauses. Arrow keys / WASD move. Enter, Space, or E talks. Escape or B cancels.<br>
         Touch: PAUSE opens this field menu. A talks. B closes.
       </div>`;
-    els.menuList.innerHTML = controls + (party.length ? party.map((ally, index) => `
+    const badges = earnedBadges();
+    const badgeCard = `
+      <div class="menu-card">
+        <strong>Gym Badges ${badges.length}/10</strong>
+        ${badges.length ? badges.map((gym) => escapeHtml(gym.badge)).join(" · ") : "No badges yet. Challenge gyms at major landmarks."}
+      </div>`;
+    els.menuList.innerHTML = controls + badgeCard + (party.length ? party.map((ally, index) => `
       <div class="menu-card">
         <strong>${escapeHtml(index === state.stats.active ? "▶ " : "")}${escapeHtml(ally.actualName)}</strong>
         ${escapeHtml(ally.name)} / ${escapeHtml(ally.type)} / Lv ${ally.level} / HP ${Math.round(ally.hp)}/${ally.maxHp}<br>
@@ -917,7 +1129,7 @@
     els.game.classList.remove("in-quest");
   }
 
-  function openBattle(enemy, trainer) {
+  function openBattle(enemy, trainer, options = {}) {
     const hero = normalizeAlly(activeAlly());
     let foe = normalizeAlly(enemy || makeAlly(nextQuestion()));
     for (let i = 0; foe && foe.id === hero.id && i < 6; i += 1) {
@@ -940,8 +1152,11 @@
       heroHp: hero.hp,
       enemyHp: foe ? foe.hp : 90,
       enemyMax: foe ? foe.maxHp : 90,
+      trainerName: options.trainerName || (trainer ? "Route Trainer" : ""),
+      opening: options.opening || "",
+      gym: options.gym || null,
       menu: "root",
-      log: trainer ? `${foe.actualName.toUpperCase()} challenged your route team!` : `Wild ${foe.actualName.toUpperCase()} appeared!`,
+      log: options.opening || (trainer ? `${(options.trainerName || "Route Trainer").toUpperCase()} challenged your route team!` : `Wild ${foe.actualName.toUpperCase()} appeared!`),
       locked: true,
       fx: null,
       fxTime: 0,
@@ -953,7 +1168,8 @@
     setBattleLog(battle.log);
     setTimeout(() => {
       if (state.battle === battle) {
-        setBattleLog(`ATLAS RANGER sent out ${battle.hero.actualName.toUpperCase()}!`);
+        const foeLine = battle.trainerName ? `${battle.trainerName.toUpperCase()} threw out ${battle.enemy.actualName.toUpperCase()}! ` : "";
+        setBattleLog(`${foeLine}${PLAYER_TITLE} threw out ${battle.hero.actualName.toUpperCase()}!`);
       }
     }, 650);
     setTimeout(() => {
@@ -1014,11 +1230,18 @@
       setBattleLog("Open the field bag.");
       renderBattleActions();
     } else if (action === "party") {
-      const next = (state.stats.active + 1) % state.stats.party.length;
+      let next = (state.stats.active + 1) % state.stats.party.length;
+      for (let i = 0; i < state.stats.party.length; i += 1) {
+        const candidate = (state.stats.active + 1 + i) % state.stats.party.length;
+        if (normalizeAlly(state.stats.party[candidate]).hp > 0) {
+          next = candidate;
+          break;
+        }
+      }
       state.stats.active = next;
       battle.hero = normalizeAlly(activeAlly());
       battle.heroHp = battle.hero.hp;
-      setBattleLog(`Go, ${battle.hero.actualName.toUpperCase()}!`);
+      setBattleLog(`${PLAYER_TITLE} threw out ${battle.hero.actualName.toUpperCase()}!`);
       battle.menu = "root";
       writeSave();
       renderBattleActions();
@@ -1096,6 +1319,23 @@
     await wait(880);
     if (state.battle !== battle) return;
     if (battle.heroHp <= 0) {
+      const nextIndex = state.stats.party.findIndex((ally, index) => index !== state.stats.active && normalizeAlly(ally).hp > 0);
+      if (nextIndex >= 0) {
+        state.stats.active = nextIndex;
+        battle.hero = normalizeAlly(activeAlly());
+        battle.heroHp = battle.hero.hp;
+        battle.fx = { kind: "hero", t: 0, color: battle.hero.color };
+        setBattleLog(`${battle.hero.actualName.toUpperCase()} stepped in for the party!`);
+        writeSave();
+        updateHud();
+        await wait(900);
+        if (state.battle !== battle) return;
+        battle.locked = false;
+        battle.fx = null;
+        setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
+        renderBattleActions();
+        return;
+      }
       closeBattle("Your party needs the Chronicle Center.");
       return;
     }
@@ -1144,6 +1384,12 @@
       return;
     }
     if (id === "capsule") {
+      if (battle.gym) {
+        setBattleLog("Gym opponents respect the match, not capsules. Win the badge battle.");
+        battle.locked = false;
+        renderBattleActions();
+        return;
+      }
       state.stats.items.capsule -= 1;
       const missing = 1 - battle.enemyHp / battle.enemyMax;
       const chance = clamp(18 + missing * 52 + battle.capture * .42, 12, 90);
@@ -1173,17 +1419,65 @@
       battle.hero.level += 1;
       battle.hero.maxHp += 7;
       battle.hero.hp = battle.hero.maxHp;
+      battle.heroHp = battle.hero.hp;
     }
     state.stats.shards += 25 + battle.enemy.level * 3;
+    if (battle.gym) {
+      const gym = battle.gym;
+      writeSave();
+      updateHud();
+      setBattleLog(`${battle.enemy.actualName.toUpperCase()} fainted. +${xp} XP.`);
+      await wait(1050);
+      if (state.battle !== battle) return;
+      if (gym.index + 1 < gym.roster.length) {
+        gym.index += 1;
+        const next = normalizeAlly(gym.roster[gym.index]);
+        battle.enemy = next;
+        battle.enemyHp = next.hp;
+        battle.enemyMax = next.maxHp;
+        battle.capture = 0;
+        battle.menu = "root";
+        battle.fx = { kind: "enemy", t: 0, color: next.color };
+        setBattleLog(`${gym.leader.toUpperCase()} threw out ${next.actualName.toUpperCase()}!`);
+        await wait(980);
+        if (state.battle !== battle) return;
+        battle.locked = false;
+        battle.fx = null;
+        setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
+        renderBattleActions();
+        return;
+      }
+      const flag = badgeFlag(gym.id);
+      const firstClear = !state.stats.flags[flag];
+      if (firstClear) {
+        state.stats.flags[flag] = true;
+        state.stats.shards += 80;
+        state.stats.items.fieldNote += 2;
+        state.stats.rank = Math.max(Number(state.stats.rank || 1), earnedBadges().length + 1);
+      } else {
+        state.stats.shards += 35;
+      }
+      writeSave();
+      updateHud();
+      const reward = firstClear ? `awarded the ${gym.badge.toUpperCase()}! +80 shards, +2 Field Notes.` : `paid a rematch purse. +35 shards.`;
+      setBattleLog(`${gym.leader.toUpperCase()} ${reward}`);
+      await wait(1700);
+      closeBattle(firstClear ? `${gym.badge} earned.` : `${gym.leader} rematch cleared.`);
+      return;
+    }
+    let joined = false;
     if (captured || state.stats.party.length < 2) {
       const exists = state.stats.party.some((ally) => ally.id === battle.enemy.id);
-      if (!exists && state.stats.party.length < 6) state.stats.party.push(battle.enemy);
+      if (!exists && state.stats.party.length < 6) {
+        state.stats.party.push(battle.enemy);
+        joined = true;
+      }
     }
     writeSave();
     updateHud();
-    setBattleLog(`${battle.enemy.actualName.toUpperCase()} joined the roster. +${xp} XP.`);
+    setBattleLog(`${battle.enemy.actualName.toUpperCase()} fainted. +${xp} XP.${joined ? " It joined the roster." : ""}`);
     await wait(1300);
-    closeBattle(`${battle.enemy.actualName} joined your roster.`);
+    closeBattle(joined ? `${battle.enemy.actualName} joined your roster.` : `${battle.enemy.actualName} fainted.`);
   }
 
   function closeBattle(message) {
@@ -1357,7 +1651,7 @@
   }
 
   function drawRouteAtmosphere() {
-    if (view.w < 680 && view.h < 680) return;
+    if (FX_LITE || PREFERS_REDUCED || view.w < 680 && view.h < 680) return;
     const t = performance.now() / 1000;
     const startX = Math.floor(state.camera.x / TILE);
     const startY = Math.floor(state.camera.y / TILE);
@@ -1378,10 +1672,23 @@
   }
 
   function drawPlace(place) {
-    const x = place.gx * TILE - state.camera.x - 30;
-    const y = place.gy * TILE - state.camera.y - 48;
-    drawAtlas(place.icon, x, y, 94, 72);
-    label(place.name, x - 8, y - 13, 110);
+    const gymScale = place.gym ? 1.08 : 1;
+    const w = (place.gym ? 116 : 104) * gymScale;
+    const h = (place.gym ? 92 : 82) * gymScale;
+    const x = place.gx * TILE - state.camera.x - w / 2 + TILE / 2;
+    const y = place.gy * TILE - state.camera.y - h + TILE;
+    ctx.fillStyle = place.gym ? "rgba(243, 207, 97, .28)" : "rgba(7, 21, 12, .22)";
+    ctx.beginPath();
+    ctx.ellipse(x + w / 2, y + h - 6, w * .42, 11, 0, 0, Math.PI * 2);
+    ctx.fill();
+    if (!drawSheetCell(landmarkSheet, landmarkCells[place.id], 4, 4, x, y, w, h)) drawAtlas(place.icon, x + 6, y + 8, 94, 72);
+    if (place.gym) {
+      const pulse = .45 + Math.sin(performance.now() / 1000 * 2.4 + hash(place.id)) * .25;
+      ctx.strokeStyle = `rgba(237, 249, 135, ${pulse})`;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x + 7, y + 7, w - 14, h - 14);
+    }
+    label(place.name, x - 4, y - 13, Math.min(132, w + 20));
   }
 
   function drawNpc(npc) {
@@ -1393,9 +1700,11 @@
     ctx.beginPath();
     ctx.ellipse(x + 10, y + 19, 19, 7, 0, 0, Math.PI * 2);
     ctx.fill();
-    drawAtlas("scholar", x - 11, y - 25 + bob, 50, 48);
-    ctx.fillStyle = `hsl(${hue}, 78%, 62%)`;
-    ctx.fillRect(x + 1, y - 24 + bob, 18, 3);
+    if (!drawSheetCell(trainerSheet, trainerCells[npc.sprite || npc.id] ?? trainerCells.traveler, 4, 4, x - 16, y - 38 + bob, 52, 58)) {
+      drawAtlas("scholar", x - 11, y - 25 + bob, 50, 48);
+      ctx.fillStyle = `hsl(${hue}, 78%, 62%)`;
+      ctx.fillRect(x + 1, y - 24 + bob, 18, 3);
+    }
     label(npc.name.split(" ")[0], x - 14, y - 36, 72);
   }
 
@@ -1481,8 +1790,9 @@
     places.forEach((place) => {
       const px = x + 6 + place.gx / WORLD_W * (w - 12);
       const py = y + 6 + place.gy / WORLD_H * (h - 12);
-      ctx.fillStyle = place.kind === "center" ? "#75f4ff" : place.kind === "summit" ? "#f3cf61" : "#edf987";
-      ctx.fillRect(px - 2, py - 2, 4, 4);
+      const won = place.gym && state.stats.flags[badgeFlag(place.gym.id)];
+      ctx.fillStyle = place.kind === "center" ? "#75f4ff" : won ? "#77f0af" : place.gym || place.kind === "summit" ? "#f3cf61" : "#edf987";
+      ctx.fillRect(px - (place.gym ? 3 : 2), py - (place.gym ? 3 : 2), place.gym ? 6 : 4, place.gym ? 6 : 4);
     });
     const p = state.player;
     const px = x + 6 + p.gx / WORLD_W * (w - 12);
@@ -1502,29 +1812,31 @@
     const w = view.w;
     const h = view.h;
     const portrait = h > w;
-    const uiReserve = portrait ? Math.min(250, h * .31) : Math.min(170, h * .24);
-    const fieldH = Math.max(270, h - uiReserve);
+    const compactLandscape = !portrait && h <= 520;
+    const uiReserve = portrait ? Math.min(250, h * .31) : compactLandscape ? Math.min(154, Math.max(126, h * .35)) : Math.min(170, h * .24);
+    const minFieldH = compactLandscape ? Math.max(210, h - 170) : 270;
+    const fieldH = Math.max(minFieldH, h - uiReserve);
     const skyH = Math.max(118, fieldH * .42);
     const heroBaseX = portrait ? w * .28 : w * .25;
-    const heroBaseY = portrait ? fieldH * .68 : fieldH * .66;
+    const heroBaseY = portrait ? fieldH * .68 : compactLandscape ? fieldH * .56 : fieldH * .66;
     const enemyBaseX = portrait ? w * .72 : w * .72;
     const enemyBaseY = portrait ? fieldH * .30 : fieldH * .32;
-    const heroW = clamp(w * (portrait ? .26 : .18), 88, 216);
-    const enemyW = clamp(w * (portrait ? .28 : .18), 100, 224);
+    const heroW = clamp(w * (portrait ? .26 : compactLandscape ? .15 : .18), 82, 216);
+    const enemyW = clamp(w * (portrait ? .28 : compactLandscape ? .15 : .18), 92, 224);
     const cardW = clamp(w * (portrait ? .33 : .28), 122, 270);
     const cardH = portrait ? 78 : 62;
     battle.layout = { heroX: heroBaseX, heroY: heroBaseY, enemyX: enemyBaseX, enemyY: enemyBaseY };
     const sky = ctx.createLinearGradient(0, 0, 0, skyH);
-    sky.addColorStop(0, "#edf987");
-    sky.addColorStop(.62, "#c9ef41");
-    sky.addColorStop(1, "#9bc40f");
+    sky.addColorStop(0, battle.gym ? "#e9f7ff" : "#dff8ff");
+    sky.addColorStop(.56, battle.gym ? "#bcefff" : "#a6e8ff");
+    sky.addColorStop(1, battle.gym ? "#f3cf61" : "#d8f06a");
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, w, skyH);
-    ctx.fillStyle = "rgba(117, 244, 255, .16)";
+    ctx.fillStyle = battle.gym ? "rgba(243, 207, 97, .24)" : "rgba(117, 244, 255, .16)";
     ctx.beginPath();
     ctx.arc(w * .16, skyH * .38, Math.min(80, w * .08), 0, Math.PI * 2);
     ctx.fill();
-    ctx.fillStyle = "rgba(31, 76, 29, .25)";
+    ctx.fillStyle = battle.gym ? "rgba(89, 60, 24, .18)" : "rgba(31, 76, 29, .25)";
     for (let i = -1; i < 6; i += 1) {
       ctx.beginPath();
       ctx.moveTo(i * w * .22, skyH);
@@ -1534,20 +1846,34 @@
       ctx.fill();
     }
     const field = ctx.createLinearGradient(0, skyH, 0, fieldH);
-    field.addColorStop(0, "#98c915");
-    field.addColorStop(.52, "#7db112");
-    field.addColorStop(1, "#c9ef41");
+    field.addColorStop(0, battle.gym ? "#d0b65d" : "#8dc957");
+    field.addColorStop(.52, battle.gym ? "#8ca556" : "#5e9c4e");
+    field.addColorStop(1, battle.gym ? "#dbe86e" : "#c7e65a");
     ctx.fillStyle = field;
     ctx.fillRect(0, skyH, w, fieldH - skyH);
     ctx.fillStyle = "rgba(7, 21, 12, .08)";
     for (let y = skyH + 28; y < fieldH; y += 34) ctx.fillRect(0, y, w, 2);
-    ctx.fillStyle = "rgba(15,56,15,.24)";
+    if (battle.gym) {
+      ctx.fillStyle = "rgba(7, 21, 12, .72)";
+      ctx.fillRect(w / 2 - 138, 12, 276, 30);
+      ctx.strokeStyle = "#f3cf61";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(w / 2 - 138, 12, 276, 30);
+      ctx.fillStyle = "#edf987";
+      ctx.font = "12px Courier New";
+      ctx.fillText(`${battle.gym.badge.toUpperCase()} ${battle.gym.index + 1}/${battle.gym.roster.length}`, w / 2 - 112, 32);
+    }
+    ctx.fillStyle = battle.hero.color || "rgba(15,56,15,.24)";
+    ctx.globalAlpha = .24;
     ctx.beginPath();
     ctx.ellipse(heroBaseX, heroBaseY + heroW * .46, heroW * .9, heroW * .22, 0, 0, Math.PI * 2);
     ctx.fill();
+    ctx.globalAlpha = .16;
+    ctx.fillStyle = battle.enemy.color || "#07150c";
     ctx.beginPath();
     ctx.ellipse(enemyBaseX, enemyBaseY + enemyW * .58, enemyW * .82, enemyW * .2, 0, 0, Math.PI * 2);
     ctx.fill();
+    ctx.globalAlpha = 1;
     drawBattleCard(battle.enemy, Math.max(12, w * .06), portrait ? 56 : 45, battle.enemyHp, battle.enemyMax, false, cardW, cardH);
     drawBattleCard(battle.hero, Math.min(w - cardW - 14, w * (portrait ? .55 : .64)), Math.max(150, fieldH - cardH - 14), battle.heroHp, battle.hero.maxHp, true, cardW, cardH);
     const enemyShake = battle.fx && battle.fx.kind === "enemyHit" ? Math.sin(t * 70) * 8 : 0;
@@ -1558,22 +1884,24 @@
   }
 
   function drawBattleCard(ally, x, y, hp, maxHp, player, width = 260, height = 62) {
-    ctx.fillStyle = "rgba(201,239,65,.96)";
+    ctx.fillStyle = player ? "rgba(229, 250, 246, .96)" : "rgba(255, 241, 171, .96)";
     ctx.fillRect(x, y, width, height);
     ctx.strokeStyle = "#07150c";
     ctx.lineWidth = 4;
     ctx.strokeRect(x, y, width, height);
+    ctx.fillStyle = ally.color || "#f3cf61";
+    ctx.fillRect(x + 4, y + 4, 6, height - 8);
     ctx.fillStyle = "#07150c";
     ctx.font = `${width < 160 ? 7 : 9}px Courier New`;
-    ctx.fillText(ally.type.toUpperCase(), x + 10, y + 16);
+    ctx.fillText(ally.type.toUpperCase(), x + 16, y + 16);
     ctx.font = `${width < 160 ? 13 : 18}px Courier New`;
-    ctx.fillText(ally.actualName.toUpperCase(), x + 10, y + (height > 65 ? 43 : 38), width - 20);
+    ctx.fillText(ally.actualName.toUpperCase(), x + 16, y + (height > 65 ? 43 : 38), width - 26);
     ctx.fillStyle = "#1f4c1d";
     const barY = y + height - 16;
-    const barW = width - 24;
-    ctx.fillRect(x + 10, barY, barW, 8);
+    const barW = width - 30;
+    ctx.fillRect(x + 16, barY, barW, 8);
     ctx.fillStyle = hp / maxHp < .3 ? "#ff6a8d" : player ? "#75f4ff" : "#07150c";
-    ctx.fillRect(x + 10, barY, Math.max(0, barW * hp / maxHp), 8);
+    ctx.fillRect(x + 16, barY, Math.max(0, barW * hp / maxHp), 8);
   }
 
   function drawBattleFx(battle) {
