@@ -269,10 +269,7 @@
       "game-plays",
       "game-completions",
       "daily-" + today + "-site-visits",
-      "daily-" + today + "-game-plays",
-      "device-mobile-views",
-      "device-tablet-views",
-      "device-desktop-views"
+      "daily-" + today + "-game-plays"
     ];
     return Promise.all(counters.map(getGlobal)).then(function (values) {
       window.__MR_MACS_GLOBAL_TRAFFIC__ = {
@@ -284,9 +281,6 @@
         completions: values[5],
         todayVisits: values[6],
         todayGamePlays: values[7],
-        mobileViews: values[8],
-        tabletViews: values[9],
-        desktopViews: values[10],
         connected: values.some(function (value) { return value !== null; })
       };
       render(window.__MR_MACS_GLOBAL_TRAFFIC__);
