@@ -1,0 +1,573 @@
+:root {
+  --ink: #07150c;
+  --deep: #10270f;
+  --dark: #1f4c1d;
+  --mid: #76a90c;
+  --light: #c9ef41;
+  --glow: #edf987;
+  --gold: #f3cf61;
+  --cyan: #75f4ff;
+  --danger: #ff6a8d;
+  --panel: rgba(12, 34, 20, .94);
+  --line: rgba(237, 249, 135, .38);
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #050906;
+  color: var(--glow);
+  font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
+  touch-action: none;
+}
+
+button,
+select,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 3px solid var(--ink);
+  background: var(--light);
+  color: var(--ink);
+  font-weight: 950;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, .35);
+}
+
+button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, .35);
+}
+
+.game {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 22% 14%, rgba(117, 244, 255, .18), transparent 24%),
+    radial-gradient(circle at 80% 72%, rgba(243, 207, 97, .14), transparent 28%),
+    linear-gradient(145deg, #08110a, #030604 62%);
+}
+
+canvas {
+  width: 100vw;
+  height: 100dvh;
+  display: block;
+  image-rendering: pixelated;
+  background: var(--light);
+}
+
+.boot {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(90deg, rgba(7, 21, 12, .72), rgba(7, 21, 12, .08)),
+    url("../../assets/history-hunters/overworld-map.png") center / cover;
+}
+
+.boot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(7, 21, 12, .85), rgba(7, 21, 12, .18) 68%),
+    repeating-linear-gradient(0deg, rgba(201, 239, 65, .07) 0 2px, transparent 2px 6px);
+}
+
+.boot-panel {
+  position: relative;
+  width: min(620px, calc(100vw - 32px));
+  justify-self: start;
+  margin-left: max(0px, calc((100vw - 1180px) / 2));
+  padding: clamp(18px, 4vw, 38px);
+  border: 5px solid var(--glow);
+  background: rgba(9, 25, 15, .9);
+  box-shadow: 12px 12px 0 rgba(0, 0, 0, .42);
+}
+
+.boot-panel span,
+.top-hud span,
+.dialogue span,
+.menu span,
+.quest span {
+  display: block;
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.boot-panel h1 {
+  margin: 7px 0 10px;
+  color: var(--glow);
+  font-size: clamp(38px, 8vw, 86px);
+  line-height: .9;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.boot-panel p {
+  margin: 0 0 20px;
+  max-width: 54ch;
+  color: rgba(237, 249, 135, .86);
+  font-size: clamp(15px, 2vw, 20px);
+  line-height: 1.35;
+}
+
+.boot-panel button {
+  min-height: 54px;
+  padding: 0 20px;
+  background: var(--gold);
+}
+
+.hud,
+.dialogue,
+.menu,
+.battle-ui,
+.quest,
+.pad {
+  position: absolute;
+  z-index: 10;
+}
+
+.top-hud {
+  top: max(10px, env(safe-area-inset-top));
+  left: max(10px, env(safe-area-inset-left));
+  right: max(10px, env(safe-area-inset-right));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 7px 10px;
+  border: 3px solid var(--ink);
+  background: rgba(201, 239, 65, .9);
+  color: var(--ink);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, .3);
+}
+
+.top-hud strong {
+  margin-right: auto;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.top-hud span {
+  display: inline-block;
+  color: var(--ink);
+  letter-spacing: 0;
+  font-size: 12px;
+}
+
+.dialogue {
+  left: max(12px, env(safe-area-inset-left));
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  min-height: 128px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  padding: 14px;
+  border: 5px solid var(--ink);
+  background: rgba(201, 239, 65, .96);
+  color: var(--ink);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, .34);
+}
+
+.dialogue strong,
+.menu strong,
+.quest strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 23px;
+  text-transform: uppercase;
+}
+
+.dialogue p {
+  margin: 8px 0 0;
+  max-width: 88ch;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.dialogue-actions {
+  min-width: min(320px, 38vw);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  align-content: end;
+}
+
+.dialogue-actions button {
+  min-height: 44px;
+}
+
+.menu {
+  top: max(64px, calc(env(safe-area-inset-top) + 64px));
+  right: max(12px, env(safe-area-inset-right));
+  width: min(430px, calc(100vw - 24px));
+  max-height: calc(100dvh - 82px);
+  overflow: auto;
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 4px solid var(--line);
+  background: var(--panel);
+  box-shadow: 9px 9px 0 rgba(0, 0, 0, .35);
+}
+
+.menu header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.menu header span {
+  grid-column: 1;
+}
+
+.menu header strong {
+  grid-column: 1;
+  margin: 0;
+}
+
+.menu header button {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  min-height: 38px;
+}
+
+.menu label {
+  display: grid;
+  gap: 5px;
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.menu select,
+.quest input {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 10px;
+  border: 3px solid var(--glow);
+  border-radius: 0;
+  background: rgba(5, 14, 8, .96);
+  color: var(--glow);
+  font-weight: 900;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.menu-grid button {
+  min-height: 46px;
+}
+
+.menu-list {
+  display: grid;
+  gap: 8px;
+  color: rgba(237, 249, 135, .86);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.menu-card {
+  padding: 9px;
+  border: 2px solid rgba(237, 249, 135, .28);
+  background: rgba(237, 249, 135, .07);
+}
+
+.menu-card strong {
+  margin: 0 0 4px;
+  color: var(--glow);
+  font-size: 14px;
+}
+
+.battle-ui {
+  left: max(10px, env(safe-area-inset-left));
+  right: max(10px, env(safe-area-inset-right));
+  bottom: max(10px, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: 1fr minmax(270px, 32vw);
+  gap: 10px;
+}
+
+.battle-log {
+  min-height: 112px;
+  padding: 15px;
+  border: 5px solid var(--ink);
+  background: rgba(201, 239, 65, .96);
+  color: var(--ink);
+  font-size: clamp(15px, 1.8vw, 21px);
+  font-weight: 950;
+  line-height: 1.35;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, .33);
+}
+
+.battle-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  padding: 7px;
+  border: 5px solid var(--ink);
+  background: rgba(201, 239, 65, .96);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, .33);
+}
+
+.battle-actions button {
+  min-height: 49px;
+  text-align: left;
+  padding: 6px;
+}
+
+.battle-actions button small {
+  display: block;
+  margin-top: 3px;
+  font-size: 9px;
+}
+
+.quest {
+  inset: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  z-index: 18;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto auto;
+  gap: 10px;
+  padding: clamp(14px, 3vw, 28px);
+  border: 5px solid var(--glow);
+  background: rgba(8, 24, 14, .97);
+  box-shadow: 12px 12px 0 rgba(0, 0, 0, .45);
+}
+
+.quest header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.quest p {
+  margin: 0;
+}
+
+#questPrompt {
+  align-self: center;
+  color: var(--glow);
+  font-size: clamp(20px, 4vw, 38px);
+  font-weight: 950;
+  line-height: 1.18;
+}
+
+.quest-source {
+  max-height: 26dvh;
+  overflow: auto;
+  padding: 10px;
+  border: 2px solid rgba(237, 249, 135, .3);
+  background: rgba(237, 249, 135, .07);
+  color: rgba(237, 249, 135, .9);
+}
+
+.quest-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.quest-choices button {
+  min-height: 52px;
+  text-align: left;
+  padding: 8px;
+}
+
+#questForm {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+#questFeedback {
+  min-height: 24px;
+  color: var(--gold);
+  font-weight: 950;
+}
+
+.pad {
+  left: max(12px, env(safe-area-inset-left));
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  z-index: 11;
+  display: none;
+  justify-content: space-between;
+  align-items: end;
+  pointer-events: none;
+}
+
+.dpad,
+.buttons {
+  pointer-events: auto;
+}
+
+.dpad {
+  width: 142px;
+  height: 142px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.dpad button,
+.buttons button {
+  min-height: 0;
+  padding: 0;
+  border-width: 3px;
+  background: rgba(201, 239, 65, .9);
+}
+
+.dpad button[data-dir="up"] { grid-column: 2; grid-row: 1; }
+.dpad button[data-dir="left"] { grid-column: 1; grid-row: 2; }
+.dpad button[data-dir="right"] { grid-column: 3; grid-row: 2; }
+.dpad button[data-dir="down"] { grid-column: 2; grid-row: 3; }
+
+.buttons {
+  display: flex;
+  align-items: end;
+  gap: 8px;
+}
+
+.buttons button {
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+}
+
+.buttons #startMenuBtn {
+  width: 82px;
+  height: 40px;
+  border-radius: 0;
+  font-size: 11px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 780px), (pointer: coarse) {
+  .pad {
+    display: flex;
+  }
+
+  .game.in-battle .pad,
+  .game.in-dialogue .pad,
+  .game.in-menu .pad,
+  .game.in-quest .pad {
+    display: none;
+  }
+
+  .top-hud {
+    min-height: 34px;
+    padding: 5px 7px;
+    gap: 7px;
+  }
+
+  .top-hud strong {
+    font-size: 12px;
+  }
+
+  .top-hud span {
+    font-size: 10px;
+  }
+
+  .dialogue {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    min-height: 150px;
+    padding: 10px;
+  }
+
+  .dialogue-actions {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .battle-ui {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .battle-log {
+    min-height: 92px;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .battle-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .battle-actions button {
+    min-height: 48px;
+  }
+
+  .quest {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .quest header {
+    display: block;
+  }
+
+  .quest-choices {
+    grid-template-columns: 1fr;
+  }
+
+  #questForm {
+    grid-template-columns: 1fr;
+  }
+
+  .boot {
+    place-items: end center;
+  }
+
+  .boot-panel {
+    margin: 0 0 12px;
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .battle-ui {
+    grid-template-columns: 1fr minmax(230px, 32vw);
+  }
+
+  .battle-log {
+    min-height: 72px;
+  }
+
+  .battle-actions button {
+    min-height: 39px;
+  }
+
+  .pad {
+    opacity: .76;
+  }
+}

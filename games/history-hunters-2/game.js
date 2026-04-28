@@ -1,0 +1,1298 @@
+(() => {
+  "use strict";
+
+  const STORAGE_KEY = "mr-macs-history-hunters-2-v1";
+  const TILE = 32;
+  const WORLD_W = 88;
+  const WORLD_H = 68;
+  const $ = (id) => document.getElementById(id);
+  const view = { w: 960, h: 540, dpr: 1 };
+
+  const els = {
+    game: $("game"),
+    canvas: $("screen"),
+    boot: $("boot"),
+    startBtn: $("startBtn"),
+    zoneName: $("zoneName"),
+    partyHud: $("partyHud"),
+    shardHud: $("shardHud"),
+    courseHud: $("courseHud"),
+    dialogue: $("dialogue"),
+    dialogueKicker: $("dialogueKicker"),
+    dialogueTitle: $("dialogueTitle"),
+    dialogueText: $("dialogueText"),
+    dialogueActions: $("dialogueActions"),
+    menu: $("menu"),
+    closeMenu: $("closeMenu"),
+    courseSelect: $("courseSelect"),
+    setSelect: $("setSelect"),
+    huntBtn: $("huntBtn"),
+    questBtn: $("questBtn"),
+    partyBtn: $("partyBtn"),
+    bagBtn: $("bagBtn"),
+    saveBtn: $("saveBtn"),
+    menuList: $("menuList"),
+    battleUi: $("battleUi"),
+    battleLog: $("battleLog"),
+    battleActions: $("battleActions"),
+    quest: $("quest"),
+    questKicker: $("questKicker"),
+    questMeta: $("questMeta"),
+    questPrompt: $("questPrompt"),
+    questSource: $("questSource"),
+    questChoices: $("questChoices"),
+    questForm: $("questForm"),
+    questInput: $("questInput"),
+    questFeedback: $("questFeedback"),
+    aBtn: $("aBtn"),
+    bBtn: $("bBtn"),
+    startMenuBtn: $("startMenuBtn")
+  };
+
+  const ctx = els.canvas.getContext("2d", { alpha: false });
+  ctx.imageSmoothingEnabled = false;
+
+  const tileAtlas = loadImage("../../assets/history-hunters/keyed/retro-tile-sprite-atlas-keyed.png");
+  const playerBack = loadImage("../../assets/history-hunters/keyed/player-back-keyed.png");
+  const figureAtlases = Array.from({ length: 10 }, (_, i) => loadImage(`../../assets/history-hunters/keyed/battle-figure-atlas-${i + 1}-keyed.png`));
+
+  const atlas = {
+    grassA: [41, 36, 104, 104],
+    grassB: [154, 36, 100, 104],
+    grassC: [265, 36, 100, 104],
+    pathA: [391, 36, 101, 106],
+    pathB: [514, 36, 110, 105],
+    waterA: [652, 36, 101, 103],
+    waterB: [762, 36, 92, 104],
+    treeA: [42, 384, 103, 112],
+    treeB: [153, 384, 96, 116],
+    mountainA: [525, 392, 116, 105],
+    school: [42, 709, 142, 105],
+    gate: [455, 712, 132, 103],
+    arch: [291, 713, 124, 102],
+    portal: [608, 710, 130, 106],
+    sign: [802, 729, 74, 83],
+    chest: [889, 717, 91, 89],
+    playerFront: [231, 857, 96, 118],
+    playerSide: [345, 857, 94, 118],
+    playerBack: [455, 857, 94, 118],
+    playerSideAlt: [569, 857, 94, 118],
+    scholar: [64, 1266, 181, 154]
+  };
+
+  const typeRules = [
+    { name: "AP Econ", cluster: "economics", color: "#f3cf61", match: /AP Economics Combined/i, move: "Incentive Shift" },
+    { name: "AP Macro", cluster: "economics", color: "#f3cf61", match: /AP Macroeconomics/i, move: "Policy Shock" },
+    { name: "AP Micro", cluster: "economics", color: "#f3cf61", match: /AP Microeconomics/i, move: "Market Pressure" },
+    { name: "Economics", cluster: "economics", color: "#f3cf61", match: /Economics Course/i, move: "Scarcity Strike" },
+    { name: "AP Gov", cluster: "civics", color: "#75f4ff", match: /AP U\.S\. Government/i, move: "Checks Balance" },
+    { name: "Civics", cluster: "civics", color: "#75f4ff", match: /Civics|PIG/i, move: "Civic Action" },
+    { name: "APUSH", cluster: "us", color: "#77f0af", match: /AP U\.S\. History/i, move: "Republic Rally" },
+    { name: "US Regents", cluster: "us", color: "#77f0af", match: /Grade 11|NYS U\.S\. History/i, move: "Federal Focus" },
+    { name: "Grade 5", cluster: "foundations", color: "#ffb15f", match: /Grade 5/i, move: "Hemisphere Hop" },
+    { name: "Grade 6", cluster: "global", color: "#c9a0ff", match: /Grade 6/i, move: "Civilization Spark" },
+    { name: "Grade 7", cluster: "us", color: "#77f0af", match: /Grade 7/i, move: "Republic Rush" },
+    { name: "Grade 8", cluster: "us", color: "#77f0af", match: /Grade 8/i, move: "Reform Relay" },
+    { name: "Global 9", cluster: "global", color: "#c9a0ff", match: /Grade 9/i, move: "Empire Echo" },
+    { name: "Global 10", cluster: "global", color: "#c9a0ff", match: /Grade 10/i, move: "Revolution Wave" },
+    { name: "Global Regents", cluster: "global", color: "#c9a0ff", match: /NYS Global/i, move: "Enduring Issue" },
+    { name: "AP World", cluster: "global", color: "#c9a0ff", match: /AP World/i, move: "World System" },
+    { name: "AP Euro", cluster: "global", color: "#c9a0ff", match: /AP European/i, move: "Reform Spark" },
+    { name: "Human Geo", cluster: "geography", color: "#8ee6ff", match: /AP Human Geography/i, move: "Spatial Shift" },
+    { name: "AP Psych", cluster: "psychology", color: "#ff9bd2", match: /AP Psychology/i, move: "Behavior Loop" },
+    { name: "Review", cluster: "review", color: "#edf987", match: /All Courses|Review/i, move: "Archive Pulse" }
+  ];
+
+  const clusterEffects = {
+    economics: { strong: ["civics", "geography"], weak: ["psychology"] },
+    civics: { strong: ["us", "economics"], weak: ["global"] },
+    us: { strong: ["civics", "foundations"], weak: ["global"] },
+    global: { strong: ["geography", "us"], weak: ["economics"] },
+    geography: { strong: ["global", "economics"], weak: ["civics"] },
+    psychology: { strong: ["civics", "economics"], weak: ["geography"] },
+    foundations: { strong: ["global", "geography"], weak: ["economics"] },
+    review: { strong: [], weak: [] }
+  };
+
+  const familiesByType = {
+    "AP Econ": [["Adam Smith", ["Kirkcaldy Thinker", "Market Smith", "Invisible-Hand Sage"], "Explains incentives, specialization, trade, and market logic."], ["John Maynard Keynes", ["Cambridge Debater", "Demand Doctor", "Policy Stormcaller"], "Powers up on recessions, stabilization, and demand."], ["Elinor Ostrom", ["Commons Scout", "Institution Builder", "Collective-Action Legend"], "Handles public goods, incentives, and shared resources."]],
+    "AP Macro": [["John Maynard Keynes", ["Cambridge Debater", "Demand Doctor", "Policy Stormcaller"], "Battles recessions, unemployment, inflation, and fiscal policy."], ["Janet Yellen", ["Data Reader", "Fed Chair", "Soft-Landing Strategist"], "Tracks labor markets, inflation, and monetary policy."], ["Paul Volcker", ["Rate Rookie", "Inflation Breaker", "Central Bank Titan"], "Specializes in money, interest rates, and inflation."]],
+    "AP Micro": [["Alfred Marshall", ["Supply Sketcher", "Demand Mapper", "Equilibrium Master"], "Works through supply, demand, elasticity, and market models."], ["Joan Robinson", ["Firm Analyst", "Imperfect Competitor", "Market Power Maven"], "Handles monopoly, competition, costs, and market structures."], ["Elinor Ostrom", ["Commons Scout", "Institution Builder", "Collective-Action Legend"], "Powers up around externalities and public goods."]],
+    "Economics": [["Adam Smith", ["Kirkcaldy Thinker", "Market Smith", "Invisible-Hand Sage"], "Covers scarcity, trade, specialization, and markets."], ["John Maynard Keynes", ["Cambridge Debater", "Demand Doctor", "Policy Stormcaller"], "Connects government policy, downturns, and money."], ["Milton Friedman", ["Money Mapper", "Monetarist Mentor", "Inflation Hawk"], "Focuses on money supply, markets, and inflation."]],
+    "AP Gov": [["James Madison", ["Virginia Note-Taker", "Federalist Framer", "Constitution Architect"], "Built for federalism, factions, checks and balances."], ["Thurgood Marshall", ["Courtroom Advocate", "Equal-Protection Champion", "Justice Sentinel"], "Specializes in rights, courts, and civil liberties."], ["Barbara Jordan", ["Debate Captain", "Constitution Voice", "Civic Standard-Bearer"], "Powers up with representation and political principles."]],
+    "Civics": [["James Madison", ["Virginia Note-Taker", "Federalist Framer", "Constitution Architect"], "Anchors checks and balances, federalism, factions, and rights."], ["Ida B. Wells", ["Memphis Journalist", "Truth Campaigner", "Justice Watchdog"], "Powers up through civic courage and reform."], ["Eleanor Roosevelt", ["Newspaper Voice", "UN Delegate", "Human Rights Herald"], "Connects citizenship, rights, and public service."]],
+    "APUSH": [["George Washington", ["Mount Vernon Scout", "Continental Commander", "Republic Founder"], "Covers founding, precedent, early republic, and leadership."], ["Frederick Douglass", ["Baltimore Reader", "Abolition Orator", "Freedom Editor"], "Handles abolition, reform, citizenship, and rights."], ["Franklin D. Roosevelt", ["Hyde Park Organizer", "New Deal Captain", "Four Freedoms Strategist"], "Connects depression, reform, wartime leadership, and federal power."]],
+    "US Regents": [["Abraham Lincoln", ["Frontier Reader", "Union President", "Emancipation Statesman"], "Covers Union, constitutional crisis, emancipation, and Reconstruction."], ["Harriet Tubman", ["Maryland Scout", "Freedom Conductor", "Union Spy"], "Specializes in abolition, resistance, and freedom networks."], ["Martin Luther King Jr.", ["Atlanta Orator", "Montgomery Organizer", "Dream Keeper"], "Handles civil rights, protest, and reform."]],
+    "Grade 5": [["Sacagawea", ["River Guide", "Trail Interpreter", "Western Route Legend"], "Connects geography, exploration, and communication."], ["Pachacuti", ["Cusco Builder", "Andes Organizer", "Inca Roadmaker"], "Handles Andes geography, empire, roads, and government."], ["Moctezuma II", ["Tenochtitlan Prince", "Triple-Alliance Ruler", "Mexica Memory"], "Connects Mesoamerica, cities, tribute, and encounter."]],
+    "Grade 6": [["Hammurabi", ["Babylon Judge", "Law Code Keeper", "Justice Stele Guardian"], "Built for laws, ancient river valleys, power, and order."], ["Confucius", ["Lu Student", "Ethics Teacher", "Harmony Master"], "Handles belief systems, family, government, and values."], ["Mansa Musa", ["Niani Prince", "Gold Road Ruler", "Mali World Connector"], "Connects West Africa, trade, Islam, and wealth."]],
+    "Grade 7": [["George Washington", ["Mount Vernon Scout", "Continental Commander", "Republic Founder"], "Covers Revolution, precedent, early republic, and leadership."], ["Alexander Hamilton", ["Caribbean Clerk", "Treasury Builder", "Federalist Financier"], "Handles Constitution, finance, federal power, and parties."], ["Tecumseh", ["Shawnee Speaker", "Confederacy Builder", "Resistance Strategist"], "Connects Native resistance, land, and expansion."]],
+    "Grade 8": [["Abraham Lincoln", ["Frontier Reader", "Union President", "Emancipation Statesman"], "Covers Civil War, constitutional crisis, and Reconstruction."], ["Susan B. Anthony", ["Petition Carrier", "Suffrage Organizer", "Vote-Rights Veteran"], "Powers up on reform, suffrage, and citizenship."], ["Theodore Roosevelt", ["Rough Rider", "Trust-Buster", "Square Deal Ranger"], "Handles progressivism, conservation, and regulation."]],
+    "Global 9": [["Hammurabi", ["Babylon Judge", "Law Code Keeper", "Justice Stele Guardian"], "Covers river valleys, law, social order, and authority."], ["Pericles", ["Agora Speaker", "Athenian Strategist", "Democracy Patron"], "Handles Greek democracy, citizenship, culture, and empire."], ["Ibn Battuta", ["Route Walker", "World Traveler", "Network Navigator"], "Reads exchange, travel, Islam, and trade."]],
+    "Global 10": [["Mohandas Gandhi", ["Law Student", "Salt March Organizer", "Nonviolence Strategist"], "Works through imperialism, nationalism, civil disobedience, and independence."], ["Nelson Mandela", ["Johannesburg Advocate", "Freedom Negotiator", "Reconciliation President"], "Handles apartheid, resistance, justice, and democracy."], ["Toussaint Louverture", ["Plantation Coachman", "Revolution General", "Haitian Liberator"], "Connects Atlantic revolutions, freedom, and colonialism."]],
+    "Global Regents": [["Mohandas Gandhi", ["Law Student", "Salt March Organizer", "Nonviolence Strategist"], "Works through imperialism, nationalism, and civil disobedience."], ["Nelson Mandela", ["Johannesburg Advocate", "Freedom Negotiator", "Reconciliation President"], "Handles apartheid, resistance, and democratic transition."], ["Mansa Musa", ["Niani Prince", "Gold Road Ruler", "Mali World Connector"], "Connects trade, Islam, wealth, empire, and geography."]],
+    "AP World": [["Mansa Musa", ["Niani Prince", "Gold Road Ruler", "Mali World Connector"], "Specializes in trade, Islam, wealth, and trans-Saharan networks."], ["Zheng He", ["Harbor Cadet", "Treasure Fleet Admiral", "Indian Ocean Navigator"], "Powers up on maritime trade and Ming China."], ["Mohandas Gandhi", ["Law Student", "Salt March Organizer", "Nonviolence Strategist"], "Handles nationalism, imperialism, and decolonization."]],
+    "AP Euro": [["Leonardo da Vinci", ["Workshop Sketcher", "Renaissance Maker", "Universal Genius"], "Thrives on Renaissance, humanism, art, science, and patronage."], ["Martin Luther", ["Wittenberg Monk", "Reformation Spark", "Printing-Press Reformer"], "Powers up around religion, reform, and printing."], ["Napoleon Bonaparte", ["Corsican Cadet", "Consulate Commander", "Code Emperor"], "Connects revolution, nationalism, law, and empire."]],
+    "Human Geo": [["Ibn Battuta", ["Route Walker", "World Traveler", "Network Navigator"], "Reads movement, diffusion, trade routes, and connection."], ["Jane Jacobs", ["Block Observer", "City Critic", "Urban Vitality Guardian"], "Specializes in cities, land use, and neighborhoods."], ["Carl Sauer", ["Landscape Reader", "Culture Mapper", "Human-Environment Sage"], "Handles cultural landscapes and regions."]],
+    "AP Psych": [["Wilhelm Wundt", ["Lab Listener", "Introspection Founder", "Psychology Pioneer"], "Starts strong on research methods and experimental psychology."], ["B. F. Skinner", ["Box Builder", "Reinforcement Trainer", "Behavior Master"], "Powers up on learning, conditioning, and behavior."], ["Jean Piaget", ["Schema Sorter", "Stage Builder", "Development Sage"], "Handles development, cognition, and schemas."]],
+    "Review": [["Archive Keeper", ["Shelf Scout", "Index Captain", "Chronicle Guardian"], "A flexible companion for mixed review runs."], ["Source Sleuth", ["Clue Reader", "Evidence Tracker", "Document Master"], "Handles maps, excerpts, charts, cartoons, and documents."], ["Context Coach", ["Background Buddy", "Era Expert", "Big-Picture Boss"], "Connects causes, effects, context, and review patterns."]]
+  };
+
+  const familyAtlasOrder = ["AP Econ", "AP Macro", "AP Micro", "Economics", "AP Euro", "Human Geo", "AP Psych", "AP Gov", "APUSH", "AP World", "Civics", "Global 10", "US Regents", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Global 9", "Global Regents", "Review"];
+  const allFamilies = familyAtlasOrder.flatMap((type) => (familiesByType[type] || familiesByType.Review).map((row) => ({ type, historicalName: row[0], names: row[1], line: row[2] })))
+    .map((family, index) => Object.assign(family, { id: compactKey(`${family.type}-${family.historicalName}`), atlas: Math.floor(index / 6), row: index % 6 }));
+  const familyById = allFamilies.reduce((acc, family) => (acc[family.id] = family, acc), {});
+
+  const places = [
+    { id: "center", name: "Chronicle Center", kind: "center", gx: 19, gy: 17, icon: "school", text: "Restore party health and save your field log." },
+    { id: "mart", name: "Archive Supply", kind: "shop", gx: 24, gy: 17, icon: "chest", text: "Buy capsules, field notes, and restoration tea with shards." },
+    { id: "lab", name: "Professor Mac's Lab", kind: "lab", gx: 20, gy: 12, icon: "gate", text: "Choose a starter, learn the route system, and check progress." },
+    { id: "museum", name: "Source Museum", kind: "quest", gx: 36, gy: 22, icon: "arch", text: "Take source and review contracts for XP, shards, and items." },
+    { id: "harbor", name: "Exchange Harbor", kind: "quest", gx: 54, gy: 29, icon: "portal", text: "Trade-route contracts and global review challenges." },
+    { id: "capitol", name: "Civic Capitol", kind: "quest", gx: 64, gy: 14, icon: "school", text: "Government, rights, court cases, and civic participation contracts." },
+    { id: "summit", name: "Atlas Summit", kind: "summit", gx: 72, gy: 45, icon: "portal", text: "A late-game route for mixed review and boss challenges." }
+  ];
+
+  const npcs = [
+    { id: "guide", name: "Guide Maya", type: "Route Guide", gx: 18, gy: 14, text: "Tall grass starts historical ally battles. Buildings post review contracts. START opens filters, party, bag, and save.", starter: true },
+    { id: "rival", name: "Ranger Carter", type: "Rival", gx: 26, gy: 14, text: "A real roster wins routes. Level allies with battles, then use contracts to earn shards and field items.", battle: true },
+    { id: "curator", name: "Curator Rivera", type: "Source Coach", gx: 39, gy: 24, text: "Contracts are where review questions belong. Battle for fun. Study for rewards.", quest: true },
+    { id: "organizer", name: "Organizer Noor", type: "Civic Coach", gx: 65, gy: 17, text: "Rights, reform, and government routes are strongest when you know people, laws, and turning points.", quest: true }
+  ];
+
+  const dirs = {
+    up: { x: 0, y: -1, key: "playerBack" },
+    down: { x: 0, y: 1, key: "playerFront" },
+    left: { x: -1, y: 0, key: "playerSideAlt" },
+    right: { x: 1, y: 0, key: "playerSide" }
+  };
+  const sourcePromptRe = /(\bthis\s+(amendment|document|letter|speech|excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\bthese\s+(issues|documents|statements|headlines|conditions|changes|questions|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b|similar\s+to\s+this)/i;
+
+  const state = {
+    mode: "boot",
+    bank: { courses: [], setsByCourse: {}, questions: [] },
+    filtered: [],
+    queue: [],
+    tileMap: [],
+    blocked: new Set(),
+    grass: new Set(),
+    player: { gx: 17, gy: 16, x: 17 * TILE, y: 16 * TILE, dir: "down", moving: false, step: 0, fromX: 0, fromY: 0, toX: 0, toY: 0 },
+    camera: { x: 0, y: 0 },
+    keys: new Set(),
+    last: 0,
+    dialogTarget: null,
+    battle: null,
+    quest: null,
+    inputCooldown: 0,
+    stats: readSave()
+  };
+
+  function loadImage(src) {
+    const img = new Image();
+    img.src = src;
+    return img;
+  }
+
+  function resizeCanvas() {
+    view.w = Math.max(320, Math.floor(window.innerWidth || 960));
+    view.h = Math.max(320, Math.floor(window.innerHeight || 540));
+    view.dpr = Math.min(2, window.devicePixelRatio || 1);
+    els.canvas.width = Math.floor(view.w * view.dpr);
+    els.canvas.height = Math.floor(view.h * view.dpr);
+    els.canvas.style.width = `${view.w}px`;
+    els.canvas.style.height = `${view.h}px`;
+    ctx.setTransform(view.dpr, 0, 0, view.dpr, 0, 0);
+    ctx.imageSmoothingEnabled = false;
+  }
+
+  function defaultStats() {
+    return {
+      shards: 40,
+      xp: 0,
+      rank: 1,
+      hp: 100,
+      maxHp: 100,
+      active: 0,
+      party: [],
+      items: { capsule: 5, fieldNote: 2, tea: 1 },
+      course: "All Courses",
+      set: "All Sets",
+      flags: {}
+    };
+  }
+
+  function readSave() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      const base = defaultStats();
+      const stats = Object.assign(base, saved || {});
+      stats.items = Object.assign(base.items, saved.items || {});
+      stats.flags = Object.assign({}, saved.flags || {});
+      stats.party = Array.isArray(saved.party) ? saved.party : [];
+      stats.active = clamp(Number(stats.active || 0), 0, Math.max(0, stats.party.length - 1));
+      stats.maxHp = Math.max(100, Number(stats.maxHp || 100));
+      stats.hp = clamp(Number(stats.hp || stats.maxHp), 0, stats.maxHp);
+      return stats;
+    } catch {
+      return defaultStats();
+    }
+  }
+
+  function writeSave() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.stats));
+  }
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function normalize(value) {
+    return String(value || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9 ]+/g, " ").replace(/\b(the|a|an)\b/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function compactKey(value) {
+    return normalize(value).replace(/\s+/g, "");
+  }
+
+  function hash(value) {
+    let h = 2166136261;
+    const text = String(value || "");
+    for (let i = 0; i < text.length; i += 1) {
+      h ^= text.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return h >>> 0;
+  }
+
+  function shuffle(list) {
+    const copy = list.slice();
+    for (let i = copy.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function escapeHtml(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function courseTypeFor(course) {
+    return typeRules.find((rule) => rule.match.test(course || "Review")) || typeRules[typeRules.length - 1];
+  }
+
+  function familiesForType(type) {
+    return familiesByType[type] || familiesByType.Review;
+  }
+
+  function familyForQuestion(q, lane) {
+    const rows = familiesForType(lane.name);
+    const raw = rows[hash([q.course, q.set, q.category, q.answer, q.id].join("|")) % rows.length] || rows[0];
+    return familyById[compactKey(`${lane.name}-${raw[0]}`)] || allFamilies[0];
+  }
+
+  function stageFor(ally) {
+    return clamp(Math.floor(Number(ally.level || 1) / 4), 0, 2);
+  }
+
+  function move(name, type, power, flavor) {
+    return { name, type, power, flavor };
+  }
+
+  function movesFor(family, lane, q) {
+    const blob = normalize([q && q.prompt, q && q.answer, family.line].join(" "));
+    const moves = [
+      move(signatureFor(family), lane.name, 34, family.line),
+      move(lane.move, lane.name, 29, `A ${lane.name} course move.`),
+      move("Context Check", lane.name, 23, "Uses background knowledge to sharpen the hit.")
+    ];
+    if (/source|document|map|chart|graph|cartoon|image|photo|excerpt/.test(blob)) {
+      moves.splice(1, 0, move("Source Scan", lane.name, 31, "Reads the evidence before striking."));
+    } else if (/war|revolution|rights|reform|trade|belief|migration|court|constitution|market/.test(blob)) {
+      moves.splice(1, 0, move("Timeline Combo", lane.name, 28, "Links the turning point to the change after it."));
+    } else {
+      moves.splice(1, 0, move("Recall Dash", lane.name, 25, "Fast content recall pressure."));
+    }
+    return moves.slice(0, 4);
+  }
+
+  function signatureFor(family) {
+    const last = family.historicalName.split(/\s+/).slice(-1)[0];
+    if (/Gandhi/.test(family.historicalName)) return "Salt March";
+    if (/Washington/.test(family.historicalName)) return "Continental Command";
+    if (/Hammurabi/.test(family.historicalName)) return "Law Code";
+    if (/Mandela/.test(family.historicalName)) return "Reconciliation";
+    if (/Mansa/.test(family.historicalName)) return "Gold Road";
+    if (/Skinner/.test(family.historicalName)) return "Reinforcement";
+    if (/Madison/.test(family.historicalName)) return "Federalist Frame";
+    return `${last} Strike`;
+  }
+
+  function makeAlly(q, starterType) {
+    const lane = starterType ? (typeRules.find((rule) => rule.name === starterType) || courseTypeFor(starterType)) : courseTypeFor(q && q.course);
+    const family = starterType
+      ? familyById[compactKey(`${lane.name}-${familiesForType(lane.name)[0][0]}`)] || allFamilies[0]
+      : familyForQuestion(q || {}, lane);
+    const level = starterType ? 1 : 1 + Math.floor(Math.random() * 4) + Math.floor((state.stats.rank || 1) / 3);
+    const stage = clamp(Math.floor((level - 1) / 4), 0, 2);
+    const id = compactKey(`${lane.name}|${family.historicalName}`).slice(0, 80);
+    return {
+      id,
+      name: family.names[stage] || family.names[0],
+      actualName: family.historicalName,
+      type: lane.name,
+      familyId: family.id,
+      atlas: family.atlas,
+      row: family.row,
+      level,
+      xp: 0,
+      maxHp: 72 + level * 7,
+      hp: 72 + level * 7,
+      color: lane.color,
+      line: family.line,
+      moves: movesFor(family, lane, q || { prompt: family.line, answer: family.historicalName })
+    };
+  }
+
+  function ensureStarter() {
+    if (state.stats.party.length) return;
+    state.stats.party = [makeAlly(null, "Global 9")];
+    state.stats.active = 0;
+    state.stats.flags.starter = true;
+    writeSave();
+  }
+
+  function activeAlly() {
+    ensureStarter();
+    state.stats.active = clamp(state.stats.active || 0, 0, state.stats.party.length - 1);
+    return state.stats.party[state.stats.active];
+  }
+
+  function buildWorld() {
+    state.tileMap = [];
+    state.blocked = new Set();
+    state.grass = new Set();
+    for (let y = 0; y < WORLD_H; y += 1) {
+      const row = [];
+      for (let x = 0; x < WORLD_W; x += 1) {
+        let tile = "grass";
+        if (x < 2 || y < 2 || x > WORLD_W - 3 || y > WORLD_H - 3) tile = "tree";
+        if ((x > 10 && x < 78 && Math.abs(y - 17) <= 1) || (y > 8 && y < 55 && Math.abs(x - 24) <= 1) || (x > 20 && x < 75 && Math.abs(y - 33) <= 1) || (y > 16 && y < 58 && Math.abs(x - 58) <= 1)) tile = "path";
+        if ((x > 4 && x < 16 && y > 38 && y < 50) || (x > 70 && x < 84 && y > 6 && y < 14)) tile = "water";
+        if ((x > 30 && x < 47 && y > 6 && y < 14) || (x > 62 && x < 78 && y > 37 && y < 48) || (x > 8 && x < 18 && y > 21 && y < 30)) tile = "grass2";
+        row.push(tile);
+        if (tile === "tree" || tile === "water") state.blocked.add(key(x, y));
+        if (tile === "grass2") state.grass.add(key(x, y));
+      }
+      state.tileMap.push(row);
+    }
+    places.forEach((place) => {
+      for (let yy = place.gy - 1; yy <= place.gy + 1; yy += 1) {
+        for (let xx = place.gx - 1; xx <= place.gx + 1; xx += 1) {
+          state.blocked.add(key(xx, yy));
+        }
+      }
+      state.blocked.delete(key(place.gx, place.gy + 2));
+    });
+    npcs.forEach((npc) => state.blocked.add(key(npc.gx, npc.gy)));
+    state.blocked.delete(key(state.player.gx, state.player.gy));
+  }
+
+  function key(x, y) {
+    return `${x},${y}`;
+  }
+
+  function drawAtlas(name, x, y, w, h, flip) {
+    const item = atlas[name];
+    if (!item || !tileAtlas.complete) return;
+    ctx.save();
+    if (flip) {
+      ctx.translate(x + w, y);
+      ctx.scale(-1, 1);
+      ctx.drawImage(tileAtlas, item[0], item[1], item[2], item[3], 0, 0, w, h);
+    } else {
+      ctx.drawImage(tileAtlas, item[0], item[1], item[2], item[3], x, y, w, h);
+    }
+    ctx.restore();
+  }
+
+  function drawFigure(ally, x, y, w, h, flip) {
+    const family = familyById[ally.familyId] || allFamilies[0];
+    const img = figureAtlases[family.atlas] || figureAtlases[0];
+    if (!img.complete) return;
+    const cellW = 1024 / 3;
+    const cellH = 1536 / 6;
+    const col = stageFor(ally);
+    const sx = col * cellW;
+    const sy = family.row * cellH;
+    ctx.save();
+    if (flip) {
+      ctx.translate(x + w, y);
+      ctx.scale(-1, 1);
+      ctx.drawImage(img, sx, sy, cellW, cellH, 0, 0, w, h);
+    } else {
+      ctx.drawImage(img, sx, sy, cellW, cellH, x, y, w, h);
+    }
+    ctx.restore();
+  }
+
+  function tileAt(x, y) {
+    if (x < 0 || y < 0 || x >= WORLD_W || y >= WORLD_H) return "tree";
+    return state.tileMap[y][x];
+  }
+
+  function isBlocked(x, y) {
+    return x < 0 || y < 0 || x >= WORLD_W || y >= WORLD_H || state.blocked.has(key(x, y));
+  }
+
+  function nearestInteraction() {
+    const dir = dirs[state.player.dir] || dirs.down;
+    const tx = state.player.gx + dir.x;
+    const ty = state.player.gy + dir.y;
+    return npcs.find((npc) => npc.gx === tx && npc.gy === ty) || places.find((place) => Math.abs(place.gx - tx) <= 1 && Math.abs(place.gy - ty) <= 1);
+  }
+
+  function openDialogue(target) {
+    state.mode = "dialogue";
+    state.dialogTarget = target;
+    els.game.classList.add("in-dialogue");
+    els.dialogueKicker.textContent = target.type || "Location";
+    els.dialogueTitle.textContent = target.name;
+    els.dialogueText.textContent = target.text || "The route is quiet.";
+    const actions = [];
+    if (target.starter && !state.stats.flags.guideGift) actions.push(["starter", "Take Starter"]);
+    if (target.kind === "center") actions.push(["heal", "Heal"]);
+    if (target.kind === "shop") actions.push(["shop", "Shop"]);
+    if (target.quest || target.kind === "quest" || target.kind === "summit") actions.push(["quest", "Contract"]);
+    if (target.battle) actions.push(["battle", "Battle"]);
+    actions.push(["close", "Close"]);
+    els.dialogueActions.innerHTML = actions.map(([id, label]) => `<button type="button" data-action="${id}">${escapeHtml(label)}</button>`).join("");
+    [...els.dialogueActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => handleDialogueAction(button.dataset.action)));
+    els.dialogue.hidden = false;
+  }
+
+  function closeDialogue() {
+    state.mode = "overworld";
+    state.dialogTarget = null;
+    els.dialogue.hidden = true;
+    els.game.classList.remove("in-dialogue");
+  }
+
+  function handleDialogueAction(action) {
+    const target = state.dialogTarget;
+    if (action === "close") return closeDialogue();
+    if (action === "starter") {
+      ensureStarter();
+      state.stats.items.capsule += 3;
+      state.stats.items.fieldNote += 2;
+      state.stats.flags.guideGift = true;
+      writeSave();
+      updateHud();
+      els.dialogueText.textContent = `${activeAlly().actualName} joined your party. You also received 3 Archive Capsules and 2 Field Notes.`;
+      return;
+    }
+    if (action === "heal") {
+      healParty();
+      els.dialogueText.textContent = "Your party is fully restored. Field log saved.";
+      return;
+    }
+    if (action === "shop") {
+      state.stats.items.capsule += 2;
+      state.stats.items.tea += 1;
+      state.stats.shards = Math.max(0, state.stats.shards - 20);
+      writeSave();
+      updateHud();
+      els.dialogueText.textContent = "Bought 2 Archive Capsules and 1 Restoration Tea for 20 shards.";
+      return;
+    }
+    if (action === "quest") {
+      closeDialogue();
+      openQuest(target && target.name);
+      return;
+    }
+    if (action === "battle") {
+      closeDialogue();
+      openBattle(makeAlly(nextQuestion()), true);
+    }
+  }
+
+  function openMenu(tab) {
+    if (state.mode === "battle" || state.mode === "quest") return;
+    state.mode = "menu";
+    els.game.classList.add("in-menu");
+    els.menu.hidden = false;
+    renderMenu(tab || "party");
+  }
+
+  function closeMenu() {
+    state.mode = "overworld";
+    els.menu.hidden = true;
+    els.game.classList.remove("in-menu");
+  }
+
+  function renderMenu(tab) {
+    const party = state.stats.party;
+    if (tab === "bag") {
+      els.menuList.innerHTML = `
+        <div class="menu-card"><strong>Archive Capsules</strong>x${state.stats.items.capsule || 0} - recruit weakened allies in battle.</div>
+        <div class="menu-card"><strong>Field Notes</strong>x${state.stats.items.fieldNote || 0} - improve contract rewards.</div>
+        <div class="menu-card"><strong>Restoration Tea</strong>x${state.stats.items.tea || 0} - restore party HP in battle.</div>`;
+      return;
+    }
+    els.menuList.innerHTML = party.length ? party.map((ally, index) => `
+      <div class="menu-card">
+        <strong>${escapeHtml(index === state.stats.active ? "▶ " : "")}${escapeHtml(ally.actualName)}</strong>
+        ${escapeHtml(ally.name)} / ${escapeHtml(ally.type)} / Lv ${ally.level} / HP ${Math.round(ally.hp)}/${ally.maxHp}
+      </div>`).join("") : `<div class="menu-card"><strong>No party yet</strong>Talk to Guide Maya near the lab for a starter.</div>`;
+  }
+
+  function fillFilters() {
+    const courses = ["All Courses"].concat(state.bank.courses || []);
+    els.courseSelect.innerHTML = courses.map((course) => `<option value="${escapeHtml(course)}">${escapeHtml(course)}</option>`).join("");
+    els.courseSelect.value = courses.includes(state.stats.course) ? state.stats.course : "All Courses";
+    fillSets();
+  }
+
+  function fillSets() {
+    const course = els.courseSelect.value;
+    const sets = course === "All Courses" ? [] : (state.bank.setsByCourse[course] || []);
+    els.setSelect.innerHTML = ["All Sets"].concat(sets).map((set) => `<option value="${escapeHtml(set)}">${escapeHtml(set)}</option>`).join("");
+    els.setSelect.value = sets.includes(state.stats.set) ? state.stats.set : "All Sets";
+  }
+
+  function applyFilters() {
+    state.stats.course = els.courseSelect.value || "All Courses";
+    state.stats.set = els.setSelect.value || "All Sets";
+    state.filtered = state.bank.questions.filter((q) => {
+      if (!isUsableQuestion(q)) return false;
+      if (state.stats.course !== "All Courses" && q.course !== state.stats.course) return false;
+      if (state.stats.set !== "All Sets" && q.set !== state.stats.set) return false;
+      return true;
+    });
+    if (!state.filtered.length) state.filtered = state.bank.questions.filter(isUsableQuestion);
+    state.queue = shuffle(state.filtered);
+    writeSave();
+    updateHud();
+  }
+
+  function nextQuestion() {
+    if (!state.queue.length) state.queue = shuffle(state.filtered);
+    const fallback = state.bank.questions.filter(isUsableQuestion);
+    return state.queue.pop() || fallback[Math.floor(Math.random() * fallback.length)] || null;
+  }
+
+  function sourceTextFor(q) {
+    if (!q) return "";
+    const stimulus = typeof q.stimulus === "string" ? q.stimulus : "";
+    return String(q.stimulusText || stimulus || q.sourceText || q.source || "").trim();
+  }
+
+  function isUsableQuestion(q) {
+    if (!q || !q.prompt || !q.answer) return false;
+    if (sourcePromptRe.test(String(q.prompt || "")) && !sourceTextFor(q)) return false;
+    return true;
+  }
+
+  function answerLabel(q) {
+    if (!q) return "";
+    if (q.type === "mcq" && q.choices) {
+      const match = q.choices.find((choice) => String(choice.label) === String(q.correct));
+      return match ? match.text : q.answer;
+    }
+    return q.answer;
+  }
+
+  function typedMatches(raw, answers) {
+    const guess = normalize(raw);
+    return answers.some((answer) => {
+      const target = normalize(answer);
+      if (!guess || !target) return false;
+      if (guess === target || target.includes(guess) && guess.length >= 4 || guess.includes(target) && target.length >= 4) return true;
+      return levenshtein(guess, target) <= Math.max(1, Math.floor(target.length * 0.16));
+    });
+  }
+
+  function levenshtein(a, b) {
+    const prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+    const curr = Array(b.length + 1).fill(0);
+    for (let i = 1; i <= a.length; i += 1) {
+      curr[0] = i;
+      for (let j = 1; j <= b.length; j += 1) {
+        curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      }
+      for (let j = 0; j <= b.length; j += 1) prev[j] = curr[j];
+    }
+    return prev[b.length];
+  }
+
+  function openQuest(origin) {
+    const q = nextQuestion();
+    if (!q) return;
+    state.mode = "quest";
+    state.quest = { q, origin: origin || "Route Contract" };
+    els.game.classList.add("in-quest");
+    els.questKicker.textContent = origin || "Review Contract";
+    els.questMeta.textContent = `${q.course || "Social Studies"} / ${q.set || "Review"}`;
+    els.questPrompt.textContent = q.prompt;
+    const sourceText = sourceTextFor(q);
+    els.questSource.hidden = !sourceText;
+    els.questSource.textContent = sourceText;
+    els.questFeedback.textContent = "";
+    els.questInput.value = "";
+    if (q.type === "mcq" && q.choices && q.choices.length) {
+      els.questForm.hidden = true;
+      els.questChoices.hidden = false;
+      els.questChoices.innerHTML = q.choices.map((choice) => `<button type="button" data-choice="${escapeHtml(choice.label)}"><strong>${escapeHtml(choice.label)}.</strong> ${escapeHtml(choice.text)}</button>`).join("");
+      [...els.questChoices.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => submitQuest(button.dataset.choice)));
+    } else {
+      els.questChoices.hidden = true;
+      els.questChoices.innerHTML = "";
+      els.questForm.hidden = false;
+      setTimeout(() => els.questInput.focus({ preventScroll: true }), 50);
+    }
+    els.quest.hidden = false;
+  }
+
+  function submitQuest(raw) {
+    const q = state.quest && state.quest.q;
+    if (!q) return;
+    const correct = q.type === "mcq" ? String(raw) === String(q.correct) : typedMatches(raw, [q.answer].concat(q.aliases || []));
+    const reward = correct ? 38 : 10;
+    state.stats.shards += reward;
+    state.stats.xp += correct ? 30 : 8;
+    state.stats.items.fieldNote += correct ? 1 : 0;
+    if (correct) {
+      els.questFeedback.textContent = `Correct. +${reward} shards, +XP, +1 Field Note. ${q.explanation || ""}`;
+    } else {
+      els.questFeedback.textContent = `Not quite. Answer: ${answerLabel(q)}. +${reward} study shards. ${q.explanation || ""}`;
+    }
+    writeSave();
+    updateHud();
+    setTimeout(closeQuest, correct ? 1500 : 2600);
+  }
+
+  function closeQuest() {
+    state.mode = "overworld";
+    state.quest = null;
+    els.quest.hidden = true;
+    els.game.classList.remove("in-quest");
+  }
+
+  function openBattle(enemy, trainer) {
+    const hero = activeAlly();
+    let foe = enemy || makeAlly(nextQuestion());
+    for (let i = 0; foe && foe.id === hero.id && i < 6; i += 1) {
+      foe = makeAlly(nextQuestion());
+    }
+    state.mode = "battle";
+    els.game.classList.add("in-battle");
+    const battle = {
+      enemy: foe,
+      hero,
+      heroHp: hero.hp,
+      enemyHp: foe ? foe.hp : 90,
+      enemyMax: foe ? foe.maxHp : 90,
+      menu: "root",
+      log: trainer ? `${foe.actualName} challenges your route team!` : `Wild ${foe.actualName} appeared!`,
+      locked: true,
+      fx: null,
+      fxTime: 0,
+      capture: 0
+    };
+    state.battle = battle;
+    els.battleUi.hidden = false;
+    renderBattleActions();
+    setBattleLog(battle.log);
+    setTimeout(() => {
+      if (state.battle === battle) {
+        battle.locked = false;
+        setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
+        renderBattleActions();
+      }
+    }, 900);
+  }
+
+  function setBattleLog(text) {
+    if (!state.battle) return;
+    state.battle.log = text;
+    els.battleLog.textContent = text;
+  }
+
+  function renderBattleActions() {
+    const battle = state.battle;
+    if (!battle) return;
+    if (battle.locked) {
+      els.battleActions.innerHTML = "";
+      return;
+    }
+    if (battle.menu === "fight") {
+      els.battleActions.innerHTML = battle.hero.moves.map((item, index) => `<button type="button" data-move="${index}"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.type)} / ${item.power}</small></button>`).join("");
+      [...els.battleActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => useMove(Number(button.dataset.move))));
+      return;
+    }
+    if (battle.menu === "bag") {
+      els.battleActions.innerHTML = [
+        ["capsule", "Capsule", `x${state.stats.items.capsule || 0}`],
+        ["tea", "Tea", `x${state.stats.items.tea || 0}`],
+        ["fieldNote", "Notes", `x${state.stats.items.fieldNote || 0}`],
+        ["back", "Back", "menu"]
+      ].map(([id, label, detail]) => `<button type="button" data-item="${id}"><strong>${label}</strong><small>${detail}</small></button>`).join("");
+      [...els.battleActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => useItem(button.dataset.item)));
+      return;
+    }
+    els.battleActions.innerHTML = [
+      ["fight", "Fight", "moves"],
+      ["bag", "Bag", "items"],
+      ["party", "Party", "switch"],
+      ["run", "Run", "escape"]
+    ].map(([id, label, detail]) => `<button type="button" data-action="${id}"><strong>${label}</strong><small>${detail}</small></button>`).join("");
+    [...els.battleActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => battleAction(button.dataset.action)));
+  }
+
+  function battleAction(action) {
+    const battle = state.battle;
+    if (!battle || battle.locked) return;
+    if (action === "fight") {
+      battle.menu = "fight";
+      setBattleLog("Choose a move.");
+      renderBattleActions();
+    } else if (action === "bag") {
+      battle.menu = "bag";
+      setBattleLog("Open the field bag.");
+      renderBattleActions();
+    } else if (action === "party") {
+      const next = (state.stats.active + 1) % state.stats.party.length;
+      state.stats.active = next;
+      battle.hero = activeAlly();
+      battle.heroHp = battle.hero.hp;
+      setBattleLog(`Go, ${battle.hero.actualName.toUpperCase()}!`);
+      battle.menu = "root";
+      writeSave();
+      renderBattleActions();
+    } else if (action === "run") {
+      closeBattle("Got away safely.");
+    }
+  }
+
+  function typeMultiplier(moveType, targetType) {
+    const moveTypeData = typeRules.find((rule) => rule.name === moveType) || typeRules[typeRules.length - 1];
+    const targetTypeData = typeRules.find((rule) => rule.name === targetType) || typeRules[typeRules.length - 1];
+    const chart = clusterEffects[moveTypeData.cluster] || clusterEffects.review;
+    if (moveType === targetType) return 1.22;
+    if (chart.strong.includes(targetTypeData.cluster)) return 1.55;
+    if (chart.weak.includes(targetTypeData.cluster)) return .72;
+    return 1;
+  }
+
+  function effectSentence(multiplier) {
+    if (multiplier > 1.2) return "It's super effective!";
+    if (multiplier < .8) return "It's not very effective.";
+    return "It connected.";
+  }
+
+  async function useMove(index) {
+    const battle = state.battle;
+    if (!battle || battle.locked) return;
+    const selected = battle.hero.moves[index] || battle.hero.moves[0];
+    battle.locked = true;
+    battle.menu = "root";
+    renderBattleActions();
+    setBattleLog(`${battle.hero.actualName.toUpperCase()} used ${selected.name.toUpperCase()}!`);
+    battle.fx = { kind: "hero", t: 0, color: battle.hero.color };
+    await wait(720);
+    if (state.battle !== battle) return;
+    const mult = typeMultiplier(selected.type, battle.enemy.type);
+    const damage = Math.max(6, Math.round((selected.power + battle.hero.level * 2) * mult * (.86 + Math.random() * .24)));
+    battle.enemyHp = clamp(battle.enemyHp - damage, 0, battle.enemyMax);
+    battle.capture = clamp(battle.capture + 12 + damage * .34, 0, 100);
+    battle.fx = { kind: "enemyHit", t: 0, color: selected.color || battle.hero.color };
+    setBattleLog(`${effectSentence(mult)} ${battle.enemy.actualName.toUpperCase()} lost ${damage} HP.`);
+    await wait(880);
+    if (state.battle !== battle) return;
+    if (battle.enemyHp <= 0) {
+      await winBattle(false);
+      return;
+    }
+    await enemyTurn();
+  }
+
+  async function enemyTurn() {
+    const battle = state.battle;
+    if (!battle) return;
+    const moveUsed = battle.enemy.moves[Math.floor(Math.random() * battle.enemy.moves.length)] || battle.enemy.moves[0];
+    setBattleLog(`${battle.enemy.actualName.toUpperCase()} used ${moveUsed.name.toUpperCase()}!`);
+    battle.fx = { kind: "enemy", t: 0, color: battle.enemy.color };
+    await wait(720);
+    if (state.battle !== battle) return;
+    const mult = typeMultiplier(moveUsed.type, battle.hero.type);
+    const damage = Math.max(5, Math.round((moveUsed.power + battle.enemy.level) * mult * (.72 + Math.random() * .2)));
+    battle.heroHp = clamp(battle.heroHp - damage, 0, battle.hero.maxHp);
+    battle.hero.hp = battle.heroHp;
+    battle.fx = { kind: "heroHit", t: 0, color: battle.enemy.color };
+    setBattleLog(`${effectSentence(mult)} ${battle.hero.actualName.toUpperCase()} lost ${damage} HP.`);
+    writeSave();
+    updateHud();
+    await wait(880);
+    if (state.battle !== battle) return;
+    if (battle.heroHp <= 0) {
+      closeBattle("Your party needs the Chronicle Center.");
+      return;
+    }
+    battle.locked = false;
+    battle.fx = null;
+    setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
+    renderBattleActions();
+  }
+
+  async function useItem(id) {
+    const battle = state.battle;
+    if (!battle || battle.locked) return;
+    if (id === "back") {
+      battle.menu = "root";
+      setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
+      renderBattleActions();
+      return;
+    }
+    if (!state.stats.items[id]) {
+      setBattleLog("That pocket is empty.");
+      return;
+    }
+    battle.locked = true;
+    battle.menu = "root";
+    renderBattleActions();
+    if (id === "tea") {
+      state.stats.items.tea -= 1;
+      battle.heroHp = clamp(battle.heroHp + 45, 0, battle.hero.maxHp);
+      battle.hero.hp = battle.heroHp;
+      setBattleLog("Restoration Tea restored HP.");
+      writeSave();
+      updateHud();
+      await wait(800);
+      await enemyTurn();
+      return;
+    }
+    if (id === "fieldNote") {
+      state.stats.items.fieldNote -= 1;
+      battle.capture = clamp(battle.capture + 18, 0, 100);
+      setBattleLog(`Field Notes raised trust to ${Math.round(battle.capture)}%.`);
+      writeSave();
+      updateHud();
+      await wait(800);
+      battle.locked = false;
+      renderBattleActions();
+      return;
+    }
+    if (id === "capsule") {
+      state.stats.items.capsule -= 1;
+      const missing = 1 - battle.enemyHp / battle.enemyMax;
+      const chance = clamp(18 + missing * 52 + battle.capture * .42, 12, 90);
+      battle.fx = { kind: "capsule", t: 0, color: "#f3cf61" };
+      setBattleLog("ATLAS RANGER threw an ARCHIVE CAPSULE!");
+      writeSave();
+      updateHud();
+      await wait(1150);
+      if (Math.random() * 100 < chance) {
+        await winBattle(true);
+      } else {
+        setBattleLog(`${battle.enemy.actualName.toUpperCase()} broke free!`);
+        await wait(800);
+        await enemyTurn();
+      }
+    }
+  }
+
+  async function winBattle(captured) {
+    const battle = state.battle;
+    if (!battle) return;
+    battle.fx = { kind: "victory", t: 0, color: battle.hero.color };
+    const xp = 34 + battle.enemy.level * 8;
+    battle.hero.xp = (battle.hero.xp || 0) + xp;
+    if (battle.hero.xp >= battle.hero.level * 45) {
+      battle.hero.xp = 0;
+      battle.hero.level += 1;
+      battle.hero.maxHp += 7;
+      battle.hero.hp = battle.hero.maxHp;
+    }
+    state.stats.shards += 25 + battle.enemy.level * 3;
+    if (captured || state.stats.party.length < 2) {
+      const exists = state.stats.party.some((ally) => ally.id === battle.enemy.id);
+      if (!exists && state.stats.party.length < 6) state.stats.party.push(battle.enemy);
+    }
+    writeSave();
+    updateHud();
+    setBattleLog(`${battle.enemy.actualName.toUpperCase()} joined the roster. +${xp} XP.`);
+    await wait(1300);
+    closeBattle(`${battle.enemy.actualName} joined your roster.`);
+  }
+
+  function closeBattle(message) {
+    if (message) {
+      state.stats.lastMessage = message;
+      writeSave();
+    }
+    state.mode = "overworld";
+    state.battle = null;
+    els.battleUi.hidden = true;
+    els.game.classList.remove("in-battle");
+    renderBattleActions();
+  }
+
+  function healParty() {
+    state.stats.party.forEach((ally) => {
+      ally.hp = ally.maxHp;
+    });
+    state.stats.hp = state.stats.maxHp;
+    writeSave();
+    updateHud();
+  }
+
+  function updateHud() {
+    ensureStarter();
+    els.zoneName.textContent = zoneName();
+    els.partyHud.textContent = `Party ${state.stats.party.length}`;
+    els.shardHud.textContent = `${state.stats.shards || 0} Shards`;
+    els.courseHud.textContent = state.stats.course === "All Courses" ? "All Courses" : courseTypeFor(state.stats.course).name;
+  }
+
+  function zoneName() {
+    const p = state.player;
+    const nearest = places.slice().sort((a, b) => Math.hypot(a.gx - p.gx, a.gy - p.gy) - Math.hypot(b.gx - p.gx, b.gy - p.gy))[0];
+    return nearest && Math.hypot(nearest.gx - p.gx, nearest.gy - p.gy) < 9 ? nearest.name : "Atlas Route";
+  }
+
+  function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  function update(dt) {
+    if (state.mode !== "overworld") return;
+    state.inputCooldown = Math.max(0, state.inputCooldown - dt);
+    const p = state.player;
+    if (p.moving) {
+      p.step = Math.min(1, p.step + dt / 135);
+      const ease = p.step < .5 ? 2 * p.step * p.step : 1 - Math.pow(-2 * p.step + 2, 2) / 2;
+      p.x = p.fromX + (p.toX - p.fromX) * ease;
+      p.y = p.fromY + (p.toY - p.fromY) * ease;
+      if (p.step >= 1) {
+        p.moving = false;
+        p.gx = Math.round(p.x / TILE);
+        p.gy = Math.round(p.y / TILE);
+        if (state.grass.has(key(p.gx, p.gy)) && Math.random() < .095) openBattle(makeAlly(nextQuestion()), false);
+      }
+      return;
+    }
+    const dir = ["up", "down", "left", "right"].find((name) => state.keys.has(name));
+    if (dir) tryMove(dir);
+  }
+
+  function tryMove(dirName) {
+    const dir = dirs[dirName];
+    const p = state.player;
+    p.dir = dirName;
+    const nx = p.gx + dir.x;
+    const ny = p.gy + dir.y;
+    if (isBlocked(nx, ny)) return;
+    p.moving = true;
+    p.step = 0;
+    p.fromX = p.gx * TILE;
+    p.fromY = p.gy * TILE;
+    p.toX = nx * TILE;
+    p.toY = ny * TILE;
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, view.w, view.h);
+    if (state.mode === "battle") renderBattle();
+    else renderWorld();
+    requestAnimationFrame(loop);
+  }
+
+  function loop(now) {
+    const dt = Math.min(60, now - (state.last || now));
+    state.last = now;
+    update(dt);
+    renderFrame();
+  }
+
+  function renderFrame() {
+    ctx.clearRect(0, 0, view.w, view.h);
+    if (state.mode === "battle") renderBattle();
+    else renderWorld();
+    requestAnimationFrame(loop);
+  }
+
+  function renderWorld() {
+    const p = state.player;
+    state.camera.x = clamp(p.x - view.w / 2, 0, WORLD_W * TILE - view.w);
+    state.camera.y = clamp(p.y - view.h / 2, 0, WORLD_H * TILE - view.h);
+    const sx = Math.floor(state.camera.x / TILE) - 2;
+    const sy = Math.floor(state.camera.y / TILE) - 2;
+    const ex = Math.ceil((state.camera.x + view.w) / TILE) + 2;
+    const ey = Math.ceil((state.camera.y + view.h) / TILE) + 2;
+    for (let y = sy; y <= ey; y += 1) {
+      for (let x = sx; x <= ex; x += 1) {
+        const tile = tileAt(x, y);
+        const dx = x * TILE - state.camera.x;
+        const dy = y * TILE - state.camera.y;
+        drawTile(tile, dx, dy, x, y);
+      }
+    }
+    places.forEach(drawPlace);
+    npcs.forEach(drawNpc);
+    drawPlayer();
+    drawWorldOverlay();
+  }
+
+  function drawTile(tile, x, y, gx, gy) {
+    const name = tile === "path" ? ((gx + gy) % 2 ? "pathA" : "pathB") : tile === "water" ? ((gx + gy) % 2 ? "waterA" : "waterB") : tile === "tree" ? ((gx + gy) % 2 ? "grassA" : "grassB") : ((gx + gy) % 3 ? "grassA" : "grassC");
+    drawAtlas(name, x, y, TILE + 1, TILE + 1);
+    if (tile === "grass2") {
+      ctx.fillStyle = "rgba(15, 56, 15, .24)";
+      for (let i = 0; i < 5; i += 1) ctx.fillRect(x + 4 + i * 6, y + 18 - (i % 2) * 4, 3, 10);
+    }
+    if (tile === "tree") drawAtlas((gx + gy) % 2 ? "treeA" : "treeB", x - 7, y - 18, 46, 52);
+  }
+
+  function drawPlace(place) {
+    const x = place.gx * TILE - state.camera.x - 30;
+    const y = place.gy * TILE - state.camera.y - 48;
+    drawAtlas(place.icon, x, y, 94, 72);
+    label(place.name, x - 8, y - 13, 110);
+  }
+
+  function drawNpc(npc) {
+    const x = npc.gx * TILE - state.camera.x;
+    const y = npc.gy * TILE - state.camera.y;
+    drawAtlas("scholar", x - 11, y - 25, 50, 48);
+    label(npc.name.split(" ")[0], x - 14, y - 36, 72);
+  }
+
+  function drawPlayer() {
+    const p = state.player;
+    const x = p.x - state.camera.x;
+    const y = p.y - state.camera.y;
+    const keyName = dirs[p.dir] ? dirs[p.dir].key : "playerFront";
+    drawAtlas(keyName, x - 13, y - 28 + (p.moving ? Math.sin(p.step * Math.PI * 4) * 2 : 0), 42, 54);
+  }
+
+  function label(text, x, y, width) {
+    ctx.fillStyle = "rgba(7, 21, 12, .82)";
+    ctx.fillRect(x, y, width, 15);
+    ctx.fillStyle = "#edf987";
+    ctx.font = "9px Courier New";
+    ctx.fillText(text.toUpperCase().slice(0, 18), x + 4, y + 11);
+  }
+
+  function drawWorldOverlay() {
+    if (state.mode === "overworld" && nearestInteraction()) {
+      ctx.fillStyle = "rgba(7, 21, 12, .86)";
+      ctx.fillRect(view.w / 2 - 94, view.h - 58, 188, 26);
+      ctx.strokeStyle = "#c9ef41";
+      ctx.strokeRect(view.w / 2 - 94, view.h - 58, 188, 26);
+      ctx.fillStyle = "#edf987";
+      ctx.font = "12px Courier New";
+      ctx.fillText("A: TALK / ENTER", view.w / 2 - 70, view.h - 40);
+    }
+  }
+
+  function renderBattle() {
+    const battle = state.battle;
+    if (!battle) return;
+    const t = performance.now() / 1000;
+    const w = view.w;
+    const h = view.h;
+    const portrait = h > w;
+    const uiReserve = portrait ? Math.min(250, h * .31) : Math.min(170, h * .24);
+    const fieldH = Math.max(270, h - uiReserve);
+    const skyH = Math.max(118, fieldH * .42);
+    const heroBaseX = portrait ? w * .28 : w * .25;
+    const heroBaseY = portrait ? fieldH * .68 : fieldH * .66;
+    const enemyBaseX = portrait ? w * .72 : w * .72;
+    const enemyBaseY = portrait ? fieldH * .30 : fieldH * .32;
+    const heroW = clamp(w * (portrait ? .26 : .18), 88, 216);
+    const enemyW = clamp(w * (portrait ? .28 : .18), 100, 224);
+    const cardW = clamp(w * (portrait ? .33 : .28), 122, 270);
+    const cardH = portrait ? 78 : 62;
+    battle.layout = { heroX: heroBaseX, heroY: heroBaseY, enemyX: enemyBaseX, enemyY: enemyBaseY };
+    ctx.fillStyle = "#c9ef41";
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = "#9bc40f";
+    ctx.fillRect(0, skyH, w, fieldH - skyH);
+    ctx.fillStyle = "rgba(15,56,15,.24)";
+    ctx.beginPath();
+    ctx.ellipse(heroBaseX, heroBaseY + heroW * .46, heroW * .9, heroW * .22, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(enemyBaseX, enemyBaseY + enemyW * .58, enemyW * .82, enemyW * .2, 0, 0, Math.PI * 2);
+    ctx.fill();
+    drawBattleCard(battle.enemy, Math.max(12, w * .06), portrait ? 56 : 45, battle.enemyHp, battle.enemyMax, false, cardW, cardH);
+    drawBattleCard(battle.hero, Math.min(w - cardW - 14, w * (portrait ? .55 : .64)), Math.max(150, fieldH - cardH - 14), battle.heroHp, battle.hero.maxHp, true, cardW, cardH);
+    const enemyShake = battle.fx && battle.fx.kind === "enemyHit" ? Math.sin(t * 70) * 8 : 0;
+    const heroShake = battle.fx && battle.fx.kind === "heroHit" ? Math.sin(t * 70) * 8 : 0;
+    drawFigure(battle.enemy, enemyBaseX - enemyW * .48 + enemyShake, enemyBaseY - enemyW * .34, enemyW, enemyW * .75, false);
+    drawFigure(battle.hero, heroBaseX - heroW * .5 + heroShake, heroBaseY - heroW * .36, heroW, heroW * .75, true);
+    drawBattleFx(battle);
+  }
+
+  function drawBattleCard(ally, x, y, hp, maxHp, player, width = 260, height = 62) {
+    ctx.fillStyle = "rgba(201,239,65,.96)";
+    ctx.fillRect(x, y, width, height);
+    ctx.strokeStyle = "#07150c";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(x, y, width, height);
+    ctx.fillStyle = "#07150c";
+    ctx.font = `${width < 160 ? 7 : 9}px Courier New`;
+    ctx.fillText(ally.type.toUpperCase(), x + 10, y + 16);
+    ctx.font = `${width < 160 ? 13 : 18}px Courier New`;
+    ctx.fillText(ally.actualName.toUpperCase(), x + 10, y + (height > 65 ? 43 : 38), width - 20);
+    ctx.fillStyle = "#1f4c1d";
+    const barY = y + height - 16;
+    const barW = width - 24;
+    ctx.fillRect(x + 10, barY, barW, 8);
+    ctx.fillStyle = hp / maxHp < .3 ? "#ff6a8d" : player ? "#75f4ff" : "#07150c";
+    ctx.fillRect(x + 10, barY, Math.max(0, barW * hp / maxHp), 8);
+  }
+
+  function drawBattleFx(battle) {
+    if (!battle.fx) return;
+    const t = (performance.now() % 900) / 900;
+    const color = battle.fx.color || "#edf987";
+    const layout = battle.layout || { heroX: view.w * .25, heroY: view.h * .58, enemyX: view.w * .72, enemyY: view.h * .3 };
+    ctx.save();
+    ctx.fillStyle = color;
+    ctx.strokeStyle = "#07150c";
+    ctx.lineWidth = 4;
+    if (battle.fx.kind === "hero") {
+      const x = layout.heroX + t * (layout.enemyX - layout.heroX);
+      const y = layout.heroY + t * (layout.enemyY - layout.heroY);
+      ctx.beginPath();
+      ctx.arc(x, y, 18 + Math.sin(t * Math.PI) * 16, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    } else if (battle.fx.kind === "enemy") {
+      const x = layout.enemyX + t * (layout.heroX - layout.enemyX);
+      const y = layout.enemyY + t * (layout.heroY - layout.enemyY);
+      ctx.beginPath();
+      ctx.arc(x, y, 18 + Math.sin(t * Math.PI) * 16, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    } else if (/Hit/.test(battle.fx.kind)) {
+      const x = battle.fx.kind === "enemyHit" ? layout.enemyX : layout.heroX;
+      const y = battle.fx.kind === "enemyHit" ? layout.enemyY : layout.heroY;
+      for (let i = 0; i < 10; i += 1) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate((Math.PI * 2 / 10) * i);
+        ctx.fillRect(10, -3, 42 * (1 - t), 6);
+        ctx.restore();
+      }
+    } else if (battle.fx.kind === "capsule" || battle.fx.kind === "victory") {
+      ctx.beginPath();
+      ctx.arc(layout.enemyX, layout.enemyY, 18 + t * 82, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(layout.enemyX, layout.enemyY, 40 + t * 90, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function actionButton() {
+    if (state.mode === "overworld") {
+      const target = nearestInteraction();
+      if (target) openDialogue(target);
+    } else if (state.mode === "dialogue") {
+      const first = els.dialogueActions.querySelector("button");
+      if (first) first.click();
+    }
+  }
+
+  function cancelButton() {
+    if (state.mode === "dialogue") closeDialogue();
+    else if (state.mode === "menu") closeMenu();
+    else if (state.mode === "quest") closeQuest();
+    else if (state.mode === "battle" && state.battle && !state.battle.locked) {
+      state.battle.menu = "root";
+      renderBattleActions();
+    }
+  }
+
+  function bindEvents() {
+    window.addEventListener("keydown", (event) => {
+      const map = { ArrowUp: "up", w: "up", W: "up", ArrowDown: "down", s: "down", S: "down", ArrowLeft: "left", a: "left", A: "left", ArrowRight: "right", d: "right", D: "right" };
+      if (map[event.key]) {
+        state.keys.add(map[event.key]);
+        event.preventDefault();
+      } else if (event.key === " " || event.key === "Enter" || event.key === "e" || event.key === "E") {
+        actionButton();
+        event.preventDefault();
+      } else if (event.key === "Escape" || event.key === "Backspace") {
+        cancelButton();
+        event.preventDefault();
+      } else if (event.key.toLowerCase() === "m") {
+        state.mode === "menu" ? closeMenu() : openMenu();
+      }
+    });
+    window.addEventListener("keyup", (event) => {
+      const map = { ArrowUp: "up", w: "up", W: "up", ArrowDown: "down", s: "down", S: "down", ArrowLeft: "left", a: "left", A: "left", ArrowRight: "right", d: "right", D: "right" };
+      if (map[event.key]) state.keys.delete(map[event.key]);
+    });
+    document.querySelectorAll("[data-dir]").forEach((button) => {
+      const dir = button.dataset.dir;
+      const start = (event) => { event.preventDefault(); state.keys.add(dir); };
+      const end = (event) => { event.preventDefault(); state.keys.delete(dir); };
+      button.addEventListener("pointerdown", start);
+      button.addEventListener("pointerup", end);
+      button.addEventListener("pointercancel", end);
+      button.addEventListener("pointerleave", end);
+    });
+    els.aBtn.addEventListener("click", actionButton);
+    els.bBtn.addEventListener("click", cancelButton);
+    els.startMenuBtn.addEventListener("click", () => state.mode === "menu" ? closeMenu() : openMenu());
+    els.startBtn.addEventListener("click", () => {
+      els.boot.hidden = true;
+      state.mode = "overworld";
+      ensureStarter();
+      updateHud();
+      writeSave();
+    });
+    els.closeMenu.addEventListener("click", closeMenu);
+    els.huntBtn.addEventListener("click", () => { closeMenu(); openBattle(makeAlly(nextQuestion()), false); });
+    els.questBtn.addEventListener("click", () => { closeMenu(); openQuest("Field Menu"); });
+    els.partyBtn.addEventListener("click", () => renderMenu("party"));
+    els.bagBtn.addEventListener("click", () => renderMenu("bag"));
+    els.saveBtn.addEventListener("click", () => { writeSave(); renderMenu("party"); });
+    els.courseSelect.addEventListener("change", () => { fillSets(); applyFilters(); });
+    els.setSelect.addEventListener("change", applyFilters);
+    els.questForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      submitQuest(els.questInput.value);
+    });
+  }
+
+  async function init() {
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("orientationchange", () => setTimeout(resizeCanvas, 80));
+    buildWorld();
+    bindEvents();
+    try {
+      const res = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
+      state.bank = await res.json();
+    } catch {
+      state.bank = { courses: ["All Courses"], setsByCourse: {}, questions: [] };
+    }
+    fillFilters();
+    applyFilters();
+    ensureStarter();
+    updateHud();
+    state.mode = "boot";
+    requestAnimationFrame(loop);
+  }
+
+  init();
+})();

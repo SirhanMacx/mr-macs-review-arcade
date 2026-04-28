@@ -1338,13 +1338,14 @@ function searchable(game) {
   return [game.title, game.subtitle, game.day, game.course, game.subject, game.grade, game.gameType].concat(game.tags || []).join(" ").toLowerCase();
 }
 	function priority(game) {
-	  if (game.id === "archive-cipher") return 0;
-	  if (game.id === "timeline-runner") return 1;
-	  if (game.id === "time-rift-survivors") return 2;
-	  if (game.id === "chrono-defense-infinite") return 3;
-	  if (game.id === "boss-rush-arena") return 4;
-	  if (game.id === "regents-gauntlet") return 5;
-	  if (game.id === "arcade-duel") return 6;
+	  if (game.id === "history-hunters") return 0;
+	  if (game.id === "archive-cipher") return 1;
+	  if (game.id === "timeline-runner") return 2;
+	  if (game.id === "time-rift-survivors") return 3;
+	  if (game.id === "chrono-defense-infinite") return 4;
+	  if (game.id === "boss-rush-arena") return 5;
+	  if (game.id === "regents-gauntlet") return 6;
+	  if (game.id === "arcade-duel") return 7;
 	  if (/AP Psychology Final/i.test(game.title)) return 4;
 	  if (/Cumulative Yearlong|Yearlong Review/i.test(game.title)) return 4;
 	  if (game.gameType.includes("Regents")) return 5;
@@ -1543,7 +1544,7 @@ function render() {
 function gameUrl(file) {
   const url = new URL(file, window.location.href);
   if (!url.searchParams.has("fx")) url.searchParams.set("fx", "lite");
-  if (!url.searchParams.has("arcadeBuild")) url.searchParams.set("arcadeBuild", "20260428-battle-engine");
+  if (!url.searchParams.has("arcadeBuild")) url.searchParams.set("arcadeBuild", "20260428-atlas-quest");
   return url.href;
 }
 

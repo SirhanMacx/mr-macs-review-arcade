@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>History Hunters 2: Atlas Quest</title>
+  <link rel="icon" href="../../assets/history-hunters/recruit-seal.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=20260428-atlas-quest">
+</head>
+<body>
+  <main class="game" id="game">
+    <canvas id="screen" width="960" height="540" aria-label="History Hunters Atlas Quest game screen"></canvas>
+
+    <section class="boot" id="boot">
+      <div class="boot-art"></div>
+      <div class="boot-panel">
+        <span>Mr. Mac's Review Arcade</span>
+        <h1>History Hunters 2</h1>
+        <p>Walk the Atlas Region, collect historical allies, clear review contracts, and build a party for every course.</p>
+        <button id="startBtn" type="button">Start Atlas Quest</button>
+      </div>
+    </section>
+
+    <section class="hud top-hud" id="topHud" aria-label="Game status">
+      <strong id="zoneName">Atlas Region</strong>
+      <span id="partyHud">Party 1</span>
+      <span id="shardHud">0 Shards</span>
+      <span id="courseHud">All Courses</span>
+    </section>
+
+    <section class="dialogue" id="dialogue" hidden>
+      <div>
+        <span id="dialogueKicker">Route</span>
+        <strong id="dialogueTitle">Atlas Guide</strong>
+        <p id="dialogueText">Welcome to the Atlas Region.</p>
+      </div>
+      <div class="dialogue-actions" id="dialogueActions"></div>
+    </section>
+
+    <section class="menu" id="menu" hidden>
+      <header>
+        <span>START</span>
+        <strong>Field Menu</strong>
+        <button id="closeMenu" type="button">Close</button>
+      </header>
+      <label>
+        Course
+        <select id="courseSelect"></select>
+      </label>
+      <label>
+        Unit / Set
+        <select id="setSelect"></select>
+      </label>
+      <div class="menu-grid">
+        <button id="huntBtn" type="button">Start Hunt</button>
+        <button id="questBtn" type="button">Review Contract</button>
+        <button id="partyBtn" type="button">Party</button>
+        <button id="bagBtn" type="button">Bag</button>
+        <button id="saveBtn" type="button">Save</button>
+      </div>
+      <div class="menu-list" id="menuList"></div>
+    </section>
+
+    <section class="battle-ui" id="battleUi" hidden>
+      <div class="battle-log" id="battleLog">A wild echo appeared.</div>
+      <div class="battle-actions" id="battleActions"></div>
+    </section>
+
+    <section class="quest" id="quest" hidden>
+      <header>
+        <span id="questKicker">Review Contract</span>
+        <strong id="questMeta">All Courses</strong>
+      </header>
+      <p id="questPrompt">Loading...</p>
+      <div id="questSource" class="quest-source" hidden></div>
+      <div id="questChoices" class="quest-choices"></div>
+      <form id="questForm">
+        <input id="questInput" autocomplete="off" placeholder="Type answer">
+        <button type="submit">Submit</button>
+      </form>
+      <p id="questFeedback"></p>
+    </section>
+
+    <div class="pad" id="pad" aria-label="Touch controls">
+      <div class="dpad">
+        <button data-dir="up" aria-label="Move up">▲</button>
+        <button data-dir="left" aria-label="Move left">◀</button>
+        <button data-dir="right" aria-label="Move right">▶</button>
+        <button data-dir="down" aria-label="Move down">▼</button>
+      </div>
+      <div class="buttons">
+        <button id="aBtn" type="button">A</button>
+        <button id="bBtn" type="button">B</button>
+        <button id="startMenuBtn" type="button">START</button>
+      </div>
+    </div>
+  </main>
+  <script src="../../assets/arcade-analytics.js"></script>
+  <script src="game.js?v=20260428-atlas-quest"></script>
+</body>
+</html>

@@ -90,14 +90,16 @@ The live site is built from static files:
 - `assets/`
 - `games/`
 
+The flagship RPG entry currently launches `games/history-hunters-2/`, a canvas-based History Hunters rebuild with tile movement, NPCs and buildings, course filters, turn-based historical figure battles, party/items/save, and review contracts powered by the shared question library.
+
 When new games are added or curriculum folders change, rebuild the arcade package, sync the updated files into this repo, commit, and push to `main`. GitHub Pages republishes automatically.
 
 Recommended quality gate before publishing:
 
 - Run `python3 scripts/validate_arcade.py`
 - Open `index.html` locally (or via GitHub Pages) and sanity-check:
+  - History Hunters 2: Atlas Quest
   - Boss Rush Arena
-  - History Hunters
   - Chrono Defense Infinite
   - Regents Gauntlet
   - Arcade Duel
