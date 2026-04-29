@@ -1448,7 +1448,13 @@ const LANES = [
   { id: "quick", label: "Quick Play" },
   { id: "regents", label: "Regents" },
   { id: "ap", label: "AP" },
-  { id: "grades", label: "Grades 5-11" },
+  { id: "grade-5", label: "Grade 5" },
+  { id: "grade-6", label: "Grade 6" },
+  { id: "grade-7", label: "Grade 7" },
+  { id: "grade-8", label: "Grade 8" },
+  { id: "grade-9", label: "Grade 9" },
+  { id: "grade-10", label: "Grade 10" },
+  { id: "grade-11", label: "Grade 11" },
   { id: "writing", label: "Writing" }
 ];
 
@@ -1536,7 +1542,10 @@ function laneMatches(game) {
   if (state.lane === "quick") return isQuickPlay(game);
   if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing/i.test(text) || ["regents-practice-exam", "regents-gauntlet", "source-sprint"].includes(game.id);
   if (state.lane === "ap") return /^AP\b/.test(game.course || "") || /\bAP\b/.test(text);
-  if (state.lane === "grades") return /^Grade\b/.test(game.course || "") || /grade [5-9]|grade 10|grade 11/i.test(text);
+  if (state.lane.startsWith("grade-")) {
+    const grade = state.lane.replace("grade-", "");
+    return String(game.grade || "") === grade || new RegExp("\\bgrade\\s+" + grade + "\\b", "i").test(game.course || "");
+  }
   if (state.lane === "writing") return /essay|writing|short answer|long answer|crq|constructed response|document|enduring issue/i.test(text) || game.id === "regents-practice-exam";
   return true;
 }
