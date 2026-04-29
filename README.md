@@ -7,6 +7,7 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 ## What Is Included
 
 - 172 browser-playable review games
+- Regents Practice Exam, a timed full-exam simulator with expandable/zoomable source inspection, 28 released-bank MCQs, CRQs, essay practice, approximate scoring, writing guide position, and conversion-chart estimate
 - Archive Cipher, a generated-art review Wordle-style term decoder with course filters, unit filters, animated tile feedback, hints, and explanations from the full review library
 - History Hunters, an original all-courses retro handheld social studies RPG with route walking, course-type battles, historical figure companion lines, answer-powered moves, capture capsules, and evolution stages
 - Chrono Pinball, a full-library arcade pinball table with course filters, review lock missions, bumpers, lanes, multipliers, ball save, and multiball
@@ -115,8 +116,8 @@ Question-bank maintenance:
 
 ## Game Queue
 
-- After the Regents Rally rebuild: add a larger stimulus inspection option to the Regents Practice Exam so students can expand/zoom documents and stimulus images before answering.
-- Then: build a 2D social-studies side-scroller with multiple levels, generated platformer art, enemies/obstacles based on historical themes, and powerups gated behind review questions.
+- Next: build a 2D social-studies side-scroller with multiple levels, generated platformer art, enemies/obstacles based on historical themes, and powerups gated behind review questions.
+- Then: rebuild Regents Rally from scratch as a true kart racer with tighter controls, real-feeling acceleration/drift, proper animations, and higher-end generated assets.
 
 ## Traffic Counter
 
