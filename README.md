@@ -117,7 +117,8 @@ Question-bank maintenance:
 
 ## Game Queue
 
-- Next: rebuild Regents Rally from scratch as a true kart racer with tighter controls, real-feeling acceleration/drift, proper animations, and higher-end generated assets.
+- Next: audit and repair U.S. History practice exam stimulus matching so every MCQ, CRQ, and Civic Literacy document uses the correct source crop or clearly shows when no crop is available.
+- Then: rebuild Regents Rally from scratch as a true kart racer with tighter controls, real-feeling acceleration/drift, proper animations, and higher-end generated assets.
 
 ## Traffic Counter
 
