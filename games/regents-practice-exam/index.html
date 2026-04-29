@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Regents Practice Exam - Mr. Mac's Review Arcade</title>
+<link rel="stylesheet" href="styles.css?v=20260428-exam1">
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="../../index.html" aria-label="Back to arcade">
+      <span class="brand-mark"></span>
+      <span><small>Mr. Mac's Arcade</small><strong>Regents Practice Exam</strong></span>
+    </a>
+    <div class="timer-strip" id="timerStrip"></div>
+  </header>
+
+  <section class="screen setup active" id="setupScreen">
+    <div class="hero">
+      <div>
+        <div class="kicker">Full exam practice</div>
+        <h1>Regents Practice Exam</h1>
+        <p>Released-question MCQs, timed writing, approximate scoring, and next-step comments for Global History II and U.S. History.</p>
+      </div>
+      <div class="metrics" id="setupMetrics"></div>
+    </div>
+    <section class="panel setup-panel">
+      <div class="panel-head">
+        <span>Exam Builder</span>
+        <h2>Start A Practice Test</h2>
+      </div>
+      <div class="form-grid">
+        <label>Course<select id="courseSelect"></select></label>
+        <label>Timer<select id="timerSelect">
+          <option value="180" selected>Full 3-hour exam</option>
+          <option value="120">2-hour practice</option>
+          <option value="90">90-minute sprint</option>
+          <option value="0">Untimed</option>
+        </select></label>
+      </div>
+      <div class="exam-preview" id="examPreview"></div>
+      <div class="actions">
+        <button class="btn primary" id="startBtn" type="button">Start Exam</button>
+        <button class="btn" id="resumeBtn" type="button">Resume Saved Exam</button>
+      </div>
+    </section>
+  </section>
+
+  <section class="screen exam" id="examScreen">
+    <nav class="section-tabs" id="sectionTabs"></nav>
+    <section class="exam-layout">
+      <aside class="exam-status">
+        <div class="status-tile"><span>Overall Time</span><strong id="overallClock">--:--</strong></div>
+        <div class="status-tile"><span>Section Pace</span><strong id="sectionClock">--:--</strong></div>
+        <div class="status-tile"><span>Answered</span><strong id="answeredCount">0 / 28</strong></div>
+        <div class="status-tile"><span>Writing</span><strong id="writingCount">0 / 3</strong></div>
+        <div class="mini-map" id="questionMap"></div>
+        <button class="btn danger" id="submitBtn" type="button">Submit For Score</button>
+      </aside>
+
+      <section class="work-surface">
+        <div class="work-head">
+          <div>
+            <span id="sectionKicker">Part I</span>
+            <h2 id="sectionTitle">Multiple Choice</h2>
+          </div>
+          <div class="work-actions" id="workActions"></div>
+        </div>
+        <div id="workArea"></div>
+      </section>
+    </section>
+  </section>
+
+  <section class="screen results" id="resultsScreen">
+    <section class="summary-card">
+      <div class="kicker">Practice score report</div>
+      <h1 id="resultTitle">Results</h1>
+      <div class="metrics result-metrics" id="resultMetrics"></div>
+      <div class="result-grid">
+        <section>
+          <h2>Comments To Improve</h2>
+          <div id="coachComments" class="comment-list"></div>
+        </section>
+        <section>
+          <h2>Study Targets</h2>
+          <div id="studyTargets" class="comment-list"></div>
+        </section>
+      </div>
+      <h2>Question Review</h2>
+      <div class="review-list" id="reviewList"></div>
+      <div class="actions">
+        <button class="btn primary" id="newExamBtn" type="button">Build Another Exam</button>
+        <button class="btn" id="reviewWritingBtn" type="button">Review Writing</button>
+      </div>
+    </section>
+  </section>
+</main>
+<script src="../../assets/arcade-analytics.js"></script>
+<script type="module" src="game.js?v=20260428-exam1"></script>
+</body>
+</html>
