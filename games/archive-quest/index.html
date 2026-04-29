@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#08111f">
+  <title>Archive Quest - Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css?v=20260429-quest2">
+</head>
+<body>
+  <main class="quest-shell" id="app">
+    <canvas id="gameCanvas" aria-label="Archive Quest platformer canvas"></canvas>
+
+    <section class="top-hud" aria-label="Game status">
+      <a class="brand" href="../../index.html" aria-label="Back to arcade">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span><strong>Archive Quest</strong><small>Sourcebound platformer</small></span>
+      </a>
+      <div class="hud-stats">
+        <div><strong id="score">0</strong><span>score</span></div>
+        <div><strong id="levelName">Polis</strong><span>level</span></div>
+        <div><strong id="health">3</strong><span>hearts</span></div>
+        <div><strong id="evidence">0</strong><span>evidence</span></div>
+      </div>
+      <button class="hud-btn" id="pauseBtn" type="button">Pause</button>
+      <button class="hud-btn" id="soundBtn" type="button">Sound On</button>
+    </section>
+
+    <section class="power-strip" aria-label="Powerups">
+      <span id="powerLabel">No powerup</span>
+      <div class="power-meter"><i id="powerFill"></i></div>
+    </section>
+
+    <section class="touch-dock" aria-label="Controls">
+      <button class="dock-btn" id="leftBtn" type="button">Left</button>
+      <button class="dock-btn" id="rightBtn" type="button">Right</button>
+      <button class="dock-btn primary" id="jumpBtn" type="button">Jump</button>
+      <button class="dock-btn" id="dashBtn" type="button">Dash</button>
+    </section>
+
+    <section class="setup-screen show" id="setupScreen" aria-label="Archive Quest setup">
+      <div class="setup-card">
+        <div class="kicker">Master Game</div>
+        <h1>Archive Quest</h1>
+        <p>Run, jump, and answer review gates to unlock powers across three sourcebound platforming levels.</p>
+        <div class="setup-grid">
+          <label><span>Course</span><select id="courseFilter"></select></label>
+          <label><span>Set</span><select id="setFilter"></select></label>
+          <label><span>Start</span><select id="levelFilter"></select></label>
+        </div>
+        <div class="setup-metrics" id="setupMetrics"></div>
+        <div class="actions">
+          <button class="btn" id="fullscreenBtn" type="button">Fullscreen</button>
+          <button class="btn primary" id="startBtn" type="button">Start Quest</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="question-screen" id="questionScreen" aria-label="Review gate">
+      <div class="question-card">
+        <div class="question-top">
+          <span id="questionMeta">Review gate</span>
+          <strong id="questionReward">Powerup locked</strong>
+        </div>
+        <h2 id="questionPrompt">Loading question...</h2>
+        <div class="stimulus-row" id="stimulusRow"></div>
+        <div class="choices" id="choices"></div>
+        <div class="feedback" id="feedback"></div>
+      </div>
+    </section>
+
+    <section class="pause-screen" id="pauseScreen" aria-label="Paused">
+      <div class="setup-card compact">
+        <div class="kicker">Paused</div>
+        <h2>Archive held</h2>
+        <div class="actions">
+          <button class="btn primary" id="resumeBtn" type="button">Resume</button>
+          <button class="btn" id="restartBtn" type="button">Restart</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="end-screen" id="endScreen" aria-label="Quest summary">
+      <div class="setup-card compact">
+        <div class="kicker">Quest Complete</div>
+        <h2 id="endTitle">Archive secured</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <div class="study-targets" id="studyTargets"></div>
+        <div class="actions">
+          <button class="btn" id="setupBtn" type="button">Change Course</button>
+          <button class="btn primary" id="againBtn" type="button">Run Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
+  <script src="game.js?v=20260429-quest5"></script>
+</body>
+</html>
