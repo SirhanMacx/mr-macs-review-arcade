@@ -27,7 +27,7 @@ body {
   z-index: -2;
   background:
     linear-gradient(90deg, rgba(5,8,22,.94), rgba(5,8,22,.28), rgba(5,8,22,.88)),
-    url("rally-key-art.png") center/cover no-repeat;
+    url("rally-64-key-art.png") center/cover no-repeat;
   filter: saturate(1.16) contrast(1.06);
 }
 
@@ -146,7 +146,7 @@ body {
   justify-content: flex-end;
   background:
     linear-gradient(115deg, rgba(6,11,25,.05), rgba(6,11,25,.92)),
-    url("rally-key-art.png") center/cover no-repeat;
+    url("rally-64-key-art.png") center/cover no-repeat;
 }
 
 .hero-panel h1,
@@ -219,7 +219,7 @@ body {
 .portrait {
   height: 126px;
   margin-bottom: 12px;
-  background-image: url("rally-racers.png");
+  background-image: url("rally-64-racers.png");
   background-size: 200% 200%;
   background-position: var(--sprite);
 }
@@ -233,7 +233,7 @@ body {
 .track-art {
   height: 145px;
   margin-bottom: 12px;
-  background-image: linear-gradient(180deg, rgba(5,8,22,.04), rgba(5,8,22,.35)), url("rally-tracks.png");
+  background-image: linear-gradient(180deg, rgba(5,8,22,.04), rgba(5,8,22,.35)), url("rally-64-tracks.png");
   background-size: 100% 100%, 200% 200%;
   background-position: 0 0, var(--track-sprite);
 }
@@ -298,6 +298,7 @@ body {
   min-height: 650px;
   background: #050816;
   touch-action: none;
+  image-rendering: pixelated;
 }
 
 .hud {
@@ -370,6 +371,22 @@ body {
   top: 108px;
   display: flex;
   gap: 8px;
+}
+
+.control-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 18px;
+  max-width: min(430px, calc(100% - 470px));
+  padding: 9px 11px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  background: rgba(5,8,22,.5);
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 850;
+  pointer-events: none;
+  backdrop-filter: blur(12px);
 }
 
 .question-card {
@@ -534,9 +551,20 @@ body {
   }
   .hud > div { padding: 8px; }
   .hud strong { font-size: 20px; }
+  .race-screen.active { min-height: 560px; }
   .race-actions { top: auto; bottom: 94px; right: 8px; }
-  #raceCanvas { height: 520px; min-height: 520px; }
-  .race-meter { left: 8px; right: 8px; bottom: 8px; width: auto; }
+  .control-hint { display: none; }
+  #raceCanvas { height: 500px; min-height: 500px; }
+  .race-meter {
+    left: 8px;
+    right: 8px;
+    bottom: 6px;
+    width: auto;
+    grid-template-columns: 1fr minmax(126px, .7fr);
+    padding: 8px;
+  }
+  .item-button { min-height: 40px; grid-template-columns: 40px 1fr; padding: 8px; }
+  .item-thumb { width: 40px; height: 40px; }
   .question-card { padding: 8px; }
   .question-shell { max-height: calc(100vh - 34px); padding: 12px; }
   .question-shell h2 { font-size: 21px; }
