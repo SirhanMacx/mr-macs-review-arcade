@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Regents Rally: Source Circuit - Mr. Mac's Review Arcade</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="scene-bg" aria-hidden="true"></div>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="../../index.html" aria-label="Back to arcade">
+      <span class="brand-mark">RR</span>
+      <span><small>Mr. Mac's Arcade</small><strong>Regents Rally</strong></span>
+    </a>
+    <div class="top-stats" id="topStats">
+      <span>Character Select</span><span>Source Gates</span><span>Boost Racing</span>
+    </div>
+  </header>
+
+  <section class="screen active" id="characterScreen">
+    <div class="hero-panel">
+      <div class="kicker">Original Kart Review Game</div>
+      <h1>Source Circuit</h1>
+      <p>Pick a social-studies racer, choose a track, then steer through answer gates. Correct answers trigger boosts; misses cause spinouts and instant coaching.</p>
+      <div class="mini-strip">
+        <span>4 racers</span><span>4 tracks</span><span>12 gates</span><span>Regents sources</span>
+      </div>
+    </div>
+    <section class="select-panel">
+      <div class="panel-head">
+        <span>Step 1</span>
+        <h2>Choose Racer</h2>
+      </div>
+      <div class="character-grid" id="characterGrid"></div>
+    </section>
+  </section>
+
+  <section class="screen" id="trackScreen">
+    <section class="select-panel wide">
+      <div class="panel-head">
+        <span>Step 2</span>
+        <h2>Choose Track</h2>
+      </div>
+      <div class="track-grid" id="trackGrid"></div>
+      <div class="actions">
+        <button class="btn ghost" id="backToCharacters" type="button">Back</button>
+      </div>
+    </section>
+  </section>
+
+  <section class="screen race-screen" id="raceScreen">
+    <canvas id="raceCanvas" aria-label="Animated social studies kart race"></canvas>
+    <div class="hud">
+      <div><span>Racer</span><strong id="hudRacer">--</strong></div>
+      <div><span>Lap</span><strong id="hudLap">1/3</strong></div>
+      <div><span>Score</span><strong id="hudScore">0</strong></div>
+      <div><span>Streak</span><strong id="hudStreak">0</strong></div>
+    </div>
+    <aside class="question-card" id="questionCard">
+      <div class="question-meta" id="questionMeta">Loading...</div>
+      <h2 id="questionText">Loading question...</h2>
+      <figure class="source-preview hidden" id="sourcePreview">
+        <img id="sourceImage" alt="Source stimulus">
+        <figcaption id="sourceCaption">Source</figcaption>
+      </figure>
+      <div class="timer"><i id="timerBar"></i></div>
+      <div class="feedback" id="feedback">Use A-D, arrow keys, or tap an answer gate.</div>
+    </aside>
+    <div class="answer-dock" id="answerDock"></div>
+    <div class="race-actions">
+      <button class="mini-btn" id="pauseBtn" type="button">Pause</button>
+      <button class="mini-btn" id="quitBtn" type="button">Quit</button>
+    </div>
+  </section>
+
+  <section class="screen" id="resultsScreen">
+    <section class="result-card">
+      <div class="kicker">Race Complete</div>
+      <h1 id="resultTitle">Podium Finish</h1>
+      <div class="result-grid" id="resultGrid"></div>
+      <p id="coachText"></p>
+      <div class="actions">
+        <button class="btn primary" id="againBtn" type="button">Race Again</button>
+        <a class="btn ghost" href="../../index.html">Arcade Home</a>
+      </div>
+    </section>
+  </section>
+</main>
+<script src="../../assets/arcade-analytics.js"></script>
+<script type="module" src="game.js"></script>
+</body>
+</html>
