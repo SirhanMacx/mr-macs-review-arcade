@@ -7,6 +7,7 @@ const CHARACTERS = [
     emblem: "A",
     accent: "#66e9ff",
     body: "#174a76",
+    sprite: "0% 0%",
     stats: { speed: 7, handling: 8, boost: 6 },
     perk: "Extra source time"
   },
@@ -18,6 +19,7 @@ const CHARACTERS = [
     emblem: "M",
     accent: "#ffd15c",
     body: "#8b5b15",
+    sprite: "100% 0%",
     stats: { speed: 8, handling: 6, boost: 7 },
     perk: "Sharper lane control"
   },
@@ -29,6 +31,7 @@ const CHARACTERS = [
     emblem: "R",
     accent: "#64f0aa",
     body: "#167052",
+    sprite: "0% 100%",
     stats: { speed: 6, handling: 7, boost: 9 },
     perk: "Longer boost chains"
   },
@@ -40,6 +43,7 @@ const CHARACTERS = [
     emblem: "D",
     accent: "#ff5f9f",
     body: "#7e1d4d",
+    sprite: "100% 100%",
     stats: { speed: 8, handling: 7, boost: 6 },
     perk: "Faster recovery"
   }
@@ -54,6 +58,7 @@ const TRACKS = [
     accent: "#66e9ff",
     theme: "regents",
     pool: "source",
+    sprite: "0% 0%",
     laps: 3
   },
   {
@@ -64,6 +69,7 @@ const TRACKS = [
     accent: "#ffd15c",
     theme: "liberty",
     pool: "us",
+    sprite: "100% 0%",
     laps: 3
   },
   {
@@ -74,6 +80,7 @@ const TRACKS = [
     accent: "#64f0aa",
     theme: "global",
     pool: "global",
+    sprite: "0% 100%",
     laps: 3
   },
   {
@@ -84,6 +91,7 @@ const TRACKS = [
     accent: "#ff5f9f",
     theme: "ap",
     pool: "ap",
+    sprite: "100% 100%",
     laps: 3
   }
 ];
@@ -119,6 +127,19 @@ const els = {
 };
 
 const ctx = els.canvas.getContext("2d");
+
+function loadAsset(src) {
+  const image = new Image();
+  image.src = src;
+  return image;
+}
+
+const ASSETS = {
+  keyArt: loadAsset("rally-key-art.png"),
+  racers: loadAsset("rally-racers.png"),
+  tracks: loadAsset("rally-tracks.png")
+};
+
 const state = {
   banks: null,
   character: CHARACTERS[0],
@@ -184,7 +205,7 @@ function showScreen(screen) {
 function renderCharacters() {
   els.characterGrid.innerHTML = CHARACTERS.map((racer) => `
     <button class="racer-card" type="button" style="--accent:${racer.accent}" data-id="${racer.id}">
-      <div class="portrait"><span>${escapeHtml(racer.emblem)}</span></div>
+      <div class="portrait" aria-hidden="true" style="--sprite:${racer.sprite}"></div>
       <h3>${escapeHtml(racer.name)}</h3>
       <p><strong>${escapeHtml(racer.role)}</strong><br>${escapeHtml(racer.vehicle)} · ${escapeHtml(racer.perk)}</p>
       <div class="stat-grid">
@@ -205,8 +226,8 @@ function renderCharacters() {
 
 function renderTracks() {
   els.trackGrid.innerHTML = TRACKS.map((track) => `
-    <button class="track-card" type="button" style="--accent:${track.accent};--glyph:'${track.glyph}'" data-id="${track.id}">
-      <div class="track-art" aria-hidden="true"><span>${escapeHtml(track.glyph)}</span></div>
+    <button class="track-card" type="button" style="--accent:${track.accent};--track-sprite:${track.sprite}" data-id="${track.id}">
+      <div class="track-art" aria-hidden="true"></div>
       <h3>${escapeHtml(track.title)}</h3>
       <p>${escapeHtml(track.subtitle)}</p>
       <div class="stat-grid">
@@ -539,6 +560,7 @@ function drawSky(w, h, now) {
   g.addColorStop(1, "#050816");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, w, h);
+  drawTrackBackdrop(w, h);
   ctx.fillStyle = accent;
   ctx.globalAlpha = 0.16;
   ctx.beginPath();
@@ -546,6 +568,21 @@ function drawSky(w, h, now) {
   ctx.fill();
   ctx.globalAlpha = 1;
   drawBackdropObjects(w, h, accent);
+}
+
+function drawTrackBackdrop(w, h) {
+  if (!ASSETS.tracks.complete || !ASSETS.tracks.naturalWidth) return;
+  ctx.save();
+  ctx.globalAlpha = 0.34;
+  drawSpriteCover(ASSETS.tracks, state.track.sprite, 0, 0, w, h * 0.52);
+  ctx.globalAlpha = 1;
+  const veil = ctx.createLinearGradient(0, 0, 0, h * 0.58);
+  veil.addColorStop(0, "rgba(5,8,22,.18)");
+  veil.addColorStop(0.58, "rgba(5,8,22,.32)");
+  veil.addColorStop(1, "rgba(5,8,22,.88)");
+  ctx.fillStyle = veil;
+  ctx.fillRect(0, 0, w, h * 0.58);
+  ctx.restore();
 }
 
 function drawBackdropObjects(w, h, accent) {
@@ -685,7 +722,7 @@ function drawKart(w, h) {
   const handling = 0.045 + state.character.stats.handling * 0.006;
   state.kartX += (laneTarget - state.kartX) * handling;
   const x = w / 2 + state.kartX;
-  const y = h - 94;
+  const y = h - 185;
   const scale = Math.max(0.82, Math.min(1.25, w / 1120));
   if (state.boost > 0.15) {
     const [, , accent] = themeColors();
@@ -729,6 +766,7 @@ function drawMiniKart(x, y, scale, racer) {
   ctx.fillStyle = racer.accent;
   roundRect(-36, -38, 72, 46, 18);
   ctx.fill();
+  drawRacerSprite(racer, -39, -59, 78, 72, 16);
   ctx.fillStyle = "#050816";
   ctx.beginPath();
   ctx.arc(-44, 42, 18, 0, Math.PI * 2);
@@ -765,20 +803,57 @@ function drawHeroKart(x, y, scale, racer) {
   ctx.fillStyle = g;
   roundRect(-68, -86, 136, 94, 34);
   ctx.fill();
-  ctx.fillStyle = "rgba(255,255,255,.38)";
-  roundRect(-42, -60, 84, 34, 16);
-  ctx.fill();
-  ctx.fillStyle = "#07101c";
-  ctx.font = "900 44px Inter, sans-serif";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(racer.emblem, 0, -2);
+  drawRacerSprite(racer, -72, -100, 144, 110, 32);
   ctx.fillStyle = racer.accent;
   roundRect(-82, 12, 164, 34, 12);
   ctx.fill();
   ctx.fillStyle = "#07101c";
   ctx.font = "900 18px Inter, sans-serif";
   ctx.fillText(racer.vehicle.toUpperCase().slice(0, 14), 0, 31);
+  ctx.restore();
+}
+
+function spriteRect(image, sprite) {
+  if (!image.complete || !image.naturalWidth) return null;
+  const halfW = image.naturalWidth / 2;
+  const halfH = image.naturalHeight / 2;
+  const col = String(sprite).startsWith("100") ? 1 : 0;
+  const row = String(sprite).endsWith("100%") ? 1 : 0;
+  return { sx: col * halfW, sy: row * halfH, sw: halfW, sh: halfH };
+}
+
+function drawSpriteCover(image, sprite, x, y, width, height) {
+  const rect = spriteRect(image, sprite);
+  if (!rect) return false;
+  const sourceRatio = rect.sw / rect.sh;
+  const targetRatio = width / height;
+  let sx = rect.sx;
+  let sy = rect.sy;
+  let sw = rect.sw;
+  let sh = rect.sh;
+  if (sourceRatio > targetRatio) {
+    sw = sh * targetRatio;
+    sx += (rect.sw - sw) / 2;
+  } else {
+    sh = sw / targetRatio;
+    sy += (rect.sh - sh) / 2;
+  }
+  ctx.drawImage(image, sx, sy, sw, sh, x, y, width, height);
+  return true;
+}
+
+function drawRacerSprite(racer, x, y, width, height, radius) {
+  if (!ASSETS.racers.complete || !ASSETS.racers.naturalWidth) return;
+  ctx.save();
+  roundRect(x, y, width, height, radius);
+  ctx.clip();
+  drawSpriteCover(ASSETS.racers, racer.sprite, x, y, width, height);
+  const shine = ctx.createLinearGradient(x, y, x + width, y + height);
+  shine.addColorStop(0, "rgba(255,255,255,.2)");
+  shine.addColorStop(0.48, "rgba(255,255,255,0)");
+  shine.addColorStop(1, "rgba(0,0,0,.28)");
+  ctx.fillStyle = shine;
+  ctx.fillRect(x, y, width, height);
   ctx.restore();
 }
 
