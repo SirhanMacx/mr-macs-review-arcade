@@ -67,7 +67,13 @@ def check_jeopardy_boards() -> list[str]:
         r"labor policy reference|receipts and outlays|current population survey|"
         r"sop\s*(?:\u2014|-)|economic data graph|\bconcept \d$|focus \d|"
         r"VOCABULARY Term Definition|Front-Load|CLASS DEMOGRAPHICS|key content for|"
-        r"find the policy move|monetary policy source|competition policy guide",
+        r"find the policy move|monetary policy source|competition policy guide|"
+        r"Key term students should use|Final Content|specific cause, effect, or evidence point|"
+        r"This (?:foundational|higher-level|challenge-level) review term belongs to|"
+        r"\bbelongs to\b.*\btested in\b|anchor for|Connect it to the unit|"
+        r"This content term describes|"
+        r"it matters for .*? because it helps explain a larger pattern or turning point|"
+        r"Exchange network that moved goods, people, technology, and ideas across regions",
         re.IGNORECASE,
     )
     for path in sorted(ROOT.glob("games/**/*.html")):
@@ -97,6 +103,18 @@ def check_jeopardy_boards() -> list[str]:
                 combined = " ".join(str(clue.get(field, "")) for field in ("answer", "clue", "explanation"))
                 if bad_text.search(combined):
                     errors.append(f"{path.relative_to(ROOT)}: generated filler leaked into clue {clue.get('answer')!r}")
+        final = game.get("final") or {}
+        final_combined = " ".join(str(final.get(field, "")) for field in ("category", "clue", "explanation"))
+        if bad_text.search(final_combined):
+            errors.append(f"{path.relative_to(ROOT)}: generated filler leaked into final wager {final.get('answer')!r}")
+    bank_path = ROOT / "data" / "chrono-defense-bank.json"
+    bank = load_json(bank_path)
+    for question in bank.get("questions", []):
+        if not str(question.get("type", "")).startswith("jeopardy"):
+            continue
+        combined = " ".join(str(question.get(field, "")) for field in ("category", "prompt", "explanation"))
+        if bad_text.search(combined):
+            errors.append(f"data/chrono-defense-bank.json: generated filler leaked into bank item {question.get('id')!r}")
     return errors
 
 

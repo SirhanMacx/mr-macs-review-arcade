@@ -415,7 +415,8 @@ h1 {
   70% { transform: translateX(42%); opacity: .82; }
 }
 .board {
-  min-width: 940px;
+  width: 100%;
+  min-width: min(940px, 100%);
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
