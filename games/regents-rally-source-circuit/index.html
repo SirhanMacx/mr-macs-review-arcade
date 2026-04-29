@@ -16,7 +16,7 @@
       <span><small>Mr. Mac's Arcade</small><strong>Regents Rally</strong></span>
     </a>
     <div class="top-stats" id="topStats">
-      <span>Character Select</span><span>Source Gates</span><span>Boost Racing</span>
+      <span>Character Select</span><span>Item Questions</span><span>Grand Prix</span>
     </div>
   </header>
 
@@ -24,9 +24,9 @@
     <div class="hero-panel">
       <div class="kicker">Original Kart Review Game</div>
       <h1>Source Circuit</h1>
-      <p>Pick a social-studies racer, choose a track, then steer through answer gates. Correct answers trigger boosts; misses cause spinouts and instant coaching.</p>
+      <p>Race first. Grab item cubes, answer a Regents question to unlock the item, then fire boosts, shields, and attacks at the field.</p>
       <div class="mini-strip">
-        <span>4 racers</span><span>4 tracks</span><span>12 gates</span><span>Regents sources</span>
+        <span>4 racers</span><span>4 tracks</span><span>items</span><span>Regents sources</span>
       </div>
     </div>
     <section class="select-panel">
@@ -56,20 +56,29 @@
     <div class="hud">
       <div><span>Racer</span><strong id="hudRacer">--</strong></div>
       <div><span>Lap</span><strong id="hudLap">1/3</strong></div>
+      <div><span>Place</span><strong id="hudPlace">4th</strong></div>
       <div><span>Score</span><strong id="hudScore">0</strong></div>
-      <div><span>Streak</span><strong id="hudStreak">0</strong></div>
     </div>
-    <aside class="question-card" id="questionCard">
-      <div class="question-meta" id="questionMeta">Loading...</div>
-      <h2 id="questionText">Loading question...</h2>
-      <figure class="source-preview hidden" id="sourcePreview">
-        <img id="sourceImage" alt="Source stimulus">
-        <figcaption id="sourceCaption">Source</figcaption>
-      </figure>
-      <div class="timer"><i id="timerBar"></i></div>
-      <div class="feedback" id="feedback">Use A-D, arrow keys, or tap an answer gate.</div>
+    <div class="race-meter">
+      <div class="speed-track"><i id="speedBar"></i></div>
+      <button class="item-button" id="itemBtn" type="button">
+        <span class="item-thumb" id="itemThumb"></span>
+        <strong id="hudItem">Empty</strong>
+      </button>
+    </div>
+    <aside class="question-card hidden" id="questionCard">
+      <div class="question-shell">
+        <div class="question-meta" id="questionMeta">Loading...</div>
+        <h2 id="questionText">Loading question...</h2>
+        <figure class="source-preview hidden" id="sourcePreview">
+          <img id="sourceImage" alt="Source stimulus">
+          <figcaption id="sourceCaption">Source</figcaption>
+        </figure>
+        <div class="timer"><i id="timerBar"></i></div>
+        <div class="answer-dock" id="answerDock"></div>
+        <div class="feedback" id="feedback">Answer to activate the item.</div>
+      </div>
     </aside>
-    <div class="answer-dock" id="answerDock"></div>
     <div class="race-actions">
       <button class="mini-btn" id="pauseBtn" type="button">Pause</button>
       <button class="mini-btn" id="quitBtn" type="button">Quit</button>

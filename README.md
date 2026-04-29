@@ -11,6 +11,7 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - History Hunters, an original all-courses retro handheld social studies RPG with route walking, course-type battles, historical figure companion lines, answer-powered moves, capture capsules, and evolution stages
 - Chrono Pinball, a full-library arcade pinball table with course filters, review lock missions, bumpers, lanes, multipliers, ball save, and multiball
 - Empire Ascendant, a full-library rise-and-fall strategy game with province expansion, city founding, research paths, unlock-gated buildings, wonders, diplomacy, rival relations, era advancement, stability collapse, and review councils
+- Regents Rally, a generated-art social-studies kart racer with character select, themed tracks, rival racers, item cubes, drift boosts, and Regents questions that unlock powerups
 - Timeline Runner, a generated-art endless runner where students dodge archive hazards, collect evidence, and answer by steering through course-filtered answer gates from the full 4,683-prompt review library
 - Time Rift Survivors, a full-library survival arcade game with generated arena art, animated combat, relic upgrades, course filters, stimulus access, and 4,683 review prompts
 - Chrono Defense Infinite, an original endless social-studies tower defense game using the full 4,683-prompt review library
@@ -111,6 +112,11 @@ Question-bank maintenance:
 - Import new Regents MCQ answer-key packets into the shared Gauntlet bank:
   - `python3 scripts/import_regents_mcq_answerkey.py --help`
   - This appends only missing question ids and extracts stimulus crops into `assets/regents-gauntlet-stimuli/`.
+
+## Game Queue
+
+- After the Regents Rally rebuild: add a larger stimulus inspection option to the Regents Practice Exam so students can expand/zoom documents and stimulus images before answering.
+- Then: build a 2D social-studies side-scroller with multiple levels, generated platformer art, enemies/obstacles based on historical themes, and powerups gated behind review questions.
 
 ## Traffic Counter
 

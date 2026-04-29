@@ -4,9 +4,8 @@ const CHARACTERS = [
     name: "Archivist Nova",
     role: "Primary Source Pro",
     vehicle: "Archive Kart",
-    emblem: "A",
     accent: "#66e9ff",
-    body: "#174a76",
+    body: "#1592b6",
     sprite: "0% 0%",
     stats: { speed: 7, handling: 8, boost: 6 },
     perk: "Extra source time"
@@ -16,9 +15,8 @@ const CHARACTERS = [
     name: "Cartographer Cruz",
     role: "Map Master",
     vehicle: "Compass Coupe",
-    emblem: "M",
     accent: "#ffd15c",
-    body: "#8b5b15",
+    body: "#c38a1d",
     sprite: "100% 0%",
     stats: { speed: 8, handling: 6, boost: 7 },
     perk: "Sharper lane control"
@@ -28,9 +26,8 @@ const CHARACTERS = [
     name: "Reformer Rey",
     role: "Movement Builder",
     vehicle: "Petition Racer",
-    emblem: "R",
     accent: "#64f0aa",
-    body: "#167052",
+    body: "#2aa365",
     sprite: "0% 100%",
     stats: { speed: 6, handling: 7, boost: 9 },
     perk: "Longer boost chains"
@@ -40,9 +37,8 @@ const CHARACTERS = [
     name: "Diplomat Vale",
     role: "Treaty Tactician",
     vehicle: "Summit Speedster",
-    emblem: "D",
     accent: "#ff5f9f",
-    body: "#7e1d4d",
+    body: "#bd3b85",
     sprite: "100% 100%",
     stats: { speed: 8, handling: 7, boost: 6 },
     perk: "Faster recovery"
@@ -53,8 +49,7 @@ const TRACKS = [
   {
     id: "source",
     title: "Source Circuit",
-    subtitle: "Regents stimulus MCQs with document billboards and tight answer gates.",
-    glyph: "DBQ",
+    subtitle: "Museum curves, source billboards, item cubes, and Regents stimulus questions.",
     accent: "#66e9ff",
     theme: "regents",
     pool: "source",
@@ -64,8 +59,7 @@ const TRACKS = [
   {
     id: "liberty",
     title: "Liberty Loop",
-    subtitle: "U.S. History, civics, reform movements, amendments, presidents, and court cases.",
-    glyph: "USA",
+    subtitle: "Civics city streets with presidents, amendments, reformers, and court cases.",
     accent: "#ffd15c",
     theme: "liberty",
     pool: "us",
@@ -75,8 +69,7 @@ const TRACKS = [
   {
     id: "silk",
     title: "Silk Road Speedway",
-    subtitle: "Global history, world history, geography, empires, revolutions, and trade routes.",
-    glyph: "MAP",
+    subtitle: "Global history switchbacks through maps, empires, revolutions, and trade routes.",
     accent: "#64f0aa",
     theme: "global",
     pool: "global",
@@ -86,13 +79,47 @@ const TRACKS = [
   {
     id: "apex",
     title: "AP Apex Grand Prix",
-    subtitle: "A high-speed AP review mix across psych, APUSH, world, Euro, gov, econ, and human geo.",
-    glyph: "AP",
+    subtitle: "A neon AP review circuit across psych, APUSH, world, Euro, gov, econ, and geo.",
     accent: "#ff5f9f",
     theme: "ap",
     pool: "ap",
     sprite: "100% 100%",
     laps: 3
+  }
+];
+
+const ITEMS = [
+  {
+    id: "scroll",
+    name: "Archive Boost",
+    short: "Boost",
+    sprite: "0% 0%",
+    color: "#66e9ff",
+    coach: "Correct. Archive Boost launched."
+  },
+  {
+    id: "rocket",
+    name: "Compass Rocket",
+    short: "Rocket",
+    sprite: "100% 0%",
+    color: "#ffd15c",
+    coach: "Correct. Compass Rocket hit the racer ahead."
+  },
+  {
+    id: "shield",
+    name: "Citation Shield",
+    short: "Shield",
+    sprite: "0% 100%",
+    color: "#64f0aa",
+    coach: "Correct. Citation Shield is active."
+  },
+  {
+    id: "burst",
+    name: "Debate Burst",
+    short: "Burst",
+    sprite: "100% 100%",
+    color: "#ff5f9f",
+    coach: "Correct. Debate Burst slowed the field."
   }
 ];
 
@@ -107,8 +134,13 @@ const els = {
   canvas: document.querySelector("#raceCanvas"),
   hudRacer: document.querySelector("#hudRacer"),
   hudLap: document.querySelector("#hudLap"),
+  hudPlace: document.querySelector("#hudPlace"),
   hudScore: document.querySelector("#hudScore"),
-  hudStreak: document.querySelector("#hudStreak"),
+  hudItem: document.querySelector("#hudItem"),
+  itemThumb: document.querySelector("#itemThumb"),
+  itemBtn: document.querySelector("#itemBtn"),
+  speedBar: document.querySelector("#speedBar"),
+  questionCard: document.querySelector("#questionCard"),
   questionMeta: document.querySelector("#questionMeta"),
   questionText: document.querySelector("#questionText"),
   sourcePreview: document.querySelector("#sourcePreview"),
@@ -127,6 +159,9 @@ const els = {
 };
 
 const ctx = els.canvas.getContext("2d");
+const keys = new Set();
+const TRACK_LENGTH = 5400;
+const VISIBLE_RANGE = 1150;
 
 function loadAsset(src) {
   const image = new Image();
@@ -137,7 +172,8 @@ function loadAsset(src) {
 const ASSETS = {
   keyArt: loadAsset("rally-key-art.png"),
   racers: loadAsset("rally-racers.png"),
-  tracks: loadAsset("rally-tracks.png")
+  tracks: loadAsset("rally-tracks.png"),
+  items: loadAsset("rally-items.png")
 };
 
 const state = {
@@ -147,24 +183,39 @@ const state = {
   pool: [],
   cursor: 0,
   current: null,
-  selected: 0,
-  total: 12,
-  answered: 0,
-  correct: 0,
-  score: 0,
-  streak: 0,
   running: false,
   paused: false,
+  quizOpen: false,
   resolved: false,
-  deadline: 0,
-  answerSeconds: 15,
   distance: 0,
   speed: 0,
+  lane: 0,
+  laneVel: 0,
+  driftCharge: 0,
+  drifting: false,
   boost: 0,
-  shake: 0,
-  spark: 0,
-  kartX: 0,
+  shield: 0,
+  spin: 0,
+  hitFlash: 0,
+  item: null,
+  itemBoxes: [],
+  rivals: [],
+  particles: [],
+  score: 0,
+  correct: 0,
+  attempts: 0,
+  streak: 0,
+  maxStreak: 0,
+  place: 4,
+  lap: 1,
+  selected: 0,
+  answerSeconds: 16,
+  deadline: 0,
+  finishTime: 0,
+  startedAt: 0,
   lastFrame: 0,
+  toast: "",
+  toastTime: 0,
   dpr: 1
 };
 
@@ -190,6 +241,15 @@ function uniq(values) {
   return [...new Set(values.filter(Boolean))];
 }
 
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function ordinal(value) {
+  const suffix = value === 1 ? "st" : value === 2 ? "nd" : value === 3 ? "rd" : "th";
+  return `${value}${suffix}`;
+}
+
 function cleanPrompt(prompt) {
   return String(prompt || "Choose the best answer.")
     .replace(/^Final wager:\s*/i, "")
@@ -202,10 +262,15 @@ function showScreen(screen) {
   scrollTo({ top: 0, behavior: "auto" });
 }
 
+function setToast(text, seconds = 1.5) {
+  state.toast = text;
+  state.toastTime = seconds;
+}
+
 function renderCharacters() {
   els.characterGrid.innerHTML = CHARACTERS.map((racer) => `
-    <button class="racer-card" type="button" style="--accent:${racer.accent}" data-id="${racer.id}">
-      <div class="portrait" aria-hidden="true" style="--sprite:${racer.sprite}"></div>
+    <button class="racer-card" type="button" style="--accent:${racer.accent};--sprite:${racer.sprite}" data-id="${racer.id}">
+      <div class="portrait" aria-hidden="true"></div>
       <h3>${escapeHtml(racer.name)}</h3>
       <p><strong>${escapeHtml(racer.role)}</strong><br>${escapeHtml(racer.vehicle)} · ${escapeHtml(racer.perk)}</p>
       <div class="stat-grid">
@@ -232,8 +297,8 @@ function renderTracks() {
       <p>${escapeHtml(track.subtitle)}</p>
       <div class="stat-grid">
         <div class="stat"><b>${track.laps}</b><span>Laps</span></div>
-        <div class="stat"><b>12</b><span>Gates</span></div>
-        <div class="stat"><b>MCQ</b><span>Mode</span></div>
+        <div class="stat"><b>Item</b><span>Questions</span></div>
+        <div class="stat"><b>4</b><span>Racers</span></div>
       </div>
     </button>
   `).join("");
@@ -266,7 +331,7 @@ function sourceBased(question) {
   return Boolean(
     (question.stimulusImages && question.stimulusImages.length) ||
     question.stimulusRequired ||
-    /based on|according to|document|map|cartoon|graph|chart|excerpt|passage|photograph|source/i.test(question.stem || question.prompt || "")
+    /based on|according to|document|map|cartoon|graph|chart|excerpt|passage|photograph|source|illustration/i.test(question.stem || question.prompt || "")
   );
 }
 
@@ -278,7 +343,7 @@ function normalizeRegents(question) {
     prompt: cleanPrompt(question.stem || question.prompt),
     choices,
     correctIndex,
-    explanation: question.explanation || "Review the source and the wording of each answer choice.",
+    explanation: question.explanation || "Review the source, then eliminate the answer choices that overstate or distort it.",
     course: question.course || "Regents Review",
     set: question.set || question.day || "",
     source: question.source || "",
@@ -295,7 +360,7 @@ function normalizeChrono(question, rawPool, globalAnswers) {
         prompt: cleanPrompt(question.stem || question.prompt),
         choices,
         correctIndex,
-        explanation: question.explanation || "",
+        explanation: question.explanation || "Use the wording of the clue to eliminate close distractors.",
         course: question.course || "Review Arcade",
         set: question.set || question.day || "",
         source: question.source || question.category || "",
@@ -339,7 +404,7 @@ function poolForTrack(track) {
     .filter((q) => track.pool === "us" ? /U\.S\.|United States|Grade 11/i.test(q.course || "") : /Global|Grade 10/i.test(q.course || ""))
     .map(normalizeRegents)
     .filter(Boolean);
-  return shuffle([...chrono, ...regents]);
+  return shuffle([...regents, ...chrono]);
 }
 
 function startRace() {
@@ -351,50 +416,103 @@ function startRace() {
   if (!state.pool.length) return;
   state.cursor = 0;
   state.current = null;
-  state.selected = 0;
-  state.total = 12;
-  state.answered = 0;
-  state.correct = 0;
-  state.score = 0;
-  state.streak = 0;
   state.running = true;
   state.paused = false;
+  state.quizOpen = false;
   state.resolved = false;
   state.distance = 0;
-  state.speed = 0;
+  state.speed = 330;
+  state.lane = 0;
+  state.laneVel = 0;
+  state.driftCharge = 0;
+  state.drifting = false;
   state.boost = 0;
-  state.shake = 0;
-  state.spark = 0;
-  state.kartX = 0;
+  state.shield = 0;
+  state.spin = 0;
+  state.hitFlash = 0;
+  state.item = null;
+  state.score = 0;
+  state.correct = 0;
+  state.attempts = 0;
+  state.streak = 0;
+  state.maxStreak = 0;
+  state.place = 4;
+  state.lap = 1;
+  state.finishTime = 0;
+  state.startedAt = performance.now();
+  state.itemBoxes = buildItemBoxes();
+  state.rivals = buildRivals();
+  state.particles = [];
   showScreen(els.raceScreen);
   resizeCanvas();
-  nextQuestion();
+  updateItemHud();
+  updateHud();
+  updateTopStats();
+  setToast("GO", 0.9);
   state.lastFrame = performance.now();
   requestAnimationFrame(tick);
-  updateTopStats();
+}
+
+function buildItemBoxes() {
+  const boxes = [];
+  const lanes = [-0.68, 0, 0.68];
+  let id = 0;
+  for (let distance = 520; distance < TRACK_LENGTH * state.track.laps - 220; distance += 520) {
+    const offset = Math.floor(distance / 520) % lanes.length;
+    boxes.push({ id: id += 1, distance, lane: lanes[offset], item: ITEMS[id % ITEMS.length], taken: false });
+    boxes.push({ id: id += 1, distance: distance + 60, lane: lanes[(offset + 2) % lanes.length], item: ITEMS[id % ITEMS.length], taken: false });
+  }
+  return boxes;
+}
+
+function buildRivals() {
+  return CHARACTERS
+    .filter((racer) => racer.id !== state.character.id)
+    .map((racer, index) => ({
+      racer,
+      distance: 60 + index * 95,
+      lane: [-0.55, 0.18, 0.62][index] || 0,
+      base: 428 + racer.stats.speed * 18 + index * 14,
+      speed: 420 + index * 22,
+      hit: 0,
+      boost: 0
+    }));
 }
 
 function nextQuestion() {
-  if (state.answered >= state.total) {
-    finishRace();
-    return;
-  }
   if (state.cursor >= state.pool.length) {
     state.pool = shuffle(state.pool);
     state.cursor = 0;
   }
   state.current = state.pool[state.cursor];
   state.cursor += 1;
-  state.selected = 0;
+  return state.current;
+}
+
+function openItemQuestion() {
+  if (!state.running || state.paused || state.quizOpen || !state.item) return;
+  const question = nextQuestion();
+  state.quizOpen = true;
   state.resolved = false;
-  state.answerSeconds = state.current.images.length || state.character.id === "archivist" ? 18 : 14;
+  state.selected = 0;
+  state.answerSeconds = question.images.length || state.character.id === "archivist" ? 22 : 16;
   state.deadline = Date.now() + state.answerSeconds * 1000;
   renderQuestion();
+  els.questionCard.classList.remove("hidden");
+  els.questionCard.classList.add("active");
+}
+
+function closeItemQuestion() {
+  state.quizOpen = false;
+  state.current = null;
+  els.questionCard.classList.add("hidden");
+  els.questionCard.classList.remove("active");
+  updateItemHud();
 }
 
 function renderQuestion() {
   const q = state.current;
-  els.questionMeta.textContent = [q.course, q.set, q.source, `Gate ${state.answered + 1}/${state.total}`].filter(Boolean).join(" · ");
+  els.questionMeta.textContent = [state.item.name, q.course, q.set, q.source].filter(Boolean).join(" · ");
   els.questionText.textContent = q.prompt;
   if (q.images.length) {
     els.sourcePreview.classList.remove("hidden");
@@ -405,7 +523,7 @@ function renderQuestion() {
     els.sourceImage.removeAttribute("src");
   }
   els.feedback.className = "feedback";
-  els.feedback.textContent = "Choose the correct gate. Arrow keys steer; A-D or tap answers selects a gate.";
+  els.feedback.textContent = "Answer correctly to activate the item.";
   els.answerDock.innerHTML = q.choices.map((choice, index) => `
     <button class="answer-btn" type="button" data-index="${index}">
       <b>${String.fromCharCode(65 + index)}</b>
@@ -428,70 +546,136 @@ function gradeAnswer(index, timedOut = false) {
   if (state.resolved || !state.current) return;
   state.resolved = true;
   const correct = index === state.current.correctIndex;
-  state.answered += 1;
+  state.attempts += 1;
   if (correct) {
     state.correct += 1;
     state.streak += 1;
-    const boostPoints = Math.min(250, state.streak * 35);
-    state.score += 400 + boostPoints + Math.round(state.character.stats.boost * 12);
-    state.boost = 1.4 + state.character.stats.boost / 18;
-    state.spark = 1;
+    state.maxStreak = Math.max(state.maxStreak, state.streak);
+    state.score += 750 + state.streak * 120;
+    applyItem(state.item);
     els.feedback.className = "feedback good";
-    els.feedback.innerHTML = `<strong>Boost!</strong> Correct gate. ${escapeHtml(state.current.explanation || "Keep the streak alive.")}`;
+    els.feedback.innerHTML = `<strong>${escapeHtml(state.item.coach)}</strong> ${escapeHtml(state.current.explanation || "")}`;
+    setToast(state.item.short.toUpperCase(), 1.2);
   } else {
     state.streak = 0;
-    state.score = Math.max(0, state.score - 75);
-    state.shake = state.character.id === "diplomat" ? 0.55 : 0.9;
+    state.score = Math.max(0, state.score - 150);
+    if (state.shield > 0) {
+      state.shield = Math.max(0, state.shield - 1.2);
+      setToast("SHIELD SAVED IT", 1.1);
+    } else {
+      state.spin = state.character.id === "diplomat" ? 0.55 : 0.95;
+      state.speed *= 0.58;
+      setToast(timedOut ? "TIMEOUT" : "MISFIRE", 1.2);
+    }
     els.feedback.className = "feedback bad";
-    const lead = timedOut ? "Time ran out." : "Spinout.";
-    els.feedback.innerHTML = `<strong>${lead}</strong> Correct gate: ${String.fromCharCode(65 + state.current.correctIndex)}. ${escapeHtml(state.current.explanation || "")}`;
+    const lead = timedOut ? "Time ran out." : "Item fizzled.";
+    els.feedback.innerHTML = `<strong>${lead}</strong> Correct answer: ${String.fromCharCode(65 + state.current.correctIndex)}. ${escapeHtml(state.current.explanation || "")}`;
   }
   els.answerDock.querySelectorAll(".answer-btn").forEach((button, i) => {
     button.classList.toggle("correct", i === state.current.correctIndex);
     button.classList.toggle("wrong", i === index && !correct);
   });
+  state.item = null;
   setTimeout(() => {
-    if (state.running) nextQuestion();
-  }, correct ? 1050 : 1850);
+    if (state.running) closeItemQuestion();
+  }, correct ? 1250 : 2100);
+}
+
+function applyItem(item) {
+  if (!item) return;
+  if (item.id === "scroll") {
+    state.boost = Math.max(state.boost, 3.3 + state.character.stats.boost * 0.14);
+    burstParticles(state.lane, state.character.accent, 24);
+  } else if (item.id === "rocket") {
+    const ahead = state.rivals
+      .filter((rival) => rival.distance > state.distance - 40)
+      .sort((a, b) => a.distance - b.distance)[0] || state.rivals[0];
+    if (ahead) {
+      ahead.hit = 2.9;
+      ahead.speed *= 0.48;
+      ahead.distance = Math.max(0, ahead.distance - 130);
+      burstParticles(ahead.lane, item.color, 28);
+    }
+  } else if (item.id === "shield") {
+    state.shield = 8.5;
+    burstParticles(state.lane, item.color, 20);
+  } else if (item.id === "burst") {
+    state.rivals.forEach((rival) => {
+      rival.hit = Math.max(rival.hit, 2.2);
+      rival.speed *= 0.62;
+    });
+    burstParticles(0, item.color, 38);
+  }
+}
+
+function collectItem(box) {
+  if (box.taken || state.item || state.quizOpen) return;
+  box.taken = true;
+  state.item = ITEMS[Math.floor(Math.random() * ITEMS.length)];
+  state.score += 120;
+  updateItemHud();
+  setToast("ITEM READY", 1.1);
+  burstParticles(box.lane, state.item.color, 16);
+}
+
+function updateItemHud() {
+  if (state.item) {
+    els.hudItem.textContent = state.item.name;
+    els.itemThumb.style.backgroundImage = "url('rally-items.png')";
+    els.itemThumb.style.backgroundPosition = state.item.sprite;
+    els.itemThumb.classList.add("ready");
+    els.itemBtn.disabled = false;
+  } else {
+    els.hudItem.textContent = "Empty";
+    els.itemThumb.style.backgroundImage = "";
+    els.itemThumb.style.backgroundPosition = "";
+    els.itemThumb.classList.remove("ready");
+    els.itemBtn.disabled = true;
+  }
+}
+
+function updateHud() {
+  const total = TRACK_LENGTH * state.track.laps;
+  state.lap = Math.min(state.track.laps, Math.floor(state.distance / TRACK_LENGTH) + 1);
+  state.place = 1 + state.rivals.filter((rival) => rival.distance > state.distance).length;
+  els.hudRacer.textContent = state.character.name.split(" ").pop();
+  els.hudLap.textContent = `${state.lap}/${state.track.laps}`;
+  els.hudPlace.textContent = ordinal(state.place);
+  els.hudScore.textContent = String(Math.max(0, Math.round(state.score)));
+  els.speedBar.style.transform = `scaleX(${clamp(state.speed / 620, 0, 1)})`;
+  if (state.quizOpen && !state.resolved && state.current) {
+    const left = Math.max(0, state.deadline - Date.now());
+    els.timerBar.style.transform = `scaleX(${left / (state.answerSeconds * 1000)})`;
+    if (left <= 0) gradeAnswer(-1, true);
+  }
+  if (state.distance >= total) finishRace();
 }
 
 function finishRace() {
+  if (!state.running) return;
   state.running = false;
-  const accuracy = state.answered ? Math.round((state.correct / state.answered) * 100) : 0;
-  const medal = accuracy >= 90 ? "First Place" : accuracy >= 75 ? "Podium Finish" : accuracy >= 60 ? "Finished the Rally" : "Practice Lap Complete";
-  els.resultTitle.textContent = medal;
+  state.finishTime = (performance.now() - state.startedAt) / 1000;
+  const accuracy = state.attempts ? Math.round((state.correct / state.attempts) * 100) : 0;
+  const title = state.place === 1 ? "First Place" : state.place <= 3 ? "Podium Finish" : "Race Finished";
+  els.resultTitle.textContent = title;
   els.resultGrid.innerHTML = [
-    [state.score, "points"],
-    [`${state.correct}/${state.answered}`, "correct"],
-    [`${accuracy}%`, "accuracy"],
-    [`${state.track.laps}/3`, "laps"]
+    [ordinal(state.place), "place"],
+    [`${state.finishTime.toFixed(1)}s`, "time"],
+    [`${state.correct}/${state.attempts}`, "items"],
+    [`${accuracy}%`, "accuracy"]
   ].map(([big, label]) => `<div><strong>${escapeHtml(big)}</strong><span>${escapeHtml(label)}</span></div>`).join("");
   els.coachText.textContent = accuracy >= 85
-    ? "Strong race. Move to Source Circuit or a full Regents practice exam next."
-    : accuracy >= 65
-      ? "Good base. Replay the same track and read every source caption before choosing a gate."
-      : "Use this as a diagnostic lap. Slow down, read the wording, and replay one track until the misses drop.";
+    ? "Strong item control. Keep racing Source Circuit, then move into the full Regents practice exam."
+    : accuracy >= 60
+      ? "Good racing base. The next jump is reading source captions before firing items."
+      : "Replay one track and use fewer panic items. Correct item questions matter more than raw speed.";
   window.MrMacsAnalytics?.track("game_complete", {
     gameId: "regents-rally-source-circuit",
     title: "Regents Rally: Source Circuit",
     score: accuracy,
-    questions: state.answered
+    questions: state.attempts
   }, { counter: "game-completions" });
   showScreen(els.resultsScreen);
-}
-
-function updateHud() {
-  const lap = Math.min(state.track.laps, Math.floor(state.answered / (state.total / state.track.laps)) + 1);
-  els.hudRacer.textContent = state.character.name.split(" ").pop();
-  els.hudLap.textContent = `${lap}/${state.track.laps}`;
-  els.hudScore.textContent = String(state.score);
-  els.hudStreak.textContent = String(state.streak);
-  if (!state.resolved && state.current) {
-    const left = Math.max(0, state.deadline - Date.now());
-    const pct = left / (state.answerSeconds * 1000);
-    els.timerBar.style.transform = `scaleX(${pct})`;
-    if (left <= 0) gradeAnswer(-1, true);
-  }
 }
 
 function resizeCanvas() {
@@ -506,140 +690,203 @@ function tick(now) {
   if (!state.running) return;
   const dt = Math.min(48, now - state.lastFrame) / 1000;
   state.lastFrame = now;
-  if (!state.paused) {
-    const target = 62 + state.character.stats.speed * 7 + state.boost * 38 - state.shake * 22;
-    state.speed += (target - state.speed) * 0.055;
-    state.distance += state.speed * dt;
-    state.boost = Math.max(0, state.boost - dt * 0.95);
-    state.shake = Math.max(0, state.shake - dt * 1.4);
-    state.spark = Math.max(0, state.spark - dt * 1.2);
+  if (!state.paused && !state.quizOpen) {
+    updateRace(dt);
   }
   updateHud();
-  drawRace(now);
+  drawRace(now, dt);
   requestAnimationFrame(tick);
+}
+
+function updateRace(dt) {
+  const left = keys.has("ArrowLeft") || keys.has("a");
+  const right = keys.has("ArrowRight") || keys.has("d");
+  const accelerate = keys.has("ArrowUp") || keys.has("w");
+  const brake = keys.has("ArrowDown") || keys.has("s");
+  const drift = keys.has(" ") && (left || right) && state.speed > 260;
+  const steer = (right ? 1 : 0) - (left ? 1 : 0);
+  const offroad = Math.max(0, Math.abs(state.lane) - 1.04);
+  const maxSpeed = 306 + state.character.stats.speed * 16 + (accelerate ? 146 : 46) - (brake ? 190 : 0);
+  const boostSpeed = state.boost > 0 ? 138 + state.character.stats.boost * 8 : 0;
+  const targetSpeed = Math.max(120, maxSpeed + boostSpeed - offroad * 185 - state.spin * 240);
+  state.speed += (targetSpeed - state.speed) * (brake ? 0.1 : 0.046);
+  const grip = 1.28 + state.character.stats.handling * 0.13;
+  const driftGrip = drift ? 0.72 : 1;
+  state.laneVel += steer * grip * driftGrip * dt;
+  state.laneVel *= drift ? 0.965 : 0.89;
+  state.lane += state.laneVel * (1.35 + state.speed / 420);
+  if (Math.abs(state.lane) > 1.25) {
+    state.lane = clamp(state.lane, -1.25, 1.25);
+    state.laneVel *= -0.35;
+    state.speed *= 0.985;
+  }
+  if (drift) {
+    state.driftCharge = Math.min(1.8, state.driftCharge + dt);
+    state.drifting = true;
+    if (Math.random() < 0.7) burstParticles(state.lane - steer * 0.18, state.character.accent, 1);
+  } else if (state.drifting) {
+    if (state.driftCharge > 0.55) {
+      state.boost = Math.max(state.boost, 0.7 + state.driftCharge * 0.52);
+      state.score += Math.round(65 * state.driftCharge);
+      setToast("MINI BOOST", 0.7);
+    }
+    state.driftCharge = 0;
+    state.drifting = false;
+  }
+  state.distance += state.speed * dt;
+  state.boost = Math.max(0, state.boost - dt);
+  state.shield = Math.max(0, state.shield - dt);
+  state.spin = Math.max(0, state.spin - dt * 1.7);
+  state.hitFlash = Math.max(0, state.hitFlash - dt);
+  state.toastTime = Math.max(0, state.toastTime - dt);
+  updateRivals(dt);
+  updateItemBoxes();
+  updateParticles(dt);
+  state.score += dt * Math.max(3, state.speed / 34);
+}
+
+function updateRivals(dt) {
+  state.rivals.forEach((rival, index) => {
+    rival.hit = Math.max(0, rival.hit - dt);
+    rival.boost = Math.max(0, rival.boost - dt);
+    const curve = Math.sin(rival.distance * 0.005 + index * 2.2);
+    rival.lane += (curve * 0.62 - rival.lane) * 0.018;
+    const rubberBand = rival.distance < state.distance - 280 ? 52 : rival.distance > state.distance + 550 ? -28 : 0;
+    const hitDrag = rival.hit > 0 ? 175 : 0;
+    const target = rival.base + rubberBand - hitDrag;
+    rival.speed += (target - rival.speed) * 0.045;
+    rival.distance += rival.speed * dt;
+  });
+}
+
+function updateItemBoxes() {
+  state.itemBoxes.forEach((box) => {
+    const ahead = box.distance - state.distance;
+    if (!box.taken && ahead > -95 && ahead < 90 && Math.abs(box.lane - state.lane) < 0.5) {
+      collectItem(box);
+    }
+  });
+}
+
+function burstParticles(lane, color, count) {
+  for (let i = 0; i < count; i += 1) {
+    state.particles.push({
+      lane: lane + (Math.random() - 0.5) * 0.35,
+      ahead: 60 + Math.random() * 120,
+      vx: (Math.random() - 0.5) * 80,
+      vy: -40 - Math.random() * 80,
+      life: 0.45 + Math.random() * 0.5,
+      max: 0.8,
+      color
+    });
+  }
+}
+
+function updateParticles(dt) {
+  state.particles.forEach((p) => {
+    p.ahead += p.vy * dt;
+    p.lane += p.vx * dt / 460;
+    p.life -= dt;
+  });
+  state.particles = state.particles.filter((p) => p.life > 0);
 }
 
 function drawRace(now) {
   const w = els.canvas.clientWidth;
   const h = els.canvas.clientHeight;
   ctx.clearRect(0, 0, w, h);
-  const shakeX = state.shake ? (Math.random() - 0.5) * state.shake * 16 : 0;
-  ctx.save();
-  ctx.translate(shakeX, 0);
-  drawSky(w, h, now);
+  drawEnvironment(w, h, now);
   drawRoad(w, h);
-  drawGates(w, h, now);
-  drawRivals(w, h, now);
-  drawKart(w, h, now);
-  ctx.restore();
+  drawVisibleItems(w, h, now);
+  drawVisibleRivals(w, h);
+  drawPlayerKart(w, h);
+  drawParticles(w, h);
+  drawMinimap(w, h);
+  drawToast(w, h);
   if (state.paused) {
     ctx.fillStyle = "rgba(5,8,22,.62)";
     ctx.fillRect(0, 0, w, h);
     ctx.fillStyle = "#f8fbff";
     ctx.font = "900 42px Inter, sans-serif";
     ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
     ctx.fillText("PAUSED", w / 2, h / 2);
   }
 }
 
 function themeColors() {
   const base = {
-    regents: ["#071630", "#132b5c", "#66e9ff"],
-    liberty: ["#161326", "#402a17", "#ffd15c"],
-    global: ["#071b17", "#17432e", "#64f0aa"],
-    ap: ["#180d27", "#472045", "#ff5f9f"]
+    regents: ["#081324", "#16306c", "#66e9ff"],
+    liberty: ["#14152d", "#4b3317", "#ffd15c"],
+    global: ["#061d22", "#16583d", "#64f0aa"],
+    ap: ["#170b30", "#45205d", "#ff5f9f"]
   };
   return base[state.track.theme] || base.regents;
 }
 
-function drawSky(w, h, now) {
+function drawEnvironment(w, h, now) {
   const [top, mid, accent] = themeColors();
-  const g = ctx.createLinearGradient(0, 0, 0, h * 0.72);
-  g.addColorStop(0, top);
-  g.addColorStop(0.55, mid);
-  g.addColorStop(1, "#050816");
-  ctx.fillStyle = g;
+  const sky = ctx.createLinearGradient(0, 0, 0, h * 0.62);
+  sky.addColorStop(0, top);
+  sky.addColorStop(0.58, mid);
+  sky.addColorStop(1, "#050816");
+  ctx.fillStyle = sky;
   ctx.fillRect(0, 0, w, h);
-  drawTrackBackdrop(w, h);
+  if (ASSETS.tracks.complete && ASSETS.tracks.naturalWidth) {
+    ctx.save();
+    ctx.globalAlpha = 0.7;
+    drawSpriteCover(ASSETS.tracks, state.track.sprite, 0, 0, w, h * 0.62);
+    const veil = ctx.createLinearGradient(0, 0, 0, h * 0.68);
+    veil.addColorStop(0, "rgba(5,8,22,.05)");
+    veil.addColorStop(0.55, "rgba(5,8,22,.18)");
+    veil.addColorStop(1, "rgba(5,8,22,.92)");
+    ctx.fillStyle = veil;
+    ctx.fillRect(0, 0, w, h * 0.68);
+    ctx.restore();
+  }
   ctx.fillStyle = accent;
-  ctx.globalAlpha = 0.16;
+  ctx.globalAlpha = 0.18;
   ctx.beginPath();
-  ctx.arc(w * 0.76, h * 0.18, 120 + Math.sin(now / 900) * 8, 0, Math.PI * 2);
+  ctx.arc(w * 0.78, h * 0.19, 125 + Math.sin(now / 800) * 8, 0, Math.PI * 2);
   ctx.fill();
   ctx.globalAlpha = 1;
-  drawBackdropObjects(w, h, accent);
+  drawSpeedLines(w, h, accent);
 }
 
-function drawTrackBackdrop(w, h) {
-  if (!ASSETS.tracks.complete || !ASSETS.tracks.naturalWidth) return;
+function drawSpeedLines(w, h, accent) {
   ctx.save();
-  ctx.globalAlpha = 0.34;
-  drawSpriteCover(ASSETS.tracks, state.track.sprite, 0, 0, w, h * 0.52);
-  ctx.globalAlpha = 1;
-  const veil = ctx.createLinearGradient(0, 0, 0, h * 0.58);
-  veil.addColorStop(0, "rgba(5,8,22,.18)");
-  veil.addColorStop(0.58, "rgba(5,8,22,.32)");
-  veil.addColorStop(1, "rgba(5,8,22,.88)");
-  ctx.fillStyle = veil;
-  ctx.fillRect(0, 0, w, h * 0.58);
+  ctx.strokeStyle = accent;
+  ctx.globalAlpha = clamp(state.speed / 2100, 0.08, 0.34);
+  ctx.lineWidth = 2;
+  for (let i = 0; i < 15; i += 1) {
+    const y = h * 0.26 + i * h * 0.038;
+    const drift = (state.distance * (0.35 + i * 0.04)) % (w + 260);
+    ctx.beginPath();
+    ctx.moveTo(-180 + drift, y);
+    ctx.lineTo(-20 + drift, y - 10);
+    ctx.stroke();
+  }
   ctx.restore();
 }
 
-function drawBackdropObjects(w, h, accent) {
-  const horizon = h * 0.42;
-  ctx.fillStyle = "rgba(1,4,13,.58)";
-  for (let i = 0; i < 14; i += 1) {
-    const x = ((i * 137 - state.distance * 0.25) % (w + 220)) - 110;
-    const height = 70 + ((i * 31) % 110);
-    const width = 36 + ((i * 17) % 54);
-    if (state.track.theme === "global") {
-      ctx.beginPath();
-      ctx.moveTo(x, horizon);
-      ctx.lineTo(x + width * 0.5, horizon - height);
-      ctx.lineTo(x + width, horizon);
-      ctx.fill();
-    } else if (state.track.theme === "liberty") {
-      ctx.fillRect(x, horizon - height, width, height);
-      ctx.fillStyle = "rgba(255,209,92,.22)";
-      ctx.fillRect(x + width * 0.42, horizon - height - 40, width * 0.16, 40);
-      ctx.fillStyle = "rgba(1,4,13,.58)";
-    } else {
-      ctx.fillRect(x, horizon - height, width, height);
-      ctx.fillStyle = "rgba(255,255,255,.08)";
-      for (let y = horizon - height + 14; y < horizon - 8; y += 18) ctx.fillRect(x + 8, y, width - 16, 3);
-      ctx.fillStyle = "rgba(1,4,13,.58)";
-    }
-  }
-  ctx.strokeStyle = accent;
-  ctx.globalAlpha = 0.36;
-  ctx.lineWidth = 2;
-  for (let i = 0; i < 4; i += 1) {
-    const y = horizon - 44 - i * 42;
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.bezierCurveTo(w * 0.25, y - 20, w * 0.7, y + 22, w, y - 8);
-    ctx.stroke();
-  }
-  ctx.globalAlpha = 1;
-}
-
 function roadPoint(n, w, h) {
-  const horizon = h * 0.43;
-  const y = horizon + n * n * (h - horizon + 90);
-  const roadWidth = 90 + n * n * w * 1.15;
-  const curve = Math.sin(state.distance * 0.015 + n * 4.2) * 44 * (1 - n) + Math.sin(state.distance * 0.004) * 28;
+  const horizon = h * 0.39;
+  const depth = n * n;
+  const y = horizon + depth * (h - horizon + 120);
+  const roadWidth = 120 + depth * w * 1.08;
+  const curve = Math.sin(state.distance * 0.002 + n * 5.4) * 72 * (1 - n) + Math.sin(state.distance * 0.0008) * 52;
   return { x: w / 2 + curve, y, roadWidth };
 }
 
 function drawRoad(w, h) {
-  const segments = 34;
+  const segments = 42;
   for (let i = 0; i < segments; i += 1) {
     const n1 = i / segments;
     const n2 = (i + 1) / segments;
     const p1 = roadPoint(n1, w, h);
     const p2 = roadPoint(n2, w, h);
-    const pulse = Math.floor((i + state.distance * 0.12) / 2) % 2;
-    ctx.fillStyle = pulse ? "#182238" : "#10182c";
+    const stripe = Math.floor((i + state.distance * 0.036) / 2) % 2;
+    ctx.fillStyle = stripe ? "#18213a" : "#111a30";
     ctx.beginPath();
     ctx.moveTo(p1.x - p1.roadWidth / 2, p1.y);
     ctx.lineTo(p1.x + p1.roadWidth / 2, p1.y);
@@ -647,169 +894,209 @@ function drawRoad(w, h) {
     ctx.lineTo(p2.x - p2.roadWidth / 2, p2.y);
     ctx.closePath();
     ctx.fill();
-    ctx.fillStyle = pulse ? "rgba(255,209,92,.12)" : "rgba(102,233,255,.10)";
-    ctx.beginPath();
-    ctx.moveTo(p1.x - p1.roadWidth / 2 - 16, p1.y);
-    ctx.lineTo(p1.x - p1.roadWidth / 2, p1.y);
-    ctx.lineTo(p2.x - p2.roadWidth / 2, p2.y);
-    ctx.lineTo(p2.x - p2.roadWidth / 2 - 30, p2.y);
-    ctx.closePath();
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(p1.x + p1.roadWidth / 2 + 16, p1.y);
-    ctx.lineTo(p1.x + p1.roadWidth / 2, p1.y);
-    ctx.lineTo(p2.x + p2.roadWidth / 2, p2.y);
-    ctx.lineTo(p2.x + p2.roadWidth / 2 + 30, p2.y);
-    ctx.closePath();
-    ctx.fill();
+    drawRoadEdge(p1, p2, stripe);
   }
-  ctx.strokeStyle = "rgba(255,255,255,.34)";
   ctx.lineWidth = 3;
+  ctx.strokeStyle = "rgba(255,255,255,.3)";
   for (let lane = 1; lane <= 3; lane += 1) {
     ctx.beginPath();
-    for (let i = 3; i < segments; i += 1) {
+    for (let i = 4; i < segments; i += 1) {
       const n = i / segments;
       const p = roadPoint(n, w, h);
       const x = p.x - p.roadWidth / 2 + p.roadWidth * (lane / 4);
-      if (i === 3) ctx.moveTo(x, p.y);
+      if (i === 4) ctx.moveTo(x, p.y);
       else ctx.lineTo(x, p.y);
     }
     ctx.stroke();
   }
 }
 
-function drawGates(w, h, now) {
-  if (!state.current) return;
-  const p = roadPoint(0.34 + Math.sin(now / 700) * 0.01, w, h);
-  const gateW = p.roadWidth / 4.6;
-  for (let i = 0; i < 4; i += 1) {
-    const x = p.x - p.roadWidth * 0.38 + i * p.roadWidth * 0.25;
-    const y = p.y - 64;
-    const active = i === state.selected && !state.resolved;
-    const correct = state.resolved && i === state.current.correctIndex;
-    const wrong = state.resolved && i === state.selected && i !== state.current.correctIndex;
+function drawRoadEdge(p1, p2, stripe) {
+  ctx.fillStyle = stripe ? "rgba(255,209,92,.52)" : "rgba(102,233,255,.42)";
+  ctx.beginPath();
+  ctx.moveTo(p1.x - p1.roadWidth / 2 - 16, p1.y);
+  ctx.lineTo(p1.x - p1.roadWidth / 2, p1.y);
+  ctx.lineTo(p2.x - p2.roadWidth / 2, p2.y);
+  ctx.lineTo(p2.x - p2.roadWidth / 2 - 34, p2.y);
+  ctx.closePath();
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(p1.x + p1.roadWidth / 2 + 16, p1.y);
+  ctx.lineTo(p1.x + p1.roadWidth / 2, p1.y);
+  ctx.lineTo(p2.x + p2.roadWidth / 2, p2.y);
+  ctx.lineTo(p2.x + p2.roadWidth / 2 + 34, p2.y);
+  ctx.closePath();
+  ctx.fill();
+}
+
+function objectPoint(ahead, lane, w, h) {
+  if (ahead <= -45 || ahead > VISIBLE_RANGE) return null;
+  const n = clamp(1 - ahead / VISIBLE_RANGE, 0.04, 1.02);
+  const p = roadPoint(n, w, h);
+  return {
+    x: p.x + lane * p.roadWidth * 0.29,
+    y: p.y,
+    scale: 0.18 + n * 0.92,
+    n
+  };
+}
+
+function drawVisibleItems(w, h, now) {
+  const visible = state.itemBoxes
+    .filter((box) => !box.taken && box.distance > state.distance - 40 && box.distance < state.distance + VISIBLE_RANGE)
+    .sort((a, b) => b.distance - a.distance);
+  visible.forEach((box) => {
+    const p = objectPoint(box.distance - state.distance, box.lane, w, h);
+    if (!p) return;
+    drawItemBox(p.x, p.y - 28 * p.scale, 54 * p.scale, box.item, now + box.id * 200);
+  });
+}
+
+function drawVisibleRivals(w, h) {
+  const total = TRACK_LENGTH * state.track.laps;
+  state.rivals
+    .filter((rival) => rival.distance < total + 300)
+    .map((rival) => ({ rival, ahead: rival.distance - state.distance }))
+    .filter((entry) => entry.ahead > -90 && entry.ahead < VISIBLE_RANGE)
+    .sort((a, b) => b.ahead - a.ahead)
+    .forEach(({ rival, ahead }) => {
+      const p = objectPoint(ahead, rival.lane, w, h);
+      if (p) drawKartSprite(rival.racer, p.x, p.y, p.scale * 0.74, { rival });
+    });
+}
+
+function drawPlayerKart(w, h) {
+  const y = h - 176;
+  const x = w / 2 + state.lane * Math.min(250, w * 0.24) + Math.sin(state.spin * 22) * state.spin * 18;
+  const scale = Math.max(0.82, Math.min(1.18, w / 1160));
+  if (state.boost > 0) {
     ctx.save();
-    ctx.translate(x, y);
-    ctx.fillStyle = correct ? "rgba(100,240,170,.9)" : wrong ? "rgba(255,95,128,.86)" : active ? "rgba(102,233,255,.86)" : "rgba(8,14,30,.82)";
-    ctx.strokeStyle = active || correct ? "#ffffff" : "rgba(255,255,255,.4)";
-    ctx.lineWidth = active ? 4 : 2;
-    roundRect(-gateW / 2, -36, gateW, 72, 10);
-    ctx.fill();
+    ctx.strokeStyle = state.character.accent;
+    ctx.globalAlpha = 0.42;
+    ctx.lineWidth = 10;
+    for (let i = 0; i < 6; i += 1) {
+      ctx.beginPath();
+      ctx.moveTo(x - 105 + i * 42, y + 62);
+      ctx.lineTo(x - 170 + i * 28, y + 185);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  drawKartSprite(state.character, x, y, scale, { player: true });
+  if (state.shield > 0) {
+    ctx.save();
+    ctx.strokeStyle = "#64f0aa";
+    ctx.globalAlpha = 0.42 + Math.sin(performance.now() / 90) * 0.14;
+    ctx.lineWidth = 8;
+    ctx.beginPath();
+    ctx.ellipse(x, y - 12, 142 * scale, 98 * scale, 0, 0, Math.PI * 2);
     ctx.stroke();
-    ctx.fillStyle = active || correct || wrong ? "#07101c" : "#f8fbff";
-    ctx.font = `900 ${Math.max(26, gateW * 0.28)}px Inter, sans-serif`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(String.fromCharCode(65 + i), 0, 0);
     ctx.restore();
   }
 }
 
-function drawRivals(w, h, now) {
-  for (let i = 0; i < 3; i += 1) {
-    const n = 0.52 + i * 0.11 + Math.sin(now / 700 + i) * 0.015;
-    const p = roadPoint(n, w, h);
-    const lane = (i % 3) - 1;
-    const x = p.x + lane * p.roadWidth * 0.18;
-    const y = p.y;
-    const scale = 0.22 + n * 0.42;
-    drawMiniKart(x, y, scale, CHARACTERS[(i + 1) % CHARACTERS.length]);
-  }
-}
-
-function drawKart(w, h) {
-  const laneTarget = (state.selected - 1.5) * Math.min(180, w * 0.16);
-  const handling = 0.045 + state.character.stats.handling * 0.006;
-  state.kartX += (laneTarget - state.kartX) * handling;
-  const x = w / 2 + state.kartX;
-  const y = h - 185;
-  const scale = Math.max(0.82, Math.min(1.25, w / 1120));
-  if (state.boost > 0.15) {
-    const [, , accent] = themeColors();
-    ctx.strokeStyle = accent;
-    ctx.globalAlpha = 0.38;
-    ctx.lineWidth = 8;
-    for (let i = 0; i < 5; i += 1) {
-      ctx.beginPath();
-      ctx.moveTo(x - 80 + i * 40, y + 60);
-      ctx.lineTo(x - 120 + i * 30, y + 170);
-      ctx.stroke();
-    }
-    ctx.globalAlpha = 1;
-  }
-  drawHeroKart(x, y, scale, state.character);
-  if (state.spark > 0) {
-    ctx.fillStyle = state.character.accent;
-    ctx.globalAlpha = state.spark;
-    for (let i = 0; i < 18; i += 1) {
-      const a = (i / 18) * Math.PI * 2;
-      const r = 40 + i * 3;
-      ctx.beginPath();
-      ctx.arc(x + Math.cos(a) * r, y + 10 + Math.sin(a) * r * 0.45, 3, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-  }
-}
-
-function drawMiniKart(x, y, scale, racer) {
+function drawKartSprite(racer, x, y, scale, options = {}) {
+  const width = (options.player ? 250 : 152) * scale;
+  const height = (options.player ? 176 : 108) * scale;
   ctx.save();
   ctx.translate(x, y);
-  ctx.scale(scale, scale);
-  ctx.fillStyle = "rgba(0,0,0,.35)";
+  const lean = clamp(state.laneVel * 0.22, -0.18, 0.18);
+  if (options.player) ctx.rotate(lean + Math.sin(state.spin * 28) * state.spin * 0.22);
+  ctx.fillStyle = "rgba(0,0,0,.42)";
   ctx.beginPath();
-  ctx.ellipse(0, 42, 75, 18, 0, 0, Math.PI * 2);
+  ctx.ellipse(0, height * 0.35, width * 0.48, height * 0.17, 0, 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = racer.body;
-  roundRect(-55, -10, 110, 54, 12);
-  ctx.fill();
-  ctx.fillStyle = racer.accent;
-  roundRect(-36, -38, 72, 46, 18);
-  ctx.fill();
-  drawRacerSprite(racer, -39, -59, 78, 72, 16);
-  ctx.fillStyle = "#050816";
-  ctx.beginPath();
-  ctx.arc(-44, 42, 18, 0, Math.PI * 2);
-  ctx.arc(44, 42, 18, 0, Math.PI * 2);
-  ctx.fill();
+  if (options.rival?.hit > 0) {
+    ctx.globalAlpha = 0.68;
+    ctx.fillStyle = "rgba(255,255,255,.3)";
+    ctx.beginPath();
+    ctx.arc(0, -height * 0.15, width * 0.46, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+  drawRacerSprite(racer, -width / 2, -height * 0.68, width, height, 26 * scale);
+  ctx.strokeStyle = racer.accent;
+  ctx.lineWidth = Math.max(2, 4 * scale);
+  roundRect(-width / 2, -height * 0.68, width, height, 26 * scale);
+  ctx.stroke();
   ctx.restore();
 }
 
-function drawHeroKart(x, y, scale, racer) {
+function drawItemBox(x, y, size, item, now) {
   ctx.save();
   ctx.translate(x, y);
-  ctx.scale(scale, scale);
-  ctx.fillStyle = "rgba(0,0,0,.42)";
+  ctx.rotate(Math.sin(now / 280) * 0.16);
+  const pulse = 1 + Math.sin(now / 180) * 0.05;
+  ctx.scale(pulse, pulse);
+  ctx.fillStyle = "rgba(0,0,0,.34)";
   ctx.beginPath();
-  ctx.ellipse(0, 70, 170, 36, 0, 0, Math.PI * 2);
+  ctx.ellipse(0, size * 0.62, size * 0.62, size * 0.16, 0, 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = "#050816";
-  ctx.beginPath();
-  ctx.arc(-92, 58, 42, 0, Math.PI * 2);
-  ctx.arc(92, 58, 42, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(255,255,255,.12)";
+  ctx.strokeStyle = item.color;
+  ctx.lineWidth = Math.max(2, size * 0.08);
+  roundRect(-size / 2, -size / 2, size, size, size * 0.18);
   ctx.fill();
-  ctx.fillStyle = racer.accent;
-  ctx.beginPath();
-  ctx.arc(-92, 58, 19, 0, Math.PI * 2);
-  ctx.arc(92, 58, 19, 0, Math.PI * 2);
+  ctx.stroke();
+  drawItemSprite(item, -size * 0.42, -size * 0.42, size * 0.84, size * 0.84, size * 0.12);
+  ctx.restore();
+}
+
+function drawParticles(w, h) {
+  state.particles.forEach((p) => {
+    const point = objectPoint(p.ahead, p.lane, w, h);
+    if (!point) return;
+    ctx.save();
+    ctx.globalAlpha = clamp(p.life / p.max, 0, 1);
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(point.x, point.y, Math.max(2, point.scale * 7), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  });
+}
+
+function drawMinimap(w, h) {
+  const x = w - 130;
+  const y = h - 206;
+  const height = 156;
+  const total = TRACK_LENGTH * state.track.laps;
+  ctx.save();
+  ctx.fillStyle = "rgba(5,8,22,.58)";
+  ctx.strokeStyle = "rgba(255,255,255,.2)";
+  ctx.lineWidth = 1;
+  roundRect(x - 22, y - 12, 42, height + 24, 18);
   ctx.fill();
-  ctx.fillStyle = racer.body;
-  roundRect(-116, -8, 232, 78, 18);
+  ctx.stroke();
+  const drawDot = (distance, color, radius) => {
+    const pct = clamp(distance / total, 0, 1);
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y + height - pct * height, radius, 0, Math.PI * 2);
+    ctx.fill();
+  };
+  state.rivals.forEach((rival) => drawDot(rival.distance, rival.racer.accent, 4));
+  drawDot(state.distance, "#ffffff", 6);
+  ctx.restore();
+}
+
+function drawToast(w, h) {
+  if (!state.toastTime) return;
+  ctx.save();
+  ctx.globalAlpha = clamp(state.toastTime, 0, 1);
+  ctx.fillStyle = "rgba(5,8,22,.72)";
+  ctx.strokeStyle = state.character.accent;
+  ctx.lineWidth = 2;
+  const text = state.toast;
+  ctx.font = "950 34px Inter, sans-serif";
+  ctx.textAlign = "center";
+  const width = Math.min(w - 40, ctx.measureText(text).width + 54);
+  roundRect(w / 2 - width / 2, h * 0.18, width, 58, 16);
   ctx.fill();
-  const g = ctx.createLinearGradient(-90, -80, 90, 50);
-  g.addColorStop(0, "#ffffff");
-  g.addColorStop(0.28, racer.accent);
-  g.addColorStop(1, racer.body);
-  ctx.fillStyle = g;
-  roundRect(-68, -86, 136, 94, 34);
-  ctx.fill();
-  drawRacerSprite(racer, -72, -100, 144, 110, 32);
-  ctx.fillStyle = racer.accent;
-  roundRect(-82, 12, 164, 34, 12);
-  ctx.fill();
-  ctx.fillStyle = "#07101c";
-  ctx.font = "900 18px Inter, sans-serif";
-  ctx.fillText(racer.vehicle.toUpperCase().slice(0, 14), 0, 31);
+  ctx.stroke();
+  ctx.fillStyle = "#f8fbff";
+  ctx.textBaseline = "middle";
+  ctx.fillText(text, w / 2, h * 0.18 + 30);
   ctx.restore();
 }
 
@@ -849,11 +1136,20 @@ function drawRacerSprite(racer, x, y, width, height, radius) {
   ctx.clip();
   drawSpriteCover(ASSETS.racers, racer.sprite, x, y, width, height);
   const shine = ctx.createLinearGradient(x, y, x + width, y + height);
-  shine.addColorStop(0, "rgba(255,255,255,.2)");
-  shine.addColorStop(0.48, "rgba(255,255,255,0)");
+  shine.addColorStop(0, "rgba(255,255,255,.18)");
+  shine.addColorStop(0.5, "rgba(255,255,255,0)");
   shine.addColorStop(1, "rgba(0,0,0,.28)");
   ctx.fillStyle = shine;
   ctx.fillRect(x, y, width, height);
+  ctx.restore();
+}
+
+function drawItemSprite(item, x, y, width, height, radius) {
+  if (!ASSETS.items.complete || !ASSETS.items.naturalWidth) return;
+  ctx.save();
+  roundRect(x, y, width, height, radius);
+  ctx.clip();
+  drawSpriteCover(ASSETS.items, item.sprite, x, y, width, height);
   ctx.restore();
 }
 
@@ -869,31 +1165,64 @@ function roundRect(x, y, w, h, r) {
 }
 
 document.addEventListener("keydown", (event) => {
+  const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+  keys.add(key);
+  if (state.quizOpen) {
+    if (/^[abcd]$/i.test(event.key)) {
+      gradeAnswer(event.key.toUpperCase().charCodeAt(0) - 65);
+      event.preventDefault();
+    } else if (event.key === "ArrowLeft") {
+      state.selected = Math.max(0, state.selected - 1);
+      refreshAnswers();
+      event.preventDefault();
+    } else if (event.key === "ArrowRight") {
+      state.selected = Math.min(3, state.selected + 1);
+      refreshAnswers();
+      event.preventDefault();
+    } else if (event.key === "Enter" || event.key === " ") {
+      gradeAnswer(state.selected);
+      event.preventDefault();
+    }
+    return;
+  }
   if (!els.raceScreen.classList.contains("active")) return;
-  if (event.key === "ArrowLeft") {
-    state.selected = Math.max(0, state.selected - 1);
-    refreshAnswers();
+  if (event.key === "e" || event.key === "E" || event.key === "Shift") {
+    openItemQuestion();
     event.preventDefault();
-  } else if (event.key === "ArrowRight") {
-    state.selected = Math.min(3, state.selected + 1);
-    refreshAnswers();
+  } else if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " "].includes(event.key)) {
     event.preventDefault();
-  } else if (event.key === "Enter" || event.key === " ") {
-    gradeAnswer(state.selected);
-    event.preventDefault();
-  } else if (/^[abcd]$/i.test(event.key)) {
-    gradeAnswer(event.key.toUpperCase().charCodeAt(0) - 65);
   } else if (event.key === "Escape") {
     state.paused = !state.paused;
   }
 });
 
+document.addEventListener("keyup", (event) => {
+  const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+  keys.delete(key);
+});
+
+els.canvas.addEventListener("pointerdown", (event) => {
+  if (!state.running || state.quizOpen) return;
+  const rect = els.canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  if (x < rect.width * 0.38) keys.add("ArrowLeft");
+  else if (x > rect.width * 0.62) keys.add("ArrowRight");
+  else openItemQuestion();
+});
+
+els.canvas.addEventListener("pointerup", () => {
+  keys.delete("ArrowLeft");
+  keys.delete("ArrowRight");
+});
+
+els.itemBtn.addEventListener("click", openItemQuestion);
 els.pauseBtn.addEventListener("click", () => {
   state.paused = !state.paused;
   els.pauseBtn.textContent = state.paused ? "Resume" : "Pause";
 });
 els.quitBtn.addEventListener("click", () => {
   state.running = false;
+  closeItemQuestion();
   showScreen(els.trackScreen);
 });
 els.againBtn.addEventListener("click", () => showScreen(els.trackScreen));
