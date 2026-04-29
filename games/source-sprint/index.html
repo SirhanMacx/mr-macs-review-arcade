@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Source Sprint - Mr. Mac's Review Arcade</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body style="--accent:#62e9ff">
+<div class="bg" aria-hidden="true"></div>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="../../index.html" aria-label="Back to arcade">
+      <span class="brand-mark">DBQ</span>
+      <span><small>Mr. Mac's Arcade</small><strong>Source Sprint</strong></span>
+    </a>
+    <div class="stats" id="topStats"></div>
+  </header>
+
+  <section class="screen setup active" id="setup">
+    <section class="hero">
+      <div class="kicker">Regents Quick Play</div>
+      <h1>Source Sprint</h1>
+      <p>Stimulus-based Regents MCQs only: read the document, answer fast, and learn from misses.</p>
+      <div class="setup-grid">
+        <label>Course<select id="courseSelect"></select></label>
+        <label>Set<select id="setSelect"></select></label>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="startBtn" type="button">Start</button>
+        <a class="btn ghost" href="../../index.html">Arcade Home</a>
+      </div>
+    </section>
+    <aside class="panel">
+      <div class="panel-title">How it scores</div>
+      <div id="modeNotes"></div>
+      <div class="mini-metrics" id="bankMetrics"></div>
+    </aside>
+  </section>
+
+  <section class="screen play" id="play">
+    <aside class="scoreboard">
+      <div><span>Score</span><strong id="score">0</strong></div>
+      <div><span>Streak</span><strong id="streak">0</strong></div>
+      <div><span>Answered</span><strong id="answered">0</strong></div>
+      <div><span>Time</span><strong id="clock">--</strong></div>
+      <button class="btn danger" id="finishBtn" type="button">Finish</button>
+    </aside>
+    <section class="work">
+      <div class="work-head">
+        <div>
+          <span id="questionMeta">Question</span>
+          <h2 id="prompt">Loading...</h2>
+        </div>
+        <button class="btn ghost" id="skipBtn" type="button">Skip</button>
+      </div>
+      <div id="stimulus"></div>
+      <div id="answerArea"></div>
+      <div class="feedback" id="feedback"></div>
+    </section>
+  </section>
+
+  <section class="screen results" id="results">
+    <section class="result-card">
+      <div class="kicker">Run complete</div>
+      <h1 id="resultTitle">Results</h1>
+      <div class="mini-metrics" id="resultMetrics"></div>
+      <div class="feedback" id="coach"></div>
+      <div class="actions">
+        <button class="btn primary" id="againBtn" type="button">Play Again</button>
+        <a class="btn ghost" href="../../index.html">Arcade Home</a>
+      </div>
+    </section>
+  </section>
+</main>
+<script src="../../assets/arcade-analytics.js"></script>
+<script type="module" src="game.js"></script>
+</body>
+</html>
