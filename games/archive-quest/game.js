@@ -70,7 +70,7 @@
 
   const images = {};
   const keys = {};
-  const input = { left: false, right: false, jump: false, dash: false };
+  const input = { left: false, right: false, dash: false };
   const pointerInput = new Map();
 
   const player = {
@@ -83,6 +83,8 @@
     onGround: false,
     coyote: 0,
     jumpBuffer: 0,
+    airJumps: 1,
+    maxAirJumps: 1,
     dashCooldown: 0,
     invuln: 0,
     spawnX: 120,
@@ -486,6 +488,7 @@
     player.y = 520;
     player.vx = 0;
     player.vy = 0;
+    player.airJumps = player.maxAirJumps;
     player.spawnX = 120;
     player.spawnY = 520;
     state.cameraX = 0;
@@ -533,6 +536,7 @@
     player.y = player.spawnY;
     player.vx = 0;
     player.vy = 0;
+    player.airJumps = player.maxAirJumps;
     damage(1);
   }
 
@@ -640,17 +644,22 @@
       burst(player.x - player.facing * 22, player.y - 64, "#6beeff", 18);
       audio.dash();
     }
-    if ((input.jump || keys.Space || keys.ArrowUp || keys.KeyW) && player.jumpBuffer <= 0) {
-      player.jumpBuffer = .12;
-      input.jump = false;
-    }
     if (player.jumpBuffer > 0 && (player.onGround || player.coyote > 0)) {
       player.vy = -820;
       player.onGround = false;
       player.coyote = 0;
       player.jumpBuffer = 0;
+      player.airJumps = player.maxAirJumps;
       audio.jump();
       dust(player.x, player.y, 12);
+    } else if (player.jumpBuffer > 0 && player.airJumps > 0) {
+      player.vy = -760;
+      player.onGround = false;
+      player.coyote = 0;
+      player.jumpBuffer = 0;
+      player.airJumps -= 1;
+      audio.jump();
+      burst(player.x, player.y - 72, "#6beeff", 18);
     }
     const gravity = state.power?.type === "hourglass" ? 1950 : 2250;
     player.vy = clamp(player.vy + gravity * dt, -1200, 1120);
@@ -692,6 +701,7 @@
         player.y = p.y;
         player.vy = 0;
         player.onGround = true;
+        player.airJumps = player.maxAirJumps;
       } else if (player.vy < 0) {
         player.y = p.y + p.h + player.h;
         player.vy = 20;
@@ -721,6 +731,7 @@
       if (!rectsOverlap(pr, spring) || player.vy < 0) continue;
       player.y = spring.y;
       player.vy = -1080;
+      player.airJumps = player.maxAirJumps;
       burst(spring.x + spring.w / 2, spring.y, "#ffd05b", 16);
       audio.jump();
     }
@@ -1064,6 +1075,10 @@
     button.addEventListener("pointerdown", (event) => {
       event.preventDefault();
       button.setPointerCapture?.(event.pointerId);
+      if (key === "jump") {
+        queueJump();
+        return;
+      }
       set(true, event.pointerId);
     });
     button.addEventListener("pointerup", (event) => set(false, event.pointerId));
@@ -1074,7 +1089,7 @@
     button.addEventListener("click", () => {
       if (state.mode !== "running") return;
       if (key === "jump") {
-        player.jumpBuffer = .12;
+        return;
       } else if (key === "dash") {
         input.dash = true;
         setTimeout(() => { input.dash = false; }, 110);
@@ -1089,8 +1104,10 @@
   function wireEvents() {
     addEventListener("resize", resize);
     addEventListener("keydown", (event) => {
+      const fresh = !keys[event.code];
       keys[event.code] = true;
       if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(event.code)) event.preventDefault();
+      if (fresh && ["Space", "ArrowUp", "KeyW"].includes(event.code)) queueJump();
       if (event.code === "Escape") togglePause();
     });
     addEventListener("keyup", (event) => {
@@ -1119,11 +1136,16 @@
     els.canvas.addEventListener("pointerdown", (event) => {
       if (state.mode !== "running") return;
       const pos = screenToWorld(event.clientX, event.clientY);
-      if (pos.y < player.y - 80) input.jump = true;
+      if (pos.y < player.y - 80) queueJump();
       else if (pos.x < player.x) input.left = true;
       else input.right = true;
     });
     els.canvas.addEventListener("pointerup", () => { input.left = false; input.right = false; });
+  }
+
+  function queueJump() {
+    if (state.mode !== "running") return;
+    player.jumpBuffer = .14;
   }
 
   function togglePause() {
