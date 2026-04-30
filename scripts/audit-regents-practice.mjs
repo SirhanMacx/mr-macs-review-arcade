@@ -33,7 +33,7 @@ function loadHarness(seed) {
     Math: seededMath(seed),
   };
   const harnessSource = `${gameSource.slice(0, cutoff)}
-globalThis.__practiceHarness = { state, PROFILES, assembleExam, docGroupKey, docAssetKeys, trustedDocSource, writingDocAudit };`;
+globalThis.__practiceHarness = { state, PROFILES, ESSAY_COLUMNS, GLOBAL_CONVERSION, US_CONVERSION, assembleExam, docGroupKey, docAssetKeys, trustedDocSource, writingDocAudit };`;
   vm.runInNewContext(harnessSource, context, { filename: gamePath });
   context.__practiceHarness.state.bank = bank;
   return context.__practiceHarness;
@@ -100,6 +100,57 @@ function assert(condition, message, errors) {
   if (!condition) errors.push(message);
 }
 
+function sameArray(actual, expected) {
+  return actual.length === expected.length && actual.every((value, index) => value === expected[index]);
+}
+
+function auditProfileShapes(harness, errors) {
+  const global = harness.PROFILES["Grade 10 Global History II"];
+  const us = harness.PROFILES["Grade 11 U.S. History"];
+  assert(!!global, "Global History II profile is missing", errors);
+  assert(!!us, "U.S. History profile is missing", errors);
+  if (global) {
+    assert(global.shortTasks.length === 2, "Global must have two CRQ sets", errors);
+    assert(sameArray(global.shortTasks.map((task) => task.points), [3, 4]), "Global CRQ sets must be worth 3 and 4 points", errors);
+    assert(global.shortMax === 7, "Global Part II writing max must be 7", errors);
+    assert(global.essayMax === 5, "Global Enduring Issues essay max must be 5", errors);
+    assert(global.essayDocMinimum === 3, "Global Enduring Issues essay must require 3 of 5 documents", errors);
+    assert(/five|5/i.test(global.essayTitle + " " + global.essayPrompt), "Global Enduring Issues text must name the five-document set", errors);
+  }
+  if (us) {
+    assert(us.shortTasks.length === 2, "U.S. History must have two short essay sets", errors);
+    assert(sameArray(us.shortTasks.map((task) => task.points), [5, 5]), "U.S. History short essays must be worth 5 and 5 points", errors);
+    assert(us.shortMax === 10, "U.S. History Part II writing max must be 10", errors);
+    assert((us.scaffoldPrompts || []).length === 6, "U.S. History Part IIIA must have six scaffold prompts", errors);
+    assert(us.scaffoldMax === 6, "U.S. History scaffold max must be 6", errors);
+    assert(us.essayMax === 5, "U.S. History Civic Literacy essay max must be 5", errors);
+    assert(us.essayDocMinimum === 4, "U.S. History Civic Literacy essay must require at least four documents", errors);
+  }
+}
+
+function auditConversionTables(harness, errors) {
+  const expectedEssayColumns = [0, .5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
+  assert(sameArray(harness.ESSAY_COLUMNS, expectedEssayColumns), "Essay conversion columns must support 0.5-point steps from 0 to 5", errors);
+  assert(harness.GLOBAL_CONVERSION.length === 36, `Global conversion chart should have 36 base-score rows, found ${harness.GLOBAL_CONVERSION.length}`, errors);
+  assert(harness.US_CONVERSION.length === 45, `U.S. conversion chart should have 45 base-score rows, found ${harness.US_CONVERSION.length}`, errors);
+  harness.GLOBAL_CONVERSION.forEach((row, index) => assert(row.length === 11, `Global conversion row ${index} should have 11 essay columns`, errors));
+  harness.US_CONVERSION.forEach((row, index) => assert(row.length === 11, `U.S. conversion row ${index} should have 11 essay columns`, errors));
+  assert(harness.GLOBAL_CONVERSION[27]?.[6] === 80, "Global January 2026 chart example should map base 27 + essay 3 to scale 80", errors);
+  assert(harness.GLOBAL_CONVERSION[35]?.[10] === 100, "Global January 2026 chart top cell should be 100", errors);
+  assert(harness.US_CONVERSION[31]?.[7] === 80, "U.S. January 2026 chart example should map base 31 + essay 3.5 to scale 80", errors);
+  assert(harness.US_CONVERSION[44]?.[10] === 100, "U.S. January 2026 chart top cell should be 100", errors);
+}
+
+function auditPracticeUi(errors) {
+  const indexSource = readFileSync(resolve(root, "games/regents-practice-exam/index.html"), "utf8");
+  const styleSource = readFileSync(resolve(root, "games/regents-practice-exam/styles.css"), "utf8");
+  for (const id of ["stimulusViewer", "viewerPrev", "viewerNext", "viewerFit", "viewerActual", "viewerZoom", "viewerClose"]) {
+    assert(indexSource.includes(`id="${id}"`), `practice exam UI missing ${id}`, errors);
+  }
+  assert(styleSource.includes(".stimulus-missing"), "practice exam UI must visibly flag missing stimulus images", errors);
+  assert(styleSource.includes("select option, select optgroup"), "practice exam select menus must force legible option colors", errors);
+}
+
 function auditExam(harness, course, seed, errors) {
   const exam = harness.assembleExam(course, 180);
   const profile = harness.PROFILES[course];
@@ -123,6 +174,7 @@ function auditExam(harness, course, seed, errors) {
   assert(answerSpread(labels) <= 14, `${course} seed ${seed}: answer label distribution is too imbalanced (${labels.join(",")})`, errors);
   assert(exam.mcq.every((q) => (q.stimulusImages || []).length), `${course} seed ${seed}: MCQ without stimulus image`, errors);
   assert(exam.audit?.writingIntegrityOk, `${course} seed ${seed}: audit failed ${JSON.stringify(exam.audit)}`, errors);
+  assert(exam.audit?.assemblyAttempts <= 12, `${course} seed ${seed}: assembly retry budget exceeded`, errors);
   assert(typeof exam.audit?.requiredDocCountsOk === "boolean", `${course} seed ${seed}: audit missing requiredDocCountsOk`, errors);
   assert(typeof exam.audit?.courseStimulusMismatches === "number", `${course} seed ${seed}: audit missing courseStimulusMismatches`, errors);
   assert([...writingKeys].every((key) => !mcqKeys.has(key)), `${course} seed ${seed}: writing doc overlaps an MCQ stimulus group or image`, errors);
@@ -154,10 +206,15 @@ function auditExam(harness, course, seed, errors) {
 
 const courses = ["Grade 10 Global History II", "Grade 11 U.S. History"];
 const errors = [];
+const harness = loadHarness(1);
 
-for (let seed = 1; seed <= 120; seed += 1) {
-  const harness = loadHarness(seed);
-  for (const course of courses) auditExam(harness, course, seed, errors);
+auditProfileShapes(harness, errors);
+auditConversionTables(harness, errors);
+auditPracticeUi(errors);
+
+for (let seed = 1; seed <= 300; seed += 1) {
+  const seededHarness = loadHarness(seed);
+  for (const course of courses) auditExam(seededHarness, course, seed, errors);
 }
 
 if (errors.length) {
