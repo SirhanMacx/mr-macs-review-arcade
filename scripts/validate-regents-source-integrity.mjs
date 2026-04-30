@@ -10,6 +10,10 @@ const MIN_IMAGE_BACKED = {
   "Grade 10 Global History II": 28 + 9,
   "Grade 11 U.S. History": 28 + 10
 };
+const JAN_2026_REQUIRED = {
+  "Grade 10 Global History II": new Set(Array.from({ length: 28 }, (_, index) => index + 1)),
+  "Grade 11 U.S. History": new Set(Array.from({ length: 28 }, (_, index) => index + 1))
+};
 
 function quarantined(question) {
   return /^quarantined/i.test(String(question.sourceIntegrity || ""));
@@ -27,9 +31,18 @@ function sourceKey(question) {
   return [question.course || "", question.source || "", question.id || ""].join("|");
 }
 
+function officialQuestionNumber(question) {
+  if (Number.isFinite(Number(question.officialQuestionNumber))) return Number(question.officialQuestionNumber);
+  const sourceMatch = String(question.source || "").match(/Q(?:uestion)?\s*(\d{1,2})\b/i);
+  if (sourceMatch) return Number(sourceMatch[1]);
+  if (String(question.source || "").includes("Jan 2026") && Number.isFinite(Number(question.number))) return Number(question.number);
+  return null;
+}
+
 const errors = [];
 const imageUsers = new Map();
 const imageBackedByCourse = new Map();
+const jan2026ByCourse = new Map();
 let quarantinedCount = 0;
 
 for (const question of bank.questions || []) {
@@ -66,6 +79,14 @@ for (const question of bank.questions || []) {
   if (qImages.length) {
     imageBackedByCourse.set(question.course, (imageBackedByCourse.get(question.course) || 0) + 1);
   }
+
+  if (String(question.source || "").includes("Jan 2026") && qImages.length) {
+    const number = officialQuestionNumber(question);
+    if (number >= 1 && number <= 28) {
+      if (!jan2026ByCourse.has(question.course)) jan2026ByCourse.set(question.course, new Set());
+      jan2026ByCourse.get(question.course).add(number);
+    }
+  }
 }
 
 for (const [src, users] of imageUsers.entries()) {
@@ -80,6 +101,18 @@ for (const [course, minimum] of Object.entries(MIN_IMAGE_BACKED)) {
   if (count < minimum) {
     errors.push(`${course}: needs at least ${minimum} trusted image-backed questions for practice assembly; found ${count}`);
   }
+}
+
+for (const [course, expected] of Object.entries(JAN_2026_REQUIRED)) {
+  const found = jan2026ByCourse.get(course) || new Set();
+  const missing = [...expected].filter((number) => !found.has(number));
+  if (missing.length) {
+    errors.push(`${course}: missing trusted January 2026 official MCQ numbers ${missing.join(", ")}`);
+  }
+}
+
+for (const file of ["games/source-audit/index.html", "games/source-audit/styles.css", "games/source-audit/game.js", "assets/game-thumbnails/source-audit.webp"]) {
+  if (!existsSync(resolve(root, file))) errors.push(`source audit asset missing: ${file}`);
 }
 
 if ((bank.summary?.totalQuarantinedSourceQuestions || 0) !== quarantinedCount) {

@@ -689,6 +689,79 @@ canvas {
   }
 }
 
+@media (max-width: 560px) {
+  .arcade-exit {
+    min-height: 34px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+
+  .top-hud {
+    right: max(78px, calc(env(safe-area-inset-right) + 78px));
+    min-height: 34px;
+    padding: 5px 7px;
+    gap: 6px;
+    overflow: hidden;
+  }
+
+  .top-hud strong {
+    max-width: 42vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .top-hud span:nth-of-type(n+3) {
+    display: none;
+  }
+
+  .menu {
+    top: max(50px, calc(env(safe-area-inset-top) + 50px));
+    right: max(8px, env(safe-area-inset-right));
+    width: calc(100vw - 16px);
+    max-height: calc(var(--game-height, 100dvh) - 64px);
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quest {
+    border-radius: 10px;
+  }
+
+  .quest.has-source {
+    grid-template-rows: auto auto minmax(86px, 28vh) minmax(110px, 1fr) auto;
+  }
+
+  .quest-source {
+    min-height: 0;
+  }
+
+  .quest-source img {
+    max-height: 24vh;
+  }
+
+  .dpad {
+    width: 124px;
+    height: 124px;
+    gap: 4px;
+  }
+
+  .buttons button {
+    width: 54px;
+    height: 54px;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .buttons #startMenuBtn {
+    width: 76px;
+    height: 38px;
+  }
+}
+
 @media (max-height: 520px) and (orientation: landscape) {
   .battle-ui {
     grid-template-columns: 1fr minmax(230px, 32vw);

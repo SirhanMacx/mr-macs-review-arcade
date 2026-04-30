@@ -432,16 +432,57 @@ select option { color: #08111f; background: #f8fbff; }
   .choices { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
-  .top-hud { border-radius: 14px; padding: 8px; }
+  .top-hud {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    border-radius: 14px;
+    padding: 7px;
+    gap: 6px;
+  }
+  .brand { grid-template-columns: 34px minmax(0, 1fr); gap: 8px; }
+  .brand-mark { width: 34px; border-radius: 10px; }
+  .brand strong { font-size: 13px; line-height: 1.06; }
+  .hud-btn { min-height: 38px; padding: 7px 8px; font-size: 12px; }
+  .hud-stats { gap: 5px; }
   .hud-stats div { min-width: 0; padding: 7px; }
   .hud-stats strong { font-size: 12px; }
   .hud-stats span { font-size: 8px; }
   .brand small { display: none; }
+  .power-strip {
+    top: calc(max(10px, env(safe-area-inset-top)) + 116px);
+    right: max(12px, env(safe-area-inset-right));
+    min-width: 0;
+    grid-template-columns: 1fr;
+    gap: 5px;
+    padding: 7px 9px;
+  }
+  .power-strip span { font-size: 11px; }
   .touch-dock {
     width: calc(100vw - 18px);
     grid-template-columns: repeat(4, 1fr);
+    bottom: max(8px, env(safe-area-inset-bottom));
   }
-  .dock-btn { min-width: 0; padding-inline: 7px; }
+  .dock-btn {
+    min-width: 0;
+    min-height: 52px;
+    padding-inline: 7px;
+    font-size: 12px;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .setup-card,
+  .question-card {
+    max-height: calc(100dvh - 16px);
+    border-radius: 15px;
+  }
+  #questionPrompt {
+    font-size: clamp(20px, 6vw, 28px);
+  }
+  .choice-btn {
+    min-height: 60px;
+    padding: 10px;
+  }
   .setup-metrics,
   .end-grid,
   .study-targets { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -451,6 +492,30 @@ select option { color: #08111f; background: #f8fbff; }
   .actions .btn { flex: 1 1 130px; }
   h1 { font-size: clamp(42px, 13vw, 72px); }
   p { font-size: 16px; }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .top-hud {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    left: 8px;
+    right: 8px;
+    top: 8px;
+  }
+  .brand { display: none; }
+  .hud-stats {
+    grid-column: auto;
+    grid-row: auto;
+    grid-template-columns: repeat(5, minmax(48px, 1fr));
+  }
+  .power-strip { display: none; }
+  .touch-dock {
+    left: auto;
+    right: max(8px, env(safe-area-inset-right));
+    bottom: max(8px, env(safe-area-inset-bottom));
+    width: min(390px, calc(100vw - 16px));
+    transform: none;
+  }
+  .dock-btn { min-height: 44px; }
 }
 
 select option, select optgroup { color: #07111f; background: #f8fbff; }

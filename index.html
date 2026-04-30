@@ -2402,6 +2402,7 @@ function accentFor(game) {
   if (game.id === "archive-quest") return "#62e9ff";
   if (game.id === "cold-war-invaders") return "#72f3ff";
   if (game.id === "regents-practice-exam") return "#ffd15c";
+  if (game.id === "source-audit") return "#5af0ae";
   if (game.id === "regents-rally-source-circuit") return "#ffd15c";
   if (game.id === "lightning-review") return "#ffd15c";
   if (game.id === "source-sprint") return "#62e9ff";
@@ -2416,6 +2417,7 @@ function glyphFor(game) {
   if (game.id === "archive-quest") return "AQ";
   if (game.id === "cold-war-invaders") return "CW";
   if (game.id === "regents-practice-exam") return "✎";
+  if (game.id === "source-audit") return "OK";
   if (game.id === "regents-rally-source-circuit") return "RR";
   if (game.id === "lightning-review") return "90";
   if (game.id === "source-sprint") return "DBQ";
@@ -2481,7 +2483,7 @@ function laneMatches(game) {
   if (state.lane === "mastery") return game.collection === "mastery-path" || ["mastery-path", "source-lab", "writing-coach"].includes(game.id);
   if (state.lane === "play") return ["archive-quest", "history-hunters", "cold-war-invaders", "regents-rally-source-circuit", "chrono-defense-infinite", "time-rift-survivors", "chrono-pinball", "empire-ascendant", "boss-rush-arena"].includes(game.id);
   if (state.lane === "quick") return isQuickPlay(game);
-  if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing/i.test(text) || ["regents-practice-exam", "regents-rally-source-circuit", "regents-gauntlet", "source-sprint"].includes(game.id);
+  if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing/i.test(text) || ["regents-practice-exam", "source-audit", "regents-rally-source-circuit", "regents-gauntlet", "source-sprint"].includes(game.id);
   if (state.lane === "jeopardy") return isJeopardyBoard(game);
   if (state.lane === "ap") return /^AP\b/.test(game.course || "") || /\bAP\b/.test(text);
   if (state.lane.startsWith("grade-")) {
@@ -2498,6 +2500,7 @@ function laneMatches(game) {
 function priority(game) {
   if (game.id === "mastery-path") return -9;
   if (game.id === "source-lab") return -8;
+  if (game.id === "source-audit") return -7.5;
   if (game.id === "writing-coach") return -7;
   if (game.id === "history-hunters") return -6;
   if (game.id === "archive-quest") return -5;
@@ -2672,7 +2675,7 @@ function renderLaunchPaths() {
 }
 
 function renderPracticeModes() {
-  const ids = ["regents-practice-exam", "source-lab", "writing-coach", "regents-gauntlet", "source-sprint", "arcade-duel", "global-regents-sprint-day-1", "us-regents-sprint-day-1"];
+  const ids = ["regents-practice-exam", "source-lab", "source-audit", "writing-coach", "regents-gauntlet", "source-sprint", "arcade-duel", "global-regents-sprint-day-1", "us-regents-sprint-day-1"];
   const games = ids.map((id) => GAMES.find((game) => game.id === id)).filter(Boolean);
   const backup = GAMES.filter((game) => laneMatchesWith("regents", game)).slice(0, 6);
   const unique = [...new Map(games.concat(backup).map((game) => [game.id, game])).values()].slice(0, 6);

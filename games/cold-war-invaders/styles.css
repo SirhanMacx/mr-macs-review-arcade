@@ -489,11 +489,51 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   .topbar { min-height: 54px; padding: 7px; }
   .brand { grid-template-columns: 40px minmax(0,1fr); }
   .brand-mark { width: 40px; height: 40px; }
+  .brand small { display: none; }
+  .brand strong {
+    white-space: normal;
+    font-size: 15px;
+    line-height: 1.05;
+  }
   .hud strong { font-size: 13px; }
   .mini-btn { min-width: 0; }
   .mission-card p,
   #coachText { font-size: 15px; }
   select { min-height: 42px; }
   .btn { min-height: 42px; }
-  .touch-btn { min-height: 56px; font-size: 12px; }
+  .mobile-controls {
+    grid-template-columns: 1fr 1.15fr 1fr 1fr;
+    gap: 6px;
+  }
+  .touch-btn {
+    min-height: 58px;
+    font-size: 12px;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .briefing-card {
+    max-height: calc(100dvh - 14px);
+    padding: 12px;
+  }
+  .choice { min-height: 62px; }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .topbar {
+    min-height: 42px;
+    padding: 5px 7px;
+  }
+  .brand-mark { width: 34px; height: 34px; }
+  .brand small { display: none; }
+  .brand strong { font-size: 14px; }
+  .hud {
+    bottom: calc(max(6px, env(safe-area-inset-bottom)) + 56px);
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 38px 38px;
+  }
+  .hud div { min-height: 36px; }
+  .mobile-controls {
+    bottom: max(6px, env(safe-area-inset-bottom));
+  }
+  .touch-btn { min-height: 46px; }
 }

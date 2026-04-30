@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Source Audit - Mr. Mac's Review Arcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20260430-source-audit1">
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span><small>Mr. Mac's Arcade</small><strong>Source Audit</strong></span>
+    </a>
+    <nav class="top-actions" aria-label="Source audit links">
+      <a class="btn ghost" href="../source-lab/">Source Lab</a>
+      <a class="btn ghost" href="../regents-practice-exam/">Practice Exam</a>
+      <a class="btn" href="../../index.html">Arcade Home</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <article>
+      <div class="kicker">Regents source integrity</div>
+      <h1>Trusted Stimulus Audit</h1>
+      <p>Checks every Regents MCQ source against its course, image path, quarantine flag, duplicate-image risk, and January 2026 official coverage.</p>
+    </article>
+    <div class="hero-actions">
+      <button class="btn primary" id="exportBtn" type="button">Export CSV</button>
+      <button class="btn ghost" id="showIssuesBtn" type="button">Show Issues</button>
+    </div>
+  </section>
+
+  <section class="metrics" id="metrics" aria-live="polite">
+    <article class="metric"><strong>...</strong><span>loading bank</span></article>
+  </section>
+
+  <section class="toolbar" aria-label="Audit filters">
+    <label>Course
+      <select id="courseFilter">
+        <option value="all">All Courses</option>
+      </select>
+    </label>
+    <label>Status
+      <select id="statusFilter">
+        <option value="all">All Statuses</option>
+        <option value="official">Official Jan. 2026</option>
+        <option value="trusted">Trusted Images</option>
+        <option value="issue">Needs Review</option>
+        <option value="missing">Missing Image</option>
+        <option value="mismatch">Course Mismatch</option>
+        <option value="reused">Reused Image</option>
+        <option value="quarantined">Quarantined</option>
+      </select>
+    </label>
+    <label>Search
+      <input id="searchBox" type="search" placeholder="Question, source, set, topic">
+    </label>
+  </section>
+
+  <section class="coverage-grid" id="coverageGrid"></section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <div class="kicker">Question-by-question</div>
+        <h2 id="resultTitle">Source Records</h2>
+      </div>
+      <span id="resultCount" class="pill">0 records</span>
+    </div>
+    <div class="audit-list" id="auditList"></div>
+  </section>
+</main>
+<script src="game.js?v=20260430-source-audit1"></script>
+</body>
+</html>
