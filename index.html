@@ -14,10 +14,13 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   color-scheme: dark;
+  --font-display: "Bungee", Impact, Haettenschweiler, "Arial Black", sans-serif;
+  --font-ui: "Rajdhani", "Arial Narrow", system-ui, sans-serif;
+  --font-pixel: "Press Start 2P", ui-monospace, SFMono-Regular, Menlo, monospace;
   --ink: #06080f;
   --onyx: #0c1119;
   --panel: rgba(13, 17, 27, .68);
@@ -37,7 +40,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
   --violet: #b892ff;
   --green: #69f0aa;
   --amber: #ffb547;
-  --hero: url("assets/arcade-lobby-80s.webp");
+  --hero: url("assets/arcade-stage-clean.webp");
   --emblem: url("assets/arcade-token-mm.webp");
   --ui-sheet: url("assets/arcade-ui-sheet-80s.webp");
   --marquee-art: url("assets/arcade-marquee-panel.webp");
@@ -68,7 +71,7 @@ body {
     radial-gradient(circle at 12% 4%, rgba(255,47,179,.18), transparent 32%),
     radial-gradient(circle at 88% 6%, rgba(122,240,255,.16), transparent 28%),
     linear-gradient(180deg, #07030f, #02020a 44%, #05040d);
-  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-ui);
   font-feature-settings: "ss01", "ss02", "cv11";
   letter-spacing: 0;
   overflow-x: hidden;
@@ -96,9 +99,9 @@ a { color: inherit; }
   border: 1px solid rgba(122,240,255,.55);
   background: rgba(13, 17, 27, .92);
   box-shadow: var(--shadow-2);
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-pixel);
   font-size: 11px;
-  letter-spacing: .08em;
+  letter-spacing: 0;
   text-transform: uppercase;
   text-decoration: none;
   transform: translateY(-220%);
@@ -126,11 +129,11 @@ textarea:focus-visible {
 .hero-bg {
   position: fixed; inset: 0; z-index: -5;
   background:
-    linear-gradient(180deg, rgba(3,2,10,.00) 0%, rgba(3,2,10,.22) 34%, rgba(3,2,10,.82) 76%, var(--ink) 100%),
-    linear-gradient(90deg, rgba(3,2,10,.58) 0%, rgba(3,2,10,.12) 35%, rgba(3,2,10,.10) 60%, rgba(3,2,10,.58) 100%),
-    var(--hero) center 36% / cover no-repeat;
-  filter: saturate(1.18) contrast(1.08);
-  transform: translate3d(0, var(--bgY, 0), 0) scale(1.04);
+    linear-gradient(180deg, rgba(3,2,10,.00) 0%, rgba(3,2,10,.18) 34%, rgba(3,2,10,.78) 78%, var(--ink) 100%),
+    linear-gradient(90deg, rgba(3,2,10,.30) 0%, rgba(3,2,10,.06) 34%, rgba(3,2,10,.05) 66%, rgba(3,2,10,.36) 100%),
+    var(--hero) center 40% / cover no-repeat;
+  filter: saturate(1.22) contrast(1.08);
+  transform: translate3d(0, var(--bgY, 0), 0) scale(1.015);
   transition: transform .15s linear;
 }
 .hero-bg::before {
@@ -151,14 +154,14 @@ textarea:focus-visible {
     linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
   background-size: 260px 390px, 96px 96px, 96px 96px;
   mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 70%, transparent 100%);
-  opacity: .55;
+  opacity: .22;
 }
 .grain {
   position: fixed; inset: 0; z-index: -3; pointer-events: none;
   background-image: var(--scanline-art);
   background-size: 220px auto;
   mix-blend-mode: screen;
-  opacity: .14;
+  opacity: .055;
   animation: grainShift 8s steps(6) infinite;
 }
 @keyframes grainShift {
@@ -223,7 +226,7 @@ textarea:focus-visible {
 }
 .brand strong {
   display: block;
-  font-family: "Fraunces", serif;
+  font-family: var(--font-display);
   font-size: 16px; line-height: 1;
   font-weight: 600;
   letter-spacing: 0;
@@ -231,10 +234,10 @@ textarea:focus-visible {
 .brand span:last-child > span {
   display: block;
   margin-top: 5px;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-pixel);
   color: var(--muted);
   font-size: 10.5px;
-  letter-spacing: .14em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 .topnav {
@@ -253,7 +256,7 @@ textarea:focus-visible {
   border-radius: 6px;
   text-decoration: none;
   font-size: 12.5px; font-weight: 600;
-  letter-spacing: .02em;
+  letter-spacing: 0;
   color: var(--paper-2);
   transition: background .25s var(--ease), color .25s var(--ease);
 }
@@ -270,9 +273,9 @@ textarea:focus-visible {
   background:
     linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
     rgba(3,2,10,.62);
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-pixel);
   font-size: 10.5px; font-weight: 500;
-  letter-spacing: .06em; text-transform: uppercase;
+  letter-spacing: 0; text-transform: uppercase;
   color: var(--paper-2);
 }
 .pill::before {
@@ -291,7 +294,7 @@ textarea:focus-visible {
   background: linear-gradient(135deg, var(--gold), var(--gold-warm));
   color: #15110a;
   font-weight: 800; font-size: 13px;
-  letter-spacing: .01em;
+  letter-spacing: 0;
   box-shadow: 0 0 30px rgba(245,196,81,.22), 0 1px 0 rgba(255,255,255,.4) inset;
   transition: transform .25s var(--ease), box-shadow .25s var(--ease);
 }
@@ -321,9 +324,9 @@ textarea:focus-visible {
 }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 14px;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-pixel);
   font-size: 11.5px;
-  letter-spacing: .22em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--cyan);
   margin-bottom: 24px;
@@ -336,29 +339,31 @@ textarea:focus-visible {
 }
 .hero-title {
   margin: 0;
-  font-family: "Fraunces", "Playfair Display", serif;
-  font-weight: 280;
-  font-variation-settings: "opsz" 144, "SOFT" 30;
-  font-size: clamp(58px, 10vw, 168px);
-  line-height: .9;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(52px, 8.5vw, 128px);
+  line-height: .92;
   letter-spacing: 0;
   color: var(--paper);
-  max-width: 1240px;
+  max-width: 1120px;
+  text-transform: uppercase;
   text-shadow:
-    0 0 18px rgba(255,47,179,.30),
-    0 0 34px rgba(122,240,255,.20),
-    4px 4px 0 rgba(0,0,0,.36);
+    0 3px 0 #101826,
+    0 7px 0 rgba(255,47,179,.48),
+    0 0 24px rgba(122,240,255,.48),
+    0 0 42px rgba(245,196,81,.26);
 }
 .hero-title .ht-row { display: block; }
 .hero-title .ht-1 {
-  font-style: italic;
-  font-weight: 320;
+  font-style: normal;
+  font-weight: 400;
   color: var(--paper-2);
 }
-.hero-title .ht-2 { font-weight: 380; }
+.hero-title .ht-2,
+.hero-title .ht-3 { font-weight: 400; }
 .hero-title em {
-  font-style: italic;
-  font-weight: 360;
+  font-style: normal;
+  font-weight: 400;
   background: linear-gradient(120deg, var(--gold) 0%, var(--gold-warm) 35%, var(--cyan) 95%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -398,7 +403,7 @@ textarea:focus-visible {
   color: var(--paper);
   text-decoration: none;
   font-weight: 600; font-size: 14px;
-  letter-spacing: .005em;
+  letter-spacing: 0;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
@@ -448,13 +453,13 @@ textarea:focus-visible {
 .hm-track:hover { animation-play-state: paused; }
 .hm-item {
   display: inline-flex; align-items: center; gap: 12px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+  font-family: var(--font-pixel);
+  font-size: 12px; letter-spacing: 0; text-transform: uppercase;
   color: var(--paper-2);
 }
 .hm-item strong {
-  font-family: "Fraunces", serif;
-  font-weight: 540; font-style: italic;
+  font-family: var(--font-display);
+  font-weight: 540; font-style: normal;
   color: var(--paper);
   font-size: 18px;
   letter-spacing: 0;
@@ -477,6 +482,7 @@ textarea:focus-visible {
 .band {
   position: relative;
   padding: clamp(56px, 9vh, 110px) 0 clamp(40px, 6vh, 70px);
+  scroll-margin-top: 92px;
 }
 .band + .band { padding-top: clamp(40px, 6vh, 70px); }
 .band-head {
@@ -487,8 +493,8 @@ textarea:focus-visible {
 }
 .band-head > div:first-child { max-width: 720px; }
 .band-eyebrow {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px; letter-spacing: .22em;
+  font-family: var(--font-pixel);
+  font-size: 11px; letter-spacing: 0;
   text-transform: uppercase;
   color: var(--cyan);
   margin-bottom: 10px;
@@ -501,7 +507,7 @@ textarea:focus-visible {
 }
 .band-title {
   margin: 0;
-  font-family: "Fraunces", serif;
+  font-family: var(--font-display);
   font-weight: 320;
   font-variation-settings: "opsz" 96;
   font-size: clamp(30px, 4.6vw, 60px);
@@ -510,7 +516,7 @@ textarea:focus-visible {
   color: var(--paper);
 }
 .band-title em {
-  font-style: italic;
+  font-style: normal;
   background: linear-gradient(120deg, var(--gold), var(--cyan));
   -webkit-background-clip: text;
   background-clip: text;
@@ -518,8 +524,8 @@ textarea:focus-visible {
 }
 .band-sub {
   margin: 14px 0 0;
-  color: var(--muted);
-  font-size: 15px; line-height: 1.55;
+  color: var(--paper-2);
+  font-size: 16px; line-height: 1.55;
   max-width: 580px;
 }
 
@@ -566,8 +572,8 @@ textarea:focus-visible {
   position: absolute;
   right: 14px;
   top: 8px;
-  font-family: "Fraunces", serif;
-  font-style: italic;
+  font-family: var(--font-display);
+  font-style: normal;
   font-weight: 280;
   font-size: 88px;
   line-height: 1;
@@ -587,10 +593,10 @@ textarea:focus-visible {
 }
 .quick-kicker,
 .quick-meta {
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-pixel);
   font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: .14em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -606,14 +612,14 @@ textarea:focus-visible {
   border-radius: 999px;
   color: color-mix(in oklab, var(--accent, #7af0ff) 82%, white 18%);
   background: color-mix(in oklab, var(--accent, #7af0ff) 16%, rgba(255,255,255,.03));
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-pixel);
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: 0;
 }
 .quick-card h3 {
   margin: 0 0 8px;
-  font-family: "Fraunces", serif;
+  font-family: var(--font-display);
   font-size: clamp(25px, 2.4vw, 36px);
   line-height: 1;
   font-weight: 340;
@@ -726,9 +732,9 @@ textarea:focus-visible {
   border-radius: 999px;
   background: rgba(255,255,255,.08);
   border: 1px solid rgba(255,255,255,.16);
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-pixel);
   font-size: 10.5px; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase;
+  letter-spacing: 0; text-transform: uppercase;
   color: var(--accent, var(--cyan));
   text-shadow: 0 0 12px color-mix(in oklab, var(--accent, #7af0ff) 60%, transparent);
 }
@@ -738,7 +744,7 @@ textarea:focus-visible {
   box-shadow: 0 0 10px var(--accent, var(--cyan));
 }
 .mode-button .mb-title {
-  font-family: "Fraunces", serif;
+  font-family: var(--font-display);
   font-weight: 360;
   font-variation-settings: "opsz" 144;
   font-size: clamp(22px, 2.4vw, 34px);
@@ -768,8 +774,8 @@ textarea:focus-visible {
   margin-top: 16px;
 }
 .mb-pill {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  font-family: var(--font-pixel);
+  font-size: 10.5px; letter-spacing: 0; text-transform: uppercase;
   padding: 5px 11px;
   border: 1px solid rgba(255,255,255,.16);
   border-radius: 999px;
@@ -779,8 +785,8 @@ textarea:focus-visible {
   -webkit-backdrop-filter: blur(8px);
 }
 .mode-button .mb-meta {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px; letter-spacing: .14em;
+  font-family: var(--font-pixel);
+  font-size: 10.5px; letter-spacing: 0;
   text-transform: uppercase; color: var(--muted);
 }
 .launch-chip {
@@ -790,7 +796,7 @@ textarea:focus-visible {
   background: linear-gradient(135deg, color-mix(in oklab, var(--accent, #f5c451) 92%, white 8%), color-mix(in oklab, var(--accent, #f5c451) 70%, white 18%));
   color: #100c05;
   font-weight: 800; font-size: 12px;
-  letter-spacing: .03em;
+  letter-spacing: 0;
   box-shadow: 0 6px 20px color-mix(in oklab, var(--accent, #f5c451) 35%, transparent);
 }
 .launch-chip::after { content: "→"; transition: transform .25s var(--ease); }
@@ -880,8 +886,8 @@ textarea:focus-visible {
 .course-tile::after {
   content: var(--course-glyph, "");
   position: absolute; right: 10px; top: 8px;
-  font-family: "Fraunces", serif;
-  font-style: italic; font-weight: 280;
+  font-family: var(--font-display);
+  font-style: normal; font-weight: 280;
   font-size: 130px; line-height: 1;
   color: color-mix(in oklab, var(--accent, #7af0ff) 18%, transparent);
   pointer-events: none;
@@ -895,8 +901,8 @@ textarea:focus-visible {
 }
 .course-tile:hover::before { opacity: .85; transform: scale(1.1); }
 .course-tile small {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px; letter-spacing: .18em;
+  font-family: var(--font-pixel);
+  font-size: 10.5px; letter-spacing: 0;
   text-transform: uppercase; color: var(--accent, var(--cyan));
   display: inline-flex; align-items: center; gap: 7px;
 }
@@ -908,11 +914,10 @@ textarea:focus-visible {
 .course-tile strong {
   display: block;
   margin-top: 14px;
-  font-family: "Fraunces", serif;
-  font-weight: 320;
-  font-variation-settings: "opsz" 96;
-  font-size: clamp(22px, 2vw, 30px);
-  line-height: 1.05;
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: clamp(25px, 2.2vw, 34px);
+  line-height: 1.03;
   letter-spacing: 0;
   color: var(--paper);
 }
@@ -920,15 +925,16 @@ textarea:focus-visible {
   display: flex; align-items: center; gap: 10px;
   padding-top: 12px;
   border-top: 1px solid rgba(255,255,255,.08);
-  color: var(--muted);
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px; letter-spacing: .12em;
+  color: var(--paper-2);
+  font-family: var(--font-ui);
+  font-size: 13px; letter-spacing: 0;
+  font-weight: 800;
   text-transform: uppercase;
 }
 .course-tile > span:last-child::after {
   content: "→";
   margin-left: auto;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-ui);
   font-size: 16px;
   color: var(--paper);
   transition: transform .25s var(--ease);
@@ -944,9 +950,9 @@ textarea:focus-visible {
   border: 1px solid var(--line-2);
   border-radius: 999px;
   background: rgba(255,255,255,.04);
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-pixel);
   font-size: 11.5px;
-  letter-spacing: .12em; text-transform: uppercase;
+  letter-spacing: 0; text-transform: uppercase;
   color: var(--paper-2);
 }
 .count-pill::before {
@@ -968,7 +974,7 @@ textarea:focus-visible {
   color: var(--paper-2);
   font-size: 12.5px;
   font-weight: 750;
-  letter-spacing: .01em;
+  letter-spacing: 0;
   transition: background .24s var(--ease), border-color .24s var(--ease), color .24s var(--ease);
 }
 .lane-tab:hover,
@@ -992,10 +998,11 @@ textarea:focus-visible {
   padding: 0 16px;
   border: 1px solid var(--line-2);
   border-radius: 8px;
-  background: rgba(13,17,27,.75);
+  background: rgba(8,11,20,.94);
   color: var(--paper);
-  font-size: 13.5px;
-  letter-spacing: .005em;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
   outline: none;
   appearance: none;
   -webkit-appearance: none;
@@ -1005,7 +1012,7 @@ textarea:focus-visible {
   background-repeat: no-repeat;
   transition: border-color .25s var(--ease), background-color .25s var(--ease);
 }
-.field:focus, .field:hover { border-color: var(--line-3); background-color: rgba(13,17,27,.92); }
+.field:focus, .field:hover { border-color: var(--line-3); background-color: rgba(8,11,20,.98); }
 .field.search {
   padding-left: 44px;
   background-repeat: no-repeat;
@@ -1028,9 +1035,9 @@ textarea:focus-visible {
   border: 1px solid var(--line-2);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(3,2,10,.12), rgba(3,2,10,.86)),
+    linear-gradient(180deg, rgba(3,2,10,.50), rgba(3,2,10,.95)),
     var(--card-art, var(--card-blue)) center / cover no-repeat,
-    linear-gradient(180deg, rgba(13,17,27,.78) 0%, rgba(8,11,20,.92) 100%);
+    linear-gradient(180deg, rgba(13,17,27,.88) 0%, rgba(8,11,20,.98) 100%);
   color: var(--paper);
   cursor: pointer;
   overflow: hidden;
@@ -1056,7 +1063,7 @@ textarea:focus-visible {
   position: relative;
   height: 110px;
   background:
-    linear-gradient(180deg, rgba(3,2,10,.06), rgba(3,2,10,.72)),
+    linear-gradient(180deg, rgba(3,2,10,.22), rgba(3,2,10,.82)),
     var(--ui-sheet) 50% 50% / 720px auto no-repeat,
     radial-gradient(120% 80% at 100% 0%, color-mix(in oklab, var(--accent, #7af0ff) 35%, transparent), transparent 65%),
     linear-gradient(135deg, rgba(13,17,27,.5), rgba(8,11,20,.9)),
@@ -1068,18 +1075,19 @@ textarea:focus-visible {
 .gc-art::after {
   content: var(--course-glyph, "");
   position: absolute; right: 10px; top: -16px;
-  font-family: "Fraunces", serif;
-  font-style: italic; font-weight: 280;
+  font-family: var(--font-display);
+  font-style: normal; font-weight: 280;
   font-size: 110px; line-height: 1;
-  color: color-mix(in oklab, var(--accent, #7af0ff) 22%, transparent);
+  color: color-mix(in oklab, var(--accent, #7af0ff) 16%, transparent);
 }
 .gc-stripe {
   position: absolute; left: 14px; right: 14px; bottom: 12px;
   display: flex; gap: 6px; align-items: center;
 }
 .gc-stripe .badge {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 9.5px; letter-spacing: .12em;
+  font-family: var(--font-ui);
+  font-size: 12px; letter-spacing: 0;
+  font-weight: 800;
   text-transform: uppercase;
   padding: 5px 9px;
   border-radius: 999px;
@@ -1100,18 +1108,17 @@ textarea:focus-visible {
 }
 .gc-body h3 {
   margin: 0;
-  font-family: "Fraunces", serif;
-  font-weight: 360;
-  font-variation-settings: "opsz" 96;
-  font-size: 18px;
-  line-height: 1.18;
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: 21px;
+  line-height: 1.08;
   letter-spacing: 0;
   color: var(--paper);
 }
 .gc-body p {
   margin: 4px 0 0;
-  color: var(--muted);
-  font-size: 12.5px;
+  color: var(--paper-2);
+  font-size: 14.5px;
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1126,10 +1133,11 @@ textarea:focus-visible {
   margin-top: auto;
 }
 .card-bottom .micro {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10px; letter-spacing: .12em;
+  font-family: var(--font-ui);
+  font-size: 13px; letter-spacing: 0;
+  font-weight: 800;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--paper-2);
   line-height: 1.5;
 }
 .play {
@@ -1139,9 +1147,9 @@ textarea:focus-visible {
   background: color-mix(in oklab, var(--accent, #f5c451) 18%, rgba(255,255,255,.04));
   border: 1px solid color-mix(in oklab, var(--accent, #f5c451) 40%, transparent);
   color: color-mix(in oklab, var(--accent, #f5c451) 80%, white 20%);
-  font-family: "JetBrains Mono", monospace;
-  font-weight: 700; font-size: 11px;
-  letter-spacing: .12em; text-transform: uppercase;
+  font-family: var(--font-ui);
+  font-weight: 800; font-size: 13px;
+  letter-spacing: 0; text-transform: uppercase;
   transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
 }
 .play::after { content: "▶"; font-size: 10px; }
@@ -1156,8 +1164,8 @@ textarea:focus-visible {
   padding: 60px 30px;
   text-align: center;
   color: var(--muted);
-  font-family: "Fraunces", serif;
-  font-style: italic;
+  font-family: var(--font-display);
+  font-style: normal;
   font-size: 22px;
   border: 1px dashed var(--line-2);
   border-radius: 8px;
@@ -1183,14 +1191,14 @@ textarea:focus-visible {
 .foot-brand .brand-mark { width: 40px; height: 40px; }
 .foot-brand strong {
   display: block;
-  font-family: "Fraunces", serif;
-  font-weight: 540; font-style: italic;
+  font-family: var(--font-display);
+  font-weight: 540; font-style: normal;
   font-size: 16px;
 }
 .foot-brand span {
   display: block; margin-top: 4px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px; letter-spacing: .14em;
+  font-family: var(--font-pixel);
+  font-size: 10.5px; letter-spacing: 0;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -1204,15 +1212,15 @@ textarea:focus-visible {
   text-align: right;
 }
 .traffic-stat strong {
-  font-family: "Fraunces", serif;
-  font-weight: 540; font-style: italic;
+  font-family: var(--font-display);
+  font-weight: 540; font-style: normal;
   font-size: 22px;
   color: var(--gold);
   letter-spacing: 0;
 }
 .traffic-stat span {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10px; letter-spacing: .14em;
+  font-family: var(--font-pixel);
+  font-size: 10px; letter-spacing: 0;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -1252,8 +1260,8 @@ textarea:focus-visible {
   min-width: 0;
 }
 .playerbar #playerTitle {
-  font-family: "Fraunces", serif;
-  font-weight: 540; font-style: italic;
+  font-family: var(--font-display);
+  font-weight: 540; font-style: normal;
   font-size: 18px;
   color: var(--paper);
   white-space: nowrap;
@@ -1261,8 +1269,8 @@ textarea:focus-visible {
   text-overflow: ellipsis;
 }
 .playerbar #playerMeta {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px; letter-spacing: .12em;
+  font-family: var(--font-pixel);
+  font-size: 10.5px; letter-spacing: 0;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -1275,7 +1283,7 @@ textarea:focus-visible {
   background: rgba(255,255,255,.04);
   color: var(--paper);
   font-size: 12.5px; font-weight: 600;
-  letter-spacing: .005em;
+  letter-spacing: 0;
   transition: background .25s var(--ease), border-color .25s var(--ease);
 }
 .btn:hover { background: rgba(255,255,255,.10); border-color: var(--line-3); }
@@ -1293,8 +1301,8 @@ textarea:focus-visible {
 .framewrap .loader {
   position: absolute; inset: 0;
   display: none; align-items: center; justify-content: center;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 12px; letter-spacing: .2em;
+  font-family: var(--font-pixel);
+  font-size: 12px; letter-spacing: 0;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -1341,6 +1349,36 @@ textarea:focus-visible {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
+.jeopardy-console {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr minmax(240px, 1.4fr);
+  gap: 10px;
+  padding: 12px;
+  margin: -18px 0 18px;
+  border: 1px solid rgba(122,240,255,.22);
+  border-radius: 8px;
+  background: rgba(4,7,14,.82);
+  box-shadow: var(--shadow-1);
+}
+.jeopardy-summary {
+  margin: 0 0 14px;
+  color: var(--paper-2);
+  font-size: 15px;
+  font-weight: 700;
+}
+.jeopardy-summary strong {
+  color: var(--gold-warm);
+  font-weight: 800;
+}
+.jeopardy-grid {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.jeopardy-grid .focus-card {
+  min-height: 190px;
+}
+.jeopardy-grid .focus-card h3 {
+  font-size: 24px;
+}
 .path-card,
 .focus-card,
 .progress-card {
@@ -1355,10 +1393,10 @@ textarea:focus-visible {
   border: 1px solid var(--line-2);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(3,2,10,.08), rgba(3,2,10,.86)),
+    linear-gradient(180deg, rgba(3,2,10,.52), rgba(3,2,10,.95)),
     var(--card-art, var(--card-cyan)) center / cover no-repeat,
     linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.025)),
-    linear-gradient(180deg, rgba(12,17,30,.82), rgba(6,9,17,.95));
+    linear-gradient(180deg, rgba(12,17,30,.90), rgba(6,9,17,.98));
   box-shadow: var(--shadow-1);
   overflow: hidden;
   transition: transform .28s var(--ease-out), border-color .28s var(--ease-out), box-shadow .28s var(--ease-out);
@@ -1388,7 +1426,7 @@ textarea:focus-visible {
   right: 18px;
   bottom: -18px;
   color: color-mix(in srgb, var(--accent, var(--cyan)) 42%, transparent);
-  font-family: "Fraunces", serif;
+  font-family: var(--font-display);
   font-size: 96px;
   line-height: 1;
   font-weight: 700;
@@ -1409,11 +1447,11 @@ textarea:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-ui);
   color: var(--cyan);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .14em;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 .path-kicker::before {
@@ -1428,17 +1466,18 @@ textarea:focus-visible {
 .focus-card h3,
 .progress-card h3 {
   margin: 0 0 9px;
-  font-family: "Fraunces", serif;
-  font-size: 28px;
-  line-height: 1;
+  font-family: var(--font-ui);
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 1.04;
   letter-spacing: 0;
 }
 .path-card p,
 .focus-card p,
 .progress-card p {
   margin: 0;
-  color: var(--muted);
-  font-size: 14px;
+  color: var(--paper-2);
+  font-size: 15px;
   line-height: 1.45;
 }
 .path-foot,
@@ -1539,13 +1578,14 @@ textarea:focus-visible {
   .path-grid,
   .progress-grid,
   .focus-grid { grid-template-columns: 1fr; }
+  .jeopardy-console { grid-template-columns: 1fr; }
   .progress-card.recommendation { grid-column: auto; }
   .progress-actions { justify-content: flex-start; }
 }
 
 /* ============== Misc ============== */
 @media (max-width: 700px) {
-  .hero-title { font-size: clamp(46px, 13vw, 96px); }
+  .hero-title { font-size: clamp(38px, 11.5vw, 64px); }
   .band-title { font-size: clamp(28px, 8vw, 44px); }
   .traffic-panel { grid-template-columns: repeat(2, 1fr); width: 100%; }
   .traffic-stat { text-align: left; }
@@ -1582,10 +1622,11 @@ textarea:focus-visible {
   <div class="hero-inner">
     <div class="eyebrow reveal">Practice for your exam</div>
     <h1 class="hero-title reveal">
-      <span class="ht-row ht-1">Mr. Mac's</span>
-      <span class="ht-row ht-2">Review <em>Arcade</em></span>
+      <span class="ht-row ht-1">MR. MAC'S</span>
+      <span class="ht-row ht-2">REVIEW</span>
+      <span class="ht-row ht-3"><em>ARCADE</em></span>
     </h1>
-    <p class="tagline reveal">A faster path to the right practice: full Regents simulations, five-minute warmups, source-based MCQs, AP review, and course-by-course unit games.</p>
+    <p class="tagline reveal">Regents practice, five-minute warmups, Jeopardy boards, AP review, and course games in one arcade.</p>
     <div class="hero-actions reveal">
       <button class="action primary" id="launchFeatured" type="button">
         <span>Start Recommended</span>
@@ -1661,11 +1702,17 @@ textarea:focus-visible {
       <div>
         <div class="band-eyebrow">Jeopardy Boards</div>
         <h2 class="band-title">Project a <em>board</em>.</h2>
-        <p class="band-sub">Course and unit boards stay visible as a dedicated teacher-friendly lane, separate from the arcade modes.</p>
+        <p class="band-sub">All unit reviews now live under Jeopardy. Pick a course level and subject, then launch the board you need.</p>
       </div>
       <button class="action compact" id="showAllJeopardyBtn" type="button">Show All Boards</button>
     </div>
-    <div class="focus-grid reveal-stagger" id="jeopardyModes"></div>
+    <section class="jeopardy-console reveal" aria-label="Jeopardy board filters">
+      <select class="field" id="jeopardyCourseSelect" aria-label="Jeopardy course level"></select>
+      <select class="field" id="jeopardySubjectSelect" aria-label="Jeopardy subject"></select>
+      <input class="field search" id="jeopardySearch" type="search" autocomplete="off" placeholder="Search Jeopardy boards…">
+    </section>
+    <p class="jeopardy-summary" id="jeopardySummary"></p>
+    <div class="focus-grid jeopardy-grid reveal-stagger" id="jeopardyModes"></div>
   </section>
 
   <section class="band quick-band" id="quickplay" aria-label="Quick play">
@@ -1858,23 +1905,49 @@ function glyphFor(game) {
   return paletteFor(game.course).glyph;
 }
 
+const JEOPARDY_ALL_COURSES = "All Course Levels";
+const JEOPARDY_ALL_SUBJECTS = "All Subjects";
+const JEOPARDY_PREVIEW_LIMIT = 18;
+const jeopardyState = { course: JEOPARDY_ALL_COURSES, subject: JEOPARDY_ALL_SUBJECTS, query: "" };
+const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final"]);
+
+function isJeopardyBoard(game) {
+  const text = [game.title, game.originalFile, game.file, game.gameType].join(" ");
+  return /jeopardy/i.test(text) || game.gameType === "Unit Review";
+}
+function displayGameType(game) {
+  if (!game) return "Review";
+  if (isJeopardyBoard(game)) return "Jeopardy";
+  if (UNIT_REVIEW_TYPES.has(game.gameType)) return "Final Review";
+  return game.gameType || "Review";
+}
+function isRegentsLike(game) {
+  return /Regents|Gauntlet/i.test(game.gameType || "");
+}
+
 // ============== Filters ==============
 function fillSelect(id, label, values) {
   const select = document.getElementById(id);
+  if (!select) return;
   select.innerHTML = [label].concat(values.filter((value) => value !== label)).map((value) => '<option value="' + escapeHtml(value) + '">' + escapeHtml(value) + '</option>').join("");
 }
 function initFilters() {
   fillSelect("courseFilter", "All Courses", uniq(GAMES.map((game) => game.course)));
   fillSelect("subjectFilter", "All Subjects", uniq(GAMES.map((game) => game.subject)));
-  fillSelect("typeFilter", "All Game Types", uniq(GAMES.map((game) => game.gameType)));
+  fillSelect("typeFilter", "All Game Types", uniq(GAMES.map(displayGameType)));
+  fillSelect("jeopardyCourseSelect", JEOPARDY_ALL_COURSES, uniq(GAMES.filter(isJeopardyBoard).map((game) => game.course)));
+  fillSelect("jeopardySubjectSelect", JEOPARDY_ALL_SUBJECTS, uniq(GAMES.filter(isJeopardyBoard).map((game) => game.subject)));
   document.getElementById("search").addEventListener("input", (event) => { state.query = event.target.value; render(); });
   document.getElementById("courseFilter").addEventListener("change", (event) => { state.course = event.target.value; render(); });
   document.getElementById("subjectFilter").addEventListener("change", (event) => { state.subject = event.target.value; render(); });
   document.getElementById("typeFilter").addEventListener("change", (event) => { state.type = event.target.value; render(); });
   document.getElementById("sortFilter").addEventListener("change", (event) => { state.sort = event.target.value; render(); });
+  document.getElementById("jeopardyCourseSelect")?.addEventListener("change", (event) => { jeopardyState.course = event.target.value; renderJeopardyModes(); });
+  document.getElementById("jeopardySubjectSelect")?.addEventListener("change", (event) => { jeopardyState.subject = event.target.value; renderJeopardyModes(); });
+  document.getElementById("jeopardySearch")?.addEventListener("input", (event) => { jeopardyState.query = event.target.value; renderJeopardyModes(); });
 }
 function searchable(game) {
-  return [game.title, game.subtitle, game.day, game.course, game.subject, game.grade, game.gameType].concat(game.categories || [], game.tags || []).join(" ").toLowerCase();
+  return [game.title, game.subtitle, game.day, game.course, game.subject, game.grade, game.gameType, displayGameType(game), game.originalFile].concat(game.categories || [], game.tags || []).join(" ").toLowerCase();
 }
 function quickPlayIds() {
   return ["lightning-review", "source-sprint", "vocab-vault", "archive-cipher"];
@@ -1888,7 +1961,7 @@ function laneMatches(game) {
   if (state.lane === "play") return ["archive-quest", "history-hunters", "cold-war-invaders", "regents-rally-source-circuit", "chrono-defense-infinite", "time-rift-survivors", "chrono-pinball", "empire-ascendant", "boss-rush-arena"].includes(game.id);
   if (state.lane === "quick") return isQuickPlay(game);
   if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing/i.test(text) || ["regents-practice-exam", "regents-rally-source-circuit", "regents-gauntlet", "source-sprint"].includes(game.id);
-  if (state.lane === "jeopardy") return /jeopardy/i.test(game.gameType || "") || /jeopardy review|review game|final exam comprehensive/i.test(game.originalFile || game.title || "");
+  if (state.lane === "jeopardy") return isJeopardyBoard(game);
   if (state.lane === "ap") return /^AP\b/.test(game.course || "") || /\bAP\b/.test(text);
   if (state.lane.startsWith("grade-")) {
     const grade = state.lane.replace("grade-", "");
@@ -1916,7 +1989,7 @@ function priority(game) {
   if (game.id === "arcade-duel") return 3;
   if (/AP Psychology Final/i.test(game.title)) return 3;
   if (/Cumulative Yearlong|Yearlong Review/i.test(game.title)) return 4;
-  if (game.gameType.includes("Regents")) return 5;
+  if (isRegentsLike(game)) return 5;
   return 10;
 }
 function filteredGames() {
@@ -1925,12 +1998,12 @@ function filteredGames() {
     if (!laneMatches(game)) return false;
     if (state.course !== "All Courses" && game.course !== state.course) return false;
     if (state.subject !== "All Subjects" && game.subject !== state.subject) return false;
-    if (state.type !== "All Game Types" && game.gameType !== state.type) return false;
+    if (state.type !== "All Game Types" && displayGameType(game) !== state.type) return false;
     if (query && !searchable(game).includes(query)) return false;
     return true;
   }).sort((a, b) => {
     if (state.sort === "title") return a.title.localeCompare(b.title, undefined, { numeric: true });
-    if (state.sort === "type") return (a.gameType + a.course + a.title).localeCompare(b.gameType + b.course + b.title, undefined, { numeric: true });
+    if (state.sort === "type") return (displayGameType(a) + a.course + a.title).localeCompare(displayGameType(b) + b.course + b.title, undefined, { numeric: true });
     if (state.sort === "course") return (a.course + a.originalFile).localeCompare(b.course + b.originalFile, undefined, { numeric: true });
     return priority(a) - priority(b) || (a.course + a.originalFile).localeCompare(b.course + b.originalFile, undefined, { numeric: true });
   });
@@ -1958,7 +2031,7 @@ function renderLaneTabs() {
 // ============== Status pills + marquee ==============
 function renderMetrics() {
   const courseCount = uniq(GAMES.map((game) => game.course)).length;
-  const typeCount = uniq(GAMES.map((game) => game.gameType)).length;
+  const typeCount = uniq(GAMES.map(displayGameType)).length;
   const clueCount = GAMES.reduce((sum, game) => sum + Number(game.clueCount || 0), 0);
   const pills = [
     GAMES.length + " live games",
@@ -1975,6 +2048,7 @@ function renderMetrics() {
     { class: "rose",  pre: "Arcade modes",     big: typeCount },
     { class: "green", pre: "Review prompts",   big: clueCount },
     { class: "gold",  pre: "Quick play modes", big: GAMES.filter(isQuickPlay).length },
+    { class: "green", pre: "Jeopardy boards", big: GAMES.filter(isJeopardyBoard).length },
     { class: "",      pre: "Regents sprint sets", big: GAMES.filter(g => g.gameType.includes("Regents")).length },
     { class: "rose",  pre: "AP Psych missions",  big: GAMES.filter(g => g.course === "AP Psychology").length },
     { class: "green", pre: "Grade 10 missions",  big: GAMES.filter(g => g.course === "Grade 10 Global History II").length }
@@ -2004,10 +2078,10 @@ function renderFeatured() {
   document.getElementById("featuredModes").innerHTML = games.map((game, index) => {
     const accent = accentFor(game);
     const art = artMap[game.id] || "";
-    const meta = game.id === "regents-practice-exam" ? "28 MCQs + document writing" : (game.clueCount || 0) + (game.gameType.includes("Regents") || game.gameType.includes("Gauntlet") ? " MCQs" : " review prompts");
+    const meta = game.id === "regents-practice-exam" ? "28 MCQs + document writing" : (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " review prompts");
     const pills = (game.categories || []).slice(0, 4).map((c) => '<span class="mb-pill">' + escapeHtml(c) + '</span>').join('');
     return '<button class="mode-button" type="button" style="--accent:' + accent + ';--mode-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
-      '<span class="mb-tag">' + escapeHtml(game.gameType) + '</span>' +
+      '<span class="mb-tag">' + escapeHtml(displayGameType(game)) + '</span>' +
       '<div>' +
         '<h3 class="mb-title">' + escapeHtml(game.title) + '</h3>' +
         '<p class="mb-sub">' + escapeHtml(game.subtitle || game.course) + '</p>' +
@@ -2033,7 +2107,7 @@ function buttonCard(game, fallback, className) {
   const id = game ? game.id : item.id;
   const title = game ? game.title : item.title;
   const subtitle = game ? game.subtitle : item.subtitle;
-  const kicker = game ? game.gameType : item.kicker;
+  const kicker = game ? displayGameType(game) : item.kicker;
   const meta = game ? [game.course, game.day || game.grade].filter(Boolean).join(" · ") : item.meta;
   return '<button class="' + className + '" type="button" style="--accent:' + accent + ';--glyph:\'' + glyph + '\'" data-id="' + escapeHtml(id) + '">' +
     '<span class="' + (className === "path-card" ? "path-kicker" : "focus-kicker") + '">' + escapeHtml(kicker) + '</span>' +
@@ -2054,7 +2128,7 @@ function renderLaunchPaths() {
     },
     {
       id: "jeopardy-lane",
-      fallback: { id: "jeopardy-lane", title: "Jeopardy Boards", subtitle: "Course and unit boards for projector review, teams, final wagers, and fast classroom reps.", kicker: "Teacher board", meta: "all courses", accent: "#ff7bcc", glyph: "J" }
+      fallback: { id: "jeopardy-lane", title: "Jeopardy Boards", subtitle: "Course and unit boards for projector review, teams, final wagers, and fast classroom reps.", kicker: "Jeopardy", meta: "all courses", accent: "#ff7bcc", glyph: "J" }
     }
   ];
   const html = paths.map((path) => {
@@ -2069,6 +2143,7 @@ function renderLaunchPaths() {
       if (button.dataset.id === "jeopardy-lane") {
         state.lane = "jeopardy";
         state.course = "All Courses";
+        state.type = "Jeopardy";
         syncFilters();
         render();
         document.getElementById("jeopardy").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2092,21 +2167,48 @@ function renderPracticeModes() {
   });
 }
 
+function jeopardyBoardSort(a, b) {
+  const courseA = a.course || "";
+  const courseB = b.course || "";
+  if (courseA !== courseB) return courseA.localeCompare(courseB, undefined, { numeric: true });
+  return (a.originalFile || a.title).localeCompare(b.originalFile || b.title, undefined, { numeric: true });
+}
+
+function filteredJeopardyBoards() {
+  const query = jeopardyState.query.trim().toLowerCase();
+  return GAMES.filter(isJeopardyBoard).filter((game) => {
+    if (jeopardyState.course !== JEOPARDY_ALL_COURSES && game.course !== jeopardyState.course) return false;
+    if (jeopardyState.subject !== JEOPARDY_ALL_SUBJECTS && game.subject !== jeopardyState.subject) return false;
+    if (query && !searchable(game).includes(query)) return false;
+    return true;
+  }).sort(jeopardyBoardSort);
+}
+
 function renderJeopardyModes() {
-  const preferredCourses = ["Grade 10 Global History II", "Grade 11 U.S. History", "Grade 8 U.S. History II", "Grade 7 U.S. History I", "AP Psychology", "AP United States History"];
-  const picks = preferredCourses.map((course) => GAMES.find((game) => game.course === course && /Jeopardy/i.test(game.title || game.originalFile || ""))).filter(Boolean);
-  const fallback = GAMES.filter((game) => /Jeopardy/i.test(game.title || game.originalFile || "")).slice(0, 6);
-  const games = [...new Map(picks.concat(fallback).map((game) => [game.id, game])).values()].slice(0, 6);
+  const games = filteredJeopardyBoards();
+  const preview = games.slice(0, JEOPARDY_PREVIEW_LIMIT);
   const container = document.getElementById("jeopardyModes");
   if (!container) return;
-  container.innerHTML = games.map((game) => buttonCard(game, null, "focus-card")).join("");
+  const summary = document.getElementById("jeopardySummary");
+  if (summary) {
+    const course = jeopardyState.course === JEOPARDY_ALL_COURSES ? "all course levels" : jeopardyState.course;
+    const subject = jeopardyState.subject === JEOPARDY_ALL_SUBJECTS ? "all subjects" : jeopardyState.subject;
+    const showing = Math.min(games.length, JEOPARDY_PREVIEW_LIMIT);
+    summary.innerHTML = '<strong>' + games.length + '</strong> Jeopardy boards found for ' + escapeHtml(course) + ' · ' + escapeHtml(subject) + (games.length > showing ? ' · showing first ' + showing : '');
+  }
+  container.innerHTML = preview.length ? preview.map((game) => buttonCard(game, null, "focus-card")).join("") : '<div class="empty">No Jeopardy boards match those filters.</div>';
   container.querySelectorAll(".focus-card").forEach((button) => {
     button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
   });
   const all = document.getElementById("showAllJeopardyBtn");
   if (all) all.onclick = () => {
     state.lane = "jeopardy";
-    state.course = "All Courses";
+    state.course = jeopardyState.course === JEOPARDY_ALL_COURSES ? "All Courses" : jeopardyState.course;
+    state.subject = jeopardyState.subject === JEOPARDY_ALL_SUBJECTS ? "All Subjects" : jeopardyState.subject;
+    state.type = "Jeopardy";
+    state.query = jeopardyState.query;
+    const search = document.getElementById("search");
+    if (search) search.value = state.query;
     syncFilters();
     render();
     document.getElementById("library").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2146,7 +2248,7 @@ function renderProgressReport() {
     '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>' + escapeHtml(item.course || "Review") + '</span><span>' + escapeHtml(String(item.bestScore ?? item.bestAccuracy ?? "")) + '</span></div>'
   ).join("") : '<div class="progress-item"><span><strong>No best scores yet</strong><br>Scores appear after completions.</span><span>--</span></div>';
   container.innerHTML =
-    '<article class="progress-card recommendation"><span class="progress-kicker">Recommended next</span><div><h3>' + escapeHtml(rec ? rec.title : "Start with Play") + '</h3><p>' + escapeHtml(summary.recommendation.reason || "Pick a path and start practicing.") + '</p></div><div class="progress-foot"><span>' + escapeHtml(rec ? rec.course + " · " + rec.gameType : "local report") + '</span>' + recHtml + '</div></article>' +
+    '<article class="progress-card recommendation"><span class="progress-kicker">Recommended next</span><div><h3>' + escapeHtml(rec ? rec.title : "Start with Play") + '</h3><p>' + escapeHtml(summary.recommendation.reason || "Pick a path and start practicing.") + '</p></div><div class="progress-foot"><span>' + escapeHtml(rec ? rec.course + " · " + displayGameType(rec) : "local report") + '</span>' + recHtml + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Recent</span><div class="progress-list">' + recent + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Weak Topics</span><div class="progress-list">' + weak + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Best Scores</span><div class="progress-list">' + best + '</div></article>';
@@ -2172,7 +2274,7 @@ function renderQuickPlay() {
       : game.id === "vocab-vault" ? "typed answers"
       : "mixed MCQs";
     return '<button class="quick-card" type="button" style="--accent:' + accent + ';--quick-glyph:\'' + glyph + '\';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
-      '<div class="quick-top"><span class="quick-kicker">' + escapeHtml(game.gameType) + '</span><span class="quick-timer">' + escapeHtml(timer) + '</span></div>' +
+      '<div class="quick-top"><span class="quick-kicker">' + escapeHtml(displayGameType(game)) + '</span><span class="quick-timer">' + escapeHtml(timer) + '</span></div>' +
       '<div><h3>' + escapeHtml(game.title) + '</h3><p>' + escapeHtml(game.subtitle) + '</p></div>' +
       '<div class="quick-foot"><span class="quick-meta">' + escapeHtml(meta) + ' · ' + escapeHtml(String(game.clueCount || 0)) + ' prompts</span><span class="play">Play</span></div>' +
     '</button>';
@@ -2214,7 +2316,7 @@ function renderCourseTiles() {
   const html = courses.map((course, index) => {
     const games = GAMES.filter((game) => game.course === course);
     const palette = paletteFor(course);
-    const types = uniq(games.map((g) => g.gameType));
+    const types = uniq(games.map(displayGameType));
     const lead = types[0] || "Review";
     const count = games.length;
     const labelType = course.startsWith("AP") ? "AP Course" : (course.startsWith("Grade") ? "Regents Course" : "Elective");
@@ -2252,12 +2354,12 @@ function card(game) {
   const accent = accentFor(game);
   const glyph = glyphFor(game);
   const categoryLine = (game.categories || []).slice(0, 3).join(" · ");
-  const meta = (game.clueCount || 0) + (game.gameType.includes("Regents") || game.gameType.includes("Gauntlet") ? " MCQs" : " clues") + " · " + (game.hasFinal ? "Final wager" : "Practice");
+  const meta = (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " clues") + " · " + (game.hasFinal ? "Final wager" : "Practice");
   return '<button class="game-card" type="button" style="--accent:' + accent + ';--course-glyph:\'' + glyph + '\'" data-id="' + escapeHtml(game.id) + '">' +
     '<div class="gc-art">' +
       '<div class="gc-stripe">' +
         '<span class="badge hot">' + escapeHtml(game.day || game.grade) + '</span>' +
-        '<span class="badge">' + escapeHtml(game.gameType) + '</span>' +
+        '<span class="badge">' + escapeHtml(displayGameType(game)) + '</span>' +
       '</div>' +
     '</div>' +
     '<div class="gc-body">' +
@@ -2288,10 +2390,11 @@ function openGame(game) {
     gameId: game.id,
     title: game.title,
     course: game.course,
-    gameType: game.gameType
+    gameType: game.gameType,
+    displayGameType: displayGameType(game)
   }, { counter: "game-launches", once: false });
   document.getElementById("playerTitle").textContent = game.title;
-  document.getElementById("playerMeta").textContent = game.course + " · " + game.gameType + " · " + (game.day || game.grade);
+  document.getElementById("playerMeta").textContent = game.course + " · " + displayGameType(game) + " · " + (game.day || game.grade);
   player.classList.add("show", "loading");
   frame.src = game.file;
   frame.focus();
