@@ -1,15 +1,15 @@
 :root {
-  --ink: #07150c;
-  --deep: #10270f;
-  --dark: #1f4c1d;
-  --mid: #76a90c;
-  --light: #c9ef41;
-  --glow: #edf987;
-  --gold: #f3cf61;
+  --ink: #06111f;
+  --deep: #091827;
+  --dark: #12364a;
+  --mid: #2bd3e6;
+  --light: #eaf7ff;
+  --glow: #f8fbff;
+  --gold: #ffd15c;
   --cyan: #75f4ff;
   --danger: #ff6a8d;
-  --panel: rgba(12, 34, 20, .94);
-  --line: rgba(237, 249, 135, .38);
+  --panel: rgba(7, 14, 27, .95);
+  --line: rgba(117, 244, 255, .34);
 }
 
 * { box-sizing: border-box; }
@@ -20,9 +20,9 @@ body {
   width: 100%;
   height: var(--game-height, 100dvh);
   overflow: hidden;
-  background: #050906;
+  background: #03070d;
   color: var(--glow);
-  font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   touch-action: manipulation;
   overscroll-behavior: none;
 }
@@ -35,17 +35,17 @@ input {
 
 button {
   cursor: pointer;
-  border: 3px solid var(--ink);
-  background: var(--light);
+  border: 2px solid rgba(6, 17, 31, .9);
+  background: linear-gradient(135deg, var(--gold), #fff2b1);
   color: var(--ink);
   font-weight: 950;
   text-transform: uppercase;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, .35);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .32), inset 0 1px 0 rgba(255,255,255,.38);
 }
 
 button:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, .35);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, .32);
 }
 
 button:disabled {
@@ -62,9 +62,9 @@ button:disabled {
   place-items: center;
   overflow: hidden;
   background:
-    radial-gradient(circle at 22% 14%, rgba(117, 244, 255, .18), transparent 24%),
-    radial-gradient(circle at 80% 72%, rgba(243, 207, 97, .14), transparent 28%),
-    linear-gradient(145deg, #08110a, #030604 62%);
+    radial-gradient(circle at 18% 10%, rgba(117, 244, 255, .22), transparent 26%),
+    radial-gradient(circle at 82% 76%, rgba(255, 209, 92, .16), transparent 30%),
+    linear-gradient(145deg, #07111f, #03070d 64%);
 }
 
 canvas {
@@ -96,7 +96,7 @@ canvas {
   place-items: center;
   padding: 24px;
   background:
-    linear-gradient(90deg, rgba(7, 21, 12, .72), rgba(7, 21, 12, .08)),
+    linear-gradient(90deg, rgba(6, 17, 31, .82), rgba(6, 17, 31, .08)),
     url("../../assets/history-hunters/overworld-map.png") center / cover;
 }
 
@@ -105,8 +105,8 @@ canvas {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(7, 21, 12, .85), rgba(7, 21, 12, .18) 68%),
-    repeating-linear-gradient(0deg, rgba(201, 239, 65, .07) 0 2px, transparent 2px 6px);
+    linear-gradient(90deg, rgba(6, 17, 31, .9), rgba(6, 17, 31, .22) 68%),
+    repeating-linear-gradient(0deg, rgba(117, 244, 255, .07) 0 2px, transparent 2px 6px);
 }
 
 .boot-panel {
@@ -115,9 +115,13 @@ canvas {
   justify-self: start;
   margin-left: max(0px, calc((100vw - 1180px) / 2));
   padding: clamp(18px, 4vw, 38px);
-  border: 5px solid var(--glow);
-  background: rgba(9, 25, 15, .9);
-  box-shadow: 12px 12px 0 rgba(0, 0, 0, .42);
+  border: 1px solid rgba(117, 244, 255, .42);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.11), rgba(255,255,255,.035)),
+    rgba(7, 14, 27, .9);
+  box-shadow: 0 34px 90px rgba(0,0,0,.56), inset 0 1px 0 rgba(255,255,255,.1);
+  backdrop-filter: blur(18px) saturate(1.14);
 }
 
 .boot-panel span,
@@ -145,7 +149,7 @@ canvas {
 .boot-panel p {
   margin: 0 0 20px;
   max-width: 54ch;
-  color: rgba(237, 249, 135, .86);
+  color: rgba(248, 251, 255, .84);
   font-size: clamp(15px, 2vw, 20px);
   line-height: 1.35;
 }
@@ -153,7 +157,7 @@ canvas {
 .boot-panel button {
   min-height: 54px;
   padding: 0 20px;
-  background: var(--gold);
+  background: linear-gradient(135deg, var(--gold), #fff2b1);
 }
 
 .hud,
@@ -175,10 +179,14 @@ canvas {
   gap: 10px;
   min-height: 42px;
   padding: 7px 10px;
-  border: 3px solid var(--ink);
-  background: rgba(201, 239, 65, .9);
-  color: var(--ink);
-  box-shadow: 5px 5px 0 rgba(0, 0, 0, .3);
+  border: 1px solid rgba(117, 244, 255, .36);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05)),
+    rgba(7,14,27,.78);
+  color: var(--glow);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, .36), inset 0 1px 0 rgba(255,255,255,.1);
+  backdrop-filter: blur(16px);
 }
 
 .top-hud strong {
@@ -189,7 +197,7 @@ canvas {
 
 .top-hud span {
   display: inline-block;
-  color: var(--ink);
+  color: var(--glow);
   letter-spacing: 0;
   font-size: 12px;
 }
@@ -207,10 +215,14 @@ canvas {
   grid-template-columns: 1fr auto;
   gap: 14px;
   padding: 14px;
-  border: 5px solid var(--ink);
-  background: rgba(201, 239, 65, .96);
-  color: var(--ink);
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, .34);
+  border: 1px solid rgba(117, 244, 255, .38);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.04)),
+    rgba(7,14,27,.94);
+  color: var(--glow);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .48), inset 0 1px 0 rgba(255,255,255,.1);
+  backdrop-filter: blur(16px);
 }
 
 .dialogue strong,
@@ -252,9 +264,11 @@ canvas {
   display: grid;
   gap: 10px;
   padding: 12px;
-  border: 4px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
   background: var(--panel);
-  box-shadow: 9px 9px 0 rgba(0, 0, 0, .35);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .52), inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter: blur(16px);
 }
 
 .menu header {
@@ -294,9 +308,9 @@ canvas {
   width: 100%;
   min-height: 42px;
   padding: 0 10px;
-  border: 3px solid var(--glow);
-  border-radius: 0;
-  background: rgba(5, 14, 8, .96);
+  border: 1px solid rgba(117,244,255,.34);
+  border-radius: 9px;
+  background: #07111f;
   color: var(--glow);
   font-weight: 900;
 }
@@ -314,15 +328,16 @@ canvas {
 .menu-list {
   display: grid;
   gap: 8px;
-  color: rgba(237, 249, 135, .86);
+  color: rgba(248, 251, 255, .86);
   font-size: 13px;
   line-height: 1.35;
 }
 
 .menu-card {
   padding: 9px;
-  border: 2px solid rgba(237, 249, 135, .28);
-  background: rgba(237, 249, 135, .07);
+  border: 1px solid rgba(117, 244, 255, .2);
+  border-radius: 9px;
+  background: rgba(117, 244, 255, .06);
 }
 
 .menu-card strong {
@@ -343,13 +358,16 @@ canvas {
 .battle-log {
   min-height: 112px;
   padding: 15px;
-  border: 5px solid var(--ink);
-  background: rgba(201, 239, 65, .96);
+  border: 1px solid rgba(117, 244, 255, .38);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05)),
+    rgba(234,247,255,.93);
   color: var(--ink);
   font-size: clamp(15px, 1.8vw, 21px);
   font-weight: 950;
   line-height: 1.35;
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, .33);
+  box-shadow: 0 22px 60px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.24);
 }
 
 .battle-actions {
@@ -357,9 +375,12 @@ canvas {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 7px;
   padding: 7px;
-  border: 5px solid var(--ink);
-  background: rgba(201, 239, 65, .96);
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, .33);
+  border: 1px solid rgba(117, 244, 255, .38);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05)),
+    rgba(234,247,255,.93);
+  box-shadow: 0 22px 60px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.24);
 }
 
 .battle-actions button {
@@ -381,9 +402,12 @@ canvas {
   grid-template-rows: auto minmax(0, 1fr) auto auto auto;
   gap: 10px;
   padding: clamp(14px, 3vw, 28px);
-  border: 5px solid var(--glow);
-  background: rgba(8, 24, 14, .97);
-  box-shadow: 12px 12px 0 rgba(0, 0, 0, .45);
+  border: 1px solid rgba(117, 244, 255, .42);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.035)),
+    rgba(7, 14, 27, .97);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, .56), inset 0 1px 0 rgba(255,255,255,.1);
   overflow: hidden;
   touch-action: manipulation;
 }
@@ -418,9 +442,10 @@ canvas {
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 10px;
   padding: 10px;
-  border: 2px solid rgba(237, 249, 135, .3);
-  background: rgba(237, 249, 135, .07);
-  color: rgba(237, 249, 135, .9);
+  border: 1px solid rgba(117, 244, 255, .25);
+  border-radius: 10px;
+  background: rgba(117, 244, 255, .06);
+  color: rgba(248, 251, 255, .9);
 }
 
 .quest-source p {
@@ -441,7 +466,8 @@ canvas {
   width: 100%;
   max-height: 28dvh;
   object-fit: contain;
-  border: 3px solid rgba(237, 249, 135, .42);
+  border: 1px solid rgba(117, 244, 255, .42);
+  border-radius: 8px;
   background: #fff;
   image-rendering: auto;
 }
@@ -516,8 +542,10 @@ canvas {
 .buttons button {
   min-height: 0;
   padding: 0;
-  border-width: 3px;
-  background: rgba(201, 239, 65, .9);
+  border-width: 1px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.06)),
+    rgba(234,247,255,.9);
 }
 
 .dpad button[data-dir="up"] { grid-column: 2; grid-row: 1; }
@@ -540,7 +568,7 @@ canvas {
 .buttons #startMenuBtn {
   width: 82px;
   height: 40px;
-  border-radius: 0;
+  border-radius: 9px;
   font-size: 11px;
 }
 

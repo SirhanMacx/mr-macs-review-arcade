@@ -204,6 +204,8 @@ const state = {
   raceReleased: false,
   finishPulse: 0,
   hitFlash: 0,
+  cameraShake: 0,
+  skid: 0,
   item: null,
   itemBoxes: [],
   rivals: [],
@@ -250,6 +252,10 @@ function uniq(values) {
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
+}
+
+function frameEase(rate, dt) {
+  return 1 - Math.exp(-rate * dt);
 }
 
 function ordinal(value) {
@@ -442,6 +448,8 @@ function startRace() {
   state.raceReleased = false;
   state.finishPulse = 0;
   state.hitFlash = 0;
+  state.cameraShake = 0;
+  state.skid = 0;
   state.item = null;
   state.score = 0;
   state.correct = 0;
@@ -597,6 +605,7 @@ function applyItem(item) {
   if (!item) return;
   if (item.id === "scroll") {
     state.boost = Math.max(state.boost, 3.3 + state.character.stats.boost * 0.14);
+    state.cameraShake = Math.max(state.cameraShake, 0.22);
     burstParticles(state.lane, state.character.accent, 24);
   } else if (item.id === "rocket") {
     const ahead = state.rivals
@@ -606,6 +615,7 @@ function applyItem(item) {
       ahead.hit = 2.9;
       ahead.speed *= 0.48;
       ahead.distance = Math.max(0, ahead.distance - 130);
+      state.cameraShake = Math.max(state.cameraShake, 0.26);
       burstParticles(ahead.lane, item.color, 28);
     }
   } else if (item.id === "shield") {
@@ -616,6 +626,7 @@ function applyItem(item) {
       rival.hit = Math.max(rival.hit, 2.2);
       rival.speed *= 0.62;
     });
+    state.cameraShake = Math.max(state.cameraShake, 0.34);
     burstParticles(0, item.color, 38);
   }
 }
@@ -719,8 +730,12 @@ function updateRace(dt) {
     if (before !== after && after > 0) setToast(String(after), 0.85);
     if (!state.countdown && !state.raceReleased) {
       state.raceReleased = true;
-      state.boost = keys.has("ArrowUp") || keys.has("w") ? 1.1 : 0;
-      setToast("GO", 0.95);
+      state.boost = keys.has("ArrowUp") || keys.has("w") ? 1.65 : 0;
+      if (state.boost > 0) {
+        state.cameraShake = Math.max(state.cameraShake, 0.2);
+        burstParticles(state.lane, state.character.accent, 22);
+      }
+      setToast(state.boost > 0 ? "START BOOST" : "GO", 0.95);
     }
     state.toastTime = Math.max(0, state.toastTime - dt);
     updateRivals(dt * 0.08);
@@ -734,24 +749,27 @@ function updateRace(dt) {
   const drift = keys.has(" ") && (left || right) && state.speed > 245;
   const steer = (right ? 1 : 0) - (left ? 1 : 0);
   const offroad = Math.max(0, Math.abs(state.lane) - 0.98);
-  const statSpeed = 335 + state.character.stats.speed * 18;
-  const naturalRoll = 190 + state.character.stats.speed * 7;
-  const boostSpeed = state.boost > 0 ? 188 + state.character.stats.boost * 11 : 0;
+  const statSpeed = 365 + state.character.stats.speed * 22;
+  const naturalRoll = 120 + state.character.stats.speed * 7;
+  const boostSpeed = state.boost > 0 ? 210 + state.character.stats.boost * 13 : 0;
   const targetSpeed = clamp((accelerate ? statSpeed : naturalRoll) + boostSpeed - (brake ? 235 : 0) - offroad * 245 - state.spin * 270 - state.bump * 100, 0, 760);
-  const accelRate = accelerate || state.boost > 0 ? 0.062 : 0.036;
-  state.speed += (targetSpeed - state.speed) * (brake ? 0.14 : accelRate);
+  const accelRate = accelerate || state.boost > 0 ? 7.25 : 3.05;
+  state.speed += (targetSpeed - state.speed) * frameEase(brake ? 11.4 : accelRate, dt);
   const speedFactor = clamp(state.speed / 470, 0.25, 1.22);
   const grip = 1.16 + state.character.stats.handling * 0.145;
   const driftGrip = drift ? 0.55 : 1;
-  const curveAssist = roadCurveAt(state.distance) * 0.000018 * state.speed;
+  const curveAssist = roadCurveAt(state.distance + state.speed * 0.75, 0.6) * 0.000018 * state.speed;
   state.laneVel += (steer * grip * driftGrip - curveAssist) * speedFactor * dt;
-  state.laneVel *= drift ? 0.978 : 0.865;
+  state.laneVel *= Math.pow(drift ? 0.978 : 0.865, dt * 60);
   state.lane += state.laneVel * (1.28 + state.speed / 385);
   if (Math.abs(state.lane) > 1.25) {
     state.lane = clamp(state.lane, -1.25, 1.25);
     state.laneVel *= -0.35;
     state.speed *= 0.965;
+    state.cameraShake = Math.max(state.cameraShake, 0.12);
   }
+  state.skid = Math.max(0, Math.abs(state.laneVel) * clamp(state.speed / 520, 0, 1));
+  if (offroad > 0.05 && Math.random() < 0.42) burstParticles(state.lane, "#8b98b6", 1);
   if (drift) {
     if (!state.drifting) state.hop = 0.18;
     state.driftCharge = Math.min(2.4, state.driftCharge + dt * (1 + Math.abs(steer) * 0.35));
@@ -777,6 +795,7 @@ function updateRace(dt) {
   state.hop = Math.max(0, state.hop - dt);
   state.finishPulse = Math.max(0, state.finishPulse - dt);
   state.hitFlash = Math.max(0, state.hitFlash - dt);
+  state.cameraShake = Math.max(0, state.cameraShake - dt * 1.9);
   state.toastTime = Math.max(0, state.toastTime - dt);
   updateRivals(dt);
   updateKartCollisions();
@@ -791,6 +810,7 @@ function updateKartCollisions() {
     const laneGap = rival.lane - state.lane;
     if (Math.abs(gap) > 54 || Math.abs(laneGap) > 0.26 || state.spin > 0.1) return;
     state.bump = 0.55;
+    state.cameraShake = Math.max(state.cameraShake, state.shield > 0 ? 0.18 : 0.32);
     state.speed *= state.shield > 0 ? 0.96 : 0.82;
     state.laneVel -= Math.sign(laneGap || 1) * 0.08;
     rival.speed *= 0.88;
@@ -805,11 +825,11 @@ function updateRivals(dt) {
     rival.hit = Math.max(0, rival.hit - dt);
     rival.boost = Math.max(0, rival.boost - dt);
     const curve = Math.sin(rival.distance * 0.005 + index * 2.2);
-    rival.lane += (curve * 0.62 - rival.lane) * 0.018;
+    rival.lane += (curve * 0.62 - rival.lane) * frameEase(1.12, dt);
     const rubberBand = rival.distance < state.distance - 280 ? 52 : rival.distance > state.distance + 550 ? -28 : 0;
     const hitDrag = rival.hit > 0 ? 175 : 0;
     const target = rival.base + rubberBand - hitDrag;
-    rival.speed += (target - rival.speed) * 0.045;
+    rival.speed += (target - rival.speed) * frameEase(2.8, dt);
     rival.distance += rival.speed * dt;
   });
 }
@@ -850,6 +870,11 @@ function drawRace(now) {
   const w = els.canvas.clientWidth;
   const h = els.canvas.clientHeight;
   ctx.clearRect(0, 0, w, h);
+  ctx.save();
+  if (state.cameraShake > 0) {
+    const amount = state.cameraShake * 18;
+    ctx.translate(Math.sin(now * 0.067) * amount, Math.cos(now * 0.051) * amount * 0.62);
+  }
   drawEnvironment(w, h, now);
   drawRoad(w, h);
   drawTracksideProps(w, h, now);
@@ -857,6 +882,7 @@ function drawRace(now) {
   drawVisibleRivals(w, h);
   drawPlayerKart(w, h);
   drawParticles(w, h);
+  ctx.restore();
   drawMinimap(w, h);
   drawRaceOverlay(w, h);
   drawToast(w, h);
@@ -1107,7 +1133,7 @@ function roadPoint(n, w, h) {
   const depth = n * n;
   const y = horizon + depth * (h - horizon + 120);
   const roadWidth = 120 + depth * w * 1.08;
-  const curve = roadCurveAt(state.distance, n);
+  const curve = roadCurveAt(state.distance + n * VISIBLE_RANGE * 1.04, n) * (0.38 + n * 0.72);
   return { x: w / 2 + curve, y, roadWidth };
 }
 
@@ -1333,6 +1359,20 @@ function drawPlayerKart(w, h) {
     }
     ctx.restore();
   }
+  if (state.drifting || state.skid > 0.035) {
+    ctx.save();
+    const spark = state.driftCharge > 1.35 ? "#ffd15c" : state.character.accent;
+    ctx.globalAlpha = clamp(0.18 + state.skid * 2.4, 0.2, 0.78);
+    ctx.strokeStyle = spark;
+    ctx.lineWidth = 4;
+    for (let side of [-1, 1]) {
+      ctx.beginPath();
+      ctx.moveTo(x + side * 48 * scale, y + 86 * scale);
+      ctx.lineTo(x + side * (95 + Math.abs(state.laneVel) * 160) * scale, y + (145 + Math.sin(performance.now() / 55) * 10) * scale);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
   drawKartSprite(state.character, x, y, scale, { player: true });
   if (state.shield > 0) {
     ctx.save();
@@ -1366,6 +1406,17 @@ function drawKartSprite(racer, x, y, scale, options = {}) {
     ctx.globalAlpha = 1;
   }
   drawGameplayKartSprite(racer, -width * 0.64, -height * 1.02, width * 1.28, height * 1.5);
+  if (options.rival && scale > 0.42) {
+    const name = racer.name.split(" ").pop().toUpperCase();
+    ctx.font = `${Math.max(8, 12 * scale)}px Inter, sans-serif`;
+    ctx.textAlign = "center";
+    const labelW = Math.min(width, ctx.measureText(name).width + 16 * scale);
+    ctx.fillStyle = "rgba(5,8,22,.72)";
+    roundRect(-labelW / 2, -height * 1.22, labelW, 18 * scale, 6 * scale);
+    ctx.fill();
+    ctx.fillStyle = racer.accent;
+    ctx.fillText(name, 0, -height * 1.08);
+  }
   if (options.player && state.drifting) {
     ctx.strokeStyle = state.driftCharge > 1.35 ? "#ffd15c" : racer.accent;
     ctx.lineWidth = Math.max(2, 4 * scale);

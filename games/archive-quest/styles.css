@@ -108,7 +108,7 @@ button { cursor: pointer; }
 }
 .hud-stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(64px, auto));
+  grid-template-columns: repeat(5, minmax(58px, auto));
   gap: 8px;
 }
 .hud-stats div {
@@ -116,7 +116,10 @@ button { cursor: pointer; }
   padding: 8px 10px;
   border: 1px solid rgba(255,255,255,.11);
   border-radius: 12px;
-  background: rgba(0,0,0,.20);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.025)),
+    rgba(0,0,0,.24);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
 }
 .hud-stats strong { display: block; font-size: 14px; line-height: 1; }
 .hud-stats span {
@@ -166,7 +169,9 @@ button { cursor: pointer; }
   padding: 9px 11px;
   border: 1px solid rgba(255,255,255,.14);
   border-radius: 14px;
-  background: rgba(7,12,24,.72);
+  background:
+    linear-gradient(135deg, rgba(107,238,255,.13), rgba(255,208,91,.05)),
+    rgba(7,12,24,.78);
   box-shadow: 0 16px 44px rgba(0,0,0,.25);
   backdrop-filter: blur(16px);
 }
@@ -277,9 +282,9 @@ select {
   border: 1px solid rgba(255,255,255,.18);
   border-radius: 12px;
   color: var(--paper);
-  background: rgba(4,8,18,.94);
+  background: #08111f;
 }
-select option { color: #08111f; }
+select option { color: #08111f; background: #f8fbff; }
 .setup-metrics,
 .end-grid,
 .study-targets {
@@ -417,7 +422,7 @@ select option { color: #08111f; }
   .hud-stats {
     grid-column: 1 / -1;
     grid-row: 2;
-    grid-template-columns: repeat(4, minmax(0,1fr));
+    grid-template-columns: repeat(5, minmax(0,1fr));
   }
   .power-strip { top: calc(max(10px, env(safe-area-inset-top)) + 132px); }
   .setup-grid,
@@ -429,6 +434,8 @@ select option { color: #08111f; }
 @media (max-width: 620px) {
   .top-hud { border-radius: 14px; padding: 8px; }
   .hud-stats div { min-width: 0; padding: 7px; }
+  .hud-stats strong { font-size: 12px; }
+  .hud-stats span { font-size: 8px; }
   .brand small { display: none; }
   .touch-dock {
     width: calc(100vw - 18px);

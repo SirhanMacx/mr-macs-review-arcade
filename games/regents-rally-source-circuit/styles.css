@@ -291,6 +291,20 @@ body {
   box-shadow: 0 28px 90px rgba(0,0,0,.55);
 }
 
+.race-screen.active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    linear-gradient(90deg, transparent, rgba(102,233,255,.08), transparent),
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 5px;
+  mix-blend-mode: screen;
+  opacity: .24;
+}
+
 #raceCanvas {
   display: block;
   width: 100%;
@@ -299,10 +313,12 @@ body {
   background: #050816;
   touch-action: none;
   image-rendering: pixelated;
+  cursor: crosshair;
 }
 
 .hud {
   position: absolute;
+  z-index: 3;
   left: 12px;
   right: 12px;
   top: 12px;
@@ -312,11 +328,17 @@ body {
   pointer-events: none;
 }
 
-.hud > div { padding: 11px 12px; }
+.hud > div {
+  padding: 11px 12px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.035)),
+    rgba(5,8,22,.62);
+}
 .hud strong { display: block; font-size: 25px; line-height: 1; }
 
 .race-meter {
   position: absolute;
+  z-index: 3;
   left: 12px;
   bottom: 12px;
   width: min(430px, calc(100% - 24px));
@@ -353,6 +375,10 @@ body {
 }
 
 .item-button:disabled { opacity: .56; cursor: default; }
+.item-button:not(:disabled) {
+  border-color: rgba(255,209,92,.58);
+  box-shadow: 0 0 30px rgba(255,209,92,.18), inset 0 1px 0 rgba(255,255,255,.16);
+}
 .item-thumb {
   display: block;
   width: 46px;
@@ -367,6 +393,7 @@ body {
 
 .race-actions {
   position: absolute;
+  z-index: 3;
   right: 12px;
   top: 108px;
   display: flex;
@@ -375,6 +402,7 @@ body {
 
 .control-hint {
   position: absolute;
+  z-index: 3;
   right: 12px;
   bottom: 18px;
   max-width: min(430px, calc(100% - 470px));

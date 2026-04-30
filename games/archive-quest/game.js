@@ -12,6 +12,7 @@
     levelName: $("levelName"),
     health: $("health"),
     evidence: $("evidence"),
+    jumpState: $("jumpState"),
     powerLabel: $("powerLabel"),
     powerFill: $("powerFill"),
     setupScreen: $("setupScreen"),
@@ -90,7 +91,9 @@
     spawnX: 120,
     spawnY: 520,
     facing: 1,
-    frame: 0
+    frame: 0,
+    jumpFlash: 0,
+    landFlash: 0
   };
 
   const state = {
@@ -628,6 +631,8 @@
     player.invuln = Math.max(0, player.invuln - dt);
     player.dashCooldown = Math.max(0, player.dashCooldown - dt);
     player.jumpBuffer = Math.max(0, player.jumpBuffer - dt);
+    player.jumpFlash = Math.max(0, player.jumpFlash - dt * 3.4);
+    player.landFlash = Math.max(0, player.landFlash - dt * 2.8);
     player.coyote = player.onGround ? .12 : Math.max(0, player.coyote - dt);
 
     const moveLeft = input.left || keys.ArrowLeft || keys.KeyA;
@@ -645,21 +650,23 @@
       audio.dash();
     }
     if (player.jumpBuffer > 0 && (player.onGround || player.coyote > 0)) {
-      player.vy = -900;
+      player.vy = -950;
       player.onGround = false;
       player.coyote = 0;
       player.jumpBuffer = 0;
       player.airJumps = player.maxAirJumps;
+      player.jumpFlash = 1;
       audio.jump();
       dust(player.x, player.y, 12);
     } else if (player.jumpBuffer > 0 && player.airJumps > 0) {
-      player.vy = -840;
+      player.vy = -910;
       player.onGround = false;
       player.coyote = 0;
       player.jumpBuffer = 0;
       player.airJumps -= 1;
+      player.jumpFlash = 1;
       audio.jump();
-      burst(player.x, player.y - 72, "#6beeff", 18);
+      burst(player.x, player.y - 72, "#6beeff", 28);
     }
     const gravity = state.power?.type === "hourglass" ? 1780 : 2040;
     player.vy = clamp(player.vy + gravity * dt, -1280, 1120);
@@ -692,6 +699,7 @@
       player.vx = 0;
       openQuestion({ gate, reward: gate.reward });
     }
+    const fallingFast = player.vy > 520;
     player.y += player.vy * dt;
     pr = playerRect();
     player.onGround = false;
@@ -702,6 +710,10 @@
         player.vy = 0;
         player.onGround = true;
         player.airJumps = player.maxAirJumps;
+        if (fallingFast) {
+          player.landFlash = 1;
+          dust(player.x, player.y, 18);
+        }
       } else if (player.vy < 0) {
         player.y = p.y + p.h + player.h;
         player.vy = 20;
@@ -730,7 +742,7 @@
     for (const spring of level.springs) {
       if (!rectsOverlap(pr, spring) || player.vy < 0) continue;
       player.y = spring.y;
-      player.vy = -1180;
+      player.vy = -1240;
       player.airJumps = player.maxAirJumps;
       burst(spring.x + spring.w / 2, spring.y, "#ffd05b", 16);
       audio.jump();
@@ -836,6 +848,7 @@
     els.levelName.textContent = levels[state.levelIndex]?.short || "Quest";
     els.health.textContent = String(state.health);
     els.evidence.textContent = String(state.evidence);
+    els.jumpState.textContent = player.onGround ? "Ready" : player.airJumps > 0 ? "Ready" : "Spent";
     if (state.power) {
       els.powerLabel.textContent = state.power.label;
       els.powerFill.style.width = `${clamp(state.power.time / state.power.total * 100, 0, 100)}%`;
@@ -1001,7 +1014,27 @@
     else if (!player.onGround) frame = 5;
     else if (Math.abs(player.vx) > 40) frame = 1 + Math.floor(state.elapsed * 12) % 3;
     if (state.power?.type === "crown") frame = 10;
+    if (!player.onGround && player.airJumps > 0) {
+      ctx.save();
+      ctx.strokeStyle = "rgba(107,238,255,.7)";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.ellipse(player.x, player.y - 67, 72 + Math.sin(state.elapsed * 8) * 3, 88, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
     drawSprite(images.hero, 4, 3, frame, player.x - 92, player.y - 142, 184, 150, player.facing < 0);
+    if (player.jumpFlash > 0 || player.landFlash > 0) {
+      const pulse = Math.max(player.jumpFlash, player.landFlash);
+      ctx.save();
+      ctx.globalAlpha = pulse * .62;
+      ctx.strokeStyle = player.landFlash > player.jumpFlash ? "#ffd05b" : "#6beeff";
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.ellipse(player.x, player.y - 24, 78 * (1.35 - pulse * .25), 22 * (1.25 - pulse * .2), 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
     if (state.power?.type === "shield") {
       ctx.strokeStyle = "rgba(117,242,168,.72)";
       ctx.lineWidth = 4;

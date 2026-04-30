@@ -1966,6 +1966,26 @@
     sky.addColorStop(1, battle.gym ? "#f3cf61" : "#d8f06a");
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, w, skyH);
+    if (!FX_LITE && !PREFERS_REDUCED) {
+      ctx.save();
+      ctx.globalAlpha = battle.gym ? .22 : .16;
+      for (let i = 0; i < 5; i += 1) {
+        const x = ((t * 18 + i * w * .24) % (w + 160)) - 80;
+        const beam = ctx.createLinearGradient(x, 0, x + 120, skyH);
+        beam.addColorStop(0, "rgba(117,244,255,0)");
+        beam.addColorStop(.5, battle.gym ? "rgba(255,209,92,.42)" : "rgba(117,244,255,.36)");
+        beam.addColorStop(1, "rgba(117,244,255,0)");
+        ctx.fillStyle = beam;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x + 84, 0);
+        ctx.lineTo(x + 180, skyH);
+        ctx.lineTo(x + 28, skyH);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+    }
     ctx.fillStyle = battle.gym ? "rgba(243, 207, 97, .24)" : "rgba(117, 244, 255, .16)";
     ctx.beginPath();
     ctx.arc(w * .16, skyH * .38, Math.min(80, w * .08), 0, Math.PI * 2);
