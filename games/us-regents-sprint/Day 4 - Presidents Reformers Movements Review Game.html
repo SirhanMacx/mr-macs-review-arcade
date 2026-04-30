@@ -791,6 +791,259 @@ body.game-booted .tile:not(.used) {
   .app { padding-left: 10px; padding-right: 10px; }
 }
 
+/* MRMAC_JEOPARDY_POLISH_V2 */
+:root {
+  --panel: rgba(3, 8, 20, .88);
+  --line: rgba(255,255,255,.22);
+  --text: #fbfdff;
+  --muted: #d4e0f6;
+}
+body {
+  font-family: "Trebuchet MS", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #030712;
+}
+#arenaBg {
+  background:
+    linear-gradient(180deg, rgba(2,5,12,.08), rgba(2,5,12,.52) 48%, rgba(2,5,12,.9)),
+    radial-gradient(circle at 50% 22%, rgba(255,209,102,.14), transparent 28%),
+    var(--arena) center / cover no-repeat;
+  filter: saturate(1.18) contrast(1.11) brightness(.92);
+}
+.scanlines {
+  opacity: .26;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.025), rgba(255,255,255,.025) 1px, transparent 1px, transparent 5px);
+}
+.topbar {
+  gap: clamp(10px, 1.8vw, 18px);
+  margin-bottom: clamp(10px, 1.4vw, 16px);
+}
+.titleblock,
+.team,
+.soundbox,
+.dialog,
+.answer-box,
+.wager-card {
+  border-color: rgba(255,255,255,.22);
+  background-blend-mode: normal, screen, normal;
+}
+.titleblock {
+  min-height: 116px;
+  padding: clamp(15px, 2vw, 22px);
+  background:
+    linear-gradient(135deg, rgba(2,7,17,.78), rgba(3,8,22,.92)),
+    radial-gradient(circle at 18% 0%, rgba(255,209,102,.18), transparent 38%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 24px 72px rgba(0,0,0,.58), inset 0 0 90px rgba(255,255,255,.045), 0 0 0 1px rgba(255,255,255,.08);
+}
+.titleblock::before { opacity: .42; }
+.kicker {
+  letter-spacing: .06em;
+  color: #ffe59b;
+}
+h1 {
+  font-size: clamp(30px, 4.8vw, 70px);
+  line-height: 1.14;
+  text-wrap: balance;
+}
+.subtitle {
+  color: #d8e4fa;
+  line-height: 1.35;
+}
+.controls { gap: 9px; }
+.btn {
+  min-height: 44px;
+  border-radius: 7px;
+  color: #f9fcff;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.06)),
+    linear-gradient(135deg, rgba(5,12,28,.72), rgba(7,10,24,.92)),
+    var(--panel-art) center / cover no-repeat;
+}
+.btn.ghost { color: #dce7fa; background: rgba(255,255,255,.075); }
+.btn.primary { color: #101319; }
+.team {
+  min-height: 82px;
+  background:
+    linear-gradient(135deg, rgba(2,8,19,.82), rgba(3,7,18,.92)),
+    radial-gradient(circle at 82% 0%, rgba(255,209,102,.13), transparent 32%),
+    var(--panel-art) center / cover no-repeat;
+}
+.team input,
+.wager-card input,
+.final-grid textarea,
+.quick-answer {
+  color: #fbfdff;
+  background: rgba(0,0,0,.42);
+  border-color: rgba(255,255,255,.24);
+}
+.score strong { font-size: clamp(24px, 2.4vw, 34px); }
+.board-wrap {
+  padding: clamp(30px, 4.8vw, 72px) clamp(20px, 5.5vw, 86px) clamp(38px, 5.6vw, 82px);
+  border-color: rgba(255,255,255,.18);
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.10), rgba(1,4,12,.48)),
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,255,255,.11), transparent 25%),
+    var(--board-frame) center / cover no-repeat;
+  box-shadow: 0 34px 100px rgba(0,0,0,.70), 0 0 45px rgba(0,180,255,.14), inset 0 0 90px rgba(255,255,255,.035);
+  overflow-x: hidden;
+}
+.board { gap: clamp(7px, 1vw, 13px); }
+.cat,
+.tile {
+  border-color: rgba(255,255,255,.22);
+  border-radius: 7px;
+}
+.cat {
+  min-height: clamp(70px, 6.3vw, 92px);
+  padding: 9px 8px;
+  color: #fff4bf;
+  font-size: clamp(13px, 1.35vw, 19px);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.04) 46%, rgba(0,0,0,.34)),
+    linear-gradient(145deg, rgba(5,22,58,.86), rgba(20,12,58,.88)),
+    var(--tile-art) center / cover no-repeat;
+}
+.tile {
+  min-height: clamp(78px, 7.3vw, 106px);
+  color: #ffdc6a;
+  font-size: clamp(25px, 3.6vw, 46px);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.23), rgba(255,255,255,.035) 42%, rgba(0,0,0,.26)),
+    radial-gradient(circle at 50% 16%, rgba(255,255,255,.26), transparent 26%),
+    linear-gradient(145deg, rgba(6,32,84,.88), rgba(28,13,72,.90)),
+    var(--tile-art) center / cover no-repeat;
+  box-shadow: 0 14px 22px rgba(0,0,0,.38), inset 0 0 42px rgba(255,255,255,.05), inset 0 -14px 32px rgba(0,0,0,.20);
+}
+.tile:hover,
+.tile:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.statusline { color: #d7e3f7; }
+.pill { background: rgba(0,0,0,.34); border-color: rgba(255,255,255,.18); }
+.modal {
+  padding: clamp(10px, 2vw, 22px);
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,209,102,.12), transparent 34%),
+    rgba(0, 2, 8, .86);
+}
+.dialog {
+  width: min(1040px, calc(100vw - 22px));
+  max-height: min(94vh, 900px);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(4,8,18,.72), rgba(4,8,18,.94)),
+    radial-gradient(circle at 12% 6%, rgba(255,255,255,.10), transparent 22%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 34px 120px rgba(0,0,0,.78), 0 0 60px rgba(255,209,102,.20), inset 0 1px 0 rgba(255,255,255,.14);
+}
+.modal[data-mode="daily"] .dialog,
+.modal[data-mode="final"] .dialog {
+  background:
+    linear-gradient(180deg, rgba(3,6,16,.62), rgba(3,6,16,.94)),
+    var(--final-art) center / cover no-repeat;
+}
+.dialog-head {
+  padding: clamp(12px, 2vw, 18px) clamp(14px, 2.4vw, 22px);
+  align-items: center;
+}
+.dialog-head h2 {
+  font-size: clamp(19px, 2.5vw, 32px);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.dialog-body { padding: clamp(13px, 2.2vw, 22px); }
+.clue-text {
+  min-height: clamp(190px, 31vh, 315px);
+  border-color: rgba(255,255,255,.20);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(2,6,17,.50), rgba(2,6,17,.78)),
+    radial-gradient(circle at 50% 0%, rgba(255,209,102,.13), transparent 38%),
+    var(--clue-art) center / cover no-repeat;
+  color: #fbfdff;
+  font-size: clamp(22px, 3.1vw, 42px);
+  line-height: 1.16;
+  letter-spacing: 0;
+  text-wrap: balance;
+  text-shadow: 0 3px 14px rgba(0,0,0,.82), 0 0 20px rgba(255,255,255,.10);
+}
+.modal[data-mode="daily"] .clue-text,
+.modal[data-mode="final"] .clue-text {
+  min-height: clamp(210px, 35vh, 335px);
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.48), rgba(1,4,12,.82)),
+    var(--clue-art) center / cover no-repeat;
+}
+.answer-box,
+.wager-card {
+  background:
+    linear-gradient(135deg, rgba(3,8,19,.84), rgba(3,6,16,.95)),
+    var(--panel-art) center / cover no-repeat;
+}
+.answer-box p { color: #f1f7ff; }
+.wager-grid,
+.final-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.score-result {
+  grid-template-columns: minmax(120px, .75fr) minmax(220px, 1.4fr) auto auto;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  padding: 8px;
+  background: rgba(0,0,0,.24);
+}
+@media (max-width: 860px) {
+  .app { padding: 10px 7px 22px; }
+  .topbar, .scorebar { gap: 9px; margin-bottom: 9px; }
+  .titleblock { padding: 13px; min-height: auto; }
+  .kicker { font-size: 10px; gap: 6px; }
+  h1 { font-size: clamp(27px, 8.6vw, 43px); line-height: 1; }
+  .subtitle { font-size: 13px; }
+  .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .btn { min-height: 41px; padding: 8px 9px; font-size: 13px; }
+  .teams { grid-template-columns: repeat(auto-fit, minmax(142px, 1fr)); gap: 7px; }
+  .team { min-height: 70px; padding: 8px; }
+  .score strong { font-size: 24px; }
+  .score-actions button { width: 30px; height: 30px; }
+  .soundbox { display: none; }
+  .board-wrap {
+    padding: 14px 10px 18px;
+    border-radius: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+  .board {
+    width: 640px;
+    min-width: 640px;
+    gap: 7px;
+    transform: none;
+    scroll-snap-align: start;
+  }
+  .cat { min-height: 68px; padding: 7px 5px; font-size: 12px; line-height: 1.06; }
+  .tile { min-height: 72px; padding: 6px 3px; font-size: 29px; }
+  .tile.daily::after { right: 4px; top: 4px; font-size: 9px; padding: 1px 3px; }
+  .dialog { width: calc(100vw - 12px); max-height: 96vh; border-radius: 10px; }
+  .dialog-head { padding: 11px 12px; gap: 8px; }
+  .dialog-head h2 { font-size: clamp(18px, 5vw, 24px); }
+  .dialog-body { padding: 11px; }
+  .clue-text { min-height: 190px; padding: 16px 12px; font-size: clamp(19px, 5.4vw, 29px); line-height: 1.18; }
+  .modal[data-mode="daily"] .clue-text,
+  .modal[data-mode="final"] .clue-text { min-height: 205px; }
+  .wager-grid,
+  .final-grid { grid-template-columns: 1fr; }
+  .score-result { grid-template-columns: 1fr; align-items: stretch; }
+  .score-result .btn { width: 100%; }
+}
+@media (max-width: 430px) {
+  .board { width: 610px; min-width: 610px; gap: 6px; }
+  .cat { min-height: 64px; font-size: 11px; }
+  .tile { min-height: 68px; font-size: 27px; }
+  .controls { grid-template-columns: 1fr 1fr; }
+}
+
 /* MRMAC_PERF_LITE_CSS */
 html.perf-lite #space,
 html.perf-lite .stage-wipe,
@@ -839,7 +1092,7 @@ html.perf-lite .control-card {
       <p class="subtitle">Crisis presidents, reform voices, and the movements that changed America</p>
     </div>
     <div class="controls">
-      <button class="btn primary" id="finalBtn">Final Wager</button>
+      <button class="btn primary" id="finalBtn">Final Jeopardy</button>
       <button class="btn" id="soloBtn">Solo Play</button>
       <button class="btn" id="addTeamBtn">Add Team</button>
       <button class="btn ghost" id="resetBtn">Reset</button>
@@ -1159,7 +1412,7 @@ function updateStatus() {
   document.getElementById("activeStatus").textContent = solo ? "Solo player: " + teamName(0) : "Active team: " + teamName(state.active);
   document.getElementById("progressStatus").textContent = state.used.length + " of 25 clues complete";
   document.getElementById("finalBtn").disabled = state.finalPlayed;
-  document.getElementById("finalBtn").textContent = state.finalPlayed ? "Final Played" : "Final Wager";
+  document.getElementById("finalBtn").textContent = state.finalPlayed ? "Final Played" : "Final Jeopardy";
   document.getElementById("soloBtn").textContent = solo ? "Team Play" : "Solo Play";
   document.getElementById("addTeamBtn").disabled = solo;
 }
@@ -1363,7 +1616,7 @@ function openFinal() {
     return '<div class="wager-card"><label>' + escapeHtml(name) + ' wager (max $' + cap + ')</label>' +
       '<input type="number" min="0" max="' + cap + '" value="0" data-final-wager="' + index + '"></div>';
   }).join("");
-  openModal("Final Wager", GAME.final.category,
+  openModal("Final Jeopardy", GAME.final.category,
     '<div class="clue-text">' + (isSoloMode() ? "Lock your wager. Then reveal the final clue." : "Lock each team wager. Then reveal the final clue.") + '</div>' +
     '<div class="wager-grid">' + cards + '</div>' +
     '<div class="action-row"><button class="btn primary" id="lockFinal">Reveal Final Clue</button></div>', "final");
@@ -1381,7 +1634,7 @@ function lockFinal() {
   const answers = state.names.map((name, index) =>
     '<div class="wager-card"><label>' + escapeHtml(name) + ' response</label><textarea data-final-answer="' + index + '"></textarea></div>'
   ).join("");
-  openModal("Final Wager", GAME.final.category,
+  openModal("Final Jeopardy", GAME.final.category,
     '<div class="clue-text">' + escapeHtml(GAME.final.clue) + '</div>' +
     '<div class="final-grid">' + answers + '</div>' +
     '<div class="action-row"><button class="btn primary" id="revealFinalAnswer">Reveal Final Answer</button></div>' +
