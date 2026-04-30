@@ -247,6 +247,12 @@ def check_jeopardy_boards() -> list[str]:
         r"Exchange network that moved goods, people, technology, and ideas across regions",
         re.IGNORECASE,
     )
+    bad_final_text = re.compile(
+        r"Final Synthesis|at least two specific examples|evidence-based synthesis|"
+        r"standards-aligned argument|Teacher judgment|score the synthesis|"
+        r"instead of defining one isolated term",
+        re.IGNORECASE,
+    )
     for path in sorted(ROOT.glob("games/**/*.html")):
         if not re.search(r"(Jeopardy Review|Review Game|Comprehensive Review)\.html$", path.name):
             continue
@@ -275,9 +281,16 @@ def check_jeopardy_boards() -> list[str]:
                 if bad_text.search(combined):
                     errors.append(f"{path.relative_to(ROOT)}: generated filler leaked into clue {clue.get('answer')!r}")
         final = game.get("final") or {}
-        final_combined = " ".join(str(final.get(field, "")) for field in ("category", "clue", "explanation"))
+        final_combined = " ".join(str(final.get(field, "")) for field in ("category", "clue", "answer", "aliases", "explanation"))
         if bad_text.search(final_combined):
             errors.append(f"{path.relative_to(ROOT)}: generated filler leaked into final wager {final.get('answer')!r}")
+        if bad_final_text.search(final_combined) or _norm_text(final.get("category")) == "final synthesis":
+            errors.append(f"{path.relative_to(ROOT)}: final wager is still an open-ended synthesis prompt")
+        if _norm_text(final.get("answer")) in seen_answers:
+            errors.append(f"{path.relative_to(ROOT)}: final answer repeats a board answer {final.get('answer')!r}")
+        for alias in final.get("aliases") or []:
+            if _norm_text(alias) in seen_answers:
+                errors.append(f"{path.relative_to(ROOT)}: final alias repeats a board answer {alias!r}")
     bank_path = ROOT / "data" / "chrono-defense-bank.json"
     bank = load_json(bank_path)
     for question in bank.get("questions", []):

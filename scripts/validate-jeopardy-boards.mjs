@@ -4,7 +4,7 @@ import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final"]);
+const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final", "Regents Sprint"]);
 const EXPECTED_VALUES = "100,200,300,400,500";
 const MIN_WORDS = new Map([[100, 11], [200, 14], [300, 15], [400, 17], [500, 20]]);
 const EXPECTED_SKILLS = new Map([
@@ -15,6 +15,8 @@ const EXPECTED_SKILLS = new Map([
   [500, "synthesize a high-value exam pattern"]
 ]);
 const REQUIRED_HIGH_VALUE = /exam-style|evidence to context|High-value synthesis|connect a specific fact|larger pattern/i;
+const EXPECTED_HARDENING_VERSION = "jeopardy-hardening-v2-concept-finals";
+const FINAL_SYNTHESIS_LEAK = /final synthesis|at least two specific examples|evidence-based synthesis|standards-aligned argument|teacher judgment|score the synthesis|broader pattern, cause\/effect|instead of defining one isolated term/i;
 
 function decodePath(value) {
   try {
@@ -109,16 +111,22 @@ function validateBoard(game, file) {
   const final = game.final || {};
   const finalClue = String(final.clue || "");
   const finalAnswerKey = normalize(final.answer);
-  if (normalize(final.category) !== "final synthesis") errors.push(`${file}: final category should be Final Synthesis`);
-  if (words(finalClue) < 34) errors.push(`${file}: final clue is not rigorous enough (${words(finalClue)} words)`);
-  if (!/at least two specific examples/i.test(finalClue)) errors.push(`${file}: final must require at least two specific board examples`);
-  if (!/broader pattern|cause\/effect|comparison|continuity\/change|evidence/i.test(finalClue)) {
-    errors.push(`${file}: final must demand reasoning beyond recall`);
+  if (!normalize(final.category) || normalize(final.category) === "final synthesis") errors.push(`${file}: final category must be a real content category`);
+  if (words(finalClue) < 5) errors.push(`${file}: final clue is too thin (${words(finalClue)} words)`);
+  if (words(finalClue) > 36) errors.push(`${file}: final clue is too wordy for a Jeopardy-style concept clue (${words(finalClue)} words)`);
+  if (!finalAnswerKey) errors.push(`${file}: final answer is blank`);
+  if (FINAL_SYNTHESIS_LEAK.test(`${final.category} ${finalClue} ${final.answer} ${final.explanation || ""}`)) {
+    errors.push(`${file}: final still looks like an open-ended synthesis prompt`);
   }
+  if (hasAnswerLeak(finalClue, final.answer)) errors.push(`${file}: final clue appears to reveal its answer "${final.answer}"`);
   if (seenAnswers.has(finalAnswerKey)) errors.push(`${file}: final answer repeats a board answer "${final.answer}"`);
+  for (const alias of final.aliases || []) {
+    if (seenAnswers.has(normalize(alias))) errors.push(`${file}: final alias repeats a board answer "${alias}"`);
+  }
   if (seenClues.has(normalize(finalClue))) errors.push(`${file}: final clue repeats a board clue`);
-  if (!final.explanation || words(final.explanation) < 18) errors.push(`${file}: final explanation is too thin`);
-  if (!game.alignment || !game.alignment.examTarget || !game.alignment.standardSet || game.alignment.hardeningVersion !== "jeopardy-hardening-v1") {
+  if (!final.explanation || words(final.explanation) < 8) errors.push(`${file}: final explanation is too thin`);
+  if (!final.rigor || final.rigor.value !== "Final" || !final.rigor.skill) errors.push(`${file}: final is missing concept-answer rigor metadata`);
+  if (!game.alignment || !game.alignment.examTarget || !game.alignment.standardSet || game.alignment.hardeningVersion !== EXPECTED_HARDENING_VERSION) {
     errors.push(`${file}: missing board-level alignment metadata`);
   }
   return errors;
