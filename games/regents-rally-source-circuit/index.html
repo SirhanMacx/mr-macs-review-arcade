@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>Regents Rally: Source Circuit - Mr. Mac's Review Arcade</title>
-<link rel="stylesheet" href="styles.css?v=20260430-polish">
+<link rel="stylesheet" href="styles.css?v=20260430-historical-gp">
 </head>
 <body>
 <div class="scene-bg" aria-hidden="true"></div>
@@ -16,23 +16,23 @@
       <span><small>Mr. Mac's Arcade</small><strong>Regents Rally</strong></span>
     </a>
     <div class="top-stats" id="topStats">
-      <span>Character Select</span><span>Item Questions</span><span>Grand Prix</span>
+      <span>Historical Drivers</span><span>Item Questions</span><span>Grand Prix</span>
     </div>
   </header>
 
   <section class="screen active" id="characterScreen">
     <div class="hero-panel">
-      <div class="kicker">Original Kart Review Game</div>
+      <div class="kicker">Historical Kart Grand Prix</div>
       <h1>Source Circuit</h1>
-      <p>Race first. Grab item cubes, answer a Regents question to unlock the item, then fire boosts, shields, and attacks at the field.</p>
+      <p>Pick a historical driver, race the circuit, grab item cubes, answer a Regents question to unlock the item, then fire boosts, shields, and attacks at the field.</p>
       <div class="mini-strip">
-        <span>4 racers</span><span>4 tracks</span><span>items</span><span>Regents sources</span>
+        <span>8 historical drivers</span><span>4 tracks</span><span>question items</span><span>Regents sources</span>
       </div>
     </div>
     <section class="select-panel">
       <div class="panel-head">
         <span>Step 1</span>
-        <h2>Choose Racer</h2>
+        <h2>Choose Driver</h2>
       </div>
       <div class="character-grid" id="characterGrid"></div>
     </section>
@@ -83,7 +83,15 @@
       <button class="mini-btn" id="pauseBtn" type="button">Pause</button>
       <button class="mini-btn" id="quitBtn" type="button">Quit</button>
     </div>
-    <div class="control-hint">Hold W/↑ · ←/→ steer · Space drift · E/Shift item</div>
+    <div class="control-hint">Hold W/↑ · ←/→ steer · ↓ brake · Space drift · E/Shift item</div>
+    <div class="touch-controls" aria-label="Touch driving controls">
+      <button class="touch-btn steer left" type="button" data-hold-key="ArrowLeft">←</button>
+      <button class="touch-btn drift" type="button" data-hold-key="space">Drift</button>
+      <button class="touch-btn steer right" type="button" data-hold-key="ArrowRight">→</button>
+      <button class="touch-btn accel" type="button" data-hold-key="ArrowUp">Gas</button>
+      <button class="touch-btn brake" type="button" data-hold-key="ArrowDown">Brake</button>
+      <button class="touch-btn item" type="button" data-tap-item>Item</button>
+    </div>
   </section>
 
   <section class="screen" id="resultsScreen">
@@ -100,6 +108,6 @@
   </section>
 </main>
 <script src="../../assets/arcade-analytics.js"></script>
-<script type="module" src="game.js?v=20260430-polish"></script>
+<script type="module" src="game.js?v=20260430-historical-gp"></script>
 </body>
 </html>

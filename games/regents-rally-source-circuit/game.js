@@ -1,47 +1,99 @@
 const CHARACTERS = [
   {
-    id: "archivist",
-    name: "Archivist Nova",
-    role: "Primary Source Pro",
-    vehicle: "Archive Kart",
+    id: "cleopatra",
+    name: "Cleopatra VII",
+    shortName: "Cleopatra",
+    role: "Diplomacy Driver",
+    vehicle: "Nile Comet",
     accent: "#66e9ff",
     body: "#1592b6",
     sprite: "0% 0%",
-    stats: { speed: 7, handling: 8, boost: 6 },
+    stats: { speed: 7, handling: 9, boost: 6, weight: 5 },
     perk: "Extra source time"
   },
   {
-    id: "cartographer",
-    name: "Cartographer Cruz",
-    role: "Map Master",
-    vehicle: "Compass Coupe",
+    id: "mansa-musa",
+    name: "Mansa Musa",
+    shortName: "Mansa",
+    role: "Gold Road Heavyweight",
+    vehicle: "Mali Monarch",
     accent: "#ffd15c",
     body: "#c38a1d",
     sprite: "100% 0%",
-    stats: { speed: 8, handling: 6, boost: 7 },
-    perk: "Sharper lane control"
+    stats: { speed: 9, handling: 5, boost: 7, weight: 9 },
+    perk: "High top speed"
   },
   {
-    id: "reformer",
-    name: "Reformer Rey",
-    role: "Movement Builder",
-    vehicle: "Petition Racer",
+    id: "harriet-tubman",
+    name: "Harriet Tubman",
+    shortName: "Tubman",
+    role: "Freedom Line Sprinter",
+    vehicle: "Liberty Lantern",
     accent: "#64f0aa",
     body: "#2aa365",
     sprite: "0% 100%",
-    stats: { speed: 6, handling: 7, boost: 9 },
+    stats: { speed: 6, handling: 8, boost: 10, weight: 4 },
     perk: "Longer boost chains"
   },
   {
-    id: "diplomat",
-    name: "Diplomat Vale",
-    role: "Treaty Tactician",
-    vehicle: "Summit Speedster",
+    id: "toussaint",
+    name: "Toussaint Louverture",
+    shortName: "Toussaint",
+    role: "Revolution Racer",
+    vehicle: "Haiti Hurricane",
     accent: "#ff5f9f",
     body: "#bd3b85",
     sprite: "100% 100%",
-    stats: { speed: 8, handling: 7, boost: 6 },
+    stats: { speed: 8, handling: 7, boost: 7, weight: 6 },
     perk: "Faster recovery"
+  },
+  {
+    id: "genghis-khan",
+    name: "Genghis Khan",
+    shortName: "Genghis",
+    role: "Steppe Speedster",
+    vehicle: "Yam Courier",
+    accent: "#ff8a3d",
+    body: "#b95c26",
+    sprite: "100% 0%",
+    stats: { speed: 10, handling: 4, boost: 7, weight: 8 },
+    perk: "Strong straightaways"
+  },
+  {
+    id: "joan-of-arc",
+    name: "Joan of Arc",
+    shortName: "Joan",
+    role: "Rally Captain",
+    vehicle: "Orleans Arrow",
+    accent: "#b892ff",
+    body: "#6747bd",
+    sprite: "0% 100%",
+    stats: { speed: 7, handling: 7, boost: 9, weight: 5 },
+    perk: "Quick drift sparks"
+  },
+  {
+    id: "abraham-lincoln",
+    name: "Abraham Lincoln",
+    shortName: "Lincoln",
+    role: "Union Power Driver",
+    vehicle: "Rail Splitter",
+    accent: "#8fb4ff",
+    body: "#435d9f",
+    sprite: "0% 0%",
+    stats: { speed: 8, handling: 6, boost: 6, weight: 8 },
+    perk: "Better bump recovery"
+  },
+  {
+    id: "sacagawea",
+    name: "Sacagawea",
+    shortName: "Sacagawea",
+    role: "Trail Navigator",
+    vehicle: "Compass Trail",
+    accent: "#7dffb2",
+    body: "#327a54",
+    sprite: "100% 100%",
+    stats: { speed: 6, handling: 10, boost: 6, weight: 4 },
+    perk: "Sharpest handling"
   }
 ];
 
@@ -215,7 +267,7 @@ const state = {
   attempts: 0,
   streak: 0,
   maxStreak: 0,
-  place: 4,
+  place: CHARACTERS.length,
   lap: 1,
   selected: 0,
   answerSeconds: 16,
@@ -311,7 +363,7 @@ function renderTracks() {
       <div class="stat-grid">
         <div class="stat"><b>${track.laps}</b><span>Laps</span></div>
         <div class="stat"><b>Item</b><span>Questions</span></div>
-        <div class="stat"><b>4</b><span>Racers</span></div>
+        <div class="stat"><b>8</b><span>Racers</span></div>
       </div>
     </button>
   `).join("");
@@ -456,7 +508,7 @@ function startRace() {
   state.attempts = 0;
   state.streak = 0;
   state.maxStreak = 0;
-  state.place = 4;
+  state.place = CHARACTERS.length;
   state.lap = 1;
   state.finishTime = 0;
   state.startedAt = performance.now();
@@ -486,16 +538,20 @@ function buildItemBoxes() {
 }
 
 function buildRivals() {
+  const lanes = [-0.78, -0.42, -0.12, 0.18, 0.46, 0.72, 0.02];
   return CHARACTERS
     .filter((racer) => racer.id !== state.character.id)
     .map((racer, index) => ({
       racer,
-      distance: 60 + index * 95,
-      lane: [-0.55, 0.18, 0.62][index] || 0,
-      base: 428 + racer.stats.speed * 18 + index * 14,
-      speed: 420 + index * 22,
+      distance: 70 + index * 82,
+      lane: lanes[index] ?? 0,
+      desiredLane: lanes[index] ?? 0,
+      base: 392 + racer.stats.speed * 17 + index * 7,
+      speed: 380 + index * 17,
       hit: 0,
-      boost: 0
+      boost: 0,
+      itemCooldown: 4 + index * 1.2 + Math.random() * 2,
+      wobble: Math.random() * Math.PI * 2
     }));
 }
 
@@ -515,7 +571,7 @@ function openItemQuestion() {
   state.quizOpen = true;
   state.resolved = false;
   state.selected = 0;
-  state.answerSeconds = question.images.length || state.character.id === "archivist" ? 22 : 16;
+  state.answerSeconds = question.images.length || state.character.id === "cleopatra" ? 22 : 16;
   state.deadline = Date.now() + state.answerSeconds * 1000;
   renderQuestion();
   els.questionCard.classList.remove("hidden");
@@ -583,7 +639,7 @@ function gradeAnswer(index, timedOut = false) {
       state.shield = Math.max(0, state.shield - 1.2);
       setToast("SHIELD SAVED IT", 1.1);
     } else {
-      state.spin = state.character.id === "diplomat" ? 0.55 : 0.95;
+      state.spin = state.character.id === "toussaint" ? 0.55 : 0.95;
       state.speed *= 0.58;
       setToast(timedOut ? "TIMEOUT" : "MISFIRE", 1.2);
     }
@@ -661,7 +717,7 @@ function updateHud() {
   const total = TRACK_LENGTH * state.track.laps;
   state.lap = Math.min(state.track.laps, Math.floor(state.distance / TRACK_LENGTH) + 1);
   state.place = 1 + state.rivals.filter((rival) => rival.distance > state.distance).length;
-  els.hudRacer.textContent = state.character.name.split(" ").pop();
+  els.hudRacer.textContent = state.character.shortName || state.character.name;
   els.hudLap.textContent = `${state.lap}/${state.track.laps}`;
   els.hudPlace.textContent = ordinal(state.place);
   els.hudScore.textContent = String(Math.max(0, Math.round(state.score)));
@@ -749,15 +805,16 @@ function updateRace(dt) {
   const drift = keys.has(" ") && (left || right) && state.speed > 245;
   const steer = (right ? 1 : 0) - (left ? 1 : 0);
   const offroad = Math.max(0, Math.abs(state.lane) - 0.98);
-  const statSpeed = 365 + state.character.stats.speed * 22;
-  const naturalRoll = 120 + state.character.stats.speed * 7;
-  const boostSpeed = state.boost > 0 ? 210 + state.character.stats.boost * 13 : 0;
+  const weight = state.character.stats.weight || 6;
+  const statSpeed = 375 + state.character.stats.speed * 24 + weight * 3;
+  const naturalRoll = 118 + state.character.stats.speed * 8;
+  const boostSpeed = state.boost > 0 ? 218 + state.character.stats.boost * 15 : 0;
   const targetSpeed = clamp((accelerate ? statSpeed : naturalRoll) + boostSpeed - (brake ? 235 : 0) - offroad * 245 - state.spin * 270 - state.bump * 100, 0, 760);
-  const accelRate = accelerate || state.boost > 0 ? 7.25 : 3.05;
+  const accelRate = accelerate || state.boost > 0 ? 7.65 + state.character.stats.boost * 0.08 - weight * 0.06 : 3.05;
   state.speed += (targetSpeed - state.speed) * frameEase(brake ? 11.4 : accelRate, dt);
   const speedFactor = clamp(state.speed / 470, 0.25, 1.22);
-  const grip = 1.16 + state.character.stats.handling * 0.145;
-  const driftGrip = drift ? 0.55 : 1;
+  const grip = 1.14 + state.character.stats.handling * 0.16 - weight * 0.018;
+  const driftGrip = drift ? 0.52 : 1;
   const curveAssist = roadCurveAt(state.distance + state.speed * 0.75, 0.6) * 0.000018 * state.speed;
   state.laneVel += (steer * grip * driftGrip - curveAssist) * speedFactor * dt;
   state.laneVel *= Math.pow(drift ? 0.978 : 0.865, dt * 60);
@@ -772,14 +829,15 @@ function updateRace(dt) {
   if (offroad > 0.05 && Math.random() < 0.42) burstParticles(state.lane, "#8b98b6", 1);
   if (drift) {
     if (!state.drifting) state.hop = 0.18;
-    state.driftCharge = Math.min(2.4, state.driftCharge + dt * (1 + Math.abs(steer) * 0.35));
+    const sparkBonus = state.character.id === "joan-of-arc" ? 0.24 : 0;
+    state.driftCharge = Math.min(2.7, state.driftCharge + dt * (1 + sparkBonus + Math.abs(steer) * 0.42));
     state.drifting = true;
     const spark = state.driftCharge > 1.35 ? "#ffd15c" : state.character.accent;
     if (Math.random() < 0.8) burstParticles(state.lane - steer * 0.2, spark, state.driftCharge > 1.35 ? 2 : 1);
   } else if (state.drifting) {
     if (state.driftCharge > 0.45) {
       const strong = state.driftCharge > 1.35;
-      state.boost = Math.max(state.boost, (strong ? 1.65 : 0.78) + state.driftCharge * 0.42);
+      state.boost = Math.max(state.boost, (strong ? 1.82 : 0.84) + state.driftCharge * 0.45);
       state.score += Math.round((strong ? 120 : 72) * state.driftCharge);
       setToast(strong ? "SUPER MINI-TURBO" : "MINI-TURBO", 0.8);
       burstParticles(state.lane, strong ? "#ffd15c" : state.character.accent, strong ? 28 : 16);
@@ -790,8 +848,8 @@ function updateRace(dt) {
   state.distance += state.speed * dt;
   state.boost = Math.max(0, state.boost - dt);
   state.shield = Math.max(0, state.shield - dt);
-  state.spin = Math.max(0, state.spin - dt * 1.7);
-  state.bump = Math.max(0, state.bump - dt * 2.8);
+  state.spin = Math.max(0, state.spin - dt * (state.character.id === "toussaint" ? 2.35 : 1.7));
+  state.bump = Math.max(0, state.bump - dt * (state.character.id === "abraham-lincoln" ? 4.0 : 2.8));
   state.hop = Math.max(0, state.hop - dt);
   state.finishPulse = Math.max(0, state.finishPulse - dt);
   state.hitFlash = Math.max(0, state.hitFlash - dt);
@@ -809,12 +867,15 @@ function updateKartCollisions() {
     const gap = rival.distance - state.distance;
     const laneGap = rival.lane - state.lane;
     if (Math.abs(gap) > 54 || Math.abs(laneGap) > 0.26 || state.spin > 0.1) return;
-    state.bump = 0.55;
+    const playerWeight = state.character.stats.weight || 6;
+    const rivalWeight = rival.racer.stats.weight || 6;
+    const weightEdge = clamp((playerWeight - rivalWeight) / 10, -0.28, 0.28);
+    state.bump = Math.max(0.28, 0.55 - weightEdge);
     state.cameraShake = Math.max(state.cameraShake, state.shield > 0 ? 0.18 : 0.32);
-    state.speed *= state.shield > 0 ? 0.96 : 0.82;
-    state.laneVel -= Math.sign(laneGap || 1) * 0.08;
-    rival.speed *= 0.88;
-    rival.hit = Math.max(rival.hit, 0.35);
+    state.speed *= state.shield > 0 ? 0.97 : 0.84 + weightEdge * 0.28;
+    state.laneVel -= Math.sign(laneGap || 1) * (0.07 + rivalWeight * 0.004);
+    rival.speed *= 0.86 - weightEdge * 0.18;
+    rival.hit = Math.max(rival.hit, 0.32 + weightEdge * 0.4);
     burstParticles(state.lane, state.shield > 0 ? "#64f0aa" : "#ffffff", state.shield > 0 ? 10 : 16);
     if (state.toastTime < 0.2) setToast(state.shield > 0 ? "SHIELD BUMP" : "BUMP", 0.45);
   });
@@ -824,14 +885,35 @@ function updateRivals(dt) {
   state.rivals.forEach((rival, index) => {
     rival.hit = Math.max(0, rival.hit - dt);
     rival.boost = Math.max(0, rival.boost - dt);
-    const curve = Math.sin(rival.distance * 0.005 + index * 2.2);
-    rival.lane += (curve * 0.62 - rival.lane) * frameEase(1.12, dt);
-    const rubberBand = rival.distance < state.distance - 280 ? 52 : rival.distance > state.distance + 550 ? -28 : 0;
+    rival.itemCooldown = Math.max(0, rival.itemCooldown - dt);
+    const curve = Math.sin(rival.distance * 0.0044 + index * 2.2 + rival.wobble);
+    const avoidPlayer = Math.abs(rival.distance - state.distance) < 175 ? Math.sign(rival.lane - state.lane || (index % 2 ? 1 : -1)) * 0.18 : 0;
+    rival.desiredLane = clamp(curve * 0.58 + avoidPlayer, -0.88, 0.88);
+    rival.lane += (rival.desiredLane - rival.lane) * frameEase(1.55 + racerHandling(rival.racer) * 0.04, dt);
+    const rubberBand = rival.distance < state.distance - 360 ? 92 : rival.distance > state.distance + 620 ? -42 : 0;
     const hitDrag = rival.hit > 0 ? 175 : 0;
-    const target = rival.base + rubberBand - hitDrag;
-    rival.speed += (target - rival.speed) * frameEase(2.8, dt);
+    const boost = rival.boost > 0 ? 130 : 0;
+    const target = rival.base + rubberBand + boost - hitDrag;
+    rival.speed += (target - rival.speed) * frameEase(2.9, dt);
     rival.distance += rival.speed * dt;
+    if (rival.itemCooldown <= 0 && Math.abs(rival.distance - state.distance) < 560) {
+      rival.itemCooldown = 6.5 + Math.random() * 6;
+      if (rival.distance < state.distance && Math.random() < 0.58) {
+        rival.boost = 2.1;
+        burstParticles(rival.lane, rival.racer.accent, 12);
+      } else if (rival.distance > state.distance && Math.abs(rival.lane - state.lane) < 0.42 && state.shield <= 0) {
+        state.spin = Math.max(state.spin, state.character.id === "toussaint" ? 0.42 : 0.72);
+        state.speed *= 0.82;
+        state.cameraShake = Math.max(state.cameraShake, 0.24);
+        state.hitFlash = 0.38;
+        setToast(`${rival.racer.shortName || rival.racer.name} hit you`, 0.8);
+      }
+    }
   });
+}
+
+function racerHandling(racer) {
+  return racer?.stats?.handling || 7;
 }
 
 function updateItemBoxes() {
@@ -1688,6 +1770,29 @@ els.canvas.addEventListener("pointercancel", () => {
   keys.delete("ArrowLeft");
   keys.delete("ArrowRight");
   keys.delete("ArrowUp");
+});
+
+document.querySelectorAll("[data-hold-key]").forEach((button) => {
+  const key = button.dataset.holdKey === "space" ? " " : button.dataset.holdKey;
+  const press = (event) => {
+    event.preventDefault();
+    keys.add(key);
+    button.classList.add("active");
+  };
+  const release = (event) => {
+    event.preventDefault();
+    keys.delete(key);
+    button.classList.remove("active");
+  };
+  button.addEventListener("pointerdown", press);
+  button.addEventListener("pointerup", release);
+  button.addEventListener("pointercancel", release);
+  button.addEventListener("pointerleave", release);
+});
+
+document.querySelector("[data-tap-item]")?.addEventListener("click", (event) => {
+  event.preventDefault();
+  openItemQuestion();
 });
 
 els.itemBtn.addEventListener("click", openItemQuestion);
