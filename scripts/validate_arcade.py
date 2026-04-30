@@ -134,6 +134,24 @@ def check_index_uses_games_json() -> list[str]:
     return errors
 
 
+def check_game_thumbnails() -> list[str]:
+    errors: list[str] = []
+    games = load_json(ROOT / "games.json")
+    index_text = (ROOT / "index.html").read_text(encoding="utf-8")
+    if "assets/game-thumbnails/" not in index_text:
+        errors.append("index.html is not wired to the generated game thumbnail directory.")
+    for game in games:
+        game_id = game.get("id")
+        if not game_id:
+            continue
+        thumb = ROOT / "assets" / "game-thumbnails" / f"{game_id}.webp"
+        if not thumb.exists():
+            errors.append(f"Missing game thumbnail: {thumb.relative_to(ROOT)}")
+        elif thumb.stat().st_size < 1024:
+            errors.append(f"Game thumbnail looks empty or corrupt: {thumb.relative_to(ROOT)}")
+    return errors
+
+
 def _norm_text(value: object) -> str:
     return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower().replace("&", " and ")).strip()
 
@@ -221,6 +239,7 @@ def main() -> int:
         ("regents practice exam shape", check_regents_practice_exam),
         ("dropdown option contrast", check_select_option_contrast),
         ("index.html games load", check_index_uses_games_json),
+        ("game thumbnails", check_game_thumbnails),
         ("jeopardy board quality", check_jeopardy_boards),
         ("javascript syntax", check_javascript_syntax),
     ]

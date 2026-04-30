@@ -1061,10 +1061,10 @@ textarea:focus-visible {
 .game-card:hover::before { width: 5px; }
 .gc-art {
   position: relative;
-  height: 110px;
+  height: 132px;
   background:
-    linear-gradient(180deg, rgba(3,2,10,.22), rgba(3,2,10,.82)),
-    var(--ui-sheet) 50% 50% / 720px auto no-repeat,
+    linear-gradient(180deg, rgba(3,2,10,.04) 0%, rgba(3,2,10,.28) 52%, rgba(3,2,10,.74) 100%),
+    var(--card-art, var(--ui-sheet)) center / cover no-repeat,
     radial-gradient(120% 80% at 100% 0%, color-mix(in oklab, var(--accent, #7af0ff) 35%, transparent), transparent 65%),
     linear-gradient(135deg, rgba(13,17,27,.5), rgba(8,11,20,.9)),
     rgba(13,17,27,.85);
@@ -1072,17 +1072,36 @@ textarea:focus-visible {
   overflow: hidden;
   flex: 0 0 auto;
 }
+.gc-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.08) contrast(1.04);
+}
+.gc-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(3,2,10,.02), rgba(3,2,10,.28) 48%, rgba(3,2,10,.70)),
+    radial-gradient(90% 80% at 100% 0%, color-mix(in oklab, var(--accent, #7af0ff) 18%, transparent), transparent 65%);
+}
 .gc-art::after {
   content: var(--course-glyph, "");
   position: absolute; right: 10px; top: -16px;
   font-family: var(--font-display);
   font-style: normal; font-weight: 280;
   font-size: 110px; line-height: 1;
-  color: color-mix(in oklab, var(--accent, #7af0ff) 16%, transparent);
+  color: color-mix(in oklab, var(--accent, #7af0ff) 10%, transparent);
+  z-index: 2;
 }
 .gc-stripe {
   position: absolute; left: 14px; right: 14px; bottom: 12px;
   display: flex; gap: 6px; align-items: center;
+  z-index: 3;
 }
 .gc-stripe .badge {
   font-family: var(--font-ui);
@@ -1591,6 +1610,356 @@ textarea:focus-visible {
   .traffic-stat { text-align: left; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
+
+/* ============== Legibility and navigation cleanup ============== */
+.topbar {
+  background:
+    linear-gradient(180deg, rgba(8, 11, 20, .96), rgba(5, 7, 14, .92)),
+    var(--marquee-art) center / auto 125% repeat-x;
+}
+.topbar-inner {
+  min-height: 64px;
+}
+.brand {
+  min-width: 0;
+}
+.brand strong {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.02;
+}
+.brand span:last-child > span,
+.topnav a,
+.nav-link,
+.action,
+.launch-chip,
+.play {
+  font-family: var(--font-ui);
+  font-weight: 800;
+}
+.brand span:last-child > span {
+  font-size: 12px;
+}
+.topnav a {
+  font-size: 14px;
+  min-height: 38px;
+}
+.nav-link {
+  min-height: 42px;
+  padding: 10px 15px;
+  font-size: 14px;
+}
+.hero {
+  min-height: auto;
+  padding-top: clamp(56px, 8vh, 88px);
+}
+.hero-marquee {
+  display: none;
+}
+.hero-inner {
+  justify-content: flex-start;
+  padding-bottom: clamp(36px, 5vh, 64px);
+}
+.eyebrow,
+.band-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--cyan);
+}
+.hero-title {
+  max-width: 900px;
+  font-size: clamp(46px, 7.2vw, 106px);
+  line-height: 1.02;
+  text-shadow:
+    0 3px 0 #101826,
+    0 6px 0 rgba(255, 47, 179, .36),
+    0 0 22px rgba(122, 240, 255, .38);
+}
+.tagline {
+  max-width: 680px;
+  color: #f8fbff;
+  font-size: clamp(17px, 1.45vw, 20px);
+  font-weight: 600;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .85);
+}
+.band {
+  padding: clamp(52px, 7vh, 84px) 0 clamp(36px, 5vh, 58px);
+}
+.band-head {
+  margin-bottom: clamp(20px, 3vh, 34px);
+}
+.band-title {
+  font-family: var(--font-ui);
+  font-size: clamp(36px, 4.2vw, 62px);
+  font-weight: 800;
+  line-height: 1.04;
+}
+.band-sub {
+  max-width: 760px;
+  color: #eef3ff;
+  font-size: 17px;
+  font-weight: 600;
+}
+.path-grid,
+.focus-grid,
+.progress-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.bento {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-rows: none;
+  align-items: stretch;
+}
+.bento .mode-button:nth-child(n) {
+  grid-column: auto;
+  grid-row: auto;
+  min-height: 280px;
+  padding: 24px;
+}
+.bento .mode-button:nth-child(n) .mb-title {
+  margin-top: 16px;
+  font-size: clamp(26px, 2.2vw, 34px);
+  line-height: 1.08;
+}
+.bento .mode-button:nth-child(n) .mb-sub {
+  max-width: 100%;
+  font-size: 15.5px;
+  line-height: 1.5;
+  -webkit-line-clamp: unset;
+}
+.path-card,
+.focus-card,
+.progress-card,
+.quick-card,
+.mode-button,
+.game-card,
+.course-tile {
+  background:
+    linear-gradient(180deg, rgba(6, 8, 15, .84), rgba(6, 8, 15, .98)),
+    var(--card-art, var(--card-cyan)) center / cover no-repeat,
+    linear-gradient(180deg, rgba(12, 17, 30, .92), rgba(6, 9, 17, .98));
+}
+.path-card,
+.focus-card,
+.progress-card,
+.mode-button {
+  height: auto;
+  min-height: auto;
+  grid-template-rows: auto auto auto;
+  align-content: start;
+}
+.mode-button {
+  min-height: 270px;
+}
+.mode-button::after {
+  background:
+    linear-gradient(180deg, rgba(6, 8, 15, .36) 0%, rgba(6, 8, 15, .82) 58%, rgba(6, 8, 15, .96) 100%),
+    linear-gradient(90deg, rgba(6, 8, 15, .74) 0%, rgba(6, 8, 15, .20) 64%, rgba(6, 8, 15, .52) 100%);
+}
+.path-card h3,
+.focus-card h3,
+.progress-card h3,
+.quick-card h3,
+.mode-button .mb-title,
+.gc-body h3,
+.course-tile strong {
+  font-family: var(--font-ui);
+  font-weight: 800;
+  line-height: 1.08;
+}
+.path-card h3,
+.focus-card h3,
+.progress-card h3 {
+  font-size: 30px;
+}
+.path-card p,
+.focus-card p,
+.progress-card p,
+.quick-card p,
+.mode-button .mb-sub,
+.gc-body p {
+  display: block;
+  max-width: 100%;
+  overflow: visible;
+  color: #eef3ff;
+  font-size: 15.5px;
+  line-height: 1.5;
+  -webkit-line-clamp: unset;
+}
+.path-foot,
+.focus-foot,
+.progress-foot,
+.mb-foot,
+.quick-foot,
+.card-bottom {
+  align-items: center;
+  flex-wrap: wrap;
+}
+.path-kicker,
+.focus-kicker,
+.progress-kicker,
+.quick-kicker,
+.quick-meta,
+.quick-timer,
+.mode-button .mb-tag,
+.mode-button .mb-meta,
+.mb-pill,
+.gc-stripe .badge,
+.card-bottom .micro,
+.course-tile small,
+.course-tile > span:last-child,
+.count-pill,
+.pill {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.gc-art {
+  height: 132px;
+}
+.gc-art::after,
+.path-card::after,
+.focus-card::after,
+.course-tile::after {
+  opacity: .32;
+}
+.path-card::after,
+.focus-card::after {
+  right: 16px;
+  bottom: 12px;
+  font-size: 72px;
+  opacity: .22;
+}
+.library-grid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.field {
+  font-family: var(--font-ui);
+  min-height: 52px;
+  font-size: 16px;
+}
+select.field {
+  padding-right: 42px;
+}
+
+@media (max-width: 760px) {
+  .topbar-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand cta"
+      "nav nav";
+    min-height: auto;
+    gap: 8px 10px;
+    padding: 8px 0 10px;
+  }
+  .brand {
+    grid-area: brand;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 10px;
+  }
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+  }
+  .brand strong {
+    font-size: 14px;
+    line-height: 1.04;
+  }
+  .brand span:last-child > span {
+    margin-top: 3px;
+    font-size: 11px;
+  }
+  .nav-link {
+    grid-area: cta;
+    min-height: 42px;
+    padding: 9px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .topnav {
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    overflow: visible;
+    gap: 6px;
+    padding: 4px;
+  }
+  .topnav a {
+    justify-content: center;
+    min-height: 38px;
+    padding: 8px 6px;
+    font-size: 12.5px;
+    line-height: 1.1;
+    text-align: center;
+    white-space: normal;
+  }
+  .nav-pills {
+    display: none;
+  }
+  .hero {
+    padding-top: 32px;
+  }
+  .hero-inner {
+    padding-bottom: 30px;
+  }
+  .hero-title {
+    max-width: 100%;
+    font-size: clamp(34px, 10.5vw, 48px);
+    line-height: 1.06;
+    text-shadow:
+      0 2px 0 #101826,
+      0 4px 0 rgba(255, 47, 179, .34),
+      0 0 18px rgba(122, 240, 255, .34);
+  }
+  .hero-actions .action {
+    flex: 1 1 160px;
+    justify-content: center;
+    min-height: 48px;
+  }
+  .band {
+    scroll-margin-top: 126px;
+    padding: 44px 0 34px;
+  }
+  .band-title {
+    font-size: clamp(30px, 9vw, 40px);
+    line-height: 1.08;
+  }
+  .band-sub {
+    font-size: 15.5px;
+  }
+  .path-card,
+  .focus-card,
+  .progress-card,
+  .quick-card,
+  .mode-button {
+    min-height: auto;
+    padding: 18px;
+  }
+  .bento .mode-button:nth-child(n) {
+    min-height: auto;
+    padding: 18px;
+  }
+  .path-card h3,
+  .focus-card h3,
+  .progress-card h3,
+  .mode-button .mb-title {
+    font-size: 25px;
+  }
+  .gc-art {
+    height: 116px;
+  }
+  .jeopardy-console {
+    margin: 0 0 16px;
+    padding: 10px;
+  }
+  .library-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 <body>
@@ -1654,7 +2023,7 @@ textarea:focus-visible {
       <div>
         <div class="band-eyebrow">Start Here</div>
         <h2 class="band-title">Choose the <em>right door</em>.</h2>
-        <p class="band-sub">Three classroom-safe paths: play a polished review game, train for Regents, or launch a unit Jeopardy board.</p>
+        <p class="band-sub">Pick the mode: arcade games, Regents practice, or Jeopardy boards.</p>
       </div>
     </div>
     <div class="path-grid reveal-stagger" id="pathCards"></div>
@@ -1691,7 +2060,7 @@ textarea:focus-visible {
       <div>
         <div class="band-eyebrow">Featured Missions</div>
         <h2 class="band-title">Pick your <em>boss fight</em>.</h2>
-        <p class="band-sub">Master modes pulled from the full library — built for Regents day, AP day, and yearlong review marathons.</p>
+        <p class="band-sub">Best games first, with the strongest review paths surfaced before the full library.</p>
       </div>
     </div>
     <div class="bento reveal-stagger" id="featuredModes"></div>
@@ -1720,7 +2089,7 @@ textarea:focus-visible {
       <div>
         <div class="band-eyebrow">Quick Play</div>
         <h2 class="band-title">Start in <em>one minute</em>.</h2>
-        <p class="band-sub">Short, focused modes for bell ringers, study hall, and homework reps. Use these when students need fast feedback before a full test.</p>
+        <p class="band-sub">Short modes for bell ringers, study hall, homework reps, and fast feedback.</p>
       </div>
     </div>
     <div class="quick-grid reveal-stagger" id="quickPlayModes"></div>
@@ -1731,7 +2100,7 @@ textarea:focus-visible {
       <div>
         <div class="band-eyebrow">Course Portals</div>
         <h2 class="band-title">Choose your <em>campaign</em>.</h2>
-        <p class="band-sub">Every course has its own line of unit reviews, finals, and Regents sprints. Pick a portal to filter the library.</p>
+        <p class="band-sub">Pick a course level to filter the library.</p>
       </div>
       <div class="rail-controls">
         <button class="rail-btn prev" type="button" aria-label="Scroll courses left">‹</button>
@@ -1746,7 +2115,7 @@ textarea:focus-visible {
       <div>
         <div class="band-eyebrow">Review Library</div>
         <h2 class="band-title">Every <em>mission</em>, one search.</h2>
-        <p class="band-sub">Search by unit, era, person, law, movement, vocab term, exam set, or game mode. Pick a mission and study the actual material students need to know.</p>
+        <p class="band-sub">Search every game, Jeopardy board, and practice set.</p>
       </div>
       <span class="count-pill" id="countLabel"></span>
     </div>
@@ -1849,6 +2218,12 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+function thumbnailFor(game) {
+  return game ? "assets/game-thumbnails/" + encodeURIComponent(game.id) + ".webp" : "";
+}
+function cssUrlForAttr(path) {
+  return "url(&quot;" + escapeHtml(path).replaceAll("(", "%28").replaceAll(")", "%29") + "&quot;)";
 }
 
 // ============== Course color + glyph system ==============
@@ -2063,24 +2438,12 @@ function renderMetrics() {
 // ============== Featured bento ==============
 function renderFeatured() {
   const games = featuredGames();
-  const artMap = {
-    "regents-practice-exam": "url('assets/regents-gauntlet-arena.png')",
-    "cold-war-invaders": "url('games/cold-war-invaders/assets/cold-war-invaders-atari-sheet.png')",
-    "regents-rally-source-circuit": "url('games/regents-rally-source-circuit/rally-64-key-art.png')",
-    "source-sprint": "url('assets/regents-gauntlet-arena.png')",
-    "lightning-review": "url('assets/chrono-defense-road-map.webp')",
-    "vocab-vault": "url('assets/portal-card.webp')",
-    "chrono-defense-infinite": "url('assets/chrono-defense-road-map.webp')",
-    "boss-rush-arena": "url('assets/boss-rush-arena-v2.webp')",
-    "regents-gauntlet": "url('assets/regents-gauntlet-arena.png')",
-    "arcade-duel": "url('assets/regents-gauntlet-arena.png')"
-  };
   document.getElementById("featuredModes").innerHTML = games.map((game, index) => {
     const accent = accentFor(game);
-    const art = artMap[game.id] || "";
+    const art = cssUrlForAttr(thumbnailFor(game));
     const meta = game.id === "regents-practice-exam" ? "28 MCQs + document writing" : (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " review prompts");
     const pills = (game.categories || []).slice(0, 4).map((c) => '<span class="mb-pill">' + escapeHtml(c) + '</span>').join('');
-    return '<button class="mode-button" type="button" style="--accent:' + accent + ';--mode-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
+    return '<button class="mode-button" type="button" style="--accent:' + accent + ';--card-art:' + art + ';--mode-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
       '<span class="mb-tag">' + escapeHtml(displayGameType(game)) + '</span>' +
       '<div>' +
         '<h3 class="mb-title">' + escapeHtml(game.title) + '</h3>' +
@@ -2104,12 +2467,13 @@ function buttonCard(game, fallback, className) {
   const item = game || fallback;
   const accent = game ? accentFor(game) : item.accent;
   const glyph = game ? glyphFor(game) : item.glyph;
+  const art = game ? ';--card-art:' + cssUrlForAttr(thumbnailFor(game)) : "";
   const id = game ? game.id : item.id;
   const title = game ? game.title : item.title;
   const subtitle = game ? game.subtitle : item.subtitle;
   const kicker = game ? displayGameType(game) : item.kicker;
   const meta = game ? [game.course, game.day || game.grade].filter(Boolean).join(" · ") : item.meta;
-  return '<button class="' + className + '" type="button" style="--accent:' + accent + ';--glyph:\'' + glyph + '\'" data-id="' + escapeHtml(id) + '">' +
+  return '<button class="' + className + '" type="button" style="--accent:' + accent + ';--glyph:\'' + glyph + '\'' + art + '" data-id="' + escapeHtml(id) + '">' +
     '<span class="' + (className === "path-card" ? "path-kicker" : "focus-kicker") + '">' + escapeHtml(kicker) + '</span>' +
     '<div><h3>' + escapeHtml(title) + '</h3><p>' + escapeHtml(subtitle) + '</p></div>' +
     '<div class="' + (className === "path-card" ? "path-foot" : "focus-foot") + '"><span>' + escapeHtml(meta || "") + '</span><span class="launch-chip">Open</span></div>' +
@@ -2273,7 +2637,8 @@ function renderQuickPlay() {
     const meta = game.id === "source-sprint" ? "stimulus MCQs"
       : game.id === "vocab-vault" ? "typed answers"
       : "mixed MCQs";
-    return '<button class="quick-card" type="button" style="--accent:' + accent + ';--quick-glyph:\'' + glyph + '\';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
+    const art = cssUrlForAttr(thumbnailFor(game));
+    return '<button class="quick-card" type="button" style="--accent:' + accent + ';--card-art:' + art + ';--quick-glyph:\'' + glyph + '\';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
       '<div class="quick-top"><span class="quick-kicker">' + escapeHtml(displayGameType(game)) + '</span><span class="quick-timer">' + escapeHtml(timer) + '</span></div>' +
       '<div><h3>' + escapeHtml(game.title) + '</h3><p>' + escapeHtml(game.subtitle) + '</p></div>' +
       '<div class="quick-foot"><span class="quick-meta">' + escapeHtml(meta) + ' · ' + escapeHtml(String(game.clueCount || 0)) + ' prompts</span><span class="play">Play</span></div>' +
@@ -2353,10 +2718,12 @@ function renderCourseTiles() {
 function card(game) {
   const accent = accentFor(game);
   const glyph = glyphFor(game);
+  const thumb = thumbnailFor(game);
   const categoryLine = (game.categories || []).slice(0, 3).join(" · ");
   const meta = (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " clues") + " · " + (game.hasFinal ? "Final wager" : "Practice");
   return '<button class="game-card" type="button" style="--accent:' + accent + ';--course-glyph:\'' + glyph + '\'" data-id="' + escapeHtml(game.id) + '">' +
     '<div class="gc-art">' +
+      '<img class="gc-thumb" src="' + escapeHtml(thumb) + '" alt="" loading="lazy" decoding="async">' +
       '<div class="gc-stripe">' +
         '<span class="badge hot">' + escapeHtml(game.day || game.grade) + '</span>' +
         '<span class="badge">' + escapeHtml(displayGameType(game)) + '</span>' +
