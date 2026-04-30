@@ -73,6 +73,29 @@ function imageSrcs(docs) {
   return docs.flatMap((doc) => (doc.stimulusImages || []).map((img) => img.src));
 }
 
+function answerLabels(exam) {
+  return exam.mcq.map((q) => String(q.correct || ""));
+}
+
+function longestRun(values) {
+  let run = 0;
+  let best = 0;
+  let previous = "";
+  for (const value of values) {
+    run = value === previous ? run + 1 : 1;
+    best = Math.max(best, run);
+    previous = value;
+  }
+  return best;
+}
+
+function answerSpread(labels) {
+  const counts = new Map();
+  labels.forEach((label) => counts.set(label, (counts.get(label) || 0) + 1));
+  const values = [...counts.values()];
+  return values.length ? Math.max(...values) - Math.min(...values) : 0;
+}
+
 function assert(condition, message, errors) {
   if (!condition) errors.push(message);
 }
@@ -90,10 +113,18 @@ function auditExam(harness, course, seed, errors) {
   const writingKeys = new Set(guardKeys(harness, profile.id === "us-history" ? [...shortDocs, ...scaffold] : [...shortDocs, ...essayDocs]));
   const imageDirectory = profile.id === "us-history" ? "/us-day" : "/global-day";
   const allWritingDocs = profile.id === "us-history" ? [...shortDocs, ...scaffold] : [...shortDocs, ...essayDocs];
+  const labels = answerLabels(exam);
 
   assert(exam.mcq.length === 28, `${course} seed ${seed}: expected 28 MCQs, found ${exam.mcq.length}`, errors);
+  assert(uniqueCount(exam.mcq.map((q) => q.set || q.day || q.source)) >= 5, `${course} seed ${seed}: MCQs do not span enough released sets`, errors);
+  assert(exam.audit?.mcqDocGroups === 28, `${course} seed ${seed}: MCQ source groups should be unique`, errors);
+  assert(uniqueCount(labels) >= 4, `${course} seed ${seed}: answer labels do not use four choices`, errors);
+  assert(longestRun(labels) <= 8, `${course} seed ${seed}: answer labels have an excessive run (${labels.join(",")})`, errors);
+  assert(answerSpread(labels) <= 14, `${course} seed ${seed}: answer label distribution is too imbalanced (${labels.join(",")})`, errors);
   assert(exam.mcq.every((q) => (q.stimulusImages || []).length), `${course} seed ${seed}: MCQ without stimulus image`, errors);
   assert(exam.audit?.writingIntegrityOk, `${course} seed ${seed}: audit failed ${JSON.stringify(exam.audit)}`, errors);
+  assert(typeof exam.audit?.requiredDocCountsOk === "boolean", `${course} seed ${seed}: audit missing requiredDocCountsOk`, errors);
+  assert(typeof exam.audit?.courseStimulusMismatches === "number", `${course} seed ${seed}: audit missing courseStimulusMismatches`, errors);
   assert([...writingKeys].every((key) => !mcqKeys.has(key)), `${course} seed ${seed}: writing doc overlaps an MCQ stimulus group or image`, errors);
   assert(imageSrcs(allWritingDocs).every((src) => src.includes(imageDirectory)), `${course} seed ${seed}: writing stimulus uses wrong course image directory`, errors);
   assert(allWritingDocs.every((doc) => (doc.stimulusImages || []).length), `${course} seed ${seed}: writing doc missing image`, errors);

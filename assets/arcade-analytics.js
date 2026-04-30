@@ -311,10 +311,15 @@
   function recommendation(games, data, weak) {
     var recent = data.recent && data.recent[0];
     var lastAccuracy = recent && Number(recent.accuracy);
+    var weakText = (weak || []).map(function (item) { return item.title || ""; }).join(" ");
+    var recentPractice = recent && /regents|practice/i.test(recent.title || "");
     if (!data.recent.length) {
       return { reason: "Start with a game, then move into a practice set.", game: findGame(games, ["archive-quest", "history-hunters", "lightning-review"]) };
     }
-    if ((recent && /regents|practice/i.test(recent.title || "")) || (Number.isFinite(lastAccuracy) && lastAccuracy < 70)) {
+    if (recentPractice && /document evidence|context and relationships|outside information|argument and organization|civic scaffold/i.test(weakText)) {
+      return { reason: "Rewrite the weakest Regents writing section before a new full exam.", game: findGame(games, ["regents-practice-exam", "regents-gauntlet"]) };
+    }
+    if ((recentPractice && /mcq source reading|source|stimulus/i.test(weakText)) || (Number.isFinite(lastAccuracy) && lastAccuracy < 70)) {
       return { reason: "Build source-reading reps before the next full exam.", game: findGame(games, ["source-sprint", "regents-gauntlet", "lightning-review"]) };
     }
     var topicMatch = bestTopicMatch(games, weak, recent);

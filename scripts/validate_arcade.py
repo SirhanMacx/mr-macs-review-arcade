@@ -93,6 +93,11 @@ def check_regents_practice_exam() -> list[str]:
         "unknownWritingSources",
         "requiredDocCountsOk",
         "writingIntegrityOk",
+        "skillReport",
+        "nextPracticePlan",
+        "weakTopicLabels",
+        "Practice estimate, not official scoring",
+        "Civic scaffold accuracy",
         "same six-document Civic Literacy set",
         "STIMULUS_VISUAL_FAMILY_GROUPS",
         "docStemGuardKey",
@@ -166,6 +171,20 @@ def check_regents_practice_runtime() -> list[str]:
     if result.returncode == 0:
         return []
     detail = (result.stderr or result.stdout or "runtime audit failed").strip()
+    return [detail]
+
+
+def check_flagship_game_audit() -> list[str]:
+    result = subprocess.run(
+        ["node", "scripts/audit-flagship-games.mjs"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    detail = (result.stderr or result.stdout or "flagship game audit failed").strip()
     return [detail]
 
 
@@ -294,6 +313,7 @@ def main() -> int:
         ("regents stimuli assets", check_regents_stimuli),
         ("regents practice exam shape", check_regents_practice_exam),
         ("regents practice assembly", check_regents_practice_runtime),
+        ("flagship game audit", check_flagship_game_audit),
         ("dropdown option contrast", check_select_option_contrast),
         ("index.html games load", check_index_uses_games_json),
         ("game thumbnails", check_game_thumbnails),

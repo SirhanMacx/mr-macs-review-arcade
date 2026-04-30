@@ -692,8 +692,21 @@
     const level = state.level;
     player.x += player.vx * dt;
     let pr = playerRect();
+    let ledgeAssist = false;
     for (const p of level.platforms) {
       if (!rectsOverlap(pr, p)) continue;
+      const bottom = pr.y + pr.h;
+      const nearTop = bottom > p.y - 6 && bottom < p.y + 38 && player.vy >= -220;
+      if (nearTop && Math.abs(player.vx) > 35) {
+        player.y = p.y;
+        player.vy = 0;
+        player.coyote = JUMP.coyote;
+        player.landFlash = Math.max(player.landFlash, .65);
+        ledgeAssist = true;
+        dust(player.x, player.y, 10);
+        pr = playerRect();
+        continue;
+      }
       if (player.vx > 0) player.x = p.x - player.w / 2;
       else if (player.vx < 0) player.x = p.x + p.w + player.w / 2;
       player.vx = 0;
@@ -726,6 +739,10 @@
         player.vy = 20;
       }
       pr = playerRect();
+    }
+    if (ledgeAssist && !player.onGround) {
+      player.onGround = true;
+      player.airJumps = player.maxAirJumps;
     }
     player.x = clamp(player.x, 40, level.width - 40);
     if (player.y > 1100) respawn();

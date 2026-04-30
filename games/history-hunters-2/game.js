@@ -1236,6 +1236,21 @@
     els.quest.classList.add("has-source");
   }
 
+  function trackHunterCompletion(mode, score, accuracy, weakTopics = []) {
+    if (!window.MrMacsAnalytics || typeof window.MrMacsAnalytics.track !== "function") return;
+    window.MrMacsAnalytics.track("game_complete", {
+      gameId: "history-hunters",
+      title: "History Hunters 2: Atlas Quest",
+      course: state.stats.course || "All Courses",
+      gameType: "Open-World RPG",
+      mode,
+      score,
+      accuracy,
+      questions: mode === "Review Contract" ? 1 : 0,
+      weakTopics
+    }, { counter: "game-completions" });
+  }
+
   function submitQuest(raw) {
     const q = state.quest && state.quest.q;
     if (!q) return;
@@ -1251,6 +1266,7 @@
     }
     writeSave();
     updateHud();
+    trackHunterCompletion("Review Contract", correct ? 100 : 35, correct ? 100 : 0, correct ? [] : [q.course || state.stats.course || "All Courses", q.set || q.category || q.answer || "Review Contract"]);
     setTimeout(closeQuest, correct ? 1500 : 2600);
   }
 
@@ -1596,6 +1612,7 @@
       const reward = firstClear ? `awarded the ${gym.badge.toUpperCase()}! +80 shards, +2 Field Notes.` : `paid a rematch purse. +35 shards.`;
       setBattleLog(`${gym.leader.toUpperCase()} ${reward}`);
       await wait(1700);
+      trackHunterCompletion("Gym Battle", firstClear ? 100 : 88, 100, []);
       closeBattle(firstClear ? `${gym.badge} earned.` : `${gym.leader} rematch cleared.`);
       return;
     }
@@ -1611,6 +1628,7 @@
     updateHud();
     setBattleLog(`${battle.enemy.actualName.toUpperCase()} fainted. +${xp} XP.${joined ? " It joined the roster." : ""}`);
     await wait(1300);
+    trackHunterCompletion("Battle", joined ? 95 : 85, 100, []);
     closeBattle(joined ? `${battle.enemy.actualName} joined your roster.` : `${battle.enemy.actualName} fainted.`);
   }
 
