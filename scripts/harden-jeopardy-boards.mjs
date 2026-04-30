@@ -4,7 +4,7 @@ import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const HARDENING_VERSION = "jeopardy-hardening-v2-concept-finals";
+const HARDENING_VERSION = "jeopardy-hardening-v3-concise-clues";
 const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final", "Regents Sprint"]);
 const VALUE_SKILLS = {
   100: "identify key content",
@@ -88,6 +88,7 @@ function removeAnswerLeak(text, answer, replacement = "the correct answer") {
 function sentence(value, fallback) {
   let text = clean(value || fallback || "");
   if (!text) text = "a course-relevant development students must connect to evidence";
+  text = text.replace(/^([a-z])/, (match) => match.toUpperCase());
   return /[.!?]$/.test(text) ? text : `${text}.`;
 }
 
@@ -396,25 +397,35 @@ function signalFor(clue, answer, category, game) {
   return sentence(signal);
 }
 
+function conciseJeopardyClue(clue, answer, category, game) {
+  const signal = signalFor(clue, answer, category, game)
+    .replace(/^this is\s+/i, "");
+  const stripped = removeAnswerLeak(signal, answer).replace(/^(a|an)\s+/i, "");
+  if (normalize(stripped).split(" ").filter(Boolean).length < 3) {
+    const safeCategory = safeContext(category, answer, "this category");
+    const safeUnit = safeContext(game.title, answer, "this unit");
+    return sentence(`This ${safeCategory} term belongs in ${safeUnit}`);
+  }
+  return sentence(stripped);
+}
+
+function conciseExplanation(clue, answer, category, game) {
+  const source = clean(clue.sourceExplanation || "");
+  if (source && !/fits this clue|Exam alignment|Review move|standards-aligned|course-level clue/i.test(source)) {
+    return sentence(source);
+  }
+  return sentence(`${answer}: ${signalFor(clue, answer, category, game)}`);
+}
+
 function hardenClue(clue, categoryName, game, meta) {
   const value = Number(clue.value);
   const answer = clean(clue.answer);
   const alignment = alignmentFor(meta, game);
-  const safeCategory = safeContext(categoryName, answer, "this category");
-  const safeUnit = safeContext(game.title, answer, "this unit");
-  const signal = signalFor(clue, answer, categoryName, game);
   const skill = VALUE_SKILLS[value] || "review key content";
-  const templates = {
-    100: `Identify the key term connected to this standards-aligned review clue: ${signal}`,
-    200: `Which answer best matches this course-level clue about ${safeCategory}, and how would it fit the unit context? ${signal}`,
-    300: `${alignment.shortCode} - cause and effect: which answer explains the relationship, turning point, or development described here? This is harder than recall because students must connect the clue to the unit pattern. ${signal}`,
-    400: `${alignment.shortCode} - evidence to context: which answer best names the development shown by this evidence from ${safeCategory}? Use the clue to connect a specific fact to context, chronology, power, geography, economics, or civic life. ${signal}`,
-    500: `High-value synthesis: which answer best completes this exam-style claim about ${safeCategory}? The correct response should connect a specific fact to a larger pattern in the unit, explain why it mattered, and prepare students for evidence-based writing. ${signal}`
-  };
   clue.sourceClue = clue.sourceClue || clue.clue;
   clue.sourceExplanation = clue.sourceExplanation || clue.explanation || "";
-  clue.clue = removeAnswerLeak(templates[value] || templates[300], answer);
-  clue.explanation = `${answer} fits this clue because it connects the specific evidence to ${safeCategory}. Exam alignment: ${alignment.examTarget}. Review move: ${skill}.`;
+  clue.clue = conciseJeopardyClue(clue, answer, categoryName, game);
+  clue.explanation = conciseExplanation(clue, answer, categoryName, game);
   clue.rigor = {
     value,
     skill,
@@ -439,7 +450,7 @@ function finalFor(game, meta, answers) {
   const picked = candidates.find((candidate) => usableFinalCandidate(candidate, answers));
   if (!picked) throw new Error(`No usable Final Jeopardy concept for ${meta.file || game.title}`);
   const aliases = (picked.aliases || []).filter((alias) => !answers.has(normalize(alias)));
-  const explanation = `${sentence(picked.explanation)} It is a single-answer review concept aligned to ${alignment.examTarget}.`;
+  const explanation = sentence(picked.explanation);
   return {
     category: picked.category,
     clue: picked.clue,

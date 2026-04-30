@@ -6,7 +6,8 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final", "Regents Sprint"]);
 const EXPECTED_VALUES = "100,200,300,400,500";
-const MIN_WORDS = new Map([[100, 11], [200, 14], [300, 15], [400, 17], [500, 20]]);
+const MIN_CLUE_WORDS = 3;
+const MAX_CLUE_WORDS = 26;
 const EXPECTED_SKILLS = new Map([
   [100, "identify key content"],
   [200, "match content to unit context"],
@@ -14,8 +15,9 @@ const EXPECTED_SKILLS = new Map([
   [400, "connect evidence to a larger context"],
   [500, "synthesize a high-value exam pattern"]
 ]);
-const REQUIRED_HIGH_VALUE = /exam-style|evidence to context|High-value synthesis|connect a specific fact|larger pattern/i;
-const EXPECTED_HARDENING_VERSION = "jeopardy-hardening-v2-concept-finals";
+const FORBIDDEN_VERBOSE_CLUE = /standards-aligned review clue|course-level clue|Regents skill|AP historical reasoning|AP Psych skill|High-value synthesis|exam-style claim|which answer best|This is harder than recall|Use the clue to|correct response should|evidence-based writing/i;
+const FORBIDDEN_VERBOSE_EXPLANATION = /fits this clue|Exam alignment|Review move|single-answer review concept aligned/i;
+const EXPECTED_HARDENING_VERSION = "jeopardy-hardening-v3-concise-clues";
 const FINAL_SYNTHESIS_LEAK = /final synthesis|at least two specific examples|evidence-based synthesis|standards-aligned argument|teacher judgment|score the synthesis|broader pattern, cause\/effect|instead of defining one isolated term/i;
 
 function decodePath(value) {
@@ -91,11 +93,17 @@ function validateBoard(game, file) {
       if (seenAnswers.has(answerKey)) errors.push(`${file}: repeated answer "${answerText}" also appears in ${seenAnswers.get(answerKey)}`);
       seenClues.set(clueKey, `${category.name} ${value}`);
       seenAnswers.set(answerKey, `${category.name} ${value}`);
-      if (wordCount < (MIN_WORDS.get(value) || 12)) {
+      if (wordCount < MIN_CLUE_WORDS) {
         errors.push(`${file}: ${category.name} $${value} clue is too thin (${wordCount} words): ${clueText}`);
       }
-      if (value >= 400 && !REQUIRED_HIGH_VALUE.test(clueText)) {
-        errors.push(`${file}: ${category.name} $${value} lacks explicit exam/synthesis rigor`);
+      if (wordCount > MAX_CLUE_WORDS) {
+        errors.push(`${file}: ${category.name} $${value} clue is too wordy (${wordCount} words): ${clueText}`);
+      }
+      if (FORBIDDEN_VERBOSE_CLUE.test(clueText)) {
+        errors.push(`${file}: ${category.name} $${value} clue contains non-Jeopardy wrapper language: ${clueText}`);
+      }
+      if (FORBIDDEN_VERBOSE_EXPLANATION.test(String(clue.explanation || ""))) {
+        errors.push(`${file}: ${category.name} $${value} explanation contains wrapper language`);
       }
       if (hasAnswerLeak(clueText, answerText)) {
         errors.push(`${file}: clue appears to reveal its answer "${answerText}"`);
@@ -118,13 +126,16 @@ function validateBoard(game, file) {
   if (FINAL_SYNTHESIS_LEAK.test(`${final.category} ${finalClue} ${final.answer} ${final.explanation || ""}`)) {
     errors.push(`${file}: final still looks like an open-ended synthesis prompt`);
   }
+  if (FORBIDDEN_VERBOSE_EXPLANATION.test(String(final.explanation || ""))) {
+    errors.push(`${file}: final explanation contains wrapper language`);
+  }
   if (hasAnswerLeak(finalClue, final.answer)) errors.push(`${file}: final clue appears to reveal its answer "${final.answer}"`);
   if (seenAnswers.has(finalAnswerKey)) errors.push(`${file}: final answer repeats a board answer "${final.answer}"`);
   for (const alias of final.aliases || []) {
     if (seenAnswers.has(normalize(alias))) errors.push(`${file}: final alias repeats a board answer "${alias}"`);
   }
   if (seenClues.has(normalize(finalClue))) errors.push(`${file}: final clue repeats a board clue`);
-  if (!final.explanation || words(final.explanation) < 8) errors.push(`${file}: final explanation is too thin`);
+  if (!final.explanation || words(final.explanation) < 5) errors.push(`${file}: final explanation is too thin`);
   if (!final.rigor || final.rigor.value !== "Final" || !final.rigor.skill) errors.push(`${file}: final is missing concept-answer rigor metadata`);
   if (!game.alignment || !game.alignment.examTarget || !game.alignment.standardSet || game.alignment.hardeningVersion !== EXPECTED_HARDENING_VERSION) {
     errors.push(`${file}: missing board-level alignment metadata`);
