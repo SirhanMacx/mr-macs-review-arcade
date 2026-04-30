@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Source Reading Lab - Mr. Mac's Review Arcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../mastery-path/styles.css?v=20260430-mastery1">
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="../../index.html">
+      <span class="mark" aria-hidden="true"></span>
+      <span><small>Mr. Mac's Arcade</small><strong>Source Reading Lab</strong></span>
+    </a>
+    <div class="top-actions">
+      <a class="btn ghost" href="../mastery-path/">Mastery Path</a>
+      <a class="btn ghost" href="../writing-coach/">Writing Coach</a>
+      <a class="btn" href="../../index.html">Arcade Home</a>
+    </div>
+  </header>
+
+  <section class="screen active" id="setupScreen">
+    <section class="hero">
+      <article class="hero-card">
+        <div class="kicker">Verified source practice</div>
+        <h1>Source Lab</h1>
+        <p>Read maps, cartoons, excerpts, charts, and documents before the choices. Only image-backed source questions are used.</p>
+      </article>
+      <article class="panel setup-card">
+        <div>
+          <div class="kicker">Session Builder</div>
+          <h2>Train the document habit</h2>
+        </div>
+        <div class="field-grid">
+          <label>Course<select id="courseSelect"></select></label>
+          <label>Length<select id="lengthSelect">
+            <option value="8">8 sources</option>
+            <option value="12" selected>12 sources</option>
+            <option value="16">16 sources</option>
+          </select></label>
+        </div>
+        <div class="metrics" id="sourceMetrics"></div>
+        <button class="btn primary" id="startBtn" type="button">Start Lab</button>
+      </article>
+    </section>
+  </section>
+
+  <section class="screen" id="playScreen">
+    <div class="band-head">
+      <div>
+        <div class="kicker">Inspect First</div>
+        <h2 id="sessionTitle">Source Lab</h2>
+      </div>
+      <button class="btn danger" id="finishBtn" type="button">Finish</button>
+    </div>
+    <section class="play-layout">
+      <aside class="side-panel">
+        <article class="panel setup-card">
+          <div class="metrics">
+            <div class="metric"><strong id="sourceNumber">1</strong><span>source</span></div>
+            <div class="metric"><strong id="score">0</strong><span>correct</span></div>
+            <div class="metric"><strong id="habitScore">0</strong><span>habit</span></div>
+          </div>
+          <div class="checklist">
+            <label class="check"><input type="checkbox" data-habit="title"> <span>Read title, date, author, or speaker.</span></label>
+            <label class="check"><input type="checkbox" data-habit="labels"> <span>Inspect labels, caption, map key, or axes.</span></label>
+            <label class="check"><input type="checkbox" data-habit="predict"> <span>Predict the answer before choices.</span></label>
+          </div>
+        </article>
+        <article class="panel setup-card">
+          <div class="kicker">Zoom</div>
+          <div class="toolbar">
+            <button class="btn ghost" id="zoomOut" type="button">-</button>
+            <button class="btn ghost" id="zoomReset" type="button">Fit</button>
+            <button class="btn ghost" id="zoomIn" type="button">+</button>
+          </div>
+        </article>
+      </aside>
+      <article class="question-card">
+        <div class="question-meta" id="questionMeta"></div>
+        <div class="zoom-wrap" id="zoomWrap"><img id="sourceImage" alt="Source stimulus"></div>
+        <span class="source-line" id="sourceLine"></span>
+        <h2 id="prompt">Question prompt</h2>
+        <div class="choice-grid" id="choices"></div>
+        <div class="feedback" id="feedback"></div>
+        <button class="btn primary" id="nextBtn" type="button">Next Source</button>
+      </article>
+    </section>
+  </section>
+
+  <section class="screen" id="resultsScreen">
+    <article class="results-card">
+      <div class="score-hero">
+        <div class="score-badge" id="resultScore">0%</div>
+        <div>
+          <div class="kicker">Source Report</div>
+          <h1>Source-reading reps complete</h1>
+          <p id="resultSummary">Your strongest Regents gains come from slowing down before the choices.</p>
+        </div>
+      </div>
+      <div class="review-grid" id="resultCards"></div>
+      <div class="action-grid" id="nextActions"></div>
+      <div class="toolbar">
+        <button class="btn primary" id="againBtn" type="button">Run Another Lab</button>
+        <a class="btn ghost" href="../writing-coach/">Practice Writing</a>
+      </div>
+    </article>
+  </section>
+</main>
+<script src="../../assets/arcade-analytics.js?v=20260430-mastery1"></script>
+<script src="../../assets/mastery-engine.js?v=20260430-mastery1"></script>
+<script src="game.js?v=20260430-mastery1"></script>
+</body>
+</html>

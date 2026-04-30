@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Mastery Path - Mr. Mac's Review Arcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20260430-mastery1">
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="../../index.html">
+      <span class="mark" aria-hidden="true"></span>
+      <span><small>Mr. Mac's Arcade</small><strong>Mastery Path</strong></span>
+    </a>
+    <div class="top-actions">
+      <a class="btn ghost" href="../source-lab/">Source Lab</a>
+      <a class="btn ghost" href="../writing-coach/">Writing Coach</a>
+      <a class="btn" href="../../index.html">Arcade Home</a>
+    </div>
+  </header>
+
+  <section class="screen active" id="dashboardScreen">
+    <section class="hero">
+      <article class="hero-card">
+        <div class="kicker">Personal course dashboard</div>
+        <h1>Mastery Path</h1>
+        <p>Pick a course, take a short diagnostic, then follow a focused path through games, sources, writing, and full practice.</p>
+      </article>
+      <article class="panel setup-card">
+        <div>
+          <div class="kicker">Choose Course</div>
+          <h2>Build your path</h2>
+        </div>
+        <div class="field-grid">
+          <label>Course<select id="courseSelect"></select></label>
+        </div>
+        <div class="metrics" id="courseMetrics"></div>
+        <button class="btn primary" id="startDiagnosticBtn" type="button">Start Diagnostic</button>
+      </article>
+    </section>
+
+    <section class="band">
+      <div class="band-head">
+        <div>
+          <div class="kicker">Course Campaign</div>
+          <h2 id="courseTitle">Course Dashboard</h2>
+        </div>
+        <button class="btn ghost" id="printBtn" type="button">Print Report</button>
+      </div>
+      <div class="dashboard-grid" id="dashboardCards"></div>
+    </section>
+
+    <section class="band">
+      <div class="band-head">
+        <div>
+          <div class="kicker">Recommended Next</div>
+          <h2>Do the right rep</h2>
+        </div>
+      </div>
+      <div class="action-grid" id="actionCards"></div>
+    </section>
+  </section>
+
+  <section class="screen" id="diagnosticScreen">
+    <div class="band-head">
+      <div>
+        <div class="kicker">Diagnostic</div>
+        <h2 id="diagTitle">12-question check</h2>
+      </div>
+      <button class="btn danger" id="exitDiagnosticBtn" type="button">Exit</button>
+    </div>
+    <section class="play-layout">
+      <aside class="side-panel">
+        <div class="panel setup-card">
+          <div class="metrics">
+            <div class="metric"><strong id="qNumber">1</strong><span>question</span></div>
+            <div class="metric"><strong id="diagScore">0</strong><span>correct</span></div>
+            <div class="metric"><strong id="diagLeft">12</strong><span>left</span></div>
+          </div>
+          <div id="diagSkillList" class="skill-grid"></div>
+        </div>
+      </aside>
+      <article class="question-card">
+        <div class="question-meta" id="questionMeta"></div>
+        <h2 id="prompt">Loading question</h2>
+        <div id="stimulusBox"></div>
+        <div class="choice-grid" id="choices"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="toolbar">
+          <button class="btn" id="nextBtn" type="button">Next</button>
+          <button class="btn ghost" id="finishBtn" type="button">Finish Now</button>
+        </div>
+      </article>
+    </section>
+  </section>
+
+  <section class="screen" id="resultsScreen">
+    <article class="results-card">
+      <div class="score-hero">
+        <div class="score-badge" id="resultScore">0%</div>
+        <div>
+          <div class="kicker">Diagnostic Report</div>
+          <h1 id="resultTitle">Your path is ready</h1>
+          <p id="resultSummary">Review your weak skills, then start the next recommended activity.</p>
+        </div>
+      </div>
+      <div class="skill-grid" id="skillResults"></div>
+      <div class="band-head">
+        <div>
+          <div class="kicker">Action Plan</div>
+          <h2>Next best moves</h2>
+        </div>
+      </div>
+      <div class="action-grid" id="resultActions"></div>
+      <div class="toolbar">
+        <button class="btn primary" id="backToDashboardBtn" type="button">Back To Dashboard</button>
+        <button class="btn ghost" id="retryBtn" type="button">Retake Diagnostic</button>
+      </div>
+    </article>
+  </section>
+</main>
+<script src="../../assets/arcade-analytics.js?v=20260430-mastery1"></script>
+<script src="../../assets/mastery-engine.js?v=20260430-mastery1"></script>
+<script src="game.js?v=20260430-mastery1"></script>
+</body>
+</html>

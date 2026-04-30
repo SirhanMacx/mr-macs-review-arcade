@@ -314,22 +314,22 @@
     var weakText = (weak || []).map(function (item) { return item.title || ""; }).join(" ");
     var recentPractice = recent && /regents|practice/i.test(recent.title || "");
     if (!data.recent.length) {
-      return { reason: "Start with a game, then move into a practice set.", game: findGame(games, ["archive-quest", "history-hunters", "lightning-review"]) };
+      return { reason: "Start with the diagnostic so the arcade can pick the right practice path.", game: findGame(games, ["mastery-path", "archive-quest", "history-hunters", "lightning-review"]) };
     }
     if (recentPractice && /document evidence|context and relationships|outside information|argument and organization|civic scaffold/i.test(weakText)) {
-      return { reason: "Rewrite the weakest Regents writing section before a new full exam.", game: findGame(games, ["regents-practice-exam", "regents-gauntlet"]) };
+      return { reason: "Rewrite the weakest Regents writing section before a new full exam.", game: findGame(games, ["writing-coach", "regents-practice-exam", "regents-gauntlet"]) };
     }
     if ((recentPractice && /mcq source reading|source|stimulus/i.test(weakText)) || (Number.isFinite(lastAccuracy) && lastAccuracy < 70)) {
-      return { reason: "Build source-reading reps before the next full exam.", game: findGame(games, ["source-sprint", "regents-gauntlet", "lightning-review"]) };
+      return { reason: "Build source-reading reps before the next full exam.", game: findGame(games, ["source-lab", "source-sprint", "regents-gauntlet", "lightning-review"]) };
     }
     var topicMatch = bestTopicMatch(games, weak, recent);
     if (topicMatch) {
       return { reason: "Review the weakest topic while it is still fresh.", game: topicMatch };
     }
     if (weak.length) {
-      return { reason: "Target the weak topic list while it is fresh.", game: findGame(games, ["regents-gauntlet", "source-sprint", "vocab-vault"]) };
+      return { reason: "Target the weak topic list while it is fresh.", game: findGame(games, ["mastery-path", "regents-gauntlet", "source-lab", "vocab-vault"]) };
     }
-    return { reason: "Keep the streak going with a polished arcade mode.", game: findGame(games, ["archive-quest", "history-hunters", "chrono-defense-infinite", "lightning-review"]) };
+    return { reason: "Keep the streak going with a polished arcade mode.", game: findGame(games, ["mastery-path", "archive-quest", "history-hunters", "chrono-defense-infinite", "lightning-review"]) };
   }
 
   window.MrMacsProgress = {

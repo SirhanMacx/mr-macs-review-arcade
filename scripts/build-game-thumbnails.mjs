@@ -51,6 +51,9 @@ function isJeopardy(game) {
 
 function baseArt(game) {
   const haystack = [game.id, game.title, game.gameType, game.collection, game.subject, game.file].join(" ").toLowerCase();
+  if (haystack.includes("mastery-path")) return "assets/portal-card.webp";
+  if (haystack.includes("source-lab")) return "assets/regents-gauntlet-arena.png";
+  if (haystack.includes("writing-coach")) return "assets/regents-gauntlet-arena-lite.jpg";
   if (haystack.includes("regents-rally")) return "games/regents-rally-source-circuit/rally-64-key-art.png";
   if (haystack.includes("cold-war-invaders")) return "games/cold-war-invaders/assets/cold-war-invaders-atari-sheet.png";
   if (haystack.includes("archive-quest")) return "assets/archive-quest/background.png";

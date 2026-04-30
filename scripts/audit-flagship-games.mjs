@@ -29,7 +29,9 @@ function requireAsset(path, minBytes = 2048) {
 }
 
 requireText("index.html", [
-  '["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam"]',
+  '["mastery-path", "regents-practice-exam", "archive-quest", "source-lab"]',
+  '"history-hunters"',
+  '"cold-war-invaders"',
   'if (game.id === "regents-rally-source-circuit") return 6',
   "assets/game-thumbnails/"
 ]);

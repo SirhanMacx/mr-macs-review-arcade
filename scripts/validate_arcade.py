@@ -231,6 +231,46 @@ def check_game_thumbnails() -> list[str]:
     return errors
 
 
+def check_mastery_platform() -> list[str]:
+    errors: list[str] = []
+    games = load_json(ROOT / "games.json")
+    by_id = {game.get("id"): game for game in games}
+    required_games = {
+        "mastery-path": ["Diagnostic", "Course Dashboard", "Recommended Practice"],
+        "source-lab": ["Stimulus MCQ", "Source Inspection", "Regents Skills"],
+        "writing-coach": ["CRQ", "Enduring Issues Essay", "Civic Literacy Essay"],
+    }
+    for game_id, categories in required_games.items():
+        game = by_id.get(game_id)
+        if not game:
+            errors.append(f"Missing mastery platform game in games.json: {game_id}")
+            continue
+        target = ROOT / unquote(game.get("file", ""))
+        if not target.exists():
+            errors.append(f"Missing mastery platform file: {game_id} -> {game.get('file')}")
+        category_text = " ".join(game.get("categories") or [])
+        for category in categories:
+            if category not in category_text:
+                errors.append(f"{game_id} missing category marker: {category}")
+    engine = ROOT / "assets" / "mastery-engine.js"
+    if not engine.exists():
+        errors.append("Missing shared mastery engine: assets/mastery-engine.js")
+    else:
+        text = engine.read_text(encoding="utf-8")
+        for marker in ["buildDiagnostic", "sourceLabQuestions", "writingDocs", "setHints", "recordSession", "courseSummary"]:
+            if marker not in text:
+                errors.append(f"mastery-engine.js missing required platform function: {marker}")
+    writing_text = (ROOT / "games" / "writing-coach" / "game.js").read_text(encoding="utf-8")
+    for marker in ["global-eie", "us-cle", "setHints", "state.task.docs", "state.task.setHints", "doc.images.map"]:
+        if marker not in writing_text:
+            errors.append(f"writing-coach missing document-matching marker: {marker}")
+    index_text = (ROOT / "index.html").read_text(encoding="utf-8")
+    for marker in ["id=\"mastery\"", "renderMasteryModes", "assets/mastery-engine.js", "mastery-path", "source-lab", "writing-coach"]:
+        if marker not in index_text:
+            errors.append(f"index.html missing mastery platform marker: {marker}")
+    return errors
+
+
 def _norm_text(value: object) -> str:
     return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower().replace("&", " and ")).strip()
 
@@ -350,6 +390,7 @@ def main() -> int:
         ("dropdown option contrast", check_select_option_contrast),
         ("index.html games load", check_index_uses_games_json),
         ("game thumbnails", check_game_thumbnails),
+        ("mastery platform", check_mastery_platform),
         ("jeopardy board quality", check_jeopardy_boards),
         ("javascript syntax", check_javascript_syntax),
     ]

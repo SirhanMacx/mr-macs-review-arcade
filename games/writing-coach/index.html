@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Writing Coach - Mr. Mac's Review Arcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../mastery-path/styles.css?v=20260430-mastery1">
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="../../index.html">
+      <span class="mark" aria-hidden="true"></span>
+      <span><small>Mr. Mac's Arcade</small><strong>Writing Coach</strong></span>
+    </a>
+    <div class="top-actions">
+      <a class="btn ghost" href="../mastery-path/">Mastery Path</a>
+      <a class="btn ghost" href="../source-lab/">Source Lab</a>
+      <a class="btn" href="../../index.html">Arcade Home</a>
+    </div>
+  </header>
+
+  <section class="screen active" id="setupScreen">
+    <section class="hero">
+      <article class="hero-card">
+        <div class="kicker">Regents writing practice</div>
+        <h1>Writing Coach</h1>
+        <p>Practice CRQs, short essays, Enduring Issues, and Civic Literacy with document sets, rubric position, and improvement comments.</p>
+      </article>
+      <article class="panel setup-card">
+        <div>
+          <div class="kicker">Task Builder</div>
+          <h2>Choose the writing move</h2>
+        </div>
+        <div class="field-grid">
+          <label>Course<select id="courseSelect">
+            <option value="Grade 10 Global History II">Global History II</option>
+            <option value="Grade 11 U.S. History">U.S. History</option>
+          </select></label>
+          <label>Task<select id="taskSelect"></select></label>
+        </div>
+        <div class="metrics" id="taskMetrics"></div>
+        <button class="btn primary" id="startBtn" type="button">Start Writing</button>
+      </article>
+    </section>
+  </section>
+
+  <section class="screen" id="writeScreen">
+    <div class="band-head">
+      <div>
+        <div class="kicker" id="taskKicker">Writing Task</div>
+        <h2 id="taskTitle">Task</h2>
+      </div>
+      <div class="toolbar">
+        <button class="btn ghost" id="newTaskBtn" type="button">New Task</button>
+        <button class="btn primary" id="scoreBtn" type="button">Score Estimate</button>
+      </div>
+    </div>
+    <section class="play-layout writing-layout">
+      <aside class="side-panel">
+        <article class="panel setup-card">
+          <div class="kicker">Prompt</div>
+          <p id="promptText"></p>
+          <div id="taskPills" class="toolbar"></div>
+        </article>
+        <article class="panel setup-card">
+          <div class="kicker">Rubric Focus</div>
+          <div class="rubric" id="rubricPreview"></div>
+        </article>
+      </aside>
+      <article class="question-card">
+        <div class="doc-grid" id="docGrid"></div>
+        <textarea id="responseText" placeholder="Write your response here. Use document evidence and outside information when the task calls for it."></textarea>
+        <div class="toolbar">
+          <span class="pill" id="wordCount">0 words</span>
+          <span class="pill gold" id="docCount">0 docs used</span>
+        </div>
+      </article>
+    </section>
+  </section>
+
+  <section class="screen" id="resultsScreen">
+    <article class="results-card">
+      <div class="score-hero">
+        <div class="score-badge" id="scoreBadge">0/5</div>
+        <div>
+          <div class="kicker">Practice Estimate</div>
+          <h1 id="resultTitle">Rubric position</h1>
+          <p id="resultSummary">This is a practice estimate, not official scoring.</p>
+        </div>
+      </div>
+      <div class="rubric" id="rubricResults"></div>
+      <div class="feedback-card" id="coachComment"></div>
+      <div class="action-grid" id="nextActions"></div>
+      <div class="toolbar">
+        <button class="btn primary" id="reviseBtn" type="button">Revise Response</button>
+        <button class="btn ghost" id="anotherBtn" type="button">Another Task</button>
+      </div>
+    </article>
+  </section>
+</main>
+<script src="../../assets/arcade-analytics.js?v=20260430-mastery1"></script>
+<script src="../../assets/mastery-engine.js?v=20260430-mastery1"></script>
+<script src="game.js?v=20260430-mastery1"></script>
+</body>
+</html>

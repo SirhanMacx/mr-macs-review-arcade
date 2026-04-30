@@ -70,7 +70,8 @@ body {
   background:
     radial-gradient(circle at 12% 4%, rgba(245,196,81,.10), transparent 30%),
     radial-gradient(circle at 88% 6%, rgba(122,240,255,.16), transparent 28%),
-    linear-gradient(180deg, #07030f, #02020a 44%, #05040d);
+    radial-gradient(80% 36% at 50% 100%, rgba(122,240,255,.07), transparent 72%),
+    linear-gradient(180deg, #07030f, #02020a 44%, #030814);
   font-family: var(--font-ui);
   font-feature-settings: "ss01", "ss02", "cv11";
   letter-spacing: 0;
@@ -129,8 +130,11 @@ textarea:focus-visible {
 .hero-bg {
   position: fixed; inset: 0; z-index: -5;
   background:
-    linear-gradient(180deg, rgba(3,2,10,.02) 0%, rgba(3,2,10,.22) 34%, rgba(3,2,10,.86) 70%, #05070d 100%),
-    linear-gradient(0deg, rgba(2,4,10,.92) 0%, rgba(2,4,10,.62) 16%, transparent 44%),
+    radial-gradient(78% 32% at 50% 100%, rgba(122,240,255,.12), transparent 72%),
+    radial-gradient(56% 26% at 18% 100%, rgba(245,196,81,.10), transparent 72%),
+    radial-gradient(56% 26% at 86% 100%, rgba(255,123,204,.07), transparent 72%),
+    linear-gradient(180deg, rgba(3,2,10,.02) 0%, rgba(3,2,10,.22) 34%, rgba(3,2,10,.82) 70%, rgba(2,5,13,.94) 100%),
+    linear-gradient(0deg, rgba(2,5,13,.78) 0%, rgba(4,9,21,.54) 18%, transparent 48%),
     linear-gradient(90deg, rgba(3,2,10,.30) 0%, rgba(3,2,10,.06) 34%, rgba(3,2,10,.05) 66%, rgba(3,2,10,.36) 100%),
     var(--hero) center 40% / cover no-repeat;
   filter: saturate(1.08) contrast(1.08);
@@ -143,7 +147,8 @@ textarea:focus-visible {
   background:
     radial-gradient(42% 38% at 50% 12%, rgba(255, 47, 179, .08), transparent 66%),
     radial-gradient(50% 40% at 70% 0%, rgba(122, 240, 255, .18), transparent 60%),
-    radial-gradient(50% 40% at 12% 100%, rgba(245, 196, 81, .12), transparent 70%);
+    radial-gradient(50% 40% at 12% 100%, rgba(245, 196, 81, .12), transparent 70%),
+    linear-gradient(0deg, rgba(122,240,255,.035), transparent 28%);
   mix-blend-mode: screen;
 }
 .hero-bg::after {
@@ -1193,12 +1198,48 @@ textarea:focus-visible {
 
 /* ============== Footer ============== */
 .footer {
-  padding: 40px 0 70px;
+  position: relative;
+  min-height: clamp(340px, 34vh, 460px);
+  padding: clamp(56px, 7vh, 86px) 0 clamp(54px, 7vh, 84px);
   border-top: 1px solid var(--line);
   margin-top: 30px;
-  background: linear-gradient(180deg, rgba(6,8,15,0), rgba(6,8,15,.7) 60%);
+  background:
+    linear-gradient(180deg, rgba(2,5,13,.18), rgba(2,5,13,.72) 34%, rgba(2,5,13,.94) 100%),
+    radial-gradient(68% 60% at 18% 100%, rgba(245,196,81,.22), transparent 64%),
+    radial-gradient(70% 58% at 82% 92%, rgba(122,240,255,.18), transparent 68%),
+    radial-gradient(52% 42% at 50% 110%, rgba(255,123,204,.12), transparent 74%),
+    var(--hero) center bottom / cover no-repeat,
+    linear-gradient(180deg, #050712, #020611);
+  overflow: hidden;
+}
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(122,240,255,.08), transparent 26%, transparent 74%, rgba(245,196,81,.08)),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.030) 0 1px, transparent 1px 5px);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 100%);
+  pointer-events: none;
+  opacity: .65;
+}
+.footer::after {
+  content: "";
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -42%;
+  height: 72%;
+  background:
+    radial-gradient(closest-side at 50% 100%, rgba(122,240,255,.25), transparent 72%),
+    linear-gradient(90deg, transparent, rgba(245,196,81,.16), rgba(122,240,255,.18), transparent);
+  filter: blur(18px);
+  opacity: .78;
+  pointer-events: none;
 }
 .footer-inner {
+  position: relative;
+  z-index: 1;
   display: flex; flex-wrap: wrap; gap: 28px;
   align-items: center; justify-content: space-between;
 }
@@ -1226,6 +1267,11 @@ textarea:focus-visible {
   display: grid;
   grid-template-columns: repeat(4, auto);
   gap: 22px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px;
+  background: rgba(3,6,16,.58);
+  box-shadow: var(--shadow-1);
 }
 .traffic-stat {
   display: flex; flex-direction: column; gap: 2px;
@@ -1243,6 +1289,43 @@ textarea:focus-visible {
   font-size: 10px; letter-spacing: 0;
   text-transform: uppercase;
   color: var(--muted);
+}
+.footer-actions {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.footer-jump {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03)),
+    rgba(3,6,16,.68);
+  color: #f8fbff;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 12px 34px rgba(0,0,0,.22);
+  transition: transform .22s var(--ease-out), border-color .22s var(--ease-out), background .22s var(--ease-out);
+}
+.footer-jump:hover,
+.footer-jump:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(122,240,255,.48);
+  background:
+    linear-gradient(180deg, rgba(122,240,255,.16), rgba(245,196,81,.07)),
+    rgba(3,6,16,.76);
 }
 
 /* ============== Player ============== */
@@ -1610,6 +1693,8 @@ textarea:focus-visible {
   .traffic-panel { grid-template-columns: repeat(2, 1fr); width: 100%; }
   .traffic-stat { text-align: left; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-actions { justify-content: flex-start; width: 100%; }
+  .footer-jump { flex: 1 1 160px; }
 }
 
 /* ============== Legibility and navigation cleanup ============== */
@@ -1983,6 +2068,7 @@ select.field {
       <span><strong>Mr. Mac's Review Arcade</strong><span>Practice for your exam</span></span>
     </a>
     <nav class="topnav" aria-label="Primary">
+      <a href="#mastery">Mastery</a>
       <a href="#launch-paths">Play</a>
       <a href="#progress">Progress</a>
       <a href="#practice">Practice Regents</a>
@@ -2035,6 +2121,17 @@ select.field {
       </div>
     </div>
     <div class="path-grid reveal-stagger" id="pathCards"></div>
+  </section>
+
+  <section class="band mastery-band" id="mastery" aria-label="Mastery path">
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Mastery System</div>
+        <h2 class="band-title">Find the <em>right rep</em>.</h2>
+        <p class="band-sub">Course dashboard, diagnostic, source-reading lab, writing coach, and full practice all work together through the local progress report.</p>
+      </div>
+    </div>
+    <div class="focus-grid reveal-stagger" id="masteryModes"></div>
   </section>
 
   <section class="band progress-band" id="progress" aria-label="Local student progress">
@@ -2160,6 +2257,12 @@ select.field {
       <div class="traffic-stat"><strong data-traffic="global-game-views">--</strong><span>views</span></div>
       <div class="traffic-stat"><strong data-traffic="traffic-status">connecting</strong><span>status</span></div>
     </div>
+    <nav class="footer-actions" aria-label="Footer shortcuts">
+      <a class="footer-jump" href="#mastery">Mastery Path</a>
+      <a class="footer-jump" href="#practice">Regents Practice</a>
+      <a class="footer-jump" href="#jeopardy">Jeopardy Boards</a>
+      <a class="footer-jump" href="#library">Full Library</a>
+    </nav>
   </div>
 </footer>
 
@@ -2181,7 +2284,8 @@ select.field {
   </div>
 </section>
 
-<script src="assets/arcade-analytics.js?v=20260429-platform2"></script>
+<script src="assets/arcade-analytics.js?v=20260430-mastery1"></script>
+<script src="assets/mastery-engine.js?v=20260430-mastery1"></script>
 <script>
 let GAMES = [];
 
@@ -2200,6 +2304,7 @@ let currentGame = null;
 
 const LANES = [
   { id: "all", label: "All" },
+  { id: "mastery", label: "Mastery" },
   { id: "play", label: "Play" },
   { id: "regents", label: "Regents" },
   { id: "jeopardy", label: "Jeopardy" },
@@ -2340,6 +2445,7 @@ function isQuickPlay(game) {
 function laneMatches(game) {
   if (state.lane === "all") return true;
   const text = searchable(game);
+  if (state.lane === "mastery") return game.collection === "mastery-path" || ["mastery-path", "source-lab", "writing-coach"].includes(game.id);
   if (state.lane === "play") return ["archive-quest", "history-hunters", "cold-war-invaders", "regents-rally-source-circuit", "chrono-defense-infinite", "time-rift-survivors", "chrono-pinball", "empire-ascendant", "boss-rush-arena"].includes(game.id);
   if (state.lane === "quick") return isQuickPlay(game);
   if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing/i.test(text) || ["regents-practice-exam", "regents-rally-source-circuit", "regents-gauntlet", "source-sprint"].includes(game.id);
@@ -2357,6 +2463,9 @@ function laneMatches(game) {
   return true;
 }
 function priority(game) {
+  if (game.id === "mastery-path") return -9;
+  if (game.id === "source-lab") return -8;
+  if (game.id === "writing-coach") return -7;
   if (game.id === "history-hunters") return -6;
   if (game.id === "archive-quest") return -5;
   if (game.id === "cold-war-invaders") return -4.7;
@@ -2391,7 +2500,7 @@ function filteredGames() {
   });
 }
 function featuredGames() {
-  const ids = ["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam"];
+  const ids = ["mastery-path", "regents-practice-exam", "archive-quest", "source-lab"];
   const picks = ids.map((id) => GAMES.find((game) => game.id === id));
   return [...new Map(picks.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 4);
 }
@@ -2490,6 +2599,10 @@ function buttonCard(game, fallback, className) {
 function renderLaunchPaths() {
   const paths = [
     {
+      id: "mastery-path",
+      fallback: { id: "mastery-path", title: "Mastery Path", subtitle: "Take a diagnostic and get the next best activity for your course.", kicker: "Personal path", meta: "all courses", accent: "#ffd15c", glyph: "PATH" }
+    },
+    {
       id: "archive-quest",
       fallback: { id: "archive-quest", title: "Play", subtitle: "Jump into the polished arcade path: platformer, RPG, boss fights, and fast games.", kicker: "Game-first", meta: "fun review", accent: "#62e9ff", glyph: "PLAY" }
     },
@@ -2526,13 +2639,24 @@ function renderLaunchPaths() {
 }
 
 function renderPracticeModes() {
-  const ids = ["regents-practice-exam", "regents-gauntlet", "source-sprint", "arcade-duel", "global-regents-sprint-day-1", "us-regents-sprint-day-1"];
+  const ids = ["regents-practice-exam", "source-lab", "writing-coach", "regents-gauntlet", "source-sprint", "arcade-duel", "global-regents-sprint-day-1", "us-regents-sprint-day-1"];
   const games = ids.map((id) => GAMES.find((game) => game.id === id)).filter(Boolean);
   const backup = GAMES.filter((game) => laneMatchesWith("regents", game)).slice(0, 6);
   const unique = [...new Map(games.concat(backup).map((game) => [game.id, game])).values()].slice(0, 6);
   const container = document.getElementById("practiceModes");
   if (!container) return;
   container.innerHTML = unique.map((game) => buttonCard(game, null, "focus-card")).join("");
+  container.querySelectorAll(".focus-card").forEach((button) => {
+    button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
+  });
+}
+
+function renderMasteryModes() {
+  const ids = ["mastery-path", "source-lab", "writing-coach", "regents-practice-exam"];
+  const games = ids.map((id) => GAMES.find((game) => game.id === id)).filter(Boolean);
+  const container = document.getElementById("masteryModes");
+  if (!container) return;
+  container.innerHTML = games.map((game) => buttonCard(game, null, "focus-card")).join("");
   container.querySelectorAll(".focus-card").forEach((button) => {
     button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
   });
@@ -2921,6 +3045,7 @@ async function boot() {
     initFilters();
     renderMetrics();
     renderLaunchPaths();
+    renderMasteryModes();
     renderPracticeModes();
     renderFeatured();
     renderProgressReport();
