@@ -159,6 +159,17 @@
     } catch (error) {}
   }
 
+  function notifyProgress(data) {
+    try {
+      window.dispatchEvent(new CustomEvent("mrmacs-progress", { detail: data }));
+    } catch (error) {}
+    try {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: "mrmacs-progress-updated" }, window.location.origin);
+      }
+    } catch (error) {}
+  }
+
   function normalizeTopics(detail) {
     var values = [];
     if (Array.isArray(detail.weakTopics)) values = values.concat(detail.weakTopics);
@@ -232,7 +243,7 @@
     data.recent = data.recent.slice(0, 18);
     data.lastUpdated = now;
     writeProgress(data);
-    window.dispatchEvent(new CustomEvent("mrmacs-progress", { detail: data }));
+    notifyProgress(data);
     return data;
   }
 
@@ -265,6 +276,38 @@
     return null;
   }
 
+  function includesAny(value, terms) {
+    value = String(value || "").toLowerCase();
+    return terms.some(function (term) { return value.indexOf(String(term || "").toLowerCase()) !== -1; });
+  }
+
+  function bestTopicMatch(games, weak, recent) {
+    if (!weak.length) return null;
+    var course = recent && recent.course;
+    var terms = weak.map(function (item) { return item.title; }).filter(function (title) {
+      if (!title) return false;
+      if (course && title === course) return false;
+      return !/\b(grade|social studies|history|all courses|ap)\b/i.test(title);
+    });
+    if (!terms.length) return null;
+    var candidates = (games || []).filter(function (game) {
+      var text = [game.title, game.subtitle, game.course, game.subject, game.gameType, game.originalFile].join(" ");
+      return includesAny(text, terms);
+    });
+    if (course) {
+      var courseCandidates = candidates.filter(function (game) { return game.course === course; });
+      if (courseCandidates.length) candidates = courseCandidates;
+    }
+    candidates.sort(function (a, b) {
+      var aj = /jeopardy|unit review|unit \+|final/i.test([a.title, a.gameType, a.originalFile, a.file].join(" ")) ? -2 : 0;
+      var bj = /jeopardy|unit review|unit \+|final/i.test([b.title, b.gameType, b.originalFile, b.file].join(" ")) ? -2 : 0;
+      var ar = /regents|source|practice|gauntlet/i.test([a.title, a.gameType].join(" ")) ? -1 : 0;
+      var br = /regents|source|practice|gauntlet/i.test([b.title, b.gameType].join(" ")) ? -1 : 0;
+      return (aj + ar) - (bj + br);
+    });
+    return candidates[0] || null;
+  }
+
   function recommendation(games, data, weak) {
     var recent = data.recent && data.recent[0];
     var lastAccuracy = recent && Number(recent.accuracy);
@@ -273,6 +316,10 @@
     }
     if ((recent && /regents|practice/i.test(recent.title || "")) || (Number.isFinite(lastAccuracy) && lastAccuracy < 70)) {
       return { reason: "Build source-reading reps before the next full exam.", game: findGame(games, ["source-sprint", "regents-gauntlet", "lightning-review"]) };
+    }
+    var topicMatch = bestTopicMatch(games, weak, recent);
+    if (topicMatch) {
+      return { reason: "Review the weakest topic while it is still fresh.", game: topicMatch };
     }
     if (weak.length) {
       return { reason: "Target the weak topic list while it is fresh.", game: findGame(games, ["regents-gauntlet", "source-sprint", "vocab-vault"]) };
@@ -286,7 +333,7 @@
     summary: progressSummary,
     clear: function () {
       try { localStorage.removeItem(PROGRESS_KEY); } catch (error) {}
-      window.dispatchEvent(new CustomEvent("mrmacs-progress", { detail: readProgress() }));
+      notifyProgress(readProgress());
     }
   };
 

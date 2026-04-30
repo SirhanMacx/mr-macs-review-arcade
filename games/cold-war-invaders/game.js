@@ -166,7 +166,7 @@ function frameEase(rate, dt) {
 }
 
 function playerBottomInset() {
-  return mobileControls.matches ? 220 : 86;
+  return mobileControls.matches ? Math.min(210, Math.max(150, state.h * 0.28)) : 86;
 }
 
 function drawSprite(name, x, y, w, h, options = {}) {
@@ -641,7 +641,8 @@ function finish(won = true) {
   window.MrMacsAnalytics?.track("game_complete", {
     gameId: "cold-war-invaders",
     title: "Cold War Invaders",
-    score: accuracy,
+    score: Math.round(state.score),
+    accuracy,
     questions: state.answered,
     weakTopics: accuracy < 70 ? ["Cold War vocabulary", "Containment and crisis events"] : []
   }, { counter: "game-completions" });
@@ -992,15 +993,25 @@ els.canvas.addEventListener("pointerdown", (event) => {
   if (state.intel >= 100 && event.clientY < state.h * 0.42) openBriefing("Touch Intel Burst Armed");
   else fire();
 });
+els.canvas.addEventListener("pointerup", (event) => {
+  event.preventDefault();
+  els.canvas.releasePointerCapture?.(event.pointerId);
+});
+els.canvas.addEventListener("pointercancel", (event) => {
+  event.preventDefault();
+  els.canvas.releasePointerCapture?.(event.pointerId);
+});
 
 function bindTouchButton(button, press, release = press) {
   if (!button) return;
   const down = (event) => {
     event.preventDefault();
+    button.setPointerCapture?.(event.pointerId);
     press();
   };
   const up = (event) => {
     event.preventDefault();
+    button.releasePointerCapture?.(event.pointerId);
     release(false);
   };
   button.addEventListener("pointerdown", down);

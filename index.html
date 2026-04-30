@@ -1976,14 +1976,14 @@ select.field {
     </a>
     <nav class="topnav" aria-label="Primary">
       <a href="#launch-paths">Play</a>
+      <a href="#progress">Progress</a>
       <a href="#practice">Practice Regents</a>
       <a href="#jeopardy">Jeopardy</a>
-      <a href="#featured">Featured</a>
       <a href="#courses">Courses</a>
       <a href="#library">Library</a>
     </nav>
     <div class="nav-pills" id="statusPills"></div>
-    <a class="nav-link" href="#featured">Enter Arcade</a>
+    <a class="nav-link" href="#launch-paths">Enter Arcade</a>
   </div>
 </header>
 
@@ -2282,18 +2282,17 @@ function glyphFor(game) {
 
 const JEOPARDY_ALL_COURSES = "All Course Levels";
 const JEOPARDY_ALL_SUBJECTS = "All Subjects";
-const JEOPARDY_PREVIEW_LIMIT = 18;
+const JEOPARDY_PREVIEW_LIMIT = 24;
 const jeopardyState = { course: JEOPARDY_ALL_COURSES, subject: JEOPARDY_ALL_SUBJECTS, query: "" };
 const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final"]);
 
 function isJeopardyBoard(game) {
   const text = [game.title, game.originalFile, game.file, game.gameType].join(" ");
-  return /jeopardy/i.test(text) || game.gameType === "Unit Review";
+  return /jeopardy|unit\s+review/i.test(text) || UNIT_REVIEW_TYPES.has(game.gameType);
 }
 function displayGameType(game) {
   if (!game) return "Review";
   if (isJeopardyBoard(game)) return "Jeopardy";
-  if (UNIT_REVIEW_TYPES.has(game.gameType)) return "Final Review";
   return game.gameType || "Review";
 }
 function isRegentsLike(game) {
@@ -2358,7 +2357,7 @@ function priority(game) {
   if (game.id === "source-sprint") return -3;
   if (game.id === "lightning-review") return -2;
   if (game.id === "vocab-vault") return -1;
-  if (game.id === "regents-rally-source-circuit") return -3.5;
+  if (game.id === "regents-rally-source-circuit") return 6;
   if (game.id === "chrono-defense-infinite") return 0;
   if (game.id === "boss-rush-arena") return 1;
   if (game.id === "arcade-duel") return 3;
@@ -2548,6 +2547,16 @@ function filteredJeopardyBoards() {
   }).sort(jeopardyBoardSort);
 }
 
+function jeopardyBoardMeta(game) {
+  const parts = [];
+  if (game.subject) parts.push(game.subject);
+  const source = [game.originalFile, game.file, game.title].join(" ");
+  const unit = source.match(/\b(?:unit|u)\s*0?(\d{1,2})\b/i) || source.match(/\b(\d{1,2})\s*[-–]\s*/);
+  if (unit) parts.push("Unit " + unit[1]);
+  if (game.hasFinal) parts.push("Final wager");
+  return parts.length ? parts.join(" · ") : "Course review board";
+}
+
 function renderJeopardyModes() {
   const games = filteredJeopardyBoards();
   const preview = games.slice(0, JEOPARDY_PREVIEW_LIMIT);
@@ -2560,7 +2569,10 @@ function renderJeopardyModes() {
     const showing = Math.min(games.length, JEOPARDY_PREVIEW_LIMIT);
     summary.innerHTML = '<strong>' + games.length + '</strong> Jeopardy boards found for ' + escapeHtml(course) + ' · ' + escapeHtml(subject) + (games.length > showing ? ' · showing first ' + showing : '');
   }
-  container.innerHTML = preview.length ? preview.map((game) => buttonCard(game, null, "focus-card")).join("") : '<div class="empty">No Jeopardy boards match those filters.</div>';
+  container.innerHTML = preview.length ? preview.map((game) => {
+    const board = { ...game, gameType: "Jeopardy", day: jeopardyBoardMeta(game), subtitle: game.subtitle || game.course };
+    return buttonCard(board, null, "focus-card");
+  }).join("") : '<div class="empty">No Jeopardy boards match those filters.</div>';
   container.querySelectorAll(".focus-card").forEach((button) => {
     button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
   });
@@ -2602,17 +2614,25 @@ function renderProgressReport() {
   const summary = window.MrMacsProgress.summary(GAMES);
   const rec = summary.recommendation && summary.recommendation.game;
   const recHtml = rec ? '<button class="action compact" type="button" data-progress-open="' + escapeHtml(rec.id) + '">Start Next</button>' : '<a class="action compact" href="#launch-paths">Choose Path</a>';
+  const completed = Number(summary.completed || 0);
+  const plays = Number(summary.data?.recent?.filter((item) => item.type === "game_play" || item.type === "game_complete").length || 0);
+  const reportStamp = summary.data?.lastUpdated ? new Date(summary.data.lastUpdated).toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "not started";
   const recent = summary.recent.length ? summary.recent.map((item) =>
-    '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>' + escapeHtml(item.course || "Review") + '</span><span>' + (item.score !== null ? escapeHtml(String(item.score)) : item.accuracy !== null ? escapeHtml(item.accuracy + "%") : "opened") + '</span></div>'
+    '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>' + escapeHtml(item.course || "Review") + '</span><span>' + (item.score !== null && item.score !== undefined ? escapeHtml(String(item.score)) : item.accuracy !== null && item.accuracy !== undefined ? escapeHtml(item.accuracy + "%") : "opened") + '</span></div>'
   ).join("") : '<div class="progress-item"><span><strong>No local plays yet</strong><br>Start any game to build this report.</span><span>new</span></div>';
   const weak = summary.weak.length ? summary.weak.map((item) =>
     '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>review signal</span><span>' + Number(item.count || 0) + '</span></div>'
   ).join("") : '<div class="progress-item"><span><strong>No weak topics yet</strong><br>Complete a game or exam to see targets.</span><span>clear</span></div>';
   const best = summary.best.length ? summary.best.map((item) =>
-    '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>' + escapeHtml(item.course || "Review") + '</span><span>' + escapeHtml(String(item.bestScore ?? item.bestAccuracy ?? "")) + '</span></div>'
+    '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>' + escapeHtml(item.course || "Review") + '</span><span>' + escapeHtml(item.bestScore !== null && item.bestScore !== undefined ? String(item.bestScore) : item.bestAccuracy + "%") + '</span></div>'
   ).join("") : '<div class="progress-item"><span><strong>No best scores yet</strong><br>Scores appear after completions.</span><span>--</span></div>';
   container.innerHTML =
     '<article class="progress-card recommendation"><span class="progress-kicker">Recommended next</span><div><h3>' + escapeHtml(rec ? rec.title : "Start with Play") + '</h3><p>' + escapeHtml(summary.recommendation.reason || "Pick a path and start practicing.") + '</p></div><div class="progress-foot"><span>' + escapeHtml(rec ? rec.course + " · " + displayGameType(rec) : "local report") + '</span>' + recHtml + '</div></article>' +
+    '<article class="progress-card"><span class="progress-kicker">Report Snapshot</span><div class="progress-list">' +
+      '<div class="progress-item"><span><strong>' + completed + '</strong><br>completed activities</span><span>done</span></div>' +
+      '<div class="progress-item"><span><strong>' + plays + '</strong><br>recent practice signals</span><span>local</span></div>' +
+      '<div class="progress-item"><span><strong>' + escapeHtml(reportStamp) + '</strong><br>last update</span><span>saved</span></div>' +
+    '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Recent</span><div class="progress-list">' + recent + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Weak Topics</span><div class="progress-list">' + weak + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Best Scores</span><div class="progress-list">' + best + '</div></article>';
@@ -2760,6 +2780,7 @@ function openGame(game) {
     gameType: game.gameType,
     displayGameType: displayGameType(game)
   }, { counter: "game-launches", once: false });
+  renderProgressReport();
   document.getElementById("playerTitle").textContent = game.title;
   document.getElementById("playerMeta").textContent = game.course + " · " + displayGameType(game) + " · " + (game.day || game.grade);
   player.classList.add("show", "loading");
@@ -2903,6 +2924,13 @@ async function boot() {
     render();
     initReveal();
     window.addEventListener("mrmacs-progress", renderProgressReport);
+    window.addEventListener("storage", (event) => {
+      if (!event.key || event.key.includes("student-progress") || event.key.includes("local-traffic")) renderProgressReport();
+    });
+    window.addEventListener("message", (event) => {
+      if (event.data && event.data.type === "mrmacs-progress-updated") renderProgressReport();
+    });
+    window.addEventListener("focus", renderProgressReport);
     document.getElementById("printReportBtn")?.addEventListener("click", () => window.print());
     document.getElementById("clearReportBtn")?.addEventListener("click", () => {
       if (confirm("Clear the local progress report stored in this browser?")) {

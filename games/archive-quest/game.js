@@ -73,6 +73,13 @@
   const keys = {};
   const input = { left: false, right: false, dash: false };
   const pointerInput = new Map();
+  const JUMP = {
+    ground: -1035,
+    air: -995,
+    spring: -1320,
+    buffer: .2,
+    coyote: .18
+  };
 
   const player = {
     x: 120,
@@ -414,10 +421,10 @@
       platforms.push({ x, y: 780, w: 380, h: 90, tile: 0 });
     }
     const ledges = [
-      [520, 610, 260, 42], [900, 515, 320, 44], [1350, 650, 270, 44],
-      [1780, 560, 340, 44], [2220, 470, 260, 44], [2870, 630, 420, 48],
-      [3500, 545, 280, 44], [3880, 455, 320, 44], [4240, 620, 270, 44],
-      [4860, 570, 340, 44], [5320, 475, 300, 44], [5850, 640, 360, 48]
+      [500, 610, 300, 42], [880, 515, 350, 44], [1325, 650, 310, 44],
+      [1760, 560, 370, 44], [2195, 470, 305, 44], [2860, 630, 450, 48],
+      [3480, 545, 320, 44], [3860, 455, 350, 44], [4220, 620, 310, 44],
+      [4845, 570, 375, 44], [5300, 475, 340, 44], [5830, 640, 390, 48]
     ];
     ledges.forEach((p, i) => platforms.push({ x: p[0] + index * (i % 3) * 16, y: p[1] - index * 8, w: p[2], h: p[3], tile: i % 3 === 0 ? 1 : 2 }));
     const orbs = [];
@@ -633,15 +640,15 @@
     player.jumpBuffer = Math.max(0, player.jumpBuffer - dt);
     player.jumpFlash = Math.max(0, player.jumpFlash - dt * 3.4);
     player.landFlash = Math.max(0, player.landFlash - dt * 2.8);
-    player.coyote = player.onGround ? .12 : Math.max(0, player.coyote - dt);
+    player.coyote = player.onGround ? JUMP.coyote : Math.max(0, player.coyote - dt);
 
     const moveLeft = input.left || keys.ArrowLeft || keys.KeyA;
     const moveRight = input.right || keys.ArrowRight || keys.KeyD;
-    if (moveLeft) { player.vx -= 2500 * dt; player.facing = -1; }
-    if (moveRight) { player.vx += 2500 * dt; player.facing = 1; }
+    if (moveLeft) { player.vx -= 2700 * dt; player.facing = -1; }
+    if (moveRight) { player.vx += 2700 * dt; player.facing = 1; }
     if (!moveLeft && !moveRight && player.onGround) player.vx *= Math.pow(.0008, dt);
     const speedBoost = state.power?.type === "quill" ? 1.42 : 1;
-    const maxSpeed = 390 * speedBoost;
+    const maxSpeed = 420 * speedBoost;
     player.vx = clamp(player.vx, -maxSpeed, maxSpeed);
     if ((input.dash || keys.ShiftLeft || keys.ShiftRight) && player.dashCooldown <= 0) {
       player.vx = player.facing * 760 * speedBoost;
@@ -650,7 +657,7 @@
       audio.dash();
     }
     if (player.jumpBuffer > 0 && (player.onGround || player.coyote > 0)) {
-      player.vy = -950;
+      player.vy = JUMP.ground;
       player.onGround = false;
       player.coyote = 0;
       player.jumpBuffer = 0;
@@ -659,7 +666,7 @@
       audio.jump();
       dust(player.x, player.y, 12);
     } else if (player.jumpBuffer > 0 && player.airJumps > 0) {
-      player.vy = -910;
+      player.vy = JUMP.air;
       player.onGround = false;
       player.coyote = 0;
       player.jumpBuffer = 0;
@@ -668,7 +675,7 @@
       audio.jump();
       burst(player.x, player.y - 72, "#6beeff", 28);
     }
-    const gravity = state.power?.type === "hourglass" ? 1780 : 2040;
+    const gravity = state.power?.type === "hourglass" ? 1700 : 1960;
     player.vy = clamp(player.vy + gravity * dt, -1280, 1120);
     moveAndCollide(dt);
     if (state.mode !== "running") {
@@ -742,7 +749,7 @@
     for (const spring of level.springs) {
       if (!rectsOverlap(pr, spring) || player.vy < 0) continue;
       player.y = spring.y;
-      player.vy = -1240;
+      player.vy = JUMP.spring;
       player.airJumps = player.maxAirJumps;
       burst(spring.x + spring.w / 2, spring.y, "#ffd05b", 16);
       audio.jump();
@@ -848,7 +855,7 @@
     els.levelName.textContent = levels[state.levelIndex]?.short || "Quest";
     els.health.textContent = String(state.health);
     els.evidence.textContent = String(state.evidence);
-    els.jumpState.textContent = player.onGround ? "Ready" : player.airJumps > 0 ? "Ready" : "Spent";
+    els.jumpState.textContent = player.onGround ? "Ground" : player.airJumps > 0 ? "Double Ready" : "Recharge";
     if (state.power) {
       els.powerLabel.textContent = state.power.label;
       els.powerFill.style.width = `${clamp(state.power.time / state.power.total * 100, 0, 100)}%`;
@@ -1170,17 +1177,22 @@
     setButtonInput(els.dashBtn, "dash");
     els.canvas.addEventListener("pointerdown", (event) => {
       if (state.mode !== "running") return;
+      event.preventDefault();
+      els.canvas.setPointerCapture?.(event.pointerId);
       const pos = screenToWorld(event.clientX, event.clientY);
       if (pos.y < player.y - 80) queueJump();
       else if (pos.x < player.x) input.left = true;
       else input.right = true;
     });
-    els.canvas.addEventListener("pointerup", () => { input.left = false; input.right = false; });
+    const releasePointerMove = () => { input.left = false; input.right = false; };
+    els.canvas.addEventListener("pointerup", releasePointerMove);
+    els.canvas.addEventListener("pointercancel", releasePointerMove);
+    els.canvas.addEventListener("pointerleave", releasePointerMove);
   }
 
   function queueJump() {
     if (state.mode !== "running") return;
-    player.jumpBuffer = .14;
+    player.jumpBuffer = JUMP.buffer;
   }
 
   function togglePause() {
