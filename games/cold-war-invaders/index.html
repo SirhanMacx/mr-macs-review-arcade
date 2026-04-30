@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050815">
+  <link rel="icon" href="data:,">
+  <title>Cold War Invaders - Mr. Mac's Review Arcade</title>
+  <link rel="stylesheet" href="styles.css?v=20260430-coldwar2">
+</head>
+<body>
+  <main class="game-shell">
+    <canvas id="gameCanvas" aria-label="Cold War Invaders arcade game"></canvas>
+
+    <header class="topbar">
+      <a class="brand" href="../../index.html" aria-label="Back to arcade">
+        <span class="brand-mark">CW</span>
+        <span><small>Mr. Mac's Arcade</small><strong>Cold War Invaders</strong></span>
+      </a>
+      <div class="top-stats" id="topStats">
+        <span>Containment Grid</span><span>Intel Questions</span><span>Arcade Mode</span>
+      </div>
+    </header>
+
+    <section class="setup-screen show" id="setupScreen" aria-label="Mission setup">
+      <div class="mission-card">
+        <div class="kicker">Cold War Arcade</div>
+        <h1>Cold War Invaders</h1>
+        <p>Defend the satellite line, collect intel, and answer Cold War questions to trigger containment bursts before crises reach Earth.</p>
+        <div class="setup-grid">
+          <label>
+            Theater
+            <select id="theaterSelect">
+              <option value="cold">Cold War Core</option>
+              <option value="us">U.S. History</option>
+              <option value="global">Global History</option>
+              <option value="ap">AP Review</option>
+              <option value="all">All Cold War Bank</option>
+            </select>
+          </label>
+          <label>
+            Difficulty
+            <select id="difficultySelect">
+              <option value="cadet">Cadet</option>
+              <option value="regents" selected>Regents</option>
+              <option value="crisis">Crisis</option>
+            </select>
+          </label>
+        </div>
+        <div class="mission-metrics" id="missionMetrics"></div>
+        <div class="actions">
+          <button class="btn primary" id="startBtn" type="button">Launch Mission</button>
+          <a class="btn ghost" href="../../index.html">Arcade Home</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="hud" id="hud" aria-label="Mission status">
+      <div><span>Score</span><strong id="score">0</strong></div>
+      <div><span>Wave</span><strong id="wave">1</strong></div>
+      <div><span>Shield</span><strong id="shield">100%</strong></div>
+      <div><span>Intel</span><strong id="intel">0%</strong></div>
+      <button class="mini-btn" id="pauseBtn" type="button">Pause</button>
+      <button class="mini-btn" id="quitBtn" type="button">Quit</button>
+    </section>
+
+    <section class="briefing hidden" id="briefing" aria-label="Intel question">
+      <div class="briefing-card">
+        <div class="briefing-top">
+          <span id="questionMeta">Intel Briefing</span>
+          <strong id="questionReward">Containment Burst Armed</strong>
+        </div>
+        <h2 id="questionPrompt">Loading question...</h2>
+        <div class="choices" id="choices"></div>
+        <div class="feedback" id="feedback">Answer correctly to clear the nearest wave.</div>
+      </div>
+    </section>
+
+    <section class="result-screen hidden" id="resultScreen" aria-label="Mission results">
+      <div class="mission-card compact">
+        <div class="kicker">Mission Report</div>
+        <h2 id="resultTitle">Containment Held</h2>
+        <div class="mission-metrics" id="resultMetrics"></div>
+        <p id="coachText"></p>
+        <div class="actions">
+          <button class="btn primary" id="againBtn" type="button">Play Again</button>
+          <a class="btn ghost" href="../../index.html">Arcade Home</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="control-hint">Move: A/D or arrows · Fire: Space · Intel: E · Pause: Esc</div>
+  </main>
+  <script src="../../assets/arcade-analytics.js"></script>
+  <script type="module" src="game.js?v=20260430-coldwar2"></script>
+</body>
+</html>

@@ -1745,6 +1745,7 @@ function paletteFor(course) {
 function accentFor(game) {
   if (game.id === "history-hunters") return "#74f0aa";
   if (game.id === "archive-quest") return "#62e9ff";
+  if (game.id === "cold-war-invaders") return "#72f3ff";
   if (game.id === "regents-practice-exam") return "#ffd15c";
   if (game.id === "regents-rally-source-circuit") return "#ffd15c";
   if (game.id === "lightning-review") return "#ffd15c";
@@ -1758,6 +1759,7 @@ function accentFor(game) {
 function glyphFor(game) {
   if (game.id === "history-hunters") return "HH";
   if (game.id === "archive-quest") return "AQ";
+  if (game.id === "cold-war-invaders") return "CW";
   if (game.id === "regents-practice-exam") return "✎";
   if (game.id === "regents-rally-source-circuit") return "RR";
   if (game.id === "lightning-review") return "90";
@@ -1796,7 +1798,7 @@ function isQuickPlay(game) {
 function laneMatches(game) {
   if (state.lane === "all") return true;
   const text = searchable(game);
-  if (state.lane === "play") return ["archive-quest", "history-hunters", "regents-rally-source-circuit", "chrono-defense-infinite", "time-rift-survivors", "chrono-pinball", "empire-ascendant", "boss-rush-arena"].includes(game.id);
+  if (state.lane === "play") return ["archive-quest", "history-hunters", "cold-war-invaders", "regents-rally-source-circuit", "chrono-defense-infinite", "time-rift-survivors", "chrono-pinball", "empire-ascendant", "boss-rush-arena"].includes(game.id);
   if (state.lane === "quick") return isQuickPlay(game);
   if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing/i.test(text) || ["regents-practice-exam", "regents-rally-source-circuit", "regents-gauntlet", "source-sprint"].includes(game.id);
   if (state.lane === "jeopardy") return /jeopardy/i.test(game.gameType || "") || /jeopardy review|review game|final exam comprehensive/i.test(game.originalFile || game.title || "");
@@ -1815,6 +1817,7 @@ function laneMatches(game) {
 function priority(game) {
   if (game.id === "history-hunters") return -6;
   if (game.id === "archive-quest") return -5;
+  if (game.id === "cold-war-invaders") return -4.7;
   if (game.id === "regents-practice-exam") return -4;
   if (game.id === "regents-gauntlet") return -3.6;
   if (game.id === "source-sprint") return -3;
@@ -1846,7 +1849,7 @@ function filteredGames() {
   });
 }
 function featuredGames() {
-  const ids = ["history-hunters", "archive-quest", "regents-practice-exam", "regents-rally-source-circuit"];
+  const ids = ["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam"];
   const picks = ids.map((id) => GAMES.find((game) => game.id === id));
   return [...new Map(picks.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 4);
 }
@@ -1901,6 +1904,7 @@ function renderFeatured() {
   const games = featuredGames();
   const artMap = {
     "regents-practice-exam": "url('assets/regents-gauntlet-arena.png')",
+    "cold-war-invaders": "url('games/cold-war-invaders/assets/cold-war-invaders-atari-sheet.png')",
     "regents-rally-source-circuit": "url('games/regents-rally-source-circuit/rally-64-key-art.png')",
     "source-sprint": "url('assets/regents-gauntlet-arena.png')",
     "lightning-review": "url('assets/chrono-defense-road-map.webp')",
