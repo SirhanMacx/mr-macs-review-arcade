@@ -68,7 +68,7 @@ body {
   margin: 0;
   color: var(--paper);
   background:
-    radial-gradient(circle at 12% 4%, rgba(255,47,179,.18), transparent 32%),
+    radial-gradient(circle at 12% 4%, rgba(245,196,81,.10), transparent 30%),
     radial-gradient(circle at 88% 6%, rgba(122,240,255,.16), transparent 28%),
     linear-gradient(180deg, #07030f, #02020a 44%, #05040d);
   font-family: var(--font-ui);
@@ -129,10 +129,11 @@ textarea:focus-visible {
 .hero-bg {
   position: fixed; inset: 0; z-index: -5;
   background:
-    linear-gradient(180deg, rgba(3,2,10,.00) 0%, rgba(3,2,10,.18) 34%, rgba(3,2,10,.78) 78%, var(--ink) 100%),
+    linear-gradient(180deg, rgba(3,2,10,.02) 0%, rgba(3,2,10,.22) 34%, rgba(3,2,10,.86) 70%, #05070d 100%),
+    linear-gradient(0deg, rgba(2,4,10,.92) 0%, rgba(2,4,10,.62) 16%, transparent 44%),
     linear-gradient(90deg, rgba(3,2,10,.30) 0%, rgba(3,2,10,.06) 34%, rgba(3,2,10,.05) 66%, rgba(3,2,10,.36) 100%),
     var(--hero) center 40% / cover no-repeat;
-  filter: saturate(1.22) contrast(1.08);
+  filter: saturate(1.08) contrast(1.08);
   transform: translate3d(0, var(--bgY, 0), 0) scale(1.015);
   transition: transform .15s linear;
 }
@@ -140,7 +141,7 @@ textarea:focus-visible {
   content: "";
   position: absolute; inset: 0;
   background:
-    radial-gradient(42% 38% at 50% 12%, rgba(255, 47, 179, .18), transparent 66%),
+    radial-gradient(42% 38% at 50% 12%, rgba(255, 47, 179, .08), transparent 66%),
     radial-gradient(50% 40% at 70% 0%, rgba(122, 240, 255, .18), transparent 60%),
     radial-gradient(50% 40% at 12% 100%, rgba(245, 196, 81, .12), transparent 70%);
   mix-blend-mode: screen;

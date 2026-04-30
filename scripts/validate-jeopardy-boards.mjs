@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final", "Regents Sprint"]);
 const EXPECTED_VALUES = "100,200,300,400,500";
-const MIN_CLUE_WORDS = 3;
+const MIN_CLUE_WORDS = 2;
 const MAX_CLUE_WORDS = 26;
 const EXPECTED_SKILLS = new Map([
   [100, "identify key content"],
@@ -16,8 +16,9 @@ const EXPECTED_SKILLS = new Map([
   [500, "synthesize a high-value exam pattern"]
 ]);
 const FORBIDDEN_VERBOSE_CLUE = /standards-aligned review clue|course-level clue|Regents skill|AP historical reasoning|AP Psych skill|High-value synthesis|exam-style claim|which answer best|This is harder than recall|Use the clue to|correct response should|evidence-based writing/i;
+const FORBIDDEN_GENERIC_CLUE = /specific development from|belongs in|the correct answer|correct answer:|final wager|final clue for|explain why this idea matters across the course|:\s+this\s+(?:is|was|were|are|describes|explains|identifies|names|means|refers to)\b|\b(?:resulting from|contained in the|during the)\.$|^(?:which|based on|according to)\b|^This\s+\w+\s+(?:means|explains|describes)\b|^This\s+(?:explains|describes|is|are|was|were|identifies|names|means|refers to)\b|^These\s+(?:explain|describe|are|were|identify|name|mean|refer to)\b/i;
 const FORBIDDEN_VERBOSE_EXPLANATION = /fits this clue|Exam alignment|Review move|single-answer review concept aligned/i;
-const EXPECTED_HARDENING_VERSION = "jeopardy-hardening-v3-concise-clues";
+const EXPECTED_HARDENING_VERSION = "jeopardy-hardening-v4-natural-clues";
 const FINAL_SYNTHESIS_LEAK = /final synthesis|at least two specific examples|evidence-based synthesis|standards-aligned argument|teacher judgment|score the synthesis|broader pattern, cause\/effect|instead of defining one isolated term/i;
 
 function decodePath(value) {
@@ -101,6 +102,9 @@ function validateBoard(game, file) {
       }
       if (FORBIDDEN_VERBOSE_CLUE.test(clueText)) {
         errors.push(`${file}: ${category.name} $${value} clue contains non-Jeopardy wrapper language: ${clueText}`);
+      }
+      if (FORBIDDEN_GENERIC_CLUE.test(clueText)) {
+        errors.push(`${file}: ${category.name} $${value} clue contains weak generated wording: ${clueText}`);
       }
       if (FORBIDDEN_VERBOSE_EXPLANATION.test(String(clue.explanation || ""))) {
         errors.push(`${file}: ${category.name} $${value} explanation contains wrapper language`);

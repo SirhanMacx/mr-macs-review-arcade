@@ -4,7 +4,7 @@ import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const HARDENING_VERSION = "jeopardy-hardening-v3-concise-clues";
+const HARDENING_VERSION = "jeopardy-hardening-v4-natural-clues";
 const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final", "Regents Sprint"]);
 const VALUE_SKILLS = {
   100: "identify key content",
@@ -13,6 +13,16 @@ const VALUE_SKILLS = {
   400: "connect evidence to a larger context",
   500: "synthesize a high-value exam pattern"
 };
+const ANSWER_FALLBACK_CLUES = new Map([
+  ["capitalism", "Economic system based on private ownership, markets, competition, and profit."],
+  ["containment", "U.S. Cold War policy aimed at stopping the spread of communism."],
+  ["cuban missile crisis", "1962 Cold War confrontation over Soviet missiles placed in Cuba."],
+  ["first amendment", "Amendment protecting speech, religion, press, assembly, and petition."],
+  ["globalization", "Increasing connection of economies, cultures, communication, and trade across borders."],
+  ["green revolution", "Agricultural modernization using high-yield seeds, fertilizer, irrigation, and new technology."],
+  ["holocaust", "Nazi genocide of Jews and other targeted groups during World War II."],
+  ["industrialization", "Growth of factories, machines, wage labor, and mass production."]
+]);
 
 function decodePath(value) {
   try {
@@ -57,6 +67,10 @@ function clean(value) {
     .trim();
 }
 
+function plainWordCount(value) {
+  return clean(value).match(/[A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)*/g)?.length || 0;
+}
+
 function escRegExp(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -92,10 +106,62 @@ function sentence(value, fallback) {
   return /[.!?]$/.test(text) ? text : `${text}.`;
 }
 
-function safeContext(value, answer, fallback) {
-  let text = removeAnswerLeak(value, answer, "this topic");
-  if (normalize(text).split(" ").filter(Boolean).length < 2) text = fallback;
-  return clean(text || fallback);
+function stripPromptWrapper(value) {
+  return clean(value)
+    .replace(/^[^:]{3,90}:\s+(?=this\s+(?:is|was|were|are|describes|explains|identifies|names|means|refers to)\b)/i, "")
+    .replace(/^final\s+(?:wager|clue)(?:\s+for\s+[^:]+)?\s*:\s*/i, "")
+    .replace(/^explain why this idea matters across the course\s*:\s*/i, "")
+    .replace(/^connect this content idea in [^:]+:\s*/i, "")
+    .replace(/^identify(?: the)?\s+/i, "")
+    .replace(/^name(?: the)?\s+/i, "")
+    .replace(/^which answer best (?:matches|names|explains)\s+/i, "")
+    .replace(/^this clue asks for\s+/i, "")
+    .replace(/^this\s+(?:is|was|were|are)\s+/i, "")
+    .replace(/^these\s+(?:are|were)\s+/i, "")
+    .replace(/^this\s+(?:describes|explains|identifies|names|means|refers to)\s+/i, "")
+    .replace(/^this\s+\w+\s+(?:describes|explains|identifies|names|means|refers to)\s+/i, "")
+    .replace(/^these\s+(?:describe|explain|identify|name|mean|refer to)\s+/i, "")
+    .replace(/^the correct answer\s+(?:is|means|describes|explains)\s+/i, "")
+    .replace(/^the correct answer\s*/i, "");
+}
+
+function stripAnswerPrefix(value, answer) {
+  let output = clean(value);
+  const raw = clean(answer);
+  const compact = raw.replace(/[^A-Za-z0-9]+/g, " ").trim();
+  const variants = [...new Set([raw, compact, ...answerVariants(answer)])].filter(Boolean);
+  for (const variant of variants) {
+    output = output.replace(new RegExp(`^${escRegExp(variant)}\\s*[:\\-–—]\\s*`, "i"), "");
+  }
+  return clean(output);
+}
+
+function definitionCandidate(value, answer) {
+  return stripPromptWrapper(stripAnswerPrefix(value, answer))
+    .replace(/^([A-Z][a-z]+) colonial empire\b/, "$1's colonial empire")
+    .replace(/^women rights\b/i, "women's rights");
+}
+
+function badClueCandidate(value) {
+  const text = clean(value);
+  return /correct answer/i.test(text)
+    || /^(which|based on|according to)\b/i.test(text)
+    || /\b(?:passage|cartoon|article|source)\b/i.test(text)
+    || /\b(?:resulting from|contained in the|during the)\.$/i.test(text);
+}
+
+function fallbackForAnswer(answer) {
+  return ANSWER_FALLBACK_CLUES.get(normalize(answer)) || "";
+}
+
+function usableClueCandidate(value, answer) {
+  const text = sentence(definitionCandidate(value, answer));
+  if (plainWordCount(text) < 2) return "";
+  if (badClueCandidate(text)) return "";
+  if (/specific development from|belongs in|the correct answer/i.test(text)) return "";
+  if (/^This\s+(?:explains|describes|is|are|was|were|identifies|names|means|refers to)\b/i.test(text)) return "";
+  if (hasAnswerLeak(text, answer)) return "";
+  return text;
 }
 
 function courseLane(meta, game) {
@@ -383,37 +449,40 @@ function usableFinalCandidate(candidate, answers) {
 }
 
 function signalFor(clue, answer, category, game) {
-  const base = clue.sourceClue || clue.clue || clue.explanation || "";
-  let signal = clean(base)
-    .replace(/^identify(?: the)?\s+/i, "")
-    .replace(/^which answer best (?:matches|names|explains)\s+/i, "")
-    .replace(/^this clue asks for\s+/i, "");
-  signal = removeAnswerLeak(signal, answer);
-  if (normalize(signal).split(" ").filter(Boolean).length < 3) {
-    const safeCategory = safeContext(category, answer, "this category");
-    const safeUnit = safeContext(game.title, answer, "this unit");
-    signal = `a specific development from ${safeCategory} that belongs in ${safeUnit}`;
+  const candidates = [
+    clue.sourceClue,
+    clue.clue,
+    clue.sourceExplanation,
+    clue.explanation
+  ];
+  for (const candidate of candidates) {
+    const usable = usableClueCandidate(candidate, answer);
+    if (usable) return usable;
   }
-  return sentence(signal);
+  for (const candidate of candidates) {
+    const repaired = usableClueCandidate(removeAnswerLeak(definitionCandidate(candidate, answer), answer, "this course concept"), answer);
+    if (repaired) return repaired;
+  }
+  const answerFallback = usableClueCandidate(fallbackForAnswer(answer), answer);
+  if (answerFallback) return answerFallback;
+  const context = clean(category || game.title || "course review");
+  return sentence(`Course concept tied to ${removeAnswerLeak(context, answer, "this topic")}`);
 }
 
 function conciseJeopardyClue(clue, answer, category, game) {
-  const signal = signalFor(clue, answer, category, game)
-    .replace(/^this is\s+/i, "");
-  const stripped = removeAnswerLeak(signal, answer).replace(/^(a|an)\s+/i, "");
-  if (normalize(stripped).split(" ").filter(Boolean).length < 3) {
-    const safeCategory = safeContext(category, answer, "this category");
-    const safeUnit = safeContext(game.title, answer, "this unit");
-    return sentence(`This ${safeCategory} term belongs in ${safeUnit}`);
-  }
-  return sentence(stripped);
+  return signalFor(clue, answer, category, game);
 }
 
 function conciseExplanation(clue, answer, category, game) {
-  const source = clean(clue.sourceExplanation || "");
-  if (source && !/fits this clue|Exam alignment|Review move|standards-aligned|course-level clue/i.test(source)) {
-    return sentence(source);
+  const sources = [clue.sourceExplanation, clue.explanation, clue.sourceClue, clue.clue];
+  for (const source of sources) {
+    const definition = definitionCandidate(source, answer);
+    if (definition && !badClueCandidate(definition) && !/fits this clue|Exam alignment|Review move|standards-aligned|course-level clue|specific development from|belongs in/i.test(definition)) {
+      return sentence(`${answer}: ${definition}`);
+    }
   }
+  const answerFallback = fallbackForAnswer(answer);
+  if (answerFallback) return sentence(`${answer}: ${answerFallback}`);
   return sentence(`${answer}: ${signalFor(clue, answer, category, game)}`);
 }
 
