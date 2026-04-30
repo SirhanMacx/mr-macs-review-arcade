@@ -19,7 +19,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 :root {
   color-scheme: dark;
   --font-display: "Bungee", Impact, Haettenschweiler, "Arial Black", sans-serif;
-  --font-ui: "Rajdhani", "Arial Narrow", system-ui, sans-serif;
+  --font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Rajdhani", Arial, sans-serif;
   --font-pixel: "Press Start 2P", ui-monospace, SFMono-Regular, Menlo, monospace;
   --ink: #06080f;
   --onyx: #0c1119;
@@ -40,19 +40,19 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
   --violet: #b892ff;
   --green: #69f0aa;
   --amber: #ffb547;
-  --hero: url("assets/arcade-stage-clean.webp");
+  --hero: url("assets/arcade-lobby-16bit-v4.webp");
   --emblem: url("assets/arcade-token-mm.webp");
-  --ui-sheet: url("assets/arcade-ui-sheet-80s.webp");
-  --marquee-art: url("assets/arcade-marquee-panel.webp");
+  --ui-sheet: url("assets/arcade-ui-panels-16bit-v4.webp");
+  --marquee-art: url("assets/arcade-ui-panels-16bit-v4.webp");
   --scanline-art: url("assets/arcade-scanline-tile.webp");
   --search-art: url("assets/arcade-icon-search.webp");
   --icon-play: url("assets/arcade-icon-play.webp");
   --icon-practice: url("assets/arcade-icon-practice.webp");
   --icon-course: url("assets/arcade-icon-course.webp");
-  --card-cyan: url("assets/arcade-card-cyan.webp");
-  --card-magenta: url("assets/arcade-card-magenta.webp");
-  --card-gold: url("assets/arcade-card-gold.webp");
-  --card-blue: url("assets/arcade-card-blue.webp");
+  --card-cyan: url("assets/arcade-card-cabinet-16bit-v4.webp");
+  --card-magenta: url("assets/arcade-card-cabinet-16bit-v4.webp");
+  --card-gold: url("assets/arcade-card-cabinet-16bit-v4.webp");
+  --card-blue: url("assets/arcade-card-cabinet-16bit-v4.webp");
   --boss-art: url("assets/boss-rush-arena-v2.webp");
   --gauntlet-art: url("assets/regents-gauntlet-arena.png");
   --shadow-1: 0 1px 0 rgba(255,255,255,.04) inset, 0 18px 50px rgba(0,0,0,.45);
@@ -2086,6 +2086,213 @@ select.field {
     grid-template-columns: 1fr;
   }
 }
+
+/* ============== 16-bit arcade art + legibility pass ============== */
+.hero-bg {
+  background:
+    linear-gradient(90deg, rgba(3, 5, 13, .78) 0%, rgba(3, 5, 13, .32) 48%, rgba(3, 5, 13, .18) 100%),
+    linear-gradient(180deg, rgba(3, 5, 13, .20) 0%, rgba(3, 5, 13, .28) 56%, rgba(3, 5, 13, .66) 100%),
+    radial-gradient(62% 42% at 23% 20%, rgba(4, 6, 14, .34), transparent 68%),
+    var(--hero) center 44% / cover no-repeat;
+  image-rendering: auto;
+  filter: saturate(1.12) contrast(1.08);
+}
+.hero-bg::after,
+.gc-art::before,
+.path-card::before,
+.focus-card::before,
+.mode-button::before,
+.quick-card::before,
+.course-tile::before {
+  image-rendering: auto;
+}
+.topbar,
+.hero-marquee,
+.jeopardy-console,
+.playerbar {
+  background:
+    linear-gradient(180deg, rgba(3, 6, 15, .96), rgba(3, 6, 15, .90)),
+    var(--ui-sheet) center / cover no-repeat;
+}
+.topbar {
+  border-bottom-color: rgba(122, 240, 255, .28);
+}
+.brand-mark,
+.rail-btn,
+.action,
+.btn,
+.field,
+.portal-button,
+.footer-jump,
+.launch-chip,
+.play,
+.quick-timer,
+.mode-button .mb-tag,
+.gc-stripe .badge {
+  border-radius: 4px;
+}
+.path-card,
+.focus-card,
+.progress-card,
+.quick-card,
+.mode-button,
+.game-card,
+.course-tile,
+.progress-item,
+.jeopardy-console {
+  border-radius: 6px;
+  border-color: rgba(122, 240, 255, .24);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.06) inset,
+    0 0 0 1px rgba(0,0,0,.50) inset,
+    0 18px 54px rgba(0,0,0,.52);
+}
+.path-card,
+.focus-card,
+.progress-card,
+.quick-card,
+.mode-button,
+.game-card,
+.course-tile {
+  background:
+    linear-gradient(180deg, rgba(3, 5, 13, .74), rgba(3, 5, 13, .98) 88%),
+    radial-gradient(80% 54% at 72% 18%, color-mix(in srgb, var(--accent, #7af0ff) 20%, transparent), transparent 72%),
+    var(--card-art, var(--card-cyan)) center / cover no-repeat,
+    #050914;
+}
+.path-card::before,
+.focus-card::before,
+.quick-card::before,
+.mode-button::before,
+.game-card::before,
+.course-tile::before {
+  box-shadow: 0 0 18px var(--accent, var(--cyan));
+}
+.path-card::after,
+.focus-card::after,
+.gc-art::after,
+.course-tile::after,
+.quick-card::after {
+  opacity: .18;
+  text-shadow: none;
+}
+.hero-title,
+.band-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.hero-title em,
+.band-title em {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: #ffd15c;
+  -webkit-text-fill-color: currentColor;
+}
+.hero-title {
+  max-width: min(100%, 980px);
+  color: #fffdf4;
+  text-shadow:
+    0 2px 0 #07111f,
+    0 4px 0 #143047,
+    0 6px 0 rgba(255, 123, 204, .46),
+    0 0 18px rgba(122, 240, 255, .54),
+    0 0 36px rgba(245, 196, 81, .28);
+}
+.band-title {
+  text-shadow: 0 2px 0 #07111f, 0 0 18px rgba(122, 240, 255, .20);
+}
+.tagline,
+.band-sub,
+.path-card p,
+.focus-card p,
+.progress-card p,
+.quick-card p,
+.mode-button .mb-sub,
+.gc-body p {
+  color: #f6f8ff;
+  text-shadow: 0 2px 14px rgba(0,0,0,.78);
+}
+.path-card h3,
+.focus-card h3,
+.progress-card h3,
+.quick-card h3,
+.mode-button .mb-title,
+.gc-body h3,
+.course-tile strong {
+  color: #fffdf4;
+  text-shadow: 0 2px 0 rgba(0,0,0,.72), 0 0 14px rgba(122,240,255,.20);
+}
+.eyebrow,
+.band-eyebrow,
+.path-kicker,
+.focus-kicker,
+.progress-kicker,
+.quick-kicker,
+.mode-button .mb-tag,
+.gc-stripe .badge.hot {
+  color: #92f7ff;
+  text-shadow: 0 0 12px rgba(122,240,255,.44);
+}
+.field,
+select.field,
+input.field {
+  background-color: rgba(4, 8, 18, .98);
+  border-color: rgba(122, 240, 255, .32);
+  color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.42) inset;
+}
+.field::placeholder {
+  color: #b5c1d6;
+}
+.gc-thumb {
+  filter: saturate(1.06) contrast(1.08) brightness(.82);
+}
+.gc-art::before {
+  background:
+    linear-gradient(180deg, rgba(3,5,13,.02), rgba(3,5,13,.22) 44%, rgba(3,5,13,.86)),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 4px),
+    radial-gradient(90% 80% at 100% 0%, color-mix(in oklab, var(--accent, #7af0ff) 18%, transparent), transparent 65%);
+}
+.footer {
+  background:
+    linear-gradient(180deg, rgba(3,5,13,.06), rgba(3,5,13,.70) 32%, rgba(3,5,13,.96) 100%),
+    radial-gradient(62% 72% at 16% 100%, rgba(245,196,81,.28), transparent 66%),
+    radial-gradient(72% 66% at 86% 92%, rgba(122,240,255,.24), transparent 70%),
+    var(--hero) center bottom / cover no-repeat,
+    #020611;
+}
+.footer::before {
+  opacity: .78;
+}
+
+@media (max-width: 760px) {
+  .hero-bg {
+    background:
+      linear-gradient(180deg, rgba(3, 5, 13, .72), rgba(3, 5, 13, .96) 64%, rgba(3, 5, 13, .98) 100%),
+      linear-gradient(90deg, rgba(3, 5, 13, .84), rgba(3, 5, 13, .50)),
+      var(--hero) 62% top / auto 100% no-repeat;
+  }
+  .hero-title,
+  .band-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+  .hero-title {
+    font-size: clamp(36px, 11.5vw, 54px);
+    line-height: 1.04;
+  }
+  .path-card p,
+  .focus-card p,
+  .progress-card p,
+  .quick-card p,
+  .mode-button .mb-sub,
+  .gc-body p {
+    font-size: 15px;
+  }
+}
 </style>
 </head>
 <body>
@@ -2907,11 +3114,12 @@ function card(game) {
   const accent = accentFor(game);
   const glyph = glyphFor(game);
   const thumb = thumbnailFor(game);
+  const art = cssUrlForAttr(thumb);
   const categoryLine = (game.categories || []).slice(0, 3).join(" · ");
   const meta = (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " clues") + " · " + (game.hasFinal ? "Final wager" : "Practice");
-  return '<button class="game-card" type="button" style="--accent:' + accent + ';--course-glyph:\'' + glyph + '\'" data-id="' + escapeHtml(game.id) + '">' +
+  return '<button class="game-card" type="button" style="--accent:' + accent + ';--course-glyph:\'' + glyph + '\';--card-art:' + art + '" data-id="' + escapeHtml(game.id) + '">' +
     '<div class="gc-art">' +
-      '<img class="gc-thumb" src="' + escapeHtml(thumb) + '" alt="" loading="lazy" decoding="async">' +
+      '<img class="gc-thumb" src="' + escapeHtml(thumb) + '" alt="" loading="lazy" decoding="async" onerror="this.hidden=true;this.closest(\'.gc-art\').classList.add(\'missing-thumb\')">' +
       '<div class="gc-stripe">' +
         '<span class="badge hot">' + escapeHtml(game.day || game.grade) + '</span>' +
         '<span class="badge">' + escapeHtml(displayGameType(game)) + '</span>' +

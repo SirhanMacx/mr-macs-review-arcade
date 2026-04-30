@@ -101,7 +101,10 @@ def check_regents_practice_exam() -> list[str]:
         "same six-document Civic Literacy set",
         "STIMULUS_VISUAL_FAMILY_GROUPS",
         "docStemGuardKey",
-        "Document set protection",
+        "Past Regents",
+        "selectedCatalogExam",
+        "official-pdf-form",
+        "regents-past-exam-catalog.json",
     ]
     for needle in required:
         if needle not in text:
@@ -186,6 +189,35 @@ def check_regents_source_integrity() -> list[str]:
         return []
     detail = (result.stderr or result.stdout or "Regents source integrity validation failed").strip()
     return [detail]
+
+
+def check_shared_source_bank() -> list[str]:
+    result = subprocess.run(
+        ["node", "scripts/validate-shared-source-bank.mjs"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    detail = (result.stderr or result.stdout or "shared source bank validation failed").strip()
+    return [detail]
+
+
+def check_released_practice_forms() -> list[str]:
+    errors: list[str] = []
+    for script in ["scripts/validate-released-practice-forms.mjs", "scripts/validate-regents-past-exam-catalog.mjs"]:
+        result = subprocess.run(
+            ["node", script],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if result.returncode != 0:
+            errors.append((result.stderr or result.stdout or f"{script} failed").strip())
+    return errors
 
 
 def check_flagship_game_audit() -> list[str]:
@@ -384,7 +416,9 @@ def main() -> int:
         ("games.json file paths", check_games_manifest),
         ("regents stimuli assets", check_regents_stimuli),
         ("regents source-question integrity", check_regents_source_integrity),
+        ("shared source bank integrity", check_shared_source_bank),
         ("regents practice exam shape", check_regents_practice_exam),
+        ("released Regents practice forms", check_released_practice_forms),
         ("regents practice assembly", check_regents_practice_runtime),
         ("flagship game audit", check_flagship_game_audit),
         ("dropdown option contrast", check_select_option_contrast),

@@ -7,6 +7,7 @@
   var API = "https://countapi.mileshilliard.com/api/v1";
   var pagePath = location.pathname.replace(/\/+$/, "") || "/";
   var isGamePage = /\/games\//.test(pagePath);
+  var localOnly = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname || "") || location.protocol === "file:";
   var today = new Date().toISOString().slice(0, 10);
 
   function slug(value) {
@@ -343,6 +344,7 @@
   };
 
   function requestCounter(method, name) {
+    if (localOnly) return Promise.resolve(null);
     var key = counterKey(name);
     var url = API + "/" + method + "/" + encodeURIComponent(key);
     return fetch(url, { cache: "no-store", mode: "cors" })

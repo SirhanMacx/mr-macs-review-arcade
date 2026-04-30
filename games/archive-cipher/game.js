@@ -34,7 +34,12 @@
     resultAnswer: $("resultAnswer"),
     resultExplain: $("resultExplain"),
     closeResultBtn: $("closeResultBtn"),
-    nextBtn: $("nextBtn")
+    nextBtn: $("nextBtn"),
+    sourceViewer: $("sourceViewer"),
+    sourceViewerTitle: $("sourceViewerTitle"),
+    sourceViewerMeta: $("sourceViewerMeta"),
+    sourceViewerImage: $("sourceViewerImage"),
+    sourceViewerClose: $("sourceViewerClose")
   };
 
   const ctx = els.fx.getContext("2d");
@@ -193,6 +198,7 @@
   }
 
   function isGoodTerm(q) {
+    if (/^quarantined/i.test(String(q.sourceIntegrity || ""))) return false;
     const code = normalizeTerm(q.answer);
     if (code.length < 4 || code.length > 12) return false;
     if (!/^[A-Z]+$/.test(code)) return false;
@@ -332,12 +338,15 @@
         : "";
     const imageBlock = images.slice(0, 2).map((image, index) => (
       `<figure class="source-figure">` +
-        `<img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.label || `Source stimulus ${index + 1}`)}" loading="eager">` +
+        `<img data-source-img="1" src="${escapeHtml(image.src)}" alt="${escapeHtml(image.label || `Source stimulus ${index + 1}`)}" loading="eager">` +
         `<figcaption>${escapeHtml(image.label || `Source stimulus ${index + 1}`)}</figcaption>` +
       `</figure>`
     )).join("");
     els.sourcePanel.hidden = false;
-    els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div>${textBlock}${imageBlock}`;
+    const tools = images.length
+      ? `<div class="source-tools"><span class="source-verified">Source verified</span><button class="source-open" type="button" data-source-open="${escapeHtml(images[0].src)}" data-source-label="${escapeHtml(images[0].label || "Source stimulus")}" data-source-meta="${escapeHtml(q.source || term.set || "Released Regents source")}">Inspect</button></div>`
+      : `<div class="source-tools"><span class="source-verified">Source verified</span></div>`;
+    els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div>${tools}${textBlock}${imageBlock}`;
   }
 
   function renderHint() {
@@ -618,6 +627,21 @@
     return `rgba(${(int >> 16) & 255},${(int >> 8) & 255},${int & 255},${alpha})`;
   }
 
+  function openSourceViewer(src, label, meta) {
+    if (!src) return;
+    els.sourceViewerTitle.textContent = label || "Source stimulus";
+    els.sourceViewerMeta.textContent = meta || "Verified released source";
+    els.sourceViewerImage.src = src;
+    els.sourceViewer.hidden = false;
+    document.body.classList.add("viewer-open");
+  }
+
+  function closeSourceViewer() {
+    els.sourceViewer.hidden = true;
+    els.sourceViewerImage.removeAttribute("src");
+    document.body.classList.remove("viewer-open");
+  }
+
   function bindEvents() {
     els.courseFilter.addEventListener("change", () => {
       populateSets();
@@ -637,8 +661,33 @@
     els.newBtn.addEventListener("click", newRound);
     els.closeResultBtn.addEventListener("click", () => els.resultModal.classList.remove("show"));
     els.nextBtn.addEventListener("click", newRound);
+    els.sourceViewerClose.addEventListener("click", closeSourceViewer);
+    els.sourceViewer.addEventListener("click", (event) => {
+      if (event.target === els.sourceViewer) closeSourceViewer();
+    });
+    document.addEventListener("click", (event) => {
+      const button = event.target instanceof Element ? event.target.closest("[data-source-open]") : null;
+      if (button) openSourceViewer(button.dataset.sourceOpen, button.dataset.sourceLabel, button.dataset.sourceMeta);
+    });
+    document.addEventListener("error", (event) => {
+      const img = event.target instanceof HTMLImageElement ? event.target : null;
+      if (!img || !img.dataset.sourceImg || img.dataset.sourceMissing) return;
+      img.dataset.sourceMissing = "1";
+      const figure = img.closest(".source-figure");
+      if (figure) {
+        figure.classList.add("source-missing-frame");
+        const note = document.createElement("div");
+        note.className = "source-missing";
+        note.textContent = "Source image did not load. This item is flagged for repair.";
+        figure.append(note);
+      }
+    }, true);
     els.backBtn.addEventListener("click", () => { window.location.href = "../../index.html"; });
     window.addEventListener("keydown", (event) => {
+      if (!els.sourceViewer.hidden && event.key === "Escape") {
+        closeSourceViewer();
+        return;
+      }
       if (els.resultModal.classList.contains("show") && event.key === "Enter") {
         event.preventDefault();
         newRound();

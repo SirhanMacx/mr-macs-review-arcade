@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const bank = JSON.parse(readFileSync(resolve(root, "data/regents-gauntlet-bank.json"), "utf8"));
-const SOURCE_PATTERN = /based on|according to|document|map|cartoon|graph|chart|excerpt|passage|photograph|source|timeline|image|poster|newspaper|table/i;
+const SOURCE_PATTERN = /\b(this|these)\s+(law|act|amendment|address|speech|message|excerpt|passage|document|map|cartoon|graph|chart|photograph|source|timeline|image|poster|newspaper|table)\b|based on|according to|document|map|cartoon|graph|chart|excerpt|passage|photograph|source|timeline|image|poster|newspaper|table/i;
 const MIN_IMAGE_BACKED = {
   "Grade 10 Global History II": 28 + 9,
   "Grade 11 U.S. History": 28 + 10

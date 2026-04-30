@@ -7,10 +7,14 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 const gamePath = resolve(root, "games/regents-practice-exam/game.js");
 const bankPath = resolve(root, "data/regents-gauntlet-bank.json");
+const formsPath = resolve(root, "data/regents-released-practice-exams.json");
+const catalogPath = resolve(root, "data/regents-past-exam-catalog.json");
 
 const gameSource = readFileSync(gamePath, "utf8");
 const bank = JSON.parse(readFileSync(bankPath, "utf8"));
-const cutoff = gameSource.indexOf('\nfetch("../../data/regents-gauntlet-bank.json');
+const forms = JSON.parse(readFileSync(formsPath, "utf8"));
+const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
+const cutoff = gameSource.indexOf("\nPromise.all([");
 
 if (cutoff < 0) {
   throw new Error("Could not locate practice exam runtime bootstrap.");
@@ -36,6 +40,8 @@ function loadHarness(seed) {
 globalThis.__practiceHarness = { state, PROFILES, ESSAY_COLUMNS, GLOBAL_CONVERSION, US_CONVERSION, assembleExam, docGroupKey, docAssetKeys, trustedDocSource, writingDocAudit };`;
   vm.runInNewContext(harnessSource, context, { filename: gamePath });
   context.__practiceHarness.state.bank = bank;
+  context.__practiceHarness.state.forms = forms;
+  context.__practiceHarness.state.catalog = catalog;
   return context.__practiceHarness;
 }
 
@@ -163,11 +169,21 @@ function auditExam(harness, course, seed, errors) {
   const mcqKeys = new Set(exam.mcq.flatMap((q) => [harness.docGroupKey(q), ...harness.docAssetKeys(q)]));
   const writingKeys = new Set(guardKeys(harness, profile.id === "us-history" ? [...shortDocs, ...scaffold] : [...shortDocs, ...essayDocs]));
   const imageDirectory = profile.id === "us-history" ? "/us-day" : "/global-day";
+  const releasedImageDirectory = profile.id === "us-history" ? "/us-jan2026/" : "/global-jan2026/";
   const allWritingDocs = profile.id === "us-history" ? [...shortDocs, ...scaffold] : [...shortDocs, ...essayDocs];
   const labels = answerLabels(exam);
+  const exactReleased = exam.mode === "exact-released-form";
 
   assert(exam.mcq.length === 28, `${course} seed ${seed}: expected 28 MCQs, found ${exam.mcq.length}`, errors);
-  assert(uniqueCount(exam.mcq.map((q) => q.set || q.day || q.source)) >= 5, `${course} seed ${seed}: MCQs do not span enough released sets`, errors);
+  if (exactReleased) {
+    assert(exam.administration === "January 2026", `${course} seed ${seed}: expected January 2026 exact form, found ${exam.administration}`, errors);
+    assert(exam.mcq.every((q, index) => {
+      const sourceMatch = String(q.source || "").match(/Q(?:uestion)?\s*(\d{1,2})\b/i);
+      return Number(q.officialQuestionNumber || sourceMatch?.[1] || q.number) === index + 1;
+    }), `${course} seed ${seed}: exact form MCQs are not in official order`, errors);
+  } else {
+    assert(uniqueCount(exam.mcq.map((q) => q.set || q.day || q.source)) >= 5, `${course} seed ${seed}: MCQs do not span enough released sets`, errors);
+  }
   assert(exam.audit?.mcqDocGroups === 28, `${course} seed ${seed}: MCQ source groups should be unique`, errors);
   assert(uniqueCount(labels) >= 4, `${course} seed ${seed}: answer labels do not use four choices`, errors);
   assert(longestRun(labels) <= 8, `${course} seed ${seed}: answer labels have an excessive run (${labels.join(",")})`, errors);
@@ -178,7 +194,7 @@ function auditExam(harness, course, seed, errors) {
   assert(typeof exam.audit?.requiredDocCountsOk === "boolean", `${course} seed ${seed}: audit missing requiredDocCountsOk`, errors);
   assert(typeof exam.audit?.courseStimulusMismatches === "number", `${course} seed ${seed}: audit missing courseStimulusMismatches`, errors);
   assert([...writingKeys].every((key) => !mcqKeys.has(key)), `${course} seed ${seed}: writing doc overlaps an MCQ stimulus group or image`, errors);
-  assert(imageSrcs(allWritingDocs).every((src) => src.includes(imageDirectory)), `${course} seed ${seed}: writing stimulus uses wrong course image directory`, errors);
+  assert(imageSrcs(allWritingDocs).every((src) => src.includes(imageDirectory) || src.includes(releasedImageDirectory)), `${course} seed ${seed}: writing stimulus uses wrong course image directory`, errors);
   assert(allWritingDocs.every((doc) => (doc.stimulusImages || []).length), `${course} seed ${seed}: writing doc missing image`, errors);
   assert(!allWritingDocs.some((doc) => (doc.questionIds || []).length > 1 && String(doc.source || "").includes(" / ")), `${course} seed ${seed}: writing doc merged multiple released sources`, errors);
   assert(allWritingDocs.every((doc) => harness.trustedDocSource(doc)), `${course} seed ${seed}: writing doc has unknown source`, errors);
