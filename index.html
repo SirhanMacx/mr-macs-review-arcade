@@ -1199,15 +1199,15 @@ textarea:focus-visible {
 /* ============== Footer ============== */
 .footer {
   position: relative;
-  min-height: clamp(340px, 34vh, 460px);
-  padding: clamp(56px, 7vh, 86px) 0 clamp(54px, 7vh, 84px);
+  min-height: clamp(390px, 42vh, 540px);
+  padding: clamp(66px, 8vh, 96px) 0 clamp(62px, 8vh, 96px);
   border-top: 1px solid var(--line);
   margin-top: 30px;
   background:
-    linear-gradient(180deg, rgba(2,5,13,.18), rgba(2,5,13,.72) 34%, rgba(2,5,13,.94) 100%),
-    radial-gradient(68% 60% at 18% 100%, rgba(245,196,81,.22), transparent 64%),
-    radial-gradient(70% 58% at 82% 92%, rgba(122,240,255,.18), transparent 68%),
-    radial-gradient(52% 42% at 50% 110%, rgba(255,123,204,.12), transparent 74%),
+    linear-gradient(180deg, rgba(2,5,13,.08), rgba(2,5,13,.56) 28%, rgba(2,5,13,.92) 100%),
+    radial-gradient(62% 72% at 16% 100%, rgba(245,196,81,.30), transparent 66%),
+    radial-gradient(72% 66% at 86% 92%, rgba(122,240,255,.26), transparent 70%),
+    radial-gradient(54% 48% at 50% 106%, rgba(255,123,204,.18), transparent 76%),
     var(--hero) center bottom / cover no-repeat,
     linear-gradient(180deg, #050712, #020611);
   overflow: hidden;
@@ -1217,8 +1217,9 @@ textarea:focus-visible {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(122,240,255,.08), transparent 26%, transparent 74%, rgba(245,196,81,.08)),
-    repeating-linear-gradient(0deg, rgba(255,255,255,.030) 0 1px, transparent 1px 5px);
+    linear-gradient(90deg, rgba(122,240,255,.12), transparent 25%, transparent 74%, rgba(245,196,81,.12)),
+    linear-gradient(0deg, rgba(122,240,255,.14), transparent 28%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 5px);
   mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 100%);
   pointer-events: none;
   opacity: .65;
@@ -1265,67 +1266,90 @@ textarea:focus-visible {
 }
 .traffic-panel {
   display: grid;
-  grid-template-columns: repeat(4, auto);
-  gap: 22px;
-  padding: 14px 16px;
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 8px;
-  background: rgba(3,6,16,.58);
-  box-shadow: var(--shadow-1);
+  grid-template-columns: repeat(4, minmax(82px, auto));
+  gap: clamp(18px, 2.2vw, 34px);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .traffic-stat {
+  position: relative;
   display: flex; flex-direction: column; gap: 2px;
+  padding-left: 14px;
   text-align: right;
+}
+.traffic-stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 6px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--cyan), var(--gold));
+  box-shadow: 0 0 18px rgba(122,240,255,.46), 0 0 22px rgba(245,196,81,.32);
 }
 .traffic-stat strong {
   font-family: var(--font-display);
   font-weight: 540; font-style: normal;
-  font-size: 22px;
+  font-size: clamp(24px, 2.35vw, 34px);
   color: var(--gold);
   letter-spacing: 0;
+  text-shadow: 0 0 18px rgba(245,196,81,.36);
 }
 .traffic-stat span {
   font-family: var(--font-pixel);
   font-size: 10px; letter-spacing: 0;
   text-transform: uppercase;
-  color: var(--muted);
+  color: #d9e7ff;
+  text-shadow: 0 0 14px rgba(122,240,255,.30);
 }
 .footer-actions {
   flex: 1 1 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
   justify-content: flex-end;
+  padding-top: 6px;
 }
 .footer-jump {
+  --jump-a: #ffd15c;
+  --jump-b: #ff8f3d;
+  --jump-glow: rgba(245,196,81,.36);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
-  padding: 10px 14px;
-  border: 1px solid rgba(255,255,255,.14);
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 1px solid color-mix(in oklab, var(--jump-a) 62%, white 12%);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03)),
-    rgba(3,6,16,.68);
-  color: #f8fbff;
+    linear-gradient(180deg, rgba(255,255,255,.30), rgba(255,255,255,.06)),
+    linear-gradient(135deg, var(--jump-a), var(--jump-b));
+  color: #07111f;
   font-family: var(--font-ui);
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0;
   text-decoration: none;
   text-transform: uppercase;
-  box-shadow: 0 12px 34px rgba(0,0,0,.22);
+  text-shadow: 0 1px 0 rgba(255,255,255,.28);
+  box-shadow: 0 14px 34px rgba(0,0,0,.28), 0 0 24px var(--jump-glow), inset 0 1px 0 rgba(255,255,255,.42);
   transition: transform .22s var(--ease-out), border-color .22s var(--ease-out), background .22s var(--ease-out);
 }
+.footer-jump:nth-child(2) { --jump-a: #7af0ff; --jump-b: #2dc6dc; --jump-glow: rgba(122,240,255,.34); }
+.footer-jump:nth-child(3) { --jump-a: #ff7bcc; --jump-b: #b892ff; --jump-glow: rgba(255,123,204,.32); }
+.footer-jump:nth-child(4) { --jump-a: #69f0aa; --jump-b: #7af0ff; --jump-glow: rgba(105,240,170,.30); }
 .footer-jump:hover,
 .footer-jump:focus-visible {
   transform: translateY(-2px);
-  border-color: rgba(122,240,255,.48);
+  border-color: rgba(255,255,255,.72);
   background:
-    linear-gradient(180deg, rgba(122,240,255,.16), rgba(245,196,81,.07)),
-    rgba(3,6,16,.76);
+    linear-gradient(180deg, rgba(255,255,255,.40), rgba(255,255,255,.08)),
+    linear-gradient(135deg, var(--jump-a), var(--jump-b));
 }
 
 /* ============== Player ============== */
@@ -1690,11 +1714,11 @@ textarea:focus-visible {
 @media (max-width: 700px) {
   .hero-title { font-size: clamp(38px, 11.5vw, 64px); }
   .band-title { font-size: clamp(28px, 8vw, 44px); }
-  .traffic-panel { grid-template-columns: repeat(2, 1fr); width: 100%; }
+  .traffic-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; gap: 22px 18px; }
   .traffic-stat { text-align: left; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
   .footer-actions { justify-content: flex-start; width: 100%; }
-  .footer-jump { flex: 1 1 160px; }
+  .footer-jump { flex: 1 1 160px; min-height: 54px; }
 }
 
 /* ============== Legibility and navigation cleanup ============== */
@@ -1932,6 +1956,9 @@ select.field {
 }
 
 @media (max-width: 760px) {
+  .topbar {
+    position: relative;
+  }
   .topbar-inner {
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
@@ -1971,13 +1998,19 @@ select.field {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
     overflow: visible;
-    gap: 6px;
-    padding: 4px;
+    gap: 8px;
+    padding: 0;
+    border: 0;
+    background: transparent;
   }
   .topnav a {
     justify-content: center;
     min-height: 38px;
     padding: 8px 6px;
+    border: 1px solid rgba(122,240,255,.30);
+    background:
+      linear-gradient(180deg, rgba(122,240,255,.10), rgba(255,123,204,.055)),
+      rgba(3,8,20,.54);
     font-size: 12.5px;
     line-height: 1.1;
     text-align: center;
