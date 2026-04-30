@@ -145,6 +145,16 @@ function auditConversionTables(harness, errors) {
   assert(harness.GLOBAL_CONVERSION[35]?.[10] === 100, "Global January 2026 chart top cell should be 100", errors);
   assert(harness.US_CONVERSION[31]?.[7] === 80, "U.S. January 2026 chart example should map base 31 + essay 3.5 to scale 80", errors);
   assert(harness.US_CONVERSION[44]?.[10] === 100, "U.S. January 2026 chart top cell should be 100", errors);
+  for (const course of ["Grade 10 Global History II", "Grade 11 U.S. History"]) {
+    const courseForms = forms.formsByCourse?.[course] || [];
+    const expectedRows = /Global/.test(course) ? 36 : 45;
+    assert(courseForms.length === (catalog.courses?.[course]?.exams || []).length, `${course} should have an interactive form for every catalog exam`, errors);
+    courseForms.forEach((form) => {
+      const columns = (form.conversionTable?.essayColumns || []).map(Number);
+      assert(sameArray(columns, expectedEssayColumns), `${course} ${form.administration}: parsed conversion columns must support 0.5-point steps`, errors);
+      assert(Object.keys(form.conversionTable?.rows || {}).length >= expectedRows, `${course} ${form.administration}: parsed conversion table missing rows`, errors);
+    });
+  }
 }
 
 function auditPracticeUi(errors) {
@@ -169,14 +179,16 @@ function auditExam(harness, course, seed, errors) {
   const mcqKeys = new Set(exam.mcq.flatMap((q) => [harness.docGroupKey(q), ...harness.docAssetKeys(q)]));
   const writingKeys = new Set(guardKeys(harness, profile.id === "us-history" ? [...shortDocs, ...scaffold] : [...shortDocs, ...essayDocs]));
   const imageDirectory = profile.id === "us-history" ? "/us-day" : "/global-day";
-  const releasedImageDirectory = profile.id === "us-history" ? "/us-jan2026/" : "/global-jan2026/";
+  const releasedImageDirectory = profile.id === "us-history" ? "regents-released-forms/us-" : "regents-released-forms/global-";
   const allWritingDocs = profile.id === "us-history" ? [...shortDocs, ...scaffold] : [...shortDocs, ...essayDocs];
   const labels = answerLabels(exam);
   const exactReleased = exam.mode === "exact-released-form";
 
   assert(exam.mcq.length === 28, `${course} seed ${seed}: expected 28 MCQs, found ${exam.mcq.length}`, errors);
   if (exactReleased) {
-    assert(exam.administration === "January 2026", `${course} seed ${seed}: expected January 2026 exact form, found ${exam.administration}`, errors);
+    assert(exam.audit?.interactiveScored, `${course} seed ${seed}: exact released form must be marked interactive and scored`, errors);
+    assert(!!exam.conversionTable?.rows, `${course} seed ${seed}: exact released form missing parsed conversion chart`, errors);
+    assert(exam.officialLinks?.exam && exam.officialLinks?.scoringKey && exam.officialLinks?.conversionChart, `${course} seed ${seed}: exact released form missing official scoring links`, errors);
     assert(exam.mcq.every((q, index) => {
       const sourceMatch = String(q.source || "").match(/Q(?:uestion)?\s*(\d{1,2})\b/i);
       return Number(q.officialQuestionNumber || sourceMatch?.[1] || q.number) === index + 1;
@@ -184,7 +196,7 @@ function auditExam(harness, course, seed, errors) {
   } else {
     assert(uniqueCount(exam.mcq.map((q) => q.set || q.day || q.source)) >= 5, `${course} seed ${seed}: MCQs do not span enough released sets`, errors);
   }
-  assert(exam.audit?.mcqDocGroups === 28, `${course} seed ${seed}: MCQ source groups should be unique`, errors);
+  assert(exam.audit?.imageBacked === 28, `${course} seed ${seed}: exact MCQs should all be backed by official page images`, errors);
   assert(uniqueCount(labels) >= 4, `${course} seed ${seed}: answer labels do not use four choices`, errors);
   assert(longestRun(labels) <= 8, `${course} seed ${seed}: answer labels have an excessive run (${labels.join(",")})`, errors);
   assert(answerSpread(labels) <= 14, `${course} seed ${seed}: answer label distribution is too imbalanced (${labels.join(",")})`, errors);

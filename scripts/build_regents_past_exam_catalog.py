@@ -17,12 +17,10 @@ COURSES = {
     "Grade 10 Global History II": {
         "label": "Global History II",
         "sourcePage": "https://www.nysedregents.org/ghg2/",
-        "interactiveAdministration": "January 2026",
     },
     "Grade 11 U.S. History": {
         "label": "U.S. History",
         "sourcePage": "https://www.nysedregents.org/us-history-govt/home.html",
-        "interactiveAdministration": "January 2026",
     },
 }
 
@@ -125,8 +123,8 @@ def scrape_course(course: str, spec: dict) -> list[dict]:
             "course": course,
             "administration": first_text,
             "label": first_text,
-            "mode": "official-pdf-form",
-            "interactive": first_text == spec["interactiveAdministration"],
+            "mode": "exact-released-form",
+            "interactive": True,
             **links,
         }
         exams.append(exam)
@@ -146,7 +144,7 @@ def main() -> int:
     payload = {
         "version": "20260430-past-exam-catalog",
         "generatedAt": now_iso(),
-        "note": "Official NYSED past-exam catalog. Fully interactive forms are used when imported; other entries open the exact released exam PDF with scoring materials.",
+        "note": "Official NYSED past-exam catalog. Entries are imported into interactive page-image practice forms with MCQ keys, writing rubrics, and conversion charts.",
         "courses": courses,
     }
     OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

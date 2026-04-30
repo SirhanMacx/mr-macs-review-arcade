@@ -101,9 +101,11 @@ def check_regents_practice_exam() -> list[str]:
         "same six-document Civic Literacy set",
         "STIMULUS_VISUAL_FAMILY_GROUPS",
         "docStemGuardKey",
-        "Past Regents",
-        "selectedCatalogExam",
-        "official-pdf-form",
+        "Random graded official exam",
+        "selectedReleasedForm",
+        "exact-released-form",
+        "formsByCourse",
+        "conversionTable",
         "regents-past-exam-catalog.json",
     ]
     for needle in required:

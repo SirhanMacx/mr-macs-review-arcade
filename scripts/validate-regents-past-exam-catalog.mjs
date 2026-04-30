@@ -27,7 +27,7 @@ for (const course of ["Grade 10 Global History II", "Grade 11 U.S. History"]) {
     if (!validUrl(exam.scoringKeyPdfUrl) && !validUrl(exam.scoringKeyExcelUrl)) errors.push(`${course} ${exam.administration}: missing scoring key`);
     if (!validUrl(exam.conversionChartPdfUrl) && !validUrl(exam.conversionChartExcelUrl)) errors.push(`${course} ${exam.administration}: missing conversion chart`);
     if (!(exam.ratingGuideUrls || []).some((guide) => validUrl(guide.url))) errors.push(`${course} ${exam.administration}: missing rating guide`);
-    if (exam.administration === "January 2026" && !exam.interactive) errors.push(`${course}: January 2026 should be marked interactive`);
+    if (!exam.interactive || exam.mode !== "exact-released-form") errors.push(`${course} ${exam.administration}: catalog entry should be interactive exact-released-form`);
   }
 }
 

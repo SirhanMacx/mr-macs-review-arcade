@@ -312,6 +312,14 @@ textarea:focus-visible {
   .topbar-inner { grid-template-columns: auto 1fr auto; gap: 10px; }
   .topnav, .nav-pills { display: none; }
 }
+@media (min-width: 881px) and (max-width: 1320px) {
+  .topbar-inner { grid-template-columns: minmax(208px, auto) 1fr auto; gap: 14px; }
+  .brand { min-width: 208px; }
+  .brand strong { font-size: 15px; line-height: 1.05; }
+  .brand span:last-child > span { font-size: 10.5px; }
+  .nav-pills { display: none; }
+  .topnav a { padding-left: 12px; padding-right: 12px; }
+}
 
 /* ============== Hero ============== */
 .hero {
