@@ -42,6 +42,84 @@ def check_regents_stimuli() -> list[str]:
             resolved = (base / unquote(src)).resolve()
             if not resolved.exists():
                 errors.append(f"Missing stimulus image for {q.get('id')}: {src} -> {resolved}")
+            course = str(q.get("course", ""))
+            if "U.S. History" in course and "/us-day" not in src:
+                errors.append(f"Course/stimulus mismatch for {q.get('id')}: U.S. question uses {src}")
+            if "Global History" in course and "/global-day" not in src:
+                errors.append(f"Course/stimulus mismatch for {q.get('id')}: Global question uses {src}")
+    return errors
+
+
+def _extract_js_array(text: str, name: str):
+    marker = f"const {name}="
+    start = text.find(marker)
+    if start < 0:
+        raise ValueError(f"missing {name}")
+    bracket = text.find("[", start)
+    if bracket < 0:
+        raise ValueError(f"missing opening bracket for {name}")
+    depth = 0
+    for index in range(bracket, len(text)):
+        if text[index] == "[":
+            depth += 1
+        elif text[index] == "]":
+            depth -= 1
+            if depth == 0:
+                raw = re.sub(r"(?<=\[)\.5", "0.5", text[bracket : index + 1])
+                raw = re.sub(r"(?<=,)\.5", "0.5", raw)
+                return json.loads(raw)
+    raise ValueError(f"unterminated {name}")
+
+
+def check_regents_practice_exam() -> list[str]:
+    errors: list[str] = []
+    text = (ROOT / "games" / "regents-practice-exam" / "game.js").read_text(encoding="utf-8")
+    required = [
+        "NYSED January 2026 Global History and Geography II",
+        "NYSED January 2026 United States History and Government",
+        "scaffoldTitle",
+        "scaffoldPrompts",
+        "essayDocMinimum:3",
+        "essayDocMinimum:4",
+        "Part IIIA",
+        "Part IIIB",
+        "docGroupKey",
+        "writingDocAudit",
+        "duplicateWritingDocs",
+        "Document set protection",
+    ]
+    for needle in required:
+        if needle not in text:
+            errors.append(f"Regents practice exam missing required shape marker: {needle}")
+    try:
+        columns = _extract_js_array(text, "ESSAY_COLUMNS")
+        global_chart = _extract_js_array(text, "GLOBAL_CONVERSION")
+        us_chart = _extract_js_array(text, "US_CONVERSION")
+    except Exception as exc:
+        errors.append(f"Could not parse conversion chart constants: {exc}")
+        return errors
+    if columns != [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]:
+        errors.append("Essay conversion columns must include 0.5-point steps from 0 to 5.")
+    if len(global_chart) != 36 or any(len(row) != 11 for row in global_chart):
+        errors.append("Global II conversion chart must be 36 rows by 11 essay columns.")
+    if len(us_chart) != 45 or any(len(row) != 11 for row in us_chart):
+        errors.append("U.S. History conversion chart must be 45 rows by 11 essay columns.")
+    if global_chart and global_chart[-1][-1] != 100:
+        errors.append("Global II conversion chart top cell should be 100.")
+    if us_chart and us_chart[-1][-1] != 100:
+        errors.append("U.S. History conversion chart top cell should be 100.")
+    return errors
+
+
+def check_select_option_contrast() -> list[str]:
+    errors: list[str] = []
+    paths = [ROOT / "index.html", *sorted(ROOT.glob("games/*/styles.css")), ROOT / "games" / "boss-rush" / "index.html"]
+    for path in paths:
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        if "select" in text and "select option" in text and "background: #f8fbff" not in text:
+            errors.append(f"{path.relative_to(ROOT)}: select options need a light background for readable dropdown menus.")
     return errors
 
 
@@ -140,6 +218,8 @@ def main() -> int:
     checks = [
         ("games.json file paths", check_games_manifest),
         ("regents stimuli assets", check_regents_stimuli),
+        ("regents practice exam shape", check_regents_practice_exam),
+        ("dropdown option contrast", check_select_option_contrast),
         ("index.html games load", check_index_uses_games_json),
         ("jeopardy board quality", check_jeopardy_boards),
         ("javascript syntax", check_javascript_syntax),

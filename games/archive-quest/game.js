@@ -561,7 +561,7 @@
   function renderQuestion() {
     const { q, reward } = state.pending;
     els.questionMeta.textContent = cleanText(`${q.course || "Social Studies"} | ${q.set || q.subject || "Review"}`);
-    els.questionReward.textContent = reward ? `${reward.label} locked` : "Review gate";
+    els.questionReward.textContent = reward ? `Answer to unlock ${reward.label}` : "Review gate";
     els.questionPrompt.textContent = displayPrompt(q);
     els.feedback.textContent = "";
     els.feedback.className = "feedback";
@@ -645,7 +645,7 @@
       audio.dash();
     }
     if (player.jumpBuffer > 0 && (player.onGround || player.coyote > 0)) {
-      player.vy = -820;
+      player.vy = -900;
       player.onGround = false;
       player.coyote = 0;
       player.jumpBuffer = 0;
@@ -653,7 +653,7 @@
       audio.jump();
       dust(player.x, player.y, 12);
     } else if (player.jumpBuffer > 0 && player.airJumps > 0) {
-      player.vy = -760;
+      player.vy = -840;
       player.onGround = false;
       player.coyote = 0;
       player.jumpBuffer = 0;
@@ -661,8 +661,8 @@
       audio.jump();
       burst(player.x, player.y - 72, "#6beeff", 18);
     }
-    const gravity = state.power?.type === "hourglass" ? 1950 : 2250;
-    player.vy = clamp(player.vy + gravity * dt, -1200, 1120);
+    const gravity = state.power?.type === "hourglass" ? 1780 : 2040;
+    player.vy = clamp(player.vy + gravity * dt, -1280, 1120);
     moveAndCollide(dt);
     if (state.mode !== "running") {
       updateCamera(dt);
@@ -730,7 +730,7 @@
     for (const spring of level.springs) {
       if (!rectsOverlap(pr, spring) || player.vy < 0) continue;
       player.y = spring.y;
-      player.vy = -1080;
+      player.vy = -1180;
       player.airJumps = player.maxAirJumps;
       burst(spring.x + spring.w / 2, spring.y, "#ffd05b", 16);
       audio.jump();
@@ -748,7 +748,7 @@
       if (!rectsOverlap(pr, er)) continue;
       if (player.vy > 160 && pr.y + pr.h - er.y < 45) {
         e.dead = true;
-        player.vy = -560;
+        player.vy = -620;
         state.score += 180;
         burst(e.x, e.y - e.h / 2, "#ff6aa9", 24);
         audio.pickup();
@@ -770,10 +770,11 @@
   function updateCamera(dt) {
     const viewW = state.stage.viewW || BASE_W;
     const viewH = state.stage.viewH || BASE_H;
-    const targetX = clamp(player.x - viewW * .34, 0, Math.max(0, state.level.width - viewW));
-    const targetY = clamp(player.y - viewH * .66, -80, 120);
-    state.cameraX = lerp(state.cameraX, targetX, 1 - Math.pow(.002, dt));
-    state.cameraY = lerp(state.cameraY, targetY, 1 - Math.pow(.008, dt));
+    const lookAhead = clamp(player.vx * .22, -120, 180);
+    const targetX = clamp(player.x + lookAhead - viewW * .36, 0, Math.max(0, state.level.width - viewW));
+    const targetY = clamp(player.y - viewH * .62, -110, 130);
+    state.cameraX = lerp(state.cameraX, targetX, 1 - Math.pow(.006, dt));
+    state.cameraY = lerp(state.cameraY, targetY, 1 - Math.pow(.018, dt));
   }
 
   function updateFx(dt) {
@@ -802,7 +803,8 @@
       title: "Archive Quest",
       score: Math.floor(state.score),
       accuracy: state.answered ? Math.round(state.correct / state.answered * 100) : 0,
-      questions: state.answered
+      questions: state.answered,
+      weakTopics: topMissedTargets().map((item) => item[0])
     }, { counter: "game-completions" });
   }
 

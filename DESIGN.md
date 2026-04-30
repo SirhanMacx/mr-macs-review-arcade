@@ -4,6 +4,12 @@
 
 Mr. Mac's Atlas Arcade should feel like a premium student-facing review platform, not a folder of teacher files. The first screen should communicate: polished arcade hub, serious exam prep, fast student launch, and room for future game types.
 
+The homepage has three primary paths:
+
+- Play: game-forward review with the strongest arcade modes first.
+- Practice Regents: full exam simulator and source-based Regents drills.
+- Jeopardy Boards: course/unit board launches for classroom projection.
+
 ## Content Rules
 
 - Student-facing content only: people, places, laws, events, movements, vocabulary, cases, models, theories, and exam concepts.
@@ -35,6 +41,7 @@ Mr. Mac's Atlas Arcade should feel like a premium student-facing review platform
 - Avoid heavy always-on animations on mobile.
 - Use canvas effects sparingly and respect reduced-motion settings.
 - Large stimulus images are allowed when they directly support Regents/AP-style source questions.
+- Local progress reports are browser-only and student-showable; they should stay useful without collecting names or rosters.
 
 ## Expansion
 
@@ -43,3 +50,4 @@ The platform is not limited to Jeopardy. Future modes should be built as reusabl
 - Regents Gauntlet for stimulus MCQ practice.
 - Boss Rush for randomized comprehensive review.
 - Future arcade modes should use real course content banks and avoid trivia-only wrappers.
+- Experimental modes should be labeled as labs until their controls and visuals match the flagship standard.

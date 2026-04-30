@@ -63,6 +63,11 @@ body {
 }
 ::selection { background: var(--gold); color: #18130a; }
 button, input, select, textarea { font: inherit; color: inherit; }
+select option,
+select optgroup {
+  color: #07111f;
+  background: #f8fbff;
+}
 button { cursor: pointer; background: none; border: 0; padding: 0; }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
@@ -1272,6 +1277,185 @@ textarea:focus-visible {
   .grain { animation: none; }
 }
 
+/* ============== Launch paths + local progress ============== */
+.path-grid,
+.progress-grid,
+.focus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.path-card,
+.focus-card,
+.progress-card {
+  position: relative;
+  min-height: 214px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
+  padding: 20px;
+  text-align: left;
+  color: var(--paper);
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.025)),
+    linear-gradient(180deg, rgba(12,17,30,.82), rgba(6,9,17,.95));
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+  transition: transform .28s var(--ease-out), border-color .28s var(--ease-out), box-shadow .28s var(--ease-out);
+}
+.path-card::before,
+.focus-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent, var(--cyan)), transparent);
+}
+.path-card::after,
+.focus-card::after {
+  content: var(--glyph, "");
+  position: absolute;
+  right: 18px;
+  bottom: -18px;
+  color: color-mix(in srgb, var(--accent, var(--cyan)) 42%, transparent);
+  font-family: "Fraunces", serif;
+  font-size: 96px;
+  line-height: 1;
+  font-weight: 700;
+  pointer-events: none;
+}
+.path-card:hover,
+.focus-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent, var(--cyan)) 55%, white 10%);
+  box-shadow: 0 22px 70px rgba(0,0,0,.48), 0 0 32px color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent);
+}
+.path-card > *,
+.focus-card > *,
+.progress-card > * { position: relative; z-index: 2; }
+.path-kicker,
+.focus-kicker,
+.progress-kicker {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.path-card h3,
+.focus-card h3,
+.progress-card h3 {
+  margin: 0 0 9px;
+  font-family: "Fraunces", serif;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.path-card p,
+.focus-card p,
+.progress-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.path-foot,
+.focus-foot,
+.progress-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  color: var(--paper-2);
+  font-size: 12px;
+  font-weight: 700;
+}
+.action.compact {
+  min-height: 40px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+.action.compact.ghost {
+  background: rgba(255,255,255,.04);
+  color: var(--paper-2);
+  border-color: var(--line-2);
+  box-shadow: none;
+}
+.progress-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.progress-card {
+  min-height: 170px;
+}
+.progress-card.recommendation {
+  grid-column: span 2;
+  border-color: rgba(245,196,81,.45);
+  background:
+    linear-gradient(140deg, rgba(245,196,81,.13), rgba(122,240,255,.05)),
+    linear-gradient(180deg, rgba(12,17,30,.86), rgba(6,9,17,.95));
+}
+.progress-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+.progress-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.04);
+  color: var(--paper-2);
+  font-size: 12px;
+  line-height: 1.25;
+}
+.progress-item strong { color: var(--paper); }
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.portal-button {
+  min-height: 44px;
+  padding: 9px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  background: rgba(255,255,255,.045);
+  color: var(--paper-2);
+  font-size: 12px;
+  font-weight: 800;
+  text-align: left;
+}
+.portal-button:hover,
+.portal-button:focus-visible {
+  outline: none;
+  border-color: rgba(122,240,255,.55);
+  color: var(--paper);
+}
+@media (max-width: 1050px) {
+  .path-grid,
+  .progress-grid,
+  .focus-grid { grid-template-columns: 1fr 1fr; }
+  .progress-card.recommendation { grid-column: span 2; }
+  .portal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 680px) {
+  .path-grid,
+  .progress-grid,
+  .focus-grid { grid-template-columns: 1fr; }
+  .progress-card.recommendation { grid-column: auto; }
+  .progress-actions { justify-content: flex-start; }
+}
+
 /* ============== Misc ============== */
 @media (max-width: 700px) {
   .hero-title { font-size: clamp(46px, 13vw, 96px); }
@@ -1295,8 +1479,10 @@ textarea:focus-visible {
       <span><strong>Mr. Mac's Review Arcade</strong><span>Practice for your exam</span></span>
     </a>
     <nav class="topnav" aria-label="Primary">
+      <a href="#launch-paths">Play</a>
+      <a href="#practice">Practice Regents</a>
+      <a href="#jeopardy">Jeopardy</a>
       <a href="#featured">Featured</a>
-      <a href="#quickplay">Quick Play</a>
       <a href="#courses">Courses</a>
       <a href="#library">Library</a>
     </nav>
@@ -1315,11 +1501,15 @@ textarea:focus-visible {
     <p class="tagline reveal">A faster path to the right practice: full Regents simulations, five-minute warmups, source-based MCQs, AP review, and course-by-course unit games.</p>
     <div class="hero-actions reveal">
       <button class="action primary" id="launchFeatured" type="button">
-        <span>Start Exam Simulator</span>
+        <span>Start Recommended</span>
         <span class="arrow" aria-hidden="true">→</span>
       </button>
-      <a class="action" href="#library">
-        <span>Browse Library</span>
+      <a class="action" href="#practice">
+        <span>Practice Regents</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="action" href="#jeopardy">
+        <span>Jeopardy Boards</span>
         <span class="arrow" aria-hidden="true">→</span>
       </a>
     </div>
@@ -1331,6 +1521,43 @@ textarea:focus-visible {
 
 <main class="shell" id="main">
 
+  <section class="band path-band" id="launch-paths" aria-label="Launch paths">
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Start Here</div>
+        <h2 class="band-title">Choose the <em>right door</em>.</h2>
+        <p class="band-sub">Three classroom-safe paths: play a polished review game, train for Regents, or launch a unit Jeopardy board.</p>
+      </div>
+    </div>
+    <div class="path-grid reveal-stagger" id="pathCards"></div>
+  </section>
+
+  <section class="band progress-band" id="progress" aria-label="Local student progress">
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Local Report</div>
+        <h2 class="band-title">Your next <em>move</em>.</h2>
+        <p class="band-sub">This report stays in this browser. It helps students show recent practice, weak topics, and a recommended next activity without accounts.</p>
+      </div>
+      <div class="progress-actions">
+        <button class="action compact" id="printReportBtn" type="button">Print Report</button>
+        <button class="action compact ghost" id="clearReportBtn" type="button">Clear Local Report</button>
+      </div>
+    </div>
+    <div class="progress-grid reveal-stagger" id="progressReport"></div>
+  </section>
+
+  <section class="band practice-band" id="practice" aria-label="Regents practice">
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Practice Regents</div>
+        <h2 class="band-title">Train the <em>exam</em>.</h2>
+        <p class="band-sub">Full practice exams, source MCQ drills, and targeted Regents review with expandable documents and local score reports.</p>
+      </div>
+    </div>
+    <div class="focus-grid reveal-stagger" id="practiceModes"></div>
+  </section>
+
   <section class="band featured-band" id="featured" aria-label="Featured missions">
     <div class="band-head reveal">
       <div>
@@ -1340,6 +1567,18 @@ textarea:focus-visible {
       </div>
     </div>
     <div class="bento reveal-stagger" id="featuredModes"></div>
+  </section>
+
+  <section class="band jeopardy-band" id="jeopardy" aria-label="Jeopardy boards">
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Jeopardy Boards</div>
+        <h2 class="band-title">Project a <em>board</em>.</h2>
+        <p class="band-sub">Course and unit boards stay visible as a dedicated teacher-friendly lane, separate from the arcade modes.</p>
+      </div>
+      <button class="action compact" id="showAllJeopardyBtn" type="button">Show All Boards</button>
+    </div>
+    <div class="focus-grid reveal-stagger" id="jeopardyModes"></div>
   </section>
 
   <section class="band quick-band" id="quickplay" aria-label="Quick play">
@@ -1431,7 +1670,7 @@ textarea:focus-visible {
   </div>
 </section>
 
-<script src="assets/arcade-analytics.js"></script>
+<script src="assets/arcade-analytics.js?v=20260429-platform2"></script>
 <script>
 let GAMES = [];
 
@@ -1450,16 +1689,19 @@ let currentGame = null;
 
 const LANES = [
   { id: "all", label: "All" },
-  { id: "quick", label: "Quick Play" },
+  { id: "play", label: "Play" },
   { id: "regents", label: "Regents" },
-  { id: "ap", label: "AP" },
+  { id: "jeopardy", label: "Jeopardy" },
+  { id: "quick", label: "Quick Play" },
   { id: "grade-5", label: "Grade 5" },
   { id: "grade-6", label: "Grade 6" },
   { id: "grade-7", label: "Grade 7" },
   { id: "grade-8", label: "Grade 8" },
-  { id: "grade-9", label: "Grade 9" },
-  { id: "grade-10", label: "Grade 10" },
-  { id: "grade-11", label: "Grade 11" },
+  { id: "global-9", label: "Global 9" },
+  { id: "global-10", label: "Global 10" },
+  { id: "us-11", label: "U.S. 11" },
+  { id: "ap", label: "AP" },
+  { id: "electives", label: "Electives" },
   { id: "writing", label: "Writing" }
 ];
 
@@ -1486,6 +1728,10 @@ const COURSE_PALETTE = {
   "AP Microeconomics":                   { accent: "#ffd884", glyph: "%" },
   "AP Macro/Micro Combined":             { accent: "#e8a85c", glyph: "Σ" },
   "AP U.S. Government and Politics":     { accent: "#5dc7ff", glyph: "✦" },
+  "Grade 5 Social Studies":              { accent: "#74f0aa", glyph: "5" },
+  "Grade 6 Social Studies":              { accent: "#7af0ff", glyph: "6" },
+  "Grade 7 U.S. History I":              { accent: "#ffd884", glyph: "7" },
+  "Grade 8 U.S. History II":             { accent: "#ffb547", glyph: "8" },
   "Grade 9 Global History I":            { accent: "#69f0aa", glyph: "◇" },
   "Grade 10 Global History II":          { accent: "#8fb4ff", glyph: "◆" },
   "Grade 11 U.S. History":               { accent: "#ffd884", glyph: "✪" },
@@ -1497,8 +1743,10 @@ function paletteFor(course) {
   return COURSE_PALETTE[course] || { accent: "#b892ff", glyph: "◆" };
 }
 function accentFor(game) {
+  if (game.id === "history-hunters") return "#74f0aa";
+  if (game.id === "archive-quest") return "#62e9ff";
   if (game.id === "regents-practice-exam") return "#ffd15c";
-  if (game.id === "regents-rally-source-circuit") return "#ff5f9f";
+  if (game.id === "regents-rally-source-circuit") return "#9aa5b8";
   if (game.id === "lightning-review") return "#ffd15c";
   if (game.id === "source-sprint") return "#62e9ff";
   if (game.id === "vocab-vault") return "#74f0aa";
@@ -1508,8 +1756,10 @@ function accentFor(game) {
   return paletteFor(game.course).accent;
 }
 function glyphFor(game) {
+  if (game.id === "history-hunters") return "HH";
+  if (game.id === "archive-quest") return "AQ";
   if (game.id === "regents-practice-exam") return "✎";
-  if (game.id === "regents-rally-source-circuit") return "RR";
+  if (game.id === "regents-rally-source-circuit") return "β";
   if (game.id === "lightning-review") return "90";
   if (game.id === "source-sprint") return "DBQ";
   if (game.id === "vocab-vault") return "ABC";
@@ -1538,7 +1788,7 @@ function searchable(game) {
   return [game.title, game.subtitle, game.day, game.course, game.subject, game.grade, game.gameType].concat(game.categories || [], game.tags || []).join(" ").toLowerCase();
 }
 function quickPlayIds() {
-  return ["lightning-review", "source-sprint", "vocab-vault"];
+  return ["lightning-review", "source-sprint", "vocab-vault", "archive-cipher"];
 }
 function isQuickPlay(game) {
   return game.collection === "quick-play" || quickPlayIds().includes(game.id);
@@ -1546,25 +1796,33 @@ function isQuickPlay(game) {
 function laneMatches(game) {
   if (state.lane === "all") return true;
   const text = searchable(game);
+  if (state.lane === "play") return ["archive-quest", "history-hunters", "chrono-defense-infinite", "time-rift-survivors", "chrono-pinball", "empire-ascendant", "boss-rush-arena"].includes(game.id);
   if (state.lane === "quick") return isQuickPlay(game);
   if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing/i.test(text) || ["regents-practice-exam", "regents-rally-source-circuit", "regents-gauntlet", "source-sprint"].includes(game.id);
+  if (state.lane === "jeopardy") return /jeopardy/i.test(game.gameType || "") || /jeopardy review|review game|final exam comprehensive/i.test(game.originalFile || game.title || "");
   if (state.lane === "ap") return /^AP\b/.test(game.course || "") || /\bAP\b/.test(text);
   if (state.lane.startsWith("grade-")) {
     const grade = state.lane.replace("grade-", "");
     return String(game.grade || "") === grade || new RegExp("\\bgrade\\s+" + grade + "\\b", "i").test(game.course || "");
   }
+  if (state.lane === "global-9") return game.course === "Grade 9 Global History I";
+  if (state.lane === "global-10") return game.course === "Grade 10 Global History II" || game.course === "Grade 10 Global History II + Grade 11 U.S. History";
+  if (state.lane === "us-11") return game.course === "Grade 11 U.S. History" || game.course === "Grade 10 Global History II + Grade 11 U.S. History";
+  if (state.lane === "electives") return ["Economics", "Civics and Participation in Government"].includes(game.course || "");
   if (state.lane === "writing") return /essay|writing|short answer|long answer|crq|constructed response|document|enduring issue/i.test(text) || game.id === "regents-practice-exam";
   return true;
 }
 function priority(game) {
+  if (game.id === "history-hunters") return -6;
+  if (game.id === "archive-quest") return -5;
   if (game.id === "regents-practice-exam") return -4;
-  if (game.id === "regents-rally-source-circuit") return -3.5;
+  if (game.id === "regents-gauntlet") return -3.6;
   if (game.id === "source-sprint") return -3;
   if (game.id === "lightning-review") return -2;
   if (game.id === "vocab-vault") return -1;
+  if (game.id === "regents-rally-source-circuit") return 8;
   if (game.id === "chrono-defense-infinite") return 0;
   if (game.id === "boss-rush-arena") return 1;
-  if (game.id === "regents-gauntlet") return 2;
   if (game.id === "arcade-duel") return 3;
   if (/AP Psychology Final/i.test(game.title)) return 3;
   if (/Cumulative Yearlong|Yearlong Review/i.test(game.title)) return 4;
@@ -1588,7 +1846,7 @@ function filteredGames() {
   });
 }
 function featuredGames() {
-  const ids = ["regents-practice-exam", "regents-rally-source-circuit", "source-sprint", "lightning-review"];
+  const ids = ["history-hunters", "archive-quest", "regents-practice-exam", "regents-gauntlet"];
   const picks = ids.map((id) => GAMES.find((game) => game.id === id));
   return [...new Map(picks.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 4);
 }
@@ -1676,6 +1934,138 @@ function renderFeatured() {
   document.getElementById("launchFeatured").onclick = () => games[0] && openGame(games[0]);
 }
 
+function buttonCard(game, fallback, className) {
+  if (!game && !fallback) return "";
+  const item = game || fallback;
+  const accent = game ? accentFor(game) : item.accent;
+  const glyph = game ? glyphFor(game) : item.glyph;
+  const id = game ? game.id : item.id;
+  const title = game ? game.title : item.title;
+  const subtitle = game ? game.subtitle : item.subtitle;
+  const kicker = game ? game.gameType : item.kicker;
+  const meta = game ? [game.course, game.day || game.grade].filter(Boolean).join(" · ") : item.meta;
+  return '<button class="' + className + '" type="button" style="--accent:' + accent + ';--glyph:\'' + glyph + '\'" data-id="' + escapeHtml(id) + '">' +
+    '<span class="' + (className === "path-card" ? "path-kicker" : "focus-kicker") + '">' + escapeHtml(kicker) + '</span>' +
+    '<div><h3>' + escapeHtml(title) + '</h3><p>' + escapeHtml(subtitle) + '</p></div>' +
+    '<div class="' + (className === "path-card" ? "path-foot" : "focus-foot") + '"><span>' + escapeHtml(meta || "") + '</span><span class="launch-chip">Open</span></div>' +
+  '</button>';
+}
+
+function renderLaunchPaths() {
+  const paths = [
+    {
+      id: "archive-quest",
+      fallback: { id: "archive-quest", title: "Play", subtitle: "Jump into the polished arcade path: platformer, RPG, boss fights, and fast games.", kicker: "Game-first", meta: "fun review", accent: "#62e9ff", glyph: "PLAY" }
+    },
+    {
+      id: "regents-practice-exam",
+      fallback: { id: "regents-practice-exam", title: "Practice Regents", subtitle: "Full timed exam, source inspection, writing, conversion-chart estimate, and next steps.", kicker: "Exam prep", meta: "Global + U.S.", accent: "#ffd15c", glyph: "EXAM" }
+    },
+    {
+      id: "jeopardy-lane",
+      fallback: { id: "jeopardy-lane", title: "Jeopardy Boards", subtitle: "Course and unit boards for projector review, teams, final wagers, and fast classroom reps.", kicker: "Teacher board", meta: "all courses", accent: "#ff7bcc", glyph: "J" }
+    }
+  ];
+  const html = paths.map((path) => {
+    let game = GAMES.find((g) => g.id === path.id);
+    return buttonCard(game, path.fallback, "path-card");
+  }).join("");
+  const container = document.getElementById("pathCards");
+  if (!container) return;
+  container.innerHTML = html;
+  container.querySelectorAll(".path-card").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.dataset.id === "jeopardy-lane") {
+        state.lane = "jeopardy";
+        state.course = "All Courses";
+        syncFilters();
+        render();
+        document.getElementById("jeopardy").scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      openGame(GAMES.find((game) => game.id === button.dataset.id));
+    });
+  });
+}
+
+function renderPracticeModes() {
+  const ids = ["regents-practice-exam", "regents-gauntlet", "source-sprint", "arcade-duel", "global-regents-sprint-day-1", "us-regents-sprint-day-1"];
+  const games = ids.map((id) => GAMES.find((game) => game.id === id)).filter(Boolean);
+  const backup = GAMES.filter((game) => laneMatchesWith("regents", game)).slice(0, 6);
+  const unique = [...new Map(games.concat(backup).map((game) => [game.id, game])).values()].slice(0, 6);
+  const container = document.getElementById("practiceModes");
+  if (!container) return;
+  container.innerHTML = unique.map((game) => buttonCard(game, null, "focus-card")).join("");
+  container.querySelectorAll(".focus-card").forEach((button) => {
+    button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
+  });
+}
+
+function renderJeopardyModes() {
+  const preferredCourses = ["Grade 10 Global History II", "Grade 11 U.S. History", "Grade 8 U.S. History II", "Grade 7 U.S. History I", "AP Psychology", "AP United States History"];
+  const picks = preferredCourses.map((course) => GAMES.find((game) => game.course === course && /Jeopardy/i.test(game.title || game.originalFile || ""))).filter(Boolean);
+  const fallback = GAMES.filter((game) => /Jeopardy/i.test(game.title || game.originalFile || "")).slice(0, 6);
+  const games = [...new Map(picks.concat(fallback).map((game) => [game.id, game])).values()].slice(0, 6);
+  const container = document.getElementById("jeopardyModes");
+  if (!container) return;
+  container.innerHTML = games.map((game) => buttonCard(game, null, "focus-card")).join("");
+  container.querySelectorAll(".focus-card").forEach((button) => {
+    button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
+  });
+  const all = document.getElementById("showAllJeopardyBtn");
+  if (all) all.onclick = () => {
+    state.lane = "jeopardy";
+    state.course = "All Courses";
+    syncFilters();
+    render();
+    document.getElementById("library").scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+}
+
+function laneMatchesWith(lane, game) {
+  const old = state.lane;
+  state.lane = lane;
+  const ok = laneMatches(game);
+  state.lane = old;
+  return ok;
+}
+
+function syncFilters() {
+  const course = document.getElementById("courseFilter");
+  const subject = document.getElementById("subjectFilter");
+  const type = document.getElementById("typeFilter");
+  if (course) course.value = state.course;
+  if (subject) subject.value = state.subject;
+  if (type) type.value = state.type;
+}
+
+function renderProgressReport() {
+  const container = document.getElementById("progressReport");
+  if (!container || !window.MrMacsProgress) return;
+  const summary = window.MrMacsProgress.summary(GAMES);
+  const rec = summary.recommendation && summary.recommendation.game;
+  const recHtml = rec ? '<button class="action compact" type="button" data-progress-open="' + escapeHtml(rec.id) + '">Start Next</button>' : '<a class="action compact" href="#launch-paths">Choose Path</a>';
+  const recent = summary.recent.length ? summary.recent.map((item) =>
+    '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>' + escapeHtml(item.course || "Review") + '</span><span>' + (item.score !== null ? escapeHtml(String(item.score)) : item.accuracy !== null ? escapeHtml(item.accuracy + "%") : "opened") + '</span></div>'
+  ).join("") : '<div class="progress-item"><span><strong>No local plays yet</strong><br>Start any game to build this report.</span><span>new</span></div>';
+  const weak = summary.weak.length ? summary.weak.map((item) =>
+    '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>review signal</span><span>' + Number(item.count || 0) + '</span></div>'
+  ).join("") : '<div class="progress-item"><span><strong>No weak topics yet</strong><br>Complete a game or exam to see targets.</span><span>clear</span></div>';
+  const best = summary.best.length ? summary.best.map((item) =>
+    '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>' + escapeHtml(item.course || "Review") + '</span><span>' + escapeHtml(String(item.bestScore ?? item.bestAccuracy ?? "")) + '</span></div>'
+  ).join("") : '<div class="progress-item"><span><strong>No best scores yet</strong><br>Scores appear after completions.</span><span>--</span></div>';
+  container.innerHTML =
+    '<article class="progress-card recommendation"><span class="progress-kicker">Recommended next</span><div><h3>' + escapeHtml(rec ? rec.title : "Start with Play") + '</h3><p>' + escapeHtml(summary.recommendation.reason || "Pick a path and start practicing.") + '</p></div><div class="progress-foot"><span>' + escapeHtml(rec ? rec.course + " · " + rec.gameType : "local report") + '</span>' + recHtml + '</div></article>' +
+    '<article class="progress-card"><span class="progress-kicker">Recent</span><div class="progress-list">' + recent + '</div></article>' +
+    '<article class="progress-card"><span class="progress-kicker">Weak Topics</span><div class="progress-list">' + weak + '</div></article>' +
+    '<article class="progress-card"><span class="progress-kicker">Best Scores</span><div class="progress-list">' + best + '</div></article>';
+  container.querySelectorAll("[data-progress-open]").forEach((button) => {
+    button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.progressOpen)));
+  });
+  const heroLaunch = document.getElementById("launchFeatured");
+  if (heroLaunch && rec) heroLaunch.onclick = () => openGame(rec);
+}
+
 // ============== Quick play ==============
 function renderQuickPlay() {
   const games = quickPlayIds().map((id) => GAMES.find((game) => game.id === id)).filter(Boolean);
@@ -1705,6 +2095,10 @@ function renderQuickPlay() {
 function renderCourseTiles() {
   const courses = uniq(GAMES.map((game) => game.course).filter((course) => course && course !== "All Courses"));
   const order = [
+    "Grade 5 Social Studies",
+    "Grade 6 Social Studies",
+    "Grade 7 U.S. History I",
+    "Grade 8 U.S. History II",
     "Grade 9 Global History I",
     "Grade 10 Global History II",
     "Grade 11 U.S. History",
@@ -1745,8 +2139,7 @@ function renderCourseTiles() {
     button.addEventListener("click", () => {
       state.lane = "all";
       state.course = button.dataset.course;
-      const select = document.getElementById("courseFilter");
-      if (select) select.value = state.course;
+      syncFilters();
       render();
       document.getElementById("library").scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -1937,13 +2330,25 @@ async function boot() {
     await loadGamesManifest();
     initFilters();
     renderMetrics();
+    renderLaunchPaths();
+    renderPracticeModes();
     renderFeatured();
+    renderProgressReport();
+    renderJeopardyModes();
     renderQuickPlay();
     renderCourseTiles();
     initFx();
     initParallax();
     render();
     initReveal();
+    window.addEventListener("mrmacs-progress", renderProgressReport);
+    document.getElementById("printReportBtn")?.addEventListener("click", () => window.print());
+    document.getElementById("clearReportBtn")?.addEventListener("click", () => {
+      if (confirm("Clear the local progress report stored in this browser?")) {
+        window.MrMacsProgress?.clear();
+        renderProgressReport();
+      }
+    });
   } catch (error) {
     console.error(error);
     document.getElementById("countLabel").textContent = "Games failed to load";

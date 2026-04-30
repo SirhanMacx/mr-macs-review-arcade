@@ -332,7 +332,11 @@ input:focus {
   border-color: var(--cyan);
   box-shadow: 0 0 0 3px rgba(105,245,255,.14);
 }
-select option { color: #08101e; }
+select option,
+select optgroup {
+  color: #07111f;
+  background: #f8fbff;
+}
 .mode-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

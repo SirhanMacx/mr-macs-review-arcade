@@ -7,8 +7,8 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 ## What Is Included
 
 - 173 browser-playable review games
-- Regents Practice Exam, a timed full-exam simulator with expandable/zoomable source inspection, 28 released-bank MCQs, CRQs, essay practice, approximate scoring, writing guide position, and conversion-chart estimate
-- Archive Quest, a generated-art 2D social-studies platformer with three levels, platform physics, enemies, evidence collectibles, review gates, and question-unlocked powerups
+- Regents Practice Exam, a timed full-exam simulator with expandable/zoomable source inspection, 28 released-bank MCQs, Global II CRQs, U.S. History short essays, Part IIIA scaffold practice, document essays, January 2026 conversion-chart estimates, and writing guide position
+- Archive Quest, the flagship generated-art 2D social-studies platformer with tuned double jump, smoother camera, three levels, platform physics, enemies, evidence collectibles, review gates, and question-unlocked powerups
 - Archive Cipher, a generated-art review Wordle-style term decoder with course filters, unit filters, animated tile feedback, hints, and explanations from the full review library
 - History Hunters, an original all-courses retro handheld social studies RPG with route walking, course-type battles, historical figure companion lines, answer-powered moves, capture capsules, and evolution stages
 - Chrono Pinball, a full-library arcade pinball table with course filters, review lock missions, bumpers, lanes, multipliers, ball save, and multiball
@@ -40,6 +40,8 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - Civics and Participation in Government
 - Unit games, cumulative games, and final review games
 - Generated arcade hub artwork, search, filters, featured missions, and embedded in-page player
+- Three top-level launch paths: Play, Practice Regents, and Jeopardy Boards
+- Local browser progress reports with recent games, best scores, weak topics, and recommended next practice
 - Generated History Hunters RPG assets: ten figure/evolution avatar atlases, retro tile/sprite atlas, retro title/battle sheet, retro item/action sheet, structured character/evolution codex atlas, type-effect atlas, overworld map art, key art, and recruit seal
 - Solo and team play options
 - Jeopardy boards are normalized during publishing so each category ramps from lower-value recall clues to higher-value challenge clues
@@ -103,6 +105,9 @@ Recommended quality gate before publishing:
 
 - Run `python3 scripts/validate_arcade.py`
 - Open `index.html` locally (or via GitHub Pages) and sanity-check:
+  - Homepage launch paths, local report, grade/course portals, and Jeopardy lane
+  - Regents Practice Exam for both Global II and U.S. History, including stimulus zoom and score report
+  - Archive Quest movement, double jump, gates, and completion report
   - History Hunters 2: Atlas Quest
   - Boss Rush Arena
   - Chrono Defense Infinite
@@ -117,7 +122,7 @@ Question-bank maintenance:
 
 ## Game Queue
 
-- Next: rebuild Regents Rally from scratch as a true kart racer with tighter controls, real-feeling acceleration/drift, proper animations, and higher-end generated assets.
+- Regents Rally is labeled as a racing lab until it can be rebuilt into a substantially stronger racer. Keep it behind the flagship games.
 
 ## Traffic Counter
 

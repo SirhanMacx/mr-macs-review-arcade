@@ -137,6 +137,159 @@
     return data;
   }
 
+  var PROGRESS_KEY = PREFIX + ":student-progress";
+
+  function readProgress() {
+    try {
+      var data = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
+      data.version = 1;
+      data.recent = Array.isArray(data.recent) ? data.recent : [];
+      data.games = data.games || {};
+      data.weakTopics = data.weakTopics || {};
+      data.courseTotals = data.courseTotals || {};
+      return data;
+    } catch (error) {
+      return { version: 1, recent: [], games: {}, weakTopics: {}, courseTotals: {} };
+    }
+  }
+
+  function writeProgress(data) {
+    try {
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(data));
+    } catch (error) {}
+  }
+
+  function normalizeTopics(detail) {
+    var values = [];
+    if (Array.isArray(detail.weakTopics)) values = values.concat(detail.weakTopics);
+    if (Array.isArray(detail.studyTargets)) values = values.concat(detail.studyTargets);
+    if (Array.isArray(detail.targets)) values = values.concat(detail.targets);
+    if (detail.topic) values.push(detail.topic);
+    if (detail.course && Number(detail.accuracy) < 70) values.push(detail.course);
+    return values.map(function (value) {
+      if (Array.isArray(value)) value = value[0];
+      if (value && typeof value === "object") value = value.title || value.label || value.name || value.set || value.topic;
+      return String(value || "").trim();
+    }).filter(Boolean).slice(0, 8);
+  }
+
+  function recordProgressEvent(type, detail) {
+    detail = detail || {};
+    if (type !== "game_launch" && type !== "game_play" && type !== "game_complete") return readProgress();
+    var now = new Date().toISOString();
+    var data = readProgress();
+    var gameId = slug(detail.gameId || gameIdFromPath() || detail.title || pagePath);
+    var score = Number(detail.score);
+    var accuracy = Number(detail.accuracy);
+    var course = detail.course || "";
+    var game = data.games[gameId] || {
+      id: gameId,
+      title: detail.title || gameId,
+      course: course,
+      gameType: detail.gameType || "",
+      launches: 0,
+      plays: 0,
+      completions: 0,
+      bestScore: null,
+      bestAccuracy: null
+    };
+    game.title = detail.title || game.title;
+    game.course = course || game.course;
+    game.gameType = detail.gameType || game.gameType;
+    if (type === "game_launch") game.launches = Number(game.launches || 0) + 1;
+    if (type === "game_play") game.plays = Number(game.plays || 0) + 1;
+    if (type === "game_complete") {
+      game.completions = Number(game.completions || 0) + 1;
+      if (Number.isFinite(score)) game.bestScore = game.bestScore === null ? score : Math.max(Number(game.bestScore || 0), score);
+      if (Number.isFinite(accuracy)) game.bestAccuracy = game.bestAccuracy === null ? accuracy : Math.max(Number(game.bestAccuracy || 0), accuracy);
+    }
+    game.lastSeen = now;
+    data.games[gameId] = game;
+
+    if (course) {
+      var c = slug(course);
+      data.courseTotals[c] = data.courseTotals[c] || { title: course, launches: 0, completions: 0 };
+      if (type === "game_launch") data.courseTotals[c].launches += 1;
+      if (type === "game_complete") data.courseTotals[c].completions += 1;
+    }
+
+    normalizeTopics(detail).forEach(function (topic) {
+      var key = slug(topic);
+      data.weakTopics[key] = data.weakTopics[key] || { title: topic, count: 0, lastSeen: now };
+      data.weakTopics[key].count += 1;
+      data.weakTopics[key].lastSeen = now;
+    });
+
+    data.recent.unshift({
+      type: type,
+      at: now,
+      gameId: gameId,
+      title: game.title,
+      course: game.course,
+      score: Number.isFinite(score) ? score : null,
+      accuracy: Number.isFinite(accuracy) ? accuracy : null
+    });
+    data.recent = data.recent.slice(0, 18);
+    data.lastUpdated = now;
+    writeProgress(data);
+    window.dispatchEvent(new CustomEvent("mrmacs-progress", { detail: data }));
+    return data;
+  }
+
+  function progressSummary(games) {
+    var data = readProgress();
+    var gameValues = Object.keys(data.games).map(function (id) { return data.games[id]; });
+    var weak = Object.keys(data.weakTopics).map(function (id) { return data.weakTopics[id]; })
+      .sort(function (a, b) { return Number(b.count || 0) - Number(a.count || 0) || String(b.lastSeen || "").localeCompare(String(a.lastSeen || "")); })
+      .slice(0, 5);
+    var completed = gameValues.filter(function (game) { return Number(game.completions || 0) > 0; }).length;
+    var best = gameValues
+      .filter(function (game) { return game.bestScore !== null || game.bestAccuracy !== null; })
+      .sort(function (a, b) { return Number(b.bestScore || b.bestAccuracy || 0) - Number(a.bestScore || a.bestAccuracy || 0); })
+      .slice(0, 5);
+    return {
+      data: data,
+      recent: data.recent.slice(0, 6),
+      weak: weak,
+      best: best,
+      completed: completed,
+      recommendation: recommendation(games || [], data, weak)
+    };
+  }
+
+  function findGame(games, ids) {
+    for (var i = 0; i < ids.length; i += 1) {
+      var found = (games || []).find(function (game) { return game.id === ids[i]; });
+      if (found) return found;
+    }
+    return null;
+  }
+
+  function recommendation(games, data, weak) {
+    var recent = data.recent && data.recent[0];
+    var lastAccuracy = recent && Number(recent.accuracy);
+    if (!data.recent.length) {
+      return { reason: "Start with a game, then move into a practice set.", game: findGame(games, ["archive-quest", "history-hunters", "lightning-review"]) };
+    }
+    if ((recent && /regents|practice/i.test(recent.title || "")) || (Number.isFinite(lastAccuracy) && lastAccuracy < 70)) {
+      return { reason: "Build source-reading reps before the next full exam.", game: findGame(games, ["source-sprint", "regents-gauntlet", "lightning-review"]) };
+    }
+    if (weak.length) {
+      return { reason: "Target the weak topic list while it is fresh.", game: findGame(games, ["regents-gauntlet", "source-sprint", "vocab-vault"]) };
+    }
+    return { reason: "Keep the streak going with a polished arcade mode.", game: findGame(games, ["archive-quest", "history-hunters", "chrono-defense-infinite", "lightning-review"]) };
+  }
+
+  window.MrMacsProgress = {
+    recordEvent: recordProgressEvent,
+    read: readProgress,
+    summary: progressSummary,
+    clear: function () {
+      try { localStorage.removeItem(PROGRESS_KEY); } catch (error) {}
+      window.dispatchEvent(new CustomEvent("mrmacs-progress", { detail: readProgress() }));
+    }
+  };
+
   function requestCounter(method, name) {
     var key = counterKey(name);
     var url = API + "/" + method + "/" + encodeURIComponent(key);
@@ -267,11 +420,10 @@
       "game-launches",
       "game-views",
       "game-plays",
-      "game-completions",
-      "daily-" + today + "-site-visits",
-      "daily-" + today + "-game-plays"
+      "game-completions"
     ];
     return Promise.all(counters.map(getGlobal)).then(function (values) {
+      var existing = window.__MR_MACS_GLOBAL_TRAFFIC__ || {};
       window.__MR_MACS_GLOBAL_TRAFFIC__ = {
         siteVisits: values[0],
         engagedSessions: values[1],
@@ -279,8 +431,8 @@
         gameViews: values[3],
         gamePlays: values[4],
         completions: values[5],
-        todayVisits: values[6],
-        todayGamePlays: values[7],
+        todayVisits: existing.todayVisits,
+        todayGamePlays: existing.todayGamePlays,
         connected: values.some(function (value) { return value !== null; })
       };
       render(window.__MR_MACS_GLOBAL_TRAFFIC__);
@@ -294,6 +446,9 @@
     if (!detail.gameId && isGamePage) detail.gameId = gameIdFromPath();
     if (!detail.title) detail.title = document.title;
     var local = bumpLocal(type, detail);
+    if (window.MrMacsProgress && window.MrMacsProgress.recordEvent) {
+      window.MrMacsProgress.recordEvent(type, detail);
+    }
     render();
 
     var counterName = options.counter || aggregateCounter(type);
