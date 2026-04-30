@@ -120,6 +120,11 @@ def _normalize_key(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", (text or "").lower())
 
 
+def _slug(text: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", (text or "").lower()).strip("-")
+    return slug or "regents-source"
+
+
 def _guess_stimulus_required(stem: str) -> bool:
     trigger = (
         "based on",
@@ -204,6 +209,7 @@ def _save_stimulus_crops(
     page_number: int,
     images: list[dict[str, Any]],
     out_dir: Path,
+    asset_prefix: str,
     jpeg_quality: int,
     resolution: int,
 ) -> list[dict[str, str]]:
@@ -212,11 +218,12 @@ def _save_stimulus_crops(
         return saved
     out_dir.mkdir(parents=True, exist_ok=True)
     page_code = f"{page_number:02d}"
-    manifest_path = out_dir / f"stimulus-{page_code}.json"
+    prefix = _slug(asset_prefix)
+    manifest_path = out_dir / f"{prefix}-stimulus-{page_code}.json"
     manifest = []
     for idx, im in enumerate(images, start=1):
         img_code = f"{idx:02d}"
-        filename = f"stimulus-{page_code}-{img_code}.jpg"
+        filename = f"{prefix}-stimulus-{page_code}-{img_code}.jpg"
         out_path = out_dir / filename
         if not out_path.exists():
             crop = page.crop((im["x0"], im["top"], im["x1"], im["bottom"]))
@@ -352,6 +359,7 @@ def _parse_question_block(block: dict[str, Any]) -> dict[str, Any] | None:
 def parse_answer_key_pdf(
     pdf_path: Path,
     stimulus_dir: Path,
+    asset_prefix: str,
     jpeg_quality: int,
     resolution: int,
 ) -> dict[int, dict[str, Any]]:
@@ -373,6 +381,7 @@ def parse_answer_key_pdf(
                 page_number=page_index,
                 images=images,
                 out_dir=stimulus_dir,
+                asset_prefix=asset_prefix,
                 jpeg_quality=jpeg_quality,
                 resolution=resolution,
             )
@@ -418,6 +427,7 @@ def main() -> int:
     parser.add_argument("--set", required=True, dest="set_name", help="Set name, e.g. \"Colonial + Constitution + Supreme Court\"")
     parser.add_argument("--id-prefix", required=True, help="e.g. us-day1")
     parser.add_argument("--stimulus-dir", required=True, help="Directory under assets/ for crops, e.g. assets/regents-gauntlet-stimuli/us-day1")
+    parser.add_argument("--asset-prefix", help="Unique prefix for generated crop files. Defaults to the answer-key PDF filename.")
     parser.add_argument("--jpeg-quality", type=int, default=80)
     parser.add_argument("--resolution", type=int, default=144)
     args = parser.parse_args()
@@ -436,6 +446,7 @@ def main() -> int:
     parsed = parse_answer_key_pdf(
         pdf_path=pdf_path,
         stimulus_dir=stimulus_dir,
+        asset_prefix=args.asset_prefix or pdf_path.stem,
         jpeg_quality=max(40, min(95, args.jpeg_quality)),
         resolution=max(96, min(220, args.resolution)),
     )

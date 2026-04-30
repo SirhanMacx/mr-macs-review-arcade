@@ -174,6 +174,20 @@ def check_regents_practice_runtime() -> list[str]:
     return [detail]
 
 
+def check_regents_source_integrity() -> list[str]:
+    result = subprocess.run(
+        ["node", "scripts/validate-regents-source-integrity.mjs"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    detail = (result.stderr or result.stdout or "Regents source integrity validation failed").strip()
+    return [detail]
+
+
 def check_flagship_game_audit() -> list[str]:
     result = subprocess.run(
         ["node", "scripts/audit-flagship-games.mjs"],
@@ -324,6 +338,7 @@ def main() -> int:
     checks = [
         ("games.json file paths", check_games_manifest),
         ("regents stimuli assets", check_regents_stimuli),
+        ("regents source-question integrity", check_regents_source_integrity),
         ("regents practice exam shape", check_regents_practice_exam),
         ("regents practice assembly", check_regents_practice_runtime),
         ("flagship game audit", check_flagship_game_audit),
