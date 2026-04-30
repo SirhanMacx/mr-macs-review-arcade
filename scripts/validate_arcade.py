@@ -204,6 +204,16 @@ def _norm_text(value: object) -> str:
 
 def check_jeopardy_boards() -> list[str]:
     errors: list[str] = []
+    result = subprocess.run(
+        ["node", "scripts/validate-jeopardy-boards.mjs"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout or "Jeopardy board hardening validation failed").strip()
+        errors.append(detail)
     bad_text = re.compile(
         r"tighten the most tested|precise vocabulary|state one limitation|policy reasoning|"
         r"labor policy reference|receipts and outlays|current population survey|"
