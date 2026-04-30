@@ -86,6 +86,16 @@ def check_regents_practice_exam() -> list[str]:
         "docGroupKey",
         "writingDocAudit",
         "duplicateWritingDocs",
+        "mcqWritingOverlap",
+        "missingWritingImages",
+        "courseStimulusMismatches",
+        "mergedWritingSources",
+        "unknownWritingSources",
+        "requiredDocCountsOk",
+        "writingIntegrityOk",
+        "same six-document Civic Literacy set",
+        "STIMULUS_VISUAL_FAMILY_GROUPS",
+        "docStemGuardKey",
         "Document set protection",
     ]
     for needle in required:
@@ -108,6 +118,28 @@ def check_regents_practice_exam() -> list[str]:
         errors.append("Global II conversion chart top cell should be 100.")
     if us_chart and us_chart[-1][-1] != 100:
         errors.append("U.S. History conversion chart top cell should be 100.")
+    bank = load_json(ROOT / "data" / "regents-gauntlet-bank.json")
+    required_groups = {
+        "Grade 10 Global History II": 9,
+        "Grade 11 U.S. History": 10,
+    }
+    for course, writing_needed in required_groups.items():
+        groups: set[str] = set()
+        for q in bank.get("questions", []):
+            if q.get("course") != course:
+                continue
+            images = [img for img in q.get("stimulusImages") or [] if (img or {}).get("src")]
+            if not images:
+                continue
+            src = images[0]["src"]
+            match = re.search(r"regents-gauntlet-stimuli/([^/]+)/(stimulus-\d+(?:-\d+)?)", src)
+            bundle = f"{match.group(1)}/{match.group(2)}" if match else re.sub(r"-\d+(\.[a-z0-9]+)$", r"\1", src, flags=re.I)
+            groups.add(f"{course}|{bundle}|{_norm_text(q.get('source') or q.get('id'))}")
+        if len(groups) < 28 + writing_needed:
+            errors.append(
+                f"{course} practice bank needs at least {28 + writing_needed} unique image-backed source groups "
+                f"to keep MCQs separate from writing; found {len(groups)}."
+            )
     return errors
 
 
@@ -121,6 +153,20 @@ def check_select_option_contrast() -> list[str]:
         if "select" in text and "select option" in text and "background: #f8fbff" not in text:
             errors.append(f"{path.relative_to(ROOT)}: select options need a light background for readable dropdown menus.")
     return errors
+
+
+def check_regents_practice_runtime() -> list[str]:
+    result = subprocess.run(
+        ["node", "scripts/audit-regents-practice.mjs"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    detail = (result.stderr or result.stdout or "runtime audit failed").strip()
+    return [detail]
 
 
 def check_index_uses_games_json() -> list[str]:
@@ -237,6 +283,7 @@ def main() -> int:
         ("games.json file paths", check_games_manifest),
         ("regents stimuli assets", check_regents_stimuli),
         ("regents practice exam shape", check_regents_practice_exam),
+        ("regents practice assembly", check_regents_practice_runtime),
         ("dropdown option contrast", check_select_option_contrast),
         ("index.html games load", check_index_uses_games_json),
         ("game thumbnails", check_game_thumbnails),

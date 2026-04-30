@@ -5,3 +5,4 @@ body.viewer-open{overflow:hidden}.inspect-btn{display:inline-flex;align-items:ce
 @media (min-width:901px) and (max-width:1120px){.exam-layout{grid-template-columns:280px minmax(0,1fr)}.mcq-shell{grid-template-columns:minmax(330px,.42fr) minmax(0,1fr)}.result-grid{grid-template-columns:1fr 1fr}.exam-status{position:sticky;top:10px}.exam-status,.work-surface{min-height:calc(100vh - 150px)}}
 
 select option, select optgroup { color: #07111f; background: #f8fbff; }
+.doc-audit-tile small{display:block;margin-top:6px;color:var(--muted);font-size:11px;font-weight:850;line-height:1.25}.doc-audit-tile.good{border-color:rgba(90,240,174,.5);background:rgba(90,240,174,.08)}.doc-audit-tile.warn{border-color:rgba(255,97,120,.58);background:rgba(255,97,120,.08)}.doc-set-note{margin:10px 0 0;padding:10px 12px;border:1px solid rgba(98,233,255,.32);border-radius:8px;background:rgba(98,233,255,.08);color:#dfeeff;font-size:13px;font-weight:800;line-height:1.35}
