@@ -42,7 +42,7 @@ COURSE_META = {
         "assetPrefix": "us",
         "label": "U.S. History",
         "shortTitle": "Part II: Document-Based Short Essays",
-        "scaffoldTitle": "Part IIIA: Civic Literacy Scaffold Questions",
+        "scaffoldTitle": "Part IIIA: Civic Literacy Short-Answer Questions",
         "essayTitle": "Part IIIB: Civic Literacy Essay",
         "essayPrompt": "Identify the constitutional or civic issue raised by the documents. Explain the historical circumstances surrounding the issue, describe efforts by people or government to address it, and discuss the extent to which those efforts were successful. Use evidence from the documents and outside information.",
         "essayDocMinimum": 4,
@@ -60,6 +60,27 @@ def slug(value: str) -> str:
 
 def clean(value: str) -> str:
     return re.sub(r"\s+", " ", value or "").strip()
+
+
+def clean_display(value: str) -> str:
+    text = clean(value)
+    replacements = {
+        "fi ": "fi",
+        "fl ": "fl",
+        "ൿ": "fi",
+        "ൺ": "I",
+        "—": "-",
+        "–": "-",
+        "“": '"',
+        "”": '"',
+        "‘": "'",
+        "’": "'",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    text = re.sub(r"\s+([,.;:?!])", r"\1", text)
+    text = re.sub(r"\(\s*([1-4])\s*\)", r"(\1)", text)
+    return text
 
 
 def numeric(value):
@@ -224,27 +245,205 @@ def make_doc(course: str, administration: str, section: str, doc_number: int, pa
     }
 
 
-def question_page_map(texts: list[str], part_two_page: int | None) -> dict[int, int]:
-    search_end = (part_two_page or min(len(texts), 18)) - 1
-    pages = list(range(2, max(2, search_end) + 1))
-    mapping: dict[int, int] = {}
-    for qnum in range(1, 29):
-        pattern = re.compile(rf"(?m)^\s*{qnum}\s+", re.I)
-        for page_number in pages:
-            if pattern.search(texts[page_number - 1]):
-                mapping[qnum] = page_number
-                break
-        if qnum not in mapping:
-            fallback_index = round((qnum - 1) * (len(pages) - 1) / 27) if len(pages) > 1 else 0
-            mapping[qnum] = pages[min(fallback_index, len(pages) - 1)]
-    return mapping
+def question_marker(number: int) -> re.Pattern:
+    # Regents PDFs often include maps with standalone electoral-vote numbers at
+    # the start of extracted lines. Only treat horizontal same-line spacing as a
+    # question marker so map labels like "11\nS.C." do not become Question 11.
+    return re.compile(rf"(?m)^[^\S\r\n]*(?:[\u2000-\u200a\u00a0][^\S\r\n]*)?{number}(?:\t|[^\S\r\n]+(?=\S))")
+
+
+def any_question_marker() -> re.Pattern:
+    return re.compile(r"(?m)^[^\S\r\n]*(?:[\u2000-\u200a\u00a0][^\S\r\n]*)?(?:[1-9]|1\d|2[0-8])(?:\t|[^\S\r\n]+(?=\S))")
+
+
+def page_question_markers(text: str) -> list[tuple[int, int]]:
+    markers = []
+    for number in range(1, 29):
+        match = question_marker(number).search(text)
+        if match:
+            markers.append((match.start(), number))
+    return sorted(markers)
+
+
+def trim_choice_tail(text: str) -> str:
+    stops = [
+        r"\n\s*(?:[1-9]|1\d|2[0-8])[\t \u00a0\u2000-\u200a]+(?=[A-Z\"“])",
+        r"\n\s*Base your answers?\b",
+        r"\n\s*Part I\b",
+        r"\n\s*Directions\b",
+        r"\n\s*Source:\s*$",
+        r"\n\s*Global Hist\.",
+        r"\n\s*U\.S\. Hist\.",
+        r"\n\s*\[\d+\]",
+    ]
+    end = len(text)
+    for pattern in stops:
+        match = re.search(pattern, text, flags=re.I)
+        if match:
+            end = min(end, match.start())
+    return text[:end]
+
+
+def choice_group(matches: list[re.Match]) -> list[re.Match]:
+    for start, match in enumerate(matches):
+        if match.group(1) != "1":
+            continue
+        picked = {match.group(1): match}
+        for candidate in matches[start + 1:]:
+            picked.setdefault(candidate.group(1), candidate)
+            if len(picked) == 4:
+                return sorted(picked.values(), key=lambda item: item.start())
+    return []
+
+
+QUESTION_STARTERS = {
+    "a",
+    "according",
+    "after",
+    "an",
+    "as",
+    "based",
+    "before",
+    "during",
+    "for",
+    "following",
+    "from",
+    "how",
+    "in",
+    "one",
+    "the",
+    "these",
+    "this",
+    "to",
+    "under",
+    "what",
+    "which",
+    "why",
+}
+
+
+BAD_STEM_START = re.compile(
+    r"^(?:ala|ark|calif|colo|conn|del|fla|ga|ill|ind|iowa|kans|ky|la|mass|md|me|mich|minn|miss|mo|neb|nev|n\.h|n\.j|n\.c|n\.y|ohio|oreg|pa|penna|r\.i|s\.c|tenn|tex|va|vt|w\.|wis|messidor|source|electoral|popular)\b",
+    re.I,
+)
+
+
+def score_question_candidate(stem: str, choices: list[dict], marker_line: str) -> int:
+    normalized = clean_display(stem)
+    first_word = (re.findall(r"[A-Za-z][A-Za-z.'-]*", normalized[:80]) or [""])[0].lower().rstrip(".")
+    score = 0
+    if first_word in QUESTION_STARTERS:
+        score += 28
+    if re.search(r"\b(which|what|how|why|according|based|identify|infer|conclusion|claim|result|cause|effect)\b", normalized[:140], re.I):
+        score += 14
+    if "\t" in marker_line:
+        score += 4
+    if 18 <= len(normalized) <= 420:
+        score += 12
+    elif len(normalized) > 900:
+        score -= 25
+    if BAD_STEM_START.search(normalized):
+        score -= 35
+    if re.search(r"\bSource:|\bElectoral Votes\b|\bPopular\b", normalized, re.I):
+        score -= 12
+    if all(choice.get("text") and not re.fullmatch(r"Choice\s+[1-4]", choice["text"]) for choice in choices):
+        score += 18
+    if any(len(choice.get("text", "")) < 3 for choice in choices):
+        score -= 20
+    return score
+
+
+def parse_question_candidate(page_text: str, number: int, match: re.Match) -> tuple[int, str, list[dict]] | None:
+    line_end = page_text.find("\n", match.start())
+    marker_line = page_text[match.start(): line_end if line_end != -1 else len(page_text)]
+    tail = page_text[match.end():]
+    matches = list(re.finditer(r"\(\s*([1-4])\s*\)", tail))
+    picked = choice_group(matches)
+    if len(picked) != 4:
+        return None
+
+    stem = clean_display(tail[:picked[0].start()])
+    choices = []
+    for index, choice_match in enumerate(picked):
+        label = choice_match.group(1)
+        start = choice_match.end()
+        end = picked[index + 1].start() if index + 1 < len(picked) else len(tail)
+        if index == len(picked) - 1:
+            next_marker = any_question_marker().search(tail, pos=start)
+            if next_marker:
+                end = min(end, next_marker.start())
+        choice_text = clean_display(trim_choice_tail(tail[start:end]))
+        choices.append({"label": label, "text": choice_text})
+    choices = sorted(choices, key=lambda choice: int(choice["label"]))
+
+    if not stem or len(choices) != 4 or any(not choice["text"] for choice in choices):
+        return None
+    return score_question_candidate(stem, choices, marker_line), stem, choices
+
+
+def extract_question_from_pages(texts: list[str], number: int, part_two_page: int | None) -> tuple[int, str, list[dict]]:
+    search_end = max(2, (part_two_page or min(len(texts), 18)) - 1)
+    candidates: list[tuple[int, int, str, list[dict]]] = []
+    for page_number in range(2, min(search_end, len(texts)) + 1):
+        page_text = texts[page_number - 1]
+        for match in question_marker(number).finditer(page_text):
+            parsed = parse_question_candidate(page_text, number, match)
+            if parsed:
+                score, stem, choices = parsed
+                candidates.append((score, page_number, stem, choices))
+    if not candidates:
+        raise RuntimeError(f"could not digitize MCQ {number}: no stem with four choices found")
+    score, page_number, stem, choices = max(candidates, key=lambda item: item[0])
+    if score < 20:
+        raise RuntimeError(f"could not confidently digitize MCQ {number}: best candidate on page {page_number} scored {score}")
+    return page_number, stem, choices
+
+
+def question_has_stimulus(page_text: str, number: int) -> bool:
+    pattern = re.compile(r"Base your answers?\s+to\s+questions?\s+(\d{1,2})(?:\s*(?:and|through|to|-)\s*(\d{1,2}))?", re.I)
+    for match in pattern.finditer(page_text.replace("–", "-")):
+        start = int(match.group(1))
+        end = int(match.group(2) or start)
+        if start <= number <= end:
+            return True
+    return False
+
+
+def prompt_for_label(texts: list[str], pages: list[int], label: str) -> str:
+    joined = "\n".join(texts[page - 1] for page in pages if 1 <= page <= len(texts))
+    match = re.search(rf"(?m)^\s*{re.escape(label)}\s+(.+?)\s+\[\d\]", joined, flags=re.S)
+    if not match:
+        return ""
+    return clean_display(match.group(1))
+
+
+def seq_task_prompts(texts: list[str], start: int, end: int, question_number: int) -> list[str]:
+    joined = "\n".join(texts[page - 1] for page in range(start, min(end, len(texts) + 1)))
+    task_match = re.search(r"Task:\s*(.+?)(?=\n\s*(?:In developing|Document 1|SEQ Set)|$)", joined, flags=re.I | re.S)
+    if not task_match:
+        return [f"Write Short Essay Question {question_number} using the two official documents."]
+    body = task_match.group(1)
+    bullets = [clean_display(item) for item in re.findall(r"•\s*(.+?)(?=(?:\n\s*•|\n\s*In developing|\n\s*Document 1|$))", body, flags=re.S)]
+    if bullets:
+        return bullets
+    prompt = clean_display(body)
+    return [prompt] if prompt else [f"Write Short Essay Question {question_number} using the two official documents."]
+
+
+def normalize_us_scaffold_titles(tasks: list[dict]) -> list[dict]:
+    normalized = []
+    for index, task in enumerate(tasks, start=1):
+        item = dict(task)
+        if re.search(r"\bscaffold\b", item.get("title", ""), re.I):
+            item["title"] = f"Civic SAQ {30 + index}"
+        normalized.append(item)
+    return normalized
 
 
 def build_mcq(course: str, administration: str, form_id: str, pdf: fitz.Document, texts: list[str], out_dir: Path, keys: dict[int, str], part_two_page: int | None) -> list[dict]:
-    pages = question_page_map(texts, part_two_page)
     items = []
     for number in range(1, 29):
-        page_number = pages[number]
+        page_number, stem, choices = extract_question_from_pages(texts, number, part_two_page)
         asset = page_asset(pdf, out_dir, page_number, f"{administration} official exam page {page_number}")
         items.append(
             {
@@ -255,14 +454,14 @@ def build_mcq(course: str, administration: str, form_id: str, pdf: fitz.Document
                 "number": number,
                 "officialQuestionNumber": number,
                 "source": f"{administration} official exam page {page_number}",
-                "stem": f"Question {number} - read the official NYSED exam page image.",
-                "choices": [{"label": str(choice), "text": f"Choice {choice}"} for choice in range(1, 5)],
+                "stem": stem,
+                "choices": choices,
                 "correct": keys[number],
-                "explanation": f"The official NYSED scoring key lists choice {keys[number]} for question {number}.",
-                "stimulusRequired": True,
+                "explanation": f"The official NYSED scoring key lists choice {keys[number]} for question {number}. Review the attached official page image if you missed it.",
+                "stimulusRequired": question_has_stimulus(texts[page_number - 1], number),
                 "sourceIntegrity": "trusted-official-page-image",
                 "stimulusImages": [asset],
-                "tags": ["official released exam", administration, COURSE_META[course]["label"]],
+                "tags": ["official released exam", administration, COURSE_META[course]["label"], *keywords(stem + " " + " ".join(choice["text"] for choice in choices), 4)],
             }
         )
     return items
@@ -291,7 +490,11 @@ def generic_global_writing(course: str, administration: str, pdf: fitz.Document,
             "title": "CRQ Set 1",
             "points": 3,
             "docs": docs_for("CRQ Set 1", crq1_pages, 1),
-            "prompts": ["Answer questions 29-31 exactly as shown on the official CRQ Set 1 pages."],
+            "prompts": [prompt_for_label(texts, range(crq1, crq2), label) or fallback for label, fallback in [
+                ("29", "Explain the historical circumstances surrounding Document 1."),
+                ("30", "Explain the sourcing skill for Document 2."),
+                ("31", "Identify and explain a relationship between Documents 1 and 2."),
+            ]],
             "answerKey": ["Use the official rating guide for this administration. A supported response must answer each prompt and use the attached document evidence."],
             "modelAnswer": "A top practice response states the correct historical context, explains the sourcing skill when asked, and names a document-supported relationship using evidence from both CRQ Set 1 documents.",
         },
@@ -300,7 +503,12 @@ def generic_global_writing(course: str, administration: str, pdf: fitz.Document,
             "title": "CRQ Set 2",
             "points": 4,
             "docs": docs_for("CRQ Set 2", crq2_pages, 3),
-            "prompts": ["Answer questions 32-34b exactly as shown on the official CRQ Set 2 pages."],
+            "prompts": [prompt_for_label(texts, range(crq2, essay_start), label) or fallback for label, fallback in [
+                ("32", "Explain the historical or geographic context for Document 1."),
+                ("33", "Explain the sourcing skill for Document 2."),
+                ("34a", "Identify a relationship or turning point using Documents 1 and 2."),
+                ("34b", "Explain that relationship or turning point using evidence from both documents."),
+            ]],
             "answerKey": ["Use the official rating guide for this administration. Credit comes from specific context, relationship or turning-point analysis, and evidence from the attached documents."],
             "modelAnswer": "A top practice response explains the setting for each document, identifies the required relationship or turning point, and uses evidence from both CRQ Set 2 documents to explain significance.",
         },
@@ -345,7 +553,7 @@ def generic_us_writing(course: str, administration: str, pdf: fitz.Document, tex
             "title": "Short Essay 1",
             "points": 5,
             "docs": seq1_docs,
-            "prompts": ["Write Short Essay Question 29 exactly as shown on the official Set 1 pages."],
+            "prompts": seq_task_prompts(texts, seq_start, seq2, 29),
             "answerKey": ["Use the official rating guide for this administration. A strong response explains historical context, document relationship, evidence, and outside information."],
             "modelAnswer": "A top practice short essay explains the historical context, states the required relationship between the two documents, supports it with evidence from both documents, and includes accurate outside information.",
         },
@@ -354,7 +562,7 @@ def generic_us_writing(course: str, administration: str, pdf: fitz.Document, tex
             "title": "Short Essay 2",
             "points": 5,
             "docs": seq2_docs,
-            "prompts": ["Write Short Essay Question 30 exactly as shown on the official Set 2 pages."],
+            "prompts": seq_task_prompts(texts, seq2, civic, 30),
             "answerKey": ["Use the official rating guide for this administration. A strong response answers the exact skill prompt shown on the page and uses both documents."],
             "modelAnswer": "A top practice short essay answers the exact Set 2 prompt, uses both official documents, explains rather than summarizes, and adds an accurate U.S. History detail beyond the documents.",
         },
@@ -364,10 +572,10 @@ def generic_us_writing(course: str, administration: str, pdf: fitz.Document, tex
         scaffold_tasks.append(
             {
                 "id": f"scaffold-{index}",
-                "title": f"Scaffold {30 + index}",
+                "title": f"Civic SAQ {30 + index}",
                 "points": 1,
                 "docs": [doc],
-                "prompt": f"Answer scaffold question {30 + index} exactly as shown on the official Civic Literacy document page.",
+                "prompt": prompt_for_label(texts, civic_pages, str(30 + index)) or f"Answer Civic Literacy short-answer question {30 + index} using the official document.",
                 "answerKey": ["One specific, accurate answer supported by this document earns the practice point."],
                 "modelAnswer": "A credited practice response gives one specific fact from the document and connects it to the civic issue.",
             }
@@ -427,6 +635,8 @@ def build_form(course: str, exam: dict, rich_forms: dict[tuple[str, str], dict])
         short_tasks = rich.get("shortTasks") or short_tasks
         scaffold_tasks = rich.get("scaffoldTasks") or scaffold_tasks
         essay = rich.get("essay") or essay
+    if meta["profileId"] == "us-history":
+        scaffold_tasks = normalize_us_scaffold_titles(scaffold_tasks)
 
     pdf.close()
     return {

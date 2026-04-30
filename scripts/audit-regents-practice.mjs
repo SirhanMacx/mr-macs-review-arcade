@@ -127,8 +127,8 @@ function auditProfileShapes(harness, errors) {
     assert(us.shortTasks.length === 2, "U.S. History must have two short essay sets", errors);
     assert(sameArray(us.shortTasks.map((task) => task.points), [5, 5]), "U.S. History short essays must be worth 5 and 5 points", errors);
     assert(us.shortMax === 10, "U.S. History Part II writing max must be 10", errors);
-    assert((us.scaffoldPrompts || []).length === 6, "U.S. History Part IIIA must have six scaffold prompts", errors);
-    assert(us.scaffoldMax === 6, "U.S. History scaffold max must be 6", errors);
+    assert((us.scaffoldPrompts || []).length === 6, "U.S. History Part IIIA must have six Civic SAQ prompts", errors);
+    assert(us.scaffoldMax === 6, "U.S. History Civic SAQ max must be 6", errors);
     assert(us.essayMax === 5, "U.S. History Civic Literacy essay max must be 5", errors);
     assert(us.essayDocMinimum === 4, "U.S. History Civic Literacy essay must require at least four documents", errors);
   }
@@ -220,11 +220,11 @@ function auditExam(harness, course, seed, errors) {
     assert(!duplicateValues(guardKeys(harness, [...shortDocs, ...essayDocs])).length, `${course} seed ${seed}: repeated CRQ/essay document image`, errors);
   } else {
     assert(shortDocs.length === 4, `${course} seed ${seed}: expected 4 short-essay docs, found ${shortDocs.length}`, errors);
-    assert(scaffold.length === 6, `${course} seed ${seed}: expected 6 scaffold docs, found ${scaffold.length}`, errors);
+    assert(scaffold.length === 6, `${course} seed ${seed}: expected 6 Civic SAQ docs, found ${scaffold.length}`, errors);
     assert(essayDocs.length === 6, `${course} seed ${seed}: expected 6 Civic Literacy essay docs, found ${essayDocs.length}`, errors);
-    assert(exam.scaffoldTasks.length === 6, `${course} seed ${seed}: expected 6 scaffold tasks, found ${exam.scaffoldTasks.length}`, errors);
+    assert(exam.scaffoldTasks.length === 6, `${course} seed ${seed}: expected 6 Civic SAQ tasks, found ${exam.scaffoldTasks.length}`, errors);
     assert(profile.essayDocMinimum === 4, `${course} seed ${seed}: Civic Literacy essay must require 4 docs`, errors);
-    assert(uniqueCount(scaffoldKeys) === 6, `${course} seed ${seed}: repeated Civic Literacy scaffold doc`, errors);
+    assert(uniqueCount(scaffoldKeys) === 6, `${course} seed ${seed}: repeated Civic Literacy SAQ doc`, errors);
     assert(uniqueCount(essayKeys) === 6, `${course} seed ${seed}: repeated Civic Literacy essay doc`, errors);
     assert(scaffoldKeys.every((key, index) => key === essayKeys[index]), `${course} seed ${seed}: Part IIIA and IIIB should share the same ordered civic docs`, errors);
     assert(!shortKeys.some((key) => scaffoldKeys.includes(key)), `${course} seed ${seed}: short essay docs overlap Civic Literacy docs`, errors);

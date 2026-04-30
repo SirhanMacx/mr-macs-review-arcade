@@ -97,7 +97,7 @@ def check_regents_practice_exam() -> list[str]:
         "nextPracticePlan",
         "weakTopicLabels",
         "Practice estimate, not official scoring",
-        "Civic scaffold accuracy",
+        "Civic SAQ accuracy",
         "same six-document Civic Literacy set",
         "STIMULUS_VISUAL_FAMILY_GROUPS",
         "docStemGuardKey",

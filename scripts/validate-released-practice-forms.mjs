@@ -66,6 +66,9 @@ function checkMcq(course, form) {
     if (question.officialQuestionNumber !== number) errors.push(`${course} ${form.administration}: MCQ ${number} has wrong official question number ${question.officialQuestionNumber}`);
     if (!["1", "2", "3", "4"].includes(String(question.correct))) errors.push(`${course} ${form.administration}: MCQ ${number} missing official key`);
     if ((question.choices || []).length !== 4) errors.push(`${course} ${form.administration}: MCQ ${number} does not have four choices`);
+    if (/^Question\s+\d+$|read the official|official NYSED exam page/i.test(String(question.stem || ""))) errors.push(`${course} ${form.administration}: MCQ ${number} has placeholder stem text`);
+    if ((question.choices || []).some((choice) => /^Choice\s+[1-4]$/i.test(String(choice.text || "")))) errors.push(`${course} ${form.administration}: MCQ ${number} has placeholder choice text`);
+    if (String(question.stem || "").trim().length < 12) errors.push(`${course} ${form.administration}: MCQ ${number} stem is too short to be digitized`);
     if (!images(question).length) errors.push(`${course} ${form.administration}: MCQ ${number} missing official page image`);
     for (const image of images(question)) {
       if (!assetExists(image.src)) errors.push(`${course} ${form.administration}: MCQ ${number} missing image asset ${image.src}`);
@@ -97,11 +100,17 @@ for (const course of ["Grade 10 Global History II", "Grade 11 U.S. History"]) {
     }
     if (/U\.S\. History/.test(course)) {
       checkDocs(course, form, "Short Essay tasks", (form.shortTasks || []).flatMap((task) => task.docs || []), 4);
-      checkDocs(course, form, "Civic Literacy scaffold", (form.scaffoldTasks || []).flatMap((task) => task.docs || []), 6);
+      checkDocs(course, form, "Civic Literacy SAQ", (form.scaffoldTasks || []).flatMap((task) => task.docs || []), 6);
       checkDocs(course, form, "Civic Literacy Essay", form.essay?.docs || [], 6, { allowRepeats: true });
       if (form.essay?.docMinimum !== 4) errors.push(`${course} ${form.administration}: civic essay doc minimum must be 4`);
     }
     for (const task of [...(form.shortTasks || []), ...(form.scaffoldTasks || [])]) {
+      if (/scaffold/i.test(String(task.title || ""))) errors.push(`${course} ${form.administration} ${task.title}: student-facing task title should use Civic SAQ language`);
+      const prompts = task.prompts || [task.prompt];
+      for (const prompt of prompts) {
+        const text = String(prompt || "").trim();
+        if (text.length < 25 || /^Question\s+\d+:\s+Analyze$/i.test(text)) errors.push(`${course} ${form.administration} ${task.title}: prompt appears clipped or generic`);
+      }
       if (!task.modelAnswer && !(task.answerKey || []).length) errors.push(`${course} ${form.administration} ${task.title}: missing answer key/model answer`);
     }
     if (!form.essay?.modelEssay || !form.essay?.answerKey) errors.push(`${course} ${form.administration}: missing essay model/answer key`);
