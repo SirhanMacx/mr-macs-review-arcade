@@ -7,6 +7,10 @@ const els = {
   again: document.querySelector("#againBtn"),
   pause: document.querySelector("#pauseBtn"),
   quit: document.querySelector("#quitBtn"),
+  touchLeft: document.querySelector("#touchLeft"),
+  touchRight: document.querySelector("#touchRight"),
+  touchFire: document.querySelector("#touchFire"),
+  touchIntel: document.querySelector("#touchIntel"),
   theater: document.querySelector("#theaterSelect"),
   difficulty: document.querySelector("#difficultySelect"),
   metrics: document.querySelector("#missionMetrics"),
@@ -28,6 +32,7 @@ const els = {
 const ctx = els.canvas.getContext("2d");
 const keys = new Set();
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mobileControls = matchMedia("(max-width: 820px)");
 
 const ASSETS = {
   sheet: new Image(),
@@ -117,6 +122,7 @@ const state = {
   theater: "cold",
   difficulty: "regents",
   player: { x: 0, y: 0, vx: 0, cooldown: 0, invuln: 0 },
+  touch: { left: false, right: false, fire: false },
   bullets: [],
   enemyShots: [],
   enemies: [],
@@ -157,6 +163,10 @@ function clamp(value, min, max) {
 
 function frameEase(rate, dt) {
   return 1 - Math.exp(-rate * dt);
+}
+
+function playerBottomInset() {
+  return mobileControls.matches ? 220 : 86;
 }
 
 function drawSprite(name, x, y, w, h, options = {}) {
@@ -252,7 +262,7 @@ function resize() {
   els.canvas.style.height = `${state.h}px`;
   ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
   ctx.imageSmoothingEnabled = false;
-  state.player.y = state.h - 86;
+  state.player.y = state.h - playerBottomInset();
   if (!state.player.x) state.player.x = state.w / 2;
   buildStars();
 }
@@ -289,7 +299,8 @@ function startGame() {
   state.correct = 0;
   state.answered = 0;
   state.streak = 0;
-  state.player = { x: state.w / 2, y: state.h - 86, vx: 0, cooldown: 0, invuln: 0 };
+  state.player = { x: state.w / 2, y: state.h - playerBottomInset(), vx: 0, cooldown: 0, invuln: 0 };
+  state.touch = { left: false, right: false, fire: false };
   state.bullets = [];
   state.enemyShots = [];
   state.particles = [];
@@ -299,6 +310,7 @@ function startGame() {
   els.setup.classList.remove("show");
   els.results.classList.add("hidden");
   els.briefing.classList.add("hidden");
+  document.body.classList.add("playing");
   spawnWave();
   updateHud();
   setToast("DEFEND THE SATELLITE LINE", 1.4);
@@ -461,14 +473,14 @@ function update(dt) {
     return;
   }
   const tune = difficultyTune();
-  const left = keys.has("ArrowLeft") || keys.has("a");
-  const right = keys.has("ArrowRight") || keys.has("d");
+  const left = keys.has("ArrowLeft") || keys.has("a") || state.touch.left;
+  const right = keys.has("ArrowRight") || keys.has("d") || state.touch.right;
   const target = (right ? 1 : 0) - (left ? 1 : 0);
   state.player.vx += (target * 560 - state.player.vx) * frameEase(11, dt);
   state.player.x = clamp(state.player.x + state.player.vx * dt, 34, state.w - 34);
   state.player.cooldown = Math.max(0, state.player.cooldown - dt);
   state.player.invuln = Math.max(0, state.player.invuln - dt);
-  if (keys.has(" ") || keys.has("Space")) fire();
+  if (keys.has(" ") || keys.has("Space") || state.touch.fire) fire();
   if (keys.has("e") && state.intel >= 100) openBriefing("Manual Intel Burst Armed");
 
   const edge = state.enemies.some((enemy) => enemy.x > state.w - 34 || enemy.x < 34);
@@ -610,6 +622,8 @@ function finish(won = true) {
   if (!state.running) return;
   state.running = false;
   state.over = true;
+  state.touch = { left: false, right: false, fire: false };
+  document.body.classList.remove("playing");
   els.results.classList.remove("hidden");
   const accuracy = state.answered ? Math.round(state.correct / state.answered * 100) : 0;
   els.resultTitle.textContent = won || state.wave >= 4 ? "Containment Held" : "Satellite Line Broken";
@@ -967,19 +981,46 @@ document.addEventListener("keyup", (event) => {
 
 els.canvas.addEventListener("pointermove", (event) => {
   if (!state.running || state.briefing) return;
+  event.preventDefault();
   state.player.x = clamp(event.clientX, 34, state.w - 34);
 });
 els.canvas.addEventListener("pointerdown", (event) => {
   if (!state.running) return;
+  event.preventDefault();
+  els.canvas.setPointerCapture?.(event.pointerId);
   state.player.x = clamp(event.clientX, 34, state.w - 34);
   if (state.intel >= 100 && event.clientY < state.h * 0.42) openBriefing("Touch Intel Burst Armed");
   else fire();
 });
 
+function bindTouchButton(button, press, release = press) {
+  if (!button) return;
+  const down = (event) => {
+    event.preventDefault();
+    press();
+  };
+  const up = (event) => {
+    event.preventDefault();
+    release(false);
+  };
+  button.addEventListener("pointerdown", down);
+  button.addEventListener("pointerup", up);
+  button.addEventListener("pointercancel", up);
+  button.addEventListener("pointerleave", up);
+}
+
+bindTouchButton(els.touchLeft, () => { state.touch.left = true; }, () => { state.touch.left = false; });
+bindTouchButton(els.touchRight, () => { state.touch.right = true; }, () => { state.touch.right = false; });
+bindTouchButton(els.touchFire, () => { state.touch.fire = true; fire(); }, () => { state.touch.fire = false; });
+bindTouchButton(els.touchIntel, () => {
+  if (state.intel >= 100) openBriefing("Touch Intel Burst Armed");
+}, () => {});
+
 els.start.addEventListener("click", startGame);
 els.again.addEventListener("click", () => {
   els.results.classList.add("hidden");
   els.setup.classList.add("show");
+  document.body.classList.remove("playing");
   renderMetrics();
 });
 els.pause.addEventListener("click", () => {
@@ -998,6 +1039,7 @@ els.difficulty.addEventListener("change", () => {
 });
 
 addEventListener("resize", resize, { passive: true });
+mobileControls.addEventListener?.("change", resize);
 resize();
 loadBank();
 draw();

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#050815">
   <link rel="icon" href="data:,">
   <title>Cold War Invaders - Mr. Mac's Review Arcade</title>
-  <link rel="stylesheet" href="styles.css?v=20260430-coldwar2">
+  <link rel="stylesheet" href="styles.css?v=20260430-coldwar3">
 </head>
 <body>
   <main class="game-shell">
@@ -64,6 +64,13 @@
       <button class="mini-btn" id="quitBtn" type="button">Quit</button>
     </section>
 
+    <section class="mobile-controls" id="mobileControls" aria-label="Touch controls">
+      <button class="touch-btn" id="touchLeft" type="button" aria-label="Move left">LEFT</button>
+      <button class="touch-btn fire" id="touchFire" type="button" aria-label="Fire laser">FIRE</button>
+      <button class="touch-btn" id="touchRight" type="button" aria-label="Move right">RIGHT</button>
+      <button class="touch-btn intel" id="touchIntel" type="button" aria-label="Use intel burst">INTEL</button>
+    </section>
+
     <section class="briefing hidden" id="briefing" aria-label="Intel question">
       <div class="briefing-card">
         <div class="briefing-top">
@@ -92,6 +99,6 @@
     <div class="control-hint">Move: A/D or arrows · Fire: Space · Intel: E · Pause: Esc</div>
   </main>
   <script src="../../assets/arcade-analytics.js"></script>
-  <script type="module" src="game.js?v=20260430-coldwar2"></script>
+  <script type="module" src="game.js?v=20260430-coldwar3"></script>
 </body>
 </html>
