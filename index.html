@@ -2310,6 +2310,326 @@ input.field {
   opacity: .78;
 }
 
+/* ============== Premium arcade lobby hero ============== */
+.hero {
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(245,196,81,.16) 0 1px, transparent 1px 44%),
+    linear-gradient(90deg, rgba(122,240,255,.10), transparent 18%, transparent 82%, rgba(255,123,204,.10));
+  mask-image: linear-gradient(180deg, #000 0%, #000 68%, transparent 100%);
+  opacity: .55;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(390px, .78fr);
+  align-items: center;
+  gap: clamp(30px, 5vw, 76px);
+  min-height: clamp(560px, calc(100vh - 72px), 780px);
+}
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 940px;
+}
+.hero-actions {
+  align-items: center;
+}
+.hero-actions .action {
+  min-height: 50px;
+  box-shadow: 0 14px 38px rgba(0,0,0,.32), 0 1px 0 rgba(255,255,255,.08) inset;
+}
+.hero-actions .action.primary {
+  box-shadow: 0 18px 46px rgba(245,196,81,.26), 0 1px 0 rgba(255,255,255,.45) inset;
+}
+.hero-console {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  perspective: 1200px;
+}
+.hero-console::before {
+  content: "";
+  position: absolute;
+  inset: 7% -7% -9%;
+  border: 1px solid rgba(122,240,255,.10);
+  background:
+    linear-gradient(120deg, rgba(122,240,255,.12), transparent 28%, rgba(245,196,81,.10) 72%, transparent),
+    repeating-linear-gradient(90deg, rgba(122,240,255,.055) 0 1px, transparent 1px 42px);
+  transform: skewY(-3deg);
+  filter: blur(.2px);
+  opacity: .82;
+}
+.console-bezel {
+  position: relative;
+  padding: 16px;
+  border: 1px solid rgba(122,240,255,.42);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02)),
+    var(--ui-sheet) center / cover no-repeat,
+    linear-gradient(180deg, rgba(5,9,20,.96), rgba(2,4,10,.98));
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.14) inset,
+    0 0 0 1px rgba(0,0,0,.76) inset,
+    0 26px 70px rgba(0,0,0,.58),
+    0 0 44px rgba(122,240,255,.12);
+  transform: rotateY(-4deg) rotateX(1deg);
+  transform-origin: center;
+}
+.console-bezel::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 5px;
+  pointer-events: none;
+}
+.console-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-family: var(--font-ui);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.console-top span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+  font-size: 13px;
+  text-shadow: 0 0 14px rgba(122,240,255,.38);
+}
+.console-top span::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 14px rgba(105,240,170,.82);
+}
+.console-top strong {
+  padding: 5px 9px;
+  border: 1px solid rgba(245,196,81,.30);
+  border-radius: 4px;
+  background: rgba(245,196,81,.10);
+  color: var(--gold-warm);
+  font-size: 12px;
+}
+.hero-screen,
+.console-launch {
+  appearance: none;
+  -webkit-appearance: none;
+  color: var(--paper);
+}
+.hero-screen {
+  position: relative;
+  width: 100%;
+  min-height: 292px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 22px;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid rgba(122,240,255,.36);
+  border-radius: 6px;
+  background:
+    linear-gradient(180deg, rgba(3,5,13,.08), rgba(3,5,13,.44) 42%, rgba(3,5,13,.96) 100%),
+    var(--screen-art, url("assets/game-thumbnails/history-hunters.webp")) center / cover no-repeat,
+    #040711;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.76) inset,
+    0 0 28px rgba(122,240,255,.16);
+}
+.hero-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.055) 0 1px, transparent 1px 5px),
+    linear-gradient(90deg, rgba(122,240,255,.14), transparent 20%, transparent 80%, rgba(245,196,81,.10));
+  mix-blend-mode: screen;
+  opacity: .52;
+  pointer-events: none;
+}
+.hero-screen::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(122,240,255,.7), rgba(245,196,81,.55), transparent);
+  opacity: .75;
+}
+.hero-screen > * {
+  position: relative;
+  z-index: 1;
+}
+.screen-kicker,
+.screen-sub,
+.screen-cta,
+.console-launch span {
+  font-family: var(--font-ui);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.screen-kicker {
+  color: var(--cyan);
+  font-size: 13px;
+  text-shadow: 0 0 12px rgba(122,240,255,.42);
+}
+.screen-title {
+  max-width: 82%;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 3.8vw, 56px);
+  line-height: .96;
+  text-transform: uppercase;
+  text-shadow: 0 3px 0 rgba(2,4,10,.9), 0 0 24px rgba(122,240,255,.28);
+}
+.screen-sub {
+  max-width: 74%;
+  color: #eef3ff;
+  font-size: 14px;
+  line-height: 1.35;
+  text-shadow: 0 2px 12px rgba(0,0,0,.78);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.screen-cta {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-warm));
+  color: #11100a;
+  font-size: 13px;
+  box-shadow: 0 0 20px rgba(245,196,81,.34);
+}
+.console-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.console-launch {
+  position: relative;
+  min-height: 124px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+  padding: 14px;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 6px;
+  background:
+    linear-gradient(180deg, rgba(3,5,13,.18), rgba(3,5,13,.92)),
+    var(--slot-art, var(--card-cyan)) center / cover no-repeat,
+    #050914;
+  box-shadow: 0 1px 0 rgba(255,255,255,.06) inset;
+}
+.console-launch::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent, var(--cyan)), transparent);
+  box-shadow: 0 0 18px var(--accent, var(--cyan));
+}
+.console-launch strong,
+.console-launch span {
+  position: relative;
+  z-index: 1;
+}
+.console-launch strong {
+  max-width: 92%;
+  color: #fffdf4;
+  font-size: 16px;
+  line-height: 1.05;
+  text-shadow: 0 2px 10px rgba(0,0,0,.8);
+}
+.console-launch span {
+  color: color-mix(in srgb, var(--accent, var(--cyan)) 80%, white);
+  font-size: 11.5px;
+}
+.hero-screen:hover,
+.console-launch:hover {
+  border-color: color-mix(in srgb, var(--accent, var(--cyan)) 62%, white 10%);
+  transform: translateY(-2px);
+}
+.hero-screen,
+.console-launch {
+  transition: transform .24s var(--ease-out), border-color .24s var(--ease-out), box-shadow .24s var(--ease-out);
+}
+.console-status {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+.console-status div {
+  min-height: 58px;
+  padding: 10px;
+  border: 1px solid rgba(122,240,255,.18);
+  border-radius: 5px;
+  background: rgba(3,8,20,.70);
+}
+.console-status strong {
+  display: block;
+  color: var(--gold-warm);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+}
+.console-status span {
+  display: block;
+  margin-top: 5px;
+  color: #d9e7ff;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.path-band {
+  padding-top: clamp(34px, 5vh, 62px);
+}
+.path-card {
+  min-height: 184px;
+}
+
+@media (max-width: 1080px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: clamp(38px, 6vh, 62px);
+  }
+  .hero-copy {
+    max-width: 900px;
+  }
+  .hero-console {
+    max-width: 720px;
+    width: 100%;
+  }
+  .console-bezel {
+    transform: none;
+  }
+}
+
 @media (max-width: 760px) {
   body {
     background:
@@ -2339,6 +2659,64 @@ input.field {
   .hero-title {
     font-size: clamp(36px, 11.5vw, 54px);
     line-height: 1.04;
+  }
+  .hero-inner {
+    gap: 24px;
+    padding-top: 30px;
+  }
+  .hero-console::before {
+    display: none;
+  }
+  .console-bezel {
+    padding: 10px;
+  }
+  .console-top {
+    margin-bottom: 9px;
+  }
+  .console-top span,
+  .console-top strong {
+    font-size: 11px;
+  }
+  .hero-screen {
+    min-height: 188px;
+    padding: 16px;
+  }
+  .screen-title {
+    max-width: 100%;
+    font-size: 28px;
+    line-height: 1;
+  }
+  .screen-sub {
+    max-width: 76%;
+    font-size: 12.5px;
+    -webkit-line-clamp: 2;
+  }
+  .screen-cta {
+    right: 12px;
+    bottom: 12px;
+    padding: 7px 9px;
+    font-size: 11.5px;
+  }
+  .console-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 9px;
+  }
+  .console-launch {
+    min-height: 96px;
+    padding: 10px;
+  }
+  .console-launch:nth-child(n+3) {
+    display: none;
+  }
+  .console-launch strong {
+    font-size: 13px;
+  }
+  .console-launch span {
+    font-size: 10.5px;
+  }
+  .console-status {
+    display: none;
   }
   .path-card p,
   .focus-card p,
@@ -2413,27 +2791,49 @@ input.field {
 
 <section class="hero" id="top" aria-label="Arcade overview">
   <div class="hero-inner">
-    <div class="eyebrow reveal">Practice for your exam</div>
-    <h1 class="hero-title reveal">
-      <span class="ht-row ht-1">MR. MAC'S</span>
-      <span class="ht-row ht-2">REVIEW</span>
-      <span class="ht-row ht-3"><em>ARCADE</em></span>
-    </h1>
-    <p class="tagline reveal">Regents practice, five-minute warmups, Jeopardy boards, AP review, and course games in one arcade.</p>
-    <div class="hero-actions reveal">
-      <button class="action primary" id="launchFeatured" type="button">
-        <span>Start Recommended</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </button>
-      <a class="action" href="#practice">
-        <span>Practice Regents</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="action" href="#jeopardy">
-        <span>Jeopardy Boards</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
+    <div class="hero-copy">
+      <div class="eyebrow reveal">Practice for your exam</div>
+      <h1 class="hero-title reveal">
+        <span class="ht-row ht-1">MR. MAC'S</span>
+        <span class="ht-row ht-2">REVIEW</span>
+        <span class="ht-row ht-3"><em>ARCADE</em></span>
+      </h1>
+      <p class="tagline reveal">Choose a game, train a full Regents exam, or project a Jeopardy board without digging through folders.</p>
+      <div class="hero-actions reveal">
+        <button class="action primary" id="launchFeatured" type="button">
+          <span>Start Recommended</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </button>
+        <a class="action" href="#practice">
+          <span>Practice Regents</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="action" href="#jeopardy">
+          <span>Jeopardy Boards</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
+    <aside class="hero-console reveal" aria-label="Featured arcade launches">
+      <div class="console-bezel">
+        <div class="console-top">
+          <span>Now Playing</span>
+          <strong id="heroGameCount">Loading games</strong>
+        </div>
+        <button class="hero-screen" id="heroPrimaryCard" type="button" aria-label="Launch featured game">
+          <span class="screen-kicker">Flagship game</span>
+          <span class="screen-title">History Hunters 2</span>
+          <span class="screen-sub">Open-world review RPG</span>
+          <span class="screen-cta">Play</span>
+        </button>
+        <div class="console-grid" id="heroConsoleGrid" aria-label="Fast launch games"></div>
+        <div class="console-status" aria-label="Arcade readiness">
+          <div><strong>28</strong><span>MCQs</span></div>
+          <div><strong>Full</strong><span>Exams</span></div>
+          <div><strong>Local</strong><span>Progress</span></div>
+        </div>
+      </div>
+    </aside>
   </div>
   <div class="hero-marquee" aria-hidden="true">
     <div class="hm-track" id="marqueeTrack"></div>
@@ -2446,8 +2846,8 @@ input.field {
     <div class="band-head reveal">
       <div>
         <div class="band-eyebrow">Start Here</div>
-        <h2 class="band-title">Choose the <em>right door</em>.</h2>
-        <p class="band-sub">Pick the mode: arcade games, Regents practice, or Jeopardy boards.</p>
+        <h2 class="band-title">Pick your <em>mode</em>.</h2>
+        <p class="band-sub">Three clean launch paths: play, practice the exam, or project a Jeopardy board.</p>
       </div>
     </div>
     <div class="path-grid reveal-stagger" id="pathCards"></div>
@@ -2891,6 +3291,62 @@ function renderMetrics() {
     escapeHtml(item.pre) + ' <strong>' + escapeHtml(String(item.big)) + '</strong></span>'
   ).join("");
   document.getElementById("marqueeTrack").innerHTML = marquee;
+}
+
+function shortHeroTitle(title) {
+  return String(title || "")
+    .replace("History Hunters 2: Atlas Quest", "History Hunters 2")
+    .replace("Archive Quest: Sourcebound", "Archive Quest")
+    .replace("Regents Practice Exam", "Regents Exam");
+}
+function heroSubtitle(game) {
+  if (!game) return "";
+  if (game.id === "history-hunters") return "Explore, battle, collect, and earn review XP.";
+  if (game.id === "regents-practice-exam") return "Timed MCQs, documents, writing, and score estimates.";
+  if (game.id === "archive-quest") return "Run, jump, and unlock powers with source questions.";
+  if (game.id === "cold-war-invaders") return "Defend Earth with Cold War review questions.";
+  if (isJeopardyBoard(game)) return "Course board with teams, scoring, and final wager.";
+  return game.subtitle || game.course || "";
+}
+function renderHeroConsole() {
+  const count = document.getElementById("heroGameCount");
+  if (count) count.textContent = GAMES.length + " games ready";
+
+  const primary = GAMES.find((game) => game.id === "history-hunters") || featuredGames()[0];
+  const primaryCard = document.getElementById("heroPrimaryCard");
+  if (primary && primaryCard) {
+    primaryCard.dataset.id = primary.id;
+    primaryCard.style.setProperty("--accent", accentFor(primary));
+    primaryCard.style.setProperty("--screen-art", 'url("' + thumbnailFor(primary).replaceAll('"', "%22") + '")');
+    primaryCard.innerHTML =
+      '<span class="screen-kicker">' + escapeHtml(displayGameType(primary)) + '</span>' +
+      '<span class="screen-title">' + escapeHtml(shortHeroTitle(primary.title)) + '</span>' +
+      '<span class="screen-sub">' + escapeHtml(heroSubtitle(primary)) + '</span>' +
+      '<span class="screen-cta">Play</span>';
+    primaryCard.onclick = () => openGame(primary);
+  }
+
+  const jeopardy = GAMES.find((game) => game.id === "global-10-units-06-cold-war-1945-1991-jeopardy-review-html") || GAMES.find(isJeopardyBoard);
+  const slots = [
+    GAMES.find((game) => game.id === "regents-practice-exam"),
+    GAMES.find((game) => game.id === "archive-quest"),
+    GAMES.find((game) => game.id === "cold-war-invaders"),
+    jeopardy
+  ].filter(Boolean);
+  const grid = document.getElementById("heroConsoleGrid");
+  if (!grid) return;
+  grid.innerHTML = slots.map((game, index) => {
+    const accent = accentFor(game);
+    const art = cssUrlForAttr(thumbnailFor(game));
+    const label = game.id === "regents-practice-exam" ? "Full exam" : displayGameType(game);
+    return '<button class="console-launch" type="button" style="--accent:' + accent + ';--slot-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
+      '<span>' + escapeHtml(label) + '</span>' +
+      '<strong>' + escapeHtml(shortHeroTitle(game.title)) + '</strong>' +
+    '</button>';
+  }).join("");
+  grid.querySelectorAll(".console-launch").forEach((button) => {
+    button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
+  });
 }
 
 // ============== Featured bento ==============
@@ -3429,6 +3885,7 @@ async function boot() {
     renderMasteryModes();
     renderPracticeModes();
     renderFeatured();
+    renderHeroConsole();
     renderProgressReport();
     renderJeopardyModes();
     renderQuickPlay();
