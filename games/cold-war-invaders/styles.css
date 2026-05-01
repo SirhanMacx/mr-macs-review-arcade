@@ -78,6 +78,13 @@ button { cursor: pointer; }
   backdrop-filter: blur(18px) saturate(1.14);
 }
 
+body.playing .topbar {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-12px);
+  transition: opacity .18s var(--ease), transform .18s var(--ease);
+}
+
 .brand {
   display: grid;
   grid-template-columns: 46px minmax(0,1fr);
@@ -299,14 +306,25 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
 .mini-btn { color: var(--soft); }
 
 .hud {
-  left: max(10px, env(safe-area-inset-left));
+  top: max(10px, env(safe-area-inset-top));
+  left: auto;
   right: max(10px, env(safe-area-inset-right));
-  bottom: max(10px, env(safe-area-inset-bottom));
+  bottom: auto;
+  width: min(620px, calc(100vw - 22px));
   display: grid;
-  grid-template-columns: repeat(4, minmax(0,1fr)) auto auto;
-  gap: 8px;
+  grid-template-columns: repeat(4, minmax(62px,1fr)) auto auto;
+  gap: 6px;
   align-items: center;
-  padding: 9px;
+  padding: 6px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity .18s var(--ease), transform .18s var(--ease);
+  pointer-events: none;
+}
+
+body.playing .hud {
+  opacity: 1;
+  transform: translateY(0);
   pointer-events: auto;
 }
 
@@ -319,9 +337,21 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   backdrop-filter: blur(16px);
 }
 
-.hud div { padding: 9px 11px; min-width: 0; }
-.hud strong { display: block; font-size: 22px; line-height: 1; }
-.mini-btn { min-width: 72px; }
+.hud div {
+  min-width: 0;
+  min-height: 44px;
+  padding: 7px 9px;
+}
+.hud strong {
+  display: block;
+  font-size: 18px;
+  line-height: 1;
+}
+.mini-btn {
+  min-width: 62px;
+  min-height: 44px;
+  padding: 8px 10px;
+}
 
 .mobile-controls {
   display: none;
@@ -466,10 +496,13 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   }
   .actions .btn { flex: 1 1 138px; text-align: center; }
   .hud {
-    grid-template-columns: minmax(54px,1fr) minmax(42px,.74fr) minmax(54px,1fr) minmax(42px,.74fr) 44px 44px;
-    bottom: calc(max(8px, env(safe-area-inset-bottom)) + 72px);
+    top: max(8px, env(safe-area-inset-top));
+    left: max(8px, env(safe-area-inset-left));
+    right: max(8px, env(safe-area-inset-right));
+    width: auto;
+    grid-template-columns: minmax(50px,1fr) minmax(38px,.72fr) minmax(50px,1fr) minmax(38px,.72fr) 42px 42px;
     gap: 5px;
-    padding: 6px;
+    padding: 5px;
   }
   .hud div {
     min-height: 44px;
@@ -528,7 +561,9 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   .brand small { display: none; }
   .brand strong { font-size: 14px; }
   .hud {
-    bottom: calc(max(6px, env(safe-area-inset-bottom)) + 56px);
+    top: max(6px, env(safe-area-inset-top));
+    left: max(6px, env(safe-area-inset-left));
+    right: max(6px, env(safe-area-inset-right));
     grid-template-columns: repeat(4, minmax(0, 1fr)) 38px 38px;
   }
   .hud div { min-height: 36px; }
