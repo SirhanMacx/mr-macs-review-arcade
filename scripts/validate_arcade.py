@@ -412,10 +412,12 @@ def check_ap_practice_exam() -> list[str]:
             errors.append(f"{course} needs enough high-rigor AP items; found {len(hard_items)}, expected at least {needed}.")
     official = load_json(ROOT / "data" / "ap-official-practice-exams.json")
     forms = official.get("forms", [])
-    if len(forms) < 4:
-        errors.append("Official AP practice manifest should include at least four verified public full-practice PDFs.")
+    if len(forms) < 6:
+        errors.append("Official AP practice manifest should include at least six verified public full-practice PDFs.")
     expected_forms = {
         "apush-2017-ced-practice": 55,
+        "ap-world-ced-practice": 55,
+        "ap-euro-ced-practice": 55,
         "ap-psych-2012-practice": 100,
         "ap-macro-2012-practice": 60,
         "ap-micro-2012-practice": 60,
@@ -426,8 +428,9 @@ def check_ap_practice_exam() -> list[str]:
         if not form:
             errors.append(f"Missing official AP public practice form: {form_id}")
             continue
-        if not str(form.get("pdfUrl", "")).startswith("https://apcentral.collegeboard.org/"):
-            errors.append(f"{form_id} must point to an AP Central PDF URL.")
+        pdf_url = str(form.get("pdfUrl", ""))
+        if not (pdf_url.startswith("https://apcentral.collegeboard.org/") or pdf_url.startswith("https://secure-media.collegeboard.org/")):
+            errors.append(f"{form_id} must point to an official College Board PDF URL.")
         if len(str(form.get("answerKey", ""))) != mcq_count:
             errors.append(f"{form_id} answer key length must match {mcq_count} MCQs.")
         if int(form.get("mcqCount") or 0) != mcq_count:
