@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const DATA_VERSION = "2026-05-01-ap-source-expand-v4";
+  const DATA_VERSION = "2026-05-01-ap-desktop-layout-v5";
   const OFFICIAL_URL = `../../data/ap-official-practice-exams.json?v=${DATA_VERSION}`;
 
   const state = {
@@ -225,7 +225,7 @@
     $("skillLabel").textContent = "Official AP page";
     $("questionCard").innerHTML = `
       <div class="released-page-runner">
-        ${officialViewer(question.formId, pages, question.officialPdf, `${question.source} · ${pageLabel(pages)}`)}
+        ${officialViewer(question.formId, pages, question.officialPdf, `${question.category} · ${pageLabel(pages)}`)}
         <section class="digital-panel" aria-label="Digital answer sheet">
           <div class="runner-head">
             <p class="eyebrow">Official Question</p>
