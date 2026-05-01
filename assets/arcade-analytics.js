@@ -10,6 +10,7 @@
   var isGamePage = /\/games\//.test(pagePath);
   var localOnly = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname || "") || location.protocol === "file:";
   var today = new Date().toISOString().slice(0, 10);
+  var TRAFFIC_START_DATE = "2026-04-28";
   var TOP_GAME_IDS = ["history-hunters", "archive-quest", "regents-practice-exam", "ap-practice-exam", "cold-war-invaders", "source-sprint", "regents-gauntlet"];
   var TOP_GAME_LABELS = {
     "history-hunters": "History Hunters",
@@ -565,20 +566,23 @@
       "game-completions"
     ];
     var days = [6, 5, 4, 3, 2, 1, 0].map(dateOffset);
-    var dailyVisitCounters = days.map(function (date) { return "daily-" + date + "-site-visits"; });
-    var dailyPlayCounters = days.map(function (date) { return "daily-" + date + "-game-plays"; });
+    var visitDays = days.filter(function (date) { return date >= TRAFFIC_START_DATE; });
+    var dailyVisitCounters = visitDays.map(function (date) { return "daily-" + date + "-site-visits"; });
     var topGameCounters = TOP_GAME_IDS.map(function (id) { return "game-" + id + "-game-launches"; });
-    var allCounters = counters.concat(dailyVisitCounters, dailyPlayCounters, topGameCounters);
+    var allCounters = counters.concat(dailyVisitCounters, topGameCounters);
     return Promise.all(allCounters.map(getGlobal)).then(function (values) {
       var existing = Object.assign({}, readPublicCache(), window.__MR_MACS_GLOBAL_TRAFFIC__ || {});
-      var dailyVisits = days.map(function (date, index) {
+      var visitLookup = {};
+      visitDays.forEach(function (date, index) {
+        visitLookup[date] = publicMetric(values[counters.length + index]) || 0;
+      });
+      var dailyVisits = days.map(function (date) {
         return {
           date: date,
-          visits: publicMetric(values[counters.length + index]) || 0,
-          plays: publicMetric(values[counters.length + dailyVisitCounters.length + index]) || 0
+          visits: date < TRAFFIC_START_DATE ? 0 : (visitLookup[date] || 0)
         };
       });
-      var topOffset = counters.length + dailyVisitCounters.length + dailyPlayCounters.length;
+      var topOffset = counters.length + dailyVisitCounters.length;
       var topGames = TOP_GAME_IDS.map(function (id, index) {
         return {
           id: id,
@@ -602,7 +606,7 @@
         gamePlays: publicOr(values[4], existing.gamePlays),
         completions: publicOr(values[5], existing.completions),
         todayVisits: dailyVisits[dailyVisits.length - 1] ? dailyVisits[dailyVisits.length - 1].visits : existing.todayVisits,
-        todayGamePlays: dailyVisits[dailyVisits.length - 1] ? dailyVisits[dailyVisits.length - 1].plays : existing.todayGamePlays,
+        todayGamePlays: existing.todayGamePlays,
         dailyVisits: dailyVisits,
         topGames: topGames,
         connected: true
