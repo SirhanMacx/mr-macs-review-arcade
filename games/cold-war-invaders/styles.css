@@ -579,3 +579,54 @@ body.playing .hud {
   }
   .touch-btn { min-height: 46px; }
 }
+
+/* Premium arcade start screen pass */
+.mission-card,
+.briefing-card {
+  border-radius: 8px;
+  border-color: rgba(114,243,255,.34);
+  background:
+    linear-gradient(180deg, rgba(5,9,21,.88), rgba(5,9,21,.98)),
+    linear-gradient(135deg, rgba(114,243,255,.12), rgba(255,209,92,.06));
+}
+.launch-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 16px 0 18px;
+}
+.launch-strip span {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 9px 10px;
+  border: 1px solid rgba(114,243,255,.24);
+  border-radius: 6px;
+  background: rgba(3,7,15,.56);
+  color: #f8fbff;
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.mission-card:not(.compact) {
+  max-height: min(92dvh, 760px);
+  padding: clamp(16px, 2.4vw, 26px);
+}
+
+.mission-card:not(.compact)::before {
+  height: clamp(74px, 10vw, 124px);
+  margin: -4px 0 14px;
+}
+
+.mission-card:not(.compact) h1 {
+  font-size: clamp(44px, 6.6vw, 82px);
+  line-height: .92;
+}
+
+.mission-card:not(.compact) .setup-grid { margin-top: 14px; }
+.mission-card:not(.compact) .mission-metrics { margin: 12px 0 14px; }
+
+@media (max-width: 640px) {
+  .launch-strip { grid-template-columns: 1fr; }
+}

@@ -2764,6 +2764,203 @@ input.field {
     min-height: 430px;
   }
 }
+
+/* ============== Full-platform polish pass ============== */
+.player {
+  inset: clamp(8px, 1vw, 14px);
+  background:
+    linear-gradient(180deg, rgba(3,6,15,.96), rgba(3,6,15,.985)),
+    var(--ui-sheet) center / cover no-repeat,
+    #020611;
+  border-color: rgba(122,240,255,.36);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.72) inset,
+    0 34px 110px rgba(0,0,0,.74),
+    0 0 58px rgba(122,240,255,.13);
+}
+.playerbar {
+  min-height: 68px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
+    rgba(3,8,20,.90);
+}
+.player-titleblock {
+  position: relative;
+  padding-left: 14px;
+}
+.player-titleblock::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, var(--cyan), var(--gold));
+  box-shadow: 0 0 18px rgba(122,240,255,.42);
+}
+.player-badge {
+  display: inline-flex;
+  width: max-content;
+  margin-bottom: 3px;
+  color: var(--cyan);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.framewrap {
+  border-top: 1px solid rgba(122,240,255,.12);
+}
+.framewrap .loader {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  color: #f8fbff;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(122,240,255,.12), transparent 32%),
+    linear-gradient(180deg, rgba(3,8,20,.78), rgba(2,4,10,.96));
+}
+.loader-mark {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 6px;
+  border: 1px solid rgba(122,240,255,.48);
+  border-radius: 8px;
+  background: var(--emblem) center / cover no-repeat, #050914;
+  color: transparent;
+  box-shadow: 0 0 32px rgba(122,240,255,.28);
+}
+.loader strong {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1;
+  color: #fffdf4;
+}
+.loader span:last-child {
+  color: var(--paper-2);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.path-band,
+.practice-band,
+.featured-band,
+.jeopardy-band,
+.library-band {
+  border-top: 1px solid rgba(122,240,255,.10);
+}
+.path-band::before,
+.practice-band::before,
+.featured-band::before,
+.jeopardy-band::before,
+.library-band::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(122,240,255,.055), transparent 18%, transparent 82%, rgba(245,196,81,.045)),
+    linear-gradient(180deg, rgba(255,255,255,.018), transparent 34%);
+  opacity: .55;
+  z-index: -1;
+}
+.path-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.path-card,
+.focus-card,
+.mode-button,
+.game-card,
+.quick-card {
+  border-color: rgba(122,240,255,.28);
+}
+.path-card,
+.focus-card {
+  min-height: 196px;
+}
+.path-card h3,
+.focus-card h3 {
+  font-size: clamp(25px, 2vw, 34px);
+}
+.path-card p,
+.focus-card p,
+.mode-button .mb-sub,
+.gc-body p {
+  color: #f2f6ff;
+}
+.practice-band .focus-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.practice-band .focus-card:first-child {
+  grid-column: span 2;
+  border-color: rgba(245,196,81,.48);
+}
+.practice-band .focus-card:first-child h3 {
+  font-size: clamp(30px, 3vw, 46px);
+}
+.jeopardy-console {
+  background:
+    linear-gradient(180deg, rgba(5,8,18,.92), rgba(5,8,18,.98)),
+    var(--ui-sheet) center / cover no-repeat;
+}
+.library-head {
+  padding-top: 4px;
+}
+.lane-tabs {
+  padding: 10px;
+  border: 1px solid rgba(122,240,255,.18);
+  border-radius: 8px;
+  background: rgba(3,8,20,.50);
+}
+.game-card {
+  min-height: 382px;
+}
+.gc-body {
+  min-height: 148px;
+}
+.gc-body p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+@media (max-width: 980px) {
+  .path-grid,
+  .practice-band .focus-grid {
+    grid-template-columns: 1fr;
+  }
+  .practice-band .focus-card:first-child {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .player {
+    inset: 0;
+  }
+  .playerbar {
+    min-height: 54px;
+  }
+  .player-badge {
+    display: none;
+  }
+  .framewrap .loader strong {
+    font-size: 18px;
+  }
+  .path-grid {
+    display: grid;
+  }
+}
 </style>
 </head>
 <body>
@@ -3001,7 +3198,8 @@ input.field {
 
 <section class="player" id="player" aria-label="Online game player">
   <div class="playerbar">
-    <div>
+    <div class="player-titleblock">
+      <span class="player-badge">Now Playing</span>
       <strong id="playerTitle">Game</strong>
       <span id="playerMeta"></span>
     </div>
@@ -3012,12 +3210,16 @@ input.field {
     </div>
   </div>
   <div class="framewrap">
-    <div class="loader">Loading game</div>
+    <div class="loader">
+      <span class="loader-mark">MM</span>
+      <strong>Loading Cabinet</strong>
+      <span>Preparing controls, progress, and arcade frame</span>
+    </div>
     <iframe id="gameFrame" title="Review game player"></iframe>
   </div>
 </section>
 
-<script src="assets/arcade-analytics.js?v=20260430-mastery1"></script>
+<script src="assets/arcade-analytics.js?v=20260501-platform-polish"></script>
 <script src="assets/source-bank.js?v=20260501-sourcebank"></script>
 <script src="assets/mastery-engine.js?v=20260501-sourcebank"></script>
 <script>
@@ -3299,6 +3501,19 @@ function shortHeroTitle(title) {
     .replace("Archive Quest: Sourcebound", "Archive Quest")
     .replace("Regents Practice Exam", "Regents Exam");
 }
+function cardSubtitle(game) {
+  if (!game) return "";
+  if (game.id === "history-hunters") return "Open-world review RPG with battles, contracts, party building, and course quests.";
+  if (game.id === "archive-quest") return "Platform levels, double jump, review gates, and question-unlocked powers.";
+  if (game.id === "cold-war-invaders") return "Atari shooter with Cold War questions, intel bursts, and mobile controls.";
+  if (game.id === "regents-practice-exam") return "Digitized past Regents exams with timed sections, writing, scoring, and source zoom.";
+  if (game.id === "regents-rally-source-circuit") return "Historical drivers race for question-gated item boosts on animated tracks.";
+  if (game.id === "source-sprint") return "Fast stimulus MCQ reps: inspect the source, answer, and learn from misses.";
+  if (game.id === "regents-gauntlet") return "Mixed Regents MCQ pressure run with explanations after every answer.";
+  if (game.id === "writing-coach") return "CRQ, short essay, enduring issue, and Civic Literacy writing practice.";
+  if (isJeopardyBoard(game)) return "Course board with teams, scoring, Daily Double, and Final Jeopardy.";
+  return game.subtitle || game.course || "";
+}
 function heroSubtitle(game) {
   if (!game) return "";
   if (game.id === "history-hunters") return "Explore, battle, collect, and earn review XP.";
@@ -3361,7 +3576,7 @@ function renderFeatured() {
       '<span class="mb-tag">' + escapeHtml(displayGameType(game)) + '</span>' +
       '<div>' +
         '<h3 class="mb-title">' + escapeHtml(game.title) + '</h3>' +
-        '<p class="mb-sub">' + escapeHtml(game.subtitle || game.course) + '</p>' +
+        '<p class="mb-sub">' + escapeHtml(cardSubtitle(game)) + '</p>' +
         '<div class="mb-pills">' + pills + '</div>' +
       '</div>' +
       '<div class="mb-foot">' +
@@ -3384,7 +3599,7 @@ function buttonCard(game, fallback, className) {
   const art = game ? ';--card-art:' + cssUrlForAttr(thumbnailFor(game)) : "";
   const id = game ? game.id : item.id;
   const title = game ? game.title : item.title;
-  const subtitle = game ? game.subtitle : item.subtitle;
+  const subtitle = game ? cardSubtitle(game) : item.subtitle;
   const kicker = game ? displayGameType(game) : item.kicker;
   const meta = game ? [game.course, game.day || game.grade].filter(Boolean).join(" · ") : item.meta;
   return '<button class="' + className + '" type="button" style="--accent:' + accent + ';--glyph:\'' + glyph + '\'' + art + '" data-id="' + escapeHtml(id) + '">' +
@@ -3598,7 +3813,7 @@ function renderQuickPlay() {
     const art = cssUrlForAttr(thumbnailFor(game));
     return '<button class="quick-card" type="button" style="--accent:' + accent + ';--card-art:' + art + ';--quick-glyph:\'' + glyph + '\';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
       '<div class="quick-top"><span class="quick-kicker">' + escapeHtml(displayGameType(game)) + '</span><span class="quick-timer">' + escapeHtml(timer) + '</span></div>' +
-      '<div><h3>' + escapeHtml(game.title) + '</h3><p>' + escapeHtml(game.subtitle) + '</p></div>' +
+      '<div><h3>' + escapeHtml(game.title) + '</h3><p>' + escapeHtml(cardSubtitle(game)) + '</p></div>' +
       '<div class="quick-foot"><span class="quick-meta">' + escapeHtml(meta) + ' · ' + escapeHtml(String(game.clueCount || 0)) + ' prompts</span><span class="play">Play</span></div>' +
     '</button>';
   }).join("");
@@ -3690,7 +3905,7 @@ function card(game) {
     '</div>' +
     '<div class="gc-body">' +
       '<h3>' + escapeHtml(game.title) + '</h3>' +
-      '<p>' + escapeHtml(game.subtitle || game.course) + '</p>' +
+      '<p>' + escapeHtml(cardSubtitle(game)) + '</p>' +
     '</div>' +
     '<div class="card-bottom">' +
       '<span class="micro">' + escapeHtml(meta) + (categoryLine ? '<br>' + escapeHtml(categoryLine) : '') + '</span>' +

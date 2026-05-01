@@ -519,3 +519,42 @@ select option { color: #08111f; background: #f8fbff; }
 }
 
 select option, select optgroup { color: #07111f; background: #f8fbff; }
+
+/* Premium arcade start screen pass */
+.setup-card {
+  border-radius: 8px;
+  border-color: rgba(107,238,255,.34);
+  background:
+    linear-gradient(180deg, rgba(7,12,24,.88), rgba(7,12,24,.97)),
+    linear-gradient(135deg, rgba(107,238,255,.12), rgba(255,208,91,.08));
+}
+.setup-card::before {
+  content: "";
+  display: block;
+  height: 4px;
+  margin: -8px -8px 16px;
+  background: linear-gradient(90deg, var(--cyan), var(--gold), var(--rose));
+  box-shadow: 0 0 22px rgba(107,238,255,.32);
+}
+.launch-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 16px 0 18px;
+}
+.launch-strip span {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 9px 10px;
+  border: 1px solid rgba(107,238,255,.24);
+  border-radius: 6px;
+  background: rgba(3,7,15,.54);
+  color: #f8fbff;
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+@media (max-width: 640px) {
+  .launch-strip { grid-template-columns: 1fr; }
+}

@@ -297,11 +297,11 @@ function startGame() {
   state.score = 0;
   state.wave = 1;
   state.shield = 100;
-  state.intel = 30;
+  state.intel = mobileControls.matches ? 52 : 30;
   state.correct = 0;
   state.answered = 0;
   state.streak = 0;
-  state.player = { x: state.w / 2, y: state.h - playerBottomInset(), vx: 0, cooldown: 0, invuln: 0 };
+  state.player = { x: state.w / 2, y: state.h - playerBottomInset(), vx: 0, cooldown: 0, invuln: mobileControls.matches ? 2.2 : 0 };
   state.touch = { left: false, right: false, fire: false };
   state.bullets = [];
   state.enemyShots = [];
@@ -322,11 +322,17 @@ function startGame() {
 }
 
 function difficultyTune() {
-  return {
+  const base = {
     cadet: { speed: 0.82, fire: 1.25, shield: 0.72 },
     regents: { speed: 1, fire: 1, shield: 1 },
     crisis: { speed: 1.22, fire: 0.72, shield: 1.25 }
   }[state.difficulty] || { speed: 1, fire: 1, shield: 1 };
+  if (!mobileControls.matches) return base;
+  return {
+    speed: base.speed * 0.84,
+    fire: base.fire * 1.42,
+    shield: base.shield * 0.58
+  };
 }
 
 function spawnWave() {
@@ -466,7 +472,14 @@ function enemyFire() {
   const candidates = state.enemies.filter((enemy) => !state.enemies.some((other) => other.col === enemy.col && other.row > enemy.row));
   const shooter = candidates[Math.floor(Math.random() * candidates.length)];
   if (!shooter) return;
-  state.enemyShots.push({ x: shooter.x, y: shooter.y + 20, vy: 210 + state.wave * 12, r: 5, color: shooter.kind === "missile" ? "#ff5f7d" : "#ffd15c" });
+  const mobileShot = mobileControls.matches;
+  state.enemyShots.push({
+    x: shooter.x,
+    y: shooter.y + 20,
+    vy: (mobileShot ? 148 : 210) + state.wave * (mobileShot ? 7 : 12),
+    r: mobileShot ? 4 : 5,
+    color: shooter.kind === "missile" ? "#ff5f7d" : "#ffd15c"
+  });
 }
 
 function update(dt) {
@@ -513,7 +526,7 @@ function update(dt) {
   state.intel = Math.min(100, state.intel + dt * (4.8 + state.wave * 0.28));
   state.shake = Math.max(0, state.shake - dt * 1.9);
   state.toastTime = Math.max(0, state.toastTime - dt);
-  if (state.enemies.some((enemy) => enemy.y > state.h - 150)) {
+  if (state.enemies.some((enemy) => enemy.y > state.h - (mobileControls.matches ? 92 : 150))) {
     state.shield = Math.max(0, state.shield - dt * 18 * tune.shield);
   }
   if (!state.enemies.length && !state.boss) {

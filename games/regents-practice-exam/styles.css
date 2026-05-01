@@ -12,3 +12,65 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
 
 :root{--arena:url("../../assets/arcade-lobby-16bit-v4.webp");--arcade-panel:url("../../assets/arcade-ui-panels-16bit-v4.webp")}body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif}.bg{background:linear-gradient(90deg,rgba(3,5,13,.98),rgba(3,5,13,.76) 48%,rgba(3,5,13,.94)),linear-gradient(180deg,rgba(3,5,13,.22),#050812 92%),var(--arena) center/cover no-repeat}.bg:after{background:linear-gradient(rgba(122,240,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(122,240,255,.025) 1px,transparent 1px);background-size:76px 76px;opacity:.28}.hero,.panel,.exam-status,.work-surface,.summary-card,.stimulus-panel,.question-card,.writing-card,.doc-card,.feedback-card,.official-exam-card,.viewer-toolbar,.viewer-stage{border-radius:6px;border-color:rgba(98,233,255,.24);box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 0 0 1px rgba(0,0,0,.44) inset,0 22px 64px rgba(0,0,0,.46)}.hero,.panel,.exam-status,.work-surface,.summary-card{background:linear-gradient(180deg,rgba(5,8,18,.86),rgba(5,8,18,.97)),var(--arcade-panel) center/cover no-repeat}.hero{background:linear-gradient(115deg,rgba(5,8,18,.88),rgba(5,8,18,.50)),var(--arena) center/cover no-repeat}.hero h1,.summary-card h1{font-size:clamp(42px,5.4vw,72px);line-height:1.02;text-shadow:0 2px 0 #07111f,0 5px 0 rgba(255,123,204,.32),0 0 24px rgba(98,233,255,.38)}.hero p,.exam-preview,.feedback-card,.prompt-list,.model-answer,.official-exam-card{color:#f2f6ff}.brand strong,.panel h2,.work-head h2,.summary-card h2,.question-card h3,.writing-card h3,.doc-card h3,.official-exam-card h3{color:#fff;font-weight:900;text-shadow:0 2px 12px rgba(0,0,0,.54)}select,textarea,.choice{color:#fff;background:rgba(3,7,16,.96);border-color:rgba(98,233,255,.24)}select option,select optgroup{color:#07111f;background:#f8fbff}.btn,.tab,.pill,.inspect-btn,.mini-link{border-radius:4px}.choice{min-height:70px}.choice strong{color:#ffd15c}.stimulus-figure img,.doc-card img,.viewer-stage img{border-radius:4px}
 .setup-panel .form-grid{grid-template-columns:minmax(145px,1fr) minmax(215px,1.45fr) minmax(150px,1fr)}@media(max-width:900px){.setup-panel .form-grid{grid-template-columns:1fr}}
+
+/* Premium exam start and trust polish */
+.exam-trust-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.exam-trust-strip span {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 9px 10px;
+  border: 1px solid rgba(98,233,255,.25);
+  border-radius: 6px;
+  background: rgba(3,7,16,.62);
+  color: #f8fbff;
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+.exam-preview {
+  border-color: rgba(98,233,255,.24);
+  background:
+    linear-gradient(180deg, rgba(3,7,16,.72), rgba(3,7,16,.96)),
+    var(--arcade-panel) center/cover no-repeat;
+}
+.exam-preview .trust-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+.exam-preview .trust-list span {
+  min-height: 38px;
+  padding: 8px 9px;
+  border: 1px solid rgba(90,240,174,.24);
+  border-radius: 6px;
+  background: rgba(90,240,174,.07);
+  color: #f8fbff;
+  font-size: 12px;
+  font-weight: 900;
+}
+.tab {
+  border-radius: 6px;
+}
+@media(max-width:720px){
+  .exam-trust-strip,
+  .exam-preview .trust-list {
+    grid-template-columns: 1fr;
+  }
+  .work-surface {
+    order: 1;
+  }
+  .exam-status {
+    order: 2;
+  }
+  .work-actions .btn,
+  .work-actions .inspect-btn {
+    flex: 1 1 142px;
+  }
+}

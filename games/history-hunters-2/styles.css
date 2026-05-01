@@ -781,3 +781,43 @@ canvas {
 }
 
 select option, select optgroup { color: #07111f; background: #f8fbff; }
+
+/* Premium arcade start screen pass */
+.boot-panel {
+  border-radius: 8px;
+  border-color: rgba(117,244,255,.54);
+  background:
+    linear-gradient(180deg, rgba(7,14,27,.88), rgba(7,14,27,.97)),
+    linear-gradient(135deg, rgba(117,244,255,.12), rgba(255,209,92,.08));
+}
+.boot-panel::before {
+  content: "";
+  display: block;
+  height: 4px;
+  margin: -10px -10px 16px;
+  background: linear-gradient(90deg, var(--cyan), var(--gold), var(--danger));
+  box-shadow: 0 0 22px rgba(117,244,255,.34);
+}
+.launch-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 18px 0;
+}
+.launch-strip span {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 9px 10px;
+  border: 1px solid rgba(117,244,255,.25);
+  border-radius: 6px;
+  background: rgba(3,7,15,.58);
+  color: #f8fbff;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+@media (max-width: 640px) {
+  .launch-strip { grid-template-columns: 1fr; }
+}

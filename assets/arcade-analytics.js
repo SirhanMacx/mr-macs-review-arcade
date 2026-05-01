@@ -387,11 +387,12 @@
   function render(extra) {
     var local = readLocal();
     var global = Object.assign({}, window.__MR_MACS_GLOBAL_TRAFFIC__ || {}, extra || {});
-    setText("[data-traffic='global-visits']", format(global.siteVisits));
+    var fallback = global.connected === false;
+    setText("[data-traffic='global-visits']", format(fallback ? (local.pageViews || 0) : global.siteVisits));
     setText("[data-traffic='global-engaged']", format(global.engagedSessions));
-    setText("[data-traffic='global-game-opens']", format(global.gameLaunches));
-    setText("[data-traffic='global-game-views']", format(global.gameViews));
-    setText("[data-traffic='global-game-plays']", format(global.gamePlays));
+    setText("[data-traffic='global-game-opens']", format(fallback ? (local.gameLaunches || 0) : global.gameLaunches));
+    setText("[data-traffic='global-game-views']", format(fallback ? (local.gameViews || 0) : global.gameViews));
+    setText("[data-traffic='global-game-plays']", format(fallback ? (local.gamePlays || 0) : global.gamePlays));
     setText("[data-traffic='global-completions']", format(global.completions));
     setText("[data-traffic='global-today-visits']", format(global.todayVisits));
     setText("[data-traffic='global-today-plays']", format(global.todayGamePlays));
@@ -401,7 +402,7 @@
     setText("[data-traffic='local-visits']", format(local.pageViews || 0));
     setText("[data-traffic='local-game-opens']", format(local.gameLaunches || 0));
     setText("[data-traffic='local-game-plays']", format(local.gamePlays || 0));
-    setText("[data-traffic='traffic-status']", global.connected === false ? "local fallback" : "live counter");
+    setText("[data-traffic='traffic-status']", fallback ? "private stats" : "live counter");
   }
 
   function aggregateCounter(type) {
