@@ -402,7 +402,7 @@
     setText("[data-traffic='local-visits']", format(local.pageViews || 0));
     setText("[data-traffic='local-game-opens']", format(local.gameLaunches || 0));
     setText("[data-traffic='local-game-plays']", format(local.gamePlays || 0));
-    setText("[data-traffic='traffic-status']", fallback ? "private stats" : "live counter");
+    setText("[data-traffic='traffic-status']", fallback ? "local backup" : "live public");
   }
 
   function aggregateCounter(type) {

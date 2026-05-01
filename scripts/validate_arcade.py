@@ -276,6 +276,26 @@ def check_index_uses_games_json() -> list[str]:
     return errors
 
 
+def check_public_traffic_footer() -> list[str]:
+    errors: list[str] = []
+    index_text = (ROOT / "index.html").read_text(encoding="utf-8")
+    analytics_text = (ROOT / "assets" / "arcade-analytics.js").read_text(encoding="utf-8")
+    combined = index_text + "\n" + analytics_text
+    for marker in [
+        "Public anonymous arcade traffic counter",
+        "data-traffic=\"global-visits\"",
+        "data-traffic=\"global-game-opens\"",
+        "data-traffic=\"global-game-views\"",
+        "live public",
+        "local backup",
+    ]:
+        if marker not in combined:
+            errors.append(f"Public traffic footer missing marker: {marker}")
+    if "private stats" in combined:
+        errors.append("Public traffic footer must not label the visible counter as private stats.")
+    return errors
+
+
 def check_game_thumbnails() -> list[str]:
     errors: list[str] = []
     games = load_json(ROOT / "games.json")
@@ -613,6 +633,7 @@ def main() -> int:
         ("flagship game audit", check_flagship_game_audit),
         ("dropdown option contrast", check_select_option_contrast),
         ("index.html games load", check_index_uses_games_json),
+        ("public traffic footer", check_public_traffic_footer),
         ("game thumbnails", check_game_thumbnails),
         ("mastery platform", check_mastery_platform),
         ("ap practice exam", check_ap_practice_exam),
