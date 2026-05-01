@@ -134,7 +134,7 @@
         <p class="eyebrow">Official Public PDF</p>
         <h2>${escapeHtml(form.title)}</h2>
         <ul class="format-list">
-          <li><strong>${form.mcqCount} official MCQs</strong><span>Questions stay in the College Board PDF; answers are entered here and auto-scored.</span></li>
+          <li><strong>${form.mcqCount} official MCQs</strong><span>Question-by-question runner with source pages, answer grid, and auto-scored public key.</span></li>
           <li><strong>${writing.length} writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
           <li><strong>${form.minutes} minute timer</strong><span>Full-form practice with a digital answer sheet.</span></li>
           <li><strong>Official link preserved</strong><span><a href="${escapeHtml(form.pdfUrl)}" target="_blank" rel="noopener">Open source PDF</a></span></li>
@@ -191,10 +191,10 @@
       correctIndex: options.indexOf(letter),
       choices: options.map((option) => `Option ${option}`),
       labels: options,
-      stem: `Use the official PDF for question ${index + 1}. Select the answer here.`,
+      stem: `Question ${index + 1} is displayed in the official source panel. Select the answer here.`,
       source: form.sourceLabel,
       officialPdf: form.pdfUrl,
-      officialPage: form.pdfStartPage || 1
+      officialPage: questionPageFor(form, index + 1)
     }));
     const writing = (form.writingTasks || []).map((task) => ({
       ...task,
@@ -204,6 +204,7 @@
       bullets: task.rubricTokens || ["claim", "evidence", "explanation"],
       anchors: task.rubricTokens || [],
       officialPdf: form.pdfUrl,
+      officialPage: writingPageFor(form, task.id),
       officialPageUrl: form.officialPageUrl
     }));
     return {
@@ -215,6 +216,16 @@
       writing,
       minutes: form.minutes || 120
     };
+  }
+
+  function questionPageFor(form, questionNumber) {
+    const ranges = form.questionPageRanges || [];
+    const match = ranges.find((range) => questionNumber >= range[0] && questionNumber <= range[1]);
+    return match ? match[2] : form.pdfStartPage || 1;
+  }
+
+  function writingPageFor(form, taskId) {
+    return (form.writingPages || {})[taskId] || form.pdfStartPage || 1;
   }
 
   function buildBankExam(course, mode) {
@@ -422,6 +433,10 @@
     state.answers._mcqIndex = index;
     $("questionLabel").textContent = `${question.label} of ${state.exam.mcq.length}`;
     $("skillLabel").textContent = question.skill;
+    if (question.officialPdf) {
+      renderOfficialMcq(index, question);
+      return;
+    }
     const source = question.officialPdf ? officialViewer(question.officialPdf, question.officialPage, question.source) : `<p class="source-note">Bank source: ${escapeHtml(question.source)}</p>`;
     $("questionCard").innerHTML = `
       ${source}
@@ -447,8 +462,59 @@
     $("nextBtn").onclick = () => renderMcq(Math.min(state.exam.mcq.length - 1, index + 1));
   }
 
+  function renderOfficialMcq(index, question) {
+    $("questionCard").innerHTML = `
+      <div class="official-runner">
+        ${officialViewer(question.officialPdf, question.officialPage, question.source)}
+        <section class="digital-panel" aria-label="Digital answer sheet">
+          <div class="runner-head">
+            <p class="eyebrow">Digital Answer Sheet</p>
+            <h3>${escapeHtml(question.label)}</h3>
+            <span>Suggested PDF page ${escapeHtml(String(question.officialPage))}</span>
+          </div>
+          <div class="stem">${escapeHtml(question.stem)}</div>
+          <div class="choices compact-choices">
+            ${question.choices.map((choice, choiceIndex) => `
+              <button type="button" class="choice ${state.answers[question.id] === choiceIndex ? "selected" : ""}" data-choice="${choiceIndex}">
+                <span class="letter">${escapeHtml((question.labels || ["A", "B", "C", "D"])[choiceIndex] || "")}</span>
+                <span>${escapeHtml(choice)}</span>
+              </button>
+            `).join("")}
+          </div>
+          ${answerMapHtml(index)}
+        </section>
+      </div>
+    `;
+    $("questionCard").querySelectorAll(".choice").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.answers[question.id] = Number(button.dataset.choice);
+        renderOfficialMcq(index, question);
+        updateAnswered();
+      });
+    });
+    $("questionCard").querySelectorAll("[data-qjump]").forEach((button) => {
+      button.addEventListener("click", () => renderMcq(Number(button.dataset.qjump)));
+    });
+    $("prevBtn").disabled = index === 0;
+    $("nextBtn").disabled = index === state.exam.mcq.length - 1;
+    $("prevBtn").onclick = () => renderMcq(Math.max(0, index - 1));
+    $("nextBtn").onclick = () => renderMcq(Math.min(state.exam.mcq.length - 1, index + 1));
+  }
+
+  function answerMapHtml(activeIndex) {
+    return `
+      <div class="answer-map" aria-label="Question navigator">
+        ${state.exam.mcq.map((question, index) => {
+          const answered = Number.isInteger(state.answers[question.id]);
+          const classes = ["qdot", answered ? "answered" : "", index === activeIndex ? "active" : ""].filter(Boolean).join(" ");
+          return `<button type="button" class="${classes}" data-qjump="${index}" aria-label="Question ${index + 1}${answered ? " answered" : ""}">${index + 1}</button>`;
+        }).join("")}
+      </div>
+    `;
+  }
+
   function officialViewer(url, page, label) {
-    const src = `${url}#page=${page || 1}`;
+    const src = `${url}#page=${page || 1}&view=FitH`;
     return `
       <div class="official-source">
         <div class="official-source-head">
@@ -463,7 +529,7 @@
   function renderWriting(task) {
     $("questionLabel").textContent = task.label;
     $("skillLabel").textContent = `${task.max} points`;
-    const source = task.officialPdf ? officialViewer(task.officialPdf, 1, "Official AP prompt and scoring guide") : "";
+    const source = task.officialPdf ? officialViewer(task.officialPdf, task.officialPage || 1, "Official AP prompt and scoring guide") : "";
     $("questionCard").innerHTML = `
       ${source}
       <div class="writing-task">

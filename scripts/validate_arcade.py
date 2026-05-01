@@ -348,6 +348,14 @@ def check_ap_practice_exam() -> list[str]:
         "Official Public AP Practice PDFs",
         "Official Public PDF",
         "officialPdf",
+        "questionPageRanges",
+        "writingPages",
+        "questionPageFor",
+        "writingPageFor",
+        "renderOfficialMcq",
+        "answerMapHtml",
+        "official-runner",
+        "answer-map",
         "Open PDF",
         "official worksheet composite",
         "ap-official-practice-exams.json",
@@ -416,6 +424,24 @@ def check_ap_practice_exam() -> list[str]:
             errors.append(f"{form_id} needs writing tasks for AP practice scoring.")
         if not form.get("scoring", {}).get("ranges"):
             errors.append(f"{form_id} needs AP score conversion ranges.")
+        if not form.get("questionPageRanges"):
+            errors.append(f"{form_id} needs official MCQ question page ranges for the guided runner.")
+        else:
+            covered: set[int] = set()
+            for start, end, page in form.get("questionPageRanges", []):
+                if int(page or 0) <= 0:
+                    errors.append(f"{form_id} has an invalid official source page in questionPageRanges.")
+                covered.update(range(int(start), int(end) + 1))
+            missing = [number for number in range(1, mcq_count + 1) if number not in covered]
+            if missing:
+                errors.append(f"{form_id} questionPageRanges do not cover every MCQ; first missing question is {missing[0]}.")
+        if not form.get("writingPages"):
+            errors.append(f"{form_id} needs writing prompt/scoring page anchors for the guided runner.")
+        else:
+            writing_ids = {task.get("id") for task in form.get("writingTasks", [])}
+            missing_pages = [task_id for task_id in writing_ids if task_id not in form.get("writingPages", {})]
+            if missing_pages:
+                errors.append(f"{form_id} writingPages missing anchors for: {', '.join(sorted(missing_pages))}.")
     frq_pages = official.get("officialFrqPages", [])
     for course in ["AP World History: Modern", "AP European History", "AP Human Geography", "AP U.S. Government and Politics"]:
         if not any(page.get("course") == course and str(page.get("url", "")).startswith("https://apcentral.collegeboard.org/") for page in frq_pages):
