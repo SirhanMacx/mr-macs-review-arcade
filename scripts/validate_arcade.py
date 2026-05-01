@@ -401,7 +401,18 @@ def check_jeopardy_boards() -> list[str]:
                 errors.append(f"{path.relative_to(ROOT)}: final alias repeats a board answer {alias!r}")
     bank_path = ROOT / "data" / "chrono-defense-bank.json"
     bank = load_json(bank_path)
-    for question in bank.get("questions", []):
+    questions = bank.get("questions", [])
+    summary = bank.get("summary") or {}
+    actual_summary = {
+        "totalQuestions": len(questions),
+        "courses": len({question.get("course") for question in questions if question.get("course")}),
+        "jeopardy": sum(1 for question in questions if str(question.get("type", "")).startswith("jeopardy")),
+        "mcq": sum(1 for question in questions if question.get("type") == "mcq"),
+    }
+    for key, actual in actual_summary.items():
+        if key in summary and summary.get(key) != actual:
+            errors.append(f"data/chrono-defense-bank.json: summary.{key} is {summary.get(key)!r}, expected {actual!r}")
+    for question in questions:
         if not str(question.get("type", "")).startswith("jeopardy"):
             continue
         combined = " ".join(str(question.get(field, "")) for field in ("category", "prompt", "explanation"))
