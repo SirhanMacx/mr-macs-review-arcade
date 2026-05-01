@@ -27,7 +27,7 @@ body {
   z-index: -2;
   background:
     linear-gradient(90deg, rgba(5,8,22,.94), rgba(5,8,22,.28), rgba(5,8,22,.88)),
-    url("rally-64-key-art.png") center/cover no-repeat;
+    url("rally-64-key-art.webp") center/cover no-repeat;
   filter: saturate(1.16) contrast(1.06);
 }
 
@@ -146,7 +146,7 @@ body {
   justify-content: flex-end;
   background:
     linear-gradient(115deg, rgba(6,11,25,.05), rgba(6,11,25,.92)),
-    url("rally-64-key-art.png") center/cover no-repeat;
+    url("rally-64-key-art.webp") center/cover no-repeat;
 }
 
 .hero-panel h1,
@@ -220,7 +220,7 @@ body {
 .portrait {
   height: 112px;
   margin-bottom: 12px;
-  background-image: url("rally-64-racers.png");
+  background-image: url("rally-64-racers.webp");
   background-size: 200% 200%;
   background-position: var(--sprite);
 }
@@ -234,7 +234,7 @@ body {
 .track-art {
   height: 145px;
   margin-bottom: 12px;
-  background-image: linear-gradient(180deg, rgba(5,8,22,.04), rgba(5,8,22,.35)), url("rally-64-tracks.png");
+  background-image: linear-gradient(180deg, rgba(5,8,22,.04), rgba(5,8,22,.35)), url("rally-64-tracks.webp");
   background-size: 100% 100%, 200% 200%;
   background-position: 0 0, var(--track-sprite);
 }

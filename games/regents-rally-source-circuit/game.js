@@ -215,6 +215,7 @@ const keys = new Set();
 const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 const params = new URLSearchParams(location.search);
 const perfLite = params.get("perf") === "lite" || params.get("fx") === "lite" || matchMedia("(pointer: coarse)").matches || innerWidth < 760;
+const EMPTY_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 const TRACK_LENGTH = 5400;
 const VISIBLE_RANGE = 1150;
 const COUNTDOWN_SECONDS = 3.15;
@@ -226,11 +227,11 @@ function loadAsset(src) {
 }
 
 const ASSETS = {
-  keyArt: loadAsset("rally-64-key-art.png"),
-  racers: loadAsset("rally-64-racers.png"),
-  gameplayKarts: loadAsset("rally-64-gameplay-karts.png"),
-  tracks: loadAsset("rally-64-tracks.png"),
-  items: loadAsset("rally-items.png")
+  keyArt: loadAsset("rally-64-key-art.webp"),
+  racers: loadAsset("rally-64-racers.webp"),
+  gameplayKarts: loadAsset("rally-64-gameplay-karts.webp"),
+  tracks: loadAsset("rally-64-tracks.webp"),
+  items: loadAsset("rally-items.webp")
 };
 
 const state = {
@@ -612,12 +613,17 @@ function renderQuestion() {
   els.questionText.textContent = q.prompt;
   if (q.images.length) {
     els.sourcePreview.classList.remove("hidden");
+    els.sourceImage.hidden = false;
     els.sourceImage.src = q.images[0].src;
+    els.sourceImage.alt = q.images[0].label || "Source stimulus";
     const lock = q.sourceLock || { ok: true, label: "Source Lock: verified", reason: "" };
     els.sourceCaption.innerHTML = `<span class="source-lock-pill ${lock.ok ? "ok" : "warn"}">${escapeHtml(lock.label)}${lock.reason ? " · " + escapeHtml(lock.reason) : ""}</span> ${escapeHtml(q.images[0].label || "Source stimulus")}`;
   } else {
     els.sourcePreview.classList.add("hidden");
-    els.sourceImage.removeAttribute("src");
+    els.sourceImage.hidden = true;
+    els.sourceImage.src = EMPTY_PIXEL;
+    els.sourceImage.alt = "";
+    els.sourceCaption.textContent = "";
   }
   els.feedback.className = "feedback";
   els.feedback.textContent = "Answer correctly to activate the item.";
@@ -721,7 +727,7 @@ function collectItem(box) {
 function updateItemHud() {
   if (state.item) {
     els.hudItem.textContent = state.item.name;
-    els.itemThumb.style.backgroundImage = "url('rally-items.png')";
+    els.itemThumb.style.backgroundImage = "url('rally-items.webp')";
     els.itemThumb.style.backgroundPosition = state.item.sprite;
     els.itemThumb.classList.add("ready");
     els.itemBtn.disabled = false;

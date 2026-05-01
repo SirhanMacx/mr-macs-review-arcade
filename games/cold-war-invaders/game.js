@@ -41,7 +41,7 @@ const ASSETS = {
   ready: false,
   failed: false
 };
-ASSETS.sheet.src = "assets/cold-war-invaders-atari-sheet.png";
+ASSETS.sheet.src = "assets/cold-war-invaders-atari-sheet.webp";
 ASSETS.sheet.onload = () => {
   ASSETS.ready = true;
   draw();

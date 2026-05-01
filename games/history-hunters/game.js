@@ -488,16 +488,16 @@
   };
 
   const figureAtlasFiles = [
-    "../../assets/history-hunters/keyed/battle-figure-atlas-1-keyed.png",
-    "../../assets/history-hunters/keyed/battle-figure-atlas-2-keyed.png",
-    "../../assets/history-hunters/keyed/battle-figure-atlas-3-keyed.png",
-    "../../assets/history-hunters/keyed/battle-figure-atlas-4-keyed.png",
-    "../../assets/history-hunters/keyed/battle-figure-atlas-5-keyed.png",
-    "../../assets/history-hunters/keyed/battle-figure-atlas-6-keyed.png",
-    "../../assets/history-hunters/keyed/battle-figure-atlas-7-keyed.png",
-    "../../assets/history-hunters/keyed/battle-figure-atlas-8-keyed.png",
-    "../../assets/history-hunters/keyed/battle-figure-atlas-9-keyed.png",
-    "../../assets/history-hunters/keyed/battle-figure-atlas-10-keyed.png"
+    "../../assets/history-hunters/keyed/battle-figure-atlas-1-keyed.webp",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-2-keyed.webp",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-3-keyed.webp",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-4-keyed.webp",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-5-keyed.webp",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-6-keyed.webp",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-7-keyed.webp",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-8-keyed.webp",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-9-keyed.webp",
+    "../../assets/history-hunters/keyed/battle-figure-atlas-10-keyed.webp"
   ];
   const allFigureFamilies = Object.entries(figureFamiliesByType).flatMap(([type, rows]) => (
     rows.map((row) => ({
@@ -3378,9 +3378,9 @@
     renderRoster();
     renderBag();
     await Promise.all([
-      loadImage("retroTiles", "../../assets/history-hunters/retro-tile-sprite-atlas.png"),
-      loadImage("retroSheet", "../../assets/history-hunters/retro-title-battle-sheet.png"),
-      loadImage("retroItems", "../../assets/history-hunters/retro-items-actions-sheet.png")
+      loadImage("retroTiles", "../../assets/history-hunters/retro-tile-sprite-atlas.webp"),
+      loadImage("retroSheet", "../../assets/history-hunters/retro-title-battle-sheet.webp"),
+      loadImage("retroItems", "../../assets/history-hunters/retro-items-actions-sheet.webp")
     ]);
     const response = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
     state.bank = await response.json();

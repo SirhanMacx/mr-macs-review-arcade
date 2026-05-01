@@ -52,10 +52,10 @@
   const perfLite = params.get("perf") === "lite" || params.get("fx") === "lite" || matchMedia("(pointer: coarse)").matches || innerWidth < 760;
   const qaMode = new URLSearchParams(location.search).get("qa");
   const assetPaths = {
-    background: "../../assets/archive-quest/background.png",
-    tiles: "../../assets/archive-quest/tiles.png",
-    hero: "../../assets/archive-quest/hero.png",
-    enemies: "../../assets/archive-quest/enemies-items.png"
+    background: "../../assets/archive-quest/background.webp",
+    tiles: "../../assets/archive-quest/tiles.webp",
+    hero: "../../assets/archive-quest/hero.webp",
+    enemies: "../../assets/archive-quest/enemies-items.webp"
   };
 
   const levels = [

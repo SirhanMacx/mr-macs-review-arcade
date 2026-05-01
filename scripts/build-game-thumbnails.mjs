@@ -33,7 +33,7 @@ const GENERIC_ART = [
   "assets/regents-gauntlet-arena.png",
   "assets/archive-cipher/archive-cipher-atlas-lite.jpg",
   "assets/boss-rush-arena-v2.webp",
-  "assets/history-hunters/overworld-map.png",
+  "assets/history-hunters/overworld-map.webp",
 ];
 
 function hashText(value) {
@@ -54,10 +54,10 @@ function baseArt(game) {
   if (haystack.includes("mastery-path")) return "assets/portal-card.webp";
   if (haystack.includes("source-lab")) return "assets/regents-gauntlet-arena.png";
   if (haystack.includes("writing-coach")) return "assets/regents-gauntlet-arena-lite.jpg";
-  if (haystack.includes("regents-rally")) return "games/regents-rally-source-circuit/rally-64-key-art.png";
-  if (haystack.includes("cold-war-invaders")) return "games/cold-war-invaders/assets/cold-war-invaders-atari-sheet.png";
-  if (haystack.includes("archive-quest")) return "assets/archive-quest/background.png";
-  if (haystack.includes("history-hunters")) return "assets/history-hunters/overworld-map.png";
+  if (haystack.includes("regents-rally")) return "games/regents-rally-source-circuit/rally-64-key-art.webp";
+  if (haystack.includes("cold-war-invaders")) return "games/cold-war-invaders/assets/cold-war-invaders-atari-sheet.webp";
+  if (haystack.includes("archive-quest")) return "assets/archive-quest/background.webp";
+  if (haystack.includes("history-hunters")) return "assets/history-hunters/overworld-map.webp";
   if (haystack.includes("chrono-defense")) return "assets/chrono-defense-road-map.webp";
   if (haystack.includes("chrono-pinball")) return "assets/chrono-defense-game-pieces.webp";
   if (haystack.includes("boss-rush")) return "assets/boss-rush-arena-v2.webp";

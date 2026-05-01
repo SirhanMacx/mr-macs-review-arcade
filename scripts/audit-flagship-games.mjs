@@ -100,9 +100,9 @@ requireText("games/history-hunters-2/index.html", [
 for (const id of ["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam"]) {
   requireAsset(`assets/game-thumbnails/${id}.webp`, 1024);
 }
-requireAsset("games/cold-war-invaders/assets/cold-war-invaders-atari-sheet.png", 10000);
-requireAsset("assets/archive-quest/background.png", 10000);
-requireAsset("assets/history-hunters/overworld-map.png", 10000);
+requireAsset("games/cold-war-invaders/assets/cold-war-invaders-atari-sheet.webp", 10000);
+requireAsset("assets/archive-quest/background.webp", 10000);
+requireAsset("assets/history-hunters/overworld-map.webp", 10000);
 requireAsset("assets/history-hunters/generated/battle-fx-sheet-v2-clean.webp", 10000);
 
 if (errors.length) {

@@ -58,15 +58,15 @@
   const ctx = els.canvas.getContext("2d", { alpha: false });
   ctx.imageSmoothingEnabled = false;
 
-  const tileAtlas = loadImage("../../assets/history-hunters/keyed/retro-tile-sprite-atlas-keyed.png");
-  const playerBack = loadImage("../../assets/history-hunters/keyed/player-back-keyed.png");
-  const decorSheet = loadImage("../../assets/history-hunters/generated/overworld-decor-sheet-v3.png");
-  const trainerSheet = loadImage("../../assets/history-hunters/generated/trainer-sprite-sheet-v1.png");
-  const landmarkSheet = loadImage("../../assets/history-hunters/generated/landmark-sprite-sheet-v1.png");
+  const tileAtlas = loadImage("../../assets/history-hunters/keyed/retro-tile-sprite-atlas-keyed.webp");
+  const playerBack = loadImage("../../assets/history-hunters/keyed/player-back-keyed.webp");
+  const decorSheet = loadImage("../../assets/history-hunters/generated/overworld-decor-sheet-v3.webp");
+  const trainerSheet = loadImage("../../assets/history-hunters/generated/trainer-sprite-sheet-v1.webp");
+  const landmarkSheet = loadImage("../../assets/history-hunters/generated/landmark-sprite-sheet-v1.webp");
   const companionSheets = [
-    loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v1.png"),
-    loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v2.png"),
-    loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v3.png")
+    loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v1.webp"),
+    loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v2.webp"),
+    loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v3.webp")
   ];
   const battleFxSheet = loadImage("../../assets/history-hunters/generated/battle-fx-sheet-v2-clean.webp");
   const battleFxCells = {
@@ -81,7 +81,7 @@
     capture: 6,
     victory: 4
   };
-  const figureAtlases = Array.from({ length: 10 }, (_, i) => loadImage(`../../assets/history-hunters/keyed/battle-figure-atlas-${i + 1}-keyed.png`));
+  const figureAtlases = Array.from({ length: 10 }, (_, i) => loadImage(`../../assets/history-hunters/keyed/battle-figure-atlas-${i + 1}-keyed.webp`));
 
   const atlas = {
     grassA: [41, 36, 104, 104],

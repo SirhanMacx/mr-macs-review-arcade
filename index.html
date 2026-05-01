@@ -3443,6 +3443,249 @@ input.field {
     display: grid;
   }
 }
+
+/* ============== Final responsive polish ============== */
+html,
+body {
+  background-color: #020611;
+}
+
+.footer {
+  margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    position: sticky;
+    top: 0;
+    background:
+      linear-gradient(180deg, rgba(5,8,18,.98), rgba(5,8,18,.94)),
+      var(--marquee-art) center / auto 120% repeat-x;
+  }
+  .topbar-inner {
+    gap: 7px 10px;
+    padding: 7px 0 8px;
+  }
+  .brand strong {
+    font-size: 13px;
+  }
+  .brand span:last-child > span {
+    font-size: 9.5px;
+  }
+  .nav-link {
+    min-height: 38px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  .topnav {
+    display: flex;
+    gap: 7px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1px 1px 4px;
+    border: 0;
+    background: transparent;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .topnav::-webkit-scrollbar {
+    display: none;
+  }
+  .topnav a {
+    flex: 0 0 auto;
+    min-height: 34px;
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+  .hero {
+    padding-top: 18px;
+  }
+  .hero-inner {
+    gap: 18px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .hero-actions {
+    gap: 8px;
+  }
+  .hero-actions .action {
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+  .band {
+    padding: 34px 0 26px;
+    scroll-margin-top: 108px;
+  }
+  .band-head {
+    margin-bottom: 16px;
+  }
+  .band-title {
+    font-size: clamp(26px, 7vw, 38px);
+  }
+  .path-grid {
+    display: flex;
+    grid-template-columns: none;
+    gap: 14px;
+    align-items: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 2px 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .path-card {
+    flex: 0 0 min(82vw, 318px);
+    width: min(82vw, 318px);
+    min-height: 214px;
+    scroll-snap-align: start;
+  }
+  .path-card p,
+  .focus-card p {
+    display: -webkit-box !important;
+    overflow: hidden !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+  }
+  .smart-grid .smart-card,
+  .jeopardy-grid .focus-card,
+  .practice-band .focus-card,
+  .library-grid .game-card {
+    flex-basis: min(82vw, 318px);
+    width: min(82vw, 318px);
+  }
+  .smart-grid,
+  .jeopardy-grid,
+  .practice-band .focus-grid,
+  .library-grid,
+  .bento {
+    align-items: flex-start;
+  }
+  .smart-card {
+    height: 334px;
+    max-height: 334px;
+    min-height: 334px;
+    grid-template-rows: 82px minmax(0, 1fr) auto;
+  }
+  .smart-body {
+    overflow: hidden;
+    padding: 11px 12px 8px;
+  }
+  .smart-body p,
+  .gc-body p {
+    display: -webkit-box !important;
+    overflow: hidden !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+  }
+  .smart-foot {
+    padding: 9px 12px 11px;
+  }
+  .jeopardy-grid .focus-card,
+  .practice-band .focus-card {
+    height: 314px;
+    max-height: 314px;
+    min-height: 314px;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    overflow: hidden;
+  }
+  .bento .mode-button:nth-child(n) {
+    min-height: 340px;
+  }
+  .console-launch {
+    min-height: 86px;
+  }
+  .library-grid .game-card {
+    height: 334px;
+    max-height: 334px;
+    min-height: 334px;
+  }
+  .gc-body {
+    min-height: 112px;
+  }
+  .focus-foot,
+  .card-bottom,
+  .smart-foot {
+    flex-wrap: nowrap;
+  }
+  .focus-foot span:first-child,
+  .card-bottom .micro,
+  .smart-foot span:first-child {
+    min-width: 0;
+    flex: 1 1 auto;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .focus-foot .launch-chip,
+  .card-bottom .play,
+  .smart-foot .play {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .footer {
+    min-height: 0;
+    padding: 30px 0 30px;
+    background:
+      linear-gradient(180deg, rgba(2,5,13,.08), rgba(2,5,13,.72) 38%, #020611 100%),
+      radial-gradient(84% 76% at 50% 100%, rgba(122,240,255,.24), transparent 70%),
+      var(--hero) center bottom / auto 100% no-repeat,
+      linear-gradient(180deg, #050712, #020611);
+  }
+  .footer::before {
+    opacity: .42;
+  }
+  .footer::after {
+    bottom: -30%;
+    opacity: .5;
+  }
+  .footer-inner {
+    gap: 16px;
+    width: min(100%, calc(100vw - 28px));
+  }
+  .traffic-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 100%;
+  }
+  .traffic-stat {
+    min-width: 0;
+    padding-left: 10px;
+    text-align: left;
+  }
+  .traffic-stat strong {
+    font-size: 24px;
+    line-height: 1;
+  }
+  .traffic-stat span {
+    font-size: 9px;
+    line-height: 1.25;
+  }
+  .traffic-dashboard {
+    display: none;
+  }
+  .footer-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    width: 100%;
+    padding-top: 0;
+  }
+  .footer-jump {
+    min-height: 43px;
+    padding: 9px 8px;
+    font-size: 12px;
+    line-height: 1.1;
+  }
+}
 </style>
 </head>
 <body>
@@ -3891,8 +4134,16 @@ const JEOPARDY_ALL_COURSES = "All Course Levels";
 const JEOPARDY_ALL_SUBJECTS = "All Subjects";
 const JEOPARDY_PREVIEW_LIMIT = 4;
 const LIBRARY_PREVIEW_LIMIT = 12;
+const MOBILE_LIBRARY_PREVIEW_LIMIT = 6;
 const jeopardyState = { course: JEOPARDY_ALL_COURSES, subject: JEOPARDY_ALL_SUBJECTS, query: "" };
 const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final"]);
+const SUBJECT_ALIASES = {
+  "United States History": "U.S. History",
+  "US History": "U.S. History",
+  "U.S. History": "U.S. History",
+  "Regents Source Integrity": "Regents Review",
+  "Regents Writing": "Regents Review"
+};
 
 function isJeopardyBoard(game) {
   const text = [game.title, game.originalFile, game.file, game.gameType].join(" ");
@@ -3906,19 +4157,38 @@ function displayGameType(game) {
 function isRegentsLike(game) {
   return /Regents|Gauntlet/i.test(game.gameType || "");
 }
+function normalizedSubject(subject) {
+  const value = String(subject || "").trim();
+  if (!value) return "";
+  return SUBJECT_ALIASES[value] || value;
+}
+function subjectOptions(games) {
+  return uniq(games.map((game) => normalizedSubject(game.subject)).filter(Boolean))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+}
+function subjectMatches(game, selected, allLabel = "All Subjects") {
+  return selected === allLabel || normalizedSubject(game.subject) === selected;
+}
+function isMobileViewport() {
+  return window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+}
+function libraryPreviewLimit() {
+  return isMobileViewport() ? MOBILE_LIBRARY_PREVIEW_LIMIT : LIBRARY_PREVIEW_LIMIT;
+}
 
 // ============== Filters ==============
 function fillSelect(id, label, values) {
   const select = document.getElementById(id);
   if (!select) return;
-  select.innerHTML = [label].concat(values.filter((value) => value !== label)).map((value) => '<option value="' + escapeHtml(value) + '">' + escapeHtml(value) + '</option>').join("");
+  const cleanValues = values.filter((value) => value && value !== label);
+  select.innerHTML = [label].concat(cleanValues).map((value) => '<option value="' + escapeHtml(value) + '">' + escapeHtml(value) + '</option>').join("");
 }
 function initFilters() {
   fillSelect("courseFilter", "All Courses", uniq(GAMES.map((game) => game.course)));
-  fillSelect("subjectFilter", "All Subjects", uniq(GAMES.map((game) => game.subject)));
+  fillSelect("subjectFilter", "All Subjects", subjectOptions(GAMES));
   fillSelect("typeFilter", "All Game Types", uniq(GAMES.map(displayGameType)));
   fillSelect("jeopardyCourseSelect", JEOPARDY_ALL_COURSES, uniq(GAMES.filter(isJeopardyBoard).map((game) => game.course)));
-  fillSelect("jeopardySubjectSelect", JEOPARDY_ALL_SUBJECTS, uniq(GAMES.filter(isJeopardyBoard).map((game) => game.subject)));
+  fillSelect("jeopardySubjectSelect", JEOPARDY_ALL_SUBJECTS, subjectOptions(GAMES.filter(isJeopardyBoard)));
   document.getElementById("search").addEventListener("input", (event) => { state.query = event.target.value; render(); });
   document.getElementById("courseFilter").addEventListener("change", (event) => { state.course = event.target.value; render(); });
   document.getElementById("subjectFilter").addEventListener("change", (event) => { state.subject = event.target.value; render(); });
@@ -3933,7 +4203,7 @@ function initFilters() {
   });
 }
 function searchable(game) {
-  return [game.title, game.subtitle, game.day, game.course, game.subject, game.grade, game.gameType, displayGameType(game), game.originalFile].concat(game.categories || [], game.tags || []).join(" ").toLowerCase();
+  return [game.title, game.subtitle, game.day, game.course, game.subject, normalizedSubject(game.subject), game.grade, game.gameType, displayGameType(game), game.originalFile].concat(game.categories || [], game.tags || []).join(" ").toLowerCase();
 }
 function quickPlayIds() {
   return ["lightning-review", "source-sprint", "vocab-vault", "archive-cipher"];
@@ -3990,7 +4260,7 @@ function filteredGames() {
   return GAMES.filter((game) => {
     if (!laneMatches(game)) return false;
     if (state.course !== "All Courses" && game.course !== state.course) return false;
-    if (state.subject !== "All Subjects" && game.subject !== state.subject) return false;
+    if (!subjectMatches(game, state.subject)) return false;
     if (state.type !== "All Game Types" && displayGameType(game) !== state.type) return false;
     if (query && !searchable(game).includes(query)) return false;
     return true;
@@ -4434,7 +4704,7 @@ function filteredJeopardyBoards() {
   const query = jeopardyState.query.trim().toLowerCase();
   return GAMES.filter(isJeopardyBoard).filter((game) => {
     if (jeopardyState.course !== JEOPARDY_ALL_COURSES && game.course !== jeopardyState.course) return false;
-    if (jeopardyState.subject !== JEOPARDY_ALL_SUBJECTS && game.subject !== jeopardyState.subject) return false;
+    if (!subjectMatches(game, jeopardyState.subject, JEOPARDY_ALL_SUBJECTS)) return false;
     if (query && !searchable(game).includes(query)) return false;
     return true;
   }).sort(jeopardyBoardSort);
@@ -4442,7 +4712,8 @@ function filteredJeopardyBoards() {
 
 function jeopardyBoardMeta(game) {
   const parts = [];
-  if (game.subject) parts.push(game.subject);
+  const subject = normalizedSubject(game.subject);
+  if (subject) parts.push(subject);
   const source = [game.originalFile, game.file, game.title].join(" ");
   const unit = source.match(/\b(?:unit|u)\s*0?(\d{1,2})\b/i) || source.match(/\b(\d{1,2})\s*[-–]\s*/);
   if (unit) parts.push("Unit " + unit[1]);
@@ -4678,8 +4949,9 @@ function shouldLimitDefaultLibrary() {
 function render() {
   renderLaneTabs();
   const games = filteredGames();
-  const limited = shouldLimitDefaultLibrary() && games.length > LIBRARY_PREVIEW_LIMIT;
-  const visibleGames = limited ? games.slice(0, LIBRARY_PREVIEW_LIMIT) : games;
+  const previewLimit = libraryPreviewLimit();
+  const limited = shouldLimitDefaultLibrary() && games.length > previewLimit;
+  const visibleGames = limited ? games.slice(0, previewLimit) : games;
   const countLabel = document.getElementById("countLabel");
   countLabel.textContent = limited
     ? visibleGames.length + " of " + games.length + " games showing"
@@ -4894,6 +5166,7 @@ async function boot() {
     initParallax();
     render();
     initReveal();
+    window.matchMedia?.("(max-width: 760px)").addEventListener?.("change", () => render());
     window.addEventListener("mrmacs-progress", () => { renderProgressReport(); renderSmartMenu(); });
     window.addEventListener("storage", (event) => {
       if (!event.key || event.key.includes("student-progress") || event.key.includes("local-traffic")) {

@@ -1,4 +1,5 @@
 
+const EMPTY_PIXEL="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 const PROFILES={
   "Grade 10 Global History II":{
     id:"global-history-ii",
@@ -163,7 +164,7 @@ function renderReview(){const unanswered=state.exam.mcq.filter(q=>!state.answers
 function collectViewerItems(){return $$("[data-inspect-src]").map(btn=>({src:btn.dataset.inspectSrc,label:btn.dataset.inspectLabel||"Source",source:btn.dataset.inspectSource||""})).filter(item=>item.src)}
 function openStimulusViewer(src,label,source){viewer.items=collectViewerItems();let index=viewer.items.findIndex(item=>item.src===src&&item.label===label);if(index<0)index=viewer.items.findIndex(item=>item.src===src);if(index<0){viewer.items=[{src,label:label||"Source",source:source||""}];index=0}viewer.index=index;viewer.zoom=1;renderStimulusViewer();$("#stimulusViewer").classList.remove("hidden");document.body.classList.add("viewer-open");$("#viewerClose").focus()}
 function closeStimulusViewer(){$("#stimulusViewer").classList.add("hidden");document.body.classList.remove("viewer-open")}
-function renderStimulusViewer(){const item=viewer.items[viewer.index]||{};$("#viewerImage").src=item.src||"";$("#viewerImage").alt=item.label||"Expanded stimulus";$("#viewerTitle").textContent=item.label||"Source";$("#viewerMeta").textContent=(item.source||"Released Regents source")+" · "+(viewer.index+1)+" of "+viewer.items.length;$("#viewerZoom").value=String(viewer.zoom);$("#viewerImage").style.width=(viewer.zoom*100)+"%";$("#viewerPrev").disabled=viewer.items.length<2;$("#viewerNext").disabled=viewer.items.length<2}
+function renderStimulusViewer(){const item=viewer.items[viewer.index]||{};const image=$("#viewerImage");if(item.src){image.hidden=false;image.src=item.src;image.alt=item.label||"Expanded stimulus"}else{image.hidden=true;image.src=EMPTY_PIXEL;image.alt=""}$("#viewerTitle").textContent=item.label||"Source";$("#viewerMeta").textContent=viewer.items.length?(item.source||"Released Regents source")+" · "+(viewer.index+1)+" of "+viewer.items.length:"No source selected";$("#viewerZoom").value=String(viewer.zoom);image.style.width=(viewer.zoom*100)+"%";$("#viewerPrev").disabled=viewer.items.length<2;$("#viewerNext").disabled=viewer.items.length<2}
 function stepStimulusViewer(delta){if(!viewer.items.length)return;viewer.index=(viewer.index+delta+viewer.items.length)%viewer.items.length;viewer.zoom=1;renderStimulusViewer()}
 function setStimulusZoom(value){viewer.zoom=clamp(Number(value)||1,.75,3);renderStimulusViewer()}
 function textHasAny(text,terms){const n=norm(text);return terms.some(t=>n.includes(norm(t)))}

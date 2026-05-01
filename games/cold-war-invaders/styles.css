@@ -36,7 +36,7 @@ button { cursor: pointer; }
   inset: 0;
   overflow: hidden;
   background:
-    url("assets/cold-war-invaders-atari-sheet.png") top center / min(1180px, 96vw) auto no-repeat,
+    linear-gradient(180deg, rgba(114,243,255,.10), rgba(114,243,255,0) 34%),
     radial-gradient(circle at 50% 18%, rgba(114,243,255,.18), transparent 34%),
     radial-gradient(circle at 86% 78%, rgba(255,209,92,.10), transparent 30%),
     linear-gradient(180deg, #09102a, #050815 58%, #03050d);
@@ -186,7 +186,7 @@ body.playing .topbar {
   margin: -8px 0 18px;
   border: 1px solid rgba(114,243,255,.34);
   border-radius: 10px;
-  background: url("assets/cold-war-invaders-atari-sheet.png") top center / 100% auto no-repeat #02040b;
+  background: url("assets/cold-war-invaders-marquee.webp") center / cover no-repeat #02040b;
   box-shadow: 0 0 34px rgba(114,243,255,.22), inset 0 0 0 2px rgba(255,95,125,.28);
   image-rendering: pixelated;
 }
