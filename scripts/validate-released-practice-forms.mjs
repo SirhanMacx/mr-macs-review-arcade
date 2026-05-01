@@ -23,6 +23,16 @@ function assetExists(src) {
   return existsSync(resolve(root, "games/regents-practice-exam", src));
 }
 
+function pageNumberFromSrc(src) {
+  const match = String(src || "").match(/\/page-(\d{2})\./i);
+  return match ? Number(match[1]) : null;
+}
+
+function officialPage(doc, image) {
+  const value = image?.officialPage ?? doc?.officialPage;
+  return Number.isFinite(Number(value)) ? Number(value) : null;
+}
+
 function validOfficialUrl(url) {
   return /^https:\/\/www\.nysedregents\.org\//.test(String(url || ""));
 }
@@ -33,12 +43,41 @@ function checkDocs(course, form, section, docs, expected, { allowRepeats = false
   for (const doc of docs || []) {
     const srcs = images(doc).map((image) => image.src);
     if (!srcs.length) errors.push(`${course} ${form.administration} ${section} doc ${doc.docNumber || "?"}: missing image`);
-    for (const src of srcs) {
+    for (const image of images(doc)) {
+      const src = image.src;
       if (!allowRepeats && seen.has(src)) errors.push(`${course} ${form.administration} ${section}: repeated document image ${src}`);
       seen.add(src);
       if (!assetExists(src)) errors.push(`${course} ${form.administration} ${section}: missing document asset ${src}`);
       if (/U\.S\. History/.test(course) && !/regents-released-forms\/us-/.test(src)) errors.push(`${course} ${form.administration} ${section}: non-U.S. released-form asset ${src}`);
       if (/Global History/.test(course) && !/regents-released-forms\/global-/.test(src)) errors.push(`${course} ${form.administration} ${section}: non-Global released-form asset ${src}`);
+      const srcPage = pageNumberFromSrc(src);
+      const expectedPage = officialPage(doc, image);
+      if (srcPage && expectedPage && srcPage !== expectedPage) errors.push(`${course} ${form.administration} ${section}: ${src} is page ${srcPage}, expected official page ${expectedPage}`);
+    }
+  }
+}
+
+function checkWritingLabels(course, form) {
+  if (/Global History/.test(course)) {
+    for (const task of form.shortTasks || []) {
+      for (const doc of task.docs || []) {
+        const text = `${doc.title || ""} ${doc.source || ""}`;
+        if (!new RegExp(task.title.replace(/\s+/g, "\\s+"), "i").test(text)) errors.push(`${course} ${form.administration} ${task.title}: document source is not labeled for this CRQ set (${doc.source || "blank"})`);
+      }
+    }
+    for (const doc of form.essay?.docs || []) {
+      const text = `${doc.title || ""} ${doc.source || ""}`;
+      if (!/Enduring Issues/i.test(text)) errors.push(`${course} ${form.administration} Enduring Issues Essay: document source is not labeled as an Enduring Issues document (${doc.source || "blank"})`);
+    }
+  }
+  if (/U\.S\. History/.test(course)) {
+    for (const doc of (form.scaffoldTasks || []).flatMap((task) => task.docs || [])) {
+      const text = `${doc.title || ""} ${doc.source || ""}`;
+      if (!/Civic Literacy|Civic/i.test(text)) errors.push(`${course} ${form.administration} Civic Literacy SAQ: document source is not labeled civic literacy (${doc.source || "blank"})`);
+    }
+    for (const doc of form.essay?.docs || []) {
+      const text = `${doc.title || ""} ${doc.source || ""}`;
+      if (!/Civic Literacy|Civic/i.test(text)) errors.push(`${course} ${form.administration} Civic Literacy Essay: document source is not labeled civic literacy (${doc.source || "blank"})`);
     }
   }
 }
@@ -93,6 +132,7 @@ for (const course of ["Grade 10 Global History II", "Grade 11 U.S. History"]) {
     if (!validOfficialUrl(form.conversionChartUrl)) errors.push(`${course} ${form.administration}: missing official conversion chart`);
     checkMcq(course, form);
     checkConversion(course, form);
+    checkWritingLabels(course, form);
     if (/Global History/.test(course)) {
       checkDocs(course, form, "CRQ short tasks", (form.shortTasks || []).flatMap((task) => task.docs || []), 4);
       checkDocs(course, form, "Enduring Issues Essay", form.essay?.docs || [], 5);
