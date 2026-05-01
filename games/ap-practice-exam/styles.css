@@ -335,7 +335,6 @@ textarea {
   background: rgba(255, 255, 255, 0.06);
 }
 
-.official-runner,
 .released-page-runner,
 .source-runner {
   display: grid;
@@ -344,7 +343,6 @@ textarea {
   align-items: start;
 }
 
-.official-runner .official-source,
 .released-page-runner .official-source,
 .source-runner .source-deck {
   margin-bottom: 0;
@@ -367,12 +365,37 @@ textarea {
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.pdf-frame {
+.official-page-stack {
+  display: grid;
+  gap: 12px;
+  max-height: min(68vh, 720px);
+  overflow: auto;
+  padding: 12px;
+  background: #101827;
+}
+
+.official-page-figure {
+  margin: 0;
+  border: 1px solid rgba(6, 16, 31, 0.16);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f8fbff;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+}
+
+.official-page-image {
   display: block;
   width: 100%;
-  height: min(58vh, 560px);
-  border: 0;
+  height: auto;
   background: #f8fbff;
+}
+
+.official-page-figure figcaption {
+  padding: 8px 10px;
+  color: #334155;
+  background: #f8fbff;
+  font-size: 0.78rem;
+  font-weight: 900;
 }
 
 .source-pages {
@@ -684,13 +707,12 @@ textarea {
 }
 
 @media (max-width: 980px) {
-  .official-runner,
   .released-page-runner,
   .source-runner {
     grid-template-columns: 1fr;
   }
 
-  .pdf-frame,
+  .official-page-stack,
   .source-pages {
     height: min(52vh, 460px);
   }

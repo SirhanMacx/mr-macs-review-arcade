@@ -334,6 +334,7 @@ def check_ap_practice_exam() -> list[str]:
         "games/ap-practice-exam/styles.css",
         "games/ap-practice-exam/game.js",
         "data/ap-official-practice-exams.json",
+        "assets/ap-released-forms",
         "assets/game-thumbnails/ap-practice-exam.webp",
     ]:
         if not (ROOT / rel).exists():
@@ -344,43 +345,32 @@ def check_ap_practice_exam() -> list[str]:
     required_markers = [
         "Practice estimate only",
         "not an official College Board score",
+        "DATA_VERSION",
         "OFFICIAL_URL",
         "Released AP Exam Practice",
-        "Typed AP Practice Bank",
         "Released AP exam",
-        "Official Exam Page",
-        "Released PDF page",
+        "Digital Question",
+        "Rendered",
         "officialPdf",
+        "officialPages",
         "questionPageRanges",
         "writingPages",
         "questionPageFor",
         "writingPageFor",
-        "pageGroupsFor",
+        "questionPagesFor",
+        "writingPagesFor",
         "renderOfficialPage",
         "renderOfficialMcq",
-        "pageNavHtml",
         "answerMapHtml",
         "released-page-runner",
-        "source-runner",
-        "sourceDeck",
-        "sourceDoc",
-        "sourceDocs",
-        "Attached Source Page",
-        "Attached Writing Documents",
+        "official-page-stack",
+        "official-page-image",
+        "officialPageImage",
+        "ap-released-forms",
         "answer-map",
         "Open PDF",
         "official worksheet composite",
         "ap-official-practice-exams.json",
-        "AP U.S. History Exam Review",
-        "AP World History: Modern Exam Review",
-        "AP European History Exam Review",
-        "AP Human Geography Exam Review",
-        "AP U.S. Government and Politics Exam Review",
-        "AP Psychology Review",
-        "AP Macroeconomics Exam Review",
-        "AP Microeconomics Exam Review",
-        "same-course distractors",
-        "ANSWER_PATTERN",
         "scoreWritingTask",
         "scoreComposite",
         "scoreFromRanges",
@@ -391,25 +381,10 @@ def check_ap_practice_exam() -> list[str]:
     for marker in required_markers:
         if marker not in combined:
             errors.append(f"AP practice exam missing required rigor marker: {marker}")
-    bank = load_json(ROOT / "data" / "chrono-defense-bank.json")
-    questions = bank.get("questions", [])
-    required_courses = {
-        "AP U.S. History Exam Review": 55,
-        "AP World History: Modern Exam Review": 55,
-        "AP European History Exam Review": 55,
-        "AP Human Geography Exam Review": 60,
-        "AP U.S. Government and Politics Exam Review": 55,
-        "AP Psychology Review": 75,
-        "AP Macroeconomics Exam Review": 60,
-        "AP Microeconomics Exam Review": 60,
-    }
-    for course, needed in required_courses.items():
-        course_items = [q for q in questions if q.get("course") == course and q.get("prompt") and q.get("answer")]
-        hard_items = [q for q in course_items if int(q.get("value") or 0) >= 300 or "final" in str(q.get("type", ""))]
-        if len(course_items) < needed * 2:
-            errors.append(f"{course} needs a deeper AP item pool; found {len(course_items)}, expected at least {needed * 2}.")
-        if len(hard_items) < needed:
-            errors.append(f"{course} needs enough high-rigor AP items; found {len(hard_items)}, expected at least {needed}.")
+    forbidden_markers = ["Typed AP Practice Bank", "bank::", "modeSelect", "Typed Question", "Fully Typed AP Practice"]
+    for marker in forbidden_markers:
+        if marker in combined:
+            errors.append(f"AP practice exam should be released-PDF-only; remove marker: {marker}")
     official = load_json(ROOT / "data" / "ap-official-practice-exams.json")
     forms = official.get("forms", [])
     if len(forms) < 6:
@@ -457,6 +432,24 @@ def check_ap_practice_exam() -> list[str]:
             missing_pages = [task_id for task_id in writing_ids if task_id not in form.get("writingPages", {})]
             if missing_pages:
                 errors.append(f"{form_id} writingPages missing anchors for: {', '.join(sorted(missing_pages))}.")
+        required_pages: set[int] = set()
+        ranges = form.get("questionPageRanges", [])
+        writing_pages = {key: int(value) for key, value in (form.get("writingPages") or {}).items()}
+        first_writing = min(writing_pages.values()) if writing_pages else None
+        for index, range_values in enumerate(ranges):
+            start_page = int(range_values[2])
+            next_page = int(ranges[index + 1][2]) if index + 1 < len(ranges) else first_writing
+            end_page = max(start_page, (next_page or start_page + 1) - 1)
+            required_pages.update(range(start_page, end_page + 1))
+        ordered_writing = sorted(writing_pages.items(), key=lambda item: item[1])
+        for index, (_task_id, start_page) in enumerate(ordered_writing):
+            next_page = ordered_writing[index + 1][1] if index + 1 < len(ordered_writing) else start_page + 1
+            end_page = max(start_page, min(next_page - 1, start_page + 5))
+            required_pages.update(range(start_page, end_page + 1))
+        for page in sorted(required_pages):
+            asset = ROOT / "assets" / "ap-released-forms" / str(form_id) / f"page-{page:03d}.webp"
+            if not asset.exists():
+                errors.append(f"{form_id} missing rendered official PDF page image: {asset.relative_to(ROOT)}")
     frq_pages = official.get("officialFrqPages", [])
     for course in ["AP World History: Modern", "AP European History", "AP Human Geography", "AP U.S. Government and Politics"]:
         if not any(page.get("course") == course and str(page.get("url", "")).startswith("https://apcentral.collegeboard.org/") for page in frq_pages):
