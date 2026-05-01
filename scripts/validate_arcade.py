@@ -320,6 +320,113 @@ def check_mastery_platform() -> list[str]:
     return errors
 
 
+def check_ap_practice_exam() -> list[str]:
+    errors: list[str] = []
+    games = load_json(ROOT / "games.json")
+    by_id = {game.get("id"): game for game in games}
+    game = by_id.get("ap-practice-exam")
+    if not game:
+        return ["Missing AP practice exam game in games.json: ap-practice-exam"]
+    if game.get("file") != "games/ap-practice-exam/index.html":
+        errors.append("ap-practice-exam manifest file must point to games/ap-practice-exam/index.html")
+    for rel in [
+        "games/ap-practice-exam/index.html",
+        "games/ap-practice-exam/styles.css",
+        "games/ap-practice-exam/game.js",
+        "data/ap-official-practice-exams.json",
+        "assets/game-thumbnails/ap-practice-exam.webp",
+    ]:
+        if not (ROOT / rel).exists():
+            errors.append(f"Missing AP practice exam asset: {rel}")
+    html = (ROOT / "games" / "ap-practice-exam" / "index.html").read_text(encoding="utf-8")
+    js = (ROOT / "games" / "ap-practice-exam" / "game.js").read_text(encoding="utf-8")
+    css = (ROOT / "games" / "ap-practice-exam" / "styles.css").read_text(encoding="utf-8")
+    required_markers = [
+        "Practice estimate only",
+        "not an official College Board score",
+        "OFFICIAL_URL",
+        "Official Public AP Practice PDFs",
+        "Official Public PDF",
+        "officialPdf",
+        "Open PDF",
+        "official worksheet composite",
+        "ap-official-practice-exams.json",
+        "AP U.S. History Exam Review",
+        "AP World History: Modern Exam Review",
+        "AP European History Exam Review",
+        "AP Human Geography Exam Review",
+        "AP U.S. Government and Politics Exam Review",
+        "AP Psychology Review",
+        "AP Macroeconomics Exam Review",
+        "AP Microeconomics Exam Review",
+        "same-course distractors",
+        "ANSWER_PATTERN",
+        "scoreWritingTask",
+        "scoreComposite",
+        "scoreFromRanges",
+        "select option",
+        "background: #f8fbff",
+    ]
+    combined = "\n".join([html, js, css])
+    for marker in required_markers:
+        if marker not in combined:
+            errors.append(f"AP practice exam missing required rigor marker: {marker}")
+    bank = load_json(ROOT / "data" / "chrono-defense-bank.json")
+    questions = bank.get("questions", [])
+    required_courses = {
+        "AP U.S. History Exam Review": 55,
+        "AP World History: Modern Exam Review": 55,
+        "AP European History Exam Review": 55,
+        "AP Human Geography Exam Review": 60,
+        "AP U.S. Government and Politics Exam Review": 55,
+        "AP Psychology Review": 75,
+        "AP Macroeconomics Exam Review": 60,
+        "AP Microeconomics Exam Review": 60,
+    }
+    for course, needed in required_courses.items():
+        course_items = [q for q in questions if q.get("course") == course and q.get("prompt") and q.get("answer")]
+        hard_items = [q for q in course_items if int(q.get("value") or 0) >= 300 or "final" in str(q.get("type", ""))]
+        if len(course_items) < needed * 2:
+            errors.append(f"{course} needs a deeper AP item pool; found {len(course_items)}, expected at least {needed * 2}.")
+        if len(hard_items) < needed:
+            errors.append(f"{course} needs enough high-rigor AP items; found {len(hard_items)}, expected at least {needed}.")
+    official = load_json(ROOT / "data" / "ap-official-practice-exams.json")
+    forms = official.get("forms", [])
+    if len(forms) < 4:
+        errors.append("Official AP practice manifest should include at least four verified public full-practice PDFs.")
+    expected_forms = {
+        "apush-2017-ced-practice": 55,
+        "ap-psych-2012-practice": 100,
+        "ap-macro-2012-practice": 60,
+        "ap-micro-2012-practice": 60,
+    }
+    by_form = {form.get("id"): form for form in forms}
+    for form_id, mcq_count in expected_forms.items():
+        form = by_form.get(form_id)
+        if not form:
+            errors.append(f"Missing official AP public practice form: {form_id}")
+            continue
+        if not str(form.get("pdfUrl", "")).startswith("https://apcentral.collegeboard.org/"):
+            errors.append(f"{form_id} must point to an AP Central PDF URL.")
+        if len(str(form.get("answerKey", ""))) != mcq_count:
+            errors.append(f"{form_id} answer key length must match {mcq_count} MCQs.")
+        if int(form.get("mcqCount") or 0) != mcq_count:
+            errors.append(f"{form_id} mcqCount must be {mcq_count}.")
+        if not form.get("writingTasks"):
+            errors.append(f"{form_id} needs writing tasks for AP practice scoring.")
+        if not form.get("scoring", {}).get("ranges"):
+            errors.append(f"{form_id} needs AP score conversion ranges.")
+    frq_pages = official.get("officialFrqPages", [])
+    for course in ["AP World History: Modern", "AP European History", "AP Human Geography", "AP U.S. Government and Politics"]:
+        if not any(page.get("course") == course and str(page.get("url", "")).startswith("https://apcentral.collegeboard.org/") for page in frq_pages):
+            errors.append(f"Missing official AP released-FRQ page marker for {course}.")
+    index_text = (ROOT / "index.html").read_text(encoding="utf-8")
+    for marker in ["Practice Exams", "ap-practice-exam", "Regents + AP"]:
+        if marker not in index_text:
+            errors.append(f"index.html missing AP practice launch marker: {marker}")
+    return errors
+
+
 def _norm_text(value: object) -> str:
     return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower().replace("&", " and ")).strip()
 
@@ -454,6 +561,7 @@ def main() -> int:
         ("index.html games load", check_index_uses_games_json),
         ("game thumbnails", check_game_thumbnails),
         ("mastery platform", check_mastery_platform),
+        ("ap practice exam", check_ap_practice_exam),
         ("jeopardy board quality", check_jeopardy_boards),
         ("javascript syntax", check_javascript_syntax),
     ]

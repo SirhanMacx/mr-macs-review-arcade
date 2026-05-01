@@ -1,0 +1,150 @@
+{
+  "version": "official-ap-public-practice-v1",
+  "notice": "Official public AP PDFs are loaded from College Board/AP Central links. This platform stores digital answer sheets, answer-key letters, timers, and score-estimate logic, not copied exam question text.",
+  "forms": [
+    {
+      "id": "apush-2017-ced-practice",
+      "course": "AP U.S. History Exam Review",
+      "label": "AP U.S. History",
+      "title": "AP U.S. History 2017 Public Practice Exam",
+      "sourceLabel": "College Board AP U.S. History Practice Exam",
+      "pdfUrl": "https://apcentral.collegeboard.org/media/pdf/ap-united-states-history-ced-practice-exam.pdf",
+      "officialPageUrl": "https://apcentral.collegeboard.org/courses/ap-united-states-history/exam/past-exam-questions",
+      "mcqCount": 55,
+      "options": ["A", "B", "C", "D"],
+      "answerKey": "CBDBCBBACADDADDAADBADCACCADABCACBDCBBACACBCADBADABBCACD",
+      "minutes": 195,
+      "pdfStartPage": 1,
+      "scoring": {
+        "type": "weightedPercent",
+        "mcqPercentWeight": 40,
+        "writingPercentWeight": 60,
+        "ranges": [
+          { "min": 82, "score": 5 },
+          { "min": 68, "score": 4 },
+          { "min": 52, "score": 3 },
+          { "min": 38, "score": 2 },
+          { "min": 0, "score": 1 }
+        ]
+      },
+      "writingTasks": [
+        { "id": "saq1", "label": "SAQ 1", "max": 3, "rubricTokens": ["identify", "explain", "evidence", "context"] },
+        { "id": "saq2", "label": "SAQ 2", "max": 3, "rubricTokens": ["identify", "explain", "evidence", "causation"] },
+        { "id": "saq3", "label": "SAQ 3 or 4", "max": 3, "rubricTokens": ["compare", "explain", "evidence", "development"] },
+        { "id": "dbq", "label": "DBQ", "max": 7, "rubricTokens": ["thesis", "document", "outside evidence", "sourcing", "complexity"] },
+        { "id": "leq", "label": "LEQ", "max": 6, "rubricTokens": ["thesis", "context", "evidence", "reasoning", "complexity"] }
+      ]
+    },
+    {
+      "id": "ap-psych-2012-practice",
+      "course": "AP Psychology Review",
+      "label": "AP Psychology",
+      "title": "AP Psychology 2012 Public Practice Exam",
+      "sourceLabel": "College Board AP Psychology Practice Exam",
+      "pdfUrl": "https://apcentral.collegeboard.org/media/pdf/ap-psychology-practice-exam-2012.pdf",
+      "officialPageUrl": "https://apcentral.collegeboard.org/courses/ap-psychology/exam/past-exam-questions",
+      "mcqCount": 100,
+      "options": ["A", "B", "C", "D", "E"],
+      "answerKey": "CEBDBDADBEEDCDDDEBAADBACDCCCAEEACDBABECBDBBCDBEEDEEEDCDEACDAEABCAECDCCCDBDBCDBEDECAEBCDBECAADBDACADB",
+      "minutes": 120,
+      "pdfStartPage": 1,
+      "scoring": {
+        "type": "weightedRaw",
+        "mcqWeight": 1,
+        "ranges": [
+          { "min": 112, "score": 5 },
+          { "min": 94, "score": 4 },
+          { "min": 79, "score": 3 },
+          { "min": 65, "score": 2 },
+          { "min": 0, "score": 1 }
+        ]
+      },
+      "writingTasks": [
+        { "id": "frq1", "label": "FRQ 1", "max": 7, "weight": 3.5714, "rubricTokens": ["compare", "method", "statistics", "study", "experiment", "correlation"] },
+        { "id": "frq2", "label": "FRQ 2", "max": 7, "weight": 3.5714, "rubricTokens": ["apply", "motivation", "learning", "threshold", "facilitation", "scenario"] }
+      ]
+    },
+    {
+      "id": "ap-macro-2012-practice",
+      "course": "AP Macroeconomics Exam Review",
+      "label": "AP Macroeconomics",
+      "title": "AP Macroeconomics 2012 Public Practice Exam",
+      "sourceLabel": "College Board AP Macroeconomics Practice Exam",
+      "pdfUrl": "https://apcentral.collegeboard.org/media/pdf/ap-macroeconomics-practice-exam-2012.pdf",
+      "officialPageUrl": "https://apcentral.collegeboard.org/courses/ap-macroeconomics/exam/past-exam-questions",
+      "mcqCount": 60,
+      "options": ["A", "B", "C", "D", "E"],
+      "answerKey": "BEDAAABCBDBCCDADDCDCCCEABBCACEBAADEBDCCBEBCDEBDEADEACEEAEBEB",
+      "minutes": 120,
+      "pdfStartPage": 1,
+      "scoring": {
+        "type": "weightedRaw",
+        "mcqWeight": 1,
+        "ranges": [
+          { "min": 71, "score": 5 },
+          { "min": 59, "score": 4 },
+          { "min": 51, "score": 3 },
+          { "min": 41, "score": 2 },
+          { "min": 0, "score": 1 }
+        ]
+      },
+      "writingTasks": [
+        { "id": "frq1", "label": "FRQ 1", "max": 12, "weight": 1.25, "rubricTokens": ["graph", "curve", "interest rate", "GDP", "account", "currency"] },
+        { "id": "frq2", "label": "FRQ 2", "max": 5, "weight": 1.5, "rubricTokens": ["reserve", "deposit", "M1", "excess reserves", "borrow"] },
+        { "id": "frq3", "label": "FRQ 3", "max": 6, "weight": 1.25, "rubricTokens": ["AD", "SRAS", "LRAS", "price level", "wages", "investment"] }
+      ]
+    },
+    {
+      "id": "ap-micro-2012-practice",
+      "course": "AP Microeconomics Exam Review",
+      "label": "AP Microeconomics",
+      "title": "AP Microeconomics 2012 Public Practice Exam",
+      "sourceLabel": "College Board AP Microeconomics Practice Exam",
+      "pdfUrl": "https://apcentral.collegeboard.org/media/pdf/ap-microeconomics-practice-exam-2012.pdf",
+      "officialPageUrl": "https://apcentral.collegeboard.org/courses/ap-microeconomics/exam/past-exam-questions",
+      "mcqCount": 60,
+      "options": ["A", "B", "C", "D", "E"],
+      "answerKey": "CEBBEBDBCAAEDDBABDDBCBDADBAABDBCCCDDECCBDDABEDAACCADECEBBDDB",
+      "minutes": 120,
+      "pdfStartPage": 1,
+      "scoring": {
+        "type": "weightedRaw",
+        "mcqWeight": 1,
+        "ranges": [
+          { "min": 71, "score": 5 },
+          { "min": 56, "score": 4 },
+          { "min": 46, "score": 3 },
+          { "min": 35, "score": 2 },
+          { "min": 0, "score": 1 }
+        ]
+      },
+      "writingTasks": [
+        { "id": "frq1", "label": "FRQ 1", "max": 10, "weight": 1.5, "rubricTokens": ["demand", "marginal revenue", "profit", "surplus", "subsidy", "deadweight"] },
+        { "id": "frq2", "label": "FRQ 2", "max": 6, "weight": 1.25, "rubricTokens": ["utility", "marginal", "demand", "inferior good", "elasticity"] },
+        { "id": "frq3", "label": "FRQ 3", "max": 5, "weight": 1.5, "rubricTokens": ["import", "tariff", "consumer surplus", "producer surplus", "revenue"] }
+      ]
+    }
+  ],
+  "officialFrqPages": [
+    {
+      "course": "AP World History: Modern",
+      "url": "https://apcentral.collegeboard.org/courses/ap-world-history/exam/past-exam-questions",
+      "status": "Official released FRQs only; no current full public MCQ practice PDF found on AP Central."
+    },
+    {
+      "course": "AP European History",
+      "url": "https://apcentral.collegeboard.org/courses/ap-european-history/exam/past-exam-questions",
+      "status": "Official released FRQs only; no current full public MCQ practice PDF found on AP Central."
+    },
+    {
+      "course": "AP Human Geography",
+      "url": "https://apcentral.collegeboard.org/courses/ap-human-geography/exam/past-exam-questions",
+      "status": "Official released FRQs only; no current full public MCQ practice PDF found on AP Central."
+    },
+    {
+      "course": "AP U.S. Government and Politics",
+      "url": "https://apcentral.collegeboard.org/courses/ap-united-states-government-and-politics/exam/past-exam-questions",
+      "status": "Official released FRQs only; no current full public MCQ practice PDF found on AP Central."
+    }
+  ]
+}

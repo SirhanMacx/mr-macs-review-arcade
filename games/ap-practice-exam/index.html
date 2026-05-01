@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Practice AP Exam | Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="../../assets/game-thumbnails/ap-practice-exam.webp">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="back-link" href="../../index.html#practice">Arcade</a>
+      <div>
+        <p class="eyebrow">Practice AP Exam</p>
+        <h1>Official AP practice</h1>
+      </div>
+      <div class="timer" id="timer">--:--</div>
+    </header>
+
+    <section class="notice">
+      <strong>Practice estimate only.</strong>
+      Official public PDFs load from AP Central where available; bank mode uses AP-style review items. This is not an official College Board score.
+    </section>
+
+    <section class="screen active" id="setupScreen" aria-labelledby="setupTitle">
+      <div class="setup-grid">
+        <article class="setup-panel">
+          <p class="eyebrow">Choose Course</p>
+          <h2 id="setupTitle">Start official AP practice</h2>
+          <label class="field">
+            <span>AP course</span>
+            <select id="courseSelect"></select>
+          </label>
+          <label class="field">
+            <span>Mode</span>
+            <select id="modeSelect">
+              <option value="full">Full practice</option>
+              <option value="sprint">Sprint check</option>
+            </select>
+          </label>
+          <button class="primary" id="startBtn" type="button">Launch Exam</button>
+        </article>
+
+        <article class="format-panel" id="formatPanel">
+          <p class="eyebrow">Format</p>
+          <h2>Loading exam profile...</h2>
+        </article>
+      </div>
+    </section>
+
+    <section class="screen" id="examScreen" aria-live="polite">
+      <div class="exam-layout">
+        <aside class="exam-nav">
+          <div class="progress-ring">
+            <strong id="answeredCount">0</strong>
+            <span>answered</span>
+          </div>
+          <div class="nav-tabs" id="sectionTabs"></div>
+          <button class="secondary" id="finishBtn" type="button">Score Practice</button>
+        </aside>
+
+        <section class="question-stage">
+          <div class="question-topline">
+            <span id="questionLabel">Question</span>
+            <span id="skillLabel">Skill</span>
+          </div>
+          <article class="question-card" id="questionCard"></article>
+          <div class="controls">
+            <button class="secondary" id="prevBtn" type="button">Previous</button>
+            <button class="secondary" id="nextBtn" type="button">Next</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="screen" id="resultsScreen" aria-labelledby="resultsTitle">
+      <article class="results-card">
+        <p class="eyebrow">Score Report</p>
+        <h2 id="resultsTitle">Practice AP estimate</h2>
+        <div class="score-grid" id="scoreGrid"></div>
+        <div class="feedback-grid" id="feedbackGrid"></div>
+        <div class="result-actions">
+          <button class="primary" id="retryBtn" type="button">New Practice</button>
+          <a class="secondary as-link" href="../../index.html#practice">Back To Practice</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>

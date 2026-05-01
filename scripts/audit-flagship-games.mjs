@@ -29,7 +29,7 @@ function requireAsset(path, minBytes = 2048) {
 }
 
 requireText("index.html", [
-  '["history-hunters", "archive-quest", "regents-practice-exam", "cold-war-invaders"]',
+  '["history-hunters", "archive-quest", "regents-practice-exam", "ap-practice-exam", "cold-war-invaders"]',
   '"play-lane"',
   '"history-hunters"',
   '"cold-war-invaders"',

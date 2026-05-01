@@ -2980,7 +2980,7 @@ input.field {
     </a>
     <nav class="topnav" aria-label="Primary">
       <a href="#launch-paths">Play</a>
-      <a href="#practice">Practice Regents</a>
+      <a href="#practice">Practice Exams</a>
       <a href="#jeopardy">Jeopardy</a>
       <a href="#library">Library</a>
     </nav>
@@ -2998,14 +2998,14 @@ input.field {
         <span class="ht-row ht-2">REVIEW</span>
         <span class="ht-row ht-3"><em>ARCADE</em></span>
       </h1>
-      <p class="tagline reveal">Choose a game, train a full Regents exam, or project a Jeopardy board without digging through folders.</p>
+      <p class="tagline reveal">Choose a game, train a full Regents or AP practice exam, or project a Jeopardy board without digging through folders.</p>
       <div class="hero-actions reveal">
         <button class="action primary" id="launchFeatured" type="button">
           <span>Start Recommended</span>
           <span class="arrow" aria-hidden="true">→</span>
         </button>
         <a class="action" href="#practice">
-          <span>Practice Regents</span>
+          <span>Practice Exams</span>
           <span class="arrow" aria-hidden="true">→</span>
         </a>
         <a class="action" href="#jeopardy">
@@ -3079,12 +3079,12 @@ input.field {
     <div class="progress-grid reveal-stagger" id="progressReport"></div>
   </section>
 
-  <section class="band practice-band" id="practice" aria-label="Regents practice">
+  <section class="band practice-band" id="practice" aria-label="Practice exams">
     <div class="band-head reveal">
       <div>
-        <div class="band-eyebrow">Practice Regents</div>
+        <div class="band-eyebrow">Practice Exams</div>
         <h2 class="band-title">Train the <em>exam</em>.</h2>
-        <p class="band-sub">Full practice exams, source MCQ drills, and targeted Regents review with expandable documents and local score reports.</p>
+        <p class="band-sub">Full Regents and AP-style practice, source MCQ drills, writing reps, and local score reports.</p>
       </div>
     </div>
     <div class="focus-grid reveal-stagger" id="practiceModes"></div>
@@ -3289,6 +3289,7 @@ const COURSE_PALETTE = {
   "AP Microeconomics":                   { accent: "#ffd884", glyph: "%" },
   "AP Macro/Micro Combined":             { accent: "#e8a85c", glyph: "Σ" },
   "AP U.S. Government and Politics":     { accent: "#5dc7ff", glyph: "✦" },
+  "AP Courses":                          { accent: "#60efff", glyph: "AP" },
   "Grade 5 Social Studies":              { accent: "#74f0aa", glyph: "5" },
   "Grade 6 Social Studies":              { accent: "#7af0ff", glyph: "6" },
   "Grade 7 U.S. History I":              { accent: "#ffd884", glyph: "7" },
@@ -3308,6 +3309,7 @@ function accentFor(game) {
   if (game.id === "archive-quest") return "#62e9ff";
   if (game.id === "cold-war-invaders") return "#72f3ff";
   if (game.id === "regents-practice-exam") return "#ffd15c";
+  if (game.id === "ap-practice-exam") return "#60efff";
   if (game.id === "source-audit") return "#5af0ae";
   if (game.id === "regents-rally-source-circuit") return "#ffd15c";
   if (game.id === "lightning-review") return "#ffd15c";
@@ -3323,6 +3325,7 @@ function glyphFor(game) {
   if (game.id === "archive-quest") return "AQ";
   if (game.id === "cold-war-invaders") return "CW";
   if (game.id === "regents-practice-exam") return "✎";
+  if (game.id === "ap-practice-exam") return "AP";
   if (game.id === "source-audit") return "OK";
   if (game.id === "regents-rally-source-circuit") return "RR";
   if (game.id === "lightning-review") return "90";
@@ -3394,7 +3397,7 @@ function laneMatches(game) {
   if (state.lane === "mastery") return game.collection === "mastery-path" || ["mastery-path", "source-lab", "writing-coach"].includes(game.id);
   if (state.lane === "play") return ["archive-quest", "history-hunters", "cold-war-invaders", "regents-rally-source-circuit", "chrono-defense-infinite", "time-rift-survivors", "chrono-pinball", "empire-ascendant", "boss-rush-arena"].includes(game.id);
   if (state.lane === "quick") return isQuickPlay(game);
-  if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing/i.test(text) || ["regents-practice-exam", "source-audit", "regents-rally-source-circuit", "regents-gauntlet", "source-sprint"].includes(game.id);
+  if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing|ap-style|frq|dbq|saq/i.test(text) || ["regents-practice-exam", "ap-practice-exam", "source-audit", "regents-rally-source-circuit", "regents-gauntlet", "source-sprint"].includes(game.id);
   if (state.lane === "jeopardy") return isJeopardyBoard(game);
   if (state.lane === "ap") return /^AP\b/.test(game.course || "") || /\bAP\b/.test(text);
   if (state.lane.startsWith("grade-")) {
@@ -3405,7 +3408,7 @@ function laneMatches(game) {
   if (state.lane === "global-10") return game.course === "Grade 10 Global History II" || game.course === "Grade 10 Global History II + Grade 11 U.S. History";
   if (state.lane === "us-11") return game.course === "Grade 11 U.S. History" || game.course === "Grade 10 Global History II + Grade 11 U.S. History";
   if (state.lane === "electives") return ["Economics", "Civics and Participation in Government"].includes(game.course || "");
-  if (state.lane === "writing") return /essay|writing|short answer|long answer|crq|constructed response|document|enduring issue/i.test(text) || game.id === "regents-practice-exam";
+  if (state.lane === "writing") return /essay|writing|short answer|long answer|crq|constructed response|document|enduring issue|frq|dbq|saq/i.test(text) || ["regents-practice-exam", "ap-practice-exam"].includes(game.id);
   return true;
 }
 function priority(game) {
@@ -3417,6 +3420,7 @@ function priority(game) {
   if (game.id === "archive-quest") return -5;
   if (game.id === "cold-war-invaders") return -4.7;
   if (game.id === "regents-practice-exam") return -4;
+  if (game.id === "ap-practice-exam") return -3.9;
   if (game.id === "regents-gauntlet") return -3.6;
   if (game.id === "source-sprint") return -3;
   if (game.id === "lightning-review") return -2;
@@ -3447,9 +3451,9 @@ function filteredGames() {
   });
 }
 function featuredGames() {
-  const ids = ["history-hunters", "archive-quest", "regents-practice-exam", "cold-war-invaders"];
+  const ids = ["history-hunters", "archive-quest", "regents-practice-exam", "ap-practice-exam", "cold-war-invaders"];
   const picks = ids.map((id) => GAMES.find((game) => game.id === id));
-  return [...new Map(picks.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 4);
+  return [...new Map(picks.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 5);
 }
 
 function renderLaneTabs() {
@@ -3510,6 +3514,7 @@ function cardSubtitle(game) {
   if (game.id === "archive-quest") return "Platform levels, double jump, review gates, and question-unlocked powers.";
   if (game.id === "cold-war-invaders") return "Atari shooter with Cold War questions, intel bursts, and mobile controls.";
   if (game.id === "regents-practice-exam") return "Digitized past Regents exams with timed sections, writing, scoring, and source zoom.";
+  if (game.id === "ap-practice-exam") return "Official public AP PDFs with digital answer sheets, timers, rubric feedback, and score estimates.";
   if (game.id === "regents-rally-source-circuit") return "Historical drivers race for question-gated item boosts on animated tracks.";
   if (game.id === "source-sprint") return "Fast stimulus MCQ reps: inspect the source, answer, and learn from misses.";
   if (game.id === "regents-gauntlet") return "Mixed Regents MCQ pressure run with explanations after every answer.";
@@ -3521,6 +3526,7 @@ function heroSubtitle(game) {
   if (!game) return "";
   if (game.id === "history-hunters") return "Explore, battle, collect, and earn review XP.";
   if (game.id === "regents-practice-exam") return "Timed MCQs, documents, writing, and score estimates.";
+  if (game.id === "ap-practice-exam") return "Official AP PDFs, answer sheets, FRQs, and scoring estimates.";
   if (game.id === "archive-quest") return "Run, jump, and unlock powers with source questions.";
   if (game.id === "cold-war-invaders") return "Defend Earth with Cold War review questions.";
   if (isJeopardyBoard(game)) return "Course board with teams, scoring, and final wager.";
@@ -3544,19 +3550,18 @@ function renderHeroConsole() {
     primaryCard.onclick = () => openGame(primary);
   }
 
-  const jeopardy = GAMES.find((game) => game.id === "global-10-units-06-cold-war-1945-1991-jeopardy-review-html") || GAMES.find(isJeopardyBoard);
   const slots = [
     GAMES.find((game) => game.id === "regents-practice-exam"),
+    GAMES.find((game) => game.id === "ap-practice-exam"),
     GAMES.find((game) => game.id === "archive-quest"),
-    GAMES.find((game) => game.id === "cold-war-invaders"),
-    jeopardy
+    GAMES.find((game) => game.id === "cold-war-invaders")
   ].filter(Boolean);
   const grid = document.getElementById("heroConsoleGrid");
   if (!grid) return;
   grid.innerHTML = slots.map((game, index) => {
     const accent = accentFor(game);
     const art = cssUrlForAttr(thumbnailFor(game));
-    const label = game.id === "regents-practice-exam" ? "Full exam" : displayGameType(game);
+    const label = ["regents-practice-exam", "ap-practice-exam"].includes(game.id) ? "Full exam" : displayGameType(game);
     return '<button class="console-launch" type="button" style="--accent:' + accent + ';--slot-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
       '<span>' + escapeHtml(label) + '</span>' +
       '<strong>' + escapeHtml(shortHeroTitle(game.title)) + '</strong>' +
@@ -3573,7 +3578,7 @@ function renderFeatured() {
   document.getElementById("featuredModes").innerHTML = games.map((game, index) => {
     const accent = accentFor(game);
     const art = cssUrlForAttr(thumbnailFor(game));
-    const meta = game.id === "regents-practice-exam" ? "28 MCQs + document writing" : (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " review prompts");
+    const meta = game.id === "regents-practice-exam" ? "28 MCQs + document writing" : game.id === "ap-practice-exam" ? "MCQ + FRQ score estimate" : (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " review prompts");
     const pills = (game.categories || []).slice(0, 4).map((c) => '<span class="mb-pill">' + escapeHtml(c) + '</span>').join('');
     return '<button class="mode-button" type="button" style="--accent:' + accent + ';--card-art:' + art + ';--mode-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
       '<span class="mb-tag">' + escapeHtml(displayGameType(game)) + '</span>' +
@@ -3619,9 +3624,9 @@ function renderLaunchPaths() {
       fallback: { id: "play-lane", title: "Play", subtitle: "Jump into the best arcade games first: RPG, platformer, shooter, gauntlet, and quick modes.", kicker: "Game-first", meta: "featured games", accent: "#62e9ff", glyph: "PLAY" }
     },
     {
-      id: "regents-practice-exam",
+      id: "practice-lane",
       preferFallback: true,
-      fallback: { id: "regents-practice-exam", title: "Practice Regents", subtitle: "Full timed exam, source inspection, writing, conversion-chart estimate, and next steps.", kicker: "Exam prep", meta: "Global + U.S.", accent: "#ffd15c", glyph: "EXAM" }
+      fallback: { id: "practice-lane", title: "Practice Exams", subtitle: "Regents practice, AP-style exams, source inspection, writing, score estimates, and next steps.", kicker: "Exam prep", meta: "Regents + AP", accent: "#ffd15c", glyph: "EXAM" }
     },
     {
       id: "jeopardy-lane",
@@ -3657,16 +3662,26 @@ function renderLaunchPaths() {
         document.getElementById("jeopardy").scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
+      if (button.dataset.id === "practice-lane") {
+        state.lane = "regents";
+        state.course = "All Courses";
+        state.subject = "All Subjects";
+        state.type = "All Game Types";
+        syncFilters();
+        render();
+        document.getElementById("practice").scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
       openGame(GAMES.find((game) => game.id === button.dataset.id));
     });
   });
 }
 
 function renderPracticeModes() {
-  const ids = ["regents-practice-exam", "source-sprint", "regents-gauntlet", "writing-coach", "source-lab", "source-audit", "arcade-duel", "global-regents-sprint-day-1", "us-regents-sprint-day-1"];
+  const ids = ["regents-practice-exam", "ap-practice-exam", "source-sprint", "regents-gauntlet", "writing-coach", "source-lab", "source-audit", "arcade-duel", "global-regents-sprint-day-1", "us-regents-sprint-day-1"];
   const games = ids.map((id) => GAMES.find((game) => game.id === id)).filter(Boolean);
   const backup = GAMES.filter((game) => laneMatchesWith("regents", game)).slice(0, 6);
-  const unique = [...new Map(games.concat(backup).map((game) => [game.id, game])).values()].slice(0, 4);
+  const unique = [...new Map(games.concat(backup).map((game) => [game.id, game])).values()].slice(0, 6);
   const container = document.getElementById("practiceModes");
   if (!container) return;
   container.innerHTML = unique.map((game) => buttonCard(game, null, "focus-card")).join("");
@@ -3676,7 +3691,7 @@ function renderPracticeModes() {
 }
 
 function renderMasteryModes() {
-  const ids = ["mastery-path", "source-lab", "writing-coach", "regents-practice-exam"];
+  const ids = ["mastery-path", "source-lab", "writing-coach", "regents-practice-exam", "ap-practice-exam"];
   const games = ids.map((id) => GAMES.find((game) => game.id === id)).filter(Boolean);
   const container = document.getElementById("masteryModes");
   if (!container) return;
