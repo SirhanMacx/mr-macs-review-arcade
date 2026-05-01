@@ -68,6 +68,19 @@
     loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v2.png"),
     loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v3.png")
   ];
+  const battleFxSheet = loadImage("../../assets/history-hunters/generated/battle-fx-sheet-v2-clean.webp");
+  const battleFxCells = {
+    legal: 0,
+    market: 1,
+    route: 2,
+    oratory: 3,
+    revolution: 4,
+    psych: 5,
+    source: 6,
+    timeline: 7,
+    capture: 6,
+    victory: 4
+  };
   const figureAtlases = Array.from({ length: 10 }, (_, i) => loadImage(`../../assets/history-hunters/keyed/battle-figure-atlas-${i + 1}-keyed.png`));
 
   const atlas = {
@@ -2353,6 +2366,27 @@
     }
   }
 
+  function drawGeneratedFxSprite(style, x, y, size, alpha = 1, rotation = 0, flipX = false) {
+    if (!battleFxSheet.complete || !battleFxSheet.naturalWidth) return false;
+    const cols = 4;
+    const cell = battleFxCells[style] ?? battleFxCells.source;
+    const sheetW = battleFxSheet.naturalWidth || battleFxSheet.width;
+    const sheetH = battleFxSheet.naturalHeight || battleFxSheet.height;
+    const cellW = sheetW / cols;
+    const cellH = sheetH / 2;
+    const sx = (cell % cols) * cellW;
+    const sy = Math.floor(cell / cols) * cellH;
+    ctx.save();
+    ctx.globalAlpha = clamp(ctx.globalAlpha * alpha, 0, 1);
+    ctx.globalCompositeOperation = "lighter";
+    ctx.translate(x, y);
+    ctx.rotate(rotation);
+    ctx.scale(flipX ? -1 : 1, 1);
+    ctx.drawImage(battleFxSheet, sx, sy, cellW, cellH, -size / 2, -size / 2, size, size);
+    ctx.restore();
+    return true;
+  }
+
   function drawMoveTrail(fx, fromX, fromY, toX, toY) {
     const t = fxProgress(fx);
     const color = fx.color || "#edf987";
@@ -2362,6 +2396,8 @@
     ctx.save();
     ctx.lineCap = "square";
     ctx.globalAlpha = .92;
+    const spriteSize = clamp(118 + Math.sin(t * Math.PI) * (FX_LITE ? 34 : 72), 92, Math.min(view.w * .34, 230));
+    drawGeneratedFxSprite(fx.style, x, y, spriteSize, FX_LITE ? .68 : .78, (t - .5) * (fx.kind === "enemy" ? -.35 : .35), fx.kind === "enemy");
     if (fx.style === "market") {
       for (let i = 0; i < 5; i += 1) {
         const px = x - 44 + i * 18;
@@ -2463,6 +2499,7 @@
     const accent = fx.accent || "#75f4ff";
     ctx.save();
     ctx.globalAlpha = 1 - t * .18;
+    drawGeneratedFxSprite(fx.style, x, y, clamp(150 + t * 76, 120, Math.min(view.w * .36, 250)), .7, t * .45);
     for (let i = 0; i < 12; i += 1) {
       ctx.save();
       ctx.translate(x, y);
@@ -2625,6 +2662,7 @@
       const y = battle.fx.kind === "enemyHit" ? layout.enemyY : layout.heroY;
       drawImpactBurst(battle.fx, x, y);
     } else if (battle.fx.kind === "capsule" || battle.fx.kind === "victory") {
+      drawGeneratedFxSprite(battle.fx.kind === "victory" ? "victory" : "capture", layout.enemyX, layout.enemyY, clamp(142 + t * 84, 110, Math.min(view.w * .34, 246)), .72, t * .55);
       ctx.beginPath();
       ctx.arc(layout.enemyX, layout.enemyY, 18 + t * 82, 0, Math.PI * 2);
       ctx.stroke();
