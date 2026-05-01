@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const DATA_VERSION = "2026-05-01-ap-rendered-pages-v3";
+  const DATA_VERSION = "2026-05-01-ap-source-expand-v4";
   const OFFICIAL_URL = `../../data/ap-official-practice-exams.json?v=${DATA_VERSION}`;
 
   const state = {
@@ -43,6 +43,9 @@
     $("retryBtn").addEventListener("click", () => {
       showScreen("setupScreen");
       $("timer").textContent = "--:--";
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeSourceInspector();
     });
   }
 
@@ -96,9 +99,9 @@
       category: form.label,
       skill: "official PDF",
       correctIndex: options.indexOf(letter),
-      choices: options.map((option) => `Option ${option}`),
+      choices: options,
       labels: options,
-      stem: `Read Question ${index + 1} on the rendered official PDF page, then enter your answer here.`,
+      stem: `Use the rendered official PDF page for the exact question and answer choices.`,
       source: form.sourceLabel,
       formId: form.id,
       officialPdf: form.pdfUrl,
@@ -225,19 +228,13 @@
         ${officialViewer(question.formId, pages, question.officialPdf, `${question.source} · ${pageLabel(pages)}`)}
         <section class="digital-panel" aria-label="Digital answer sheet">
           <div class="runner-head">
-            <p class="eyebrow">Digital Question</p>
+            <p class="eyebrow">Official Question</p>
             <h3>Question ${index + 1}</h3>
             <span>Rendered ${escapeHtml(pageLabel(pages))}</span>
           </div>
           <div class="stem">${escapeHtml(question.stem)}</div>
-          <div class="choices compact-choices">
-            ${question.choices.map((choice, choiceIndex) => `
-              <button type="button" class="choice ${state.answers[question.id] === choiceIndex ? "selected" : ""}" data-choice="${choiceIndex}">
-                <span class="letter">${escapeHtml((question.labels || ["A", "B", "C", "D"])[choiceIndex] || "")}</span>
-                <span>${escapeHtml(choice)}</span>
-              </button>
-            `).join("")}
-          </div>
+          <p class="answer-sheet-note">Read the exact wording and choices on the official page, then mark the matching answer.</p>
+          ${answerChoicesHtml(question)}
           ${answerMapHtml(index)}
         </section>
       </div>
@@ -249,6 +246,7 @@
         updateAnswered();
       });
     });
+    wireSourceTools($("questionCard"));
     $("questionCard").querySelectorAll("[data-qjump]").forEach((button) => {
       button.addEventListener("click", () => renderMcq(Number(button.dataset.qjump)));
     });
@@ -256,6 +254,19 @@
     $("nextBtn").disabled = index === state.exam.mcq.length - 1;
     $("prevBtn").onclick = () => renderMcq(Math.max(0, index - 1));
     $("nextBtn").onclick = () => renderMcq(Math.min(state.exam.mcq.length - 1, index + 1));
+  }
+
+  function answerChoicesHtml(question) {
+    return `
+      <div class="answer-sheet-choices" aria-label="Digital answer choices">
+        ${(question.labels || question.choices || ["A", "B", "C", "D"]).map((label, choiceIndex) => `
+          <button type="button" class="choice answer-bubble ${state.answers[question.id] === choiceIndex ? "selected" : ""}" data-choice="${choiceIndex}" aria-label="Answer ${escapeHtml(label)}">
+            <span class="letter">${escapeHtml(label)}</span>
+            <span>Answer ${escapeHtml(label)}</span>
+          </button>
+        `).join("")}
+      </div>
+    `;
   }
 
   function answerMapHtml(activeIndex) {
@@ -273,21 +284,155 @@
   function officialViewer(formId, pages, url, label) {
     const sourcePages = (pages || []).filter(Boolean);
     return `
-      <div class="official-source">
+      <div class="official-source" data-source-viewer data-form-id="${escapeHtml(formId)}" data-pages="${escapeHtml(sourcePages.join(","))}" data-pdf-url="${escapeHtml(url)}" data-source-label="${escapeHtml(label || "Official AP PDF")}">
         <div class="official-source-head">
-          <strong>${escapeHtml(label || "Official AP PDF")}</strong>
-          <a href="${escapeHtml(url)}" target="_blank" rel="noopener">Open PDF</a>
+          <div class="source-title">
+            <strong>${escapeHtml(label || "Official AP PDF")}</strong>
+            <span>Zoom or expand the source page for close reading.</span>
+          </div>
+          <div class="source-toolbar" aria-label="Source viewing tools">
+            <button type="button" class="source-tool" data-source-zoom="-1" aria-label="Zoom source out">-</button>
+            <span class="source-zoom-label" data-source-zoom-label>100%</span>
+            <button type="button" class="source-tool" data-source-zoom="1" aria-label="Zoom source in">+</button>
+            <button type="button" class="source-tool" data-source-fit>Fit</button>
+            <button type="button" class="source-expand" data-source-expand>Expand Source</button>
+            <a href="${escapeHtml(url)}" target="_blank" rel="noopener">PDF</a>
+          </div>
         </div>
+        ${sourcePageChipsHtml(sourcePages)}
         <div class="official-page-stack">
-          ${sourcePages.map((page) => `
-            <figure class="official-page-figure">
-              <img class="official-page-image" src="${escapeHtml(officialPageImage(formId, page))}" alt="${escapeHtml(`Official PDF page ${page}`)}">
-              <figcaption>Official PDF page ${escapeHtml(String(page))}</figcaption>
-            </figure>
-          `).join("")}
+          ${sourcePageFiguresHtml(formId, sourcePages)}
         </div>
       </div>
     `;
+  }
+
+  function sourcePageChipsHtml(pages) {
+    if (!pages.length) return "";
+    return `
+      <div class="source-page-strip" aria-label="Source pages">
+        ${pages.map((page, index) => `
+          <button type="button" class="${index === 0 ? "active" : ""}" data-source-page="${escapeHtml(String(page))}">Page ${escapeHtml(String(page))}</button>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  function sourcePageFiguresHtml(formId, pages) {
+    return pages.map((page) => `
+      <figure class="official-page-figure" data-page="${escapeHtml(String(page))}">
+        <img class="official-page-image" src="${escapeHtml(officialPageImage(formId, page))}" alt="${escapeHtml(`Official PDF page ${page}`)}">
+        <figcaption>Official PDF page ${escapeHtml(String(page))}</figcaption>
+      </figure>
+    `).join("");
+  }
+
+  function wireSourceTools(root) {
+    root.querySelectorAll("[data-source-viewer]").forEach((viewer) => applySourceZoom(viewer, Number(viewer.dataset.zoom) || 1));
+    root.querySelectorAll("[data-source-zoom]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const viewer = button.closest("[data-source-viewer]");
+        if (!viewer) return;
+        const current = Number(viewer.dataset.zoom) || 1;
+        applySourceZoom(viewer, current + Number(button.dataset.sourceZoom) * 0.2);
+      });
+    });
+    root.querySelectorAll("[data-source-fit]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const viewer = button.closest("[data-source-viewer]");
+        if (viewer) applySourceZoom(viewer, 1);
+      });
+    });
+    root.querySelectorAll("[data-source-expand]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const viewer = button.closest("[data-source-viewer]");
+        if (viewer) openSourceInspector(sourcePayloadFrom(viewer));
+      });
+    });
+    root.querySelectorAll("[data-source-page]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const viewer = button.closest("[data-source-viewer]");
+        const page = button.dataset.sourcePage;
+        const target = [...(viewer?.querySelectorAll("[data-page]") || [])].find((item) => item.dataset.page === page);
+        if (!viewer || !target) return;
+        viewer.querySelectorAll("[data-source-page]").forEach((item) => item.classList.toggle("active", item === button));
+        target.scrollIntoView({ block: "start", behavior: "smooth" });
+      });
+    });
+    root.querySelectorAll(".official-page-image").forEach((image) => {
+      image.addEventListener("error", () => {
+        image.closest(".official-page-figure")?.classList.add("source-missing");
+      }, { once: true });
+    });
+  }
+
+  function applySourceZoom(viewer, zoom) {
+    const nextZoom = Math.max(0.8, Math.min(2.8, zoom));
+    viewer.dataset.zoom = nextZoom.toFixed(2);
+    viewer.style.setProperty("--source-zoom", nextZoom.toFixed(2));
+    viewer.style.setProperty("--source-width", `${Math.round(nextZoom * 100)}%`);
+    const label = viewer.querySelector("[data-source-zoom-label]");
+    if (label) label.textContent = `${Math.round(nextZoom * 100)}%`;
+  }
+
+  function sourcePayloadFrom(viewer) {
+    return {
+      formId: viewer.dataset.formId || "",
+      pages: String(viewer.dataset.pages || "").split(",").map((page) => Number(page)).filter(Number.isFinite),
+      url: viewer.dataset.pdfUrl || "",
+      label: viewer.dataset.sourceLabel || "Official AP PDF"
+    };
+  }
+
+  function openSourceInspector(payload) {
+    closeSourceInspector();
+    const pages = payload.pages.length ? payload.pages : [1];
+    const inspector = document.createElement("section");
+    inspector.className = "source-inspector";
+    inspector.setAttribute("role", "dialog");
+    inspector.setAttribute("aria-modal", "true");
+    inspector.setAttribute("aria-label", "Expanded source viewer");
+    inspector.dataset.sourceViewer = "expanded";
+    inspector.dataset.formId = payload.formId;
+    inspector.dataset.pages = pages.join(",");
+    inspector.dataset.pdfUrl = payload.url;
+    inspector.dataset.sourceLabel = payload.label;
+    inspector.innerHTML = `
+      <div class="source-inspector-panel">
+        <header class="source-inspector-head">
+          <div class="source-title">
+            <strong>${escapeHtml(payload.label)}</strong>
+            <span>${escapeHtml(pageLabel(pages))}</span>
+          </div>
+          <div class="source-toolbar" aria-label="Expanded source viewing tools">
+            <button type="button" class="source-tool" data-source-zoom="-1" aria-label="Zoom source out">-</button>
+            <span class="source-zoom-label" data-source-zoom-label>100%</span>
+            <button type="button" class="source-tool" data-source-zoom="1" aria-label="Zoom source in">+</button>
+            <button type="button" class="source-tool" data-source-fit>Fit</button>
+            <a href="${escapeHtml(payload.url)}" target="_blank" rel="noopener">Open PDF</a>
+            <button type="button" class="source-close" data-source-close>Close</button>
+          </div>
+        </header>
+        ${sourcePageChipsHtml(pages)}
+        <div class="official-page-stack source-inspector-stack">
+          ${sourcePageFiguresHtml(payload.formId, pages)}
+        </div>
+      </div>
+    `;
+    inspector.addEventListener("click", (event) => {
+      if (event.target === inspector) closeSourceInspector();
+    });
+    inspector.querySelector("[data-source-close]").addEventListener("click", closeSourceInspector);
+    document.body.appendChild(inspector);
+    document.body.classList.add("source-inspector-open");
+    wireSourceTools(inspector);
+    applySourceZoom(inspector, 1.15);
+    inspector.querySelector("[data-source-close]").focus();
+  }
+
+  function closeSourceInspector() {
+    document.querySelector(".source-inspector")?.remove();
+    document.body.classList.remove("source-inspector-open");
   }
 
   function officialPageImage(formId, page) {
@@ -317,6 +462,7 @@
         <textarea id="writingBox" aria-label="${escapeHtml(task.label)} response" placeholder="Write your response here."></textarea>
       </div>
     `;
+    wireSourceTools($("questionCard"));
     const box = $("writingBox");
     box.value = state.writing[task.id] || "";
     box.addEventListener("input", () => {
