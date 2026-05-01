@@ -81,10 +81,16 @@ requireText("games/history-hunters-2/game.js", [
   "trackHunterCompletion",
   "Review Contract",
   "Open-World RPG",
-  "game_complete"
+  "game_complete",
+  "startMusic",
+  "playSfx",
+  "characterTechniques",
+  "makeAttackFx",
+  "drawMoveTrail"
 ]);
 requireText("games/history-hunters-2/index.html", [
   "viewport-fit=cover",
+  'id="soundBtn"',
   'id="pad"',
   'id="questSource"'
 ]);

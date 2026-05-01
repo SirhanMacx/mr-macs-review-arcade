@@ -16,6 +16,7 @@
     game: $("game"),
     canvas: $("screen"),
     exitBtn: $("exitBtn"),
+    soundBtn: $("soundBtn"),
     boot: $("boot"),
     startBtn: $("startBtn"),
     zoneName: $("zoneName"),
@@ -390,6 +391,20 @@
     stats: readSave()
   };
 
+  let savedMute = false;
+  try {
+    savedMute = localStorage.getItem(`${STORAGE_KEY}:sound-muted`) === "1";
+  } catch {}
+  const audio = {
+    ctx: null,
+    master: null,
+    musicGain: null,
+    muted: savedMute,
+    musicTimer: 0,
+    musicStep: 0,
+    lastStepAt: 0
+  };
+
   function loadImage(src) {
     const img = new Image();
     img.src = src;
@@ -508,9 +523,26 @@
     return clamp(Math.floor(Number(ally.level || 1) / 4), 0, 2);
   }
 
-  function move(name, type, power, flavor) {
+  function laneCluster(type) {
+    const lane = typeRules.find((rule) => rule.name === type) || typeRules[typeRules.length - 1];
+    return lane.cluster || "review";
+  }
+
+  const clusterMoveProfiles = {
+    economics: { style: "market", sfx: "market", color: "#ffd15c", accent: "#fff2b1" },
+    civics: { style: "legal", sfx: "legal", color: "#75f4ff", accent: "#eaf7ff" },
+    us: { style: "oratory", sfx: "oratory", color: "#77f0af", accent: "#edf987" },
+    global: { style: "revolution", sfx: "revolution", color: "#c9a0ff", accent: "#f3cf61" },
+    geography: { style: "route", sfx: "route", color: "#8ee6ff", accent: "#77f0af" },
+    psychology: { style: "psych", sfx: "psych", color: "#ff9bd2", accent: "#75f4ff" },
+    foundations: { style: "route", sfx: "route", color: "#ffb15f", accent: "#edf987" },
+    review: { style: "source", sfx: "source", color: "#edf987", accent: "#75f4ff" }
+  };
+
+  function move(name, type, power, flavor, profile = {}) {
     const maxPp = power >= 34 ? 8 : power >= 29 ? 12 : 18;
-    return { name, type, power, flavor, pp: maxPp, maxPp };
+    const base = clusterMoveProfiles[laneCluster(type)] || clusterMoveProfiles.review;
+    return Object.assign({ name, type, power, flavor, pp: maxPp, maxPp }, base, profile);
   }
 
   const signatureMoves = {
@@ -562,19 +594,87 @@
     "Context Coach": "Context Check"
   };
 
+  const characterTechniques = {
+    "Adam Smith": ["Specialization Combo", 31, "Chains trade, labor, and incentives.", { style: "market", sfx: "market" }],
+    "John Maynard Keynes": ["Multiplier Burst", 32, "Turns demand into a second hit.", { style: "market", sfx: "market" }],
+    "Elinor Ostrom": ["Commons Shield", 30, "Builds trust through collective action.", { style: "legal", sfx: "legal" }],
+    "Janet Yellen": ["Soft Landing", 30, "Reads labor data before striking.", { style: "market", sfx: "market" }],
+    "Paul Volcker": ["Inflation Breaker", 33, "Hits hard with a rate shock.", { style: "market", sfx: "market" }],
+    "Alfred Marshall": ["Elasticity Snap", 31, "Bends supply and demand curves.", { style: "market", sfx: "market" }],
+    "Joan Robinson": ["Imperfect Edge", 31, "Pressures monopoly power.", { style: "market", sfx: "market" }],
+    "Milton Friedman": ["Monetarist Pulse", 30, "Controls the money rhythm.", { style: "market", sfx: "market" }],
+    "James Madison": ["Faction Counter", 32, "Turns faction pressure into balance.", { style: "legal", sfx: "legal" }],
+    "Thurgood Marshall": ["Courtroom Cross", 33, "Strikes with constitutional precision.", { style: "legal", sfx: "legal" }],
+    "Barbara Jordan": ["Impeachment Voice", 31, "Commands the room with civic force.", { style: "oratory", sfx: "oratory" }],
+    "Ida B. Wells": ["Truth Campaign", 32, "Exposes injustice with press power.", { style: "source", sfx: "source" }],
+    "Eleanor Roosevelt": ["Rights Herald", 31, "Raises a human-rights shield.", { style: "legal", sfx: "legal" }],
+    "George Washington": ["Republic Charge", 32, "Sets precedent and advances.", { style: "oratory", sfx: "oratory" }],
+    "Frederick Douglass": ["Freedom Press", 33, "Hits with abolitionist testimony.", { style: "oratory", sfx: "oratory" }],
+    "Franklin D. Roosevelt": ["Fireside Boost", 31, "Rallies morale and recovery.", { style: "oratory", sfx: "oratory" }],
+    "Abraham Lincoln": ["Union Resolve", 33, "Holds the line through crisis.", { style: "oratory", sfx: "oratory" }],
+    "Harriet Tubman": ["Night Route", 32, "Moves fast through hidden paths.", { style: "route", sfx: "route" }],
+    "Martin Luther King Jr.": ["Nonviolent Wave", 32, "Builds pressure through disciplined protest.", { style: "oratory", sfx: "oratory" }],
+    "Sacagawea": ["River Path", 31, "Guides the team across terrain.", { style: "route", sfx: "route" }],
+    "Pachacuti": ["Andes Road", 32, "Builds momentum through mountain routes.", { style: "route", sfx: "route" }],
+    "Moctezuma II": ["Tribute Surge", 30, "Draws power from networks and cities.", { style: "revolution", sfx: "revolution" }],
+    "Hammurabi": ["Justice Stele", 33, "Drops a law-code strike.", { style: "legal", sfx: "legal" }],
+    "Confucius": ["Harmony Chain", 30, "Links duty, order, and respect.", { style: "psych", sfx: "psych" }],
+    "Mansa Musa": ["Gold Road", 32, "Turns trade routes into pressure.", { style: "route", sfx: "route" }],
+    "Alexander Hamilton": ["Credit Build", 31, "Stacks finance into federal power.", { style: "market", sfx: "market" }],
+    "Tecumseh": ["Alliance Call", 32, "Unites resistance into one strike.", { style: "oratory", sfx: "oratory" }],
+    "Susan B. Anthony": ["Suffrage Rally", 31, "Turns petition pressure into force.", { style: "legal", sfx: "legal" }],
+    "Theodore Roosevelt": ["Trust-Bust Rush", 32, "Breaks concentrated power.", { style: "legal", sfx: "legal" }],
+    "Pericles": ["Assembly Surge", 31, "Moves through democratic debate.", { style: "oratory", sfx: "oratory" }],
+    "Ibn Battuta": ["Traveler's Network", 31, "Crosses routes, regions, and cultures.", { style: "route", sfx: "route" }],
+    "Mohandas Gandhi": ["Civil Resistance", 32, "Turns discipline into pressure.", { style: "oratory", sfx: "oratory" }],
+    "Nelson Mandela": ["Reconciliation Guard", 32, "Absorbs conflict and counters.", { style: "legal", sfx: "legal" }],
+    "Toussaint Louverture": ["Liberation Charge", 33, "Breaks control with revolution.", { style: "revolution", sfx: "revolution" }],
+    "Zheng He": ["Treasure Fleet", 31, "Sweeps across maritime routes.", { style: "route", sfx: "route" }],
+    "Leonardo da Vinci": ["Workshop Flash", 31, "Combines art, science, and invention.", { style: "source", sfx: "source" }],
+    "Martin Luther": ["Reformation Spark", 32, "Spreads debate through print.", { style: "revolution", sfx: "revolution" }],
+    "Napoleon Bonaparte": ["Continental Push", 32, "Advances with code and conquest.", { style: "revolution", sfx: "revolution" }],
+    "Jane Jacobs": ["Street-Level Read", 30, "Uses city life as evidence.", { style: "route", sfx: "route" }],
+    "Carl Sauer": ["Landscape Lens", 30, "Reads culture in place.", { style: "route", sfx: "route" }],
+    "Wilhelm Wundt": ["Lab Trial", 31, "Measures the reaction cleanly.", { style: "psych", sfx: "psych" }],
+    "B. F. Skinner": ["Reinforcement Loop", 31, "Rewards the pattern into place.", { style: "psych", sfx: "psych" }],
+    "Jean Piaget": ["Schema Flip", 31, "Rebuilds the mental model.", { style: "psych", sfx: "psych" }]
+  };
+
+  function moveProfileFor(name, family, lane, role) {
+    const profile = Object.assign({}, clusterMoveProfiles[lane.cluster] || clusterMoveProfiles.review);
+    const text = `${name} ${family.historicalName} ${family.line}`.toLowerCase();
+    if (/source|press|document|testimony|sketch|lab|landscape|lens/.test(text)) return Object.assign(profile, { style: "source", sfx: "source" });
+    if (/court|law|rights|constitution|federalist|justice|suffrage|charter|code/.test(text)) return Object.assign(profile, { style: "legal", sfx: "legal" });
+    if (/route|river|road|fleet|traveler|network|trade|caravan|spatial|and(es)?/.test(text)) return Object.assign(profile, { style: "route", sfx: "route" });
+    if (/market|demand|supply|rate|inflation|credit|money|incentive/.test(text)) return Object.assign(profile, { style: "market", sfx: "market" });
+    if (/speech|oratory|rally|voice|resistance|nonviolent|dream|assembly/.test(text)) return Object.assign(profile, { style: "oratory", sfx: "oratory" });
+    if (/revolution|reform|liberation|empire|conquest|spark/.test(text)) return Object.assign(profile, { style: "revolution", sfx: "revolution" });
+    if (/behavior|reinforcement|schema|psych|harmony|lab/.test(text)) return Object.assign(profile, { style: "psych", sfx: "psych" });
+    if (role === "signature") return Object.assign(profile, { powerFlash: true });
+    return profile;
+  }
+
+  function characterMoveFor(family, lane) {
+    const row = characterTechniques[family.historicalName];
+    if (row) return move(row[0], lane.name, row[1], row[2], Object.assign(moveProfileFor(row[0], family, lane, "character"), row[3] || {}));
+    return move(`${family.historicalName.split(/\s+/).slice(-1)[0]} Counter`, lane.name, 30, "A character-specific counterattack.", moveProfileFor(family.historicalName, family, lane, "character"));
+  }
+
   function movesFor(family, lane, q) {
     const blob = normalize([q && q.prompt, q && q.answer, family.line].join(" "));
+    const signature = signatureFor(family);
     const moves = [
-      move(signatureFor(family), lane.name, 34, family.line),
-      move(lane.move, lane.name, 29, `A ${lane.name} course move.`),
-      move("Context Check", lane.name, 23, "Uses background knowledge to sharpen the hit.")
+      move(signature, lane.name, 36, family.line, moveProfileFor(signature, family, lane, "signature")),
+      characterMoveFor(family, lane),
+      move(lane.move, lane.name, 29, `A ${lane.name} course move.`, moveProfileFor(lane.move, family, lane, "lane")),
+      move("Context Check", lane.name, 23, "Uses background knowledge to sharpen the hit.", { style: "source", sfx: "source" })
     ];
     if (/source|document|map|chart|graph|cartoon|image|photo|excerpt/.test(blob)) {
-      moves.splice(1, 0, move("Source Scan", lane.name, 31, "Reads the evidence before striking."));
+      moves[3] = move("Source Scan", lane.name, 31, "Reads the evidence before striking.", { style: "source", sfx: "source", color: "#edf987", accent: "#75f4ff" });
     } else if (/war|revolution|rights|reform|trade|belief|migration|court|constitution|market/.test(blob)) {
-      moves.splice(1, 0, move("Timeline Combo", lane.name, 28, "Links the turning point to the change after it."));
+      moves[3] = move("Timeline Combo", lane.name, 28, "Links the turning point to the change after it.", { style: "timeline", sfx: "route", color: lane.color, accent: "#edf987" });
     } else {
-      moves.splice(1, 0, move("Recall Dash", lane.name, 25, "Fast content recall pressure."));
+      moves[3] = move("Recall Dash", lane.name, 25, "Fast content recall pressure.", { style: "dash", sfx: "hit", color: lane.color, accent: "#fff2b1" });
     }
     return moves.slice(0, 4);
   }
@@ -969,6 +1069,7 @@
   }
 
   function openDialogue(target) {
+    playSfx("menu");
     state.mode = "dialogue";
     state.dialogTarget = target;
     els.game.classList.add("in-dialogue");
@@ -997,6 +1098,7 @@
 
   function handleDialogueAction(action) {
     const target = state.dialogTarget;
+    playSfx(action === "heal" ? "heal" : "menu");
     if (action === "close") return closeDialogue();
     if (action === "starter") {
       ensureStarter();
@@ -1041,6 +1143,7 @@
   function openMenu(tab) {
     if (state.mode === "battle" || state.mode === "quest") return;
     if (state.mode === "dialogue") closeDialogue();
+    playSfx("menu");
     state.mode = "menu";
     els.game.classList.add("in-menu");
     els.menu.hidden = false;
@@ -1190,6 +1293,7 @@
   function openQuest(origin) {
     const q = nextQuestion();
     if (!q) return;
+    playSfx("source");
     state.mode = "quest";
     state.quest = { q, origin: origin || "Route Contract" };
     els.game.classList.add("in-quest");
@@ -1260,8 +1364,10 @@
     state.stats.xp += correct ? 30 : 8;
     state.stats.items.fieldNote += correct ? 1 : 0;
     if (correct) {
+      playSfx("victory");
       els.questFeedback.textContent = `Correct. +${reward} shards, +XP, +1 Field Note. ${q.explanation || ""}`;
     } else {
+      playSfx("weak");
       els.questFeedback.textContent = `Not quite. Answer: ${answerLabel(q)}. +${reward} study shards. ${q.explanation || ""}`;
     }
     writeSave();
@@ -1296,6 +1402,8 @@
     }
     state.mode = "battle";
     els.game.classList.add("in-battle");
+    startMusic();
+    playSfx("battle");
     const battle = {
       enemy: foe,
       hero,
@@ -1337,6 +1445,20 @@
     els.battleLog.textContent = text;
   }
 
+  function moveStyleLabel(style) {
+    return {
+      market: "Market",
+      legal: "Civic",
+      route: "Route",
+      oratory: "Voice",
+      revolution: "Revolt",
+      psych: "Mind",
+      source: "Source",
+      timeline: "Timeline",
+      dash: "Dash"
+    }[style] || "Strike";
+  }
+
   function renderBattleActions() {
     const battle = state.battle;
     if (!battle) return;
@@ -1345,7 +1467,7 @@
       return;
     }
     if (battle.menu === "fight") {
-      els.battleActions.innerHTML = battle.hero.moves.map((item, index) => `<button type="button" data-move="${index}" ${item.pp <= 0 ? "disabled" : ""}><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.type)} / ${item.power} / ${item.pp}/${item.maxPp} PP</small></button>`).join("");
+      els.battleActions.innerHTML = battle.hero.moves.map((item, index) => `<button type="button" data-move="${index}" title="${escapeHtml(item.flavor || item.name)}" ${item.pp <= 0 ? "disabled" : ""}><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(moveStyleLabel(item.style))} / ${escapeHtml(item.type)} / ${item.power} / ${item.pp}/${item.maxPp} PP</small></button>`).join("");
       [...els.battleActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => useMove(Number(button.dataset.move))));
       return;
     }
@@ -1372,14 +1494,17 @@
     const battle = state.battle;
     if (!battle || battle.locked) return;
     if (action === "fight") {
+      playSfx("menu");
       battle.menu = "fight";
       setBattleLog("Choose a move.");
       renderBattleActions();
     } else if (action === "bag") {
+      playSfx("menu");
       battle.menu = "bag";
       setBattleLog("Open the field bag.");
       renderBattleActions();
     } else if (action === "party") {
+      playSfx("menu");
       let next = (state.stats.active + 1) % state.stats.party.length;
       for (let i = 0; i < state.stats.party.length; i += 1) {
         const candidate = (state.stats.active + 1 + i) % state.stats.party.length;
@@ -1396,6 +1521,7 @@
       writeSave();
       renderBattleActions();
     } else if (action === "run") {
+      playSfx("menu");
       closeBattle("Got away safely.");
     }
   }
@@ -1416,6 +1542,30 @@
     return "It connected.";
   }
 
+  function makeAttackFx(kind, moveUsed, attacker, defender) {
+    return {
+      kind,
+      moveName: moveUsed.name,
+      style: moveUsed.style || "dash",
+      color: moveUsed.color || attacker.color || "#edf987",
+      accent: moveUsed.accent || defender.color || "#75f4ff",
+      started: performance.now(),
+      duration: moveUsed.power >= 34 ? 880 : 760
+    };
+  }
+
+  function makeImpactFx(kind, moveUsed) {
+    return {
+      kind,
+      moveName: moveUsed.name,
+      style: moveUsed.style || "dash",
+      color: moveUsed.color || "#edf987",
+      accent: moveUsed.accent || "#75f4ff",
+      started: performance.now(),
+      duration: 620
+    };
+  }
+
   async function useMove(index) {
     const battle = state.battle;
     if (!battle || battle.locked) return;
@@ -1429,14 +1579,16 @@
     battle.menu = "root";
     renderBattleActions();
     setBattleLog(`${battle.hero.actualName.toUpperCase()} used ${selected.name.toUpperCase()}!`);
-    battle.fx = { kind: "hero", t: 0, color: battle.hero.color };
+    battle.fx = makeAttackFx("hero", selected, battle.hero, battle.enemy);
+    playSfx("attack", selected);
     await wait(720);
     if (state.battle !== battle) return;
     const mult = typeMultiplier(selected.type, battle.enemy.type);
     const damage = Math.max(6, Math.round((selected.power + battle.hero.level * 2) * mult * (.86 + Math.random() * .24)));
     battle.enemyHp = clamp(battle.enemyHp - damage, 0, battle.enemyMax);
     battle.capture = clamp(battle.capture + 12 + damage * .34, 0, 100);
-    battle.fx = { kind: "enemyHit", t: 0, color: selected.color || battle.hero.color };
+    battle.fx = makeImpactFx("enemyHit", selected);
+    playSfx(mult > 1.2 ? "super" : mult < .8 ? "weak" : "hit");
     setBattleLog(`${effectSentence(mult)} ${battle.enemy.actualName.toUpperCase()} lost ${damage} HP.`);
     writeSave();
     await wait(880);
@@ -1455,14 +1607,16 @@
     const moveUsed = available[Math.floor(Math.random() * available.length)] || battle.enemy.moves[0];
     if (moveUsed && moveUsed.pp > 0) moveUsed.pp -= 1;
     setBattleLog(`${battle.enemy.actualName.toUpperCase()} used ${moveUsed.name.toUpperCase()}!`);
-    battle.fx = { kind: "enemy", t: 0, color: battle.enemy.color };
+    battle.fx = makeAttackFx("enemy", moveUsed, battle.enemy, battle.hero);
+    playSfx("attack", moveUsed);
     await wait(720);
     if (state.battle !== battle) return;
     const mult = typeMultiplier(moveUsed.type, battle.hero.type);
     const damage = Math.max(5, Math.round((moveUsed.power + battle.enemy.level) * mult * (.72 + Math.random() * .2)));
     battle.heroHp = clamp(battle.heroHp - damage, 0, battle.hero.maxHp);
     battle.hero.hp = battle.heroHp;
-    battle.fx = { kind: "heroHit", t: 0, color: battle.enemy.color };
+    battle.fx = makeImpactFx("heroHit", moveUsed);
+    playSfx(mult > 1.2 ? "super" : mult < .8 ? "weak" : "hit");
     setBattleLog(`${effectSentence(mult)} ${battle.hero.actualName.toUpperCase()} lost ${damage} HP.`);
     writeSave();
     updateHud();
@@ -1472,10 +1626,11 @@
       const nextIndex = state.stats.party.findIndex((ally, index) => index !== state.stats.active && normalizeAlly(ally).hp > 0);
       if (nextIndex >= 0) {
         state.stats.active = nextIndex;
-        battle.hero = normalizeAlly(activeAlly());
-        battle.heroHp = battle.hero.hp;
-        battle.fx = { kind: "hero", t: 0, color: battle.hero.color };
-        setBattleLog(`${battle.hero.actualName.toUpperCase()} stepped in for the party!`);
+      battle.hero = normalizeAlly(activeAlly());
+      battle.heroHp = battle.hero.hp;
+      battle.fx = { kind: "hero", style: "source", color: battle.hero.color, accent: "#edf987", moveName: "Switch", started: performance.now(), duration: 760 };
+      playSfx("menu");
+      setBattleLog(`${battle.hero.actualName.toUpperCase()} stepped in for the party!`);
         writeSave();
         updateHud();
         await wait(900);
@@ -1515,6 +1670,8 @@
       state.stats.items.tea -= 1;
       battle.heroHp = clamp(battle.heroHp + 45, 0, battle.hero.maxHp);
       battle.hero.hp = battle.heroHp;
+      battle.fx = { kind: "hero", style: "psych", color: "#77f0af", accent: "#edf987", moveName: "Restoration Tea", started: performance.now(), duration: 760 };
+      playSfx("heal");
       setBattleLog("Restoration Tea restored HP.");
       writeSave();
       updateHud();
@@ -1525,6 +1682,8 @@
     if (id === "fieldNote") {
       state.stats.items.fieldNote -= 1;
       battle.capture = clamp(battle.capture + 18, 0, 100);
+      battle.fx = { kind: "enemyHit", style: "source", color: "#edf987", accent: "#75f4ff", moveName: "Field Notes", started: performance.now(), duration: 620 };
+      playSfx("source");
       setBattleLog(`Field Notes raised trust to ${Math.round(battle.capture)}%.`);
       writeSave();
       updateHud();
@@ -1543,7 +1702,8 @@
       state.stats.items.capsule -= 1;
       const missing = 1 - battle.enemyHp / battle.enemyMax;
       const chance = clamp(18 + missing * 52 + battle.capture * .42, 12, 90);
-      battle.fx = { kind: "capsule", t: 0, color: "#f3cf61" };
+      battle.fx = { kind: "capsule", style: "capture", color: "#f3cf61", accent: "#75f4ff", moveName: "Archive Capsule", started: performance.now(), duration: 1150 };
+      playSfx("capture");
       setBattleLog("ATLAS RANGER threw an ARCHIVE CAPSULE!");
       writeSave();
       updateHud();
@@ -1561,7 +1721,8 @@
   async function winBattle(captured) {
     const battle = state.battle;
     if (!battle) return;
-    battle.fx = { kind: "victory", t: 0, color: battle.hero.color };
+    battle.fx = { kind: "victory", style: "victory", color: battle.hero.color, accent: "#f3cf61", moveName: "Victory", started: performance.now(), duration: 1100 };
+    playSfx("victory");
     const xp = 34 + battle.enemy.level * 8;
     battle.hero.xp = (battle.hero.xp || 0) + xp;
     if (battle.hero.xp >= battle.hero.level * 45) {
@@ -1587,7 +1748,8 @@
         battle.enemyMax = next.maxHp;
         battle.capture = 0;
         battle.menu = "root";
-        battle.fx = { kind: "enemy", t: 0, color: next.color };
+        battle.fx = { kind: "enemy", style: "source", color: next.color, accent: "#edf987", moveName: "Next Ally", started: performance.now(), duration: 760 };
+        playSfx("battle");
         setBattleLog(`${gym.leader.toUpperCase()} threw out ${next.actualName.toUpperCase()}!`);
         await wait(980);
         if (state.battle !== battle) return;
@@ -1675,6 +1837,170 @@
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
+  function ensureAudio() {
+    if (audio.muted) return null;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return null;
+    if (!audio.ctx) {
+      audio.ctx = new AudioContext();
+      audio.master = audio.ctx.createGain();
+      audio.master.gain.value = .18;
+      audio.master.connect(audio.ctx.destination);
+      audio.musicGain = audio.ctx.createGain();
+      audio.musicGain.gain.value = .24;
+      audio.musicGain.connect(audio.master);
+    }
+    if (audio.ctx.state === "suspended") audio.ctx.resume();
+    return audio.ctx;
+  }
+
+  function updateSoundButton() {
+    if (!els.soundBtn) return;
+    els.soundBtn.textContent = audio.muted ? "Sound Off" : "Sound On";
+    els.soundBtn.setAttribute("aria-pressed", audio.muted ? "false" : "true");
+  }
+
+  function stopMusic() {
+    if (audio.musicTimer) window.clearInterval(audio.musicTimer);
+    audio.musicTimer = 0;
+  }
+
+  function setMuted(muted) {
+    audio.muted = Boolean(muted);
+    try {
+      localStorage.setItem(`${STORAGE_KEY}:sound-muted`, audio.muted ? "1" : "0");
+    } catch {}
+    if (audio.muted) {
+      stopMusic();
+    } else {
+      ensureAudio();
+      startMusic();
+      playSfx("menu");
+    }
+    updateSoundButton();
+  }
+
+  function tone(freq, dur = .12, type = "square", gain = .08, dest = null, delay = 0) {
+    const ac = ensureAudio();
+    if (!ac || !freq) return;
+    const osc = ac.createOscillator();
+    const amp = ac.createGain();
+    const start = ac.currentTime + delay;
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, start);
+    amp.gain.setValueAtTime(0, start);
+    amp.gain.linearRampToValueAtTime(gain, start + .012);
+    amp.gain.exponentialRampToValueAtTime(.0001, start + Math.max(.035, dur));
+    osc.connect(amp);
+    amp.connect(dest || audio.master);
+    osc.start(start);
+    osc.stop(start + dur + .04);
+  }
+
+  function noise(dur = .12, gain = .04, delay = 0) {
+    const ac = ensureAudio();
+    if (!ac) return;
+    const length = Math.max(1, Math.floor(ac.sampleRate * dur));
+    const buffer = ac.createBuffer(1, length, ac.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < length; i += 1) data[i] = Math.random() * 2 - 1;
+    const source = ac.createBufferSource();
+    const filter = ac.createBiquadFilter();
+    const amp = ac.createGain();
+    const start = ac.currentTime + delay;
+    filter.type = "bandpass";
+    filter.frequency.value = 1200;
+    filter.Q.value = .8;
+    amp.gain.setValueAtTime(gain, start);
+    amp.gain.exponentialRampToValueAtTime(.0001, start + dur);
+    source.buffer = buffer;
+    source.connect(filter);
+    filter.connect(amp);
+    amp.connect(audio.master);
+    source.start(start);
+    source.stop(start + dur);
+  }
+
+  const musicNotes = [196, 246.94, 293.66, 246.94, 220, 261.63, 329.63, 293.66, 246.94, 293.66, 392, 329.63, 220, 261.63, 293.66, 246.94];
+
+  function musicTick() {
+    if (audio.muted || state.mode === "boot") return;
+    const ac = ensureAudio();
+    if (!ac) return;
+    const step = audio.musicStep % musicNotes.length;
+    const note = musicNotes[step];
+    tone(note, .12, step % 4 === 0 ? "triangle" : "square", .032, audio.musicGain);
+    if (step % 2 === 0) tone(note / 2, .18, "square", .024, audio.musicGain, .01);
+    if (state.mode === "battle" && step % 4 === 2) tone(note * 1.5, .08, "square", .022, audio.musicGain, .08);
+    audio.musicStep += 1;
+  }
+
+  function startMusic() {
+    if (audio.muted || audio.musicTimer) return;
+    ensureAudio();
+    musicTick();
+    audio.musicTimer = window.setInterval(musicTick, 210);
+  }
+
+  function playSfx(kind, move) {
+    if (audio.muted) return;
+    const base = move && move.sfx ? move.sfx : kind;
+    if (base === "step") {
+      const now = performance.now();
+      if (now - audio.lastStepAt < 110) return;
+      audio.lastStepAt = now;
+      tone(130, .035, "square", .026);
+      return;
+    }
+    if (base === "battle") {
+      tone(196, .08, "square", .08);
+      tone(246.94, .08, "square", .08, null, .08);
+      tone(392, .15, "square", .08, null, .17);
+      noise(.12, .035, .05);
+    } else if (base === "victory") {
+      [261.63, 329.63, 392, 523.25].forEach((freq, i) => tone(freq, .11, "square", .07, null, i * .08));
+    } else if (base === "heal") {
+      [392, 493.88, 587.33].forEach((freq, i) => tone(freq, .12, "triangle", .055, null, i * .07));
+    } else if (base === "capture") {
+      tone(246.94, .08, "square", .07);
+      tone(196, .1, "square", .06, null, .1);
+      noise(.16, .028, .02);
+    } else if (base === "super") {
+      tone(523.25, .08, "square", .08);
+      tone(783.99, .12, "square", .07, null, .07);
+      noise(.13, .04);
+    } else if (base === "weak") {
+      tone(196, .09, "triangle", .05);
+      tone(146.83, .12, "triangle", .04, null, .08);
+    } else if (base === "hit") {
+      tone(220, .05, "square", .06);
+      noise(.09, .045);
+    } else if (base === "legal") {
+      tone(174.61, .055, "square", .075);
+      noise(.07, .05, .02);
+    } else if (base === "oratory") {
+      tone(329.63, .09, "triangle", .055);
+      tone(392, .11, "triangle", .045, null, .08);
+    } else if (base === "market") {
+      [329.63, 392, 493.88].forEach((freq, i) => tone(freq, .055, "square", .045, null, i * .045));
+    } else if (base === "route") {
+      [246.94, 293.66, 329.63].forEach((freq, i) => tone(freq, .055, "square", .045, null, i * .055));
+    } else if (base === "psych") {
+      tone(440, .08, "sine", .045);
+      tone(554.37, .08, "sine", .038, null, .065);
+      tone(659.25, .08, "sine", .03, null, .13);
+    } else if (base === "source") {
+      tone(587.33, .035, "square", .04);
+      tone(293.66, .06, "square", .03, null, .055);
+    } else if (base === "revolution") {
+      tone(220, .055, "sawtooth", .052);
+      tone(329.63, .075, "sawtooth", .05, null, .07);
+      noise(.12, .035, .04);
+    } else {
+      tone(261.63, .065, "square", .052);
+    }
+  }
+
   function update(dt) {
     if (state.mode !== "overworld") return;
     state.inputCooldown = Math.max(0, state.inputCooldown - dt);
@@ -1709,6 +2035,7 @@
     p.fromY = p.gy * TILE;
     p.toX = nx * TILE;
     p.toY = ny * TILE;
+    playSfx("step");
   }
 
   function render() {
@@ -1957,6 +2284,210 @@
     ctx.restore();
   }
 
+  function fxProgress(fx) {
+    if (!fx) return 0;
+    return clamp((performance.now() - Number(fx.started || performance.now())) / Number(fx.duration || 760), 0, 1);
+  }
+
+  function fighterShift(battle, side) {
+    const fx = battle.fx;
+    if (!fx) return { x: 0, y: 0, scale: 1 };
+    const t = fxProgress(fx);
+    const attacking = fx.kind === side;
+    const hit = side === "enemy" && fx.kind === "enemyHit" || side === "hero" && fx.kind === "heroHit";
+    if (attacking) {
+      const dir = side === "hero" ? 1 : -1;
+      return {
+        x: dir * Math.sin(Math.min(t, .74) / .74 * Math.PI) * 42,
+        y: -Math.sin(t * Math.PI) * 9,
+        scale: 1 + Math.sin(t * Math.PI) * .035
+      };
+    }
+    if (hit) {
+      return {
+        x: Math.sin(t * 76) * 10 * (1 - t),
+        y: -Math.abs(Math.sin(t * 22)) * 4,
+        scale: 1 - Math.sin(t * Math.PI) * .025
+      };
+    }
+    if (fx.kind === "victory" && side === "hero") {
+      return { x: 0, y: -Math.sin(t * Math.PI * 2) * 6, scale: 1 + Math.sin(t * Math.PI) * .06 };
+    }
+    return { x: 0, y: 0, scale: 1 };
+  }
+
+  function drawFxLabel(text, x, y, color) {
+    if (!text) return;
+    const labelText = text.toUpperCase().slice(0, 22);
+    ctx.save();
+    ctx.font = "12px Courier New";
+    const width = Math.min(230, ctx.measureText(labelText).width + 18);
+    ctx.fillStyle = "rgba(7,21,12,.84)";
+    ctx.fillRect(x - width / 2, y - 18, width, 20);
+    ctx.strokeStyle = color || "#edf987";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x - width / 2, y - 18, width, 20);
+    ctx.fillStyle = "#edf987";
+    ctx.fillText(labelText, x - width / 2 + 9, y - 4);
+    ctx.restore();
+  }
+
+  function drawPathLine(fromX, fromY, toX, toY, t, color, accent) {
+    const x = fromX + (toX - fromX) * t;
+    const y = fromY + (toY - fromY) * t;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 8; i += 1) {
+      const p = clamp(t - i * .045, 0, 1);
+      const px = fromX + (toX - fromX) * p;
+      const py = fromY + (toY - fromY) * p;
+      ctx.beginPath();
+      ctx.arc(px, py, 4 + i % 2 * 2, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
+
+  function drawMoveTrail(fx, fromX, fromY, toX, toY) {
+    const t = fxProgress(fx);
+    const color = fx.color || "#edf987";
+    const accent = fx.accent || "#75f4ff";
+    const x = fromX + (toX - fromX) * t;
+    const y = fromY + (toY - fromY) * t;
+    ctx.save();
+    ctx.lineCap = "square";
+    ctx.globalAlpha = .92;
+    if (fx.style === "market") {
+      for (let i = 0; i < 5; i += 1) {
+        const px = x - 44 + i * 18;
+        const h = 14 + ((i + Math.floor(t * 8)) % 4) * 8;
+        ctx.fillStyle = i % 2 ? accent : color;
+        ctx.fillRect(px, y - h, 11, h);
+        ctx.strokeStyle = "#07150c";
+        ctx.strokeRect(px, y - h, 11, h);
+      }
+    } else if (fx.style === "legal") {
+      drawPathLine(fromX, fromY, toX, toY, t, color, accent);
+      ctx.fillStyle = color;
+      ctx.strokeStyle = "#07150c";
+      ctx.lineWidth = 4;
+      ctx.fillRect(x - 18, y - 22, 36, 14);
+      ctx.fillRect(x - 5, y - 8, 10, 34);
+      ctx.strokeRect(x - 18, y - 22, 36, 14);
+    } else if (fx.style === "route") {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 4;
+      ctx.setLineDash([10, 8]);
+      ctx.beginPath();
+      ctx.moveTo(fromX, fromY);
+      ctx.quadraticCurveTo((fromX + toX) / 2, Math.min(fromY, toY) - 78, x, y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = accent;
+      ctx.fillRect(x - 10, y - 10, 20, 20);
+    } else if (fx.style === "oratory") {
+      for (let i = 0; i < 4; i += 1) {
+        ctx.strokeStyle = i % 2 ? accent : color;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(fromX + (toX - fromX) * Math.min(1, t + i * .08), fromY + (toY - fromY) * Math.min(1, t + i * .08), 18 + i * 13 + t * 22, -.7, .7);
+        ctx.stroke();
+      }
+      ctx.fillStyle = color;
+      ctx.fillRect(x - 14, y - 6, 28, 12);
+    } else if (fx.style === "revolution") {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      for (let i = 0; i <= 12; i += 1) {
+        const p = i / 12 * t;
+        const px = fromX + (toX - fromX) * p;
+        const py = fromY + (toY - fromY) * p + Math.sin(p * Math.PI * 5) * 18;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+      ctx.fillStyle = accent;
+      ctx.beginPath();
+      ctx.arc(x, y, 13 + Math.sin(t * Math.PI) * 12, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (fx.style === "psych") {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      for (let i = 0; i < 30; i += 1) {
+        const p = i / 29;
+        const r = 7 + p * 34 * t;
+        const a = p * Math.PI * 4 + t * 5;
+        const px = x + Math.cos(a) * r;
+        const py = y + Math.sin(a) * r;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+    } else if (fx.style === "source") {
+      drawPathLine(fromX, fromY, toX, toY, t, color, accent);
+      for (let i = 0; i < 3; i += 1) {
+        ctx.fillStyle = i % 2 ? "#f8fbff" : "#edf987";
+        ctx.strokeStyle = "#07150c";
+        ctx.fillRect(x - 20 + i * 14, y - 24 + i * 6, 24, 30);
+        ctx.strokeRect(x - 20 + i * 14, y - 24 + i * 6, 24, 30);
+        ctx.fillStyle = "#07150c";
+        ctx.fillRect(x - 16 + i * 14, y - 15 + i * 6, 15, 2);
+        ctx.fillRect(x - 16 + i * 14, y - 8 + i * 6, 11, 2);
+      }
+    } else if (fx.style === "timeline") {
+      drawPathLine(fromX, fromY, toX, toY, t, color, accent);
+      ctx.fillStyle = accent;
+      for (let i = 0; i < 5; i += 1) {
+        const p = Math.min(t, i / 4);
+        const px = fromX + (toX - fromX) * p;
+        const py = fromY + (toY - fromY) * p;
+        ctx.fillRect(px - 2, py - 13, 4, 26);
+      }
+    } else {
+      drawPathLine(fromX, fromY, toX, toY, t, color, accent);
+    }
+    drawFxLabel(fx.moveName, (fromX + toX) / 2, Math.min(fromY, toY) - 26, color);
+    ctx.restore();
+  }
+
+  function drawImpactBurst(fx, x, y) {
+    const t = fxProgress(fx);
+    const color = fx.color || "#edf987";
+    const accent = fx.accent || "#75f4ff";
+    ctx.save();
+    ctx.globalAlpha = 1 - t * .18;
+    for (let i = 0; i < 12; i += 1) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate((Math.PI * 2 / 12) * i + t * .4);
+      ctx.fillStyle = i % 2 ? accent : color;
+      ctx.fillRect(12 + t * 34, -3, 42 * (1 - t), 6);
+      ctx.restore();
+    }
+    if (fx.style === "legal") {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 6;
+      ctx.strokeRect(x - 34 - t * 16, y - 24 - t * 16, 68 + t * 32, 48 + t * 32);
+    } else if (fx.style === "market") {
+      ctx.fillStyle = color;
+      for (let i = 0; i < 5; i += 1) ctx.fillRect(x - 40 + i * 18, y + 24 - i * 8, 10, i * 8 + 12);
+    } else if (fx.style === "psych") {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(x, y, 28 + t * 44, 0, Math.PI * 1.7);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
   function renderBattle() {
     const battle = state.battle;
     if (!battle) return;
@@ -2048,10 +2579,10 @@
     ctx.globalAlpha = 1;
     drawBattleCard(battle.enemy, Math.max(12, w * .06), portrait ? 56 : 45, battle.enemyHp, battle.enemyMax, false, cardW, cardH);
     drawBattleCard(battle.hero, Math.min(w - cardW - 14, w * (portrait ? .55 : .64)), Math.max(150, fieldH - cardH - 14), battle.heroHp, battle.hero.maxHp, true, cardW, cardH);
-    const enemyShake = battle.fx && battle.fx.kind === "enemyHit" ? Math.sin(t * 70) * 8 : 0;
-    const heroShake = battle.fx && battle.fx.kind === "heroHit" ? Math.sin(t * 70) * 8 : 0;
-    drawFigure(battle.enemy, enemyBaseX - enemyW * .48 + enemyShake, enemyBaseY - enemyW * .34, enemyW, enemyW * .75, false);
-    drawFigure(battle.hero, heroBaseX - heroW * .5 + heroShake, heroBaseY - heroW * .36, heroW, heroW * .75, true);
+    const enemyShift = fighterShift(battle, "enemy");
+    const heroShift = fighterShift(battle, "hero");
+    drawFigure(battle.enemy, enemyBaseX - enemyW * .48 + enemyShift.x, enemyBaseY - enemyW * .34 + enemyShift.y, enemyW * enemyShift.scale, enemyW * .75 * enemyShift.scale, false);
+    drawFigure(battle.hero, heroBaseX - heroW * .5 + heroShift.x, heroBaseY - heroW * .36 + heroShift.y, heroW * heroShift.scale, heroW * .75 * heroShift.scale, true);
     drawBattleFx(battle);
   }
 
@@ -2078,7 +2609,7 @@
 
   function drawBattleFx(battle) {
     if (!battle.fx) return;
-    const t = (performance.now() % 900) / 900;
+    const t = fxProgress(battle.fx);
     const color = battle.fx.color || "#edf987";
     const layout = battle.layout || { heroX: view.w * .25, heroY: view.h * .58, enemyX: view.w * .72, enemyY: view.h * .3 };
     ctx.save();
@@ -2086,29 +2617,13 @@
     ctx.strokeStyle = "#07150c";
     ctx.lineWidth = 4;
     if (battle.fx.kind === "hero") {
-      const x = layout.heroX + t * (layout.enemyX - layout.heroX);
-      const y = layout.heroY + t * (layout.enemyY - layout.heroY);
-      ctx.beginPath();
-      ctx.arc(x, y, 18 + Math.sin(t * Math.PI) * 16, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
+      drawMoveTrail(battle.fx, layout.heroX, layout.heroY - 28, layout.enemyX, layout.enemyY + 6);
     } else if (battle.fx.kind === "enemy") {
-      const x = layout.enemyX + t * (layout.heroX - layout.enemyX);
-      const y = layout.enemyY + t * (layout.heroY - layout.enemyY);
-      ctx.beginPath();
-      ctx.arc(x, y, 18 + Math.sin(t * Math.PI) * 16, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
+      drawMoveTrail(battle.fx, layout.enemyX, layout.enemyY + 4, layout.heroX, layout.heroY - 18);
     } else if (/Hit/.test(battle.fx.kind)) {
       const x = battle.fx.kind === "enemyHit" ? layout.enemyX : layout.heroX;
       const y = battle.fx.kind === "enemyHit" ? layout.enemyY : layout.heroY;
-      for (let i = 0; i < 10; i += 1) {
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate((Math.PI * 2 / 10) * i);
-        ctx.fillRect(10, -3, 42 * (1 - t), 6);
-        ctx.restore();
-      }
+      drawImpactBurst(battle.fx, x, y);
     } else if (battle.fx.kind === "capsule" || battle.fx.kind === "victory") {
       ctx.beginPath();
       ctx.arc(layout.enemyX, layout.enemyY, 18 + t * 82, 0, Math.PI * 2);
@@ -2153,6 +2668,7 @@
 
   function bindEvents() {
     window.addEventListener("keydown", (event) => {
+      if (!audio.muted) startMusic();
       if (isTypingTarget(event.target)) {
         if (event.key === "Escape") {
           cancelButton();
@@ -2192,7 +2708,10 @@
     els.bBtn.addEventListener("click", cancelButton);
     els.startMenuBtn.addEventListener("click", () => state.mode === "menu" ? closeMenu() : openMenu());
     els.exitBtn.addEventListener("click", goToArcade);
+    if (els.soundBtn) els.soundBtn.addEventListener("click", () => setMuted(!audio.muted));
     els.startBtn.addEventListener("click", () => {
+      startMusic();
+      playSfx("start");
       els.boot.hidden = true;
       state.mode = "overworld";
       ensureStarter();
@@ -2211,6 +2730,10 @@
       event.preventDefault();
       submitQuest(els.questInput.value);
     });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopMusic();
+      else if (state.mode !== "boot") startMusic();
+    });
   }
 
   async function init() {
@@ -2220,6 +2743,7 @@
     window.addEventListener("orientationchange", () => setTimeout(resizeCanvas, 80));
     buildWorld();
     bindEvents();
+    updateSoundButton();
     try {
       const res = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
       state.bank = await res.json();
