@@ -14,7 +14,7 @@ const sourceBankText = existsSync(sourceBankPath) ? readFileSync(sourceBankPath,
 if (!sourceBankText) {
   errors.push("assets/source-bank.js is missing");
 } else {
-  for (const marker of ["MrMacsSourceBank", "usableRegentsQuestion", "trustedSource", "courseMatchesStimulus", "missingSourceReason"]) {
+  for (const marker of ["MrMacsSourceBank", "usableRegentsQuestion", "trustedSource", "courseMatchesStimulus", "missingSourceReason", "sourceIdentity"]) {
     if (!sourceBankText.includes(marker)) errors.push(`assets/source-bank.js missing shared source marker: ${marker}`);
   }
 }

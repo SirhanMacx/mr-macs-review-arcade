@@ -643,6 +643,27 @@ textarea {
   min-width: 0;
 }
 
+.released-page-runner .digital-panel {
+  position: sticky;
+  top: 12px;
+  align-self: start;
+  max-height: calc(100vh - 24px);
+  overflow: auto;
+  padding-bottom: 2px;
+}
+
+.source-lock {
+  padding: 9px 11px;
+  border: 1px solid rgba(96, 239, 255, 0.28);
+  border-radius: 8px;
+  color: #dffbff;
+  background: rgba(96, 239, 255, 0.08);
+  font-size: 0.82rem;
+  font-weight: 950;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
 .runner-head {
   padding: 12px;
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -910,6 +931,12 @@ textarea {
   .released-page-runner,
   .source-runner {
     grid-template-columns: 1fr;
+  }
+
+  .released-page-runner .digital-panel {
+    position: static;
+    max-height: none;
+    overflow: visible;
   }
 
   .official-page-stack,

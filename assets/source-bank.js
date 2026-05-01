@@ -88,6 +88,19 @@
     return "";
   }
 
+  function sourceIdentity(question) {
+    question = question || {};
+    var source = question.source || question.set || question.day || "";
+    var match = String(source).match(/\bQ(?:uestion)?\.?\s*#?\s*(\d+[A-Za-z]?)/i);
+    var official = match ? "Q" + match[1] : (question.officialQuestionNumber || "");
+    return [
+      question.course || "",
+      source,
+      official,
+      stimulusImages(question).map(function (image) { return image.src; }).sort().join("|")
+    ].join("::");
+  }
+
   root.MrMacsSourceBank = {
     sourcePattern: SOURCE_RE,
     stimulusImages: stimulusImages,
@@ -98,6 +111,7 @@
     trustedSource: trustedSource,
     verifiedSourceQuestion: trustedSource,
     usableRegentsQuestion: usableRegentsQuestion,
-    missingSourceReason: missingSourceReason
+    missingSourceReason: missingSourceReason,
+    sourceIdentity: sourceIdentity
   };
 })(typeof window !== "undefined" ? window : globalThis);

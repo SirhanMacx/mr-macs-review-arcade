@@ -76,8 +76,8 @@
   const input = { left: false, right: false, dash: false };
   const pointerInput = new Map();
   const JUMP = {
-    ground: -1035,
-    air: -995,
+    ground: -1065,
+    air: -1085,
     spring: -1320,
     buffer: .2,
     coyote: .18
@@ -811,8 +811,8 @@
     const lookAhead = clamp(player.vx * .22, -120, 180);
     const targetX = clamp(player.x + lookAhead - viewW * .36, 0, Math.max(0, state.level.width - viewW));
     const targetY = clamp(player.y - viewH * .62, -110, 130);
-    state.cameraX = lerp(state.cameraX, targetX, 1 - Math.pow(.006, dt));
-    state.cameraY = lerp(state.cameraY, targetY, 1 - Math.pow(.018, dt));
+    state.cameraX = lerp(state.cameraX, targetX, 1 - Math.pow(.0038, dt));
+    state.cameraY = lerp(state.cameraY, targetY, 1 - Math.pow(.010, dt));
   }
 
   function updateFx(dt) {

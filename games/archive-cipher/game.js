@@ -369,17 +369,19 @@
       : text
         ? `<div class="source-text">${escapeHtml(text)}</div>`
         : "";
+    const sourceMeta = cleanText(q.source || term.set || "Released Regents source");
+    const sourceIdentity = SourceBank && SourceBank.sourceIdentity ? SourceBank.sourceIdentity(q) : `${term.course || ""}::${sourceMeta}`;
     const imageBlock = images.slice(0, 2).map((image, index) => (
       `<figure class="source-figure">` +
         `<img data-source-img="1" src="${escapeHtml(image.src)}" alt="${escapeHtml(image.label || `Source stimulus ${index + 1}`)}" loading="eager">` +
-        `<figcaption>${escapeHtml(image.label || `Source stimulus ${index + 1}`)}</figcaption>` +
+        `<figcaption>${escapeHtml(image.label || `Source stimulus ${index + 1}`)} · ${escapeHtml(sourceMeta)}</figcaption>` +
       `</figure>`
     )).join("");
     els.sourcePanel.hidden = false;
     const tools = images.length
-      ? `<div class="source-tools"><span class="source-verified">Matched released Regents source</span><button class="source-open" type="button" data-source-open="${escapeHtml(images[0].src)}" data-source-label="${escapeHtml(images[0].label || "Source stimulus")}" data-source-meta="${escapeHtml(q.source || term.set || "Released Regents source")}">Inspect</button></div>`
+      ? `<div class="source-tools"><span class="source-verified" title="${escapeHtml(sourceIdentity)}">Matched released Regents source</span><button class="source-open" type="button" data-source-open="${escapeHtml(images[0].src)}" data-source-label="${escapeHtml(images[0].label || "Source stimulus")}" data-source-meta="${escapeHtml(sourceMeta)}">Inspect</button></div>`
       : `<div class="source-tools"><span class="source-verified">Matched released Regents source</span></div>`;
-    els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div>${tools}${textBlock}${imageBlock}`;
+    els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div>${tools}<p class="source-match-line">Used for this clue: ${escapeHtml(sourceMeta)}</p>${textBlock}${imageBlock}`;
   }
 
   function renderHint() {

@@ -310,7 +310,7 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   left: auto;
   right: max(10px, env(safe-area-inset-right));
   bottom: auto;
-  width: min(620px, calc(100vw - 22px));
+  width: min(520px, calc(100vw - 22px));
   display: grid;
   grid-template-columns: repeat(4, minmax(62px,1fr)) auto auto;
   gap: 6px;
@@ -323,9 +323,14 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
 }
 
 body.playing .hud {
-  opacity: 1;
+  opacity: .94;
   transform: translateY(0);
   pointer-events: auto;
+}
+
+body.playing .hud:hover,
+body.playing .hud:focus-within {
+  opacity: 1;
 }
 
 .hud div,

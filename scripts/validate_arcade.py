@@ -419,6 +419,8 @@ def check_ap_practice_exam() -> list[str]:
         "official worksheet composite",
         "ap-official-practice-exams.json",
         "skipPages",
+        "source-lock",
+        "released-page-runner .digital-panel",
         "scoreWritingTask",
         "scoreComposite",
         "scoreFromRanges",
@@ -550,6 +552,18 @@ def check_jeopardy_boards() -> list[str]:
         r"instead of defining one isolated term",
         re.IGNORECASE,
     )
+    repeated_rigor_phrases = [
+        "tied to state power, exchange, or conflict",
+        "tied to turning points or comparisons",
+        "used to explain spatial patterns across scale",
+        "used to interpret regional outcomes",
+        "tied to institutions, rights, or policy outcomes",
+        "used to connect rules and power",
+        "applied to behavior, research, or evidence",
+        "used to analyze scenario-based behavior",
+        "used to predict incentives, shifts, or welfare effects",
+        "used to analyze graphs and policy effects",
+    ]
     for path in sorted(ROOT.glob("games/**/*.html")):
         if not re.search(r"(Jeopardy Review|Review Game|Comprehensive Review)\.html$", path.name):
             continue
@@ -577,10 +591,16 @@ def check_jeopardy_boards() -> list[str]:
                 combined = " ".join(str(clue.get(field, "")) for field in ("answer", "clue", "explanation"))
                 if bad_text.search(combined):
                     errors.append(f"{path.relative_to(ROOT)}: generated filler leaked into clue {clue.get('answer')!r}")
+                for phrase in repeated_rigor_phrases:
+                    if f"{phrase}, {phrase}".lower() in combined.lower():
+                        errors.append(f"{path.relative_to(ROOT)}: repeated rigor phrase leaked into clue {clue.get('answer')!r}")
         final = game.get("final") or {}
         final_combined = " ".join(str(final.get(field, "")) for field in ("category", "clue", "answer", "aliases", "explanation"))
         if bad_text.search(final_combined):
             errors.append(f"{path.relative_to(ROOT)}: generated filler leaked into final wager {final.get('answer')!r}")
+        for phrase in repeated_rigor_phrases:
+            if f"{phrase}, {phrase}".lower() in final_combined.lower():
+                errors.append(f"{path.relative_to(ROOT)}: repeated rigor phrase leaked into final wager {final.get('answer')!r}")
         if bad_final_text.search(final_combined) or _norm_text(final.get("category")) == "final synthesis":
             errors.append(f"{path.relative_to(ROOT)}: final wager is still an open-ended synthesis prompt")
         if _norm_text(final.get("answer")) in seen_answers:
@@ -607,6 +627,9 @@ def check_jeopardy_boards() -> list[str]:
         combined = " ".join(str(question.get(field, "")) for field in ("category", "prompt", "explanation"))
         if bad_text.search(combined):
             errors.append(f"data/chrono-defense-bank.json: generated filler leaked into bank item {question.get('id')!r}")
+        for phrase in repeated_rigor_phrases:
+            if f"{phrase}, {phrase}".lower() in combined.lower():
+                errors.append(f"data/chrono-defense-bank.json: repeated rigor phrase leaked into bank item {question.get('id')!r}")
     return errors
 
 

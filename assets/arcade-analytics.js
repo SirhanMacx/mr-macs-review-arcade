@@ -445,6 +445,14 @@
     return value === null ? null : value;
   }
 
+  function topLaunchTotal(global) {
+    var games = Array.isArray(global && global.topGames) ? global.topGames : [];
+    var total = games.reduce(function (sum, game) {
+      return sum + Number(game.launches || 0);
+    }, 0);
+    return total > 0 ? total : null;
+  }
+
   function renderTrafficTrend(global) {
     var holder = document.getElementById("trafficTrend");
     var summary = document.getElementById("trafficTrendSummary");
@@ -486,9 +494,12 @@
     var cache = readPublicCache();
     var global = Object.assign({}, cache, window.__MR_MACS_GLOBAL_TRAFFIC__ || {}, extra || {});
     var connected = global.connected === true;
+    var launchCount = metricFrom(global, "gameLaunches");
+    var topLaunches = topLaunchTotal(global);
+    if (topLaunches !== null && (launchCount === null || launchCount < topLaunches)) launchCount = topLaunches;
     setText("[data-traffic='global-visits']", format(metricFrom(global, "siteVisits")));
     setText("[data-traffic='global-engaged']", format(metricFrom(global, "engagedSessions")));
-    setText("[data-traffic='global-game-opens']", format(metricFrom(global, "gameLaunches")));
+    setText("[data-traffic='global-game-opens']", format(launchCount));
     setText("[data-traffic='global-game-views']", format(metricFrom(global, "gameViews")));
     setText("[data-traffic='global-game-plays']", format(metricFrom(global, "gamePlays")));
     setText("[data-traffic='global-completions']", format(metricFrom(global, "completions")));

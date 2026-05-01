@@ -233,6 +233,7 @@
       <div class="released-page-runner">
         ${officialViewer(question.formId, pages, question.officialPdf, `${question.category} · ${pageLabel(pages)}`)}
         <section class="digital-panel" aria-label="Digital answer sheet">
+          <div class="source-lock">Answer sheet locked to ${escapeHtml(pageLabel(pages))}</div>
           <div class="runner-head">
             <p class="eyebrow">Official Question</p>
             <h3>Question ${index + 1}</h3>

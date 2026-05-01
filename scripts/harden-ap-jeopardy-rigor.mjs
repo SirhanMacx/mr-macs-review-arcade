@@ -183,6 +183,10 @@ function stripPeriod(value) {
   return clean(value).replace(/[.!?]+$/g, "");
 }
 
+function escRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function answerLeaks(clue, answer) {
   const a = normalize(answer);
   if (!a || a.length < 5) return false;
@@ -212,7 +216,8 @@ function additionsFor(dir) {
 function enrichClue(answer, currentClue, dir, value) {
   const specific = SPECIFIC_CLUES.get(clean(answer));
   if (specific && !answerLeaks(specific, answer)) return specific;
-  const base = stripPeriod(currentClue)
+  const additions = additionsFor(dir);
+  let base = stripPeriod(currentClue)
     .replace(/^This practice /i, "")
     .replace(/^This policy /i, "")
     .replace(/^This measure /i, "")
@@ -220,8 +225,14 @@ function enrichClue(answer, currentClue, dir, value) {
     .replace(/^This principle /i, "Principle ")
     .replace(/^A course-relevant development students must connect to evidence$/i, "Strategic location shaping trade, movement, or conflict")
     .replace(/^Court case used to define constitutional meaning, rights, or government power$/i, "Landmark case shaping rights, representation, or institutional power");
+  for (const addition of additions) {
+    const repeated = new RegExp(`,\\s*${escRegExp(addition)}(?:,\\s*${escRegExp(addition)})+`, "gi");
+    base = base.replace(repeated, `, ${addition}`);
+  }
   if (words(base) >= 12 || Number(value) < 400) return base.endsWith(".") ? base : `${base}.`;
-  for (const addition of additionsFor(dir)) {
+  const normalizedBase = normalize(base);
+  for (const addition of additions) {
+    if (normalizedBase.includes(normalize(addition))) continue;
     const candidate = `${base}, ${addition}.`;
     if (words(candidate) <= 26 && !answerLeaks(candidate, answer)) return candidate;
   }

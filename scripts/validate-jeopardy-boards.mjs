@@ -7,7 +7,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final", "Regents Sprint"]);
 const EXPECTED_VALUES = "100,200,300,400,500";
 const MIN_CLUE_WORDS = 2;
-const MAX_CLUE_WORDS = 26;
+const MAX_CLUE_WORDS = 24;
 const EXPECTED_SKILLS = new Map([
   [100, "identify key content"],
   [200, "match content to unit context"],
@@ -20,6 +20,8 @@ const FORBIDDEN_GENERIC_CLUE = /specific development from|belongs in|the correct
 const FORBIDDEN_VERBOSE_EXPLANATION = /fits this clue|Exam alignment|Review move|single-answer review concept aligned/i;
 const EXPECTED_HARDENING_VERSION = "jeopardy-hardening-v4-natural-clues";
 const FINAL_SYNTHESIS_LEAK = /final synthesis|at least two specific examples|evidence-based synthesis|standards-aligned argument|teacher judgment|score the synthesis|broader pattern, cause\/effect|instead of defining one isolated term/i;
+const FINAL_OPEN_PROMPT = /^(?:discuss|explain|analyze|evaluate|assess|argue|compare|contrast|write|connect)\b|^describe how\b|^identify and explain\b|\bto what extent\b|\bwhy\b.*\bmatters\b/i;
+const MAX_FINAL_ANSWER_WORDS = 6;
 
 function decodePath(value) {
   try {
@@ -126,7 +128,9 @@ function validateBoard(game, file) {
   if (!normalize(final.category) || normalize(final.category) === "final synthesis") errors.push(`${file}: final category must be a real content category`);
   if (words(finalClue) < 5) errors.push(`${file}: final clue is too thin (${words(finalClue)} words)`);
   if (words(finalClue) > 36) errors.push(`${file}: final clue is too wordy for a Jeopardy-style concept clue (${words(finalClue)} words)`);
+  if (FINAL_OPEN_PROMPT.test(finalClue)) errors.push(`${file}: final clue looks open-ended instead of one true Jeopardy answer: ${finalClue}`);
   if (!finalAnswerKey) errors.push(`${file}: final answer is blank`);
+  if (words(final.answer) > MAX_FINAL_ANSWER_WORDS) errors.push(`${file}: final answer is too long to behave like one Jeopardy response: ${final.answer}`);
   if (FINAL_SYNTHESIS_LEAK.test(`${final.category} ${finalClue} ${final.answer} ${final.explanation || ""}`)) {
     errors.push(`${file}: final still looks like an open-ended synthesis prompt`);
   }
