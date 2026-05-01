@@ -21,7 +21,7 @@
     bank: [],
     officialForms: [],
     officialFrqPages: [],
-    selection: "bank::AP U.S. History Exam Review",
+    selection: "official::apush-2017-ced-practice",
     mode: "full",
     exam: null,
     current: 0,
@@ -105,15 +105,15 @@
   }
 
   function populateCourses() {
-    const bank = Object.keys(PROFILES).map((course) =>
-      `<option value="bank::${escapeHtml(course)}">Typed practice: ${escapeHtml(PROFILES[course].label)}</option>`
-    ).join("");
     const official = state.officialForms.map((form) =>
-      `<option value="official::${escapeHtml(form.id)}">Official PDF runner: ${escapeHtml(form.label)}</option>`
+      `<option value="official::${escapeHtml(form.id)}">Released AP exam: ${escapeHtml(form.label)}</option>`
+    ).join("");
+    const bank = Object.keys(PROFILES).map((course) =>
+      `<option value="bank::${escapeHtml(course)}">Typed practice bank: ${escapeHtml(PROFILES[course].label)}</option>`
     ).join("");
     $("courseSelect").innerHTML = `
-      <optgroup label="Fully Typed AP Practice">${bank}</optgroup>
-      <optgroup label="Official Public AP PDF Runners">${official}</optgroup>
+      <optgroup label="Released AP Exam Practice">${official}</optgroup>
+      <optgroup label="Typed AP Practice Bank">${bank}</optgroup>
     `;
     $("courseSelect").value = state.selection;
   }
@@ -131,12 +131,12 @@
       const writing = form.writingTasks || [];
       $("modeSelect").disabled = true;
       $("formatPanel").innerHTML = `
-        <p class="eyebrow">Official PDF Runner</p>
+        <p class="eyebrow">Released AP Exam Practice</p>
         <h2>${escapeHtml(form.title)}</h2>
         <ul class="format-list">
-          <li><strong>${form.mcqCount} official MCQs</strong><span>Questions remain in the official PDF; answers are entered here with matching page navigation.</span></li>
+          <li><strong>${form.mcqCount} official MCQs</strong><span>Official released exam pages project one page at a time with matching answer controls.</span></li>
           <li><strong>${writing.length} writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
-          <li><strong>${form.minutes} minute timer</strong><span>Full-form practice with a digital answer sheet.</span></li>
+          <li><strong>${form.minutes} minute timer</strong><span>Page-by-page released-form practice with a digital answer sheet.</span></li>
           <li><strong>Official link preserved</strong><span><a href="${escapeHtml(form.pdfUrl)}" target="_blank" rel="noopener">Open source PDF</a></span></li>
         </ul>
       `;
@@ -149,7 +149,7 @@
     const writing = state.mode === "sprint" ? profile.writing.slice(0, 2) : profile.writing;
     const frq = state.officialFrqPages.find((page) => page.course === profile.label);
     $("formatPanel").innerHTML = `
-      <p class="eyebrow">Fully Typed AP Practice</p>
+      <p class="eyebrow">Typed AP Practice Bank</p>
       <h2>${escapeHtml(profile.label)}</h2>
       <ul class="format-list">
         <li><strong>${mcqCount} typed MCQs</strong><span>Question text appears directly on screen like the Regents practice exams.</span></li>
@@ -215,6 +215,7 @@
       profile: { label: form.label, short: form.label, skills: ["official PDF"], family: "official" },
       mcq,
       writing,
+      pageGroups: pageGroupsFor(mcq),
       minutes: form.minutes || 120
     };
   }
@@ -227,6 +228,16 @@
 
   function writingPageFor(form, taskId) {
     return (form.writingPages || {})[taskId] || form.pdfStartPage || 1;
+  }
+
+  function pageGroupsFor(questions) {
+    const groups = new Map();
+    questions.forEach((question, index) => {
+      const page = Number(question.officialPage || 1);
+      if (!groups.has(page)) groups.set(page, []);
+      groups.get(page).push({ ...question, index });
+    });
+    return [...groups.entries()].map(([page, items]) => ({ page, items })).sort((a, b) => a.page - b.page);
   }
 
   function buildBankExam(course, mode) {
@@ -463,8 +474,10 @@
     state.answers._mcqIndex = index;
     $("questionLabel").textContent = `${question.label} of ${state.exam.mcq.length}`;
     $("skillLabel").textContent = question.skill;
+    $("prevBtn").textContent = "Previous";
+    $("nextBtn").textContent = "Next";
     if (question.officialPdf) {
-      renderOfficialMcq(index, question);
+      renderOfficialPage(index, question);
       return;
     }
     $("questionCard").innerHTML = `
@@ -505,22 +518,43 @@
   }
 
   function renderOfficialMcq(index, question) {
+    renderOfficialPage(index, question);
+  }
+
+  function renderOfficialPage(index, question) {
+    state.answers._mcqIndex = index;
+    const pageQuestions = pageQuestionsFor(question.officialPage);
+    const group = pageGroupFor(question.officialPage);
+    const first = pageQuestions[0]?.index ?? index;
+    const last = pageQuestions[pageQuestions.length - 1]?.index ?? index;
+    $("questionLabel").textContent = `Released page ${question.officialPage} · Questions ${first + 1}-${last + 1}`;
+    $("skillLabel").textContent = "Official AP page";
     $("questionCard").innerHTML = `
-      <div class="official-runner">
-        ${officialViewer(question.officialPdf, question.officialPage, question.source)}
+      <div class="released-page-runner">
+        ${officialViewer(question.officialPdf, question.officialPage, `${question.source} · Page ${question.officialPage}`)}
         <section class="digital-panel" aria-label="Digital answer sheet">
           <div class="runner-head">
-            <p class="eyebrow">Digital Answer Sheet</p>
-            <h3>${escapeHtml(question.label)}</h3>
-            <span>Suggested PDF page ${escapeHtml(String(question.officialPage))}</span>
+            <p class="eyebrow">Official Exam Page</p>
+            <h3>Questions ${first + 1}-${last + 1}</h3>
+            <span>Released PDF page ${escapeHtml(String(question.officialPage))}</span>
           </div>
-          <div class="stem">${escapeHtml(question.stem)}</div>
-          <div class="choices compact-choices">
-            ${question.choices.map((choice, choiceIndex) => `
-              <button type="button" class="choice ${state.answers[question.id] === choiceIndex ? "selected" : ""}" data-choice="${choiceIndex}">
-                <span class="letter">${escapeHtml((question.labels || ["A", "B", "C", "D"])[choiceIndex] || "")}</span>
-                <span>${escapeHtml(choice)}</span>
-              </button>
+          ${pageNavHtml(question.officialPage)}
+          <div class="page-question-list">
+            ${pageQuestions.map(({ index: questionIndex, ...pageQuestion }) => `
+              <article class="page-question ${questionIndex === index ? "active" : ""}" data-page-question="${questionIndex}">
+                <div class="page-question-head">
+                  <strong>Question ${questionIndex + 1}</strong>
+                  <span>${escapeHtml(pageQuestion.stem)}</span>
+                </div>
+                <div class="choices compact-choices">
+                  ${pageQuestion.choices.map((choice, choiceIndex) => `
+                    <button type="button" class="choice ${state.answers[pageQuestion.id] === choiceIndex ? "selected" : ""}" data-question="${questionIndex}" data-choice="${choiceIndex}">
+                      <span class="letter">${escapeHtml((pageQuestion.labels || ["A", "B", "C", "D"])[choiceIndex] || "")}</span>
+                      <span>${escapeHtml(choice)}</span>
+                    </button>
+                  `).join("")}
+                </div>
+              </article>
             `).join("")}
           </div>
           ${answerMapHtml(index)}
@@ -529,18 +563,60 @@
     `;
     $("questionCard").querySelectorAll(".choice").forEach((button) => {
       button.addEventListener("click", () => {
-        state.answers[question.id] = Number(button.dataset.choice);
-        renderOfficialMcq(index, question);
+        const questionIndex = Number(button.dataset.question);
+        const target = state.exam.mcq[questionIndex] || question;
+        state.answers[target.id] = Number(button.dataset.choice);
+        renderOfficialPage(questionIndex, target);
         updateAnswered();
       });
     });
     $("questionCard").querySelectorAll("[data-qjump]").forEach((button) => {
       button.addEventListener("click", () => renderMcq(Number(button.dataset.qjump)));
     });
-    $("prevBtn").disabled = index === 0;
-    $("nextBtn").disabled = index === state.exam.mcq.length - 1;
-    $("prevBtn").onclick = () => renderMcq(Math.max(0, index - 1));
-    $("nextBtn").onclick = () => renderMcq(Math.min(state.exam.mcq.length - 1, index + 1));
+    $("questionCard").querySelectorAll("[data-pagejump]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const page = Number(button.dataset.pagejump);
+        const targetGroup = pageGroupFor(page);
+        const targetIndex = targetGroup?.items?.[0]?.index ?? 0;
+        renderMcq(targetIndex);
+      });
+    });
+    const prev = adjacentPageGroup(group, -1);
+    const next = adjacentPageGroup(group, 1);
+    $("prevBtn").textContent = "Previous Page";
+    $("nextBtn").textContent = "Next Page";
+    $("prevBtn").disabled = !prev;
+    $("nextBtn").disabled = !next;
+    $("prevBtn").onclick = () => prev && renderMcq(prev.items[0].index);
+    $("nextBtn").onclick = () => next && renderMcq(next.items[0].index);
+  }
+
+  function pageQuestionsFor(page) {
+    return (pageGroupFor(page)?.items || []).map(({ index, ...question }) => ({ ...question, index }));
+  }
+
+  function pageGroupFor(page) {
+    return (state.exam.pageGroups || []).find((group) => Number(group.page) === Number(page));
+  }
+
+  function adjacentPageGroup(group, delta) {
+    if (!group) return null;
+    const groups = state.exam.pageGroups || [];
+    const index = groups.findIndex((item) => item.page === group.page);
+    return groups[index + delta] || null;
+  }
+
+  function pageNavHtml(activePage) {
+    const groups = state.exam.pageGroups || [];
+    return `
+      <div class="page-strip" aria-label="Released exam pages">
+        ${groups.map((group) => {
+          const first = group.items[0]?.index ?? 0;
+          const last = group.items[group.items.length - 1]?.index ?? first;
+          return `<button type="button" class="${Number(group.page) === Number(activePage) ? "active" : ""}" data-pagejump="${group.page}">p.${group.page} · Q${first + 1}-${last + 1}</button>`;
+        }).join("")}
+      </div>
+    `;
   }
 
   function answerMapHtml(activeIndex) {
@@ -600,6 +676,8 @@
   function renderWriting(task) {
     $("questionLabel").textContent = task.label;
     $("skillLabel").textContent = `${task.max} points`;
+    $("prevBtn").textContent = "Previous";
+    $("nextBtn").textContent = "Next";
     const source = task.officialPdf
       ? officialViewer(task.officialPdf, task.officialPage || 1, "Official AP prompt and scoring guide")
       : sourceDeck(task.sourceDocs, "Attached Writing Documents");
