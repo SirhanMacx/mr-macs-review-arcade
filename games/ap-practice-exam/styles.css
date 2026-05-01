@@ -344,7 +344,7 @@ textarea {
 .released-page-runner,
 .source-runner {
   display: grid;
-  grid-template-columns: minmax(560px, 1.35fr) minmax(330px, 0.72fr);
+  grid-template-columns: minmax(620px, 1.55fr) minmax(360px, 0.65fr);
   gap: 14px;
   align-items: start;
 }
@@ -388,6 +388,31 @@ textarea {
   font-size: 0.8rem;
   font-weight: 850;
   line-height: 1.25;
+}
+
+.source-health {
+  width: fit-content;
+  margin-top: 5px;
+  padding: 4px 7px;
+  border: 1px solid rgba(132, 238, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(132, 238, 255, 0.08);
+  color: #d7fbff;
+  font-size: 0.68rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.source-ok .source-health {
+  border-color: rgba(93, 242, 173, 0.36);
+  background: rgba(93, 242, 173, 0.1);
+  color: #bafcdb;
+}
+
+.source-warn .source-health {
+  border-color: rgba(255, 100, 128, 0.55);
+  background: rgba(255, 100, 128, 0.12);
+  color: #ffd3dc;
 }
 
 .source-toolbar {
@@ -486,8 +511,8 @@ textarea {
   display: grid;
   align-content: start;
   gap: 12px;
-  min-height: min(520px, calc(100vh - 320px));
-  max-height: clamp(520px, calc(100vh - 280px), 760px);
+  min-height: min(560px, calc(100vh - 300px));
+  max-height: clamp(560px, calc(100vh - 210px), 840px);
   overflow: auto;
   padding: 12px;
   background: #101827;

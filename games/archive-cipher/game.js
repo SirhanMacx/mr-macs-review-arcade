@@ -209,6 +209,23 @@
     return Boolean(q && !/^quarantined/i.test(String(q.sourceIntegrity || "")) && trustedSource(q) && stimulusImages(q).length && courseMatchesStimulus(q));
   }
 
+  function sourceLock(term) {
+    const q = term && term.q ? term.q : {};
+    const images = stimulusImages(q);
+    const sourceMeta = cleanText(q.source || term?.set || "Released Regents source");
+    const identity = SourceBank && SourceBank.sourceIdentity ? SourceBank.sourceIdentity(q) : `${term?.course || ""}::${sourceMeta}`;
+    const reason = SourceBank && SourceBank.missingSourceReason ? SourceBank.missingSourceReason(q) : "";
+    return {
+      ok: verifiedSourceQuestion(q),
+      reason,
+      images,
+      sourceMeta,
+      identity,
+      text: stimulusText(q),
+      html: q.stimulusHtml ? String(q.stimulusHtml) : ""
+    };
+  }
+
   function explanationFor(term) {
     const explanation = cleanText(term.q.explanation || "");
     if (explanation) return explanation;
@@ -311,7 +328,13 @@
 
   function nextTerm() {
     if (!state.queue.length) state.queue = shuffle(state.filtered);
-    return state.queue.pop();
+    let attempts = Math.max(1, state.queue.length);
+    while (attempts > 0 && state.queue.length) {
+      const term = state.queue.pop();
+      if (!term?.hasStimulus || sourceLock(term).ok) return term;
+      attempts -= 1;
+    }
+    return state.filtered.find((term) => !term?.hasStimulus || sourceLock(term).ok) || null;
   }
 
   function newRound() {
@@ -320,6 +343,10 @@
       return;
     }
     state.target = nextTerm();
+    if (!state.target) {
+      setMessage("No source-verified terms match this filter yet. Try All Sets.", "bad");
+      return;
+    }
     state.guesses = [];
     state.current = "";
     state.locked = false;
@@ -351,37 +378,38 @@
 
   function renderStimulus(term) {
     const q = term && term.q ? term.q : {};
-    if (!verifiedSourceQuestion(q)) {
+    const lock = sourceLock(term);
+    const needsSource = stimulusImages(q).length || stimulusText(q) || q.stimulusHtml || promptNeedsStimulus(q);
+    if (!needsSource) {
       els.sourcePanel.hidden = true;
       els.sourcePanel.innerHTML = "";
       return;
     }
-    const images = stimulusImages(q);
-    const text = stimulusText(q);
-    const html = q.stimulusHtml ? String(q.stimulusHtml) : "";
-    if (!images.length && !text && !html) {
+    if (!lock.ok) {
+      els.sourcePanel.hidden = false;
+      els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div><div class="source-warning"><strong>Source lock blocked this clue.</strong><span>${escapeHtml(lock.reason || "The prompt needs a verified released source image before it can be shown.")}</span></div>`;
+      return;
+    }
+    if (!lock.images.length && !lock.text && !lock.html) {
       els.sourcePanel.hidden = true;
       els.sourcePanel.innerHTML = "";
       return;
     }
-    const textBlock = html
-      ? `<div class="source-text">${html}</div>`
-      : text
-        ? `<div class="source-text">${escapeHtml(text)}</div>`
+    const textBlock = lock.html
+      ? `<div class="source-text">${lock.html}</div>`
+      : lock.text
+        ? `<div class="source-text">${escapeHtml(lock.text)}</div>`
         : "";
-    const sourceMeta = cleanText(q.source || term.set || "Released Regents source");
-    const sourceIdentity = SourceBank && SourceBank.sourceIdentity ? SourceBank.sourceIdentity(q) : `${term.course || ""}::${sourceMeta}`;
-    const imageBlock = images.slice(0, 2).map((image, index) => (
+    const imageBlock = lock.images.map((image, index) => (
       `<figure class="source-figure">` +
         `<img data-source-img="1" src="${escapeHtml(image.src)}" alt="${escapeHtml(image.label || `Source stimulus ${index + 1}`)}" loading="eager">` +
-        `<figcaption>${escapeHtml(image.label || `Source stimulus ${index + 1}`)} · ${escapeHtml(sourceMeta)}</figcaption>` +
+        `<figcaption>${escapeHtml(image.label || `Source stimulus ${index + 1}`)} · ${escapeHtml(lock.sourceMeta)}</figcaption>` +
+        `<button class="source-open inline" type="button" data-source-open="${escapeHtml(image.src)}" data-source-label="${escapeHtml(image.label || `Source stimulus ${index + 1}`)}" data-source-meta="${escapeHtml(lock.sourceMeta)}">Inspect</button>` +
       `</figure>`
     )).join("");
     els.sourcePanel.hidden = false;
-    const tools = images.length
-      ? `<div class="source-tools"><span class="source-verified" title="${escapeHtml(sourceIdentity)}">Matched released Regents source</span><button class="source-open" type="button" data-source-open="${escapeHtml(images[0].src)}" data-source-label="${escapeHtml(images[0].label || "Source stimulus")}" data-source-meta="${escapeHtml(sourceMeta)}">Inspect</button></div>`
-      : `<div class="source-tools"><span class="source-verified">Matched released Regents source</span></div>`;
-    els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div>${tools}<p class="source-match-line">Used for this clue: ${escapeHtml(sourceMeta)}</p>${textBlock}${imageBlock}`;
+    const tools = `<div class="source-tools" data-source-identity="${escapeHtml(lock.identity)}"><span class="source-verified" title="${escapeHtml(lock.identity)}">Matched released Regents source</span><span class="source-lock-note">Source lock verified</span></div>`;
+    els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div>${tools}<p class="source-match-line"><strong>Source lock:</strong> Used for this clue only · ${escapeHtml(lock.sourceMeta)}</p>${textBlock}${imageBlock}`;
   }
 
   function renderHint() {

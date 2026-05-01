@@ -1588,6 +1588,12 @@ textarea:focus-visible {
   border-color: rgba(245,196,81,.6);
   font-weight: 800;
 }
+.player.mobile-heavy #openBtn {
+  background: linear-gradient(135deg, var(--gold), var(--gold-warm));
+  color: #14100a;
+  border-color: rgba(245,196,81,.7);
+  font-weight: 800;
+}
 .framewrap {
   position: relative;
   flex: 1;
@@ -1605,6 +1611,10 @@ textarea:focus-visible {
 .player.mobile-lite .loader span:last-child::after {
   content: " · mobile lite mode";
   color: var(--cyan);
+}
+.player.mobile-heavy .loader span:last-child::after {
+  content: " · best speed: Open Tab";
+  color: var(--gold);
 }
 .player.slow-load .loader span:last-child::after {
   content: " · still loading, open tab if needed";
@@ -4657,8 +4667,19 @@ function render() {
 }
 
 // ============== Player ==============
+const MOBILE_HEAVY_GAME_IDS = new Set([
+  "history-hunters",
+  "archive-quest",
+  "cold-war-invaders",
+  "regents-rally-source-circuit",
+  "global-quest",
+  "us-history-quest"
+]);
 function isMobilePerfMode() {
   return window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 760px)").matches;
+}
+function isMobileHeavyGame(game) {
+  return isMobilePerfMode() && game && (MOBILE_HEAVY_GAME_IDS.has(game.id) || /hunters|quest|invaders|rally|platform|pokemon/i.test(game.title + " " + game.file));
 }
 function launchUrl(file) {
   if (!isMobilePerfMode()) return file;
@@ -4681,9 +4702,12 @@ function openGame(game) {
   renderProgressReport();
   renderSmartMenu();
   document.getElementById("playerTitle").textContent = game.title;
-  document.getElementById("playerMeta").textContent = game.course + " · " + displayGameType(game) + " · " + (game.day || game.grade);
+  const heavyMobile = isMobileHeavyGame(game);
+  document.getElementById("playerMeta").textContent = game.course + " · " + displayGameType(game) + " · " + (game.day || game.grade) + (heavyMobile ? " · mobile speed tip" : "");
+  document.getElementById("openBtn").textContent = heavyMobile ? "Open Faster Tab" : "Open Tab";
   clearTimeout(frameLoadTimer);
   player.classList.toggle("mobile-lite", isMobilePerfMode());
+  player.classList.toggle("mobile-heavy", heavyMobile);
   player.classList.remove("slow-load");
   player.classList.add("show", "loading");
   frame.src = "about:blank";
@@ -4698,7 +4722,8 @@ function openGame(game) {
 }
 function closeGame() {
   clearTimeout(frameLoadTimer);
-  player.classList.remove("show", "loading", "mobile-lite", "slow-load");
+  player.classList.remove("show", "loading", "mobile-lite", "mobile-heavy", "slow-load");
+  document.getElementById("openBtn").textContent = "Open Tab";
   frame.src = "about:blank";
   currentGame = null;
 }

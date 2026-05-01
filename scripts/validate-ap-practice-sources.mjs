@@ -6,7 +6,12 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = resolve(root, "data/ap-official-practice-exams.json");
 const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+const gameSource = readFileSync(resolve(root, "games/ap-practice-exam/game.js"), "utf8");
 const errors = [];
+
+for (const marker of ["data-source-page-img", "source-health", "Page match verified", "Expand Source"]) {
+  if (!gameSource.includes(marker)) errors.push(`AP practice source viewer marker missing: ${marker}`);
+}
 
 function positiveInt(value) {
   return Number.isInteger(Number(value)) && Number(value) > 0;

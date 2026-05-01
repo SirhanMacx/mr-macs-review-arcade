@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const DATA_VERSION = "2026-05-01-ap-source-pages-v6";
+  const DATA_VERSION = "2026-05-01-ap-source-pages-v8";
   const OFFICIAL_URL = `../../data/ap-official-practice-exams.json?v=${DATA_VERSION}`;
 
   const state = {
@@ -296,6 +296,7 @@
           <div class="source-title">
             <strong>${escapeHtml(label || "Official AP PDF")}</strong>
             <span>Zoom or expand the source page for close reading.</span>
+            <span class="source-health" data-source-health>Checking source pages</span>
           </div>
           <div class="source-toolbar" aria-label="Source viewing tools">
             <button type="button" class="source-tool" data-source-zoom="-1" aria-label="Zoom source out">-</button>
@@ -328,14 +329,17 @@
   function sourcePageFiguresHtml(formId, pages) {
     return pages.map((page) => `
       <figure class="official-page-figure" data-page="${escapeHtml(String(page))}">
-        <img class="official-page-image" src="${escapeHtml(officialPageImage(formId, page))}" alt="${escapeHtml(`Official PDF page ${page}`)}">
+        <img class="official-page-image" data-source-page-img="1" src="${escapeHtml(officialPageImage(formId, page))}" alt="${escapeHtml(`Official PDF page ${page}`)}">
         <figcaption>Official PDF page ${escapeHtml(String(page))}</figcaption>
       </figure>
     `).join("");
   }
 
   function wireSourceTools(root) {
-    root.querySelectorAll("[data-source-viewer]").forEach((viewer) => applySourceZoom(viewer, Number(viewer.dataset.zoom) || 1));
+    root.querySelectorAll("[data-source-viewer]").forEach((viewer) => {
+      applySourceZoom(viewer, Number(viewer.dataset.zoom) || 1);
+      updateSourceHealth(viewer);
+    });
     root.querySelectorAll("[data-source-zoom]").forEach((button) => {
       button.addEventListener("click", () => {
         const viewer = button.closest("[data-source-viewer]");
@@ -366,11 +370,29 @@
         target.scrollIntoView({ block: "start", behavior: "smooth" });
       });
     });
-    root.querySelectorAll(".official-page-image").forEach((image) => {
+    root.querySelectorAll("[data-source-page-img]").forEach((image) => {
+      image.addEventListener("load", () => {
+        updateSourceHealth(image.closest("[data-source-viewer]"));
+      }, { once: true });
       image.addEventListener("error", () => {
         image.closest(".official-page-figure")?.classList.add("source-missing");
+        updateSourceHealth(image.closest("[data-source-viewer]"));
       }, { once: true });
     });
+  }
+
+  function updateSourceHealth(viewer) {
+    if (!viewer) return;
+    const images = [...viewer.querySelectorAll("[data-source-page-img]")];
+    const label = viewer.querySelector("[data-source-health]");
+    if (!label || !images.length) return;
+    const missing = images.filter((image) => image.closest(".official-page-figure")?.classList.contains("source-missing")).length;
+    const loaded = images.filter((image) => image.complete && image.naturalWidth > 0).length;
+    viewer.classList.toggle("source-ok", !missing && loaded === images.length);
+    viewer.classList.toggle("source-warn", missing > 0);
+    if (missing) label.textContent = `${missing} source page image missing`;
+    else if (loaded === images.length) label.textContent = `Page match verified: ${images.length} source page${images.length === 1 ? "" : "s"} loaded`;
+    else label.textContent = `Checking ${images.length} source page${images.length === 1 ? "" : "s"}`;
   }
 
   function applySourceZoom(viewer, zoom) {
@@ -410,6 +432,7 @@
           <div class="source-title">
             <strong>${escapeHtml(payload.label)}</strong>
             <span>${escapeHtml(pageLabel(pages))}</span>
+            <span class="source-health" data-source-health>Checking source pages</span>
           </div>
           <div class="source-toolbar" aria-label="Expanded source viewing tools">
             <button type="button" class="source-tool" data-source-zoom="-1" aria-label="Zoom source out">-</button>

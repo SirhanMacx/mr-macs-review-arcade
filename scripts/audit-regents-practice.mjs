@@ -37,7 +37,7 @@ function loadHarness(seed) {
     Math: seededMath(seed),
   };
   const harnessSource = `${gameSource.slice(0, cutoff)}
-globalThis.__practiceHarness = { state, PROFILES, ESSAY_COLUMNS, GLOBAL_CONVERSION, US_CONVERSION, assembleExam, docGroupKey, docAssetKeys, trustedDocSource, writingDocAudit };`;
+globalThis.__practiceHarness = { state, PROFILES, ESSAY_COLUMNS, GLOBAL_CONVERSION, US_CONVERSION, assembleExam, examSourceLock, docGroupKey, docAssetKeys, trustedDocSource, writingDocAudit };`;
   vm.runInNewContext(harnessSource, context, { filename: gamePath });
   context.__practiceHarness.state.bank = bank;
   context.__practiceHarness.state.forms = forms;
@@ -165,6 +165,9 @@ function auditPracticeUi(errors) {
   }
   assert(styleSource.includes(".stimulus-missing"), "practice exam UI must visibly flag missing stimulus images", errors);
   assert(styleSource.includes("select option, select optgroup"), "practice exam select menus must force legible option colors", errors);
+  assert(gameSource.includes("examSourceLock"), "practice exam runtime must include fail-closed source lock", errors);
+  assert(gameSource.includes("Source Lock"), "practice exam setup must show visible Source Lock status", errors);
+  assert(styleSource.includes(".source-lock-preview"), "practice exam UI must style Source Lock status", errors);
 }
 
 function auditExam(harness, course, seed, errors) {
@@ -202,6 +205,7 @@ function auditExam(harness, course, seed, errors) {
   assert(answerSpread(labels) <= 14, `${course} seed ${seed}: answer label distribution is too imbalanced (${labels.join(",")})`, errors);
   assert(exam.mcq.every((q) => (q.stimulusImages || []).length), `${course} seed ${seed}: MCQ without stimulus image`, errors);
   assert(exam.audit?.writingIntegrityOk, `${course} seed ${seed}: audit failed ${JSON.stringify(exam.audit)}`, errors);
+  assert(harness.examSourceLock(exam).ok, `${course} seed ${seed}: source lock failed ${JSON.stringify(harness.examSourceLock(exam).issues)}`, errors);
   assert(exam.audit?.assemblyAttempts <= 12, `${course} seed ${seed}: assembly retry budget exceeded`, errors);
   assert(typeof exam.audit?.requiredDocCountsOk === "boolean", `${course} seed ${seed}: audit missing requiredDocCountsOk`, errors);
   assert(typeof exam.audit?.courseStimulusMismatches === "number", `${course} seed ${seed}: audit missing courseStimulusMismatches`, errors);
