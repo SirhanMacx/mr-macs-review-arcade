@@ -21,7 +21,7 @@
     bank: [],
     officialForms: [],
     officialFrqPages: [],
-    selection: "official::apush-2017-ced-practice",
+    selection: "bank::AP U.S. History Exam Review",
     mode: "full",
     exam: null,
     current: 0,
@@ -105,15 +105,15 @@
   }
 
   function populateCourses() {
-    const official = state.officialForms.map((form) =>
-      `<option value="official::${escapeHtml(form.id)}">Official PDF: ${escapeHtml(form.label)}</option>`
-    ).join("");
     const bank = Object.keys(PROFILES).map((course) =>
-      `<option value="bank::${escapeHtml(course)}">AP-style bank: ${escapeHtml(PROFILES[course].label)}</option>`
+      `<option value="bank::${escapeHtml(course)}">Typed practice: ${escapeHtml(PROFILES[course].label)}</option>`
+    ).join("");
+    const official = state.officialForms.map((form) =>
+      `<option value="official::${escapeHtml(form.id)}">Official PDF runner: ${escapeHtml(form.label)}</option>`
     ).join("");
     $("courseSelect").innerHTML = `
-      <optgroup label="Official Public AP Practice PDFs">${official}</optgroup>
-      <optgroup label="AP-Style Bank Practice">${bank}</optgroup>
+      <optgroup label="Fully Typed AP Practice">${bank}</optgroup>
+      <optgroup label="Official Public AP PDF Runners">${official}</optgroup>
     `;
     $("courseSelect").value = state.selection;
   }
@@ -131,10 +131,10 @@
       const writing = form.writingTasks || [];
       $("modeSelect").disabled = true;
       $("formatPanel").innerHTML = `
-        <p class="eyebrow">Official Public PDF</p>
+        <p class="eyebrow">Official PDF Runner</p>
         <h2>${escapeHtml(form.title)}</h2>
         <ul class="format-list">
-          <li><strong>${form.mcqCount} official MCQs</strong><span>Question-by-question runner with source pages, answer grid, and auto-scored public key.</span></li>
+          <li><strong>${form.mcqCount} official MCQs</strong><span>Questions remain in the official PDF; answers are entered here with source-page navigation.</span></li>
           <li><strong>${writing.length} writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
           <li><strong>${form.minutes} minute timer</strong><span>Full-form practice with a digital answer sheet.</span></li>
           <li><strong>Official link preserved</strong><span><a href="${escapeHtml(form.pdfUrl)}" target="_blank" rel="noopener">Open source PDF</a></span></li>
@@ -149,13 +149,13 @@
     const writing = state.mode === "sprint" ? profile.writing.slice(0, 2) : profile.writing;
     const frq = state.officialFrqPages.find((page) => page.course === profile.label);
     $("formatPanel").innerHTML = `
-      <p class="eyebrow">AP-Style Bank Practice</p>
+      <p class="eyebrow">Fully Typed AP Practice</p>
       <h2>${escapeHtml(profile.label)}</h2>
       <ul class="format-list">
-        <li><strong>${mcqCount} harder MCQs</strong><span>Same-course distractors, no copied official AP question text.</span></li>
-        <li><strong>${writing.length} writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
+        <li><strong>${mcqCount} typed MCQs</strong><span>Question text appears directly on screen like the Regents practice exams.</span></li>
+        <li><strong>${writing.length} typed writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
         <li><strong>${minutes} minute timer</strong><span>Timer keeps running until you score or leave the page.</span></li>
-        <li><strong>Practice estimate</strong><span>Rubric-position feedback and approximate AP band.</span></li>
+        <li><strong>Practice estimate</strong><span>Same-course distractors, rubric-position feedback, and approximate AP band.</span></li>
       </ul>
       ${frq ? `<p class="source-note"><a href="${escapeHtml(frq.url)}" target="_blank" rel="noopener">Official released FRQs</a>: ${escapeHtml(frq.status)}</p>` : ""}
       ${profile.mixedNotice ? `<p class="source-note">${escapeHtml(profile.mixedNotice)}</p>` : ""}
