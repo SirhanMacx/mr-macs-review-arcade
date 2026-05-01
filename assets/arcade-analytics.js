@@ -3,12 +3,23 @@
 
   var PREFIX = "mr-macs-review-arcade-v1";
   var LOCAL_KEY = PREFIX + ":local-traffic";
+  var PUBLIC_CACHE_KEY = PREFIX + ":public-traffic-cache";
   var SESSION_KEY = PREFIX + ":session-id";
   var API = "https://countapi.mileshilliard.com/api/v1";
   var pagePath = location.pathname.replace(/\/+$/, "") || "/";
   var isGamePage = /\/games\//.test(pagePath);
   var localOnly = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname || "") || location.protocol === "file:";
   var today = new Date().toISOString().slice(0, 10);
+  var TOP_GAME_IDS = ["history-hunters", "archive-quest", "regents-practice-exam", "ap-practice-exam", "cold-war-invaders", "source-sprint", "regents-gauntlet"];
+  var TOP_GAME_LABELS = {
+    "history-hunters": "History Hunters",
+    "archive-quest": "Archive Quest",
+    "regents-practice-exam": "Regents Exam",
+    "ap-practice-exam": "AP Practice",
+    "cold-war-invaders": "Cold War Invaders",
+    "source-sprint": "Source Sprint",
+    "regents-gauntlet": "Regents Gauntlet"
+  };
 
   function slug(value) {
     return String(value || "unknown")
@@ -34,6 +45,37 @@
     try {
       localStorage.setItem(LOCAL_KEY, JSON.stringify(data));
     } catch (error) {}
+  }
+
+  function readPublicCache() {
+    try {
+      return JSON.parse(localStorage.getItem(PUBLIC_CACHE_KEY)) || {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function writePublicCache(data) {
+    try {
+      var clean = Object.assign({}, data || {});
+      clean.cachedAt = new Date().toISOString();
+      localStorage.setItem(PUBLIC_CACHE_KEY, JSON.stringify(clean));
+    } catch (error) {}
+  }
+
+  function publicMetric(value) {
+    return Number.isFinite(Number(value)) ? Number(value) : null;
+  }
+
+  function publicOr(value, fallback) {
+    var next = publicMetric(value);
+    return next === null ? fallback : next;
+  }
+
+  function dateOffset(daysAgo) {
+    var date = new Date();
+    date.setUTCDate(date.getUTCDate() - daysAgo);
+    return date.toISOString().slice(0, 10);
   }
 
   function sessionId() {
@@ -384,25 +426,69 @@
     return Number(value).toLocaleString();
   }
 
+  function metricFrom(global, key) {
+    var value = publicMetric(global && global[key]);
+    return value === null ? null : value;
+  }
+
+  function renderTrafficTrend(global) {
+    var holder = document.getElementById("trafficTrend");
+    var summary = document.getElementById("trafficTrendSummary");
+    if (!holder) return;
+    var rows = Array.isArray(global.dailyVisits) ? global.dailyVisits : [];
+    if (!rows.length) {
+      holder.innerHTML = '<span class="traffic-empty">Trend appears after the public counter connects.</span>';
+      if (summary) summary.textContent = "7-day public trend";
+      return;
+    }
+    var max = Math.max.apply(null, rows.map(function (row) { return Number(row.visits || 0); }).concat([1]));
+    var total = rows.reduce(function (sum, row) { return sum + Number(row.visits || 0); }, 0);
+    holder.innerHTML = rows.map(function (row) {
+      var height = Math.max(10, Math.round((Number(row.visits || 0) / max) * 100));
+      var label = String(row.date || "").slice(5).replace("-", "/");
+      return '<span class="traffic-bar" title="' + label + ': ' + format(row.visits) + ' visits" style="--h:' + height + '%"><i></i><b>' + label + '</b></span>';
+    }).join("");
+    if (summary) summary.textContent = format(total) + " visits over 7 days";
+  }
+
+  function renderTopGames(global) {
+    var holder = document.getElementById("trafficTopGames");
+    if (!holder) return;
+    var games = Array.isArray(global.topGames) ? global.topGames : [];
+    games = games.filter(function (game) { return Number(game.launches || 0) > 0; }).slice(0, 5);
+    if (!games.length) {
+      holder.innerHTML = '<span class="traffic-empty">Top games appear as public launches build.</span>';
+      return;
+    }
+    var max = Math.max.apply(null, games.map(function (game) { return Number(game.launches || 0); }).concat([1]));
+    holder.innerHTML = games.map(function (game, index) {
+      var width = Math.max(8, Math.round((Number(game.launches || 0) / max) * 100));
+      return '<div class="traffic-game"><span><b>' + (index + 1) + '</b>' + game.label + '</span><strong>' + format(game.launches) + '</strong><i style="--w:' + width + '%"></i></div>';
+    }).join("");
+  }
+
   function render(extra) {
     var local = readLocal();
-    var global = Object.assign({}, window.__MR_MACS_GLOBAL_TRAFFIC__ || {}, extra || {});
-    var fallback = global.connected === false;
-    setText("[data-traffic='global-visits']", format(fallback ? (local.pageViews || 0) : global.siteVisits));
-    setText("[data-traffic='global-engaged']", format(global.engagedSessions));
-    setText("[data-traffic='global-game-opens']", format(fallback ? (local.gameLaunches || 0) : global.gameLaunches));
-    setText("[data-traffic='global-game-views']", format(fallback ? (local.gameViews || 0) : global.gameViews));
-    setText("[data-traffic='global-game-plays']", format(fallback ? (local.gamePlays || 0) : global.gamePlays));
-    setText("[data-traffic='global-completions']", format(global.completions));
-    setText("[data-traffic='global-today-visits']", format(global.todayVisits));
-    setText("[data-traffic='global-today-plays']", format(global.todayGamePlays));
-    setText("[data-traffic='global-mobile']", format(global.mobileViews));
-    setText("[data-traffic='global-tablet']", format(global.tabletViews));
-    setText("[data-traffic='global-desktop']", format(global.desktopViews));
+    var cache = readPublicCache();
+    var global = Object.assign({}, cache, window.__MR_MACS_GLOBAL_TRAFFIC__ || {}, extra || {});
+    var connected = global.connected === true;
+    setText("[data-traffic='global-visits']", format(metricFrom(global, "siteVisits")));
+    setText("[data-traffic='global-engaged']", format(metricFrom(global, "engagedSessions")));
+    setText("[data-traffic='global-game-opens']", format(metricFrom(global, "gameLaunches")));
+    setText("[data-traffic='global-game-views']", format(metricFrom(global, "gameViews")));
+    setText("[data-traffic='global-game-plays']", format(metricFrom(global, "gamePlays")));
+    setText("[data-traffic='global-completions']", format(metricFrom(global, "completions")));
+    setText("[data-traffic='global-today-visits']", format(metricFrom(global, "todayVisits")));
+    setText("[data-traffic='global-today-plays']", format(metricFrom(global, "todayGamePlays")));
+    setText("[data-traffic='global-mobile']", format(metricFrom(global, "mobileViews")));
+    setText("[data-traffic='global-tablet']", format(metricFrom(global, "tabletViews")));
+    setText("[data-traffic='global-desktop']", format(metricFrom(global, "desktopViews")));
     setText("[data-traffic='local-visits']", format(local.pageViews || 0));
     setText("[data-traffic='local-game-opens']", format(local.gameLaunches || 0));
     setText("[data-traffic='local-game-plays']", format(local.gamePlays || 0));
-    setText("[data-traffic='traffic-status']", fallback ? "local backup" : "live public");
+    setText("[data-traffic='traffic-status']", connected ? "live public" : "tracking");
+    renderTrafficTrend(global);
+    renderTopGames(global);
   }
 
   function aggregateCounter(type) {
@@ -448,6 +534,7 @@
     if (counterName === "device-desktop-views") global.desktopViews = value;
     global.connected = value !== null;
     window.__MR_MACS_GLOBAL_TRAFFIC__ = global;
+    if (value !== null) writePublicCache(Object.assign({}, readPublicCache(), global, { connected: true }));
     render(global);
   }
 
@@ -477,19 +564,50 @@
       "game-plays",
       "game-completions"
     ];
-    return Promise.all(counters.map(getGlobal)).then(function (values) {
-      var existing = window.__MR_MACS_GLOBAL_TRAFFIC__ || {};
+    var days = [6, 5, 4, 3, 2, 1, 0].map(dateOffset);
+    var dailyVisitCounters = days.map(function (date) { return "daily-" + date + "-site-visits"; });
+    var dailyPlayCounters = days.map(function (date) { return "daily-" + date + "-game-plays"; });
+    var topGameCounters = TOP_GAME_IDS.map(function (id) { return "game-" + id + "-game-launches"; });
+    var allCounters = counters.concat(dailyVisitCounters, dailyPlayCounters, topGameCounters);
+    return Promise.all(allCounters.map(getGlobal)).then(function (values) {
+      var existing = Object.assign({}, readPublicCache(), window.__MR_MACS_GLOBAL_TRAFFIC__ || {});
+      var dailyVisits = days.map(function (date, index) {
+        return {
+          date: date,
+          visits: publicMetric(values[counters.length + index]) || 0,
+          plays: publicMetric(values[counters.length + dailyVisitCounters.length + index]) || 0
+        };
+      });
+      var topOffset = counters.length + dailyVisitCounters.length + dailyPlayCounters.length;
+      var topGames = TOP_GAME_IDS.map(function (id, index) {
+        return {
+          id: id,
+          label: TOP_GAME_LABELS[id] || id,
+          launches: publicMetric(values[topOffset + index]) || 0
+        };
+      }).sort(function (a, b) {
+        return Number(b.launches || 0) - Number(a.launches || 0);
+      });
+      var connected = values.some(function (value) { return value !== null; });
+      if (!connected) {
+        window.__MR_MACS_GLOBAL_TRAFFIC__ = Object.assign({}, existing, { connected: false });
+        render(window.__MR_MACS_GLOBAL_TRAFFIC__);
+        return window.__MR_MACS_GLOBAL_TRAFFIC__;
+      }
       window.__MR_MACS_GLOBAL_TRAFFIC__ = {
-        siteVisits: values[0],
-        engagedSessions: values[1],
-        gameLaunches: values[2],
-        gameViews: values[3],
-        gamePlays: values[4],
-        completions: values[5],
-        todayVisits: existing.todayVisits,
-        todayGamePlays: existing.todayGamePlays,
-        connected: values.some(function (value) { return value !== null; })
+        siteVisits: publicOr(values[0], existing.siteVisits),
+        engagedSessions: publicOr(values[1], existing.engagedSessions),
+        gameLaunches: publicOr(values[2], existing.gameLaunches),
+        gameViews: publicOr(values[3], existing.gameViews),
+        gamePlays: publicOr(values[4], existing.gamePlays),
+        completions: publicOr(values[5], existing.completions),
+        todayVisits: dailyVisits[dailyVisits.length - 1] ? dailyVisits[dailyVisits.length - 1].visits : existing.todayVisits,
+        todayGamePlays: dailyVisits[dailyVisits.length - 1] ? dailyVisits[dailyVisits.length - 1].plays : existing.todayGamePlays,
+        dailyVisits: dailyVisits,
+        topGames: topGames,
+        connected: true
       };
+      writePublicCache(Object.assign({}, existing, window.__MR_MACS_GLOBAL_TRAFFIC__));
       render(window.__MR_MACS_GLOBAL_TRAFFIC__);
       return window.__MR_MACS_GLOBAL_TRAFFIC__;
     });

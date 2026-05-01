@@ -283,16 +283,22 @@ def check_public_traffic_footer() -> list[str]:
     combined = index_text + "\n" + analytics_text
     for marker in [
         "Public anonymous arcade traffic counter",
+        "Public arcade traction dashboard",
+        "trafficTrend",
+        "trafficTopGames",
         "data-traffic=\"global-visits\"",
         "data-traffic=\"global-game-opens\"",
         "data-traffic=\"global-game-views\"",
+        "data-traffic=\"global-today-visits\"",
+        "PUBLIC_CACHE_KEY",
         "live public",
-        "local backup",
+        "tracking",
     ]:
         if marker not in combined:
             errors.append(f"Public traffic footer missing marker: {marker}")
-    if "private stats" in combined:
-        errors.append("Public traffic footer must not label the visible counter as private stats.")
+    for forbidden in ["private stats", "local backup"]:
+        if forbidden in combined:
+            errors.append(f"Public traffic footer must not expose fallback wording: {forbidden}")
     return errors
 
 
@@ -395,6 +401,7 @@ def check_ap_practice_exam() -> list[str]:
         "writingPageFor",
         "questionPagesFor",
         "writingPagesFor",
+        "usablePageSpan",
         "renderOfficialPage",
         "renderOfficialMcq",
         "answerMapHtml",
@@ -411,6 +418,7 @@ def check_ap_practice_exam() -> list[str]:
         "Open PDF",
         "official worksheet composite",
         "ap-official-practice-exams.json",
+        "skipPages",
         "scoreWritingTask",
         "scoreComposite",
         "scoreFromRanges",

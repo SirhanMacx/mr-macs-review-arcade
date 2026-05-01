@@ -30,6 +30,14 @@ function requireAsset(path, minBytes = 2048) {
 
 requireText("index.html", [
   '["history-hunters", "archive-quest", "regents-practice-exam", "ap-practice-exam", "cold-war-invaders"]',
+  "FEATURED_GAME_IDS",
+  "featuredBadges",
+  "featured-rank",
+  "traffic-dashboard",
+  "trafficTopGames",
+  "trafficTrend",
+  "mobile-lite",
+  "slow-load",
   '"play-lane"',
   '"history-hunters"',
   '"cold-war-invaders"',
