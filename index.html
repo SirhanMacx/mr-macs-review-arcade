@@ -72,7 +72,9 @@ body {
     radial-gradient(circle at 12% 4%, rgba(245,196,81,.10), transparent 30%),
     radial-gradient(circle at 88% 6%, rgba(122,240,255,.16), transparent 28%),
     radial-gradient(80% 36% at 50% 100%, rgba(122,240,255,.07), transparent 72%),
-    linear-gradient(180deg, #07030f, #02020a 44%, #030814),
+    linear-gradient(180deg, rgba(7,3,15,.46), rgba(2,2,10,.82) 44%, rgba(3,8,20,.92)),
+    linear-gradient(90deg, rgba(3,2,10,.82) 0%, rgba(3,2,10,.55) 38%, rgba(3,2,10,.18) 64%, rgba(3,2,10,.10) 100%),
+    var(--hero) right top / cover fixed no-repeat,
     #020611;
   font-family: var(--font-ui);
   font-feature-settings: "ss01", "ss02", "cv11";
@@ -132,14 +134,13 @@ textarea:focus-visible {
 .hero-bg {
   position: fixed; inset: 0; z-index: -5;
   background:
-    radial-gradient(78% 32% at 50% 100%, rgba(122,240,255,.12), transparent 72%),
-    radial-gradient(56% 26% at 18% 100%, rgba(245,196,81,.10), transparent 72%),
-    radial-gradient(56% 26% at 86% 100%, rgba(255,123,204,.07), transparent 72%),
-    linear-gradient(180deg, rgba(3,2,10,.02) 0%, rgba(3,2,10,.22) 34%, rgba(3,2,10,.82) 70%, rgba(2,5,13,.94) 100%),
-    linear-gradient(0deg, rgba(2,5,13,.78) 0%, rgba(4,9,21,.54) 18%, transparent 48%),
-    linear-gradient(90deg, rgba(3,2,10,.30) 0%, rgba(3,2,10,.06) 34%, rgba(3,2,10,.05) 66%, rgba(3,2,10,.36) 100%),
-    var(--hero) center 40% / cover no-repeat;
-  filter: saturate(1.08) contrast(1.08);
+    radial-gradient(70% 32% at 78% 22%, rgba(122,240,255,.28), transparent 68%),
+    radial-gradient(52% 28% at 88% 18%, rgba(255,123,204,.20), transparent 70%),
+    radial-gradient(62% 34% at 62% 100%, rgba(245,196,81,.16), transparent 74%),
+    linear-gradient(180deg, rgba(3,2,10,.04) 0%, rgba(3,2,10,.12) 42%, rgba(3,2,10,.66) 82%, rgba(2,5,13,.88) 100%),
+    linear-gradient(90deg, rgba(3,2,10,.82) 0%, rgba(3,2,10,.56) 37%, rgba(3,2,10,.18) 62%, rgba(3,2,10,.12) 100%),
+    var(--hero) right center / cover no-repeat;
+  filter: saturate(1.2) contrast(1.1) brightness(1.12);
   transform: translate3d(0, var(--bgY, 0), 0) scale(1.015);
   transition: transform .15s linear;
 }
@@ -501,6 +502,7 @@ textarea:focus-visible {
   scroll-margin-top: 92px;
 }
 .band + .band { padding-top: clamp(40px, 6vh, 70px); }
+.utility-band { display: none; }
 .band-head {
   display: flex; flex-wrap: wrap; gap: 16px 28px;
   align-items: end;
@@ -960,6 +962,12 @@ textarea:focus-visible {
 /* ============== Library ============== */
 .library-band { padding-bottom: clamp(80px, 12vh, 140px); }
 .library-head { align-items: end; gap: 18px 28px; flex-wrap: wrap; }
+.library-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+.library-actions[hidden] { display: none; }
 .count-pill {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 8px 14px;
@@ -2280,9 +2288,10 @@ input.field {
 @media (max-width: 760px) {
   .hero-bg {
     background:
-      linear-gradient(180deg, rgba(3, 5, 13, .72), rgba(3, 5, 13, .96) 64%, rgba(3, 5, 13, .98) 100%),
-      linear-gradient(90deg, rgba(3, 5, 13, .84), rgba(3, 5, 13, .50)),
-      var(--hero) 62% top / auto 100% no-repeat;
+      radial-gradient(86% 30% at 78% 8%, rgba(122,240,255,.28), transparent 70%),
+      linear-gradient(180deg, rgba(3, 5, 13, .44), rgba(3, 5, 13, .86) 66%, rgba(3, 5, 13, .94) 100%),
+      linear-gradient(90deg, rgba(3, 5, 13, .72), rgba(3, 5, 13, .28)),
+      var(--hero) 67% top / auto 100% no-repeat;
   }
   .hero-title,
   .band-title {
@@ -2302,11 +2311,48 @@ input.field {
   .gc-body p {
     font-size: 15px;
   }
+  .practice-band .focus-grid,
+  .jeopardy-grid,
+  .bento,
+  .library-grid {
+    display: flex;
+    grid-template-columns: none;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 2px 18px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .practice-band .focus-card,
+  .jeopardy-grid .focus-card,
+  .bento .mode-button,
+  .library-grid .game-card {
+    flex: 0 0 min(84vw, 330px);
+    width: min(84vw, 330px);
+    scroll-snap-align: start;
+  }
+  .bento .mode-button:nth-child(n) {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 420px;
+    padding: 20px;
+  }
+  .bento .mode-button:nth-child(n) .mb-title {
+    font-size: 28px;
+  }
+  .bento .mode-button:nth-child(n) .mb-sub {
+    max-width: 100%;
+    font-size: 14px;
+  }
+  .library-grid .game-card {
+    min-height: 430px;
+  }
 }
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to library</a>
+<a class="skip-link" href="#launch-paths">Skip to launch paths</a>
 <div class="hero-bg" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <canvas id="fx" aria-hidden="true"></canvas>
@@ -2318,12 +2364,9 @@ input.field {
       <span><strong>Mr. Mac's Review Arcade</strong><span>Practice for your exam</span></span>
     </a>
     <nav class="topnav" aria-label="Primary">
-      <a href="#mastery">Mastery</a>
       <a href="#launch-paths">Play</a>
-      <a href="#progress">Progress</a>
       <a href="#practice">Practice Regents</a>
       <a href="#jeopardy">Jeopardy</a>
-      <a href="#courses">Courses</a>
       <a href="#library">Library</a>
     </nav>
     <div class="nav-pills" id="statusPills"></div>
@@ -2373,7 +2416,7 @@ input.field {
     <div class="path-grid reveal-stagger" id="pathCards"></div>
   </section>
 
-  <section class="band mastery-band" id="mastery" aria-label="Mastery path">
+  <section class="band mastery-band utility-band" id="mastery" aria-label="Mastery path">
     <div class="band-head reveal">
       <div>
         <div class="band-eyebrow">Mastery System</div>
@@ -2384,7 +2427,7 @@ input.field {
     <div class="focus-grid reveal-stagger" id="masteryModes"></div>
   </section>
 
-  <section class="band progress-band" id="progress" aria-label="Local student progress">
+  <section class="band progress-band utility-band" id="progress" aria-label="Local student progress">
     <div class="band-head reveal">
       <div>
         <div class="band-eyebrow">Local Report</div>
@@ -2439,7 +2482,7 @@ input.field {
     <div class="focus-grid jeopardy-grid reveal-stagger" id="jeopardyModes"></div>
   </section>
 
-  <section class="band quick-band" id="quickplay" aria-label="Quick play">
+  <section class="band quick-band utility-band" id="quickplay" aria-label="Quick play">
     <div class="band-head reveal">
       <div>
         <div class="band-eyebrow">Quick Play</div>
@@ -2450,7 +2493,7 @@ input.field {
     <div class="quick-grid reveal-stagger" id="quickPlayModes"></div>
   </section>
 
-  <section class="band courses-band" id="courses" aria-label="Course portals">
+  <section class="band courses-band utility-band" id="courses" aria-label="Course portals">
     <div class="band-head reveal">
       <div>
         <div class="band-eyebrow">Course Portals</div>
@@ -2488,6 +2531,9 @@ input.field {
       </select>
     </section>
     <div class="library-grid" id="grid"></div>
+    <div class="library-actions" id="libraryActions" hidden>
+      <button class="action compact" id="showAllLibraryBtn" type="button">Show All Games</button>
+    </div>
   </section>
 
 </main>
@@ -2535,7 +2581,8 @@ input.field {
 </section>
 
 <script src="assets/arcade-analytics.js?v=20260430-mastery1"></script>
-<script src="assets/mastery-engine.js?v=20260430-mastery1"></script>
+<script src="assets/source-bank.js?v=20260501-sourcebank"></script>
+<script src="assets/mastery-engine.js?v=20260501-sourcebank"></script>
 <script>
 let GAMES = [];
 
@@ -2546,7 +2593,7 @@ async function loadGamesManifest() {
 }
 
 // ============== State + utilities ==============
-const state = { query: "", lane: "all", course: "All Courses", subject: "All Subjects", type: "All Game Types", sort: "priority" };
+const state = { query: "", lane: "all", course: "All Courses", subject: "All Subjects", type: "All Game Types", sort: "priority", libraryExpanded: false };
 const grid = document.getElementById("grid");
 const player = document.getElementById("player");
 const frame = document.getElementById("gameFrame");
@@ -2647,7 +2694,8 @@ function glyphFor(game) {
 
 const JEOPARDY_ALL_COURSES = "All Course Levels";
 const JEOPARDY_ALL_SUBJECTS = "All Subjects";
-const JEOPARDY_PREVIEW_LIMIT = 24;
+const JEOPARDY_PREVIEW_LIMIT = 4;
+const LIBRARY_PREVIEW_LIMIT = 12;
 const jeopardyState = { course: JEOPARDY_ALL_COURSES, subject: JEOPARDY_ALL_SUBJECTS, query: "" };
 const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final"]);
 
@@ -2684,6 +2732,10 @@ function initFilters() {
   document.getElementById("jeopardyCourseSelect")?.addEventListener("change", (event) => { jeopardyState.course = event.target.value; renderJeopardyModes(); });
   document.getElementById("jeopardySubjectSelect")?.addEventListener("change", (event) => { jeopardyState.subject = event.target.value; renderJeopardyModes(); });
   document.getElementById("jeopardySearch")?.addEventListener("input", (event) => { jeopardyState.query = event.target.value; renderJeopardyModes(); });
+  document.getElementById("showAllLibraryBtn")?.addEventListener("click", () => {
+    state.libraryExpanded = true;
+    render();
+  });
 }
 function searchable(game) {
   return [game.title, game.subtitle, game.day, game.course, game.subject, game.grade, game.gameType, displayGameType(game), game.originalFile].concat(game.categories || [], game.tags || []).join(" ").toLowerCase();
@@ -2900,10 +2952,10 @@ function renderLaunchPaths() {
 }
 
 function renderPracticeModes() {
-  const ids = ["regents-practice-exam", "source-lab", "source-audit", "writing-coach", "regents-gauntlet", "source-sprint", "arcade-duel", "global-regents-sprint-day-1", "us-regents-sprint-day-1"];
+  const ids = ["regents-practice-exam", "source-sprint", "regents-gauntlet", "writing-coach", "source-lab", "source-audit", "arcade-duel", "global-regents-sprint-day-1", "us-regents-sprint-day-1"];
   const games = ids.map((id) => GAMES.find((game) => game.id === id)).filter(Boolean);
   const backup = GAMES.filter((game) => laneMatchesWith("regents", game)).slice(0, 6);
-  const unique = [...new Map(games.concat(backup).map((game) => [game.id, game])).values()].slice(0, 6);
+  const unique = [...new Map(games.concat(backup).map((game) => [game.id, game])).values()].slice(0, 4);
   const container = document.getElementById("practiceModes");
   if (!container) return;
   container.innerHTML = unique.map((game) => buttonCard(game, null, "focus-card")).join("");
@@ -3153,11 +3205,31 @@ function card(game) {
     '</div>' +
   '</button>';
 }
+function shouldLimitDefaultLibrary() {
+  return !state.libraryExpanded &&
+    state.lane === "all" &&
+    !String(state.query || "").trim() &&
+    state.course === "All Courses" &&
+    state.subject === "All Subjects" &&
+    state.type === "All Game Types" &&
+    state.sort === "priority";
+}
 function render() {
   renderLaneTabs();
   const games = filteredGames();
-  document.getElementById("countLabel").textContent = games.length + (games.length === 1 ? " game showing" : " games showing");
-  grid.innerHTML = games.length ? games.map(card).join("") : '<div class="empty">No missions match that search. Clear a filter or search a different term.</div>';
+  const limited = shouldLimitDefaultLibrary() && games.length > LIBRARY_PREVIEW_LIMIT;
+  const visibleGames = limited ? games.slice(0, LIBRARY_PREVIEW_LIMIT) : games;
+  const countLabel = document.getElementById("countLabel");
+  countLabel.textContent = limited
+    ? visibleGames.length + " of " + games.length + " games showing"
+    : games.length + (games.length === 1 ? " game showing" : " games showing");
+  grid.innerHTML = visibleGames.length ? visibleGames.map(card).join("") : '<div class="empty">No missions match that search. Clear a filter or search a different term.</div>';
+  const libraryActions = document.getElementById("libraryActions");
+  const showAllLibraryBtn = document.getElementById("showAllLibraryBtn");
+  if (libraryActions && showAllLibraryBtn) {
+    libraryActions.hidden = !limited;
+    showAllLibraryBtn.textContent = "Show All " + games.length + " Games";
+  }
   grid.querySelectorAll(".game-card").forEach((button) => {
     button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
   });

@@ -212,6 +212,7 @@ const els = {
 
 const ctx = els.canvas.getContext("2d");
 const keys = new Set();
+const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 const TRACK_LENGTH = 5400;
 const VISIBLE_RANGE = 1150;
 const COUNTDOWN_SECONDS = 3.15;
@@ -393,6 +394,7 @@ async function loadBanks() {
 }
 
 function sourceBased(question) {
+  if (SourceBank) return SourceBank.sourceBased(question);
   return Boolean(
     (question.stimulusImages && question.stimulusImages.length) ||
     question.stimulusRequired ||
@@ -401,6 +403,7 @@ function sourceBased(question) {
 }
 
 function normalizeRegents(question) {
+  if (SourceBank && !SourceBank.usableRegentsQuestion(question)) return null;
   const choices = (question.choices || []).slice(0, 4).map((choice) => String(choice.text || ""));
   const correctIndex = (question.choices || []).slice(0, 4).findIndex((choice) => String(choice.label) === String(question.correct));
   if (choices.length !== 4 || correctIndex < 0) return null;
@@ -412,7 +415,7 @@ function normalizeRegents(question) {
     course: question.course || "Regents Review",
     set: question.set || question.day || "",
     source: question.source || "",
-    images: question.stimulusImages || []
+    images: SourceBank ? SourceBank.stimulusImages(question) : (question.stimulusImages || [])
   };
 }
 

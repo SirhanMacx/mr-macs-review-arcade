@@ -9,6 +9,51 @@ const regents = JSON.parse(readFileSync(resolve(root, "data/regents-gauntlet-ban
 const errors = [];
 const SOURCE_RE = /(\bthis\s+(law|act|amendment|address|speech|message|excerpt|passage|document|map|cartoon|graph|chart|photograph|source|timeline|image|poster|newspaper|table)\b|\bthese\s+(laws|acts|amendments|documents|maps|cartoons|graphs|charts|photographs|sources|timelines|images|posters|newspapers|tables|statements|conditions|changes|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|source|timeline|image|poster|newspaper|table)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b)/i;
 
+const sourceBankPath = resolve(root, "assets/source-bank.js");
+const sourceBankText = existsSync(sourceBankPath) ? readFileSync(sourceBankPath, "utf8") : "";
+if (!sourceBankText) {
+  errors.push("assets/source-bank.js is missing");
+} else {
+  for (const marker of ["MrMacsSourceBank", "usableRegentsQuestion", "trustedSource", "courseMatchesStimulus", "missingSourceReason"]) {
+    if (!sourceBankText.includes(marker)) errors.push(`assets/source-bank.js missing shared source marker: ${marker}`);
+  }
+}
+
+const sourceBankConsumers = [
+  "assets/mastery-engine.js",
+  "games/source-sprint/game.js",
+  "games/regents-gauntlet/game.js",
+  "games/archive-cipher/game.js",
+  "games/source-audit/game.js",
+  "games/regents-practice-exam/game.js",
+  "games/regents-rally-source-circuit/game.js"
+];
+for (const rel of sourceBankConsumers) {
+  const text = readFileSync(resolve(root, rel), "utf8");
+  if (!text.includes("MrMacsSourceBank")) errors.push(`${rel}: does not use shared MrMacsSourceBank checks`);
+}
+
+const scriptConsumers = [
+  "index.html",
+  "games/source-sprint/index.html",
+  "games/regents-gauntlet/index.html",
+  "games/archive-cipher/index.html",
+  "games/source-audit/index.html",
+  "games/regents-practice-exam/index.html",
+  "games/regents-rally-source-circuit/index.html",
+  "games/mastery-path/index.html",
+  "games/source-lab/index.html",
+  "games/writing-coach/index.html"
+];
+for (const rel of scriptConsumers) {
+  const text = readFileSync(resolve(root, rel), "utf8");
+  if (!text.includes("assets/source-bank.js")) errors.push(`${rel}: does not load assets/source-bank.js`);
+}
+const indexText = readFileSync(resolve(root, "index.html"), "utf8");
+if (indexText.indexOf("assets/source-bank.js") > indexText.indexOf("assets/mastery-engine.js")) {
+  errors.push("index.html must load source-bank before mastery-engine");
+}
+
 function normalize(value) {
   return String(value || "")
     .toLowerCase()

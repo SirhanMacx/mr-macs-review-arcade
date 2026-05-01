@@ -2,6 +2,7 @@
   "use strict";
 
   var STORAGE_KEY = "mr-macs-review-arcade-v1:mastery-path";
+  var SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 
   var COURSES = [
     { id: "grade-5", label: "Grade 5 Social Studies", short: "Grade 5", level: "Grade 5", family: "K-8", exam: "NYS Framework", writing: "Short constructed responses", skills: ["geography", "culture", "government", "economics", "source"] },
@@ -114,17 +115,20 @@
   }
 
   function hasImages(question) {
+    if (SourceBank) return SourceBank.hasStimulusImages(question);
     return (question.stimulusImages || []).some(function (img) {
       return img && img.src;
     });
   }
 
   function sourceBased(question) {
+    if (SourceBank) return SourceBank.sourceBased(question);
     var text = [question.stem, question.prompt, question.source, question.category, (question.tags || []).join(" ")].join(" ");
     return hasImages(question) || question.stimulusRequired || /document|source|map|cartoon|chart|graph|excerpt|passage|photograph|image|speaker|table|data/i.test(text);
   }
 
   function trustedSource(question) {
+    if (SourceBank) return SourceBank.trustedSource(question);
     return hasImages(question) && !/^quarantined/i.test(String(question.sourceIntegrity || ""));
   }
 

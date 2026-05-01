@@ -4,6 +4,7 @@
   const STORAGE_KEY = "mr-macs-archive-cipher-v1";
   const MAX_ATTEMPTS = 6;
   const $ = (id) => document.getElementById(id);
+  const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 
   const els = {
     fx: $("fx"),
@@ -155,10 +156,12 @@
   const sourcePromptRe = /(\bthis\s+(amendment|document|letter|speech|excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\bthese\s+(issues|documents|statements|headlines|conditions|changes|questions|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b|similar\s+to\s+this)/i;
 
   function promptNeedsStimulus(q) {
+    if (SourceBank) return SourceBank.sourceBased(q);
     return sourcePromptRe.test(String((q && (q.prompt || q.stem)) || ""));
   }
 
   function stimulusImages(q) {
+    if (SourceBank) return SourceBank.stimulusImages(q);
     q = q || {};
     const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
     if (list.length) {
@@ -183,10 +186,12 @@
   }
 
   function trustedSource(q) {
+    if (SourceBank) return SourceBank.trustedSource(q);
     return /trusted|official/i.test(String((q && q.sourceIntegrity) || ""));
   }
 
   function courseMatchesStimulus(q) {
+    if (SourceBank) return SourceBank.courseMatchesStimulus(q);
     const srcs = stimulusImages(q).map((image) => String(image.src || ""));
     if (!srcs.length) return false;
     const course = String((q && q.course) || "");
@@ -200,6 +205,7 @@
   }
 
   function verifiedSourceQuestion(q) {
+    if (SourceBank) return SourceBank.verifiedSourceQuestion(q);
     return Boolean(q && !/^quarantined/i.test(String(q.sourceIntegrity || "")) && trustedSource(q) && stimulusImages(q).length && courseMatchesStimulus(q));
   }
 

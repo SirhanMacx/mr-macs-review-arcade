@@ -1,4 +1,5 @@
-const SOURCE_PATTERN = /based on|according to|document|map|cartoon|graph|chart|excerpt|passage|photograph|source|timeline|image|poster|newspaper|table/i;
+const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
+const SOURCE_PATTERN = /(\bthis\s+(law|act|amendment|address|speech|message|excerpt|passage|document|map|cartoon|graph|chart|photograph|photo|source|timeline|image|poster|newspaper|table|letter)\b|\bthese\s+(laws|acts|amendments|documents|maps|cartoons|graphs|charts|photographs|photos|sources|timelines|images|posters|newspapers|tables|statements|conditions|changes|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|photo|source|timeline|image|poster|newspaper|table|letter)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b)/i;
 const JAN_2026 = "Jan 2026";
 const COURSES = ["Grade 10 Global History II", "Grade 11 U.S. History"];
 const state = { bank: null, records: [], course: "all", status: "all", query: "" };
@@ -14,15 +15,15 @@ function esc(value) {
 }
 
 function images(question) {
-  return (question.stimulusImages || []).filter((image) => image && image.src);
+  return SourceBank ? SourceBank.stimulusImages(question) : (question.stimulusImages || []).filter((image) => image && image.src);
 }
 
 function quarantined(question) {
-  return /^quarantined/i.test(String(question.sourceIntegrity || ""));
+  return SourceBank ? SourceBank.isQuarantined(question) : /^quarantined/i.test(String(question.sourceIntegrity || ""));
 }
 
 function sourceDependent(question) {
-  return question.stimulusRequired || SOURCE_PATTERN.test(question.stem || "");
+  return SourceBank ? SourceBank.sourceBased(question) : (question.stimulusRequired || SOURCE_PATTERN.test(question.stem || ""));
 }
 
 function officialQuestionNumber(question) {
@@ -34,6 +35,7 @@ function officialQuestionNumber(question) {
 }
 
 function imageCourseMismatch(question) {
+  if (SourceBank) return images(question).length > 0 && !SourceBank.courseMatchesStimulus(question);
   const qImages = images(question);
   if (/U\.S\. History/.test(question.course || "")) return qImages.some((image) => !/\/us-day/i.test(image.src));
   if (/Global History/.test(question.course || "")) return qImages.some((image) => !/\/global-day/i.test(image.src));
