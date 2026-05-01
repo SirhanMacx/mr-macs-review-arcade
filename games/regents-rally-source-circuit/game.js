@@ -213,6 +213,8 @@ const els = {
 const ctx = els.canvas.getContext("2d");
 const keys = new Set();
 const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
+const params = new URLSearchParams(location.search);
+const perfLite = params.get("perf") === "lite" || params.get("fx") === "lite" || matchMedia("(pointer: coarse)").matches || innerWidth < 760;
 const TRACK_LENGTH = 5400;
 const VISIBLE_RANGE = 1150;
 const COUNTDOWN_SECONDS = 3.15;
@@ -762,7 +764,7 @@ function finishRace() {
 
 function resizeCanvas() {
   const rect = els.canvas.getBoundingClientRect();
-  state.dpr = Math.min(window.devicePixelRatio || 1, 2);
+  state.dpr = Math.min(window.devicePixelRatio || 1, perfLite ? 1.25 : 2);
   els.canvas.width = Math.max(1, Math.floor(rect.width * state.dpr));
   els.canvas.height = Math.max(1, Math.floor(rect.height * state.dpr));
   ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);

@@ -48,6 +48,8 @@
 
   const ctx = els.canvas.getContext("2d", { alpha: false });
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const params = new URLSearchParams(location.search);
+  const perfLite = params.get("perf") === "lite" || params.get("fx") === "lite" || matchMedia("(pointer: coarse)").matches || innerWidth < 760;
   const qaMode = new URLSearchParams(location.search).get("qa");
   const assetPaths = {
     background: "../../assets/archive-quest/background.png",
@@ -903,7 +905,7 @@
   }
 
   function resize() {
-    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const dpr = Math.min(devicePixelRatio || 1, perfLite ? 1.25 : 2);
     const width = window.innerWidth;
     const height = window.innerHeight;
     els.canvas.width = Math.max(1, Math.floor(width * dpr));

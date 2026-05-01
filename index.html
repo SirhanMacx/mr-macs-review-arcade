@@ -72,9 +72,9 @@ body {
     radial-gradient(circle at 12% 4%, rgba(245,196,81,.10), transparent 30%),
     radial-gradient(circle at 88% 6%, rgba(122,240,255,.16), transparent 28%),
     radial-gradient(80% 36% at 50% 100%, rgba(122,240,255,.07), transparent 72%),
-    linear-gradient(180deg, rgba(7,3,15,.46), rgba(2,2,10,.82) 44%, rgba(3,8,20,.92)),
-    linear-gradient(90deg, rgba(3,2,10,.82) 0%, rgba(3,2,10,.55) 38%, rgba(3,2,10,.18) 64%, rgba(3,2,10,.10) 100%),
-    var(--hero) right top / cover fixed no-repeat,
+    linear-gradient(180deg, rgba(7,3,15,.72), rgba(2,2,10,.90) 48%, rgba(3,8,20,.98)),
+    linear-gradient(90deg, rgba(3,2,10,.92) 0%, rgba(3,2,10,.78) 38%, rgba(3,2,10,.50) 68%, rgba(3,2,10,.60) 100%),
+    var(--hero) right top / min(1500px, 150vw) auto no-repeat,
     #020611;
   font-family: var(--font-ui);
   font-feature-settings: "ss01", "ss02", "cv11";
@@ -134,13 +134,11 @@ textarea:focus-visible {
 .hero-bg {
   position: fixed; inset: 0; z-index: -5;
   background:
-    radial-gradient(70% 32% at 78% 22%, rgba(122,240,255,.28), transparent 68%),
-    radial-gradient(52% 28% at 88% 18%, rgba(255,123,204,.20), transparent 70%),
-    radial-gradient(62% 34% at 62% 100%, rgba(245,196,81,.16), transparent 74%),
-    linear-gradient(180deg, rgba(3,2,10,.04) 0%, rgba(3,2,10,.12) 42%, rgba(3,2,10,.66) 82%, rgba(2,5,13,.88) 100%),
-    linear-gradient(90deg, rgba(3,2,10,.82) 0%, rgba(3,2,10,.56) 37%, rgba(3,2,10,.18) 62%, rgba(3,2,10,.12) 100%),
-    var(--hero) right center / cover no-repeat;
-  filter: saturate(1.2) contrast(1.1) brightness(1.12);
+    radial-gradient(70% 32% at 78% 22%, rgba(122,240,255,.12), transparent 68%),
+    radial-gradient(52% 28% at 88% 18%, rgba(255,123,204,.08), transparent 70%),
+    radial-gradient(62% 34% at 62% 100%, rgba(245,196,81,.08), transparent 74%),
+    linear-gradient(180deg, rgba(3,2,10,.04) 0%, rgba(3,2,10,.16) 42%, rgba(3,2,10,.64) 82%, rgba(2,5,13,.90) 100%);
+  filter: saturate(1.03) contrast(1.03);
   transform: translate3d(0, var(--bgY, 0), 0) scale(1.015);
   transition: transform .15s linear;
 }
@@ -2103,17 +2101,44 @@ select.field {
   .library-grid {
     grid-template-columns: 1fr;
   }
+  .player {
+    inset: 0;
+    border-radius: 0;
+  }
+  .playerbar {
+    min-height: 58px;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .playerbar #playerTitle {
+    font-size: 14px;
+  }
+  .playerbar #playerMeta {
+    display: none;
+  }
+  .player-actions {
+    gap: 4px;
+    flex: 0 0 auto;
+  }
+  .player-actions .btn {
+    height: 34px;
+    padding: 0 9px;
+    font-size: 12px;
+  }
+  #fullscreenBtn {
+    display: none;
+  }
 }
 
 /* ============== 16-bit arcade art + legibility pass ============== */
 .hero-bg {
   background:
-    linear-gradient(90deg, rgba(3, 5, 13, .78) 0%, rgba(3, 5, 13, .32) 48%, rgba(3, 5, 13, .18) 100%),
-    linear-gradient(180deg, rgba(3, 5, 13, .20) 0%, rgba(3, 5, 13, .28) 56%, rgba(3, 5, 13, .66) 100%),
-    radial-gradient(62% 42% at 23% 20%, rgba(4, 6, 14, .34), transparent 68%),
-    var(--hero) center 44% / cover no-repeat;
+    radial-gradient(70% 32% at 78% 22%, rgba(122,240,255,.12), transparent 68%),
+    radial-gradient(52% 28% at 88% 18%, rgba(255,123,204,.08), transparent 70%),
+    radial-gradient(62% 34% at 62% 100%, rgba(245,196,81,.08), transparent 74%),
+    linear-gradient(180deg, rgba(3,2,10,.04) 0%, rgba(3,2,10,.16) 42%, rgba(3,2,10,.64) 82%, rgba(2,5,13,.90) 100%);
   image-rendering: auto;
-  filter: saturate(1.12) contrast(1.08);
+  filter: saturate(1.03) contrast(1.03);
 }
 .hero-bg::after,
 .gc-art::before,
@@ -2286,12 +2311,24 @@ input.field {
 }
 
 @media (max-width: 760px) {
-  .hero-bg {
+  body {
     background:
-      radial-gradient(86% 30% at 78% 8%, rgba(122,240,255,.28), transparent 70%),
-      linear-gradient(180deg, rgba(3, 5, 13, .44), rgba(3, 5, 13, .86) 66%, rgba(3, 5, 13, .94) 100%),
-      linear-gradient(90deg, rgba(3, 5, 13, .72), rgba(3, 5, 13, .28)),
-      var(--hero) 67% top / auto 100% no-repeat;
+      radial-gradient(circle at 18% 5%, rgba(245,196,81,.08), transparent 32%),
+      radial-gradient(circle at 88% 8%, rgba(122,240,255,.12), transparent 30%),
+      linear-gradient(180deg, rgba(7,3,15,.78), rgba(2,2,10,.92) 48%, rgba(3,8,20,.98)),
+      linear-gradient(90deg, rgba(3,2,10,.88), rgba(3,2,10,.50)),
+      var(--hero) 65% 68px / auto 720px no-repeat,
+      #020611;
+  }
+  .hero-bg {
+    display: none;
+  }
+  #fx {
+    display: none;
+  }
+  .grain {
+    animation: none;
+    opacity: .035;
   }
   .hero-title,
   .band-title {
@@ -3236,6 +3273,16 @@ function render() {
 }
 
 // ============== Player ==============
+function isMobilePerfMode() {
+  return window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 760px)").matches;
+}
+function launchUrl(file) {
+  if (!isMobilePerfMode()) return file;
+  const url = new URL(file, location.href);
+  url.searchParams.set("perf", "lite");
+  url.searchParams.set("fx", "lite");
+  return url.href;
+}
 function openGame(game) {
   if (!game) return;
   currentGame = game;
@@ -3250,7 +3297,7 @@ function openGame(game) {
   document.getElementById("playerTitle").textContent = game.title;
   document.getElementById("playerMeta").textContent = game.course + " · " + displayGameType(game) + " · " + (game.day || game.grade);
   player.classList.add("show", "loading");
-  frame.src = game.file;
+  frame.src = launchUrl(game.file);
   frame.focus();
 }
 function closeGame() {
@@ -3263,7 +3310,7 @@ frame.addEventListener("load", () => {
 });
 document.getElementById("closeBtn").addEventListener("click", closeGame);
 document.getElementById("openBtn").addEventListener("click", () => {
-  if (currentGame) window.open(currentGame.file, "_blank", "noopener");
+  if (currentGame) window.open(launchUrl(currentGame.file), "_blank", "noopener");
 });
 document.getElementById("fullscreenBtn").addEventListener("click", async () => {
   const target = document.querySelector(".framewrap");
@@ -3277,7 +3324,7 @@ document.addEventListener("keydown", (event) => {
 // ============== Canvas FX ==============
 function initFx() {
   const canvas = document.getElementById("fx");
-  if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!canvas || isMobilePerfMode() || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const ctx = canvas.getContext("2d", { alpha: true });
   if (!ctx) return;
   let width = 0, height = 0, dpr = 1;
@@ -3333,7 +3380,7 @@ function initFx() {
 
 // ============== Hero parallax ==============
 function initParallax() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (isMobilePerfMode() || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const bg = document.querySelector(".hero-bg");
   if (!bg) return;
   let target = 0, current = 0;

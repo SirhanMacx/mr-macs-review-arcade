@@ -33,6 +33,8 @@ const ctx = els.canvas.getContext("2d");
 const keys = new Set();
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const mobileControls = matchMedia("(max-width: 820px)");
+const params = new URLSearchParams(location.search);
+const perfLite = params.get("perf") === "lite" || params.get("fx") === "lite" || matchMedia("(pointer: coarse)").matches || innerWidth < 760;
 
 const ASSETS = {
   sheet: new Image(),
@@ -253,7 +255,7 @@ function renderMetrics() {
 }
 
 function resize() {
-  state.dpr = Math.min(devicePixelRatio || 1, 2);
+  state.dpr = Math.min(devicePixelRatio || 1, perfLite ? 1.25 : 2);
   state.w = innerWidth;
   state.h = innerHeight;
   els.canvas.width = Math.max(1, Math.floor(state.w * state.dpr));
@@ -268,7 +270,7 @@ function resize() {
 }
 
 function buildStars() {
-  const count = Math.min(190, Math.floor(state.w * state.h / 5500));
+  const count = Math.min(perfLite ? 90 : 190, Math.floor(state.w * state.h / (perfLite ? 8500 : 5500)));
   state.stars = Array.from({ length: count }, (_, i) => ({
     x: Math.random() * state.w,
     y: Math.random() * state.h,
