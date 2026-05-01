@@ -416,6 +416,19 @@
     return requestCounter("get", name).catch(function () { return null; });
   }
 
+  function runCounterSeries(counters, worker) {
+    var results = [];
+    var chain = Promise.resolve();
+    counters.forEach(function (name, index) {
+      chain = chain.then(function () {
+        return worker(name, index);
+      }).then(function (value) {
+        results[index] = value;
+      });
+    });
+    return chain.then(function () { return results; });
+  }
+
   function setText(selector, value) {
     document.querySelectorAll(selector).forEach(function (node) {
       node.textContent = value;
@@ -521,7 +534,13 @@
   }
 
   function rememberAggregate(counterName, value) {
-    var global = Object.assign({}, window.__MR_MACS_GLOBAL_TRAFFIC__ || {});
+    var global = Object.assign({}, readPublicCache(), window.__MR_MACS_GLOBAL_TRAFFIC__ || {});
+    if (value === null) {
+      global.connected = false;
+      window.__MR_MACS_GLOBAL_TRAFFIC__ = global;
+      render(global);
+      return;
+    }
     if (counterName === "site-visits") global.siteVisits = value;
     if (counterName === "game-launches") global.gameLaunches = value;
     if (counterName === "game-views") global.gameViews = value;
@@ -533,9 +552,9 @@
     if (counterName === "device-mobile-views") global.mobileViews = value;
     if (counterName === "device-tablet-views") global.tabletViews = value;
     if (counterName === "device-desktop-views") global.desktopViews = value;
-    global.connected = value !== null;
+    global.connected = true;
     window.__MR_MACS_GLOBAL_TRAFFIC__ = global;
-    if (value !== null) writePublicCache(Object.assign({}, readPublicCache(), global, { connected: true }));
+    writePublicCache(Object.assign({}, readPublicCache(), global, { connected: true }));
     render(global);
   }
 
@@ -547,13 +566,13 @@
       seen[key] = true;
       return true;
     });
-    return Promise.all(counters.map(function (name, index) {
+    return runCounterSeries(counters, function (name, index) {
       var once = onceKeyValue === "" ? "" : (index === 0 ? onceKeyValue : onceKeyValue + ":" + name);
       return hitGlobal(name, once).then(function (value) {
         rememberAggregate(name, value);
         return value;
       });
-    }));
+    });
   }
 
   function refreshGlobal() {
@@ -570,7 +589,9 @@
     var dailyVisitCounters = visitDays.map(function (date) { return "daily-" + date + "-site-visits"; });
     var topGameCounters = TOP_GAME_IDS.map(function (id) { return "game-" + id + "-game-launches"; });
     var allCounters = counters.concat(dailyVisitCounters, topGameCounters);
-    return Promise.all(allCounters.map(getGlobal)).then(function (values) {
+    return runCounterSeries(allCounters, function (name) {
+      return getGlobal(name);
+    }).then(function (values) {
       var existing = Object.assign({}, readPublicCache(), window.__MR_MACS_GLOBAL_TRAFFIC__ || {});
       var visitLookup = {};
       visitDays.forEach(function (date, index) {
@@ -647,7 +668,7 @@
   };
 
   document.addEventListener("DOMContentLoaded", function () {
-    track("pageview", { title: document.title, path: pagePath }, { counter: "site-visits" });
+    var pageTrack = track("pageview", { title: document.title, path: pagePath }, { counter: "site-visits" });
     window.setTimeout(function () {
       track("engaged_session", { title: document.title, path: pagePath }, { counter: "engaged-sessions", onceKey: "engaged:" + pagePath });
     }, 20000);
@@ -664,6 +685,10 @@
         }, { counter: "game-plays", onceKey: "game-play:" + pagePath });
       }, 25000);
     }
-    refreshGlobal();
+    pageTrack.then(function () {
+      refreshGlobal();
+    }, function () {
+      refreshGlobal();
+    });
   });
 })();
