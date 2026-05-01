@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const DATA_VERSION = "2026-05-01-ap-desktop-layout-v5";
+  const DATA_VERSION = "2026-05-01-ap-source-pages-v6";
   const OFFICIAL_URL = `../../data/ap-official-practice-exams.json?v=${DATA_VERSION}`;
 
   const state = {
@@ -146,7 +146,7 @@
     const firstWritingPage = firstPageValue(form.writingPages);
     const nextRangePage = ranges[rangeIndex + 1] ? Number(ranges[rangeIndex + 1][2]) : firstWritingPage;
     const endPage = Math.max(startPage, (nextRangePage || startPage + 1) - 1);
-    return pageSpan(startPage, endPage);
+    return usablePageSpan(form, startPage, endPage);
   }
 
   function writingPageFor(form, taskId) {
@@ -163,7 +163,7 @@
     const startPage = entries[index].page;
     const nextPage = entries[index + 1]?.page;
     const endPage = Math.max(startPage, Math.min(nextPage ? nextPage - 1 : startPage, startPage + 5));
-    return pageSpan(startPage, endPage);
+    return usablePageSpan(form, startPage, endPage);
   }
 
   function firstPageValue(map) {
@@ -177,6 +177,12 @@
       pages.push(page);
     }
     return pages;
+  }
+
+  function usablePageSpan(form, startPage, endPage) {
+    const skipPages = new Set((form.skipPages || []).map(Number));
+    const pages = pageSpan(startPage, endPage).filter((page) => !skipPages.has(page));
+    return pages.length ? pages : pageSpan(startPage, endPage);
   }
 
   function renderTabs() {

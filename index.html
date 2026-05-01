@@ -501,6 +501,11 @@ textarea:focus-visible {
 }
 .band + .band { padding-top: clamp(40px, 6vh, 70px); }
 .utility-band { display: none; }
+.utility-band.smart-menu-band { display: block; }
+.smart-menu-band {
+  padding-top: clamp(34px, 5vh, 54px);
+  padding-bottom: clamp(32px, 4vh, 48px);
+}
 .band-head {
   display: flex; flex-wrap: wrap; gap: 16px 28px;
   align-items: end;
@@ -1359,6 +1364,7 @@ textarea:focus-visible {
 .footer-jump:nth-child(2) { --jump-a: #7af0ff; --jump-b: #2dc6dc; --jump-glow: rgba(122,240,255,.34); }
 .footer-jump:nth-child(3) { --jump-a: #ff7bcc; --jump-b: #b892ff; --jump-glow: rgba(255,123,204,.32); }
 .footer-jump:nth-child(4) { --jump-a: #69f0aa; --jump-b: #7af0ff; --jump-glow: rgba(105,240,170,.30); }
+.footer-jump:nth-child(5) { --jump-a: #b892ff; --jump-b: #7af0ff; --jump-glow: rgba(184,146,255,.30); }
 .footer-jump:hover,
 .footer-jump:focus-visible {
   transform: translateY(-2px);
@@ -1686,6 +1692,168 @@ textarea:focus-visible {
   line-height: 1.25;
 }
 .progress-item strong { color: var(--paper); }
+
+.smart-menu-console {
+  padding: 14px;
+  border: 1px solid rgba(122,240,255,.24);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(5,8,18,.92), rgba(5,8,18,.985)),
+    var(--ui-sheet) center / cover no-repeat;
+  box-shadow: var(--shadow-1);
+}
+.smart-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 0 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(122,240,255,.30) transparent;
+}
+.smart-tab {
+  flex: 0 0 auto;
+  min-height: 42px;
+  padding: 10px 13px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+  background: rgba(255,255,255,.055);
+  color: var(--paper-2);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  transition: background .22s var(--ease), border-color .22s var(--ease), color .22s var(--ease);
+}
+.smart-tab.active,
+.smart-tab:hover,
+.smart-tab:focus-visible {
+  color: #07111f;
+  border-color: rgba(245,196,81,.58);
+  background: linear-gradient(135deg, var(--gold), var(--gold-warm));
+}
+.smart-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  min-height: 46px;
+  margin: 2px 0 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 7px;
+  background: rgba(3,8,20,.72);
+  color: var(--paper-2);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+.smart-summary strong {
+  color: var(--gold-warm);
+}
+.smart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.smart-card {
+  --accent: var(--cyan);
+  position: relative;
+  display: grid;
+  min-height: 238px;
+  grid-template-rows: 92px 1fr auto;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid rgba(122,240,255,.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(3,5,13,.20), rgba(3,5,13,.96)),
+    var(--card-art, var(--card-cyan)) center / cover no-repeat,
+    #050914;
+  color: var(--paper);
+  box-shadow: var(--shadow-1);
+  transition: transform .24s var(--ease-out), border-color .24s var(--ease-out), box-shadow .24s var(--ease-out);
+}
+.smart-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  box-shadow: 0 0 18px var(--accent);
+}
+.smart-card:hover,
+.smart-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 62%, white 10%);
+  box-shadow: var(--shadow-2), 0 0 28px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.smart-art {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(3,5,13,.05), rgba(3,5,13,.70)),
+    var(--card-art, var(--card-cyan)) center / cover no-repeat;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+.smart-art::after {
+  content: var(--glyph, "");
+  position: absolute;
+  right: 10px;
+  bottom: -10px;
+  color: color-mix(in srgb, var(--accent) 35%, transparent);
+  font-family: var(--font-display);
+  font-size: 72px;
+  line-height: 1;
+  pointer-events: none;
+}
+.smart-body {
+  display: grid;
+  gap: 7px;
+  padding: 13px 14px 10px;
+}
+.smart-kicker {
+  color: color-mix(in srgb, var(--accent) 82%, white);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.smart-body h3 {
+  margin: 0;
+  color: var(--paper);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.08;
+}
+.smart-body p {
+  margin: 0;
+  color: #eef3ff;
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.38;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.smart-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px 13px;
+  border-top: 1px solid rgba(255,255,255,.09);
+}
+.smart-foot span:first-child {
+  min-width: 0;
+  color: var(--paper-2);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .portal-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1724,6 +1892,22 @@ textarea:focus-visible {
   .jeopardy-console { grid-template-columns: 1fr; }
   .progress-card.recommendation { grid-column: auto; }
   .progress-actions { justify-content: flex-start; }
+  .smart-summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .smart-grid {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 2px 2px 16px;
+    scroll-snap-type: x mandatory;
+  }
+  .smart-card {
+    flex: 0 0 min(84vw, 330px);
+    width: min(84vw, 330px);
+    scroll-snap-align: start;
+  }
 }
 
 /* ============== Misc ============== */
@@ -2850,6 +3034,7 @@ input.field {
 .path-band,
 .practice-band,
 .featured-band,
+.smart-menu-band,
 .jeopardy-band,
 .library-band {
   border-top: 1px solid rgba(122,240,255,.10);
@@ -2857,6 +3042,7 @@ input.field {
 .path-band::before,
 .practice-band::before,
 .featured-band::before,
+.smart-menu-band::before,
 .jeopardy-band::before,
 .library-band::before {
   content: "";
@@ -2982,6 +3168,7 @@ input.field {
       <a href="#launch-paths">Play</a>
       <a href="#practice">Practice Exams</a>
       <a href="#jeopardy">Jeopardy</a>
+      <a href="#arcade-menu">Menu</a>
       <a href="#library">Library</a>
     </nav>
     <div class="nav-pills" id="statusPills"></div>
@@ -3077,6 +3264,21 @@ input.field {
       </div>
     </div>
     <div class="progress-grid reveal-stagger" id="progressReport"></div>
+  </section>
+
+  <section class="band smart-menu-band utility-band" id="arcade-menu" aria-label="Smart arcade menu">
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Arcade Menu</div>
+        <h2 class="band-title">Pick the <em>right cabinet</em>.</h2>
+        <p class="band-sub">A shorter, smarter menu that promotes strong games first, keeps exam practice close, and lets the full library stay searchable below.</p>
+      </div>
+    </div>
+    <div class="smart-menu-console reveal">
+      <div class="smart-tabs" id="smartMenuTabs" aria-label="Smart menu lanes"></div>
+      <div class="smart-summary" id="smartMenuSummary"></div>
+      <div class="smart-grid" id="smartMenuGrid"></div>
+    </div>
   </section>
 
   <section class="band practice-band" id="practice" aria-label="Practice exams">
@@ -3193,6 +3395,7 @@ input.field {
     <nav class="footer-actions" aria-label="Footer shortcuts">
       <a class="footer-jump" href="#featured">Play Arcade</a>
       <a class="footer-jump" href="#practice">Regents Practice</a>
+      <a class="footer-jump" href="#arcade-menu">Smart Menu</a>
       <a class="footer-jump" href="#jeopardy">Jeopardy Boards</a>
       <a class="footer-jump" href="#library">Full Library</a>
     </nav>
@@ -3240,6 +3443,7 @@ const grid = document.getElementById("grid");
 const player = document.getElementById("player");
 const frame = document.getElementById("gameFrame");
 let currentGame = null;
+let smartMenuLane = "recommended";
 
 const LANES = [
   { id: "all", label: "All" },
@@ -3260,6 +3464,36 @@ const LANES = [
   { id: "writing", label: "Writing" }
 ];
 
+const SMART_MENU_LANES = [
+  { id: "recommended", label: "Recommended", libraryLane: "all", summary: "based on local progress and strongest first plays" },
+  { id: "continue", label: "Continue", libraryLane: "all", summary: "recently opened or completed in this browser" },
+  { id: "popular", label: "Popular", libraryLane: "play", summary: "most-used here, with proven fallback picks" },
+  { id: "exams", label: "Practice Exams", libraryLane: "regents", summary: "full exams, source reps, and writing practice" },
+  { id: "arcade", label: "Review Games", libraryLane: "play", summary: "the most game-like polished review modes" },
+  { id: "quick", label: "Quick 5-Min", libraryLane: "quick", summary: "short reps for warmups and study hall" },
+  { id: "ap", label: "AP", libraryLane: "ap", summary: "released AP practice and AP unit boards" },
+  { id: "regents", label: "Regents", libraryLane: "regents", summary: "Global and U.S. Regents prep paths" },
+  { id: "jeopardy", label: "Jeopardy", libraryLane: "jeopardy", summary: "unit boards organized by course and topic" }
+];
+
+const SMART_TITLE_ALIASES = {
+  "timeline-runner": {
+    title: "Timeline Turbo",
+    kicker: "Timeline Racer",
+    subtitle: "Race through order-of-events review with answer gates and full-library questions."
+  },
+  "source-lab": {
+    title: "Source Sleuth",
+    kicker: "Source Detective",
+    subtitle: "Inspect title, date, speaker, labels, maps, cartoons, and charts before answering."
+  },
+  "cold-war-invaders": {
+    title: "Cold War Invaders",
+    kicker: "Atari Shooter",
+    subtitle: "Defend Earth with containment-era questions, crisis waves, and arcade controls."
+  }
+};
+
 function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 }
@@ -3276,6 +3510,12 @@ function thumbnailFor(game) {
 }
 function cssUrlForAttr(path) {
   return "url(&quot;" + escapeHtml(path).replaceAll("(", "%28").replaceAll(")", "%29") + "&quot;)";
+}
+function gameById(id) {
+  return GAMES.find((game) => game.id === id);
+}
+function uniqueGames(games) {
+  return [...new Map((games || []).filter(Boolean).map((game) => [game.id, game])).values()];
 }
 
 // ============== Course color + glyph system ==============
@@ -3422,6 +3662,7 @@ function priority(game) {
   if (game.id === "regents-practice-exam") return -4;
   if (game.id === "ap-practice-exam") return -3.9;
   if (game.id === "regents-gauntlet") return -3.6;
+  if (game.id === "timeline-runner") return -3.2;
   if (game.id === "source-sprint") return -3;
   if (game.id === "lightning-review") return -2;
   if (game.id === "vocab-vault") return -1;
@@ -3701,6 +3942,158 @@ function renderMasteryModes() {
   });
 }
 
+// ============== Smart arcade menu ==============
+function smartAlias(game) {
+  return SMART_TITLE_ALIASES[game?.id] || {};
+}
+function smartTitle(game) {
+  return smartAlias(game).title || game.title;
+}
+function smartKicker(game) {
+  return smartAlias(game).kicker || displayGameType(game);
+}
+function smartSubtitle(game) {
+  return smartAlias(game).subtitle || cardSubtitle(game);
+}
+function compactCourseLabel(course) {
+  return String(course || "")
+    .replace("Grade 10 Global History II", "Global 10")
+    .replace("Grade 11 U.S. History", "U.S. 11")
+    .replace("Grade 9 Global History I", "Global 9")
+    .replace("Grade 8 U.S. History II", "Grade 8")
+    .replace("Grade 7 U.S. History I", "Grade 7")
+    .replace("Grade 6 Social Studies", "Grade 6")
+    .replace("Grade 5 Social Studies", "Grade 5")
+    .replace("AP U.S. History", "APUSH")
+    .replace("AP World History: Modern", "AP World")
+    .replace("AP European History", "AP Euro")
+    .replace("AP Human Geography", "AP HUG")
+    .replace("AP U.S. Government and Politics", "AP Gov")
+    .replace("AP Macroeconomics", "AP Macro")
+    .replace("AP Microeconomics", "AP Micro")
+    .replace(" Exam Review", "");
+}
+function pickGames(ids) {
+  return uniqueGames(ids.map(gameById));
+}
+function recentProgressGames(summary) {
+  const ids = (summary?.recent || []).map((item) => item.gameId).filter(Boolean);
+  return pickGames(ids);
+}
+function localPopularGames(summary) {
+  const data = summary?.data || {};
+  const rows = Object.values(data.games || {});
+  return uniqueGames(rows
+    .sort((a, b) => {
+      const scoreA = Number(a.completions || 0) * 8 + Number(a.plays || 0) * 4 + Number(a.launches || 0);
+      const scoreB = Number(b.completions || 0) * 8 + Number(b.plays || 0) * 4 + Number(b.launches || 0);
+      return scoreB - scoreA || String(b.lastSeen || "").localeCompare(String(a.lastSeen || ""));
+    })
+    .map((row) => gameById(row.id)));
+}
+function cumulativeJeopardyPicks() {
+  const firstByCourse = new Map();
+  GAMES.filter(isJeopardyBoard).sort(jeopardyBoardSort).forEach((game) => {
+    const isCumulative = /cumulative|yearlong|final exam/i.test([game.title, game.originalFile, game.file].join(" "));
+    if (isCumulative && !firstByCourse.has(game.course)) firstByCourse.set(game.course, game);
+  });
+  return [...firstByCourse.values()];
+}
+function smartMenuGames(laneId) {
+  const summary = window.MrMacsProgress?.summary(GAMES) || { recent: [], data: {}, recommendation: {} };
+  const recommended = summary.recommendation?.game ? [summary.recommendation.game] : [];
+  const recents = recentProgressGames(summary);
+  const popular = localPopularGames(summary);
+  const featured = featuredGames();
+  if (laneId === "recommended") {
+    return uniqueGames(recommended.concat(recents, popular, featured, pickGames(["mastery-path", "source-lab"]))).slice(0, 6);
+  }
+  if (laneId === "continue") {
+    return uniqueGames(recents.concat(recommended, popular, featured)).slice(0, 6);
+  }
+  if (laneId === "popular") {
+    return uniqueGames(popular.concat(pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam", "ap-practice-exam", "source-sprint"]))).slice(0, 6);
+  }
+  if (laneId === "exams") {
+    return pickGames(["regents-practice-exam", "ap-practice-exam", "writing-coach", "source-lab", "source-sprint", "regents-gauntlet"]);
+  }
+  if (laneId === "arcade") {
+    return pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite", "time-rift-survivors"]);
+  }
+  if (laneId === "quick") {
+    return pickGames(["lightning-review", "source-sprint", "archive-cipher", "vocab-vault", "arcade-duel", "regents-gauntlet"]);
+  }
+  if (laneId === "ap") {
+    const apBoards = GAMES.filter((game) => laneMatchesWith("ap", game) && isJeopardyBoard(game))
+      .filter((game) => /cumulative|final exam|period 8|cold war|unit 8|unit 9|research methods/i.test([game.title, game.originalFile, game.file].join(" ")))
+      .sort(jeopardyBoardSort)
+      .slice(0, 5);
+    return uniqueGames(pickGames(["ap-practice-exam"]).concat(apBoards)).slice(0, 6);
+  }
+  if (laneId === "regents") {
+    const sprints = GAMES.filter((game) => /Regents Sprint/i.test(game.gameType || "")).slice(0, 2);
+    return uniqueGames(pickGames(["regents-practice-exam", "source-sprint", "regents-gauntlet", "writing-coach", "source-lab"]).concat(sprints)).slice(0, 6);
+  }
+  if (laneId === "jeopardy") {
+    return uniqueGames(cumulativeJeopardyPicks().concat(filteredJeopardyBoards())).slice(0, 6);
+  }
+  return featured;
+}
+function smartCard(game) {
+  const accent = accentFor(game);
+  const art = cssUrlForAttr(thumbnailFor(game));
+  const glyph = glyphFor(game);
+  const meta = [compactCourseLabel(game.course), displayGameType(game)].filter(Boolean).join(" · ");
+  return '<button class="smart-card" type="button" style="--accent:' + accent + ';--card-art:' + art + ';--glyph:\'' + glyph + '\'" data-id="' + escapeHtml(game.id) + '">' +
+    '<div class="smart-art" aria-hidden="true"></div>' +
+    '<div class="smart-body">' +
+      '<span class="smart-kicker">' + escapeHtml(smartKicker(game)) + '</span>' +
+      '<h3>' + escapeHtml(smartTitle(game)) + '</h3>' +
+      '<p>' + escapeHtml(smartSubtitle(game)) + '</p>' +
+    '</div>' +
+    '<div class="smart-foot"><span>' + escapeHtml(meta) + '</span><span class="play">Play</span></div>' +
+  '</button>';
+}
+function openSmartLaneInLibrary() {
+  const lane = SMART_MENU_LANES.find((item) => item.id === smartMenuLane) || SMART_MENU_LANES[0];
+  state.lane = lane.libraryLane || "all";
+  state.course = "All Courses";
+  state.subject = "All Subjects";
+  state.type = state.lane === "jeopardy" ? "Jeopardy" : "All Game Types";
+  state.query = "";
+  state.libraryExpanded = state.lane === "all";
+  const search = document.getElementById("search");
+  if (search) search.value = "";
+  syncFilters();
+  render();
+  document.getElementById("library").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function renderSmartMenu() {
+  const tabs = document.getElementById("smartMenuTabs");
+  const grid = document.getElementById("smartMenuGrid");
+  const summary = document.getElementById("smartMenuSummary");
+  if (!tabs || !grid || !summary) return;
+  const lane = SMART_MENU_LANES.find((item) => item.id === smartMenuLane) || SMART_MENU_LANES[0];
+  const games = smartMenuGames(lane.id);
+  tabs.innerHTML = SMART_MENU_LANES.map((item) =>
+    '<button class="smart-tab ' + (item.id === lane.id ? "active" : "") + '" type="button" data-smart-lane="' + item.id + '">' + escapeHtml(item.label) + '</button>'
+  ).join("");
+  summary.innerHTML =
+    '<span><strong>' + games.length + '</strong> picks · ' + escapeHtml(lane.summary) + '</span>' +
+    '<button class="action compact" type="button" data-smart-more>See More</button>';
+  grid.innerHTML = games.length ? games.map(smartCard).join("") : '<div class="empty">No picks yet. Start with Recommended or clear a filter.</div>';
+  tabs.querySelectorAll("[data-smart-lane]").forEach((button) => {
+    button.addEventListener("click", () => {
+      smartMenuLane = button.dataset.smartLane;
+      renderSmartMenu();
+    });
+  });
+  summary.querySelector("[data-smart-more]")?.addEventListener("click", openSmartLaneInLibrary);
+  grid.querySelectorAll(".smart-card").forEach((button) => {
+    button.addEventListener("click", () => openGame(gameById(button.dataset.id)));
+  });
+}
+
 function jeopardyBoardSort(a, b) {
   const courseA = a.course || "";
   const courseB = b.course || "";
@@ -3797,6 +4190,10 @@ function renderProgressReport() {
   const best = summary.best.length ? summary.best.map((item) =>
     '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>' + escapeHtml(item.course || "Review") + '</span><span>' + escapeHtml(item.bestScore !== null && item.bestScore !== undefined ? String(item.bestScore) : item.bestAccuracy + "%") + '</span></div>'
   ).join("") : '<div class="progress-item"><span><strong>No best scores yet</strong><br>Scores appear after completions.</span><span>--</span></div>';
+  const popularGames = localPopularGames(summary).slice(0, 5);
+  const popular = popularGames.length ? popularGames.map((game) =>
+    '<div class="progress-item"><span><strong>' + escapeHtml(smartTitle(game)) + '</strong><br>' + escapeHtml(displayGameType(game)) + '</span><span>hot</span></div>'
+  ).join("") : '<div class="progress-item"><span><strong>Popular picks loading</strong><br>Use the Smart Menu to build local trends.</span><span>new</span></div>';
   container.innerHTML =
     '<article class="progress-card recommendation"><span class="progress-kicker">Recommended next</span><div><h3>' + escapeHtml(rec ? rec.title : "Start with Play") + '</h3><p>' + escapeHtml(summary.recommendation.reason || "Pick a path and start practicing.") + '</p></div><div class="progress-foot"><span>' + escapeHtml(rec ? rec.course + " · " + displayGameType(rec) : "local report") + '</span>' + recHtml + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Report Snapshot</span><div class="progress-list">' +
@@ -3805,6 +4202,7 @@ function renderProgressReport() {
       '<div class="progress-item"><span><strong>' + escapeHtml(reportStamp) + '</strong><br>last update</span><span>saved</span></div>' +
     '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Recent</span><div class="progress-list">' + recent + '</div></article>' +
+    '<article class="progress-card"><span class="progress-kicker">Popular Here</span><div class="progress-list">' + popular + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Weak Topics</span><div class="progress-list">' + weak + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Best Scores</span><div class="progress-list">' + best + '</div></article>';
   container.querySelectorAll("[data-progress-open]").forEach((button) => {
@@ -3983,6 +4381,7 @@ function openGame(game) {
     displayGameType: displayGameType(game)
   }, { counter: "game-launches", once: false });
   renderProgressReport();
+  renderSmartMenu();
   document.getElementById("playerTitle").textContent = game.title;
   document.getElementById("playerMeta").textContent = game.course + " · " + displayGameType(game) + " · " + (game.day || game.grade);
   player.classList.add("show", "loading");
@@ -4120,6 +4519,7 @@ async function boot() {
     renderFeatured();
     renderHeroConsole();
     renderProgressReport();
+    renderSmartMenu();
     renderJeopardyModes();
     renderQuickPlay();
     renderCourseTiles();
@@ -4127,19 +4527,26 @@ async function boot() {
     initParallax();
     render();
     initReveal();
-    window.addEventListener("mrmacs-progress", renderProgressReport);
+    window.addEventListener("mrmacs-progress", () => { renderProgressReport(); renderSmartMenu(); });
     window.addEventListener("storage", (event) => {
-      if (!event.key || event.key.includes("student-progress") || event.key.includes("local-traffic")) renderProgressReport();
+      if (!event.key || event.key.includes("student-progress") || event.key.includes("local-traffic")) {
+        renderProgressReport();
+        renderSmartMenu();
+      }
     });
     window.addEventListener("message", (event) => {
-      if (event.data && event.data.type === "mrmacs-progress-updated") renderProgressReport();
+      if (event.data && event.data.type === "mrmacs-progress-updated") {
+        renderProgressReport();
+        renderSmartMenu();
+      }
     });
-    window.addEventListener("focus", renderProgressReport);
+    window.addEventListener("focus", () => { renderProgressReport(); renderSmartMenu(); });
     document.getElementById("printReportBtn")?.addEventListener("click", () => window.print());
     document.getElementById("clearReportBtn")?.addEventListener("click", () => {
       if (confirm("Clear the local progress report stored in this browser?")) {
         window.MrMacsProgress?.clear();
         renderProgressReport();
+        renderSmartMenu();
       }
     });
   } catch (error) {

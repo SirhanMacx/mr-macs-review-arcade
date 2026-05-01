@@ -237,6 +237,20 @@ def check_released_practice_forms() -> list[str]:
     return errors
 
 
+def check_ap_practice_sources() -> list[str]:
+    result = subprocess.run(
+        ["node", "scripts/validate-ap-practice-sources.mjs"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    detail = (result.stderr or result.stdout or "AP practice source/page validation failed").strip()
+    return [detail]
+
+
 def check_flagship_game_audit() -> list[str]:
     result = subprocess.run(
         ["node", "scripts/audit-flagship-games.mjs"],
@@ -602,6 +616,7 @@ def main() -> int:
         ("game thumbnails", check_game_thumbnails),
         ("mastery platform", check_mastery_platform),
         ("ap practice exam", check_ap_practice_exam),
+        ("ap practice source/page integrity", check_ap_practice_sources),
         ("jeopardy board quality", check_jeopardy_boards),
         ("javascript syntax", check_javascript_syntax),
     ]
