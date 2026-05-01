@@ -182,6 +182,27 @@
     return Boolean(stimulusText(q) || q.stimulusHtml || stimulusImages(q).length);
   }
 
+  function trustedSource(q) {
+    return /trusted|official/i.test(String((q && q.sourceIntegrity) || ""));
+  }
+
+  function courseMatchesStimulus(q) {
+    const srcs = stimulusImages(q).map((image) => String(image.src || ""));
+    if (!srcs.length) return false;
+    const course = String((q && q.course) || "");
+    if (/U\.S\. History/i.test(course)) {
+      return srcs.every((src) => /\/us-day/i.test(src) || /regents-released-forms\/us-/i.test(src));
+    }
+    if (/Global History/i.test(course)) {
+      return srcs.every((src) => /\/global-day/i.test(src) || /regents-released-forms\/global-/i.test(src));
+    }
+    return true;
+  }
+
+  function verifiedSourceQuestion(q) {
+    return Boolean(q && !/^quarantined/i.test(String(q.sourceIntegrity || "")) && trustedSource(q) && stimulusImages(q).length && courseMatchesStimulus(q));
+  }
+
   function explanationFor(term) {
     const explanation = cleanText(term.q.explanation || "");
     if (explanation) return explanation;
@@ -205,7 +226,8 @@
     if (/^(TRUE|FALSE|NONE|OTHER|ABOVE|BELOW)$/i.test(q.answer)) return false;
     const answer = cleanText(q.answer);
     if (answer.length < 4 || answer.length > 40) return false;
-    if (promptNeedsStimulus(q) && !hasStimulus(q)) return false;
+    if (promptNeedsStimulus(q) && !verifiedSourceQuestion(q)) return false;
+    if (stimulusImages(q).length && !verifiedSourceQuestion(q)) return false;
     return Boolean(displayPrompt(q));
   }
 
@@ -224,7 +246,7 @@
         set: q.set || q.subject || "Review",
         category: q.category || q.subject || "Review",
         value: Number(q.value || 0),
-        hasStimulus: hasStimulus(q),
+        hasStimulus: verifiedSourceQuestion(q),
         q
       });
     }
@@ -323,6 +345,11 @@
 
   function renderStimulus(term) {
     const q = term && term.q ? term.q : {};
+    if (!verifiedSourceQuestion(q)) {
+      els.sourcePanel.hidden = true;
+      els.sourcePanel.innerHTML = "";
+      return;
+    }
     const images = stimulusImages(q);
     const text = stimulusText(q);
     const html = q.stimulusHtml ? String(q.stimulusHtml) : "";
@@ -344,8 +371,8 @@
     )).join("");
     els.sourcePanel.hidden = false;
     const tools = images.length
-      ? `<div class="source-tools"><span class="source-verified">Source verified</span><button class="source-open" type="button" data-source-open="${escapeHtml(images[0].src)}" data-source-label="${escapeHtml(images[0].label || "Source stimulus")}" data-source-meta="${escapeHtml(q.source || term.set || "Released Regents source")}">Inspect</button></div>`
-      : `<div class="source-tools"><span class="source-verified">Source verified</span></div>`;
+      ? `<div class="source-tools"><span class="source-verified">Matched released Regents source</span><button class="source-open" type="button" data-source-open="${escapeHtml(images[0].src)}" data-source-label="${escapeHtml(images[0].label || "Source stimulus")}" data-source-meta="${escapeHtml(q.source || term.set || "Released Regents source")}">Inspect</button></div>`
+      : `<div class="source-tools"><span class="source-verified">Matched released Regents source</span></div>`;
     els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div>${tools}${textBlock}${imageBlock}`;
   }
 

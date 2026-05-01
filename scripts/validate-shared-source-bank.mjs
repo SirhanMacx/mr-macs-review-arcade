@@ -7,7 +7,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const chrono = JSON.parse(readFileSync(resolve(root, "data/chrono-defense-bank.json"), "utf8"));
 const regents = JSON.parse(readFileSync(resolve(root, "data/regents-gauntlet-bank.json"), "utf8"));
 const errors = [];
-const SOURCE_RE = /\b(this|these)\s+(law|act|amendment|address|speech|message|excerpt|passage|document|map|cartoon|graph|chart|photograph|source|timeline|image|poster|newspaper|table)\b|based on|according to|document|map|cartoon|graph|chart|excerpt|passage|photograph|source|timeline|image|poster|newspaper|table/i;
+const SOURCE_RE = /(\bthis\s+(law|act|amendment|address|speech|message|excerpt|passage|document|map|cartoon|graph|chart|photograph|source|timeline|image|poster|newspaper|table)\b|\bthese\s+(laws|acts|amendments|documents|maps|cartoons|graphs|charts|photographs|sources|timelines|images|posters|newspapers|tables|statements|conditions|changes|figures)\b|\b(shown|pictured|illustrated|above|below|accompanying)\b|\bthe\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|source|timeline|image|poster|newspaper|table)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+(the|this)\b)/i;
 
 function normalize(value) {
   return String(value || "")

@@ -381,6 +381,13 @@ body.playing .hud {
   user-select: none;
 }
 
+.touch-btn:active,
+.touch-btn.active {
+  transform: translateY(1px);
+  border-color: rgba(255,255,255,.72);
+  box-shadow: 0 0 30px rgba(114,243,255,.32), inset 0 0 22px rgba(255,255,255,.14);
+}
+
 .touch-btn.fire {
   border-color: rgba(255,209,92,.68);
   background:

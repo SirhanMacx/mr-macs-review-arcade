@@ -107,6 +107,7 @@ def check_regents_practice_exam() -> list[str]:
         "formsByCourse",
         "conversionTable",
         "regents-past-exam-catalog.json",
+        "guidePositionNote",
     ]
     for needle in required:
         if needle not in text:
@@ -204,6 +205,20 @@ def check_shared_source_bank() -> list[str]:
     if result.returncode == 0:
         return []
     detail = (result.stderr or result.stdout or "shared source bank validation failed").strip()
+    return [detail]
+
+
+def check_archive_cipher_source_lock() -> list[str]:
+    result = subprocess.run(
+        ["node", "scripts/validate-archive-cipher-source-lock.mjs"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    detail = (result.stderr or result.stdout or "Archive Cipher source-lock validation failed").strip()
     return [detail]
 
 
@@ -419,6 +434,7 @@ def main() -> int:
         ("regents stimuli assets", check_regents_stimuli),
         ("regents source-question integrity", check_regents_source_integrity),
         ("shared source bank integrity", check_shared_source_bank),
+        ("archive cipher source lock", check_archive_cipher_source_lock),
         ("regents practice exam shape", check_regents_practice_exam),
         ("released Regents practice forms", check_released_practice_forms),
         ("regents practice assembly", check_regents_practice_runtime),

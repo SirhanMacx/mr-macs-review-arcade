@@ -333,7 +333,7 @@ function spawnWave() {
   const cols = Math.min(10, 6 + Math.floor(state.wave / 2));
   const gapX = Math.min(72, Math.max(46, (state.w - 70) / cols));
   const startX = state.w / 2 - (cols - 1) * gapX / 2;
-  const startY = 118;
+  const startY = mobileControls.matches ? 138 : 124;
   const labels = shuffle(filteredBank()).slice(0, rows * cols).map((q) => clean(q.answer || q.prompt).slice(0, 18));
   state.enemies = [];
   for (let row = 0; row < rows; row += 1) {
@@ -360,7 +360,7 @@ function spawnWave() {
   if (state.wave % 4 === 0) {
     state.boss = {
       x: state.w / 2,
-      y: 88,
+      y: mobileControls.matches ? 116 : 92,
       w: Math.min(420, state.w * 0.64),
       h: 82,
       hp: 3 + Math.floor(state.wave / 4),
@@ -457,7 +457,7 @@ function containmentBurst() {
 function fire() {
   if (state.player.cooldown > 0 || state.briefing || state.paused) return;
   state.bullets.push({ x: state.player.x, y: state.player.y - 28, vy: -780, r: 4, color: "#72f3ff" });
-  state.player.cooldown = 0.18;
+  state.player.cooldown = mobileControls.matches ? 0.13 : 0.16;
 }
 
 function enemyFire() {
@@ -476,7 +476,8 @@ function update(dt) {
   const left = keys.has("ArrowLeft") || keys.has("a") || state.touch.left;
   const right = keys.has("ArrowRight") || keys.has("d") || state.touch.right;
   const target = (right ? 1 : 0) - (left ? 1 : 0);
-  state.player.vx += (target * 560 - state.player.vx) * frameEase(11, dt);
+  const maxSpeed = mobileControls.matches ? 700 : 620;
+  state.player.vx += (target * maxSpeed - state.player.vx) * frameEase(13, dt);
   state.player.x = clamp(state.player.x + state.player.vx * dt, 34, state.w - 34);
   state.player.cooldown = Math.max(0, state.player.cooldown - dt);
   state.player.invuln = Math.max(0, state.player.invuln - dt);
@@ -924,11 +925,12 @@ function drawOverlay() {
     const width = Math.min(state.w - 36, ctx.measureText(state.toast).width + 44);
     ctx.fillStyle = "rgba(5,9,21,.78)";
     ctx.strokeStyle = "#72f3ff";
-    roundRect(state.w / 2 - width / 2, state.h * 0.18, width, 52, 14);
+    const toastY = Math.max(mobileControls.matches ? 104 : 86, state.h * 0.18);
+    roundRect(state.w / 2 - width / 2, toastY, width, 52, 14);
     ctx.fill();
     ctx.stroke();
     ctx.fillStyle = "#f8fbff";
-    ctx.fillText(state.toast, state.w / 2, state.h * 0.18 + 34);
+    ctx.fillText(state.toast, state.w / 2, toastY + 34);
   }
   if (state.paused) {
     ctx.globalAlpha = 0.72;
@@ -1007,11 +1009,13 @@ function bindTouchButton(button, press, release = press) {
   const down = (event) => {
     event.preventDefault();
     button.setPointerCapture?.(event.pointerId);
+    button.classList.add("active");
     press();
   };
   const up = (event) => {
     event.preventDefault();
     button.releasePointerCapture?.(event.pointerId);
+    button.classList.remove("active");
     release(false);
   };
   button.addEventListener("pointerdown", down);

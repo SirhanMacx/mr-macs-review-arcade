@@ -62,16 +62,18 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 }
 
 * { box-sizing: border-box; }
-html { min-height: 100%; scroll-behavior: smooth; }
+html { min-height: 100%; scroll-behavior: smooth; background: #020611; }
 body {
   min-height: 100%;
   margin: 0;
   color: var(--paper);
+  background-color: #020611;
   background:
     radial-gradient(circle at 12% 4%, rgba(245,196,81,.10), transparent 30%),
     radial-gradient(circle at 88% 6%, rgba(122,240,255,.16), transparent 28%),
     radial-gradient(80% 36% at 50% 100%, rgba(122,240,255,.07), transparent 72%),
-    linear-gradient(180deg, #07030f, #02020a 44%, #030814);
+    linear-gradient(180deg, #07030f, #02020a 44%, #030814),
+    #020611;
   font-family: var(--font-ui);
   font-feature-settings: "ss01", "ss02", "cv11";
   letter-spacing: 0;
@@ -2506,7 +2508,7 @@ input.field {
       <div class="traffic-stat"><strong data-traffic="traffic-status">connecting</strong><span>status</span></div>
     </div>
     <nav class="footer-actions" aria-label="Footer shortcuts">
-      <a class="footer-jump" href="#mastery">Mastery Path</a>
+      <a class="footer-jump" href="#featured">Play Arcade</a>
       <a class="footer-jump" href="#practice">Regents Practice</a>
       <a class="footer-jump" href="#jeopardy">Jeopardy Boards</a>
       <a class="footer-jump" href="#library">Full Library</a>
@@ -2751,7 +2753,7 @@ function filteredGames() {
   });
 }
 function featuredGames() {
-  const ids = ["mastery-path", "regents-practice-exam", "archive-quest", "source-lab"];
+  const ids = ["history-hunters", "archive-quest", "regents-practice-exam", "cold-war-invaders"];
   const picks = ids.map((id) => GAMES.find((game) => game.id === id));
   return [...new Map(picks.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 4);
 }
@@ -2850,15 +2852,12 @@ function buttonCard(game, fallback, className) {
 function renderLaunchPaths() {
   const paths = [
     {
-      id: "mastery-path",
-      fallback: { id: "mastery-path", title: "Mastery Path", subtitle: "Take a diagnostic and get the next best activity for your course.", kicker: "Personal path", meta: "all courses", accent: "#ffd15c", glyph: "PATH" }
-    },
-    {
-      id: "archive-quest",
-      fallback: { id: "archive-quest", title: "Play", subtitle: "Jump into the polished arcade path: platformer, RPG, boss fights, and fast games.", kicker: "Game-first", meta: "fun review", accent: "#62e9ff", glyph: "PLAY" }
+      id: "play-lane",
+      fallback: { id: "play-lane", title: "Play", subtitle: "Jump into the best arcade games first: RPG, platformer, shooter, gauntlet, and quick modes.", kicker: "Game-first", meta: "featured games", accent: "#62e9ff", glyph: "PLAY" }
     },
     {
       id: "regents-practice-exam",
+      preferFallback: true,
       fallback: { id: "regents-practice-exam", title: "Practice Regents", subtitle: "Full timed exam, source inspection, writing, conversion-chart estimate, and next steps.", kicker: "Exam prep", meta: "Global + U.S.", accent: "#ffd15c", glyph: "EXAM" }
     },
     {
@@ -2867,7 +2866,7 @@ function renderLaunchPaths() {
     }
   ];
   const html = paths.map((path) => {
-    let game = GAMES.find((g) => g.id === path.id);
+    let game = path.preferFallback ? null : GAMES.find((g) => g.id === path.id);
     return buttonCard(game, path.fallback, "path-card");
   }).join("");
   const container = document.getElementById("pathCards");
@@ -2875,9 +2874,20 @@ function renderLaunchPaths() {
   container.innerHTML = html;
   container.querySelectorAll(".path-card").forEach((button) => {
     button.addEventListener("click", () => {
+      if (button.dataset.id === "play-lane") {
+        state.lane = "play";
+        state.course = "All Courses";
+        state.subject = "All Subjects";
+        state.type = "All Game Types";
+        syncFilters();
+        render();
+        document.getElementById("featured").scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
       if (button.dataset.id === "jeopardy-lane") {
         state.lane = "jeopardy";
         state.course = "All Courses";
+        state.subject = "All Subjects";
         state.type = "Jeopardy";
         syncFilters();
         render();
