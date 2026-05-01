@@ -186,14 +186,14 @@
   function readProgress() {
     try {
       var data = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
-      data.version = 1;
+      data.version = 2;
       data.recent = Array.isArray(data.recent) ? data.recent : [];
       data.games = data.games || {};
       data.weakTopics = data.weakTopics || {};
       data.courseTotals = data.courseTotals || {};
       return data;
     } catch (error) {
-      return { version: 1, recent: [], games: {}, weakTopics: {}, courseTotals: {} };
+      return { version: 2, recent: [], games: {}, weakTopics: {}, courseTotals: {} };
     }
   }
 
@@ -263,9 +263,18 @@
 
     if (course) {
       var c = slug(course);
-      data.courseTotals[c] = data.courseTotals[c] || { title: course, launches: 0, completions: 0 };
+      data.courseTotals[c] = data.courseTotals[c] || { title: course, launches: 0, plays: 0, completions: 0, bestScore: null, bestAccuracy: null };
+      data.courseTotals[c].title = course;
       if (type === "game_launch") data.courseTotals[c].launches += 1;
+      if (type === "game_play") data.courseTotals[c].plays = Number(data.courseTotals[c].plays || 0) + 1;
       if (type === "game_complete") data.courseTotals[c].completions += 1;
+      if (type === "game_complete" && Number.isFinite(score)) {
+        data.courseTotals[c].bestScore = data.courseTotals[c].bestScore === null ? score : Math.max(Number(data.courseTotals[c].bestScore || 0), score);
+      }
+      if (type === "game_complete" && Number.isFinite(accuracy)) {
+        data.courseTotals[c].bestAccuracy = data.courseTotals[c].bestAccuracy === null ? accuracy : Math.max(Number(data.courseTotals[c].bestAccuracy || 0), accuracy);
+      }
+      data.courseTotals[c].lastSeen = now;
     }
 
     normalizeTopics(detail).forEach(function (topic) {
@@ -291,6 +300,30 @@
     return data;
   }
 
+  function courseFocus(data) {
+    var rows = Object.keys((data && data.courseTotals) || {}).map(function (id) {
+      var row = data.courseTotals[id] || {};
+      return {
+        id: id,
+        title: row.title || id,
+        launches: Number(row.launches || 0),
+        plays: Number(row.plays || 0),
+        completions: Number(row.completions || 0),
+        bestScore: row.bestScore,
+        bestAccuracy: row.bestAccuracy,
+        lastSeen: row.lastSeen || ""
+      };
+    }).filter(function (row) {
+      return row.launches || row.plays || row.completions;
+    });
+    rows.sort(function (a, b) {
+      var scoreA = a.completions * 9 + a.plays * 4 + a.launches;
+      var scoreB = b.completions * 9 + b.plays * 4 + b.launches;
+      return scoreB - scoreA || String(b.lastSeen || "").localeCompare(String(a.lastSeen || ""));
+    });
+    return rows[0] || null;
+  }
+
   function progressSummary(games) {
     var data = readProgress();
     var gameValues = Object.keys(data.games).map(function (id) { return data.games[id]; });
@@ -308,6 +341,7 @@
       weak: weak,
       best: best,
       completed: completed,
+      courseFocus: courseFocus(data),
       recommendation: recommendation(games || [], data, weak)
     };
   }
@@ -357,8 +391,13 @@
     var lastAccuracy = recent && Number(recent.accuracy);
     var weakText = (weak || []).map(function (item) { return item.title || ""; }).join(" ");
     var recentPractice = recent && /regents|practice/i.test(recent.title || "");
+    var recentCourse = recent && String(recent.course || "");
+    var apContext = /^AP\b/i.test(recentCourse) || /\bAP\b|advanced placement/i.test([recentCourse, weakText, recent && recent.title].join(" "));
     if (!data.recent.length) {
-      return { reason: "Start with the diagnostic so the arcade can pick the right practice path.", game: findGame(games, ["mastery-path", "archive-quest", "history-hunters", "lightning-review"]) };
+      return { reason: "Start with the strongest game, then the report will personalize the next pick.", game: findGame(games, ["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam", "mastery-path"]) };
+    }
+    if (apContext && (Number.isFinite(lastAccuracy) && lastAccuracy < 75 || /dbq|leq|saq|frq|argument|evidence|document|analysis|ap/i.test(weakText))) {
+      return { reason: "Raise AP rigor with a released exam page and AP-style writing signals.", game: findGame(games, ["ap-practice-exam", "writing-coach", "source-lab"]) };
     }
     if (recentPractice && /document evidence|context and relationships|outside information|argument and organization|civic scaffold/i.test(weakText)) {
       return { reason: "Rewrite the weakest Regents writing section before a new full exam.", game: findGame(games, ["writing-coach", "regents-practice-exam", "regents-gauntlet"]) };
@@ -373,13 +412,17 @@
     if (weak.length) {
       return { reason: "Target the weak topic list while it is fresh.", game: findGame(games, ["mastery-path", "regents-gauntlet", "source-lab", "vocab-vault"]) };
     }
-    return { reason: "Keep the streak going with a polished arcade mode.", game: findGame(games, ["mastery-path", "archive-quest", "history-hunters", "chrono-defense-infinite", "lightning-review"]) };
+    if (Number.isFinite(lastAccuracy) && lastAccuracy >= 85) {
+      return { reason: "You are ready for a full timed practice run.", game: findGame(games, apContext ? ["ap-practice-exam", "regents-practice-exam", "regents-gauntlet"] : ["regents-practice-exam", "ap-practice-exam", "regents-gauntlet"]) };
+    }
+    return { reason: "Keep the streak going with a polished arcade mode.", game: findGame(games, ["history-hunters", "archive-quest", "cold-war-invaders", "mastery-path", "lightning-review"]) };
   }
 
   window.MrMacsProgress = {
     recordEvent: recordProgressEvent,
     read: readProgress,
     summary: progressSummary,
+    courseFocus: function () { return courseFocus(readProgress()); },
     clear: function () {
       try { localStorage.removeItem(PROGRESS_KEY); } catch (error) {}
       notifyProgress(readProgress());

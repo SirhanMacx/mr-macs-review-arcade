@@ -14,7 +14,7 @@ const sourceBankText = existsSync(sourceBankPath) ? readFileSync(sourceBankPath,
 if (!sourceBankText) {
   errors.push("assets/source-bank.js is missing");
 } else {
-  for (const marker of ["MrMacsSourceBank", "usableRegentsQuestion", "trustedSource", "courseMatchesStimulus", "missingSourceReason", "sourceIdentity"]) {
+  for (const marker of ["MrMacsSourceBank", "usableRegentsQuestion", "trustedSource", "courseMatchesStimulus", "missingSourceReason", "sourceIdentity", "sourceLock", "sourceLockLabel"]) {
     if (!sourceBankText.includes(marker)) errors.push(`assets/source-bank.js missing shared source marker: ${marker}`);
   }
 }
@@ -25,6 +25,7 @@ const sourceBankConsumers = [
   "games/regents-gauntlet/game.js",
   "games/archive-cipher/game.js",
   "games/source-audit/game.js",
+  "games/source-lab/game.js",
   "games/regents-practice-exam/game.js",
   "games/regents-rally-source-circuit/game.js"
 ];

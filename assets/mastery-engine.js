@@ -132,6 +132,20 @@
     return hasImages(question) && !/^quarantined/i.test(String(question.sourceIntegrity || ""));
   }
 
+  function sourceLock(question) {
+    var normalized = Object.assign({}, question, { stimulusImages: question.stimulusImages || question.images || [] });
+    if (SourceBank) return SourceBank.sourceLock(normalized);
+    var ok = trustedSource(normalized);
+    return {
+      ok: ok,
+      needed: sourceBased(normalized),
+      reason: ok ? "" : "Source needs review",
+      images: ok ? (normalized.stimulusImages || []) : [],
+      identity: [normalized.course, normalized.source, (normalized.stimulusImages || []).map(function (image) { return image.src; }).join("|")].join("::"),
+      label: ok ? "Source Lock: verified" : "Source Lock: blocked"
+    };
+  }
+
   function skillFor(question) {
     var text = norm([question.stem, question.prompt, question.answer, question.source, question.category, (question.tags || []).join(" ")].join(" "));
     if (/map|location|geograph|river|hemisphere|migration|region|urban|rural/.test(text)) return "geography";
@@ -178,6 +192,7 @@
       explanation: question.explanation || ("Correct answer: " + choiceAnswer(question)),
       source: question.source,
       images: question.stimulusImages || [],
+      sourceLock: sourceLock(question),
       skill: skillFor(question),
       topic: topicFor(question),
       tags: question.tags || [],
@@ -267,7 +282,7 @@
   function buildDiagnostic(data, course, count) {
     count = count || 12;
     var pools = questionPool(data, course);
-    var sourceItems = shuffle(pools.regents.filter(function (q) { return q.sourceBased && trustedSource({ stimulusImages: q.images }); })).slice(0, Math.ceil(count / 2));
+    var sourceItems = shuffle(pools.regents.filter(function (q) { return q.sourceBased && sourceLock(q).ok; })).slice(0, Math.ceil(count / 2));
     var regentsItems = shuffle(pools.regents.filter(function (q) { return !sourceItems.some(function (s) { return s.id === q.id; }); })).slice(0, Math.ceil(count / 3));
     var reviewItems = shuffle(pools.review).slice(0, count - sourceItems.length - regentsItems.length);
     var items = shuffle(sourceItems.concat(regentsItems, reviewItems)).slice(0, count);
@@ -281,7 +296,8 @@
 
   function sourceLabQuestions(data, course) {
     return shuffle(questionPool(data, course).regents.filter(function (question) {
-      return question.sourceBased && question.images.length;
+      var lock = sourceLock(question);
+      return question.sourceBased && lock.ok && lock.images.length;
     }));
   }
 
@@ -439,7 +455,7 @@
       profile: profile,
       games: gamesForCourse.length,
       jeopardy: gamesForCourse.filter(function (game) { return /jeopardy|unit review/i.test([game.gameType, game.title, game.file, game.originalFile].join(" ")); }).length,
-      sourceQuestions: pools.regents.filter(function (q) { return q.sourceBased && q.images.length; }).length,
+      sourceQuestions: pools.regents.filter(function (q) { return q.sourceBased && sourceLock(q).ok && q.images.length; }).length,
       reviewQuestions: pools.review.length,
       fullPractice: gamesForCourse.filter(function (game) { return /practice exam|regents|source/i.test([game.title, game.gameType, game.subtitle].join(" ")); }).length
     };
@@ -467,6 +483,7 @@
     recordSession: recordSession,
     courseSummary: courseSummary,
     trustedSource: trustedSource,
+    sourceLock: sourceLock,
     sourceBased: sourceBased
   };
 })();

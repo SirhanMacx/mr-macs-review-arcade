@@ -2,6 +2,7 @@
   "use strict";
 
   const DATA_VERSION = "2026-05-01-ap-source-pages-v8";
+  const AP_RIGOR_VERSION = "2026-05-01-ap-skill-bands-v1";
   const OFFICIAL_URL = `../../data/ap-official-practice-exams.json?v=${DATA_VERSION}`;
 
   const state = {
@@ -71,6 +72,7 @@
         <li><strong>${form.mcqCount} official MCQs</strong><span>Each question opens as a digital answer card with the matching rendered PDF page beside it.</span></li>
         <li><strong>${writing.length} writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
         <li><strong>${form.minutes} minute timer</strong><span>Full released-form practice with a digital answer sheet.</span></li>
+        <li><strong>${state.officialForms.length} released forms in bank</strong><span>AP skill-band estimate: ${escapeHtml(AP_RIGOR_VERSION)}.</span></li>
         <li><strong>Official link preserved</strong><span><a href="${escapeHtml(form.pdfUrl)}" target="_blank" rel="noopener">Open source PDF</a></span></li>
       </ul>
     `;
@@ -112,6 +114,8 @@
       ...task,
       kind: "writing",
       skill: "official rubric estimate",
+      rigorVersion: AP_RIGOR_VERSION,
+      skillTargets: skillTargetsForTask(task, form),
       prompt: `Use the official PDF prompt and scoring guide for ${task.label}. Enter your response here for a practice rubric estimate.`,
       bullets: task.rubricTokens || ["claim", "evidence", "explanation"],
       anchors: task.rubricTokens || [],
@@ -130,6 +134,17 @@
       writing,
       minutes: form.minutes || 120
     };
+  }
+
+  function skillTargetsForTask(task, form) {
+    const label = `${task.label || ""} ${task.id || ""}`.toLowerCase();
+    const course = String(form.course || "");
+    if (/dbq/.test(label)) return ["defensible thesis", "document evidence", "outside evidence", "sourcing", "complexity"];
+    if (/leq/.test(label)) return ["defensible thesis", "context", "specific evidence", "historical reasoning", "complexity"];
+    if (/saq/.test(label)) return ["direct answer", "specific evidence", "explanation"];
+    if (/Psychology/i.test(course)) return ["define terms", "apply to scenario", "method or data precision"];
+    if (/Economics/i.test(course)) return ["correct graph logic", "directional change", "economic explanation"];
+    return ["claim", "evidence", "reasoning"];
   }
 
   function questionPageFor(form, questionNumber) {
@@ -484,6 +499,9 @@
     const source = officialViewer(task.formId, task.officialPages || [task.officialPage || 1], task.officialPdf, `${task.label} · ${pageLabel(task.officialPages || [task.officialPage || 1])}`);
     $("questionCard").innerHTML = `
       ${source}
+      <div class="ap-skill-targets" aria-label="AP skill targets">
+        ${(task.skillTargets || []).map((target) => `<span>${escapeHtml(target)}</span>`).join("")}
+      </div>
       <div class="writing-task">
         <div class="stem">${escapeHtml(task.prompt)}</div>
         <ul class="writing-points">
@@ -552,23 +570,58 @@
   function scoreWritingTask(task, response) {
     const text = response.toLowerCase();
     const words = response.trim().split(/\s+/).filter(Boolean);
-    const rubricHits = [
-      /\b(thesis|claim|argument)\b/i,
-      /\b(because|therefore|as a result|led to|caused|effect)\b/i,
-      /\b(evidence|example|document|data|case|study|graph|model)\b/i,
-      /\b(compare|contrast|continuity|change|context|however|although)\b/i,
-      /\b(explain|identify|describe|analyze|evaluate|calculate|draw|label)\b/i
-    ].filter((pattern) => pattern.test(response)).length;
+    const signals = writingSignalChecks(task, response);
+    const signalHits = signals.filter((signal) => signal.hit).length;
     const anchorHits = (task.anchors || []).filter((anchor) => anchor && text.includes(String(anchor).toLowerCase())).length;
-    const lengthScore = words.length >= 260 ? 3 : words.length >= 150 ? 2 : words.length >= 60 ? 1 : 0;
-    const raw = lengthScore + rubricHits + Math.min(2, anchorHits);
-    const earned = Math.max(0, Math.min(task.max, Math.round((raw / 10) * task.max)));
+    const lengthScore = lengthBand(words.length, task.max);
+    const raw = lengthScore + Math.min(6, signalHits) + Math.min(3, anchorHits);
+    const earned = Math.max(0, Math.min(task.max, Math.round((raw / 12) * task.max)));
     const position = earned >= task.max * 0.8 ? "upper rubric band" : earned >= task.max * 0.5 ? "middle rubric band" : "early rubric band";
-    return { id: task.id, label: task.label, max: task.max, weight: task.weight || 1, earned, position, next: nextStep(task, response, earned) };
+    return { id: task.id, label: task.label, max: task.max, weight: task.weight || 1, earned, position, signals, next: nextStep(task, response, earned, signals) };
   }
 
-  function nextStep(task, response, earned) {
+  function lengthBand(wordCount, max) {
+    if (max <= 3) return wordCount >= 70 ? 3 : wordCount >= 35 ? 2 : wordCount >= 15 ? 1 : 0;
+    if (max <= 5) return wordCount >= 130 ? 3 : wordCount >= 75 ? 2 : wordCount >= 35 ? 1 : 0;
+    return wordCount >= 260 ? 3 : wordCount >= 150 ? 2 : wordCount >= 60 ? 1 : 0;
+  }
+
+  function writingSignalChecks(task, response) {
+    const text = response.toLowerCase();
+    const label = `${task.label || ""} ${task.id || ""}`.toLowerCase();
+    const anchors = (task.anchors || []).filter((anchor) => anchor && text.includes(String(anchor).toLowerCase())).length;
+    const checks = [
+      { label: "claim", hit: /\b(thesis|claim|argument|position|because)\b/i.test(response) },
+      { label: "specific evidence", hit: anchors >= 1 || /\b(example|evidence|document|data|case|study|law|policy|event)\b/i.test(response) },
+      { label: "reasoning", hit: /\b(because|therefore|as a result|led to|caused|effect|shows|explains)\b/i.test(response) },
+      { label: "task verb", hit: /\b(explain|identify|describe|analyze|evaluate|calculate|draw|label|compare|contrast)\b/i.test(response) }
+    ];
+    if (/dbq/.test(label)) checks.push(
+      { label: "uses documents", hit: /\b(doc|document|source)\s*[1-7]?\b/i.test(response) || anchors >= 2 },
+      { label: "sourcing", hit: /\b(point of view|purpose|audience|context|author|bias|reliability)\b/i.test(response) },
+      { label: "outside evidence", hit: /\b(outside evidence|for example|another example|also)\b/i.test(response) && anchors >= 1 }
+    );
+    if (/leq/.test(label)) checks.push(
+      { label: "contextualization", hit: /\b(context|background|before|during|after|broader)\b/i.test(response) },
+      { label: "historical reasoning", hit: /\b(causation|continuity|change|comparison|turning point|similar|different)\b/i.test(response) }
+    );
+    if (/saq/.test(label)) checks.push(
+      { label: "direct parts", hit: /\b(a\.|b\.|c\.|part a|part b|part c)\b/i.test(response) || anchors >= 2 }
+    );
+    if (/frq/.test(label)) checks.push(
+      { label: "applies terms", hit: anchors >= 2 || /\b(define|apply|scenario|behavior|response|variable)\b/i.test(response) },
+      { label: "method/data precision", hit: /\b(independent|dependent|operational|random|control|mean|median|standard deviation|statistical)\b/i.test(response) }
+    );
+    if (/\b(graph|curve|equilibrium|demand|supply|gdp|reserve|tariff|surplus|marginal|interest rate)\b/i.test((task.anchors || []).join(" ") + " " + (task.prompt || ""))) checks.push(
+      { label: "graph logic", hit: /\b(graph|curve|shift|left|right|increase|decrease|equilibrium|surplus|shortage)\b/i.test(response) }
+    );
+    return checks;
+  }
+
+  function nextStep(task, response, earned, signals) {
     if (!response.trim()) return "Write enough specific evidence for the grader to see the claim.";
+    const missing = (signals || []).filter((signal) => !signal.hit).map((signal) => signal.label);
+    if (missing.length) return "Add: " + missing.slice(0, 2).join(" and ") + ".";
     if (earned <= task.max * 0.35) return "Add a defensible claim and at least two precise course facts.";
     if (earned <= task.max * 0.7) return "Tighten the explanation so each fact proves the claim.";
     return "Push for complexity: qualify the argument, compare, calculate, source, or explain limits.";
@@ -595,7 +648,10 @@
     $("feedbackGrid").innerHTML = `
       <article class="feedback-card">
         <h3>Writing Rubric Position</h3>
-        <ul>${result.writingResults.map((item) => `<li>${escapeHtml(item.label)}: ${item.earned}/${item.max}, ${escapeHtml(item.position)}. ${escapeHtml(item.next)}</li>`).join("")}</ul>
+        <ul>${result.writingResults.map((item) => {
+          const hitCount = (item.signals || []).filter((signal) => signal.hit).length;
+          return `<li>${escapeHtml(item.label)}: ${item.earned}/${item.max}, ${escapeHtml(item.position)}. Skill signals ${hitCount}/${(item.signals || []).length}. ${escapeHtml(item.next)}</li>`;
+        }).join("")}</ul>
       </article>
       <article class="feedback-card">
         <h3>Next Practice</h3>
@@ -617,7 +673,12 @@
       .filter((question) => state.answers[question.id] !== question.correctIndex)
       .map((question) => question.category)
       .filter(Boolean);
-    const counts = misses.reduce((map, topic) => map.set(topic, (map.get(topic) || 0) + 1), new Map());
+    const writingSignals = state.exam.writing.flatMap((task) =>
+      writingSignalChecks(task, state.writing[task.id] || "")
+        .filter((signal) => !signal.hit)
+        .map((signal) => `AP ${signal.label}`)
+    );
+    const counts = misses.concat(writingSignals).reduce((map, topic) => map.set(topic, (map.get(topic) || 0) + 1), new Map());
     return [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([topic]) => `Review ${topic}`);
   }
 

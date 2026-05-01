@@ -1991,6 +1991,18 @@ textarea:focus-visible {
   font-weight: 900;
   text-transform: uppercase;
 }
+.smart-trust {
+  width: max-content;
+  max-width: 100%;
+  padding: 4px 7px;
+  border: 1px solid color-mix(in srgb, var(--accent) 46%, white 8%);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 15%, rgba(3,8,20,.72));
+  color: #f8fbff;
+  font-size: 10.5px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
 .smart-body h3 {
   margin: 0;
   color: var(--paper);
@@ -3741,6 +3753,7 @@ let currentGame = null;
 let frameLoadTimer = 0;
 let smartMenuLane = "recommended";
 const FEATURED_GAME_IDS = ["history-hunters", "archive-quest", "regents-practice-exam", "ap-practice-exam", "cold-war-invaders"];
+const SOURCE_LOCKED_GAME_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "source-sprint", "source-lab", "regents-gauntlet", "source-audit", "archive-cipher", "regents-rally-source-circuit"]);
 
 const LANES = [
   { id: "all", label: "All" },
@@ -4262,6 +4275,13 @@ function smartKicker(game) {
 function smartSubtitle(game) {
   return smartAlias(game).subtitle || cardSubtitle(game);
 }
+function trustBadgeFor(game) {
+  if (!game) return "";
+  if (SOURCE_LOCKED_GAME_IDS.has(game.id)) return "Source Locked";
+  if (/Jeopardy/i.test(displayGameType(game))) return "Board Hardened";
+  if (/AP\b/.test(game.course || "")) return "AP Rigor";
+  return "";
+}
 function compactCourseLabel(course) {
   return String(course || "")
     .replace("Grade 10 Global History II", "Global 10")
@@ -4351,10 +4371,12 @@ function smartCard(game) {
   const art = cssUrlForAttr(thumbnailFor(game));
   const glyph = glyphFor(game);
   const meta = [compactCourseLabel(game.course), displayGameType(game)].filter(Boolean).join(" · ");
+  const trustBadge = trustBadgeFor(game);
   return '<button class="smart-card" type="button" style="--accent:' + accent + ';--card-art:' + art + ';--glyph:\'' + glyph + '\'" data-id="' + escapeHtml(game.id) + '">' +
     '<div class="smart-art" aria-hidden="true"></div>' +
     '<div class="smart-body">' +
       '<span class="smart-kicker">' + escapeHtml(smartKicker(game)) + '</span>' +
+      (trustBadge ? '<span class="smart-trust">' + escapeHtml(trustBadge) + '</span>' : '') +
       '<h3>' + escapeHtml(smartTitle(game)) + '</h3>' +
       '<p>' + escapeHtml(smartSubtitle(game)) + '</p>' +
     '</div>' +
@@ -4488,6 +4510,13 @@ function renderProgressReport() {
   const completed = Number(summary.completed || 0);
   const plays = Number(summary.data?.recent?.filter((item) => item.type === "game_play" || item.type === "game_complete").length || 0);
   const reportStamp = summary.data?.lastUpdated ? new Date(summary.data.lastUpdated).toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "not started";
+  const focus = summary.courseFocus;
+  const focusScore = focus ? (focus.bestAccuracy !== null && focus.bestAccuracy !== undefined ? focus.bestAccuracy + "%" : focus.bestScore !== null && focus.bestScore !== undefined ? String(focus.bestScore) : "active") : "--";
+  const courseFocus = focus ? [
+    '<div class="progress-item"><span><strong>' + escapeHtml(compactCourseLabel(focus.title)) + '</strong><br>most active course</span><span>focus</span></div>',
+    '<div class="progress-item"><span><strong>' + escapeHtml(focusScore) + '</strong><br>best local mark</span><span>best</span></div>',
+    '<div class="progress-item"><span><strong>' + Number(focus.completions || 0) + '</strong><br>completed in course</span><span>done</span></div>'
+  ].join("") : '<div class="progress-item"><span><strong>No course focus yet</strong><br>Play one course to unlock a focus lane.</span><span>new</span></div>';
   const recent = summary.recent.length ? summary.recent.map((item) =>
     '<div class="progress-item"><span><strong>' + escapeHtml(item.title) + '</strong><br>' + escapeHtml(item.course || "Review") + '</span><span>' + (item.score !== null && item.score !== undefined ? escapeHtml(String(item.score)) : item.accuracy !== null && item.accuracy !== undefined ? escapeHtml(item.accuracy + "%") : "opened") + '</span></div>'
   ).join("") : '<div class="progress-item"><span><strong>No local plays yet</strong><br>Start any game to build this report.</span><span>new</span></div>';
@@ -4508,6 +4537,7 @@ function renderProgressReport() {
       '<div class="progress-item"><span><strong>' + plays + '</strong><br>recent practice signals</span><span>local</span></div>' +
       '<div class="progress-item"><span><strong>' + escapeHtml(reportStamp) + '</strong><br>last update</span><span>saved</span></div>' +
     '</div></article>' +
+    '<article class="progress-card"><span class="progress-kicker">Course Focus</span><div class="progress-list">' + courseFocus + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Recent</span><div class="progress-list">' + recent + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Popular Here</span><div class="progress-list">' + popular + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Weak Topics</span><div class="progress-list">' + weak + '</div></article>' +

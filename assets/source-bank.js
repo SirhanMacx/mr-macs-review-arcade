@@ -101,6 +101,26 @@
     ].join("::");
   }
 
+  function sourceLock(question) {
+    var images = stimulusImages(question);
+    var needed = sourceBased(question);
+    var reason = missingSourceReason(question);
+    var ok = !needed || trustedSource(question);
+    return {
+      ok: ok,
+      needed: needed,
+      reason: reason,
+      images: ok && needed ? images : [],
+      identity: sourceIdentity(question),
+      label: ok ? (needed ? "Source Lock: verified" : "Source Lock: not needed") : "Source Lock: blocked",
+      source: question && (question.source || question.set || question.day || "")
+    };
+  }
+
+  function sourceLockLabel(question) {
+    return sourceLock(question).label;
+  }
+
   root.MrMacsSourceBank = {
     sourcePattern: SOURCE_RE,
     stimulusImages: stimulusImages,
@@ -112,6 +132,8 @@
     verifiedSourceQuestion: trustedSource,
     usableRegentsQuestion: usableRegentsQuestion,
     missingSourceReason: missingSourceReason,
-    sourceIdentity: sourceIdentity
+    sourceIdentity: sourceIdentity,
+    sourceLock: sourceLock,
+    sourceLockLabel: sourceLockLabel
   };
 })(typeof window !== "undefined" ? window : globalThis);

@@ -871,6 +871,26 @@ textarea {
   gap: 12px;
 }
 
+.ap-skill-targets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(255, 215, 107, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 215, 107, 0.07);
+}
+
+.ap-skill-targets span {
+  padding: 6px 8px;
+  border-radius: 999px;
+  color: #07101f;
+  background: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
 .writing-points {
   display: flex;
   flex-wrap: wrap;

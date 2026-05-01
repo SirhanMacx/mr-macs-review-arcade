@@ -404,11 +404,25 @@ function sourceBased(question) {
   );
 }
 
+function sourceLock(question) {
+  if (SourceBank) return SourceBank.sourceLock(question);
+  const images = (question.stimulusImages || []).filter((image) => image && image.src);
+  return {
+    ok: Boolean(images.length),
+    needed: sourceBased(question),
+    reason: images.length ? "" : "Source image missing",
+    images,
+    identity: [question.course, question.source, images.map((image) => image.src).join("|")].join("::"),
+    label: images.length ? "Source Lock: verified" : "Source Lock: blocked"
+  };
+}
+
 function normalizeRegents(question) {
   if (SourceBank && !SourceBank.usableRegentsQuestion(question)) return null;
   const choices = (question.choices || []).slice(0, 4).map((choice) => String(choice.text || ""));
   const correctIndex = (question.choices || []).slice(0, 4).findIndex((choice) => String(choice.label) === String(question.correct));
   if (choices.length !== 4 || correctIndex < 0) return null;
+  const lock = sourceLock(question);
   return {
     prompt: cleanPrompt(question.stem || question.prompt),
     choices,
@@ -417,7 +431,8 @@ function normalizeRegents(question) {
     course: question.course || "Regents Review",
     set: question.set || question.day || "",
     source: question.source || "",
-    images: SourceBank ? SourceBank.stimulusImages(question) : (question.stimulusImages || [])
+    images: lock.images || [],
+    sourceLock: lock
   };
 }
 
@@ -598,7 +613,8 @@ function renderQuestion() {
   if (q.images.length) {
     els.sourcePreview.classList.remove("hidden");
     els.sourceImage.src = q.images[0].src;
-    els.sourceCaption.textContent = q.images[0].label || "Source stimulus";
+    const lock = q.sourceLock || { ok: true, label: "Source Lock: verified", reason: "" };
+    els.sourceCaption.innerHTML = `<span class="source-lock-pill ${lock.ok ? "ok" : "warn"}">${escapeHtml(lock.label)}${lock.reason ? " · " + escapeHtml(lock.reason) : ""}</span> ${escapeHtml(q.images[0].label || "Source stimulus")}`;
   } else {
     els.sourcePreview.classList.add("hidden");
     els.sourceImage.removeAttribute("src");

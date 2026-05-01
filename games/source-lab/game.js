@@ -1,4 +1,5 @@
 const M = window.MrMacsMastery;
+const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 const state = { data: null, course: "", pool: [], session: [], index: 0, correct: 0, answered: 0, habits: 0, misses: [], locked: false, zoom: 1 };
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
@@ -42,6 +43,19 @@ function current() {
   return state.session[state.index];
 }
 
+function sourceLock(question) {
+  const normalized = { ...question, stimulusImages: question.images || question.stimulusImages || [] };
+  if (SourceBank) return SourceBank.sourceLock(normalized);
+  return {
+    ok: Boolean(normalized.stimulusImages.length),
+    needed: true,
+    reason: normalized.stimulusImages.length ? "" : "Source image missing",
+    images: normalized.stimulusImages,
+    identity: [question.course, question.source, normalized.stimulusImages.map((image) => image.src).join("|")].join("::"),
+    label: normalized.stimulusImages.length ? "Source Lock: verified" : "Source Lock: blocked"
+  };
+}
+
 function resetHabits() {
   $$("[data-habit]").forEach((box) => { box.checked = false; });
 }
@@ -60,8 +74,10 @@ function renderQuestion() {
   $("#habitScore").textContent = String(state.habits);
   $("#sessionTitle").textContent = M.courseProfile(state.course).short + " Source Lab";
   $("#questionMeta").innerHTML = [q.course, q.set, M.SKILL_LABELS[q.skill] || q.skill].filter(Boolean).map((value) => '<span class="pill">' + M.esc(value) + '</span>').join("");
-  $("#sourceImage").src = q.images[0].src;
-  $("#sourceLine").textContent = q.source || q.topic || "Released source stimulus";
+  const lock = sourceLock(q);
+  $("#sourceImage").src = lock.images[0]?.src || q.images?.[0]?.src || "";
+  $("#sourceLine").dataset.sourceIdentity = lock.identity || "";
+  $("#sourceLine").innerHTML = '<span class="source-lock-pill ' + (lock.ok ? "ok" : "warn") + '">' + M.esc(lock.label) + (lock.reason ? " · " + M.esc(lock.reason) : "") + '</span><span>' + M.esc(q.source || q.topic || "Released source stimulus") + '</span>';
   $("#prompt").textContent = q.prompt;
   $("#feedback").textContent = "";
   $("#choices").innerHTML = q.choices.map((choice, index) =>
