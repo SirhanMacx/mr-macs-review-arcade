@@ -1,8 +1,9 @@
 (function () {
   "use strict";
 
-  const BANK_URL = "../../data/chrono-defense-bank.json";
-  const OFFICIAL_URL = "../../data/ap-official-practice-exams.json";
+  const DATA_VERSION = "2026-05-01-ap-released-pages-v2";
+  const BANK_URL = `../../data/chrono-defense-bank.json?v=${DATA_VERSION}`;
+  const OFFICIAL_URL = `../../data/ap-official-practice-exams.json?v=${DATA_VERSION}`;
   const ANSWER_PATTERN = [0, 2, 1, 3, 1, 0, 3, 2, 0, 1, 3, 2, 1, 3, 0, 2];
 
   const PROFILES = {
