@@ -335,15 +335,25 @@ textarea {
   background: rgba(255, 255, 255, 0.06);
 }
 
-.official-runner {
+.official-runner,
+.source-runner {
   display: grid;
   grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
   gap: 14px;
   align-items: start;
 }
 
-.official-runner .official-source {
+.official-runner .official-source,
+.source-runner .source-deck {
   margin-bottom: 0;
+}
+
+.source-deck {
+  overflow: hidden;
+  margin-bottom: 16px;
+  border: 1px solid rgba(132, 238, 255, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .official-source-head {
@@ -361,6 +371,68 @@ textarea {
   height: min(58vh, 560px);
   border: 0;
   background: #f8fbff;
+}
+
+.source-pages {
+  display: grid;
+  gap: 12px;
+  max-height: min(58vh, 560px);
+  overflow: auto;
+  padding: 14px;
+  background: rgba(3, 10, 22, 0.72);
+}
+
+.source-page {
+  min-height: 320px;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid rgba(6, 16, 31, 0.16);
+  border-radius: 4px;
+  color: #101b2c;
+  background:
+    linear-gradient(90deg, rgba(96, 239, 255, 0.12), transparent 34%),
+    #f8fbff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.source-page-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(6, 16, 31, 0.16);
+}
+
+.source-page-head strong {
+  color: #07101f;
+  font-size: 1rem;
+}
+
+.source-page-head span,
+.source-page footer,
+.source-page .source-line {
+  color: #46556a;
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.source-page blockquote {
+  margin: 20px 0;
+  padding: 0 0 0 16px;
+  border-left: 4px solid var(--cyan);
+  color: #162238;
+  font-size: clamp(1.05rem, 2vw, 1.32rem);
+  font-weight: 850;
+  line-height: 1.55;
+}
+
+.source-page footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(6, 16, 31, 0.14);
 }
 
 .digital-panel {
@@ -548,11 +620,13 @@ textarea {
 }
 
 @media (max-width: 980px) {
-  .official-runner {
+  .official-runner,
+  .source-runner {
     grid-template-columns: 1fr;
   }
 
-  .pdf-frame {
+  .pdf-frame,
+  .source-pages {
     height: min(52vh, 460px);
   }
 }
@@ -625,5 +699,10 @@ textarea {
 
   .qdot {
     min-height: 32px;
+  }
+
+  .source-page footer,
+  .source-page-head {
+    display: grid;
   }
 }

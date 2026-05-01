@@ -134,7 +134,7 @@
         <p class="eyebrow">Official PDF Runner</p>
         <h2>${escapeHtml(form.title)}</h2>
         <ul class="format-list">
-          <li><strong>${form.mcqCount} official MCQs</strong><span>Questions remain in the official PDF; answers are entered here with source-page navigation.</span></li>
+          <li><strong>${form.mcqCount} official MCQs</strong><span>Questions remain in the official PDF; answers are entered here with matching page navigation.</span></li>
           <li><strong>${writing.length} writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
           <li><strong>${form.minutes} minute timer</strong><span>Full-form practice with a digital answer sheet.</span></li>
           <li><strong>Official link preserved</strong><span><a href="${escapeHtml(form.pdfUrl)}" target="_blank" rel="noopener">Open source PDF</a></span></li>
@@ -154,6 +154,7 @@
       <ul class="format-list">
         <li><strong>${mcqCount} typed MCQs</strong><span>Question text appears directly on screen like the Regents practice exams.</span></li>
         <li><strong>${writing.length} typed writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
+        <li><strong>Attached source pages</strong><span>MCQs and writing tasks open with matching source/document panels.</span></li>
         <li><strong>${minutes} minute timer</strong><span>Timer keeps running until you score or leave the page.</span></li>
         <li><strong>Practice estimate</strong><span>Same-course distractors, rubric-position feedback, and approximate AP band.</span></li>
       </ul>
@@ -254,6 +255,7 @@
     const correct = cleanAnswer(item.answer);
     const desiredIndex = ANSWER_PATTERN[index % ANSWER_PATTERN.length];
     const distractors = buildDistractors(item, correct, pool, profile);
+    const sourceDoc = makeSourceDoc(item, index, profile, skill);
     return {
       id: `mcq-${index}`,
       kind: "mcq",
@@ -265,42 +267,70 @@
       choices: placeCorrect([correct, ...distractors], desiredIndex),
       labels: ["A", "B", "C", "D"],
       stem: makeStem(item, profile, skill, index),
-      source: `${item.set || "AP review bank"}${item.category ? ` / ${item.category}` : ""}`
+      source: sourceDoc.sourceLine,
+      sourceDoc
     };
   }
 
   function makeStem(item, profile, skill, index) {
-    const prompt = cleanPrompt(item.prompt);
     const category = cleanPrompt(item.category || item.set || profile.label);
     const templates = {
       history: [
-        `Which answer best completes this AP-style claim about ${category}?\n\n${prompt}`,
-        `Which concept best explains the historical process described below?\n\n${prompt}`,
-        `A historian could use this clue as evidence for which larger development?\n\n${prompt}`,
-        `Which answer would best support an argument using ${skill}?\n\n${prompt}`
+        `Which answer best completes this AP-style claim about ${category}?`,
+        "Which concept best explains the historical process in the attached source?",
+        "A historian could use this source as evidence for which larger development?",
+        `Which answer would best support an argument using ${skill}?`
       ],
       econ: [
-        `Which answer best applies the economic model or policy logic in this scenario?\n\n${prompt}`,
-        `Which concept would an AP economics response need to identify before explaining the outcome?\n\n${prompt}`,
-        `Which answer best predicts or explains the change implied by this clue?\n\n${prompt}`
+        "Which answer best applies the economic model or policy logic in the attached scenario?",
+        "Which concept would an AP economics response need to identify before explaining the outcome?",
+        "Which answer best predicts or explains the change implied by the source?"
       ],
       gov: [
-        `Which answer best connects this clue to a constitutional principle, institution, or policy outcome?\n\n${prompt}`,
-        `Which AP Government concept would most directly explain this scenario?\n\n${prompt}`,
-        `Which answer best supports a defensible claim about American government?\n\n${prompt}`
+        "Which answer best connects this source to a constitutional principle, institution, or policy outcome?",
+        "Which AP Government concept would most directly explain the attached scenario?",
+        "Which answer best supports a defensible claim about American government?"
       ],
       psych: [
-        `Which answer best applies the psychological concept to this situation?\n\n${prompt}`,
-        `Which concept would most directly explain the behavior, method, or finding described below?\n\n${prompt}`,
-        `Which answer best supports an evidence-based AP Psychology explanation?\n\n${prompt}`
+        "Which answer best applies the psychological concept to the attached situation?",
+        "Which concept would most directly explain the behavior, method, or finding in the source?",
+        "Which answer best supports an evidence-based AP Psychology explanation?"
       ],
       geo: [
-        `Which answer best applies the geographic model, pattern, or scale in this clue?\n\n${prompt}`,
-        `Which concept best explains the spatial relationship described below?\n\n${prompt}`,
-        `Which answer best supports an AP Human Geography explanation?\n\n${prompt}`
+        "Which answer best applies the geographic model, pattern, or scale in the attached source?",
+        "Which concept best explains the spatial relationship in the source?",
+        "Which answer best supports an AP Human Geography explanation?"
       ]
     };
     const list = templates[profile.family] || templates.history;
+    return list[index % list.length];
+  }
+
+  function makeSourceDoc(item, index, profile, skill) {
+    const category = cleanPrompt(item.category || item.set || profile.label);
+    const set = cleanPrompt(item.set || "AP review bank");
+    const excerpt = cleanPrompt(item.prompt);
+    return {
+      id: `source-${index + 1}`,
+      title: `${profile.short} Source ${index + 1}`,
+      kind: sourceKind(profile.family, index),
+      sourceLine: `${set}${category ? ` / ${category}` : ""}`,
+      category,
+      skill,
+      excerpt,
+      citation: `Practice source sheet built from the ${profile.label} review bank.`
+    };
+  }
+
+  function sourceKind(family, index) {
+    const kinds = {
+      history: ["Context excerpt", "Comparison source", "Causation source", "Continuity/change source"],
+      econ: ["Model scenario", "Policy source", "Market data prompt", "Graph reasoning prompt"],
+      gov: ["Constitutional scenario", "Institutional source", "Policy source", "Required concept source"],
+      psych: ["Research scenario", "Behavior source", "Application source", "Evidence prompt"],
+      geo: ["Spatial source", "Data prompt", "Model source", "Scale scenario"]
+    };
+    const list = kinds[family] || kinds.history;
     return list[index % list.length];
   }
 
@@ -347,11 +377,10 @@
   }
 
   function makeWritingTask(task, index, profile, pool) {
-    const anchors = pool
+    const sourceItems = pool
       .filter((item) => Number(item.value || 0) >= 300)
-      .slice(index * 5, index * 5 + 5)
-      .map((item) => cleanAnswer(item.answer))
-      .filter(Boolean);
+      .slice(index * 5, index * 5 + 5);
+    const anchors = sourceItems.map((item) => cleanAnswer(item.answer)).filter(Boolean);
     return {
       id: task.id,
       kind: "writing",
@@ -360,7 +389,8 @@
       skill: writingSkill(task.kind, profile),
       prompt: writingPrompt(task, profile, anchors),
       bullets: writingBullets(task.kind),
-      anchors
+      anchors,
+      sourceDocs: sourceItems.map((item, offset) => makeSourceDoc(item, index * 5 + offset, profile, writingSkill(task.kind, profile)))
     };
   }
 
@@ -437,17 +467,26 @@
       renderOfficialMcq(index, question);
       return;
     }
-    const source = question.officialPdf ? officialViewer(question.officialPdf, question.officialPage, question.source) : `<p class="source-note">Bank source: ${escapeHtml(question.source)}</p>`;
     $("questionCard").innerHTML = `
-      ${source}
-      <div class="stem">${escapeHtml(question.stem).replace(/\n/g, "<br>")}</div>
-      <div class="choices">
-        ${question.choices.map((choice, choiceIndex) => `
-          <button type="button" class="choice ${state.answers[question.id] === choiceIndex ? "selected" : ""}" data-choice="${choiceIndex}">
-            <span class="letter">${escapeHtml((question.labels || ["A", "B", "C", "D"])[choiceIndex] || "")}</span>
-            <span>${escapeHtml(choice)}</span>
-          </button>
-        `).join("")}
+      <div class="source-runner">
+        ${sourceDeck([question.sourceDoc], "Attached Source Page")}
+        <section class="digital-panel" aria-label="Digital answer sheet">
+          <div class="runner-head">
+            <p class="eyebrow">Typed Question</p>
+            <h3>${escapeHtml(question.label)}</h3>
+            <span>${escapeHtml(question.source)}</span>
+          </div>
+          <div class="stem">${escapeHtml(question.stem).replace(/\n/g, "<br>")}</div>
+          <div class="choices compact-choices">
+            ${question.choices.map((choice, choiceIndex) => `
+              <button type="button" class="choice ${state.answers[question.id] === choiceIndex ? "selected" : ""}" data-choice="${choiceIndex}">
+                <span class="letter">${escapeHtml((question.labels || ["A", "B", "C", "D"])[choiceIndex] || "")}</span>
+                <span>${escapeHtml(choice)}</span>
+              </button>
+            `).join("")}
+          </div>
+          ${answerMapHtml(index)}
+        </section>
       </div>
     `;
     $("questionCard").querySelectorAll(".choice").forEach((button) => {
@@ -455,6 +494,9 @@
         state.answers[question.id] = Number(button.dataset.choice);
         renderMcq(index);
       });
+    });
+    $("questionCard").querySelectorAll("[data-qjump]").forEach((button) => {
+      button.addEventListener("click", () => renderMcq(Number(button.dataset.qjump)));
     });
     $("prevBtn").disabled = index === 0;
     $("nextBtn").disabled = index === state.exam.mcq.length - 1;
@@ -526,10 +568,41 @@
     `;
   }
 
+  function sourceDeck(docs, title) {
+    const sourceDocs = (docs || []).filter(Boolean);
+    if (!sourceDocs.length) return "";
+    return `
+      <div class="source-deck" aria-label="${escapeHtml(title || "Attached source pages")}">
+        <div class="official-source-head">
+          <strong>${escapeHtml(title || "Attached Source Pages")}</strong>
+          <span>${sourceDocs.length} page${sourceDocs.length === 1 ? "" : "s"}</span>
+        </div>
+        <div class="source-pages">
+          ${sourceDocs.map((doc, index) => `
+            <article class="source-page">
+              <div class="source-page-head">
+                <strong>${escapeHtml(doc.title || `Source ${index + 1}`)}</strong>
+                <span>${escapeHtml(doc.kind || "Source")}</span>
+              </div>
+              <p class="source-line">${escapeHtml(doc.sourceLine || doc.category || "")}</p>
+              <blockquote>${escapeHtml(doc.excerpt || "Review the attached source evidence before answering.").replace(/\n/g, "<br>")}</blockquote>
+              <footer>
+                <span>${escapeHtml(doc.skill || "AP reasoning")}</span>
+                <span>${escapeHtml(doc.citation || "Practice source sheet")}</span>
+              </footer>
+            </article>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  }
+
   function renderWriting(task) {
     $("questionLabel").textContent = task.label;
     $("skillLabel").textContent = `${task.max} points`;
-    const source = task.officialPdf ? officialViewer(task.officialPdf, task.officialPage || 1, "Official AP prompt and scoring guide") : "";
+    const source = task.officialPdf
+      ? officialViewer(task.officialPdf, task.officialPage || 1, "Official AP prompt and scoring guide")
+      : sourceDeck(task.sourceDocs, "Attached Writing Documents");
     $("questionCard").innerHTML = `
       ${source}
       <div class="writing-task">
