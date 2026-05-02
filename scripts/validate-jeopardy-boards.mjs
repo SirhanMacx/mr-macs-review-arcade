@@ -17,6 +17,7 @@ const EXPECTED_SKILLS = new Map([
 ]);
 const FORBIDDEN_VERBOSE_CLUE = /standards-aligned review clue|course-level clue|Regents skill|AP historical reasoning|AP Psych skill|High-value synthesis|exam-style claim|which answer best|This is harder than recall|Use the clue to|correct response should|evidence-based writing/i;
 const FORBIDDEN_GENERIC_CLUE = /\bterm for\b|specific development from|belongs in|the correct answer|correct answer:|final wager|final clue for|explain why this idea matters across the course|:\s+this\s+(?:is|was|were|are|describes|explains|identifies|names|means|refers to)\b|\b(?:resulting from|contained in the|during the)\.$|^(?:which|based on|according to)\b|^This\s+\w+\s+(?:means|explains|describes)\b|^This\s+(?:explains|describes|is|are|was|were|identifies|names|means|refers to)\b|^These\s+(?:explain|describe|are|were|identify|name|mean|refer to)\b/i;
+const FORBIDDEN_FALLBACK_CLUE = /course-relevant development students must connect to evidence|Landmark case shaping rights, representation, or institutional power|Court case used to define constitutional meaning, rights, or government power/i;
 const FORBIDDEN_VERBOSE_EXPLANATION = /fits this clue|Exam alignment|Review move|single-answer review concept aligned/i;
 const EXPECTED_HARDENING_VERSION = "jeopardy-hardening-v4-natural-clues";
 const FINAL_SYNTHESIS_LEAK = /final synthesis|at least two specific examples|evidence-based synthesis|standards-aligned argument|teacher judgment|score the synthesis|broader pattern, cause\/effect|instead of defining one isolated term/i;
@@ -24,6 +25,16 @@ const FINAL_OPEN_PROMPT = /^(?:discuss|explain|analyze|evaluate|assess|argue|com
 const MAX_FINAL_ANSWER_WORDS = 6;
 const GLOBAL_FINAL_US_MISMATCH = /\b(?:U\.S\. Expansion|Modern U\.S\.|APUSH|Japanese Americans|antebellum|sectionalism|manifest destiny|affirmative action|gulf of tonkin|moral majority|compromise of 1877|incumbency advantage|political efficacy|realignment)\b/i;
 const GENERIC_FINAL_CATEGORY = /^(?:AP Concept|Social Studies Skills|Historical Thinking|Historical Concepts|Political Concepts|Economics Concepts|Big Picture|Final)$/i;
+const FORBIDDEN_CATEGORY_NAME = /^(?:People \+ Places|Events \+ Laws|Ideas \+ Vocabulary|Government \+ Power|Society \+ Economy|Core Concepts|Markets \+ Models|Policy \+ Institutions|Graphs \+ Indicators|Applications|Principles|Institutions|Rights \+ Cases|Participation|Policy \+ Power|Spatial Patterns|Population \+ Culture|States \+ Land Use|Cities \+ Development|Models \+ Examples|Scarcity \+ Choices|Markets \+ Prices|Models \+ Graphs|Global \+ Applications)$/i;
+const FORBIDDEN_CLUE_FILLER = /tied to state power, exchange, or conflict|applied to behavior, research, or evidence|tied to institutions, rights, or policy outcomes|used to predict incentives, shifts, or welfare effects|used to explain spatial patterns across scale|tied to turning points or comparisons|used to analyze scenario-based behavior|used to connect rules and power/i;
+const FORBIDDEN_EXPLANATION_LABEL = /^(?:People \+ Places|Events \+ Laws|Ideas \+ Vocabulary|Government \+ Power|Society \+ Economy|Core Concepts|Markets \+ Models|Policy \+ Institutions|Graphs \+ Indicators|Applications|Principles|Institutions|Rights \+ Cases|Participation|Policy \+ Power|Spatial Patterns|Population \+ Culture|States \+ Land Use|Cities \+ Development|Models \+ Examples|Scarcity \+ Choices|Markets \+ Prices|Models \+ Graphs|Global \+ Applications|Foundations|Power \+ Government|Economy \+ Society|Conflict \+ Change|Modern Connections|Founding Principles|Branches \+ Federalism|Elections \+ Media|Policy \+ Participation)$/i;
+const GENERIC_CATEGORY_SIGNATURES = new Set([
+  "people places|events laws|ideas vocabulary|government power|society economy",
+  "core concepts|markets models|policy institutions|graphs indicators|applications",
+  "principles|institutions|rights cases|participation|policy power",
+  "spatial patterns|population culture|states land use|cities development|models examples",
+  "scarcity choices|markets prices|models graphs|policy institutions|global applications"
+]);
 
 function decodePath(value) {
   try {
@@ -90,22 +101,65 @@ function closeAnswerMatch(answer, records) {
   return null;
 }
 
+function escaped(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function hasExplanationLabelChain(explanation, answer, labels) {
+  const text = String(explanation || "");
+  for (const label of labels.filter(Boolean)) {
+    const labelChain = new RegExp(`^[^:]{1,120}:\\s*${escaped(label)}\\s*:`, "i");
+    if (labelChain.test(text)) return true;
+  }
+  const match = text.match(/^[^:]{1,120}:\s*([^:]{2,80})\s*:/);
+  return Boolean(match && FORBIDDEN_EXPLANATION_LABEL.test(match[1].trim()) && normalize(match[1]) !== normalize(answer));
+}
+
+function looksLikeRestatedClueExplanation(explanation, clue, answer) {
+  const text = String(explanation || "");
+  const clueKey = normalize(clue);
+  const answerKey = normalize(answer);
+  if (!clueKey || !answerKey) return false;
+  const answerPrefix = new RegExp(`^${escaped(answer)}\\s*:\\s*`, "i");
+  if (!answerPrefix.test(text)) return false;
+  const body = normalize(text.replace(answerPrefix, ""));
+  return body === clueKey;
+}
+
 function isGlobalBoard(game, file) {
   const fileKey = normalize(file);
   const courseKey = normalize([game.course, game.exam, game.title, game.subtitle].filter(Boolean).join(" "));
   return fileKey.includes("games global") || courseKey.includes("global history") || courseKey.includes("global geography");
 }
 
-function validateBoard(game, file) {
+function manifestCategories(meta) {
+  return (meta.categories || []).map((category) => normalize(category)).join("|");
+}
+
+function validateBoard(game, file, meta) {
   const errors = [];
   if (!Array.isArray(game.categories) || game.categories.length !== 5) {
     errors.push(`${file}: expected exactly 5 categories`);
     return errors;
   }
+  const categorySignature = game.categories.map((category) => normalize(category.name)).join("|");
+  if (meta && Array.isArray(meta.categories) && manifestCategories(meta) !== categorySignature) {
+    errors.push(`${file}: games.json categories are stale; expected ${game.categories.map((category) => category.name).join(" | ")}`);
+  }
+  if (GENERIC_CATEGORY_SIGNATURES.has(categorySignature)) {
+    errors.push(`${file}: uses a repeated generic category template instead of board-specific categories`);
+  }
+  const categoryNames = game.categories.map((category) => normalize(category.name));
+  if (new Set(categoryNames).size !== categoryNames.length) {
+    errors.push(`${file}: repeated category names within one board: ${game.categories.map((category) => category.name).join(" | ")}`);
+  }
   const seenClues = new Map();
   const seenAnswers = new Map();
   const answerRecords = [];
   for (const category of game.categories) {
+    if (FORBIDDEN_CATEGORY_NAME.test(String(category.name || "").trim())) {
+      errors.push(`${file}: generic category name must be board-specific: ${category.name}`);
+    }
     if (!Array.isArray(category.clues) || category.clues.length !== 5) {
       errors.push(`${file}: category ${category.name || "(untitled)"} must contain 5 clues`);
       continue;
@@ -139,6 +193,21 @@ function validateBoard(game, file) {
       }
       if (FORBIDDEN_GENERIC_CLUE.test(clueText)) {
         errors.push(`${file}: ${category.name} $${value} clue contains weak generated wording: ${clueText}`);
+      }
+      if (FORBIDDEN_FALLBACK_CLUE.test(`${clueText} ${clue.explanation || ""}`)) {
+        errors.push(`${file}: ${category.name} $${value} still contains fallback/generic clue wording: ${clueText}`);
+      }
+      for (const label of [category.name, category.sourceName].filter(Boolean)) {
+        const labelPrefix = new RegExp(`^${escaped(label)}\\s*:`, "i");
+        if (labelPrefix.test(clueText)) {
+          errors.push(`${file}: ${category.name} $${value} clue repeats category label instead of natural Jeopardy wording: ${clueText}`);
+        }
+      }
+      if (hasExplanationLabelChain(clue.explanation, answerText, [category.name, category.sourceName])) {
+        errors.push(`${file}: ${category.name} $${value} explanation still contains a stale category label: ${clue.explanation}`);
+      }
+      if (FORBIDDEN_CLUE_FILLER.test(clueText) || FORBIDDEN_CLUE_FILLER.test(String(clue.explanation || ""))) {
+        errors.push(`${file}: ${category.name} $${value} contains generic filler phrasing: ${clueText}`);
       }
       if (FORBIDDEN_VERBOSE_EXPLANATION.test(String(clue.explanation || ""))) {
         errors.push(`${file}: ${category.name} $${value} explanation contains wrapper language`);
@@ -196,6 +265,7 @@ function main() {
   const games = JSON.parse(readFileSync(resolve(root, "games.json"), "utf8"));
   const targets = games.filter(isJeopardyManifestEntry);
   const errors = [];
+  const categorySignatures = new Map();
   let clueCount = 0;
   for (const meta of targets) {
     const file = resolve(root, decodePath(meta.file));
@@ -211,7 +281,17 @@ function main() {
       continue;
     }
     clueCount += (game.categories || []).reduce((sum, category) => sum + (category.clues || []).length, 0);
-    errors.push(...validateBoard(game, relative(root, file)));
+    const signature = (game.categories || []).map((category) => normalize(category.name)).join("|");
+    if (signature) {
+      if (!categorySignatures.has(signature)) categorySignatures.set(signature, []);
+      categorySignatures.get(signature).push(relative(root, file));
+    }
+    errors.push(...validateBoard(game, relative(root, file), meta));
+  }
+  for (const [signature, files] of categorySignatures) {
+    if (files.length > 3 && !files.every((file) => /\/99 - /.test(file))) {
+      errors.push(`Repeated category set appears on ${files.length} boards: ${signature} (${files.slice(0, 4).join("; ")})`);
+    }
   }
   if (errors.length) {
     console.error(`Jeopardy board validation failed (${errors.length} issues):`);

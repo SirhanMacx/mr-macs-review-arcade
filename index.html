@@ -3994,8 +3994,8 @@ const frame = document.getElementById("gameFrame");
 let currentGame = null;
 let frameLoadTimer = 0;
 let smartMenuLane = "recommended";
-const FEATURED_GAME_IDS = ["history-hunters", "archive-quest", "regents-practice-exam", "ap-practice-exam", "cold-war-invaders"];
-const SOURCE_LOCKED_GAME_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "source-sprint", "source-lab", "regents-gauntlet", "source-audit", "archive-cipher", "regents-rally-source-circuit"]);
+const FEATURED_GAME_IDS = ["history-hunters", "archive-quest", "cold-war-invaders", "regents-rally-source-circuit", "regents-practice-exam", "ap-practice-exam"];
+const SOURCE_LOCKED_GAME_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "source-sprint", "source-lab", "regents-gauntlet", "source-audit", "archive-cipher"]);
 
 const LANES = [
   { id: "all", label: "All" },
@@ -4238,6 +4238,7 @@ function priority(game) {
   if (game.id === "history-hunters") return -6;
   if (game.id === "archive-quest") return -5;
   if (game.id === "cold-war-invaders") return -4.7;
+  if (game.id === "regents-rally-source-circuit") return -4.4;
   if (game.id === "regents-practice-exam") return -4;
   if (game.id === "ap-practice-exam") return -3.9;
   if (game.id === "regents-gauntlet") return -3.6;
@@ -4245,7 +4246,6 @@ function priority(game) {
   if (game.id === "source-sprint") return -3;
   if (game.id === "lightning-review") return -2;
   if (game.id === "vocab-vault") return -1;
-  if (game.id === "regents-rally-source-circuit") return 6;
   if (game.id === "chrono-defense-infinite") return 0;
   if (game.id === "boss-rush-arena") return 1;
   if (game.id === "arcade-duel") return 3;
@@ -4334,7 +4334,7 @@ function cardSubtitle(game) {
   if (game.id === "cold-war-invaders") return "Atari-style Space Invaders with Cold War questions, intel bursts, and mobile controls.";
   if (game.id === "regents-practice-exam") return "Full Regents practice with official questions, writing, pacing, and score estimates.";
   if (game.id === "ap-practice-exam") return "Released AP practice with multiple-choice, writing, pacing, and score estimates.";
-  if (game.id === "regents-rally-source-circuit") return "Historical drivers race for question-gated item boosts on animated tracks.";
+  if (game.id === "regents-rally-source-circuit") return "Historical kart drivers drift, collect items, and unlock powerups with quick review clues.";
   if (game.id === "source-sprint") return "Fast source-based MCQ reps that sharpen reading, evidence, and accuracy.";
   if (game.id === "regents-gauntlet") return "Mixed Regents MCQ pressure run with explanations after every answer.";
   if (game.id === "writing-coach") return "CRQ, short essay, enduring issue, and Civic Literacy writing practice.";

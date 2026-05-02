@@ -54,6 +54,12 @@ function cleanClue(clue) {
   return output;
 }
 
+function categoryNames(category) {
+  return [category.name, category.sourceName]
+    .map((value) => String(value || "").trim())
+    .filter((value, index, arr) => value && arr.indexOf(value) === index);
+}
+
 function cleanFinal(final) {
   return {
     category: String(final?.category || "Final"),
@@ -95,7 +101,7 @@ function buildTags(question, source, isFinal) {
     question.day,
     question.set,
     source.category,
-    isFinal ? "Final Wager" : `${Number(question.value)} points`,
+    isFinal ? "Final Wager" : `${Number(source.value || question.value)} points`,
     source.answer,
     question.source
   ]);
@@ -109,11 +115,16 @@ function finalKey(course, title, answer) {
   return [course, title, "final", 700, answer].map(normalize).join("|");
 }
 
+function answerKey(course, title, answer) {
+  return [course, title, answer].map(normalize).join("|");
+}
+
 function collectJeopardyBoards() {
   const games = JSON.parse(readFileSync(resolve(root, "games.json"), "utf8"));
   const boards = [];
   const clueIndex = new Map();
   const clueIdIndex = new Map();
+  const clueAnswerIndex = new Map();
   const finalIndex = new Map();
   const finalIdIndex = new Map();
   for (const meta of games.filter(isJeopardyManifestEntry)) {
@@ -134,6 +145,7 @@ function collectJeopardyBoards() {
       collection: meta.collection || "",
       categories: (game.categories || []).map((category) => ({
         name: category.name || "Review",
+        sourceName: category.sourceName || "",
         clues: (category.clues || []).map(cleanClue)
       })),
       final: cleanFinal(game.final)
@@ -141,13 +153,24 @@ function collectJeopardyBoards() {
     boards.push(bank);
     for (const category of bank.categories) {
       for (const clue of category.clues) {
-        const indexedClue = { ...clue, category: category.name };
+        const indexedClue = {
+          ...clue,
+          category: category.name,
+          id: bank.slug ? `jeopardy-${bank.slug}-${slug(category.name)}-${Number(clue.value)}` : `jeopardy-${bank.id}-${slug(category.name)}-${Number(clue.value)}`
+        };
         for (const course of courseOptions) {
-          clueIndex.set(clueKey(course, bank.title, category.name, clue.value, clue.answer), indexedClue);
+          clueAnswerIndex.set(answerKey(course, bank.title, clue.answer), indexedClue);
         }
-        clueIndex.set(clueKey("", bank.title, category.name, clue.value, clue.answer), indexedClue);
-        if (bank.slug) clueIdIndex.set(`jeopardy-${bank.slug}-${slug(category.name)}-${Number(clue.value)}`, indexedClue);
-        clueIdIndex.set(`jeopardy-${bank.id}-${slug(category.name)}-${Number(clue.value)}`, indexedClue);
+        clueAnswerIndex.set(answerKey("", bank.title, clue.answer), indexedClue);
+        if (bank.slug) clueAnswerIndex.set(answerKey("", bank.slug, clue.answer), indexedClue);
+        for (const categoryName of categoryNames(category)) {
+          for (const course of courseOptions) {
+            clueIndex.set(clueKey(course, bank.title, categoryName, clue.value, clue.answer), indexedClue);
+          }
+          clueIndex.set(clueKey("", bank.title, categoryName, clue.value, clue.answer), indexedClue);
+          if (bank.slug) clueIdIndex.set(`jeopardy-${bank.slug}-${slug(categoryName)}-${Number(clue.value)}`, indexedClue);
+          clueIdIndex.set(`jeopardy-${bank.id}-${slug(categoryName)}-${Number(clue.value)}`, indexedClue);
+        }
       }
     }
     for (const course of courseOptions) {
@@ -157,10 +180,10 @@ function collectJeopardyBoards() {
     if (bank.slug) finalIdIndex.set(`jeopardy-${bank.slug}-final`, bank.final);
     finalIdIndex.set(`jeopardy-${bank.id}-final`, bank.final);
   }
-  return { boards, clueIndex, clueIdIndex, finalIndex, finalIdIndex };
+  return { boards, clueIndex, clueIdIndex, clueAnswerIndex, finalIndex, finalIdIndex };
 }
 
-function syncChronoBank(clueIndex, clueIdIndex, finalIndex, finalIdIndex) {
+function syncChronoBank(clueIndex, clueIdIndex, clueAnswerIndex, finalIndex, finalIdIndex) {
   const file = resolve(root, "data", "chrono-defense-bank.json");
   const bank = JSON.parse(readFileSync(file, "utf8"));
   let updated = 0;
@@ -179,16 +202,25 @@ function syncChronoBank(clueIndex, clueIdIndex, finalIndex, finalIdIndex) {
     const index = isFinal ? finalIndex : clueIndex;
     const source = (isFinal && question.id ? finalIdIndex.get(question.id) : null) ||
       (!isFinal && question.id ? clueIdIndex.get(question.id) : null) ||
-      keys.map((key) => index.get(key)).find(Boolean);
+      keys.map((key) => index.get(key)).find(Boolean) ||
+      (!isFinal ? [
+        answerKey(question.course, question.set, question.answer),
+        answerKey(question.subject, question.set, question.answer),
+        answerKey("", question.set, question.answer)
+      ].map((key) => clueAnswerIndex.get(key)).find(Boolean) : null);
     if (!source) continue;
     const nextTags = buildTags(question, source, isFinal);
     if (
       question.prompt !== source.clue ||
       question.explanation !== source.explanation ||
       question.category !== source.category ||
+      Number(question.value) !== Number(source.value || question.value) ||
+      (!isFinal && source.id && question.id !== source.id) ||
       JSON.stringify(question.tags || []) !== JSON.stringify(nextTags)
     ) updated += 1;
     if (source.category) question.category = source.category;
+    if (!isFinal && source.value) question.value = Number(source.value);
+    if (!isFinal && source.id) question.id = source.id;
     question.prompt = source.clue;
     question.answer = source.answer;
     question.aliases = source.aliases;
@@ -210,8 +242,8 @@ function syncBossRush(boards) {
 }
 
 function main() {
-  const { boards, clueIndex, clueIdIndex, finalIndex, finalIdIndex } = collectJeopardyBoards();
-  const bankUpdates = syncChronoBank(clueIndex, clueIdIndex, finalIndex, finalIdIndex);
+  const { boards, clueIndex, clueIdIndex, clueAnswerIndex, finalIndex, finalIdIndex } = collectJeopardyBoards();
+  const bankUpdates = syncChronoBank(clueIndex, clueIdIndex, clueAnswerIndex, finalIndex, finalIdIndex);
   syncBossRush(boards);
   console.log(`Synced ${boards.length} Jeopardy boards into Boss Rush and refreshed ${bankUpdates} shared-bank prompts.`);
 }

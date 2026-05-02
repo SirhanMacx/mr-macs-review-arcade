@@ -3,49 +3,53 @@ const CHARACTERS = [
     id: "cleopatra",
     name: "Cleopatra VII",
     shortName: "Cleopatra",
-    role: "Diplomacy Driver",
-    vehicle: "Nile Comet",
+    role: "Nile Diplomat",
+    vehicle: "Nile Barge Kart",
     accent: "#66e9ff",
     body: "#1592b6",
-    sprite: "0% 0%",
+    spriteIndex: 0,
     stats: { speed: 7, handling: 9, boost: 6, weight: 5 },
-    perk: "Extra source time"
+    perk: "Longer clue timer",
+    bio: "Uses diplomacy, trade, and sharp handling to control tight turns."
   },
   {
     id: "mansa-musa",
     name: "Mansa Musa",
     shortName: "Mansa",
-    role: "Gold Road Heavyweight",
-    vehicle: "Mali Monarch",
+    role: "Mali Grand Tourer",
+    vehicle: "Gold Caravan Kart",
     accent: "#ffd15c",
     body: "#c38a1d",
-    sprite: "100% 0%",
+    spriteIndex: 1,
     stats: { speed: 9, handling: 5, boost: 7, weight: 9 },
-    perk: "High top speed"
+    perk: "High top speed",
+    bio: "A heavy kart built for straightaways, wealth routes, and late-race pressure."
   },
   {
     id: "harriet-tubman",
     name: "Harriet Tubman",
     shortName: "Tubman",
-    role: "Freedom Line Sprinter",
-    vehicle: "Liberty Lantern",
+    role: "Freedom Sprinter",
+    vehicle: "Lantern Rail Kart",
     accent: "#64f0aa",
     body: "#2aa365",
-    sprite: "0% 100%",
+    spriteIndex: 2,
     stats: { speed: 6, handling: 8, boost: 10, weight: 4 },
-    perk: "Longer boost chains"
+    perk: "Longer boost chains",
+    bio: "Fast recovery and powerful boosts make every item answer matter."
   },
   {
     id: "toussaint",
     name: "Toussaint Louverture",
     shortName: "Toussaint",
     role: "Revolution Racer",
-    vehicle: "Haiti Hurricane",
+    vehicle: "Liberty Banner Kart",
     accent: "#ff5f9f",
     body: "#bd3b85",
-    sprite: "100% 100%",
+    spriteIndex: 3,
     stats: { speed: 8, handling: 7, boost: 7, weight: 6 },
-    perk: "Faster recovery"
+    perk: "Faster recovery",
+    bio: "Balanced speed and grip with quick spin recovery after rival hits."
   },
   {
     id: "genghis-khan",
@@ -55,9 +59,10 @@ const CHARACTERS = [
     vehicle: "Yam Courier",
     accent: "#ff8a3d",
     body: "#b95c26",
-    sprite: "100% 0%",
+    spriteIndex: 4,
     stats: { speed: 10, handling: 4, boost: 7, weight: 8 },
-    perk: "Strong straightaways"
+    perk: "Strong straightaways",
+    bio: "Huge speed on open lanes, but the kart demands clean drift timing."
   },
   {
     id: "joan-of-arc",
@@ -67,21 +72,23 @@ const CHARACTERS = [
     vehicle: "Orleans Arrow",
     accent: "#b892ff",
     body: "#6747bd",
-    sprite: "0% 100%",
+    spriteIndex: 5,
     stats: { speed: 7, handling: 7, boost: 9, weight: 5 },
-    perk: "Quick drift sparks"
+    perk: "Quick drift sparks",
+    bio: "Drift sparks charge faster, rewarding aggressive cornering."
   },
   {
     id: "abraham-lincoln",
     name: "Abraham Lincoln",
     shortName: "Lincoln",
     role: "Union Power Driver",
-    vehicle: "Rail Splitter",
+    vehicle: "Rail-Splitter Engine",
     accent: "#8fb4ff",
     body: "#435d9f",
-    sprite: "0% 0%",
+    spriteIndex: 6,
     stats: { speed: 8, handling: 6, boost: 6, weight: 8 },
-    perk: "Better bump recovery"
+    perk: "Better bump recovery",
+    bio: "A sturdy rail kart that shrugs off bumps and holds its line."
   },
   {
     id: "sacagawea",
@@ -91,20 +98,21 @@ const CHARACTERS = [
     vehicle: "Compass Trail",
     accent: "#7dffb2",
     body: "#327a54",
-    sprite: "100% 100%",
+    spriteIndex: 7,
     stats: { speed: 6, handling: 10, boost: 6, weight: 4 },
-    perk: "Sharpest handling"
+    perk: "Sharpest handling",
+    bio: "The best choice for tight curves, shortcuts, and precise item lanes."
   }
 ];
 
 const TRACKS = [
   {
-    id: "source",
-    title: "Source Circuit",
-    subtitle: "Museum curves, source billboards, item cubes, and Regents stimulus questions.",
+    id: "regents",
+    title: "Regents Raceway",
+    subtitle: "A grand prix course built for mixed Global and U.S. review concepts.",
     accent: "#66e9ff",
     theme: "regents",
-    pool: "source",
+    pool: "all",
     sprite: "0% 0%",
     laps: 3
   },
@@ -145,7 +153,7 @@ const ITEMS = [
     id: "scroll",
     name: "Archive Boost",
     short: "Boost",
-    sprite: "0% 0%",
+    spriteIndex: 0,
     color: "#66e9ff",
     coach: "Correct. Archive Boost launched."
   },
@@ -153,7 +161,7 @@ const ITEMS = [
     id: "rocket",
     name: "Compass Rocket",
     short: "Rocket",
-    sprite: "100% 0%",
+    spriteIndex: 1,
     color: "#ffd15c",
     coach: "Correct. Compass Rocket hit the racer ahead."
   },
@@ -161,7 +169,7 @@ const ITEMS = [
     id: "shield",
     name: "Citation Shield",
     short: "Shield",
-    sprite: "0% 100%",
+    spriteIndex: 2,
     color: "#64f0aa",
     coach: "Correct. Citation Shield is active."
   },
@@ -169,15 +177,63 @@ const ITEMS = [
     id: "burst",
     name: "Debate Burst",
     short: "Burst",
-    sprite: "100% 100%",
+    spriteIndex: 3,
     color: "#ff5f9f",
     coach: "Correct. Debate Burst slowed the field."
   }
 ];
 
+const POWERUP_CLUE_FALLBACKS = [
+  { course: "Global", prompt: "Empire whose capital was Tenochtitlan.", answer: "Aztec Empire", explanation: "Tenochtitlan was the Aztec capital." },
+  { course: "Global", prompt: "Trade route that linked China, Central Asia, and Europe.", answer: "Silk Road", explanation: "The Silk Road moved goods and ideas across Eurasia." },
+  { course: "Global", prompt: "Belief system founded by Siddhartha Gautama.", answer: "Buddhism", explanation: "Siddhartha Gautama is the Buddha." },
+  { course: "Global", prompt: "Islamic pilgrimage to Mecca.", answer: "hajj", explanation: "The hajj is one of the Five Pillars of Islam." },
+  { course: "Global", prompt: "Mali ruler famous for his pilgrimage and wealth.", answer: "Mansa Musa", explanation: "Mansa Musa's hajj showed Mali's wealth." },
+  { course: "Global", prompt: "Revolution that began in France in 1789.", answer: "French Revolution", explanation: "The French Revolution challenged absolute monarchy." },
+  { course: "Global", prompt: "Policy of extending control over another region.", answer: "imperialism", explanation: "Imperialism is control over another people or territory." },
+  { course: "Global", prompt: "Economic system based on private ownership and profit.", answer: "capitalism", explanation: "Capitalism relies on private enterprise." },
+  { course: "Global", prompt: "Economic system where the state controls major resources.", answer: "communism", explanation: "Communism calls for collective or state control." },
+  { course: "Global", prompt: "Cold War alliance led by the Soviet Union.", answer: "Warsaw Pact", explanation: "The Warsaw Pact was the Soviet-led military alliance." },
+  { course: "Global", prompt: "Cold War alliance led by the United States.", answer: "NATO", explanation: "NATO united the U.S. and Western allies." },
+  { course: "Global", prompt: "South African system of legal racial segregation.", answer: "apartheid", explanation: "Apartheid separated people by race in South Africa." },
+  { course: "Global", prompt: "Indian independence leader who used nonviolence.", answer: "Mohandas Gandhi", explanation: "Gandhi used civil disobedience and nonviolence." },
+  { course: "Global", prompt: "Chinese dynastic cycle idea based on heavenly approval.", answer: "Mandate of Heaven", explanation: "The mandate justified dynastic rule and rebellion." },
+  { course: "Global", prompt: "Era that emphasized reason and natural rights.", answer: "Enlightenment", explanation: "Enlightenment thinkers argued for rights and reason." },
+  { course: "Global", prompt: "Factory-based shift from hand labor to machines.", answer: "Industrial Revolution", explanation: "Industrialization transformed production and cities." },
+  { course: "U.S.", prompt: "Document that declared independence in 1776.", answer: "Declaration of Independence", explanation: "The Declaration announced separation from Britain." },
+  { course: "U.S.", prompt: "First ten amendments to the Constitution.", answer: "Bill of Rights", explanation: "The Bill of Rights protects individual liberties." },
+  { course: "U.S.", prompt: "Principle that divides power among three branches.", answer: "separation of powers", explanation: "Separation of powers prevents one branch from dominating." },
+  { course: "U.S.", prompt: "System where branches limit each other.", answer: "checks and balances", explanation: "Checks and balances restrain government power." },
+  { course: "U.S.", prompt: "Supreme Court case that created judicial review.", answer: "Marbury v. Madison", explanation: "Marbury v. Madison established judicial review." },
+  { course: "U.S.", prompt: "Movement to end slavery.", answer: "abolitionism", explanation: "Abolitionists worked to end slavery." },
+  { course: "U.S.", prompt: "Network used to help enslaved people escape.", answer: "Underground Railroad", explanation: "The Underground Railroad helped people reach freedom." },
+  { course: "U.S.", prompt: "President who issued the Emancipation Proclamation.", answer: "Abraham Lincoln", explanation: "Lincoln issued it during the Civil War." },
+  { course: "U.S.", prompt: "Era after the Civil War focused on rebuilding the South.", answer: "Reconstruction", explanation: "Reconstruction tried to rebuild and redefine citizenship." },
+  { course: "U.S.", prompt: "Amendment that ended slavery.", answer: "13th Amendment", explanation: "The 13th Amendment abolished slavery." },
+  { course: "U.S.", prompt: "Amendment that guarantees equal protection.", answer: "14th Amendment", explanation: "The 14th Amendment protects citizenship and equality." },
+  { course: "U.S.", prompt: "Amendment that protected Black male voting rights.", answer: "15th Amendment", explanation: "The 15th Amendment barred race-based voting denial." },
+  { course: "U.S.", prompt: "Reform movement against alcohol.", answer: "temperance movement", explanation: "Temperance reformers pushed to reduce or ban alcohol." },
+  { course: "U.S.", prompt: "1920s era of Black cultural achievement.", answer: "Harlem Renaissance", explanation: "The Harlem Renaissance centered Black art and literature." },
+  { course: "U.S.", prompt: "New Deal program that created retirement benefits.", answer: "Social Security", explanation: "Social Security began during the New Deal." },
+  { course: "U.S.", prompt: "Cold War policy to stop communism from spreading.", answer: "containment", explanation: "Containment guided U.S. Cold War strategy." },
+  { course: "U.S.", prompt: "1954 school segregation case.", answer: "Brown v. Board of Education", explanation: "Brown ruled school segregation unconstitutional." },
+  { course: "U.S.", prompt: "Law that banned segregation in public places.", answer: "Civil Rights Act of 1964", explanation: "The act outlawed major forms of discrimination." },
+  { course: "U.S.", prompt: "Law that protected voting after Selma.", answer: "Voting Rights Act of 1965", explanation: "The act targeted barriers to voting." },
+  { course: "AP", prompt: "APUSH term for Jackson-era expansion of voting by white men.", answer: "Jacksonian democracy", explanation: "Jacksonian democracy widened white male suffrage." },
+  { course: "AP", prompt: "AP Gov principle that power comes from the people.", answer: "popular sovereignty", explanation: "Popular sovereignty means the people are the source of power." },
+  { course: "AP", prompt: "AP Psych memory loss for events before trauma.", answer: "retrograde amnesia", explanation: "Retrograde amnesia affects older memories." },
+  { course: "AP", prompt: "AP Macro measure of total output in an economy.", answer: "GDP", explanation: "GDP measures goods and services produced." },
+  { course: "AP", prompt: "AP Human Geo spread of ideas through contact.", answer: "contagious diffusion", explanation: "Contagious diffusion spreads person to person." },
+  { course: "AP", prompt: "AP World empire that used devshirme and janissaries.", answer: "Ottoman Empire", explanation: "The Ottomans used devshirme to staff elite service." },
+  { course: "AP", prompt: "AP Euro treaty that ended the Thirty Years' War.", answer: "Peace of Westphalia", explanation: "Westphalia ended the Thirty Years' War in 1648." },
+  { course: "AP", prompt: "AP Econ market structure with one seller.", answer: "monopoly", explanation: "A monopoly has a single seller." }
+];
+
 const els = {
   characterGrid: document.querySelector("#characterGrid"),
   trackGrid: document.querySelector("#trackGrid"),
+  driverPreview: document.querySelector("#driverPreview"),
+  chooseDriverBtn: document.querySelector("#chooseDriverBtn"),
   characterScreen: document.querySelector("#characterScreen"),
   trackScreen: document.querySelector("#trackScreen"),
   raceScreen: document.querySelector("#raceScreen"),
@@ -195,9 +251,6 @@ const els = {
   questionCard: document.querySelector("#questionCard"),
   questionMeta: document.querySelector("#questionMeta"),
   questionText: document.querySelector("#questionText"),
-  sourcePreview: document.querySelector("#sourcePreview"),
-  sourceImage: document.querySelector("#sourceImage"),
-  sourceCaption: document.querySelector("#sourceCaption"),
   timerBar: document.querySelector("#timerBar"),
   feedback: document.querySelector("#feedback"),
   answerDock: document.querySelector("#answerDock"),
@@ -212,10 +265,9 @@ const els = {
 
 const ctx = els.canvas.getContext("2d");
 const keys = new Set();
-const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
+let drivePointerId = null;
 const params = new URLSearchParams(location.search);
 const perfLite = params.get("perf") === "lite" || params.get("fx") === "lite" || matchMedia("(pointer: coarse)").matches || innerWidth < 760;
-const EMPTY_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 const TRACK_LENGTH = 5400;
 const VISIBLE_RANGE = 1150;
 const COUNTDOWN_SECONDS = 3.15;
@@ -227,11 +279,11 @@ function loadAsset(src) {
 }
 
 const ASSETS = {
-  keyArt: loadAsset("rally-64-key-art.webp"),
-  racers: loadAsset("rally-64-racers.webp"),
-  gameplayKarts: loadAsset("rally-64-gameplay-karts.webp"),
+  keyArt: loadAsset("rally-64-key-art-v2.webp"),
+  racers: loadAsset("rally-64-racers-v2.webp"),
+  gameplayKarts: loadAsset("rally-64-gameplay-karts-v2.webp"),
   tracks: loadAsset("rally-64-tracks.webp"),
-  items: loadAsset("rally-items.webp")
+  items: loadAsset("rally-items-v2.webp")
 };
 
 const state = {
@@ -336,9 +388,35 @@ function setToast(text, seconds = 1.5) {
   state.toastTime = seconds;
 }
 
+function spritePosition(index, columns = 4, rows = 2) {
+  const col = index % columns;
+  const row = Math.floor(index / columns) % rows;
+  const x = columns === 1 ? 0 : (col / (columns - 1)) * 100;
+  const y = rows === 1 ? 0 : (row / (rows - 1)) * 100;
+  return `${x}% ${y}%`;
+}
+
+function renderDriverPreview() {
+  const racer = state.character;
+  els.driverPreview.style.setProperty("--accent", racer.accent);
+  els.driverPreview.style.setProperty("--sprite", spritePosition(racer.spriteIndex, 4, 2));
+  els.driverPreview.innerHTML = `
+    <div class="preview-kart" aria-hidden="true"></div>
+    <div class="preview-copy">
+      <h2>${escapeHtml(racer.shortName)}</h2>
+      <p><strong>${escapeHtml(racer.vehicle)}</strong> · ${escapeHtml(racer.role)}<br>${escapeHtml(racer.bio || racer.perk)}</p>
+      <div class="stat-grid">
+        <div class="stat"><b>${racer.stats.speed}</b><span>Speed</span></div>
+        <div class="stat"><b>${racer.stats.handling}</b><span>Grip</span></div>
+        <div class="stat"><b>${racer.stats.boost}</b><span>Boost</span></div>
+      </div>
+    </div>
+  `;
+}
+
 function renderCharacters() {
   els.characterGrid.innerHTML = CHARACTERS.map((racer) => `
-    <button class="racer-card" type="button" style="--accent:${racer.accent};--sprite:${racer.sprite}" data-id="${racer.id}">
+    <button class="racer-card${racer.id === state.character.id ? " selected" : ""}" type="button" style="--accent:${racer.accent};--sprite:${spritePosition(racer.spriteIndex, 4, 2)}" data-id="${racer.id}">
       <div class="portrait" aria-hidden="true"></div>
       <h3>${escapeHtml(racer.name)}</h3>
       <p><strong>${escapeHtml(racer.role)}</strong><br>${escapeHtml(racer.vehicle)} · ${escapeHtml(racer.perk)}</p>
@@ -352,10 +430,12 @@ function renderCharacters() {
   els.characterGrid.querySelectorAll(".racer-card").forEach((button) => {
     button.addEventListener("click", () => {
       state.character = CHARACTERS.find((racer) => racer.id === button.dataset.id) || CHARACTERS[0];
-      showScreen(els.trackScreen);
+      renderCharacters();
+      renderDriverPreview();
       updateTopStats();
     });
   });
+  renderDriverPreview();
 }
 
 function renderTracks() {
@@ -383,114 +463,68 @@ function updateTopStats() {
   els.topStats.innerHTML = [
     state.character ? state.character.name : "Choose racer",
     state.track ? state.track.title : "Choose track",
-    state.banks ? "Banks loaded" : "Loading bank"
+    state.banks ? "Powerup clues loaded" : "Loading clues"
   ].map((text) => `<span>${escapeHtml(text)}</span>`).join("");
 }
 
 async function loadBanks() {
-  const [chrono, regents] = await Promise.all([
-    fetch("../../data/chrono-defense-bank.json").then((r) => r.json()),
-    fetch("../../data/regents-gauntlet-bank.json").then((r) => r.json())
-  ]);
-  state.banks = { chrono, regents };
+  const chrono = await fetch("../../data/chrono-defense-bank.json").then((r) => r.json());
+  state.banks = { chrono };
   updateTopStats();
 }
 
-function sourceBased(question) {
-  if (SourceBank) return SourceBank.sourceBased(question);
+function courseMatch(pool) {
+  if (pool === "us") return /U\.S\.|United States|Civics|Government|Grade 7|Grade 8|Grade 11|APUSH|AP U\.S\./i;
+  if (pool === "global") return /Global|World|European|Human Geography|Geography|Eastern|Western|Grade 5|Grade 6|Grade 9|Grade 10/i;
+  if (pool === "ap") return /^AP\b|AP |Advanced Placement/i;
+  return /./;
+}
+
+function hasSourceLanguage(question) {
+  const text = [question.prompt, question.stem, question.source, question.category].filter(Boolean).join(" ");
   return Boolean(
-    (question.stimulusImages && question.stimulusImages.length) ||
     question.stimulusRequired ||
-    /based on|according to|document|map|cartoon|graph|chart|excerpt|passage|photograph|source|illustration/i.test(question.stem || question.prompt || "")
+    (question.stimulusImages && question.stimulusImages.length) ||
+    /according to|based on|document|source|map|cartoon|graph|chart|excerpt|passage|photograph|image|shown/i.test(text)
   );
 }
 
-function sourceLock(question) {
-  if (SourceBank) return SourceBank.sourceLock(question);
-  const images = (question.stimulusImages || []).filter((image) => image && image.src);
-  return {
-    ok: Boolean(images.length),
-    needed: sourceBased(question),
-    reason: images.length ? "" : "Source image missing",
-    images,
-    identity: [question.course, question.source, images.map((image) => image.src).join("|")].join("::"),
-    label: images.length ? "Source matched" : "Source blocked"
-  };
-}
-
-function normalizeRegents(question) {
-  if (SourceBank && !SourceBank.usableRegentsQuestion(question)) return null;
-  const choices = (question.choices || []).slice(0, 4).map((choice) => String(choice.text || ""));
-  const correctIndex = (question.choices || []).slice(0, 4).findIndex((choice) => String(choice.label) === String(question.correct));
-  if (choices.length !== 4 || correctIndex < 0) return null;
-  const lock = sourceLock(question);
-  return {
-    prompt: cleanPrompt(question.stem || question.prompt),
-    choices,
-    correctIndex,
-    explanation: question.explanation || "Review the source, then eliminate the answer choices that overstate or distort it.",
-    course: question.course || "Regents Review",
-    set: question.set || question.day || "",
-    source: question.source || "",
-    images: lock.images || [],
-    sourceLock: lock
-  };
-}
-
-function normalizeChrono(question, rawPool, globalAnswers) {
-  if (question.choices && question.choices.length >= 4) {
-    const choices = question.choices.slice(0, 4).map((choice) => String(choice.text || ""));
-    const correctIndex = question.choices.slice(0, 4).findIndex((choice) => String(choice.label) === String(question.correct));
-    if (correctIndex >= 0) {
-      return {
-        prompt: cleanPrompt(question.stem || question.prompt),
-        choices,
-        correctIndex,
-        explanation: question.explanation || "Use the wording of the clue to eliminate close distractors.",
-        course: question.course || "Review Arcade",
-        set: question.set || question.day || "",
-        source: question.source || question.category || "",
-        images: question.stimulusImages || []
-      };
-    }
-  }
-  if (!question.answer || !question.prompt) return null;
-  const sameCourse = rawPool.filter((item) => item.answer && item.answer !== question.answer && item.course === question.course).map((item) => item.answer);
-  const distractors = uniq(shuffle(sameCourse.length >= 3 ? sameCourse : globalAnswers).filter((answer) => answer !== question.answer)).slice(0, 3);
+function normalizePowerupClue(question, rawPool, answerPool) {
+  const prompt = cleanPrompt(question.prompt || question.stem || "");
+  const answer = String(question.answer || "").trim();
+  if (!prompt || !answer) return null;
+  if (hasSourceLanguage(question)) return null;
+  if (prompt.length > 145 || answer.length > 46) return null;
+  if (/[?]/.test(prompt) && prompt.length > 95) return null;
+  const sameCourse = rawPool
+    .filter((item) => item.answer && item.answer !== answer && item.course === question.course)
+    .map((item) => String(item.answer).trim());
+  const distractors = uniq(shuffle((sameCourse.length >= 3 ? sameCourse : answerPool).filter((choice) => choice && choice !== answer && choice.length <= 46))).slice(0, 3);
   if (distractors.length < 3) return null;
-  const answerSet = shuffle([question.answer, ...distractors]);
+  const choices = shuffle([answer, ...distractors]);
   return {
-    prompt: cleanPrompt(question.prompt),
-    choices: answerSet,
-    correctIndex: answerSet.findIndex((choice) => choice === question.answer),
-    explanation: question.explanation || `Correct answer: ${question.answer}`,
+    prompt,
+    answer,
+    choices,
+    correctIndex: choices.findIndex((choice) => choice === answer),
+    explanation: question.explanation || `Correct answer: ${answer}`,
     course: question.course || "Review Arcade",
-    set: question.set || question.day || "",
-    source: question.source || question.category || "",
-    images: []
+    set: question.category || question.day || "Powerup Clue"
   };
 }
 
 function poolForTrack(track) {
-  const chronoRaw = (state.banks?.chrono?.questions || []).filter((q) => q.answer || q.choices);
-  const regentsRaw = state.banks?.regents?.questions || [];
-  const globalAnswers = uniq(chronoRaw.map((q) => q.answer));
-  if (track.pool === "source") {
-    return shuffle(regentsRaw.filter(sourceBased).map(normalizeRegents).filter(Boolean));
-  }
-  const filters = {
-    us: /U\.S\.|United States|Civics|Government|Grade 7|Grade 8|Grade 11|APUSH|AP U\.S\./i,
-    global: /Global|World|European|Human Geography|Geography|Eastern|Western|Grade 5|Grade 6|Grade 9|Grade 10/i,
-    ap: /^AP\b|AP |Advanced Placement/i
-  };
-  const regex = filters[track.pool] || /./;
-  const filteredChrono = chronoRaw.filter((q) => regex.test(q.course || ""));
-  const chrono = filteredChrono.map((q) => normalizeChrono(q, filteredChrono, globalAnswers)).filter(Boolean);
-  const regents = regentsRaw
-    .filter((q) => track.pool === "us" ? /U\.S\.|United States|Grade 11/i.test(q.course || "") : /Global|Grade 10/i.test(q.course || ""))
-    .map(normalizeRegents)
+  const chronoRaw = (state.banks?.chrono?.questions || [])
+    .filter((q) => q.answer && q.prompt && !hasSourceLanguage(q));
+  const fallbackRaw = POWERUP_CLUE_FALLBACKS.map((q) => ({ ...q, category: "Powerup Clue" }));
+  const raw = [...chronoRaw, ...fallbackRaw];
+  const regex = courseMatch(track.pool);
+  const filtered = raw.filter((q) => regex.test(q.course || "") || track.pool === "all");
+  const answerPool = uniq(raw.map((q) => String(q.answer || "").trim()).filter((answer) => answer.length <= 46));
+  const pool = filtered
+    .map((q) => normalizePowerupClue(q, filtered, answerPool))
     .filter(Boolean);
-  return shuffle([...regents, ...chrono]);
+  return shuffle(pool.length >= 20 ? pool : fallbackRaw.map((q) => normalizePowerupClue(q, fallbackRaw, answerPool)).filter(Boolean));
 }
 
 function startRace() {
@@ -592,11 +626,12 @@ function openItemQuestion() {
   state.quizOpen = true;
   state.resolved = false;
   state.selected = 0;
-  state.answerSeconds = question.images.length || state.character.id === "cleopatra" ? 22 : 16;
+  state.answerSeconds = state.character.id === "cleopatra" ? 8 : 6;
   state.deadline = Date.now() + state.answerSeconds * 1000;
   renderQuestion();
   els.questionCard.classList.remove("hidden");
   els.questionCard.classList.add("active");
+  setToast("POWERUP CLUE", 0.8);
 }
 
 function closeItemQuestion() {
@@ -609,24 +644,10 @@ function closeItemQuestion() {
 
 function renderQuestion() {
   const q = state.current;
-  els.questionMeta.textContent = [state.item.name, q.course, q.set, q.source].filter(Boolean).join(" · ");
+  els.questionMeta.textContent = [state.item.name, q.course, q.set].filter(Boolean).join(" · ");
   els.questionText.textContent = q.prompt;
-  if (q.images.length) {
-    els.sourcePreview.classList.remove("hidden");
-    els.sourceImage.hidden = false;
-    els.sourceImage.src = q.images[0].src;
-    els.sourceImage.alt = q.images[0].label || "Source stimulus";
-    const lock = q.sourceLock || { ok: true, label: "Source matched", reason: "" };
-    els.sourceCaption.innerHTML = `<span class="source-lock-pill ${lock.ok ? "ok" : "warn"}">${escapeHtml(lock.label)}${lock.reason ? " · " + escapeHtml(lock.reason) : ""}</span> ${escapeHtml(q.images[0].label || "Source stimulus")}`;
-  } else {
-    els.sourcePreview.classList.add("hidden");
-    els.sourceImage.hidden = true;
-    els.sourceImage.src = EMPTY_PIXEL;
-    els.sourceImage.alt = "";
-    els.sourceCaption.textContent = "";
-  }
   els.feedback.className = "feedback";
-  els.feedback.textContent = "Answer correctly to activate the item.";
+  els.feedback.textContent = "Pick the answer to fire this item.";
   els.answerDock.innerHTML = q.choices.map((choice, index) => `
     <button class="answer-btn" type="button" data-index="${index}">
       <b>${String.fromCharCode(65 + index)}</b>
@@ -717,7 +738,7 @@ function applyItem(item) {
 function collectItem(box) {
   if (box.taken || state.item || state.quizOpen) return;
   box.taken = true;
-  state.item = ITEMS[Math.floor(Math.random() * ITEMS.length)];
+  state.item = box.item;
   state.score += 120;
   updateItemHud();
   setToast("ITEM READY", 1.1);
@@ -727,8 +748,8 @@ function collectItem(box) {
 function updateItemHud() {
   if (state.item) {
     els.hudItem.textContent = state.item.name;
-    els.itemThumb.style.backgroundImage = "url('rally-items.webp')";
-    els.itemThumb.style.backgroundPosition = state.item.sprite;
+    els.itemThumb.style.backgroundImage = "url('rally-items-v2.webp')";
+    els.itemThumb.style.backgroundPosition = spritePosition(state.item.spriteIndex, 2, 2);
     els.itemThumb.classList.add("ready");
     els.itemBtn.disabled = false;
   } else {
@@ -771,13 +792,13 @@ function finishRace() {
     [`${accuracy}%`, "accuracy"]
   ].map(([big, label]) => `<div><strong>${escapeHtml(big)}</strong><span>${escapeHtml(label)}</span></div>`).join("");
   els.coachText.textContent = accuracy >= 85
-    ? "Strong item control. Keep racing Source Circuit, then move into the full Regents practice exam."
+    ? "Strong item control. Keep racing Rally 64, then move into a full practice exam."
     : accuracy >= 60
-      ? "Good racing base. The next jump is reading source captions before firing items."
-      : "Replay one track and use fewer panic items. Correct item questions matter more than raw speed.";
+      ? "Good racing base. The next jump is faster recall before firing items."
+      : "Replay one cup and use fewer panic items. Correct powerup clues matter more than raw speed.";
   window.MrMacsAnalytics?.track("game_complete", {
     gameId: "regents-rally-source-circuit",
-    title: "Regents Rally: Source Circuit",
+    title: "Regents Rally 64",
     score: accuracy,
     questions: state.attempts
   }, { counter: "game-completions" });
@@ -797,8 +818,8 @@ function tick(now) {
   if (!state.running) return;
   const dt = Math.min(48, now - state.lastFrame) / 1000;
   state.lastFrame = now;
-  if (!state.paused && !state.quizOpen) {
-    updateRace(dt);
+  if (!state.paused) {
+    updateRace(state.quizOpen ? dt * 0.18 : dt);
   }
   updateHud();
   drawRace(now, dt);
@@ -1231,17 +1252,26 @@ function trackPhase() {
 
 function roadCurveAt(distance, n = 0) {
   const phase = trackPhase();
-  const longCurve = Math.sin(distance * 0.0009 + phase) * 64;
-  const midCurve = Math.sin(distance * 0.0022 + n * 5.3 + phase * 1.7) * 74 * (1 - n);
-  const snapCurve = Math.sin(distance * 0.0046 + n * 2.1 + phase) * 14 * (1 - n);
+  const longCurve = Math.sin(distance * 0.00072 + phase) * 92;
+  const midCurve = Math.sin(distance * 0.0019 + n * 5.3 + phase * 1.7) * 102 * (1 - n);
+  const snapCurve = Math.sin(distance * 0.0041 + n * 2.1 + phase) * 18 * (1 - n);
   return longCurve + midCurve + snapCurve;
 }
 
+function roadHillAt(distance, n = 0) {
+  const phase = trackPhase();
+  return (
+    Math.sin(distance * 0.00105 + phase * 1.3) * 26 +
+    Math.sin(distance * 0.0024 + phase + n * 3.1) * 16 * (1 - n)
+  );
+}
+
 function roadPoint(n, w, h) {
-  const horizon = h * 0.39;
+  const horizon = h * 0.385 + Math.sin(state.distance * 0.0008 + trackPhase()) * 11;
   const depth = n * n;
-  const y = horizon + depth * (h - horizon + 120);
-  const roadWidth = 120 + depth * w * 1.08;
+  const hill = roadHillAt(state.distance + n * VISIBLE_RANGE * 1.04, n) * (1 - n * 0.42);
+  const y = horizon + depth * (h - horizon + 120) - hill;
+  const roadWidth = 100 + depth * w * 1.16;
   const curve = roadCurveAt(state.distance + n * VISIBLE_RANGE * 1.04, n) * (0.38 + n * 0.72);
   return { x: w / 2 + curve, y, roadWidth };
 }
@@ -1662,8 +1692,15 @@ function drawToast(w, h) {
   ctx.restore();
 }
 
-function spriteRect(image, sprite) {
+function spriteRect(image, sprite, columns = 2, rows = 2) {
   if (!image.complete || !image.naturalWidth) return null;
+  if (typeof sprite === "number") {
+    const cellW = image.naturalWidth / columns;
+    const cellH = image.naturalHeight / rows;
+    const col = sprite % columns;
+    const row = Math.floor(sprite / columns) % rows;
+    return { sx: col * cellW, sy: row * cellH, sw: cellW, sh: cellH };
+  }
   const halfW = image.naturalWidth / 2;
   const halfH = image.naturalHeight / 2;
   const col = String(sprite).startsWith("100") ? 1 : 0;
@@ -1671,8 +1708,8 @@ function spriteRect(image, sprite) {
   return { sx: col * halfW, sy: row * halfH, sw: halfW, sh: halfH };
 }
 
-function drawSpriteCover(image, sprite, x, y, width, height) {
-  const rect = spriteRect(image, sprite);
+function drawSpriteCover(image, sprite, x, y, width, height, columns = 2, rows = 2) {
+  const rect = spriteRect(image, sprite, columns, rows);
   if (!rect) return false;
   const sourceRatio = rect.sw / rect.sh;
   const targetRatio = width / height;
@@ -1691,8 +1728,8 @@ function drawSpriteCover(image, sprite, x, y, width, height) {
   return true;
 }
 
-function drawSpriteStretch(image, sprite, x, y, width, height) {
-  const rect = spriteRect(image, sprite);
+function drawSpriteStretch(image, sprite, x, y, width, height, columns = 2, rows = 2) {
+  const rect = spriteRect(image, sprite, columns, rows);
   if (!rect) return false;
   ctx.drawImage(image, rect.sx, rect.sy, rect.sw, rect.sh, x, y, width, height);
   return true;
@@ -1700,7 +1737,7 @@ function drawSpriteStretch(image, sprite, x, y, width, height) {
 
 function drawGameplayKartSprite(racer, x, y, width, height) {
   if (ASSETS.gameplayKarts.complete && ASSETS.gameplayKarts.naturalWidth) {
-    drawSpriteStretch(ASSETS.gameplayKarts, racer.sprite, x, y, width, height);
+    drawSpriteStretch(ASSETS.gameplayKarts, racer.spriteIndex, x, y, width, height, 4, 2);
     return;
   }
   drawRacerSprite(racer, x, y, width, height, height * 0.14);
@@ -1711,7 +1748,7 @@ function drawRacerSprite(racer, x, y, width, height, radius) {
   ctx.save();
   roundRect(x, y, width, height, radius);
   ctx.clip();
-  drawSpriteCover(ASSETS.racers, racer.sprite, x, y, width, height);
+  drawSpriteCover(ASSETS.racers, racer.spriteIndex, x, y, width, height, 4, 2);
   const shine = ctx.createLinearGradient(x, y, x + width, y + height);
   shine.addColorStop(0, "rgba(255,255,255,.18)");
   shine.addColorStop(0.5, "rgba(255,255,255,0)");
@@ -1726,7 +1763,7 @@ function drawItemSprite(item, x, y, width, height, radius) {
   ctx.save();
   roundRect(x, y, width, height, radius);
   ctx.clip();
-  drawSpriteCover(ASSETS.items, item.sprite, x, y, width, height);
+  drawSpriteCover(ASSETS.items, item.spriteIndex, x, y, width, height, 2, 2);
   ctx.restore();
 }
 
@@ -1778,25 +1815,50 @@ document.addEventListener("keyup", (event) => {
   keys.delete(key);
 });
 
+function updateDrivePointer(event) {
+  const rect = els.canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+  keys.add("ArrowUp");
+  keys.delete("ArrowLeft");
+  keys.delete("ArrowRight");
+  keys.delete(" ");
+  if (x < rect.width * 0.44) keys.add("ArrowLeft");
+  else if (x > rect.width * 0.56) keys.add("ArrowRight");
+  if (y > rect.height * 0.58 && (x < rect.width * 0.38 || x > rect.width * 0.62)) keys.add(" ");
+}
+
+function clearDrivePointer() {
+  drivePointerId = null;
+  keys.delete("ArrowLeft");
+  keys.delete("ArrowRight");
+  keys.delete("ArrowUp");
+  keys.delete(" ");
+}
+
 els.canvas.addEventListener("pointerdown", (event) => {
   if (!state.running || state.quizOpen) return;
   const rect = els.canvas.getBoundingClientRect();
   const x = event.clientX - rect.left;
-  keys.add("ArrowUp");
-  if (x < rect.width * 0.38) keys.add("ArrowLeft");
-  else if (x > rect.width * 0.62) keys.add("ArrowRight");
-  else openItemQuestion();
+  if (x > rect.width * 0.43 && x < rect.width * 0.57 && state.item) {
+    openItemQuestion();
+    return;
+  }
+  drivePointerId = event.pointerId;
+  els.canvas.setPointerCapture?.(event.pointerId);
+  updateDrivePointer(event);
+});
+
+els.canvas.addEventListener("pointermove", (event) => {
+  if (drivePointerId !== event.pointerId || !state.running || state.quizOpen) return;
+  updateDrivePointer(event);
 });
 
 els.canvas.addEventListener("pointerup", () => {
-  keys.delete("ArrowLeft");
-  keys.delete("ArrowRight");
-  keys.delete("ArrowUp");
+  clearDrivePointer();
 });
 els.canvas.addEventListener("pointercancel", () => {
-  keys.delete("ArrowLeft");
-  keys.delete("ArrowRight");
-  keys.delete("ArrowUp");
+  clearDrivePointer();
 });
 
 document.querySelectorAll("[data-hold-key]").forEach((button) => {
@@ -1823,6 +1885,10 @@ document.querySelector("[data-tap-item]")?.addEventListener("click", (event) => 
 });
 
 els.itemBtn.addEventListener("click", openItemQuestion);
+els.chooseDriverBtn.addEventListener("click", () => {
+  showScreen(els.trackScreen);
+  updateTopStats();
+});
 els.pauseBtn.addEventListener("click", () => {
   state.paused = !state.paused;
   els.pauseBtn.textContent = state.paused ? "Resume" : "Pause";
@@ -1836,8 +1902,21 @@ els.againBtn.addEventListener("click", () => showScreen(els.trackScreen));
 els.backToCharacters.addEventListener("click", () => showScreen(els.characterScreen));
 addEventListener("resize", resizeCanvas, { passive: true });
 
+if (params.get("debug") === "1") {
+  window.__RegentsRally64 = {
+    state,
+    startRace,
+    triggerItemClue() {
+      if (!state.running) startRace();
+      state.item = ITEMS[0];
+      updateItemHud();
+      openItemQuestion();
+    }
+  };
+}
+
 renderCharacters();
 renderTracks();
 loadBanks().catch(() => {
-  els.topStats.innerHTML = "<span>Question bank failed to load</span>";
+  els.topStats.innerHTML = "<span>Powerup clues failed to load</span>";
 });

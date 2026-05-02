@@ -54,7 +54,7 @@ function baseArt(game) {
   if (haystack.includes("mastery-path")) return "assets/portal-card.webp";
   if (haystack.includes("source-lab")) return "assets/regents-gauntlet-arena.png";
   if (haystack.includes("writing-coach")) return "assets/regents-gauntlet-arena-lite.jpg";
-  if (haystack.includes("regents-rally")) return "games/regents-rally-source-circuit/rally-64-key-art.webp";
+  if (haystack.includes("regents-rally")) return "games/regents-rally-source-circuit/rally-64-key-art-v2.webp";
   if (haystack.includes("cold-war-invaders")) return "games/cold-war-invaders/assets/cold-war-invaders-atari-sheet.webp";
   if (haystack.includes("archive-quest")) return "assets/archive-quest/background.webp";
   if (haystack.includes("history-hunters")) return "assets/history-hunters/overworld-map.webp";

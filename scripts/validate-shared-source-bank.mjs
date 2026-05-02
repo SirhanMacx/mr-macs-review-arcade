@@ -27,7 +27,6 @@ const sourceBankConsumers = [
   "games/source-audit/game.js",
   "games/source-lab/game.js",
   "games/regents-practice-exam/game.js",
-  "games/regents-rally-source-circuit/game.js",
   "games/chrono-pinball/game.js"
 ];
 for (const rel of sourceBankConsumers) {
@@ -73,7 +72,6 @@ const scriptConsumers = [
   "games/cold-war-invaders/index.html",
   "games/source-audit/index.html",
   "games/regents-practice-exam/index.html",
-  "games/regents-rally-source-circuit/index.html",
   "games/mastery-path/index.html",
   "games/source-lab/index.html",
   "games/writing-coach/index.html"
@@ -152,7 +150,8 @@ function promptQuality(question) {
   const prompt = String(question.prompt || question.stem || "").trim();
   const answer = String(answerText(question) || "").trim();
   const directResponse = !(question.choices || []).length && !!answer;
-  const tooShort = directResponse && wordCount(prompt) < 8;
+  const jeopardyStyle = /^jeopardy/i.test(String(question.type || "")) || /jeopardy/i.test(String(question.source || ""));
+  const tooShort = directResponse && wordCount(prompt) < (jeopardyStyle ? 3 : 8);
   const synthesis = /use one specific example to explain why it matters/i.test(prompt);
   const weakLead = /^this\s+(explains|is|was|describes|refers to)\b/i.test(prompt);
   const answerLeak = directResponse && answer.length >= 4
@@ -163,7 +162,8 @@ function promptQuality(question) {
     tooShort,
     synthesis,
     weakLead,
-    answerLeak
+    answerLeak,
+    jeopardyStyle
   };
 }
 

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>Regents Rally: Source Circuit - Mr. Mac's Review Arcade</title>
-<link rel="stylesheet" href="styles.css?v=20260501-platform-polish">
+<title>Regents Rally 64 - Mr. Mac's Review Arcade</title>
+<link rel="stylesheet" href="styles.css?v=20260502-rally64">
 </head>
 <body>
 <div class="scene-bg" aria-hidden="true"></div>
@@ -13,26 +13,28 @@
   <header class="topbar">
     <a class="brand" href="../../index.html" aria-label="Back to arcade">
       <span class="brand-mark">RR</span>
-      <span><small>Mr. Mac's Arcade</small><strong>Regents Rally</strong></span>
+      <span><small>Mr. Mac's Arcade</small><strong>Regents Rally 64</strong></span>
     </a>
     <div class="top-stats" id="topStats">
-      <span>Historical Drivers</span><span>Item Questions</span><span>Grand Prix</span>
+      <span>Historical Drivers</span><span>Powerup Clues</span><span>Grand Prix</span>
     </div>
   </header>
 
   <section class="screen active" id="characterScreen">
     <div class="hero-panel">
       <div class="kicker">Historical Kart Grand Prix</div>
-      <h1>Source Circuit</h1>
-      <p>Pick a historical driver, race the circuit, grab item cubes, answer a Regents question to unlock the item, then fire boosts, shields, and attacks at the field.</p>
+      <h1>Regents Rally 64</h1>
+      <p>Pick a historical driver, race animated 64-bit courses, grab item cubes, answer a fast review clue, then launch boosts, shields, and rival attacks.</p>
+      <div class="driver-preview" id="driverPreview" aria-live="polite"></div>
       <div class="mini-strip launch-strip">
-        <span>8 historical drivers</span><span>4 tracks</span><span>question items</span><span>Regents sources</span>
+        <span>8 historical drivers</span><span>4 cups</span><span>drift boosts</span><span>powerup clues</span>
       </div>
+      <button class="btn primary choose-driver" id="chooseDriverBtn" type="button">Choose Driver</button>
     </div>
     <section class="select-panel">
       <div class="panel-head">
         <span>Step 1</span>
-        <h2>Choose Driver</h2>
+        <h2>Driver Select</h2>
       </div>
       <div class="character-grid" id="characterGrid"></div>
     </section>
@@ -42,7 +44,7 @@
     <section class="select-panel wide">
       <div class="panel-head">
         <span>Step 2</span>
-        <h2>Choose Track</h2>
+        <h2>Cup Select</h2>
       </div>
       <div class="track-grid" id="trackGrid"></div>
       <div class="actions">
@@ -70,10 +72,6 @@
       <div class="question-shell">
         <div class="question-meta" id="questionMeta">Loading...</div>
         <h2 id="questionText">Loading question...</h2>
-        <figure class="source-preview hidden" id="sourcePreview">
-          <img id="sourceImage" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" hidden>
-          <figcaption id="sourceCaption">Source</figcaption>
-        </figure>
         <div class="timer"><i id="timerBar"></i></div>
         <div class="answer-dock" id="answerDock"></div>
         <div class="feedback" id="feedback">Answer to activate the item.</div>
@@ -108,7 +106,6 @@
   </section>
 </main>
 <script src="../../assets/arcade-analytics.js"></script>
-<script src="../../assets/source-bank.js?v=20260501-sourcebank"></script>
-<script type="module" src="game.js?v=20260501-sourcebank"></script>
+<script type="module" src="game.js?v=20260502-rally64"></script>
 </body>
 </html>

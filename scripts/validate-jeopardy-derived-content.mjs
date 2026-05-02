@@ -43,6 +43,10 @@ function finalKey(course, title, answer) {
   return [course, title, "final", 700, answer].map(normalize).join("|");
 }
 
+function answerKey(course, title, answer) {
+  return [course, title, answer].map(normalize).join("|");
+}
+
 function uniqueList(values) {
   const seen = new Set();
   const output = [];
@@ -66,9 +70,16 @@ function buildTags(question, source, isFinal) {
   ]);
 }
 
+function categoryNames(category) {
+  return [category.name, category.sourceName]
+    .map((value) => String(value || "").trim())
+    .filter((value, index, arr) => value && arr.indexOf(value) === index);
+}
+
 const games = JSON.parse(readFileSync(resolve(root, "games.json"), "utf8"));
 const clueIndex = new Map();
 const clueIdIndex = new Map();
+const clueAnswerIndex = new Map();
 const finalIndex = new Map();
 const finalIdIndex = new Map();
 let boardCount = 0;
@@ -84,11 +95,21 @@ for (const meta of games.filter(isJeopardyManifestEntry)) {
   const courses = [meta.course, game.exam, game.course, ""].filter((value, index, arr) => arr.indexOf(value) === index);
   for (const category of game.categories || []) {
     for (const clue of category.clues || []) {
-      const indexedClue = { ...clue, category: category.name };
+      const indexedClue = {
+        ...clue,
+        category: category.name,
+        id: game.slug ? `jeopardy-${game.slug}-${normalize(category.name).replace(/\s+/g, "-")}-${Number(clue.value)}` : ""
+      };
       for (const course of courses) {
-        clueIndex.set(clueKey(course, title, category.name, clue.value, clue.answer), indexedClue);
+        clueAnswerIndex.set(answerKey(course, title, clue.answer), indexedClue);
       }
-      if (game.slug) clueIdIndex.set(`jeopardy-${game.slug}-${normalize(category.name).replace(/\s+/g, "-")}-${Number(clue.value)}`, indexedClue);
+      if (game.slug) clueAnswerIndex.set(answerKey("", game.slug, clue.answer), indexedClue);
+      for (const categoryName of categoryNames(category)) {
+        for (const course of courses) {
+          clueIndex.set(clueKey(course, title, categoryName, clue.value, clue.answer), indexedClue);
+        }
+        if (game.slug) clueIdIndex.set(`jeopardy-${game.slug}-${normalize(categoryName).replace(/\s+/g, "-")}-${Number(clue.value)}`, indexedClue);
+      }
     }
   }
   if (game.final?.answer) {
@@ -117,7 +138,12 @@ for (const question of chrono.questions || []) {
   ];
   const source = (isFinal && question.id ? finalIdIndex.get(question.id) : null) ||
     (!isFinal && question.id ? clueIdIndex.get(question.id) : null) ||
-    keys.map((key) => (isFinal ? finalIndex : clueIndex).get(key)).find(Boolean);
+    keys.map((key) => (isFinal ? finalIndex : clueIndex).get(key)).find(Boolean) ||
+    (!isFinal ? [
+      answerKey(question.course, question.set, question.answer),
+      answerKey(question.subject, question.set, question.answer),
+      answerKey("", question.set, question.answer)
+    ].map((key) => clueAnswerIndex.get(key)).find(Boolean) : null);
   if (!source) {
     errors.push(`${question.id || question.set}: no source board match for ${isFinal ? "final" : "regular"} Jeopardy item`);
     continue;
@@ -125,6 +151,8 @@ for (const question of chrono.questions || []) {
   if (question.prompt !== source.clue) errors.push(`${question.id || question.set}: stale prompt`);
   if (question.explanation !== source.explanation) errors.push(`${question.id || question.set}: stale explanation`);
   if (source.category && question.category !== source.category) errors.push(`${question.id || question.set}: stale category`);
+  if (!isFinal && Number(question.value) !== Number(source.value)) errors.push(`${question.id || question.set}: stale value`);
+  if (!isFinal && source.id && question.id !== source.id) errors.push(`${question.id || question.set}: stale id`);
   const expectedTags = buildTags(question, source, isFinal);
   if (JSON.stringify(question.tags || []) !== JSON.stringify(expectedTags)) errors.push(`${question.id || question.set}: stale tags`);
   checked += 1;

@@ -159,7 +159,8 @@
     var prompt = String(question.prompt || question.stem || "").trim();
     var answer = String(answerText(question) || "").trim();
     var directResponse = !cleanList(question.choices).length && !!answer;
-    var tooShort = directResponse && wordCount(prompt) < 8;
+    var jeopardyStyle = /^jeopardy/i.test(String(question.type || "")) || /jeopardy/i.test(String(question.source || ""));
+    var tooShort = directResponse && wordCount(prompt) < (jeopardyStyle ? 3 : 8);
     var synthesis = /use one specific example to explain why it matters/i.test(prompt);
     var weakLead = /^this\s+(explains|is|was|describes|refers to)\b/i.test(prompt);
     var answerLeak = false;
@@ -172,6 +173,7 @@
       prompt: prompt,
       answer: answer,
       directResponse: directResponse,
+      jeopardyStyle: jeopardyStyle,
       tooShort: tooShort,
       synthesis: synthesis,
       weakLead: weakLead,

@@ -29,7 +29,7 @@ function requireAsset(path, minBytes = 2048) {
 }
 
 requireText("index.html", [
-  '["history-hunters", "archive-quest", "regents-practice-exam", "ap-practice-exam", "cold-war-invaders"]',
+  '["history-hunters", "archive-quest", "cold-war-invaders", "regents-rally-source-circuit", "regents-practice-exam", "ap-practice-exam"]',
   "FEATURED_GAME_IDS",
   "featuredBadges",
   "featured-rank",
@@ -41,7 +41,7 @@ requireText("index.html", [
   '"play-lane"',
   '"history-hunters"',
   '"cold-war-invaders"',
-  'if (game.id === "regents-rally-source-circuit") return 6',
+  'if (game.id === "regents-rally-source-circuit") return -4.4',
   "assets/game-thumbnails/"
 ]);
 
