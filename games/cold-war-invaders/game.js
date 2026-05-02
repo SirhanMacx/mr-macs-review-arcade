@@ -35,6 +35,7 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const mobileControls = matchMedia("(max-width: 820px)");
 const params = new URLSearchParams(location.search);
 const perfLite = params.get("perf") === "lite" || params.get("fx") === "lite" || matchMedia("(pointer: coarse)").matches || innerWidth < 760;
+const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 
 const ASSETS = {
   sheet: new Image(),
@@ -188,6 +189,13 @@ function clean(text) {
   return String(text || "").replace(/\s+/g, " ").trim();
 }
 
+function isPlayableQuestion(q) {
+  if (!q || !(q.answer || q.choices) || !(q.prompt || q.stem)) return false;
+  if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
+  if (SourceBank && q.type === "mcq" && SourceBank.sourceBased(q) && SourceBank.hasStimulusImages(q) && !SourceBank.usableRegentsQuestion(q)) return false;
+  return true;
+}
+
 function normalizeQuestion(q) {
   if (!q) return null;
   if (Array.isArray(q.choices) && q.choices.length >= 4) {
@@ -226,7 +234,7 @@ async function loadBank() {
   try {
     const response = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
     const data = await response.json();
-    const raw = (data.questions || []).filter((q) => q.answer || q.choices);
+    const raw = (data.questions || []).filter(isPlayableQuestion);
     const cold = raw.filter((q) => COLD_RE.test(questionText(q)));
     state.bank = cold.length >= 40 ? cold : raw.filter((q) => /Cold War|Foreign Policy|Global Conflict|Modern Era|APUSH|AP World|AP European|Grade 8|Grade 10|Grade 11/i.test(questionText(q)));
   } catch {

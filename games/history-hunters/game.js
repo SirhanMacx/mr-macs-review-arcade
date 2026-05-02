@@ -5,6 +5,7 @@
   const WORLD_W = 5200;
   const WORLD_H = 3400;
   const $ = (id) => document.getElementById(id);
+  const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 
   const els = {
     canvas: $("world"),
@@ -878,6 +879,7 @@
   }
 
   function stimulusImagesFor(q) {
+    if (SourceBank) return SourceBank.stimulusImages(q);
     if (!q) return [];
     const images = Array.isArray(q.stimulusImages) ? q.stimulusImages.filter((image) => image && image.src) : [];
     if (!images.length) return [];
@@ -891,6 +893,14 @@
     if (q.stimulusText) return cleanText(q.stimulusText);
     if (typeof q.stimulus === "string") return cleanText(q.stimulus);
     return "";
+  }
+
+  function isUsableQuestion(q) {
+    if (!q || !q.prompt || !q.answer) return false;
+    if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
+    if (q.type === "mcq" && SourceBank && SourceBank.sourceBased(q) && SourceBank.hasStimulusImages(q) && !SourceBank.usableRegentsQuestion(q)) return false;
+    if (q.type === "mcq" && sourcePromptRe.test(String(q.prompt || "")) && !stimulusImagesFor(q).length && !sourceTextFor(q)) return false;
+    return true;
   }
 
   function answerLabel(q) {
@@ -1120,10 +1130,9 @@
     const course = els.courseFilter.value;
     const set = els.setFilter.value;
     let questions = state.bank.questions.filter((q) => {
-      if (!q || !q.prompt || !q.answer) return false;
+      if (!isUsableQuestion(q)) return false;
       if (course !== "All Courses" && q.course !== course) return false;
       if (set !== "All Sets" && q.set !== set) return false;
-      if (q.type === "mcq" && sourcePromptRe.test(String(q.prompt || "")) && !stimulusImagesFor(q).length && !sourceTextFor(q)) return false;
       return true;
     });
     if (!questions.length) questions = state.filtered.slice();
@@ -1134,10 +1143,9 @@
     const course = els.courseFilter.value;
     const set = els.setFilter.value;
     state.filtered = state.bank.questions.filter((q) => {
-      if (!q || !q.prompt || !q.answer) return false;
+      if (!isUsableQuestion(q)) return false;
       if (course !== "All Courses" && q.course !== course) return false;
       if (set !== "All Sets" && q.set !== set) return false;
-      if (q.type === "mcq" && sourcePromptRe.test(String(q.prompt || "")) && !stimulusImagesFor(q).length && !sourceTextFor(q)) return false;
       return true;
     });
     state.queue = shuffle(state.filtered);
@@ -3384,7 +3392,8 @@
     ]);
     const response = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
     state.bank = await response.json();
-    const visibleTypes = new Set((state.bank.courses || []).map((course) => courseTypeFor(course).name));
+    state.bank.questions = (state.bank.questions || []).filter(isUsableQuestion);
+    const visibleTypes = new Set(state.bank.questions.map((q) => courseTypeFor(q.course).name));
     const visibleFamilies = allFigureFamilies.filter((family) => visibleTypes.has(family.type)).length;
     els.startStats.innerHTML = [
       `${state.bank.questions.length.toLocaleString()} prompts`,

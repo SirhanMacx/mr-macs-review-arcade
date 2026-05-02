@@ -5,6 +5,7 @@
   const BASE_H = 900;
   const STORAGE_KEY = "mr-macs-archive-quest-v1";
   const $ = (id) => document.getElementById(id);
+  const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 
   const els = {
     canvas: $("gameCanvas"),
@@ -287,6 +288,7 @@
   const sourcePromptRe = /(\bthis\s+(excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\b(shown|pictured|illustrated|accompanying)\b|\b(above|below)\s+(document|source|passage|excerpt|map|cartoon|chart|graph|image|photograph|photo|poster|timeline|painting|newspaper|headline)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|author|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+this\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+the\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b)/i;
 
   function stimulusImagesFor(q) {
+    if (SourceBank) return SourceBank.stimulusImages(q);
     if (!q) return [];
     const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
     const imagesList = list.length ? list : (q.stimulusImage ? [{ src: q.stimulusImage, label: "Source stimulus" }] : []);
@@ -298,7 +300,9 @@
 
   function isPlayableQuestion(q) {
     if (!q || !q.prompt || !q.answer) return false;
+    if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
     if (q.type !== "mcq") return true;
+    if (SourceBank && SourceBank.sourceBased(q) && SourceBank.hasStimulusImages(q) && !SourceBank.usableRegentsQuestion(q)) return false;
     if (stimulusImagesFor(q).length || q.stimulus || q.stimulusText || q.stimulusHtml) return true;
     return !sourcePromptRe.test(String(q.prompt || q.stem || ""));
   }

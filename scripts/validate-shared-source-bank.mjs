@@ -39,6 +39,20 @@ for (const rel of ["games/archive-cipher/game.js", "games/vocab-vault/game.js", 
   if (!text.includes("playableSharedPrompt")) errors.push(`${rel}: does not filter weak shared-bank prompts`);
 }
 
+for (const rel of [
+  "games/chrono-defense/game.js",
+  "games/archive-quest/game.js",
+  "games/history-hunters/game.js",
+  "games/history-hunters-2/game.js",
+  "games/timeline-runner/game.js",
+  "games/empire-ascendant/game.js",
+  "games/time-rift-survivors/game.js",
+  "games/cold-war-invaders/game.js"
+]) {
+  const text = readFileSync(resolve(root, rel), "utf8");
+  if (!text.includes("playableSharedPrompt")) errors.push(`${rel}: does not enforce shared prompt quality`);
+}
+
 const scriptConsumers = [
   "index.html",
   "games/source-sprint/index.html",
@@ -46,6 +60,14 @@ const scriptConsumers = [
   "games/archive-cipher/index.html",
   "games/vocab-vault/index.html",
   "games/lightning-review/index.html",
+  "games/chrono-defense/index.html",
+  "games/archive-quest/index.html",
+  "games/history-hunters/index.html",
+  "games/history-hunters-2/index.html",
+  "games/timeline-runner/index.html",
+  "games/empire-ascendant/index.html",
+  "games/time-rift-survivors/index.html",
+  "games/cold-war-invaders/index.html",
   "games/source-audit/index.html",
   "games/regents-practice-exam/index.html",
   "games/regents-rally-source-circuit/index.html",

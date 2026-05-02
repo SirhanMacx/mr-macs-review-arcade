@@ -6,6 +6,7 @@
   const params = new URLSearchParams(window.location.search);
   const FX_LITE = params.get("fx") === "lite" || window.matchMedia("(max-width: 900px)").matches;
   const STORAGE_KEY = "mr-macs-empire-ascendant";
+  const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 
   const COLS = 12;
   const ROWS = 9;
@@ -259,6 +260,7 @@
   }
 
   function stimulusImagesFor(q) {
+    if (SourceBank) return SourceBank.stimulusImages(q);
     if (!q) return [];
     const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
     const images = list.length ? list : (q.stimulusImage ? [{ src: q.stimulusImage, label: "Source stimulus" }] : []);
@@ -288,7 +290,9 @@
 
   function isPlayableQuestion(q) {
     if (!q || !q.answer || !(q.prompt || q.stem)) return false;
+    if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
     if (q.type !== "mcq") return true;
+    if (SourceBank && SourceBank.sourceBased(q) && SourceBank.hasStimulusImages(q) && !SourceBank.usableRegentsQuestion(q)) return false;
     if (hasReliableStimulus(q)) return true;
     return !promptNeedsStimulus(q);
   }

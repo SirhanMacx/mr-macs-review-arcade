@@ -5,6 +5,7 @@
   const BASE_H = 900;
   const STORAGE_KEY = "mr-macs-chrono-defense-v1";
   const $ = (id) => document.getElementById(id);
+  const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 
   const els = {
     canvas: $("arena"),
@@ -356,12 +357,21 @@
   const sourcePromptRe = /(\bthis\s+(excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\bthese\s+(documents|statements|headlines|sources|passages|figures|maps|graphs|charts|cartoons)\b|\b(shown|pictured|illustrated|accompanying)\b|\b(above|below)\s+(document|source|passage|excerpt|map|cartoon|chart|graph|image|photograph|photo|poster|timeline|painting|newspaper|headline)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|author|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+this\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+the\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b|similar\s+to\s+this)/i;
 
   function stimulusImagesFor(q) {
+    if (SourceBank) return SourceBank.stimulusImages(q);
     if (!q) return [];
     const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
     if (!list.length) return [];
     if (q.stimulusRequired === true) return list.filter((image) => image && image.src);
     if (q.stimulusRequired === false) return [];
     return sourcePromptRe.test(String(q.prompt || q.stem || "")) ? list.filter((image) => image && image.src) : [];
+  }
+
+  function isPlayableQuestion(q) {
+    if (!q || !q.prompt || !q.answer) return false;
+    if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
+    if (q.type !== "mcq") return true;
+    if (SourceBank && SourceBank.sourceBased(q) && SourceBank.hasStimulusImages(q) && !SourceBank.usableRegentsQuestion(q)) return false;
+    return true;
   }
 
   function buildPath() {
@@ -428,6 +438,7 @@
     await Promise.all(Object.entries(assetPaths).map(([name, src]) => loadImage(name, src)));
     const res = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
     state.bank = await res.json();
+    state.bank.questions = (state.bank.questions || []).filter(isPlayableQuestion);
     initFilters();
     initControls();
     renderTowerList();
@@ -470,6 +481,7 @@
     const course = els.courseFilter.value;
     const set = els.setFilter.value;
     state.filtered = state.bank.questions.filter((q) => {
+      if (!isPlayableQuestion(q)) return false;
       if (course !== "All Courses" && q.course !== course) return false;
       if (set !== "All Sets" && q.set !== set) return false;
       return true;

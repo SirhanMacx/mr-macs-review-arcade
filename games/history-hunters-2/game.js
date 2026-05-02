@@ -10,6 +10,7 @@
   const FX_LITE = params.get("fx") === "lite" || params.get("fx") === "low";
   const PREFERS_REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const $ = (id) => document.getElementById(id);
+  const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
   const view = { w: 960, h: 540, dpr: 1 };
 
   const els = {
@@ -1250,6 +1251,7 @@
   }
 
   function stimulusImagesFor(q) {
+    if (SourceBank) return SourceBank.stimulusImages(q);
     if (!q) return [];
     const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
     const images = list.length ? list : (q.stimulusImage ? [{ src: q.stimulusImage, label: "Source stimulus" }] : []);
@@ -1266,6 +1268,8 @@
 
   function isUsableQuestion(q) {
     if (!q || !q.prompt || !q.answer) return false;
+    if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
+    if (SourceBank && SourceBank.sourceBased(q) && SourceBank.hasStimulusImages(q) && !SourceBank.usableRegentsQuestion(q)) return false;
     if (q.stimulusRequired === true) return hasReliableStimulus(q);
     if (promptNeedsStimulus(q) && !hasReliableStimulus(q)) return false;
     return true;
