@@ -289,7 +289,7 @@ def check_public_traffic_footer() -> list[str]:
         "trafficTrend",
         "trafficTopGames",
         "data-traffic=\"global-visits\"",
-        "data-traffic=\"global-game-opens\"",
+        "data-traffic=\"global-game-plays\"",
         "data-traffic=\"global-game-views\"",
         "data-traffic=\"global-today-visits\"",
         "PUBLIC_CACHE_KEY",
@@ -529,6 +529,16 @@ def check_jeopardy_boards() -> list[str]:
     if result.returncode != 0:
         detail = (result.stderr or result.stdout or "Jeopardy board hardening validation failed").strip()
         errors.append(detail)
+    result = subprocess.run(
+        ["node", "scripts/validate-jeopardy-derived-content.mjs"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout or "Jeopardy derived-content validation failed").strip()
+        errors.append(detail)
     bad_text = re.compile(
         r"tighten the most tested|precise vocabulary|state one limitation|policy reasoning|"
         r"labor policy reference|receipts and outlays|current population survey|"
@@ -581,6 +591,8 @@ def check_jeopardy_boards() -> list[str]:
         seen_answers: set[str] = set()
         seen_prompts: set[str] = set()
         for category in game.get("categories", []):
+            if "sourceName" in category:
+                errors.append(f"{path.relative_to(ROOT)}: stale Jeopardy sourceName runtime metadata")
             for clue in category.get("clues", []):
                 answer = _norm_text(clue.get("answer"))
                 prompt = _norm_text(clue.get("clue"))
@@ -623,7 +635,15 @@ def check_jeopardy_boards() -> list[str]:
     for key, actual in actual_summary.items():
         if key in summary and summary.get(key) != actual:
             errors.append(f"data/chrono-defense-bank.json: summary.{key} is {summary.get(key)!r}, expected {actual!r}")
+    seen_ids: dict[str, str] = {}
     for question in questions:
+        question_id = str(question.get("id") or "").strip()
+        if question_id:
+            owner = f"{question.get('course', '')} / {question.get('set', '')}"
+            if question_id in seen_ids:
+                errors.append(f"data/chrono-defense-bank.json: duplicate question id {question_id!r} also used by {seen_ids[question_id]}")
+            else:
+                seen_ids[question_id] = owner
         if not str(question.get("type", "")).startswith("jeopardy"):
             continue
         combined = " ".join(str(question.get(field, "")) for field in ("category", "prompt", "explanation"))

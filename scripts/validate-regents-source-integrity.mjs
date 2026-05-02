@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const bank = JSON.parse(readFileSync(resolve(root, "data/regents-gauntlet-bank.json"), "utf8"));
-const SOURCE_PATTERN = /(\bthis\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|source|timeline|image|poster|newspaper|table)\b|\bthese\s+(documents|maps|cartoons|graphs|charts|photographs|sources|timelines|images|posters|newspapers|tables|statements|conditions|changes|figures)\b|\b(shown|pictured|illustrated|accompanying)\b|\b(above|below)\s+(document|source|passage|excerpt|map|cartoon|chart|graph|image|photograph|photo|poster|timeline|painting|newspaper|headline)\b|\bthe\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|source|timeline|image|poster|newspaper|table)\b|\baccording\s+to\s+(the|this)\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|author|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+this\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+the\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b)/i;
+const SOURCE_PATTERN = /(\bthis\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|photo|source|timeline|image|poster|newspaper|table|letter|statement|speech|article|quotation|quote|painting|stamp|headline)\b|\bthese\s+(documents|maps|cartoons|graphs|charts|photographs|photos|sources|timelines|images|posters|newspapers|tables|statements|conditions|changes|figures|speeches|articles|quotations|quotes|paintings|stamps|headlines)\b|\bboth\s+(documents|sources|passages|excerpts|statements|headlines|maps|cartoons|charts|graphs|images|photographs|photos)\b|\b(shown|pictured|illustrated|accompanying)\b|\b(above|below)\s+(document|source|passage|excerpt|map|cartoon|chart|graph|image|photograph|photo|poster|timeline|painting|newspaper|headline|statement|speech|article|quotation|quote|stamp)\b|\bthe\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|photo|source|timeline|image|poster|newspaper|table|letter|statement|speech|article|quotation|quote|painting|stamp|headline)\b|\baccording\s+to\s+(the|this)\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|author|letter|speech|timeline|newspaper|table|statement|quotation|quote|painting|stamp|headline)\b|\bbased\s+on\s+this\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table|statement|quotation|quote|painting|stamp|headline)\b|\bbased\s+on\s+the\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table|statement|quotation|quote|painting|stamp|headline)\b|\binformation\s+(in|on|from)\s+(the|this)\s+(map|cartoon|chart|graph|table|document|source|image|photograph|photo|poster|article|speech|statement|quotation|quote|newspaper|headline|timeline|painting|stamp)\b)/i;
 const MIN_IMAGE_BACKED = {
   "Grade 10 Global History II": 28 + 9,
   "Grade 11 U.S. History": 28 + 10
@@ -25,6 +25,10 @@ function images(question) {
 
 function sourceDependent(question) {
   return question.stimulusRequired || SOURCE_PATTERN.test(question.stem || "");
+}
+
+function trusted(question) {
+  return /trusted|official|verified/i.test(String(question.sourceIntegrity || ""));
 }
 
 function sourceKey(question) {
@@ -56,6 +60,10 @@ for (const question of bank.questions || []) {
       errors.push(`${question.id}: quarantined source question must not expose stimulus images`);
     }
     continue;
+  }
+
+  if ((sourceDependent(question) || qImages.length) && !trusted(question)) {
+    errors.push(`${question.id}: source-backed question lacks explicit trusted/official/verified provenance`);
   }
 
   if (sourceDependent(question) && !qImages.length) {

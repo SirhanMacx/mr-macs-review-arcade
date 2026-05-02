@@ -2,12 +2,13 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import vm from "node:vm";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const chrono = JSON.parse(readFileSync(resolve(root, "data/chrono-defense-bank.json"), "utf8"));
 const regents = JSON.parse(readFileSync(resolve(root, "data/regents-gauntlet-bank.json"), "utf8"));
 const errors = [];
-const SOURCE_RE = /(\bthis\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|source|timeline|image|poster|newspaper|table)\b|\bthese\s+(documents|maps|cartoons|graphs|charts|photographs|sources|timelines|images|posters|newspapers|tables|statements|conditions|changes|figures)\b|\b(shown|pictured|illustrated|accompanying)\b|\b(above|below)\s+(document|source|passage|excerpt|map|cartoon|chart|graph|image|photograph|photo|poster|timeline|painting|newspaper|headline)\b|\bthe\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|source|timeline|image|poster|newspaper|table)\b|\baccording\s+to\s+(the|this)\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|author|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+this\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+the\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b)/i;
+const SOURCE_RE = /(\bthis\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|photo|source|timeline|image|poster|newspaper|table|letter|statement|speech|article|quotation|quote|painting|stamp|headline)\b|\bthese\s+(documents|maps|cartoons|graphs|charts|photographs|photos|sources|timelines|images|posters|newspapers|tables|statements|conditions|changes|figures|speeches|articles|quotations|quotes|paintings|stamps|headlines)\b|\bboth\s+(documents|sources|passages|excerpts|statements|headlines|maps|cartoons|charts|graphs|images|photographs|photos)\b|\b(shown|pictured|illustrated|accompanying)\b|\b(above|below)\s+(document|source|passage|excerpt|map|cartoon|chart|graph|image|photograph|photo|poster|timeline|painting|newspaper|headline|statement|speech|article|quotation|quote|stamp)\b|\bthe\s+(excerpt|passage|document|map|cartoon|graph|chart|photograph|photo|source|timeline|image|poster|newspaper|table|letter|statement|speech|article|quotation|quote|painting|stamp|headline)\b|\baccording\s+to\s+(the|this)\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|author|letter|speech|timeline|newspaper|table|statement|quotation|quote|painting|stamp|headline)\b|\bbased\s+on\s+this\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table|statement|quotation|quote|painting|stamp|headline)\b|\bbased\s+on\s+the\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table|statement|quotation|quote|painting|stamp|headline)\b|\binformation\s+(in|on|from)\s+(the|this)\s+(map|cartoon|chart|graph|table|document|source|image|photograph|photo|poster|article|speech|statement|quotation|quote|newspaper|headline|timeline|painting|stamp)\b)/i;
 
 const sourceBankPath = resolve(root, "assets/source-bank.js");
 const sourceBankText = existsSync(sourceBankPath) ? readFileSync(sourceBankPath, "utf8") : "";
@@ -21,13 +22,15 @@ if (!sourceBankText) {
 
 const sourceBankConsumers = [
   "assets/mastery-engine.js",
+  "games/arcade-duel/game.js",
   "games/source-sprint/game.js",
   "games/regents-gauntlet/game.js",
   "games/archive-cipher/game.js",
   "games/source-audit/game.js",
   "games/source-lab/game.js",
   "games/regents-practice-exam/game.js",
-  "games/chrono-pinball/game.js"
+  "games/chrono-pinball/game.js",
+  "games/regents-rally-source-circuit/game.js"
 ];
 for (const rel of sourceBankConsumers) {
   const text = readFileSync(resolve(root, rel), "utf8");
@@ -74,7 +77,9 @@ const scriptConsumers = [
   "games/regents-practice-exam/index.html",
   "games/mastery-path/index.html",
   "games/source-lab/index.html",
-  "games/writing-coach/index.html"
+  "games/writing-coach/index.html",
+  "games/arcade-duel/index.html",
+  "games/regents-rally-source-circuit/index.html"
 ];
 for (const rel of scriptConsumers) {
   const text = readFileSync(resolve(root, rel), "utf8");
@@ -83,6 +88,89 @@ for (const rel of scriptConsumers) {
 const indexText = readFileSync(resolve(root, "index.html"), "utf8");
 if (indexText.indexOf("assets/source-bank.js") > indexText.indexOf("assets/mastery-engine.js")) {
   errors.push("index.html must load source-bank before mastery-engine");
+}
+
+let SourceBank = null;
+if (sourceBankText) {
+  const context = {
+    console,
+    window: {},
+    globalThis: {}
+  };
+  context.window = context;
+  context.globalThis = context;
+  vm.runInNewContext(sourceBankText, context, { filename: "assets/source-bank.js" });
+  SourceBank = context.MrMacsSourceBank;
+}
+
+if (!SourceBank) {
+  errors.push("assets/source-bank.js did not expose MrMacsSourceBank in validation harness");
+} else {
+  const sourceFixtures = [
+    "This statement best supports which conclusion?",
+    "These headlines were most directly caused by which policy?",
+    "This speech reflects which constitutional principle?",
+    "This article describes which New Deal program?",
+    "The quotation is most closely associated with which idea?",
+    "Information on the map best supports which conclusion?",
+    "Both documents show which historical development?",
+    "These stamps were used to promote which policy?"
+  ];
+  for (const stem of sourceFixtures) {
+    if (!SourceBank.sourceBased({ stem })) errors.push(`source-bank regex missed fixture: ${stem}`);
+  }
+  if (SourceBank.sourceLock({ stem: "This map best supports which conclusion?", stimulusImages: [{ src: "x.jpg" }] }).ok) {
+    errors.push("source-bank must not trust source-backed records without explicit provenance");
+  }
+  for (const question of regents.questions || []) {
+    const lock = SourceBank.sourceLock(question);
+    if (quarantined(question) && lock.ok) errors.push(`${question.id}: quarantined record has sourceLock.ok`);
+    if (quarantined(question) && SourceBank.usableRegentsQuestion(question)) errors.push(`${question.id}: quarantined record is usable`);
+    if ((SourceBank.sourceBased(question) || SourceBank.hasStimulusImages(question)) && !quarantined(question) && !/trusted|official|verified/i.test(String(question.sourceIntegrity || ""))) {
+      errors.push(`${question.id}: source-backed Regents record lacks explicit trusted provenance`);
+    }
+  }
+
+  const masteryContext = {
+    console,
+    window: contextWindow(SourceBank),
+    localStorage: { getItem: () => null, setItem: () => {} },
+    CustomEvent: class CustomEvent {
+      constructor(type, init) {
+        this.type = type;
+        this.detail = init && init.detail;
+      }
+    },
+    Date,
+    Math
+  };
+  masteryContext.globalThis = masteryContext.window;
+  vm.runInNewContext(readFileSync(resolve(root, "assets/mastery-engine.js"), "utf8"), masteryContext, { filename: "assets/mastery-engine.js" });
+  const Mastery = masteryContext.window.MrMacsMastery;
+  if (!Mastery) {
+    errors.push("assets/mastery-engine.js did not expose MrMacsMastery in validation harness");
+  } else {
+    for (const course of ["Grade 10 Global History II", "Grade 11 U.S. History"]) {
+      const pools = Mastery.questionPool({ regents, review: chrono, games: [] }, course);
+      for (const item of pools.regents) {
+        if (!item.sourceLock?.ok) errors.push(`Mastery ${course}: blocked Regents item entered pool ${item.sourceId || item.id}`);
+        const original = (regents.questions || []).find((question) => question.id === item.sourceId);
+        if (original && (quarantined(original) || !SourceBank.usableRegentsQuestion(original))) {
+          errors.push(`Mastery ${course}: source-blocked Regents item entered pool ${item.sourceId}`);
+        }
+      }
+    }
+  }
+}
+
+function contextWindow(sourceBank) {
+  return {
+    MrMacsSourceBank: sourceBank,
+    addEventListener: () => {},
+    dispatchEvent: () => {},
+    MrMacsAnalytics: null,
+    MrMacsProgress: null
+  };
 }
 
 const chronoSourceConsumers = [

@@ -54,7 +54,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
   --card-gold: url("assets/arcade-card-cabinet-16bit-v4.webp");
   --card-blue: url("assets/arcade-card-cabinet-16bit-v4.webp");
   --boss-art: url("assets/boss-rush-arena-v2.webp");
-  --gauntlet-art: url("assets/regents-gauntlet-arena.png");
+  --gauntlet-art: url("assets/regents-gauntlet-arena-lite.jpg");
   --shadow-1: 0 1px 0 rgba(255,255,255,.04) inset, 0 18px 50px rgba(0,0,0,.45);
   --shadow-2: 0 1px 0 rgba(255,255,255,.06) inset, 0 30px 80px rgba(0,0,0,.55);
   --ease: cubic-bezier(.2,.7,.2,1);
@@ -311,7 +311,20 @@ textarea:focus-visible {
 
 @media (max-width: 880px) {
   .topbar-inner { grid-template-columns: auto 1fr auto; gap: 10px; }
-  .topnav, .nav-pills { display: none; }
+  .nav-pills { display: none; }
+  .topnav {
+    justify-self: end;
+    max-width: min(100%, 470px);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .topnav::-webkit-scrollbar { display: none; }
+  .topnav a {
+    flex: 0 0 auto;
+    padding: 7px 9px;
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
 }
 @media (min-width: 881px) and (max-width: 1320px) {
   .topbar-inner { grid-template-columns: minmax(208px, auto) 1fr auto; gap: 14px; }
@@ -2238,9 +2251,9 @@ textarea:focus-visible {
 .game-card,
 .course-tile {
   background:
-    linear-gradient(180deg, rgba(6, 8, 15, .84), rgba(6, 8, 15, .98)),
+    linear-gradient(180deg, rgba(6, 8, 15, .58), rgba(6, 8, 15, .90)),
     var(--card-art, var(--card-cyan)) center / cover no-repeat,
-    linear-gradient(180deg, rgba(12, 17, 30, .92), rgba(6, 9, 17, .98));
+    linear-gradient(180deg, rgba(12, 17, 30, .78), rgba(6, 9, 17, .94));
 }
 .path-card,
 .focus-card,
@@ -2256,8 +2269,8 @@ textarea:focus-visible {
 }
 .mode-button::after {
   background:
-    linear-gradient(180deg, rgba(6, 8, 15, .36) 0%, rgba(6, 8, 15, .82) 58%, rgba(6, 8, 15, .96) 100%),
-    linear-gradient(90deg, rgba(6, 8, 15, .74) 0%, rgba(6, 8, 15, .20) 64%, rgba(6, 8, 15, .52) 100%);
+    linear-gradient(180deg, rgba(6, 8, 15, .18) 0%, rgba(6, 8, 15, .62) 58%, rgba(6, 8, 15, .90) 100%),
+    linear-gradient(90deg, rgba(6, 8, 15, .55) 0%, rgba(6, 8, 15, .12) 64%, rgba(6, 8, 15, .38) 100%);
 }
 .path-card h3,
 .focus-card h3,
@@ -2665,11 +2678,11 @@ input.field {
   color: #b5c1d6;
 }
 .gc-thumb {
-  filter: saturate(1.06) contrast(1.08) brightness(.82);
+  filter: saturate(1.12) contrast(1.06) brightness(.98);
 }
 .gc-art::before {
   background:
-    linear-gradient(180deg, rgba(3,5,13,.02), rgba(3,5,13,.22) 44%, rgba(3,5,13,.86)),
+    linear-gradient(180deg, rgba(3,5,13,.00), rgba(3,5,13,.13) 44%, rgba(3,5,13,.68)),
     repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 4px),
     radial-gradient(90% 80% at 100% 0%, color-mix(in oklab, var(--accent, #7af0ff) 18%, transparent), transparent 65%);
 }
@@ -3703,7 +3716,7 @@ body {
       <a href="#launch-paths">Play</a>
       <a href="#practice">Practice Exams</a>
       <a href="#jeopardy">Jeopardy</a>
-      <a href="#arcade-menu">Menu</a>
+      <a href="#arcade-menu">Games</a>
       <a href="#library">Library</a>
     </nav>
     <div class="nav-pills" id="statusPills"></div>
@@ -3804,13 +3817,13 @@ body {
   <section class="band smart-menu-band utility-band" id="arcade-menu" aria-label="Smart arcade menu">
     <div class="band-head reveal">
       <div>
-        <div class="band-eyebrow">Player Select</div>
+        <div class="band-eyebrow">Arcade Games</div>
         <h2 class="band-title">Choose a <em>game</em>.</h2>
-        <p class="band-sub">Best places to start, plus quick access to exams and review.</p>
+        <p class="band-sub">Jump into the best games, exams, and review boards.</p>
       </div>
     </div>
-    <div class="smart-menu-console reveal">
-      <div class="smart-tabs" id="smartMenuTabs" aria-label="Smart menu lanes"></div>
+      <div class="smart-menu-console reveal">
+      <div class="smart-tabs" id="smartMenuTabs" aria-label="Arcade game lanes"></div>
       <div class="smart-summary" id="smartMenuSummary"></div>
       <div class="smart-grid" id="smartMenuGrid"></div>
     </div>
@@ -3923,7 +3936,7 @@ body {
     </div>
     <div class="traffic-panel" aria-label="Public anonymous arcade traffic counter">
       <div class="traffic-stat"><strong data-traffic="global-visits">--</strong><span>visits</span></div>
-      <div class="traffic-stat"><strong data-traffic="global-game-opens">--</strong><span>plays</span></div>
+      <div class="traffic-stat"><strong data-traffic="global-game-plays">--</strong><span>plays</span></div>
       <div class="traffic-stat"><strong data-traffic="global-game-views">--</strong><span>views</span></div>
       <div class="traffic-stat"><strong data-traffic="global-today-visits">--</strong><span>today</span></div>
     </div>
@@ -3937,21 +3950,21 @@ body {
         <div class="traffic-bars" id="trafficTrend" aria-label="Seven-day public visit trend"></div>
       </article>
       <article class="traffic-top-card">
-        <div class="traffic-mini-title"><span>Top cabinets</span><span>public launches</span></div>
+        <div class="traffic-mini-title"><span>Top cabinets</span><span>public activity</span></div>
         <div class="traffic-top" id="trafficTopGames" aria-label="Most launched arcade games"></div>
       </article>
     </section>
     <nav class="footer-actions" aria-label="Footer shortcuts">
       <a class="footer-jump" href="#featured">Play Arcade</a>
       <a class="footer-jump" href="#practice">Regents Practice</a>
-      <a class="footer-jump" href="#arcade-menu">Smart Menu</a>
+      <a class="footer-jump" href="#arcade-menu">Game Modes</a>
       <a class="footer-jump" href="#jeopardy">Jeopardy Boards</a>
       <a class="footer-jump" href="#library">Full Library</a>
     </nav>
   </div>
 </footer>
 
-<section class="player" id="player" aria-label="Online game player">
+<section class="player" id="player" role="dialog" aria-modal="true" aria-labelledby="playerTitle" aria-describedby="playerMeta" aria-hidden="true" tabindex="-1">
   <div class="playerbar">
     <div class="player-titleblock">
       <span class="player-badge">Now Playing</span>
@@ -3965,7 +3978,7 @@ body {
     </div>
   </div>
   <div class="framewrap">
-    <div class="loader">
+    <div class="loader" role="status" aria-live="polite">
       <span class="loader-mark">MM</span>
       <strong>Loading Cabinet</strong>
       <span>Preparing controls, progress, and arcade frame</span>
@@ -3974,7 +3987,7 @@ body {
   </div>
 </section>
 
-<script src="assets/arcade-analytics.js?v=20260501-traction-dashboard-4"></script>
+<script src="assets/arcade-analytics.js?v=20260502-traffic-progress-hardening"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
@@ -3994,6 +4007,7 @@ const frame = document.getElementById("gameFrame");
 let currentGame = null;
 let frameLoadTimer = 0;
 let smartMenuLane = "recommended";
+let lastPlayerFocus = null;
 const FEATURED_GAME_IDS = ["history-hunters", "archive-quest", "cold-war-invaders", "regents-rally-source-circuit", "regents-practice-exam", "ap-practice-exam"];
 const SOURCE_LOCKED_GAME_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "source-sprint", "source-lab", "regents-gauntlet", "source-audit", "archive-cipher"]);
 
@@ -4278,8 +4292,9 @@ function featuredGames() {
 function renderLaneTabs() {
   const container = document.getElementById("laneTabs");
   if (!container) return;
+  container.setAttribute("role", "tablist");
   container.innerHTML = LANES.map((lane) =>
-    '<button class="lane-tab ' + (state.lane === lane.id ? "active" : "") + '" type="button" data-lane="' + lane.id + '">' + escapeHtml(lane.label) + '</button>'
+    '<button class="lane-tab ' + (state.lane === lane.id ? "active" : "") + '" type="button" role="tab" aria-selected="' + (state.lane === lane.id ? "true" : "false") + '" data-lane="' + lane.id + '">' + escapeHtml(lane.label) + '</button>'
   ).join("");
   container.querySelectorAll(".lane-tab").forEach((button) => {
     button.addEventListener("click", () => {
@@ -4673,8 +4688,9 @@ function renderSmartMenu() {
   if (!tabs || !grid || !summary) return;
   const lane = SMART_MENU_LANES.find((item) => item.id === smartMenuLane) || SMART_MENU_LANES[0];
   const games = smartMenuGames(lane.id);
+  tabs.setAttribute("role", "tablist");
   tabs.innerHTML = SMART_MENU_LANES.map((item) =>
-    '<button class="smart-tab ' + (item.id === lane.id ? "active" : "") + '" type="button" data-smart-lane="' + item.id + '">' + escapeHtml(item.label) + '</button>'
+    '<button class="smart-tab ' + (item.id === lane.id ? "active" : "") + '" type="button" role="tab" aria-selected="' + (item.id === lane.id ? "true" : "false") + '" data-smart-lane="' + item.id + '">' + escapeHtml(item.label) + '</button>'
   ).join("");
   summary.innerHTML =
     '<span><strong>' + games.length + '</strong> picks · ' + escapeHtml(lane.summary) + '</span>' +
@@ -5002,8 +5018,13 @@ function launchUrl(file) {
   url.searchParams.set("mobile", "1");
   return url.href;
 }
+function playerFocusables() {
+  return Array.from(player.querySelectorAll("button, [href], iframe, [tabindex]:not([tabindex='-1'])"))
+    .filter((element) => !element.disabled && element.offsetParent !== null);
+}
 function openGame(game) {
   if (!game) return;
+  lastPlayerFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   currentGame = game;
   window.MrMacsAnalytics?.track("game_launch", {
     gameId: game.id,
@@ -5023,6 +5044,8 @@ function openGame(game) {
   player.classList.toggle("mobile-heavy", heavyMobile);
   player.classList.remove("slow-load");
   player.classList.add("show", "loading");
+  player.setAttribute("aria-hidden", "false");
+  frame.title = game.title + " game";
   frame.src = "about:blank";
   const targetUrl = launchUrl(game.file);
   requestAnimationFrame(() => {
@@ -5031,14 +5054,19 @@ function openGame(game) {
       if (player.classList.contains("loading")) player.classList.add("slow-load");
     }, isMobilePerfMode() ? 5500 : 8000);
   });
-  frame.focus();
+  document.getElementById("closeBtn").focus({ preventScroll: true });
 }
 function closeGame() {
   clearTimeout(frameLoadTimer);
   player.classList.remove("show", "loading", "mobile-lite", "mobile-heavy", "slow-load");
+  player.setAttribute("aria-hidden", "true");
   document.getElementById("openBtn").textContent = "Open Tab";
+  frame.title = "Review game player";
   frame.src = "about:blank";
   currentGame = null;
+  const restoreTarget = lastPlayerFocus?.isConnected ? lastPlayerFocus : null;
+  lastPlayerFocus = null;
+  restoreTarget?.focus({ preventScroll: true });
 }
 frame.addEventListener("load", () => {
   if (frame.getAttribute("src") !== "about:blank") {
@@ -5056,7 +5084,24 @@ document.getElementById("fullscreenBtn").addEventListener("click", async () => {
   else await document.exitFullscreen?.();
 });
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && player.classList.contains("show")) closeGame();
+  if (!player.classList.contains("show")) return;
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeGame();
+    return;
+  }
+  if (event.key !== "Tab") return;
+  const focusables = playerFocusables();
+  if (!focusables.length) return;
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
 });
 
 // ============== Canvas FX ==============
@@ -5196,8 +5241,9 @@ async function boot() {
     window.addEventListener("focus", () => { renderProgressReport(); renderSmartMenu(); });
     document.getElementById("printReportBtn")?.addEventListener("click", () => window.print());
     document.getElementById("clearReportBtn")?.addEventListener("click", () => {
-      if (confirm("Clear the local progress report stored in this browser?")) {
-        window.MrMacsProgress?.clear();
+      if (confirm("Clear local progress and saved practice drafts stored in this browser?")) {
+        if (window.MrMacsProgress?.clearAllLocalPractice) window.MrMacsProgress.clearAllLocalPractice();
+        else window.MrMacsProgress?.clear();
         renderProgressReport();
         renderSmartMenu();
       }

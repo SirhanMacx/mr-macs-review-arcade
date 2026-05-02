@@ -237,7 +237,7 @@ function exportCsv() {
 }
 
 async function boot() {
-  const response = await fetch("../../data/regents-gauntlet-bank.json");
+  const response = await fetch("../../data/regents-gauntlet-bank.json?v=20260502-source-contract");
   if (!response.ok) throw new Error("Could not load Regents source bank");
   state.bank = await response.json();
   state.records = buildRecords(state.bank);

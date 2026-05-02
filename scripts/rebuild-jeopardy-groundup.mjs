@@ -199,6 +199,13 @@ const CATEGORY_ASSIGNMENT_REPAIRS = {
     { name: "Nonalignment + New Nations", answers: ["Nonalignment", "Non-Aligned Movement", "Pan-Africanism", "Algerian War", "Neocolonialism"] },
     { name: "Global Change", answers: ["United Nations", "Green Revolution", "Cuban Revolution", "Proxy wars", "Détente"] }
   ],
+  "games/ap-world-history/07 - Unit 7 Global Conflict Jeopardy Review.html": [
+    { name: "World War I Causes", answers: ["World War I", "MAIN causes", "Militarism", "Total war", "Home front mobilization"] },
+    { name: "Peace + Interwar Crisis", answers: ["Treaty of Versailles", "League of Nations", "Self-determination", "Mandate system", "Great Depression"] },
+    { name: "Revolution + Authoritarianism", answers: ["Russian Revolution", "Communism", "War communism", "Stalinist state", "Totalitarianism"] },
+    { name: "World War II", answers: ["Appeasement", "World War II", "Japanese militarism", "Atomic bomb", "Rationing"] },
+    { name: "Genocide + Propaganda", answers: ["Fascism", "Nazi Germany", "Holocaust", "Armenian Genocide", "Mass propaganda"] }
+  ],
   "games/ap-european-history/04 - Unit 4 Scientific, Philosophical, and Political Developments Jeopardy Review.html": [
     { name: "Scientific Revolution", answers: ["Copernicus", "Scientific Revolution", "Galileo", "Newton", "Scientific academies"] },
     { name: "Enlightenment Thinkers", answers: ["Locke", "Montesquieu", "Rousseau", "Voltaire", "Enlightenment"] },
@@ -212,6 +219,13 @@ const CATEGORY_ASSIGNMENT_REPAIRS = {
     { name: "Equal Protection", answers: ["Equal protection clause", "14th Amendment", "Rational basis review", "Intermediate scrutiny", "Strict scrutiny"] },
     { name: "Civil Rights", answers: ["Brown v. Board of Education", "Civil Rights Act of 1964", "Voting Rights Act of 1965", "Voting Rights Act", "NAACP litigation strategy"] },
     { name: "Movements + Liberties", answers: ["Civil disobedience", "Grassroots organizing", "Social movements", "Civil liberties", "Civil rights"] }
+  ],
+  "games/ap-us-government/04 - Unit 4 Political Ideologies and Beliefs Jeopardy Review.html": [
+    { name: "Political Socialization", answers: ["Political socialization", "Political party identification", "Generational effect", "Gender gap", "Political efficacy"] },
+    { name: "Public Opinion + Polling", answers: ["Public opinion", "Scientific polling", "Opinion polling", "Random sample", "Margin of error"] },
+    { name: "Ideology", answers: ["Political ideology", "Liberal ideology", "Conservative ideology", "Libertarian ideology", "Individualism"] },
+    { name: "Economic Beliefs", answers: ["Supply-side economics", "Keynesian economics", "Monetary policy", "Monetary policy debate", "Tax policy"] },
+    { name: "Policy Views", answers: ["Healthcare policy", "Social welfare policy", "Environmental policy", "Civil liberties priorities", "Equal opportunity"] }
   ],
   "games/ap-us-government/05 - Unit 5 Political Participation Jeopardy Review.html": [
     { name: "Voting + Elections", answers: ["Voter turnout", "Primary election", "Caucus", "Electoral College", "Winner-take-all system"] },
@@ -285,6 +299,135 @@ const CATEGORY_ASSIGNMENT_REPAIRS = {
   ]
 };
 
+Object.assign(CATEGORY_ASSIGNMENT_REPAIRS, {
+  "games/ap-psychology/01 - Research Methods Jeopardy Review.html": [
+    { name: "Variables + Theory", answers: ["Operational definition", "Hypothesis", "Theory", "Independent variable", "Dependent variable"] },
+    { name: "Experimental Control", answers: ["Confounding variable", "Random assignment", "Placebo effect", "Double-blind procedure", "Replication"] },
+    { name: "Research Designs", answers: ["Experiment", "Correlation", "Case study", "Naturalistic observation", "Survey"] },
+    { name: "Sampling + Ethics", answers: ["Random sample", "Population", "Sample", "Informed consent", "Inferential statistics"] },
+    { name: "Descriptive Statistics", answers: ["Descriptive statistics", "Mean", "Median", "Mode", "Standard deviation"] }
+  ],
+  "games/ap-psychology/03 - Cognition Jeopardy Review.html": [
+    { name: "Perception + Attention", answers: ["Bottom-up processing", "Top-down processing", "Selective attention", "Inattentional blindness", "Schema"] },
+    { name: "Thinking + Biases", answers: ["Prototype", "Heuristic", "Algorithm", "Confirmation bias", "Availability heuristic"] },
+    { name: "Memory Processes", answers: ["Encoding", "Storage", "Retrieval", "Working memory", "Long-term memory"] },
+    { name: "Memory Strategies", answers: ["Rehearsal", "Spacing effect", "Testing effect", "Chunking", "Ebbinghaus forgetting curve"] },
+    { name: "Memory Errors", answers: ["Elizabeth Loftus", "Misinformation effect", "Proactive interference", "Retroactive interference", "Representativeness heuristic"] }
+  ],
+  "games/ap-psychology/06 - Clinical and Positive Psychology Jeopardy Review.html": [
+    { name: "Disorder Categories", answers: ["DSM-5-TR", "Anxiety disorders", "OCD", "PTSD", "Major depressive disorder"] },
+    { name: "Mood + Psychosis", answers: ["Bipolar disorder", "Schizophrenia", "Delusions", "Hallucinations", "Medical model"] },
+    { name: "Anxiety + Dissociation", answers: ["Generalized anxiety disorder", "Panic disorder", "Phobia", "Dissociative disorders", "Substance-use disorder"] },
+    { name: "Therapies", answers: ["Cognitive-behavioral therapy", "Exposure therapy", "Psychotherapy", "Psychoanalysis", "Humanistic therapy"] },
+    { name: "Personality + Well-Being", answers: ["Personality disorders", "Antisocial personality disorder", "Positive psychology", "Biopsychosocial approach", "Antidepressants"] }
+  ],
+  "games/global-10-units/02 - Enlightenment and Atlantic Revolutions Jeopardy Review.html": [
+    { name: "Enlightenment Thinkers", answers: ["John Locke", "Montesquieu", "Voltaire", "Rousseau", "Mary Wollstonecraft"] },
+    { name: "Enlightenment Ideas", answers: ["Scientific Revolution", "Salons", "Encyclopedia", "Natural rights", "Social contract"] },
+    { name: "Revolutionary Documents", answers: ["Declaration of Independence", "Declaration of the Rights of Man", "Consent of the governed", "Separation of powers", "Checks and balances"] },
+    { name: "French Revolution", answers: ["Third Estate", "Estates-General", "Tennis Court Oath", "Reign of Terror", "Napoleon"] },
+    { name: "Atlantic Revolutions", answers: ["French Revolution", "Haitian Revolution", "Toussaint Louverture", "Simon Bolivar", "Nationalism"] }
+  ],
+  "games/global-10-units/05 - Global Conflict World War I to World War II Jeopardy Review.html": [
+    { name: "World War I Causes", answers: ["Archduke Franz Ferdinand", "MAIN causes", "Militarism", "Alliances", "Imperialism"] },
+    { name: "WWI + Revolution", answers: ["Trench warfare", "Treaty of Versailles", "Russian Revolution", "Lenin", "League of Nations"] },
+    { name: "Interwar Crisis", answers: ["Nationalism", "Great Depression", "Weimar Republic", "Fascism", "Appeasement"] },
+    { name: "Totalitarian States", answers: ["Mussolini", "Hitler", "Stalin", "Totalitarianism", "Nazi Party"] },
+    { name: "World War II + Genocide", answers: ["Total war", "Propaganda", "Holocaust", "Nuremberg Laws", "Atomic bomb"] }
+  ],
+  "games/global-10-units/10 - Human Rights Violations Jeopardy Review.html": [
+    { name: "Human Rights Law", answers: ["Genocide", "Universal Declaration of Human Rights", "Genocide Convention", "International Criminal Court", "Crimes against humanity"] },
+    { name: "Holocaust + Nuremberg", answers: ["Holocaust", "Nuremberg Trials", "War crimes", "Bystanders", "Ethnic cleansing"] },
+    { name: "Cambodia + Rwanda", answers: ["Khmer Rouge", "Cambodian Genocide", "Pol Pot", "Killing Fields", "Rwandan Genocide"] },
+    { name: "Modern Atrocities", answers: ["Srebrenica", "Darfur", "Rohingya", "Hutu extremists", "Tutsi"] },
+    { name: "Apartheid + State Terror", answers: ["Apartheid", "Truth and Reconciliation Commission", "Armenian Genocide", "Stalin's purges", "Gulag"] }
+  ],
+  "games/us-history-units/01 - Colonial Foundations Jeopardy Review.html": [
+    { name: "Settlements + Regions", answers: ["Jamestown", "Plymouth", "Puritans", "Quakers", "Religious toleration"] },
+    { name: "Colonial Government", answers: ["Mayflower Compact", "Virginia House of Burgesses", "Colonial self-government", "Town meetings", "House of Burgesses"] },
+    { name: "Trade + Labor", answers: ["Mercantilism", "Triangular trade", "Middle Passage", "Cash crops", "Headright system"] },
+    { name: "British Control", answers: ["Navigation Acts", "Salutary neglect", "French and Indian War", "Proclamation of 1763", "Stamp Act"] },
+    { name: "Road to Revolution", answers: ["Bacon's Rebellion", "Albany Plan of Union", "Sons of Liberty", "Boston Massacre", "Boston Tea Party"] }
+  ],
+  "games/us-history-units/03 - Expansion and Reform Jeopardy Review.html": [
+    { name: "Western Expansion", answers: ["Louisiana Purchase", "Lewis and Clark", "Oregon Trail", "Manifest Destiny", "Mexican-American War"] },
+    { name: "Native Peoples", answers: ["Andrew Jackson", "Indian Removal Act", "Trail of Tears", "Cherokee Nation v. Georgia", "Worcester v. Georgia"] },
+    { name: "Reform Movements", answers: ["Abolition movement", "Seneca Falls Convention", "Temperance movement", "Public education reform", "Declaration of Sentiments"] },
+    { name: "Slavery + Sectionalism", answers: ["Cotton gin", "Sectionalism", "Missouri Compromise", "Compromise of 1850", "Election of 1860"] },
+    { name: "Territorial Politics", answers: ["Monroe Doctrine", "Nullification crisis", "Texas annexation", "Mexican Cession", "Gadsden Purchase"] }
+  ],
+  "games/us-history-units/05 - Industrialization and the Gilded Age Jeopardy Review.html": [
+    { name: "Industry + Railroads", answers: ["Transcontinental Railroad", "Bessemer process", "Corporation", "Monopoly", "Trust"] },
+    { name: "Business Leaders + Ideas", answers: ["Andrew Carnegie", "John D. Rockefeller", "Vertical integration", "Horizontal integration", "Gospel of Wealth"] },
+    { name: "Labor Unions", answers: ["Knights of Labor", "American Federation of Labor", "Samuel Gompers", "Collective bargaining", "Homestead Strike"] },
+    { name: "Immigration + Cities", answers: ["Ellis Island", "Tenements", "Political machines", "Haymarket Affair", "Pullman Strike"] },
+    { name: "Regulation + Farmers", answers: ["Sherman Antitrust Act", "Interstate Commerce Act", "Populism", "Social Darwinism", "Laissez-faire"] }
+  ],
+  "games/us-history-units/10 - Civil Rights Jeopardy Review.html": [
+    { name: "Courts + Segregation", answers: ["Brown v. Board of Education", "Little Rock Nine", "Jim Crow laws", "De jure segregation", "De facto segregation"] },
+    { name: "Direct Action", answers: ["Montgomery Bus Boycott", "Sit-ins", "Freedom Riders", "Birmingham Campaign", "March on Washington"] },
+    { name: "Civil Rights Leaders", answers: ["Martin Luther King Jr.", "Rosa Parks", "Thurgood Marshall", "NAACP", "SCLC"] },
+    { name: "Voting + Federal Laws", answers: ["Civil Rights Act of 1964", "Voting Rights Act of 1965", "24th Amendment", "Freedom Summer", "Selma to Montgomery March"] },
+    { name: "Movement Strategy", answers: ["Black Power", "SNCC", "CORE", "Civil disobedience", "Letter from Birmingham Jail"] }
+  ],
+  "games/us-regents-sprint/Day 2 - Amendments Documents Laws Review Game.html": [
+    { name: "Amendment Match", answers: ["Bill of Rights", "13th Amendment", "14th Amendment", "15th Amendment", "16th, 17th, 18th, and 19th Amendments"] },
+    { name: "Rights + Process", answers: ["Incorporation", "Equal Protection Clause", "24th Amendment", "26th Amendment", "Three-fourths of the states"] },
+    { name: "Major Documents", answers: ["Declaration of Independence", "Federalist Papers", "Monroe Doctrine", "Emancipation Proclamation", "Letter from Birmingham Jail"] },
+    { name: "Landmark Laws", answers: ["Homestead Act", "Alien and Sedition Acts", "Chinese Exclusion Act", "Sherman Antitrust Act", "Social Security Act"] },
+    { name: "Modern Rights Laws", answers: ["Civil Rights Act of 1964", "Voting Rights Act of 1965", "Hart-Celler Immigration Act", "Americans with Disabilities Act", "Affordable Care Act"] }
+  ],
+  "games/us-regents-sprint/Day 3 - Foreign Policy Wars Review Game.html": [
+    { name: "Doctrines", answers: ["Permanent alliances", "Monroe Doctrine", "Manifest Destiny", "Open Door Policy", "Big Stick diplomacy"] },
+    { name: "Cold War Strategy", answers: ["Containment", "Truman Doctrine", "Marshall Plan", "NATO", "Detente"] },
+    { name: "Cold War Flashpoints", answers: ["Berlin Blockade", "Cuban Missile Crisis", "Korean War", "INF Treaty", "United Nations"] },
+    { name: "Wars: 1812 to WWI", answers: ["War of 1812", "Mexican-American War", "Spanish-American War", "World War I", "Emancipation Proclamation"] },
+    { name: "Wars: WWII to Modern", answers: ["Pearl Harbor", "Gulf of Tonkin Resolution", "Gulf War", "War on Terror", "Korematsu v. United States"] }
+  ],
+  "games/apush/01 - Period 1 1491-1607 Jeopardy Review.html": [
+    { name: "Native Societies", answers: ["Native American societies", "Mississippian culture", "Great Plains societies", "Pueblo communities", "Maize agriculture"] },
+    { name: "Indigenous Culture", answers: ["Iroquois Confederacy", "Kinship networks", "Reciprocity", "Animism", "Cultural adaptation"] },
+    { name: "European Encounters", answers: ["Smallpox", "Smallpox epidemics", "Treaty of Tordesillas", "European imperial rivalry", "Columbian Exchange"] },
+    { name: "Labor + Colonies", answers: ["Mercantilism", "Encomienda system", "Atlantic slavery", "Joint-stock company", "Spanish colonization"] },
+    { name: "Spanish Borderlands", answers: ["Pueblo Revolt", "Casta system", "Atlantic World", "Spanish mission system", "Maize cultivation"] }
+  ],
+  "games/apush/07 - Period 7 1890-1945 Jeopardy Review.html": [
+    { name: "Progressive Era", answers: ["Muckrakers", "Muckraking", "Progressivism", "Federal Reserve Act", "State centralization"] },
+    { name: "Imperialism + WWI", answers: ["Open Door Policy", "Imperialism", "Roosevelt Corollary", "Spanish-American War", "World War I"] },
+    { name: "1920s Culture + Tensions", answers: ["Harlem Renaissance", "Great Migration", "Scopes Trial", "Red Scare", "Isolationism"] },
+    { name: "Depression + New Deal", answers: ["Stock market crash", "Great Depression", "Dust Bowl", "New Deal", "Social Security Act"] },
+    { name: "World Wars + Civil Liberties", answers: ["Pearl Harbor", "Executive Order 9066", "Korematsu v. United States", "Treaty of Versailles", "Espionage Act"] }
+  ],
+  "games/ap-world-history/02 - Unit 2 Networks of Exchange Jeopardy Review.html": [
+    { name: "Silk Roads", answers: ["Silk Roads", "Silk Roads luxury trade", "Caravanserai", "Pax Mongolica", "Marco Polo"] },
+    { name: "Indian Ocean", answers: ["Indian Ocean monsoon trade", "Indian Ocean trade", "Swahili city-states", "Diasporic communities", "Sufi missionaries"] },
+    { name: "Trans-Saharan Routes", answers: ["Trans-Saharan trade", "Trans-Saharan gold-salt trade", "Mali Empire", "Delhi Sultanate", "Italian city-states"] },
+    { name: "Mongol + Cultural Exchange", answers: ["Mongol Empire", "Yuan dynasty", "Khanates", "Cultural diffusion", "Syncretic culture"] },
+    { name: "Disease + Technology", answers: ["Black Death", "Paper money", "Flying cash", "Credit systems", "Bills of exchange"] }
+  ],
+  "games/economics/02 - Markets and Prices Jeopardy Review.html": [
+    { name: "Demand", answers: ["Demand", "Demand curve shift", "Substitute goods", "Complement goods", "Cross-price elasticity"] },
+    { name: "Supply", answers: ["Supply", "Supply curve shift", "Elasticity", "Surplus", "Shortage"] },
+    { name: "Prices + Equilibrium", answers: ["Equilibrium price", "Price ceiling", "Price floor", "Binding price ceiling", "Binding price floor"] },
+    { name: "Competition + Policy", answers: ["Competition", "Monopoly", "Antitrust law", "Excise tax", "Subsidy"] },
+    { name: "Elasticity + Choice", answers: ["Normal goods", "Inferior goods", "Consumer choice", "Elastic demand", "Inelastic demand"] }
+  ],
+  "games/global-regents-sprint/Day 4 - Current Issues Names 1-42 Review Game.html": [
+    { name: "Current Global Issues", answers: ["Globalization", "Deforestation", "Pandemic", "Nuclear proliferation", "Nuclear-armed states"] },
+    { name: "Global Responses", answers: ["Paris Agreement", "Mexico", "Nuclear Non-Proliferation Treaty", "European Union", "Belt and Road Initiative"] },
+    { name: "Reformation + Enlightenment", answers: ["Martin Luther", "Galileo Galilei", "Louis XIV", "John Locke", "Montesquieu"] },
+    { name: "Revolution + Reform", answers: ["Maximilien Robespierre", "Toussaint L'Ouverture", "Simon Bolivar", "Karl Marx", "Otto von Bismarck"] },
+    { name: "20th-Century Leaders", answers: ["Mahatma Gandhi", "Joseph Stalin", "Deng Xiaoping", "Mao Zedong", "Nelson Mandela"] }
+  ],
+  "games/us-regents-sprint/Day 5 - Modern Issues Miscellaneous Review Game.html": [
+    { name: "Modern Rights", answers: ["Affordable Care Act", "Obergefell v. Hodges", "Dobbs v. Jackson Women's Health Organization", "Students for Fair Admissions v. Harvard", "District of Columbia v. Heller"] },
+    { name: "Immigration + Access", answers: ["Chinese Exclusion Act", "National Origins Quota Acts", "DACA", "Hart-Celler Act", "Americans with Disabilities Act"] },
+    { name: "Industry + Regulation", answers: ["Cotton gin", "Horizontal integration", "Federal Reserve System", "Relief, Recovery, Reform", "Dodd-Frank Act"] },
+    { name: "Government Structure", answers: ["Commander-in-chief", "Senate", "House of Representatives", "Unwritten Constitution", "Commerce Clause"] },
+    { name: "Civil War + Reconstruction", answers: ["Missouri Compromise", "Compromise of 1850", "Kansas-Nebraska Act", "Compromise of 1877", "13th, 14th, and 15th Amendments"] }
+  ]
+});
+
 const GENERIC_CATEGORY_NAMES = [
   "People + Places",
   "Events + Laws",
@@ -324,6 +467,27 @@ const GENERIC_CATEGORY_NAMES = [
 const GENERIC_CATEGORY_RE = new RegExp(`^(${GENERIC_CATEGORY_NAMES.map(escapeRegExp).join("|")})$`, "i");
 
 const CATEGORY_HINTS = [
+  [/modern conflicts|global conflicts/, ["Partition of India", "Arab-Israeli conflict", "The Troubles", "Persian Gulf War", "Chechnya"]],
+  [/immigration access|identity access|access/, ["Americans with Disabilities Act", "DACA", "Hart-Celler Act", "Chinese Exclusion Act", "National Origins Quota Acts", "disability rights", "access"]],
+  [/colonization|colonial systems/, ["Colony", "New Spain", "New France", "Encomienda system", "Plantation", "colonial settlement"]],
+  [/democratic systems/, ["Representative democracy", "Federal system", "Parliament", "President", "Separation of powers"]],
+  [/early americas/, ["Migration", "Beringia", "Maize", "Civilization", "Aztec"]],
+  [/population land use|population \+ land use/, ["Population density", "River valley", "Urban center", "Pastoralism", "Oasis"]],
+  [/resources economies|resources \+ economies/, ["Natural resource", "Oil reserve", "Arable land", "Trade route", "Economic activity"]],
+  [/neolithic change/, ["Neolithic Revolution", "Domestication", "Agriculture", "Permanent settlement", "Surplus food"]],
+  [/conflict contact|conflict \+ contact/, ["Crusades", "Holy Land", "Pilgrimage", "Cultural blending", "Mediterranean trade"]],
+  [/travel technology|travel \+ technology/, ["Caravan", "Camel saddle", "Monsoon winds", "Lateen sail", "Compass"]],
+  [/imperial conflict/, ["French and Indian War", "Albany Plan of Union", "Treaty of Paris 1763", "Proclamation of 1763", "Pontiac Rebellion"]],
+  [/early tests/, ["Washington precedent", "Hamilton financial plan", "Whiskey Rebellion", "Neutrality Proclamation", "Political parties"]],
+  [/election secession|election \+ secession/, ["Abraham Lincoln", "Republican Party", "Secession", "Confederacy", "Fort Sumter"]],
+  [/^effects$/, ["Total war", "Habeas corpus suspension", "13th Amendment", "Assassination of Lincoln", "Reconstruction"]],
+  [/new territories/, ["Puerto Rico", "Guam", "Philippines", "Annexation of Hawaii", "Platt Amendment"]],
+  [/pacific latin america|pacific \+ latin america/, ["Open Door Policy", "Panama Canal", "Roosevelt Corollary", "Dollar diplomacy", "Sphere of influence"]],
+  [/u s entry|u\.s\. entry|us entry/, ["Neutrality", "Unrestricted submarine warfare", "Lusitania", "Zimmermann Telegram", "Declaration of war 1917"]],
+  [/proxy conflicts/, ["Korean War", "Vietnam War", "Domino theory", "Cuban Missile Crisis", "Proxy war"]],
+  [/voting equality|voting \+ equality/, ["Voting Rights Act of 1965", "24th Amendment", "Freedom Riders", "Little Rock Nine", "March on Washington"]],
+  [/cold war change|cold war \+ change/, ["Cold War", "Containment", "Vietnam War", "Globalization", "Baby boom"]],
+  [/civil war$/, ["Sectionalism", "Kansas-Nebraska Act", "Secession", "Gettysburg", "13th Amendment"]],
   [/absolute|absolut|monarch|ruler|bourbon|louis|versailles|divine right/, ["absolutism", "absolute monarchy", "divine right", "Louis XIV", "Versailles", "Bourbon France", "Peter the Great", "czar"]],
   [/land-based empire|gunpowder empire|ottoman|mughal|safavid/, ["Ottoman Empire", "Mughal Empire", "Safavid Empire", "Akbar", "Suleiman the Magnificent", "Janissaries", "land-based empires", "gunpowder empire"]],
   [/tokugawa|japan|shogun|samurai|daimyo/, ["Tokugawa Japan", "shogun", "samurai", "daimyo", "isolationism", "Japan"]],
@@ -724,17 +888,66 @@ function assignmentRepair(meta, game) {
   return CATEGORY_ASSIGNMENT_REPAIRS[file] || null;
 }
 
-function applyAssignmentRepair(game, repair) {
-  if (!repair) return false;
+function clueLookupByAnswer(game) {
   const clueByAnswer = new Map();
   for (const category of game.categories || []) {
     for (const clue of category.clues || []) {
-      clueByAnswer.set(normalize(clue.answer), clue);
+      for (const answer of [clue.answer, ...(clue.aliases || [])]) {
+        const key = normalize(answer);
+        if (key && !clueByAnswer.has(key)) clueByAnswer.set(key, clue);
+      }
     }
   }
+  return clueByAnswer;
+}
+
+function manifestAssignmentPlan(meta, game) {
+  const categories = (meta.categories || (game.categories || []).map((category) => category.name)).filter(Boolean);
+  const tags = Array.isArray(meta.tags) ? meta.tags : [];
+  if (categories.length !== 5 || tags.length < 25) return null;
+  if (categories.some((name) => GENERIC_CATEGORY_RE.test(name))) return null;
+
+  const normalizedTags = tags.map(normalize);
+  const categoryIndexes = categories.map((name) => normalizedTags.indexOf(normalize(name)));
+  if (categoryIndexes.some((index) => index < 0)) return null;
+  for (let index = 1; index < categoryIndexes.length; index += 1) {
+    if (categoryIndexes[index] <= categoryIndexes[index - 1]) return null;
+  }
+
+  const clueByAnswer = clueLookupByAnswer(game);
+  const used = new Set();
+  const plan = [];
+  for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex += 1) {
+    const start = categoryIndexes[categoryIndex] + 1;
+    const end = categoryIndex < categories.length - 1 ? categoryIndexes[categoryIndex + 1] : tags.length;
+    const answers = [];
+    for (const tag of tags.slice(start, end)) {
+      const clue = clueByAnswer.get(normalize(tag));
+      const key = normalize(clue?.answer);
+      if (!clue || used.has(key)) continue;
+      answers.push(clue.answer);
+      used.add(key);
+    }
+    if (answers.length !== 5) return null;
+    plan.push({ name: categories[categoryIndex], answers, source: "manifest-tags" });
+  }
+  return plan;
+}
+
+export function expectedCategoryAnswerPlan(meta, game) {
+  const explicitRepair = assignmentRepair(meta, game);
+  if (explicitRepair) {
+    return explicitRepair.map((spec) => ({ ...spec, source: "explicit-repair" }));
+  }
+  return manifestAssignmentPlan(meta, game);
+}
+
+function applyAssignmentRepair(game, repair) {
+  if (!repair) return false;
+  const clueByAnswer = clueLookupByAnswer(game);
   const values = [100, 200, 300, 400, 500];
   const nextCategories = repair.map((spec, categoryIndex) => {
-    const previous = game.categories?.[categoryIndex] || {};
+    const { sourceName, ...previous } = game.categories?.[categoryIndex] || {};
     const clues = spec.answers.map((answer, clueIndex) => {
       const clue = clueByAnswer.get(normalize(answer));
       if (!clue) throw new Error(`${game.title || game.slug}: missing Jeopardy repair answer "${answer}"`);
@@ -748,7 +961,6 @@ function applyAssignmentRepair(game, repair) {
     return {
       ...previous,
       name: spec.name,
-      sourceName: previous.sourceName || previous.name || "",
       clues
     };
   });
@@ -999,18 +1211,17 @@ function polishSentence(value, oldCategory, newCategory, extraLabels = []) {
 
 function rebuildBoard(game, meta) {
   const blueprint = categoryBlueprint(meta, game);
-  const repair = assignmentRepair(meta, game);
+  const assignmentPlan = expectedCategoryAnswerPlan(meta, game);
   const rename = Boolean(blueprint) || shouldRenameCategories(game, meta);
   let changed = false;
-  if (applyAssignmentRepair(game, repair)) {
+  if (applyAssignmentRepair(game, assignmentPlan)) {
     changed = true;
   }
   (game.categories || []).forEach((category, index) => {
     const oldName = category.name || "";
     const slotName = sourceSlotCategoryName(category.sourceName || oldName, meta, game, index);
-    const newName = repair?.[index]?.name || (rename ? (blueprint?.[index] || slotName || fallbackCategoryName(category, game, index)) : oldName);
+    const newName = assignmentPlan?.[index]?.name || (rename ? (blueprint?.[index] || slotName || fallbackCategoryName(category, game, index)) : oldName);
     if (newName && newName !== oldName) {
-      category.sourceName = category.sourceName || oldName;
       category.name = newName;
       changed = true;
     }
@@ -1040,8 +1251,12 @@ function rebuildBoard(game, meta) {
         }
       }
     }
+    if ("sourceName" in category) {
+      delete category.sourceName;
+      changed = true;
+    }
   });
-  if (!repair && rebalanceCluesByCategory(game)) {
+  if (!assignmentPlan && rebalanceCluesByCategory(game)) {
     changed = true;
   }
   if (assignDailyDouble(game, meta)) {

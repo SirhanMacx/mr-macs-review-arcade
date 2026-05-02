@@ -140,6 +140,7 @@ const state = {
   shake: 0,
   toast: "LOADING INTEL BANK",
   toastTime: 1.5,
+  safeTime: 0,
   last: 0
 };
 
@@ -296,7 +297,7 @@ function questionText(q) {
 
 async function loadBank() {
   try {
-    const response = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
+    const response = await fetch("../../data/chrono-defense-bank.json?v=20260502-source-contract");
     const data = await response.json();
     const raw = (data.questions || []).filter(isPlayableQuestion);
     const cold = raw.filter((q) => COLD_RE.test(questionText(q)));
@@ -374,6 +375,7 @@ function startGame() {
   state.answered = 0;
   state.streak = 0;
   state.player = { x: state.w / 2, y: state.h - playerBottomInset(), vx: 0, cooldown: 0, invuln: mobileControls.matches ? 2.2 : 0 };
+  state.safeTime = mobileControls.matches ? 10 : 6;
   state.touch = { left: false, right: false, fire: false };
   state.bullets = [];
   state.enemyShots = [];
@@ -540,6 +542,12 @@ function gradeAnswer(index) {
   setTimeout(() => {
     state.briefing = false;
     state.current = null;
+    state.safeTime = mobileControls.matches ? (correct ? 18 : 14) : (correct ? 8 : 6);
+    state.enemyShots = [];
+    state.player.invuln = Math.max(state.player.invuln, mobileControls.matches ? 2.2 : 1.2);
+    state.enemies.forEach((enemy) => {
+      enemy.y = Math.min(enemy.y, state.h - (mobileControls.matches ? 210 : 230));
+    });
     els.briefing.classList.add("hidden");
     if (state.shield <= 0) finish(false);
   }, correct ? 1150 : 2200);
@@ -589,6 +597,8 @@ function update(dt) {
     return;
   }
   const tune = difficultyTune();
+  state.safeTime = Math.max(0, state.safeTime - dt);
+  const mobileGrace = mobileControls.matches && state.safeTime > 0;
   const left = keys.has("ArrowLeft") || keys.has("a") || state.touch.left;
   const right = keys.has("ArrowRight") || keys.has("d") || state.touch.right;
   const target = (right ? 1 : 0) - (left ? 1 : 0);
@@ -609,11 +619,12 @@ function update(dt) {
   state.enemies.forEach((enemy) => {
     enemy.x += state.enemyDir * dt * (22 + state.wave * 2.2) * tune.speed;
     enemy.y += Math.sin(state.enemyStep * 0.06 + enemy.phase) * 0.08;
+    if (!mobileGrace) enemy.y += dt * (mobileControls.matches ? 1.2 + state.wave * 0.18 : 0);
   });
   if (state.boss) state.boss.x = state.w / 2 + Math.sin(performance.now() / 820) * Math.min(180, state.w * 0.18);
 
   state.enemyFire -= dt;
-  if (state.enemyFire <= 0) {
+  if (state.enemyFire <= 0 && !mobileGrace) {
     enemyFire();
     state.enemyFire = Math.max(0.26, (1.35 - state.wave * 0.045) * tune.fire);
   }
@@ -627,8 +638,8 @@ function update(dt) {
   state.intel = Math.min(100, state.intel + dt * (4.8 + state.wave * 0.28));
   state.shake = Math.max(0, state.shake - dt * 1.9);
   state.toastTime = Math.max(0, state.toastTime - dt);
-  if (state.enemies.some((enemy) => enemy.y > state.h - (mobileControls.matches ? 92 : 150))) {
-    state.shield = Math.max(0, state.shield - dt * 18 * tune.shield);
+  if (!mobileGrace && state.enemies.some((enemy) => enemy.y > state.h - (mobileControls.matches ? 92 : 150))) {
+    state.shield = Math.max(0, state.shield - dt * (mobileControls.matches ? 6 : 18) * tune.shield);
   }
   if (!state.enemies.length && !state.boss) {
     state.nextWave -= dt;

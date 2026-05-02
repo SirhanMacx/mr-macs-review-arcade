@@ -452,7 +452,7 @@
   async function init() {
     buildPath();
     await Promise.all(Object.entries(assetPaths).map(([name, src]) => loadImage(name, src)));
-    const res = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
+    const res = await fetch("../../data/chrono-defense-bank.json?v=20260502-source-contract");
     state.bank = await res.json();
     state.bank.questions = (state.bank.questions || []).filter(isPlayableQuestion);
     initFilters();

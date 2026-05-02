@@ -1396,6 +1396,8 @@ function renderBoard() {
       const tile = document.createElement("button");
       tile.className = "tile" + (state.used.includes(key) ? " used" : "") + (clue.daily ? " daily" : "");
       tile.textContent = state.used.includes(key) ? "" : "$" + clue.value;
+      const tileLabel = category.name + ", $" + clue.value + (clue.daily ? ", Daily Double" : "");
+      tile.setAttribute("aria-label", state.used.includes(key) ? tileLabel + ", completed" : tileLabel);
       tile.disabled = state.used.includes(key);
       tile.dataset.key = key;
       tile.style.setProperty("--i", index++);

@@ -148,6 +148,79 @@ const TRACKS = [
   }
 ];
 
+const TRACK_LAYOUTS = {
+  regents: {
+    length: 6200,
+    props: 240,
+    items: [560, 1180, 1860, 2520, 3240, 3960, 4680, 5380],
+    segments: [
+      { len: 520, curve: 0, hill: 0, width: 1.05, surface: "asphalt", name: "Starting straight" },
+      { len: 620, curve: -125, hill: 34, width: 0.98, surface: "cobble", name: "Archive bend" },
+      { len: 760, curve: -210, hill: -18, width: 0.94, surface: "asphalt", name: "Document switchback" },
+      { len: 520, curve: 42, hill: -36, width: 1.10, surface: "bridge", name: "Source bridge" },
+      { len: 820, curve: 230, hill: 28, width: 0.9, surface: "asphalt", name: "Evidence esses" },
+      { len: 680, curve: 80, hill: 58, width: 0.86, surface: "cobble", name: "Rubric climb" },
+      { len: 760, curve: -175, hill: 8, width: 1.0, surface: "asphalt", name: "Conversion curve" },
+      { len: 760, curve: 0, hill: -24, width: 1.12, surface: "asphalt", name: "Finish sprint" }
+    ]
+  },
+  liberty: {
+    length: 6000,
+    props: 220,
+    items: [500, 1100, 1680, 2380, 3060, 3740, 4520, 5260],
+    segments: [
+      { len: 560, curve: 0, hill: 0, width: 1.08, surface: "asphalt", name: "Federal plaza" },
+      { len: 620, curve: 185, hill: 14, width: 0.95, surface: "cobble", name: "Amendment avenue" },
+      { len: 540, curve: 245, hill: -28, width: 0.86, surface: "cobble", name: "Court hairpin" },
+      { len: 760, curve: -135, hill: 18, width: 1.0, surface: "bridge", name: "Checks bridge" },
+      { len: 720, curve: -235, hill: 42, width: 0.9, surface: "asphalt", name: "Reform row" },
+      { len: 690, curve: 80, hill: -36, width: 1.05, surface: "asphalt", name: "New Deal descent" },
+      { len: 640, curve: 210, hill: 24, width: 0.92, surface: "cobble", name: "Civil rights chicane" },
+      { len: 470, curve: 0, hill: 0, width: 1.15, surface: "asphalt", name: "Union straight" }
+    ]
+  },
+  silk: {
+    length: 6400,
+    props: 250,
+    items: [620, 1260, 1940, 2720, 3480, 4260, 5020, 5740],
+    segments: [
+      { len: 680, curve: -35, hill: 20, width: 1.03, surface: "dirt", name: "Caravan straight" },
+      { len: 760, curve: -235, hill: 62, width: 0.84, surface: "dirt", name: "Mountain pass" },
+      { len: 620, curve: 40, hill: -42, width: 0.92, surface: "sand", name: "Oasis drop" },
+      { len: 780, curve: 255, hill: 18, width: 0.88, surface: "sand", name: "Desert sweep" },
+      { len: 680, curve: 120, hill: 46, width: 1.0, surface: "bridge", name: "Canal bridge" },
+      { len: 820, curve: -210, hill: -12, width: 0.9, surface: "dirt", name: "Empire esses" },
+      { len: 700, curve: 70, hill: 38, width: 0.98, surface: "asphalt", name: "Revolution rise" },
+      { len: 360, curve: 0, hill: 0, width: 1.13, surface: "asphalt", name: "Market sprint" }
+    ]
+  },
+  apex: {
+    length: 6600,
+    props: 210,
+    items: [540, 1220, 1880, 2660, 3420, 4180, 4980, 5860],
+    segments: [
+      { len: 620, curve: 0, hill: 0, width: 1.02, surface: "asphalt", name: "Launch lab" },
+      { len: 740, curve: 220, hill: 40, width: 0.86, surface: "neon", name: "FRQ corkscrew" },
+      { len: 660, curve: -55, hill: -30, width: 1.08, surface: "ice", name: "Evidence tunnel" },
+      { len: 820, curve: -265, hill: 52, width: 0.82, surface: "neon", name: "DBQ bend" },
+      { len: 760, curve: 150, hill: -18, width: 0.96, surface: "asphalt", name: "Stimulus slalom" },
+      { len: 820, curve: 275, hill: 30, width: 0.84, surface: "neon", name: "Concept esses" },
+      { len: 760, curve: -125, hill: 48, width: 1.0, surface: "ice", name: "Score ramp" },
+      { len: 420, curve: 0, hill: 0, width: 1.16, surface: "asphalt", name: "Apex sprint" }
+    ]
+  }
+};
+
+const SURFACES = {
+  asphalt: { grip: 1, drag: 0, colors: ["#111a30", "#18213a"], edge: "#66e9ff" },
+  cobble: { grip: 0.92, drag: 18, colors: ["#19253f", "#202d48"], edge: "#ffd15c" },
+  bridge: { grip: 0.96, drag: 8, colors: ["#26314b", "#1b253c"], edge: "#f8fbff" },
+  dirt: { grip: 0.86, drag: 38, colors: ["#2b2430", "#3a2b34"], edge: "#ff8a3d" },
+  sand: { grip: 0.78, drag: 58, colors: ["#42372f", "#514031"], edge: "#ffd15c" },
+  neon: { grip: 1.04, drag: 0, colors: ["#141433", "#1a1841"], edge: "#ff5f9f" },
+  ice: { grip: 0.72, drag: 4, colors: ["#152c45", "#173c59"], edge: "#66e9ff" }
+};
+
 const ITEMS = [
   {
     id: "scroll",
@@ -272,19 +345,114 @@ const TRACK_LENGTH = 5400;
 const VISIBLE_RANGE = 1150;
 const COUNTDOWN_SECONDS = 3.15;
 
-function loadAsset(src) {
+function keySpriteSheet(image, options = {}) {
+  const canvas = document.createElement("canvas");
+  canvas.width = image.naturalWidth;
+  canvas.height = image.naturalHeight;
+  const spriteCtx = canvas.getContext("2d", { willReadFrequently: true });
+  if (!spriteCtx) return null;
+  spriteCtx.drawImage(image, 0, 0);
+  const frame = spriteCtx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = frame.data;
+  for (let index = 0; index < data.length; index += 4) {
+    const r = data[index];
+    const g = data[index + 1];
+    const b = data[index + 2];
+    const blueBias = b - Math.max(r, g);
+    const navyBackdrop = b > 30 && r < 64 && g < 78 && blueBias > (options.soft ? 4 : 8);
+    const purpleBackdrop = b > 38 && r < 78 && g < 62 && b > r + 5 && b > g + 8;
+    if (navyBackdrop || purpleBackdrop) {
+      data[index + 3] = 0;
+    }
+  }
+  spriteCtx.putImageData(frame, 0, 0);
+  return canvas;
+}
+
+function loadAsset(src, options = {}) {
   const image = new Image();
+  if (options.keyBackdrop) {
+    image.addEventListener("load", () => {
+      image.keyed = keySpriteSheet(image, options);
+    }, { once: true });
+  }
   image.src = src;
   return image;
 }
 
 const ASSETS = {
   keyArt: loadAsset("rally-64-key-art-v2.webp"),
-  racers: loadAsset("rally-64-racers-v2.webp"),
-  gameplayKarts: loadAsset("rally-64-gameplay-karts-v2.webp"),
+  racers: loadAsset("rally-64-racers-v2.webp", { keyBackdrop: true, soft: true }),
+  gameplayKarts: loadAsset("rally-64-gameplay-karts-v2.webp", { keyBackdrop: true }),
   tracks: loadAsset("rally-64-tracks.webp"),
-  items: loadAsset("rally-items-v2.webp")
+  items: loadAsset("rally-items-v2.webp", { keyBackdrop: true, soft: true })
 };
+
+function trackLayout(track = state?.track || TRACKS[0]) {
+  return TRACK_LAYOUTS[track.theme] || TRACK_LAYOUTS.regents;
+}
+
+function trackLength(track = state?.track || TRACKS[0]) {
+  return Number(trackLayout(track).length || TRACK_LENGTH);
+}
+
+function raceDistance() {
+  return trackLength() * state.track.laps;
+}
+
+function layoutSegments(layout = trackLayout()) {
+  if (layout._computedSegments) return layout._computedSegments;
+  const raw = layout.segments || TRACK_LAYOUTS.regents.segments;
+  const rawLength = raw.reduce((sum, segment) => sum + Number(segment.len || 0), 0) || layout.length || TRACK_LENGTH;
+  let start = 0;
+  layout._computedSegments = raw.map((segment, index) => {
+    const span = (Number(segment.len || 1) / rawLength) * trackLength({ theme: Object.keys(TRACK_LAYOUTS).find((key) => TRACK_LAYOUTS[key] === layout) || "regents" });
+    const entry = { segment, index, start, end: start + span };
+    start += span;
+    return entry;
+  });
+  const scale = Number(layout.length || TRACK_LENGTH) / Math.max(start, 1);
+  layout._computedSegments.forEach((entry) => {
+    entry.start *= scale;
+    entry.end *= scale;
+  });
+  return layout._computedSegments;
+}
+
+function smoothStep(value) {
+  const t = clamp(value, 0, 1);
+  return t * t * (3 - 2 * t);
+}
+
+function trackLocalDistance(distance) {
+  const length = trackLength();
+  return ((distance % length) + length) % length;
+}
+
+function trackSample(distance) {
+  const layout = trackLayout();
+  const local = trackLocalDistance(distance);
+  const entries = layoutSegments(layout);
+  const entry = entries.find((candidate) => local >= candidate.start && local < candidate.end) || entries[entries.length - 1];
+  const next = entries[(entry.index + 1) % entries.length] || entry;
+  const span = Math.max(1, entry.end - entry.start);
+  const t = smoothStep((local - entry.start) / span);
+  const seg = entry.segment;
+  const nextSeg = next.segment || seg;
+  const lapPct = local / trackLength();
+  const micro = Math.sin(lapPct * Math.PI * 10 + trackPhase()) * 14 + Math.sin(distance * 0.006 + trackPhase() * 1.8) * 7;
+  return {
+    curve: lerp(Number(seg.curve || 0), Number(nextSeg.curve || 0), t) + micro,
+    hill: lerp(Number(seg.hill || 0), Number(nextSeg.hill || 0), t) + Math.sin(lapPct * Math.PI * 8 + trackPhase()) * 9,
+    width: lerp(Number(seg.width || 1), Number(nextSeg.width || 1), t),
+    surface: seg.surface || "asphalt",
+    name: seg.name || "track"
+  };
+}
+
+function surfaceAt(distance) {
+  return SURFACES[trackSample(distance).surface] || SURFACES.asphalt;
+}
 
 const state = {
   banks: null,
@@ -361,6 +529,18 @@ function uniq(values) {
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
+}
+
+function lerp(start, end, t) {
+  return start + (end - start) * t;
+}
+
+function colorAlpha(hex, alpha) {
+  const value = String(hex || "#ffffff").replace("#", "");
+  const full = value.length === 3 ? value.split("").map((char) => char + char).join("") : value.padEnd(6, "f").slice(0, 6);
+  const number = Number.parseInt(full, 16);
+  if (!Number.isFinite(number)) return `rgba(255,255,255,${alpha})`;
+  return `rgba(${(number >> 16) & 255},${(number >> 8) & 255},${number & 255},${alpha})`;
 }
 
 function frameEase(rate, dt) {
@@ -471,9 +651,13 @@ function updateTopStats() {
 }
 
 async function loadBanks() {
-  const chrono = await fetch("../../data/chrono-defense-bank.json").then((r) => r.json());
+  const chrono = await fetch("../../data/chrono-defense-bank.json?v=20260502-source-contract").then((r) => r.json());
   state.banks = { chrono };
   updateTopStats();
+}
+
+function SourceBank() {
+  return window.MrMacsSourceBank || null;
 }
 
 function courseMatch(pool) {
@@ -484,6 +668,8 @@ function courseMatch(pool) {
 }
 
 function hasSourceLanguage(question) {
+  const bank = SourceBank();
+  if (bank?.sourceBased(question)) return true;
   const text = [
     question.prompt,
     question.stem,
@@ -503,6 +689,8 @@ function hasSourceLanguage(question) {
 }
 
 function normalizePowerupClue(question, rawPool, answerPool) {
+  const bank = SourceBank();
+  if (bank && (!bank.playableSharedPrompt(question) || (bank.sourceBased(question) && !bank.usableRegentsQuestion(question)))) return null;
   const prompt = cleanPrompt(question.prompt || question.stem || "");
   const answer = String(question.answer || "").trim();
   if (!prompt || !answer) return null;
@@ -527,8 +715,9 @@ function normalizePowerupClue(question, rawPool, answerPool) {
 }
 
 function poolForTrack(track) {
+  const bank = SourceBank();
   const chronoRaw = (state.banks?.chrono?.questions || [])
-    .filter((q) => q.answer && q.prompt && !hasSourceLanguage(q));
+    .filter((q) => q.answer && q.prompt && (!bank || bank.playableSharedPrompt(q)) && !hasSourceLanguage(q));
   const fallbackRaw = POWERUP_CLUE_FALLBACKS.map((q) => ({ ...q, category: "Powerup Clue" }));
   const raw = [...chronoRaw, ...fallbackRaw];
   const regex = courseMatch(track.pool);
@@ -597,11 +786,17 @@ function startRace() {
 function buildItemBoxes() {
   const boxes = [];
   const lanes = [-0.68, 0, 0.68];
+  const layout = trackLayout();
+  const itemMarks = layout.items?.length ? layout.items : [520, 1040, 1560, 2080, 2600, 3120, 3640, 4160, 4680];
+  const length = trackLength();
   let id = 0;
-  for (let distance = 520; distance < TRACK_LENGTH * state.track.laps - 220; distance += 520) {
-    const offset = Math.floor(distance / 520) % lanes.length;
-    boxes.push({ id: id += 1, distance, lane: lanes[offset], item: ITEMS[id % ITEMS.length], taken: false });
-    boxes.push({ id: id += 1, distance: distance + 60, lane: lanes[(offset + 2) % lanes.length], item: ITEMS[id % ITEMS.length], taken: false });
+  for (let lap = 0; lap < state.track.laps; lap += 1) {
+    itemMarks.forEach((mark, index) => {
+      const distance = lap * length + Math.min(mark, length - 260);
+      const offset = (index + lap) % lanes.length;
+      boxes.push({ id: id += 1, distance, lane: lanes[offset], item: ITEMS[id % ITEMS.length], taken: false });
+      boxes.push({ id: id += 1, distance: distance + 64, lane: lanes[(offset + 2) % lanes.length], item: ITEMS[id % ITEMS.length], taken: false });
+    });
   }
   return boxes;
 }
@@ -779,8 +974,8 @@ function updateItemHud() {
 }
 
 function updateHud() {
-  const total = TRACK_LENGTH * state.track.laps;
-  state.lap = Math.min(state.track.laps, Math.floor(state.distance / TRACK_LENGTH) + 1);
+  const total = raceDistance();
+  state.lap = Math.min(state.track.laps, Math.floor(state.distance / trackLength()) + 1);
   state.place = 1 + state.rivals.filter((rival) => rival.distance > state.distance).length;
   els.hudRacer.textContent = state.character.shortName || state.character.name;
   els.hudLap.textContent = `${state.lap}/${state.track.laps}`;
@@ -869,20 +1064,23 @@ function updateRace(dt) {
   const brake = keys.has("ArrowDown") || keys.has("s");
   const drift = keys.has(" ") && (left || right) && state.speed > 245;
   const steer = (right ? 1 : 0) - (left ? 1 : 0);
-  const offroad = Math.max(0, Math.abs(state.lane) - 0.98);
+  const sample = trackSample(state.distance + Math.max(60, state.speed * 0.24));
+  const surface = surfaceAt(state.distance + Math.max(80, state.speed * 0.3));
+  const laneLimit = 0.9 + sample.width * 0.18;
+  const offroad = Math.max(0, Math.abs(state.lane) - laneLimit);
   const weight = state.character.stats.weight || 6;
   const statSpeed = 410 + state.character.stats.speed * 27 + weight * 2;
   const naturalRoll = 126 + state.character.stats.speed * 9;
   const boostSpeed = state.boost > 0 ? 250 + state.character.stats.boost * 17 : 0;
   const brakeDrag = brake ? 305 + state.character.stats.handling * 6 : 0;
-  const targetSpeed = clamp((accelerate ? statSpeed : naturalRoll) + boostSpeed - brakeDrag - offroad * 295 - state.spin * 300 - state.bump * 120, 0, 805);
+  const targetSpeed = clamp((accelerate ? statSpeed : naturalRoll) + boostSpeed - brakeDrag - offroad * 295 - surface.drag - state.spin * 300 - state.bump * 120, 0, 805);
   const launchTorque = accelerate && state.speed < 260 ? (88 + state.character.stats.boost * 4 - weight * 2.5) * dt : 0;
   const brakeBite = brake ? (165 + state.character.stats.handling * 8) * dt : 0;
   const accelRate = accelerate || state.boost > 0 ? 10.2 + state.character.stats.boost * 0.12 - weight * 0.07 : 4.25;
   state.speed += (targetSpeed - state.speed) * frameEase(brake ? 16.8 : accelRate, dt) + launchTorque;
   if (brake) state.speed = Math.max(0, state.speed - brakeBite);
   const speedFactor = clamp(state.speed / 465, 0.32, 1.32);
-  const grip = 1.2 + state.character.stats.handling * 0.18 - weight * 0.018;
+  const grip = (1.2 + state.character.stats.handling * 0.18 - weight * 0.018) * surface.grip;
   const driftGrip = drift ? 0.45 : brake && steer ? 0.78 : 1;
   const brakeTurn = brake && steer ? 1.22 : 1;
   const curveAssist = roadCurveAt(state.distance + state.speed * 0.75, 0.6) * 0.000017 * state.speed;
@@ -890,8 +1088,9 @@ function updateRace(dt) {
   if (drift) state.laneVel += steer * 0.038 * dt * clamp(state.speed / 360, 0.55, 1.5);
   state.laneVel *= Math.pow(drift ? 0.982 : brake ? 0.835 : 0.875, dt * 60);
   state.lane += state.laneVel * (1.34 + state.speed / 360);
-  if (Math.abs(state.lane) > 1.25) {
-    state.lane = clamp(state.lane, -1.25, 1.25);
+  const hardEdge = laneLimit + 0.24;
+  if (Math.abs(state.lane) > hardEdge) {
+    state.lane = clamp(state.lane, -hardEdge, hardEdge);
     state.laneVel *= -0.35;
     state.speed *= 0.965;
     state.cameraShake = Math.max(state.cameraShake, 0.12);
@@ -962,19 +1161,23 @@ function updateRivals(dt) {
     rival.bumpGuard = Math.max(0, rival.bumpGuard - dt);
     rival.itemCooldown = Math.max(0, rival.itemCooldown - dt);
     const gap = rival.distance - state.distance;
-    const curve = Math.sin(rival.distance * 0.0044 + index * 2.2 + rival.wobble);
+    const sample = trackSample(rival.distance + 170);
+    const surface = surfaceAt(rival.distance + 120);
+    const raceLine = clamp(-sample.curve / 330, -0.58, 0.58);
+    const curve = raceLine + Math.sin(rival.distance * 0.0044 + index * 2.2 + rival.wobble) * 0.26;
     const avoidPlayer = Math.abs(gap) < 150 ? Math.sign(rival.lane - state.lane || (index % 2 ? 1 : -1)) * 0.24 : 0;
     const blockPlayer = gap > 8 && gap < 145 && Math.abs(rival.lane - state.lane) < 0.45 ? state.lane * 0.7 : 0;
     const chaseItemLane = Math.abs(gap) < 520 && rival.itemCooldown < 2.4
       ? nearestItemLane(rival.distance, rival.lane) * 0.28
       : 0;
-    rival.desiredLane = clamp(curve * 0.52 + avoidPlayer + blockPlayer + chaseItemLane, -0.92, 0.92);
+    rival.desiredLane = clamp(curve * 0.76 + avoidPlayer + blockPlayer + chaseItemLane, -0.92, 0.92);
     rival.lane += (rival.desiredLane - rival.lane) * frameEase(1.55 + racerHandling(rival.racer) * 0.04, dt);
     const rubberBand = rival.distance < state.distance - 360 ? 108 : rival.distance > state.distance + 620 ? -52 : 0;
     const draft = gap > -165 && gap < -42 && Math.abs(rival.lane - state.lane) < 0.34 ? 58 : 0;
     const hitDrag = rival.hit > 0 ? 175 : 0;
     const boost = rival.boost > 0 ? 158 : 0;
-    const target = rival.base + rubberBand + draft + boost - hitDrag;
+    const curveDrag = Math.abs(sample.curve) * 0.08;
+    const target = rival.base + rubberBand + draft + boost - hitDrag - surface.drag * 0.6 - curveDrag;
     rival.speed += (target - rival.speed) * frameEase(3.2, dt);
     rival.distance += rival.speed * dt;
     if (rival.itemCooldown <= 0 && Math.abs(gap) < 640) {
@@ -1325,28 +1528,24 @@ function trackPhase() {
 }
 
 function roadCurveAt(distance, n = 0) {
-  const phase = trackPhase();
-  const longCurve = Math.sin(distance * 0.00072 + phase) * 92;
-  const midCurve = Math.sin(distance * 0.0019 + n * 5.3 + phase * 1.7) * 102 * (1 - n);
-  const snapCurve = Math.sin(distance * 0.0041 + n * 2.1 + phase) * 18 * (1 - n);
-  return longCurve + midCurve + snapCurve;
+  const sample = trackSample(distance);
+  return sample.curve + Math.sin(distance * 0.0038 + n * 2.7 + trackPhase()) * 12 * (1 - n);
 }
 
 function roadHillAt(distance, n = 0) {
-  const phase = trackPhase();
-  return (
-    Math.sin(distance * 0.00105 + phase * 1.3) * 26 +
-    Math.sin(distance * 0.0024 + phase + n * 3.1) * 16 * (1 - n)
-  );
+  const sample = trackSample(distance);
+  return sample.hill + Math.sin(distance * 0.002 + trackPhase() + n * 3.1) * 10 * (1 - n);
 }
 
 function roadPoint(n, w, h) {
   const horizon = h * 0.385 + Math.sin(state.distance * 0.0008 + trackPhase()) * 11;
   const depth = n * n;
-  const hill = roadHillAt(state.distance + n * VISIBLE_RANGE * 1.04, n) * (1 - n * 0.42);
+  const distance = state.distance + n * VISIBLE_RANGE * 1.04;
+  const sample = trackSample(distance);
+  const hill = roadHillAt(distance, n) * (1 - n * 0.42);
   const y = horizon + depth * (h - horizon + 120) - hill;
-  const roadWidth = 100 + depth * w * 1.16;
-  const curve = roadCurveAt(state.distance + n * VISIBLE_RANGE * 1.04, n) * (0.38 + n * 0.72);
+  const roadWidth = (100 + depth * w * 1.16) * sample.width;
+  const curve = roadCurveAt(distance, n) * (0.38 + n * 0.72);
   return { x: w / 2 + curve, y, roadWidth };
 }
 
@@ -1358,7 +1557,8 @@ function drawRoad(w, h) {
     const p1 = roadPoint(n1, w, h);
     const p2 = roadPoint(n2, w, h);
     const stripe = Math.floor((i + state.distance * 0.036) / 2) % 2;
-    ctx.fillStyle = stripe ? "#18213a" : "#111a30";
+    const surface = surfaceAt(state.distance + n1 * VISIBLE_RANGE * 1.04);
+    ctx.fillStyle = surface.colors[stripe ? 1 : 0];
     ctx.beginPath();
     ctx.moveTo(p1.x - p1.roadWidth / 2, p1.y);
     ctx.lineTo(p1.x + p1.roadWidth / 2, p1.y);
@@ -1366,7 +1566,7 @@ function drawRoad(w, h) {
     ctx.lineTo(p2.x - p2.roadWidth / 2, p2.y);
     ctx.closePath();
     ctx.fill();
-    drawRoadEdge(p1, p2, stripe);
+    drawRoadEdge(p1, p2, stripe, surface);
   }
   ctx.lineWidth = 3;
   ctx.strokeStyle = "rgba(255,255,255,.36)";
@@ -1424,22 +1624,24 @@ function drawRoadMotion(w, h, now) {
 }
 
 function drawTracksideProps(w, h, now) {
-  const total = TRACK_LENGTH * state.track.laps;
-  const base = Math.floor(state.distance / 260) * 260;
-  for (let d = base + 260; d < state.distance + VISIBLE_RANGE; d += 260) {
-    const side = Math.floor(d / 260) % 2 ? -1 : 1;
-    const lane = side * (1.34 + (Math.floor(d / 520) % 2) * 0.18);
+  const total = raceDistance();
+  const spacing = trackLayout().props || 240;
+  const base = Math.floor(state.distance / spacing) * spacing;
+  for (let d = base + spacing; d < state.distance + VISIBLE_RANGE; d += spacing) {
+    const sample = trackSample(d);
+    const side = Math.floor(d / spacing) % 2 ? -1 : 1;
+    const lane = side * (1.22 + sample.width * 0.28 + (Math.floor(d / (spacing * 2)) % 2) * 0.16);
     const p = objectPoint(d - state.distance, lane, w, h);
     if (!p) continue;
     const theme = state.track.theme;
     const scale = p.scale;
-    if (Math.floor(d / 260) % 3 === 0) {
+    if (Math.floor(d / spacing) % 3 === 0) {
       drawBillboard(p.x, p.y - 82 * scale, 96 * scale, 56 * scale, theme, side, now + d);
     } else {
       drawLowPolyTree(p.x, p.y - 48 * scale, 44 * scale, theme);
     }
   }
-  const nextFinish = Math.ceil((state.distance + 120) / TRACK_LENGTH) * TRACK_LENGTH;
+  const nextFinish = Math.ceil((state.distance + 120) / trackLength()) * trackLength();
   if (nextFinish < total + 20 && nextFinish - state.distance < VISIBLE_RANGE) {
     const p = objectPoint(nextFinish - state.distance, 0, w, h);
     if (p) drawFinishGate(p.x, p.y - 150 * p.scale, p.scale);
@@ -1534,8 +1736,8 @@ function drawFinishGate(x, y, scale) {
   ctx.restore();
 }
 
-function drawRoadEdge(p1, p2, stripe) {
-  ctx.fillStyle = stripe ? "rgba(255,209,92,.52)" : "rgba(102,233,255,.42)";
+function drawRoadEdge(p1, p2, stripe, surface = SURFACES.asphalt) {
+  ctx.fillStyle = stripe ? colorAlpha(surface.edge, 0.52) : colorAlpha(state.track.accent || surface.edge, 0.42);
   ctx.beginPath();
   ctx.moveTo(p1.x - p1.roadWidth / 2 - 16, p1.y);
   ctx.lineTo(p1.x - p1.roadWidth / 2, p1.y);
@@ -1576,7 +1778,7 @@ function drawVisibleItems(w, h, now) {
 }
 
 function drawVisibleRivals(w, h) {
-  const total = TRACK_LENGTH * state.track.laps;
+  const total = raceDistance();
   state.rivals
     .filter((rival) => rival.distance < total + 300)
     .map((rival) => ({ rival, ahead: rival.distance - state.distance }))
@@ -1737,19 +1939,36 @@ function drawMinimap(w, h) {
   const x = w - 130;
   const y = h - 206;
   const height = 156;
-  const total = TRACK_LENGTH * state.track.laps;
+  const width = 86;
+  const total = raceDistance();
+  const length = trackLength();
   ctx.save();
   ctx.fillStyle = "rgba(5,8,22,.58)";
   ctx.strokeStyle = "rgba(255,255,255,.2)";
   ctx.lineWidth = 1;
-  roundRect(x - 22, y - 12, 42, height + 24, 18);
+  roundRect(x - width / 2 - 10, y - 12, width + 20, height + 24, 18);
   ctx.fill();
+  ctx.stroke();
+  ctx.strokeStyle = colorAlpha(state.track.accent || "#66e9ff", 0.76);
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  for (let i = 0; i <= 72; i += 1) {
+    const pct = i / 72;
+    const sample = trackSample(pct * length);
+    const px = x + clamp(sample.curve / 330, -1, 1) * width * 0.36;
+    const py = y + height - pct * height;
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
   ctx.stroke();
   const drawDot = (distance, color, radius) => {
     const pct = clamp(distance / total, 0, 1);
+    const localPct = (trackLocalDistance(distance) / length);
+    const sample = trackSample(localPct * length);
+    const px = x + clamp(sample.curve / 330, -1, 1) * width * 0.36;
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(x, y + height - pct * height, radius, 0, Math.PI * 2);
+    ctx.arc(px, y + height - pct * height, radius, 0, Math.PI * 2);
     ctx.fill();
   };
   state.rivals.forEach((rival) => drawDot(rival.distance, rival.racer.accent, 4));
@@ -1815,19 +2034,22 @@ function drawToast(w, h) {
 }
 
 function spriteRect(image, sprite, columns = 2, rows = 2) {
-  if (!image.complete || !image.naturalWidth) return null;
+  const source = image.keyed || image;
+  const naturalWidth = source.naturalWidth || source.width;
+  const naturalHeight = source.naturalHeight || source.height;
+  if (!naturalWidth || !naturalHeight) return null;
   if (typeof sprite === "number") {
-    const cellW = image.naturalWidth / columns;
-    const cellH = image.naturalHeight / rows;
+    const cellW = naturalWidth / columns;
+    const cellH = naturalHeight / rows;
     const col = sprite % columns;
     const row = Math.floor(sprite / columns) % rows;
-    return { sx: col * cellW, sy: row * cellH, sw: cellW, sh: cellH };
+    return { source, sx: col * cellW, sy: row * cellH, sw: cellW, sh: cellH };
   }
-  const halfW = image.naturalWidth / 2;
-  const halfH = image.naturalHeight / 2;
+  const halfW = naturalWidth / 2;
+  const halfH = naturalHeight / 2;
   const col = String(sprite).startsWith("100") ? 1 : 0;
   const row = String(sprite).endsWith("100%") ? 1 : 0;
-  return { sx: col * halfW, sy: row * halfH, sw: halfW, sh: halfH };
+  return { source, sx: col * halfW, sy: row * halfH, sw: halfW, sh: halfH };
 }
 
 function drawSpriteCover(image, sprite, x, y, width, height, columns = 2, rows = 2) {
@@ -1846,14 +2068,14 @@ function drawSpriteCover(image, sprite, x, y, width, height, columns = 2, rows =
     sh = sw / targetRatio;
     sy += (rect.sh - sh) / 2;
   }
-  ctx.drawImage(image, sx, sy, sw, sh, x, y, width, height);
+  ctx.drawImage(rect.source, sx, sy, sw, sh, x, y, width, height);
   return true;
 }
 
 function drawSpriteStretch(image, sprite, x, y, width, height, columns = 2, rows = 2) {
   const rect = spriteRect(image, sprite, columns, rows);
   if (!rect) return false;
-  ctx.drawImage(image, rect.sx, rect.sy, rect.sw, rect.sh, x, y, width, height);
+  ctx.drawImage(rect.source, rect.sx, rect.sy, rect.sw, rect.sh, x, y, width, height);
   return true;
 }
 

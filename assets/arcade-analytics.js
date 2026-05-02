@@ -100,7 +100,10 @@
   function gameIdFromPath() {
     if (!isGamePage) return "";
     var id = pagePath.split("/games/")[1] || pagePath;
+    try { id = decodeURIComponent(id); } catch (error) {}
+    id = id.replace(/\/index\.html$/i, "").replace(/\/+$/g, "");
     if (id.indexOf("history-hunters-2") === 0) return "history-hunters";
+    if (id.indexOf("/") > -1) return id.split("/")[0];
     return id;
   }
 
@@ -163,10 +166,12 @@
       data.games[id].views = Number(data.games[id].views || 0);
       data.games[id].plays = Number(data.games[id].plays || 0);
       data.games[id].completions = Number(data.games[id].completions || 0);
+      data.games[id].engagement = Number(data.games[id].engagement || 0);
       if (type === "game_launch") data.games[id].launches += 1;
       if (type === "game_view") data.games[id].views += 1;
       if (type === "game_play") data.games[id].plays += 1;
       if (type === "game_complete") data.games[id].completions += 1;
+      data.games[id].engagement = data.games[id].launches + data.games[id].views + data.games[id].plays + data.games[id].completions;
       data.games[id].lastSeen = now;
     }
 
@@ -258,6 +263,9 @@
       if (Number.isFinite(score)) game.bestScore = game.bestScore === null ? score : Math.max(Number(game.bestScore || 0), score);
       if (Number.isFinite(accuracy)) game.bestAccuracy = game.bestAccuracy === null ? accuracy : Math.max(Number(game.bestAccuracy || 0), accuracy);
     }
+    data.days = data.days || {};
+    data.days[today] = data.days[today] || {};
+    data.days[today][type] = Number(data.days[today][type] || 0) + 1;
     game.lastSeen = now;
     data.games[gameId] = game;
 
@@ -473,6 +481,22 @@
     clear: function () {
       try { localStorage.removeItem(PROGRESS_KEY); } catch (error) {}
       notifyProgress(readProgress());
+    },
+    clearAllLocalPractice: function () {
+      try {
+        Object.keys(localStorage).forEach(function (key) {
+          if (
+            key === PROGRESS_KEY ||
+            key === LOCAL_KEY ||
+            key.indexOf("mrmacs-regents-practice") > -1 ||
+            key.indexOf("mrmacs-ap-practice") > -1 ||
+            key.indexOf("mrmacs-review-arcade") === 0
+          ) {
+            localStorage.removeItem(key);
+          }
+        });
+      } catch (error) {}
+      notifyProgress(readProgress());
     }
   };
 
@@ -567,15 +591,19 @@
     var holder = document.getElementById("trafficTopGames");
     if (!holder) return;
     var games = Array.isArray(global.topGames) ? global.topGames : [];
-    games = games.filter(function (game) { return Number(game.launches || 0) > 0; }).slice(0, 5);
+    games = games.map(function (game) {
+      return Object.assign({}, game, {
+        engagement: Number(game.launches || 0) + Number(game.views || 0) + Number(game.plays || 0) + Number(game.completions || 0)
+      });
+    }).filter(function (game) { return Number(game.engagement || 0) > 0; }).slice(0, 5);
     if (!games.length) {
       holder.innerHTML = '<span class="traffic-empty">Top games appear as public launches build.</span>';
       return;
     }
-    var max = Math.max.apply(null, games.map(function (game) { return Number(game.launches || 0); }).concat([1]));
+    var max = Math.max.apply(null, games.map(function (game) { return Number(game.engagement || 0); }).concat([1]));
     holder.innerHTML = games.map(function (game, index) {
-      var width = Math.max(8, Math.round((Number(game.launches || 0) / max) * 100));
-      return '<div class="traffic-game"><span><b>' + (index + 1) + '</b>' + game.label + '</span><strong>' + format(game.launches) + '</strong><i style="--w:' + width + '%"></i></div>';
+      var width = Math.max(8, Math.round((Number(game.engagement || 0) / max) * 100));
+      return '<div class="traffic-game"><span><b>' + (index + 1) + '</b>' + game.label + '</span><strong>' + format(game.engagement) + '</strong><i style="--w:' + width + '%"></i></div>';
     }).join("");
   }
 
@@ -585,13 +613,14 @@
     var global = Object.assign({}, cache, window.__MR_MACS_GLOBAL_TRAFFIC__ || {}, extra || {});
     var connected = global.connected === true;
     var launchCount = metricFrom(global, "gameLaunches");
+    var playCount = metricFrom(global, "gamePlays");
     var topLaunches = topLaunchTotal(global);
     if (topLaunches !== null && (launchCount === null || launchCount < topLaunches)) launchCount = topLaunches;
     setText("[data-traffic='global-visits']", format(metricFrom(global, "siteVisits")));
     setText("[data-traffic='global-engaged']", format(metricFrom(global, "engagedSessions")));
     setText("[data-traffic='global-game-opens']", format(launchCount));
+    setText("[data-traffic='global-game-plays']", format(playCount));
     setText("[data-traffic='global-game-views']", format(metricFrom(global, "gameViews")));
-    setText("[data-traffic='global-game-plays']", format(metricFrom(global, "gamePlays")));
     setText("[data-traffic='global-completions']", format(metricFrom(global, "completions")));
     setText("[data-traffic='global-today-visits']", format(metricFrom(global, "todayVisits")));
     setText("[data-traffic='global-today-plays']", format(metricFrom(global, "todayGamePlays")));
@@ -688,7 +717,9 @@
     var days = [6, 5, 4, 3, 2, 1, 0].map(dateOffset);
     var visitDays = days.filter(function (date) { return date >= TRAFFIC_START_DATE; });
     var dailyVisitCounters = visitDays.map(function (date) { return "daily-" + date + "-site-visits"; });
-    var topGameCounters = TOP_GAME_IDS.map(function (id) { return "game-" + id + "-game-launches"; });
+    var topGameCounters = TOP_GAME_IDS.flatMap(function (id) {
+      return ["game-" + id + "-game-launches", "game-" + id + "-game-views", "game-" + id + "-game-plays", "game-" + id + "-game-completions"];
+    });
     var allCounters = counters.concat(dailyVisitCounters, topGameCounters);
     return runCounterSeries(allCounters, function (name) {
       return getGlobal(name);
@@ -706,13 +737,22 @@
       });
       var topOffset = counters.length + dailyVisitCounters.length;
       var topGames = TOP_GAME_IDS.map(function (id, index) {
+        var offset = topOffset + index * 4;
+        var launches = publicMetric(values[offset]) || 0;
+        var views = publicMetric(values[offset + 1]) || 0;
+        var plays = publicMetric(values[offset + 2]) || 0;
+        var completions = publicMetric(values[offset + 3]) || 0;
         return {
           id: id,
           label: TOP_GAME_LABELS[id] || id,
-          launches: publicMetric(values[topOffset + index]) || 0
+          launches: launches,
+          views: views,
+          plays: plays,
+          completions: completions,
+          engagement: launches + views + plays + completions
         };
       }).sort(function (a, b) {
-        return Number(b.launches || 0) - Number(a.launches || 0);
+        return Number(b.engagement || 0) - Number(a.engagement || 0);
       });
       var connected = values.some(function (value) { return value !== null; });
       if (!connected) {

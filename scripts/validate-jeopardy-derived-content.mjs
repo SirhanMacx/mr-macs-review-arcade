@@ -71,7 +71,7 @@ function buildTags(question, source, isFinal) {
 }
 
 function categoryNames(category) {
-  return [category.name, category.sourceName]
+  return [category.name]
     .map((value) => String(value || "").trim())
     .filter((value, index, arr) => value && arr.indexOf(value) === index);
 }
@@ -123,8 +123,16 @@ for (const meta of games.filter(isJeopardyManifestEntry)) {
 
 const chrono = JSON.parse(readFileSync(resolve(root, "data/chrono-defense-bank.json"), "utf8"));
 let checked = 0;
+const idOwners = new Map();
+const typeCounts = {};
 
 for (const question of chrono.questions || []) {
+  const type = question.type || "unknown";
+  typeCounts[type] = (typeCounts[type] || 0) + 1;
+  if (question.id) {
+    if (idOwners.has(question.id)) errors.push(`${question.id}: duplicate question id also used by ${idOwners.get(question.id)}`);
+    else idOwners.set(question.id, `${question.course || ""} / ${question.set || ""}`);
+  }
   if (!String(question.type || "").startsWith("jeopardy")) continue;
   const isFinal = String(question.type || "") === "jeopardy-final" || Number(question.value) === 700;
   const keys = isFinal ? [
@@ -156,6 +164,18 @@ for (const question of chrono.questions || []) {
   const expectedTags = buildTags(question, source, isFinal);
   if (JSON.stringify(question.tags || []) !== JSON.stringify(expectedTags)) errors.push(`${question.id || question.set}: stale tags`);
   checked += 1;
+}
+
+const expectedSummary = {
+  totalQuestions: (chrono.questions || []).length,
+  courses: new Set((chrono.questions || []).map((question) => question.course).filter(Boolean)).size,
+  jeopardy: (typeCounts.jeopardy || 0) + (typeCounts["jeopardy-final"] || 0),
+  mcq: typeCounts.mcq || 0
+};
+for (const [field, expected] of Object.entries(expectedSummary)) {
+  if (Number(chrono.summary?.[field] || 0) !== expected) {
+    errors.push(`data/chrono-defense-bank.json: summary.${field} is ${chrono.summary?.[field] || 0}, expected ${expected}`);
+  }
 }
 
 if (errors.length) {

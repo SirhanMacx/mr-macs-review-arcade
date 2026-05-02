@@ -55,7 +55,7 @@ function cleanClue(clue) {
 }
 
 function categoryNames(category) {
-  return [category.name, category.sourceName]
+  return [category.name]
     .map((value) => String(value || "").trim())
     .filter((value, index, arr) => value && arr.indexOf(value) === index);
 }
@@ -107,6 +107,66 @@ function buildTags(question, source, isFinal) {
   ]);
 }
 
+function updateSummary(bank) {
+  const questions = bank.questions || [];
+  const typeCounts = questions.reduce((counts, question) => {
+    const type = question.type || "unknown";
+    counts[type] = (counts[type] || 0) + 1;
+    return counts;
+  }, {});
+  bank.summary = {
+    ...(bank.summary || {}),
+    totalQuestions: questions.length,
+    courses: new Set(questions.map((question) => question.course).filter(Boolean)).size,
+    jeopardy: (typeCounts.jeopardy || 0) + (typeCounts["jeopardy-final"] || 0),
+    mcq: typeCounts.mcq || 0,
+    generatedAt: new Date().toISOString()
+  };
+  bank.courses = [...new Set(questions.map((question) => question.course).filter(Boolean))].sort();
+  const setsByCourse = {};
+  for (const question of questions) {
+    if (!question.course || !question.set) continue;
+    if (!setsByCourse[question.course]) setsByCourse[question.course] = [];
+    if (!setsByCourse[question.course].includes(question.set)) setsByCourse[question.course].push(question.set);
+  }
+  for (const sets of Object.values(setsByCourse)) sets.sort();
+  bank.setsByCourse = setsByCourse;
+}
+
+function dedupeQuestions(bank) {
+  const seen = new Map();
+  const next = [];
+  let removed = 0;
+  for (const question of bank.questions || []) {
+    if (!question.id) {
+      next.push(question);
+      continue;
+    }
+    const previous = seen.get(question.id);
+    if (!previous) {
+      seen.set(question.id, question);
+      next.push(question);
+      continue;
+    }
+    const samePayload = [
+      "type",
+      "course",
+      "set",
+      "category",
+      "value",
+      "prompt",
+      "answer",
+      "explanation"
+    ].every((field) => JSON.stringify(previous[field] || "") === JSON.stringify(question[field] || ""));
+    if (!samePayload) {
+      throw new Error(`Duplicate Jeopardy-derived id has conflicting content: ${question.id}`);
+    }
+    removed += 1;
+  }
+  bank.questions = next;
+  return removed;
+}
+
 function clueKey(course, title, category, value, answer) {
   return [course, title, category, Number(value), answer].map(normalize).join("|");
 }
@@ -145,7 +205,6 @@ function collectJeopardyBoards() {
       collection: meta.collection || "",
       categories: (game.categories || []).map((category) => ({
         name: category.name || "Review",
-        sourceName: category.sourceName || "",
         clues: (category.clues || []).map(cleanClue)
       })),
       final: cleanFinal(game.final)
@@ -208,7 +267,9 @@ function syncChronoBank(clueIndex, clueIdIndex, clueAnswerIndex, finalIndex, fin
         answerKey(question.subject, question.set, question.answer),
         answerKey("", question.set, question.answer)
       ].map((key) => clueAnswerIndex.get(key)).find(Boolean) : null);
-    if (!source) continue;
+    if (!source) {
+      throw new Error(`No source board match for ${question.id || `${question.course} ${question.set} ${question.answer}`}`);
+    }
     const nextTags = buildTags(question, source, isFinal);
     if (
       question.prompt !== source.clue ||
@@ -228,8 +289,10 @@ function syncChronoBank(clueIndex, clueIdIndex, clueAnswerIndex, finalIndex, fin
     question.tags = nextTags;
     question.search = buildSearch(question);
   }
+  const removed = dedupeQuestions(bank);
+  updateSummary(bank);
   writeFileSync(file, `${JSON.stringify(bank, null, 2)}\n`);
-  return updated;
+  return { updated, removed };
 }
 
 function syncBossRush(boards) {
@@ -243,9 +306,9 @@ function syncBossRush(boards) {
 
 function main() {
   const { boards, clueIndex, clueIdIndex, clueAnswerIndex, finalIndex, finalIdIndex } = collectJeopardyBoards();
-  const bankUpdates = syncChronoBank(clueIndex, clueIdIndex, clueAnswerIndex, finalIndex, finalIdIndex);
+  const { updated: bankUpdates, removed: removedDuplicates } = syncChronoBank(clueIndex, clueIdIndex, clueAnswerIndex, finalIndex, finalIdIndex);
   syncBossRush(boards);
-  console.log(`Synced ${boards.length} Jeopardy boards into Boss Rush and refreshed ${bankUpdates} shared-bank prompts.`);
+  console.log(`Synced ${boards.length} Jeopardy boards into Boss Rush, refreshed ${bankUpdates} shared-bank prompts, removed ${removedDuplicates} duplicate derived records.`);
 }
 
 main();

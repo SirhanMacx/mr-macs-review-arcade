@@ -132,17 +132,25 @@
     return hasImages(question) && !/^quarantined/i.test(String(question.sourceIntegrity || ""));
   }
 
+  function usableRegentsQuestion(question) {
+    if (SourceBank) return SourceBank.usableRegentsQuestion(question);
+    if (!question || /^quarantined/i.test(String(question.sourceIntegrity || ""))) return false;
+    return !sourceBased(question) || trustedSource(question);
+  }
+
   function sourceLock(question) {
     var normalized = Object.assign({}, question, { stimulusImages: question.stimulusImages || question.images || [] });
     if (SourceBank) return SourceBank.sourceLock(normalized);
-    var ok = trustedSource(normalized);
+    var quarantined = /^quarantined/i.test(String(normalized.sourceIntegrity || ""));
+    var needed = sourceBased(normalized);
+    var ok = !quarantined && (!needed || trustedSource(normalized));
     return {
       ok: ok,
-      needed: sourceBased(normalized),
-      reason: ok ? "" : "Source needs review",
-      images: ok ? (normalized.stimulusImages || []) : [],
+      needed: needed,
+      reason: ok ? "" : quarantined ? "Source was quarantined for review" : "Source needs review",
+      images: ok && needed ? (normalized.stimulusImages || []) : [],
       identity: [normalized.course, normalized.source, (normalized.stimulusImages || []).map(function (image) { return image.src; }).join("|")].join("::"),
-      label: ok ? "Source matched" : "Source blocked"
+      label: ok ? (needed ? "Source matched" : "No source needed") : "Source blocked"
     };
   }
 
@@ -237,7 +245,8 @@
   }
 
   async function loadJson(path) {
-    var response = await fetch(path, { cache: "no-store" });
+    var url = path + (path.indexOf("?") === -1 ? "?v=20260502-source-contract" : "&v=20260502-source-contract");
+    var response = await fetch(url);
     if (!response.ok) throw new Error("Could not load " + path);
     return response.json();
   }
@@ -266,8 +275,11 @@
     var profile = courseProfile(course);
     var courseValue = profile.label;
     var regents = (data.regents.questions || []).filter(function (q) {
+      if (!usableRegentsQuestion(q)) return false;
       return profile.regents ? q.course === courseValue : norm([q.course, q.subject, q.set, q.tags && q.tags.join(" ")].join(" ")).includes(norm(profile.short));
-    }).map(makeRegentsMcq);
+    }).map(makeRegentsMcq).filter(function (q) {
+      return q.sourceLock && q.sourceLock.ok;
+    });
     var reviewRaw = (data.review.questions || []).filter(function (q) {
       return q.course === courseValue || norm([q.course, q.subject, q.set, q.tags && q.tags.join(" ")].join(" ")).includes(norm(profile.short));
     });
@@ -282,8 +294,8 @@
   function buildDiagnostic(data, course, count) {
     count = count || 12;
     var pools = questionPool(data, course);
-    var sourceItems = shuffle(pools.regents.filter(function (q) { return q.sourceBased && sourceLock(q).ok; })).slice(0, Math.ceil(count / 2));
-    var regentsItems = shuffle(pools.regents.filter(function (q) { return !sourceItems.some(function (s) { return s.id === q.id; }); })).slice(0, Math.ceil(count / 3));
+    var sourceItems = shuffle(pools.regents.filter(function (q) { return q.sourceBased && q.sourceLock && q.sourceLock.ok; })).slice(0, Math.ceil(count / 2));
+    var regentsItems = shuffle(pools.regents.filter(function (q) { return q.sourceLock && q.sourceLock.ok && !sourceItems.some(function (s) { return s.id === q.id; }); })).slice(0, Math.ceil(count / 3));
     var reviewItems = shuffle(pools.review).slice(0, count - sourceItems.length - regentsItems.length);
     var items = shuffle(sourceItems.concat(regentsItems, reviewItems)).slice(0, count);
     if (items.length < count) {

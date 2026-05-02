@@ -9,7 +9,7 @@ function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math
 function uniq(values){return[...new Set(values.filter(Boolean))].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}))}
 function show(id){$$(".screen").forEach(s=>s.classList.remove("active"));$("#"+id).classList.add("active");scrollTo({top:0,behavior:"auto"})}
 function fmt(sec){sec=Math.max(0,Math.floor(sec));return Math.floor(sec/60)+":"+String(sec%60).padStart(2,"0")}
-function bankUrl(){return CONFIG.bank==="regents"?"../../data/regents-gauntlet-bank.json":"../../data/chrono-defense-bank.json"}
+function bankUrl(){return CONFIG.bank==="regents"?"../../data/regents-gauntlet-bank.json?v=20260502-source-contract":"../../data/chrono-defense-bank.json?v=20260502-source-contract"}
 function rawQuestions(){return CONFIG.bank==="regents"?(state.bank.questions||[]):((state.bank.questions||[]).filter(q=>q.answer||q.choices))}
 function sourceBased(q){return (q.stimulusImages&&q.stimulusImages.length)||q.stimulusRequired||/based on|according to|document|map|cartoon|graph|chart|excerpt|passage|photograph|source/i.test(q.stem||q.prompt||"")}
 function playablePrompt(q){return SourceBank?SourceBank.playableSharedPrompt(q):!!String(q.prompt||q.stem||"").trim()}

@@ -50,7 +50,7 @@
   document.documentElement.classList.toggle("perf-lite", liteFx);
 
   const assetPaths = {
-    background: "../../assets/timeline-runner/runner-track.png",
+    background: liteFx ? "../../assets/timeline-runner/runner-track-lite.jpg" : "../../assets/timeline-runner/runner-track.png",
     sprites: "../../assets/timeline-runner/runner-sprites.png"
   };
 
@@ -378,7 +378,7 @@
   async function loadBank() {
     els.startBtn.disabled = true;
     els.startBtn.textContent = "Loading...";
-    const response = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
+    const response = await fetch("../../data/chrono-defense-bank.json?v=20260502-source-contract");
     if (!response.ok) throw new Error(`Question bank failed: ${response.status}`);
     state.bank = await response.json();
     state.bank.questions = (state.bank.questions || []).filter(isPlayableQuestion);

@@ -3400,7 +3400,7 @@
       loadImage("retroSheet", "../../assets/history-hunters/retro-title-battle-sheet.webp"),
       loadImage("retroItems", "../../assets/history-hunters/retro-items-actions-sheet.webp")
     ]);
-    const response = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
+    const response = await fetch("../../data/chrono-defense-bank.json?v=20260502-source-contract");
     state.bank = await response.json();
     state.bank.questions = (state.bank.questions || []).filter(isUsableQuestion);
     const visibleTypes = new Set(state.bank.questions.map((q) => courseTypeFor(q.course).name));

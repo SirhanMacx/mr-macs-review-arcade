@@ -2796,7 +2796,7 @@
     bindEvents();
     updateSoundButton();
     try {
-      const res = await fetch("../../data/chrono-defense-bank.json", { cache: "no-store" });
+      const res = await fetch("../../data/chrono-defense-bank.json?v=20260502-source-contract");
       state.bank = await res.json();
     } catch {
       state.bank = { courses: ["All Courses"], setsByCourse: {}, questions: [] };

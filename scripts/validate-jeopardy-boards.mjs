@@ -2,7 +2,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { categoryFitScore, dailyDoublePosition } from "./rebuild-jeopardy-groundup.mjs";
+import { categoryFitScore, dailyDoublePosition, expectedCategoryAnswerPlan } from "./rebuild-jeopardy-groundup.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final", "Regents Sprint"]);
@@ -143,6 +143,22 @@ function validateBoard(game, file, meta) {
     errors.push(`${file}: expected exactly 5 categories`);
     return errors;
   }
+  const expectedPlan = expectedCategoryAnswerPlan(meta || {}, game);
+  const hasExplicitPlan = Boolean(expectedPlan?.every((spec) => spec.source === "explicit-repair"));
+  if (expectedPlan) {
+    for (let categoryIndex = 0; categoryIndex < expectedPlan.length; categoryIndex += 1) {
+      const expected = expectedPlan[categoryIndex];
+      const actual = game.categories[categoryIndex] || {};
+      if (normalize(actual.name) !== normalize(expected.name)) {
+        errors.push(`${file}: category ${categoryIndex + 1} should be "${expected.name}", found "${actual.name || "(blank)"}"`);
+      }
+      const expectedAnswers = expected.answers.map(normalize).join("|");
+      const actualAnswers = (actual.clues || []).map((clue) => normalize(clue.answer)).join("|");
+      if (actualAnswers !== expectedAnswers) {
+        errors.push(`${file}: ${expected.name} category answers are scrambled; expected ${expected.answers.join(" | ")}`);
+      }
+    }
+  }
   const categorySignature = game.categories.map((category) => normalize(category.name)).join("|");
   if (meta && Array.isArray(meta.categories) && manifestCategories(meta) !== categorySignature) {
     errors.push(`${file}: games.json categories are stale; expected ${game.categories.map((category) => category.name).join(" | ")}`);
@@ -159,6 +175,9 @@ function validateBoard(game, file, meta) {
   const answerRecords = [];
   const dailySpots = [];
   for (const category of game.categories) {
+    if ("sourceName" in category) {
+      errors.push(`${file}: ${category.name || "(untitled)"} carries stale sourceName runtime metadata`);
+    }
     if (FORBIDDEN_CATEGORY_NAME.test(String(category.name || "").trim())) {
       errors.push(`${file}: generic category name must be board-specific: ${category.name}`);
     }
@@ -199,13 +218,13 @@ function validateBoard(game, file, meta) {
       if (FORBIDDEN_FALLBACK_CLUE.test(`${clueText} ${clue.explanation || ""}`)) {
         errors.push(`${file}: ${category.name} $${value} still contains fallback/generic clue wording: ${clueText}`);
       }
-      for (const label of [category.name, category.sourceName].filter(Boolean)) {
+      for (const label of [category.name].filter(Boolean)) {
         const labelPrefix = new RegExp(`^${escaped(label)}\\s*:`, "i");
         if (labelPrefix.test(clueText)) {
           errors.push(`${file}: ${category.name} $${value} clue repeats category label instead of natural Jeopardy wording: ${clueText}`);
         }
       }
-      if (hasExplanationLabelChain(clue.explanation, answerText, [category.name, category.sourceName])) {
+      if (hasExplanationLabelChain(clue.explanation, answerText, [category.name])) {
         errors.push(`${file}: ${category.name} $${value} explanation still contains a stale category label: ${clue.explanation}`);
       }
       if (FORBIDDEN_CLUE_FILLER.test(clueText) || FORBIDDEN_CLUE_FILLER.test(String(clue.explanation || ""))) {
@@ -233,7 +252,7 @@ function validateBoard(game, file, meta) {
         const score = categoryFitScore(clue, candidate.name, -1, candidateIndex);
         if (score > bestFit.score) bestFit = { score, index: candidateIndex, name: candidate.name };
       });
-      if (bestFit.index !== currentCategoryIndex && currentFit === 0 && bestFit.score >= 28) {
+      if (!hasExplicitPlan && bestFit.index !== currentCategoryIndex && currentFit === 0 && bestFit.score >= 28) {
         errors.push(`${file}: ${category.name} $${value} (${answerText}) has no category fit and strongly fits "${bestFit.name}"`);
       }
     }
@@ -285,6 +304,17 @@ function validateBoard(game, file, meta) {
   return errors;
 }
 
+function validateBoardRuntimeHtml(text, file) {
+  const errors = [];
+  if (!text.includes('const tileLabel = category.name + ", $" + clue.value')) {
+    errors.push(`${file}: dollar tiles must build category-aware aria labels`);
+  }
+  if (!text.includes('tile.setAttribute("aria-label", state.used.includes(key) ? tileLabel + ", completed" : tileLabel)')) {
+    errors.push(`${file}: dollar tiles must expose category, value, Daily Double, and completed state to screen readers`);
+  }
+  return errors;
+}
+
 function main() {
   const games = JSON.parse(readFileSync(resolve(root, "games.json"), "utf8"));
   const targets = games.filter(isJeopardyManifestEntry);
@@ -298,9 +328,11 @@ function main() {
       errors.push(`Missing board file: ${meta.file}`);
       continue;
     }
+    const source = readFileSync(file, "utf8");
+    errors.push(...validateBoardRuntimeHtml(source, relative(root, file)));
     let game;
     try {
-      game = extractGame(readFileSync(file, "utf8"), relative(root, file));
+      game = extractGame(source, relative(root, file));
     } catch (error) {
       errors.push(`${relative(root, file)}: ${error.message}`);
       continue;

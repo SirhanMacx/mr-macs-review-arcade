@@ -545,6 +545,16 @@
     const writingMax = writingResults.reduce((total, result) => total + result.max, 0);
     const writingPercent = writingMax ? writingEarned / writingMax : 0;
     const scored = scoreComposite(mcqCorrect, mcqPercent, writingResults, writingEarned, writingMax, writingPercent);
+    const weakTopics = collectWeakTopics();
+    window.MrMacsAnalytics?.track("game_complete", {
+      gameId: "ap-practice-exam",
+      title: state.exam.title || state.exam.form?.title || "AP Practice Exam",
+      course: state.exam.course || state.exam.form?.course || "AP Practice",
+      gameType: "Full Practice Exam",
+      score: scored.apScore,
+      accuracy: Math.round(mcqPercent * 100),
+      weakTopics
+    }, { counter: "game-completions" });
     renderResults({ mcqCorrect, mcqPercent, writingResults, writingEarned, writingMax, writingPercent, ...scored });
     showScreen("resultsScreen");
   }

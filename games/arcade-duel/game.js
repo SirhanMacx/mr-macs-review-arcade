@@ -2,6 +2,7 @@
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => [...document.querySelectorAll(sel)];
+const SourceBank = window.MrMacsSourceBank;
 
 const state = {
   bank: null,
@@ -27,6 +28,29 @@ function shuffle(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
+}
+
+function sourceLockFor(q) {
+  if (!SourceBank) {
+    const images = (q.stimulusImages || []).filter((img) => img && img.src);
+    const quarantined = /^quarantined/i.test(String(q.sourceIntegrity || ""));
+    const needed = Boolean(q.stimulusRequired || images.length || /\b(according to|based on|document|source|map|cartoon|chart|graph|excerpt|passage|photograph|image|this statement|these headlines|this speech|this article|information on the map|both documents)\b/i.test([q.stem, q.prompt, q.source].join(" ")));
+    const ok = !quarantined && (!needed || images.length);
+    return {
+      ok,
+      needed,
+      reason: ok ? "" : quarantined ? "Source was quarantined for review" : "Source needs a verified image",
+      images: ok && needed ? images : [],
+      label: ok ? (needed ? "Source matched" : "No source needed") : "Source blocked"
+    };
+  }
+  return SourceBank.sourceLock(q);
+}
+
+function playableQuestion(q) {
+  if (!q || !(q.choices || []).length) return false;
+  if (SourceBank) return SourceBank.usableRegentsQuestion(q);
+  return sourceLockFor(q).ok;
 }
 
 function playSound(kind) {
@@ -62,6 +86,7 @@ function playSound(kind) {
 function bankQuestions() {
   const qs = state.bank?.questions || [];
   return qs.filter((q) => {
+    if (!playableQuestion(q)) return false;
     if (state.course !== "All Courses" && q.course !== state.course) return false;
     if (state.set !== "All Sets" && q.set !== state.set) return false;
     return true;
@@ -69,7 +94,7 @@ function bankQuestions() {
 }
 
 function renderSetOptions() {
-  const qs = state.bank?.questions || [];
+  const qs = (state.bank?.questions || []).filter(playableQuestion);
   const sets = uniq(qs.filter((q) => state.course === "All Courses" || q.course === state.course).map((q) => q.set));
   $("#setSelect").innerHTML = ["All Sets", ...sets].map((s) => `<option>${esc(s)}</option>`).join("");
   if (!sets.includes(state.set)) state.set = "All Sets";
@@ -78,8 +103,8 @@ function renderSetOptions() {
 
 function renderSetupMetrics() {
   const qs = bankQuestions();
-  const stim = qs.filter((q) => q.stimulusRequired && (q.stimulusImages || []).length).length;
-  $("#setupMetrics").innerHTML = `<strong>${qs.length}</strong> available MCQs · <strong>${stim}</strong> with stimulus crops`;
+  const stim = qs.filter((q) => sourceLockFor(q).images.length).length;
+  $("#setupMetrics").innerHTML = `<strong>${qs.length}</strong> playable MCQs · <strong>${stim}</strong> source matched`;
 }
 
 function setScreen(id) {
@@ -149,7 +174,8 @@ function current() {
 function renderStimulus(q) {
   const panel = $("#stimulusPanel");
   const strip = $("#stimulusStrip");
-  const imgs = q.stimulusRequired ? (q.stimulusImages || []) : [];
+  const lock = sourceLockFor(q);
+  const imgs = lock.images || [];
   panel.classList.toggle("hidden", imgs.length === 0);
   strip.innerHTML = imgs.map((img, i) => (
     `<figure><img loading="lazy" src="${esc(img.src)}" alt="${esc(img.label || ("Stimulus image " + (i + 1)))}"><figcaption>${esc(img.label || ("Stimulus image " + (i + 1)))}</figcaption></figure>`
@@ -167,7 +193,7 @@ function renderQuestion() {
     q.course,
     q.day,
     q.set,
-    (q.stimulusRequired ? "Stimulus Based" : "Content Recall"),
+    (sourceLockFor(q).needed ? "Stimulus Based" : "Content Recall"),
     q.source
   ];
   $("#qTags").innerHTML = tags.filter(Boolean).slice(0, 5).map((t) => `<span>${esc(t)}</span>`).join("");
@@ -286,15 +312,15 @@ function finish(won) {
 
 async function load() {
   try {
-    const res = await fetch("../../data/regents-gauntlet-bank.json", { cache: "no-cache" });
+    const res = await fetch("../../data/regents-gauntlet-bank.json?v=20260502-source-contract");
     if (!res.ok) throw new Error("Failed to load bank: " + res.status);
     state.bank = await res.json();
 
-    const qs = state.bank.questions || [];
+    const qs = (state.bank.questions || []).filter(playableQuestion);
     $("#courseSelect").innerHTML = ["All Courses", ...uniq(qs.map((q) => q.course))].map((c) => `<option>${esc(c)}</option>`).join("");
     renderSetOptions();
     renderSetupMetrics();
-    $("#loadStatus").textContent = `Loaded ${qs.length} MCQs.`;
+    $("#loadStatus").textContent = `Loaded ${qs.length} playable MCQs.`;
   } catch (err) {
     console.error(err);
     $("#loadStatus").textContent = "Failed to load bank.";
