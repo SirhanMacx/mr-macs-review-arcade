@@ -122,6 +122,111 @@ const CATEGORY_BLUEPRINTS = {
 };
 
 const CATEGORY_ASSIGNMENT_REPAIRS = {
+  "games/global-10-units/01 - World in 1750 Jeopardy Review.html": [
+    { name: "Land-Based Empires", answers: ["Ottoman Empire", "Mughal Empire", "Qing China", "Akbar", "Janissaries"] },
+    { name: "Absolute Monarchs", answers: ["Absolutism", "Divine right", "Louis XIV", "Versailles", "Peter the Great"] },
+    { name: "Tokugawa Japan", answers: ["Tokugawa Japan", "Shogun", "Samurai", "Daimyo", "Isolationism"] },
+    { name: "Trade Networks", answers: ["Silk Road", "Indian Ocean trade", "Silver trade", "Commercial Revolution", "Joint-stock company"] },
+    { name: "Empire + Mercantilism", answers: ["Land-based empires", "Maritime empires", "Mercantilism", "Bourbon France", "Suleiman the Magnificent"] }
+  ],
+  "games/us-history-units/04 - Civil War and Reconstruction Jeopardy Review.html": [
+    { name: "War Causes + Sides", answers: ["Secession", "Confederacy", "Union", "Fort Sumter", "Jefferson Davis"] },
+    { name: "Battles + Strategy", answers: ["Anaconda Plan", "Battle of Antietam", "Gettysburg", "Vicksburg", "Sherman's March"] },
+    { name: "War Leaders + End", answers: ["Abraham Lincoln", "Ulysses S. Grant", "Robert E. Lee", "Appomattox", "Total war"] },
+    { name: "Reconstruction Amendments", answers: ["13th Amendment", "14th Amendment", "15th Amendment", "Radical Republicans", "Military Reconstruction"] },
+    { name: "Reconstruction Society", answers: ["Freedmen's Bureau", "Black Codes", "Sharecropping", "Compromise of 1877", "Emancipation Proclamation"] }
+  ],
+  "games/apush/04 - Period 4 1800-1848 Jeopardy Review.html": [
+    { name: "Democracy + Federal Power", answers: ["Jeffersonian democracy", "Jacksonian democracy", "Marbury v. Madison", "Nullification crisis", "Bank War"] },
+    { name: "Market Revolution", answers: ["Market Revolution", "Erie Canal", "Lowell system", "State centralization", "Bureaucracy"] },
+    { name: "Reform Movements", answers: ["Seneca Falls Convention", "Temperance movement", "Second Great Awakening", "Transcendentalism", "Cult of domesticity"] },
+    { name: "Expansion + Native Policy", answers: ["Louisiana Purchase", "Indian Removal Act", "Worcester v. Georgia", "Trail of Tears", "Manifest Destiny"] },
+    { name: "Slavery + Sectionalism", answers: ["Missouri Compromise", "Cotton gin", "Nat Turner's rebellion", "Abolitionism", "Monroe Doctrine"] }
+  ],
+  "games/ap-world-history/01 - Unit 1 The Global Tapestry Jeopardy Review.html": [
+    { name: "East Asian Statecraft", answers: ["Song China", "Song dynasty bureaucracy", "Champa rice", "Tributary system", "Scholar-gentry"] },
+    { name: "Belief Systems", answers: ["Confucianism", "Neo-Confucianism", "Mahayana Buddhism", "Hinduism", "Syncretism"] },
+    { name: "Trade + Cities", answers: ["Trans-Saharan trade", "Indian Ocean trade", "Swahili city-states", "Srivijaya Empire", "Mansa Musa"] },
+    { name: "Islamic + African States", answers: ["Abbasid Caliphate", "Dar al-Islam", "Mali Empire", "Great Zimbabwe", "Delhi Sultanate"] },
+    { name: "Social Hierarchies", answers: ["Foot binding", "Feudalism", "Feudal Japan", "Byzantine Empire", "Hindu kingdoms"] }
+  ],
+  "games/global-9/06 - Social and Cultural Conflict Jeopardy Review.html": [
+    { name: "Islam + South Asia", answers: ["Sunni-Shia split", "Caliph", "Delhi Sultanate", "Guru Nanak", "Sikhism"] },
+    { name: "Christian Schisms + Crusades", answers: ["East-West Schism", "Pope Urban II", "Holy Land", "Crusades", "Seljuk Turks"] },
+    { name: "Black Death", answers: ["Black Death", "Bubonic plague", "Quarantine", "Population decline", "Labor shortages"] },
+    { name: "Plague Effects", answers: ["Peasant wages", "Guild disruption", "Long-term impact of plague", "Flagellant movement", "Anti-Jewish violence"] },
+    { name: "Conflict + Exchange", answers: ["Religious conflict", "Pilgrimage", "Trade routes", "Cultural blending", "Scapegoating"] }
+  ],
+  "games/global-9/07 - Ottoman and Ming Worlds Jeopardy Review.html": [
+    { name: "Ottoman Conquest", answers: ["Ottoman Empire", "Mehmed II", "Fall of Constantinople", "Janissaries", "Istanbul"] },
+    { name: "Ottoman Government", answers: ["Devshirme", "Millet system", "Gunpowder empire", "Suleiman the Magnificent", "Sharia"] },
+    { name: "Ming China", answers: ["Hongwu Emperor", "Forbidden City", "Ming Dynasty", "Zheng He", "Treasure ships"] },
+    { name: "Foreign Contact", answers: ["Macau", "Jesuits", "Jesuit missionaries", "Matteo Ricci", "Silver trade"] },
+    { name: "Isolation + Tribute", answers: ["Canton trade system", "Ming isolationism", "Isolation", "Tribute system", "Bureaucracy"] }
+  ],
+  "games/global-10-units/06 - Cold War 1945-1991 Jeopardy Review.html": [
+    { name: "Cold War Europe", answers: ["Cold War", "Satellite nations", "Iron Curtain", "NATO", "Warsaw Pact"] },
+    { name: "U.S. Containment", answers: ["Berlin Blockade", "Truman Doctrine", "Marshall Plan", "Containment", "Superpowers"] },
+    { name: "Proxy Wars + Nonalignment", answers: ["Proxy war", "Korean War", "Vietnam War", "Nonalignment", "Detente"] },
+    { name: "Nuclear + Space Tensions", answers: ["Arms race", "Space race", "Cuban Missile Crisis", "Sputnik", "Nuclear deterrence"] },
+    { name: "Communism + Collapse", answers: ["Communism", "Capitalism", "Mao Zedong", "Chinese Communist Revolution", "Glasnost and perestroika"] }
+  ],
+  "games/us-regents-sprint/Day 4 - Presidents Reformers Movements Review Game.html": [
+    { name: "Presidents: Early Era", answers: ["George Washington", "Thomas Jefferson", "James Monroe", "Andrew Jackson", "James K. Polk"] },
+    { name: "Presidential Leadership", answers: ["Abraham Lincoln", "Theodore Roosevelt", "Franklin D. Roosevelt", "Lyndon B. Johnson", "Donald Trump"] },
+    { name: "Reformer Lineup", answers: ["Frederick Douglass", "Jane Addams", "Elizabeth Cady Stanton and Susan B. Anthony", "Samuel Gompers", "W.E.B. Du Bois"] },
+    { name: "Movements", answers: ["Abolition movement", "Women's suffrage movement", "Temperance / Prohibition movement", "Labor movement", "Progressive movement"] },
+    { name: "Civil Rights and Identity", answers: ["Rosa Parks", "Martin Luther King Jr.", "Thurgood Marshall", "LGBTQ+ rights movement", "Second-wave feminism / women's liberation"] }
+  ],
+  "games/apush/05 - Period 5 1844-1877 Jeopardy Review.html": [
+    { name: "Expansion + Slavery", answers: ["Manifest Destiny", "California Gold Rush", "Mexican-American War", "Wilmot Proviso", "Compromise of 1850"] },
+    { name: "Sectional Crisis", answers: ["Kansas-Nebraska Act", "Popular sovereignty", "Free Soil ideology", "Dred Scott decision", "Dred Scott v. Sandford"] },
+    { name: "Road to Civil War", answers: ["Lincoln-Douglas debates", "Bleeding Kansas", "Election of 1860", "Secession", "Emancipation Proclamation"] },
+    { name: "Reconstruction Law", answers: ["13th Amendment", "14th Amendment", "15th Amendment", "Reconstruction Acts", "Freedmen's Bureau"] },
+    { name: "War + Reconstruction Society", answers: ["Gettysburg", "State centralization", "Bureaucracy", "Sharecropping", "Black Codes"] }
+  ],
+  "games/apush/08 - Period 8 1945-1980 Jeopardy Review.html": [
+    { name: "Cold War", answers: ["Truman Doctrine", "Marshall Plan", "Containment", "Korean War", "McCarthyism"] },
+    { name: "Civil Rights", answers: ["Brown v. Board of Education", "Civil Rights Act of 1964", "Voting Rights Act of 1965", "Civil rights", "Black Power"] },
+    { name: "Postwar Society", answers: ["Baby boom", "Suburbanization", "Sun Belt", "Liberal consensus", "Great Society"] },
+    { name: "Vietnam + Protest", answers: ["Vietnam War", "Vietnam War protests", "War Powers Act", "Roe v. Wade", "Watergate"] },
+    { name: "Reform + Government", answers: ["Feminist movement", "Second-wave feminism", "State centralization", "Bureaucracy", "Legal code"] }
+  ],
+  "games/ap-world-history/08 - Unit 8 Cold War and Decolonization Jeopardy Review.html": [
+    { name: "Cold War Blocs", answers: ["Cold War", "NATO", "Warsaw Pact", "Cuban Missile Crisis", "Nuclear arms race"] },
+    { name: "Decolonization", answers: ["Partition of India", "Decolonization", "Indian independence", "India Partition", "Migration to metropoles"] },
+    { name: "Communism + Capitalism", answers: ["Containment", "Communist revolution", "Chinese Communist Revolution", "Korean War", "Vietnam War"] },
+    { name: "Nonalignment + New Nations", answers: ["Nonalignment", "Non-Aligned Movement", "Pan-Africanism", "Algerian War", "Neocolonialism"] },
+    { name: "Global Change", answers: ["United Nations", "Green Revolution", "Cuban Revolution", "Proxy wars", "Détente"] }
+  ],
+  "games/ap-european-history/04 - Unit 4 Scientific, Philosophical, and Political Developments Jeopardy Review.html": [
+    { name: "Scientific Revolution", answers: ["Copernicus", "Scientific Revolution", "Galileo", "Newton", "Scientific academies"] },
+    { name: "Enlightenment Thinkers", answers: ["Locke", "Montesquieu", "Rousseau", "Voltaire", "Enlightenment"] },
+    { name: "Political Ideas", answers: ["Separation of powers", "Empiricism", "Rationalism", "Natural rights", "Popular sovereignty"] },
+    { name: "Enlightened Absolutism", answers: ["Catherine the Great", "Frederick the Great", "Joseph II", "Enlightened absolutism", "Salons"] },
+    { name: "Public Sphere + Print", answers: ["Consumer revolution", "Coffeehouses", "Public sphere", "Print culture", "Encyclopédie"] }
+  ],
+  "games/ap-us-government/03 - Unit 3 Civil Liberties and Civil Rights Jeopardy Review.html": [
+    { name: "First Amendment", answers: ["Establishment clause", "Free exercise clause", "Schenck v. United States", "Tinker v. Des Moines", "New York Times v. United States"] },
+    { name: "Due Process + Incorporation", answers: ["Due process clause", "Selective incorporation", "Exclusionary rule", "Wisconsin v. Yoder", "Engel v. Vitale"] },
+    { name: "Equal Protection", answers: ["Equal protection clause", "14th Amendment", "Rational basis review", "Intermediate scrutiny", "Strict scrutiny"] },
+    { name: "Civil Rights", answers: ["Brown v. Board of Education", "Civil Rights Act of 1964", "Voting Rights Act of 1965", "Voting Rights Act", "NAACP litigation strategy"] },
+    { name: "Movements + Liberties", answers: ["Civil disobedience", "Grassroots organizing", "Social movements", "Civil liberties", "Civil rights"] }
+  ],
+  "games/ap-us-government/05 - Unit 5 Political Participation Jeopardy Review.html": [
+    { name: "Voting + Elections", answers: ["Voter turnout", "Primary election", "Caucus", "Electoral College", "Winner-take-all system"] },
+    { name: "Parties + Realignment", answers: ["Political party", "Party realignment", "Linkage institutions", "Mass media", "Political action committee"] },
+    { name: "Interest Groups", answers: ["Interest group", "Lobbying", "Interest group lobbying", "Citizens United v. FEC", "Campaign finance"] },
+    { name: "Campaign Strategy", answers: ["Retrospective voting", "Prospective voting", "Voter mobilization", "Campaign volunteers", "Horse-race journalism"] },
+    { name: "Participation Cases", answers: ["Voting Rights Act", "Gerrymandering", "Incumbency advantage", "Shaw v. Reno", "Agenda setting"] }
+  ],
+  "games/economics/05 - Government and Global Economy Jeopardy Review.html": [
+    { name: "Public Goods + Taxes", answers: ["Taxation", "Progressive taxation", "Progressive tax", "Public goods", "Social safety net"] },
+    { name: "Fiscal + Indicators", answers: ["Fiscal policy", "Budget deficit", "Inflation rate", "Unemployment rate", "Exchange rate graph"] },
+    { name: "Regulation + Trade Policy", answers: ["Externality", "Externalities", "Regulation", "Protectionism", "Trade policy"] },
+    { name: "Global Trade", answers: ["International trade", "Tariff diagram", "Tariff", "Balance of payments", "Trade deficit"] },
+    { name: "Global Economic Policy", answers: ["Comparative advantage", "Free trade agreement", "Globalization", "Exchange rate", "Exchange rates"] }
+  ],
   "games/global-10-units/07 - Decolonization and Nationalism Jeopardy Review.html": [
     { name: "Independence Leaders", answers: ["Gandhi", "Nehru", "Jinnah", "Ho Chi Minh", "Kwame Nkrumah"] },
     { name: "India + Vietnam", answers: ["India Partition", "Muslim League", "Indian National Congress", "Vietnamese independence", "Dien Bien Phu"] },
@@ -219,6 +324,45 @@ const GENERIC_CATEGORY_NAMES = [
 const GENERIC_CATEGORY_RE = new RegExp(`^(${GENERIC_CATEGORY_NAMES.map(escapeRegExp).join("|")})$`, "i");
 
 const CATEGORY_HINTS = [
+  [/absolute|absolut|monarch|ruler|bourbon|louis|versailles|divine right/, ["absolutism", "absolute monarchy", "divine right", "Louis XIV", "Versailles", "Bourbon France", "Peter the Great", "czar"]],
+  [/land-based empire|gunpowder empire|ottoman|mughal|safavid/, ["Ottoman Empire", "Mughal Empire", "Safavid Empire", "Akbar", "Suleiman the Magnificent", "Janissaries", "land-based empires", "gunpowder empire"]],
+  [/tokugawa|japan|shogun|samurai|daimyo/, ["Tokugawa Japan", "shogun", "samurai", "daimyo", "isolationism", "Japan"]],
+  [/qing|china|ming|asian states|east asia/, ["Qing China", "Ming Dynasty", "Canton trade", "Mandate of Heaven", "China", "East Asia"]],
+  [/colonies|mercantilism|mercantilist|joint-stock|atlantic economy/, ["mercantilism", "joint-stock company", "colonies", "maritime empires", "Atlantic economy", "Commercial Revolution", "raw materials", "colonial markets"]],
+  [/trade networks|silk|indian ocean|trans-saharan|silver|global trade/, ["Silk Road", "Silk Roads", "Indian Ocean trade", "Trans-Saharan trade", "silver trade", "trade network", "caravan", "monsoon", "gold-salt trade"]],
+  [/native policy|native nations|native societies|indigenous|removal|cherokee|iroquois|haudenosaunee|pueblo/, ["Native American", "Indigenous", "Iroquois Confederacy", "Haudenosaunee", "Pueblo", "Cherokee", "Indian Removal Act", "Trail of Tears", "Worcester v. Georgia", "Pueblo Revolt", "removal"]],
+  [/democracy|parties|early republic|federal power|courts|judicial|constitutional principles/, ["Jeffersonian democracy", "Jacksonian democracy", "Marbury v. Madison", "Bank War", "political parties", "Federalists", "Democratic-Republicans", "judicial review", "nullification", "federal power"]],
+  [/market revolution|market integration|transportation|industry|railroad|canal|factory|wage labor/, ["Market Revolution", "market integration", "Erie Canal", "Lowell system", "textile factory", "wage labor", "commercial farming", "canal", "railroad", "factory system"]],
+  [/slavery|sectional|sectionalism|slave|free soil/, ["slavery", "Cotton gin", "Nat Turner's rebellion", "Missouri Compromise", "Compromise of 1850", "Fugitive Slave Act", "Kansas-Nebraska Act", "Dred Scott", "sectionalism", "popular sovereignty", "Free Soil"]],
+  [/reform movements|reform roots|progressive reform|rights movements/, ["Seneca Falls Convention", "abolitionism", "temperance movement", "Second Great Awakening", "transcendentalism", "women's rights", "public education reform", "muckrakers", "settlement house"]],
+  [/overseas expansion|imperial policies|imperialism|spanish-american|philippine|panama|open door|roosevelt corollary/, ["Spanish-American War", "yellow journalism", "Alfred Thayer Mahan", "Philippine-American War", "Panama Canal", "Roosevelt Corollary", "Open Door Policy", "Platt Amendment", "Dollar diplomacy", "Big Stick diplomacy"]],
+  [/world war i|wwi|great war|zimmermann|lusitania|versailles|red scare|fourteen points/, ["World War I", "Lusitania", "Zimmermann Telegram", "Treaty of Versailles", "Fourteen Points", "League of Nations", "First Red Scare", "trench warfare"]],
+  [/civil war causes|sectional crisis|election secession|slavery expansion crisis/, ["sectionalism", "states' rights", "Missouri Compromise", "Compromise of 1850", "Kansas-Nebraska Act", "Dred Scott", "John Brown", "Election of 1860", "secession"]],
+  [/civil war turning points|major battles|war for independence|civil war(?!.*reconstruction)/, ["Fort Sumter", "Union", "Confederacy", "Emancipation Proclamation", "Antietam", "Gettysburg", "Vicksburg", "Appomattox", "Ulysses S. Grant", "Robert E. Lee", "Anaconda Plan", "total war"]],
+  [/reconstruction amendments|reconstruction politics|reconstruction society|end of reconstruction|rebuilding plans/, ["13th Amendment", "14th Amendment", "15th Amendment", "Freedmen's Bureau", "Black Codes", "sharecropping", "Reconstruction Acts", "carpetbagger", "scalawag", "Compromise of 1877"]],
+  [/cold war europe|origins|iron curtain|satellite|berlin/, ["Iron Curtain", "satellite nations", "Berlin Blockade", "Berlin Airlift", "NATO", "Warsaw Pact", "Marshall Plan", "Truman Doctrine"]],
+  [/u\.s\. soviet|soviet policies|containment|doctrines|strategy/, ["containment", "Truman Doctrine", "Marshall Plan", "detente", "brinkmanship", "massive retaliation", "Cuban Missile Crisis", "superpowers"]],
+  [/proxy wars|proxy conflicts|korea|vietnam|afghanistan|nonalignment/, ["Korean War", "Vietnam War", "Afghanistan", "proxy war", "Nonalignment", "Ho Chi Minh", "Korea", "Vietnam"]],
+  [/nuclear|space race|arms race|sputnik|missile/, ["arms race", "nuclear weapons", "Cuban Missile Crisis", "Sputnik", "space race", "ICBM", "mutually assured destruction"]],
+  [/digital|interdependence|internet|social media|multinational/, ["Globalization", "Internet", "social media", "interdependence", "multinational corporation", "digital", "communication technology"]],
+  [/climate|environment|sustainable|greenhouse|kyoto|paris/, ["Climate change", "Paris Agreement", "greenhouse gases", "Kyoto Protocol", "sustainable development", "environment"]],
+  [/constitutional changes|amendment match|ratification debate|articles problems/, ["16th Amendment", "17th Amendment", "18th Amendment", "19th Amendment", "referendum", "amendment process", "limited government", "republicanism", "checks and balances"]],
+  [/campaign strategy|campaigns/, ["retrospective voting", "prospective voting", "voter mobilization", "campaign volunteers", "horse-race journalism", "campaign strategy"]],
+  [/belief systems|religion concepts|belief \+ rule/, ["Neo-Confucianism", "Confucianism", "Hinduism", "Buddhism", "Mahayana Buddhism", "syncretism", "dharma", "karma"]],
+  [/ideas \+ disease|ideas disease|diffusion|spread/, ["cultural diffusion", "Islam spread", "Buddhism spread", "monsoon winds", "pandemic", "Black Death", "spread"]],
+  [/travelers \+ cities|travelers cities|travel \+ technology/, ["Timbuktu", "Great Zimbabwe", "Swahili Coast", "lateen sail", "compass", "Ibn Battuta", "Marco Polo", "caravan"]],
+  [/global institutions|international cooperation|united nations/, ["United Nations", "NATO", "Warsaw Pact", "Non-Aligned Movement", "Green Revolution", "nuclear arms race", "global institutions"]],
+  [/plague effects|black death/, ["Black Death", "bubonic plague", "labor shortages", "peasant wages", "guild disruption", "flagellant movement", "Anti-Jewish violence", "population decline", "quarantine"]],
+  [/foreign contact|isolation tribute|isolation \+ tribute/, ["Macau", "Jesuits", "Jesuit missionaries", "Matteo Ricci", "Canton trade system", "Ming isolationism", "Isolation", "Tribute system", "Bureaucracy"]],
+  [/u\.s\. containment|containment/, ["Berlin Blockade", "Truman Doctrine", "Marshall Plan", "Containment", "Superpowers", "Detente"]],
+  [/communism collapse|communism capitalism|communism \+ collapse|communism \+ capitalism/, ["Communism", "Capitalism", "Mao Zedong", "Chinese Communist Revolution", "Glasnost and perestroika", "Korean War", "Vietnam War"]],
+  [/road to civil war|war reconstruction society|war \+ reconstruction society/, ["Lincoln-Douglas debates", "Bleeding Kansas", "Election of 1860", "Secession", "Emancipation Proclamation", "Gettysburg", "state centralization", "bureaucracy"]],
+  [/social hierarchies|social hierarchy/, ["Foot binding", "Feudalism", "Feudal Japan", "Hindu kingdoms", "Byzantine Empire", "caste system"]],
+  [/nonalignment|new nations|global change/, ["Nonalignment", "Non-Aligned Movement", "Pan-Africanism", "Algerian War", "Neocolonialism", "Détente", "United Nations"]],
+  [/political ideas|public sphere|print/, ["Separation of powers", "Empiricism", "Rationalism", "Natural rights", "Popular sovereignty", "Encyclopédie", "public sphere", "print culture", "coffeehouses"]],
+  [/equal protection|movements liberties|movements \+ liberties/, ["Equal protection clause", "14th Amendment", "Rational basis review", "Intermediate scrutiny", "Strict scrutiny", "Civil disobedience", "Grassroots organizing", "Social movements", "Civil liberties", "Civil rights"]],
+  [/landmark laws|major documents/, ["26th Amendment", "Civil Rights Act of 1964", "Americans with Disabilities Act", "Social Security Act", "Hart-Celler Immigration Act"]],
+  [/externalities regulation|regulation trade policy|trade policy/, ["Externality", "Externalities", "Regulation", "Protectionism", "Trade policy", "market failure", "government policy"]],
   [/native|indigenous|first peoples|early peoples/, ["Indigenous", "Native American", "Iroquois", "Haudenosaunee", "Algonquian", "Pueblo", "Maya", "Aztec", "Inca", "adaptation"]],
   [/exploration|encounter|columbian|transoceanic|atlantic/, ["Columbus", "Columbian Exchange", "smallpox", "encomienda", "conquistador", "plantation", "middle passage", "mercantilism", "triangular trade", "viceroy", "Tordesillas"]],
   [/colonial|colonies|regions/, ["Jamestown", "Virginia", "House of Burgesses", "New England", "Puritan", "salutary neglect", "Bacon", "slavery", "indentured", "mercantilism"]],
@@ -434,11 +578,17 @@ function termScore(signal, term) {
   if (signal.includes(key)) return Math.min(36, 8 + words(key).length * 6);
   const parts = words(key).filter((part) => part.length >= 5);
   if (!parts.length) return 0;
-  const matched = parts.filter((part) => signal.includes(part)).length;
+  const signalWords = words(signal);
+  const matched = parts.filter((part) => {
+    if (signal.includes(part)) return true;
+    if (part.length < 7) return false;
+    const stem = part.replace(/(?:ism|ist|tion|sion|ment|ing|ed|al|ic|s)$/i, "").slice(0, 7);
+    return stem.length >= 6 && signalWords.some((word) => word.length >= 6 && (word.startsWith(stem) || stem.startsWith(word.slice(0, 7))));
+  }).length;
   return matched ? matched * 3 : 0;
 }
 
-function categoryFitScore(clue, categoryName, originalIndex, categoryIndex) {
+export function categoryFitScore(clue, categoryName, originalIndex = -1, categoryIndex = -1) {
   const signal = clueSignal(clue);
   let score = originalIndex === categoryIndex ? 2 : 0;
   for (const term of hintTermsForCategory(categoryName)) {
@@ -457,47 +607,41 @@ function rebalanceCluesByCategory(game) {
   });
   if (entries.length !== 25) return false;
 
-  const pairs = [];
-  entries.forEach((entry, entryIndex) => {
-    categories.forEach((category, categoryIndex) => {
-      pairs.push({
-        entryIndex,
-        categoryIndex,
-        score: categoryFitScore(entry.clue, category.name, entry.originalIndex, categoryIndex)
-      });
-    });
-  });
-  const strongestScore = Math.max(...pairs.map((pair) => pair.score));
+  const scoreMatrix = entries.map((entry) => categories.map((category, categoryIndex) =>
+    categoryFitScore(entry.clue, category.name, entry.originalIndex, categoryIndex)
+  ));
+  const strongestScore = Math.max(...scoreMatrix.flat());
   if (strongestScore < 14) return false;
 
-  const assignedEntries = new Set();
-  const nextBuckets = categories.map(() => []);
-  pairs.sort((a, b) => {
-    if (b.score !== a.score) return b.score - a.score;
-    const aOriginal = entries[a.entryIndex].originalIndex === a.categoryIndex ? 1 : 0;
-    const bOriginal = entries[b.entryIndex].originalIndex === b.categoryIndex ? 1 : 0;
-    if (bOriginal !== aOriginal) return bOriginal - aOriginal;
-    return entries[a.entryIndex].order - entries[b.entryIndex].order;
-  });
-
-  for (const pair of pairs) {
-    if (assignedEntries.has(pair.entryIndex) || nextBuckets[pair.categoryIndex].length >= 5) continue;
-    assignedEntries.add(pair.entryIndex);
-    nextBuckets[pair.categoryIndex].push(entries[pair.entryIndex]);
-  }
-
-  for (const entry of entries) {
-    const entryIndex = entries.indexOf(entry);
-    if (assignedEntries.has(entryIndex)) continue;
-    const originalBucket = nextBuckets[entry.originalIndex];
-    const targetIndex = originalBucket.length < 5
-      ? entry.originalIndex
-      : nextBuckets.findIndex((bucket) => bucket.length < 5);
-    if (targetIndex >= 0) {
-      assignedEntries.add(entryIndex);
-      nextBuckets[targetIndex].push(entry);
+  let states = new Map([["0,0,0,0,0", { score: 0, picks: [] }]]);
+  for (let entryIndex = 0; entryIndex < entries.length; entryIndex += 1) {
+    const nextStates = new Map();
+    for (const [key, state] of states) {
+      const counts = key.split(",").map(Number);
+      for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex += 1) {
+        if (counts[categoryIndex] >= 5) continue;
+        const nextCounts = counts.slice();
+        nextCounts[categoryIndex] += 1;
+        const nextKey = nextCounts.join(",");
+        const nextScore = state.score + scoreMatrix[entryIndex][categoryIndex];
+        const existing = nextStates.get(nextKey);
+        if (!existing || nextScore > existing.score) {
+          nextStates.set(nextKey, {
+            score: nextScore,
+            picks: [...state.picks, categoryIndex]
+          });
+        }
+      }
     }
+    states = nextStates;
   }
+
+  const solution = states.get("5,5,5,5,5");
+  if (!solution) return false;
+  const nextBuckets = categories.map(() => []);
+  solution.picks.forEach((categoryIndex, entryIndex) => {
+    nextBuckets[categoryIndex].push(entries[entryIndex]);
+  });
 
   let changed = false;
   const values = [100, 200, 300, 400, 500];
@@ -518,6 +662,37 @@ function rebalanceCluesByCategory(game) {
     });
     categories[categoryIndex].clues = nextClues;
   });
+  return changed;
+}
+
+export function dailyDoublePosition(game, meta = {}) {
+  const key = `${game.slug || ""}|${meta.file || game.file || ""}|${game.title || ""}`;
+  let hash = 2166136261;
+  for (let index = 0; index < key.length; index += 1) {
+    hash ^= key.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  const values = [300, 400, 500];
+  return {
+    categoryIndex: Math.abs(hash) % 5,
+    value: values[Math.abs(hash >>> 8) % values.length]
+  };
+}
+
+function assignDailyDouble(game, meta) {
+  if (!Array.isArray(game.categories) || game.categories.length !== 5) return false;
+  const target = dailyDoublePosition(game, meta);
+  let changed = false;
+  for (let categoryIndex = 0; categoryIndex < game.categories.length; categoryIndex += 1) {
+    for (const clue of game.categories[categoryIndex].clues || []) {
+      const shouldBeDaily = categoryIndex === target.categoryIndex && Number(clue.value) === target.value;
+      if (Boolean(clue.daily) !== shouldBeDaily) {
+        if (shouldBeDaily) clue.daily = true;
+        else delete clue.daily;
+        changed = true;
+      }
+    }
+  }
   return changed;
 }
 
@@ -866,6 +1041,12 @@ function rebuildBoard(game, meta) {
       }
     }
   });
+  if (!repair && rebalanceCluesByCategory(game)) {
+    changed = true;
+  }
+  if (assignDailyDouble(game, meta)) {
+    changed = true;
+  }
   if (game.final) {
     const finalLabels = [game.title, game.day, game.exam, meta.title, meta.course];
     const finalCategory = polishSentence(game.final.category || "", "", "", finalLabels).replace(/[.!?]$/, "");
@@ -917,4 +1098,7 @@ function main() {
   console.log(`Rebuilt Jeopardy categories/clue language on ${changedCount}/${boardCount} boards.`);
 }
 
-main();
+const thisFile = fileURLToPath(import.meta.url);
+if (process.argv[1] && resolve(process.argv[1]) === thisFile) {
+  main();
+}

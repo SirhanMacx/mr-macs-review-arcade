@@ -2,6 +2,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { categoryFitScore, dailyDoublePosition } from "./rebuild-jeopardy-groundup.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const UNIT_REVIEW_TYPES = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final", "Regents Sprint"]);
@@ -156,6 +157,7 @@ function validateBoard(game, file, meta) {
   const seenClues = new Map();
   const seenAnswers = new Map();
   const answerRecords = [];
+  const dailySpots = [];
   for (const category of game.categories) {
     if (FORBIDDEN_CATEGORY_NAME.test(String(category.name || "").trim())) {
       errors.push(`${file}: generic category name must be board-specific: ${category.name}`);
@@ -221,6 +223,28 @@ function validateBoard(game, file, meta) {
       if (clue.rigor && (Number(clue.rigor.value) !== value || clue.rigor.skill !== EXPECTED_SKILLS.get(value))) {
         errors.push(`${file}: ${category.name} $${value} has incorrect difficulty metadata`);
       }
+      if (clue.daily) {
+        dailySpots.push({ categoryIndex: game.categories.indexOf(category), category: category.name, value });
+      }
+      const currentCategoryIndex = game.categories.indexOf(category);
+      const currentFit = categoryFitScore(clue, category.name, -1, currentCategoryIndex);
+      let bestFit = { score: currentFit, index: currentCategoryIndex, name: category.name };
+      game.categories.forEach((candidate, candidateIndex) => {
+        const score = categoryFitScore(clue, candidate.name, -1, candidateIndex);
+        if (score > bestFit.score) bestFit = { score, index: candidateIndex, name: candidate.name };
+      });
+      if (bestFit.index !== currentCategoryIndex && currentFit === 0 && bestFit.score >= 28) {
+        errors.push(`${file}: ${category.name} $${value} (${answerText}) has no category fit and strongly fits "${bestFit.name}"`);
+      }
+    }
+  }
+  if (dailySpots.length !== 1) {
+    errors.push(`${file}: expected exactly one Daily Double, found ${dailySpots.length}`);
+  } else {
+    const expectedDaily = dailyDoublePosition(game, meta || {});
+    const actualDaily = dailySpots[0];
+    if (actualDaily.categoryIndex !== expectedDaily.categoryIndex || actualDaily.value !== expectedDaily.value) {
+      errors.push(`${file}: Daily Double should be category ${expectedDaily.categoryIndex + 1} $${expectedDaily.value}, found ${actualDaily.category} $${actualDaily.value}`);
     }
   }
   const final = game.final || {};
@@ -266,6 +290,7 @@ function main() {
   const targets = games.filter(isJeopardyManifestEntry);
   const errors = [];
   const categorySignatures = new Map();
+  const dailyPositions = new Map();
   let clueCount = 0;
   for (const meta of targets) {
     const file = resolve(root, decodePath(meta.file));
@@ -286,11 +311,23 @@ function main() {
       if (!categorySignatures.has(signature)) categorySignatures.set(signature, []);
       categorySignatures.get(signature).push(relative(root, file));
     }
+    for (let categoryIndex = 0; categoryIndex < (game.categories || []).length; categoryIndex += 1) {
+      for (const clue of game.categories[categoryIndex].clues || []) {
+        if (!clue.daily) continue;
+        const key = `${categoryIndex + 1}:$${Number(clue.value)}`;
+        dailyPositions.set(key, (dailyPositions.get(key) || 0) + 1);
+      }
+    }
     errors.push(...validateBoard(game, relative(root, file), meta));
   }
   for (const [signature, files] of categorySignatures) {
     if (files.length > 3 && !files.every((file) => /\/99 - /.test(file))) {
       errors.push(`Repeated category set appears on ${files.length} boards: ${signature} (${files.slice(0, 4).join("; ")})`);
+    }
+  }
+  for (const [position, count] of dailyPositions) {
+    if (count > Math.ceil(targets.length * 0.25)) {
+      errors.push(`Daily Double position ${position} appears on ${count} boards; placement should be spread across the board`);
     }
   }
   if (errors.length) {
