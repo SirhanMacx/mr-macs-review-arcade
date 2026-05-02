@@ -78,6 +78,29 @@ function buildSearch(question) {
   ].map(normalize).filter(Boolean).join(" ");
 }
 
+function uniqueList(values) {
+  const seen = new Set();
+  const output = [];
+  for (const value of values.map((item) => String(item || "").trim()).filter(Boolean)) {
+    const key = normalize(value);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    output.push(value);
+  }
+  return output;
+}
+
+function buildTags(question, source, isFinal) {
+  return uniqueList([
+    question.day,
+    question.set,
+    source.category,
+    isFinal ? "Final Wager" : `${Number(question.value)} points`,
+    source.answer,
+    question.source
+  ]);
+}
+
 function clueKey(course, title, category, value, answer) {
   return [course, title, category, Number(value), answer].map(normalize).join("|");
 }
@@ -158,12 +181,19 @@ function syncChronoBank(clueIndex, clueIdIndex, finalIndex, finalIdIndex) {
       (!isFinal && question.id ? clueIdIndex.get(question.id) : null) ||
       keys.map((key) => index.get(key)).find(Boolean);
     if (!source) continue;
-    if (question.prompt !== source.clue || question.explanation !== source.explanation || question.category !== source.category) updated += 1;
+    const nextTags = buildTags(question, source, isFinal);
+    if (
+      question.prompt !== source.clue ||
+      question.explanation !== source.explanation ||
+      question.category !== source.category ||
+      JSON.stringify(question.tags || []) !== JSON.stringify(nextTags)
+    ) updated += 1;
     if (source.category) question.category = source.category;
     question.prompt = source.clue;
     question.answer = source.answer;
     question.aliases = source.aliases;
     question.explanation = source.explanation;
+    question.tags = nextTags;
     question.search = buildSearch(question);
   }
   writeFileSync(file, `${JSON.stringify(bank, null, 2)}\n`);

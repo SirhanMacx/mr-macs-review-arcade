@@ -43,6 +43,29 @@ function finalKey(course, title, answer) {
   return [course, title, "final", 700, answer].map(normalize).join("|");
 }
 
+function uniqueList(values) {
+  const seen = new Set();
+  const output = [];
+  for (const value of values.map((item) => String(item || "").trim()).filter(Boolean)) {
+    const key = normalize(value);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    output.push(value);
+  }
+  return output;
+}
+
+function buildTags(question, source, isFinal) {
+  return uniqueList([
+    question.day,
+    question.set,
+    source.category,
+    isFinal ? "Final Wager" : `${Number(question.value)} points`,
+    source.answer,
+    question.source
+  ]);
+}
+
 const games = JSON.parse(readFileSync(resolve(root, "games.json"), "utf8"));
 const clueIndex = new Map();
 const clueIdIndex = new Map();
@@ -102,6 +125,8 @@ for (const question of chrono.questions || []) {
   if (question.prompt !== source.clue) errors.push(`${question.id || question.set}: stale prompt`);
   if (question.explanation !== source.explanation) errors.push(`${question.id || question.set}: stale explanation`);
   if (source.category && question.category !== source.category) errors.push(`${question.id || question.set}: stale category`);
+  const expectedTags = buildTags(question, source, isFinal);
+  if (JSON.stringify(question.tags || []) !== JSON.stringify(expectedTags)) errors.push(`${question.id || question.set}: stale tags`);
   checked += 1;
 }
 

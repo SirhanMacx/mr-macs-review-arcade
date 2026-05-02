@@ -22,6 +22,8 @@ const EXPECTED_HARDENING_VERSION = "jeopardy-hardening-v4-natural-clues";
 const FINAL_SYNTHESIS_LEAK = /final synthesis|at least two specific examples|evidence-based synthesis|standards-aligned argument|teacher judgment|score the synthesis|broader pattern, cause\/effect|instead of defining one isolated term/i;
 const FINAL_OPEN_PROMPT = /^(?:discuss|explain|analyze|evaluate|assess|argue|compare|contrast|write|connect)\b|^describe how\b|^identify and explain\b|\bto what extent\b|\bwhy\b.*\bmatters\b/i;
 const MAX_FINAL_ANSWER_WORDS = 6;
+const GLOBAL_FINAL_US_MISMATCH = /\b(?:U\.S\. Expansion|Modern U\.S\.|APUSH|Japanese Americans|antebellum|sectionalism|manifest destiny|affirmative action|gulf of tonkin|moral majority|compromise of 1877|incumbency advantage|political efficacy|realignment)\b/i;
+const GENERIC_FINAL_CATEGORY = /^(?:AP Concept|Social Studies Skills|Historical Thinking|Historical Concepts|Political Concepts|Economics Concepts|Big Picture|Final)$/i;
 
 function decodePath(value) {
   try {
@@ -66,6 +68,34 @@ function hasAnswerLeak(clue, answer) {
   return normalizedClue.includes(normalizedAnswer.replace(/\s+/g, " "));
 }
 
+function compactAnswer(value) {
+  return normalize(value)
+    .split(" ")
+    .map((word) => (word.length > 4 && word.endsWith("s") ? word.slice(0, -1) : word))
+    .join(" ");
+}
+
+function closeAnswerMatch(answer, records) {
+  const answerKey = normalize(answer);
+  const compactKey = compactAnswer(answer);
+  const answerWords = answerKey.split(" ").filter(Boolean).length;
+  for (const record of records) {
+    if (!answerKey || !record.key || answerKey === record.key) continue;
+    if (compactKey && compactKey === compactAnswer(record.answer)) return record;
+    const shorter = answerKey.length < record.key.length ? answerKey : record.key;
+    const longer = answerKey.length < record.key.length ? record.key : answerKey;
+    const shorterWords = shorter.split(" ").filter(Boolean).length;
+    if (shorterWords >= 2 && answerWords >= 2 && longer.includes(shorter)) return record;
+  }
+  return null;
+}
+
+function isGlobalBoard(game, file) {
+  const fileKey = normalize(file);
+  const courseKey = normalize([game.course, game.exam, game.title, game.subtitle].filter(Boolean).join(" "));
+  return fileKey.includes("games global") || courseKey.includes("global history") || courseKey.includes("global geography");
+}
+
 function validateBoard(game, file) {
   const errors = [];
   if (!Array.isArray(game.categories) || game.categories.length !== 5) {
@@ -74,6 +104,7 @@ function validateBoard(game, file) {
   }
   const seenClues = new Map();
   const seenAnswers = new Map();
+  const answerRecords = [];
   for (const category of game.categories) {
     if (!Array.isArray(category.clues) || category.clues.length !== 5) {
       errors.push(`${file}: category ${category.name || "(untitled)"} must contain 5 clues`);
@@ -96,6 +127,7 @@ function validateBoard(game, file) {
       if (seenAnswers.has(answerKey)) errors.push(`${file}: repeated answer "${answerText}" also appears in ${seenAnswers.get(answerKey)}`);
       seenClues.set(clueKey, `${category.name} ${value}`);
       seenAnswers.set(answerKey, `${category.name} ${value}`);
+      answerRecords.push({ key: answerKey, answer: answerText, location: `${category.name} ${value}` });
       if (wordCount < MIN_CLUE_WORDS) {
         errors.push(`${file}: ${category.name} $${value} clue is too thin (${wordCount} words): ${clueText}`);
       }
@@ -125,7 +157,9 @@ function validateBoard(game, file) {
   const final = game.final || {};
   const finalClue = String(final.clue || "");
   const finalAnswerKey = normalize(final.answer);
+  if (final.sourceFinal) errors.push(`${file}: final contains stale sourceFinal shadow data`);
   if (!normalize(final.category) || normalize(final.category) === "final synthesis") errors.push(`${file}: final category must be a real content category`);
+  if (GENERIC_FINAL_CATEGORY.test(String(final.category || "").trim())) errors.push(`${file}: final category is too generic: ${final.category}`);
   if (words(finalClue) < 5) errors.push(`${file}: final clue is too thin (${words(finalClue)} words)`);
   if (words(finalClue) > 36) errors.push(`${file}: final clue is too wordy for a Jeopardy-style concept clue (${words(finalClue)} words)`);
   if (FINAL_OPEN_PROMPT.test(finalClue)) errors.push(`${file}: final clue looks open-ended instead of one true Jeopardy answer: ${finalClue}`);
@@ -134,13 +168,20 @@ function validateBoard(game, file) {
   if (FINAL_SYNTHESIS_LEAK.test(`${final.category} ${finalClue} ${final.answer} ${final.explanation || ""}`)) {
     errors.push(`${file}: final still looks like an open-ended synthesis prompt`);
   }
+  if (isGlobalBoard(game, file) && GLOBAL_FINAL_US_MISMATCH.test(`${final.category} ${finalClue} ${final.answer} ${final.explanation || ""}`)) {
+    errors.push(`${file}: Global board final appears to use a U.S. History/APUSH category or clue: ${final.category} / ${final.answer}`);
+  }
   if (FORBIDDEN_VERBOSE_EXPLANATION.test(String(final.explanation || ""))) {
     errors.push(`${file}: final explanation contains wrapper language`);
   }
   if (hasAnswerLeak(finalClue, final.answer)) errors.push(`${file}: final clue appears to reveal its answer "${final.answer}"`);
   if (seenAnswers.has(finalAnswerKey)) errors.push(`${file}: final answer repeats a board answer "${final.answer}"`);
+  const closeFinal = closeAnswerMatch(final.answer, answerRecords);
+  if (closeFinal) errors.push(`${file}: final answer "${final.answer}" is too close to board answer "${closeFinal.answer}" in ${closeFinal.location}`);
   for (const alias of final.aliases || []) {
     if (seenAnswers.has(normalize(alias))) errors.push(`${file}: final alias repeats a board answer "${alias}"`);
+    const closeAlias = closeAnswerMatch(alias, answerRecords);
+    if (closeAlias) errors.push(`${file}: final alias "${alias}" is too close to board answer "${closeAlias.answer}" in ${closeAlias.location}`);
   }
   if (seenClues.has(normalize(finalClue))) errors.push(`${file}: final clue repeats a board clue`);
   if (!final.explanation || words(final.explanation) < 5) errors.push(`${file}: final explanation is too thin`);

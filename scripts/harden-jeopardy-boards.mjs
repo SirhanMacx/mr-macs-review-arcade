@@ -608,10 +608,7 @@ function hardenGame(game, meta) {
   for (const category of game.categories || []) {
     category.clues = (category.clues || []).map((clue) => hardenClue(clue, category.name, game, meta));
   }
-  game.final = {
-    sourceFinal: game.final && !game.final.sourceFinal ? { ...game.final } : game.final?.sourceFinal,
-    ...finalFor(game, meta, answers)
-  };
+  game.final = finalFor(game, meta, answers);
   game.alignment = {
     ...alignmentFor(meta, game),
     hardeningVersion: HARDENING_VERSION,
