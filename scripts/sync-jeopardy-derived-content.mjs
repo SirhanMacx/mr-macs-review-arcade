@@ -148,7 +148,7 @@ function syncBossRush(boards) {
   const file = resolve(root, "games", "boss-rush", "index.html");
   const html = readFileSync(file, "utf8");
   const next = html.replace(
-    /const BANKS = \[[\s\S]*?\];(?=\nconst LENGTHS = )/,
+    /const BANKS = \[[\s\S]*?\];(?=\r?\nconst LENGTHS\s*=)/,
     `const BANKS = ${JSON.stringify(boards)};`
   );
   if (next === html) throw new Error("Could not replace Boss Rush BANKS data");

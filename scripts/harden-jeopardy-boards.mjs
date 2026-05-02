@@ -494,16 +494,46 @@ function contextLabel(category, game) {
   return rawCategory || "this course";
 }
 
-function enrichDefinitionClue(text, answer, category, game, value) {
+function clueFamily(meta, game) {
+  const course = String(meta?.course || game?.exam || "");
+  if (/AP Psychology/i.test(course)) return "ap-psych";
+  if (/Grade [678] NYS Social Studies Standards Review/i.test(course)) return "middle";
+  if (/Civics and PIG Course Review|Grade 9 Global History I Year Review|NYS Global History Regents 2026 Review|NYS U\.S\. History Regents 2026 Review/i.test(course)) {
+    return "civics-year";
+  }
+  return "default";
+}
+
+function shouldForceContextualClue(family, value, words, clue) {
+  if (/use one specific example to explain why it matters/i.test(clue)) return true;
+  if (family === "ap-psych") return words <= 12;
+  if (family === "civics-year") return words <= 11;
+  if (family === "middle") return words <= 9 || value >= 300;
+  return value >= 400 && words <= 8;
+}
+
+function enrichDefinitionClue(text, answer, category, game, value, meta) {
   let clue = sentence(text);
   const words = plainWordCount(clue);
   const context = hasAnswerLeak(contextLabel(category, game), answer) ? "" : contextLabel(category, game);
+  const family = clueFamily(meta, game);
   const lower = clue.toLowerCase();
   const bareDefinition = words <= 8 && !/\b(century|war|empire|revolution|court|amendment|president|king|queen|china|europe|africa|america|asia|islam|christian|buddhist|hindu|roman|greek|egypt|world war|cold war|\d{3,4})\b/i.test(clue);
-  if (!bareDefinition || value < 400) return clue;
+  const contextDriven = shouldForceContextualClue(family, value, words, clue);
+  if (!bareDefinition && !contextDriven) return clue;
   const body = clue.replace(/\.$/, "");
   const loweredBody = body.charAt(0).toLowerCase() + body.slice(1);
   if (!context) return sentence(removeAnswerLeak(body, answer, "this idea"));
+  if (/^the factor\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "this variable")}`);
+  if (/^the process of\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "this process")}`);
+  if (/^the branch that\b/i.test(lower)) return sentence(`${context} branch that ${removeAnswerLeak(body.replace(/^The branch that\s+/i, ""), answer, "does this job")}`);
+  if (/^the principle that\b/i.test(lower)) return sentence(`${context} principle that ${removeAnswerLeak(body.replace(/^The principle that\s+/i, ""), answer, "does this")}`);
+  if (/^the (two|three|large|high|major)\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "this feature")}`);
+  if (/^basic rights\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "these rights")}`);
+  if (/^government whose\b/i.test(lower)) return sentence(`${context} principle describing ${removeAnswerLeak(loweredBody, answer, "this government")}`);
+  if (/^power(s)?\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "these powers")}`);
+  if (/^citizens'? attitudes\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "these attitudes")}`);
+  if (/^system where\b/i.test(lower)) return sentence(`${context} system in which ${removeAnswerLeak(body.replace(/^System where\s+/i, ""), answer, "this happens")}`);
   if (/^belief in\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
   if (/^cycle of\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
   if (/^rules? about\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
@@ -522,7 +552,7 @@ function hardenClue(clue, categoryName, game, meta) {
   const skill = VALUE_SKILLS[value] || "review key content";
   clue.sourceClue = clue.sourceClue || clue.clue;
   clue.sourceExplanation = clue.sourceExplanation || clue.explanation || "";
-  clue.clue = enrichDefinitionClue(conciseJeopardyClue(clue, answer, categoryName, game), answer, categoryName, game, value);
+  clue.clue = enrichDefinitionClue(conciseJeopardyClue(clue, answer, categoryName, game), answer, categoryName, game, value, meta);
   clue.explanation = conciseExplanation(clue, answer, categoryName, game);
   clue.rigor = {
     value,
