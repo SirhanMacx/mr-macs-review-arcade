@@ -486,6 +486,35 @@ function conciseExplanation(clue, answer, category, game) {
   return sentence(`${answer}: ${signalFor(clue, answer, category, game)}`);
 }
 
+function contextLabel(category, game) {
+  const rawCategory = clean(category || "");
+  const rawTitle = clean(game?.title || "");
+  if (rawCategory && !/\b(concepts?|ideas?|skills?|documents?)\b/i.test(rawCategory)) return rawCategory;
+  if (rawTitle) return rawTitle;
+  return rawCategory || "this course";
+}
+
+function enrichDefinitionClue(text, answer, category, game, value) {
+  let clue = sentence(text);
+  const words = plainWordCount(clue);
+  const context = hasAnswerLeak(contextLabel(category, game), answer) ? "" : contextLabel(category, game);
+  const lower = clue.toLowerCase();
+  const bareDefinition = words <= 8 && !/\b(century|war|empire|revolution|court|amendment|president|king|queen|china|europe|africa|america|asia|islam|christian|buddhist|hindu|roman|greek|egypt|world war|cold war|\d{3,4})\b/i.test(clue);
+  if (!bareDefinition || value < 400) return clue;
+  const body = clue.replace(/\.$/, "");
+  const loweredBody = body.charAt(0).toLowerCase() + body.slice(1);
+  if (!context) return sentence(removeAnswerLeak(body, answer, "this idea"));
+  if (/^belief in\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
+  if (/^cycle of\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
+  if (/^rules? about\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
+  if (/^writing considered\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
+  if (/^respect for\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
+  if (/^actions? that\b/i.test(lower)) return sentence(`${context} idea for ${loweredBody}`);
+  if (/^the spread of\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
+  if (/^formal\b|^monotheistic\b|^polytheistic\b|^chinese\b|^south asian\b|^belief system\b/i.test(lower)) return sentence(`${context}: ${body}`);
+  return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "this idea")}`);
+}
+
 function hardenClue(clue, categoryName, game, meta) {
   const value = Number(clue.value);
   const answer = clean(clue.answer);
@@ -493,7 +522,7 @@ function hardenClue(clue, categoryName, game, meta) {
   const skill = VALUE_SKILLS[value] || "review key content";
   clue.sourceClue = clue.sourceClue || clue.clue;
   clue.sourceExplanation = clue.sourceExplanation || clue.explanation || "";
-  clue.clue = conciseJeopardyClue(clue, answer, categoryName, game);
+  clue.clue = enrichDefinitionClue(conciseJeopardyClue(clue, answer, categoryName, game), answer, categoryName, game, value);
   clue.explanation = conciseExplanation(clue, answer, categoryName, game);
   clue.rigor = {
     value,

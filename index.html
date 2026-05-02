@@ -4780,6 +4780,7 @@ function renderProgressReport() {
   const recHtml = rec ? '<button class="action compact" type="button" data-progress-open="' + escapeHtml(rec.id) + '">Start Next</button>' : '<a class="action compact" href="#launch-paths">Choose Path</a>';
   const completed = Number(summary.completed || 0);
   const plays = Number(summary.data?.recent?.filter((item) => item.type === "game_play" || item.type === "game_complete").length || 0);
+  const streak = Number(summary.streak || 0);
   const reportStamp = summary.data?.lastUpdated ? new Date(summary.data.lastUpdated).toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "not started";
   const focus = summary.courseFocus;
   const focusScore = focus ? (focus.bestAccuracy !== null && focus.bestAccuracy !== undefined ? focus.bestAccuracy + "%" : focus.bestScore !== null && focus.bestScore !== undefined ? String(focus.bestScore) : "active") : "--";
@@ -4806,6 +4807,7 @@ function renderProgressReport() {
     '<article class="progress-card"><span class="progress-kicker">Report Snapshot</span><div class="progress-list">' +
       '<div class="progress-item"><span><strong>' + completed + '</strong><br>completed activities</span><span>done</span></div>' +
       '<div class="progress-item"><span><strong>' + plays + '</strong><br>recent practice signals</span><span>local</span></div>' +
+      '<div class="progress-item"><span><strong>' + streak + '</strong><br>day streak</span><span>streak</span></div>' +
       '<div class="progress-item"><span><strong>' + escapeHtml(reportStamp) + '</strong><br>last update</span><span>saved</span></div>' +
     '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Course Focus</span><div class="progress-list">' + courseFocus + '</div></article>' +

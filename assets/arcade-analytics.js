@@ -324,6 +324,20 @@
     return rows[0] || null;
   }
 
+  function activeStreak(data) {
+    var days = Object.keys((data && data.days) || {}).sort().reverse();
+    if (!days.length) return 0;
+    var streak = 0;
+    for (var i = 0; i < days.length; i += 1) {
+      if (days[i] !== dateOffset(streak)) break;
+      var row = data.days[days[i]] || {};
+      var total = Number(row.gamePlays || 0) + Number(row.completions || 0) + Number(row.gameLaunches || 0);
+      if (!total) break;
+      streak += 1;
+    }
+    return streak;
+  }
+
   function progressSummary(games) {
     var data = readProgress();
     var gameValues = Object.keys(data.games).map(function (id) { return data.games[id]; });
@@ -341,6 +355,7 @@
       weak: weak,
       best: best,
       completed: completed,
+      streak: activeStreak(data),
       courseFocus: courseFocus(data),
       recommendation: recommendation(games || [], data, weak)
     };
@@ -386,6 +401,17 @@
     return candidates[0] || null;
   }
 
+  function sameCourseGames(games, course, matcher) {
+    return (games || []).filter(function (game) {
+      if (course && game.course !== course) return false;
+      return matcher(game);
+    });
+  }
+
+  function firstCourseMatch(games, course, matcher) {
+    return sameCourseGames(games, course, matcher)[0] || null;
+  }
+
   function recommendation(games, data, weak) {
     var recent = data.recent && data.recent[0];
     var lastAccuracy = recent && Number(recent.accuracy);
@@ -393,8 +419,21 @@
     var recentPractice = recent && /regents|practice/i.test(recent.title || "");
     var recentCourse = recent && String(recent.course || "");
     var apContext = /^AP\b/i.test(recentCourse) || /\bAP\b|advanced placement/i.test([recentCourse, weakText, recent && recent.title].join(" "));
+    var focus = courseFocus(data);
+    var focusCourse = focus && focus.title || recentCourse;
+    var recentGameId = recent && recent.gameId;
+    var repeatedRecent = (data.recent || []).filter(function (item) { return item.gameId === recentGameId; }).length >= 3;
     if (!data.recent.length) {
       return { reason: "Start with the strongest game, then the report will personalize the next pick.", game: findGame(games, ["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam", "mastery-path"]) };
+    }
+    if (repeatedRecent && focusCourse) {
+      var diversify = firstCourseMatch(games, focusCourse, function (game) {
+        if (game.id === recentGameId) return false;
+        return /jeopardy|regents|practice|source|gauntlet|hunter|quest/i.test([game.id, game.title, game.gameType].join(" "));
+      });
+      if (diversify) {
+        return { reason: "Switch formats to keep the same course sharp without repeating the exact same activity.", game: diversify };
+      }
     }
     if (apContext && (Number.isFinite(lastAccuracy) && lastAccuracy < 75 || /dbq|leq|saq|frq|argument|evidence|document|analysis|ap/i.test(weakText))) {
       return { reason: "Raise AP rigor with a released exam page and AP-style writing signals.", game: findGame(games, ["ap-practice-exam", "writing-coach", "source-lab"]) };
@@ -408,6 +447,14 @@
     var topicMatch = bestTopicMatch(games, weak, recent);
     if (topicMatch) {
       return { reason: "Review the weakest topic while it is still fresh.", game: topicMatch };
+    }
+    if (focusCourse) {
+      var sameCourseBoard = firstCourseMatch(games, focusCourse, function (game) {
+        return /jeopardy|unit review|unit \+|final/i.test([game.title, game.gameType, game.originalFile, game.file].join(" "));
+      });
+      if (sameCourseBoard && (!Number.isFinite(lastAccuracy) || lastAccuracy < 85)) {
+        return { reason: "Stay in your most active course and clean up content gaps with a board review.", game: sameCourseBoard };
+      }
     }
     if (weak.length) {
       return { reason: "Target the weak topic list while it is fresh.", game: findGame(games, ["mastery-path", "regents-gauntlet", "source-lab", "vocab-vault"]) };
