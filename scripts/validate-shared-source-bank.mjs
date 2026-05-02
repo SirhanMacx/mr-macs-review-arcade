@@ -159,6 +159,17 @@ if (!SourceBank) {
           errors.push(`Mastery ${course}: source-blocked Regents item entered pool ${item.sourceId}`);
         }
       }
+      const labQuestions = Mastery.sourceLabQuestions({ regents, review: chrono, games: [] }, course);
+      if (labQuestions.length < 40) errors.push(`Mastery ${course}: Source Lab has too few trusted source questions (${labQuestions.length})`);
+      for (const item of labQuestions.slice(0, 20)) {
+        const lock = SourceBank.sourceLock(item);
+        if (!lock.ok || !lock.images.length) errors.push(`Mastery ${course}: Source Lab item lacks trusted images after conversion ${item.sourceId || item.id}`);
+      }
+      const writingDocs = Mastery.writingDocs({ regents, review: chrono, games: [] }, course, /Global/.test(course) ? 5 : 6, {}, []);
+      if (writingDocs.length < (/Global/.test(course) ? 5 : 6)) errors.push(`Mastery ${course}: Writing Coach cannot build required document set (${writingDocs.length})`);
+      for (const doc of writingDocs) {
+        if (!doc.images || !doc.images.length) errors.push(`Mastery ${course}: Writing Coach document lacks image ${doc.id}`);
+      }
     }
   }
 }
