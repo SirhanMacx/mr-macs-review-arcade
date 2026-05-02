@@ -174,13 +174,13 @@
     { id: "center", name: "Chronicle Center", kind: "center", gx: 20, gy: 18, icon: "school", text: "Restore party health and save your field log." },
     { id: "mart", name: "Archive Supply", kind: "shop", gx: 27, gy: 18, icon: "chest", text: "Buy capsules, field notes, and restoration tea with shards." },
     { id: "lab", name: "Professor Mac's Lab", kind: "lab", gx: 20, gy: 12, icon: "gate", text: "Choose a starter, learn the route system, and check progress." },
-    { id: "museum", name: "Source Museum", kind: "quest", gx: 43, gy: 26, icon: "arch", text: "Take source and review contracts for XP, shards, and items." },
-    { id: "harbor", name: "Exchange Harbor", kind: "quest", gx: 61, gy: 37, icon: "portal", text: "Trade-route contracts and the Harbor Gym test exchange, migration, and global routes.", gym: { id: "harbor", leader: "Pilot Santos", badge: "Exchange Badge", type: "AP World", roster: ["Zheng He", "Mansa Musa", "Ibn Battuta"], intro: "Pilot Santos lowers the harbor flags. Trade winds are up." } },
+    { id: "museum", name: "Source Museum", kind: "quest", gx: 43, gy: 26, icon: "arch", text: "Take source and review quests for XP, shards, and items." },
+    { id: "harbor", name: "Exchange Harbor", kind: "quest", gx: 61, gy: 37, icon: "portal", text: "Trade-route quests and the Harbor Gym test exchange, migration, and global routes.", gym: { id: "harbor", leader: "Pilot Santos", badge: "Exchange Badge", type: "AP World", roster: ["Zheng He", "Mansa Musa", "Ibn Battuta"], intro: "Pilot Santos lowers the harbor flags. Trade winds are up." } },
     { id: "capitol", name: "Civic Capitol", kind: "quest", gx: 86, gy: 18, icon: "school", text: "Government, rights, court cases, civic participation, and the Capitol Gym.", gym: { id: "capitol", leader: "Organizer Noor", badge: "Federalism Badge", type: "AP Gov", roster: ["James Madison", "Thurgood Marshall", "Barbara Jordan"], intro: "Organizer Noor calls the chamber to order." } },
     { id: "ruins", name: "Ancient Ruins", kind: "quest", gx: 16, gy: 49, icon: "arch", text: "River valleys, empires, belief systems, and the Ancient Gym live on this route.", gym: { id: "ancient", leader: "Keeper Imani", badge: "River Valley Badge", type: "Grade 6", roster: ["Hammurabi", "Confucius", "Mansa Musa"], intro: "Keeper Imani raises the clay seal. Ancient law enters the arena." } },
     { id: "reform", name: "Reform Station", kind: "quest", gx: 74, gy: 57, icon: "gate", text: "Revolution, rights, reform, civil war, industrial change, and the Reform Gym.", gym: { id: "reform", leader: "Curator Rivera", badge: "Reform Badge", type: "Grade 8", roster: ["Abraham Lincoln", "Susan B. Anthony", "Theodore Roosevelt"], intro: "Curator Rivera opens the reform ledger. Every turn changes the timeline." } },
-    { id: "psych", name: "Mind Lab", kind: "quest", gx: 104, gy: 31, icon: "school", text: "AP Psychology contracts and the Mind Gym: methods, learning, cognition, and development.", gym: { id: "mind", leader: "Professor Vale", badge: "Cognition Badge", type: "AP Psych", roster: ["Wilhelm Wundt", "B. F. Skinner", "Jean Piaget"], intro: "Professor Vale dims the lab lights. The experiment begins." } },
-    { id: "bazaar", name: "Market Bazaar", kind: "quest", gx: 49, gy: 74, icon: "chest", text: "Economics contracts and the Market Gym: scarcity, markets, macro policy, trade, and incentives.", gym: { id: "market", leader: "Analyst Vega", badge: "Incentive Badge", type: "Economics", roster: ["Adam Smith", "John Maynard Keynes", "Milton Friedman"], intro: "Analyst Vega rings the market bell. Supply meets demand." } },
+    { id: "psych", name: "Mind Lab", kind: "quest", gx: 104, gy: 31, icon: "school", text: "AP Psychology quests and the Mind Gym: methods, learning, cognition, and development.", gym: { id: "mind", leader: "Professor Vale", badge: "Cognition Badge", type: "AP Psych", roster: ["Wilhelm Wundt", "B. F. Skinner", "Jean Piaget"], intro: "Professor Vale dims the lab lights. The experiment begins." } },
+    { id: "bazaar", name: "Market Bazaar", kind: "quest", gx: 49, gy: 74, icon: "chest", text: "Economics quests and the Market Gym: scarcity, markets, macro policy, trade, and incentives.", gym: { id: "market", leader: "Analyst Vega", badge: "Incentive Badge", type: "Economics", roster: ["Adam Smith", "John Maynard Keynes", "Milton Friedman"], intro: "Analyst Vega rings the market bell. Supply meets demand." } },
     { id: "summit", name: "Atlas Summit", kind: "summit", gx: 111, gy: 72, icon: "portal", text: "The late-game summit arena for mixed review and champion route battles.", gym: { id: "summit", leader: "Captain Ellis", badge: "Atlas Badge", type: "Review", roster: ["Archive Keeper", "Mohandas Gandhi", "Nelson Mandela", "Abraham Lincoln"], intro: "Captain Ellis opens the Atlas Gate. This is a champion route." } },
     { id: "frontier", name: "Frontier Outpost", kind: "quest", gx: 137, gy: 92, icon: "gate", text: "A long-route U.S. history station with a frontier gym for Grade 7, Grade 8, APUSH, and Regents.", gym: { id: "frontier", leader: "Marshal Reed", badge: "Republic Badge", type: "US Regents", roster: ["George Washington", "Harriet Tubman", "Martin Luther King Jr."], intro: "Marshal Reed taps the badge. The republic route is not gentle." } },
     { id: "observatory", name: "World Observatory", kind: "quest", gx: 133, gy: 23, icon: "arch", text: "Global, AP World, AP Euro, Human Geography, and the Observatory Gym meet here.", gym: { id: "world", leader: "Scribe Hana", badge: "World Systems Badge", type: "Global 10", roster: ["Mohandas Gandhi", "Toussaint Louverture", "Nelson Mandela"], intro: "Scribe Hana turns the star map. Revolutions align." } },
@@ -194,14 +194,14 @@
   ];
 
   const npcs = [
-    { id: "guide", name: "Guide Maya", type: "Route Guide", gx: 18, gy: 14, text: "Tall grass starts historical ally battles. Buildings post review contracts. START, M, or P opens pause, filters, party, bag, and save.", starter: true },
-    { id: "rival", name: "Ranger Carter", type: "Rival", gx: 26, gy: 14, text: "A real roster wins routes. Level allies with battles, then use contracts to earn shards and field items.", battle: true },
+    { id: "guide", name: "Guide Maya", type: "Route Guide", gx: 18, gy: 14, text: "Tall grass starts historical ally battles. Buildings post review quests. START, M, or P opens pause, filters, party, bag, and save.", starter: true },
+    { id: "rival", name: "Ranger Carter", type: "Rival", gx: 26, gy: 14, text: "A real roster wins routes. Level allies with battles, then use quests to earn shards and field items.", battle: true },
     { id: "curator", name: "Curator Rivera", type: "Source Coach", gx: 41, gy: 24, text: "Contracts are where review questions belong. Battle for fun. Study for rewards.", quest: true },
     { id: "organizer", name: "Organizer Noor", type: "Civic Coach", gx: 84, gy: 16, text: "Rights, reform, and government routes are strongest when you know people, laws, and turning points.", quest: true },
     { id: "pilot", name: "Pilot Santos", type: "Route Pilot", gx: 60, gy: 39, text: "Harbor routes pull allies from trade, migration, exchange, geography, and global history.", quest: true },
     { id: "keeper", name: "Keeper Imani", type: "Ancient Coach", gx: 14, gy: 47, text: "Ancient allies reward careful review of geography, law, belief systems, and power.", quest: true },
-    { id: "analyst", name: "Analyst Vega", type: "Market Coach", gx: 51, gy: 72, text: "The Market Bazaar favors economics and government moves. Watch your PP before long route battles.", quest: true },
-    { id: "captain", name: "Captain Ellis", type: "Summit Rival", gx: 109, gy: 70, text: "A full party with restored PP matters before the Atlas Summit.", battle: true },
+    { id: "analyst", name: "Analyst Vega", type: "Market Coach", gx: 51, gy: 72, text: "The Market Bazaar favors economics and government moves. Watch your energy before long route battles.", quest: true },
+    { id: "captain", name: "Captain Ellis", type: "Summit Rival", gx: 109, gy: 70, text: "A full party with restored energy matters before the Atlas Summit.", battle: true },
     { id: "scribe", name: "Scribe Hana", type: "Archive Scout", gx: 132, gy: 21, text: "Trade routes, belief systems, and geography are easier when you know where ideas traveled.", quest: true },
     { id: "marshal", name: "Marshal Reed", type: "Frontier Rival", gx: 135, gy: 89, text: "The western route is long. Bring tea, capsules, and a party that can handle U.S. history eras.", battle: true },
     { id: "advocate", name: "Advocate Samira", type: "Rights Coach", gx: 95, gy: 93, text: "Civil rights, human rights, and constitutional rights all reward precise evidence.", quest: true },
@@ -1258,6 +1258,11 @@
     return images.filter((image) => image && image.src);
   }
 
+  function stimulusLabel(q, image, index) {
+    if (SourceBank && SourceBank.displayStimulusLabel) return SourceBank.displayStimulusLabel(q, image);
+    return String((image && image.label) || (q && q.source) || `Source ${index + 1}`).trim();
+  }
+
   function hasReliableStimulus(q) {
     return Boolean(stimulusTextFor(q) || (q && q.stimulusHtml) || stimulusImagesFor(q).length);
   }
@@ -1346,7 +1351,7 @@
     }
     const textBlock = sourceText ? `<p>${escapeHtml(sourceText)}</p>` : "";
     const imageBlock = images.map((image, index) => {
-      const label = image.label || `Source stimulus ${index + 1}`;
+      const label = stimulusLabel(q, image, index);
       return `<figure>
         <img src="${escapeHtml(image.src)}" alt="${escapeHtml(label)}" loading="eager">
         <figcaption>${escapeHtml(label)}</figcaption>
@@ -1484,7 +1489,7 @@
       return;
     }
     if (battle.menu === "fight") {
-      els.battleActions.innerHTML = battle.hero.moves.map((item, index) => `<button type="button" data-move="${index}" title="${escapeHtml(item.flavor || item.name)}" ${item.pp <= 0 ? "disabled" : ""}><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(moveStyleLabel(item.style))} / ${escapeHtml(item.type)} / ${item.power} / ${item.pp}/${item.maxPp} PP</small></button>`).join("");
+      els.battleActions.innerHTML = battle.hero.moves.map((item, index) => `<button type="button" data-move="${index}" title="${escapeHtml(item.flavor || item.name)}" ${item.pp <= 0 ? "disabled" : ""}><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(moveStyleLabel(item.style))} / ${escapeHtml(item.type)} / ${item.power} / ${item.pp}/${item.maxPp} energy</small></button>`).join("");
       [...els.battleActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => useMove(Number(button.dataset.move))));
       return;
     }
@@ -1588,7 +1593,7 @@
     if (!battle || battle.locked) return;
     const selected = battle.hero.moves[index] || battle.hero.moves[0];
     if (!selected || selected.pp <= 0) {
-      setBattleLog("That move is out of PP. Pick another move or visit the Chronicle Center.");
+      setBattleLog("That move is out of energy. Pick another move or visit the Chronicle Center.");
       return;
     }
     selected.pp -= 1;

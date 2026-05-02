@@ -872,4 +872,17 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
 }
 @media (max-width: 640px) {
   .launch-strip { grid-template-columns: 1fr; }
+  button,
+  select,
+  .menu-tab,
+  .battle-actions button,
+  .touch-btn {
+    min-height: 44px;
+  }
+  .hud,
+  .battle-log,
+  .menu-card,
+  .quest-source {
+    font-size: 12px;
+  }
 }

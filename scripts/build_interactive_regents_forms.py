@@ -421,13 +421,13 @@ def seq_task_prompts(texts: list[str], start: int, end: int, question_number: in
     joined = "\n".join(texts[page - 1] for page in range(start, min(end, len(texts) + 1)))
     task_match = re.search(r"Task:\s*(.+?)(?=\n\s*(?:In developing|Document 1|SEQ Set)|$)", joined, flags=re.I | re.S)
     if not task_match:
-        return [f"Write Short Essay Question {question_number} using the two official documents."]
+        return [f"Write Short Essay Question {question_number} using the two released documents."]
     body = task_match.group(1)
     bullets = [clean_display(item) for item in re.findall(r"•\s*(.+?)(?=(?:\n\s*•|\n\s*In developing|\n\s*Document 1|$))", body, flags=re.S)]
     if bullets:
         return bullets
     prompt = clean_display(body)
-    return [prompt] if prompt else [f"Write Short Essay Question {question_number} using the two official documents."]
+    return [prompt] if prompt else [f"Write Short Essay Question {question_number} using the two released documents."]
 
 
 def normalize_us_scaffold_titles(tasks: list[dict]) -> list[dict]:
@@ -438,6 +438,18 @@ def normalize_us_scaffold_titles(tasks: list[dict]) -> list[dict]:
             item["title"] = f"Civic SAQ {30 + index}"
         normalized.append(item)
     return normalized
+
+
+def civic_fallback_prompt(doc_number: int) -> str:
+    prompts = {
+        1: "Based on Document 1, identify one historical circumstance related to the civic issue.",
+        2: "Based on Document 2, describe one effort by individuals, groups, or government to address the civic issue.",
+        3: "Based on Document 3, explain one argument or point of view about the civic issue.",
+        4: "Based on Document 4, describe one impact of an effort to address the civic issue.",
+        5: "Based on Document 5, identify one limitation, success, or consequence of an effort to address the civic issue.",
+        6: "Based on Document 6, explain how the civic issue continued or changed over time.",
+    }
+    return prompts.get(doc_number, f"Based on Document {doc_number}, answer the Civic Literacy short-answer question with one specific, supported response.")
 
 
 def build_mcq(course: str, administration: str, form_id: str, pdf: fitz.Document, texts: list[str], out_dir: Path, keys: dict[int, str], part_two_page: int | None) -> list[dict]:
@@ -575,7 +587,7 @@ def generic_us_writing(course: str, administration: str, pdf: fitz.Document, tex
                 "title": f"Civic SAQ {30 + index}",
                 "points": 1,
                 "docs": [doc],
-                "prompt": prompt_for_label(texts, civic_pages, str(30 + index)) or f"Answer Civic Literacy short-answer question {30 + index} using the official document.",
+                "prompt": prompt_for_label(texts, civic_pages, str(30 + index)) or civic_fallback_prompt(index + 1),
                 "answerKey": ["One specific, accurate answer supported by this document earns the practice point."],
                 "modelAnswer": "A credited practice response gives one specific fact from the document and connects it to the civic issue.",
             }

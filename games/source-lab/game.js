@@ -52,7 +52,7 @@ function sourceLock(question) {
     reason: normalized.stimulusImages.length ? "" : "Source image missing",
     images: normalized.stimulusImages,
     identity: [question.course, question.source, normalized.stimulusImages.map((image) => image.src).join("|")].join("::"),
-    label: normalized.stimulusImages.length ? "Source Lock: verified" : "Source Lock: blocked"
+    label: normalized.stimulusImages.length ? "Source matched" : "Source blocked"
   };
 }
 

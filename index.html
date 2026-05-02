@@ -2396,13 +2396,13 @@ select.field {
   }
   .topnav a {
     justify-content: center;
-    min-height: 38px;
-    padding: 8px 6px;
+    min-height: 44px;
+    padding: 9px 6px;
     border: 1px solid rgba(122,240,255,.30);
     background:
       linear-gradient(180deg, rgba(122,240,255,.10), rgba(255,123,204,.055)),
       rgba(3,8,20,.54);
-    font-size: 12.5px;
+    font-size: 12px;
     line-height: 1.1;
     text-align: center;
     white-space: normal;
@@ -3478,30 +3478,29 @@ body {
     font-size: 12px;
   }
   .topnav {
-    display: flex;
-    gap: 7px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 6px;
     width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 1px 1px 4px;
+    overflow: visible;
+    padding: 0;
     border: 0;
     background: transparent;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .topnav::-webkit-scrollbar {
-    display: none;
   }
   .topnav a {
-    flex: 0 0 auto;
-    min-height: 34px;
-    padding: 7px 10px;
+    grid-column: span 2;
+    justify-content: center;
+    min-height: 36px;
+    padding: 7px 6px;
     border-radius: 7px;
-    font-size: 12px;
+    font-size: 11.5px;
     line-height: 1;
-    white-space: nowrap;
-    scroll-snap-align: start;
+    text-align: center;
+    white-space: normal;
+  }
+  .topnav a:nth-child(4),
+  .topnav a:nth-child(5) {
+    grid-column: span 3;
   }
   .hero {
     padding-top: 18px;
@@ -3790,13 +3789,13 @@ body {
   <section class="band progress-band utility-band" id="progress" aria-label="Local student progress">
     <div class="band-head reveal">
       <div>
-        <div class="band-eyebrow">Local Report</div>
+        <div class="band-eyebrow">Practice Report</div>
         <h2 class="band-title">Your next <em>move</em>.</h2>
-        <p class="band-sub">This report stays in this browser. It helps students show recent practice, weak topics, and a recommended next activity without accounts.</p>
+        <p class="band-sub">This report stays in this browser. It shows recent practice, weak topics, and a recommended next activity.</p>
       </div>
       <div class="progress-actions">
         <button class="action compact" id="printReportBtn" type="button">Print Report</button>
-        <button class="action compact ghost" id="clearReportBtn" type="button">Clear Local Report</button>
+        <button class="action compact ghost" id="clearReportBtn" type="button">Clear Practice Report</button>
       </div>
     </div>
     <div class="progress-grid reveal-stagger" id="progressReport"></div>
@@ -3832,7 +3831,7 @@ body {
     <div class="band-head reveal">
       <div>
         <div class="band-eyebrow">Featured Missions</div>
-        <h2 class="band-title">Pick your <em>boss fight</em>.</h2>
+        <h2 class="band-title">Choose a <em>challenge</em>.</h2>
         <p class="band-sub">Best games first, with the strongest review paths surfaced before the full library.</p>
       </div>
     </div>
@@ -3843,8 +3842,8 @@ body {
     <div class="band-head reveal">
       <div>
         <div class="band-eyebrow">Jeopardy Boards</div>
-        <h2 class="band-title">Project a <em>board</em>.</h2>
-        <p class="band-sub">All unit reviews now live under Jeopardy. Pick a course level and subject, then launch the board you need.</p>
+        <h2 class="band-title">Open a <em>board</em>.</h2>
+        <p class="band-sub">Pick a course, choose a subject, and start a Jeopardy board.</p>
       </div>
       <button class="action compact" id="showAllJeopardyBtn" type="button">Show All Boards</button>
     </div>
@@ -3862,7 +3861,7 @@ body {
       <div>
         <div class="band-eyebrow">Quick Play</div>
         <h2 class="band-title">Start in <em>one minute</em>.</h2>
-        <p class="band-sub">Short modes for bell ringers, study hall, homework reps, and fast feedback.</p>
+        <p class="band-sub">Short modes for warmups, quick practice, and fast feedback.</p>
       </div>
     </div>
     <div class="quick-grid reveal-stagger" id="quickPlayModes"></div>
@@ -3976,8 +3975,8 @@ body {
 </section>
 
 <script src="assets/arcade-analytics.js?v=20260501-traction-dashboard-4"></script>
-<script src="assets/source-bank.js?v=20260501-sourcebank"></script>
-<script src="assets/mastery-engine.js?v=20260501-sourcebank"></script>
+<script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
+<script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
 let GAMES = [];
 
@@ -4018,7 +4017,7 @@ const LANES = [
 ];
 
 const SMART_MENU_LANES = [
-  { id: "recommended", label: "Recommended", libraryLane: "all", summary: "based on local progress and strongest first plays" },
+  { id: "recommended", label: "Recommended", libraryLane: "all", summary: "based on your recent practice and good starter picks" },
   { id: "continue", label: "Continue", libraryLane: "all", summary: "recently opened or completed in this browser" },
   { id: "popular", label: "Popular", libraryLane: "play", summary: "most-used here, with proven fallback picks" },
   { id: "exams", label: "Practice Exams", libraryLane: "regents", summary: "full exams, source reps, and writing practice" },
@@ -4330,7 +4329,7 @@ function shortHeroTitle(title) {
 }
 function cardSubtitle(game) {
   if (!game) return "";
-  if (game.id === "history-hunters") return "Open-world review RPG with battles, contracts, party building, and course quests.";
+  if (game.id === "history-hunters") return "Open-world review RPG with battles, party building, rewards, and course quests.";
   if (game.id === "archive-quest") return "Platform levels, double jump, review gates, and question-unlocked powers.";
   if (game.id === "cold-war-invaders") return "Atari-style Space Invaders with Cold War questions, intel bursts, and mobile controls.";
   if (game.id === "regents-practice-exam") return "Full Regents practice with official questions, writing, pacing, and score estimates.";
@@ -4440,11 +4439,11 @@ function buttonCard(game, fallback, className) {
   const title = game ? game.title : item.title;
   const subtitle = game ? cardSubtitle(game) : item.subtitle;
   const kicker = game ? displayGameType(game) : item.kicker;
-  const meta = game ? [game.course, game.day || game.grade].filter(Boolean).join(" · ") : item.meta;
+  const meta = game ? [game.course === "All Courses" ? "" : game.course, game.day || game.grade, game.gameType].filter(Boolean).slice(0, 2).join(" · ") : item.meta;
   return '<button class="' + className + '" type="button" style="--accent:' + accent + ';--glyph:\'' + glyph + '\'' + art + '" data-id="' + escapeHtml(id) + '">' +
     '<span class="' + (className === "path-card" ? "path-kicker" : "focus-kicker") + '">' + escapeHtml(kicker) + '</span>' +
     '<div><h3>' + escapeHtml(title) + '</h3><p>' + escapeHtml(subtitle) + '</p></div>' +
-    '<div class="' + (className === "path-card" ? "path-foot" : "focus-foot") + '"><span>' + escapeHtml(meta || "") + '</span><span class="launch-chip">Open</span></div>' +
+    '<div class="' + (className === "path-card" ? "path-foot" : "focus-foot") + '"><span>' + escapeHtml(meta || "") + '</span><span class="launch-chip">Play</span></div>' +
   '</button>';
 }
 
@@ -4547,9 +4546,9 @@ function smartSubtitle(game) {
 }
 function trustBadgeFor(game) {
   if (!game) return "";
-  if (SOURCE_LOCKED_GAME_IDS.has(game.id)) return "Source Locked";
-  if (/Jeopardy/i.test(displayGameType(game))) return "Board Hardened";
-  if (/AP\b/.test(game.course || "")) return "AP Rigor";
+  if (SOURCE_LOCKED_GAME_IDS.has(game.id)) return "Verified sources";
+  if (/Jeopardy/i.test(displayGameType(game))) return "Review board";
+  if (/AP\b/.test(game.course || "")) return "AP practice";
   return "";
 }
 function compactCourseLabel(course) {
@@ -4803,7 +4802,7 @@ function renderProgressReport() {
     '<div class="progress-item"><span><strong>' + escapeHtml(smartTitle(game)) + '</strong><br>' + escapeHtml(displayGameType(game)) + '</span><span>hot</span></div>'
   ).join("") : '<div class="progress-item"><span><strong>Popular picks loading</strong><br>Use the Smart Menu to build local trends.</span><span>new</span></div>';
   container.innerHTML =
-    '<article class="progress-card recommendation"><span class="progress-kicker">Recommended next</span><div><h3>' + escapeHtml(rec ? rec.title : "Start with Play") + '</h3><p>' + escapeHtml(summary.recommendation.reason || "Pick a path and start practicing.") + '</p></div><div class="progress-foot"><span>' + escapeHtml(rec ? rec.course + " · " + displayGameType(rec) : "local report") + '</span>' + recHtml + '</div></article>' +
+    '<article class="progress-card recommendation"><span class="progress-kicker">Recommended next</span><div><h3>' + escapeHtml(rec ? rec.title : "Start with Play") + '</h3><p>' + escapeHtml(summary.recommendation.reason || "Pick a path and start practicing.") + '</p></div><div class="progress-foot"><span>' + escapeHtml(rec ? rec.course + " · " + displayGameType(rec) : "practice report") + '</span>' + recHtml + '</div></article>' +
     '<article class="progress-card"><span class="progress-kicker">Report Snapshot</span><div class="progress-list">' +
       '<div class="progress-item"><span><strong>' + completed + '</strong><br>completed activities</span><span>done</span></div>' +
       '<div class="progress-item"><span><strong>' + plays + '</strong><br>recent practice signals</span><span>local</span></div>' +
@@ -4833,7 +4832,7 @@ function renderQuickPlay() {
     const timer = game.id === "lightning-review" ? "90 sec"
       : game.id === "source-sprint" ? "3 min"
       : "open";
-    const meta = game.id === "source-sprint" ? "stimulus MCQs"
+    const meta = game.id === "source-sprint" ? "source questions"
       : game.id === "vocab-vault" ? "typed answers"
       : "mixed MCQs";
     const art = cssUrlForAttr(thumbnailFor(game));
@@ -4883,7 +4882,7 @@ function renderCourseTiles() {
     const types = uniq(games.map(displayGameType));
     const lead = types[0] || "Review";
     const count = games.length;
-    const labelType = course.startsWith("AP") ? "AP Course" : (course.startsWith("Grade") ? "Regents Course" : "Elective");
+    const labelType = course.startsWith("AP") ? "AP Course" : (course.startsWith("Grade") ? "NYS course" : "Elective");
     return '<button class="course-tile" type="button" style="--accent:' + palette.accent + ';--course-glyph:\'' + palette.glyph + '\';--i:' + index + '" data-course="' + escapeHtml(course) + '">' +
       '<small>' + escapeHtml(labelType) + '</small>' +
       '<strong>' + escapeHtml(course) + '</strong>' +
@@ -4920,7 +4919,7 @@ function card(game) {
   const thumb = thumbnailFor(game);
   const art = cssUrlForAttr(thumb);
   const categoryLine = (game.categories || []).slice(0, 3).join(" · ");
-  const meta = (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " clues") + " · " + (game.hasFinal ? "Final wager" : "Practice");
+  const meta = game.id === "regents-practice-exam" ? "28 MCQs + writing" : game.id === "ap-practice-exam" ? "MCQ + FRQ practice" : (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " clues") + " · " + (game.hasFinal ? "Final wager" : "Practice");
   return '<button class="game-card" type="button" style="--accent:' + accent + ';--course-glyph:\'' + glyph + '\';--card-art:' + art + '" data-id="' + escapeHtml(game.id) + '">' +
     '<div class="gc-art">' +
       '<img class="gc-thumb" src="' + escapeHtml(thumb) + '" alt="" loading="lazy" decoding="async" onerror="this.hidden=true;this.closest(\'.gc-art\').classList.add(\'missing-thumb\')">' +
@@ -4967,6 +4966,16 @@ function render() {
   }
   grid.querySelectorAll(".game-card").forEach((button) => {
     button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
+  });
+}
+
+function settleHashTarget() {
+  const hash = window.location.hash;
+  if (!hash || hash.length < 2) return;
+  const target = document.querySelector(hash);
+  if (!target) return;
+  [80, 320, 900].forEach((delay) => {
+    setTimeout(() => target.scrollIntoView({ behavior: "auto", block: "start" }), delay);
   });
 }
 
@@ -5167,7 +5176,9 @@ async function boot() {
     initFx();
     initParallax();
     render();
+    settleHashTarget();
     initReveal();
+    window.addEventListener("hashchange", settleHashTarget);
     window.matchMedia?.("(max-width: 760px)").addEventListener?.("change", () => render());
     window.addEventListener("mrmacs-progress", () => { renderProgressReport(); renderSmartMenu(); });
     window.addEventListener("storage", (event) => {

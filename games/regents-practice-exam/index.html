@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>Regents Practice Exam - Mr. Mac's Review Arcade</title>
-<link rel="stylesheet" href="styles.css?v=20260501-platform-polish">
+<link rel="stylesheet" href="styles.css?v=20260502-perfect-pass">
 <style>
 .guide-list{display:grid;gap:10px;margin:12px 0 18px}.guide-card{padding:12px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(0,0,0,.24);line-height:1.42}.guide-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:8px}.guide-head strong{display:block;color:#fff;font-size:18px}.score-badge{white-space:nowrap;color:#071018;background:linear-gradient(135deg,var(--gold),#fff0aa);border-radius:999px;padding:6px 10px;font-weight:950}.guide-scale{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;margin:9px 0}.guide-scale.half{grid-template-columns:repeat(11,minmax(0,1fr))}.guide-step{min-height:38px;border:1px solid rgba(255,255,255,.15);border-radius:7px;padding:6px;text-align:center;color:var(--muted);font-size:11px;font-weight:900}.guide-step.hit{border-color:rgba(90,240,174,.48);background:rgba(90,240,174,.11);color:#fff}.guide-step.current{border-color:rgba(255,209,92,.85);background:rgba(255,209,92,.16);color:#fff;box-shadow:0 0 18px rgba(255,209,92,.13)}.guide-checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px}.check{padding:8px;border:1px solid rgba(255,255,255,.13);border-radius:7px;color:var(--soft);font-size:12px;font-weight:850}.check.pass{border-color:rgba(90,240,174,.52);background:rgba(90,240,174,.08);color:#fff}.check.miss{border-color:rgba(255,97,120,.48);background:rgba(255,97,120,.07)}.guide-note{margin:8px 0 0;color:var(--soft);font-size:13px}.doc-grid.one{grid-template-columns:1fr}.doc-grid.one .doc-card img{max-height:520px}@media(max-width:720px){.guide-scale,.guide-scale.half,.guide-checks{grid-template-columns:1fr}.guide-head{display:grid}.score-badge{justify-self:start}}
 </style>
@@ -67,9 +67,9 @@
         <div class="status-tile"><span>Section Pace</span><strong id="sectionClock">--:--</strong></div>
         <div class="status-tile"><span>Answered</span><strong id="answeredCount">0 / 28</strong></div>
         <div class="status-tile"><span>Writing</span><strong id="writingCount">0 / 3</strong></div>
-        <div class="status-tile doc-audit-tile" id="docAuditTile"><span>Documents</span><strong>Checking</strong><small id="docAuditText">Source set audit</small></div>
+        <div class="status-tile doc-audit-tile" id="docAuditTile"><span>Documents</span><strong>Checking</strong><small id="docAuditText">Document check</small></div>
         <div class="mini-map" id="questionMap"></div>
-        <button class="btn danger" id="submitBtn" type="button">Submit For Score</button>
+        <button class="btn danger" id="submitBtn" type="button">Finish and See Results</button>
       </aside>
 
       <section class="work-surface">
@@ -100,7 +100,7 @@
           <div id="studyTargets" class="comment-list"></div>
         </section>
       </div>
-      <h2>Writing Guide Position</h2>
+      <h2>Writing Feedback</h2>
       <div class="guide-list" id="rubricGuide"></div>
       <h2>Question Review</h2>
       <div class="review-list" id="reviewList"></div>
@@ -131,7 +131,7 @@
   </div>
 </div>
 <script src="../../assets/arcade-analytics.js?v=20260430-interactive-bank"></script>
-<script src="../../assets/source-bank.js?v=20260501-sourcebank"></script>
-<script type="module" src="game.js?v=20260501-regents-source-lock"></script>
+<script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
+<script type="module" src="game.js?v=20260502-perfect-pass"></script>
 </body>
 </html>

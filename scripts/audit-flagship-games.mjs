@@ -79,7 +79,7 @@ requireText("games/cold-war-invaders/styles.css", [
 
 requireText("games/history-hunters-2/game.js", [
   "trackHunterCompletion",
-  "Review Contract",
+  "review quest",
   "Open-World RPG",
   "game_complete",
   "startMusic",

@@ -458,7 +458,7 @@
     applyFilters();
     updateHud();
     els.missionTitle.textContent = "Build, answer, survive";
-    els.missionText.textContent = "Place social studies towers, answer the reactor prompts, and hold the path through infinite review waves.";
+    els.missionText.textContent = "Place social studies towers, answer the review questions, and hold the path through infinite review waves.";
     if (matchMedia("(max-width: 1120px) and (orientation: landscape)").matches) {
       setQuestionCollapsed(true);
     }

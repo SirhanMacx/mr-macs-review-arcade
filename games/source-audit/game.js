@@ -113,9 +113,9 @@ function renderMetrics() {
   const quarantinedCount = count(records, (record) => record.status === "quarantined");
   const officialCount = count(records, (record) => record.official && !record.issue);
   $("#metrics").innerHTML = [
-    [trusted, "trusted image-backed records", ""],
-    [officialCount, "Jan. 2026 official records", ""],
-    [quarantinedCount, "quarantined source records", quarantinedCount ? "warn" : ""],
+    [trusted, "image-backed practice records", ""],
+    [officialCount, "Jan. 2026 practice records", ""],
+    [quarantinedCount, "records not in practice", quarantinedCount ? "warn" : ""],
     [issueCount, "records needing review", issueCount ? "warn" : ""]
   ].map(([value, label, klass]) => '<article class="metric ' + klass + '"><strong>' + esc(value) + '</strong><span>' + esc(label) + '</span></article>').join("");
 }

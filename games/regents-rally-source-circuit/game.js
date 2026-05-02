@@ -414,7 +414,7 @@ function sourceLock(question) {
     reason: images.length ? "" : "Source image missing",
     images,
     identity: [question.course, question.source, images.map((image) => image.src).join("|")].join("::"),
-    label: images.length ? "Source Lock: verified" : "Source Lock: blocked"
+    label: images.length ? "Source matched" : "Source blocked"
   };
 }
 
@@ -616,7 +616,7 @@ function renderQuestion() {
     els.sourceImage.hidden = false;
     els.sourceImage.src = q.images[0].src;
     els.sourceImage.alt = q.images[0].label || "Source stimulus";
-    const lock = q.sourceLock || { ok: true, label: "Source Lock: verified", reason: "" };
+    const lock = q.sourceLock || { ok: true, label: "Source matched", reason: "" };
     els.sourceCaption.innerHTML = `<span class="source-lock-pill ${lock.ok ? "ok" : "warn"}">${escapeHtml(lock.label)}${lock.reason ? " · " + escapeHtml(lock.reason) : ""}</span> ${escapeHtml(q.images[0].label || "Source stimulus")}`;
   } else {
     els.sourcePreview.classList.add("hidden");

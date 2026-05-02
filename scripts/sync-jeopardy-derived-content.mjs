@@ -82,10 +82,16 @@ function clueKey(course, title, category, value, answer) {
   return [course, title, category, Number(value), answer].map(normalize).join("|");
 }
 
+function finalKey(course, title, answer) {
+  return [course, title, "final", 700, answer].map(normalize).join("|");
+}
+
 function collectJeopardyBoards() {
   const games = JSON.parse(readFileSync(resolve(root, "games.json"), "utf8"));
   const boards = [];
   const clueIndex = new Map();
+  const finalIndex = new Map();
+  const finalIdIndex = new Map();
   for (const meta of games.filter(isJeopardyManifestEntry)) {
     const file = resolve(root, decodePath(meta.file));
     if (!existsSync(file)) throw new Error(`Missing board file: ${meta.file}`);
@@ -93,6 +99,7 @@ function collectJeopardyBoards() {
     const courseOptions = [meta.course, game.exam, game.course].filter(Boolean);
     const bank = {
       id: bankId(meta),
+      slug: game.slug || "",
       title: game.title || meta.title,
       subtitle: game.subtitle || meta.subtitle || "",
       day: game.day || meta.day || "",
@@ -116,24 +123,37 @@ function collectJeopardyBoards() {
         clueIndex.set(clueKey("", bank.title, category.name, clue.value, clue.answer), clue);
       }
     }
+    for (const course of courseOptions) {
+      finalIndex.set(finalKey(course, bank.title, bank.final.answer), bank.final);
+    }
+    finalIndex.set(finalKey("", bank.title, bank.final.answer), bank.final);
+    if (bank.slug) finalIdIndex.set(`jeopardy-${bank.slug}-final`, bank.final);
+    finalIdIndex.set(`jeopardy-${bank.id}-final`, bank.final);
   }
-  return { boards, clueIndex };
+  return { boards, clueIndex, finalIndex, finalIdIndex };
 }
 
-function syncChronoBank(clueIndex) {
+function syncChronoBank(clueIndex, finalIndex, finalIdIndex) {
   const file = resolve(root, "data", "chrono-defense-bank.json");
   const bank = JSON.parse(readFileSync(file, "utf8"));
   let updated = 0;
   for (const question of bank.questions || []) {
     if (!String(question.type || "").startsWith("jeopardy")) continue;
-    const keys = [
+    const isFinal = String(question.type || "") === "jeopardy-final" || Number(question.value) === 700;
+    const keys = isFinal ? [
+      finalKey(question.course, question.set, question.answer),
+      finalKey(question.subject, question.set, question.answer),
+      finalKey("", question.set, question.answer)
+    ] : [
       clueKey(question.course, question.set, question.category, question.value, question.answer),
       clueKey(question.subject, question.set, question.category, question.value, question.answer),
       clueKey("", question.set, question.category, question.value, question.answer)
     ];
-    const source = keys.map((key) => clueIndex.get(key)).find(Boolean);
+    const index = isFinal ? finalIndex : clueIndex;
+    const source = (isFinal && question.id ? finalIdIndex.get(question.id) : null) || keys.map((key) => index.get(key)).find(Boolean);
     if (!source) continue;
-    if (question.prompt !== source.clue || question.explanation !== source.explanation) updated += 1;
+    if (question.prompt !== source.clue || question.explanation !== source.explanation || question.category !== source.category) updated += 1;
+    if (isFinal) question.category = source.category;
     question.prompt = source.clue;
     question.answer = source.answer;
     question.aliases = source.aliases;
@@ -147,17 +167,15 @@ function syncChronoBank(clueIndex) {
 function syncBossRush(boards) {
   const file = resolve(root, "games", "boss-rush", "index.html");
   const html = readFileSync(file, "utf8");
-  const next = html.replace(
-    /const BANKS = \[[\s\S]*?\];(?=\r?\nconst LENGTHS\s*=)/,
-    `const BANKS = ${JSON.stringify(boards)};`
-  );
-  if (next === html) throw new Error("Could not replace Boss Rush BANKS data");
+  const bankPattern = /const BANKS = \[[\s\S]*?\];(?=\r?\nconst LENGTHS\s*=)/;
+  if (!bankPattern.test(html)) throw new Error("Could not locate Boss Rush BANKS data");
+  const next = html.replace(bankPattern, `const BANKS = ${JSON.stringify(boards)};`);
   writeFileSync(file, next);
 }
 
 function main() {
-  const { boards, clueIndex } = collectJeopardyBoards();
-  const bankUpdates = syncChronoBank(clueIndex);
+  const { boards, clueIndex, finalIndex, finalIdIndex } = collectJeopardyBoards();
+  const bankUpdates = syncChronoBank(clueIndex, finalIndex, finalIdIndex);
   syncBossRush(boards);
   console.log(`Synced ${boards.length} Jeopardy boards into Boss Rush and refreshed ${bankUpdates} shared-bank prompts.`);
 }

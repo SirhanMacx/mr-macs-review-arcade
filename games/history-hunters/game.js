@@ -300,7 +300,7 @@
     "Chapter 3: Clear five review missions and visit the Source Museum.",
     "Chapter 4: Reach the harbor with a level 5 roster leader.",
     "Chapter 5: Cross the eastern routes and test civics, industry, psychology, and global review.",
-    "Chapter 6: Summit mode unlocked. Build a complete party and clear cumulative contracts."
+    "Chapter 6: Summit mode unlocked. Build a complete party and clear cumulative quests."
   ];
 
   const itemCatalog = {
@@ -319,7 +319,7 @@
     sourceLens: {
       label: "Source Lens",
       price: 32,
-      description: "Shows a source-reading hint during review contracts.",
+      description: "Shows a source-reading hint during review quests.",
       battle: true
     },
     healKit: {
@@ -771,6 +771,7 @@
   }
 
   function displayPrompt(q) {
+    if (SourceBank && SourceBank.displayPrompt) return SourceBank.displayPrompt(q);
     const raw = cleanText(q && q.prompt);
     const cleaned = raw
       .replace(/^final\s+clue(?:\s+for\s+[^:]+)?:\s*/i, "")
@@ -886,6 +887,11 @@
     if (q.stimulusRequired === true) return images;
     if (q.stimulusRequired === false) return [];
     return sourcePromptRe.test(String(q.prompt || "")) ? images : [];
+  }
+
+  function stimulusLabel(q, image, index) {
+    if (SourceBank && SourceBank.displayStimulusLabel) return SourceBank.displayStimulusLabel(q, image);
+    return cleanText((image && image.label) || (q && q.source) || `Source ${index + 1}`);
   }
 
   function sourceTextFor(q) {
@@ -1159,7 +1165,7 @@
     const label = state.selectedNode ? state.selectedNode.label : (set !== "All Sets" ? set : course);
     const chapter = storyChapters[state.stats.storyStep || 0] || storyChapters[0];
     els.activeRegion.textContent = label || "Open Archive";
-    els.questText.textContent = `${chapter} ${state.filtered.length.toLocaleString()} review contracts available. Hunt figures in tall grass, then take side quests for XP, shards, and items.`;
+    els.questText.textContent = `${chapter} ${state.filtered.length.toLocaleString()} review quests available. Hunt figures in tall grass, then take side quests for XP, shards, and items.`;
   }
 
   function fillFilters() {
@@ -1188,9 +1194,9 @@
     }
     const textBlock = text ? `<p>${escapeHtml(text)}</p>` : "";
     const imageBlock = images.slice(0, 2).map((image, index) => (
-      `<img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.label || `Source stimulus ${index + 1}`)}">`
+      `<img src="${escapeHtml(image.src)}" alt="${escapeHtml(stimulusLabel(q, image, index))}">`
     )).join("");
-    els.sourcePanel.innerHTML = `<strong>Source Stimulus</strong>${textBlock}${imageBlock}`;
+    els.sourcePanel.innerHTML = `<strong>Source</strong>${textBlock}${imageBlock}`;
     els.sourcePanel.hidden = false;
   }
 
@@ -1775,7 +1781,7 @@
     const questPool = pool.filter((q) => q && q.prompt && q.answer);
     const q = shuffle(questPool)[0] || nextQuestion();
     if (!q) {
-      setDialogue("Side Quest", "No Contracts", "No review contracts are available for the current course filter.", [
+      setDialogue("Side Quest", "No Quests", "No review quests are available for the current course filter.", [
         { action: "close", label: "Close" }
       ]);
       return;
@@ -2239,7 +2245,7 @@
   function openInteraction(item) {
     const target = item || state.nearInteraction || nearestInteraction(state.player);
     if (!target) {
-      setDialogue("Field", "Open Route", "Tap a building, NPC, or route marker to interact. Tall grass starts wild figure battles; towns and NPCs post review contracts.", [
+      setDialogue("Field", "Open Route", "Tap a building, NPC, or route marker to interact. Tall grass starts wild figure battles; towns and NPCs post review quests.", [
         { action: "quest", label: "Side Quest" },
         { action: "hunt", label: "Start Hunt" },
         { action: "close", label: "Keep Walking" }
@@ -2421,7 +2427,7 @@
     return {
       kicker: place.name,
       title: "Route hub",
-      text: place.text || "This route connects figure battles and review contracts.",
+      text: place.text || "This route connects figure battles and review quests.",
       actions: [
         { action: "quest", label: "Side Quest" },
         { action: "hunt", label: "Start Route" },
@@ -2486,7 +2492,7 @@
         updateHud();
         renderBag();
       }
-      els.buildingText.textContent = "Source Lenses are in your bag. Use them during source-based review contracts.";
+      els.buildingText.textContent = "Source Lenses are in your bag. Use them during source-based review quests.";
       return;
     }
     if (action === "hunt") {
@@ -2501,7 +2507,7 @@
       item: id,
       label: `${item.label} - ${item.price} shards`
     })).concat([{ action: "close", label: "Leave Shop" }]);
-    setDialogue("Archive Supply", "Buy Field Items", `Shards: ${state.stats.shards}. Battle items help in encounters. Review contracts are now side quests for XP, shards, and supplies.`, actions);
+    setDialogue("Archive Supply", "Buy Field Items", `Shards: ${state.stats.shards}. Battle items help in encounters. Review quests are now side quests for XP, shards, and supplies.`, actions);
   }
 
   function buyItem(id) {

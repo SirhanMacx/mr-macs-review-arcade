@@ -72,7 +72,7 @@
         <li><strong>${form.mcqCount} official MCQs</strong><span>Each question stays locked to its matching rendered PDF page.</span></li>
         <li><strong>${writing.length} writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
         <li><strong>${form.minutes} minute timer</strong><span>Build stamina and pacing with a full-length practice run.</span></li>
-        <li><strong>${state.officialForms.length} released forms in bank</strong><span>Score bands are practice estimates based on the matching AP scoring model.</span></li>
+        <li><strong>${state.officialForms.length} released forms in bank</strong><span>Score bands are practice estimates for this released-form practice.</span></li>
         <li><strong>Official link preserved</strong><span><a href="${escapeHtml(form.pdfUrl)}" target="_blank" rel="noopener">Open source PDF</a></span></li>
       </ul>
     `;
@@ -88,6 +88,7 @@
     startTimer();
     renderTabs();
     renderQuestion();
+    requestAnimationFrame(() => $("questionCard")?.scrollIntoView({ block: "start", behavior: "auto" }));
     showScreen("examScreen");
   }
 
@@ -406,7 +407,7 @@
     viewer.classList.toggle("source-ok", !missing && loaded === images.length);
     viewer.classList.toggle("source-warn", missing > 0);
     if (missing) label.textContent = `${missing} source page image missing`;
-    else if (loaded === images.length) label.textContent = `Page match verified: ${images.length} source page${images.length === 1 ? "" : "s"} loaded`;
+    else if (loaded === images.length) label.textContent = `Source page loaded: ${images.length} page${images.length === 1 ? "" : "s"}`;
     else label.textContent = `Checking ${images.length} source page${images.length === 1 ? "" : "s"}`;
   }
 
@@ -667,7 +668,7 @@
   }
 
   function renderResults(result) {
-    const scoreLabel = result.officialFormula ? "official worksheet composite" : result.compositeLabel;
+    const scoreLabel = result.officialFormula ? "practice composite score" : result.compositeLabel;
     $("scoreGrid").innerHTML = `
       <div class="metric"><strong>${result.apScore}</strong><span>AP estimate</span></div>
       <div class="metric"><strong>${result.composite}</strong><span>${escapeHtml(scoreLabel)}</span></div>
@@ -678,7 +679,7 @@
     const sourceNote = "MCQs are scored from the public answer key. Writing is still an automated practice estimate against rubric signals.";
     $("feedbackGrid").innerHTML = `
       <article class="feedback-card">
-        <h3>Writing Rubric Position</h3>
+        <h3>Writing Feedback</h3>
         <ul>${result.writingResults.map((item) => {
           return `<li>${writingBreakdownHtml(item)}</li>`;
         }).join("")}</ul>

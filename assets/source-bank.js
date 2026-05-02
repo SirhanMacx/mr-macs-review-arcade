@@ -145,7 +145,7 @@
       reason: reason,
       images: ok && needed ? images : [],
       identity: sourceIdentity(question),
-      label: ok ? (needed ? "Source Lock: verified" : "Source Lock: not needed") : "Source Lock: blocked",
+      label: ok ? (needed ? "Source matched" : "No source needed") : "Source blocked",
       source: question && (question.source || question.set || question.day || "")
     };
   }
@@ -221,10 +221,10 @@
         .replace(/^this\s+is\s+/i, "Identify: ")
         .replace(/^these\s+are\s+/i, "Identify: ")
         .replace(/^(.{1,90}?)\s+term\s+for\s+(.{1,90}?)\s+term\s+for\s+(.+)$/i, function (_, outer, inner, body) {
-          return isGenericContext(inner) ? (isGenericContext(outer) ? body : cleanText(outer) + " term for " + body) : _;
+          return isGenericContext(inner) ? (isGenericContext(outer) ? body : cleanText(outer) + ": " + body) : _;
         })
         .replace(/^(.{1,90}?)\s+term\s+for\s+(.{1,60}?)\s+term\s+for\s+\2\s+term\s+for\s+(.+)$/i, function (_, outer, inner, body) {
-          return cleanText(outer) + " term for " + body;
+          return cleanText(outer) + ": " + body;
         })
         .replace(/^(.{1,90}?)\s*:\s*(.{1,90}?)\s+term\s+for\s+(.+)$/i, function (_, outer, inner, body) {
           return isGenericContext(inner) ? cleanText(outer) + ": " + body : _;
@@ -263,7 +263,7 @@
   function displayStimulusLabel(question, image) {
     image = image || {};
     var label = cleanText(image.label || "");
-    if (!label || /^source stimulus\b/i.test(label)) return displaySource(question) || "Source";
+    if (!label || /^(source|visual)\s+stimulus\b/i.test(label)) return displaySource(question) || "Source";
     return label;
   }
 

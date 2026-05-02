@@ -150,6 +150,7 @@ for (const course of ["Grade 10 Global History II", "Grade 11 U.S. History"]) {
       for (const prompt of prompts) {
         const text = String(prompt || "").trim();
         if (text.length < 25 || /^Question\s+\d+:\s+Analyze$/i.test(text)) errors.push(`${course} ${form.administration} ${task.title}: prompt appears clipped or generic`);
+        if (/official document|official documents|Write Short Essay Question \d+ using/i.test(text)) errors.push(`${course} ${form.administration} ${task.title}: prompt still contains generic source placeholder text`);
       }
       if (!task.modelAnswer && !(task.answerKey || []).length) errors.push(`${course} ${form.administration} ${task.title}: missing answer key/model answer`);
     }

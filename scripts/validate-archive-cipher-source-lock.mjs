@@ -75,7 +75,7 @@ function isPlayableTerm(question) {
   return Boolean(displayPrompt(question));
 }
 
-for (const marker of ["verifiedSourceQuestion", "courseMatchesStimulus", "sourceLock", "sourceIdentity", "Source lock", "Matched released Regents source", "Used for this clue"]) {
+for (const marker of ["verifiedSourceQuestion", "courseMatchesStimulus", "sourceLock", "sourceIdentity", "Source matched", "Matched released Regents source", "Used for this clue"]) {
   if (!gameSource.includes(marker)) errors.push(`archive-cipher source lock marker missing: ${marker}`);
 }
 

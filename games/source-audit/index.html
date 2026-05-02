@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>Source Audit - Mr. Mac's Review Arcade</title>
+<title>Source Check - Mr. Mac's Review Arcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260430-source-audit1">
+<link rel="stylesheet" href="styles.css?v=20260502-perfect-pass2">
 </head>
 <body>
 <div class="bg" aria-hidden="true"></div>
@@ -16,9 +16,9 @@
   <header class="topbar">
     <a class="brand" href="../../index.html">
       <span class="brand-mark" aria-hidden="true"></span>
-      <span><small>Mr. Mac's Arcade</small><strong>Source Audit</strong></span>
+      <span><small>Mr. Mac's Arcade</small><strong>Source Check</strong></span>
     </a>
-    <nav class="top-actions" aria-label="Source audit links">
+    <nav class="top-actions" aria-label="Source check links">
       <a class="btn ghost" href="../source-lab/">Source Lab</a>
       <a class="btn ghost" href="../regents-practice-exam/">Practice Exam</a>
       <a class="btn" href="../../index.html">Arcade Home</a>
@@ -27,13 +27,13 @@
 
   <section class="hero">
     <article>
-      <div class="kicker">Regents source integrity</div>
-      <h1>Trusted Stimulus Audit</h1>
-      <p>Checks every Regents MCQ source against its course, image path, quarantine flag, duplicate-image risk, and January 2026 official coverage.</p>
+      <div class="kicker">Regents source practice</div>
+      <h1>Source Check</h1>
+      <p>Review Regents maps, charts, cartoons, captions, and documents that are ready for source-based practice.</p>
     </article>
     <div class="hero-actions">
       <button class="btn primary" id="exportBtn" type="button">Export CSV</button>
-      <button class="btn ghost" id="showIssuesBtn" type="button">Show Issues</button>
+      <button class="btn ghost" id="showIssuesBtn" type="button">Show Needs Review</button>
     </div>
   </section>
 
@@ -41,7 +41,7 @@
     <article class="metric"><strong>...</strong><span>loading bank</span></article>
   </section>
 
-  <section class="toolbar" aria-label="Audit filters">
+  <section class="toolbar" aria-label="Source check filters">
     <label>Course
       <select id="courseFilter">
         <option value="all">All Courses</option>
@@ -56,7 +56,7 @@
         <option value="missing">Missing Image</option>
         <option value="mismatch">Course Mismatch</option>
         <option value="reused">Reused Image</option>
-        <option value="quarantined">Quarantined</option>
+        <option value="quarantined">Not in Practice</option>
       </select>
     </label>
     <label>Search
@@ -77,7 +77,7 @@
     <div class="audit-list" id="auditList"></div>
   </section>
 </main>
-<script src="../../assets/source-bank.js?v=20260501-sourcebank2"></script>
-<script src="game.js?v=20260501-source-re"></script>
+<script src="../../assets/source-bank.js?v=20260502-perfect-pass2"></script>
+<script src="game.js?v=20260502-perfect-pass2"></script>
 </body>
 </html>

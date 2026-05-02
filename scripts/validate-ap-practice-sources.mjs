@@ -9,7 +9,7 @@ const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
 const gameSource = readFileSync(resolve(root, "games/ap-practice-exam/game.js"), "utf8");
 const errors = [];
 
-for (const marker of ["data-source-page-img", "source-health", "Page match verified", "Expand Source", "AP_RIGOR_VERSION", "skillTargetsForTask", "writingSignalChecks"]) {
+for (const marker of ["data-source-page-img", "source-health", "Source page loaded", "Expand Source", "AP_RIGOR_VERSION", "skillTargetsForTask", "writingSignalChecks"]) {
   if (!gameSource.includes(marker)) errors.push(`AP practice source viewer marker missing: ${marker}`);
 }
 

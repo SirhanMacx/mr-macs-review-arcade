@@ -96,41 +96,41 @@ function contextualize(question, prompt) {
   const lower = body.charAt(0).toLowerCase() + body.slice(1);
   const safeContext = normalize(context) === normalize(question.answer) ? "Course Review" : context;
   if (question.type === "jeopardy-final") {
-    if (wordCount(body) <= 7) return sentence(`${safeContext} term for ${lower}`);
+    if (wordCount(body) <= 7) return sentence(`${safeContext}: ${lower}`);
     return sentence(body);
   }
 
   if (/^the branch that\b/i.test(body)) return sentence(`${safeContext} branch that ${body.replace(/^The branch that\s+/i, "")}`);
   if (/^the principle that\b/i.test(body)) return sentence(`${safeContext} principle that ${body.replace(/^The principle that\s+/i, "")}`);
   if (/^the process of\b/i.test(body)) return sentence(`${safeContext} process for ${body.replace(/^The process of\s+/i, "")}`);
-  if (/^the factor\b/i.test(body)) return sentence(`${safeContext} term for ${lower}`);
-  if (/^the (two|three|large|high|major)\b/i.test(body)) return sentence(`${safeContext} term for ${lower}`);
+  if (/^the factor\b/i.test(body)) return sentence(`${safeContext}: ${lower}`);
+  if (/^the (two|three|large|high|major)\b/i.test(body)) return sentence(`${safeContext}: ${lower}`);
   if (/^a system for\b/i.test(lower)) return sentence(`${safeContext} system for ${body.replace(/^A system for\s+/i, "")}`);
   if (/^system where\b/i.test(lower)) return sentence(`${safeContext} system in which ${body.replace(/^System where\s+/i, "")}`);
-  if (/^belief in\b/i.test(lower)) return sentence(`${safeContext} term for ${lower}`);
-  if (/^basic rights\b/i.test(lower)) return sentence(`${safeContext} term for ${lower}`);
-  if (/^powers?\b/i.test(lower)) return sentence(`${safeContext} term for ${lower}`);
-  if (/^citizens'? attitudes\b/i.test(lower)) return sentence(`${safeContext} term for ${lower}`);
+  if (/^belief in\b/i.test(lower)) return sentence(`${safeContext}: ${lower}`);
+  if (/^basic rights\b/i.test(lower)) return sentence(`${safeContext}: ${lower}`);
+  if (/^powers?\b/i.test(lower)) return sentence(`${safeContext}: ${lower}`);
+  if (/^citizens'? attitudes\b/i.test(lower)) return sentence(`${safeContext}: ${lower}`);
   if (/^a difference over time\b/i.test(lower)) return sentence(`${safeContext} concept for ${lower}`);
   if (/^something that stays the same over time\b/i.test(lower)) return sentence(`${safeContext} concept for ${lower}`);
   if (/^earlier events, cultures, or ideas\b/i.test(lower)) return sentence(`${safeContext} concept for ${lower}`);
-  if (/^exact position on earth\b/i.test(lower)) return sentence(`${safeContext} term for ${lower}`);
+  if (/^exact position on earth\b/i.test(lower)) return sentence(`${safeContext}: ${lower}`);
   if (/^supreme court case\b/i.test(lower)) return sentence(`${safeContext} case for ${lower.replace(/^supreme court case\s+/i, "")}`);
-  if (/^global conflict\b/i.test(lower)) return sentence(`${safeContext} term for ${lower}`);
+  if (/^global conflict\b/i.test(lower)) return sentence(`${safeContext}: ${lower}`);
   if (/^western military alliance\b/i.test(lower)) return sentence(`${safeContext} alliance for ${lower}`);
-  if (/^representative body\b/i.test(lower)) return sentence(`${safeContext} term for ${lower}`);
+  if (/^representative body\b/i.test(lower)) return sentence(`${safeContext}: ${lower}`);
   if (/^international organization\b/i.test(lower)) return sentence(`${safeContext} organization for ${lower}`);
   if (/^first permanent english settlement\b/i.test(lower)) return sentence(`${safeContext} settlement for ${lower}`);
   if (/^amendment\b/i.test(lower)) return sentence(`${safeContext} amendment for ${lower}`);
   if (/^condition where\b/i.test(lower)) return sentence(`${safeContext} concept for ${lower}`);
 
-  if (family === "ap-psych") return sentence(`${safeContext} term for ${lower}`);
-  if (family === "ap-history") return sentence(`${safeContext} term for ${lower}`);
-  if (family === "ap-hug") return sentence(`${safeContext} term for ${lower}`);
-  if (family === "economics") return sentence(`${safeContext} term for ${lower}`);
-  if (family === "grade5") return sentence(`${safeContext} term for ${lower}`);
-  if (family === "middle" && wordCount(body) <= 9) return sentence(`${safeContext} term for ${lower}`);
-  if (family === "civics-year") return sentence(`${safeContext} term for ${lower}`);
+  if (family === "ap-psych") return sentence(`${safeContext}: ${lower}`);
+  if (family === "ap-history") return sentence(`${safeContext}: ${lower}`);
+  if (family === "ap-hug") return sentence(`${safeContext}: ${lower}`);
+  if (family === "economics") return sentence(`${safeContext}: ${lower}`);
+  if (family === "grade5") return sentence(`${safeContext}: ${lower}`);
+  if (family === "middle" && wordCount(body) <= 9) return sentence(`${safeContext}: ${lower}`);
+  if (family === "civics-year") return sentence(`${safeContext}: ${lower}`);
   return sentence(body);
 }
 

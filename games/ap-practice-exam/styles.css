@@ -1048,6 +1048,32 @@ textarea:focus-visible,
   .nav-tabs {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .released-page-runner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .released-page-runner .digital-panel {
+    order: 1;
+  }
+
+  .official-source {
+    order: 2;
+  }
+
+  .official-page-stack,
+  .source-pages {
+    height: min(44vh, 360px);
+  }
+
+  .answer-bubble,
+  .source-tool,
+  .source-expand,
+  .source-close {
+    min-height: 44px;
+  }
 }
 
 @media (max-width: 520px) {
@@ -1081,7 +1107,7 @@ textarea:focus-visible,
   }
 
   .qdot {
-    min-height: 32px;
+    min-height: 40px;
   }
 
   .source-toolbar {
@@ -1093,7 +1119,7 @@ textarea:focus-visible,
   .source-expand,
   .source-close,
   .source-toolbar a {
-    min-height: 34px;
+    min-height: 44px;
   }
 
   .source-page footer,

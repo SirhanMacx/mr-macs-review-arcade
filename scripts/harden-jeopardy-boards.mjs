@@ -137,7 +137,13 @@ function stripAnswerPrefix(value, answer) {
 }
 
 function definitionCandidate(value, answer) {
-  return stripPromptWrapper(stripAnswerPrefix(value, answer))
+  let output = stripPromptWrapper(stripAnswerPrefix(value, answer));
+  for (let i = 0; i < 5; i += 1) {
+    const next = output.replace(/^.{1,90}?\s+term\s+for\s+/i, "");
+    if (next === output) break;
+    output = clean(next);
+  }
+  return output
     .replace(/^([A-Z][a-z]+) colonial empire\b/, "$1's colonial empire")
     .replace(/^women rights\b/i, "women's rights");
 }
@@ -524,25 +530,25 @@ function enrichDefinitionClue(text, answer, category, game, value, meta) {
   const body = clue.replace(/\.$/, "");
   const loweredBody = body.charAt(0).toLowerCase() + body.slice(1);
   if (!context) return sentence(removeAnswerLeak(body, answer, "this idea"));
-  if (/^the factor\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "this variable")}`);
-  if (/^the process of\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "this process")}`);
+  if (/^the factor\b/i.test(lower)) return sentence(`${context}: ${removeAnswerLeak(loweredBody, answer, "this variable")}`);
+  if (/^the process of\b/i.test(lower)) return sentence(`${context}: ${removeAnswerLeak(loweredBody, answer, "this process")}`);
   if (/^the branch that\b/i.test(lower)) return sentence(`${context} branch that ${removeAnswerLeak(body.replace(/^The branch that\s+/i, ""), answer, "does this job")}`);
   if (/^the principle that\b/i.test(lower)) return sentence(`${context} principle that ${removeAnswerLeak(body.replace(/^The principle that\s+/i, ""), answer, "does this")}`);
-  if (/^the (two|three|large|high|major)\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "this feature")}`);
-  if (/^basic rights\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "these rights")}`);
+  if (/^the (two|three|large|high|major)\b/i.test(lower)) return sentence(`${context}: ${removeAnswerLeak(loweredBody, answer, "this feature")}`);
+  if (/^basic rights\b/i.test(lower)) return sentence(`${context}: ${removeAnswerLeak(loweredBody, answer, "these rights")}`);
   if (/^government whose\b/i.test(lower)) return sentence(`${context} principle describing ${removeAnswerLeak(loweredBody, answer, "this government")}`);
-  if (/^power(s)?\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "these powers")}`);
-  if (/^citizens'? attitudes\b/i.test(lower)) return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "these attitudes")}`);
+  if (/^power(s)?\b/i.test(lower)) return sentence(`${context}: ${removeAnswerLeak(loweredBody, answer, "these powers")}`);
+  if (/^citizens'? attitudes\b/i.test(lower)) return sentence(`${context}: ${removeAnswerLeak(loweredBody, answer, "these attitudes")}`);
   if (/^system where\b/i.test(lower)) return sentence(`${context} system in which ${removeAnswerLeak(body.replace(/^System where\s+/i, ""), answer, "this happens")}`);
-  if (/^belief in\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
-  if (/^cycle of\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
-  if (/^rules? about\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
-  if (/^writing considered\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
-  if (/^respect for\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
+  if (/^belief in\b/i.test(lower)) return sentence(`${context}: ${loweredBody}`);
+  if (/^cycle of\b/i.test(lower)) return sentence(`${context}: ${loweredBody}`);
+  if (/^rules? about\b/i.test(lower)) return sentence(`${context}: ${loweredBody}`);
+  if (/^writing considered\b/i.test(lower)) return sentence(`${context}: ${loweredBody}`);
+  if (/^respect for\b/i.test(lower)) return sentence(`${context}: ${loweredBody}`);
   if (/^actions? that\b/i.test(lower)) return sentence(`${context} idea for ${loweredBody}`);
-  if (/^the spread of\b/i.test(lower)) return sentence(`${context} term for ${loweredBody}`);
+  if (/^the spread of\b/i.test(lower)) return sentence(`${context}: ${loweredBody}`);
   if (/^formal\b|^monotheistic\b|^polytheistic\b|^chinese\b|^south asian\b|^belief system\b/i.test(lower)) return sentence(`${context}: ${body}`);
-  return sentence(`${context} term for ${removeAnswerLeak(loweredBody, answer, "this idea")}`);
+  return sentence(`${context}: ${removeAnswerLeak(loweredBody, answer, "this idea")}`);
 }
 
 function hardenClue(clue, categoryName, game, meta) {

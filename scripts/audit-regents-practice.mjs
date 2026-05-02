@@ -165,9 +165,9 @@ function auditPracticeUi(errors) {
   }
   assert(styleSource.includes(".stimulus-missing"), "practice exam UI must visibly flag missing stimulus images", errors);
   assert(styleSource.includes("select option, select optgroup"), "practice exam select menus must force legible option colors", errors);
-  assert(gameSource.includes("examSourceLock"), "practice exam runtime must include fail-closed source lock", errors);
-  assert(gameSource.includes("Source Lock"), "practice exam setup must show visible Source Lock status", errors);
-  assert(styleSource.includes(".source-lock-preview"), "practice exam UI must style Source Lock status", errors);
+  assert(gameSource.includes("examSourceLock"), "practice exam runtime must include fail-closed document check", errors);
+  assert(gameSource.includes("Document Check"), "practice exam setup must show visible document check status", errors);
+  assert(styleSource.includes(".source-lock-preview"), "practice exam UI must style document check status", errors);
 }
 
 function auditExam(harness, course, seed, errors) {

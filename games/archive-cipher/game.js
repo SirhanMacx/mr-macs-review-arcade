@@ -174,6 +174,12 @@
     return [];
   }
 
+  function sourceImageLabel(term, image, index) {
+    const q = term && term.q ? term.q : {};
+    if (SourceBank && SourceBank.displayStimulusLabel) return SourceBank.displayStimulusLabel(q, image);
+    return cleanText((image && image.label) || q.source || `Source ${index + 1}`);
+  }
+
   function stimulusText(q) {
     q = q || {};
     if (q.stimulusText) return cleanText(q.stimulusText);
@@ -389,7 +395,7 @@
     }
     if (!lock.ok) {
       els.sourcePanel.hidden = false;
-      els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div><div class="source-warning"><strong>Source lock blocked this clue.</strong><span>${escapeHtml(lock.reason || "The prompt needs a verified released source image before it can be shown.")}</span></div>`;
+      els.sourcePanel.innerHTML = `<div class="source-kicker">Source</div><div class="source-warning"><strong>This source question is not ready yet.</strong><span>Try another clue.</span></div>`;
       return;
     }
     if (!lock.images.length && !lock.text && !lock.html) {
@@ -404,14 +410,14 @@
         : "";
     const imageBlock = lock.images.map((image, index) => (
       `<figure class="source-figure">` +
-        `<img data-source-img="1" src="${escapeHtml(image.src)}" alt="${escapeHtml(image.label || `Source stimulus ${index + 1}`)}" loading="eager">` +
-        `<figcaption>${escapeHtml(image.label || `Source stimulus ${index + 1}`)} · ${escapeHtml(lock.sourceMeta)}</figcaption>` +
-        `<button class="source-open inline" type="button" data-source-open="${escapeHtml(image.src)}" data-source-label="${escapeHtml(image.label || `Source stimulus ${index + 1}`)}" data-source-meta="${escapeHtml(lock.sourceMeta)}">Inspect</button>` +
+        `<img data-source-img="1" src="${escapeHtml(image.src)}" alt="${escapeHtml(sourceImageLabel(term, image, index))}" loading="eager">` +
+        `<figcaption>${escapeHtml(sourceImageLabel(term, image, index))} · ${escapeHtml(lock.sourceMeta)}</figcaption>` +
+        `<button class="source-open inline" type="button" data-source-open="${escapeHtml(image.src)}" data-source-label="${escapeHtml(sourceImageLabel(term, image, index))}" data-source-meta="${escapeHtml(lock.sourceMeta)}">Inspect</button>` +
       `</figure>`
     )).join("");
     els.sourcePanel.hidden = false;
-    const tools = `<div class="source-tools" data-source-identity="${escapeHtml(lock.identity)}"><span class="source-verified" title="${escapeHtml(lock.identity)}">Matched released Regents source</span><span class="source-lock-note">Source lock verified</span></div>`;
-    els.sourcePanel.innerHTML = `<div class="source-kicker">Source Stimulus</div>${tools}<p class="source-match-line"><strong>Source lock:</strong> Used for this clue only · ${escapeHtml(lock.sourceMeta)}</p>${textBlock}${imageBlock}`;
+    const tools = `<div class="source-tools" data-source-identity="${escapeHtml(lock.identity)}"><span class="source-verified" title="${escapeHtml(lock.identity)}">Matched released Regents source</span><span class="source-lock-note">Source matched</span></div>`;
+    els.sourcePanel.innerHTML = `<div class="source-kicker">Source</div>${tools}<p class="source-match-line"><strong>Source:</strong> Used for this clue only · ${escapeHtml(lock.sourceMeta)}</p>${textBlock}${imageBlock}`;
   }
 
   function renderHint() {
@@ -743,7 +749,7 @@
         figure.classList.add("source-missing-frame");
         const note = document.createElement("div");
         note.className = "source-missing";
-        note.textContent = "Source image did not load. This item is flagged for repair.";
+        note.textContent = "Source image did not load. Try a new clue or reload the page.";
         figure.append(note);
       }
     }, true);

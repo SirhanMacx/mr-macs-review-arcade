@@ -634,4 +634,18 @@ body.playing .hud:focus-within {
 
 @media (max-width: 640px) {
   .launch-strip { grid-template-columns: 1fr; }
+  button,
+  select,
+  .touch-btn,
+  .fire-btn {
+    min-height: 44px;
+  }
+  .hud,
+  .mission-card,
+  .briefing-card {
+    font-size: 12px;
+  }
+  .mission-card:not(.compact) {
+    max-height: none;
+  }
 }

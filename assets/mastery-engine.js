@@ -142,7 +142,7 @@
       reason: ok ? "" : "Source needs review",
       images: ok ? (normalized.stimulusImages || []) : [],
       identity: [normalized.course, normalized.source, (normalized.stimulusImages || []).map(function (image) { return image.src; }).join("|")].join("::"),
-      label: ok ? "Source Lock: verified" : "Source Lock: blocked"
+      label: ok ? "Source matched" : "Source blocked"
     };
   }
 

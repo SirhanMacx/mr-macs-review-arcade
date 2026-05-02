@@ -557,4 +557,15 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
 }
 @media (max-width: 640px) {
   .launch-strip { grid-template-columns: 1fr; }
+  button,
+  select,
+  .dock-btn,
+  .touch-btn {
+    min-height: 44px;
+  }
+  .setup-card,
+  .hud,
+  .question-panel {
+    font-size: 12px;
+  }
 }

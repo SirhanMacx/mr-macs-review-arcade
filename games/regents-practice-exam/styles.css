@@ -72,6 +72,35 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   .exam-preview .trust-list {
     grid-template-columns: 1fr;
   }
+  .mcq-shell{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .question-card{
+    order:1;
+  }
+  .stimulus-panel{
+    order:2;
+    max-height:48vh;
+  }
+  .choice{
+    min-height:58px;
+    padding:11px 12px;
+  }
+  .work-actions{
+    position:sticky;
+    top:0;
+    z-index:4;
+    padding:8px 0;
+    background:linear-gradient(180deg,rgba(5,8,18,.97),rgba(5,8,18,.82));
+  }
+  .mini-map{
+    grid-template-columns:repeat(7,1fr);
+  }
+  .qdot{
+    min-height:34px;
+  }
   .work-surface {
     order: 1;
   }
