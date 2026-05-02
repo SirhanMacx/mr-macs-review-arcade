@@ -243,6 +243,7 @@
 
   function isGoodTerm(q) {
     if (/^quarantined/i.test(String(q.sourceIntegrity || ""))) return false;
+    if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
     const code = normalizeTerm(q.answer);
     if (code.length < 4 || code.length > 12) return false;
     if (!/^[A-Z]+$/.test(code)) return false;

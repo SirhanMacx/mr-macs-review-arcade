@@ -14,7 +14,7 @@ const sourceBankText = existsSync(sourceBankPath) ? readFileSync(sourceBankPath,
 if (!sourceBankText) {
   errors.push("assets/source-bank.js is missing");
 } else {
-  for (const marker of ["MrMacsSourceBank", "usableRegentsQuestion", "trustedSource", "courseMatchesStimulus", "missingSourceReason", "sourceIdentity", "sourceLock", "sourceLockLabel"]) {
+  for (const marker of ["MrMacsSourceBank", "usableRegentsQuestion", "trustedSource", "courseMatchesStimulus", "missingSourceReason", "sourceIdentity", "sourceLock", "sourceLockLabel", "playableSharedPrompt", "promptQuality"]) {
     if (!sourceBankText.includes(marker)) errors.push(`assets/source-bank.js missing shared source marker: ${marker}`);
   }
 }
@@ -34,11 +34,18 @@ for (const rel of sourceBankConsumers) {
   if (!text.includes("MrMacsSourceBank")) errors.push(`${rel}: does not use shared MrMacsSourceBank checks`);
 }
 
+for (const rel of ["games/archive-cipher/game.js", "games/vocab-vault/game.js", "games/lightning-review/game.js"]) {
+  const text = readFileSync(resolve(root, rel), "utf8");
+  if (!text.includes("playableSharedPrompt")) errors.push(`${rel}: does not filter weak shared-bank prompts`);
+}
+
 const scriptConsumers = [
   "index.html",
   "games/source-sprint/index.html",
   "games/regents-gauntlet/index.html",
   "games/archive-cipher/index.html",
+  "games/vocab-vault/index.html",
+  "games/lightning-review/index.html",
   "games/source-audit/index.html",
   "games/regents-practice-exam/index.html",
   "games/regents-rally-source-circuit/index.html",
@@ -80,6 +87,29 @@ function answerText(question) {
   return question.answer || (question.choices || []).find((choice) => String(choice.label) === String(question.correct))?.text || "";
 }
 
+function wordCount(value) {
+  return String(value || "").trim().split(/\s+/).filter(Boolean).length;
+}
+
+function promptQuality(question) {
+  const prompt = String(question.prompt || question.stem || "").trim();
+  const answer = String(answerText(question) || "").trim();
+  const directResponse = !(question.choices || []).length && !!answer;
+  const tooShort = directResponse && wordCount(prompt) < 8;
+  const synthesis = /use one specific example to explain why it matters/i.test(prompt);
+  const weakLead = /^this\s+(explains|is|was|describes|refers to)\b/i.test(prompt);
+  const answerLeak = directResponse && answer.length >= 4
+    ? new RegExp(`\\b${answer.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i").test(prompt)
+    : false;
+  return {
+    ok: Boolean(prompt) && (!directResponse || (!tooShort && !synthesis && !weakLead && !answerLeak)),
+    tooShort,
+    synthesis,
+    weakLead,
+    answerLeak
+  };
+}
+
 function key(question) {
   return [
     question.course,
@@ -104,7 +134,9 @@ for (const question of regents.questions || []) {
 const imageOwners = new Map();
 let mcqCount = 0;
 let imageBacked = 0;
+let weakDirectResponse = 0;
 for (const question of chrono.questions || []) {
+  if (!promptQuality(question).ok) weakDirectResponse += 1;
   if (question.type !== "mcq") continue;
   mcqCount += 1;
   if (quarantined(question)) errors.push(`${question.id}: quarantined source is exposed in shared arcade bank`);
@@ -147,6 +179,7 @@ for (const [src, owners] of imageOwners.entries()) {
 
 if (mcqCount < 400) errors.push(`shared arcade bank should contain at least 400 trusted MCQs; found ${mcqCount}`);
 if (imageBacked < 300) errors.push(`shared arcade bank should contain at least 300 image-backed MCQs; found ${imageBacked}`);
+if (weakDirectResponse > 1200) errors.push(`shared arcade bank contains too many weak direct-response prompts for reuse (${weakDirectResponse})`);
 
 if (errors.length) {
   console.error(`Shared source bank validation failed (${errors.length} issues):`);
@@ -155,4 +188,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`OK: shared source bank passed (${mcqCount} trusted MCQs, ${imageBacked} image-backed).`);
+console.log(`OK: shared source bank passed (${mcqCount} trusted MCQs, ${imageBacked} image-backed, ${weakDirectResponse} filtered direct-response prompts).`);

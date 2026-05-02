@@ -258,12 +258,18 @@ function showResults() {
   const result = score();
   state.result = result;
   const pct = Math.round(result.score / result.max * 100);
+  const met = result.checks.filter((check) => check.pass).map((check) => check.label);
+  const miss = result.checks.filter((check) => !check.pass);
+  const next = miss[0];
   $("#scoreBadge").textContent = result.score + "/" + result.max;
   $("#resultTitle").textContent = state.task.title + " position";
-  $("#resultSummary").textContent = "Practice estimate: " + pct + "%. This is not official scoring; it shows where the response sits on the guide.";
+  $("#resultSummary").textContent = "Practice estimate: " + pct + "%. " + result.features.docs + " document references found and " + result.features.wc + " words written. This shows where the response sits on the guide.";
   renderRubric($("#rubricResults"), state.task, result);
-  const missing = result.checks.find((check) => !check.pass);
-  $("#coachComment").innerHTML = '<strong>Next improvement</strong><br>' + M.esc(missing ? missing.note : "This response is at the top of this practice guide. Try a fresh task or full exam.");
+  $("#coachComment").innerHTML =
+    '<strong>Next improvement</strong><br>' +
+    M.esc(next ? next.note : "This response is at the top of this practice guide. Try a fresh task or full exam.") +
+    '<br><br><strong>Already on the guide</strong><br>' +
+    M.esc(met.length ? met.join(" • ") : "No clear rubric moves located yet.");
   const profile = M.courseProfile(state.course);
   const weak = result.checks.filter((check) => !check.pass).map((check) => check.label);
   $("#nextActions").innerHTML = M.nextActions(profile, { accuracy: pct, weakSkills: weak.map((label) => ({ id: label.toLowerCase(), label, rate: 0 })) }).map((action) =>

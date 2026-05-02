@@ -12,6 +12,23 @@
     return [question.stem, question.prompt, question.stimulusText].join(" ");
   }
 
+  function answerText(question) {
+    question = question || {};
+    if (question.answer) return String(question.answer);
+    var correct = cleanList(question.choices).find(function (choice) {
+      return String(choice && choice.label) === String(question.correct);
+    });
+    return correct && correct.text ? String(correct.text) : "";
+  }
+
+  function wordCount(value) {
+    return String(value || "").trim().split(/\s+/).filter(Boolean).length;
+  }
+
+  function escapeRegExp(value) {
+    return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
   function stimulusImages(question) {
     question = question || {};
     var images = cleanList(question.stimulusImages).filter(function (image) {
@@ -121,6 +138,40 @@
     return sourceLock(question).label;
   }
 
+  function promptQuality(question) {
+    question = question || {};
+    var prompt = String(question.prompt || question.stem || "").trim();
+    var answer = String(answerText(question) || "").trim();
+    var directResponse = !cleanList(question.choices).length && !!answer;
+    var tooShort = directResponse && wordCount(prompt) < 8;
+    var synthesis = /use one specific example to explain why it matters/i.test(prompt);
+    var weakLead = /^this\s+(explains|is|was|describes|refers to)\b/i.test(prompt);
+    var answerLeak = false;
+    if (directResponse && prompt && answer && answer.length >= 4) {
+      answerLeak = new RegExp("\\b" + escapeRegExp(answer) + "\\b", "i").test(prompt);
+    }
+    var ok = Boolean(prompt) && (!directResponse || (!tooShort && !synthesis && !weakLead && !answerLeak));
+    return {
+      ok: ok,
+      prompt: prompt,
+      answer: answer,
+      directResponse: directResponse,
+      tooShort: tooShort,
+      synthesis: synthesis,
+      weakLead: weakLead,
+      answerLeak: answerLeak,
+      reason: !prompt ? "missing prompt" :
+        tooShort ? "prompt is too short for standalone play" :
+        synthesis ? "prompt expects extended explanation, not a single answer" :
+        weakLead ? "prompt lead-in is too vague" :
+        answerLeak ? "prompt leaks the answer" : ""
+    };
+  }
+
+  function playableSharedPrompt(question) {
+    return promptQuality(question).ok;
+  }
+
   root.MrMacsSourceBank = {
     sourcePattern: SOURCE_RE,
     stimulusImages: stimulusImages,
@@ -134,6 +185,9 @@
     missingSourceReason: missingSourceReason,
     sourceIdentity: sourceIdentity,
     sourceLock: sourceLock,
-    sourceLockLabel: sourceLockLabel
+    sourceLockLabel: sourceLockLabel,
+    answerText: answerText,
+    promptQuality: promptQuality,
+    playableSharedPrompt: playableSharedPrompt
   };
 })(typeof window !== "undefined" ? window : globalThis);

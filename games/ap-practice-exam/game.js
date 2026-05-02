@@ -578,7 +578,19 @@
     const raw = lengthScore + Math.min(6, signalHits) + Math.min(3, anchorHits);
     const earned = Math.max(0, Math.min(task.max, Math.round((raw / 12) * task.max)));
     const position = earned >= task.max * 0.8 ? "upper rubric band" : earned >= task.max * 0.5 ? "middle rubric band" : "early rubric band";
-    return { id: task.id, label: task.label, max: task.max, weight: task.weight || 1, earned, position, signals, next: nextStep(task, response, earned, signals) };
+    return {
+      id: task.id,
+      label: task.label,
+      max: task.max,
+      weight: task.weight || 1,
+      earned,
+      position,
+      signals,
+      words: words.length,
+      metSignals: signals.filter((signal) => signal.hit).map((signal) => signal.label),
+      missingSignals: signals.filter((signal) => !signal.hit).map((signal) => signal.label),
+      next: nextStep(task, response, earned, signals)
+    };
   }
 
   function lengthBand(wordCount, max) {
@@ -622,10 +634,28 @@
   function nextStep(task, response, earned, signals) {
     if (!response.trim()) return "Write enough specific evidence for the grader to see the claim.";
     const missing = (signals || []).filter((signal) => !signal.hit).map((signal) => signal.label);
+    const label = `${task.label || ""} ${task.id || ""}`.toLowerCase();
+    if (missing.includes("uses documents")) return "Cite the documents directly and explain what each one proves.";
+    if (missing.includes("outside evidence")) return "Add one accurate example beyond the documents and tie it to the argument.";
+    if (missing.includes("sourcing")) return "Explain point of view, purpose, audience, or historical situation for at least one document.";
+    if (missing.includes("contextualization")) return "Open with broader historical context before the thesis.";
+    if (missing.includes("historical reasoning")) return "Name the reasoning move directly: causation, comparison, continuity and change, or turning point.";
+    if (missing.includes("direct parts")) return "Answer every part of the SAQ directly, then support each part with one precise fact.";
+    if (missing.includes("graph logic")) return "State the direction of the shift or change, then explain the new outcome.";
+    if (/dbq/.test(label) && missing.length) return "Add: " + missing.slice(0, 2).join(" and ") + ".";
+    if (/leq/.test(label) && missing.length) return "Strengthen the thesis and support it with specific historical evidence.";
+    if (/saq/.test(label) && missing.length) return "Keep each part short and specific: answer, evidence, explanation.";
+    if (/frq/.test(label) && missing.length) return "Use the exact course terms from the prompt and apply them to the scenario or data.";
     if (missing.length) return "Add: " + missing.slice(0, 2).join(" and ") + ".";
     if (earned <= task.max * 0.35) return "Add a defensible claim and at least two precise course facts.";
     if (earned <= task.max * 0.7) return "Tighten the explanation so each fact proves the claim.";
     return "Push for complexity: qualify the argument, compare, calculate, source, or explain limits.";
+  }
+
+  function writingBreakdownHtml(item) {
+    const met = item.metSignals?.length ? `Met: ${item.metSignals.slice(0, 3).join(", ")}.` : "Met: none yet.";
+    const missing = item.missingSignals?.length ? ` Next: ${item.missingSignals.slice(0, 2).join(", ")}.` : "";
+    return `${escapeHtml(item.label)}: ${item.earned}/${item.max}, ${escapeHtml(item.position)}. ${escapeHtml(met + missing + " " + item.next)}`;
   }
 
   function apBand(composite) {
@@ -650,8 +680,7 @@
       <article class="feedback-card">
         <h3>Writing Rubric Position</h3>
         <ul>${result.writingResults.map((item) => {
-          const hitCount = (item.signals || []).filter((signal) => signal.hit).length;
-          return `<li>${escapeHtml(item.label)}: ${item.earned}/${item.max}, ${escapeHtml(item.position)}. Skill signals ${hitCount}/${(item.signals || []).length}. ${escapeHtml(item.next)}</li>`;
+          return `<li>${writingBreakdownHtml(item)}</li>`;
         }).join("")}</ul>
       </article>
       <article class="feedback-card">
