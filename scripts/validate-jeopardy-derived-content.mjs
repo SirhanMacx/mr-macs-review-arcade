@@ -45,6 +45,7 @@ function finalKey(course, title, answer) {
 
 const games = JSON.parse(readFileSync(resolve(root, "games.json"), "utf8"));
 const clueIndex = new Map();
+const clueIdIndex = new Map();
 const finalIndex = new Map();
 const finalIdIndex = new Map();
 let boardCount = 0;
@@ -60,9 +61,11 @@ for (const meta of games.filter(isJeopardyManifestEntry)) {
   const courses = [meta.course, game.exam, game.course, ""].filter((value, index, arr) => arr.indexOf(value) === index);
   for (const category of game.categories || []) {
     for (const clue of category.clues || []) {
+      const indexedClue = { ...clue, category: category.name };
       for (const course of courses) {
-        clueIndex.set(clueKey(course, title, category.name, clue.value, clue.answer), clue);
+        clueIndex.set(clueKey(course, title, category.name, clue.value, clue.answer), indexedClue);
       }
+      if (game.slug) clueIdIndex.set(`jeopardy-${game.slug}-${normalize(category.name).replace(/\s+/g, "-")}-${Number(clue.value)}`, indexedClue);
     }
   }
   if (game.final?.answer) {
@@ -89,14 +92,16 @@ for (const question of chrono.questions || []) {
     clueKey(question.subject, question.set, question.category, question.value, question.answer),
     clueKey("", question.set, question.category, question.value, question.answer)
   ];
-  const source = (isFinal && question.id ? finalIdIndex.get(question.id) : null) || keys.map((key) => (isFinal ? finalIndex : clueIndex).get(key)).find(Boolean);
+  const source = (isFinal && question.id ? finalIdIndex.get(question.id) : null) ||
+    (!isFinal && question.id ? clueIdIndex.get(question.id) : null) ||
+    keys.map((key) => (isFinal ? finalIndex : clueIndex).get(key)).find(Boolean);
   if (!source) {
     errors.push(`${question.id || question.set}: no source board match for ${isFinal ? "final" : "regular"} Jeopardy item`);
     continue;
   }
   if (question.prompt !== source.clue) errors.push(`${question.id || question.set}: stale prompt`);
   if (question.explanation !== source.explanation) errors.push(`${question.id || question.set}: stale explanation`);
-  if (isFinal && question.category !== source.category) errors.push(`${question.id || question.set}: stale final category`);
+  if (source.category && question.category !== source.category) errors.push(`${question.id || question.set}: stale category`);
   checked += 1;
 }
 
