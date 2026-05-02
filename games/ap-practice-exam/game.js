@@ -69,10 +69,10 @@
       <p class="eyebrow">Released AP Exam Practice</p>
       <h2>${escapeHtml(form.title)}</h2>
       <ul class="format-list">
-        <li><strong>${form.mcqCount} official MCQs</strong><span>Practice released multiple-choice questions from this course.</span></li>
+        <li><strong>${form.mcqCount} official MCQs</strong><span>Each question stays locked to its matching rendered PDF page.</span></li>
         <li><strong>${writing.length} writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
         <li><strong>${form.minutes} minute timer</strong><span>Build stamina and pacing with a full-length practice run.</span></li>
-        <li><strong>${state.officialForms.length} released forms in bank</strong><span>Practice score bands are based on the current AP rubric set.</span></li>
+        <li><strong>${state.officialForms.length} released forms in bank</strong><span>Score bands are practice estimates based on the matching AP scoring model.</span></li>
         <li><strong>Official link preserved</strong><span><a href="${escapeHtml(form.pdfUrl)}" target="_blank" rel="noopener">Open source PDF</a></span></li>
       </ul>
     `;
@@ -248,14 +248,14 @@
       <div class="released-page-runner">
         ${officialViewer(question.formId, pages, question.officialPdf, `${question.category} · ${pageLabel(pages)}`)}
         <section class="digital-panel" aria-label="Digital answer sheet">
-          <div class="source-lock">Answer sheet locked to ${escapeHtml(pageLabel(pages))}</div>
+          <div class="source-lock">Question ${index + 1} is locked to ${escapeHtml(pageLabel(pages))}</div>
           <div class="runner-head">
             <p class="eyebrow">Official Question</p>
             <h3>Question ${index + 1}</h3>
             <span>Rendered ${escapeHtml(pageLabel(pages))}</span>
           </div>
           <div class="stem">${escapeHtml(question.stem)}</div>
-          <p class="answer-sheet-note">Read the exact wording and choices on the official page, then mark the matching answer.</p>
+          <p class="answer-sheet-note">Read the exact wording and choices on the official page, then mark the matching answer here.</p>
           ${answerChoicesHtml(question)}
           ${answerMapHtml(index)}
         </section>
@@ -310,7 +310,7 @@
         <div class="official-source-head">
           <div class="source-title">
             <strong>${escapeHtml(label || "Official AP PDF")}</strong>
-            <span>Zoom or expand the source page for close reading.</span>
+            <span>Zoom or expand the matching PDF page for close reading.</span>
             <span class="source-health" data-source-health>Checking source pages</span>
           </div>
           <div class="source-toolbar" aria-label="Source viewing tools">
@@ -503,6 +503,7 @@
         ${(task.skillTargets || []).map((target) => `<span>${escapeHtml(target)}</span>`).join("")}
       </div>
       <div class="writing-task">
+        <div class="source-lock">${escapeHtml(task.label)} is locked to ${escapeHtml(pageLabel(task.officialPages || [task.officialPage || 1]))}</div>
         <div class="stem">${escapeHtml(task.prompt)}</div>
         <ul class="writing-points">
           ${(task.bullets || []).map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join("")}

@@ -55,6 +55,14 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   font-size: 12px;
   font-weight: 900;
 }
+.exam-preview .trust-list.official-links {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.exam-preview .trust-list.official-links .mini-link {
+  justify-content: center;
+  min-height: 38px;
+  margin-top: 0;
+}
 .tab {
   border-radius: 6px;
 }

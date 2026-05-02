@@ -47,8 +47,8 @@ requireText("index.html", [
 
 requireText("games/archive-quest/game.js", [
   "maxAirJumps: 1",
-  "ground: -1065",
-  "air: -1085",
+  "ground: -1110",
+  "air: -1140",
   "Math.pow(.0038",
   "Math.pow(.010",
   "Double Ready",
@@ -71,7 +71,7 @@ requireText("games/cold-war-invaders/game.js", [
 ]);
 requireText("games/cold-war-invaders/styles.css", [
   "touch-action: none",
-  "width: min(520px",
+  "width: min(460px",
   "body.playing .hud:hover",
   "body.playing .mobile-controls { display: grid; }",
   ".touch-btn.fire"

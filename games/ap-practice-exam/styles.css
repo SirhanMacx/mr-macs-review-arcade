@@ -507,6 +507,21 @@ textarea {
   background: var(--gold);
 }
 
+.source-page-strip button:focus-visible,
+.source-tool:focus-visible,
+.source-expand:focus-visible,
+.source-close:focus-visible,
+.choice:focus-visible,
+.nav-tabs button:focus-visible,
+.controls button:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
 .official-page-stack {
   display: grid;
   align-content: start;
@@ -706,6 +721,10 @@ textarea {
   color: var(--muted);
   font-size: 0.9rem;
   font-weight: 850;
+}
+
+.runner-head .source-lock {
+  margin-top: 10px;
 }
 
 .page-strip {
@@ -988,6 +1007,10 @@ textarea {
   .source-pages {
     min-height: 0;
     height: min(52vh, 460px);
+  }
+
+  .official-page-stack {
+    max-height: 680px;
   }
 }
 

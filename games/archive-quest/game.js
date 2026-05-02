@@ -76,11 +76,11 @@
   const input = { left: false, right: false, dash: false };
   const pointerInput = new Map();
   const JUMP = {
-    ground: -1065,
-    air: -1085,
+    ground: -1110,
+    air: -1140,
     spring: -1320,
     buffer: .2,
-    coyote: .18
+    coyote: .22
   };
 
   const player = {
