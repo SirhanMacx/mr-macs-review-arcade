@@ -69,10 +69,10 @@
       <p class="eyebrow">Released AP Exam Practice</p>
       <h2>${escapeHtml(form.title)}</h2>
       <ul class="format-list">
-        <li><strong>${form.mcqCount} official MCQs</strong><span>Each question opens as a digital answer card with the matching rendered PDF page beside it.</span></li>
+        <li><strong>${form.mcqCount} official MCQs</strong><span>Practice released multiple-choice questions from this course.</span></li>
         <li><strong>${writing.length} writing tasks</strong><span>${writing.map((task) => `${task.label} (${task.max})`).join(", ")}</span></li>
-        <li><strong>${form.minutes} minute timer</strong><span>Full released-form practice with a digital answer sheet.</span></li>
-        <li><strong>${state.officialForms.length} released forms in bank</strong><span>AP skill-band estimate: ${escapeHtml(AP_RIGOR_VERSION)}.</span></li>
+        <li><strong>${form.minutes} minute timer</strong><span>Build stamina and pacing with a full-length practice run.</span></li>
+        <li><strong>${state.officialForms.length} released forms in bank</strong><span>Practice score bands are based on the current AP rubric set.</span></li>
         <li><strong>Official link preserved</strong><span><a href="${escapeHtml(form.pdfUrl)}" target="_blank" rel="noopener">Open source PDF</a></span></li>
       </ul>
     `;

@@ -3721,7 +3721,7 @@ body {
         <span class="ht-row ht-2">REVIEW</span>
         <span class="ht-row ht-3"><em>ARCADE</em></span>
       </h1>
-      <p class="tagline reveal">Choose a game, train a full Regents or AP practice exam, or project a Jeopardy board without digging through folders.</p>
+      <p class="tagline reveal">Choose a game, take a full Regents or AP practice exam, or jump into a Jeopardy review round.</p>
       <div class="hero-actions reveal">
         <button class="action primary" id="launchFeatured" type="button">
           <span>Start Recommended</span>
@@ -3770,7 +3770,7 @@ body {
       <div>
         <div class="band-eyebrow">Start Here</div>
         <h2 class="band-title">Pick your <em>mode</em>.</h2>
-        <p class="band-sub">Three clean launch paths: play, practice the exam, or project a Jeopardy board.</p>
+        <p class="band-sub">Jump into games, full exam practice, or Jeopardy review.</p>
       </div>
     </div>
     <div class="path-grid reveal-stagger" id="pathCards"></div>
@@ -3781,7 +3781,7 @@ body {
       <div>
         <div class="band-eyebrow">Mastery System</div>
         <h2 class="band-title">Find the <em>right rep</em>.</h2>
-        <p class="band-sub">Course dashboard, diagnostic, source-reading lab, writing coach, and full practice all work together through the local progress report.</p>
+        <p class="band-sub">Build stronger source reading, writing, recall, and test stamina across every course.</p>
       </div>
     </div>
     <div class="focus-grid reveal-stagger" id="masteryModes"></div>
@@ -4333,23 +4333,23 @@ function cardSubtitle(game) {
   if (game.id === "history-hunters") return "Open-world review RPG with battles, contracts, party building, and course quests.";
   if (game.id === "archive-quest") return "Platform levels, double jump, review gates, and question-unlocked powers.";
   if (game.id === "cold-war-invaders") return "Atari shooter with Cold War questions, intel bursts, and mobile controls.";
-  if (game.id === "regents-practice-exam") return "Digitized past Regents exams with timed sections, writing, scoring, and source zoom.";
-  if (game.id === "ap-practice-exam") return "Released AP pages with a digital answer sheet, timers, writing, rubric feedback, and score estimates.";
+  if (game.id === "regents-practice-exam") return "Full Regents practice with official questions, writing, pacing, and score estimates.";
+  if (game.id === "ap-practice-exam") return "Released AP practice with multiple-choice, writing, pacing, and score estimates.";
   if (game.id === "regents-rally-source-circuit") return "Historical drivers race for question-gated item boosts on animated tracks.";
-  if (game.id === "source-sprint") return "Fast stimulus MCQ reps: inspect the source, answer, and learn from misses.";
+  if (game.id === "source-sprint") return "Fast source-based MCQ reps that sharpen reading, evidence, and accuracy.";
   if (game.id === "regents-gauntlet") return "Mixed Regents MCQ pressure run with explanations after every answer.";
   if (game.id === "writing-coach") return "CRQ, short essay, enduring issue, and Civic Literacy writing practice.";
-  if (isJeopardyBoard(game)) return "Course board with teams, scoring, Daily Double, and Final Jeopardy.";
+  if (isJeopardyBoard(game)) return "Course review board built for fast recall, stronger vocabulary, and exam-style concepts.";
   return game.subtitle || game.course || "";
 }
 function heroSubtitle(game) {
   if (!game) return "";
   if (game.id === "history-hunters") return "Explore, battle, collect, and earn review XP.";
-  if (game.id === "regents-practice-exam") return "Timed MCQs, documents, writing, and score estimates.";
-  if (game.id === "ap-practice-exam") return "Released AP pages plus digital answers and scoring.";
+  if (game.id === "regents-practice-exam") return "Build pacing, source reading, and writing under exam conditions.";
+  if (game.id === "ap-practice-exam") return "Practice AP multiple-choice and writing with released questions.";
   if (game.id === "archive-quest") return "Run, jump, and unlock powers with source questions.";
   if (game.id === "cold-war-invaders") return "Defend Earth with Cold War review questions.";
-  if (isJeopardyBoard(game)) return "Course board with teams, scoring, and final wager.";
+  if (isJeopardyBoard(game)) return "Fast course review for teams, recall, and tougher concepts.";
   return game.subtitle || game.course || "";
 }
 function featuredBadges(game) {
@@ -4452,16 +4452,16 @@ function renderLaunchPaths() {
   const paths = [
     {
       id: "play-lane",
-      fallback: { id: "play-lane", title: "Play", subtitle: "Jump into the best arcade games first: RPG, platformer, shooter, gauntlet, and quick modes.", kicker: "Game-first", meta: "featured games", accent: "#62e9ff", glyph: "PLAY" }
+      fallback: { id: "play-lane", title: "Play", subtitle: "Start with the strongest games for review, repetition, and momentum.", kicker: "Game-first", meta: "featured games", accent: "#62e9ff", glyph: "PLAY" }
     },
     {
       id: "practice-lane",
       preferFallback: true,
-      fallback: { id: "practice-lane", title: "Practice Exams", subtitle: "Regents practice, released AP exams, source inspection, writing, score estimates, and next steps.", kicker: "Exam prep", meta: "Regents + AP", accent: "#ffd15c", glyph: "EXAM" }
+      fallback: { id: "practice-lane", title: "Practice Exams", subtitle: "Train full Regents and AP exams with real questions, writing, and pacing.", kicker: "Exam prep", meta: "Regents + AP", accent: "#ffd15c", glyph: "EXAM" }
     },
     {
       id: "jeopardy-lane",
-      fallback: { id: "jeopardy-lane", title: "Jeopardy Boards", subtitle: "Course and unit boards for projector review, teams, final wagers, and fast classroom reps.", kicker: "Jeopardy", meta: "all courses", accent: "#ff7bcc", glyph: "J" }
+      fallback: { id: "jeopardy-lane", title: "Jeopardy Boards", subtitle: "Run unit and course review rounds that build recall, confidence, and speed.", kicker: "Jeopardy", meta: "all courses", accent: "#ff7bcc", glyph: "J" }
     }
   ];
   const html = paths.map((path) => {
