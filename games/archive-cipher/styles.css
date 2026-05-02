@@ -64,7 +64,8 @@ body::after {
   position: relative;
   min-height: 100svh;
   padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 #fx {
   position: fixed;
@@ -531,6 +532,8 @@ select {
   .cipher-shell {
     min-height: 100dvh;
     padding: 8px 8px calc(10px + env(safe-area-inset-bottom));
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   .topbar {
     grid-template-columns: minmax(126px, 1fr) auto;

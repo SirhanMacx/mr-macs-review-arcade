@@ -192,6 +192,16 @@
     return GENERIC_CONTEXT_RE.test(cleanText(value));
   }
 
+  function isShortCategoryPrefix(value) {
+    var text = cleanText(value);
+    if (!text) return false;
+    var words = text.split(/\s+/).filter(Boolean);
+    if (!words.length || words.length > 4) return false;
+    return words.every(function (word) {
+      return /^[A-Z0-9][A-Za-z0-9&.'/-]*$/.test(word);
+    });
+  }
+
   function promptSource(question) {
     question = question || {};
     return cleanText(question.prompt || question.stem || "");
@@ -232,6 +242,9 @@
     }
     text = text.replace(/^(.{1,90}?)\s+term\s+for\s+(.+)$/i, function (_, outer, body) {
       return wordCount(outer) <= 3 && !sourceBased(question) ? body : _;
+    });
+    text = text.replace(/^(.{1,90}?)\s+term\s+for\s+(.+)$/i, function (_, outer, body) {
+      return !sourceBased(question) && isShortCategoryPrefix(outer) ? body : _;
     });
     return sentenceCase(text);
   }

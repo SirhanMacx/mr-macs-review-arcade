@@ -879,24 +879,28 @@ html.perf-lite .boss-card {
 @media (max-width: 760px) {
   .app { width: calc(100% - 18px); padding-top: 8px; }
   .topbar { grid-template-columns: 1fr; }
-  .topstats { justify-content: flex-start; }
-  .pill { min-height: 29px; padding: 6px 9px; font-size: 11px; }
+  .topstats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); justify-content: stretch; }
+  .pill { min-height: 29px; width:100%; justify-content:center; padding: 6px 9px; font-size: 11px; }
   .hud-card { min-height: 72px; padding: 10px; }
   .hud-value { margin: 3px 0 7px; font-size: 21px; }
   .bar { height: 10px; }
   .hud-card:nth-child(4) .hud-value { font-size: 18px; line-height: 1.15; }
   .cinema { min-height: 560px; }
-  .preview-boss { width: 92vw; right: -25vw; opacity: .72; }
+  .preview-boss { width: 82vw; right: -32vw; opacity: .6; }
   .form-grid,
   .metric-row,
   .summary-grid,
   .boss-list,
   .mode-row,
   .boss-nameplate { grid-template-columns: 1fr; }
+  .console { padding: 14px; }
+  .console-head { margin-bottom: 12px; }
+  .console h2 { font-size: 28px; }
   .stage { min-height: 520px; }
   .boss-frame { width: 96vw; height: 500px; bottom: 12px; }
   .question-text { min-height: 132px; }
-  .action-row .btn { flex: 1 1 150px; }
+  .hud-card:nth-child(4) .hud-value { white-space: normal; overflow-wrap: anywhere; }
+  .action-row .btn { flex: 1 1 calc(50% - 5px); min-width: 0; }
 }
 </style>
 </head>
