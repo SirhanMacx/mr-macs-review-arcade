@@ -279,6 +279,18 @@
       .trim();
   }
 
+  function displayPrompt(q) {
+    return SourceBank && SourceBank.displayPrompt
+      ? SourceBank.displayPrompt(q)
+      : String((q && (q.prompt || q.stem)) || "").trim();
+  }
+
+  function displaySource(q) {
+    return SourceBank && SourceBank.displaySource
+      ? SourceBank.displaySource(q)
+      : String((q && (q.source || q.category || q.set)) || "").trim();
+  }
+
   const gradingStopWords = new Set(["and", "or", "of", "in", "to", "for", "with", "on", "by", "from", "as", "at", "is", "are", "was", "were"]);
 
   function compactKey(value) {
@@ -487,7 +499,7 @@
       return true;
     });
     state.queue = shuffle(state.filtered);
-    els.bankCount.textContent = `${state.filtered.length.toLocaleString()} prompts`;
+    els.bankCount.textContent = `${state.filtered.length.toLocaleString()} questions ready`;
     els.libraryStatus.textContent = `${course} / ${set}`;
     els.missionTitle.textContent = course === "All Courses" ? "Full Arcade Mixed Review" : course;
     els.missionText.textContent = set === "All Sets"
@@ -515,8 +527,8 @@
       els.questionMeta.textContent = "Review Reactor";
       return;
     }
-    els.questionMeta.textContent = `${q.course} / ${q.set}`;
-    els.questionPrompt.textContent = q.prompt;
+    els.questionMeta.textContent = [q.course, q.set, displaySource(q)].filter(Boolean).join(" / ");
+    els.questionPrompt.textContent = displayPrompt(q);
     els.questionStreak.textContent = `${state.streak} streak`;
     const stimulusImages = stimulusImagesFor(q);
     if (stimulusImages.length) {

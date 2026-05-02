@@ -140,6 +140,7 @@
   }
 
   function displayPrompt(q) {
+    if (SourceBank && SourceBank.displayPrompt) return SourceBank.displayPrompt(q);
     q = q || {};
     const raw = cleanText(q.prompt || "");
     const cleaned = raw
@@ -324,7 +325,7 @@
   function updateLibraryCount() {
     const total = state.filtered.length;
     const all = state.terms.length;
-    els.libraryCount.textContent = total ? `${total.toLocaleString()} playable terms loaded (${all.toLocaleString()} total)` : "No terms match this filter";
+    els.libraryCount.textContent = total ? `${total.toLocaleString()} review terms ready` : "No terms match this filter";
   }
 
   function nextTerm() {

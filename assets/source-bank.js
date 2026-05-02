@@ -25,6 +25,22 @@
     return String(value || "").trim().split(/\s+/).filter(Boolean).length;
   }
 
+  function cleanText(value) {
+    return String(value || "")
+      .replace(/\s+/g, " ")
+      .replace(/\s+([,.;:!?])/g, "$1")
+      .trim();
+  }
+
+  function sentenceCase(value) {
+    var text = cleanText(value);
+    if (!text) return "";
+    text = text.replace(/^([a-z])/, function (_, letter) { return letter.toUpperCase(); });
+    return text;
+  }
+
+  var GENERIC_CONTEXT_RE = /\b(big picture|core concepts?|events?\s*\+\s*laws|people\s*\+\s*places|institutions?|rights?\s*\+\s*cases|policy\s*\+\s*power|participation|applications|variables|therapies|principles?|conflict\s*\+\s*change|modern connections|power\s*\+\s*government|scarcity\s*\+\s*choices|questions?|review|final wager)\b/i;
+
   function escapeRegExp(value) {
     return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
@@ -168,6 +184,76 @@
     };
   }
 
+  function stripEssayTail(value) {
+    return cleanText(value).replace(/\s*Use one specific example to explain why it matters for[\s\S]*$/i, "");
+  }
+
+  function isGenericContext(value) {
+    return GENERIC_CONTEXT_RE.test(cleanText(value));
+  }
+
+  function promptSource(question) {
+    question = question || {};
+    return cleanText(question.prompt || question.stem || "");
+  }
+
+  function displayPrompt(question) {
+    question = question || {};
+    var text = stripEssayTail(promptSource(question));
+    if (!text) return "";
+    var loops = 0;
+    while (loops < 4) {
+      var next = text
+        .replace(/^final\s+clue(?:\s+for\s+[^:]+)?:\s*/i, "")
+        .replace(/^name\s+this\s+content\s+item:\s*/i, "")
+        .replace(/^this\s+is\s+his\s+/i, "Identify the person whose ")
+        .replace(/^this\s+is\s+her\s+/i, "Identify the person whose ")
+        .replace(/^this\s+is\s+/i, "Identify: ")
+        .replace(/^these\s+are\s+/i, "Identify: ")
+        .replace(/^(.{1,90}?)\s+term\s+for\s+(.{1,90}?)\s+term\s+for\s+(.+)$/i, function (_, outer, inner, body) {
+          return isGenericContext(inner) ? (isGenericContext(outer) ? body : cleanText(outer) + " term for " + body) : _;
+        })
+        .replace(/^(.{1,90}?)\s+term\s+for\s+(.{1,60}?)\s+term\s+for\s+\2\s+term\s+for\s+(.+)$/i, function (_, outer, inner, body) {
+          return cleanText(outer) + " term for " + body;
+        })
+        .replace(/^(.{1,90}?)\s*:\s*(.{1,90}?)\s+term\s+for\s+(.+)$/i, function (_, outer, inner, body) {
+          return isGenericContext(inner) ? cleanText(outer) + ": " + body : _;
+        })
+        .replace(/^(.{1,90}?)\s+term\s+for\s+(.+)$/i, function (_, outer, body) {
+          return isGenericContext(outer) ? body : _;
+        });
+      if (next === text) break;
+      text = cleanText(next);
+      loops += 1;
+    }
+    var setText = cleanText(question.set || question.day || "");
+    if (setText) {
+      text = text.replace(new RegExp("^" + escapeRegExp(setText) + "\\s+term\\s+for\\s+", "i"), "");
+    }
+    text = text.replace(/^(.{1,90}?)\s+term\s+for\s+(.+)$/i, function (_, outer, body) {
+      return wordCount(outer) <= 3 && !sourceBased(question) ? body : _;
+    });
+    return sentenceCase(text);
+  }
+
+  function displaySource(question) {
+    question = question || {};
+    var source = cleanText(question.source || "");
+    if (!source || /jeopardy review/i.test(source)) {
+      var category = cleanText(question.category || "");
+      if (category && !isGenericContext(category)) return category;
+      return "";
+    }
+    return source;
+  }
+
+  function displayStimulusLabel(question, image) {
+    image = image || {};
+    var label = cleanText(image.label || "");
+    if (!label || /^source stimulus\b/i.test(label)) return displaySource(question) || "Source";
+    return label;
+  }
+
   function playableSharedPrompt(question) {
     return promptQuality(question).ok;
   }
@@ -188,6 +274,9 @@
     sourceLockLabel: sourceLockLabel,
     answerText: answerText,
     promptQuality: promptQuality,
-    playableSharedPrompt: playableSharedPrompt
+    playableSharedPrompt: playableSharedPrompt,
+    displayPrompt: displayPrompt,
+    displaySource: displaySource,
+    displayStimulusLabel: displayStimulusLabel
   };
 })(typeof window !== "undefined" ? window : globalThis);

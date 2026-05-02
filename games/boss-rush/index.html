@@ -1222,14 +1222,14 @@ function renderTopStats() {
   const courses = uniq(BANKS.map(function(bank) { return bank.course; })).length;
   const clues = BANKS.reduce(function(sum, bank) { return sum + allClues(bank).length; }, 0);
   document.getElementById("topStats").innerHTML = [
-    BANKS.length + " content sets",
+    BANKS.length + " review sets",
     courses + " courses",
-    clues + " possible questions"
+    clues + " questions ready"
   ].map(function(text) { return '<span class="pill">' + escapeHtml(text) + '</span>'; }).join("");
   document.getElementById("missionMetrics").innerHTML = [
-    [BANKS.length, "content sets"],
+    [BANKS.length, "review sets"],
     [courses, "courses"],
-    [clues, "question pool"]
+    [clues, "questions ready"]
   ].map(function(item) {
     return '<div class="metric"><strong>' + escapeHtml(item[0]) + '</strong><span>' + escapeHtml(item[1]) + '</span></div>';
   }).join("");

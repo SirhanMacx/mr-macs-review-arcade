@@ -1317,7 +1317,7 @@
     els.quest.classList.toggle("is-mcq", q.type === "mcq" && q.choices && q.choices.length);
     els.questKicker.textContent = origin || "Review Contract";
     els.questMeta.textContent = `${q.course || "Social Studies"} / ${q.set || "Review"}`;
-    els.questPrompt.textContent = q.prompt;
+    els.questPrompt.textContent = SourceBank && SourceBank.displayPrompt ? SourceBank.displayPrompt(q) : q.prompt;
     renderQuestStimulus(q);
     els.questFeedback.textContent = "";
     els.questInput.value = "";
