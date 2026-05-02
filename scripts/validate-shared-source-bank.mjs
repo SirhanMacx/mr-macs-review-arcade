@@ -85,6 +85,30 @@ for (const rel of scriptConsumers) {
   const text = readFileSync(resolve(root, rel), "utf8");
   if (!text.includes("assets/source-bank.js")) errors.push(`${rel}: does not load assets/source-bank.js`);
 }
+for (const rel of [
+  "games/source-lab/index.html",
+  "games/writing-coach/index.html",
+  "games/source-audit/index.html",
+  "games/vocab-vault/index.html",
+  "games/lightning-review/index.html",
+  "games/archive-quest/index.html",
+  "games/arcade-duel/index.html",
+  "games/empire-ascendant/index.html",
+  "games/chrono-pinball/index.html",
+  "games/cold-war-invaders/index.html",
+  "games/timeline-runner/index.html",
+  "games/source-sprint/index.html",
+  "games/regents-gauntlet/index.html",
+  "games/archive-cipher/index.html",
+  "games/history-hunters/index.html",
+  "games/history-hunters-2/index.html",
+  "games/time-rift-survivors/index.html",
+  "games/chrono-defense/index.html",
+  "games/mastery-path/index.html"
+]) {
+  const text = readFileSync(resolve(root, rel), "utf8");
+  if (!text.includes("assets/document-viewer.js")) errors.push(`${rel}: document/source images must load shared zoom-expand viewer`);
+}
 const indexText = readFileSync(resolve(root, "index.html"), "utf8");
 if (indexText.indexOf("assets/source-bank.js") > indexText.indexOf("assets/mastery-engine.js")) {
   errors.push("index.html must load source-bank before mastery-engine");
