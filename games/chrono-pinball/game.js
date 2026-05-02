@@ -7,6 +7,7 @@
   const params = new URLSearchParams(window.location.search);
   const FX_LITE = params.get("fx") === "lite" || window.matchMedia("(max-width: 820px)").matches;
   const MAX_PARTICLES = FX_LITE ? 70 : 170;
+  const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
 
   const canvas = document.getElementById("pinballCanvas");
   const ctx = canvas.getContext("2d", { alpha: false });
@@ -288,6 +289,7 @@
   }
 
   function stimulusImagesFor(q) {
+    if (SourceBank) return SourceBank.stimulusImages(q);
     if (!q) return [];
     const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
     const images = list.length ? list : (q.stimulusImage ? [{ src: q.stimulusImage, label: "Source stimulus" }] : []);
@@ -317,6 +319,12 @@
 
   function isPlayableQuestion(q) {
     if (!q || !q.answer || !(q.prompt || q.stem)) return false;
+    if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
+    if (SourceBank && SourceBank.sourceBased(q)) {
+      if (!hasReliableStimulus(q)) return false;
+      if (q.type === "mcq") return SourceBank.usableRegentsQuestion(q);
+      return true;
+    }
     if (q.type !== "mcq") return true;
     if (hasReliableStimulus(q)) return true;
     return !promptNeedsStimulus(q);

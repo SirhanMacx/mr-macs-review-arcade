@@ -27,7 +27,8 @@ const sourceBankConsumers = [
   "games/source-audit/game.js",
   "games/source-lab/game.js",
   "games/regents-practice-exam/game.js",
-  "games/regents-rally-source-circuit/game.js"
+  "games/regents-rally-source-circuit/game.js",
+  "games/chrono-pinball/game.js"
 ];
 for (const rel of sourceBankConsumers) {
   const text = readFileSync(resolve(root, rel), "utf8");
@@ -41,6 +42,7 @@ for (const rel of ["games/archive-cipher/game.js", "games/vocab-vault/game.js", 
 
 for (const rel of [
   "games/chrono-defense/game.js",
+  "games/chrono-pinball/game.js",
   "games/archive-quest/game.js",
   "games/history-hunters/game.js",
   "games/history-hunters-2/game.js",
@@ -61,6 +63,7 @@ const scriptConsumers = [
   "games/vocab-vault/index.html",
   "games/lightning-review/index.html",
   "games/chrono-defense/index.html",
+  "games/chrono-pinball/index.html",
   "games/archive-quest/index.html",
   "games/history-hunters/index.html",
   "games/history-hunters-2/index.html",
@@ -82,6 +85,38 @@ for (const rel of scriptConsumers) {
 const indexText = readFileSync(resolve(root, "index.html"), "utf8");
 if (indexText.indexOf("assets/source-bank.js") > indexText.indexOf("assets/mastery-engine.js")) {
   errors.push("index.html must load source-bank before mastery-engine");
+}
+
+const chronoSourceConsumers = [
+  { file: "games/chrono-defense/game.js", renderMarkers: ["stimulusStrip", "stimulusImagesFor(q)"] },
+  { file: "games/chrono-pinball/game.js", renderMarkers: ["renderStimulus(q)", "stimulusImagesFor(q)"] },
+  { file: "games/archive-quest/game.js", renderMarkers: ["stimulusRow", "stimulusImagesFor(q)"] },
+  { file: "games/history-hunters/game.js", renderMarkers: ["sourcePanel", "sourceTextFor(q)", "stimulusImagesFor(q)"] },
+  { file: "games/history-hunters-2/game.js", renderMarkers: ["hasReliableStimulus(q)", "sourceTextFor(q)", "stimulusImagesFor(q)"] },
+  { file: "games/timeline-runner/game.js", renderMarkers: ["renderStimulus(q)", "stimulusImagesFor(q)"] },
+  { file: "games/empire-ascendant/game.js", renderMarkers: ["renderStimulus(q)", "stimulusImagesFor(q)"] },
+  { file: "games/time-rift-survivors/game.js", renderMarkers: ["renderStimulus(q)", "stimulusImagesFor(q)"] },
+  { file: "games/cold-war-invaders/game.js", renderMarkers: ["renderQuestionSource", "sourceImages", "sourceText", "questionSource"] }
+];
+
+for (const consumer of chronoSourceConsumers) {
+  const text = readFileSync(resolve(root, consumer.file), "utf8");
+  if (!text.includes("MrMacsSourceBank")) errors.push(`${consumer.file}: does not load the shared source contract`);
+  if (!text.includes("SourceBank.sourceBased(q)")) errors.push(`${consumer.file}: does not explicitly gate source-based prompts`);
+  if (!text.includes("SourceBank.usableRegentsQuestion(q)")) errors.push(`${consumer.file}: does not apply trusted Regents source lock for source-backed MCQs`);
+  for (const marker of consumer.renderMarkers) {
+    if (!text.includes(marker)) errors.push(`${consumer.file}: source render contract marker missing: ${marker}`);
+  }
+  if (/SourceBank\.sourceBased\(q\)\s*&&\s*SourceBank\.hasStimulusImages\(q\)\s*&&\s*!SourceBank\.usableRegentsQuestion\(q\)/.test(text)) {
+    errors.push(`${consumer.file}: source gate only protects image-backed items; source-based prompts must require renderable source before play`);
+  }
+}
+
+const coldWarText = readFileSync(resolve(root, "games/cold-war-invaders/game.js"), "utf8");
+const coldWarIndex = readFileSync(resolve(root, "games/cold-war-invaders/index.html"), "utf8");
+if (!coldWarIndex.includes('id="questionSource"')) errors.push("Cold War Invaders intel modal must include a source container");
+for (const marker of ["hasRenderableSource(q)", "sourceBasedQuestion(q)", "renderQuestionSource(state.current)", "sourceImages", "sourceText"]) {
+  if (!coldWarText.includes(marker)) errors.push(`Cold War Invaders must preserve/render source-backed intel prompts: missing ${marker}`);
 }
 
 function normalize(value) {

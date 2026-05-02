@@ -22,6 +22,7 @@ const els = {
   questionMeta: document.querySelector("#questionMeta"),
   questionReward: document.querySelector("#questionReward"),
   questionPrompt: document.querySelector("#questionPrompt"),
+  questionSource: document.querySelector("#questionSource"),
   choices: document.querySelector("#choices"),
   feedback: document.querySelector("#feedback"),
   resultTitle: document.querySelector("#resultTitle"),
@@ -189,26 +190,85 @@ function clean(text) {
   return String(text || "").replace(/\s+/g, " ").trim();
 }
 
+function stimulusImagesFor(q) {
+  if (SourceBank) return SourceBank.stimulusImages(q);
+  const list = Array.isArray(q?.stimulusImages) ? q.stimulusImages : [];
+  return list.length ? list.filter((image) => image && image.src) : (q?.stimulusImage ? [{ src: q.stimulusImage, label: "Source stimulus" }] : []);
+}
+
+function stimulusTextFor(q) {
+  if (!q) return "";
+  if (typeof q.stimulusText === "string") return clean(q.stimulusText);
+  if (typeof q.stimulus === "string") return clean(q.stimulus);
+  if (typeof q.stimulusHtml === "string") {
+    const tmp = document.createElement("div");
+    tmp.innerHTML = q.stimulusHtml;
+    return clean(tmp.textContent || "");
+  }
+  return "";
+}
+
+function hasRenderableSource(q) {
+  return Boolean(stimulusTextFor(q) || stimulusImagesFor(q).length);
+}
+
+function sourceBasedQuestion(q) {
+  if (SourceBank) return SourceBank.sourceBased(q);
+  return Boolean(q?.stimulusRequired || stimulusImagesFor(q).length || /\b(this|these)\s+(source|document|documents|map|cartoon|chart|graph|excerpt|passage|image|photograph|photo|poster|headline|speech)\b|shown|pictured|according to|based on/i.test(q?.prompt || q?.stem || ""));
+}
+
+function displayPrompt(q) {
+  return clean((SourceBank && SourceBank.displayPrompt(q)) || q?.stem || q?.prompt || "");
+}
+
+function displaySourceLabel(q) {
+  return clean((SourceBank && SourceBank.displaySource(q)) || q?.source || q?.set || q?.day || "Source");
+}
+
+function resolveStimulusSrc(src) {
+  const value = String(src || "").trim();
+  if (!value) return "";
+  if (/^(https?:|data:|blob:)/i.test(value)) return value;
+  if (value.startsWith("../../") || value.startsWith("../")) return value;
+  if (value.startsWith("assets/")) return `../../${value}`;
+  return value;
+}
+
 function isPlayableQuestion(q) {
   if (!q || !(q.answer || q.choices) || !(q.prompt || q.stem)) return false;
   if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
-  if (SourceBank && q.type === "mcq" && SourceBank.sourceBased(q) && SourceBank.hasStimulusImages(q) && !SourceBank.usableRegentsQuestion(q)) return false;
+  if (sourceBasedQuestion(q)) {
+    if (!hasRenderableSource(q)) return false;
+    if (SourceBank && q.type === "mcq" && !SourceBank.usableRegentsQuestion(q)) return false;
+  }
   return true;
 }
 
 function normalizeQuestion(q) {
   if (!q) return null;
+  const sourceImages = stimulusImagesFor(q).map((image) => ({
+    src: resolveStimulusSrc(image.src),
+    label: clean((SourceBank && SourceBank.displayStimulusLabel(q, image)) || image.label || "Source stimulus")
+  })).filter((image) => image.src);
+  const sourceText = stimulusTextFor(q);
+  const sourceLabel = displaySourceLabel(q);
+  const sourceBased = sourceBasedQuestion(q);
+  if (sourceBased && !sourceImages.length && !sourceText) return null;
   if (Array.isArray(q.choices) && q.choices.length >= 4) {
     const choices = q.choices.slice(0, 4).map((choice) => ({ text: clean(choice.text), correct: String(choice.label) === String(q.correct) }));
     const answer = choices.find((choice) => choice.correct)?.text || q.answer;
     if (!answer || choices.some((choice) => !choice.text)) return null;
     return {
-      prompt: clean(q.stem || q.prompt),
+      prompt: displayPrompt(q),
       choices: shuffle(choices),
       answer,
       explanation: clean(q.explanation) || `Correct answer: ${answer}.`,
       course: q.course || "Cold War Review",
-      set: q.set || q.day || q.category || "Review"
+      set: q.set || q.day || q.category || "Review",
+      sourceBased,
+      sourceImages,
+      sourceText,
+      sourceLabel
     };
   }
   if (!q.prompt || !q.answer) return null;
@@ -217,12 +277,16 @@ function normalizeQuestion(q) {
   const distractors = [...new Map(shuffle(sameCourse.concat(fallback)).filter(Boolean).map((item) => [item.toLowerCase(), item])).values()].slice(0, 3);
   if (distractors.length < 3) return null;
   return {
-    prompt: clean(q.prompt),
+    prompt: displayPrompt(q),
     choices: shuffle([q.answer, ...distractors].map((text) => ({ text: clean(text), correct: text === q.answer }))),
     answer: clean(q.answer),
     explanation: clean(q.explanation) || `Correct answer: ${clean(q.answer)}.`,
     course: q.course || "Cold War Review",
-    set: q.set || q.day || q.category || "Review"
+    set: q.set || q.day || q.category || "Review",
+    sourceBased,
+    sourceImages,
+    sourceText,
+    sourceLabel
   };
 }
 
@@ -394,6 +458,34 @@ function nextQuestion() {
   return normalized || normalizeQuestion(FALLBACK[Math.floor(Math.random() * FALLBACK.length)]);
 }
 
+function renderQuestionSource(q) {
+  if (!els.questionSource) return;
+  const images = q?.sourceImages || [];
+  const text = q?.sourceText || "";
+  if (!images.length && !text) {
+    els.questionSource.classList.add("hidden");
+    els.questionSource.innerHTML = "";
+    return;
+  }
+  const heading = q.sourceBased ? "Intel source" : "Reference";
+  const imageHtml = images.slice(0, 2).map((image, index) => `
+    <a class="intel-source-thumb" href="${esc(image.src)}" target="_blank" rel="noopener">
+      <img src="${esc(image.src)}" alt="${esc(image.label || `Source ${index + 1}`)}">
+      <span>${esc(image.label || `Source ${index + 1}`)}</span>
+    </a>
+  `).join("");
+  const textHtml = text ? `<p>${esc(text)}</p>` : "";
+  els.questionSource.innerHTML = `
+    <div class="intel-source-head">
+      <strong>${esc(heading)}</strong>
+      <span>${esc(q.sourceLabel || "Matched source")}</span>
+    </div>
+    ${textHtml}
+    ${imageHtml ? `<div class="intel-source-grid">${imageHtml}</div>` : ""}
+  `;
+  els.questionSource.classList.remove("hidden");
+}
+
 function openBriefing(reason = "Containment Burst Armed") {
   if (!state.running || state.briefing || state.over) return;
   state.current = nextQuestion();
@@ -403,6 +495,7 @@ function openBriefing(reason = "Containment Burst Armed") {
   els.questionReward.textContent = reason;
   els.questionMeta.textContent = [state.current.course, state.current.set].filter(Boolean).join(" / ");
   els.questionPrompt.textContent = state.current.prompt;
+  renderQuestionSource(state.current);
   els.feedback.className = "feedback";
   els.feedback.textContent = "Answer correctly to clear the nearest wave and damage crisis targets.";
   els.choices.innerHTML = state.current.choices.map((choice, index) => `

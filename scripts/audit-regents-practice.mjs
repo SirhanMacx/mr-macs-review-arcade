@@ -165,6 +165,12 @@ function auditPracticeUi(errors) {
   }
   assert(styleSource.includes(".stimulus-missing"), "practice exam UI must visibly flag missing stimulus images", errors);
   assert(styleSource.includes("select option, select optgroup"), "practice exam select menus must force legible option colors", errors);
+  assert(gameSource.includes("data-source-viewer"), "practice exam sources must include AP-style inline source viewers", errors);
+  assert(gameSource.includes("data-source-zoom"), "practice exam sources must include AP-style source zoom controls", errors);
+  assert(gameSource.includes("data-source-fit"), "practice exam sources must include AP-style source fit controls", errors);
+  assert(gameSource.includes("data-source-expand"), "practice exam sources must include AP-style source expand controls", errors);
+  assert(styleSource.includes(".source-toolbar"), "practice exam source zoom controls must be styled", errors);
+  assert(styleSource.includes(".regents-page-stack"), "practice exam source pages must zoom inside a scrollable page stack", errors);
   assert(gameSource.includes("examSourceLock"), "practice exam runtime must include fail-closed document check", errors);
   assert(gameSource.includes("Document Check"), "practice exam setup must show visible document check status", errors);
   assert(styleSource.includes(".source-lock-preview"), "practice exam UI must style document check status", errors);

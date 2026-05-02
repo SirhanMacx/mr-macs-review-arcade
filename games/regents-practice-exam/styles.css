@@ -13,6 +13,201 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
 :root{--arena:url("../../assets/arcade-lobby-16bit-v4.webp");--arcade-panel:url("../../assets/arcade-ui-panels-16bit-v4.webp")}body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif}.bg{background:linear-gradient(90deg,rgba(3,5,13,.98),rgba(3,5,13,.76) 48%,rgba(3,5,13,.94)),linear-gradient(180deg,rgba(3,5,13,.22),#050812 92%),var(--arena) center/cover no-repeat}.bg:after{background:linear-gradient(rgba(122,240,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(122,240,255,.025) 1px,transparent 1px);background-size:76px 76px;opacity:.28}.hero,.panel,.exam-status,.work-surface,.summary-card,.stimulus-panel,.question-card,.writing-card,.doc-card,.feedback-card,.official-exam-card,.viewer-toolbar,.viewer-stage{border-radius:6px;border-color:rgba(98,233,255,.24);box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 0 0 1px rgba(0,0,0,.44) inset,0 22px 64px rgba(0,0,0,.46)}.hero,.panel,.exam-status,.work-surface,.summary-card{background:linear-gradient(180deg,rgba(5,8,18,.86),rgba(5,8,18,.97)),var(--arcade-panel) center/cover no-repeat}.hero{background:linear-gradient(115deg,rgba(5,8,18,.88),rgba(5,8,18,.50)),var(--arena) center/cover no-repeat}.hero h1,.summary-card h1{font-size:clamp(42px,5.4vw,72px);line-height:1.02;text-shadow:0 2px 0 #07111f,0 5px 0 rgba(255,123,204,.32),0 0 24px rgba(98,233,255,.38)}.hero p,.exam-preview,.feedback-card,.prompt-list,.model-answer,.official-exam-card{color:#f2f6ff}.brand strong,.panel h2,.work-head h2,.summary-card h2,.question-card h3,.writing-card h3,.doc-card h3,.official-exam-card h3{color:#fff;font-weight:900;text-shadow:0 2px 12px rgba(0,0,0,.54)}select,textarea,.choice{color:#fff;background:rgba(3,7,16,.96);border-color:rgba(98,233,255,.24)}select option,select optgroup{color:#07111f;background:#f8fbff}.btn,.tab,.pill,.inspect-btn,.mini-link{border-radius:4px}.choice{min-height:70px}.choice strong{color:#ffd15c}.stimulus-figure img,.doc-card img,.viewer-stage img{border-radius:4px}
 .setup-panel .form-grid{grid-template-columns:minmax(145px,1fr) minmax(215px,1.45fr) minmax(150px,1fr)}@media(max-width:900px){.setup-panel .form-grid{grid-template-columns:1fr}}
 
+/* AP-style official PDF source zoom tools for Regents practice */
+.official-source {
+  --source-width: 100%;
+  overflow: hidden;
+  margin: 0 0 10px;
+  border: 1px solid rgba(132, 238, 255, 0.24);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.official-source-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.source-title {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.source-title strong {
+  color: #f8fbff;
+  font-size: 14px;
+  line-height: 1.2;
+}
+.source-title span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+.source-health {
+  width: fit-content;
+  margin-top: 5px;
+  padding: 5px 7px;
+  border: 1px solid rgba(132, 238, 255, 0.22);
+  border-radius: 4px;
+  background: rgba(132, 238, 255, 0.08);
+  color: #d7fbff;
+  font-size: 10px;
+  font-weight: 950;
+}
+.source-ok .source-health {
+  border-color: rgba(93, 242, 173, 0.36);
+  background: rgba(93, 242, 173, 0.1);
+  color: #bafcdb;
+}
+.source-warn .source-health {
+  border-color: rgba(255, 100, 128, 0.55);
+  background: rgba(255, 100, 128, 0.12);
+  color: #ffd3dc;
+}
+.source-toolbar {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 7px;
+  align-items: center;
+  min-width: 0;
+}
+.source-tool,
+.source-expand,
+.source-toolbar a {
+  display: inline-grid;
+  min-height: 36px;
+  place-items: center;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+  white-space: nowrap;
+}
+.source-tool,
+.source-expand {
+  padding: 0 10px;
+  color: #f8fbff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+.source-tool {
+  min-width: 38px;
+}
+.source-expand {
+  color: #06101f;
+  border-color: rgba(255, 215, 107, 0.55);
+  background: var(--gold);
+}
+.source-toolbar .source-expand {
+  margin-top: 0;
+}
+.source-toolbar a {
+  min-width: 42px;
+  padding: 0 10px;
+  color: var(--cyan);
+  border: 1px solid rgba(96, 239, 255, 0.32);
+  background: rgba(96, 239, 255, 0.08);
+  text-decoration: none;
+}
+.source-zoom-label {
+  min-width: 48px;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 950;
+  text-align: center;
+}
+.source-tool:focus-visible,
+.source-expand:focus-visible,
+.source-toolbar a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+.regents-page-stack {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 0;
+  max-height: min(58vh, 620px);
+  overflow: auto;
+  padding: 10px;
+  background: #101827;
+  overscroll-behavior: contain;
+}
+.doc-card .regents-page-stack {
+  max-height: 420px;
+}
+.regents-page-figure {
+  position: relative;
+  width: var(--source-width, 100%);
+  max-width: none;
+  justify-self: start;
+  align-self: start;
+  margin: 0;
+  border: 1px solid rgba(6, 16, 31, 0.16);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #f8fbff;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+}
+.regents-source-viewer .official-page-image,
+.doc-card .regents-source-viewer .official-page-image {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  height: auto;
+  object-fit: initial;
+  border-radius: 0;
+  background: #f8fbff;
+}
+.regents-page-figure figcaption {
+  padding: 8px 10px;
+  color: #334155;
+  background: #f8fbff;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.source-missing {
+  min-height: 160px;
+}
+.source-missing::after {
+  content: "Source image did not load. Use PDF or Expand Source.";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  color: #07101f;
+  background: rgba(255, 245, 230, 0.96);
+  font-weight: 950;
+  text-align: center;
+}
+.work-actions .source-expand {
+  min-height: 46px;
+  margin-top: 0;
+}
+@media(max-width:720px){
+  .source-tool,
+  .source-expand,
+  .source-toolbar a {
+    min-height: 44px;
+  }
+  .source-toolbar {
+    width: 100%;
+  }
+  .regents-page-stack {
+    max-height: 48vh;
+  }
+}
+
 /* Premium exam start and trust polish */
 .exam-trust-strip {
   display: grid;

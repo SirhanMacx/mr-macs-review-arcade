@@ -195,17 +195,19 @@ def check_regents_source_integrity() -> list[str]:
 
 
 def check_shared_source_bank() -> list[str]:
-    result = subprocess.run(
-        ["node", "scripts/validate-shared-source-bank.mjs"],
-        cwd=ROOT,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
-    if result.returncode == 0:
-        return []
-    detail = (result.stderr or result.stdout or "shared source bank validation failed").strip()
-    return [detail]
+    errors: list[str] = []
+    for script in ["scripts/validate-shared-source-bank.mjs", "scripts/validate-cold-war-invaders-source-render.mjs"]:
+        result = subprocess.run(
+            ["node", script],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if result.returncode != 0:
+            detail = (result.stderr or result.stdout or f"{script} failed").strip()
+            errors.append(detail)
+    return errors
 
 
 def check_archive_cipher_source_lock() -> list[str]:

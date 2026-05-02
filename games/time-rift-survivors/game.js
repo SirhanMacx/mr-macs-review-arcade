@@ -247,8 +247,12 @@
   function isPlayableQuestion(q) {
     if (!q || !q.prompt || !q.answer) return false;
     if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
+    if (SourceBank && SourceBank.sourceBased(q)) {
+      if (!hasReliableStimulus(q)) return false;
+      if (q.type === "mcq") return SourceBank.usableRegentsQuestion(q);
+      return true;
+    }
     if (q.type !== "mcq") return true;
-    if (SourceBank && SourceBank.sourceBased(q) && SourceBank.hasStimulusImages(q) && !SourceBank.usableRegentsQuestion(q)) return false;
     if (hasReliableStimulus(q)) return true;
     return !promptNeedsStimulus(q);
   }
