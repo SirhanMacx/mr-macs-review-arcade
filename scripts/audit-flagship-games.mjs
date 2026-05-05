@@ -29,7 +29,7 @@ function requireAsset(path, minBytes = 2048) {
 }
 
 requireText("index.html", [
-  '["history-hunters", "archive-quest", "cold-war-invaders", "regents-rally-source-circuit", "regents-practice-exam", "ap-practice-exam"]',
+  '["history-hunters", "archive-quest", "review-maze-chase", "cold-war-invaders", "regents-rally-source-circuit", "regents-practice-exam", "ap-practice-exam"]',
   "FEATURED_GAME_IDS",
   "featuredBadges",
   "featured-rank",
@@ -97,10 +97,12 @@ requireText("games/history-hunters-2/index.html", [
   'id="questSource"'
 ]);
 
-for (const id of ["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam"]) {
+for (const id of ["history-hunters", "archive-quest", "review-maze-chase", "cold-war-invaders", "regents-practice-exam"]) {
   requireAsset(`assets/game-thumbnails/${id}.webp`, 1024);
 }
 requireAsset("games/cold-war-invaders/assets/cold-war-invaders-atari-sheet.webp", 10000);
+requireAsset("assets/review-maze-chase/key-art.webp", 10000);
+requireAsset("assets/review-maze-chase/player.png", 10000);
 requireAsset("assets/archive-quest/background.webp", 10000);
 requireAsset("assets/history-hunters/overworld-map.webp", 10000);
 requireAsset("assets/history-hunters/generated/battle-fx-sheet-v2-clean.webp", 10000);

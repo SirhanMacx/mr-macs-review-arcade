@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050711">
+  <title>Review Maze Chase - Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css?v=20260504-imagegen2">
+</head>
+<body>
+  <main class="maze-shell">
+    <canvas id="game" aria-label="Review Maze Chase game board"></canvas>
+
+    <header class="hud" aria-label="Game status">
+      <a class="brand" href="../../index.html" aria-label="Back to arcade">
+        <span class="brand-orb" aria-hidden="true"></span>
+        <span><strong>Review Maze Chase</strong><small>Collect evidence. Answer to power up.</small></span>
+      </a>
+      <div class="hud-stats">
+        <div><strong id="score">0</strong><span>score</span></div>
+        <div><strong id="lives">3</strong><span>lives</span></div>
+        <div><strong id="pellets">0</strong><span>evidence</span></div>
+        <div><strong id="power">0</strong><span>power</span></div>
+      </div>
+    </header>
+
+    <section class="setup show" id="setup">
+      <div class="setup-card">
+        <div class="kicker">Maze Chase</div>
+        <h1>Review Maze Chase</h1>
+        <p>Clear the archive maze, grab source scrolls, and answer review prompts to turn the chasers vulnerable.</p>
+        <div class="filters">
+          <label>Course<select id="courseFilter"></select></label>
+          <label>Set<select id="setFilter"></select></label>
+          <label>Speed<select id="speedFilter"><option value="normal">Normal</option><option value="fast">Fast</option><option value="study">Study</option></select></label>
+        </div>
+        <div class="metrics" id="metrics"></div>
+        <div class="actions">
+          <a class="btn ghost" href="../../index.html">Arcade Home</a>
+          <button class="btn primary" id="startBtn" type="button">Start Chase</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="quiz" id="quiz" aria-live="polite">
+      <div class="quiz-card">
+        <div class="kicker" id="questionMeta">Review Gate</div>
+        <h2 id="questionPrompt">Loading...</h2>
+        <div class="stimulus" id="stimulus"></div>
+        <div class="choices" id="choices"></div>
+        <div class="feedback" id="feedback"></div>
+      </div>
+    </section>
+
+    <section class="result" id="result">
+      <div class="setup-card compact">
+        <div class="kicker">Run Complete</div>
+        <h2 id="resultTitle">Archive cleared</h2>
+        <div class="metrics" id="resultMetrics"></div>
+        <div class="feedback show-text" id="coach"></div>
+        <div class="actions">
+          <button class="btn ghost" id="setupBtn" type="button">Change Course</button>
+          <button class="btn primary" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+
+    <nav class="controls" aria-label="Movement controls">
+      <button type="button" data-dir="left">Left</button>
+      <button type="button" data-dir="up">Up</button>
+      <button type="button" data-dir="down">Down</button>
+      <button type="button" data-dir="right">Right</button>
+    </nav>
+  </main>
+
+  <script src="../../assets/arcade-analytics.js?v=20260504-maze"></script>
+  <script src="../../assets/source-bank.js?v=20260504-maze"></script>
+  <script src="game.js?v=20260504-imagegen2"></script>
+</body>
+</html>

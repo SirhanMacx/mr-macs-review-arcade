@@ -4008,7 +4008,7 @@ let currentGame = null;
 let frameLoadTimer = 0;
 let smartMenuLane = "recommended";
 let lastPlayerFocus = null;
-const FEATURED_GAME_IDS = ["history-hunters", "archive-quest", "cold-war-invaders", "regents-rally-source-circuit", "regents-practice-exam", "ap-practice-exam"];
+const FEATURED_GAME_IDS = ["history-hunters", "archive-quest", "review-maze-chase", "cold-war-invaders", "regents-rally-source-circuit", "regents-practice-exam", "ap-practice-exam"];
 const SOURCE_LOCKED_GAME_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "source-sprint", "source-lab", "regents-gauntlet", "source-audit", "archive-cipher"]);
 
 const LANES = [
@@ -4057,6 +4057,11 @@ const SMART_TITLE_ALIASES = {
     title: "Cold War Invaders",
     kicker: "Space Invaders",
     subtitle: "Defend Earth with containment-era questions, crisis waves, and arcade controls."
+  },
+  "review-maze-chase": {
+    title: "Review Maze Chase",
+    kicker: "Maze Chase",
+    subtitle: "Collect evidence, grab source scrolls, and answer through gates to power up."
   }
 };
 
@@ -4113,6 +4118,7 @@ function paletteFor(course) {
 function accentFor(game) {
   if (game.id === "history-hunters") return "#74f0aa";
   if (game.id === "archive-quest") return "#62e9ff";
+  if (game.id === "review-maze-chase") return "#ffd15c";
   if (game.id === "cold-war-invaders") return "#72f3ff";
   if (game.id === "regents-practice-exam") return "#ffd15c";
   if (game.id === "ap-practice-exam") return "#60efff";
@@ -4129,6 +4135,7 @@ function accentFor(game) {
 function glyphFor(game) {
   if (game.id === "history-hunters") return "HH";
   if (game.id === "archive-quest") return "AQ";
+  if (game.id === "review-maze-chase") return "MC";
   if (game.id === "cold-war-invaders") return "CW";
   if (game.id === "regents-practice-exam") return "✎";
   if (game.id === "ap-practice-exam") return "AP";
@@ -4228,7 +4235,7 @@ function laneMatches(game) {
   if (state.lane === "all") return true;
   const text = searchable(game);
   if (state.lane === "mastery") return game.collection === "mastery-path" || ["mastery-path", "source-lab", "writing-coach"].includes(game.id);
-  if (state.lane === "play") return ["archive-quest", "history-hunters", "cold-war-invaders", "regents-rally-source-circuit", "chrono-defense-infinite", "time-rift-survivors", "chrono-pinball", "empire-ascendant", "boss-rush-arena"].includes(game.id);
+  if (state.lane === "play") return ["archive-quest", "history-hunters", "review-maze-chase", "cold-war-invaders", "regents-rally-source-circuit", "chrono-defense-infinite", "time-rift-survivors", "chrono-pinball", "empire-ascendant", "boss-rush-arena"].includes(game.id);
   if (state.lane === "quick") return isQuickPlay(game);
   if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing|ap-style|frq|dbq|saq/i.test(text) || ["regents-practice-exam", "ap-practice-exam", "source-audit", "regents-rally-source-circuit", "regents-gauntlet", "source-sprint"].includes(game.id);
   if (state.lane === "jeopardy") return isJeopardyBoard(game);
@@ -4251,6 +4258,7 @@ function priority(game) {
   if (game.id === "writing-coach") return -7;
   if (game.id === "history-hunters") return -6;
   if (game.id === "archive-quest") return -5;
+  if (game.id === "review-maze-chase") return -4.85;
   if (game.id === "cold-war-invaders") return -4.7;
   if (game.id === "regents-rally-source-circuit") return -4.4;
   if (game.id === "regents-practice-exam") return -4;
@@ -4346,6 +4354,7 @@ function cardSubtitle(game) {
   if (!game) return "";
   if (game.id === "history-hunters") return "Open-world review RPG with battles, party building, rewards, and course quests.";
   if (game.id === "archive-quest") return "Platform levels, double jump, review gates, and question-unlocked powers.";
+  if (game.id === "review-maze-chase") return "Collect evidence pellets, grab source scrolls, and answer through gates to power up.";
   if (game.id === "cold-war-invaders") return "Atari-style Space Invaders with Cold War questions, intel bursts, and mobile controls.";
   if (game.id === "regents-practice-exam") return "Full Regents practice with official questions, writing, pacing, and score estimates.";
   if (game.id === "ap-practice-exam") return "Released AP practice with multiple-choice, writing, pacing, and score estimates.";
@@ -4362,6 +4371,7 @@ function heroSubtitle(game) {
   if (game.id === "regents-practice-exam") return "Build pacing, source reading, and writing under exam conditions.";
   if (game.id === "ap-practice-exam") return "Practice AP multiple-choice and writing with released questions.";
   if (game.id === "archive-quest") return "Run, jump, and unlock powers with source questions.";
+  if (game.id === "review-maze-chase") return "Clear the archive maze and use correct answers to turn chasers vulnerable.";
   if (game.id === "cold-war-invaders") return "Defend Earth with Cold War review questions.";
   if (isJeopardyBoard(game)) return "Fast course review for teams, recall, and tougher concepts.";
   return game.subtitle || game.course || "";
@@ -4370,6 +4380,7 @@ function featuredBadges(game) {
   const byId = {
     "history-hunters": ["flagship", "RPG", "course quests"],
     "archive-quest": ["platformer", "double jump", "review gates"],
+    "review-maze-chase": ["maze chase", "source scrolls", "answer gates"],
     "regents-practice-exam": ["official exams", "writing", "score estimate"],
     "ap-practice-exam": ["released AP", "PDF sources", "rubric estimate"],
     "cold-war-invaders": ["Atari", "mobile", "questions unlock shots"]
@@ -4629,7 +4640,7 @@ function smartMenuGames(laneId) {
     return pickGames(["regents-practice-exam", "ap-practice-exam", "writing-coach", "source-lab", "source-sprint", "regents-gauntlet"]);
   }
   if (laneId === "arcade") {
-    return pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite", "time-rift-survivors"]);
+    return pickGames(["history-hunters", "archive-quest", "review-maze-chase", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite"]);
   }
   if (laneId === "quick") {
     return pickGames(["lightning-review", "source-sprint", "archive-cipher", "vocab-vault", "arcade-duel", "regents-gauntlet"]);
@@ -4999,6 +5010,7 @@ function settleHashTarget() {
 const MOBILE_HEAVY_GAME_IDS = new Set([
   "history-hunters",
   "archive-quest",
+  "review-maze-chase",
   "cold-war-invaders",
   "regents-rally-source-circuit",
   "global-quest",
