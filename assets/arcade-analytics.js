@@ -717,9 +717,7 @@
     var days = [6, 5, 4, 3, 2, 1, 0].map(dateOffset);
     var visitDays = days.filter(function (date) { return date >= TRAFFIC_START_DATE; });
     var dailyVisitCounters = visitDays.map(function (date) { return "daily-" + date + "-site-visits"; });
-    var topGameCounters = TOP_GAME_IDS.flatMap(function (id) {
-      return ["game-" + id + "-game-launches", "game-" + id + "-game-views", "game-" + id + "-game-plays", "game-" + id + "-game-completions"];
-    });
+    var topGameCounters = [];
     var allCounters = counters.concat(dailyVisitCounters, topGameCounters);
     return runCounterSeries(allCounters, function (name) {
       return getGlobal(name);
@@ -736,7 +734,7 @@
         };
       });
       var topOffset = counters.length + dailyVisitCounters.length;
-      var topGames = TOP_GAME_IDS.map(function (id, index) {
+      var topGames = topGameCounters.length ? TOP_GAME_IDS.map(function (id, index) {
         var offset = topOffset + index * 4;
         var launches = publicMetric(values[offset]) || 0;
         var views = publicMetric(values[offset + 1]) || 0;
@@ -753,7 +751,7 @@
         };
       }).sort(function (a, b) {
         return Number(b.engagement || 0) - Number(a.engagement || 0);
-      });
+      }) : (Array.isArray(existing.topGames) ? existing.topGames : []);
       var connected = values.some(function (value) { return value !== null; });
       if (!connected) {
         window.__MR_MACS_GLOBAL_TRAFFIC__ = Object.assign({}, existing, { connected: false });
