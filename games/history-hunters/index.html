@@ -23,10 +23,20 @@
       </div>
       <div class="statbar">
         <span><strong id="level">1</strong> Rank</span>
-        <span><strong id="partyHp">100</strong> HP</span>
+        <span>
+          <strong id="partyHp">100/100</strong> HP
+          <div class="hp-bar-wrap"><div id="partyHpBar" class="hp-bar-fill"></div></div>
+        </span>
         <span><strong id="rosterCount">0</strong> Allies</span>
         <span><strong id="shards">0</strong> Shards</span>
-        <span><strong id="streak">0</strong> Streak</span>
+        <span class="streak-stat">
+          <svg class="streak-ring" viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="3"/>
+            <circle class="streak-ring-fill" cx="18" cy="18" r="15" fill="none" stroke="var(--streak-color,#70f2ff)" stroke-width="3" stroke-dasharray="94.25" stroke-dashoffset="94.25" stroke-linecap="round" transform="rotate(-90 18 18)"/>
+          </svg>
+          <strong id="streak">0</strong> Streak
+        </span>
+        <button id="muteBtn" type="button" class="mute-btn">♪ On</button>
       </div>
     </header>
 
@@ -47,6 +57,7 @@
         <button id="bagBtn" type="button">Bag</button>
         <button id="rosterBtn" type="button">Party</button>
         <button id="codexBtn" type="button">Index</button>
+        <button id="bossBtn" type="button" class="boss-btn">Boss</button>
         <button id="saveBtn" type="button">Save</button>
       </div>
       <div class="quest-card">
@@ -177,6 +188,8 @@
         </div>
       </div>
     </section>
+
+    <aside class="hud quest-log-panel" id="questLogPanel" hidden aria-label="Quest log"></aside>
 
     <section class="start-screen" id="startScreen" aria-label="Start expedition">
       <div class="start-art"></div>

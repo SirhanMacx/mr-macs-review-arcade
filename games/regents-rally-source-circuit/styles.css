@@ -10,6 +10,7 @@
   --gold: #ffd15c;
   --pink: #ff5f9f;
   --green: #64f0aa;
+  --orange: #ff8a3d;
 }
 
 * { box-sizing: border-box; }
@@ -429,12 +430,6 @@ body {
   pointer-events: none;
 }
 
-.hud > div {
-  padding: 11px 12px;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.035)),
-    rgba(5,8,22,.62);
-}
 .hud strong { display: block; font-size: 25px; line-height: 1; }
 
 .race-meter {
@@ -442,16 +437,24 @@ body {
   z-index: 3;
   left: 12px;
   bottom: 12px;
-  width: min(430px, calc(100% - 24px));
+  width: min(460px, calc(100% - 24px));
   display: grid;
   grid-template-columns: 1fr minmax(160px, .8fr);
   align-items: center;
   gap: 10px;
   padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.035)), var(--panel);
+  box-shadow: 0 24px 70px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.12);
+  backdrop-filter: blur(18px) saturate(1.18);
 }
 
+.speedo-wrap { flex: 1; }
+
 .speed-track {
-  height: 14px;
+  flex: 1;
+  height: 10px;
   border: 1px solid rgba(255,255,255,.18);
   border-radius: 999px;
   overflow: hidden;
@@ -464,6 +467,7 @@ body {
   width: 100%;
   transform-origin: left center;
   background: linear-gradient(90deg, var(--cyan), var(--green), var(--gold), var(--pink));
+  transition: transform .05s linear;
 }
 
 .item-button {
@@ -696,6 +700,7 @@ body {
   .result-card h1 { font-size: 48px; }
   .race-meter { grid-template-columns: 1fr; }
   .driver-preview { grid-template-columns: 150px minmax(0, 1fr); }
+  .lap-times { display: none; }
 }
 
 @media (hover: none), (max-width: 860px) {
@@ -719,8 +724,9 @@ body {
     gap: 5px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .hud > div { padding: 8px; }
+  .hud-cell { padding: 8px; }
   .hud strong { font-size: 20px; }
+  .lap-times { display: none; }
   .race-screen.active { min-height: 560px; }
   .race-actions { top: 116px; bottom: auto; right: 8px; }
   #raceCanvas { height: 500px; min-height: 500px; }
@@ -768,6 +774,250 @@ body {
 }
 
 select option, select optgroup { color: #07111f; background: #f8fbff; }
+
+/* ─── Mode row (engine class / format) ─────────────────────── */
+.mode-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 18px;
+}
+.mode-group { display: flex; flex-direction: column; gap: 7px; }
+.mode-label {
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.mode-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.mode-pill {
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  background: rgba(255,255,255,.07);
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 950;
+  cursor: pointer;
+  transition: background .16s, border-color .16s, color .16s;
+}
+.mode-pill.active,
+.mode-pill:hover {
+  border-color: rgba(102,233,255,.72);
+  background: rgba(102,233,255,.14);
+  color: var(--ink);
+}
+
+/* ─── HUD cells ────────────────────────────────────────────── */
+.hud-cell {
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.035)), rgba(5,8,22,.62);
+  box-shadow: 0 24px 70px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.12);
+  backdrop-filter: blur(18px) saturate(1.18);
+  position: relative;
+}
+.hud-lap { border-color: rgba(102,233,255,.35); }
+.hud-place { border-color: rgba(255,209,92,.35); }
+
+.place-delta {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 11px;
+  font-weight: 950;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.place-delta.up   { color: var(--green); opacity: 1; }
+.place-delta.down { color: var(--pink);  opacity: 1; }
+
+/* ─── Speedometer ───────────────────────────────────────────── */
+.speedo-wrap { display: flex; align-items: center; gap: 7px; }
+.speedo-label {
+  color: var(--cyan);
+  font-size: 9px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.speedo-num {
+  min-width: 36px;
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: 950;
+  text-align: right;
+}
+
+.boost-wrap { display: flex; align-items: center; gap: 7px; margin-top: 5px; }
+.boost-track {
+  flex: 1;
+  height: 7px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(0,0,0,.28);
+}
+.boost-track i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--orange), var(--gold), var(--pink));
+  transition: transform .04s linear;
+}
+
+/* ─── Lap times panel ──────────────────────────────────────── */
+.lap-times {
+  position: absolute;
+  z-index: 3;
+  right: 12px;
+  bottom: 60px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  background: rgba(5,8,22,.58);
+  backdrop-filter: blur(12px);
+  font-size: 12px;
+  font-weight: 850;
+  color: var(--soft);
+  min-width: 128px;
+  pointer-events: none;
+}
+.lt-label {
+  color: var(--cyan);
+  font-size: 9px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 5px;
+}
+#lapTimesList > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 2px 0;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+#lapTimesList > div.best-lap {
+  color: var(--gold);
+}
+
+/* ─── Skip button inside question card ─────────────────────── */
+.skip-btn {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 8px;
+  background: rgba(255,255,255,.06);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+  text-align: left;
+  transition: background .16s, color .16s;
+}
+.skip-btn:hover {
+  background: rgba(255,255,255,.11);
+  color: var(--soft);
+}
+
+/* ─── Best-lap banner in results ────────────────────────────── */
+.best-lap-banner {
+  margin: 10px 0;
+  padding: 12px 16px;
+  border: 1px solid rgba(255,209,92,.55);
+  border-radius: 8px;
+  background: rgba(255,209,92,.1);
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 950;
+  text-align: center;
+}
+
+/* ─── GP Standings ──────────────────────────────────────────── */
+.gp-standings {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0;
+}
+.gp-standings > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 7px;
+  background: rgba(255,255,255,.05);
+}
+.gp-standings .gp-pos {
+  color: var(--gold);
+  font-size: 20px;
+  font-weight: 950;
+  min-width: 28px;
+}
+.gp-standings .gp-pts {
+  margin-left: auto;
+  color: var(--cyan);
+  font-size: 15px;
+  font-weight: 950;
+}
+
+/* ─── Mute button ───────────────────────────────────────────── */
+#muteBtn { font-size: 16px; line-height: 1; padding: 10px 11px; }
+
+/* ─── Position change banner ────────────────────────────────── */
+.position-banner {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 20px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .18s, transform .18s;
+  z-index: 10;
+  white-space: nowrap;
+}
+.position-banner.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.position-banner.gained {
+  background: rgba(100,240,170,.18);
+  border: 1px solid rgba(100,240,170,.6);
+  color: var(--green);
+}
+.position-banner.lost {
+  background: rgba(255,95,159,.14);
+  border: 1px solid rgba(255,95,159,.5);
+  color: var(--pink);
+}
+
+/* ─── Final lap flash overlay ───────────────────────────────── */
+.final-lap-flash {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,209,92,.18);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 6;
+  animation: finalLapPop .55s ease-out forwards;
+}
+@keyframes finalLapPop {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
 
 /* Premium arcade start screen pass */
 .hero-panel,

@@ -9,28 +9,34 @@
   <script>
     if (new URLSearchParams(location.search).get("fx") !== "full") document.documentElement.classList.add("perf-lite");
   </script>
-  <link rel="stylesheet" href="styles.css?v=20260427-mobile">
+  <link rel="stylesheet" href="styles.css?v=20260505-v2">
 </head>
 <body>
   <div class="bg"></div>
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+
   <main class="shell" id="app">
+    <!-- TOP BAR -->
     <header class="topbar">
       <div class="brand">
         <div class="mark" aria-hidden="true"></div>
         <div>
           <strong>Arcade Duel</strong>
-          <span>MCQ combat loop · Regents bank</span>
+          <span>Turn-based MCQ Combat · Best of 3</span>
         </div>
       </div>
       <div class="top-actions">
+        <button class="btn icon-btn" id="muteBtn" type="button" title="Toggle sound" aria-label="Toggle sound">🔊</button>
+        <button class="btn icon-btn" id="pauseBtn" type="button" title="Pause" aria-label="Pause" style="display:none">⏸</button>
         <button class="btn" id="openHub" type="button">Back</button>
       </div>
     </header>
 
+    <!-- SETUP SCREEN -->
     <section class="panel setup" id="setup">
       <div class="panel-head">
         <h1>Pick your mission</h1>
-        <p>Fight through MCQs in quick enemy waves. Build energy, eliminate distractors, and keep your streak alive.</p>
+        <p>Choose your course, difficulty, and opponent. Correct answers power your strikes — a 3-answer streak unlocks a Finisher.</p>
       </div>
       <div class="form">
         <label>
@@ -50,6 +56,25 @@
             <option value="999">Endless</option>
           </select>
         </label>
+        <label>
+          <span>Difficulty</span>
+          <select id="diffSelect">
+            <option value="apprentice">Apprentice</option>
+            <option value="skilled" selected>Skilled</option>
+            <option value="master">Master</option>
+          </select>
+        </label>
+        <label>
+          <span>Mode</span>
+          <select id="modeSelect">
+            <option value="story">Story — Era Ladder</option>
+            <option value="versus">Versus — Pick Opponent</option>
+          </select>
+        </label>
+        <label id="opponentPickWrap" class="hidden">
+          <span>Opponent</span>
+          <select id="opponentSelect"></select>
+        </label>
       </div>
       <div class="setup-metrics" id="setupMetrics"></div>
       <div class="setup-actions">
@@ -58,58 +83,89 @@
       <div class="tiny" id="loadStatus">Loading bank…</div>
     </section>
 
+    <!-- MATCH SCREEN -->
     <section class="panel duel hidden" id="duel" aria-live="polite">
+
+      <!-- HUD -->
       <header class="hud">
         <div class="hud-left">
           <div class="hud-title" id="missionTitle">Mission</div>
           <div class="hud-sub" id="missionMeta">Loading…</div>
         </div>
+        <div class="hud-center">
+          <div class="round-pips" id="roundPips" aria-label="Round score"></div>
+          <div class="round-label" id="roundLabel">Round 1 of 3</div>
+        </div>
         <div class="hud-right">
           <div class="stat">
-            <strong id="waveText">Wave 1</strong>
-            <span>enemy</span>
-          </div>
-          <div class="stat">
-            <strong id="energyText">0</strong>
-            <span>energy</span>
+            <strong id="timerText">99</strong>
+            <span>time</span>
           </div>
           <div class="stat">
             <strong id="streakText">0</strong>
             <span>streak</span>
           </div>
+          <div class="stat">
+            <strong id="chargeText">0</strong>
+            <span>charge</span>
+          </div>
         </div>
       </header>
 
+      <!-- HEALTH BARS -->
       <section class="bars">
-        <div class="bar">
-          <div class="bar-label">You</div>
-          <div class="bar-track"><div class="bar-fill you" id="youBar"></div></div>
-          <div class="bar-meta"><span id="youHpText">3</span> hearts</div>
+        <div class="bar-group">
+          <div class="bar-label">YOU</div>
+          <div class="bar-track">
+            <div class="bar-fill you" id="youBar"></div>
+          </div>
+          <div class="bar-hp" id="youHpText">100</div>
         </div>
-        <div class="bar">
-          <div class="bar-label" id="enemyName">Enemy</div>
-          <div class="bar-track"><div class="bar-fill enemy" id="enemyBar"></div></div>
-          <div class="bar-meta"><span id="enemyHpText">0</span> HP</div>
+        <div class="vs-badge">VS</div>
+        <div class="bar-group enemy-side">
+          <div class="bar-hp enemy-hp" id="enemyHpText">100</div>
+          <div class="bar-track">
+            <div class="bar-fill enemy" id="enemyBar"></div>
+          </div>
+          <div class="bar-label enemy-label" id="enemyBarLabel">Enemy</div>
         </div>
       </section>
 
+      <!-- CHARGE METER -->
+      <div class="charge-row">
+        <div class="charge-label">Special Charge</div>
+        <div class="charge-track" id="chargeTrack">
+          <div class="charge-fill" id="chargeFill"></div>
+          <div class="charge-ticks">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="charge-ready hidden" id="chargeReady">READY</div>
+      </div>
+
+      <!-- COMBAT STAGE -->
       <section class="combat-stage" id="combatStage" aria-hidden="true">
         <div class="stage-vignette"></div>
-        <div class="combatant player">
-          <div class="avatar player-avatar"></div>
+        <div class="combatant player" id="playerCombatant">
+          <div class="avatar player-avatar" id="playerAvatar"></div>
           <div class="combat-label">Review Core</div>
         </div>
         <div class="stage-center">
-          <div class="stage-callout" id="stageCallout">Wave armed</div>
+          <div class="stage-callout" id="stageCallout">Fight!</div>
           <div class="pulse-ring"></div>
+          <!-- Combo counter -->
+          <div class="combo-counter hidden" id="comboCounter"></div>
         </div>
-        <div class="combatant enemy">
+        <div class="combatant enemy" id="enemyCombatant">
           <div class="avatar enemy-avatar" id="enemyAvatar"></div>
-          <div class="combat-label" id="enemyStageName">Source Warden</div>
+          <div class="combat-label" id="enemyStageName">Opponent</div>
         </div>
         <div class="impact-burst" id="impactBurst"></div>
+        <!-- Stinger banner -->
+        <div class="stinger hidden" id="stinger"></div>
       </section>
 
+      <!-- ARENA: STIMULUS + QUESTION + COMMAND MENU -->
       <section class="arena">
         <aside class="stimulus hidden" id="stimulusPanel" aria-label="Stimulus images">
           <div class="stimulus-head">
@@ -118,23 +174,81 @@
           </div>
           <div class="stimulus-strip" id="stimulusStrip"></div>
         </aside>
-        <section class="question">
-          <div class="q-tags" id="qTags"></div>
-          <h2 class="q-stem" id="qStem"></h2>
-          <div class="choices" id="choices"></div>
-          <div class="tools">
-            <button class="btn tool" id="eliminateBtn" type="button" disabled>Eliminate 2 (2 energy)</button>
-            <button class="btn tool" id="repairBtn" type="button" disabled>Repair +1 (3 energy)</button>
+
+        <section class="question" id="questionPanel">
+          <!-- Command menu (visible before question pops) -->
+          <div class="command-menu" id="commandMenu">
+            <button class="cmd-btn attack" id="cmdAttack" type="button" data-key="J">
+              <span class="cmd-icon">⚔️</span>
+              <span class="cmd-name">Attack</span>
+              <span class="cmd-sub">Answer a question</span>
+            </button>
+            <button class="cmd-btn special" id="cmdSpecial" type="button" disabled data-key="L">
+              <span class="cmd-icon">⚡</span>
+              <span class="cmd-name">Special</span>
+              <span class="cmd-sub">3 charge needed</span>
+            </button>
+            <button class="cmd-btn defend" id="cmdDefend" type="button" data-key="K">
+              <span class="cmd-icon">🛡️</span>
+              <span class="cmd-name">Defend</span>
+              <span class="cmd-sub">Reduce next hit</span>
+            </button>
+            <button class="cmd-btn item" id="cmdItem" type="button" data-key="I">
+              <span class="cmd-icon">🧪</span>
+              <span class="cmd-name">Restore</span>
+              <span class="cmd-sub" id="itemSubLabel">Heal 20 HP (1 use)</span>
+            </button>
           </div>
-          <div class="feedback hidden" id="feedback"></div>
-          <button class="btn primary hidden" id="nextBtn" type="button">Next</button>
+
+          <!-- Question card (hidden until Attack/Special chosen) -->
+          <div class="question-card hidden" id="questionCard">
+            <div class="q-tags" id="qTags"></div>
+            <h2 class="q-stem" id="qStem"></h2>
+            <div class="choices" id="choices"></div>
+            <div class="q-footer">
+              <button class="btn tool skip-btn" id="skipBtn" type="button">Skip (opponent gets free hit)</button>
+            </div>
+            <div class="feedback hidden" id="feedback"></div>
+            <button class="btn primary hidden" id="nextBtn" type="button">Next →</button>
+          </div>
         </section>
       </section>
+
+      <!-- MOBILE TOUCH CONTROLS -->
+      <div class="touch-bar" id="touchBar" aria-label="Touch controls">
+        <button class="touch-btn" id="tAttack" type="button">⚔️ Attack</button>
+        <button class="touch-btn" id="tSpecial" type="button" disabled>⚡ Special</button>
+        <button class="touch-btn" id="tDefend" type="button">🛡️ Defend</button>
+        <button class="touch-btn" id="tItem" type="button">🧪 Restore</button>
+      </div>
     </section>
 
+    <!-- INTER-ROUND BREATHER -->
+    <section class="panel hidden" id="roundBreather">
+      <div class="breather-inner">
+        <div class="breather-badge" id="breatherBadge">Round 1 Win!</div>
+        <h2 id="breatherTitle">Prepare for Round 2</h2>
+        <p id="breatherTip"></p>
+        <div class="breather-bars">
+          <div class="breather-bar-row">
+            <span>You</span>
+            <div class="bar-track slim"><div class="bar-fill you" id="bYouBar"></div></div>
+            <span id="bYouHp"></span>
+          </div>
+          <div class="breather-bar-row">
+            <span id="bEnemyName">Enemy</span>
+            <div class="bar-track slim"><div class="bar-fill enemy" id="bEnemyBar"></div></div>
+            <span id="bEnemyHp"></span>
+          </div>
+        </div>
+        <button class="btn primary" id="continueRoundBtn" type="button">Fight! →</button>
+      </div>
+    </section>
+
+    <!-- END SCREEN -->
     <section class="panel end hidden" id="end">
       <div class="panel-head">
-        <h2 id="endTitle">Run complete</h2>
+        <h2 id="endTitle">Match Over</h2>
         <p id="endMeta"></p>
       </div>
       <div class="end-grid" id="endGrid"></div>
@@ -143,14 +257,23 @@
         <div class="missed-list" id="missedList"></div>
       </div>
       <div class="setup-actions">
-        <button class="btn" id="againBtn" type="button">New run</button>
+        <button class="btn" id="againBtn" type="button">New Duel</button>
       </div>
     </section>
+
+    <!-- PAUSE OVERLAY -->
+    <div class="pause-overlay hidden" id="pauseOverlay">
+      <div class="pause-box">
+        <h2>Paused</h2>
+        <button class="btn primary" id="resumeBtn" type="button">Resume</button>
+        <button class="btn" id="quitBtn" type="button">Quit to Menu</button>
+      </div>
+    </div>
   </main>
 
   <script src="../../assets/source-bank.js?v=20260502-source-contract"></script>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
-  <script src="game.js?v=20260505-keyboard-choice"></script>
-<script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
+  <script src="game.js?v=20260505-v2"></script>
+  <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

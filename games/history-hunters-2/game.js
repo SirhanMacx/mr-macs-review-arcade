@@ -6,6 +6,18 @@
   const WORLD_W = 160;
   const WORLD_H = 120;
   const PLAYER_TITLE = "ATLAS RANGER";
+
+  // ── SEQUEL: expanded type list (10→12, adds Ideological + Diplomatic) ──
+  const SEQUEL_TYPES = ["Political","Economic","Social","Cultural","Technological","Military","Religious","Geographic","Ideological","Diplomatic"];
+
+  // ── SEQUEL: modern-era regions ──
+  const REGIONS = [
+    { id:"industrial", name:"Industrial Revolution", era:"1750–1850", color:"#f3cf61", gxRange:[3,55], gyRange:[3,60] },
+    { id:"imperialism", name:"Age of Imperialism",   era:"1850–1914", color:"#ff9b6a", gxRange:[56,110], gyRange:[3,60] },
+    { id:"world-wars",  name:"World Wars Era",        era:"1914–1945", color:"#ff6a8d", gxRange:[111,160], gyRange:[3,60] },
+    { id:"cold-war",    name:"Cold War",              era:"1945–1991", color:"#75f4ff", gxRange:[3,80], gyRange:[61,120] },
+    { id:"globalization",name:"Globalization",        era:"1991–Now",  color:"#77f0af", gxRange:[81,160], gyRange:[61,120] }
+  ];
   const params = new URLSearchParams(window.location.search);
   const FX_LITE = params.get("fx") === "lite" || params.get("fx") === "low";
   const PREFERS_REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -56,7 +68,30 @@
     questFeedback: $("questFeedback"),
     aBtn: $("aBtn"),
     bBtn: $("bBtn"),
-    startMenuBtn: $("startMenuBtn")
+    startMenuBtn: $("startMenuBtn"),
+    // Sequel additions
+    allianceBtn: $("allianceBtn"),
+    contestBtn: $("contestBtn"),
+    codexBtn: $("codexBtn"),
+    contestUi: $("contestUi"),
+    contestKicker: $("contestKicker"),
+    contestTitle: $("contestTitle"),
+    contestRound: $("contestRound"),
+    contestPrompt: $("contestPrompt"),
+    contestMeter: $("contestMeter"),
+    contestZone: $("contestZone"),
+    contestNeedle: $("contestNeedle"),
+    contestTapBtn: $("contestTapBtn"),
+    contestBurst: $("contestBurst"),
+    contestConfidence: $("contestConfidence"),
+    contestStreak: $("contestStreak"),
+    contestFeedback: $("contestFeedback"),
+    alliancePanel: $("alliancePanel"),
+    allianceName: $("allianceName"),
+    allianceDesc: $("allianceDesc"),
+    allianceList: $("allianceList"),
+    closeAlliance: $("closeAlliance"),
+    allianceActivateBtn: $("allianceActivateBtn")
   };
 
   const ctx = els.canvas.getContext("2d", { alpha: false });
@@ -142,14 +177,17 @@
   ];
 
   const clusterEffects = {
-    economics: { strong: ["civics", "geography"], weak: ["psychology"] },
-    civics: { strong: ["us", "economics"], weak: ["global"] },
-    us: { strong: ["civics", "foundations"], weak: ["global"] },
-    global: { strong: ["geography", "us"], weak: ["economics"] },
-    geography: { strong: ["global", "economics"], weak: ["civics"] },
-    psychology: { strong: ["civics", "economics"], weak: ["geography"] },
-    foundations: { strong: ["global", "geography"], weak: ["economics"] },
-    review: { strong: [], weak: [] }
+    economics:   { strong: ["civics", "geography", "ideological"], weak: ["psychology"] },
+    civics:      { strong: ["us", "economics", "diplomatic"],      weak: ["global"] },
+    us:          { strong: ["civics", "foundations"],               weak: ["global"] },
+    global:      { strong: ["geography", "us", "diplomatic"],       weak: ["economics"] },
+    geography:   { strong: ["global", "economics"],                 weak: ["civics"] },
+    psychology:  { strong: ["civics", "economics"],                 weak: ["geography"] },
+    foundations: { strong: ["global", "geography"],                 weak: ["economics"] },
+    review:      { strong: [], weak: [] },
+    // ── SEQUEL: two new clusters ──
+    ideological: { strong: ["civics", "us", "global"],              weak: ["economics", "geography"],  immune: ["diplomatic"] },
+    diplomatic:  { strong: ["economics", "geography"],               weak: ["ideological"],              immune: [] }
   };
 
   const familiesByType = {
@@ -1846,14 +1884,16 @@
     const targetTypeData = typeRules.find((rule) => rule.name === targetType) || typeRules[typeRules.length - 1];
     const chart = clusterEffects[moveTypeData.cluster] || clusterEffects.review;
     if (moveType === targetType) return 1.22;
+    if (Array.isArray(chart.immune) && chart.immune.includes(targetTypeData.cluster)) return 0;
     if (chart.strong.includes(targetTypeData.cluster)) return 1.55;
-    if (chart.weak.includes(targetTypeData.cluster)) return .72;
+    if (chart.weak.includes(targetTypeData.cluster)) return 0.72;
     return 1;
   }
 
   function effectSentence(multiplier) {
+    if (multiplier === 0) return "It had no effect!";
     if (multiplier > 1.2) return "It's super effective!";
-    if (multiplier < .8) return "It's not very effective.";
+    if (multiplier < 0.8) return "It's not very effective.";
     return "It connected.";
   }
 
@@ -2391,24 +2431,53 @@
   }
 
   function render() {
-    ctx.clearRect(0, 0, view.w, view.h);
-    if (state.mode === "battle") renderBattle();
-    else renderWorld();
-    requestAnimationFrame(loop);
+    // stub — main loop drives rendering
   }
 
+  // loop and renderFrame are defined later with sequel enhancements
+  // Placeholder declarations so references don't break before sequel code runs:
   function loop(now) {
     const dt = Math.min(60, now - (state.last || now));
     state.last = now;
-    update(dt);
-    renderFrame();
+    sequelUpdate(dt);
+    ctx.clearRect(0, 0, view.w, view.h);
+    ctx.save();
+    if (shake.power > 0.5) ctx.translate(shake.x, shake.y);
+    if (state.mode === "battle") renderBattle();
+    else renderWorld();
+    drawParticles();
+    ctx.restore();
+    requestAnimationFrame(loop);
   }
 
   function renderFrame() {
-    ctx.clearRect(0, 0, view.w, view.h);
-    if (state.mode === "battle") renderBattle();
-    else renderWorld();
-    requestAnimationFrame(loop);
+    // no-op — loop handles rendering
+  }
+
+  function sequelUpdate(dt) {
+    if (state.mode === "overworld") {
+      state.inputCooldown = Math.max(0, state.inputCooldown - dt);
+      const p = state.player;
+      if (p.moving) {
+        p.step = Math.min(1, p.step + dt / 135);
+        const ease = p.step < 0.5 ? 2 * p.step * p.step : 1 - Math.pow(-2 * p.step + 2, 2) / 2;
+        p.x = p.fromX + (p.toX - p.fromX) * ease;
+        p.y = p.fromY + (p.toY - p.fromY) * ease;
+        if (p.step >= 1) {
+          p.moving = false;
+          p.gx = Math.round(p.x / TILE);
+          p.gy = Math.round(p.y / TILE);
+          if (state.grass.has(key(p.gx, p.gy)) && Math.random() < 0.095) openBattle(makeAlly(nextQuestion()), false);
+        }
+      } else {
+        const dir = ["up", "down", "left", "right"].find((name) => state.keys.has(name));
+        if (dir) tryMove(dir);
+      }
+    }
+    updateShake(dt);
+    updateParticles(dt);
+    stepHpAnim(dt);
+    if (contestState.active) updateContestMeter();
   }
 
   function renderWorld() {
@@ -2954,8 +3023,13 @@
     ctx.ellipse(enemyBaseX, enemyBaseY + enemyW * .58, enemyW * .82, enemyW * .2, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.globalAlpha = 1;
-    drawBattleCard(battle.enemy, Math.max(12, w * .06), portrait ? 56 : 45, battle.enemyHp, battle.enemyMax, false, cardW, cardH);
-    drawBattleCard(battle.hero, Math.min(w - cardW - 14, w * (portrait ? .55 : .64)), Math.max(150, fieldH - cardH - 14), battle.heroHp, battle.hero.maxHp, true, cardW, cardH);
+    // Sync animated HP bar targets
+    hpAnim.heroTarget  = battle.heroHp;
+    hpAnim.enemyTarget = battle.enemyHp;
+    const animEnemyHp = hpAnim.enemyHp >= 0 ? hpAnim.enemyHp : battle.enemyHp;
+    const animHeroHp  = hpAnim.heroHp  >= 0 ? hpAnim.heroHp  : battle.heroHp;
+    drawBattleCard(battle.enemy, Math.max(12, w * .06), portrait ? 56 : 45, animEnemyHp, battle.enemyMax, false, cardW, cardH);
+    drawBattleCard(battle.hero, Math.min(w - cardW - 14, w * (portrait ? .55 : .64)), Math.max(150, fieldH - cardH - 14), animHeroHp, battle.hero.maxHp, true, cardW, cardH);
     drawBattleReadOverlay(battle, w, fieldH);
     const enemyShift = fighterShift(battle, "enemy");
     const heroShift = fighterShift(battle, "hero");
@@ -3072,6 +3146,951 @@
     window.location.assign(new URL("../../", window.location.href).href);
   }
 
+  // ═══════════════════════════════════════════════════════════
+  //  SEQUEL SYSTEMS — Alliance, Evolution, Capture Wobble,
+  //  Contest Mode, Camera Shake, Confetti, Industrial Drones
+  // ═══════════════════════════════════════════════════════════
+
+  // ── Alliance definitions ───────────────────────────────────
+  const ALLIANCES = [
+    {
+      id: "fdr-churchill",
+      figure1: "Franklin D. Roosevelt",
+      figure2: "Winston Churchill",
+      name: "Lend-Lease Strike",
+      flavor: "Allied industrial might crashes down on the enemy.",
+      power: 52,
+      style: "revolution",
+      color: "#f3cf61",
+      desc: "FDR + Churchill — WWII Atlantic Alliance. Era: World Wars."
+    },
+    {
+      id: "marx-engels",
+      figure1: "Karl Marx",
+      figure2: "Friedrich Engels",
+      name: "Manifesto Beam",
+      flavor: "Class consciousness erupts as a searing ideological blast.",
+      power: 48,
+      style: "revolution",
+      color: "#ff6a8d",
+      desc: "Marx + Engels — Communist Manifesto (1848). Era: Industrial."
+    },
+    {
+      id: "wilson-house",
+      figure1: "Woodrow Wilson",
+      figure2: "Edward House",
+      name: "Fourteen Points",
+      flavor: "A diplomatic framework reshapes the post-war world.",
+      power: 44,
+      style: "legal",
+      color: "#75f4ff",
+      desc: "Wilson + House — Paris Peace Conference. Era: World Wars."
+    },
+    {
+      id: "gandhi-nehru",
+      figure1: "Mohandas Gandhi",
+      figure2: "Jawaharlal Nehru",
+      name: "Swaraj Wave",
+      flavor: "Non-cooperation ripples into full independence pressure.",
+      power: 46,
+      style: "oratory",
+      color: "#77f0af",
+      desc: "Gandhi + Nehru — Indian independence movement. Era: Imperialism→Cold War."
+    },
+    {
+      id: "mandela-tutu",
+      figure1: "Nelson Mandela",
+      figure2: "Desmond Tutu",
+      name: "Truth Commission",
+      flavor: "Justice and reconciliation land as an unstoppable dual strike.",
+      power: 50,
+      style: "legal",
+      color: "#c9a0ff",
+      desc: "Mandela + Tutu — South African TRC (1996). Era: Cold War→Globalization."
+    },
+    {
+      id: "mlk-thurgood",
+      figure1: "Martin Luther King Jr.",
+      figure2: "Thurgood Marshall",
+      name: "Double Breakthrough",
+      flavor: "Street power and courtroom precision strike as one.",
+      power: 48,
+      style: "oratory",
+      color: "#edf987",
+      desc: "MLK + Marshall — Civil Rights Movement 1950s–60s. Era: Cold War."
+    }
+  ];
+
+  // Karl Marx needs a figure entry (he's not in the original roster — use a proxy)
+  // We'll match by checking both historicalName AND actualName
+  function allianceFigureInParty(figName) {
+    return state.stats.party.some(
+      (ally) => ally.actualName === figName || ally.name === figName ||
+        String(ally.actualName || "").toLowerCase().includes(figName.toLowerCase().split(" ").slice(-1)[0].toLowerCase())
+    );
+  }
+
+  function eligibleAlliances() {
+    return ALLIANCES.filter(
+      (al) => allianceFigureInParty(al.figure1) && allianceFigureInParty(al.figure2)
+    );
+  }
+
+  function allianceCooldownKey(id) { return `alliance-cd:${id}`; }
+
+  function allianceOnCooldown(id) {
+    return Boolean(state.battle && state.battle.allianceCooldowns && state.battle.allianceCooldowns[id]);
+  }
+
+  // ── Evolution chains for modern-era figures ────────────────
+  const EVOLUTION_CHAINS = {
+    "Abraham Lincoln": ["Frontier Reader", "Union President", "Great Emancipator"],
+    "Franklin D. Roosevelt": ["Hyde Park Organizer", "New Deal Captain", "Four Freedoms Strategist"],
+    "Mohandas Gandhi": ["Law Student", "Salt March Organizer", "Nonviolence Strategist"],
+    "Nelson Mandela": ["Johannesburg Advocate", "Freedom Negotiator", "Reconciliation President"],
+    "Harriet Tubman": ["Maryland Scout", "Freedom Conductor", "Union Spy"],
+    "Martin Luther King Jr.": ["Atlanta Orator", "Montgomery Organizer", "Dream Keeper"],
+    "Woodrow Wilson": ["Princeton Professor", "Governor Scholar", "Fourteen Points Statesman"],
+    "Theodore Roosevelt": ["Rough Rider", "Trust-Buster", "Square Deal Ranger"],
+    "Frederick Douglass": ["Baltimore Reader", "Abolition Orator", "Freedom Editor"],
+    "Karl Marx": ["Rhineland Journalist", "Manifesto Author", "International Theorist"],
+    "Toussaint Louverture": ["Plantation Coachman", "Revolution General", "Haitian Liberator"],
+    "Napoleon Bonaparte": ["Corsican Cadet", "Consulate Commander", "Code Emperor"],
+    "Eleanor Roosevelt": ["Newspaper Voice", "UN Delegate", "Human Rights Herald"],
+    "Susan B. Anthony": ["Petition Carrier", "Suffrage Organizer", "Vote-Rights Veteran"]
+  };
+
+  function evolveAllyIfReady(ally) {
+    if (!ally) return false;
+    const chain = EVOLUTION_CHAINS[ally.actualName];
+    if (!chain) return false;
+    const stage = clamp(Math.floor((Number(ally.level || 1) - 1) / 4), 0, 2);
+    const expectedName = chain[stage];
+    if (expectedName && ally.name !== expectedName) {
+      ally.name = expectedName;
+      return true;
+    }
+    return false;
+  }
+
+  // ── Camera shake ───────────────────────────────────────────
+  const shake = { x: 0, y: 0, power: 0, decay: 0 };
+
+  function triggerShake(power, duration) {
+    shake.power = Math.max(shake.power, power);
+    shake.decay = power / (duration || 400);
+  }
+
+  function updateShake(dt) {
+    if (shake.power <= 0) { shake.x = 0; shake.y = 0; return; }
+    shake.x = (Math.random() - 0.5) * shake.power * 2;
+    shake.y = (Math.random() - 0.5) * shake.power * 2;
+    shake.power = Math.max(0, shake.power - shake.decay * dt);
+  }
+
+  // ── Capture wobble state ───────────────────────────────────
+  const captureWobble = {
+    active: false,
+    wobbles: 0,
+    wobbleT: 0,
+    enemy: null,
+    resolve: null
+  };
+
+  async function runCaptureWobble(enemy) {
+    return new Promise((resolve) => {
+      captureWobble.active = true;
+      captureWobble.wobbles = 0;
+      captureWobble.wobbleT = 0;
+      captureWobble.enemy = enemy;
+      captureWobble.resolve = resolve;
+      playSfx2("wobble");
+      // auto-complete after 3 wobbles + 900 ms
+      const totalDur = 900 + 3 * 320;
+      setTimeout(() => {
+        captureWobble.active = false;
+        captureWobble.enemy = null;
+        if (captureWobble.resolve) { captureWobble.resolve(); captureWobble.resolve = null; }
+      }, totalDur);
+    });
+  }
+
+  // ── Confetti / sparkle particles ──────────────────────────
+  const particles = [];
+
+  function spawnConfetti(x, y, count, color) {
+    const cols = [color || "#f3cf61", "#75f4ff", "#77f0af", "#ff9bd2", "#edf987", "#ff6a8d"];
+    for (let i = 0; i < (count || 28); i += 1) {
+      particles.push({
+        x, y,
+        vx: (Math.random() - 0.5) * 5.5,
+        vy: -3 - Math.random() * 5,
+        life: 1,
+        decay: 0.024 + Math.random() * 0.018,
+        color: cols[Math.floor(Math.random() * cols.length)],
+        size: 4 + Math.random() * 6,
+        spin: (Math.random() - 0.5) * 0.3
+      });
+    }
+  }
+
+  function updateParticles(dt) {
+    for (let i = particles.length - 1; i >= 0; i -= 1) {
+      const p = particles[i];
+      p.x += p.vx * dt / 16;
+      p.y += (p.vy + 1.8) * dt / 16;
+      p.vy += 0.18 * dt / 16;
+      p.life -= p.decay;
+      if (p.life <= 0) particles.splice(i, 1);
+    }
+  }
+
+  function drawParticles() {
+    ctx.save();
+    for (const p of particles) {
+      ctx.save();
+      ctx.globalAlpha = clamp(p.life, 0, 1);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.spin * performance.now() / 1000);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  // ── Contest (tap-rhythm) ───────────────────────────────────
+  const contestState = {
+    active: false,
+    round: 0,
+    totalRounds: 3,
+    figure: null,
+    confidence: 0,
+    streak: 0,
+    q: null,
+    needlePhase: 0,
+    needleSpeed: 1.4,
+    tapping: false,
+    zoneLeft: 0.3,
+    zoneRight: 0.7,
+    answered: false
+  };
+
+  function openContest() {
+    if (state.stats.party.length === 0) {
+      openDialogue({ name: "Contest Hall", type: "Hall", text: "You need at least one figure in your party before entering a contest." });
+      return;
+    }
+    state.mode = "contest";
+    els.game.classList.add("in-contest");
+    contestState.active = true;
+    contestState.round = 0;
+    contestState.confidence = 0;
+    contestState.streak = 0;
+    contestState.figure = activeAlly();
+    contestState.q = nextQuestion();
+    els.contestKicker.textContent = "Speech Contest";
+    els.contestTitle.textContent = contestState.figure ? contestState.figure.actualName : "Atlas Orator";
+    els.contestFeedback.textContent = "";
+    els.contestBurst.textContent = "";
+    els.contestUi.hidden = false;
+    startContestRound();
+  }
+
+  function startContestRound() {
+    const r = contestState.round + 1;
+    els.contestRound.textContent = `Round ${r} / ${contestState.totalRounds}`;
+    const q = nextQuestion();
+    contestState.q = q;
+    contestState.answered = false;
+    contestState.needlePhase = Math.random() * Math.PI * 2;
+    contestState.needleSpeed = 1.2 + r * 0.28 + Math.random() * 0.35;
+    // Randomize green window width: narrower as rounds increase
+    const width = clamp(0.28 - r * 0.04, 0.12, 0.28);
+    const center = 0.35 + Math.random() * 0.3;
+    contestState.zoneLeft  = clamp(center - width / 2, 0.05, 0.85);
+    contestState.zoneRight = clamp(center + width / 2, 0.15, 0.95);
+    els.contestPrompt.textContent = q ? (q.prompt || "What move will you play?") : "Answer the question to build confidence!";
+    updateContestMeter();
+    updateContestHud();
+    playSfx2("contestStart");
+  }
+
+  function updateContestMeter() {
+    if (!els.contestZone || !els.contestNeedle) return;
+    const zl = contestState.zoneLeft * 100;
+    const zw = (contestState.zoneRight - contestState.zoneLeft) * 100;
+    els.contestZone.style.left  = `${zl}%`;
+    els.contestZone.style.width = `${zw}%`;
+    const phase = (performance.now() / 1000 * contestState.needleSpeed + contestState.needlePhase);
+    const pos = (Math.sin(phase) + 1) / 2; // 0→1
+    els.contestNeedle.style.left = `${pos * 100}%`;
+  }
+
+  function contestTap() {
+    if (!contestState.active || contestState.answered) return;
+    contestState.answered = true;
+    const phase = (performance.now() / 1000 * contestState.needleSpeed + contestState.needlePhase);
+    const pos = (Math.sin(phase) + 1) / 2;
+    const inZone = pos >= contestState.zoneLeft && pos <= contestState.zoneRight;
+    const q = contestState.q;
+    const correct = q && (q.type === "mcq" ?
+      String(q.correct) === String(q.choices && q.choices[0] && q.choices[0].label) :
+      true); // timing only for rhythm; correct = timing
+    const hit = inZone;
+
+    if (hit) {
+      const gain = 18 + contestState.streak * 4;
+      contestState.confidence = clamp(contestState.confidence + gain, 0, 100);
+      contestState.streak += 1;
+      playSfx2("contestHit");
+      triggerShake(3, 180);
+      spawnBurst(els.contestTapBtn, "#77f0af");
+      els.contestFeedback.textContent = `Perfect timing! +${gain} confidence`;
+    } else {
+      const loss = 12;
+      contestState.confidence = clamp(contestState.confidence - loss, 0, 100);
+      contestState.streak = 0;
+      playSfx2("contestMiss");
+      els.contestFeedback.textContent = `Off beat! −${loss} confidence`;
+    }
+    updateContestHud();
+    state.stats.shards += hit ? 8 : 2;
+
+    contestState.round += 1;
+    if (contestState.round >= contestState.totalRounds) {
+      setTimeout(endContest, 900);
+    } else {
+      setTimeout(startContestRound, 900);
+    }
+  }
+
+  function endContest() {
+    contestState.active = false;
+    const conf = contestState.confidence;
+    const won = conf >= 40;
+    const medal = won ? (conf >= 70 ? "Gold Medal" : "Silver Medal") : "Bronze Medal";
+    // Award
+    if (won) {
+      state.stats.shards += 45 + Math.round(conf / 2);
+      if (!state.stats.items.medal) state.stats.items.medal = 0;
+      state.stats.items.medal += 1;
+      spawnConfetti(view.w / 2, view.h / 2, 40, "#f3cf61");
+      playSfx2("allianceFanfare");
+    } else {
+      state.stats.shards += 10;
+      playSfx("weak");
+    }
+    writeSave();
+    updateHud();
+    els.contestFeedback.textContent = `Contest ended — ${medal} awarded! ${won ? `+${45 + Math.round(conf/2)} shards, +1 Medal item.` : "+10 shards."}`;
+    setTimeout(closeContest, 2200);
+  }
+
+  function closeContest() {
+    contestState.active = false;
+    state.mode = "overworld";
+    els.contestUi.hidden = true;
+    els.game.classList.remove("in-contest");
+  }
+
+  function updateContestHud() {
+    if (els.contestConfidence) els.contestConfidence.textContent = Math.round(contestState.confidence);
+    if (els.contestStreak) els.contestStreak.textContent = contestState.streak;
+  }
+
+  function spawnBurst(element, color) {
+    if (!element || !els.contestBurst) return;
+    const burst = document.createElement("span");
+    burst.className = "contest-burst-dot";
+    burst.style.cssText = `background:${color || "#77f0af"};`;
+    els.contestBurst.appendChild(burst);
+    setTimeout(() => burst.remove(), 700);
+  }
+
+  // ── Alliance Panel ─────────────────────────────────────────
+  function openAlliancePanel() {
+    state.mode = "alliance";
+    els.game.classList.add("in-alliance");
+    renderAllianceList(null);
+    els.alliancePanel.hidden = false;
+  }
+
+  function closeAlliancePanel() {
+    state.mode = "overworld";
+    els.alliancePanel.hidden = true;
+    els.game.classList.remove("in-alliance");
+  }
+
+  function renderAllianceList(selectedId) {
+    const el = els.allianceList;
+    if (!el) return;
+    const eligible = eligibleAlliances();
+    el.innerHTML = ALLIANCES.map((al) => {
+      const ready = eligible.some((e) => e.id === al.id);
+      const cd = allianceOnCooldown(al.id);
+      const sel = al.id === selectedId;
+      return `<button class="alliance-card${sel ? " selected" : ""}${ready ? " ready" : ""}${cd ? " cooldown" : ""}"
+        type="button" data-alliance="${escapeHtml(al.id)}"
+        ${!ready ? "title='Need both figures in your party'" : cd ? "title='On cooldown'" : ""}>
+        <strong>${escapeHtml(al.name)}</strong>
+        <small>${escapeHtml(al.desc)}</small>
+        ${ready ? '<span class="ready-badge">READY</span>' : ''}
+        ${cd ? '<span class="cd-badge">COOLDOWN</span>' : ''}
+      </button>`;
+    }).join("");
+    [...el.querySelectorAll("button")].forEach((btn) => {
+      btn.addEventListener("click", () => {
+        renderAllianceList(btn.dataset.alliance);
+        const al = ALLIANCES.find((a) => a.id === btn.dataset.alliance);
+        if (al) {
+          els.allianceName.textContent = al.name;
+          els.allianceDesc.textContent = al.flavor;
+          const ready = eligible.some((e) => e.id === al.id) && !allianceOnCooldown(al.id);
+          els.allianceActivateBtn.disabled = !ready || state.mode !== "alliance";
+          els.allianceActivateBtn.dataset.alliance = al.id;
+        }
+      });
+    });
+  }
+
+  function activateAllianceInBattle(allianceId) {
+    const al = ALLIANCES.find((a) => a.id === allianceId);
+    const battle = state.battle;
+    if (!al || !battle || battle.locked) return;
+    if (allianceOnCooldown(allianceId)) { setBattleLog("Alliance on cooldown this battle."); return; }
+
+    battle.locked = true;
+    battle.menu = "root";
+    renderBattleActions();
+    setBattleLog(`${al.name.toUpperCase()} — ALLIANCE MOVE!`);
+    triggerShake(14, 600);
+    spawnConfetti(view.w / 2, view.h / 3, 36, al.color);
+    playSfx2("allianceFanfare");
+
+    battle.fx = {
+      kind: "hero",
+      moveName: al.name,
+      style: al.style,
+      color: al.color,
+      accent: "#f3cf61",
+      started: performance.now(),
+      duration: 1100
+    };
+
+    if (!battle.allianceCooldowns) battle.allianceCooldowns = {};
+    battle.allianceCooldowns[allianceId] = true;
+
+    const mult = typeMultiplier("Review", battle.enemy.type);
+    const damage = Math.max(18, Math.round(al.power * mult * (0.88 + Math.random() * 0.22)));
+    battle.enemyHp = clamp(battle.enemyHp - damage, 0, battle.enemyMax);
+
+    wait(1200).then(() => {
+      if (!state.battle) return;
+      setBattleLog(`Alliance strike! ${battle.enemy.actualName.toUpperCase()} lost ${damage} HP.`);
+      battle.fx = null;
+      writeSave();
+      wait(780).then(() => {
+        if (!state.battle) return;
+        if (battle.enemyHp <= 0) { winBattle(false); return; }
+        battle.locked = false;
+        renderBattleActions();
+        enemyTurn();
+      });
+    });
+  }
+
+  // ── Codex rendering ────────────────────────────────────────
+  function renderCodex() {
+    const entries = state.stats.party.map((ally) => {
+      const region = regionFor(ally);
+      const evo = EVOLUTION_CHAINS[ally.actualName];
+      return `<div class="menu-card">
+        <strong>${escapeHtml(ally.actualName)}</strong>
+        ${escapeHtml(ally.name)} / Lv ${ally.level} / ${escapeHtml(ally.type)}<br>
+        Era: ${escapeHtml(region ? region.name : "Historical")}<br>
+        ${evo ? `Evolution: ${evo.map(escapeHtml).join(" → ")}` : "No evolution chain recorded."}
+      </div>`;
+    });
+    els.menuList.innerHTML = entries.length
+      ? entries.join("")
+      : `<div class="menu-card">No figures recorded yet. Battle or capture to fill the Codex.</div>`;
+  }
+
+  function regionFor(ally) {
+    if (!ally) return null;
+    const name = String(ally.actualName || "");
+    if (/Marx|Engels|Watt|Smith|Darwin|Lincoln.*1860|Dickens|Carnegie|Rockefeller/i.test(name)) return REGIONS[0];
+    if (/Bismarck|Victoria|Kipling|Rhodes|Meiji|Gandhi.*190|Lenin|Wilson.*1914/i.test(name)) return REGIONS[1];
+    if (/Churchill|Roosevelt.*FDR|Hitler|Stalin|Mussolini|Mao.*1930|Tojo|Marshall.*Plan/i.test(name)) return REGIONS[2];
+    if (/Kennedy|Khrushchev|Mao.*1950|Mandela.*196|King|Nixon|Reagan/i.test(name)) return REGIONS[3];
+    return REGIONS[4]; // globalization default
+  }
+
+  // ── renderBattleActions (sequel version) ──────────────────
+  // Replaces original. The original is renamed _baseBattleActions
+  // and called for fight/bag fallthrough.
+  function _baseBattleActions() {
+    const battle = state.battle;
+    if (!battle) return;
+    if (battle.locked) { els.battleActions.innerHTML = ""; return; }
+    if (battle.menu === "fight") {
+      els.battleActions.innerHTML = battle.hero.moves.map((item, index) => {
+        const read = battleReadFor(item, battle.enemy.type);
+        const comboPreview = read.tier === "strong" ? Math.min(3, comboLevel(battle) + 1) : comboLevel(battle);
+        return `<button class="read-${escapeHtml(read.tier)}" type="button" data-move="${index}" title="${escapeHtml(item.flavor || item.name)}" ${item.pp <= 0 ? "disabled" : ""}><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(read.label)} · ${escapeHtml(moveStyleLabel(item.style))} · PWR ${item.power} · ${item.pp}/${item.maxPp} energy${comboPreview ? ` · Chain x${comboPreview}` : ""}</small></button>`;
+      }).join("");
+      [...els.battleActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => useMove(Number(button.dataset.move))));
+      return;
+    }
+    if (battle.menu === "bag") {
+      els.battleActions.innerHTML = [
+        ["capsule", "Capsule", `x${state.stats.items.capsule || 0}`],
+        ["tea", "Tea", `x${state.stats.items.tea || 0}`],
+        ["fieldNote", "Notes", `x${state.stats.items.fieldNote || 0}`],
+        ["back", "Back", "menu"]
+      ].map(([id, label, detail]) => `<button type="button" data-item="${id}"><strong>${label}</strong><small>${detail}</small></button>`).join("");
+      [...els.battleActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => useItem(button.dataset.item)));
+      return;
+    }
+  }
+
+  function renderBattleActions() {
+    const battle = state.battle;
+    if (!battle) { els.battleActions.innerHTML = ""; return; }
+    if (battle.locked) { els.battleActions.innerHTML = ""; return; }
+
+    if (battle.menu === "fight" || battle.menu === "bag") {
+      _baseBattleActions();
+      return;
+    }
+
+    if (battle.menu === "alliance") {
+      const eligible = eligibleAlliances().filter((al) => !allianceOnCooldown(al.id));
+      if (!eligible.length) {
+        els.battleActions.innerHTML = `<button type="button" data-action="allianceBack"><strong>Back</strong><small>no alliance ready</small></button>`;
+        els.battleActions.querySelector("button").addEventListener("click", () => { battle.menu = "root"; renderBattleActions(); });
+        return;
+      }
+      els.battleActions.innerHTML = eligible.map((al) =>
+        `<button type="button" data-alliance="${escapeHtml(al.id)}" class="read-strong"><strong>${escapeHtml(al.name)}</strong><small>PWR ${al.power} · Alliance Move</small></button>`
+      ).join("") + `<button type="button" data-action="allianceBack"><strong>Back</strong><small>cancel</small></button>`;
+      [...els.battleActions.querySelectorAll("[data-alliance]")].forEach((btn) =>
+        btn.addEventListener("click", () => activateAllianceInBattle(btn.dataset.alliance))
+      );
+      els.battleActions.querySelector("[data-action=allianceBack]").addEventListener("click", () => { battle.menu = "root"; renderBattleActions(); });
+      return;
+    }
+
+    // Root menu
+    const eligible = eligibleAlliances().filter((al) => !allianceOnCooldown(al.id));
+    const canAlliance = eligible.length > 0;
+    els.battleActions.innerHTML = [
+      ["fight",    "Fight",    `${momentumLabel(battle.momentum || 0)} · chain x${comboLevel(battle)}`],
+      canAlliance ? ["alliance","Alliance", `${eligible.length} ready`] : null,
+      ["bag",      "Bag",      "items"],
+      ["party",    "Party",    "switch"],
+      ["run",      "Run",      "escape"]
+    ].filter(Boolean).map(([id, label, detail]) =>
+      `<button type="button" data-action="${id}"${id === "alliance" ? ' class="read-strong"' : ""}><strong>${label}</strong><small>${detail}</small></button>`
+    ).join("");
+    [...els.battleActions.querySelectorAll("button")].forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (btn.dataset.action === "alliance") {
+          playSfx("menu");
+          battle.menu = "alliance";
+          setBattleLog("Choose an Alliance move — once per pair per battle.");
+          renderBattleActions();
+        } else {
+          battleAction(btn.dataset.action);
+        }
+      });
+    });
+  }
+
+  // ── winBattle (sequel version with confetti + evolution) ────
+  async function winBattle(captured) {
+    const battle = state.battle;
+    if (!battle) return;
+
+    if (captured) {
+      await runCaptureWobble(battle.enemy);
+      spawnConfetti(view.w * 0.72, view.h * 0.32, 32, battle.enemy.color);
+      playSfx2("captureFanfare");
+    }
+
+    // --- inline the original winBattle logic ---
+    battle.fx = { kind: "victory", style: "victory", color: battle.hero.color, accent: "#f3cf61", moveName: "Victory", started: performance.now(), duration: 1100 };
+    playSfx("victory");
+    const xp = 34 + battle.enemy.level * 8;
+    battle.hero.xp = (battle.hero.xp || 0) + xp;
+    const preLevel = battle.hero.level;
+    if (battle.hero.xp >= battle.hero.level * 45) {
+      battle.hero.xp = 0;
+      battle.hero.level += 1;
+      battle.hero.maxHp += 7;
+      battle.hero.hp = battle.hero.maxHp;
+      battle.heroHp = battle.hero.hp;
+    }
+    state.stats.shards += 25 + battle.enemy.level * 3;
+    if (battle.gym) {
+      const gym = battle.gym;
+      writeSave();
+      updateHud();
+      setBattleLog(`${battle.enemy.actualName.toUpperCase()} fainted. +${xp} XP.`);
+      await wait(1050);
+      if (state.battle !== battle) return;
+      if (gym.index + 1 < gym.roster.length) {
+        gym.index += 1;
+        const next = normalizeAlly(gym.roster[gym.index]);
+        battle.enemy = next;
+        battle.enemyHp = next.hp;
+        battle.enemyMax = next.maxHp;
+        battle.capture = 0;
+        battle.combo = 0;
+        battle.momentum = clamp(Number(battle.momentum || 0) + 8, 0, 100);
+        battle.turn = Number(battle.turn || 1) + 1;
+        battle.menu = "root";
+        battle.fx = { kind: "enemy", style: "source", color: next.color, accent: "#edf987", moveName: "Next Ally", started: performance.now(), duration: 760 };
+        playSfx("battle");
+        setBattleLog(`${gym.leader.toUpperCase()} threw out ${next.actualName.toUpperCase()}!`);
+        await wait(980);
+        if (state.battle !== battle) return;
+        battle.locked = false;
+        battle.fx = null;
+        setBattleLog(`Turn ${battle.turn}. What will ${battle.hero.actualName.toUpperCase()} do?`);
+        renderBattleActions();
+        return;
+      }
+      const flag = badgeFlag(gym.id);
+      const firstClear = !state.stats.flags[flag];
+      if (firstClear) {
+        state.stats.flags[flag] = true;
+        state.stats.shards += 80;
+        state.stats.items.fieldNote += 2;
+        state.stats.rank = Math.max(Number(state.stats.rank || 1), earnedBadges().length + 1);
+        spawnConfetti(view.w / 2, view.h / 2, 48, "#f3cf61");
+        triggerShake(10, 500);
+      } else {
+        state.stats.shards += 35;
+      }
+      writeSave();
+      updateHud();
+      const reward = firstClear ? `awarded the ${gym.badge.toUpperCase()}! +80 shards, +2 Field Notes.` : `paid a rematch purse. +35 shards.`;
+      setBattleLog(`${gym.leader.toUpperCase()} ${reward}`);
+      await wait(1700);
+      trackHunterCompletion("Trial Battle", firstClear ? 100 : 88, 100, []);
+      closeBattle(firstClear ? `${gym.badge} earned.` : `${gym.leader} rematch cleared.`);
+      return;
+    }
+    let joined = false;
+    if (captured || state.stats.party.length < 2) {
+      const exists = state.stats.party.some((ally) => ally.id === battle.enemy.id);
+      if (!exists && state.stats.party.length < 6) {
+        state.stats.party.push(battle.enemy);
+        joined = true;
+      }
+    }
+    writeSave();
+    updateHud();
+    setBattleLog(`${battle.enemy.actualName.toUpperCase()} fainted. +${xp} XP.${joined ? " It joined the roster." : ""}`);
+
+    // Check evolution on level-up
+    const postHero = state.stats.party[state.stats.active];
+    if (postHero && postHero.level > preLevel) {
+      const evolved = evolveAllyIfReady(postHero);
+      if (evolved) {
+        await wait(700);
+        setBattleLog(`${postHero.actualName.toUpperCase()} evolved into ${postHero.name.toUpperCase()}!`);
+        triggerShake(6, 350);
+        spawnConfetti(view.w * 0.28, view.h * 0.65, 22, postHero.color || "#f3cf61");
+        playSfx2("levelUp");
+      }
+    }
+
+    await wait(1300);
+    trackHunterCompletion("Battle", joined ? 95 : 85, 100, []);
+    closeBattle(joined ? `${battle.enemy.actualName} joined your roster.` : `${battle.enemy.actualName} fainted.`);
+  }
+
+  // ── New SFX ────────────────────────────────────────────────
+  // Additional sound primitives used by sequel features
+  function playSfx2(kind) {
+    if (audio.muted) return;
+    const ac = ensureAudio();
+    if (!ac) return;
+
+    if (kind === "allianceFanfare") {
+      // Big heroic arpeggio — 6 ascending tones
+      [261.63, 329.63, 392, 523.25, 659.25, 783.99].forEach((f, i) => tone(f, .13, "square", .072, null, i * .075));
+      noise(.18, .04, .01);
+    } else if (kind === "captureFanfare") {
+      [329.63, 392, 523.25, 659.25].forEach((f, i) => tone(f, .12, "triangle", .065, null, i * .085));
+    } else if (kind === "levelUp") {
+      [392, 493.88, 587.33, 783.99].forEach((f, i) => tone(f, .10, "square", .06, null, i * .065));
+    } else if (kind === "wobble") {
+      tone(246.94, .08, "square", .06);
+      tone(220, .07, "square", .05, null, .09);
+      tone(246.94, .08, "square", .06, null, .19);
+    } else if (kind === "contestStart") {
+      tone(440, .055, "sine", .05);
+      tone(554.37, .055, "sine", .045, null, .055);
+    } else if (kind === "contestHit") {
+      tone(659.25, .055, "square", .062);
+      noise(.06, .038);
+    } else if (kind === "contestMiss") {
+      tone(146.83, .10, "triangle", .05);
+    } else if (kind === "encounterAlert") {
+      // Distinct from first game: rising synth stab
+      tone(349.23, .06, "sawtooth", .07);
+      tone(523.25, .08, "sawtooth", .08, null, .07);
+      noise(.08, .05, .05);
+    }
+  }
+
+  // Industrial region drones (electronic, more modern than classical)
+  const industrialDrones = {
+    industrial:   [110, 138.59, 164.81],
+    imperialism:  [130.81, 164.81, 196],
+    "world-wars": [155.56, 185, 220],
+    "cold-war":   [146.83, 185, 220],
+    globalization:[174.61, 220, 261.63]
+  };
+
+  function playRegionDrone() {
+    if (audio.muted) return;
+    const p = state.player;
+    const region = REGIONS.find((r) =>
+      p.gx >= r.gxRange[0] && p.gx <= r.gxRange[1] &&
+      p.gy >= r.gyRange[0] && p.gy <= r.gyRange[1]
+    );
+    if (!region) return;
+    const drone = industrialDrones[region.id] || industrialDrones.globalization;
+    drone.forEach((f, i) => tone(f, .32, "sine", .014, audio.musicGain, i * .04));
+  }
+
+  // ── musicTick with regional drone ─────────────────────────
+  // (overrides the earlier definition — last function wins in JS)
+  function musicTick() {
+    if (audio.muted || state.mode === "boot") return;
+    const ac = ensureAudio();
+    if (!ac) return;
+    const step = audio.musicStep % musicNotes.length;
+    const note = musicNotes[step];
+    tone(note, .12, step % 4 === 0 ? "triangle" : "square", .032, audio.musicGain);
+    if (step % 2 === 0) tone(note / 2, .18, "square", .024, audio.musicGain, .01);
+    if (state.mode === "battle" && step % 4 === 2) tone(note * 1.5, .08, "square", .022, audio.musicGain, .08);
+    audio.musicStep += 1;
+    // Regional industrial drone every 16 steps
+    if (audio.musicStep % 16 === 0 && state.mode === "overworld") playRegionDrone();
+  }
+
+  // ── Capture formula ────────────────────────────────────────
+  function captureChance(battle) {
+    const missing = 1 - battle.enemyHp / battle.enemyMax;
+    const hpFactor = missing * 58;
+    const statusBonus = battle.capture * 0.38;
+    const ballTier = (state.stats.items.capsule || 0) > 5 ? 8 : 0;
+    return clamp(18 + hpFactor + statusBonus + ballTier, 8, 92);
+  }
+
+  // ── useItem (sequel) — replaces original ──────────────────
+  async function useItem(id) {
+    const battle = state.battle;
+    if (!battle || battle.locked) return;
+    if (id === "back") {
+      battle.menu = "root";
+      setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
+      renderBattleActions();
+      return;
+    }
+    if (!state.stats.items[id] && id !== "capsule") {
+      setBattleLog("That pocket is empty.");
+      return;
+    }
+    battle.locked = true;
+    battle.menu = "root";
+    renderBattleActions();
+    if (id === "tea") {
+      state.stats.items.tea -= 1;
+      battle.heroHp = clamp(battle.heroHp + 45, 0, battle.hero.maxHp);
+      battle.hero.hp = battle.heroHp;
+      battle.fx = { kind: "hero", style: "psych", color: "#77f0af", accent: "#edf987", moveName: "Restoration Tea", started: performance.now(), duration: 760 };
+      playSfx("heal");
+      setBattleLog("Restoration Tea restored HP.");
+      writeSave();
+      updateHud();
+      await wait(800);
+      battle.locked = false;
+      await enemyTurn();
+      return;
+    }
+    if (id === "fieldNote") {
+      state.stats.items.fieldNote -= 1;
+      battle.capture = clamp(battle.capture + 18, 0, 100);
+      battle.fx = { kind: "enemyHit", style: "source", color: "#edf987", accent: "#75f4ff", moveName: "Field Notes", started: performance.now(), duration: 620 };
+      playSfx("source");
+      setBattleLog(`Field Notes raised trust to ${Math.round(battle.capture)}%.`);
+      writeSave();
+      updateHud();
+      await wait(800);
+      battle.locked = false;
+      renderBattleActions();
+      return;
+    }
+    if (id === "capsule") {
+      if (battle.gym) {
+        setBattleLog("Trial opponents respect the match. Win the seal battle.");
+        battle.locked = false;
+        renderBattleActions();
+        return;
+      }
+      if (!(state.stats.items.capsule > 0)) {
+        setBattleLog("No capsules left.");
+        battle.locked = false;
+        renderBattleActions();
+        return;
+      }
+      state.stats.items.capsule -= 1;
+      const chance = captureChance(battle);
+      battle.fx = { kind: "capsule", style: "capture", color: "#f3cf61", accent: "#75f4ff", moveName: "Archive Capsule", started: performance.now(), duration: 1150 };
+      playSfx("capture");
+      setBattleLog(`ATLAS RANGER threw an ARCHIVE CAPSULE! (${Math.round(chance)}% chance)`);
+      writeSave();
+      updateHud();
+      await wait(1150);
+      if (Math.random() * 100 < chance) {
+        await winBattle(true);
+      } else {
+        setBattleLog(`${battle.enemy.actualName.toUpperCase()} broke free!`);
+        battle.locked = false;
+        await wait(800);
+        await enemyTurn();
+      }
+    }
+  }
+
+  // ── zoneName with region ───────────────────────────────────
+  function zoneName() {
+    const p = state.player;
+    const nearest = places.slice().sort((a, b) => Math.hypot(a.gx - p.gx, a.gy - p.gy) - Math.hypot(b.gx - p.gx, b.gy - p.gy))[0];
+    const base = nearest && Math.hypot(nearest.gx - p.gx, nearest.gy - p.gy) < 9 ? nearest.name : "Atlas Route";
+    const region = REGIONS.find((r) =>
+      p.gx >= r.gxRange[0] && p.gx <= r.gxRange[1] &&
+      p.gy >= r.gyRange[0] && p.gy <= r.gyRange[1]
+    );
+    return region ? `${region.name}` : base;
+  }
+
+  // ── Animated HP bar tracking ───────────────────────────────
+  const hpAnim = { heroHp: -1, enemyHp: -1, heroTarget: 100, enemyTarget: 100 };
+
+  function stepHpAnim(dt) {
+    const speed = 0.065;
+    if (hpAnim.heroHp < 0) hpAnim.heroHp = hpAnim.heroTarget;
+    if (hpAnim.enemyHp < 0) hpAnim.enemyHp = hpAnim.enemyTarget;
+    hpAnim.heroHp  += (hpAnim.heroTarget  - hpAnim.heroHp)  * clamp(speed * dt / 16, 0, 1);
+    hpAnim.enemyHp += (hpAnim.enemyTarget - hpAnim.enemyHp) * clamp(speed * dt / 16, 0, 1);
+  }
+
+  // ── drawMiniMap with region overlays ──────────────────────
+  function drawMiniMap() {
+    const w = 142, h = 104;
+    const x = view.w - w - 18, y = 64;
+    ctx.save();
+    ctx.fillStyle = "rgba(7, 21, 12, .76)";
+    ctx.fillRect(x, y, w, h);
+    ctx.strokeStyle = "rgba(237, 249, 135, .72)";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, w, h);
+    // Region colour overlays
+    ctx.globalAlpha = 0.15;
+    REGIONS.forEach((r) => {
+      const rx = x + 6 + (r.gxRange[0] / WORLD_W) * (w - 12);
+      const ry = y + 6 + (r.gyRange[0] / WORLD_H) * (h - 12);
+      const rw = (r.gxRange[1] - r.gxRange[0]) / WORLD_W * (w - 12);
+      const rh = (r.gyRange[1] - r.gyRange[0]) / WORLD_H * (h - 12);
+      ctx.fillStyle = r.color;
+      ctx.fillRect(rx, ry, rw, rh);
+    });
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = "rgba(201, 239, 65, .08)";
+    for (let i = 0; i < 6; i += 1) ctx.fillRect(x + i * 24, y, 1, h);
+    for (let i = 0; i < 5; i += 1) ctx.fillRect(x, y + i * 24, w, 1);
+    places.forEach((place) => {
+      const px = x + 6 + place.gx / WORLD_W * (w - 12);
+      const py = y + 6 + place.gy / WORLD_H * (h - 12);
+      const won = place.gym && state.stats.flags[badgeFlag(place.gym.id)];
+      ctx.fillStyle = place.kind === "center" ? "#75f4ff" : won ? "#77f0af" : place.gym || place.kind === "summit" ? "#f3cf61" : "#edf987";
+      ctx.fillRect(px - (place.gym ? 3 : 2), py - (place.gym ? 3 : 2), place.gym ? 6 : 4, place.gym ? 6 : 4);
+    });
+    const p = state.player;
+    const px = x + 6 + p.gx / WORLD_W * (w - 12);
+    const py = y + 6 + p.gy / WORLD_H * (h - 12);
+    ctx.fillStyle = "#ff6a8d";
+    ctx.fillRect(px - 3, py - 3, 6, 6);
+    ctx.fillStyle = "#edf987";
+    ctx.font = "9px Courier New";
+    ctx.fillText("ATLAS 2", x + 8, y + h - 8);
+    ctx.restore();
+  }
+
+  // ── cancelButton (sequel) — handles contest + alliance ─────
+  function cancelButton() {
+    if (state.mode === "contest") { closeContest(); return; }
+    if (state.mode === "alliance") { closeAlliancePanel(); return; }
+    if (state.mode === "dialogue") closeDialogue();
+    else if (state.mode === "menu") closeMenu();
+    else if (state.mode === "starter") closeStarterChoice();
+    else if (state.mode === "quest") closeQuest();
+    else if (state.mode === "battle" && state.battle && !state.battle.locked) {
+      state.battle.menu = "root";
+      renderBattleActions();
+    }
+  }
+
+  // ── openBattle with encounter alert ───────────────────────
+  function openBattle(enemy, trainer, options) {
+    if (!hasStarter()) { openStarterChoice(); return; }
+    if (!trainer) playSfx2("encounterAlert");
+    const hero = normalizeAlly(activeAlly());
+    let foe = normalizeAlly(enemy || makeAlly(nextQuestion()));
+    for (let i = 0; foe && foe.id === hero.id && i < 6; i += 1) foe = normalizeAlly(makeAlly(nextQuestion()));
+    if (!foe || foe.id === hero.id) foe = normalizeAlly(makeDifferentAlly(hero));
+    if (window.MrMacsAnalytics && typeof window.MrMacsAnalytics.track === "function") {
+      window.MrMacsAnalytics.track("game_play", { gameId: "history-hunters", title: "History Hunters 2: Atlas Quest", course: state.stats.course || "All Courses", gameType: "Open-World RPG" }, { counter: "game-plays", onceKey: "game-play:history-hunters:" + location.pathname });
+    }
+    state.mode = "battle";
+    els.game.classList.add("in-battle");
+    startMusic();
+    playSfx("battle");
+    const battle = {
+      enemy: foe, hero, heroHp: hero.hp, enemyHp: foe ? foe.hp : 90, enemyMax: foe ? foe.maxHp : 90,
+      trainerName: options && options.trainerName || (trainer ? "Route Trainer" : ""),
+      opening: options && options.opening || "",
+      gym: options && options.gym || null,
+      menu: "root", locked: true, fx: null, fxTime: 0, capture: 0, turn: 1, momentum: 18, combo: 0, lastRead: "",
+      allianceCooldowns: {}
+    };
+    state.battle = battle;
+    els.battleUi.hidden = false;
+    renderBattleActions();
+    setBattleLog(battle.trainerName
+      ? `${battle.trainerName.toUpperCase()} challenged your route team!`
+      : `Route echo: ${foe.actualName.toUpperCase()} appeared!`);
+    setTimeout(() => {
+      if (state.battle !== battle) return;
+      const foeLine = battle.trainerName ? `${battle.trainerName.toUpperCase()} threw out ${foe.actualName.toUpperCase()}! ` : "";
+      setBattleLog(`${foeLine}${PLAYER_TITLE} threw out ${battle.hero.actualName.toUpperCase()}!`);
+    }, 650);
+    setTimeout(() => {
+      if (state.battle !== battle) return;
+      battle.locked = false;
+      setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
+      renderBattleActions();
+    }, 1420);
+  }
+
   function bindEvents() {
     window.addEventListener("keydown", (event) => {
       if (!audio.muted) startMusic();
@@ -3130,6 +4149,23 @@
     els.partyBtn.addEventListener("click", () => renderMenu("party"));
     els.bagBtn.addEventListener("click", () => renderMenu("bag"));
     els.saveBtn.addEventListener("click", () => { writeSave(); renderMenu("party"); });
+    // ── Sequel buttons ──
+    if (els.allianceBtn) els.allianceBtn.addEventListener("click", () => { closeMenu(); openAlliancePanel(); });
+    if (els.contestBtn) els.contestBtn.addEventListener("click", () => { closeMenu(); openContest(); });
+    if (els.codexBtn) els.codexBtn.addEventListener("click", () => renderCodex());
+    if (els.contestTapBtn) els.contestTapBtn.addEventListener("click", contestTap);
+    if (els.closeAlliance) els.closeAlliance.addEventListener("click", closeAlliancePanel);
+    if (els.allianceActivateBtn) els.allianceActivateBtn.addEventListener("click", () => {
+      const id = els.allianceActivateBtn.dataset.alliance;
+      if (id) { closeAlliancePanel(); activateAllianceInBattle(id); }
+    });
+    // Tap-rhythm key support
+    window.addEventListener("keydown", (event) => {
+      if (state.mode === "contest" && (event.key === " " || event.key === "Enter" || event.key === "t" || event.key === "T")) {
+        contestTap();
+        event.preventDefault();
+      }
+    });
     if (els.starterCancel) els.starterCancel.addEventListener("click", closeStarterChoice);
     els.courseSelect.addEventListener("change", () => { fillSets(); applyFilters(); });
     els.setSelect.addEventListener("change", applyFilters);

@@ -673,3 +673,71 @@ select {
 }
 
 select option, select optgroup { color: #07111f; background: #f8fbff; }
+
+/* ── 4X upgrades (2026-05-05) ── */
+.era-flash {
+  position: fixed; inset: 0; pointer-events: none; z-index: 98;
+  opacity: 0; background: var(--gold);
+  transition: opacity .6s ease;
+}
+
+/* Movement destination hint */
+.move-hint {
+  position: absolute;
+  bottom: calc(max(10px, env(safe-area-inset-bottom)) + 10px);
+  left: 50%; transform: translateX(-50%);
+  padding: 9px 18px;
+  border: 1px solid rgba(123,223,242,.5);
+  border-radius: 8px;
+  background: rgba(8,18,23,.88);
+  color: var(--aqua);
+  font-size: 13px; font-weight: 850;
+  pointer-events: none; z-index: 6;
+  backdrop-filter: blur(12px);
+}
+
+/* Continue button distinct style */
+.setup-actions .continue-btn {
+  border-color: rgba(119,217,155,.58);
+  background: linear-gradient(180deg,rgba(119,217,155,.28),rgba(119,217,155,.10));
+}
+
+/* Build-queue progress row in city panel */
+.build-progress {
+  grid-column: 1 / -1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,.10);
+  overflow: hidden;
+  margin-top: -4px;
+}
+.build-progress-fill {
+  height: 100%;
+  background: var(--gold);
+  transition: width .3s var(--ease);
+}
+
+/* Research progress bar in panel */
+.research-bar {
+  grid-column: 1 / -1;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255,255,255,.10);
+  margin-top: -2px;
+}
+.research-bar-fill {
+  height: 100%;
+  background: var(--aqua);
+  transition: width .4s var(--ease);
+}
+
+/* Unit moved overlay */
+.unit-exhausted {
+  opacity: .55;
+}
+
+/* Fog of war text */
+.fog-label {
+  color: var(--muted);
+  font-style: italic;
+}

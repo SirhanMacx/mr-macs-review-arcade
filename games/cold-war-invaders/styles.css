@@ -310,9 +310,9 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   left: auto;
   right: max(8px, env(safe-area-inset-right));
   bottom: auto;
-  width: min(460px, calc(100vw - 18px));
+  width: min(520px, calc(100vw - 18px));
   display: grid;
-  grid-template-columns: repeat(4, minmax(62px,1fr)) auto auto;
+  grid-template-columns: repeat(4, minmax(58px,1fr)) auto auto auto;
   gap: 6px;
   align-items: center;
   padding: 5px;
@@ -577,9 +577,9 @@ body.playing .hud:focus-within {
     left: max(8px, env(safe-area-inset-left));
     right: max(8px, env(safe-area-inset-right));
     width: auto;
-    grid-template-columns: minmax(50px,1fr) minmax(38px,.72fr) minmax(50px,1fr) minmax(38px,.72fr) 42px 42px;
-    gap: 5px;
-    padding: 5px;
+    grid-template-columns: minmax(44px,1fr) minmax(34px,.68fr) minmax(44px,1fr) minmax(34px,.68fr) 38px 38px 38px;
+    gap: 4px;
+    padding: 4px;
   }
   .hud div {
     min-height: 40px;
@@ -642,7 +642,7 @@ body.playing .hud:focus-within {
     top: max(6px, env(safe-area-inset-top));
     left: max(6px, env(safe-area-inset-left));
     right: max(6px, env(safe-area-inset-right));
-    grid-template-columns: repeat(4, minmax(0, 1fr)) 38px 38px;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 34px 34px 34px;
   }
   .hud div { min-height: 36px; }
   .mobile-controls {
@@ -714,4 +714,44 @@ body.playing .hud:focus-within {
   .mission-card:not(.compact) {
     max-height: none;
   }
+}
+
+/* Skip button in briefing */
+.skip-btn {
+  opacity: .68;
+  border-style: dashed;
+  font-size: 13px;
+}
+.skip-btn:hover { opacity: .88; }
+
+/* Power-up indicator bar (drawn on canvas; style hooks for future HTML overlay) */
+.powerup-bar {
+  display: flex;
+  gap: 6px;
+  position: absolute;
+  left: 14px;
+  bottom: 120px;
+  z-index: 6;
+  pointer-events: none;
+}
+.powerup-pill {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(5,9,21,.82);
+  border: 1px solid rgba(255,255,255,.22);
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 950;
+  font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .08em;
+}
+
+/* Theater badge on setup */
+.setup-grid label select option[value="korea"],
+.setup-grid label select option[value="cuba"],
+.setup-grid label select option[value="berlin"],
+.setup-grid label select option[value="vietnam"] {
+  color: #07111f;
+  background: #f8fbff;
+  font-weight: 900;
 }

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>Chrono Defense Infinite</title>
-<link rel="stylesheet" href="styles.css?v=20260502-perfect-pass">
+<link rel="stylesheet" href="styles.css?v=20260505-full-td">
 </head>
 <body>
 <div class="bg"></div>
@@ -13,15 +13,23 @@
   <header class="topbar">
     <div class="brand">
       <span class="sigil"></span>
-      <span><strong>Chrono Defense Infinite</strong><em>Social Studies Tower Defense</em></span>
+      <span><strong>Chrono Defense</strong><em>Social Studies Tower Defense</em></span>
     </div>
     <div class="hud">
-      <span><b id="wave">0</b> wave</span>
-      <span><b id="lives">25</b> lives</span>
-      <span><b id="insight">650</b> insight</span>
-      <span><b id="score">0</b> score</span>
-      <button id="libraryBtn" class="hud-action library-action" type="button" aria-label="Open review library">Library</button>
-      <button id="fullscreenBtn" class="hud-action" type="button" aria-label="Enter fullscreen">Fullscreen</button>
+      <span class="hud-hp">
+        <b id="lives">20</b>
+        <span class="hp-track"><span class="hp-fill" id="hpFill"></span></span>
+        <small>HP</small>
+      </span>
+      <span><b id="wave">0</b><small>/30 wave</small></span>
+      <span class="hud-wave-prog">
+        <small>progress</small>
+        <span class="wp-track" id="waveProgress"><span class="wp-fill" id="waveProgressFill"></span></span>
+      </span>
+      <span><b id="insight">600</b> <small>shards</small></span>
+      <span><b id="score">0</b> <small>score</small></span>
+      <button id="libraryBtn" class="hud-action library-action" type="button">Library</button>
+      <button id="fullscreenBtn" class="hud-action" type="button">⛶</button>
     </div>
   </header>
 
@@ -29,20 +37,20 @@
     <div class="stage">
       <canvas id="arena" width="1600" height="900" aria-label="Chrono Defense game arena"></canvas>
       <div class="mission-panel" id="missionPanel">
-        <span>Infinite Review Engine</span>
-        <strong id="missionTitle">Loading question library...</strong>
-        <p id="missionText">Course filters, endless waves, upgrades, bosses, and answer-powered strikes are coming online.</p>
+        <span id="mapLabel">Industrial Era · 1870–1914</span>
+        <strong id="missionTitle">Build · Answer · Defend</strong>
+      <p id="missionText"></p>
       </div>
       <div class="question-console" id="questionConsole">
         <div class="question-head">
-          <span id="questionMeta">Strike Reactor</span>
+          <span id="questionMeta">Review Reactor</span>
           <div class="question-actions">
             <strong id="questionStreak">0 streak</strong>
-            <button id="toggleQuestion" class="reactor-toggle" type="button" aria-controls="questionConsole" aria-expanded="true">Map View</button>
+            <button id="toggleQuestion" class="reactor-toggle" type="button" aria-expanded="true">Map View</button>
           </div>
         </div>
         <div class="question-body">
-          <p id="questionPrompt">Answer correctly to fire source strikes, earn insight, and slow the wave.</p>
+          <p id="questionPrompt">Answer correctly to power up towers, slow time, or fire source strikes.</p>
           <div class="stimulus-strip" id="stimulusStrip"></div>
           <div class="choices" id="choices"></div>
           <form id="typedForm" class="typed-form">
@@ -56,6 +64,7 @@
     </div>
 
     <aside class="command">
+      <!-- Library / controls -->
       <section class="panel library-panel" id="libraryPanel">
         <div class="panel-title">
           <span>Review Questions</span>
@@ -65,43 +74,61 @@
         <label>Course
           <select id="courseFilter"></select>
         </label>
-        <label>Unit / Exam Content
+        <label>Unit / Exam
           <select id="setFilter"></select>
         </label>
         <div class="library-status" id="libraryStatus">All Courses / All Sets</div>
-        <button id="reactorDock" class="reactor-dock" type="button" aria-controls="questionConsole" aria-expanded="true">Hide Question Panel</button>
+        <button id="reactorDock" class="reactor-dock" type="button" aria-expanded="true">Hide Question Panel</button>
         <div class="mini-grid">
-          <button id="startWave" class="primary" type="button">Launch Wave</button>
-          <button id="pauseBtn" type="button">Pause</button>
-          <button id="soundBtn" type="button">Sound On</button>
-          <button id="resetBtn" type="button">Reset</button>
+          <button id="startWave" class="primary" type="button">▶ Launch Wave</button>
+          <button id="pauseBtn" type="button">⏸ Pause</button>
+          <button id="speedBtn" type="button">1× Speed</button>
+          <button id="autoBtn" type="button">Auto: OFF</button>
+          <button id="soundBtn" type="button">🔊 Sound</button>
+          <button id="resetBtn" type="button">↺ Reset</button>
         </div>
       </section>
 
+      <!-- Map select -->
+      <section class="panel">
+        <div class="panel-title"><span>Era Maps</span></div>
+        <label>Select Map
+          <select id="mapSelect"></select>
+        </label>
+        <p class="map-hint">Beat wave 10 to unlock the next era. Best waves saved automatically.</p>
+      </section>
+
+      <!-- Tower Foundry -->
       <section class="panel">
         <div class="panel-title">
           <span>Tower Foundry</span>
-          <strong id="selectedTowerName">Archive Cannon</strong>
+          <strong id="selectedTowerName">Chrono Sniper</strong>
         </div>
         <div class="tower-list" id="towerList"></div>
       </section>
 
+      <!-- Upgrade Bay -->
       <section class="panel selected-panel">
         <div class="panel-title">
           <span>Upgrade Bay</span>
           <strong id="upgradeTitle">Select a tower</strong>
         </div>
         <div class="upgrade-preview" id="upgradePreview"></div>
-        <p id="upgradeText">Build on open ground away from the road, then upgrade through three unique visual tiers.</p>
+        <p id="upgradeText">Build towers on open ground away from the road. Click to place, click to select.</p>
+        <div class="branch-grid" id="branchGrid">
+          <button id="branch0Btn" type="button" class="branch-btn" style="display:none">A: Branch</button>
+          <button id="branch1Btn" type="button" class="branch-btn" style="display:none">B: Branch</button>
+        </div>
         <div class="mini-grid">
           <button id="upgradeBtn" class="primary" type="button">Upgrade</button>
-          <button id="sellBtn" type="button">Sell</button>
+          <button id="sellBtn" type="button">Sell (70%)</button>
         </div>
       </section>
 
+      <!-- Special Abilities -->
       <section class="panel">
         <div class="panel-title">
-          <span>Powerups</span>
+          <span>Special Abilities</span>
           <strong id="powerCharge">ready</strong>
         </div>
         <div class="power-list" id="powerList"></div>
@@ -113,7 +140,7 @@
 
 <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
 <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
-<script src="game.js?v=20260502-perfect-pass"></script>
+<script src="game.js?v=20260505-full-td"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

@@ -28,15 +28,19 @@
         <h1>Cold War Invaders</h1>
         <p>Defend the satellite line, collect intel, and answer Cold War questions to trigger containment bursts before crises reach Earth.</p>
         <div class="launch-strip" aria-label="Mission readiness">
-          <span>Atari-style Space Invaders</span>
-          <span>Intel questions</span>
+          <span>Classic March Mechanics</span>
+          <span>Intel questions + Power-ups</span>
           <span>Touch ready</span>
         </div>
         <div class="setup-grid">
           <label>
-            Theater
+            Theater of Operations
             <select id="theaterSelect">
-              <option value="cold">Cold War Core</option>
+              <option value="korea">Korea (dense cluster)</option>
+              <option value="cuba">Cuba (curved swarm)</option>
+              <option value="berlin">Berlin (wedge)</option>
+              <option value="vietnam">Vietnam (dispersed)</option>
+              <option value="cold" selected>Cold War Core</option>
               <option value="us">U.S. History</option>
               <option value="global">Global History</option>
               <option value="ap">AP Review</option>
@@ -46,9 +50,10 @@
           <label>
             Difficulty
             <select id="difficultySelect">
-              <option value="cadet">Cadet</option>
-              <option value="regents" selected>Regents</option>
-              <option value="crisis">Crisis</option>
+              <option value="cadet">Cadet (Easy)</option>
+              <option value="regents" selected>Regents (Normal)</option>
+              <option value="crisis">Crisis (Veteran)</option>
+              <option value="five-star">Five-Star General</option>
             </select>
           </label>
         </div>
@@ -67,6 +72,7 @@
       <div><span>Intel</span><strong id="intel">0%</strong></div>
       <button class="mini-btn" id="pauseBtn" type="button">Pause</button>
       <button class="mini-btn" id="quitBtn" type="button">Quit</button>
+      <button class="mini-btn" id="muteBtn" type="button" title="Toggle sound (M)">🔊</button>
     </section>
 
     <section class="mobile-controls" id="mobileControls" aria-label="Touch controls">
@@ -102,7 +108,7 @@
       </div>
     </section>
 
-    <div class="control-hint">Move: A/D or arrows · Fire: Space · Intel: E · Pause: Esc</div>
+    <div class="control-hint">Move: A/D or ←→ · Fire: Space/Z · Intel: E/X · Mute: M · Pause: Esc</div>
   </main>
   <script src="../../assets/arcade-analytics.js?v=20260502-traffic-progress-hardening"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>

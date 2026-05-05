@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#050711">
   <title>Review Maze Chase - Mr. Mac's Review Arcade</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css?v=20260505-premium-reset">
+  <link rel="stylesheet" href="styles.css?v=20260505-arcade-v2">
 </head>
 <body>
   <main class="maze-shell">
@@ -19,9 +19,11 @@
       </a>
       <div class="hud-stats">
         <div><strong id="score">0</strong><span>score</span></div>
-        <div><strong id="lives">3</strong><span>lives</span></div>
+        <div><strong id="lives">🔮🔮🔮</strong><span>lives</span></div>
         <div><strong id="pellets">0</strong><span>evidence</span></div>
-        <div><strong id="power">0</strong><span>power</span></div>
+        <div><strong id="power"></strong><span>power</span></div>
+        <div><strong id="levelIndicator">LVL 1</strong><span>level</span></div>
+        <div><strong id="bestScore">0</strong><span>best</span></div>
       </div>
     </header>
 
@@ -67,15 +69,15 @@
     </section>
 
     <nav class="controls" aria-label="Movement controls">
-      <button type="button" data-dir="left">Left</button>
-      <button type="button" data-dir="up">Up</button>
-      <button type="button" data-dir="down">Down</button>
-      <button type="button" data-dir="right">Right</button>
+      <button type="button" data-dir="left">◀</button>
+      <button type="button" data-dir="up">▲</button>
+      <button type="button" data-dir="down">▼</button>
+      <button type="button" data-dir="right">▶</button>
     </nav>
   </main>
 
   <script src="../../assets/arcade-analytics.js?v=20260504-counter-refresh-quiet"></script>
   <script src="../../assets/source-bank.js?v=20260504-maze"></script>
-  <script src="game.js?v=20260505-premium-reset"></script>
+  <script src="game.js?v=20260505-arcade-v2"></script>
 </body>
 </html>

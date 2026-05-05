@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>History Hunters 2: Atlas Quest</title>
   <link rel="icon" href="../../assets/history-hunters/recruit-seal.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260505-battle-read">
+  <link rel="stylesheet" href="styles.css?v=20260505-sequel-full">
 </head>
 <body>
   <main class="game" id="game">
@@ -73,6 +73,9 @@
         <button id="questBtn" type="button">Review Contract</button>
         <button id="partyBtn" type="button">Party</button>
         <button id="bagBtn" type="button">Bag</button>
+        <button id="allianceBtn" type="button">Alliances</button>
+        <button id="contestBtn" type="button">Contest</button>
+        <button id="codexBtn" type="button">Codex</button>
         <button id="saveBtn" type="button">Save</button>
       </div>
       <div class="menu-list" id="menuList"></div>
@@ -81,6 +84,37 @@
     <section class="battle-ui" id="battleUi" hidden>
       <div class="battle-log" id="battleLog">A route echo appeared.</div>
       <div class="battle-actions" id="battleActions"></div>
+    </section>
+
+    <section class="contest-ui" id="contestUi" hidden aria-label="Speech Contest">
+      <header class="contest-header">
+        <span id="contestKicker">Speech Contest</span>
+        <strong id="contestTitle">Diplomatic Summit</strong>
+        <span id="contestRound">Round 1 / 3</span>
+      </header>
+      <p id="contestPrompt" class="contest-prompt"></p>
+      <div id="contestMeter" class="contest-meter" aria-label="Timing meter">
+        <div id="contestZone" class="contest-zone"></div>
+        <div id="contestNeedle" class="contest-needle"></div>
+      </div>
+      <button id="contestTapBtn" type="button" class="contest-tap-btn">TAP</button>
+      <div id="contestBurst" class="contest-burst" aria-hidden="true"></div>
+      <div class="contest-stats">
+        <span>Confidence: <strong id="contestConfidence">0</strong></span>
+        <span>Streak: <strong id="contestStreak">0</strong></span>
+      </div>
+      <p id="contestFeedback" class="contest-feedback"></p>
+    </section>
+
+    <section class="alliance-ui" id="alliancePanel" hidden aria-label="Alliance Panel">
+      <header>
+        <span>Alliance Chamber</span>
+        <strong id="allianceName">Choose a Pair</strong>
+        <button id="closeAlliance" type="button">Close</button>
+      </header>
+      <p id="allianceDesc" class="alliance-desc">Pair two figures from your roster to unlock a duo move. Alliances are era- and ideology-based.</p>
+      <div id="allianceList" class="alliance-list"></div>
+      <button id="allianceActivateBtn" class="alliance-activate-btn" type="button" disabled>Activate Alliance</button>
     </section>
 
     <section class="quest" id="quest" hidden>
@@ -114,7 +148,7 @@
   </main>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
-  <script src="game.js?v=20260505-battle-read-4"></script>
+  <script src="game.js?v=20260505-sequel-full-1"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

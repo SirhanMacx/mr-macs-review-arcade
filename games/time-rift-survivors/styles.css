@@ -504,3 +504,201 @@ html.perf-lite .stimulus-zoom {
 }
 
 select option, select optgroup { color: #07111f; background: #f8fbff; }
+
+/* ── NEW SYSTEMS (horde-survival upgrade) ──────────────────────────────────── */
+
+/* Upgrade cards — dynamic color via CSS var */
+.upgrade-card {
+  --card-color: #ffd66e;
+  border-color: rgba(var(--card-color), 0.4);
+  position: relative;
+  overflow: hidden;
+}
+.upgrade-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(255,214,110,0.07), transparent 70%);
+  pointer-events: none;
+}
+.upgrade-icon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 6px;
+  line-height: 1;
+}
+.upgrade-card strong { font-size: 14px; }
+.upgrade-card span { font-size: 12px; color: var(--paper); line-height: 1.3; display: block; }
+
+/* Reroll button inside upgrade grid */
+.upgrade-reroll {
+  grid-column: 1 / -1;
+  border-color: rgba(114,242,255,.5);
+  color: var(--cyan);
+  font-size: 13px;
+}
+
+/* Question bonus row in upgrade screen */
+.upgrade-question-bonus {
+  grid-column: 1 / -1;
+  padding: 10px;
+  border: 1px solid rgba(255,214,110,.3);
+  border-radius: 8px;
+  background: rgba(255,214,110,.06);
+  color: var(--paper);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.upgrade-question-bonus span { color: var(--gold); font-weight: 1000; }
+
+/* Relic chips with emoji icon + level dots */
+.relic-chip {
+  display: grid;
+  grid-template-columns: 28px minmax(0,1fr);
+  gap: 6px;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 8px;
+}
+.relic-icon-emoji {
+  font-size: 20px;
+  text-align: center;
+  line-height: 1;
+}
+.relic-chip-info { display: grid; gap: 3px; }
+.relic-chip-info strong { font-size: 10px; line-height: 1.1; text-transform: uppercase; }
+.lvdots { display: flex; gap: 3px; }
+.lvdot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.22);
+}
+.lvdot.active { background: var(--gold); border-color: var(--gold); }
+.weapon-chip { border-color: rgba(255,214,110,.3); }
+.passive-chip { border-color: rgba(114,242,255,.22); }
+
+/* Run summary card */
+.run-summary {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 14px;
+  text-align: center;
+  padding: 10px;
+}
+.run-summary-title {
+  font-size: 13px;
+  font-weight: 1000;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+.run-summary-score {
+  font-size: clamp(42px,6vw,72px);
+  font-weight: 1000;
+  color: var(--gold);
+  text-shadow: 0 0 40px rgba(255,214,110,.5);
+}
+.run-summary-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.run-summary-stats b { color: var(--ink); }
+.run-summary-shop-hint {
+  padding: 8px 12px;
+  border: 1px solid rgba(255,214,110,.3);
+  border-radius: 8px;
+  background: rgba(255,214,110,.06);
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* Meta shop */
+.meta-shop {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 12px;
+}
+.meta-shop-title {
+  font-size: 13px; font-weight: 1000;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--cyan);
+}
+.meta-shop-gold {
+  color: var(--gold); font-size: 18px; font-weight: 1000;
+}
+.meta-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 8px;
+}
+.meta-owned { opacity: 0.55; }
+.meta-upgrade-btn em {
+  display: block;
+  margin-top: 4px;
+  color: var(--gold);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 1000;
+}
+
+/* Timer HUD display */
+#runTimer {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--muted);
+}
+
+/* XP bar pulse animation */
+@keyframes xpPulse {
+  0%,100% { box-shadow: none; }
+  50%      { box-shadow: 0 0 14px rgba(197,140,255,.7); }
+}
+.xp-pulse #xpBar { animation: xpPulse 0.3s ease; }
+
+/* Joystick — canvas handles this in draw, but mobile instruction hint */
+@media (hover: none) and (pointer: coarse) {
+  .joystick-hint {
+    display: block;
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    color: rgba(255,255,255,.35);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+}
+
+/* Kill / gold counter in HUD */
+.hud-kills, .hud-gold {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.07);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+.hud-kills b, .hud-gold b { color: var(--green); font-size: 16px; }
+
+/* Flash override for non-gold flash colors */
+#arena { isolation: isolate; }
+
+/* Mute indicator (sound btn already exists but style it crisply) */
+#soundBtn { min-width: 88px; }

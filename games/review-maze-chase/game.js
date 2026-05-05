@@ -1,11 +1,14 @@
 (() => {
   "use strict";
 
+  // ─── Constants ──────────────────────────────────────────────────────────────
   const $ = (id) => document.getElementById(id);
   const SourceBank = window.MrMacsSourceBank || {};
   const COLS = 21;
   const ROWS = 17;
   const CELL = 32;
+
+  // Keep original maze layout exactly
   const LEVEL = [
     "#####################",
     "#o........#........o#",
@@ -25,140 +28,315 @@
     "#.....#...#...#.....#",
     "#####################"
   ];
+
+  // Row 9 is the tunnel row (spaces on both sides)
+  const TUNNEL_ROW = 9;
+
   const dirs = {
-    left: { x: -1, y: 0 },
-    right: { x: 1, y: 0 },
-    up: { x: 0, y: -1 },
-    down: { x: 0, y: 1 }
+    left:  { x: -1, y:  0 },
+    right: { x:  1, y:  0 },
+    up:    { x:  0, y: -1 },
+    down:  { x:  0, y:  1 }
   };
   const opposite = { left: "right", right: "left", up: "down", down: "up" };
+
   const gateAssets = [
     "../../assets/review-maze-chase/gate-gold.png",
     "../../assets/review-maze-chase/gate-blue.png",
     "../../assets/review-maze-chase/gate-purple.png",
     "../../assets/review-maze-chase/gate-green.png"
   ];
-  const assets = {
-    player: "../../assets/review-maze-chase/player.png",
-    red: "../../assets/review-maze-chase/chaser-red.png",
-    blue: "../../assets/review-maze-chase/chaser-blue.png",
-    purple: "../../assets/review-maze-chase/chaser-purple.png",
-    green: "../../assets/review-maze-chase/chaser-green.png",
-    pellet: "../../assets/review-maze-chase/pellet.png",
-    scroll: "../../assets/review-maze-chase/scroll-power.png",
-    wall: "../../assets/review-maze-chase/wall-tile.png",
-    shield: "../../assets/review-maze-chase/shield.png",
-    burst: "../../assets/review-maze-chase/burst.png",
+  const assetSrcs = {
+    player:     "../../assets/review-maze-chase/player.png",
+    red:        "../../assets/review-maze-chase/chaser-red.png",
+    blue:       "../../assets/review-maze-chase/chaser-blue.png",
+    purple:     "../../assets/review-maze-chase/chaser-purple.png",
+    green:      "../../assets/review-maze-chase/chaser-green.png",
+    pellet:     "../../assets/review-maze-chase/pellet.png",
+    scroll:     "../../assets/review-maze-chase/scroll-power.png",
+    wall:       "../../assets/review-maze-chase/wall-tile.png",
+    shield:     "../../assets/review-maze-chase/shield.png",
+    burst:      "../../assets/review-maze-chase/burst.png",
     background: "../../assets/review-maze-chase/key-art.webp"
   };
+
+  // Ghost personality to image name
+  const GHOST_DEFS = [
+    { img: "red",    personality: "blinky", scatter: { x: 20, y: 0  }, home: { x: 9,  y: 8 }, releaseDelay: 400  },
+    { img: "purple", personality: "pinky",  scatter: { x: 0,  y: 0  }, home: { x: 10, y: 8 }, releaseDelay: 1400 },
+    { img: "blue",   personality: "inky",   scatter: { x: 20, y: 16 }, home: { x: 11, y: 8 }, releaseDelay: 2600 },
+    { img: "green",  personality: "clyde",  scatter: { x: 0,  y: 16 }, home: { x: 10, y: 7 }, releaseDelay: 3600 }
+  ];
+
+  // Scatter/Chase cycle: [scatter, chase, scatter, chase, ...] seconds
+  const MODE_CYCLE = [7, 20, 7, 20, 5, 20, 5, Infinity];
+
+  // Fruit definitions per level (score value)
+  const FRUIT_SCORES = [100, 300, 500, 700, 1000, 2000, 3000, 5000, 5000, 5000];
+
+  // ─── DOM refs ────────────────────────────────────────────────────────────────
   const els = {
-    canvas: $("game"),
-    setup: $("setup"),
-    quiz: $("quiz"),
-    result: $("result"),
-    courseFilter: $("courseFilter"),
-    setFilter: $("setFilter"),
-    speedFilter: $("speedFilter"),
-    metrics: $("metrics"),
-    score: $("score"),
-    lives: $("lives"),
-    pellets: $("pellets"),
-    power: $("power"),
-    startBtn: $("startBtn"),
-    setupBtn: $("setupBtn"),
-    againBtn: $("againBtn"),
-    questionMeta: $("questionMeta"),
+    canvas:         $("game"),
+    setup:          $("setup"),
+    quiz:           $("quiz"),
+    result:         $("result"),
+    courseFilter:   $("courseFilter"),
+    setFilter:      $("setFilter"),
+    speedFilter:    $("speedFilter"),
+    metrics:        $("metrics"),
+    score:          $("score"),
+    lives:          $("lives"),
+    pellets:        $("pellets"),
+    power:          $("power"),
+    startBtn:       $("startBtn"),
+    setupBtn:       $("setupBtn"),
+    againBtn:       $("againBtn"),
+    questionMeta:   $("questionMeta"),
     questionPrompt: $("questionPrompt"),
-    stimulus: $("stimulus"),
-    choices: $("choices"),
-    feedback: $("feedback"),
-    resultTitle: $("resultTitle"),
-    resultMetrics: $("resultMetrics"),
-    coach: $("coach")
-  };
-  const ctx = els.canvas.getContext("2d", { alpha: false });
-  const images = {};
-  const state = {
-    bank: [],
-    filtered: [],
-    queue: [],
-    grid: [],
-    running: false,
-    paused: false,
-    score: 0,
-    lives: 3,
-    pelletsLeft: 0,
-    correct: 0,
-    answered: 0,
-    combo: 0,
-    powerUntil: 0,
-    player: { x: 10, y: 13, dir: "left", next: "left" },
-    chasers: [],
-    currentQuestion: null,
-    pointer: null,
-    countdownUntil: 0,
-    freezeUntil: 0,
-    message: "",
-    messageUntil: 0,
-    lastStep: 0,
-    lastDraw: 0,
-    speedMs: 128
+    stimulus:       $("stimulus"),
+    choices:        $("choices"),
+    feedback:       $("feedback"),
+    resultTitle:    $("resultTitle"),
+    resultMetrics:  $("resultMetrics"),
+    coach:          $("coach")
   };
 
-  function escapeHtml(value) {
-    return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
-  }
-  function clean(value) {
-    return String(value || "").replace(/\s+/g, " ").trim();
-  }
-  function normalize(value) {
-    return clean(value).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-  }
-  function shuffle(items) {
-    const copy = items.slice();
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
+  const ctx = els.canvas.getContext("2d", { alpha: false });
+  const images = {};
+
+  // ─── Audio engine ────────────────────────────────────────────────────────────
+  let audioCtx = null;
+  let muted = false;
+  let sirenOsc = null;
+  let sirenGain = null;
+  let wakkaToggle = false;
+  let pelletsAtStart = 0;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function getAudio() {
+    if (!audioCtx) {
+      try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (_) {}
     }
-    return copy;
+    return audioCtx;
   }
-  function number(value) {
-    return Number(value || 0).toLocaleString();
+
+  function playTone(freq, type, duration, gainVal, startDelay = 0, gainRamp = true) {
+    if (muted) return;
+    const ac = getAudio();
+    if (!ac) return;
+    try {
+      const osc  = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, ac.currentTime + startDelay);
+      gain.gain.setValueAtTime(gainVal, ac.currentTime + startDelay);
+      if (gainRamp) gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + startDelay + duration);
+      osc.connect(gain);
+      gain.connect(ac.destination);
+      osc.start(ac.currentTime + startDelay);
+      osc.stop(ac.currentTime + startDelay + duration + 0.01);
+    } catch (_) {}
   }
-  function clamp(value, min, max) {
-    return Math.max(min, Math.min(max, value));
+
+  function playWakka() {
+    if (muted) return;
+    const freq = wakkaToggle ? 220 : 330;
+    wakkaToggle = !wakkaToggle;
+    playTone(freq, "square", 0.07, 0.18);
   }
-  function lerp(start, end, t) {
-    return start + (end - start) * t;
+
+  function playPowerPellet() {
+    playTone(880, "sine", 0.12, 0.22);
+    playTone(660, "sine", 0.12, 0.22, 0.12);
+    playTone(440, "sine", 0.18, 0.22, 0.24);
   }
-  function ease(t) {
-    const v = clamp(t, 0, 1);
-    return v * v * (3 - 2 * v);
+
+  function playGhostEat(combo) {
+    const base = 220;
+    for (let i = 0; i < 4; i++) {
+      const f = base * Math.pow(1.3, i + combo * 0.4);
+      playTone(Math.min(f, 1760), "triangle", 0.09, 0.25, i * 0.08);
+    }
   }
+
+  function playDeath() {
+    const ac = getAudio();
+    if (!ac || muted) return;
+    try {
+      const osc  = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(880, ac.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(60, ac.currentTime + 1.2);
+      gain.gain.setValueAtTime(0.28, ac.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 1.3);
+      osc.connect(gain);
+      gain.connect(ac.destination);
+      osc.start(ac.currentTime);
+      osc.stop(ac.currentTime + 1.4);
+    } catch (_) {}
+  }
+
+  function playCorrect() {
+    playTone(523, "sine", 0.09, 0.22);
+    playTone(659, "sine", 0.09, 0.22, 0.09);
+    playTone(784, "sine", 0.18, 0.22, 0.18);
+  }
+
+  function playWrong() {
+    playTone(200, "square", 0.1, 0.2);
+    playTone(150, "square", 0.15, 0.2, 0.1);
+  }
+
+  function startSiren(scared = false) {
+    stopSiren();
+    const ac = getAudio();
+    if (!ac || muted) return;
+    try {
+      sirenOsc  = ac.createOscillator();
+      sirenGain = ac.createGain();
+      sirenOsc.type = "sine";
+      sirenOsc.frequency.setValueAtTime(scared ? 440 : 180, ac.currentTime);
+      sirenGain.gain.setValueAtTime(muted ? 0 : 0.06, ac.currentTime);
+      sirenOsc.connect(sirenGain);
+      sirenGain.connect(ac.destination);
+      sirenOsc.start();
+    } catch (_) {}
+  }
+
+  function stopSiren() {
+    try { sirenOsc && sirenOsc.stop(); } catch (_) {}
+    sirenOsc  = null;
+    sirenGain = null;
+  }
+
+  function updateSirenPitch(pelletsLeft, total, scared) {
+    if (!sirenOsc || muted) return;
+    const ac = getAudio();
+    if (!ac) return;
+    try {
+      const ratio = 1 - (pelletsLeft / (total || 1));
+      const base  = scared ? 440 : 160;
+      const top   = scared ? 880 : 340;
+      const freq  = base + (top - base) * ratio;
+      sirenOsc.frequency.setValueAtTime(freq, ac.currentTime);
+      if (sirenGain) sirenGain.gain.setValueAtTime(muted ? 0 : (scared ? 0.1 : 0.06), ac.currentTime);
+    } catch (_) {}
+  }
+
+  function setMuted(val) {
+    muted = val;
+    if (muted) {
+      stopSiren();
+      if (sirenGain) sirenGain.gain.setValueAtTime(0, audioCtx?.currentTime || 0);
+    } else {
+      if (state.running && !state.paused) {
+        const scared = performance.now() < state.powerUntil;
+        startSiren(scared);
+      }
+    }
+  }
+
+  // ─── Game state ──────────────────────────────────────────────────────────────
+  const state = {
+    // data
+    bank: [], filtered: [], queue: [], grid: [],
+    // flags
+    running: false, paused: false,
+    // counters
+    score: 0, bestScore: 0, lives: 3, pelletsLeft: 0,
+    correct: 0, answered: 0, combo: 0, ghostEatCombo: 0,
+    // power-up
+    powerUntil: 0, powerFlashAt: 0,
+    // level
+    level: 1, baseSpeedMs: 128,
+    // mode cycling (scatter/chase)
+    modeStartAt: 0, modeIndex: 0, currentMode: "scatter",
+    // actors
+    player: null, chasers: [],
+    // question gate
+    currentQuestion: null,
+    pelletsAtLastQuestion: 0, ghostEatsAtLastQuestion: 0,
+    // fruit
+    fruitCell: null, fruitScore: 0, fruitUntil: 0,
+    fruitSpawnedAt70: false, fruitSpawnedAt170: false,
+    // popups
+    popups: [],
+    // screen shake
+    shakeUntil: 0, shakeMag: 0,
+    // death animation
+    deathAnim: null,
+    // pause
+    explicitPause: false,
+    // pointer (swipe)
+    pointer: null,
+    // timers
+    countdownUntil: 0, freezeUntil: 0,
+    message: "", messageUntil: 0,
+    lastStep: 0, speedMs: 128,
+    // stars
+    stars: []
+  };
+
+  // ─── Utility ─────────────────────────────────────────────────────────────────
+  function escapeHtml(v) {
+    return String(v ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  }
+  function clean(v)     { return String(v || "").replace(/\s+/g, " ").trim(); }
+  function normalize(v) { return clean(v).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); }
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function number(v)          { return Number(v || 0).toLocaleString(); }
+  function clamp(v, lo, hi)   { return Math.max(lo, Math.min(hi, v)); }
+  function lerp(a, b, t)      { return a + (b - a) * t; }
+  function ease(t)            { const v = clamp(t,0,1); return v * v * (3 - 2 * v); }
   function show(panel) {
-    [els.setup, els.quiz, els.result].forEach((el) => el.classList.remove("show"));
+    [els.setup, els.quiz, els.result].forEach(el => el.classList.remove("show"));
     if (panel) panel.classList.add("show");
   }
-  function canMove(x, y) {
-    return y >= 0 && y < ROWS && x >= 0 && x < COLS && LEVEL[y][x] !== "#";
+
+  // ─── Grid helpers ─────────────────────────────────────────────────────────────
+  function isWall(x, y) {
+    if (y < 0 || y >= ROWS) return true;
+    // Tunnel: row 9 wraps around; spaces at edges are passable
+    if (y === TUNNEL_ROW && (x < 0 || x >= COLS)) return false;
+    if (x < 0 || x >= COLS) return true;
+    return LEVEL[y][x] === "#";
   }
+  function canMove(x, y) { return !isWall(x, y); }
+
+  function wrapX(x, y) {
+    if (y === TUNNEL_ROW) {
+      if (x < 0)    return COLS - 1;
+      if (x >= COLS) return 0;
+    }
+    return x;
+  }
+
   function nextTile(actor, dirName) {
-    const dir = dirs[dirName];
-    if (!dir) return null;
-    let x = actor.x + dir.x;
-    let y = actor.y + dir.y;
-    if (y === 9 && x < 0) x = COLS - 1;
-    if (y === 9 && x >= COLS) x = 0;
-    if (!canMove(x, y)) return null;
-    return { x, y };
+    const d = dirs[dirName];
+    if (!d) return null;
+    let nx = actor.x + d.x;
+    let ny = actor.y + d.y;
+    if (ny === TUNNEL_ROW) { nx = wrapX(nx, ny); }
+    if (!canMove(nx, ny)) return null;
+    return { x: nx, y: ny };
   }
+
   function moveActor(actor, x, y, now) {
-    actor.prevX = actor.x;
-    actor.prevY = actor.y;
-    actor.x = x;
-    actor.y = y;
+    actor.prevX  = actor.x;
+    actor.prevY  = actor.y;
+    actor.x      = x;
+    actor.y      = y;
     actor.moveAt = now;
   }
+
   function actorDisplay(actor, now) {
     const t = ease((now - Number(actor.moveAt || 0)) / state.speedMs);
     return {
@@ -166,49 +344,1210 @@
       y: lerp(Number(actor.prevY ?? actor.y), actor.y, t)
     };
   }
-  function setMessage(text, ms = 1200) {
-    state.message = text;
-    state.messageUntil = performance.now() + ms;
+
+  // ─── Ghost AI helpers ────────────────────────────────────────────────────────
+  function getBlinky()  { return state.chasers.find(c => c.personality === "blinky") || state.chasers[0]; }
+
+  function ghostTarget(chaser) {
+    const now    = performance.now();
+    const powered = now < state.powerUntil;
+    const mode   = state.currentMode;
+
+    // All frightened ghosts flee to scatter corner
+    if (powered && !chaser.eaten) return chaser.scatter;
+
+    // Eaten ghosts (eyes) return home
+    if (chaser.eaten) return chaser.home;
+
+    // In scatter mode, ghosts go to their corner
+    if (mode === "scatter") return chaser.scatter;
+
+    // Chase mode: distinct personalities
+    switch (chaser.personality) {
+      case "blinky": {
+        // Direct chase
+        return state.player;
+      }
+      case "pinky": {
+        // Target 4 cells ahead of player direction
+        const d = dirs[state.player.dir] || dirs.left;
+        return {
+          x: clamp(state.player.x + d.x * 4, 0, COLS - 1),
+          y: clamp(state.player.y + d.y * 4, 0, ROWS - 1)
+        };
+      }
+      case "inky": {
+        // Vector from Blinky, doubled through player
+        const blinky = getBlinky();
+        const pd = dirs[state.player.dir] || dirs.left;
+        const mid = { x: state.player.x + pd.x * 2, y: state.player.y + pd.y * 2 };
+        return {
+          x: clamp(2 * mid.x - blinky.x, 0, COLS - 1),
+          y: clamp(2 * mid.y - blinky.y, 0, ROWS - 1)
+        };
+      }
+      case "clyde": {
+        // Chase when far (>8), scatter to corner when close
+        const dist = Math.hypot(chaser.x - state.player.x, chaser.y - state.player.y);
+        return dist > 8 ? state.player : chaser.scatter;
+      }
+      default:
+        return state.player;
+    }
   }
-  function setDirection(dir) {
-    if (dirs[dir]) state.player.next = dir;
+
+  function ghostOptions(chaser) {
+    const opts = [];
+    for (const [name, d] of Object.entries(dirs)) {
+      // Can't reverse (except when just frightened or returning home)
+      if (!chaser.justReversed && name === opposite[chaser.dir]) continue;
+      let nx = chaser.x + d.x;
+      let ny = chaser.y + d.y;
+      if (ny === TUNNEL_ROW) nx = wrapX(nx, ny);
+      if (canMove(nx, ny)) opts.push([name, d, nx, ny]);
+    }
+    chaser.justReversed = false;
+    if (!opts.length) {
+      // Fallback: allow reversal
+      for (const [name, d] of Object.entries(dirs)) {
+        let nx = chaser.x + d.x;
+        let ny = chaser.y + d.y;
+        if (ny === TUNNEL_ROW) nx = wrapX(nx, ny);
+        if (canMove(nx, ny)) opts.push([name, d, nx, ny]);
+      }
+    }
+    return opts;
   }
-  function image(name) {
-    return images[name];
+
+  function stepGhosts(now) {
+    const powered = now < state.powerUntil;
+    for (const chaser of state.chasers) {
+      if (now < chaser.releaseAt) continue;
+
+      // Eaten ghosts move faster
+      const speedFactor = chaser.eaten ? 0.5 : 1;
+      if (now - chaser.lastStep < state.speedMs * speedFactor) continue;
+      chaser.lastStep = now;
+
+      const target  = ghostTarget(chaser);
+      const options = ghostOptions(chaser);
+      if (!options.length) continue;
+
+      // Frightened ghosts move randomly
+      let chosen;
+      if (powered && !chaser.eaten) {
+        chosen = options[Math.floor(Math.random() * options.length)];
+      } else {
+        // Sort by distance to target, add 15% randomness for lower ghosts
+        options.sort((a, b) => {
+          const da = Math.hypot(a[2] - target.x, a[3] - target.y);
+          const db = Math.hypot(b[2] - target.x, b[3] - target.y);
+          return da - db;
+        });
+        const chaos = chaser.personality === "clyde" ? 0.22 : 0.12;
+        chosen = Math.random() < chaos
+          ? options[Math.floor(Math.random() * options.length)]
+          : options[0];
+      }
+
+      if (chosen) {
+        chaser.dir = chosen[0];
+        moveActor(chaser, chosen[2], chosen[3], now);
+      }
+
+      // Eaten ghost arrived home — revive
+      if (chaser.eaten && chaser.x === chaser.home.x && chaser.y === chaser.home.y) {
+        chaser.eaten      = false;
+        chaser.releaseAt  = now + 1200;
+      }
+    }
   }
-  function drawImg(name, x, y, size, alpha = 1) {
-    const img = image(name);
-    if (!img) return;
+
+  // ─── Mode cycling (scatter / chase) ─────────────────────────────────────────
+  function updateModeCycle(now) {
+    if (state.powerUntil > now) return; // pause mode cycle during power
+    const elapsed = (now - state.modeStartAt) / 1000;
+    let cumulative = 0;
+    for (let i = 0; i < MODE_CYCLE.length; i++) {
+      cumulative += MODE_CYCLE[i];
+      if (elapsed < cumulative) {
+        const newMode = (i % 2 === 0) ? "scatter" : "chase";
+        if (newMode !== state.currentMode) {
+          state.currentMode = newMode;
+          // Reverse all non-eaten, non-released ghosts
+          for (const c of state.chasers) {
+            if (!c.eaten && performance.now() >= c.releaseAt) {
+              c.dir = opposite[c.dir];
+              c.justReversed = true;
+            }
+          }
+        }
+        return;
+      }
+    }
+    state.currentMode = "chase";
+  }
+
+  // ─── Popups ───────────────────────────────────────────────────────────────────
+  function addPopup(text, x, y, color = "#ffd45c") {
+    state.popups.push({
+      text, x, y, color,
+      born: performance.now(),
+      life: 900
+    });
+  }
+
+  // ─── Screen shake ─────────────────────────────────────────────────────────────
+  function shake(ms = 320, mag = 6) {
+    if (prefersReducedMotion) return;
+    state.shakeUntil = performance.now() + ms;
+    state.shakeMag   = mag;
+  }
+
+  // ─── Death animation ──────────────────────────────────────────────────────────
+  function startDeathAnim(x, y) {
+    if (prefersReducedMotion) return;
+    state.deathAnim = { x, y, born: performance.now(), life: 900 };
+  }
+
+  // ─── HUD ─────────────────────────────────────────────────────────────────────
+  function animateScore(target) {
+    // Tween the displayed score
+    const el     = els.score;
+    const start  = parseInt(el.textContent.replace(/,/g, ""), 10) || 0;
+    const dur    = 320;
+    const t0     = performance.now();
+    function tick(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      el.textContent = number(Math.round(lerp(start, target, ease(p))));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function updateHud() {
+    animateScore(state.score);
+    // Lives icons
+    els.lives.innerHTML = Array.from({ length: Math.max(0, state.lives) },
+      () => '<span class="life-icon" aria-hidden="true">🔮</span>'
+    ).join("") || "0";
+    els.pellets.textContent = state.pelletsLeft;
+    const powerSec = Math.max(0, Math.ceil((state.powerUntil - performance.now()) / 1000));
+    els.power.textContent  = powerSec > 0 ? `${powerSec}s` : "";
+    // Level in title
+    const levelEl = $("levelIndicator");
+    if (levelEl) levelEl.textContent = `LVL ${state.level}`;
+    // Best score
+    const bestEl = $("bestScore");
+    if (bestEl) bestEl.textContent = number(state.bestScore);
+  }
+
+  // ─── Question gating ─────────────────────────────────────────────────────────
+  function shouldAskQuestion() {
+    // Trigger every 5 pellets eaten (from last trigger) OR every 5th ghost eat
+    const pelletsDiff = (pelletsAtStart - state.pelletsLeft) - state.pelletsAtLastQuestion;
+    if (pelletsDiff >= 5) return true;
+    if (state.ghostEatCombo > 0 && state.ghostEatCombo % 5 === 0 &&
+        state.ghostEatCombo !== state.ghostEatsAtLastQuestion) return true;
+    return false;
+  }
+
+  function openQuestion() {
+    const q       = nextQuestion();
+    const choices = choicesFor(q);
+    state.paused          = true;
+    state.currentQuestion = q;
+    state.pelletsAtLastQuestion  = pelletsAtStart - state.pelletsLeft;
+    state.ghostEatsAtLastQuestion = state.ghostEatCombo;
+
+    // Pause siren
+    if (sirenGain) {
+      try { sirenGain.gain.setValueAtTime(0, audioCtx?.currentTime || 0); } catch (_) {}
+    }
+
+    els.feedback.classList.remove("show-text");
+    els.feedback.textContent = "";
+    els.questionMeta.textContent = [q.course, q.set || q.day, sourceFor(q)].filter(Boolean).join(" · ");
+    els.questionPrompt.textContent = promptFor(q);
+    const imgsQ = stimulusFor(q);
+    els.stimulus.innerHTML = imgsQ.map(img => {
+      const lbl = SourceBank.displayStimulusLabel
+        ? SourceBank.displayStimulusLabel(q, img)
+        : (img.label || "Source");
+      return `<figure><img src="${escapeHtml(img.src)}" alt="${escapeHtml(lbl)}"><figcaption>${escapeHtml(lbl)}</figcaption></figure>`;
+    }).join("");
+    els.choices.innerHTML = choices.map((choice, i) => {
+      const gate = gateAssets[i % gateAssets.length];
+      return `<button class="choice" type="button" data-index="${i}"><img src="${gate}" alt=""><span>${escapeHtml(choice.text)}</span></button>`;
+    }).join("");
+    [...els.choices.querySelectorAll(".choice")].forEach(btn => {
+      btn.addEventListener("click", () => answerQuestion(choices[Number(btn.dataset.index)], btn, choices));
+    });
+    show(els.quiz);
+  }
+
+  function answerQuestion(choice, button, choices) {
+    [...els.choices.querySelectorAll(".choice")].forEach((b, i) => {
+      b.disabled = true;
+      if (choices[i].correct) b.classList.add("correct");
+    });
+    state.answered += 1;
+    const now = performance.now();
+
+    if (choice.correct) {
+      state.correct += 1;
+      state.score   += 600;
+      // Bonus: extend power time, give speed boost
+      if (now < state.powerUntil) {
+        state.powerUntil += 4000; // 4s extra scare time
+        setMessage("CORRECT! +4s SCARE TIME", 1400);
+      } else {
+        // Spawn a fruit as bonus
+        spawnFruit();
+        setMessage("CORRECT! BONUS FRUIT!", 1400);
+      }
+      button.classList.add("correct");
+      playCorrect();
+      els.feedback.innerHTML = `<strong>Correct.</strong><br>${escapeHtml(state.currentQuestion.explanation || "Keep moving.")}`;
+    } else {
+      state.lives = Math.max(0, state.lives - 1);
+      button.classList.add("wrong");
+      playWrong();
+      shake(400, 8);
+      // Wrong: ghosts speed up for 5s
+      state.ghostSpeedBoost = now + 5000;
+      els.feedback.innerHTML = `<strong>Not yet.</strong><br>Answer: ${escapeHtml(answerFor(state.currentQuestion))}<br>${escapeHtml(state.currentQuestion.explanation || "")}`;
+    }
+    els.feedback.classList.add("show-text");
+    updateHud();
+    const delay = choice.correct ? 1100 : 2100;
+    setTimeout(() => {
+      show(null);
+      state.paused = false;
+      // Resume siren
+      if (state.running && !muted) {
+        const scared = performance.now() < state.powerUntil;
+        if (!sirenOsc) startSiren(scared);
+        else if (sirenGain) {
+          try { sirenGain.gain.setValueAtTime(scared ? 0.1 : 0.06, audioCtx?.currentTime || 0); } catch (_) {}
+        }
+      }
+      if (state.lives <= 0) endRun(false);
+    }, delay);
+  }
+
+  // ─── Grid / actors reset ──────────────────────────────────────────────────────
+  function resetGrid() {
+    state.grid = LEVEL.map(row => row.split(""));
+    state.pelletsLeft = 0;
+    for (let y = 0; y < ROWS; y++)
+      for (let x = 0; x < COLS; x++)
+        if (state.grid[y][x] === "." || state.grid[y][x] === "o") state.pelletsLeft++;
+    pelletsAtStart = state.pelletsLeft;
+    state.fruitCell = null;
+    state.fruitUntil = 0;
+    state.fruitSpawnedAt70  = false;
+    state.fruitSpawnedAt170 = false;
+  }
+
+  function resetActors() {
+    const now = performance.now();
+    state.player = {
+      x: 10, y: 13, prevX: 10, prevY: 13,
+      moveAt: now, dir: "left", next: "left"
+    };
+    state.chasers = GHOST_DEFS.map(def => ({
+      ...def,
+      prevX: def.home.x, prevY: def.home.y,
+      x: def.home.x, y: def.home.y,
+      moveAt: now,
+      dir: "left",
+      lastStep: now,
+      releaseAt: now + def.releaseDelay,
+      eaten: false,
+      justReversed: false
+    }));
+    state.modeStartAt  = now;
+    state.modeIndex    = 0;
+    state.currentMode  = "scatter";
+    state.ghostEatCombo = 0;
+    state.powerUntil    = 0;
+    state.powerFlashAt  = 0;
+    state.ghostSpeedBoost = 0;
+  }
+
+  // ─── Stars (background) ───────────────────────────────────────────────────────
+  function initStars() {
+    state.stars = Array.from({ length: 60 }, () => ({
+      x:    Math.random(),
+      y:    Math.random(),
+      r:    0.5 + Math.random() * 1.2,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.0008 + Math.random() * 0.0008
+    }));
+  }
+
+  // ─── Fruit ───────────────────────────────────────────────────────────────────
+  function spawnFruit() {
+    // Place fruit at a random open corridor cell
+    const open = [];
+    for (let y = 1; y < ROWS - 1; y++)
+      for (let x = 1; x < COLS - 1; x++)
+        if (state.grid[y][x] === " ") open.push({ x, y });
+    if (!open.length) return;
+    const cell       = open[Math.floor(Math.random() * open.length)];
+    const levelIdx   = clamp(state.level - 1, 0, FRUIT_SCORES.length - 1);
+    state.fruitCell  = cell;
+    state.fruitScore = FRUIT_SCORES[levelIdx];
+    state.fruitUntil = performance.now() + 9500;
+  }
+
+  // ─── Eating ──────────────────────────────────────────────────────────────────
+  function eatCell(now, board) {
+    const { x, y } = state.player;
+    const cell = state.grid[y]?.[x];
+
+    if (cell === ".") {
+      state.grid[y][x] = " ";
+      state.score      += 10;
+      state.pelletsLeft--;
+      playWakka();
+      const pos = cellToScreen(x, y, board);
+      addPopup("+10", pos.x, pos.y, "#ffffff");
+    } else if (cell === "o") {
+      state.grid[y][x] = " ";
+      state.score      += 50;
+      state.pelletsLeft--;
+      playPowerPellet();
+      const powerDur  = Math.max(4000, 7000 - (state.level - 1) * 300);
+      state.powerUntil  = now + powerDur;
+      state.powerFlashAt = now + powerDur - 2000;
+      state.ghostEatCombo = 0; // reset chain
+      // Reverse all released ghosts
+      for (const c of state.chasers) {
+        if (!c.eaten && now >= c.releaseAt) {
+          c.dir = opposite[c.dir];
+          c.justReversed = true;
+        }
+      }
+      setMessage("SOURCE SCROLL!", 900);
+      const pos = cellToScreen(x, y, board);
+      addPopup("+50 POWER!", pos.x, pos.y, "#ffd45c");
+      // Siren switches to scared
+      stopSiren();
+      startSiren(true);
+      // Trigger question on power pellet
+      setTimeout(() => openQuestion(), 200);
+      return;
+    }
+
+    // Fruit
+    if (state.fruitCell && x === state.fruitCell.x && y === state.fruitCell.y && now < state.fruitUntil) {
+      state.score     += state.fruitScore;
+      const pos        = cellToScreen(x, y, board);
+      addPopup(`+${state.fruitScore}`, pos.x, pos.y, "#ff72d2");
+      playTone(880, "triangle", 0.3, 0.28);
+      state.fruitCell  = null;
+      state.fruitUntil = 0;
+      updateHud();
+    }
+
+    // Pellet milestones for fruit
+    const eaten = pelletsAtStart - state.pelletsLeft;
+    if (!state.fruitSpawnedAt70  && eaten >= 70)  { spawnFruit(); state.fruitSpawnedAt70  = true; }
+    if (!state.fruitSpawnedAt170 && eaten >= 170) { spawnFruit(); state.fruitSpawnedAt170 = true; }
+
+    if (state.pelletsLeft <= 0) {
+      advanceLevel();
+      return;
+    }
+
+    // Question trigger (not during power)
+    if (now >= state.powerUntil && shouldAskQuestion()) {
+      setTimeout(() => openQuestion(), 80);
+    }
+  }
+
+  // ─── Level advance ────────────────────────────────────────────────────────────
+  function advanceLevel() {
+    if (state.level >= 10) { endRun(true); return; }
+    state.level++;
+    state.score += 2000 + state.level * 500;
+    setMessage(`LEVEL ${state.level}! ARCHIVE DEEPER`, 2200);
+    // Ghost speed increases 5% per level
+    state.speedMs = Math.max(80, Math.round(state.baseSpeedMs * Math.pow(0.95, state.level - 1)));
+    const now = performance.now();
+    state.countdownUntil = now + 2200;
+    state.freezeUntil    = now + 2200;
+    resetGrid();
+    resetActors();
+    updateHud();
+  }
+
+  // ─── Player step ─────────────────────────────────────────────────────────────
+  function stepPlayer(now, board) {
+    // Try queued direction
+    const queued = nextTile(state.player, state.player.next);
+    if (queued) state.player.dir = state.player.next;
+
+    const tile = nextTile(state.player, state.player.dir);
+    if (tile) {
+      moveActor(state.player, tile.x, tile.y, now);
+      eatCell(now, board);
+    }
+  }
+
+  // ─── Collisions ──────────────────────────────────────────────────────────────
+  function handleCollisions(now, board) {
+    const powered = now < state.powerUntil;
+    for (const chaser of state.chasers) {
+      if (chaser.eaten) continue;
+      if (chaser.x !== state.player.x || chaser.y !== state.player.y) continue;
+
+      if (powered) {
+        // Eat ghost
+        state.ghostEatCombo++;
+        state.ghostEatCombo % 5; // tick counter
+        const chain  = state.ghostEatCombo;
+        const pts    = [200, 400, 800, 1600][Math.min(chain - 1, 3)];
+        state.score += pts;
+        const pos    = cellToScreen(chaser.x, chaser.y, board);
+        addPopup(`+${pts}`, pos.x, pos.y, "#6eeeff");
+        playGhostEat(chain - 1);
+        shake(180, 4);
+        chaser.eaten     = true;
+        chaser.releaseAt = now + 4000; // will be set again on home arrival
+        setMessage(`GHOST ${chain}x CHAIN!`, 900);
+        updateHud();
+      } else {
+        // Player dies
+        state.lives--;
+        state.combo = 0;
+        const pAt  = actorDisplay(state.player, now);
+        const pos  = cellToScreen(pAt.x, pAt.y, board);
+        startDeathAnim(pos.x, pos.y);
+        playDeath();
+        shake(600, 10);
+        setMessage("SHIELD LOST", 900);
+        state.freezeUntil = now + 1200;
+        resetActors();
+        updateHud();
+        if (state.lives <= 0) {
+          setTimeout(() => endRun(false), 1300);
+        }
+      }
+      break;
+    }
+  }
+
+  // ─── Start / end ──────────────────────────────────────────────────────────────
+  function startRun() {
+    // Resume AudioContext on user gesture
+    if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+    if (!audioCtx) getAudio();
+
+    const now = performance.now();
+    state.running       = true;
+    state.paused        = false;
+    state.explicitPause = false;
+    state.score         = 0;
+    state.lives         = 3;
+    state.correct       = 0;
+    state.answered      = 0;
+    state.combo         = 0;
+    state.ghostEatCombo = 0;
+    state.level         = 1;
+    state.popups        = [];
+    state.ghostSpeedBoost = 0;
+    state.deathAnim     = null;
+    state.countdownUntil = now + 2200;
+    state.freezeUntil   = 0;
+    state.pelletsAtLastQuestion   = 0;
+    state.ghostEatsAtLastQuestion = 0;
+
+    const speedSel = els.speedFilter.value;
+    state.baseSpeedMs = speedSel === "fast" ? 104 : speedSel === "study" ? 162 : 128;
+    state.speedMs = state.baseSpeedMs;
+
+    resetGrid();
+    resetActors();
+    setMessage("READY", 2200);
+    show(null);
+    updateHud();
+    stopSiren();
+    startSiren(false);
+
+    // Best score from localStorage
+    const stored = parseInt(localStorage.getItem("mazeChaseBest") || "0", 10);
+    state.bestScore = stored;
+    const bestEl = $("bestScore");
+    if (bestEl) bestEl.textContent = number(state.bestScore);
+
+    window.MrMacsAnalytics?.track("game_open", {
+      gameId: "review-maze-chase", title: "Review Maze Chase"
+    }, { counter: "game-opens" });
+  }
+
+  function endRun(won) {
+    state.running = false;
+    state.paused  = true;
+    stopSiren();
+
+    if (state.score > state.bestScore) {
+      state.bestScore = state.score;
+      localStorage.setItem("mazeChaseBest", String(state.bestScore));
+    }
+
+    els.resultTitle.textContent = won ? "Archive Maze Cleared!" : "Archive Overrun";
+    const accuracy = state.answered
+      ? Math.round((state.correct / state.answered) * 100)
+      : 0;
+    els.resultMetrics.innerHTML = [
+      `${number(state.score)} score`,
+      `Best: ${number(state.bestScore)}`,
+      `Level ${state.level}`,
+      `${state.correct}/${state.answered} gates`,
+      `${accuracy}% accuracy`,
+      `${state.pelletsLeft} evidence left`
+    ].map(t => `<span>${escapeHtml(t)}</span>`).join("");
+    els.coach.textContent = accuracy >= 80
+      ? "Strong run. Raise speed or switch to a harder course set."
+      : "Replay one set and read each explanation before pushing speed.";
+    show(els.result);
+    window.MrMacsAnalytics?.track("game_complete", {
+      gameId: "review-maze-chase", title: "Review Maze Chase",
+      score: accuracy, questions: state.answered
+    }, { counter: "game-completions" });
+  }
+
+  // ─── Pause ────────────────────────────────────────────────────────────────────
+  function togglePause() {
+    if (!state.running) return;
+    state.explicitPause = !state.explicitPause;
+    state.paused        = state.explicitPause;
+    if (state.paused) {
+      if (sirenGain) {
+        try { sirenGain.gain.setValueAtTime(0, audioCtx?.currentTime || 0); } catch (_) {}
+      }
+    } else {
+      if (!muted && !sirenOsc) startSiren(performance.now() < state.powerUntil);
+      else if (sirenGain && !muted) {
+        const scared = performance.now() < state.powerUntil;
+        try { sirenGain.gain.setValueAtTime(scared ? 0.1 : 0.06, audioCtx?.currentTime || 0); } catch (_) {}
+      }
+    }
+  }
+
+  // ─── Main loop ────────────────────────────────────────────────────────────────
+  let lastBoard = null;
+
+  function step(now) {
+    const board = boardRect();
+    lastBoard = board;
+
+    const canStep =
+      state.running &&
+      !state.paused &&
+      !state.explicitPause &&
+      now >= state.countdownUntil &&
+      now >= state.freezeUntil;
+
+    if (canStep && now - state.lastStep >= state.speedMs) {
+      state.lastStep = now;
+      stepPlayer(now, board);
+      updateModeCycle(now);
+      // Ghost speed boost on wrong answer
+      const ghostSpeed = (state.ghostSpeedBoost > now)
+        ? state.speedMs * 0.7
+        : state.speedMs;
+      // temporarily set for stepGhosts comparisons
+      const oldSpeed = state.speedMs;
+      state.speedMs  = ghostSpeed;
+      stepGhosts(now);
+      state.speedMs  = oldSpeed;
+      handleCollisions(now, board);
+      updateHud();
+      // Siren pitch follows pellet count
+      if (!state.paused) updateSirenPitch(state.pelletsLeft, pelletsAtStart, now < state.powerUntil);
+    }
+
+    // Scare-time ended → switch siren back
+    if (state._wasPowered && performance.now() >= state.powerUntil) {
+      state._wasPowered = false;
+      stopSiren();
+      if (state.running && !state.paused && !muted) startSiren(false);
+      // Un-eaten ghosts lose scared state
+      for (const c of state.chasers) { if (!c.eaten) c.justReversed = false; }
+    }
+    if (performance.now() < state.powerUntil) state._wasPowered = true;
+
+    draw(now, board);
+    requestAnimationFrame(step);
+  }
+
+  // ─── Resize ──────────────────────────────────────────────────────────────────
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    els.canvas.width  = Math.floor(innerWidth  * dpr);
+    els.canvas.height = Math.floor(innerHeight * dpr);
+  }
+
+  function cellToScreen(x, y, board) {
+    return {
+      x: board.x + x * board.cell + board.cell / 2,
+      y: board.y + y * board.cell + board.cell / 2
+    };
+  }
+
+  function boardRect() {
+    const dpr  = Math.min(devicePixelRatio || 1, 2);
+    const maxW = els.canvas.width  * 0.9;
+    const maxH = els.canvas.height * 0.66;
+    const cell = Math.floor(Math.min(maxW / COLS, maxH / ROWS));
+    return {
+      cell,
+      x: Math.floor((els.canvas.width  - cell * COLS) / 2),
+      y: Math.floor((els.canvas.height - cell * ROWS) / 2 + els.canvas.height * 0.04)
+    };
+  }
+
+  // ─── Draw ─────────────────────────────────────────────────────────────────────
+  function draw(now, board) {
+    const w = els.canvas.width;
+    const h = els.canvas.height;
+
+    // Screen shake offset
+    let sx = 0, sy = 0;
+    if (!prefersReducedMotion && now < state.shakeUntil) {
+      const t = 1 - (state.shakeUntil - now) / 400;
+      const mag = state.shakeMag * (1 - t);
+      sx = (Math.random() - 0.5) * mag * 2;
+      sy = (Math.random() - 0.5) * mag * 2;
+    }
+
     ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.drawImage(img, x - size / 2, y - size / 2, size, size);
+    ctx.translate(sx, sy);
+
+    // Background
+    ctx.fillStyle = "#050711";
+    ctx.fillRect(-Math.abs(sx)-2, -Math.abs(sy)-2, w + Math.abs(sx)*2+4, h + Math.abs(sy)*2+4);
+    const bg = images["background"];
+    if (bg) {
+      ctx.globalAlpha = 0.22;
+      ctx.drawImage(bg, 0, 0, w, h);
+      ctx.globalAlpha = 1;
+    }
+
+    // Scanlines (subtle)
+    if (!prefersReducedMotion) {
+      ctx.fillStyle = "rgba(0,0,0,0.06)";
+      for (let ly = 0; ly < h; ly += 4) ctx.fillRect(0, ly, w, 2);
+    }
+
+    // Stars
+    if (!prefersReducedMotion) {
+      for (const star of state.stars) {
+        const alpha = 0.3 + 0.4 * Math.sin(now * star.speed + star.phase);
+        ctx.fillStyle = `rgba(200,230,255,${alpha.toFixed(2)})`;
+        ctx.beginPath();
+        ctx.arc(star.x * w, star.y * h, star.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Overlay dim
+    ctx.fillStyle = "rgba(3,6,15,0.62)";
+    ctx.fillRect(0, 0, w, h);
+
+    // Maze shadow backdrop
+    ctx.save();
+    ctx.shadowColor = "rgba(0,0,0,0.7)";
+    ctx.shadowBlur  = board.cell * 0.6;
+
+    // Walls + floor
+    drawMaze(now, board);
+
+    // Ghosts
+    drawGhosts(now, board);
+
+    // Player
+    drawPlayer(now, board);
+
+    // Fruit
+    drawFruit(now, board);
+
+    ctx.restore(); // shadow
+
+    // Death animation
+    if (state.deathAnim) drawDeathAnim(now);
+
+    // Popups
+    drawPopups(now);
+
+    // Overlay text (READY / messages)
+    drawOverlayText(now, w, h, board);
+
+    // Pause screen
+    if (state.explicitPause && state.running) drawPauseScreen(w, h);
+
+    ctx.restore(); // shake
+  }
+
+  function drawMaze(now, board) {
+    for (let y = 0; y < ROWS; y++) {
+      for (let x = 0; x < COLS; x++) {
+        const px   = board.x + x * board.cell;
+        const py   = board.y + y * board.cell;
+        const cs   = board.cell;
+        const orig = LEVEL[y][x];
+        const cell = state.grid[y]?.[x] || orig;
+
+        if (orig === "#") {
+          drawWallCell(x, y, px, py, cs);
+        } else {
+          // Floor
+          ctx.fillStyle = "rgba(7,13,28,0.82)";
+          ctx.fillRect(px, py, cs, cs);
+          // Subtle grid stroke
+          ctx.strokeStyle = "rgba(111,238,255,0.05)";
+          ctx.lineWidth   = 0.5;
+          ctx.strokeRect(px + 0.5, py + 0.5, cs - 1, cs - 1);
+
+          if (cell === ".") drawPellet(now, x, y, px, py, cs);
+          if (cell === "o") drawPowerPellet(now, x, y, px, py, cs);
+        }
+      }
+    }
+  }
+
+  function drawWallCell(gx, gy, px, py, cs) {
+    const wallImg = images["wall"];
+    if (wallImg) {
+      ctx.drawImage(wallImg, px - 1, py - 1, cs + 2, cs + 2);
+    } else {
+      ctx.fillStyle = "#1a2a50";
+      ctx.fillRect(px, py, cs, cs);
+    }
+    // Rounded inner corner highlight — check which neighbors are floor
+    const N = !isWall(gx, gy-1);
+    const S = !isWall(gx, gy+1);
+    const E = !isWall(gx+1, gy);
+    const W = !isWall(gx-1, gy);
+    const r = Math.max(2, cs * 0.18);
+
+    if (N || S || E || W) {
+      // Gradient glow on exposed face
+      ctx.save();
+      const grad = ctx.createLinearGradient(px, py, px + cs, py + cs);
+      grad.addColorStop(0, "rgba(111,238,255,0.10)");
+      grad.addColorStop(1, "rgba(111,238,255,0.00)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      const rr = Math.max(1, cs * 0.12);
+      if (ctx.roundRect) {
+        ctx.roundRect(px + 1, py + 1, cs - 2, cs - 2, rr);
+      } else {
+        ctx.rect(px + 1, py + 1, cs - 2, cs - 2);
+      }
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function drawPellet(now, gx, gy, px, py, cs) {
+    const pulse = 0.88 + Math.sin(now / 140 + gx * 1.7 + gy) * 0.1;
+    const cx    = px + cs / 2;
+    const cy    = py + cs / 2;
+    const r     = cs * 0.15 * pulse;
+
+    ctx.save();
+    ctx.shadowColor = "rgba(255,255,255,0.55)";
+    ctx.shadowBlur  = cs * 0.28;
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    g.addColorStop(0, "#ffffff");
+    g.addColorStop(0.5, "#aaddff");
+    g.addColorStop(1, "rgba(111,238,255,0)");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
     ctx.restore();
   }
 
-  async function loadImages() {
-    await Promise.all(Object.entries(assets).map(([key, src]) => new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => { images[key] = img; resolve(); };
-      img.onerror = reject;
-      img.src = src;
-    })));
+  function drawPowerPellet(now, gx, gy, px, py, cs) {
+    const pulse = 0.9 + Math.sin(now / 180 + gx) * 0.12;
+    const cx    = px + cs / 2;
+    const cy    = py + cs / 2 + Math.sin(now / 180 + gx) * cs * 0.06;
+    const r     = cs * 0.38 * pulse;
+
+    ctx.save();
+    ctx.shadowColor = "rgba(255,212,92,0.9)";
+    ctx.shadowBlur  = cs * 0.55;
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    g.addColorStop(0, "#fff8c0");
+    g.addColorStop(0.4, "#ffd45c");
+    g.addColorStop(1, "rgba(255,180,30,0)");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Star sparkle
+    ctx.strokeStyle = "rgba(255,240,140,0.5)";
+    ctx.lineWidth   = 1;
+    for (let i = 0; i < 4; i++) {
+      const a  = (now / 500 + i * Math.PI / 2);
+      const d1 = r * 0.85;
+      const d2 = r * 1.35;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(a) * d1, cy + Math.sin(a) * d1);
+      ctx.lineTo(cx + Math.cos(a) * d2, cy + Math.sin(a) * d2);
+      ctx.stroke();
+    }
+    ctx.restore();
   }
+
+  function drawGhosts(now, board) {
+    const powered     = now < state.powerUntil;
+    const flashing    = now > state.powerFlashAt && powered;
+
+    for (const chaser of state.chasers) {
+      const at  = actorDisplay(chaser, now);
+      const pos = cellToScreen(at.x, at.y, board);
+      const cs  = board.cell;
+      const released = now >= chaser.releaseAt;
+
+      ctx.save();
+
+      if (chaser.eaten) {
+        // Eyes only
+        drawGhostEyes(pos.x, pos.y, cs, chaser.dir);
+      } else if (powered) {
+        // Scared / flashing
+        const flashOn = !flashing || (Math.floor(now / 180) % 2 === 0);
+        // Ghost body
+        ctx.globalAlpha = 0.9;
+        drawGhostShape(pos.x, pos.y, cs, flashOn ? "#2244cc" : "#ffffff", now);
+        // Eyes wide
+        drawGhostEyes(pos.x, pos.y, cs, chaser.dir, true);
+      } else {
+        // Normal ghost
+        const img = images[chaser.img];
+        if (img) {
+          ctx.drawImage(img,
+            pos.x - cs * 0.67, pos.y - cs * 0.67,
+            cs * 1.34, cs * 1.34
+          );
+        } else {
+          const colors = { red:"#ff3344", purple:"#cc44ff", blue:"#44aaff", green:"#44ff88" };
+          drawGhostShape(pos.x, pos.y, cs, colors[chaser.img] || "#aaaaaa", now);
+        }
+        // Eyes showing direction
+        drawGhostEyes(pos.x, pos.y, cs, chaser.dir, false);
+      }
+
+      // Release ring
+      if (!released) {
+        ctx.strokeStyle = "rgba(111,238,255,0.72)";
+        ctx.lineWidth   = Math.max(2, cs * 0.07);
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, cs * 0.56, -Math.PI / 2, Math.PI * 1.5);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+  }
+
+  function drawGhostShape(cx, cy, cs, color, now) {
+    const r = cs * 0.48;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    // Dome top
+    ctx.arc(cx, cy - r * 0.15, r, Math.PI, 0, false);
+    // Wavy bottom
+    const waves  = 3;
+    const wWidth = (r * 2) / waves;
+    let  wx      = cx + r;
+    const bottom = cy - r * 0.15 + r;
+    ctx.lineTo(wx, bottom);
+    for (let i = 0; i < waves; i++) {
+      const midX = wx - wWidth / 2;
+      const endX = wx - wWidth;
+      const waveY = bottom - cs * 0.12 * ((i % 2 === 0) ? 1 : -0.5);
+      ctx.quadraticCurveTo(midX, waveY, endX, bottom);
+      wx = endX;
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    // Inner gradient sheen
+    const sheen = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
+    sheen.addColorStop(0, "rgba(255,255,255,0.2)");
+    sheen.addColorStop(1, "rgba(0,0,0,0.12)");
+    ctx.fillStyle = sheen;
+    ctx.fill();
+  }
+
+  function drawGhostEyes(cx, cy, cs, dir, scared = false) {
+    const eyeOffX = cs * 0.16;
+    const eyeOffY = cs * 0.04;
+    const eyeR    = cs * 0.12;
+
+    for (let e = 0; e < 2; e++) {
+      const ex = cx + (e === 0 ? -eyeOffX : eyeOffX);
+      const ey = cy - eyeOffY;
+
+      if (scared) {
+        // Dots
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(ex, ey, eyeR * 0.6, 0, Math.PI * 2);
+        ctx.fill();
+        // X eyes during flash
+      } else {
+        // White sclera
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(ex, ey, eyeR, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Pupil direction
+        const pd = dirs[dir] || dirs.left;
+        const px2 = ex + pd.x * eyeR * 0.45;
+        const py2 = ey + pd.y * eyeR * 0.45;
+        ctx.fillStyle = "#1155cc";
+        ctx.beginPath();
+        ctx.arc(px2, py2, eyeR * 0.52, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  function drawPlayer(now, board) {
+    const at  = actorDisplay(state.player, now);
+    const pos = cellToScreen(at.x, at.y, board);
+    const cs  = board.cell;
+
+    ctx.save();
+    const rotation =
+      state.player.dir === "right"  ?  0 :
+      state.player.dir === "down"   ?  Math.PI / 2 :
+      state.player.dir === "up"     ? -Math.PI / 2 :
+                                       Math.PI;
+    ctx.translate(pos.x, pos.y);
+    ctx.rotate(rotation);
+
+    const pulse  = 1 + Math.sin(now / 85) * 0.03;
+    const imgObj = images["player"];
+    if (imgObj) {
+      ctx.drawImage(imgObj,
+        -cs * 0.73 * pulse, -cs * 0.73 * pulse,
+        cs * 1.46 * pulse, cs * 1.46 * pulse
+      );
+    } else {
+      // Fallback: draw Pac-Man
+      const mouthAngle = 0.25 + 0.2 * Math.abs(Math.sin(now / 120));
+      ctx.fillStyle = "#ffd45c";
+      ctx.shadowColor = "rgba(255,212,92,0.7)";
+      ctx.shadowBlur  = cs * 0.35;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.arc(0, 0, cs * 0.44 * pulse, mouthAngle, Math.PI * 2 - mouthAngle);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Eye
+    ctx.fillStyle = "#07101f";
+    ctx.beginPath();
+    ctx.arc(cs * 0.1, -cs * 0.22, cs * 0.07, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  function drawFruit(now, board) {
+    if (!state.fruitCell || now >= state.fruitUntil) return;
+    const { x, y }  = state.fruitCell;
+    const pos = cellToScreen(x, y, board);
+    const cs  = board.cell;
+    const pulse = 0.9 + Math.sin(now / 120) * 0.12;
+    const alpha = Math.min(1, (state.fruitUntil - now) / 1500);
+
+    ctx.save();
+    ctx.globalAlpha = alpha * pulse;
+    ctx.shadowColor = "rgba(255,114,210,0.85)";
+    ctx.shadowBlur  = cs * 0.45;
+    // Draw a star shape
+    const r1 = cs * 0.35;
+    const r2 = cs * 0.16;
+    const pts = 5;
+    ctx.fillStyle = "#ff72d2";
+    ctx.beginPath();
+    for (let i = 0; i < pts * 2; i++) {
+      const a = (i * Math.PI) / pts - Math.PI / 2 + now / 800;
+      const r = i % 2 === 0 ? r1 : r2;
+      if (i === 0) ctx.moveTo(pos.x + r * Math.cos(a), pos.y + r * Math.sin(a));
+      else ctx.lineTo(pos.x + r * Math.cos(a), pos.y + r * Math.sin(a));
+    }
+    ctx.closePath();
+    ctx.fill();
+    // Score label
+    ctx.fillStyle = "#ffffff";
+    ctx.font = `900 ${Math.max(8, cs * 0.28)}px Inter, sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(number(state.fruitScore), pos.x, pos.y + cs * 0.6);
+    ctx.restore();
+  }
+
+  function drawDeathAnim(now) {
+    if (!state.deathAnim) return;
+    const da   = state.deathAnim;
+    const t    = (now - da.born) / da.life;
+    if (t >= 1) { state.deathAnim = null; return; }
+    const { x, y } = da;
+
+    ctx.save();
+    // Radial collapse: arcs disappear
+    const startAngle = -Math.PI / 2;
+    const endAngle   = startAngle + (1 - t) * Math.PI * 2;
+    const r          = 20 * (1 + t * 0.5);
+    ctx.globalAlpha  = 1 - t * 0.9;
+    ctx.strokeStyle  = "#ffd45c";
+    ctx.lineWidth    = 4;
+    ctx.shadowColor  = "rgba(255,212,92,0.8)";
+    ctx.shadowBlur   = 12;
+    ctx.beginPath();
+    ctx.arc(x, y, r, startAngle, endAngle);
+    ctx.stroke();
+    // Particle burst
+    for (let i = 0; i < 8; i++) {
+      const a  = (i / 8) * Math.PI * 2 + now / 200;
+      const d  = t * 40;
+      const px = x + Math.cos(a) * d;
+      const py = y + Math.sin(a) * d;
+      ctx.globalAlpha = (1 - t) * 0.8;
+      ctx.fillStyle   = i % 2 === 0 ? "#ffd45c" : "#ff72d2";
+      ctx.beginPath();
+      ctx.arc(px, py, 3 * (1 - t), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawPopups(now) {
+    state.popups = state.popups.filter(p => now - p.born < p.life);
+    for (const p of state.popups) {
+      const t     = (now - p.born) / p.life;
+      const alpha = 1 - t;
+      const y     = p.y - t * 32;
+      ctx.save();
+      ctx.globalAlpha  = alpha;
+      ctx.font         = `950 ${Math.max(10, 14)}px Inter, sans-serif`;
+      ctx.textAlign    = "center";
+      ctx.textBaseline = "middle";
+      ctx.shadowColor  = "rgba(0,0,0,0.7)";
+      ctx.shadowBlur   = 4;
+      ctx.fillStyle    = p.color;
+      ctx.fillText(p.text, p.x, y);
+      ctx.restore();
+    }
+  }
+
+  function drawOverlayText(now, w, h, board) {
+    const countdown   = Math.ceil((state.countdownUntil - now) / 1000);
+    const showCountdown = state.running && !state.paused && countdown > 0;
+    const showMessage   = state.message && now < state.messageUntil;
+    if (!showCountdown && !showMessage) return;
+
+    ctx.save();
+    ctx.textAlign    = "center";
+    ctx.textBaseline = "middle";
+    const text = showCountdown
+      ? (countdown > 1 ? String(countdown - 1) : "GO")
+      : state.message;
+    const ty   = showCountdown
+      ? h * 0.48
+      : Math.max(board.y - board.cell * 1.25, h * 0.18);
+    ctx.font       = showCountdown
+      ? `950 ${Math.min(96, Math.max(52, board.cell * 3.4))}px Inter, sans-serif`
+      : `950 ${Math.min(34, Math.max(18, board.cell * 0.8))}px Inter, sans-serif`;
+    ctx.lineWidth   = Math.max(4, board.cell * 0.16);
+    ctx.strokeStyle = "rgba(3,6,15,0.88)";
+    ctx.fillStyle   = showCountdown ? "#ffd45c" : "#6eeeff";
+    ctx.strokeText(text, w / 2, ty);
+    ctx.fillText(text, w / 2, ty);
+    ctx.restore();
+  }
+
+  function drawPauseScreen(w, h) {
+    ctx.save();
+    ctx.fillStyle = "rgba(5,7,17,0.6)";
+    ctx.fillRect(0, 0, w, h);
+    ctx.textAlign    = "center";
+    ctx.textBaseline = "middle";
+    ctx.font         = `950 ${Math.min(64, w * 0.1)}px Inter, sans-serif`;
+    ctx.fillStyle    = "#ffd45c";
+    ctx.strokeStyle  = "rgba(3,6,15,0.9)";
+    ctx.lineWidth    = 6;
+    ctx.strokeText("PAUSED", w / 2, h / 2);
+    ctx.fillText("PAUSED", w / 2, h / 2);
+    ctx.font      = `700 ${Math.min(20, w * 0.035)}px Inter, sans-serif`;
+    ctx.fillStyle = "#6eeeff";
+    ctx.fillText("Press P or tap Pause to resume", w / 2, h / 2 + 52);
+    ctx.restore();
+  }
+
+  // ─── Message helper ───────────────────────────────────────────────────────────
+  function setMessage(text, ms = 1200) {
+    state.message      = text;
+    state.messageUntil = performance.now() + ms;
+  }
+
+  // ─── Direction input ──────────────────────────────────────────────────────────
+  function setDirection(dir) {
+    if (dirs[dir]) state.player.next = dir;
+    // Resume AudioContext on input
+    if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+  }
+
+  // ─── Image loading ────────────────────────────────────────────────────────────
+  async function loadImages() {
+    await Promise.allSettled(
+      Object.entries(assetSrcs).map(([key, src]) =>
+        new Promise((resolve) => {
+          const img   = new Image();
+          img.onload  = () => { images[key] = img; resolve(); };
+          img.onerror = resolve; // don't block on missing assets
+          img.src     = src;
+        })
+      )
+    );
+  }
+
+  // ─── Question bank ────────────────────────────────────────────────────────────
   async function loadBank() {
     const response = await fetch("../../data/chrono-defense-bank.json?v=20260504-maze");
-    const data = await response.json();
-    state.bank = (data.questions || []).filter(playableQuestion);
+    const data     = await response.json();
+    state.bank     = (data.questions || []).filter(playableQuestion);
+
     const byCourse = {};
     for (const q of state.bank) {
       if (!q.course) continue;
       if (!byCourse[q.course]) byCourse[q.course] = new Set();
       byCourse[q.course].add(q.set || q.day || q.subject || "Review");
     }
-    state.setsByCourse = Object.fromEntries(Object.entries(byCourse).map(([course, sets]) => [course, [...sets].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))]));
-    const courses = ["All Courses", ...Object.keys(byCourse).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))];
-    els.courseFilter.innerHTML = courses.map((course) => `<option value="${escapeHtml(course)}">${escapeHtml(course)}</option>`).join("");
+    state.setsByCourse = Object.fromEntries(
+      Object.entries(byCourse).map(([c, sets]) => [c, [...sets].sort((a,b) => a.localeCompare(b, undefined, { numeric: true }))])
+    );
+    const courses = ["All Courses", ...Object.keys(byCourse).sort((a,b) => a.localeCompare(b, undefined, { numeric: true }))];
+    els.courseFilter.innerHTML = courses.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
     populateSets();
     applyFilters();
   }
+
   function playableQuestion(q) {
     if (!q) return false;
     if (SourceBank.playableSharedPrompt && !SourceBank.playableSharedPrompt(q)) return false;
@@ -218,415 +1557,216 @@
   }
   function populateSets() {
     const course = els.courseFilter.value || "All Courses";
-    const sets = course === "All Courses" ? ["All Sets"] : ["All Sets", ...(state.setsByCourse?.[course] || [])];
-    els.setFilter.innerHTML = sets.map((set) => `<option value="${escapeHtml(set)}">${escapeHtml(set)}</option>`).join("");
+    const sets   = course === "All Courses"
+      ? ["All Sets"]
+      : ["All Sets", ...(state.setsByCourse?.[course] || [])];
+    els.setFilter.innerHTML = sets.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join("");
   }
   function applyFilters() {
     const course = els.courseFilter.value || "All Courses";
-    const set = els.setFilter.value || "All Sets";
-    state.filtered = state.bank.filter((q) => {
+    const set    = els.setFilter.value   || "All Sets";
+    state.filtered = state.bank.filter(q => {
       if (course !== "All Courses" && q.course !== course) return false;
-      if (set !== "All Sets" && (q.set || q.day || q.subject || "Review") !== set) return false;
+      if (set    !== "All Sets"    && (q.set || q.day || q.subject || "Review") !== set) return false;
       return true;
     });
     if (!state.filtered.length) state.filtered = state.bank.slice();
     state.queue = shuffle(state.filtered);
-    const stimulus = state.filtered.filter((q) => (SourceBank.stimulusImages ? SourceBank.stimulusImages(q) : q.stimulusImages || []).length).length;
+    const stimulus = state.filtered.filter(q =>
+      (SourceBank.stimulusImages ? SourceBank.stimulusImages(q) : q.stimulusImages || []).length
+    ).length;
     els.metrics.innerHTML = [
       `${number(state.filtered.length)} prompts loaded`,
       `${number(stimulus)} source-image prompts`,
-      `${number(new Set(state.filtered.map((q) => q.course)).size)} courses in filter`
-    ].map((text) => `<span>${escapeHtml(text)}</span>`).join("");
+      `${number(new Set(state.filtered.map(q => q.course)).size)} courses in filter`
+    ].map(t => `<span>${escapeHtml(t)}</span>`).join("");
   }
   function nextQuestion() {
     if (!state.queue.length) state.queue = shuffle(state.filtered);
     return state.queue.pop() || state.filtered[Math.floor(Math.random() * state.filtered.length)];
   }
-  function promptFor(q) {
-    return SourceBank.displayPrompt ? SourceBank.displayPrompt(q) : clean(q.prompt || q.stem);
-  }
-  function answerFor(q) {
-    return SourceBank.answerText ? SourceBank.answerText(q) : clean(q.answer);
-  }
-  function sourceFor(q) {
-    return SourceBank.displaySource ? SourceBank.displaySource(q) : clean(q.source || q.category || q.set || "");
-  }
-  function stimulusFor(q) {
-    return SourceBank.stimulusImages ? SourceBank.stimulusImages(q) : (q.stimulusImages || []).filter((img) => img && img.src);
-  }
+  function promptFor(q)   { return SourceBank.displayPrompt  ? SourceBank.displayPrompt(q)  : clean(q.prompt || q.stem); }
+  function answerFor(q)   { return SourceBank.answerText     ? SourceBank.answerText(q)     : clean(q.answer); }
+  function sourceFor(q)   { return SourceBank.displaySource  ? SourceBank.displaySource(q)  : clean(q.source || q.category || q.set || ""); }
+  function stimulusFor(q) { return SourceBank.stimulusImages ? SourceBank.stimulusImages(q) : (q.stimulusImages || []).filter(i => i && i.src); }
   function choicesFor(q) {
     if (q.type === "mcq" && Array.isArray(q.choices)) {
       const correct = answerFor(q);
-      const choices = q.choices.map((choice) => ({ text: clean(choice.text), correct: normalize(choice.text) === normalize(correct) || String(choice.label) === String(q.correct) }));
+      const choices = q.choices.map(c => ({
+        text:    clean(c.text),
+        correct: normalize(c.text) === normalize(correct) || String(c.label) === String(q.correct)
+      }));
       return shuffle(choices).slice(0, 4);
     }
     const correct = answerFor(q);
-    const same = state.filtered.concat(state.bank)
-      .filter((item) => item !== q && item.answer)
-      .map((item) => clean(item.answer))
-      .filter((text) => text && normalize(text) !== normalize(correct));
-    const distractors = [...new Map(shuffle(same).map((text) => [normalize(text), text])).values()].slice(0, 3);
-    return shuffle([{ text: correct, correct: true }, ...distractors.map((text) => ({ text, correct: false }))]).slice(0, 4);
-  }
-  function openQuestion() {
-    const q = nextQuestion();
-    const choices = choicesFor(q);
-    state.paused = true;
-    state.currentQuestion = q;
-    els.feedback.classList.remove("show-text");
-    els.feedback.textContent = "";
-    els.questionMeta.textContent = [q.course, q.set || q.day, sourceFor(q)].filter(Boolean).join(" · ");
-    els.questionPrompt.textContent = promptFor(q);
-    const imagesForQuestion = stimulusFor(q);
-    els.stimulus.innerHTML = imagesForQuestion.map((img) => {
-      const label = SourceBank.displayStimulusLabel ? SourceBank.displayStimulusLabel(q, img) : (img.label || "Source");
-      return `<figure><img src="${escapeHtml(img.src)}" alt="${escapeHtml(label)}"><figcaption>${escapeHtml(label)}</figcaption></figure>`;
-    }).join("");
-    els.choices.innerHTML = choices.map((choice, index) => {
-      const gate = gateAssets[index % gateAssets.length];
-      return `<button class="choice" type="button" data-index="${index}"><img src="${gate}" alt=""><span>${escapeHtml(choice.text)}</span></button>`;
-    }).join("");
-    [...els.choices.querySelectorAll(".choice")].forEach((button) => {
-      button.addEventListener("click", () => answerQuestion(choices[Number(button.dataset.index)], button, choices));
-    });
-    show(els.quiz);
-  }
-  function answerQuestion(choice, button, choices) {
-    [...els.choices.querySelectorAll(".choice")].forEach((choiceButton, index) => {
-      choiceButton.disabled = true;
-      if (choices[index].correct) choiceButton.classList.add("correct");
-    });
-    state.answered += 1;
-    if (choice.correct) {
-      state.correct += 1;
-      state.score += 600;
-      state.combo = 0;
-      state.powerUntil = performance.now() + 11000;
-      setMessage("SOURCE POWER: chase the chasers", 1500);
-      button.classList.add("correct");
-      els.feedback.innerHTML = `<strong>Correct. Source power online.</strong><br>${escapeHtml(state.currentQuestion.explanation || "Chasers are vulnerable. Clear the maze.")}`;
-    } else {
-      state.lives = Math.max(0, state.lives - 1);
-      button.classList.add("wrong");
-      els.feedback.innerHTML = `<strong>Not yet.</strong><br>Answer: ${escapeHtml(answerFor(state.currentQuestion))}<br>${escapeHtml(state.currentQuestion.explanation || "Use the explanation, then keep moving.")}`;
-    }
-    els.feedback.classList.add("show-text");
-    updateHud();
-    setTimeout(() => {
-      show(null);
-      state.paused = false;
-      if (state.lives <= 0) endRun(false);
-    }, choice.correct ? 1100 : 2100);
+    const same    = state.filtered.concat(state.bank)
+      .filter(item => item !== q && item.answer)
+      .map(item    => clean(item.answer))
+      .filter(text => text && normalize(text) !== normalize(correct));
+    const distractors = [...new Map(shuffle(same).map(t => [normalize(t), t])).values()].slice(0, 3);
+    return shuffle([{ text: correct, correct: true }, ...distractors.map(t => ({ text: t, correct: false }))]).slice(0, 4);
   }
 
-  function resetGrid() {
-    state.grid = LEVEL.map((row) => row.split(""));
-    state.pelletsLeft = 0;
-    for (let y = 0; y < ROWS; y++) {
-      for (let x = 0; x < COLS; x++) {
-        if (state.grid[y][x] === "." || state.grid[y][x] === "o") state.pelletsLeft += 1;
-      }
+  // ─── HUD injection ────────────────────────────────────────────────────────────
+  function injectHudExtras() {
+    const hudStats = document.querySelector(".hud-stats");
+    if (!hudStats) return;
+
+    // Level
+    if (!$("levelIndicator")) {
+      const div = document.createElement("div");
+      div.innerHTML = `<strong id="levelIndicator">LVL 1</strong><span>level</span>`;
+      hudStats.appendChild(div);
     }
-  }
-  function resetActors() {
-    const now = performance.now();
-    state.player = { x: 10, y: 13, prevX: 10, prevY: 13, moveAt: now, dir: "left", next: "left" };
-    state.chasers = [
-      { x: 9, y: 8, prevX: 9, prevY: 8, moveAt: now, dir: "left", img: "red", personality: "hunter", scatter: { x: 1, y: 1 }, home: { x: 9, y: 8 }, releaseAt: now + 400 },
-      { x: 10, y: 8, prevX: 10, prevY: 8, moveAt: now, dir: "right", img: "blue", personality: "ambush", scatter: { x: 19, y: 1 }, home: { x: 10, y: 8 }, releaseAt: now + 1400 },
-      { x: 11, y: 8, prevX: 11, prevY: 8, moveAt: now, dir: "up", img: "purple", personality: "patrol", scatter: { x: 1, y: 15 }, home: { x: 11, y: 8 }, releaseAt: now + 2600 },
-      { x: 10, y: 7, prevX: 10, prevY: 7, moveAt: now, dir: "down", img: "green", personality: "mirror", scatter: { x: 19, y: 15 }, home: { x: 10, y: 7 }, releaseAt: now + 3600 }
-    ];
-  }
-  function startRun() {
-    const now = performance.now();
-    state.running = true;
-    state.paused = false;
-    state.score = 0;
-    state.lives = 3;
-    state.correct = 0;
-    state.answered = 0;
-    state.combo = 0;
-    state.powerUntil = 0;
-    state.countdownUntil = now + 2200;
-    state.freezeUntil = 0;
-    state.lastStep = now;
-    state.speedMs = els.speedFilter.value === "fast" ? 104 : els.speedFilter.value === "study" ? 162 : 128;
-    resetGrid();
-    resetActors();
-    setMessage("READY", 2200);
-    show(null);
-    updateHud();
-    window.MrMacsAnalytics?.track("game_open", { gameId: "review-maze-chase", title: "Review Maze Chase" }, { counter: "game-opens" });
-  }
-  function updateHud() {
-    els.score.textContent = number(state.score);
-    els.lives.textContent = state.lives;
-    els.pellets.textContent = state.pelletsLeft;
-    els.power.textContent = Math.max(0, Math.ceil((state.powerUntil - performance.now()) / 1000));
-  }
-  function eatCell() {
-    const cell = state.grid[state.player.y][state.player.x];
-    if (cell === ".") {
-      state.grid[state.player.y][state.player.x] = " ";
-      state.score += 10;
-      state.pelletsLeft -= 1;
-    } else if (cell === "o") {
-      state.grid[state.player.y][state.player.x] = " ";
-      state.score += 80;
-      state.pelletsLeft -= 1;
-      setMessage("SOURCE SCROLL", 900);
-      openQuestion();
+    // Best score
+    if (!$("bestScore")) {
+      const div = document.createElement("div");
+      div.innerHTML = `<strong id="bestScore">0</strong><span>best</span>`;
+      hudStats.appendChild(div);
     }
-    if (state.pelletsLeft <= 0) endRun(true);
-  }
-  function stepPlayer(now) {
-    const queued = nextTile(state.player, state.player.next);
-    if (queued) state.player.dir = state.player.next;
-    const tile = nextTile(state.player, state.player.dir);
-    if (tile) {
-      moveActor(state.player, tile.x, tile.y, now);
-      eatCell();
+    // Pause button
+    if (!$("pauseBtn")) {
+      const btn = document.createElement("button");
+      btn.id        = "pauseBtn";
+      btn.className = "btn ghost pause-btn";
+      btn.type      = "button";
+      btn.textContent = "⏸ P";
+      btn.setAttribute("aria-label", "Pause (P)");
+      btn.addEventListener("click", togglePause);
+      document.querySelector(".hud")?.appendChild(btn);
     }
-  }
-  function chaserOptions(chaser) {
-    return Object.entries(dirs)
-      .filter(([name, dir]) => name !== opposite[chaser.dir] && canMove(chaser.x + dir.x, chaser.y + dir.y));
-  }
-  function targetFor(chaser) {
-    const powered = performance.now() < state.powerUntil;
-    if (powered) return chaser.scatter;
-    if (chaser.personality === "ambush") {
-      const dir = dirs[state.player.dir] || dirs.left;
-      return { x: clamp(state.player.x + dir.x * 3, 0, COLS - 1), y: clamp(state.player.y + dir.y * 3, 0, ROWS - 1) };
-    }
-    if (chaser.personality === "patrol") return Math.abs(chaser.x - state.player.x) + Math.abs(chaser.y - state.player.y) > 7 ? state.player : chaser.scatter;
-    if (chaser.personality === "mirror") return { x: COLS - 1 - state.player.x, y: ROWS - 1 - state.player.y };
-    return state.player;
-  }
-  function stepChasers(now) {
-    const powered = now < state.powerUntil;
-    for (const chaser of state.chasers) {
-      if (now < chaser.releaseAt) continue;
-      let target = targetFor(chaser);
-      let options = chaserOptions(chaser);
-      if (!options.length) options = Object.entries(dirs).filter(([, dir]) => canMove(chaser.x + dir.x, chaser.y + dir.y));
-      options.sort((a, b) => {
-        const da = Math.hypot(chaser.x + a[1].x - target.x, chaser.y + a[1].y - target.y);
-        const db = Math.hypot(chaser.x + b[1].x - target.x, chaser.y + b[1].y - target.y);
-        return powered ? db - da : da - db;
+    // Sound toggle
+    if (!$("soundBtn")) {
+      const btn = document.createElement("button");
+      btn.id        = "soundBtn";
+      btn.className = "btn ghost pause-btn";
+      btn.type      = "button";
+      btn.textContent = "🔊";
+      btn.setAttribute("aria-label", "Toggle sound");
+      btn.addEventListener("click", () => {
+        setMuted(!muted);
+        btn.textContent = muted ? "🔇" : "🔊";
       });
-      const chosen = Math.random() < .18 ? options[Math.floor(Math.random() * options.length)] : options[0];
-      if (chosen) {
-        chaser.dir = chosen[0];
-        const tile = nextTile(chaser, chosen[0]);
-        if (tile) moveActor(chaser, tile.x, tile.y, now);
-      }
+      document.querySelector(".hud")?.appendChild(btn);
     }
-  }
-  function handleCollisions(now) {
-    const powered = now < state.powerUntil;
-    for (const chaser of state.chasers) {
-      if (chaser.x !== state.player.x || chaser.y !== state.player.y) continue;
-      if (powered) {
-        state.combo += 1;
-        state.score += 300 * state.combo;
-        moveActor(chaser, chaser.home.x, chaser.home.y, now);
-        chaser.releaseAt = now + 1600;
-        setMessage(`${300 * state.combo} SOURCE COMBO`, 900);
-      } else {
-        state.lives -= 1;
-        state.combo = 0;
-        state.freezeUntil = now + 650;
-        setMessage("SHIELD LOST", 900);
-        resetActors();
-        if (state.lives <= 0) endRun(false);
-      }
-      updateHud();
-      break;
-    }
-  }
-  function endRun(won) {
-    state.running = false;
-    state.paused = true;
-    els.resultTitle.textContent = won ? "Archive maze cleared" : "Archive overrun";
-    const accuracy = state.answered ? Math.round((state.correct / state.answered) * 100) : 0;
-    els.resultMetrics.innerHTML = [
-      `${number(state.score)} score`,
-      `${state.correct}/${state.answered} gates`,
-      `${accuracy}% accuracy`,
-      `${state.pelletsLeft} evidence left`
-    ].map((text) => `<span>${escapeHtml(text)}</span>`).join("");
-    els.coach.textContent = accuracy >= 80 ? "Strong review run. Raise the speed or switch to a harder course set." : "Replay one course set and use each source-scroll explanation before speeding up.";
-    show(els.result);
-    window.MrMacsAnalytics?.track("game_complete", { gameId: "review-maze-chase", title: "Review Maze Chase", score: accuracy, questions: state.answered }, { counter: "game-completions" });
-  }
-  function step(now) {
-    if (state.running && !state.paused && now >= state.countdownUntil && now >= state.freezeUntil && now - state.lastStep >= state.speedMs) {
-      state.lastStep = now;
-      stepPlayer(now);
-      stepChasers(now);
-      handleCollisions(now);
-      updateHud();
-    }
-    draw(now);
-    requestAnimationFrame(step);
-  }
-  function resize() {
-    const dpr = Math.min(devicePixelRatio || 1, 1.5);
-    els.canvas.width = Math.floor(innerWidth * dpr);
-    els.canvas.height = Math.floor(innerHeight * dpr);
-  }
-  function cellToScreen(x, y, board) {
-    return {
-      x: board.x + x * board.cell + board.cell / 2,
-      y: board.y + y * board.cell + board.cell / 2
-    };
-  }
-  function boardRect() {
-    const maxW = els.canvas.width * .9;
-    const maxH = els.canvas.height * .68;
-    const cell = Math.floor(Math.min(maxW / COLS, maxH / ROWS));
-    return {
-      cell,
-      x: Math.floor((els.canvas.width - cell * COLS) / 2),
-      y: Math.floor((els.canvas.height - cell * ROWS) / 2 + els.canvas.height * .04)
-    };
-  }
-  function draw(now) {
-    const w = els.canvas.width;
-    const h = els.canvas.height;
-    ctx.clearRect(0, 0, w, h);
-    ctx.drawImage(image("background"), 0, 0, w, h);
-    ctx.fillStyle = "rgba(3,6,15,.68)";
-    ctx.fillRect(0, 0, w, h);
-    const board = boardRect();
-    ctx.save();
-    ctx.shadowColor = "rgba(0,0,0,.55)";
-    ctx.shadowBlur = board.cell * .7;
-    for (let y = 0; y < ROWS; y++) {
-      for (let x = 0; x < COLS; x++) {
-        const sx = board.x + x * board.cell;
-        const sy = board.y + y * board.cell;
-        const cell = state.grid[y]?.[x] || LEVEL[y][x];
-        if (LEVEL[y][x] === "#") {
-          ctx.drawImage(image("wall"), sx - 1, sy - 1, board.cell + 2, board.cell + 2);
-        } else {
-          ctx.fillStyle = "rgba(7,13,28,.78)";
-          ctx.fillRect(sx, sy, board.cell, board.cell);
-          ctx.strokeStyle = "rgba(111,238,255,.06)";
-          ctx.strokeRect(sx + .5, sy + .5, board.cell - 1, board.cell - 1);
-          if (cell === ".") {
-            const pulse = 0.86 + Math.sin(now / 140 + x * 1.7 + y) * 0.1;
-            drawImg("pellet", sx + board.cell / 2, sy + board.cell / 2, board.cell * .58 * pulse);
-          }
-          if (cell === "o") {
-            ctx.save();
-            ctx.shadowColor = "rgba(255,212,92,.78)";
-            ctx.shadowBlur = board.cell * .42;
-            drawImg("scroll", sx + board.cell / 2, sy + board.cell / 2 + Math.sin(now / 180 + x) * board.cell * .06, board.cell * 1.12);
-            ctx.restore();
-          }
-        }
-      }
-    }
-    const powered = now < state.powerUntil;
-    for (const chaser of state.chasers) {
-      const at = actorDisplay(chaser, now);
-      const pos = cellToScreen(at.x, at.y, board);
-      const released = now >= chaser.releaseAt;
-      drawImg(chaser.img, pos.x, pos.y, board.cell * 1.34, powered ? .48 : 1);
-      if (powered) drawImg("burst", pos.x, pos.y, board.cell * .74, .7);
-      if (!released) {
-        ctx.save();
-        ctx.strokeStyle = "rgba(111,238,255,.74)";
-        ctx.lineWidth = Math.max(2, board.cell * .08);
-        ctx.beginPath();
-        ctx.arc(pos.x, pos.y, board.cell * .58, -Math.PI / 2, Math.PI * 1.5);
-        ctx.stroke();
-        ctx.restore();
-      }
-    }
-    const playerAt = actorDisplay(state.player, now);
-    const p = cellToScreen(playerAt.x, playerAt.y, board);
-    ctx.save();
-    const rotation = state.player.dir === "right" ? 0 : state.player.dir === "down" ? Math.PI / 2 : state.player.dir === "up" ? -Math.PI / 2 : Math.PI;
-    ctx.translate(p.x, p.y);
-    ctx.rotate(rotation);
-    const playerPulse = 1 + Math.sin(now / 85) * .035;
-    const img = image("player");
-    if (img) ctx.drawImage(img, -board.cell * .73 * playerPulse, -board.cell * .73 * playerPulse, board.cell * 1.46 * playerPulse, board.cell * 1.46 * playerPulse);
-    ctx.restore();
-    for (let i = 0; i < state.lives; i++) drawImg("shield", board.x + i * board.cell * 1.1 + board.cell * .55, board.y - board.cell * .7, board.cell * .75);
-    ctx.restore();
-    drawOverlayText(now, w, h, board);
-  }
-  function drawOverlayText(now, w, h, board) {
-    const countdown = Math.ceil((state.countdownUntil - now) / 1000);
-    const showCountdown = state.running && !state.paused && countdown > 0;
-    const showMessage = state.message && now < state.messageUntil;
-    if (!showCountdown && !showMessage) return;
-    ctx.save();
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    const text = showCountdown ? (countdown > 1 ? String(countdown - 1) : "GO") : state.message;
-    const y = showCountdown ? h * .48 : Math.max(board.y - board.cell * 1.25, h * .18);
-    ctx.font = showCountdown ? `950 ${Math.min(96, Math.max(52, board.cell * 3.4))}px Inter, sans-serif` : `950 ${Math.min(34, Math.max(18, board.cell * .8))}px Inter, sans-serif`;
-    ctx.lineWidth = Math.max(4, board.cell * .16);
-    ctx.strokeStyle = "rgba(3,6,15,.88)";
-    ctx.fillStyle = showCountdown ? "#ffd45c" : "#6eeeff";
-    ctx.strokeText(text, w / 2, y);
-    ctx.fillText(text, w / 2, y);
-    ctx.restore();
-  }
-  function installQaHook() {
-    if (!new URLSearchParams(location.search).has("qa")) return;
-    window.__reviewMazeQA = {
-      startRun,
-      openQuestion,
-      state,
-      metrics: () => ({
-        score: state.score,
-        lives: state.lives,
-        pelletsLeft: state.pelletsLeft,
-        filtered: state.filtered.length,
-        running: state.running,
-        paused: state.paused,
-        combo: state.combo,
-        countdown: Math.max(0, state.countdownUntil - performance.now())
-      })
-    };
+    // D-pad (mobile)
+    injectDPad();
   }
 
+  function injectDPad() {
+    if ($("dpad")) return;
+    const dpad = document.createElement("div");
+    dpad.id        = "dpad";
+    dpad.className = "dpad";
+    dpad.innerHTML = `
+      <button class="dpad-btn dpad-up"    data-dir="up"    aria-label="Up">▲</button>
+      <button class="dpad-btn dpad-left"  data-dir="left"  aria-label="Left">◀</button>
+      <button class="dpad-btn dpad-center" aria-hidden="true"></button>
+      <button class="dpad-btn dpad-right" data-dir="right" aria-label="Right">▶</button>
+      <button class="dpad-btn dpad-down"  data-dir="down"  aria-label="Down">▼</button>
+    `;
+    document.querySelector(".maze-shell")?.appendChild(dpad);
+    dpad.querySelectorAll("[data-dir]").forEach(btn => {
+      btn.addEventListener("pointerdown", e => {
+        e.preventDefault();
+        setDirection(btn.dataset.dir);
+      });
+    });
+  }
+
+  // ─── Event wiring ─────────────────────────────────────────────────────────────
   els.courseFilter.addEventListener("change", () => { populateSets(); applyFilters(); });
   els.setFilter.addEventListener("change", applyFilters);
   els.startBtn.addEventListener("click", startRun);
   els.againBtn.addEventListener("click", startRun);
-  els.setupBtn.addEventListener("click", () => { state.running = false; state.paused = true; show(els.setup); });
-  document.querySelectorAll("[data-dir]").forEach((button) => button.addEventListener("click", () => setDirection(button.dataset.dir)));
-  addEventListener("keydown", (event) => {
-    const map = { ArrowLeft: "left", ArrowRight: "right", ArrowUp: "up", ArrowDown: "down", a: "left", d: "right", w: "up", s: "down" };
-    if (map[event.key]) {
-      event.preventDefault();
-      setDirection(map[event.key]);
+  els.setupBtn.addEventListener("click", () => {
+    state.running = false;
+    state.paused  = true;
+    stopSiren();
+    show(els.setup);
+  });
+
+  // Old nav controls (linear 4-button row)
+  document.querySelectorAll("[data-dir]").forEach(btn => {
+    btn.addEventListener("click", () => setDirection(btn.dataset.dir));
+  });
+
+  // Keyboard
+  addEventListener("keydown", e => {
+    const map = {
+      ArrowLeft:"left", ArrowRight:"right", ArrowUp:"up", ArrowDown:"down",
+      a:"left", d:"right", w:"up", s:"down",
+      A:"left", D:"right", W:"up", S:"down"
+    };
+    if (map[e.key]) { e.preventDefault(); setDirection(map[e.key]); }
+    if (e.key === "p" || e.key === "P") togglePause();
+    if (e.key === "m" || e.key === "M") {
+      const btn = $("soundBtn");
+      setMuted(!muted);
+      if (btn) btn.textContent = muted ? "🔇" : "🔊";
     }
   });
-  els.canvas.addEventListener("pointerdown", (event) => { state.pointer = { x: event.clientX, y: event.clientY }; });
-  els.canvas.addEventListener("pointerup", (event) => {
+
+  // Swipe on canvas
+  els.canvas.addEventListener("pointerdown", e => {
+    state.pointer = { x: e.clientX, y: e.clientY };
+  });
+  els.canvas.addEventListener("pointerup", e => {
     if (!state.pointer) return;
-    const dx = event.clientX - state.pointer.x;
-    const dy = event.clientY - state.pointer.y;
-    if (Math.abs(dx) + Math.abs(dy) > 24) setDirection(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "right" : "left") : (dy > 0 ? "down" : "up"));
+    const dx = e.clientX - state.pointer.x;
+    const dy = e.clientY - state.pointer.y;
+    if (Math.abs(dx) + Math.abs(dy) > 22) {
+      setDirection(Math.abs(dx) > Math.abs(dy)
+        ? (dx > 0 ? "right" : "left")
+        : (dy > 0 ? "down"  : "up")
+      );
+    }
     state.pointer = null;
   });
+  els.canvas.addEventListener("pointermove", e => {
+    if (!state.pointer) return;
+    const dx = e.clientX - state.pointer.x;
+    const dy = e.clientY - state.pointer.y;
+    if (Math.abs(dx) + Math.abs(dy) > 38) {
+      setDirection(Math.abs(dx) > Math.abs(dy)
+        ? (dx > 0 ? "right" : "left")
+        : (dy > 0 ? "down"  : "up")
+      );
+      state.pointer = null;
+    }
+  });
+
   addEventListener("resize", resize);
 
-  Promise.all([loadImages(), loadBank()]).then(() => {
+  // ─── QA hook ─────────────────────────────────────────────────────────────────
+  function installQaHook() {
+    if (!new URLSearchParams(location.search).has("qa")) return;
+    window.__reviewMazeQA = {
+      startRun, openQuestion, state, togglePause,
+      metrics: () => ({
+        score:       state.score,
+        lives:       state.lives,
+        pelletsLeft: state.pelletsLeft,
+        filtered:    state.filtered.length,
+        running:     state.running,
+        paused:      state.paused,
+        combo:       state.combo,
+        level:       state.level,
+        countdown:   Math.max(0, state.countdownUntil - performance.now())
+      })
+    };
+  }
+
+  // ─── Boot ────────────────────────────────────────────────────────────────────
+  Promise.allSettled([loadImages(), loadBank()]).then(() => {
     resize();
     resetGrid();
     resetActors();
+    initStars();
+    injectHudExtras();
     updateHud();
     installQaHook();
     requestAnimationFrame(step);
   });
+
 })();

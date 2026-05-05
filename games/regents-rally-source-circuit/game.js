@@ -258,6 +258,23 @@ const ITEMS = [
 
 const DRIFT_LABELS = ["", "MINI-TURBO", "SUPER MINI-TURBO", "ULTRA MINI-TURBO"];
 const DRIFT_COLORS = ["", "#f8fbff", "#ffd15c", "#66e9ff"];
+// Drift tier thresholds (seconds of drift hold)
+const DRIFT_THRESHOLDS = [0, 0.62, 1.45, 2.35];
+// Boost amounts per tier
+const DRIFT_BOOSTS = [0, 0.9, 1.7, 2.55];
+
+const GP_POINTS = [15, 12, 10, 8, 6, 5, 4, 3]; // points by finishing position
+
+const ENGINE_CLASS = {
+  "50cc":   { speedMult: 0.72, rivalAggression: 0.60, label: "50cc"  },
+  "100cc":  { speedMult: 1.00, rivalAggression: 1.00, label: "100cc" },
+  "150cc":  { speedMult: 1.28, rivalAggression: 1.35, label: "150cc" },
+  "mirror": { speedMult: 1.28, rivalAggression: 1.40, label: "Mirror", mirror: true }
+};
+
+// Question gate positions per lap (fraction of lap length)
+const QUESTION_GATE_FRACS = [0.28, 0.72];
+
 const RACECRAFT_EMPTY = () => ({
   perfectStart: false,
   nearMisses: 0,
@@ -265,6 +282,220 @@ const RACECRAFT_EMPTY = () => ({
   rouletteHits: 0,
   lineBonus: 0
 });
+
+/* ═══════════════════════════════════════════════
+   WEB AUDIO ENGINE
+═══════════════════════════════════════════════ */
+let audioCtx = null;
+let engineNode = null;
+let engineGain = null;
+let engineFilter = null;
+let muted = false;
+
+function initAudio() {
+  if (audioCtx) return;
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // Master gain
+    const master = audioCtx.createGain();
+    master.gain.value = 0.22;
+    master.connect(audioCtx.destination);
+
+    // Engine drone: sawtooth -> lowpass filter -> gain
+    engineNode = audioCtx.createOscillator();
+    engineNode.type = "sawtooth";
+    engineNode.frequency.value = 80;
+    engineFilter = audioCtx.createBiquadFilter();
+    engineFilter.type = "lowpass";
+    engineFilter.frequency.value = 600;
+    engineFilter.Q.value = 1.4;
+    engineGain = audioCtx.createGain();
+    engineGain.gain.value = 0;
+    engineNode.connect(engineFilter);
+    engineFilter.connect(engineGain);
+    engineGain.connect(master);
+    engineNode.start();
+
+    audioCtx.__master = master;
+  } catch (e) {
+    audioCtx = null;
+  }
+}
+
+function updateEngineAudio(speed, boost, drift) {
+  if (!audioCtx || muted) { if (engineGain) engineGain.gain.value = 0; return; }
+  if (audioCtx.state === "suspended") audioCtx.resume().catch(() => {});
+  const now = audioCtx.currentTime;
+  const normalised = clamp(speed / 700, 0, 1);
+  const baseFreq = 70 + normalised * 160 + (boost > 0 ? 45 : 0) + (drift ? 20 : 0);
+  engineNode.frequency.setTargetAtTime(baseFreq, now, 0.08);
+  engineFilter.frequency.setTargetAtTime(300 + normalised * 1800 + (boost > 0 ? 600 : 0), now, 0.08);
+  engineGain.gain.setTargetAtTime(0.28 + normalised * 0.18, now, 0.06);
+}
+
+function playTone(freq, type, duration, gainVal, attack = 0.01, decay = 0.12) {
+  if (!audioCtx || muted) return;
+  if (audioCtx.state === "suspended") audioCtx.resume().catch(() => {});
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(gainVal, audioCtx.currentTime + attack);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + attack + decay + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.__master || audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + attack + decay + duration + 0.05);
+  } catch (e) { /* ignore */ }
+}
+
+function playNoise(duration, gainVal, filterFreq = 800, attack = 0.01) {
+  if (!audioCtx || muted) return;
+  try {
+    const bufferSize = Math.ceil(audioCtx.sampleRate * duration);
+    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+    const src = audioCtx.createBufferSource();
+    src.buffer = buffer;
+    const filt = audioCtx.createBiquadFilter();
+    filt.type = "bandpass";
+    filt.frequency.value = filterFreq;
+    filt.Q.value = 2.2;
+    const gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(gainVal, audioCtx.currentTime + attack);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+    src.connect(filt);
+    filt.connect(gain);
+    gain.connect(audioCtx.__master || audioCtx.destination);
+    src.start();
+    src.stop(audioCtx.currentTime + duration + 0.05);
+  } catch (e) { /* ignore */ }
+}
+
+function sfxDriftTierUp(tier) {
+  if (!audioCtx || muted) return;
+  const freqs = [0, 280, 420, 620];
+  playTone(freqs[tier] || 280, "square", 0.06, 0.14, 0.01, 0.12);
+  playNoise(0.08, 0.06, 300 + tier * 120);
+}
+
+function sfxMiniTurbo(tier) {
+  if (!audioCtx || muted) return;
+  const freqs = [0, 340, 480, 680];
+  playTone(freqs[tier] || 340, "square", 0.18, 0.22, 0.005, 0.22);
+  playTone((freqs[tier] || 340) * 1.5, "sawtooth", 0.12, 0.1, 0.01, 0.16);
+}
+
+function sfxItemRoll() {
+  playTone(660, "square", 0.04, 0.08, 0.005, 0.04);
+}
+
+function sfxItemUse() {
+  playTone(880, "square", 0.06, 0.18, 0.005, 0.1);
+  playNoise(0.14, 0.1, 1200);
+}
+
+function sfxQuestionCorrect() {
+  playTone(880, "square", 0.06, 0.2, 0.005, 0.08);
+  playTone(1108, "sine", 0.1, 0.16, 0.01, 0.14);
+}
+
+function sfxQuestionWrong() {
+  playTone(180, "sawtooth", 0.18, 0.16, 0.01, 0.2);
+}
+
+function sfxLapComplete() {
+  [0, 0.08, 0.18, 0.30].forEach((delay, i) => {
+    const f = [523, 659, 784, 1046][i];
+    setTimeout(() => playTone(f, "square", 0.14, 0.18, 0.005, 0.2), delay * 1000);
+  });
+}
+
+function sfxFinalLap() {
+  [0, 0.1, 0.22].forEach((delay, i) => {
+    const f = [784, 988, 1175][i];
+    setTimeout(() => playTone(f, "sawtooth", 0.2, 0.22, 0.01, 0.28), delay * 1000);
+  });
+}
+
+function sfxHit() {
+  playNoise(0.12, 0.18, 200);
+  playTone(120, "sawtooth", 0.14, 0.14, 0.005, 0.18);
+}
+
+function sfxSlipstream() {
+  playNoise(0.1, 0.08, 1600);
+  playTone(440, "sine", 0.1, 0.1, 0.01, 0.1);
+}
+
+function toggleMute() {
+  muted = !muted;
+  if (engineGain) engineGain.gain.value = muted ? 0 : 0;
+  const btn = document.getElementById("muteBtn");
+  if (btn) btn.textContent = muted ? "🔇" : "🔊";
+}
+
+/* ═══════════════════════════════════════════════
+   PERSISTENCE (localStorage)
+═══════════════════════════════════════════════ */
+const STORAGE_KEY = "rr64_v2";
+
+function loadStorage() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  } catch { return {}; }
+}
+
+function saveStorage(data) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch { /* ignore */ }
+}
+
+function getBestLap(trackId) {
+  const d = loadStorage();
+  return d.bestLaps?.[trackId] ?? null;
+}
+
+function setBestLap(trackId, seconds) {
+  const d = loadStorage();
+  if (!d.bestLaps) d.bestLaps = {};
+  const prev = d.bestLaps[trackId];
+  if (prev == null || seconds < prev) {
+    d.bestLaps[trackId] = seconds;
+    saveStorage(d);
+    return true; // new record
+  }
+  return false;
+}
+
+function getGPCompletions() {
+  return loadStorage().gpCompletions || 0;
+}
+
+function incGPCompletions() {
+  const d = loadStorage();
+  d.gpCompletions = (d.gpCompletions || 0) + 1;
+  saveStorage(d);
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = (seconds % 60).toFixed(2).padStart(5, "0");
+  return `${m}:${s}`;
+}
+
+/* ═══════════════════════════════════════════════
+   GRAND PRIX STATE
+═══════════════════════════════════════════════ */
+const gpState = {
+  active: false,
+  raceIndex: 0,
+  tracks: [],
+  standings: {} // characterId -> points
+};
 
 const POWERUP_CLUE_FALLBACKS = [
   { course: "Global", prompt: "Empire whose capital was Tenochtitlan.", answer: "Aztec Empire", explanation: "Tenochtitlan was the Aztec capital." },
@@ -331,19 +562,31 @@ const els = {
   itemThumb: document.querySelector("#itemThumb"),
   itemBtn: document.querySelector("#itemBtn"),
   speedBar: document.querySelector("#speedBar"),
+  speedNum: document.querySelector("#speedNum"),
+  boostBar: document.querySelector("#boostBar"),
   questionCard: document.querySelector("#questionCard"),
   questionMeta: document.querySelector("#questionMeta"),
   questionText: document.querySelector("#questionText"),
   timerBar: document.querySelector("#timerBar"),
   feedback: document.querySelector("#feedback"),
   answerDock: document.querySelector("#answerDock"),
+  skipBtn: document.querySelector("#skipBtn"),
   pauseBtn: document.querySelector("#pauseBtn"),
+  muteBtn: document.querySelector("#muteBtn"),
   quitBtn: document.querySelector("#quitBtn"),
   resultTitle: document.querySelector("#resultTitle"),
+  resultKicker: document.querySelector("#resultKicker"),
   resultGrid: document.querySelector("#resultGrid"),
+  bestLapBanner: document.querySelector("#bestLapBanner"),
   coachText: document.querySelector("#coachText"),
   againBtn: document.querySelector("#againBtn"),
-  backToCharacters: document.querySelector("#backToCharacters")
+  backToCharacters: document.querySelector("#backToCharacters"),
+  placeDelta: document.querySelector("#placeDelta"),
+  lapTimesList: document.querySelector("#lapTimesList"),
+  gpStandingsWrap: document.querySelector("#gpStandingsWrap"),
+  gpStandings: document.querySelector("#gpStandings"),
+  enginePills: document.querySelector("#enginePills"),
+  formatPills: document.querySelector("#formatPills")
 };
 
 const ctx = els.canvas.getContext("2d");
@@ -354,6 +597,10 @@ const perfLite = params.get("perf") === "lite" || params.get("fx") === "lite" ||
 const TRACK_LENGTH = 5400;
 const VISIBLE_RANGE = 1150;
 const COUNTDOWN_SECONDS = 3.15;
+
+// Engine class + format (set by UI pills)
+let engineClass = "100cc";
+let raceFormat = "single";
 
 function keySpriteSheet(image, options = {}) {
   const canvas = document.createElement("canvas");
@@ -491,10 +738,14 @@ const state = {
   driftCharge: 0,
   drifting: false,
   boost: 0,
+  boostMeter: 0,          // 0-1 visual boost meter
   shield: 0,
   spin: 0,
   bump: 0,
   hop: 0,
+  trickBoost: 0,          // air-trick boost on landing
+  skipPenalty: 0,         // handling penalty after skipping question
+  slipPenalty: 0,         // handling pen from wrong answer
   countdown: 0,
   raceReleased: false,
   finishPulse: 0,
@@ -508,16 +759,23 @@ const state = {
   nearMissCooldown: 0,
   racecraft: RACECRAFT_EMPTY(),
   itemBoxes: [],
+  questionGates: [],      // question pad positions
+  questionGateHit: new Set(), // indices already triggered this lap
   rivals: [],
   particles: [],
   roadBursts: [],
+  sparkParticles: [],     // drift spark particles on canvas
   score: 0,
   correct: 0,
   attempts: 0,
   streak: 0,
   maxStreak: 0,
   place: CHARACTERS.length,
+  prevPlace: CHARACTERS.length,
   lap: 1,
+  lapStartTime: 0,
+  lapTimes: [],
+  lapBest: null,
   selected: 0,
   answerSeconds: 16,
   deadline: 0,
@@ -526,7 +784,13 @@ const state = {
   lastFrame: 0,
   toast: "",
   toastTime: 0,
-  touch: { steer: 0, gas: false, brake: false, drift: false },
+  positionBanner: "",
+  positionBannerTime: 0,
+  positionBannerGained: true,
+  finalLapFlash: false,
+  fov: 1,                 // fish-eye at high speed
+  offroad: 0,             // current offroad dust amount
+  touch: { steer: 0, gas: false, brake: false, drift: false, jump: false },
   dpr: 1
 };
 
@@ -662,7 +926,11 @@ function renderTracks() {
   els.trackGrid.querySelectorAll(".track-card").forEach((button) => {
     button.addEventListener("click", () => {
       state.track = TRACKS.find((track) => track.id === button.dataset.id) || TRACKS[0];
-      startRace();
+      if (raceFormat === "gp") {
+        startGrandPrix();
+      } else {
+        startRace();
+      }
     });
   });
 }
@@ -673,6 +941,21 @@ function updateTopStats() {
     state.track ? state.track.title : "Choose track",
     state.banks ? "Powerup clues loaded" : "Loading clues"
   ].map((text) => `<span>${escapeHtml(text)}</span>`).join("");
+}
+
+function setupModeUI() {
+  els.enginePills?.querySelectorAll(".mode-pill").forEach((pill) => {
+    pill.addEventListener("click", () => {
+      engineClass = pill.dataset.class || "100cc";
+      els.enginePills.querySelectorAll(".mode-pill").forEach((p) => p.classList.toggle("active", p === pill));
+    });
+  });
+  els.formatPills?.querySelectorAll(".mode-pill").forEach((pill) => {
+    pill.addEventListener("click", () => {
+      raceFormat = pill.dataset.format || "single";
+      els.formatPills.querySelectorAll(".mode-pill").forEach((p) => p.classList.toggle("active", p === pill));
+    });
+  });
 }
 
 async function loadBanks() {
@@ -754,13 +1037,18 @@ function poolForTrack(track) {
   return shuffle(pool.length >= 20 ? pool : fallbackRaw.map((q) => normalizePowerupClue(q, fallbackRaw, answerPool)).filter(Boolean));
 }
 
-function startRace() {
+function startRace(trackOverride) {
   if (!state.banks) {
     els.topStats.innerHTML = "<span>Still loading question banks...</span>";
     return;
   }
+  if (trackOverride) state.track = trackOverride;
   state.pool = poolForTrack(state.track);
   if (!state.pool.length) return;
+
+  // Init audio on first race start (requires user gesture)
+  initAudio();
+
   state.cursor = 0;
   state.current = null;
   state.running = true;
@@ -777,10 +1065,14 @@ function startRace() {
   state.driftCharge = 0;
   state.drifting = false;
   state.boost = 0;
+  state.boostMeter = 0;
   state.shield = 0;
   state.spin = 0;
   state.bump = 0;
   state.hop = 0;
+  state.trickBoost = 0;
+  state.skipPenalty = 0;
+  state.slipPenalty = 0;
   state.countdown = COUNTDOWN_SECONDS;
   state.raceReleased = false;
   state.finishPulse = 0;
@@ -799,12 +1091,24 @@ function startRace() {
   state.streak = 0;
   state.maxStreak = 0;
   state.place = CHARACTERS.length;
+  state.prevPlace = CHARACTERS.length;
   state.lap = 1;
+  state.lapStartTime = 0; // set when countdown ends
+  state.lapTimes = [];
+  state.lapBest = null;
   state.finishTime = 0;
   state.startedAt = performance.now();
+  state.positionBanner = "";
+  state.positionBannerTime = 0;
+  state.finalLapFlash = false;
+  state.fov = 1;
+  state.offroad = 0;
   state.itemBoxes = buildItemBoxes();
+  state.questionGates = buildQuestionGates();
+  state.questionGateHit = new Set();
   state.rivals = buildRivals();
   state.particles = [];
+  state.sparkParticles = [];
   state.roadBursts = [];
   showScreen(els.raceScreen);
   resizeCanvas();
@@ -814,6 +1118,30 @@ function startRace() {
   setToast("3", 0.9);
   state.lastFrame = performance.now();
   requestAnimationFrame(tick);
+}
+
+function buildQuestionGates() {
+  const gates = [];
+  const length = trackLength();
+  for (let lap = 0; lap < state.track.laps; lap++) {
+    QUESTION_GATE_FRACS.forEach((frac, i) => {
+      gates.push({
+        id: lap * 10 + i,
+        distance: lap * length + frac * length,
+        triggered: false
+      });
+    });
+  }
+  return gates;
+}
+
+function startGrandPrix() {
+  gpState.active = true;
+  gpState.raceIndex = 0;
+  gpState.tracks = shuffle(TRACKS.slice());
+  gpState.standings = {};
+  CHARACTERS.forEach((c) => { gpState.standings[c.id] = 0; });
+  startRace(gpState.tracks[0]);
 }
 
 function buildItemBoxes() {
@@ -836,22 +1164,26 @@ function buildItemBoxes() {
 
 function buildRivals() {
   const lanes = [-0.78, -0.42, -0.12, 0.18, 0.46, 0.72, 0.02];
+  const cls = ENGINE_CLASS[engineClass] || ENGINE_CLASS["100cc"];
+  const mirror = cls.mirror || false;
   return CHARACTERS
     .filter((racer) => racer.id !== state.character.id)
     .map((racer, index) => ({
       racer,
       distance: 150 + index * 112,
-      lane: lanes[index] ?? 0,
-      desiredLane: lanes[index] ?? 0,
-      base: 392 + racer.stats.speed * 17 + index * 7,
-      speed: 380 + index * 17,
+      lane: (mirror ? -1 : 1) * (lanes[index] ?? 0),
+      desiredLane: (mirror ? -1 : 1) * (lanes[index] ?? 0),
+      base: (392 + racer.stats.speed * 17 + index * 7) * cls.speedMult,
+      speed: (380 + index * 17) * cls.speedMult,
       hit: 0,
       boost: 0,
       attackFlash: 0,
       bumpGuard: 0,
-      aggression: 0.55 + ((index % 3) * 0.16),
+      aggression: (0.55 + ((index % 3) * 0.16)) * cls.rivalAggression,
       itemCooldown: 4 + index * 1.2 + Math.random() * 2,
-      wobble: Math.random() * Math.PI * 2
+      wobble: Math.random() * Math.PI * 2,
+      lap: 1,
+      lastLapDist: 0
     }));
 }
 
@@ -865,23 +1197,44 @@ function nextQuestion() {
   return state.current;
 }
 
-function openItemQuestion() {
+function openQuestion(source = "item") {
   if (!state.running || state.paused || state.quizOpen) return;
   if (state.itemRoulette) {
     setToast("ITEM STILL ROLLING", 0.55);
     return;
   }
-  if (!state.item) return;
+  if (source === "item" && !state.item) return;
   const question = nextQuestion();
   state.quizOpen = true;
   state.resolved = false;
   state.selected = 0;
-  state.answerSeconds = state.character.id === "cleopatra" ? 8 : 6;
+  // Cleopatra perk: 1.4× answer time
+  const baseTime = source === "gate" ? 10 : 6;
+  const perkMult = state.character.id === "cleopatra" ? 1.4 : 1;
+  state.answerSeconds = baseTime * perkMult;
   state.deadline = Date.now() + state.answerSeconds * 1000;
-  renderQuestion();
+  state.questionSource = source;
+  renderQuestion(source);
   els.questionCard.classList.remove("hidden");
   els.questionCard.classList.add("active");
-  setToast("POWERUP CLUE", 0.8);
+  if (els.skipBtn) els.skipBtn.style.display = source === "gate" ? "block" : "none";
+  setToast(source === "gate" ? "QUESTION GATE" : "POWERUP CLUE", 0.8);
+  sfxItemUse();
+}
+
+function openItemQuestion() {
+  openQuestion("item");
+}
+
+function skipQuestion() {
+  if (!state.quizOpen || state.resolved) return;
+  state.skipPenalty = 3; // 3s handling penalty
+  state.resolved = true;
+  state.quizOpen = false;
+  els.questionCard.classList.add("hidden");
+  updateItemHud();
+  setToast("SKIP – handling penalty", 1.0);
+  sfxQuestionWrong();
 }
 
 function closeItemQuestion() {
@@ -892,12 +1245,15 @@ function closeItemQuestion() {
   updateItemHud();
 }
 
-function renderQuestion() {
+function renderQuestion(source = "item") {
   const q = state.current;
-  els.questionMeta.textContent = [state.item.name, q.course, q.set].filter(Boolean).join(" · ");
+  const label = source === "gate" ? "QUESTION GATE" : (state.item?.name || "Powerup Clue");
+  els.questionMeta.textContent = [label, q.course, q.set].filter(Boolean).join(" · ");
   els.questionText.textContent = q.prompt;
   els.feedback.className = "feedback";
-  els.feedback.textContent = "Pick the answer to fire this item.";
+  els.feedback.textContent = source === "gate"
+    ? "Correct = boost + green trail. Wrong = slowdown."
+    : "Pick the answer to fire this item.";
   els.answerDock.innerHTML = q.choices.map((choice, index) => `
     <button class="answer-btn" type="button" data-index="${index}">
       <b>${String.fromCharCode(65 + index)}</b>
@@ -920,36 +1276,64 @@ function gradeAnswer(index, timedOut = false) {
   if (state.resolved || !state.current) return;
   state.resolved = true;
   const correct = index === state.current.correctIndex;
+  const isGate = state.questionSource === "gate";
   state.attempts += 1;
   if (correct) {
     state.correct += 1;
     state.streak += 1;
     state.maxStreak = Math.max(state.maxStreak, state.streak);
     state.score += 750 + state.streak * 120;
-    applyItem(state.item);
-    els.feedback.className = "feedback good";
-    els.feedback.innerHTML = `<strong>${escapeHtml(state.item.coach)}</strong> ${escapeHtml(state.current.explanation || "")}`;
-    setToast(state.item.short.toUpperCase(), 1.2);
+    sfxQuestionCorrect();
+    if (isGate) {
+      // Gate correct: instant additive boost + green spark trail
+      const gateBoost = 2.2 + state.character.stats.boost * 0.12;
+      state.boost = Math.max(state.boost, state.boost + gateBoost * 0.5);
+      state.boostMeter = Math.min(1, state.boostMeter + 0.55);
+      state.cameraShake = Math.max(state.cameraShake, 0.2);
+      burstParticles(state.lane, "#64f0aa", 32);
+      setToast("CORRECT +BOOST", 1.1);
+      els.feedback.className = "feedback good";
+      els.feedback.innerHTML = `<strong>+Boost!</strong> ${escapeHtml(state.current.explanation || "")}`;
+    } else {
+      applyItem(state.item);
+      els.feedback.className = "feedback good";
+      els.feedback.innerHTML = `<strong>${escapeHtml(state.item?.coach || "Correct!")}</strong> ${escapeHtml(state.current.explanation || "")}`;
+      setToast(state.item?.short?.toUpperCase() || "CORRECT", 1.2);
+    }
   } else {
     state.streak = 0;
     state.score = Math.max(0, state.score - 150);
-    if (state.shield > 0) {
-      state.shield = Math.max(0, state.shield - 1.2);
-      setToast("SHIELD SAVED IT", 1.1);
+    sfxQuestionWrong();
+    if (isGate) {
+      // Gate wrong: slowdown + red HUD flash
+      state.slipPenalty = 2.5;
+      state.speed *= 0.72;
+      state.hitFlash = 0.55;
+      state.cameraShake = Math.max(state.cameraShake, 0.2);
+      setToast(timedOut ? "TIMEOUT" : "WRONG!", 1.2);
+      els.feedback.className = "feedback bad";
+      const lead = timedOut ? "Time ran out." : "Wrong answer.";
+      els.feedback.innerHTML = `<strong>${lead}</strong> Correct: ${String.fromCharCode(65 + state.current.correctIndex)}. ${escapeHtml(state.current.explanation || "")}`;
     } else {
-      state.spin = state.character.id === "toussaint" ? 0.55 : 0.95;
-      state.speed *= 0.58;
-      setToast(timedOut ? "TIMEOUT" : "MISFIRE", 1.2);
+      if (state.shield > 0) {
+        state.shield = Math.max(0, state.shield - 1.2);
+        setToast("SHIELD SAVED IT", 1.1);
+      } else {
+        state.spin = state.character.id === "toussaint" ? 0.55 : 0.95;
+        state.speed *= 0.58;
+        setToast(timedOut ? "TIMEOUT" : "MISFIRE", 1.2);
+        sfxHit();
+      }
+      els.feedback.className = "feedback bad";
+      const lead = timedOut ? "Time ran out." : "Item fizzled.";
+      els.feedback.innerHTML = `<strong>${lead}</strong> Correct answer: ${String.fromCharCode(65 + state.current.correctIndex)}. ${escapeHtml(state.current.explanation || "")}`;
     }
-    els.feedback.className = "feedback bad";
-    const lead = timedOut ? "Time ran out." : "Item fizzled.";
-    els.feedback.innerHTML = `<strong>${lead}</strong> Correct answer: ${String.fromCharCode(65 + state.current.correctIndex)}. ${escapeHtml(state.current.explanation || "")}`;
   }
   els.answerDock.querySelectorAll(".answer-btn").forEach((button, i) => {
     button.classList.toggle("correct", i === state.current.correctIndex);
     button.classList.toggle("wrong", i === index && !correct);
   });
-  state.item = null;
+  if (!isGate) state.item = null;
   setTimeout(() => {
     if (state.running) closeItemQuestion();
   }, correct ? 1250 : 2100);
@@ -1018,6 +1402,7 @@ function updateItemRoulette(dt) {
   const before = state.itemRoulette.timer;
   state.itemRoulette.timer = Math.max(0, state.itemRoulette.timer - dt);
   state.itemRoulette.seed += dt * 16;
+  sfxItemRoll();
   if (before > 0 && state.itemRoulette.timer <= 0) {
     state.item = pickRouletteItem();
     state.racecraft.rouletteHits += 1;
@@ -1025,6 +1410,7 @@ function updateItemRoulette(dt) {
     state.score += 160;
     updateItemHud();
     setToast(`${state.item.short.toUpperCase()} READY`, 0.9);
+    sfxItemUse();
     burstParticles(state.lane, state.item.color, 20);
   } else {
     updateItemHud();
@@ -1056,13 +1442,63 @@ function updateItemHud() {
 
 function updateHud() {
   const total = raceDistance();
-  state.lap = Math.min(state.track.laps, Math.floor(state.distance / trackLength()) + 1);
-  state.place = 1 + state.rivals.filter((rival) => rival.distance > state.distance).length;
+  const newLap = Math.min(state.track.laps, Math.floor(state.distance / trackLength()) + 1);
+
+  // Lap completion detection
+  if (newLap > state.lap && state.raceReleased) {
+    const now = performance.now();
+    const lapTime = (now - state.lapStartTime) / 1000;
+    state.lapTimes.push(lapTime);
+    state.lapStartTime = now;
+
+    // Check personal best lap
+    const isBest = state.lapBest === null || lapTime < state.lapBest;
+    if (isBest) state.lapBest = lapTime;
+    const globalBest = getBestLap(state.track.id);
+    const newRecord = setBestLap(state.track.id, lapTime);
+
+    sfxLapComplete();
+    if (newLap === state.track.laps) {
+      // Final lap flash + stinger
+      state.finalLapFlash = true;
+      setTimeout(() => { state.finalLapFlash = false; }, 600);
+      sfxFinalLap();
+      setToast("FINAL LAP!", 2.0);
+    } else {
+      setToast(newRecord ? `LAP ${newLap - 1} — NEW BEST!` : `LAP ${newLap - 1} — ${formatTime(lapTime)}`, 1.8);
+    }
+    // Update lap times display
+    updateLapTimesHud();
+
+    // Reset question gate hits for new lap
+    state.questionGateHit = new Set();
+  }
+  state.lap = newLap;
+
+  const newPlace = 1 + state.rivals.filter((rival) => rival.distance > state.distance).length;
+  // Position change banner
+  if (newPlace !== state.prevPlace && state.raceReleased && !state.countdown) {
+    const gained = newPlace < state.prevPlace;
+    showPositionBanner(gained
+      ? `PASSED → ${ordinal(newPlace)}`
+      : `DROPPED → ${ordinal(newPlace)}`, gained);
+    state.prevPlace = newPlace;
+  }
+  state.place = newPlace;
+
   els.hudRacer.textContent = state.character.shortName || state.character.name;
   els.hudLap.textContent = `${state.lap}/${state.track.laps}`;
   els.hudPlace.textContent = ordinal(state.place);
   els.hudScore.textContent = String(Math.max(0, Math.round(state.score)));
-  els.speedBar.style.transform = `scaleX(${clamp(state.speed / 620, 0, 1)})`;
+
+  const speedFrac = clamp(state.speed / 620, 0, 1);
+  els.speedBar.style.transform = `scaleX(${speedFrac})`;
+  if (els.speedNum) els.speedNum.textContent = Math.round(state.speed / 6.2);
+
+  // Boost meter
+  const boostFrac = clamp(state.boostMeter, 0, 1);
+  if (els.boostBar) els.boostBar.style.transform = `scaleX(${boostFrac})`;
+
   if (state.quizOpen && !state.resolved && state.current) {
     const left = Math.max(0, state.deadline - Date.now());
     els.timerBar.style.transform = `scaleX(${left / (state.answerSeconds * 1000)})`;
@@ -1071,26 +1507,133 @@ function updateHud() {
   if (state.distance >= total) finishRace();
 }
 
+function showPositionBanner(text, gained) {
+  state.positionBanner = text;
+  state.positionBannerTime = 2.0;
+  state.positionBannerGained = gained;
+  // Also update the small HUD delta arrow
+  if (els.placeDelta) {
+    els.placeDelta.textContent = gained ? "▲" : "▼";
+    els.placeDelta.className = "place-delta " + (gained ? "up" : "down");
+    clearTimeout(els.placeDelta._timer);
+    els.placeDelta._timer = setTimeout(() => {
+      if (els.placeDelta) els.placeDelta.className = "place-delta";
+    }, 2000);
+  }
+}
+
+function updateLapTimesHud() {
+  if (!els.lapTimesList) return;
+  const bestLap = state.lapBest;
+  els.lapTimesList.innerHTML = state.lapTimes.map((t, i) => {
+    const isBest = t === bestLap;
+    return `<div class="${isBest ? "best-lap" : ""}"><span>Lap ${i + 1}</span><span>${formatTime(t)}</span></div>`;
+  }).join("");
+  // Show best from previous sessions if exists
+  const globalBest = getBestLap(state.track.id);
+  if (globalBest) {
+    const bestEl = document.createElement("div");
+    bestEl.style.cssText = "color:var(--gold);font-size:10px;margin-top:4px;border-top:1px solid rgba(255,209,92,.25);padding-top:3px";
+    bestEl.textContent = `PB: ${formatTime(globalBest)}`;
+    els.lapTimesList.appendChild(bestEl);
+  }
+}
+
 function finishRace() {
   if (!state.running) return;
   state.running = false;
+
+  // Record final lap time
+  if (state.lapTimes.length < state.track.laps && state.lapStartTime > 0) {
+    const finalLap = (performance.now() - state.lapStartTime) / 1000;
+    state.lapTimes.push(finalLap);
+    if (state.lapBest === null || finalLap < state.lapBest) state.lapBest = finalLap;
+  }
+
   state.finishTime = (performance.now() - state.startedAt) / 1000;
   const accuracy = state.attempts ? Math.round((state.correct / state.attempts) * 100) : 0;
   const title = state.place === 1 ? "First Place" : state.place <= 3 ? "Podium Finish" : "Race Finished";
-  els.resultTitle.textContent = title;
-  els.resultGrid.innerHTML = [
-    [ordinal(state.place), "place"],
-    [`${state.finishTime.toFixed(1)}s`, "time"],
-    [`${state.correct}/${state.attempts}`, "items"],
-    [`${accuracy}%`, "accuracy"],
-    [String(state.racecraft.nearMisses), "near misses"],
-    [`${state.racecraft.draftSeconds.toFixed(1)}s`, "draft"]
-  ].map(([big, label]) => `<div><strong>${escapeHtml(big)}</strong><span>${escapeHtml(label)}</span></div>`).join("");
-  els.coachText.textContent = accuracy >= 85
-    ? "Strong item control. Keep racing Rally 64, then move into a full practice exam."
-    : accuracy >= 60
-      ? "Good racing base. The next jump is faster recall before firing items."
-      : "Replay one cup and use fewer panic items. Correct powerup clues matter more than raw speed.";
+
+  // Best lap check
+  const newBestLap = state.lapBest !== null && setBestLap(state.track.id, state.lapBest);
+  if (els.bestLapBanner) {
+    if (state.lapBest !== null) {
+      els.bestLapBanner.style.display = "block";
+      els.bestLapBanner.textContent = newBestLap
+        ? `NEW BEST LAP: ${formatTime(state.lapBest)}`
+        : `Best Lap: ${formatTime(state.lapBest)}`;
+    } else {
+      els.bestLapBanner.style.display = "none";
+    }
+  }
+
+  // GP mode
+  if (gpState.active) {
+    const pts = GP_POINTS[Math.min(state.place - 1, GP_POINTS.length - 1)] || 0;
+    gpState.standings[state.character.id] = (gpState.standings[state.character.id] || 0) + pts;
+    // Also give points to AI rivals by their finish position
+    const sorted = state.rivals.slice().sort((a, b) => b.distance - a.distance);
+    sorted.forEach((rival, idx) => {
+      const rivalPlace = idx + (state.place <= idx + 1 ? 2 : 1);
+      const rPts = GP_POINTS[Math.min(rivalPlace - 1, GP_POINTS.length - 1)] || 0;
+      gpState.standings[rival.racer.id] = (gpState.standings[rival.racer.id] || 0) + rPts;
+    });
+
+    gpState.raceIndex += 1;
+    if (els.resultKicker) els.resultKicker.textContent = `Grand Prix — Race ${gpState.raceIndex}/${gpState.tracks.length}`;
+  } else {
+    if (els.resultKicker) els.resultKicker.textContent = "Race Complete";
+  }
+
+  if (els.resultTitle) els.resultTitle.textContent = title;
+  if (els.resultGrid) {
+    els.resultGrid.innerHTML = [
+      [ordinal(state.place), "place"],
+      [`${state.finishTime.toFixed(1)}s`, "time"],
+      [state.lapBest ? formatTime(state.lapBest) : "--", "best lap"],
+      [`${state.correct}/${state.attempts}`, "items"],
+      [`${accuracy}%`, "accuracy"],
+      [String(state.racecraft.nearMisses), "near misses"],
+      [`${state.racecraft.draftSeconds.toFixed(1)}s`, "draft"]
+    ].map(([big, label]) => `<div><strong>${escapeHtml(big)}</strong><span>${escapeHtml(label)}</span></div>`).join("");
+  }
+  if (els.coachText) {
+    els.coachText.textContent = accuracy >= 85
+      ? "Strong item control. Keep racing Rally 64, then move into a full practice exam."
+      : accuracy >= 60
+        ? "Good racing base. The next jump is faster recall before firing items."
+        : "Replay one cup and use fewer panic items. Correct powerup clues matter more than raw speed.";
+  }
+
+  // Show GP standings
+  if (gpState.active && els.gpStandingsWrap) {
+    els.gpStandingsWrap.style.display = "block";
+    const sorted = Object.entries(gpState.standings)
+      .sort(([, a], [, b]) => b - a)
+      .map(([id, pts], i) => {
+        const racer = CHARACTERS.find((c) => c.id === id);
+        return `<div style="--accent:${racer?.accent || "#fff"}">
+          <span class="gp-pos">${ordinal(i + 1)}</span>
+          <span style="color:${racer?.accent || '#fff'}">${escapeHtml(racer?.name || id)}</span>
+          <span class="gp-pts">${pts} pts</span>
+        </div>`;
+      }).join("");
+    if (els.gpStandings) els.gpStandings.innerHTML = sorted;
+
+    // If more races: change again button text
+    if (gpState.raceIndex < gpState.tracks.length) {
+      if (els.againBtn) els.againBtn.textContent = `Next Race (${gpState.raceIndex + 1}/${gpState.tracks.length})`;
+    } else {
+      // GP complete
+      incGPCompletions();
+      gpState.active = false;
+      if (els.againBtn) els.againBtn.textContent = "New Grand Prix";
+    }
+  } else {
+    if (els.gpStandingsWrap) els.gpStandingsWrap.style.display = "none";
+    if (els.againBtn) els.againBtn.textContent = "Race Again";
+  }
+
   window.MrMacsAnalytics?.track("game_complete", {
     gameId: "regents-rally-source-circuit",
     title: "Regents Rally 64",
@@ -1129,10 +1672,12 @@ function updateRace(dt) {
     if (before !== after && after > 0) setToast(String(after), 0.85);
     if (!state.countdown && !state.raceReleased) {
       state.raceReleased = true;
+      state.lapStartTime = performance.now();
       const launchHeld = keys.has("ArrowUp") || keys.has("w") || state.touch.gas;
       state.racecraft.perfectStart = launchHeld;
       state.boost = launchHeld ? 1.85 : 0;
       if (state.boost > 0) {
+        state.boostMeter = Math.min(1, state.boostMeter + 0.4);
         state.score += 140;
         state.cameraShake = Math.max(state.cameraShake, 0.2);
         burstParticles(state.lane, state.character.accent, 22);
@@ -1144,30 +1689,66 @@ function updateRace(dt) {
     updateParticles(dt);
     return;
   }
+
   const digitalSteer = (keys.has("ArrowRight") || keys.has("d") ? 1 : 0) - (keys.has("ArrowLeft") || keys.has("a") ? 1 : 0);
   const touchSteer = Math.abs(state.touch.steer) > 0.08 ? state.touch.steer : 0;
   const steer = clamp(touchSteer || digitalSteer, -1, 1);
   const accelerate = keys.has("ArrowUp") || keys.has("w") || state.touch.gas;
   const brake = keys.has("ArrowDown") || keys.has("s") || state.touch.brake;
-  const drift = (keys.has(" ") || state.touch.drift) && Math.abs(steer) > 0.18 && state.speed > 245;
+  // Drift: X key (new), or Space (legacy), or touch drift
+  const driftKey = keys.has("x") || keys.has(" ") || state.touch.drift;
+  const drift = driftKey && Math.abs(steer) > 0.18 && state.speed > 245;
+  // Jump: J key or touch jump
+  const jumpPressed = (keys.has("j") || state.touch.jump) && !state._prevJump;
+  state._prevJump = keys.has("j") || state.touch.jump;
+
+  if (jumpPressed && state.hop <= 0) {
+    state.hop = 0.22;
+    state.trickBoost = 0; // will be applied on landing
+    state._jumping = true;
+  }
+  // Trick boost on landing
+  if (state._jumping && state.hop <= 0.04) {
+    state._jumping = false;
+    state.trickBoost = 0.55;
+    state.boostMeter = Math.min(1, state.boostMeter + 0.15);
+    setToast("TRICK!", 0.6);
+    burstParticles(state.lane, state.character.accent, 12);
+  }
+
   const sample = trackSample(state.distance + Math.max(60, state.speed * 0.24));
   const surface = surfaceAt(state.distance + Math.max(80, state.speed * 0.3));
   const laneLimit = 0.9 + sample.width * 0.18;
-  const offroad = Math.max(0, Math.abs(state.lane) - laneLimit);
+  const offroadAmt = Math.max(0, Math.abs(state.lane) - laneLimit);
+  state.offroad = offroadAmt;
+
   const weight = state.character.stats.weight || 6;
-  const statSpeed = 410 + state.character.stats.speed * 27 + weight * 2;
-  const naturalRoll = 126 + state.character.stats.speed * 9;
-  const boostSpeed = state.boost > 0 ? 250 + state.character.stats.boost * 17 : 0;
+  const cls = ENGINE_CLASS[engineClass] || ENGINE_CLASS["100cc"];
+  const speedMult = cls.speedMult;
+  const statSpeed = (410 + state.character.stats.speed * 27 + weight * 2) * speedMult;
+  const naturalRoll = (126 + state.character.stats.speed * 9) * speedMult;
+  const boostSpeed = state.boost > 0 ? (250 + state.character.stats.boost * 17) * speedMult : 0;
+  const trickBs = state.trickBoost > 0 ? 80 * speedMult : 0;
   const draftSpeed = state.draftBoost > 0 ? 92 + state.character.stats.handling * 4 : 0;
   const brakeDrag = brake ? 305 + state.character.stats.handling * 6 : 0;
-  const targetSpeed = clamp((accelerate ? statSpeed : naturalRoll) + boostSpeed + draftSpeed - brakeDrag - offroad * 295 - surface.drag - state.spin * 300 - state.bump * 120, 0, 835);
+  // Handling penalties
+  const skipDrag = state.skipPenalty > 0 ? 60 : 0;
+  const slipDrag = state.slipPenalty > 0 ? 80 : 0;
+  const targetSpeed = clamp(
+    (accelerate ? statSpeed : naturalRoll) + boostSpeed + trickBs + draftSpeed
+      - brakeDrag - offroadAmt * 295 - surface.drag - state.spin * 300 - state.bump * 120 - skipDrag - slipDrag,
+    0, 835 * speedMult
+  );
   const launchTorque = accelerate && state.speed < 260 ? (88 + state.character.stats.boost * 4 - weight * 2.5) * dt : 0;
   const brakeBite = brake ? (165 + state.character.stats.handling * 8) * dt : 0;
   const accelRate = accelerate || state.boost > 0 ? 10.2 + state.character.stats.boost * 0.12 - weight * 0.07 : 4.25;
   state.speed += (targetSpeed - state.speed) * frameEase(brake ? 16.8 : accelRate, dt) + launchTorque;
   if (brake) state.speed = Math.max(0, state.speed - brakeBite);
+
+  // Handling: skip & slip penalties reduce turning effectiveness
+  const handlingMult = 1 - (state.skipPenalty > 0 ? 0.35 : 0) - (state.slipPenalty > 0 ? 0.18 : 0);
   const speedFactor = clamp(state.speed / 465, 0.32, 1.32);
-  const grip = (1.2 + state.character.stats.handling * 0.18 - weight * 0.018) * surface.grip;
+  const grip = (1.2 + state.character.stats.handling * 0.18 - weight * 0.018) * surface.grip * handlingMult;
   const driftGrip = drift ? 0.48 : brake && steer ? 0.8 : 1;
   const brakeTurn = brake && steer ? 1.32 : 1;
   const curveAssist = roadCurveAt(state.distance + state.speed * 0.75, 0.6) * 0.00000055 * state.speed;
@@ -1183,54 +1764,134 @@ function updateRace(dt) {
     state.laneVel *= -0.35;
     state.speed *= 0.965;
     state.cameraShake = Math.max(state.cameraShake, 0.12);
+    sfxHit();
   }
-  state.gripSlip = clamp(Math.abs(state.laneVel) * clamp(state.speed / 430, 0, 1.45) + offroad * 0.65 + (drift ? 0.32 : 0), 0, 1);
+  state.gripSlip = clamp(Math.abs(state.laneVel) * clamp(state.speed / 430, 0, 1.45) + offroadAmt * 0.65 + (drift ? 0.32 : 0), 0, 1);
   state.yaw += (steer * (drift ? 0.42 : 0.24) + state.laneVel * 1.75 - state.yaw) * frameEase(drift ? 7.6 : 5.2, dt);
   state.skid = Math.max(0, state.gripSlip);
-  if (offroad > 0.05 && Math.random() < 0.42) burstParticles(state.lane, "#8b98b6", 1);
+
+  // Dust particles on offroad
+  if (offroadAmt > 0.05 && Math.random() < 0.42) {
+    burstParticles(state.lane, "#8b98b6", 1);
+  }
+
+  // Drift system with tier spark audio
   if (drift) {
-    if (!state.drifting) state.hop = 0.18;
+    if (!state.drifting) state.hop = Math.min(state.hop, 0.18);
     const sparkBonus = state.character.id === "joan-of-arc" ? 0.24 : 0;
+    const prevTier = state.driftTier;
     state.driftCharge = Math.min(3.4, state.driftCharge + dt * (1.18 + sparkBonus + Math.abs(steer) * 0.72 + state.gripSlip * 0.28));
-    state.driftTier = state.driftCharge > 2.35 ? 3 : state.driftCharge > 1.45 ? 2 : state.driftCharge > 0.62 ? 1 : 0;
+    state.driftTier = state.driftCharge > DRIFT_THRESHOLDS[3] ? 3 : state.driftCharge > DRIFT_THRESHOLDS[2] ? 2 : state.driftCharge > DRIFT_THRESHOLDS[1] ? 1 : 0;
     state.drifting = true;
+    // Tier-up SFX
+    if (state.driftTier > prevTier) sfxDriftTierUp(state.driftTier);
     const spark = state.driftTier >= 3 ? "#66e9ff" : state.driftTier >= 2 ? "#ffd15c" : state.character.accent;
-    if (Math.random() < 0.86) burstParticles(state.lane - steer * 0.2, spark, state.driftTier >= 2 ? 2 : 1);
+    if (Math.random() < 0.86) {
+      burstParticles(state.lane - steer * 0.2, spark, state.driftTier >= 2 ? 2 : 1);
+      // Canvas spark particle at wheel positions
+      addSparkParticle(state.lane - steer * 0.22, spark);
+    }
   } else if (state.drifting) {
     if (state.driftCharge > 0.45) {
-      const tier = state.driftCharge > 2.35 ? 3 : state.driftCharge > 1.45 ? 2 : 1;
-      state.boost = Math.max(state.boost, [0, 0.9, 1.7, 2.55][tier] + state.driftCharge * 0.42);
+      const tier = state.driftCharge > DRIFT_THRESHOLDS[3] ? 3 : state.driftCharge > DRIFT_THRESHOLDS[2] ? 2 : 1;
+      const boostAmt = DRIFT_BOOSTS[tier] + state.driftCharge * 0.42;
+      state.boost = Math.max(state.boost, boostAmt);
+      state.boostMeter = Math.min(1, state.boostMeter + [0, 0.2, 0.4, 0.65][tier]);
       state.cameraShake = Math.max(state.cameraShake, [0, 0.1, 0.18, 0.26][tier]);
       state.score += Math.round([0, 75, 145, 240][tier] * state.driftCharge);
       setToast(DRIFT_LABELS[tier], 0.8);
+      sfxMiniTurbo(tier);
       burstParticles(state.lane, tier === 1 ? state.character.accent : DRIFT_COLORS[tier], [0, 16, 28, 42][tier]);
     }
     state.driftCharge = 0;
     state.driftTier = 0;
     state.drifting = false;
   }
+
   const beforeDistance = state.distance;
   state.distance += state.speed * dt;
   triggerSpeedPad(beforeDistance, state.distance);
-  state.boost = Math.max(0, state.boost - dt);
+  updateQuestionGates();
+
+  // Decay
+  state.boost = Math.max(0, state.boost - dt * 0.85);
+  state.trickBoost = Math.max(0, state.trickBoost - dt);
   state.draftBoost = Math.max(0, state.draftBoost - dt);
   state.shield = Math.max(0, state.shield - dt);
   state.spin = Math.max(0, state.spin - dt * (state.character.id === "toussaint" ? 2.35 : 1.7));
   state.bump = Math.max(0, state.bump - dt * (state.character.id === "abraham-lincoln" ? 4.0 : 2.8));
-  state.hop = Math.max(0, state.hop - dt);
+  state.hop = Math.max(0, state.hop - dt * 2.8);
   state.finishPulse = Math.max(0, state.finishPulse - dt);
   state.hitFlash = Math.max(0, state.hitFlash - dt);
   state.cameraShake = Math.max(0, state.cameraShake - dt * 1.9);
   state.toastTime = Math.max(0, state.toastTime - dt);
   state.nearMissCooldown = Math.max(0, state.nearMissCooldown - dt);
+  state.skipPenalty = Math.max(0, state.skipPenalty - dt);
+  state.slipPenalty = Math.max(0, state.slipPenalty - dt);
+  state.positionBannerTime = Math.max(0, state.positionBannerTime - dt);
+  // Boost meter naturally decays when not boosting
+  if (state.boost <= 0) state.boostMeter = Math.max(0, state.boostMeter - dt * 0.18);
+
+  // FOV fish-eye at high speed
+  const targetFov = 1 + clamp((state.speed / 700) - 0.6, 0, 0.28);
+  state.fov += (targetFov - state.fov) * frameEase(3, dt);
+
+  // Engine audio
+  updateEngineAudio(state.speed, state.boost, state.drifting);
+
   updateRivals(dt);
   updateRacecraft(dt);
   updateKartCollisions();
   updateItemBoxes();
   updateItemRoulette(dt);
   updateParticles(dt);
+  updateSparkParticles(dt);
   updateRoadBursts(dt);
   state.score += dt * Math.max(3, state.speed / 34);
+}
+
+function addSparkParticle(lane, color) {
+  state.sparkParticles.push({
+    lane,
+    ahead: -12, // just behind kart
+    vx: (Math.random() - 0.5) * 0.06,
+    vy: 0.04 + Math.random() * 0.06,
+    life: 0.3 + Math.random() * 0.25,
+    max: 0.5,
+    color,
+    size: 3 + Math.random() * 4
+  });
+}
+
+function updateSparkParticles(dt) {
+  state.sparkParticles.forEach((p) => {
+    p.ahead -= state.speed * dt * 0.92;
+    p.lane += p.vx;
+    p.life -= dt;
+  });
+  state.sparkParticles = state.sparkParticles.filter((p) => p.life > 0 && p.ahead > -VISIBLE_RANGE);
+}
+
+function updateQuestionGates() {
+  if (state.quizOpen) return;
+  state.questionGates.forEach((gate, idx) => {
+    if (gate.triggered) return;
+    if (state.questionGateHit.has(gate.id)) return;
+    const ahead = gate.distance - state.distance;
+    if (ahead > -90 && ahead < 60) {
+      gate.triggered = true;
+      state.questionGateHit.add(gate.id);
+      openQuestion("gate");
+    }
+  });
+  // Reset triggered flags if lap reset
+  const lapDist = trackLocalDistance(state.distance);
+  state.questionGates.forEach((gate) => {
+    const gateLapDist = trackLocalDistance(gate.distance);
+    if (Math.abs(lapDist - gateLapDist) > trackLength() * 0.5) {
+      gate.triggered = false;
+    }
+  });
 }
 
 function speedPadLane(distance) {
@@ -1265,9 +1926,11 @@ function updateRacecraft(dt) {
     if (state.draft >= 1) {
       state.draft = 0.18;
       state.draftBoost = Math.max(state.draftBoost, 1.35);
+      state.boostMeter = Math.min(1, state.boostMeter + 0.22);
       state.score += 180;
       state.cameraShake = Math.max(state.cameraShake, 0.13);
       setToast("SLIPSTREAM", 0.62);
+      sfxSlipstream();
       burstParticles(state.lane, "#66e9ff", 18);
     }
   } else {
@@ -1307,32 +1970,57 @@ function updateKartCollisions() {
 }
 
 function updateRivals(dt) {
+  const cls = ENGINE_CLASS[engineClass] || ENGINE_CLASS["100cc"];
   state.rivals.forEach((rival, index) => {
     rival.hit = Math.max(0, rival.hit - dt);
     rival.boost = Math.max(0, rival.boost - dt);
     rival.attackFlash = Math.max(0, rival.attackFlash - dt);
     rival.bumpGuard = Math.max(0, rival.bumpGuard - dt);
     rival.itemCooldown = Math.max(0, rival.itemCooldown - dt);
+
     const gap = rival.distance - state.distance;
-    const sample = trackSample(rival.distance + 170);
+    const lookahead = 170 + racerHandling(rival.racer) * 8; // high-handling = tighter look-ahead
+    const sample = trackSample(rival.distance + lookahead);
     const surface = surfaceAt(rival.distance + 120);
-    const raceLine = clamp(-sample.curve / 330, -0.58, 0.58);
-    const curve = raceLine + Math.sin(rival.distance * 0.0044 + index * 2.2 + rival.wobble) * 0.26;
+
+    // Stat-driven line: high handling → tighter apex
+    const handlingFactor = racerHandling(rival.racer) / 10;
+    const raceLine = clamp(-sample.curve / (280 + (1 - handlingFactor) * 120), -0.72, 0.72);
+    const curve = raceLine + Math.sin(rival.distance * 0.0044 + index * 2.2 + rival.wobble) * (0.28 - handlingFactor * 0.12);
+
     const avoidPlayer = Math.abs(gap) < 150 ? Math.sign(rival.lane - state.lane || (index % 2 ? 1 : -1)) * 0.24 : 0;
     const blockPlayer = gap > 8 && gap < 145 && Math.abs(rival.lane - state.lane) < 0.45 ? state.lane * 0.7 : 0;
     const chaseItemLane = Math.abs(gap) < 520 && rival.itemCooldown < 2.4
-      ? nearestItemLane(rival.distance, rival.lane) * 0.28
-      : 0;
+      ? nearestItemLane(rival.distance, rival.lane) * 0.28 : 0;
     rival.desiredLane = clamp(curve * 0.76 + avoidPlayer + blockPlayer + chaseItemLane, -0.92, 0.92);
-    rival.lane += (rival.desiredLane - rival.lane) * frameEase(1.55 + racerHandling(rival.racer) * 0.04, dt);
-    const rubberBand = rival.distance < state.distance - 360 ? 108 : rival.distance > state.distance + 620 ? -52 : 0;
-    const draft = gap > -165 && gap < -42 && Math.abs(rival.lane - state.lane) < 0.34 ? 58 : 0;
+
+    // Lane change speed scales with handling stat
+    const laneRate = 1.55 + handlingFactor * 0.08;
+    rival.lane += (rival.desiredLane - rival.lane) * frameEase(laneRate, dt);
+
+    // Rubber-banding: ±5% only
+    const rubberBand = rival.distance < state.distance - 360 ? rival.base * 0.05 : rival.distance > state.distance + 620 ? -rival.base * 0.05 : 0;
+    const draftBonus = gap > -165 && gap < -42 && Math.abs(rival.lane - state.lane) < 0.34 ? 58 : 0;
     const hitDrag = rival.hit > 0 ? 175 : 0;
-    const boost = rival.boost > 0 ? 158 : 0;
-    const curveDrag = Math.abs(sample.curve) * 0.08;
-    const target = rival.base + rubberBand + draft + boost - hitDrag - surface.drag * 0.6 - curveDrag;
+    const boostBonus = rival.boost > 0 ? 158 * cls.speedMult : 0;
+    const curveDrag = Math.abs(sample.curve) * (0.08 + (1 - handlingFactor) * 0.04); // low-handling rivals slow more on curves
+
+    // High-speed characters get a straight-line bonus (Mansa Musa "High top speed" perk)
+    const speedPerk = rival.racer.id === "mansa-musa" ? 30 : 0;
+    // On long straights, high-speed rivals push harder
+    const straightBonus = Math.abs(sample.curve) < 40 && rival.racer.stats.speed >= 9 ? 40 : 0;
+
+    const target = rival.base + rubberBand + draftBonus + boostBonus + speedPerk + straightBonus - hitDrag - surface.drag * 0.6 - curveDrag;
     rival.speed += (target - rival.speed) * frameEase(3.2, dt);
     rival.distance += rival.speed * dt;
+
+    // Lap tracking for minimap
+    const length = trackLength();
+    if (rival.distance - rival.lastLapDist >= length) {
+      rival.lap = (rival.lap || 1) + 1;
+      rival.lastLapDist += length;
+    }
+
     if (rival.itemCooldown <= 0 && Math.abs(gap) < 640) {
       rival.itemCooldown = 5.2 + Math.random() * 5.4 - rival.aggression;
       if (gap < -115 || (gap < 0 && Math.random() < 0.62)) {
@@ -1351,6 +2039,7 @@ function updateRivals(dt) {
           state.speed *= 0.79;
           state.cameraShake = Math.max(state.cameraShake, 0.28);
           state.hitFlash = 0.42;
+          sfxHit();
           setToast(`${rival.racer.shortName || rival.racer.name} fired Burst`, 0.85);
         }
         burstParticles(state.lane, "#ff5f9f", 18);
@@ -1430,6 +2119,15 @@ function drawRace(now) {
   const h = els.canvas.clientHeight;
   ctx.clearRect(0, 0, w, h);
   ctx.save();
+
+  // Fish-eye / FOV widening at high speed: slight radial stretch
+  if (state.fov > 1.01) {
+    const scale = state.fov;
+    ctx.translate(w / 2, h / 2);
+    ctx.scale(scale, 1 + (scale - 1) * 0.4);
+    ctx.translate(-w / 2, -h / 2);
+  }
+
   if (state.cameraShake > 0) {
     const amount = state.cameraShake * 18;
     ctx.translate(Math.sin(now * 0.067) * amount, Math.cos(now * 0.051) * amount * 0.62);
@@ -1438,15 +2136,31 @@ function drawRace(now) {
   drawRoad(w, h);
   drawRoadMotion(w, h, now);
   drawSpeedPads(w, h, now);
+  drawQuestionGatePads(w, h, now);
   drawTracksideProps(w, h, now);
   drawVisibleItems(w, h, now);
   drawVisibleRivals(w, h);
   drawPlayerKart(w, h);
   drawParticles(w, h);
+  drawSparkParticles(w, h);
   ctx.restore();
   drawMinimap(w, h);
   drawRaceOverlay(w, h);
+  drawPositionBanner(w, h);
   drawToast(w, h);
+  if (state.finalLapFlash) {
+    ctx.save();
+    ctx.fillStyle = "rgba(255,209,92,.18)";
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+  }
+  if (state.hitFlash > 0) {
+    ctx.save();
+    ctx.globalAlpha = state.hitFlash * 0.35;
+    ctx.fillStyle = "#ff5f9f";
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+  }
   if (state.paused) {
     ctx.fillStyle = "rgba(5,8,22,.62)";
     ctx.fillRect(0, 0, w, h);
@@ -1456,6 +2170,92 @@ function drawRace(now) {
     ctx.textBaseline = "middle";
     ctx.fillText("PAUSED", w / 2, h / 2);
   }
+}
+
+function drawQuestionGatePads(w, h, now) {
+  state.questionGates.forEach((gate) => {
+    if (gate.triggered) return;
+    const ahead = gate.distance - state.distance;
+    if (ahead < -60 || ahead > VISIBLE_RANGE) return;
+    for (let l = -1; l <= 1; l++) {
+      const p = objectPoint(ahead, l * 0.55, w, h);
+      if (!p) continue;
+      const size = 80 * p.scale;
+      ctx.save();
+      ctx.translate(p.x, p.y - 6 * p.scale);
+      ctx.globalAlpha = clamp(0.3 + p.n * 0.65, 0.3, 0.95);
+      const pulse = 1 + Math.sin(now / 220 + gate.id) * 0.08;
+      ctx.scale(pulse, pulse);
+      ctx.fillStyle = "rgba(100,240,170,.22)";
+      ctx.strokeStyle = "#64f0aa";
+      ctx.lineWidth = Math.max(2, 3 * p.scale);
+      ctx.beginPath();
+      ctx.moveTo(-size / 2, 0);
+      ctx.lineTo(size / 2, 0);
+      ctx.lineTo(size * 0.4, -size * 0.5);
+      ctx.lineTo(-size * 0.4, -size * 0.5);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      // "?" marker
+      ctx.fillStyle = "#64f0aa";
+      ctx.font = `900 ${Math.max(10, 16 * p.scale)}px Inter, sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("?", 0, -size * 0.25);
+      ctx.restore();
+    }
+  });
+}
+
+function drawSparkParticles(w, h) {
+  state.sparkParticles.forEach((p) => {
+    const point = objectPoint(p.ahead, p.lane, w, h);
+    if (!point) return;
+    ctx.save();
+    ctx.globalAlpha = clamp(p.life / p.max, 0, 1);
+    ctx.fillStyle = p.color;
+    ctx.strokeStyle = p.color;
+    ctx.lineWidth = 1;
+    const s = Math.max(1.5, point.scale * p.size);
+    // Star-shaped spark
+    ctx.beginPath();
+    ctx.moveTo(point.x, point.y - s);
+    ctx.lineTo(point.x + s * 0.3, point.y - s * 0.3);
+    ctx.lineTo(point.x + s, point.y);
+    ctx.lineTo(point.x + s * 0.3, point.y + s * 0.3);
+    ctx.lineTo(point.x, point.y + s);
+    ctx.lineTo(point.x - s * 0.3, point.y + s * 0.3);
+    ctx.lineTo(point.x - s, point.y);
+    ctx.lineTo(point.x - s * 0.3, point.y - s * 0.3);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  });
+}
+
+function drawPositionBanner(w, h) {
+  if (!state.positionBannerTime || !state.positionBanner) return;
+  const alpha = clamp(state.positionBannerTime, 0, 1);
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.textAlign = "center";
+  ctx.font = "950 22px Inter, sans-serif";
+  const textW = ctx.measureText(state.positionBanner).width;
+  const bw = textW + 44;
+  const bh = 44;
+  const bx = w / 2 - bw / 2;
+  const by = 118;
+  ctx.fillStyle = state.positionBannerGained ? "rgba(100,240,170,.18)" : "rgba(255,95,159,.14)";
+  ctx.strokeStyle = state.positionBannerGained ? "rgba(100,240,170,.6)" : "rgba(255,95,159,.5)";
+  ctx.lineWidth = 1.5;
+  roundRect(bx, by, bw, bh, 22);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = state.positionBannerGained ? "#64f0aa" : "#ff5f9f";
+  ctx.textBaseline = "middle";
+  ctx.fillText(state.positionBanner, w / 2, by + bh / 2);
+  ctx.restore();
 }
 
 function themeColors() {
@@ -2181,6 +2981,16 @@ function drawMinimap(w, h) {
     ctx.arc(px, y + height - pct * height, radius, 0, Math.PI * 2);
     ctx.fill();
   };
+  // Draw question gate markers on minimap
+  state.questionGates.forEach((gate) => {
+    if (gate.triggered) return;
+    const gPct = clamp(gate.distance / total, 0, 1);
+    const gLocal = trackLocalDistance(gate.distance) / length;
+    const gSample = trackSample(gLocal * length);
+    const gpx = x + clamp(gSample.curve / 330, -1, 1) * width * 0.36;
+    ctx.fillStyle = "#64f0aa";
+    ctx.fillRect(gpx - 2, y + height - gPct * height - 2, 4, 4);
+  });
   state.rivals.forEach((rival) => drawDot(rival.distance, rival.racer.accent, 4));
   drawDot(state.distance, "#ffffff", 6);
   ctx.restore();
@@ -2191,6 +3001,16 @@ function drawRaceOverlay(w, h) {
   ctx.globalAlpha = 0.16;
   ctx.fillStyle = "#000";
   for (let y = 0; y < h; y += 4) ctx.fillRect(0, y, w, 1);
+  // Offroad dust vignette
+  if (state.offroad > 0.05) {
+    const dustAlpha = clamp(state.offroad * 0.55, 0, 0.32);
+    ctx.globalAlpha = dustAlpha;
+    const dustGrad = ctx.createRadialGradient(w / 2, h * 0.75, Math.min(w, h) * 0.15, w / 2, h * 0.75, Math.max(w, h) * 0.55);
+    dustGrad.addColorStop(0, "rgba(0,0,0,0)");
+    dustGrad.addColorStop(1, "rgba(139,152,182,.88)");
+    ctx.fillStyle = dustGrad;
+    ctx.fillRect(0, 0, w, h);
+  }
   ctx.globalAlpha = 0.18;
   const vignette = ctx.createRadialGradient(w / 2, h * 0.55, Math.min(w, h) * 0.18, w / 2, h * 0.55, Math.max(w, h) * 0.72);
   vignette.addColorStop(0, "rgba(0,0,0,0)");
@@ -2511,17 +3331,24 @@ document.addEventListener("keydown", (event) => {
     } else if (event.key === "Enter" || event.key === " ") {
       gradeAnswer(state.selected);
       event.preventDefault();
+    } else if (event.key === "Escape" || event.key === "Tab") {
+      skipQuestion();
+      event.preventDefault();
     }
     return;
   }
   if (!els.raceScreen.classList.contains("active")) return;
-  if (event.key === "e" || event.key === "E" || event.key === "Shift") {
+  if (event.key === "c" || event.key === "C" || event.key === "Shift") {
     openItemQuestion();
     event.preventDefault();
-  } else if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " "].includes(event.key)) {
+  } else if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " ", "x", "X", "j", "J"].includes(event.key)) {
+    event.preventDefault();
+  } else if (event.key === "m" || event.key === "M") {
+    toggleMute();
     event.preventDefault();
   } else if (event.key === "Escape") {
     state.paused = !state.paused;
+    els.pauseBtn.textContent = state.paused ? "Resume" : "Pause";
   }
 });
 
@@ -2591,7 +3418,8 @@ document.querySelectorAll("[data-hold-key]").forEach((button) => {
     state.touch.steer = (keys.has("ArrowRight") ? 1 : 0) - (keys.has("ArrowLeft") ? 1 : 0);
     state.touch.gas = keys.has("ArrowUp");
     state.touch.brake = keys.has("ArrowDown");
-    state.touch.drift = keys.has(" ");
+    state.touch.drift = keys.has("x") || keys.has(" ");
+    state.touch.jump = keys.has("j");
   };
   const press = (event) => {
     event.preventDefault();
@@ -2617,6 +3445,8 @@ document.querySelector("[data-tap-item]")?.addEventListener("click", (event) => 
 });
 
 els.itemBtn.addEventListener("click", openItemQuestion);
+els.skipBtn?.addEventListener("click", skipQuestion);
+els.muteBtn?.addEventListener("click", toggleMute);
 els.chooseDriverBtn.addEventListener("click", () => {
   showScreen(els.trackScreen);
   updateTopStats();
@@ -2627,10 +3457,21 @@ els.pauseBtn.addEventListener("click", () => {
 });
 els.quitBtn.addEventListener("click", () => {
   state.running = false;
+  gpState.active = false;
   closeItemQuestion();
   showScreen(els.trackScreen);
+  if (engineGain) engineGain.gain.value = 0;
 });
-els.againBtn.addEventListener("click", () => showScreen(els.trackScreen));
+els.againBtn.addEventListener("click", () => {
+  // If GP active and more races remain
+  if (gpState.active && gpState.raceIndex < gpState.tracks.length) {
+    startRace(gpState.tracks[gpState.raceIndex]);
+  } else if (raceFormat === "gp" && !gpState.active) {
+    startGrandPrix();
+  } else {
+    showScreen(els.trackScreen);
+  }
+});
 els.backToCharacters.addEventListener("click", () => showScreen(els.characterScreen));
 addEventListener("resize", resizeCanvas, { passive: true });
 
@@ -2661,6 +3502,7 @@ if (params.get("debug") === "1") {
 
 renderCharacters();
 renderTracks();
+setupModeUI();
 loadBanks().catch(() => {
   els.topStats.innerHTML = "<span>Powerup clues failed to load</span>";
 });

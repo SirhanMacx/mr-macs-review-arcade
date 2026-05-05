@@ -564,3 +564,54 @@ select {
 }
 
 select option, select optgroup { color: #07111f; background: #f8fbff; }
+
+/* ── Chrono Pinball v2 additions ───────────────────────────────────────────── */
+/* Flipper active glow */
+.flipper-btn.active {
+  border-color: rgba(117,236,255,.72);
+  background: linear-gradient(180deg, rgba(117,236,255,.28), rgba(117,236,255,.10));
+  box-shadow: 0 0 22px rgba(117,236,255,.38);
+}
+#rightFlip.active {
+  border-color: rgba(255,123,204,.72);
+  background: linear-gradient(180deg, rgba(255,123,204,.28), rgba(255,123,204,.10));
+  box-shadow: 0 0 22px rgba(255,123,204,.38);
+}
+
+/* Mission panel mode banner text */
+.mission-kicker.wizard { color: #f5c451; text-shadow: 0 0 12px rgba(245,196,81,.8); }
+
+/* Score pop-up count-up: smooth transition */
+#score { transition: none; }
+
+/* Mute key hint in HUD */
+.hud-btn[id="soundBtn"]:not(:hover) { opacity: .72; }
+
+/* Era progress in locks display */
+#locks { color: var(--gold); }
+
+/* Tilt warning pulsing text color */
+.mission-feedback.bad { animation: tiltPulse .3s ease alternate infinite; }
+@keyframes tiltPulse {
+  from { opacity: 1; }
+  to   { opacity: .55; }
+}
+
+/* Touch zone hit areas - larger on mobile */
+@media (max-width: 820px) {
+  .flipper-btn { min-height: 68px; font-size: 16px; }
+  .launch-btn  { min-height: 68px; }
+}
+
+/* Plunger charge color feedback */
+.launch-btn.active {
+  border-color: rgba(245,196,81,.90);
+  background: linear-gradient(180deg, rgba(245,196,81,.44), rgba(245,196,81,.18));
+  box-shadow: 0 0 28px rgba(245,196,81,.45);
+}
+
+/* End tile wizard highlight */
+.end-tile:first-child strong { color: var(--gold); }
+
+/* Score container keeps monospace width stable */
+#score { font-variant-numeric: tabular-nums; letter-spacing: -.01em; min-width: 72px; display: block; }

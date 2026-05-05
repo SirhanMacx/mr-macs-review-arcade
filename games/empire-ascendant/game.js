@@ -1,1636 +1,2053 @@
 (() => {
   "use strict";
 
-  const canvas = document.getElementById("empireCanvas");
-  const ctx = canvas.getContext("2d", { alpha: false });
-  const params = new URLSearchParams(window.location.search);
-  const FX_LITE = params.get("fx") === "lite" || window.matchMedia("(max-width: 900px)").matches;
-  const STORAGE_KEY = "mr-macs-empire-ascendant";
-  const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
+  // ─── CONSTANTS ───────────────────────────────────────────────────────────────
+  const SAVE_KEY  = "mr-macs-empire-ascendant-v1";
+  const COLS      = 14;
+  const ROWS      = 10;
+  const MAX_TURNS = 200;
+  const FX_LITE   = window.matchMedia("(max-width:900px)").matches;
+  const SourceBank = window.MrMacsSourceBank || null;
 
-  const COLS = 12;
-  const ROWS = 9;
-  const ERAS = ["Ancient", "Classical", "Medieval", "Early Modern", "Industrial", "Modern"];
-  const OWNERS = {
-    player: { name: "Mac Dynasty", color: "#f2c14e", fill: "rgba(242,193,78,.24)" },
-    north: { name: "Northern League", color: "#7bdff2", fill: "rgba(123,223,242,.19)" },
-    steppe: { name: "Steppe Confederation", color: "#d98a5d", fill: "rgba(217,138,93,.19)" },
-    ocean: { name: "Ocean Compact", color: "#b79cff", fill: "rgba(183,156,255,.18)" }
+  const ERAS = ["Ancient", "Classical", "Medieval", "Industrial"];
+
+  // Civilizations: player + 3 AI
+  const CIVS = {
+    player:  { name: "Mac Dynasty",         color: "#f2c14e", fill: "rgba(242,193,78,.26)",  personality: "player"      },
+    north:   { name: "Northern League",     color: "#7bdff2", fill: "rgba(123,223,242,.20)", personality: "expansionist"},
+    steppe:  { name: "Steppe Confederation",color: "#d98a5d", fill: "rgba(217,138,93,.20)",  personality: "military"    },
+    ocean:   { name: "Ocean Compact",       color: "#b79cff", fill: "rgba(183,156,255,.19)", personality: "science"     }
   };
+  const AI_KEYS = ["north","steppe","ocean"];
 
+  // Terrain: base yields gold/food/prod/science (g/f/p/s), movement cost
   const TERRAIN = {
-    plains: { label: "Plains", color: "#5d8d58", edge: "#9ccc7a", food: 2, industry: 1, knowledge: 0, culture: 0 },
-    forest: { label: "Forest", color: "#2f714f", edge: "#77d99b", food: 1, industry: 2, knowledge: 0, culture: 0 },
-    river: { label: "River Valley", color: "#3f8d86", edge: "#7bdff2", food: 3, industry: 0, knowledge: 1, culture: 0 },
-    hills: { label: "Hills", color: "#83684d", edge: "#d98a5d", food: 0, industry: 3, knowledge: 0, culture: 0 },
-    mountain: { label: "Mountains", color: "#66727a", edge: "#c9d0d4", food: 0, industry: 2, knowledge: 1, culture: 0 },
-    coast: { label: "Coast", color: "#315e7d", edge: "#7bdff2", food: 2, industry: 0, knowledge: 0, culture: 1 },
-    desert: { label: "Desert", color: "#9c7a44", edge: "#f2c14e", food: 0, industry: 1, knowledge: 0, culture: 2 }
+    ocean:    { label:"Ocean",       color:"#1a3d5c", edge:"#2a6a9a", g:0,f:0,p:0,s:0,  mv:99,  impassable:true  },
+    coast:    { label:"Coast",       color:"#315e7d", edge:"#7bdff2", g:1,f:2,p:0,s:0,  mv:1    },
+    plains:   { label:"Plains",      color:"#5d8d58", edge:"#9ccc7a", g:1,f:2,p:1,s:0,  mv:1    },
+    grassland:{ label:"Grassland",   color:"#3a7a44", edge:"#6dc86d", g:1,f:3,p:0,s:0,  mv:1    },
+    desert:   { label:"Desert",      color:"#9c7a44", edge:"#f2c14e", g:0,f:0,p:1,s:1,  mv:1    },
+    forest:   { label:"Forest",      color:"#2f714f", edge:"#77d99b", g:0,f:1,p:2,s:0,  mv:2    },
+    hills:    { label:"Hills",       color:"#83684d", edge:"#d98a5d", g:0,f:0,p:2,s:1,  mv:2    },
+    river:    { label:"River Valley",color:"#3f8d86", edge:"#7bdff2", g:1,f:3,p:0,s:1,  mv:1    },
+    mountain: { label:"Mountains",   color:"#66727a", edge:"#c9d0d4", g:0,f:0,p:1,s:2,  mv:3,   impassable:false }
   };
 
+  // Strategic resources: tile bonus + unit/building buff label
+  const RESOURCES = {
+    iron:   { label:"Iron",   color:"#c0b9c0", emoji:"⚙", bonusProd:2, unlockUnit:"horseman" },
+    horses: { label:"Horses", color:"#c8a96e", emoji:"🐎", bonusProd:1, unlockUnit:"horseman" },
+    gold_r: { label:"Gold",   color:"#f2c14e", emoji:"✦", bonusGold:3  },
+    silk:   { label:"Silk",   color:"#e8a0d0", emoji:"◈", bonusGold:2, bonusCulture:1 },
+    scrolls:{ label:"Scrolls",color:"#7bdff2", emoji:"📜", bonusSci:2   }
+  };
+
+  // Technology tree (4 eras, 0-indexed)
   const TECHS = [
-    { id: "irrigation", era: 0, name: "Irrigation", cost: 18, unlocks: "stronger farms", effect: { food: 8 }, quote: "River valleys turn surplus into state power." },
-    { id: "writing", era: 0, name: "Writing", cost: 20, unlocks: "academies and records", effect: { knowledge: 5, culture: 2 }, quote: "Records make government larger than memory." },
-    { id: "bronze", era: 0, name: "Bronze Working", cost: 24, unlocks: "forts and trained armies", effect: { industry: 6, stability: 3 }, quote: "Metals change farming, war, and authority." },
-    { id: "navigation", era: 1, name: "Navigation", cost: 32, unlocks: "harbors and sea trade", effect: { culture: 5, knowledge: 3 }, quote: "Coasts become bridges instead of borders." },
-    { id: "civil_service", era: 1, name: "Civil Service", cost: 38, unlocks: "stronger reforms", effect: { stability: 8, culture: 4 }, quote: "A state survives when offices outlast rulers." },
-    { id: "guilds", era: 2, name: "Guilds", cost: 48, unlocks: "urban production", effect: { industry: 10 }, quote: "Specialized labor turns cities into engines." },
-    { id: "printing", era: 3, name: "Printing", cost: 58, unlocks: "mass literacy", effect: { knowledge: 10, culture: 6 }, quote: "Ideas travel faster than armies." },
-    { id: "railroads", era: 4, name: "Railroads", cost: 70, unlocks: "integrated empire", effect: { industry: 14, stability: 6 }, quote: "Distance shrinks when steel links markets." },
-    { id: "constitutionalism", era: 4, name: "Constitutionalism", cost: 76, unlocks: "modern legitimacy", effect: { stability: 14, culture: 8 }, quote: "Power becomes more stable when it is limited." },
-    { id: "globalization", era: 5, name: "Globalization", cost: 90, unlocks: "world systems victory", effect: { knowledge: 18, culture: 12 }, quote: "Trade, migration, and technology bind regions together." }
+    // Era 0 – Ancient
+    { id:"agriculture", era:0, name:"Agriculture",    cost:30,  unlocks:"farms",              effect:{food:1}, quote:"Surplus grain gives rulers their first power." },
+    { id:"writing",     era:0, name:"Writing",        cost:35,  unlocks:"libraries, scholars", effect:{sci:1},  quote:"Records outlast rulers." },
+    { id:"bronze",      era:0, name:"Bronze Working", cost:40,  unlocks:"warriors, forts",     effect:{prod:1}, quote:"Metals reshape war and authority." },
+    // Era 1 – Classical
+    { id:"navigation",  era:1, name:"Navigation",     cost:70,  unlocks:"harbors, galleys",    effect:{gold:2}, quote:"Coasts become bridges, not borders." },
+    { id:"civil_svc",   era:1, name:"Civil Service",  cost:80,  unlocks:"admin buildings",     effect:{gold:1,food:1}, quote:"Offices outlast kings." },
+    { id:"currency",    era:1, name:"Currency",       cost:75,  unlocks:"markets",             effect:{gold:3}, quote:"Abstracted value enables empire-scale trade." },
+    // Era 2 – Medieval
+    { id:"guilds",      era:2, name:"Guilds",         cost:130, unlocks:"workshops, archers",  effect:{prod:2}, quote:"Specialized labor turns cities into engines." },
+    { id:"printing",    era:2, name:"Printing Press", cost:150, unlocks:"universities",        effect:{sci:3},  quote:"Ideas travel faster than armies." },
+    { id:"chivalry",    era:2, name:"Chivalry",       cost:140, unlocks:"knight units",        effect:{prod:1}, quote:"Mounted warriors reshape the battlefield." },
+    // Era 3 – Industrial
+    { id:"economics",   era:3, name:"Economics",      cost:220, unlocks:"banks, trade posts",  effect:{gold:4}, quote:"Systematic wealth creation reshapes society." },
+    { id:"steam",       era:3, name:"Steam Power",    cost:240, unlocks:"factories, railroads", effect:{prod:4}, quote:"Distance shrinks when steel links markets." },
+    { id:"enlighten",   era:3, name:"Enlightenment",  cost:260, unlocks:"research labs",       effect:{sci:5},  quote:"Reason as the basis of authority." }
   ];
 
+  // Buildings: per city build queue items
+  const BUILDINGS = {
+    granary:    { name:"Granary",     cost:60,  effect:{food:2},       requires:null,         era:0, desc:"Reduces food needed to grow." },
+    barracks:   { name:"Barracks",    cost:80,  effect:{prod:1},       requires:"bronze",     era:0, desc:"Trains military units faster." },
+    library:    { name:"Library",     cost:90,  effect:{sci:2},        requires:"writing",    era:0, desc:"City generates science." },
+    walls:      { name:"Walls",       cost:100, effect:{defense:4},    requires:"bronze",     era:0, desc:"+4 defense vs siege." },
+    market:     { name:"Market",      cost:110, effect:{gold:2},       requires:"currency",   era:1, desc:"City trades for gold." },
+    harbor:     { name:"Harbor",      cost:120, effect:{gold:2,food:1},requires:"navigation", era:1, desc:"Coastal gold and food bonus." },
+    temple:     { name:"Temple",      cost:130, effect:{food:1,gold:1},requires:"civil_svc",  era:1, desc:"Culture and faith stability." },
+    workshop:   { name:"Workshop",    cost:150, effect:{prod:3},       requires:"guilds",     era:2, desc:"Production multiplier." },
+    university: { name:"University",  cost:180, effect:{sci:4},        requires:"printing",   era:2, desc:"Major science output." },
+    castle:     { name:"Castle",      cost:160, effect:{defense:6},    requires:"chivalry",   era:2, desc:"Heavy fortification." },
+    bank:       { name:"Bank",        cost:200, effect:{gold:5},       requires:"economics",  era:3, desc:"Large gold per turn." },
+    factory:    { name:"Factory",     cost:240, effect:{prod:6},       requires:"steam",      era:3, desc:"Industrial output spike." },
+    research_lab:{ name:"Research Lab",cost:260,effect:{sci:7},       requires:"enlighten",  era:3, desc:"Top science building." }
+  };
+
+  // Wonders (one per empire)
   const WONDERS = [
-    { id: "granary", name: "Royal Granary", era: 0, requires: "irrigation", cost: { industry: 16, food: 8 }, effect: { food: 14, stability: 6 }, line: "Surplus stores protect the dynasty from famine." },
-    { id: "library", name: "Great Library", era: 0, requires: "writing", cost: { industry: 18, culture: 8 }, effect: { knowledge: 18, culture: 5 }, line: "Scholars gather the empire's memory." },
-    { id: "walls", name: "Imperial Walls", era: 0, requires: "bronze", cost: { industry: 22 }, effect: { stability: 12 }, line: "Defenses make the capital feel permanent." },
-    { id: "caravanserai", name: "Silk Road Caravanserai", era: 1, requires: "navigation", cost: { industry: 24, culture: 10 }, effect: { culture: 14, knowledge: 8 }, line: "Merchants carry goods, beliefs, and technologies." },
-    { id: "bureaucracy", name: "Hall of Examinations", era: 1, requires: "civil_service", cost: { industry: 26, culture: 12 }, effect: { stability: 16, knowledge: 8 }, line: "Merit and records discipline the court." },
-    { id: "press", name: "Printing Quarter", era: 3, requires: "printing", cost: { industry: 34, knowledge: 12 }, effect: { culture: 20, knowledge: 14 }, line: "Pamphlets, books, and newspapers reshape public life." },
-    { id: "railhub", name: "Continental Rail Hub", era: 4, requires: "railroads", cost: { industry: 44, culture: 12 }, effect: { industry: 28, stability: 10 }, line: "Resources, soldiers, and migrants move at industrial speed." },
-    { id: "charter", name: "Charter of Rights", era: 4, requires: "constitutionalism", cost: { culture: 30, knowledge: 18 }, effect: { stability: 24, culture: 18 }, line: "Legitimacy grows when people know the rules." }
+    { id:"great_wall",   name:"Great Wall",          era:0, requires:"bronze",     cost:{prod:200}, effect:{defense:8,stability:10}, desc:"Slows rival expansion at your borders." },
+    { id:"great_library",name:"Great Library",       era:0, requires:"writing",    cost:{prod:220}, effect:{sci:20,gold:5},          desc:"Scholars gather the world's knowledge." },
+    { id:"colosseum",    name:"Colosseum",           era:1, requires:"civil_svc",  cost:{prod:260}, effect:{gold:8,stability:15},    desc:"Public spectacle breeds loyalty." },
+    { id:"silk_road",    name:"Silk Road Exchange",  era:1, requires:"navigation", cost:{prod:280}, effect:{gold:15,sci:5},          desc:"Merchants carry goods and ideas." },
+    { id:"print_house",  name:"Printing Quarter",    era:2, requires:"printing",   cost:{prod:340}, effect:{sci:12,gold:6},          desc:"Ideas travel as fast as horses." },
+    { id:"cathedral",    name:"Grand Cathedral",     era:2, requires:"chivalry",   cost:{prod:320}, effect:{stability:20,gold:6},    desc:"Faith and stone cement the realm." },
+    { id:"stock_exchange",name:"Stock Exchange",     era:3, requires:"economics",  cost:{prod:400}, effect:{gold:25,sci:10},         desc:"Abstracted value moves markets." },
+    { id:"rail_hub",     name:"Rail Hub",            era:3, requires:"steam",      cost:{prod:440}, effect:{prod:20,gold:10},        desc:"Resources and armies move at speed." },
+    { id:"mission_mars", name:"Mission to Mars",     era:3, requires:"enlighten",  cost:{prod:500,sci:200}, effect:{sci:30},         desc:"Science victory Wonder." }
   ];
 
-  const CITY_NAMES = ["Aster", "Macopolis", "New Harbor", "Rivergate", "Atlas Ford", "Summit Hold", "Scholar's Port", "Civic Crown", "Liberty Vale", "Meridian"];
+  // Unit definitions
+  const UNIT_DEFS = {
+    worker:   { name:"Worker",   cost:40,  str:0,  range:0, mv:2, requires:null,       era:0, desc:"Builds tile improvements." },
+    settler:  { name:"Settler",  cost:80,  str:0,  range:0, mv:2, requires:null,       era:0, desc:"Founds a new city." },
+    warrior:  { name:"Warrior",  cost:60,  str:10, range:0, mv:2, requires:"bronze",   era:0, desc:"Basic melee fighter." },
+    archer:   { name:"Archer",   cost:80,  str:8,  range:2, mv:2, requires:"guilds",   era:2, desc:"Ranged attacker, 2-tile range." },
+    horseman: { name:"Horseman", cost:100, str:18, range:0, mv:4, requires:"guilds",   era:2, desc:"Fast cavalry. Needs iron or horses." },
+    knight:   { name:"Knight",   cost:140, str:28, range:0, mv:4, requires:"chivalry", era:2, desc:"Heavy cavalry." },
+    scholar:  { name:"Scholar",  cost:80,  str:0,  range:0, mv:2, requires:"writing",  era:0, desc:"+2 science per turn while in city." }
+  };
 
+  // Terrain improvements workers can build
   const IMPROVEMENTS = {
-    farm: { label: "Farms", cost: { industry: 8 }, yield: { food: 3 }, allowed: ["plains", "river", "coast"], color: "#77d99b" },
-    workshop: { label: "Workshops", cost: { industry: 12 }, yield: { industry: 3 }, allowed: ["forest", "hills", "mountain", "plains"], color: "#d98a5d" },
-    academy: { label: "Academy", cost: { industry: 14, culture: 4 }, yield: { knowledge: 3 }, allowed: ["river", "plains", "coast", "desert"], color: "#7bdff2", requires: "writing" },
-    monument: { label: "Monument", cost: { industry: 10 }, yield: { culture: 3, stability: 1 }, allowed: ["plains", "river", "desert", "coast", "hills"], color: "#f2c14e" },
-    fort: { label: "Fort", cost: { industry: 10, culture: 2 }, yield: { stability: 2 }, allowed: ["plains", "forest", "hills", "mountain", "desert", "river"], color: "#b79cff", requires: "bronze" },
-    harbor: { label: "Harbor", cost: { industry: 12 }, yield: { food: 1, culture: 2, knowledge: 1 }, allowed: ["coast"], color: "#7bdff2", requires: "navigation" }
+    farm:       { name:"Farm",        terrain:["plains","grassland","river"],           cost:3, yields:{food:2}, requires:null           },
+    mine:       { name:"Mine",        terrain:["hills","mountain","desert"],            cost:3, yields:{prod:2}, requires:"bronze"       },
+    lumbercamp: { name:"Lumber Camp", terrain:["forest"],                               cost:2, yields:{prod:2}, requires:null           },
+    trading_post:{ name:"Trade Post", terrain:["plains","grassland","desert","hills"],  cost:3, yields:{gold:2}, requires:"currency"     },
+    fishing_boats:{ name:"Fishing",   terrain:["coast","river"],                        cost:2, yields:{food:2,gold:1}, requires:"navigation" }
   };
 
-  const els = {
-    food: document.getElementById("food"),
-    industry: document.getElementById("industry"),
-    knowledge: document.getElementById("knowledge"),
-    culture: document.getElementById("culture"),
-    stability: document.getElementById("stability"),
-    pauseBtn: document.getElementById("pauseBtn"),
-    exitBtn: document.getElementById("exitBtn"),
-    advisorTitle: document.getElementById("advisorTitle"),
-    advisorMeta: document.getElementById("advisorMeta"),
-    advisorText: document.getElementById("advisorText"),
-    advisorLog: document.getElementById("advisorLog"),
-    commandPanel: document.getElementById("commandPanel"),
-    selectedTitle: document.getElementById("selectedTitle"),
-    selectedMeta: document.getElementById("selectedMeta"),
-    actionGrid: document.getElementById("actionGrid"),
-    panelTabs: [...document.querySelectorAll(".panel-tabs button")],
-    endTurnBtn: document.getElementById("endTurnBtn"),
-    setupScreen: document.getElementById("setupScreen"),
-    councilScreen: document.getElementById("councilScreen"),
-    menuScreen: document.getElementById("menuScreen"),
-    endScreen: document.getElementById("endScreen"),
-    courseFilter: document.getElementById("courseFilter"),
-    setFilter: document.getElementById("setFilter"),
-    scenarioFilter: document.getElementById("scenarioFilter"),
-    setupMetrics: document.getElementById("setupMetrics"),
-    startBtn: document.getElementById("startBtn"),
-    soundBtn: document.getElementById("soundBtn"),
-    fullscreenBtn: document.getElementById("fullscreenBtn"),
-    resumeBtn: document.getElementById("resumeBtn"),
-    restartBtn: document.getElementById("restartBtn"),
-    menuExitBtn: document.getElementById("menuExitBtn"),
-    setupBtn: document.getElementById("setupBtn"),
-    againBtn: document.getElementById("againBtn"),
-    questionMeta: document.getElementById("questionMeta"),
-    questionPrompt: document.getElementById("questionPrompt"),
-    stimulusBox: document.getElementById("stimulusBox"),
-    choiceGrid: document.getElementById("choiceGrid"),
-    explanation: document.getElementById("explanation"),
-    endTitle: document.getElementById("endTitle"),
-    endGrid: document.getElementById("endGrid"),
-    studyTargets: document.getElementById("studyTargets")
-  };
+  // ─── CANVAS / VIEW ───────────────────────────────────────────────────────────
+  const canvas = document.getElementById("empireCanvas");
+  const ctx    = canvas.getContext("2d", { alpha: false });
 
   const view = {
-    width: 0,
-    height: 0,
-    dpr: 1,
-    size: 44,
-    ox: 0,
-    oy: 0,
-    mapW: 0,
-    mapH: 0
+    w:0, h:0, dpr:1,
+    size:44,          // hex radius
+    ox:0, oy:0,       // map origin
+    panX:0, panY:0,   // camera pan offset
+    zoom:1,
+    dragging:false,
+    dragStart:{x:0,y:0},
+    pinchDist:0
   };
 
+  // ─── GAME STATE ──────────────────────────────────────────────────────────────
   const state = {
-    bank: null,
-    filtered: [],
-    queue: [],
-    mode: "setup",
-    panel: "province",
-    tiles: [],
-    selected: null,
-    pendingAction: null,
-    turn: 1,
-    era: 0,
-    resources: { food: 18, industry: 18, knowledge: 0, culture: 12, stability: 62 },
-    research: { active: "irrigation", progress: 0, completed: [] },
-    rivals: {},
-    wonders: [],
-    lastKnowledgeYield: 0,
-    population: 2,
-    score: 0,
-    councils: 0,
-    correct: 0,
-    missed: [],
-    particles: [],
-    banners: [],
-    events: [],
-    last: 0,
-    elapsed: 0,
-    cameraNudge: 0
+    bank:null, filtered:[], queue:[],
+    mode:"setup",         // setup | playing | council | menu | ended
+    panel:"province",
+    tiles:[], units:[],
+    selected:null,        // selected tile
+    selUnit:null,         // selected unit
+    pendingMove:null,     // {unit, reachable[]} for movement
+    pendingAction:null,
+    turn:1, era:0,
+    // resources per civ
+    res:{
+      player:  {gold:20,food:20,prod:20,sci:0,culture:10,stability:65},
+      north:   {gold:20,food:20,prod:20,sci:0,culture:10,stability:65},
+      steppe:  {gold:20,food:20,prod:20,sci:0,culture:10,stability:65},
+      ocean:   {gold:20,food:20,prod:20,sci:0,culture:10,stability:65}
+    },
+    techs:{ // per civ: {active, progress, done[]}
+      player: {active:"agriculture",progress:0,done:[]},
+      north:  {active:"agriculture",progress:0,done:[]},
+      steppe: {active:"bronze",     progress:0,done:[]},
+      ocean:  {active:"writing",    progress:0,done:[]}
+    },
+    cities:[],            // {id,civ,tileId,name,pop,food,buildings:[],queue:[],wonders:[],turn}
+    wonders:[],           // [{civId, wonderId}]
+    diplomacy:{           // per pair: relation 0-100, war bool, alliance bool
+      player_north:  {rel:40,war:false,alliance:false},
+      player_steppe: {rel:30,war:false,alliance:false},
+      player_ocean:  {rel:45,war:false,alliance:false},
+      north_steppe:  {rel:35,war:false,alliance:false},
+      north_ocean:   {rel:50,war:false,alliance:false},
+      steppe_ocean:  {rel:30,war:false,alliance:false}
+    },
+    victory:null,
+    score:0, councils:0, correct:0, missed:[],
+    unitSeq:0, citySeq:0,
+    particles:[], banners:[], floats:[],
+    elapsed:0, last:0, cameraNudge:0,
+    fog:{}               // tileId -> true if player has seen it
   };
 
+  // ─── AUDIO ───────────────────────────────────────────────────────────────────
   class AudioBus {
-    constructor() {
-      this.enabled = true;
-      this.ctx = null;
+    constructor(){ this.on=true; this.ac=null; }
+    _ctx(){
+      if(!this.on) return null;
+      if(!this.ac) this.ac=new(window.AudioContext||window.webkitAudioContext)();
+      if(this.ac.state==="suspended") this.ac.resume();
+      return this.ac;
     }
-
-    ensure() {
-      if (!this.enabled) return null;
-      if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-      if (this.ctx.state === "suspended") this.ctx.resume();
-      return this.ctx;
+    _tone(freq,dur=.08,type="sine",gain=.05,bend=1){
+      const ac=this._ctx(); if(!ac) return;
+      const t=ac.currentTime, o=ac.createOscillator(), g=ac.createGain();
+      o.type=type; o.frequency.setValueAtTime(freq,t);
+      if(bend!==1) o.frequency.exponentialRampToValueAtTime(Math.max(40,freq*bend),t+dur);
+      g.gain.setValueAtTime(.0001,t);
+      g.gain.exponentialRampToValueAtTime(gain,t+.012);
+      g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+      o.connect(g).connect(ac.destination);
+      o.start(t); o.stop(t+dur+.04);
     }
-
-    tone(freq, dur = .08, type = "sine", gain = .055, bend = 1) {
-      const audio = this.ensure();
-      if (!audio) return;
-      const now = audio.currentTime;
-      const osc = audio.createOscillator();
-      const vol = audio.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, now);
-      if (bend !== 1) osc.frequency.exponentialRampToValueAtTime(Math.max(40, freq * bend), now + dur);
-      vol.gain.setValueAtTime(.0001, now);
-      vol.gain.exponentialRampToValueAtTime(gain, now + .012);
-      vol.gain.exponentialRampToValueAtTime(.0001, now + dur);
-      osc.connect(vol).connect(audio.destination);
-      osc.start(now);
-      osc.stop(now + dur + .03);
-    }
-
-    select() { this.tone(420, .055, "triangle", .04, 1.25); }
-    build() { [360, 540, 720].forEach((f, i) => setTimeout(() => this.tone(f, .07, "triangle", .05, 1.05), i * 55)); }
-    correct() { [440, 554, 659, 880].forEach((f, i) => setTimeout(() => this.tone(f, .09, "triangle", .055, 1.07), i * 50)); }
-    wrong() { this.tone(190, .15, "sawtooth", .055, .55); }
-    turn() { this.tone(260, .07, "triangle", .045, 1.8); }
-    era() { [392, 494, 659, 988].forEach((f, i) => setTimeout(() => this.tone(f, .12, "triangle", .06, 1.08), i * 70)); }
+    select(){ this._tone(380,.05,"triangle",.04,1.2); }
+    move()  { this._tone(320,.04,"sine",.035,1.1); }
+    combat(){ [220,340].forEach((f,i)=>setTimeout(()=>this._tone(f,.14,"sawtooth",.06,.5),i*60)); }
+    found(){ [440,554,659,880].forEach((f,i)=>setTimeout(()=>this._tone(f,.10,"triangle",.055,1.05),i*55)); }
+    tech_complete(){ [330,440,550,660,880].forEach((f,i)=>setTimeout(()=>this._tone(f,.12,"triangle",.05,1.08),i*60)); }
+    era_advance(){ [392,494,659,880,988].forEach((f,i)=>setTimeout(()=>this._tone(f,.18,"triangle",.06,1.1),i*80)); }
+    diplomacy(){ [440,370,440].forEach((f,i)=>setTimeout(()=>this._tone(f,.08,"sine",.045,1),i*90)); }
+    correct(){ [440,554,659,880].forEach((f,i)=>setTimeout(()=>this._tone(f,.09,"triangle",.055,1.07),i*50)); }
+    wrong()  { this._tone(180,.18,"sawtooth",.055,.5); }
+    endturn(){ this._tone(260,.07,"triangle",.04,1.8); }
+    toggle(){ this.on=!this.on; return this.on; }
   }
-
   const audio = new AudioBus();
 
-  function clamp(value, min, max) {
-    return Math.max(min, Math.min(max, value));
+  // ─── UTILITIES ───────────────────────────────────────────────────────────────
+  const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+  const rng   = (a,b)=>a+Math.random()*(b-a);
+  const fmtN  = v=>Math.max(0,Math.floor(v)).toLocaleString();
+  const esc   = v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+
+  function shuffle(arr){
+    const a=[...arr];
+    for(let i=a.length-1;i>0;i--){const j=0|Math.random()*(i+1);[a[i],a[j]]=[a[j],a[i]];}
+    return a;
   }
+  function cleanText(v){ return String(v||"").replace(/\s+/g," ").trim(); }
+  function normalize(v){ return String(v||"").toLowerCase().replace(/[^a-z0-9 ]+/g," ").replace(/\b(the|a|an)\b/g," ").replace(/\s+/g," ").trim(); }
 
-  function shuffle(items) {
-    const arr = [...items];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
+  function dipKey(a,b){
+    const order=["player","north","steppe","ocean"];
+    const ai=order.indexOf(a), bi=order.indexOf(b);
+    return ai<bi?`${a}_${b}`:`${b}_${a}`;
   }
+  function getDip(a,b){ return state.diplomacy[dipKey(a,b)]||{rel:50,war:false,alliance:false}; }
+  function setDip(a,b,delta){ const d=getDip(a,b); d.rel=clamp(d.rel+delta,0,100); }
 
-  function formatNumber(value) {
-    return Math.max(0, Math.floor(value)).toLocaleString();
-  }
-
-  function escapeHtml(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-  function normalize(value) {
-    return String(value || "")
-      .toLowerCase()
-      .replace(/&/g, " and ")
-      .replace(/[^a-z0-9 ]+/g, " ")
-      .replace(/\b(the|a|an)\b/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  function cleanText(value) {
-    return String(value || "")
-      .replace(/\s+/g, " ")
-      .replace(/\bcon\s+icts\b/gi, "conflicts")
-      .replace(/\bUnited states\b/g, "United States")
-      .replace(/\bu\.s\.\b/gi, "U.S.")
-      .replace(/\bnys\b/gi, "NYS")
-      .trim();
-  }
-
-  function displayPrompt(q) {
-    const raw = cleanText(q?.prompt || q?.stem || "");
-    const cleaned = raw
-      .replace(/^final\s+clue(?:\s+for\s+[^:]+)?:\s*/i, "")
-      .replace(/^name\s+this\s+content\s+item:\s*/i, "")
-      .replace(/^this\s+is\s+his\s+/i, "Identify the person whose ")
-      .replace(/^this\s+is\s+her\s+/i, "Identify the person whose ")
-      .replace(/^this\s+is\s+/i, "Identify: ")
-      .replace(/^these\s+are\s+/i, "Identify: ")
-      .trim();
-    return cleaned ? cleaned.charAt(0).toUpperCase() + cleaned.slice(1) : raw;
-  }
-
-  function displayExplanation(q) {
-    const explanation = cleanText(q?.explanation || "");
-    if (explanation) return explanation;
-    if (q?.answer) return `Correct answer: ${cleanText(q.answer)}.`;
-    return "Review this item again before the exam.";
-  }
-
-  const sourcePromptRe = /(\bthis\s+(excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\bthese\s+(documents|statements|headlines|sources|passages|figures|maps|graphs|charts|cartoons)\b|\b(shown|pictured|illustrated|accompanying)\b|\b(above|below)\s+(document|source|passage|excerpt|map|cartoon|chart|graph|image|photograph|photo|poster|timeline|painting|newspaper|headline)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|author|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+this\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+the\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b|similar\s+to\s+this)/i;
-
-  function promptNeedsStimulus(q) {
-    return sourcePromptRe.test(String((q && (q.prompt || q.stem)) || ""));
-  }
-
-  function stimulusImagesFor(q) {
-    if (SourceBank) return SourceBank.stimulusImages(q);
-    if (!q) return [];
-    const list = Array.isArray(q.stimulusImages) ? q.stimulusImages : [];
-    const images = list.length ? list : (q.stimulusImage ? [{ src: q.stimulusImage, label: "Source stimulus" }] : []);
-    if (!images.length) return [];
-    if (q.stimulusRequired === true || q.stimulusImage || q.stimulusText || q.stimulusHtml || typeof q.stimulus === "string") {
-      return images.filter((image) => image && image.src);
-    }
-    if (q.stimulusRequired === false) return [];
-    return promptNeedsStimulus(q) ? images.filter((image) => image && image.src) : [];
-  }
-
-  function stimulusTextFor(q) {
-    if (!q) return "";
-    if (typeof q.stimulusText === "string") return cleanText(q.stimulusText);
-    if (typeof q.stimulus === "string") return cleanText(q.stimulus);
-    if (typeof q.stimulusHtml === "string") {
-      const tmp = document.createElement("div");
-      tmp.innerHTML = q.stimulusHtml;
-      return cleanText(tmp.textContent || "");
-    }
-    return "";
-  }
-
-  function hasReliableStimulus(q) {
-    return Boolean(stimulusTextFor(q) || stimulusImagesFor(q).length);
-  }
-
-  function isPlayableQuestion(q) {
-    if (!q || !q.answer || !(q.prompt || q.stem)) return false;
-    if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
-    if (SourceBank && SourceBank.sourceBased(q)) {
-      if (!hasReliableStimulus(q)) return false;
-      if (q.type === "mcq") return SourceBank.usableRegentsQuestion(q);
-      return true;
-    }
-    if (q.type !== "mcq") return true;
-    if (hasReliableStimulus(q)) return true;
-    return !promptNeedsStimulus(q);
-  }
-
-  function resolveStimulusSrc(src) {
-    const value = String(src || "").trim();
-    if (!value) return "";
-    if (/^(https?:|data:|blob:)/i.test(value)) return value;
-    if (value.startsWith("../../") || value.startsWith("../")) return value;
-    if (value.startsWith("assets/")) return `../../${value}`;
-    return value;
-  }
-
-  async function loadBank() {
-    els.startBtn.disabled = true;
-    els.startBtn.textContent = "Loading...";
-    const response = await fetch("../../data/chrono-defense-bank.json?v=20260502-source-contract");
-    if (!response.ok) throw new Error(`Question bank failed: ${response.status}`);
-    state.bank = await response.json();
-    state.bank.questions = (state.bank.questions || []).filter(isPlayableQuestion);
-    rebuildSetIndex();
-    populateFilters();
-    applyFilters();
-    els.startBtn.disabled = false;
-    els.startBtn.textContent = "Found Empire";
-  }
-
-  function rebuildSetIndex() {
-    const setsByCourse = {};
-    for (const q of state.bank.questions) {
-      if (!q.course || !q.set) continue;
-      if (!setsByCourse[q.course]) setsByCourse[q.course] = new Set();
-      setsByCourse[q.course].add(q.set);
-    }
-    state.bank.courses = Object.keys(setsByCourse).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-    state.bank.setsByCourse = Object.fromEntries(
-      Object.entries(setsByCourse).map(([course, sets]) => [
-        course,
-        [...sets].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
-      ])
-    );
-  }
-
-  function populateFilters() {
-    const courses = ["All Courses", ...state.bank.courses];
-    els.courseFilter.innerHTML = courses
-      .map((course) => `<option value="${escapeHtml(course)}">${escapeHtml(course)}</option>`)
-      .join("");
-    populateSets();
-  }
-
-  function populateSets() {
-    const course = els.courseFilter.value || "All Courses";
-    const sets = course === "All Courses" ? ["All Sets"] : ["All Sets", ...(state.bank.setsByCourse[course] || [])];
-    els.setFilter.innerHTML = sets
-      .map((set) => `<option value="${escapeHtml(set)}">${escapeHtml(set)}</option>`)
-      .join("");
-  }
-
-  function applyFilters() {
-    const course = els.courseFilter.value || "All Courses";
-    const set = els.setFilter.value || "All Sets";
-    state.filtered = state.bank.questions.filter((q) => {
-      if (course !== "All Courses" && q.course !== course) return false;
-      if (set !== "All Sets" && q.set !== set) return false;
-      return true;
-    });
-    if (!state.filtered.length) state.filtered = [...state.bank.questions];
-    state.queue = shuffle(state.filtered);
-    renderSetupMetrics();
-  }
-
-  function renderSetupMetrics() {
-    const total = state.filtered.length;
-    const sourceBased = state.filtered.filter(hasReliableStimulus).length;
-    const best = Number(localStorage.getItem(`${STORAGE_KEY}:bestScore`) || 0);
-    els.setupMetrics.innerHTML = [
-      `${formatNumber(total)} council questions loaded`,
-      `${formatNumber(sourceBased)} source-based councils`,
-      `${state.bank.courses.length} courses available`,
-      `Best empire score ${formatNumber(best)}`
-    ].map((text) => `<span class="metric-pill">${escapeHtml(text)}</span>`).join("");
-  }
-
-  function nextQuestion() {
-    if (!state.queue.length) state.queue = shuffle(state.filtered);
-    return state.queue.pop() || state.filtered[Math.floor(Math.random() * state.filtered.length)];
-  }
-
-  function buildChoices(q) {
-    const answer = cleanText(q.answer);
-    let choices = [];
-    if (q.type === "mcq" && Array.isArray(q.choices) && q.choices.length) {
-      const correctLabel = String(q.correct || "");
-      const correct = q.choices.find((choice) => String(choice.label) === correctLabel)?.text || answer;
-      choices = q.choices.map((choice) => ({
-        text: cleanText(choice.text),
-        correct: normalize(choice.text) === normalize(correct)
-      })).filter((choice) => choice.text);
-      if (!choices.some((choice) => choice.correct)) choices.unshift({ text: cleanText(correct), correct: true });
-    } else {
-      const sameSet = state.filtered
-        .filter((item) => item.id !== q.id && item.answer)
-        .filter((item) => item.set === q.set || item.course === q.course)
-        .map((item) => cleanText(item.answer))
-        .filter((text) => text && normalize(text) !== normalize(answer));
-      const fallback = state.bank.questions
-        .filter((item) => item.id !== q.id && item.answer)
-        .map((item) => cleanText(item.answer))
-        .filter((text) => text && normalize(text) !== normalize(answer));
-      const unique = [...new Map(shuffle(sameSet.concat(fallback)).map((text) => [normalize(text), text])).values()];
-      choices = [{ text: answer, correct: true }]
-        .concat(unique.slice(0, 3).map((text) => ({ text, correct: false })));
-    }
-    while (choices.length < 4) {
-      const fallback = ["River valley civilization", "Imperial expansion", "Trade network", "Political reform"][choices.length] || "Review term";
-      choices.push({ text: fallback, correct: false });
-    }
-    const deduped = [...new Map(choices.map((choice) => [normalize(choice.text), choice])).values()];
-    if (!deduped.some((choice) => choice.correct)) deduped.unshift({ text: answer, correct: true });
-    return shuffle(deduped).slice(0, 4);
-  }
-
-  function resize() {
-    const dprLimit = window.matchMedia("(max-width: 900px)").matches ? 1.12 : 1.5;
-    const dpr = Math.min(dprLimit, window.devicePixelRatio || 1);
-    view.width = window.innerWidth;
-    view.height = window.innerHeight;
-    view.dpr = dpr;
-    canvas.width = Math.max(1, Math.round(view.width * dpr));
-    canvas.height = Math.max(1, Math.round(view.height * dpr));
-    canvas.style.width = `${view.width}px`;
-    canvas.style.height = `${view.height}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const leftUi = view.width > 1050 ? 430 : 0;
-    const rightUi = view.width > 1050 ? 430 : 0;
-    const mapBudgetW = Math.max(360, view.width - leftUi - rightUi - 28);
-    const mapBudgetH = view.height * (view.width > 900 ? .82 : .58);
-    view.size = clamp(Math.min(mapBudgetW / 15.4, mapBudgetH / 9.8), 25, 56);
-    view.mapW = view.size * (1.5 * (COLS - 1) + 2);
-    view.mapH = view.size * Math.sqrt(3) * (ROWS + .6);
-    const baseX = view.width > 1050 ? leftUi + (mapBudgetW - view.mapW) / 2 : (view.width - view.mapW) / 2;
-    const baseY = view.width > 900 ? Math.max(108, (view.height - view.mapH) / 2 + 28) : Math.max(165, (view.height - view.mapH) * .44);
-    view.ox = baseX + view.size;
-    view.oy = baseY + view.size;
-  }
-
-  function generateMap() {
-    const tiles = [];
-    for (let q = 0; q < COLS; q++) {
-      for (let r = 0; r < ROWS; r++) {
-        const edge = q === 0 || q === COLS - 1 || r === 0 || r === ROWS - 1;
-        let terrain = "plains";
-        const riverBand = Math.abs(r - (4 + Math.sin(q * .85) * 1.15));
-        if (q > 8 && r < 3) terrain = "mountain";
-        else if (q < 2 || (q > 9 && r > 5)) terrain = "coast";
-        else if (riverBand < .72) terrain = "river";
-        else if ((q + r * 2) % 7 === 0) terrain = "hills";
-        else if ((q * 3 + r) % 11 === 0) terrain = "desert";
-        else if ((q + r) % 4 === 0 || (!edge && Math.random() > .76)) terrain = "forest";
-        tiles.push({
-          id: `${q},${r}`,
-          q,
-          r,
-          terrain,
-          owner: null,
-          city: false,
-          capital: false,
-          improvement: null,
-          wonder: null,
-          name: "",
-          unrest: 0,
-          explored: true,
-          pulse: Math.random() * Math.PI * 2
+  // ─── MAP GENERATION ──────────────────────────────────────────────────────────
+  function generateMap(){
+    state.tiles=[];
+    state.fog={};
+    const terrainPool=[];
+    // Noise-like procedural: create a 2-layer system
+    for(let q=0;q<COLS;q++){
+      for(let r=0;r<ROWS;r++){
+        const id=`${q},${r}`;
+        let terrain="plains";
+        const edge=(q===0||q===COLS-1||r===0||r===ROWS-1);
+        const waterEdge=(q<=1||q>=COLS-2);
+        // Ocean edges
+        if(waterEdge) terrain="ocean";
+        else if(q===2||q===COLS-3) terrain="coast";
+        else {
+          const nx=(q-COLS/2)/COLS, ny=(r-ROWS/2)/ROWS;
+          const h=Math.sin(q*.7+.4)*Math.cos(r*.9+.2)+Math.cos(q*.3)*Math.sin(r*.5)*.6;
+          const riverBand=Math.abs(r-(4+Math.sin(q*.85)*1.5));
+          if(q>9&&r<4) terrain="mountain";
+          else if(riverBand<.7) terrain="river";
+          else if(h>0.7) terrain="hills";
+          else if(h<-0.6) terrain="desert";
+          else if((q+r*2)%6===0) terrain="grassland";
+          else if((q*3+r)%9===0&&!edge) terrain="forest";
+          else terrain="plains";
+        }
+        // Sprinkle strategic resources (10% of non-ocean land)
+        let resource=null;
+        if(terrain!=="ocean"&&terrain!=="coast"&&Math.random()<.10){
+          const pool=Object.keys(RESOURCES);
+          const filtered=pool.filter(k=>{
+            if(k==="iron") return ["hills","mountain","desert"].includes(terrain);
+            if(k==="horses") return ["plains","grassland","desert"].includes(terrain);
+            if(k==="gold_r") return ["hills","desert","river"].includes(terrain);
+            if(k==="silk") return ["plains","grassland","forest"].includes(terrain);
+            if(k==="scrolls") return ["river","coast","plains"].includes(terrain);
+            return true;
+          });
+          if(filtered.length) resource=filtered[0|Math.random()*filtered.length];
+        }
+        state.tiles.push({
+          id, q, r, terrain, resource,
+          owner:null, city:null,
+          improvement:null, wonder:null,
+          fog:true,        // starts fogged
+          pulse:Math.random()*Math.PI*2
         });
+        terrainPool.push(id);
       }
     }
-    state.tiles = tiles;
-    setOwner(tileAt(2, 4), "player", true);
-    setOwner(tileAt(1, 4), "player");
-    setOwner(tileAt(2, 5), "player");
-    setOwner(tileAt(9, 2), "north", true);
-    setOwner(tileAt(9, 7), "steppe", true);
-    setOwner(tileAt(5, 1), "ocean", true);
-    state.selected = tileAt(2, 4);
+
+    // Place starting capitals
+    const playerStart = getTile(3,5);
+    const northStart  = getTile(COLS-4,2);
+    const steppeStart = getTile(COLS-4,ROWS-3);
+    const oceanStart  = getTile(5,1);
+
+    [playerStart,northStart,steppeStart,oceanStart].forEach(t=>{
+      if(t) t.terrain="plains"; // guarantee buildable
+    });
+
+    // Found initial cities
+    if(playerStart) foundCity("player", playerStart, "Macopolis", true);
+    if(northStart)  foundCity("north",  northStart,  "Northhaven", true);
+    if(steppeStart) foundCity("steppe", steppeStart, "Steppehold", true);
+    if(oceanStart)  foundCity("ocean",  oceanStart,  "Seaport",    true);
+
+    // Give each civ a starting warrior
+    spawnUnit("player","warrior",playerStart);
+    spawnUnit("player","worker", getTile(3,6));
+    spawnUnit("north", "warrior",northStart);
+    spawnUnit("steppe","warrior",steppeStart);
+    spawnUnit("ocean", "warrior",oceanStart);
+
+    // Reveal fog for player start
+    revealFog("player", playerStart, 3);
+    state.selected = playerStart;
   }
 
-  function setOwner(tile, owner, capital = false) {
-    if (!tile) return;
-    tile.owner = owner;
-    if (capital) {
-      tile.city = true;
-      tile.capital = true;
-      tile.name = owner === "player" ? "Macopolis" : `${OWNERS[owner].name} Capital`;
-    }
-    tile.unrest = 0;
+  function getTile(q,r){ return state.tiles.find(t=>t.q===q&&t.r===r)||null; }
+  function getTileById(id){ return state.tiles.find(t=>t.id===id)||null; }
+
+  function neighbors(tile){
+    const odd=tile.q%2;
+    const dirs=odd?[[1,0],[1,1],[0,1],[-1,1],[-1,0],[0,-1]]:[[1,-1],[1,0],[0,1],[-1,0],[-1,-1],[0,-1]];
+    return dirs.map(([dq,dr])=>getTile(tile.q+dq,tile.r+dr)).filter(Boolean);
   }
 
-  function tileAt(q, r) {
-    return state.tiles.find((tile) => tile.q === q && tile.r === r);
+  function tileDistance(a,b){
+    // cube coords
+    const [aq,ar]=[a.q,a.r-(a.q-(a.q&1))/2];
+    const [bq,br]=[b.q,b.r-(b.q-(b.q&1))/2];
+    const as_=-(aq+ar), bs_=-(bq+br);
+    return Math.max(Math.abs(aq-bq),Math.abs(ar-br),Math.abs(as_-bs_));
   }
 
-  function neighbors(tile) {
-    const odd = tile.q % 2;
-    const dirs = odd
-      ? [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [0, -1]]
-      : [[1, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [0, -1]];
-    return dirs.map(([dq, dr]) => tileAt(tile.q + dq, tile.r + dr)).filter(Boolean);
-  }
-
-  function isAdjacentToPlayer(tile) {
-    return neighbors(tile).some((near) => near.owner === "player");
-  }
-
-  function ownedTiles(owner = "player") {
-    return state.tiles.filter((tile) => tile.owner === owner);
-  }
-
-  function startGame() {
-    audio.ensure();
-    state.mode = "playing";
-    state.turn = 1;
-    state.era = 0;
-    const crisis = els.scenarioFilter.value === "crisis";
-    const frontier = els.scenarioFilter.value === "frontier";
-    state.resources = {
-      food: frontier ? 24 : 18,
-      industry: crisis ? 14 : 18,
-      knowledge: 0,
-      culture: frontier ? 16 : 12,
-      stability: crisis ? 44 : 62
+  function revealFog(civId, tile, radius){
+    if(civId!=="player") return;
+    const visit=(t,d)=>{
+      if(!t||state.fog[t.id]) return;
+      state.fog[t.id]=true;
+      t.fog=false;
+      if(d<radius) neighbors(t).forEach(n=>visit(n,d+1));
     };
-    state.panel = "province";
-    state.research = { active: "irrigation", progress: 0, completed: [] };
-    state.rivals = {
-      north: { relation: 38, power: 10, treaty: false, contact: "Northern League" },
-      steppe: { relation: 28, power: 12, treaty: false, contact: "Steppe Confederation" },
-      ocean: { relation: 46, power: 8, treaty: false, contact: "Ocean Compact" }
+    visit(tile,0);
+  }
+
+  function tilesByOwner(civ){ return state.tiles.filter(t=>t.owner===civ); }
+  function isPlayerAdjacent(tile){ return neighbors(tile).some(n=>n.owner==="player"); }
+
+  // ─── CITIES ──────────────────────────────────────────────────────────────────
+  const CITY_NAMES=["Aster","Atlas Ford","Rivergate","Summit Hold","Scholar's Port","Civic Crown","Liberty Vale","Meridian","Iron Cross","Harbor End","Oak Vale","Stonepeak","Amber Bay","Crestfall"];
+
+  function foundCity(civId, tile, name, isCapital=false){
+    if(!tile||tile.terrain==="ocean"||tile.city) return null;
+    const cid=`city_${++state.citySeq}`;
+    const cityName = name || CITY_NAMES[state.cities.length % CITY_NAMES.length];
+    const city = {
+      id:cid, civId, tileId:tile.id,
+      name:cityName, pop:1, food:0, foodNeeded:15,
+      buildings:[], buildQueue:null, buildProgress:0,
+      wonders:[], capital:isCapital, defense:0, turn:state.turn
     };
-    state.wonders = [];
-    state.lastKnowledgeYield = 0;
-    state.population = 2;
-    state.score = 0;
-    state.councils = 0;
-    state.correct = 0;
-    state.missed = [];
-    state.particles = [];
-    state.banners = [];
-    state.events = [];
-    state.pendingAction = null;
-    generateMap();
-    updateHud();
-    renderPanel();
-    updatePanelTabs();
-    setAdvisor("Imperial Council", "Found your capital, claim provinces, build districts, and keep stability above collapse.", "The first dynasty rises beside the river.", "good");
-    els.setupScreen.classList.remove("show");
-    els.endScreen.classList.remove("show");
-    els.menuScreen.classList.remove("show");
-    els.councilScreen.classList.remove("show");
-    window.MrMacsAnalytics?.track("game_play", {
-      gameId: "empire-ascendant",
-      title: "Empire Ascendant",
-      course: els.courseFilter.value || "All Courses",
-      gameType: "Strategy"
-    }, { counter: "game-plays", once: false });
+    state.cities.push(city);
+    tile.owner=civId;
+    tile.city=cid;
+    // Reveal around city for player
+    if(civId==="player") revealFog("player",tile,3);
+    audio.found();
+    burst(tile,"#f2c14e",30);
+    floatText(tile,"CITY FOUNDED","#f2c14e");
+    return city;
   }
 
-  function updateHud() {
-    els.food.textContent = formatNumber(state.resources.food);
-    els.industry.textContent = formatNumber(state.resources.industry);
-    els.knowledge.textContent = formatNumber(state.resources.knowledge);
-    els.culture.textContent = formatNumber(state.resources.culture);
-    els.stability.textContent = `${Math.floor(state.resources.stability)}%`;
-    els.advisorMeta.textContent = `Turn ${state.turn} | ${ERAS[state.era]} Era`;
-  }
+  function cityAt(tile){ return state.cities.find(c=>c.tileId===tile.id)||null; }
+  function cityById(id){ return state.cities.find(c=>c.id===id)||null; }
 
-  function setAdvisor(title, text, log = "", tone = "") {
-    els.advisorTitle.textContent = title;
-    els.advisorText.textContent = text;
-    els.advisorLog.textContent = log;
-    els.advisorLog.className = `advisor-log ${tone}`;
-  }
-
-  function canAfford(cost = {}) {
-    return Object.entries(cost).every(([key, value]) => (state.resources[key] || 0) >= value);
-  }
-
-  function hasTech(id) {
-    return !id || state.research.completed.includes(id);
-  }
-
-  function techById(id) {
-    return TECHS.find((tech) => tech.id === id);
-  }
-
-  function wonderById(id) {
-    return WONDERS.find((wonder) => wonder.id === id);
-  }
-
-  function spend(cost = {}) {
-    for (const [key, value] of Object.entries(cost)) state.resources[key] -= value;
-  }
-
-  function gain(values = {}) {
-    for (const [key, value] of Object.entries(values)) {
-      state.resources[key] = (state.resources[key] || 0) + value;
+  function cityYield(city){
+    const tile=getTileById(city.tileId);
+    const ter=tile?TERRAIN[tile.terrain]:{g:1,f:1,p:1,s:0};
+    // base tile yield
+    let gold=ter.g, food=ter.f, prod=ter.p, sci=ter.s;
+    // pop bonus
+    gold+=Math.floor(city.pop*.5);
+    food+=Math.floor(city.pop*.5);
+    prod+=Math.floor(city.pop*.3);
+    sci+=Math.floor(city.pop*.3);
+    // buildings
+    for(const b of city.buildings){
+      const bd=BUILDINGS[b]; if(!bd) continue;
+      gold+=(bd.effect.gold||0);
+      food+=(bd.effect.food||0);
+      prod+=(bd.effect.prod||0);
+      sci+=(bd.effect.sci||0);
     }
-    state.resources.stability = clamp(state.resources.stability, 0, 100);
+    // scholars in city
+    const scholars=state.units.filter(u=>u.civId===city.civId&&u.def==="scholar"&&u.tileId===city.tileId);
+    sci+=scholars.length*2;
+    // strategic resource
+    if(tile&&tile.resource){
+      const res=RESOURCES[tile.resource];
+      if(res){ gold+=(res.bonusGold||0); sci+=(res.bonusSci||0); }
+    }
+    return {gold,food,prod,sci};
   }
 
-  function costText(cost = {}) {
-    const parts = Object.entries(cost).map(([key, value]) => `${value} ${key}`);
-    return parts.length ? parts.join(", ") : "free";
+  function processCityGrowth(city){
+    const y=cityYield(city);
+    city.food+=y.food;
+    if(city.food>=city.foodNeeded){
+      city.pop+=1;
+      city.food=0;
+      city.foodNeeded=Math.floor(city.foodNeeded*1.3+5);
+      floatText(getTileById(city.tileId),"POP +1","#77d99b");
+      // radial pulse
+      burst(getTileById(city.tileId),"#77d99b",12);
+    }
+    return y;
   }
 
-  function yieldText(values = {}) {
-    const parts = Object.entries(values).map(([key, value]) => `+${value} ${key}`);
-    return parts.length ? parts.join(", ") : "no yield";
-  }
-
-  function updatePanelTabs() {
-    els.panelTabs.forEach((button) => button.classList.toggle("active", button.dataset.panel === state.panel));
-  }
-
-  function renderPanel() {
-    updatePanelTabs();
-    if (state.panel === "research") return renderResearchPanel();
-    if (state.panel === "wonders") return renderWondersPanel();
-    if (state.panel === "diplomacy") return renderDiplomacyPanel();
-    return renderSelection();
-  }
-
-  function renderSelection() {
-    const tile = state.selected;
-    if (!tile) {
-      els.selectedTitle.textContent = "Select a province";
-      els.selectedMeta.textContent = "Tap your capital or any bordering tile.";
-      els.actionGrid.innerHTML = "";
+  function processBuildQueue(city){
+    if(!city.buildQueue) return;
+    const tile=getTileById(city.tileId);
+    const y=cityYield(city);
+    city.buildProgress+=y.prod;
+    // Check if it's a building
+    const bdef=BUILDINGS[city.buildQueue];
+    if(bdef){
+      if(city.buildProgress>=bdef.cost){
+        city.buildings.push(city.buildQueue);
+        city.buildProgress=0; city.buildQueue=null;
+        floatText(tile,`${bdef.name} complete`,"#7bdff2");
+        audio.tech_complete();
+      }
       return;
     }
-    const owner = tile.owner ? OWNERS[tile.owner].name : "Unclaimed";
-    const terrain = TERRAIN[tile.terrain].label;
-    const improvement = tile.improvement ? ` | ${IMPROVEMENTS[tile.improvement].label}` : "";
-    const city = tile.city && tile.name ? ` | ${tile.name}` : "";
-    const wonder = tile.wonder ? ` | ${wonderById(tile.wonder)?.name || "Wonder"}` : "";
-    els.selectedTitle.textContent = `${terrain} Province`;
-    els.selectedMeta.textContent = `${owner}${tile.capital ? " | Capital" : ""}${city}${improvement}${wonder}${tile.unrest ? ` | Unrest ${tile.unrest}` : ""}`;
-    renderActions(tile);
+    // Unit
+    const udef=UNIT_DEFS[city.buildQueue];
+    if(udef&&city.buildProgress>=udef.cost){
+      spawnUnit(city.civId, city.buildQueue, tile);
+      city.buildProgress=0; city.buildQueue=null;
+      floatText(tile,"Unit ready","#f2c14e");
+    }
   }
 
-  function renderActions(tile) {
-    const actions = [];
-    if (tile.owner === "player") {
-      if (!tile.city) {
-        const cityCost = { food: 8, culture: 5 };
-        actions.push({
-          key: "city",
-          label: "Found City",
-          sub: `${costText(cityCost)} | new production center`,
-          cls: "major",
-          disabled: !canAfford(cityCost),
-          action: () => foundCity(tile, cityCost)
-        });
-      }
-      for (const [key, item] of Object.entries(IMPROVEMENTS)) {
-        if (!tile.improvement && item.allowed.includes(tile.terrain)) {
-          const missingTech = item.requires && !hasTech(item.requires);
-          actions.push({
-            key: `build:${key}`,
-            label: `Build ${item.label}`,
-            sub: missingTech ? `requires ${techById(item.requires)?.name || "research"}` : `${costText(item.cost)} | ${yieldText(item.yield)}`,
-            disabled: missingTech || !canAfford(item.cost),
-            action: () => buildImprovement(tile, key)
-          });
+  // ─── UNITS ───────────────────────────────────────────────────────────────────
+  function spawnUnit(civId, defKey, tile){
+    if(!tile) return null;
+    const def=UNIT_DEFS[defKey]; if(!def) return null;
+    const u={
+      id:`u_${++state.unitSeq}`, civId, def:defKey,
+      tileId:tile.id,
+      hp:100, maxHp:100, str:def.str,
+      mv:def.mv, mvLeft:def.mv,
+      moved:false, fortified:false,
+      animX:0, animY:0, animFrac:1  // for lerp animation
+    };
+    state.units.push(u);
+    if(civId==="player") revealFog("player",tile,2);
+    return u;
+  }
+
+  function unitsAt(tile){ return state.units.filter(u=>u.tileId===tile.id); }
+  function unitAtTile(tile){ return state.units.find(u=>u.tileId===tile.id)||null; }
+
+  function getReachable(unit){
+    // BFS with movement cost
+    const tile=getTileById(unit.tileId); if(!tile) return [];
+    const visited=new Map([[unit.tileId,0]]);
+    const queue=[{t:tile,mv:unit.mvLeft}];
+    const result=[];
+    while(queue.length){
+      const {t,mv}=queue.shift();
+      for(const nb of neighbors(t)){
+        if(nb.terrain==="ocean") continue;
+        if(nb.owner&&nb.owner!==unit.civId) continue; // enemy territory blocks
+        const cost=TERRAIN[nb.terrain]?.mv||1;
+        const rem=mv-cost;
+        if(rem<0) continue;
+        if(!visited.has(nb.id)||visited.get(nb.id)<rem){
+          visited.set(nb.id,rem);
+          result.push(nb);
+          queue.push({t:nb,mv:rem});
         }
       }
-      actions.push({
-        key: "reform",
-        label: "Call Reform Council",
-        sub: "Review check | stability + knowledge",
-        disabled: state.resources.culture < 4,
-        action: () => openCouncil({ type: "reform", tile, cost: { culture: 4 } })
-      });
-    } else if (!tile.owner && isAdjacentToPlayer(tile)) {
-      const cost = { culture: tile.terrain === "mountain" ? 12 : 8 };
-      actions.push({
-        key: "claim",
-        label: "Claim Province",
-        sub: `${costText(cost)} | review council`,
-        disabled: !canAfford(cost),
-        action: () => openCouncil({ type: "claim", tile, cost })
-      });
-    } else if (tile.owner && tile.owner !== "player" && isAdjacentToPlayer(tile)) {
-      const cost = { industry: 10, culture: 6 };
-      actions.push({
-        key: "rival",
-        label: `Challenge ${OWNERS[tile.owner].name}`,
-        sub: `${costText(cost)} | border council`,
-        disabled: !canAfford(cost),
-        action: () => openCouncil({ type: "rival", tile, cost })
-      });
-    } else if (!tile.owner) {
-      actions.push({
-        key: "distant",
-        label: "Too Far To Claim",
-        sub: "Expand from a bordering province",
-        disabled: true,
-        action: () => {}
-      });
-    } else {
-      actions.push({
-        key: "rival-watch",
-        label: OWNERS[tile.owner].name,
-        sub: "Reach its border to negotiate or contest",
-        disabled: true,
-        action: () => {}
-      });
     }
-    if (!actions.length) {
-      actions.push({
-        key: "none",
-        label: "Province Developed",
-        sub: "Select a border tile or end the turn",
-        disabled: true,
-        action: () => {}
-      });
+    return result;
+  }
+
+  function moveUnit(unit, targetTile, skipAnim=false){
+    const fromTile=getTileById(unit.tileId);
+    if(!skipAnim&&fromTile){
+      const fp=hexToPixel(fromTile), tp=hexToPixel(targetTile);
+      unit.animX=fp.x-tp.x; unit.animY=fp.y-tp.y; unit.animFrac=0;
     }
-    els.actionGrid.innerHTML = actions.slice(0, 8).map((action, index) => (
-      `<button class="${escapeHtml(action.cls || "")}" type="button" data-index="${index}" ${action.disabled ? "disabled" : ""}>${escapeHtml(action.label)}<span>${escapeHtml(action.sub)}</span></button>`
-    )).join("");
-    els.actionGrid.querySelectorAll("button").forEach((button) => {
-      button.addEventListener("click", () => {
-        const action = actions[Number(button.dataset.index)];
-        if (action && !action.disabled) action.action();
+    unit.tileId=targetTile.id;
+    const cost=TERRAIN[targetTile.terrain]?.mv||1;
+    unit.mvLeft=Math.max(0,unit.mvLeft-cost);
+    unit.moved=true;
+    if(unit.civId==="player") revealFog("player",targetTile,2);
+    audio.move();
+  }
+
+  function resolveCombat(attacker, defTile){
+    const defUnit=unitAtTile(defTile);
+    if(!defUnit) return;
+    const aTer=TERRAIN[getTileById(attacker.tileId)?.terrain||"plains"];
+    const dTer=TERRAIN[defTile.terrain];
+    const defCity=cityAt(defTile);
+    const defBonus=(defCity?(defCity.buildings.includes("walls")?1.3:1.1):1.0)*(dTer?.mv===3?1.2:1.0);
+    const atkMod=(aTer?.mv===1?1.05:1.0);
+    const aDmg=Math.round(clamp(attacker.str*(attacker.str/defUnit.str)*atkMod*(0.85+Math.random()*.3),3,45));
+    const dDmg=Math.round(clamp(defUnit.str*(defUnit.str/attacker.str)/defBonus*(0.75+Math.random()*.3),2,35));
+    attacker.hp=clamp(attacker.hp-dDmg,0,attacker.maxHp);
+    defUnit.hp=clamp(defUnit.hp-aDmg,0,defUnit.maxHp);
+    audio.combat();
+    burst(defTile,"#ff6f6f",20);
+    floatText(defTile,`-${aDmg}`,"#ff6f6f");
+    floatText(getTileById(attacker.tileId),`-${dDmg}`,"#ffb0b0");
+    if(defUnit.hp<=0){
+      killUnit(defUnit);
+      if(defTile.owner&&defTile.owner!==attacker.civId){
+        captureTile(attacker.civId, defTile);
+      }
+      moveUnit(attacker, defTile, true);
+    }
+    if(attacker.hp<=0) killUnit(attacker);
+    attacker.mvLeft=0; attacker.moved=true;
+  }
+
+  function killUnit(unit){
+    state.units=state.units.filter(u=>u.id!==unit.id);
+  }
+
+  function captureTile(civId, tile){
+    const prevOwner=tile.owner;
+    tile.owner=civId;
+    if(tile.city){
+      const city=cityById(tile.city);
+      if(city){
+        city.civId=civId;
+        floatText(tile,"CAPTURED","#f2c14e");
+        checkVictory();
+      }
+    }
+    if(civId==="player") revealFog("player",tile,2);
+    burst(tile,CIVS[civId].color,28);
+    setDip(civId,prevOwner,-20);
+  }
+
+  // ─── RESEARCH ────────────────────────────────────────────────────────────────
+  function hasTech(civId,id){ return state.techs[civId]?.done?.includes(id); }
+  function techById(id){ return TECHS.find(t=>t.id===id); }
+
+  function processTech(civId){
+    const ts=state.techs[civId]; if(!ts||!ts.active) return;
+    const tech=techById(ts.active); if(!tech) return;
+    // science from all cities
+    let sci=0;
+    state.cities.filter(c=>c.civId===civId).forEach(c=>{ sci+=cityYield(c).sci; });
+    ts.progress+=Math.max(1,sci);
+    if(ts.progress>=tech.cost){
+      ts.done.push(ts.active);
+      ts.progress=0;
+      const eff=tech.effect||{};
+      const r=state.res[civId];
+      if(eff.gold) r.gold+=eff.gold*5;
+      if(eff.food) r.food+=eff.food*5;
+      if(eff.prod) r.prod+=eff.prod*5;
+      if(eff.sci)  r.sci+=eff.sci*5;
+      if(civId==="player"){
+        audio.tech_complete();
+        const cap=state.cities.find(c=>c.civId==="player"&&c.capital);
+        if(cap) burst(getTileById(cap.tileId),"#7bdff2",20);
+        setAdvisor("Technology Discovered",`${tech.name} unlocked. ${tech.quote}`,`Unlocks: ${tech.unlocks}`,"good");
+      }
+      // auto pick next
+      const era=state.era;
+      const next=TECHS.find(t=>!hasTech(civId,t.id)&&t.era<=era+1);
+      ts.active=next?next.id:"";
+    }
+  }
+
+  // ─── RESOURCE COLLECTION ─────────────────────────────────────────────────────
+  function collectYields(civId){
+    const r=state.res[civId];
+    let totalGold=0, totalFood=0, totalProd=0, totalSci=0;
+    state.cities.filter(c=>c.civId===civId).forEach(c=>{
+      const y=cityYield(c);
+      totalGold+=y.gold; totalProd+=y.prod; totalSci+=y.sci;
+      processCityGrowth(c);
+      processBuildQueue(c);
+    });
+    // Tile improvements
+    state.tiles.filter(t=>t.owner===civId&&t.improvement).forEach(t=>{
+      const imp=IMPROVEMENTS[t.improvement];
+      if(imp){ totalGold+=(imp.yields.gold||0); totalFood+=(imp.yields.food||0); totalProd+=(imp.yields.prod||0); }
+    });
+    r.gold+=totalGold;
+    r.prod+=totalProd;
+    r.sci+=totalSci;
+    // Maintenance: 1 gold per unit
+    const unitCount=state.units.filter(u=>u.civId===civId).length;
+    r.gold-=unitCount;
+    if(r.gold<0){ r.gold=0; r.stability-=4; }
+    // Stability drift
+    const territory=tilesByOwner(civId).length;
+    r.stability=clamp(r.stability+(territory>8?-1:1),0,100);
+    // Heal units in own territory
+    state.units.filter(u=>u.civId===civId).forEach(u=>{
+      const t=getTileById(u.tileId);
+      if(t&&t.owner===civId) u.hp=clamp(u.hp+10,0,u.maxHp);
+    });
+  }
+
+  // ─── AI ──────────────────────────────────────────────────────────────────────
+  function aiTurn(civId){
+    const civ=CIVS[civId]; if(!civ) return;
+    const per=civ.personality;
+    const r=state.res[civId];
+
+    // 1. Move units
+    const myUnits=state.units.filter(u=>u.civId===civId);
+    for(const u of myUnits){
+      u.mvLeft=u.mv; u.moved=false;
+      const tile=getTileById(u.tileId); if(!tile) continue;
+      const def=UNIT_DEFS[u.def];
+
+      if(u.def==="settler"){
+        // Look for empty unowned tile near own territory
+        const reachable=getReachable(u);
+        const settle=reachable.find(t=>!t.owner&&!t.city&&t.terrain!=="ocean"&&t.terrain!=="mountain");
+        if(settle){ moveUnit(u,settle,true); foundCity(civId,settle); killUnit(u); }
+      } else if(u.def==="worker"){
+        const reachable=getReachable(u);
+        const build=reachable.find(t=>t.owner===civId&&!t.improvement&&t.terrain!=="ocean");
+        if(build){ moveUnit(u,build,true); buildImprovement(civId,build); }
+      } else if(def&&def.str>0){
+        // Combat units
+        const reachable=getReachable(u);
+        // Look for enemy unit or border tile to attack
+        const enemyTile=reachable.find(t=>t.owner&&t.owner!==civId&&unitsAt(t).some(eu=>eu.civId!==civId));
+        if(enemyTile&&(per==="military"||per==="expansionist"||Math.random()<.5)){
+          moveUnit(u,enemyTile,true); resolveCombat(u,enemyTile);
+        } else {
+          // Move toward player if war, or toward empty frontier
+          const front=reachable.filter(t=>!t.owner&&t.terrain!=="ocean");
+          const warPair=getDip(civId,"player");
+          if(warPair.war){
+            const playerTile=state.tiles.find(t=>t.owner==="player");
+            if(playerTile){
+              const step=reachable.sort((a,b)=>tileDistance(a,playerTile)-tileDistance(b,playerTile))[0];
+              if(step) moveUnit(u,step,true);
+            }
+          } else if(front.length&&(per==="expansionist"||per==="military")){
+            moveUnit(u,front[0|Math.random()*front.length],true);
+          }
+        }
+      }
+    }
+
+    // 2. Build in cities
+    state.cities.filter(c=>c.civId===civId).forEach(c=>{
+      if(c.buildQueue) return;
+      if(per==="science"&&!c.buildings.includes("library")&&hasTech(civId,"writing")){
+        c.buildQueue="library";
+      } else if(per==="military"&&!c.buildings.includes("barracks")&&hasTech(civId,"bronze")){
+        c.buildQueue="barracks";
+      } else if(!c.buildings.includes("granary")){
+        c.buildQueue="granary";
+      } else if(Math.random()<.3){
+        // Spawn settler if territory is small
+        const territory=tilesByOwner(civId).length;
+        if(territory<8) c.buildQueue="settler";
+        else c.buildQueue="warrior";
+      }
+    });
+
+    // 3. Research
+    processTech(civId);
+
+    // 4. Diplomacy aggression check
+    const dip=getDip(civId,"player");
+    if(dip.rel<20&&!dip.war&&Math.random()<.3){
+      dip.war=true;
+      if(civId==="player") setAdvisor("WAR DECLARED",`${civ.name} has declared war!`,"Defend your cities!","bad");
+    }
+    if(dip.rel>70&&dip.war&&Math.random()<.2){
+      dip.war=false;
+    }
+  }
+
+  function buildImprovement(civId, tile){
+    // pick best improvement for terrain
+    const options=Object.entries(IMPROVEMENTS).filter(([k,v])=>{
+      return v.terrain.includes(tile.terrain)&&(v.requires?hasTech(civId,v.requires):true);
+    });
+    if(!options.length) return;
+    tile.improvement=options[0][0];
+  }
+
+  // ─── VICTORY CHECK ───────────────────────────────────────────────────────────
+  function checkVictory(){
+    const playerCities=state.cities.filter(c=>c.civId==="player");
+    // Domination: own all rival capitals
+    const rivalCaps=state.cities.filter(c=>c.capital&&c.civId!=="player");
+    if(rivalCaps.length===0){
+      triggerVictory("Domination","You captured all rival capitals. The world bows to your dynasty.");
+      return;
+    }
+    // Science: build Mission to Mars wonder
+    if(state.wonders.find(w=>w.civId==="player"&&w.wonderId==="mission_mars")){
+      triggerVictory("Science","Your scientists launched humanity beyond Earth. A new era begins.");
+      return;
+    }
+    // Cultural: build 4 cultural wonders
+    const culturalWonders=["colosseum","print_house","cathedral","great_library"];
+    if(culturalWonders.every(wid=>state.wonders.find(w=>w.civId==="player"&&w.wonderId===wid))){
+      triggerVictory("Cultural","Your civilization defined the age through art, faith, and knowledge.");
+      return;
+    }
+    // Score: turn 200
+    if(state.turn>=MAX_TURNS){
+      triggerVictory("Score","The campaign age has ended. Your empire is judged by history.");
+    }
+  }
+
+  function triggerVictory(type, message){
+    if(state.victory) return;
+    state.victory=type;
+    endGame(`Victory: ${type}`,message);
+  }
+
+  // ─── HUD ELEMENTS ────────────────────────────────────────────────────────────
+  const els = {
+    gold:          document.getElementById("food"),         // repurposed as gold
+    food:          document.getElementById("industry"),     // repurposed as food
+    prod:          document.getElementById("knowledge"),    // repurposed as prod
+    sci:           document.getElementById("culture"),      // repurposed as sci
+    stability:     document.getElementById("stability"),
+    pauseBtn:      document.getElementById("pauseBtn"),
+    exitBtn:       document.getElementById("exitBtn"),
+    advisorTitle:  document.getElementById("advisorTitle"),
+    advisorMeta:   document.getElementById("advisorMeta"),
+    advisorText:   document.getElementById("advisorText"),
+    advisorLog:    document.getElementById("advisorLog"),
+    selectedTitle: document.getElementById("selectedTitle"),
+    selectedMeta:  document.getElementById("selectedMeta"),
+    actionGrid:    document.getElementById("actionGrid"),
+    panelTabs:     [...document.querySelectorAll(".panel-tabs button")],
+    endTurnBtn:    document.getElementById("endTurnBtn"),
+    setupScreen:   document.getElementById("setupScreen"),
+    councilScreen: document.getElementById("councilScreen"),
+    menuScreen:    document.getElementById("menuScreen"),
+    endScreen:     document.getElementById("endScreen"),
+    courseFilter:  document.getElementById("courseFilter"),
+    setFilter:     document.getElementById("setFilter"),
+    scenarioFilter:document.getElementById("scenarioFilter"),
+    setupMetrics:  document.getElementById("setupMetrics"),
+    startBtn:      document.getElementById("startBtn"),
+    soundBtn:      document.getElementById("soundBtn"),
+    fullscreenBtn: document.getElementById("fullscreenBtn"),
+    resumeBtn:     document.getElementById("resumeBtn"),
+    restartBtn:    document.getElementById("restartBtn"),
+    menuExitBtn:   document.getElementById("menuExitBtn"),
+    setupBtn:      document.getElementById("setupBtn"),
+    againBtn:      document.getElementById("againBtn"),
+    questionMeta:  document.getElementById("questionMeta"),
+    questionPrompt:document.getElementById("questionPrompt"),
+    stimulusBox:   document.getElementById("stimulusBox"),
+    choiceGrid:    document.getElementById("choiceGrid"),
+    explanation:   document.getElementById("explanation"),
+    endTitle:      document.getElementById("endTitle"),
+    endGrid:       document.getElementById("endGrid"),
+    studyTargets:  document.getElementById("studyTargets")
+  };
+
+  // Patch top-bar labels immediately (reusing existing IDs)
+  document.querySelector("#food + span")    && (document.querySelector("#food + span").textContent="gold");
+  document.querySelector("#industry + span") && (document.querySelector("#industry + span").textContent="food");
+  document.querySelector("#knowledge + span") && (document.querySelector("#knowledge + span").textContent="prod");
+  document.querySelector("#culture + span")  && (document.querySelector("#culture + span").textContent="science");
+
+  // ─── ADVISOR ─────────────────────────────────────────────────────────────────
+  function setAdvisor(title,text,log="",tone=""){
+    els.advisorTitle.textContent=title;
+    els.advisorText.textContent=text;
+    els.advisorLog.textContent=log;
+    els.advisorLog.className=`advisor-log ${tone}`;
+  }
+
+  // ─── HUD UPDATE ──────────────────────────────────────────────────────────────
+  function updateHud(){
+    const r=state.res.player;
+    els.gold.textContent=fmtN(r.gold);
+    els.food.textContent=fmtN(r.food);
+    els.prod.textContent=fmtN(r.prod);
+    els.sci.textContent=fmtN(r.sci);
+    els.stability.textContent=`${Math.floor(r.stability)}%`;
+    const era=ERAS[state.era]||"Ancient";
+    els.advisorMeta.textContent=`Turn ${state.turn}/${MAX_TURNS} | ${era} Era`;
+    els.pauseBtn.textContent=state.mode==="menu"?"Resume":"Menu";
+  }
+
+  // ─── PANEL RENDERING ─────────────────────────────────────────────────────────
+  function updatePanelTabs(){
+    els.panelTabs.forEach(b=>b.classList.toggle("active",b.dataset.panel===state.panel));
+  }
+
+  function renderPanel(){
+    updatePanelTabs();
+    switch(state.panel){
+      case "research":  return renderResearchPanel();
+      case "wonders":   return renderWondersPanel();
+      case "diplomacy": return renderDiplomacyPanel();
+      default:          return renderProvincePanel();
+    }
+  }
+
+  function renderActionButtons(actions){
+    els.actionGrid.innerHTML=actions.slice(0,8).map((a,i)=>
+      `<button class="${esc(a.cls||"")}" type="button" data-i="${i}" ${a.disabled?"disabled":""}>${esc(a.label)}<span>${esc(a.sub)}</span></button>`
+    ).join("");
+    els.actionGrid.querySelectorAll("button").forEach(b=>{
+      b.addEventListener("click",()=>{
+        const a=actions[+b.dataset.i];
+        if(a&&!a.disabled) a.action();
       });
     });
   }
 
-  function renderResearchPanel() {
-    const active = techById(state.research.active) || TECHS.find((tech) => !hasTech(tech.id));
-    els.selectedTitle.textContent = active ? `Research: ${active.name}` : "Research Complete";
-    els.selectedMeta.textContent = active
-      ? `${Math.floor(state.research.progress)}/${active.cost} knowledge | unlocks ${active.unlocks}`
-      : "All available technologies are complete.";
-    const actions = TECHS
-      .filter((tech) => tech.era <= state.era + 1)
-      .slice(0, 10)
-      .map((tech) => {
-        const completed = hasTech(tech.id);
-        const activeTech = state.research.active === tech.id && !completed;
-        return {
-          label: `${completed ? "Known" : activeTech ? "Studying" : "Research"} ${tech.name}`,
-          sub: completed ? tech.quote : `${tech.cost} knowledge | ${tech.unlocks}`,
-          cls: completed ? "completed" : activeTech ? "major" : "",
-          disabled: completed || activeTech,
-          action: () => chooseResearch(tech.id)
-        };
-      });
+  // Province/unit panel
+  function renderProvincePanel(){
+    const unit=state.selUnit;
+    const tile=state.selected;
+
+    if(unit){
+      renderUnitPanel(unit);
+      return;
+    }
+    if(!tile){
+      els.selectedTitle.textContent="Select a tile";
+      els.selectedMeta.textContent="Click any tile on the map.";
+      els.actionGrid.innerHTML="";
+      return;
+    }
+    const city=tile.city?cityById(tile.city):null;
+    if(city&&city.civId==="player"){
+      renderCityPanel(city,tile);
+      return;
+    }
+    renderTilePanel(tile);
+  }
+
+  function renderUnitPanel(unit){
+    const tile=getTileById(unit.tileId);
+    const def=UNIT_DEFS[unit.def];
+    els.selectedTitle.textContent=`${def.name} (${unit.civId==="player"?"Your":CIVS[unit.civId].name})`;
+    els.selectedMeta.textContent=`HP ${unit.hp}/${unit.maxHp} | STR ${unit.str} | Moves ${unit.mvLeft}/${unit.mv}`;
+    const actions=[];
+    if(unit.civId==="player"){
+      if(!unit.moved&&unit.mvLeft>0){
+        actions.push({label:"Move Unit",sub:"Select destination on map",cls:"major",disabled:false,action:()=>enterMoveMode(unit)});
+      }
+      if(def.str>0&&unit.mvLeft>0){
+        const adjacent=neighbors(tile||state.tiles[0]).filter(n=>unitsAt(n).some(u=>u.civId!=="player"));
+        if(adjacent.length){
+          actions.push({label:"Attack",sub:`vs ${CIVS[unitsAt(adjacent[0]).find(u=>u.civId!=="player")?.civId]?.name||"enemy"}`,cls:"warning",disabled:false,action:()=>resolveCombat(unit,adjacent[0])});
+        }
+      }
+      if(unit.def==="settler"&&tile&&!tile.city){
+        actions.push({label:"Found City",sub:"Founds a new city here",cls:"major",disabled:!!tile.city,action:()=>{
+          openCouncil({type:"found",tile,unit,cost:{}});
+        }});
+      }
+      if(unit.def==="worker"&&tile&&tile.owner==="player"&&!tile.improvement){
+        const opts=Object.entries(IMPROVEMENTS).filter(([k,v])=>v.terrain.includes(tile.terrain)&&(v.requires?hasTech("player",v.requires):true));
+        opts.forEach(([k,v])=>{
+          actions.push({label:`Build ${v.name}`,sub:`${v.terrain.join("/")} | ${Object.entries(v.yields).map(([rk,rv])=>"+"+rv+" "+rk).join(", ")}`,disabled:false,action:()=>{ tile.improvement=k; floatText(tile,v.name,"#77d99b"); killUnit(unit); renderPanel(); }});
+        });
+      }
+      if(unit.hp<unit.maxHp&&tile&&tile.owner==="player"){
+        actions.push({label:"Fortify & Heal",sub:"End movement, heal +10 HP/turn",disabled:unit.fortified,action:()=>{unit.fortified=true;unit.mvLeft=0;renderPanel();}});
+      }
+      actions.push({label:"Disband",sub:"Remove unit",cls:"warning",disabled:false,action:()=>{killUnit(unit);state.selUnit=null;renderPanel();}});
+    }
+    if(!actions.length) actions.push({label:"Enemy Unit",sub:"Cannot control",disabled:true,action:()=>{}});
     renderActionButtons(actions);
   }
 
-  function renderWondersPanel() {
-    const city = state.selected?.owner === "player" && state.selected.city ? state.selected : ownedTiles().find((tile) => tile.capital);
-    els.selectedTitle.textContent = "World Wonders";
-    els.selectedMeta.textContent = city ? `Build in ${city.name || "the capital"}. Wonders are one-per-empire power spikes.` : "Found a city before building wonders.";
-    const actions = WONDERS
-      .filter((wonder) => wonder.era <= state.era + 1)
-      .map((wonder) => {
-        const built = state.wonders.includes(wonder.id);
-        const missingTech = wonder.requires && !hasTech(wonder.requires);
-        return {
-          label: built ? `${wonder.name} Built` : `Build ${wonder.name}`,
-          sub: built ? wonder.line : missingTech ? `requires ${techById(wonder.requires)?.name || "research"}` : `${costText(wonder.cost)} | ${yieldText(wonder.effect)}`,
-          cls: built ? "completed" : "major",
-          disabled: built || missingTech || !city || !canAfford(wonder.cost),
-          action: () => openCouncil({ type: "wonder", tile: city, wonder, cost: wonder.cost })
-        };
+  function renderCityPanel(city,tile){
+    const y=cityYield(city);
+    els.selectedTitle.textContent=`${city.name}${city.capital?" (Capital)":""}`;
+    els.selectedMeta.textContent=`Pop ${city.pop} | +${y.gold}g +${y.food}f +${y.prod}p +${y.sci}s | ${city.buildings.length} buildings`;
+    const actions=[];
+    // Build queue
+    const currentBuild=city.buildQueue;
+    // Buildings available
+    const era=state.era;
+    Object.entries(BUILDINGS).forEach(([k,b])=>{
+      if(b.era>era+1) return;
+      if(city.buildings.includes(k)) return;
+      if(b.requires&&!hasTech("player",b.requires)) return;
+      actions.push({
+        label:currentBuild===k?`Building: ${b.name}`:`Build ${b.name}`,
+        sub:`${b.cost} prod | ${b.desc}`,
+        cls:currentBuild===k?"major":"",
+        disabled:currentBuild===k,
+        action:()=>{city.buildQueue=k;city.buildProgress=0;floatText(tile,`Started: ${b.name}`,"#7bdff2");renderPanel();}
       });
+    });
+    // Units
+    Object.entries(UNIT_DEFS).forEach(([k,u])=>{
+      if(u.era>era+1) return;
+      if(u.requires&&!hasTech("player",u.requires)) return;
+      if(k==="settler"&&state.res.player.food<30) return; // population cost
+      actions.push({
+        label:currentBuild===k?`Training: ${u.name}`:`Train ${u.name}`,
+        sub:`${u.cost} prod | ${u.desc}`,
+        cls:currentBuild===k?"major":"",
+        disabled:currentBuild===k,
+        action:()=>{city.buildQueue=k;city.buildProgress=0;floatText(tile,`Training: ${u.name}`,"#f2c14e");renderPanel();}
+      });
+    });
     renderActionButtons(actions);
   }
 
-  function renderDiplomacyPanel() {
-    els.selectedTitle.textContent = "Diplomacy";
-    els.selectedMeta.textContent = "Trade, envoys, and border wars shift rival relations and power.";
-    const actions = Object.entries(state.rivals).flatMap(([owner, rival]) => {
-      const relation = Math.round(rival.relation);
-      const border = state.tiles.some((tile) => tile.owner === owner && isAdjacentToPlayer(tile));
+  function renderTilePanel(tile){
+    const terrain=TERRAIN[tile.terrain];
+    const owner=tile.owner?CIVS[tile.owner].name:"Unclaimed";
+    const res=tile.resource?RESOURCES[tile.resource]?.label:"";
+    els.selectedTitle.textContent=`${terrain.label}${res?" ("+res+")":""}`;
+    els.selectedMeta.textContent=`${owner} | +${terrain.g}g +${terrain.f}f +${terrain.p}p +${terrain.s}s${tile.fog?" | Fogged":""}`;
+    const actions=[];
+    const r=state.res.player;
+
+    if(!tile.owner&&isPlayerAdjacent(tile)&&!tile.fog){
+      actions.push({
+        label:"Claim Territory",sub:"Council review required | 8 culture",
+        cls:"major",disabled:r.culture<8,
+        action:()=>openCouncil({type:"claim",tile,cost:{culture:8}})
+      });
+    }
+    if(tile.owner==="player"&&!tile.city){
+      const cost={food:8,culture:5};
+      const canAfford=r.food>=cost.food&&r.culture>=cost.culture;
+      actions.push({
+        label:"Found City",sub:`${cost.food} food, ${cost.culture} culture`,
+        cls:"major",disabled:!canAfford,
+        action:()=>openCouncil({type:"found_city",tile,cost})
+      });
+      if(!tile.improvement){
+        const opts=Object.entries(IMPROVEMENTS).filter(([k,v])=>v.terrain.includes(tile.terrain)&&(v.requires?hasTech("player",v.requires):true));
+        opts.forEach(([k,v])=>{
+          actions.push({label:`Build ${v.name}`,sub:`Worker needed | ${Object.entries(v.yields).map(([rk,rv])=>"+"+rv+" "+rk).join(", ")}`,disabled:true,action:()=>{}});
+        });
+      }
+    }
+    if(tile.owner&&tile.owner!=="player"&&isPlayerAdjacent(tile)){
+      const war=getDip("player",tile.owner).war;
+      actions.push({
+        label:war?"Assault Province":"Border War",
+        sub:"12 prod, 8 culture | council review",cls:"warning",
+        disabled:r.prod<12||r.culture<8,
+        action:()=>openCouncil({type:"war",tile,owner:tile.owner,cost:{prod:12,culture:8}})
+      });
+    }
+    if(!actions.length) actions.push({label:"No actions",sub:"Select an adjacent or owned tile",disabled:true,action:()=>{}});
+    renderActionButtons(actions);
+  }
+
+  function renderResearchPanel(){
+    const ts=state.techs.player;
+    const activeTech=techById(ts.active);
+    els.selectedTitle.textContent=activeTech?`Researching: ${activeTech.name}`:"Research Complete";
+    els.selectedMeta.textContent=activeTech?`${Math.floor(ts.progress)}/${activeTech.cost} science | ${activeTech.unlocks}`:
+      "All available technologies researched.";
+    const actions=TECHS.filter(t=>t.era<=state.era+1).map(t=>{
+      const done=hasTech("player",t.id);
+      const active=ts.active===t.id&&!done;
+      return {
+        label:done?`✓ ${t.name}`:active?`▶ ${t.name}`:t.name,
+        sub:done?t.quote:`${t.cost} science | ${t.unlocks}`,
+        cls:done?"completed":active?"major":"",
+        disabled:done||active,
+        action:()=>{ts.active=t.id;ts.progress=0;renderPanel();}
+      };
+    });
+    renderActionButtons(actions);
+  }
+
+  function renderWondersPanel(){
+    const playerCity=state.cities.find(c=>c.civId==="player"&&c.capital);
+    els.selectedTitle.textContent="World Wonders";
+    els.selectedMeta.textContent=playerCity?"One per empire. Massive power spikes. Built in your capital.":"Need a capital city first.";
+    const actions=WONDERS.filter(w=>w.era<=state.era+1).map(w=>{
+      const built=state.wonders.find(x=>x.wonderId===w.id);
+      const builtBy=built?CIVS[built.civId]?.name:"";
+      const missTech=w.requires&&!hasTech("player",w.requires);
+      const r=state.res.player;
+      const canAfford=Object.entries(w.cost).every(([k,v])=>r[k]>=v);
+      return {
+        label:built?`${w.name} — ${builtBy}`:`Build ${w.name}`,
+        sub:built?w.desc:missTech?`Requires ${techById(w.requires)?.name||w.requires}`:`${Object.entries(w.cost).map(([k,v])=>v+" "+k).join(", ")} | ${w.desc}`,
+        cls:built?"completed":(!missTech&&canAfford&&playerCity)?"major":"",
+        disabled:!!built||missTech||!playerCity||!canAfford,
+        action:()=>openCouncil({type:"wonder",wonder:w,tile:getTileById(playerCity.tileId),cost:w.cost})
+      };
+    });
+    renderActionButtons(actions);
+  }
+
+  function renderDiplomacyPanel(){
+    els.selectedTitle.textContent="Diplomacy";
+    els.selectedMeta.textContent="Relations, trade pacts, and wars shape the world order.";
+    const r=state.res.player;
+    const actions=AI_KEYS.flatMap(civId=>{
+      const civ=CIVS[civId];
+      const dip=getDip("player",civId);
+      const border=state.tiles.some(t=>t.owner===civId&&isPlayerAdjacent(t));
       return [
         {
-          label: `${OWNERS[owner].name}: ${relation}`,
-          sub: `power ${rival.power} | ${rival.treaty ? "trade pact" : border ? "shared border" : "distant rival"}`,
-          cls: relation < 25 ? "warning" : rival.treaty ? "completed" : "",
-          disabled: true,
-          action: () => {}
+          label:`${civ.name}: ${Math.round(dip.rel)}`,
+          sub:`${dip.war?"⚔ AT WAR":dip.alliance?"★ Allied":border?"shared border":"distant"} | power ${tilesByOwner(civId).length} tiles`,
+          cls:dip.war?"warning":dip.alliance?"completed":"",disabled:true,action:()=>{}
         },
         {
-          label: "Send Envoys",
-          sub: "5 culture | review council improves relations",
-          disabled: !canAfford({ culture: 5 }),
-          action: () => openCouncil({ type: "envoy", owner, cost: { culture: 5 } })
+          label:"Send Envoys",sub:"5 culture | improve relations",
+          disabled:r.culture<5,
+          action:()=>openCouncil({type:"envoy",civId,cost:{culture:5}})
         },
         {
-          label: "Trade Mission",
-          sub: "4 food, 4 industry | review council for pact",
-          cls: "major",
-          disabled: !canAfford({ food: 4, industry: 4 }),
-          action: () => openCouncil({ type: "trade", owner, cost: { food: 4, industry: 4 } })
+          label:"Trade Mission",sub:"6 gold | review for alliance",cls:"major",
+          disabled:r.gold<6,
+          action:()=>openCouncil({type:"trade",civId,cost:{gold:6}})
         },
         {
-          label: "Border War",
-          sub: border ? "12 industry, 8 culture | seize frontier" : "requires shared border",
-          cls: "warning",
-          disabled: !border || !canAfford({ industry: 12, culture: 8 }),
-          action: () => {
-            const target = state.tiles.find((tile) => tile.owner === owner && isAdjacentToPlayer(tile));
-            openCouncil({ type: "war", owner, tile: target, cost: { industry: 12, culture: 8 } });
+          label:dip.war?"Peace Treaty":"Declare War",
+          sub:dip.war?"8 culture | end the conflict":"Relations below 30 raises risk",
+          cls:dip.war?"":"warning",
+          disabled:dip.war?r.culture<8:false,
+          action:()=>{
+            if(dip.war){ openCouncil({type:"peace",civId,cost:{culture:8}}); }
+            else { dip.war=true; setAdvisor("War Declared",`You declared war on ${civ.name}.`,"Capture their cities!","bad"); audio.combat(); renderPanel(); }
           }
         }
       ];
     });
-    renderActionButtons(actions.slice(0, 12));
+    renderActionButtons(actions);
   }
 
-  function renderActionButtons(actions) {
-    els.actionGrid.innerHTML = actions.map((action, index) => (
-      `<button class="${escapeHtml(action.cls || "")}" type="button" data-index="${index}" ${action.disabled ? "disabled" : ""}>${escapeHtml(action.label)}<span>${escapeHtml(action.sub)}</span></button>`
-    )).join("");
-    els.actionGrid.querySelectorAll("button").forEach((button) => {
-      button.addEventListener("click", () => {
-        const action = actions[Number(button.dataset.index)];
-        if (action && !action.disabled) action.action();
-      });
-    });
+  // ─── QUESTION BANK ───────────────────────────────────────────────────────────
+  const SOURCE_RE=/(\bthis\s+(excerpt|passage|cartoon|map|chart|graph|image|source)\b|\baccording\s+to\s+(the|this)\b|\bbased\s+on\s+this\b)/i;
+  function needsStimulus(q){ return SOURCE_RE.test(String(q?.prompt||q?.stem||"")); }
+  function hasStimulusData(q){
+    return Boolean(q?.stimulusText||q?.stimulusHtml||(Array.isArray(q?.stimulusImages)&&q.stimulusImages.length)||q?.stimulusImage);
+  }
+  function isPlayable(q){
+    if(!q||!q.answer||(!(q.prompt||q.stem))) return false;
+    if(SourceBank&&!SourceBank.playableSharedPrompt(q)) return false;
+    if(SourceBank&&SourceBank.sourceBased(q)) return SourceBank.usableRegentsQuestion(q)&&hasStimulusData(q);
+    if(needsStimulus(q)&&!hasStimulusData(q)) return false;
+    return true;
   }
 
-  function buildImprovement(tile, key) {
-    const improvement = IMPROVEMENTS[key];
-    if (!tile || tile.owner !== "player" || tile.improvement || !improvement || !canAfford(improvement.cost) || !hasTech(improvement.requires)) return;
-    spend(improvement.cost);
-    tile.improvement = key;
-    state.score += 250;
-    gain({ stability: key === "fort" || key === "monument" ? 1 : 0 });
-    audio.build();
-    burst(tile, improvement.color, 22);
-    banner(tile, improvement.label, improvement.color);
-    setAdvisor("Provincial Works", `${improvement.label} changed the local economy. End the turn to collect the new yield.`, `${TERRAIN[tile.terrain].label}: ${yieldText(improvement.yield)}`, "good");
-    updateHud();
-    renderPanel();
+  function displayPrompt(q){
+    const raw=cleanText(q?.prompt||q?.stem||"");
+    return raw.replace(/^(final\s+clue[^:]*:|name\s+this\s+content\s+item:)\s*/i,"").trim()||raw;
+  }
+  function displayExplanation(q){
+    const e=cleanText(q?.explanation||"");
+    return e||`Correct answer: ${cleanText(q?.answer)}.`;
   }
 
-  function foundCity(tile, cost) {
-    if (!tile || tile.owner !== "player" || tile.city || !canAfford(cost)) return;
-    spend(cost);
-    tile.city = true;
-    tile.name = CITY_NAMES[ownedTiles().filter((item) => item.city).length % CITY_NAMES.length];
-    state.population += 1;
-    state.score += 520;
-    gain({ stability: 2, culture: 1 });
-    audio.build();
-    burst(tile, "#f2c14e", 24);
-    banner(tile, "CITY FOUNDED", "#f2c14e");
-    setAdvisor("City Founded", `${tile.name} now anchors local government, production, and culture. More cities mean more power and more stability pressure.`, "+population +culture", "good");
-    updateHud();
-    renderPanel();
+  function buildChoices(q){
+    const answer=cleanText(q.answer);
+    let choices=[];
+    if(q.type==="mcq"&&Array.isArray(q.choices)&&q.choices.length){
+      const correctLabel=String(q.correct||"");
+      const correct=q.choices.find(c=>String(c.label)===correctLabel)?.text||answer;
+      choices=q.choices.map(c=>({text:cleanText(c.text),correct:normalize(c.text)===normalize(correct)})).filter(c=>c.text);
+      if(!choices.some(c=>c.correct)) choices.unshift({text:cleanText(correct),correct:true});
+    } else {
+      const sameSet=state.filtered.filter(i=>i.id!==q.id&&i.answer&&(i.set===q.set||i.course===q.course)).map(i=>cleanText(i.answer)).filter(t=>t&&normalize(t)!==normalize(answer));
+      const fallback=state.bank.questions.filter(i=>i.id!==q.id&&i.answer).map(i=>cleanText(i.answer)).filter(t=>t&&normalize(t)!==normalize(answer));
+      const unique=[...new Map(shuffle(sameSet.concat(fallback)).map(t=>[normalize(t),t])).values()];
+      choices=[{text:answer,correct:true},...unique.slice(0,3).map(t=>({text:t,correct:false}))];
+    }
+    while(choices.length<4) choices.push({text:["River valley civilization","Imperial expansion","Trade network","Political reform"][choices.length]||"Review term",correct:false});
+    const deduped=[...new Map(choices.map(c=>[normalize(c.text),c])).values()];
+    if(!deduped.some(c=>c.correct)) deduped.unshift({text:answer,correct:true});
+    return shuffle(deduped).slice(0,4);
   }
 
-  function chooseResearch(id) {
-    if (hasTech(id)) return;
-    state.research.active = id;
-    state.research.progress = 0;
-    const tech = techById(id);
-    setAdvisor("Research Directed", `Scholars now pursue ${tech.name}. End turns to convert knowledge output into progress.`, tech.quote, "good");
-    renderPanel();
+  function nextQ(){
+    if(!state.queue.length) state.queue=shuffle(state.filtered);
+    return state.queue.pop()||state.filtered[0|Math.random()*state.filtered.length];
   }
 
-  function openCouncil(action) {
-    if (!action || state.mode !== "playing") return;
-    if (action.cost && !canAfford(action.cost)) return;
-    state.pendingAction = action;
-    state.mode = "council";
-    const q = nextQuestion();
-    state.pendingAction.question = q;
-    state.pendingAction.choices = buildChoices(q);
-    renderCouncil(action, q);
+  // ─── COUNCIL (QUESTION) SCREEN ───────────────────────────────────────────────
+  function openCouncil(action){
+    if(!action||state.mode!=="playing") return;
+    // Check affordability
+    const r=state.res.player;
+    if(action.cost&&Object.entries(action.cost).some(([k,v])=>r[k]<v)) return;
+    state.pendingAction=action;
+    state.mode="council";
+    const q=nextQ();
+    action.question=q;
+    action.choices=buildChoices(q);
+    renderCouncil(action,q);
     els.councilScreen.classList.add("show");
   }
 
-  function renderCouncil(action, q) {
-    const typeLabel = {
-      claim: "Expansion Council",
-      rival: "Border Crisis",
-      reform: "Reform Council",
-      crisis: "Stability Crisis",
-      wonder: "Wonder Council",
-      envoy: "Diplomatic Mission",
-      trade: "Trade Mission",
-      war: "Border War Council"
-    }[action.type] || "Council Review";
-    const value = q.value ? ` | ${q.value}` : "";
-    els.questionMeta.textContent = `${typeLabel} | ${cleanText(q.course || "Social Studies")}${value}`;
-    els.questionPrompt.textContent = displayPrompt(q);
-    els.explanation.textContent = "";
-    els.explanation.className = "explanation";
+  function renderCouncil(action,q){
+    const labels={
+      claim:"Expansion Council",found:"City Council",found_city:"City Council",
+      war:"Border War",wonder:"Wonder Council",envoy:"Diplomacy",
+      trade:"Trade Mission",peace:"Peace Talks",reform:"Reform Council"
+    };
+    els.questionMeta.textContent=`${labels[action.type]||"Council Review"} | ${cleanText(q.course||"Social Studies")}`;
+    els.questionPrompt.textContent=displayPrompt(q);
+    els.explanation.textContent="";
+    els.explanation.className="explanation";
     renderStimulus(q);
-    els.choiceGrid.innerHTML = action.choices.map((choice, index) => (
-      `<button type="button" data-index="${index}">${escapeHtml(choice.text)}</button>`
-    )).join("");
-    els.choiceGrid.querySelectorAll("button").forEach((button) => {
-      button.addEventListener("click", () => resolveCouncil(Number(button.dataset.index)));
+    els.choiceGrid.innerHTML=action.choices.map((c,i)=>
+      `<button type="button" data-i="${i}">${esc(c.text)}</button>`
+    ).join("");
+    els.choiceGrid.querySelectorAll("button").forEach(b=>{
+      b.addEventListener("click",()=>resolveCouncil(+b.dataset.i));
     });
   }
 
-  function renderStimulus(q) {
-    const images = stimulusImagesFor(q);
-    const text = stimulusTextFor(q);
-    if (!images.length && !text) {
-      els.stimulusBox.classList.remove("show");
-      els.stimulusBox.innerHTML = "";
-      return;
-    }
-    const imageHtml = images.slice(0, 2).map((image, index) => {
-      const src = resolveStimulusSrc(image.src);
-      return `<img src="${escapeHtml(src)}" alt="${escapeHtml(image.label || `Stimulus ${index + 1}`)}">`;
-    }).join("");
-    const textHtml = text ? `<div class="stimulus-text">${escapeHtml(text)}</div>` : "";
-    els.stimulusBox.innerHTML = `${imageHtml}${textHtml}`;
+  function renderStimulus(q){
+    const imgs=SourceBank?SourceBank.stimulusImages(q):(Array.isArray(q?.stimulusImages)?q.stimulusImages:[]);
+    const text=q?.stimulusText||q?.stimulus||"";
+    if(!imgs.length&&!text){ els.stimulusBox.classList.remove("show"); return; }
+    const imgHtml=imgs.slice(0,2).map((img,i)=>`<img src="${esc(img.src||img)}" alt="${esc(img.label||"Stimulus "+(i+1))}">`).join("");
+    const txtHtml=text?`<div class="stimulus-text">${esc(cleanText(text))}</div>`:"";
+    els.stimulusBox.innerHTML=imgHtml+txtHtml;
     els.stimulusBox.classList.add("show");
   }
 
-  function resolveCouncil(index) {
-    const action = state.pendingAction;
-    if (!action || state.mode !== "council") return;
-    const choice = action.choices[index];
-    if (!choice) return;
-    const buttons = [...els.choiceGrid.querySelectorAll("button")];
-    buttons.forEach((button, i) => {
-      button.disabled = true;
-      button.classList.toggle("correct", action.choices[i]?.correct);
-      if (i === index && !choice.correct) button.classList.add("wrong");
+  function resolveCouncil(index){
+    const action=state.pendingAction;
+    if(!action||state.mode!=="council") return;
+    const choice=action.choices[index]; if(!choice) return;
+    [...els.choiceGrid.querySelectorAll("button")].forEach((b,i)=>{
+      b.disabled=true;
+      b.classList.toggle("correct",action.choices[i]?.correct);
+      if(i===index&&!choice.correct) b.classList.add("wrong");
     });
-    state.councils += 1;
-    const q = action.question;
-    const explanation = displayExplanation(q);
-    if (choice.correct) {
-      state.correct += 1;
-      els.explanation.textContent = explanation;
-      els.explanation.className = "explanation good";
-      applyCouncilSuccess(action);
+    state.councils+=1;
+    const q=action.question;
+    if(choice.correct){
+      state.correct+=1;
+      els.explanation.textContent=displayExplanation(q);
+      els.explanation.className="explanation good";
+      applySuccess(action);
       audio.correct();
     } else {
-      els.explanation.textContent = `Correct answer: ${cleanText(q.answer)}. ${explanation}`;
-      els.explanation.className = "explanation bad";
+      els.explanation.textContent=`Correct: ${cleanText(q.answer)}. ${displayExplanation(q)}`;
+      els.explanation.className="explanation bad";
       state.missed.push(q);
-      applyCouncilFailure(action);
+      applyFailure(action);
       audio.wrong();
     }
-    updateHud();
-    renderPanel();
-    setTimeout(closeCouncil, choice.correct ? 1200 : 2200);
+    updateHud(); renderPanel();
+    setTimeout(closeCouncil, choice.correct?1200:2400);
   }
 
-  function applyCouncilSuccess(action) {
-    if (action.cost) spend(action.cost);
-    if (action.type === "claim") {
-      setOwner(action.tile, "player");
-      gain({ food: 2, culture: 1, stability: 3 });
-      state.score += 700 + state.era * 160;
-      burst(action.tile, OWNERS.player.color, 28);
-      banner(action.tile, "CLAIMED", OWNERS.player.color);
-      setAdvisor("Expansion Approved", "The council backed your claim. The empire grows without destabilizing the realm.", `${TERRAIN[action.tile.terrain].label} province joined the realm.`, "good");
-    } else if (action.type === "rival") {
-      const oldOwner = action.tile.owner;
-      setOwner(action.tile, "player");
-      gain({ culture: 2, stability: 4 });
-      state.score += 950 + state.era * 220;
-      burst(action.tile, OWNERS.player.color, 32);
-      banner(action.tile, "BORDER WON", OWNERS.player.color);
-      setAdvisor("Border Victory", `${OWNERS[oldOwner].name} yielded the frontier after a clear council decision.`, "Your dynasty gains prestige.", "good");
-    } else if (action.type === "reform") {
-      gain({ knowledge: 8 + state.era * 2, stability: 9, culture: 1 });
-      state.score += 600;
-      burst(action.tile, "#7bdff2", 24);
-      banner(action.tile, "REFORM", "#7bdff2");
-      setAdvisor("Reform Passed", "Administration, legitimacy, and scholarship improved across the empire.", "+knowledge +stability", "good");
-    } else if (action.type === "crisis") {
-      gain({ stability: 12, culture: 4 });
-      state.score += 650;
-      setAdvisor("Crisis Contained", "The council response turned unrest into renewed legitimacy.", "+stability", "good");
-    } else if (action.type === "wonder") {
-      state.wonders.push(action.wonder.id);
-      action.tile.wonder = action.wonder.id;
-      gain(action.wonder.effect);
-      state.score += 1600 + action.wonder.era * 350;
-      burst(action.tile, "#f2c14e", 40);
-      banner(action.tile, "WONDER", "#f2c14e");
-      setAdvisor("Wonder Completed", `${action.wonder.name} reshaped the empire. ${action.wonder.line}`, yieldText(action.wonder.effect), "good");
-    } else if (action.type === "envoy") {
-      const rival = state.rivals[action.owner];
-      rival.relation = clamp(rival.relation + 18, 0, 100);
-      gain({ culture: 2, stability: 3 });
-      state.score += 520;
-      setAdvisor("Envoys Welcomed", `${OWNERS[action.owner].name} received your delegation. Relations improved.`, `relation ${Math.round(rival.relation)}`, "good");
-    } else if (action.type === "trade") {
-      const rival = state.rivals[action.owner];
-      rival.relation = clamp(rival.relation + 12, 0, 100);
-      rival.treaty = true;
-      gain({ knowledge: 8, culture: 6, stability: 2 });
-      state.score += 680;
-      setAdvisor("Trade Pact Signed", `${OWNERS[action.owner].name} opened routes with your merchants.`, "+knowledge +culture", "good");
-    } else if (action.type === "war") {
-      const rival = state.rivals[action.owner];
-      const oldOwner = action.tile.owner;
-      setOwner(action.tile, "player");
-      rival.relation = clamp(rival.relation - 24, 0, 100);
-      rival.power = Math.max(1, rival.power - 2);
-      gain({ stability: -4, culture: 2 });
-      state.score += 1150 + state.era * 260;
-      burst(action.tile, OWNERS.player.color, 34);
-      banner(action.tile, "CONQUERED", OWNERS.player.color);
-      setAdvisor("Frontier Captured", `${OWNERS[oldOwner].name} lost a province. Victory brought territory but damaged diplomacy.`, "-relations -stability", "good");
+  function applySuccess(action){
+    const r=state.res.player;
+    if(action.cost) Object.entries(action.cost).forEach(([k,v])=>r[k]-=v);
+    switch(action.type){
+      case "claim":
+        action.tile.owner="player";
+        revealFog("player",action.tile,2);
+        r.gold+=2; r.stability=clamp(r.stability+3,0,100);
+        state.score+=700; burst(action.tile,CIVS.player.color,28);
+        floatText(action.tile,"CLAIMED",CIVS.player.color);
+        setAdvisor("Territory Claimed","The council approved the expansion. Stability holds.",`+gold +stability`,"good");
+        break;
+      case "found":
+      case "found_city":
+        foundCity("player",action.tile);
+        if(action.unit) killUnit(action.unit);
+        state.score+=800;
+        setAdvisor("City Founded",`${cityAt(action.tile)?.name||"New city"} now anchors production and science.`,"","good");
+        break;
+      case "war":
+        captureTile("player",action.tile);
+        r.stability=clamp(r.stability-5,0,100);
+        state.score+=1200;
+        setAdvisor("Province Captured",`${CIVS[action.owner].name} lost the frontier.`,"-stability","good");
+        break;
+      case "wonder":
+        state.wonders.push({civId:"player",wonderId:action.wonder.id});
+        const wcity=cityAt(action.tile);
+        if(wcity) wcity.wonders.push(action.wonder.id);
+        Object.entries(action.wonder.effect).forEach(([k,v])=>r[k]=(r[k]||0)+v);
+        r.stability=clamp(r.stability+10,0,100);
+        state.score+=2000;
+        burst(action.tile,"#f2c14e",40);
+        floatText(action.tile,"WONDER BUILT!","#f2c14e");
+        setAdvisor("Wonder Complete",action.wonder.desc,`+${Object.entries(action.wonder.effect).map(([k,v])=>v+" "+k).join(", ")}`,"good");
+        checkVictory();
+        break;
+      case "envoy":
+        setDip("player",action.civId,+18); r.stability=clamp(r.stability+3,0,100);
+        state.score+=400;
+        setAdvisor("Envoys Welcomed",`${CIVS[action.civId].name} relations improved.`,`relation +18`,"good");
+        break;
+      case "trade":
+        setDip("player",action.civId,+12); getDip("player",action.civId).alliance=true;
+        r.gold+=10; state.score+=500;
+        setAdvisor("Trade Pact Signed",`Alliance with ${CIVS[action.civId].name}.`,"+gold","good");
+        audio.diplomacy();
+        break;
+      case "peace":
+        getDip("player",action.civId).war=false;
+        setDip("player",action.civId,+15);
+        setAdvisor("Peace Agreed",`The war with ${CIVS[action.civId].name} ends.`,"","good");
+        audio.diplomacy();
+        break;
     }
+    // Correct answer bonus: +25% science this turn
+    r.sci=Math.round(r.sci*1.25);
+    state.score+=50;
   }
 
-  function applyCouncilFailure(action) {
-    if (action.type === "claim") {
-      gain({ stability: -8 });
-      action.tile.unrest = Math.min(3, action.tile.unrest + 1);
-      setAdvisor("Expansion Stalled", "The claim failed and local elites resisted imperial control.", "Stability fell. Review the answer before the next council.", "bad");
-    } else if (action.type === "rival") {
-      gain({ stability: -12, industry: -3 });
-      setAdvisor("Border Reversal", "The rival state held the frontier and your army lost supplies.", "-stability -industry", "bad");
-    } else if (action.type === "reform") {
-      if (action.cost && canAfford(action.cost)) spend(action.cost);
-      gain({ stability: -10 });
-      setAdvisor("Reform Backlash", "The council misread the issue. Factions gained leverage.", "-stability", "bad");
-    } else if (action.type === "crisis") {
-      gain({ stability: -16 });
-      setAdvisor("Crisis Deepens", "The unrest spread because the council response missed the core issue.", "-stability", "bad");
-    } else if (action.type === "wonder") {
-      gain({ stability: -6, industry: -4 });
-      setAdvisor("Wonder Delayed", "Labor, cost, and legitimacy problems stalled the project.", "Try again after rebuilding resources.", "bad");
-    } else if (action.type === "envoy") {
-      if (canAfford(action.cost)) spend(action.cost);
-      state.rivals[action.owner].relation = clamp(state.rivals[action.owner].relation - 8, 0, 100);
-      gain({ stability: -3 });
-      setAdvisor("Envoys Rebuffed", `${OWNERS[action.owner].name} rejected the message.`, "-relations", "bad");
-    } else if (action.type === "trade") {
-      if (canAfford(action.cost)) spend(action.cost);
-      state.rivals[action.owner].relation = clamp(state.rivals[action.owner].relation - 6, 0, 100);
-      gain({ stability: -4 });
-      setAdvisor("Trade Mission Failed", "The route collapsed before trust could form.", "-stability", "bad");
-    } else if (action.type === "war") {
-      if (canAfford(action.cost)) spend(action.cost);
-      state.rivals[action.owner].power += 2;
-      state.rivals[action.owner].relation = clamp(state.rivals[action.owner].relation - 16, 0, 100);
-      gain({ stability: -14, industry: -5 });
-      setAdvisor("Campaign Failed", `${OWNERS[action.owner].name} held the line and gained confidence.`, "-stability -industry", "bad");
+  function applyFailure(action){
+    const r=state.res.player;
+    switch(action.type){
+      case "claim": r.stability=clamp(r.stability-8,0,100); setAdvisor("Claim Failed","Local elites resisted the expansion.","-stability","bad"); break;
+      case "found": case "found_city": r.stability=clamp(r.stability-5,0,100); setAdvisor("City Stalled","Opposition delayed the founding.","-stability","bad"); break;
+      case "war": r.prod-=5; r.stability=clamp(r.stability-12,0,100); setAdvisor("Campaign Failed",`${CIVS[action.owner].name} held the line.`,"-prod -stability","bad"); break;
+      case "wonder": r.prod-=10; r.stability=clamp(r.stability-6,0,100); setAdvisor("Wonder Delayed","Labor and supply problems stalled construction.","-prod","bad"); break;
+      case "envoy": setDip("player",action.civId,-6); r.stability=clamp(r.stability-3,0,100); setAdvisor("Envoys Rebuffed",`${CIVS[action.civId].name} refused the mission.`,"-relations","bad"); break;
+      case "trade": setDip("player",action.civId,-4); setAdvisor("Trade Failed","The route collapsed.","-relations","bad"); break;
+      case "peace": r.gold-=8; setAdvisor("Peace Rejected",`${CIVS[action.civId].name} refused terms.`,"-gold","bad"); break;
     }
-    if (action.tile) {
-      burst(action.tile, "#ff6f6f", 22);
-      banner(action.tile, "UNREST", "#ff6f6f");
-    }
+    if(action.tile) burst(action.tile,"#ff6f6f",18);
+    // Wrong answer penalty: -1 move to random player unit next turn
+    const u=state.units.find(u=>u.civId==="player");
+    if(u) u.mvLeft=Math.max(0,u.mvLeft-1);
   }
 
-  function closeCouncil() {
+  function closeCouncil(){
     els.councilScreen.classList.remove("show");
-    state.pendingAction = null;
-    state.mode = "playing";
-    checkEra();
-    checkCollapse();
-    updateHud();
+    state.pendingAction=null;
+    state.mode="playing";
+    checkEra(); checkCollapse();
+    updateHud(); renderPanel();
+  }
+
+  // ─── MOVEMENT MODE ───────────────────────────────────────────────────────────
+  function enterMoveMode(unit){
+    state.pendingMove={unit,reachable:getReachable(unit)};
+    setAdvisor("Select Destination",`${UNIT_DEFS[unit.def].name} can move ${unit.mvLeft} tiles.`,"Click a highlighted tile.","");
+  }
+
+  function exitMoveMode(){
+    state.pendingMove=null;
     renderPanel();
   }
 
-  function endTurn() {
-    if (state.mode !== "playing") return;
-    const yields = collectYields();
-    progressResearch(Math.max(1, state.lastKnowledgeYield || 0));
-    state.turn += 1;
-    state.score += ownedTiles().length * 42 + state.era * 70;
-    state.resources.food -= Math.max(1, Math.floor(ownedTiles().length / 5));
-    state.resources.stability += Math.min(3, Math.floor(state.resources.food / 18));
-    if (state.resources.food < 0) {
-      state.resources.stability -= 9;
-      state.resources.food = 0;
-      setAdvisor("Granary Shortage", "Food ran low. Build farms or claim river/coast provinces before instability spreads.", "-stability", "bad");
-    } else {
-      setAdvisor("Turn Complete", "Your provinces produced new resources. Rival empires are moving at the frontier.", yields, "good");
-    }
-    if (state.turn % (els.scenarioFilter.value === "frontier" ? 2 : 3) === 0) rivalTurn();
-    if (state.turn % 5 === 0 || (els.scenarioFilter.value === "crisis" && state.turn % 4 === 0)) {
-      openCouncil({ type: "crisis", tile: state.selected || ownedTiles()[0], cost: {} });
-    }
+  // ─── END TURN ────────────────────────────────────────────────────────────────
+  function endTurn(){
+    if(state.mode!=="playing") return;
+    audio.endturn();
+
+    // Reset unit movement
+    state.units.forEach(u=>{ u.mvLeft=u.mv; u.moved=false; u.fortified=false; });
+
+    // Collect player yields
+    collectYields("player");
+    processTech("player");
+
+    // AI turns
+    AI_KEYS.forEach(cid=>{ collectYields(cid); aiTurn(cid); });
+
+    state.turn+=1;
+    state.score+=tilesByOwner("player").length*40+state.era*60;
+
+    // Era check
     checkEra();
+    // Stability collapse
     checkCollapse();
-    updateHud();
-    renderPanel();
-    audio.turn();
-  }
-
-  function collectYields() {
-    const totals = { food: 0, industry: 0, knowledge: 0, culture: 0, stability: 0 };
-    for (const tile of ownedTiles()) {
-      const base = TERRAIN[tile.terrain];
-      totals.food += base.food;
-      totals.industry += base.industry;
-      totals.knowledge += base.knowledge;
-      totals.culture += base.culture;
-      if (tile.city) {
-        totals.food += 1;
-        totals.industry += 1;
-        totals.culture += 1;
-      }
-      if (tile.improvement) {
-        const y = IMPROVEMENTS[tile.improvement].yield;
-        for (const [key, value] of Object.entries(y)) totals[key] += value;
-      }
-      if (tile.unrest) totals.stability -= tile.unrest;
+    // Victory
+    checkVictory();
+    // Auto-save
+    saveGame();
+    // Question every 4 turns
+    if(state.turn%4===0&&state.mode==="playing"){
+      openCouncil({type:"reform",tile:state.selected||state.tiles.find(t=>t.owner==="player"),cost:{}});
+      return;
     }
-    gain(totals);
-    state.lastKnowledgeYield = totals.knowledge;
-    return Object.entries(totals)
-      .filter(([, value]) => value)
-      .map(([key, value]) => `${value > 0 ? "+" : ""}${value} ${key}`)
-      .join(", ");
+    updateHud(); renderPanel();
+    setAdvisor("Turn Complete","Your provinces produced resources. Rivals are moving.",`Turn ${state.turn}/${MAX_TURNS}`,"");
   }
 
-  function progressResearch(points) {
-    const active = techById(state.research.active);
-    if (!active || hasTech(active.id)) return;
-    state.research.progress += points + 2 + Math.max(0, state.era);
-    if (state.research.progress < active.cost) return;
-    state.research.completed.push(active.id);
-    state.research.progress = 0;
-    gain(active.effect);
-    state.score += 800 + active.era * 180;
-    audio.era();
-    for (const tile of ownedTiles()) burst(tile, "#7bdff2", 5);
-    setAdvisor("Technology Discovered", `${active.name}: ${active.quote}`, `${active.unlocks} unlocked. ${yieldText(active.effect)}`, "good");
-    const next = TECHS.find((tech) => tech.era <= state.era + 1 && !hasTech(tech.id));
-    state.research.active = next ? next.id : "";
-  }
-
-  function rivalTurn() {
-    for (const owner of ["north", "steppe", "ocean"]) {
-      const rival = state.rivals[owner];
-      const frontier = state.tiles.filter((tile) => !tile.owner && neighbors(tile).some((near) => near.owner === owner));
-      if (!frontier.length) continue;
-      const target = shuffle(frontier).sort((a, b) => scoreTileForOwner(b, owner) - scoreTileForOwner(a, owner))[0];
-      const pressure = rival.treaty ? .42 : rival.relation < 25 ? .88 : .68;
-      if (Math.random() < pressure) {
-        setOwner(target, owner);
-        burst(target, OWNERS[owner].color, 14);
-        rival.power += 1;
-        rival.relation = clamp(rival.relation - (rival.treaty ? 1 : 3), 0, 100);
-      }
+  function checkEra(){
+    const thresholds=[60,180,400,700];
+    const next=state.era+1;
+    if(next<ERAS.length&&state.res.player.sci>=thresholds[state.era]){
+      state.res.player.sci-=thresholds[state.era];
+      state.era=next;
+      audio.era_advance();
+      for(const t of tilesByOwner("player")) burst(t,"#f2c14e",4);
+      setAdvisor("Era Advanced",`Your empire entered the ${ERAS[state.era]} Era. New technologies unlock.`,"+stability +prod","good");
+      // Flash screen
+      flashScreen("#f2c14e");
     }
   }
 
-  function scoreTileForOwner(tile) {
-    const base = TERRAIN[tile.terrain];
-    return base.food + base.industry + base.knowledge + base.culture + Math.random() * 2;
+  function checkCollapse(){
+    const r=state.res.player;
+    if(r.stability>0) return;
+    const outer=tilesByOwner("player").filter(t=>!t.city);
+    const losses=shuffle(outer).slice(0,Math.max(1,Math.ceil(outer.length/5)));
+    losses.forEach(t=>{ t.owner=null; burst(t,"#ff6f6f",22); floatText(t,"REVOLT","#ff6f6f"); });
+    r.stability=22;
+    state.era=Math.max(0,state.era-1);
+    setAdvisor("Dynastic Collapse","Stability collapsed. Provinces revolted. The empire fell back an era.","Rebuild before expanding.","bad");
+    flashScreen("#ff6f6f");
   }
 
-  function checkEra() {
-    const threshold = 35 + state.era * 32;
-    if (state.era < ERAS.length - 1 && state.resources.knowledge >= threshold) {
-      state.resources.knowledge -= threshold;
-      state.era += 1;
-      gain({ stability: 8, culture: 6, industry: 8 });
-      audio.era();
-      for (const tile of ownedTiles()) burst(tile, "#f2c14e", 6);
-      setAdvisor("Era Advanced", `Your empire entered the ${ERAS[state.era]} Era. New legitimacy and production spread across the realm.`, "+stability +industry +culture", "good");
-    }
-    if (state.era >= ERAS.length - 1 && ownedTiles().length >= 18 && state.resources.stability >= 55) {
-      endGame("Modern Golden Age");
-    }
+  function flashScreen(color){
+    const overlay=document.createElement("div");
+    overlay.style.cssText=`position:fixed;inset:0;background:${color};opacity:.35;pointer-events:none;z-index:99;transition:opacity .6s`;
+    document.body.appendChild(overlay);
+    requestAnimationFrame(()=>{ overlay.style.opacity="0"; setTimeout(()=>overlay.remove(),700); });
   }
 
-  function checkCollapse() {
-    if (state.resources.stability > 0) return;
-    const outer = ownedTiles().filter((tile) => !tile.capital);
-    const losses = shuffle(outer).slice(0, Math.max(1, Math.min(4, Math.ceil(outer.length / 5))));
-    for (const tile of losses) {
-      tile.owner = null;
-      tile.city = false;
-      tile.improvement = null;
-      tile.unrest = 1;
-      burst(tile, "#ff6f6f", 26);
-      banner(tile, "REVOLT", "#ff6f6f");
-    }
-    state.resources.stability = 24;
-    state.era = Math.max(0, state.era - 1);
-    setAdvisor("Dynastic Collapse", "Low stability fractured the empire. Outlying provinces revolted and the state fell back an era.", "Rebuild legitimacy before expanding again.", "bad");
-  }
-
-  function endGame(title = "Empire Chronicle Sealed") {
-    if (state.mode === "ended") return;
-    state.mode = "ended";
-    els.endScreen.classList.add("show");
-    const accuracy = state.councils ? Math.round((state.correct / state.councils) * 100) : 0;
-    const territory = ownedTiles().length;
-    const finalScore = Math.floor(state.score + territory * 180 + state.era * 900 + state.resources.stability * 16);
-    const best = Number(localStorage.getItem(`${STORAGE_KEY}:bestScore`) || 0);
-    if (finalScore > best) localStorage.setItem(`${STORAGE_KEY}:bestScore`, String(finalScore));
-    els.endTitle.textContent = title;
-    els.endGrid.innerHTML = [
-      [formatNumber(finalScore), "empire score"],
-      [ERAS[state.era], "final era"],
-      [String(territory), "provinces"],
-      [`${accuracy}%`, "council accuracy"]
-    ].map(([value, label]) => `<div class="end-tile"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`).join("");
-    if (state.missed.length) {
-      const items = state.missed.slice(-5).map((q) => `<p><strong>${escapeHtml(cleanText(q.answer))}</strong>: ${escapeHtml(displayPrompt(q))}</p>`).join("");
-      els.studyTargets.innerHTML = `<strong>Study targets from this campaign</strong>${items}`;
-    } else {
-      els.studyTargets.innerHTML = "<strong>No missed councils.</strong><p>Try the Age of Crisis scenario with a narrow course filter.</p>";
-    }
-    window.MrMacsAnalytics?.track("game_complete", {
-      gameId: "empire-ascendant",
-      title: "Empire Ascendant",
-      score: finalScore,
-      accuracy,
-      questions: state.councils,
-      course: els.courseFilter.value || "All Courses"
-    }, { counter: "game-completions", once: false });
-  }
-
-  function showSetup() {
-    state.mode = "setup";
-    els.setupScreen.classList.add("show");
+  // ─── GAME FLOW ───────────────────────────────────────────────────────────────
+  function startGame(fresh=true){
+    audio._ctx();
+    if(fresh) clearSave();
+    state.mode="playing"; state.panel="province";
+    state.turn=1; state.era=0; state.score=0;
+    state.councils=0; state.correct=0; state.missed=[];
+    state.units=[]; state.cities=[]; state.wonders=[];
+    state.unitSeq=0; state.citySeq=0;
+    state.particles=[]; state.banners=[]; state.floats=[];
+    state.selUnit=null; state.pendingMove=null; state.victory=null;
+    state.res={
+      player: {gold:20,food:20,prod:20,sci:0,culture:10,stability:65},
+      north:  {gold:20,food:20,prod:20,sci:0,culture:10,stability:65},
+      steppe: {gold:20,food:20,prod:20,sci:0,culture:10,stability:65},
+      ocean:  {gold:20,food:20,prod:20,sci:0,culture:10,stability:65}
+    };
+    state.techs={
+      player:{active:"agriculture",progress:0,done:[]},
+      north: {active:"agriculture",progress:0,done:[]},
+      steppe:{active:"bronze",     progress:0,done:[]},
+      ocean: {active:"writing",    progress:0,done:[]}
+    };
+    state.diplomacy={
+      player_north: {rel:40,war:false,alliance:false},
+      player_steppe:{rel:30,war:false,alliance:false},
+      player_ocean: {rel:45,war:false,alliance:false},
+      north_steppe: {rel:35,war:false,alliance:false},
+      north_ocean:  {rel:50,war:false,alliance:false},
+      steppe_ocean: {rel:30,war:false,alliance:false}
+    };
+    generateMap();
+    els.setupScreen.classList.remove("show");
     els.endScreen.classList.remove("show");
     els.menuScreen.classList.remove("show");
     els.councilScreen.classList.remove("show");
+    updateHud(); renderPanel();
+    setAdvisor("Imperial Council","Found your capital, train units, research techs, and outpace your rivals.","The first dynasty rises.","good");
+    window.MrMacsAnalytics?.track("game_play",{gameId:"empire-ascendant",title:"Empire Ascendant",course:els.courseFilter?.value||"All Courses",gameType:"Strategy"},{counter:"game-plays",once:false});
   }
 
-  function pauseGame() {
-    if (state.mode !== "playing") return;
-    state.mode = "menu";
-    els.menuScreen.classList.add("show");
-  }
-
-  function resumeGame() {
-    if (state.mode !== "menu") return;
-    state.mode = "playing";
-    els.menuScreen.classList.remove("show");
-  }
-
-  function exitArcade() {
-    window.location.href = "../../";
-  }
-
-  function hexToPixel(tile) {
-    const x = view.ox + view.size * 1.5 * tile.q;
-    const y = view.oy + view.size * Math.sqrt(3) * (tile.r + .5 * (tile.q & 1));
-    return { x, y };
-  }
-
-  function pixelToTile(px, py) {
-    let best = null;
-    let bestDist = Infinity;
-    for (const tile of state.tiles) {
-      const p = hexToPixel(tile);
-      const dist = Math.hypot(px - p.x, py - p.y);
-      if (dist < bestDist) {
-        bestDist = dist;
-        best = tile;
-      }
+  function endGame(title,message){
+    if(state.mode==="ended") return;
+    state.mode="ended";
+    const accuracy=state.councils?Math.round(state.correct/state.councils*100):0;
+    const territory=tilesByOwner("player").length;
+    const finalScore=Math.floor(state.score+territory*200+state.era*1000+state.res.player.stability*20);
+    const best=Number(localStorage.getItem(`${SAVE_KEY}:bestScore`)||0);
+    if(finalScore>best) localStorage.setItem(`${SAVE_KEY}:bestScore`,String(finalScore));
+    els.endTitle.textContent=title;
+    els.endGrid.innerHTML=[
+      [fmtN(finalScore),"empire score"],
+      [ERAS[state.era]||"Ancient","final era"],
+      [String(territory),"provinces"],
+      [String(state.cities.filter(c=>c.civId==="player").length),"cities"],
+      [`${accuracy}%`,"council accuracy"]
+    ].map(([v,l])=>`<div class="end-tile"><strong>${esc(v)}</strong><span>${esc(l)}</span></div>`).join("");
+    if(state.missed.length){
+      els.studyTargets.innerHTML=`<strong>Study targets:</strong>${state.missed.slice(-5).map(q=>`<p><strong>${esc(cleanText(q.answer))}</strong>: ${esc(displayPrompt(q))}</p>`).join("")}`;
+    } else {
+      els.studyTargets.innerHTML="<strong>Perfect council record.</strong><p>No missed questions.</p>";
     }
-    return bestDist < view.size * .95 ? best : null;
+    if(message) setAdvisor(title,message,`Score: ${fmtN(finalScore)}`,"good");
+    els.endScreen.classList.add("show");
+    clearSave();
+    window.MrMacsAnalytics?.track("game_complete",{gameId:"empire-ascendant",score:finalScore,accuracy,questions:state.councils,victory:state.victory||"score"},{counter:"game-completions",once:false});
   }
 
-  function hexPath(x, y, size = view.size) {
-    ctx.beginPath();
-    for (let i = 0; i < 6; i++) {
-      const angle = Math.PI / 180 * (60 * i);
-      const px = x + size * Math.cos(angle);
-      const py = y + size * Math.sin(angle);
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
-    }
-    ctx.closePath();
+  // ─── PERSISTENCE ─────────────────────────────────────────────────────────────
+  function saveGame(){
+    try {
+      const snap={
+        turn:state.turn,era:state.era,score:state.score,
+        councils:state.councils,correct:state.correct,
+        res:state.res,techs:state.techs,diplomacy:state.diplomacy,
+        tiles:state.tiles.map(t=>({id:t.id,owner:t.owner,city:t.city,improvement:t.improvement,wonder:t.wonder,fog:t.fog})),
+        cities:state.cities,units:state.units.map(u=>({...u})),
+        wonders:state.wonders,fog:state.fog,
+        unitSeq:state.unitSeq,citySeq:state.citySeq
+      };
+      localStorage.setItem(SAVE_KEY,JSON.stringify(snap));
+    } catch(e){ /* storage full */ }
   }
 
-  function draw() {
-    drawBackground();
-    drawMap();
-    drawParticles();
-  }
-
-  function drawBackground() {
-    const grad = ctx.createLinearGradient(0, 0, view.width, view.height);
-    grad.addColorStop(0, "#071013");
-    grad.addColorStop(.48, "#0d1a1f");
-    grad.addColorStop(1, "#101a16");
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, view.width, view.height);
-    if (!FX_LITE) {
-      ctx.save();
-      ctx.globalAlpha = .32;
-      ctx.strokeStyle = "rgba(251,245,230,.06)";
-      ctx.lineWidth = 1;
-      for (let x = -80; x < view.width + 80; x += 48) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x + view.height * .4, view.height);
-        ctx.stroke();
-      }
-      ctx.restore();
-    }
-  }
-
-  function drawMap() {
-    ctx.save();
-    const nudge = Math.sin(state.elapsed * .8) * state.cameraNudge;
-    ctx.translate(nudge, nudge * .35);
-    for (const tile of state.tiles) drawTile(tile);
-    for (const tile of state.tiles) drawTileOverlay(tile);
-    ctx.restore();
-  }
-
-  function drawTile(tile) {
-    const p = hexToPixel(tile);
-    const terrain = TERRAIN[tile.terrain];
-    ctx.save();
-    ctx.shadowColor = "rgba(0,0,0,.38)";
-    ctx.shadowBlur = 12;
-    ctx.shadowOffsetY = 5;
-    hexPath(p.x, p.y, view.size - 2);
-    const fill = ctx.createRadialGradient(p.x - view.size * .25, p.y - view.size * .35, 6, p.x, p.y, view.size);
-    fill.addColorStop(0, lighten(terrain.color, .20));
-    fill.addColorStop(1, terrain.color);
-    ctx.fillStyle = fill;
-    ctx.fill();
-    ctx.strokeStyle = terrain.edge;
-    ctx.globalAlpha = .95;
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    ctx.restore();
-
-    if (tile.owner) {
-      ctx.save();
-      hexPath(p.x, p.y, view.size - 6);
-      ctx.fillStyle = OWNERS[tile.owner].fill;
-      ctx.fill();
-      ctx.strokeStyle = OWNERS[tile.owner].color;
-      ctx.lineWidth = tile.owner === "player" ? 4 : 3;
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    if (!tile.owner && isAdjacentToPlayer(tile)) {
-      ctx.save();
-      ctx.globalAlpha = .6 + Math.sin(state.elapsed * 3 + tile.pulse) * .16;
-      hexPath(p.x, p.y, view.size - 8);
-      ctx.strokeStyle = "rgba(242,193,78,.72)";
-      ctx.lineWidth = 2;
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    if (state.selected === tile) {
-      ctx.save();
-      ctx.globalAlpha = .95;
-      ctx.shadowColor = "#f2c14e";
-      ctx.shadowBlur = 22;
-      hexPath(p.x, p.y, view.size + 4);
-      ctx.strokeStyle = "#f2c14e";
-      ctx.lineWidth = 4;
-      ctx.stroke();
-      ctx.restore();
-    }
-  }
-
-  function drawTileOverlay(tile) {
-    const p = hexToPixel(tile);
-    if (tile.capital || tile.city) drawCity(p.x, p.y, tile);
-    if (tile.improvement) drawImprovement(p.x, p.y, tile.improvement);
-    if (tile.wonder) drawWonder(p.x, p.y, tile.wonder);
-    if (tile.city && tile.name && view.size > 32) {
-      ctx.save();
-      ctx.fillStyle = "rgba(251,245,230,.84)";
-      ctx.font = `900 ${Math.max(10, view.size * .18)}px Inter, system-ui, sans-serif`;
-      ctx.textAlign = "center";
-      ctx.shadowColor = "rgba(0,0,0,.72)";
-      ctx.shadowBlur = 6;
-      ctx.fillText(tile.name.toUpperCase(), p.x, p.y + view.size * .88);
-      ctx.restore();
-    }
-    if (tile.unrest) {
-      ctx.save();
-      ctx.fillStyle = "#ff6f6f";
-      ctx.font = `900 ${Math.max(11, view.size * .30)}px Inter, system-ui, sans-serif`;
-      ctx.textAlign = "center";
-      ctx.fillText("UNREST", p.x, p.y + view.size * .68);
-      ctx.restore();
-    }
-  }
-
-  function drawCity(x, y, tile) {
-    const color = tile.owner ? OWNERS[tile.owner].color : "#fbf5e6";
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.shadowColor = color;
-    ctx.shadowBlur = 12;
-    ctx.fillStyle = "rgba(0,0,0,.40)";
-    ctx.fillRect(-view.size * .30, -view.size * .04, view.size * .60, view.size * .25);
-    ctx.fillStyle = color;
-    ctx.fillRect(-view.size * .24, -view.size * .22, view.size * .13, view.size * .44);
-    ctx.fillRect(-view.size * .06, -view.size * .34, view.size * .13, view.size * .56);
-    ctx.fillRect(view.size * .13, -view.size * .16, view.size * .13, view.size * .38);
-    if (tile.capital) {
-      ctx.beginPath();
-      ctx.moveTo(-view.size * .06, -view.size * .42);
-      ctx.lineTo(view.size * .22, -view.size * .34);
-      ctx.lineTo(-view.size * .06, -view.size * .26);
-      ctx.closePath();
-      ctx.fillStyle = "#fbf5e6";
-      ctx.fill();
-    }
-    ctx.restore();
-  }
-
-  function drawImprovement(x, y, key) {
-    const item = IMPROVEMENTS[key];
-    ctx.save();
-    ctx.translate(x, y + view.size * .28);
-    ctx.fillStyle = item.color;
-    ctx.strokeStyle = "rgba(0,0,0,.42)";
-    ctx.lineWidth = 2;
-    if (key === "farm") {
-      for (let i = -2; i <= 2; i++) {
-        ctx.beginPath();
-        ctx.moveTo(i * view.size * .10, -view.size * .16);
-        ctx.lineTo(i * view.size * .10 + view.size * .06, view.size * .12);
-        ctx.strokeStyle = item.color;
-        ctx.stroke();
-      }
-    } else if (key === "workshop") {
-      ctx.fillRect(-view.size * .18, -view.size * .12, view.size * .36, view.size * .24);
-      ctx.fillRect(view.size * .02, -view.size * .28, view.size * .10, view.size * .18);
-    } else if (key === "academy") {
-      ctx.beginPath();
-      ctx.moveTo(-view.size * .24, view.size * .12);
-      ctx.lineTo(0, -view.size * .22);
-      ctx.lineTo(view.size * .24, view.size * .12);
-      ctx.closePath();
-      ctx.fill();
-    } else if (key === "monument") {
-      ctx.beginPath();
-      ctx.moveTo(0, -view.size * .26);
-      ctx.lineTo(view.size * .16, view.size * .16);
-      ctx.lineTo(-view.size * .16, view.size * .16);
-      ctx.closePath();
-      ctx.fill();
-    } else if (key === "fort") {
-      ctx.strokeStyle = item.color;
-      ctx.lineWidth = 4;
-      ctx.strokeRect(-view.size * .22, -view.size * .18, view.size * .44, view.size * .32);
-    } else if (key === "harbor") {
-      ctx.strokeStyle = item.color;
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.arc(0, -view.size * .05, view.size * .20, 0, Math.PI);
-      ctx.stroke();
-    }
-    ctx.restore();
-  }
-
-  function drawWonder(x, y, id) {
-    const wonder = wonderById(id);
-    ctx.save();
-    ctx.translate(x, y - view.size * .36);
-    ctx.shadowColor = "#f2c14e";
-    ctx.shadowBlur = 14;
-    ctx.fillStyle = "#f2c14e";
-    ctx.strokeStyle = "rgba(0,0,0,.48)";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(0, -view.size * .22);
-    ctx.lineTo(view.size * .20, view.size * .16);
-    ctx.lineTo(-view.size * .20, view.size * .16);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    ctx.fillStyle = "rgba(0,0,0,.58)";
-    ctx.font = `900 ${Math.max(8, view.size * .15)}px Inter, system-ui, sans-serif`;
-    ctx.textAlign = "center";
-    ctx.fillText((wonder?.name || "W").slice(0, 2).toUpperCase(), 0, view.size * .07);
-    ctx.restore();
-  }
-
-  function drawParticles() {
-    ctx.save();
-    for (const p of state.particles) {
-      ctx.globalAlpha = clamp(p.life, 0, 1);
-      ctx.fillStyle = p.color;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    for (const b of state.banners) {
-      ctx.globalAlpha = clamp(b.life, 0, 1);
-      ctx.fillStyle = b.color;
-      ctx.font = `900 ${Math.max(14, view.size * .32)}px Inter, system-ui, sans-serif`;
-      ctx.textAlign = "center";
-      ctx.shadowColor = "rgba(0,0,0,.55)";
-      ctx.shadowBlur = 8;
-      ctx.fillText(b.text, b.x, b.y);
-    }
-    ctx.restore();
-  }
-
-  function update(dt) {
-    state.elapsed += dt;
-    state.cameraNudge = Math.max(0, state.cameraNudge - dt * 5);
-    for (const p of state.particles) {
-      p.life -= dt;
-      p.x += p.vx * dt;
-      p.y += p.vy * dt;
-      p.vx *= .98;
-      p.vy = p.vy * .98 + 30 * dt;
-    }
-    state.particles = state.particles.filter((p) => p.life > 0);
-    for (const b of state.banners) {
-      b.life -= dt;
-      b.y += b.vy * dt;
-    }
-    state.banners = state.banners.filter((b) => b.life > 0);
-  }
-
-  function burst(tile, color, count) {
-    const p = hexToPixel(tile);
-    const actual = FX_LITE ? Math.ceil(count * .45) : count;
-    for (let i = 0; i < actual; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = 35 + Math.random() * 135;
-      state.particles.push({
-        x: p.x,
-        y: p.y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        size: 2 + Math.random() * 3,
-        color,
-        life: .45 + Math.random() * .5
+  function loadGame(){
+    try {
+      const raw=localStorage.getItem(SAVE_KEY);
+      if(!raw) return false;
+      const snap=JSON.parse(raw);
+      state.turn=snap.turn||1;
+      state.era=snap.era||0;
+      state.score=snap.score||0;
+      state.councils=snap.councils||0;
+      state.correct=snap.correct||0;
+      Object.assign(state.res,snap.res||{});
+      Object.assign(state.techs,snap.techs||{});
+      Object.assign(state.diplomacy,snap.diplomacy||{});
+      state.wonders=snap.wonders||[];
+      state.fog=snap.fog||{};
+      state.unitSeq=snap.unitSeq||0;
+      state.citySeq=snap.citySeq||0;
+      // Rebuild tiles
+      generateMap(); // creates fresh tiles first
+      (snap.tiles||[]).forEach(st=>{
+        const tile=getTileById(st.id);
+        if(tile){ tile.owner=st.owner; tile.city=st.city; tile.improvement=st.improvement; tile.wonder=st.wonder; tile.fog=st.fog; }
       });
+      state.cities=snap.cities||[];
+      state.units=(snap.units||[]).map(u=>({...u}));
+      return true;
+    } catch(e){ return false; }
+  }
+
+  function clearSave(){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} }
+  function hasSave(){ return !!localStorage.getItem(SAVE_KEY); }
+
+  // ─── PARTICLES / BANNERS ─────────────────────────────────────────────────────
+  function burst(tile,color,count){
+    if(!tile) return;
+    const p=hexToPixel(tile);
+    const actual=FX_LITE?Math.ceil(count*.4):count;
+    for(let i=0;i<actual;i++){
+      const angle=Math.random()*Math.PI*2, speed=30+Math.random()*120;
+      state.particles.push({x:p.x,y:p.y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,size:2+Math.random()*3,color,life:.5+Math.random()*.5});
     }
-    state.cameraNudge = Math.max(state.cameraNudge, 1);
+    state.cameraNudge=Math.max(state.cameraNudge,.8);
   }
 
-  function banner(tile, text, color) {
-    const p = hexToPixel(tile);
-    state.banners.push({ x: p.x, y: p.y - view.size * .62, text, color, life: 1.2, vy: -24 });
+  function floatText(tile,text,color){
+    if(!tile) return;
+    const p=hexToPixel(tile);
+    state.floats.push({x:p.x,y:p.y-view.size*.5,text,color,life:1.4,vy:-22});
   }
 
-  function lighten(hex, amount) {
-    const raw = hex.replace("#", "");
-    const r = clamp(parseInt(raw.slice(0, 2), 16) + 255 * amount, 0, 255);
-    const g = clamp(parseInt(raw.slice(2, 4), 16) + 255 * amount, 0, 255);
-    const b = clamp(parseInt(raw.slice(4, 6), 16) + 255 * amount, 0, 255);
-    return `rgb(${Math.round(r)},${Math.round(g)},${Math.round(b)})`;
+  // ─── QUESTION BANK LOADING ───────────────────────────────────────────────────
+  async function loadBank(){
+    els.startBtn.disabled=true;
+    els.startBtn.textContent="Loading...";
+    const resp=await fetch("../../data/chrono-defense-bank.json?v=20260502-source-contract");
+    if(!resp.ok) throw new Error(`Bank ${resp.status}`);
+    state.bank=await resp.json();
+    state.bank.questions=(state.bank.questions||[]).filter(isPlayable);
+    rebuildSetIndex(); populateFilters(); applyFilters();
+    els.startBtn.disabled=false;
+    els.startBtn.textContent=hasSave()?"Continue Empire":"Found Empire";
+    if(hasSave()) addContinueButton();
   }
 
-  function loop(now) {
-    const dt = Math.min(.033, ((now || 0) - (state.last || now || 0)) / 1000 || .016);
-    state.last = now || 0;
-    update(dt);
-    draw();
+  function addContinueButton(){
+    const cont=document.createElement("button");
+    cont.className="btn primary"; cont.type="button"; cont.textContent="Continue Empire";
+    cont.addEventListener("click",()=>{ if(loadGame()){ state.mode="playing"; els.setupScreen.classList.remove("show"); updateHud(); renderPanel(); } });
+    const acts=document.querySelector(".setup-actions");
+    if(acts&&!acts.querySelector(".continue-btn")){ cont.classList.add("continue-btn"); acts.insertBefore(cont,acts.firstChild); }
+  }
+
+  function rebuildSetIndex(){
+    const m={};
+    for(const q of state.bank.questions){
+      if(!q.course||!q.set) continue;
+      if(!m[q.course]) m[q.course]=new Set();
+      m[q.course].add(q.set);
+    }
+    state.bank.courses=Object.keys(m).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
+    state.bank.setsByCourse=Object.fromEntries(Object.entries(m).map(([c,s])=>[c,[...s].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}))]));
+  }
+
+  function populateFilters(){
+    els.courseFilter.innerHTML=["All Courses",...state.bank.courses].map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
+    populateSets();
+  }
+
+  function populateSets(){
+    const course=els.courseFilter.value||"All Courses";
+    const sets=course==="All Courses"?["All Sets"]:["All Sets",...(state.bank.setsByCourse[course]||[])];
+    els.setFilter.innerHTML=sets.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join("");
+  }
+
+  function applyFilters(){
+    const course=els.courseFilter.value||"All Courses";
+    const set=els.setFilter.value||"All Sets";
+    state.filtered=state.bank.questions.filter(q=>{
+      if(course!=="All Courses"&&q.course!==course) return false;
+      if(set!=="All Sets"&&q.set!==set) return false;
+      return true;
+    });
+    if(!state.filtered.length) state.filtered=[...state.bank.questions];
+    state.queue=shuffle(state.filtered);
+    const best=Number(localStorage.getItem(`${SAVE_KEY}:bestScore`)||0);
+    els.setupMetrics.innerHTML=[
+      `${fmtN(state.filtered.length)} council questions`,
+      `${state.bank.courses.length} courses`,
+      `Best score: ${fmtN(best)}`,
+      hasSave()?"Save exists — continue above":""
+    ].filter(Boolean).map(t=>`<span class="metric-pill">${esc(t)}</span>`).join("");
+  }
+
+  // ─── CANVAS RESIZE ───────────────────────────────────────────────────────────
+  function resize(){
+    const dprLimit=FX_LITE?1.12:1.5;
+    const dpr=Math.min(dprLimit,window.devicePixelRatio||1);
+    view.w=window.innerWidth; view.h=window.innerHeight; view.dpr=dpr;
+    canvas.width=Math.max(1,Math.round(view.w*dpr));
+    canvas.height=Math.max(1,Math.round(view.h*dpr));
+    canvas.style.width=`${view.w}px`;
+    canvas.style.height=`${view.h}px`;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    // Auto-fit hex size
+    const budgetW=Math.max(280,view.w*(view.w>900?.58:.92));
+    const budgetH=view.h*(view.w>900?.8:.55);
+    view.size=clamp(Math.min(budgetW/(COLS*1.5+.5),budgetH/(ROWS*1.15)),20,48);
+    view.mapW=view.size*(1.5*(COLS-1)+2);
+    view.mapH=view.size*Math.sqrt(3)*(ROWS+.6);
+    const baseX=view.w>900?(view.w-view.mapW)/2:(view.w-view.mapW)/2;
+    const baseY=view.w>900?Math.max(90,(view.h-view.mapH)/2+20):Math.max(150,(view.h-view.mapH)*.4);
+    view.ox=baseX+view.panX;
+    view.oy=baseY+view.panY;
+  }
+
+  // ─── HEX MATH ────────────────────────────────────────────────────────────────
+  function hexToPixel(tile){
+    const x=view.ox+view.size*1.5*tile.q;
+    const y=view.oy+view.size*Math.sqrt(3)*(tile.r+.5*(tile.q&1));
+    return {x,y};
+  }
+
+  function pixelToTile(px,py){
+    let best=null, bestD=Infinity;
+    for(const tile of state.tiles){
+      const p=hexToPixel(tile);
+      const d=Math.hypot(px-p.x,py-p.y);
+      if(d<bestD){ bestD=d; best=tile; }
+    }
+    return bestD<view.size*.92?best:null;
+  }
+
+  function hexPath(x,y,size){
+    ctx.beginPath();
+    for(let i=0;i<6;i++){
+      const a=Math.PI/180*(60*i);
+      const px=x+size*Math.cos(a), py=y+size*Math.sin(a);
+      if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    }
+    ctx.closePath();
+  }
+
+  // ─── RENDERING ───────────────────────────────────────────────────────────────
+  function draw(){
+    drawBackground();
+    ctx.save();
+    const nudge=Math.sin(state.elapsed*.8)*state.cameraNudge;
+    ctx.translate(nudge,nudge*.35);
+    drawMap();
+    drawUnits();
+    drawParticles();
+    ctx.restore();
+    drawMinimap();
+    drawTooltip();
+  }
+
+  function drawBackground(){
+    const g=ctx.createLinearGradient(0,0,view.w,view.h);
+    g.addColorStop(0,"#071013"); g.addColorStop(.5,"#0d1a1f"); g.addColorStop(1,"#101a16");
+    ctx.fillStyle=g; ctx.fillRect(0,0,view.w,view.h);
+    if(!FX_LITE){
+      ctx.save(); ctx.globalAlpha=.04; ctx.strokeStyle="#fbf5e6"; ctx.lineWidth=1;
+      for(let x=-80;x<view.w+80;x+=48){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x+view.h*.4,view.h); ctx.stroke(); }
+      ctx.restore();
+    }
+  }
+
+  function drawMap(){
+    // Draw in two passes: terrain, then overlays
+    for(const tile of state.tiles) drawTile(tile);
+    for(const tile of state.tiles) drawTileOverlay(tile);
+    // Draw reachable overlay for movement mode
+    if(state.pendingMove){
+      const reach=state.pendingMove.reachable;
+      ctx.save();
+      for(const t of reach){
+        const p=hexToPixel(t);
+        ctx.globalAlpha=.35+Math.sin(state.elapsed*4+t.pulse)*.15;
+        hexPath(p.x,p.y,view.size-4);
+        ctx.fillStyle="rgba(123,223,242,.40)";
+        ctx.fill();
+        ctx.strokeStyle="#7bdff2";
+        ctx.lineWidth=2; ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
+
+  function drawTile(tile){
+    const p=hexToPixel(tile);
+    const fogged=tile.fog&&!state.fog[tile.id];
+    const ter=TERRAIN[tile.terrain];
+    ctx.save();
+    if(!FX_LITE){ ctx.shadowColor="rgba(0,0,0,.4)"; ctx.shadowBlur=10; ctx.shadowOffsetY=4; }
+    hexPath(p.x,p.y,view.size-2);
+    if(fogged){
+      ctx.fillStyle="#0e1a1e"; ctx.fill();
+      ctx.strokeStyle="rgba(255,255,255,.06)"; ctx.lineWidth=1; ctx.stroke();
+      ctx.restore(); return;
+    }
+    const fill=ctx.createRadialGradient(p.x-view.size*.25,p.y-view.size*.3,4,p.x,p.y,view.size);
+    fill.addColorStop(0,lighten(ter.color,.18));
+    fill.addColorStop(1,ter.color);
+    ctx.fillStyle=fill; ctx.fill();
+    ctx.strokeStyle=ter.edge; ctx.lineWidth=1.5; ctx.globalAlpha=.9; ctx.stroke();
+    ctx.restore();
+
+    // Owner fill
+    if(tile.owner){
+      ctx.save();
+      hexPath(p.x,p.y,view.size-6);
+      ctx.fillStyle=CIVS[tile.owner].fill; ctx.fill();
+      ctx.strokeStyle=CIVS[tile.owner].color;
+      ctx.lineWidth=tile.owner==="player"?3.5:2.5;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Pulsing adjacent-unclaimed indicator
+    if(!tile.owner&&!fogged&&isPlayerAdjacent(tile)){
+      ctx.save();
+      ctx.globalAlpha=.55+Math.sin(state.elapsed*3+tile.pulse)*.18;
+      hexPath(p.x,p.y,view.size-8);
+      ctx.strokeStyle="rgba(242,193,78,.8)"; ctx.lineWidth=2; ctx.stroke();
+      ctx.restore();
+    }
+
+    // Selected highlight
+    if(state.selected===tile){
+      ctx.save();
+      ctx.shadowColor="#f2c14e"; ctx.shadowBlur=22;
+      hexPath(p.x,p.y,view.size+3);
+      ctx.strokeStyle="#f2c14e"; ctx.lineWidth=4; ctx.stroke();
+      ctx.restore();
+    }
+
+    // Selected unit tile
+    if(state.selUnit&&state.selUnit.tileId===tile.id){
+      ctx.save();
+      ctx.shadowColor="#7bdff2"; ctx.shadowBlur=18;
+      hexPath(p.x,p.y,view.size+3);
+      ctx.strokeStyle="#7bdff2"; ctx.lineWidth=3; ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function drawTileOverlay(tile){
+    const fogged=tile.fog&&!state.fog[tile.id];
+    if(fogged) return;
+    const p=hexToPixel(tile);
+    // Resource icon
+    if(tile.resource&&view.size>28){
+      const res=RESOURCES[tile.resource];
+      ctx.save();
+      ctx.font=`${Math.max(11,view.size*.28)}px Inter,system-ui,sans-serif`;
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.shadowColor="rgba(0,0,0,.6)"; ctx.shadowBlur=4;
+      ctx.fillText(res.emoji,p.x,p.y-view.size*.35);
+      ctx.restore();
+    }
+    // Improvement
+    if(tile.improvement) drawImprovementIcon(p.x,p.y,tile.improvement);
+    // City
+    if(tile.city){
+      const city=cityById(tile.city);
+      if(city) drawCity(p.x,p.y,city,tile);
+    }
+    // Wonder star
+    if(tile.wonder){
+      ctx.save();
+      ctx.fillStyle="#f2c14e"; ctx.shadowColor="#f2c14e"; ctx.shadowBlur=12;
+      ctx.font=`${Math.max(12,view.size*.25)}px Inter,system-ui,sans-serif`;
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.fillText("★",p.x,p.y-view.size*.6);
+      ctx.restore();
+    }
+    // City name
+    if(tile.city&&view.size>30){
+      const city=cityById(tile.city);
+      if(city){
+        ctx.save();
+        ctx.fillStyle="rgba(251,245,230,.88)";
+        ctx.font=`900 ${Math.max(9,view.size*.17)}px Inter,system-ui,sans-serif`;
+        ctx.textAlign="center"; ctx.shadowColor="rgba(0,0,0,.75)"; ctx.shadowBlur=5;
+        ctx.fillText(city.name.toUpperCase(),p.x,p.y+view.size*.9);
+        ctx.restore();
+      }
+    }
+  }
+
+  function drawCity(x,y,city,tile){
+    const color=CIVS[city.civId]?.color||"#fbf5e6";
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.shadowColor=color; ctx.shadowBlur=14;
+    // Building silhouette
+    ctx.fillStyle="rgba(0,0,0,.45)";
+    ctx.fillRect(-view.size*.32,-view.size*.06,view.size*.64,view.size*.28);
+    ctx.fillStyle=color;
+    ctx.fillRect(-view.size*.26,-view.size*.24,view.size*.14,view.size*.46);
+    ctx.fillRect(-view.size*.07,-view.size*.38,view.size*.14,view.size*.60);
+    ctx.fillRect(view.size*.12,-view.size*.18,view.size*.14,view.size*.40);
+    // Capital flag
+    if(city.capital){
+      ctx.beginPath();
+      ctx.moveTo(-view.size*.07,-view.size*.46);
+      ctx.lineTo(view.size*.24,-view.size*.38);
+      ctx.lineTo(-view.size*.07,-view.size*.30);
+      ctx.closePath();
+      ctx.fillStyle="#fbf5e6"; ctx.fill();
+    }
+    // Population bar
+    if(view.size>28){
+      const barW=view.size*.5, barH=4;
+      ctx.fillStyle="rgba(0,0,0,.4)"; ctx.fillRect(-barW/2,view.size*.42,barW,barH);
+      ctx.fillStyle=color; ctx.fillRect(-barW/2,view.size*.42,barW*(city.food/city.foodNeeded),barH);
+    }
+    ctx.restore();
+  }
+
+  function drawImprovementIcon(x,y,key){
+    const imp=IMPROVEMENTS[key]; if(!imp) return;
+    ctx.save();
+    ctx.translate(x,y+view.size*.3);
+    ctx.strokeStyle="#77d99b"; ctx.fillStyle="#77d99b"; ctx.lineWidth=1.5;
+    if(key==="farm"){ for(let i=-2;i<=2;i++){ ctx.beginPath(); ctx.moveTo(i*view.size*.10,-view.size*.14); ctx.lineTo(i*view.size*.10+view.size*.05,view.size*.10); ctx.stroke(); } }
+    else if(key==="mine"){ ctx.fillStyle="#c0b9c0"; ctx.fillRect(-view.size*.14,-view.size*.14,view.size*.28,view.size*.22); }
+    else if(key==="lumbercamp"){ ctx.strokeStyle="#2f714f"; ctx.beginPath(); ctx.moveTo(0,-view.size*.18); ctx.lineTo(view.size*.16,view.size*.14); ctx.lineTo(-view.size*.16,view.size*.14); ctx.closePath(); ctx.stroke(); }
+    else if(key==="trading_post"){ ctx.strokeStyle="#f2c14e"; for(let i=0;i<4;i++){ const a=i*Math.PI/2; ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(Math.cos(a)*view.size*.18,Math.sin(a)*view.size*.18); ctx.stroke(); } }
+    else if(key==="fishing_boats"){ ctx.strokeStyle="#7bdff2"; ctx.beginPath(); ctx.arc(0,-view.size*.05,view.size*.18,0,Math.PI); ctx.stroke(); }
+    ctx.restore();
+  }
+
+  function drawUnits(){
+    for(const u of state.units){
+      const tile=getTileById(u.tileId); if(!tile) continue;
+      const fogged=tile.fog&&!state.fog[tile.id]; if(fogged&&u.civId!=="player") continue;
+      const p=hexToPixel(tile);
+      // Lerp animation
+      if(u.animFrac<1){ u.animFrac=Math.min(1,u.animFrac+.12); }
+      const ox=u.animX*(1-u.animFrac), oy=u.animY*(1-u.animFrac);
+      const ux=p.x+ox, uy=p.y+oy;
+      const def=UNIT_DEFS[u.def];
+      const civ=CIVS[u.civId];
+      const sel=state.selUnit===u;
+      ctx.save();
+      ctx.translate(ux,uy-view.size*.22);
+      // Shadow
+      ctx.fillStyle="rgba(0,0,0,.38)"; ctx.beginPath(); ctx.ellipse(1,view.size*.18,view.size*.18,view.size*.07,0,0,Math.PI*2); ctx.fill();
+      // Body circle
+      ctx.shadowColor=sel?"#fff":civ.color; ctx.shadowBlur=sel?16:8;
+      ctx.fillStyle=civ.color;
+      ctx.beginPath(); ctx.arc(0,0,view.size*.22,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle=sel?"#fff":"rgba(0,0,0,.4)"; ctx.lineWidth=sel?2.5:1.5; ctx.stroke();
+      // Symbol
+      ctx.fillStyle="#071013"; ctx.shadowBlur=0;
+      ctx.font=`900 ${Math.max(8,view.size*.17)}px Inter,system-ui,sans-serif`;
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      const sym={worker:"W",settler:"S",warrior:"⚔",archer:"↑",horseman:"H",knight:"K",scholar:"📜"}[u.def]||"?";
+      ctx.fillText(sym,0,0);
+      // HP bar
+      if(u.str>0&&u.hp<u.maxHp){
+        const bw=view.size*.38, bh=3;
+        ctx.fillStyle="rgba(0,0,0,.5)"; ctx.fillRect(-bw/2,view.size*.28,bw,bh);
+        ctx.fillStyle=u.hp>60?"#77d99b":u.hp>30?"#f2c14e":"#ff6f6f";
+        ctx.fillRect(-bw/2,view.size*.28,bw*(u.hp/u.maxHp),bh);
+      }
+      // Moved indicator
+      if(u.moved&&u.civId==="player"){
+        ctx.globalAlpha=.55;
+        ctx.fillStyle="rgba(0,0,0,.55)"; ctx.beginPath(); ctx.arc(0,0,view.size*.22,0,Math.PI*2); ctx.fill();
+      }
+      ctx.restore();
+    }
+  }
+
+  function drawParticles(){
+    ctx.save();
+    for(const p of state.particles){
+      ctx.globalAlpha=clamp(p.life,0,1); ctx.fillStyle=p.color;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
+    }
+    for(const f of state.floats){
+      ctx.globalAlpha=clamp(f.life,0,1); ctx.fillStyle=f.color;
+      ctx.font=`900 ${Math.max(13,view.size*.28)}px Inter,system-ui,sans-serif`;
+      ctx.textAlign="center"; ctx.shadowColor="rgba(0,0,0,.55)"; ctx.shadowBlur=6;
+      ctx.fillText(f.text,f.x,f.y);
+    }
+    ctx.restore();
+  }
+
+  // ─── MINIMAP ─────────────────────────────────────────────────────────────────
+  function drawMinimap(){
+    if(view.w<700) return;
+    const mmW=140, mmH=90, mmX=view.w-mmW-14, mmY=view.h-mmH-14;
+    ctx.save();
+    ctx.fillStyle="rgba(7,16,19,.82)"; ctx.strokeStyle="rgba(255,255,255,.15)"; ctx.lineWidth=1;
+    ctx.fillRect(mmX,mmY,mmW,mmH); ctx.strokeRect(mmX,mmY,mmW,mmH);
+    const tw=mmW/COLS, th=mmH/ROWS;
+    for(const tile of state.tiles){
+      const fogged=tile.fog&&!state.fog[tile.id];
+      const x=mmX+tile.q*tw, y=mmY+tile.r*th;
+      ctx.fillStyle=fogged?"#0e1a1e":tile.owner?CIVS[tile.owner].color:TERRAIN[tile.terrain].color;
+      ctx.globalAlpha=fogged?.3:.85;
+      ctx.fillRect(x,y,tw-.5,th-.5);
+    }
+    // City dots
+    ctx.globalAlpha=1;
+    for(const c of state.cities){
+      const tile=getTileById(c.tileId); if(!tile) continue;
+      if(tile.fog&&!state.fog[tile.id]) continue;
+      const x=mmX+tile.q*tw+tw/2, y=mmY+tile.r*th+th/2;
+      ctx.fillStyle="#fbf5e6"; ctx.beginPath(); ctx.arc(x,y,2,0,Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // ─── TOOLTIP ─────────────────────────────────────────────────────────────────
+  let hoverTile=null, hoverPos={x:0,y:0};
+  function drawTooltip(){
+    if(!hoverTile||state.mode!=="playing") return;
+    const tile=hoverTile; if(tile.fog&&!state.fog[tile.id]) return;
+    const ter=TERRAIN[tile.terrain];
+    const lines=[
+      ter.label+(tile.resource?` (${RESOURCES[tile.resource]?.label||""})`:"")+
+      (tile.owner?` — ${CIVS[tile.owner].name}`:" — Unclaimed"),
+      `+${ter.g}g +${ter.f}f +${ter.p}p +${ter.s}s`+
+      (tile.improvement?` | ${IMPROVEMENTS[tile.improvement]?.name||""}`:"")+
+      (tile.city?` | ${cityById(tile.city)?.name||"City"}`:"")
+    ];
+    const x=clamp(hoverPos.x+14,8,view.w-160);
+    const y=clamp(hoverPos.y-40,8,view.h-60);
+    ctx.save();
+    ctx.fillStyle="rgba(7,16,19,.92)"; ctx.strokeStyle="rgba(255,255,255,.18)"; ctx.lineWidth=1;
+    ctx.fillRect(x,y,155,42); ctx.strokeRect(x,y,155,42);
+    ctx.fillStyle="#fbf5e6"; ctx.font="700 11px Inter,system-ui,sans-serif"; ctx.textAlign="left";
+    ctx.fillText(lines[0].slice(0,22),x+8,y+14);
+    ctx.fillStyle="#b6c1bd"; ctx.font="10px Inter,system-ui,sans-serif";
+    ctx.fillText(lines[1].slice(0,28),x+8,y+30);
+    ctx.restore();
+  }
+
+  // ─── UPDATE LOOP ─────────────────────────────────────────────────────────────
+  function update(dt){
+    state.elapsed+=dt;
+    state.cameraNudge=Math.max(0,state.cameraNudge-dt*4);
+    for(const p of state.particles){ p.life-=dt; p.x+=p.vx*dt; p.y+=p.vy*dt; p.vx*=.98; p.vy=p.vy*.98+28*dt; }
+    state.particles=state.particles.filter(p=>p.life>0);
+    for(const f of state.floats){ f.life-=dt; f.y+=f.vy*dt; f.vy*=.95; }
+    state.floats=state.floats.filter(f=>f.life>0);
+  }
+
+  function loop(now){
+    const dt=Math.min(.033,((now||0)-(state.last||now||0))/1000||.016);
+    state.last=now||0;
+    update(dt); draw();
     requestAnimationFrame(loop);
   }
 
-  function bind() {
-    window.addEventListener("resize", resize);
-    canvas.addEventListener("pointerdown", (event) => {
-      if (state.mode !== "playing") return;
-      audio.ensure();
-      const tile = pixelToTile(event.clientX, event.clientY);
-      if (!tile) return;
-      state.selected = tile;
-      state.panel = "province";
+  // ─── INPUT BINDING ───────────────────────────────────────────────────────────
+  function lighten(hex,amount){
+    const r=hex.replace("#","");
+    const parse=s=>clamp(parseInt(s,16)+255*amount,0,255);
+    return `rgb(${Math.round(parse(r.slice(0,2)))},${Math.round(parse(r.slice(2,4)))},${Math.round(parse(r.slice(4,6)))})`;
+  }
+
+  function bind(){
+    window.addEventListener("resize",()=>{ resize(); });
+
+    // ── Pointer (desktop + mobile tap) ──
+    canvas.addEventListener("pointerdown",(e)=>{
+      if(state.mode!=="playing") return;
+      audio._ctx();
+      view.dragging=false;
+      view.dragStart={x:e.clientX,y:e.clientY};
+      view._panStart={x:view.panX,y:view.panY};
+    });
+
+    canvas.addEventListener("pointermove",(e)=>{
+      const tile=pixelToTile(e.clientX,e.clientY);
+      hoverTile=tile; hoverPos={x:e.clientX,y:e.clientY};
+      if(!(e.buttons&1)) return;
+      const dx=e.clientX-view.dragStart.x, dy=e.clientY-view.dragStart.y;
+      if(Math.hypot(dx,dy)>8){
+        view.dragging=true;
+        view.panX=view._panStart.x+dx;
+        view.panY=view._panStart.y+dy;
+        view.ox=getBaseOx()+view.panX;
+        view.oy=getBaseOy()+view.panY;
+      }
+    });
+
+    canvas.addEventListener("pointerup",(e)=>{
+      if(state.mode!=="playing"||view.dragging) return;
+      const tile=pixelToTile(e.clientX,e.clientY);
+      if(!tile) return;
+
+      // Movement mode: click destination
+      if(state.pendingMove){
+        const reach=state.pendingMove.reachable;
+        const unit=state.pendingMove.unit;
+        if(reach.includes(tile)){
+          // Check for enemy at tile
+          const enemyUnit=unitsAt(tile).find(u=>u.civId!==unit.civId);
+          if(enemyUnit&&UNIT_DEFS[unit.def].str>0){
+            resolveCombat(unit,tile);
+          } else {
+            moveUnit(unit,tile);
+          }
+          exitMoveMode();
+          renderPanel(); updateHud();
+        } else {
+          exitMoveMode();
+        }
+        return;
+      }
+
+      // Select unit if present
+      const myUnits=unitsAt(tile).filter(u=>u.civId==="player");
+      if(myUnits.length){
+        state.selUnit=myUnits[0];
+        state.selected=tile;
+        state.panel="province";
+        audio.select();
+        renderPanel();
+        return;
+      }
+      // Deselect unit, select tile
+      state.selUnit=null;
+      state.selected=tile;
+      state.panel="province";
       audio.select();
       renderPanel();
-      const owner = tile.owner ? OWNERS[tile.owner].name : "Unclaimed";
-      setAdvisor("Province Selected", `${TERRAIN[tile.terrain].label} province. ${owner}.`, "Choose an action or end the turn.", "");
+      setAdvisor(`${TERRAIN[tile.terrain].label}`,`${tile.owner?CIVS[tile.owner].name+" territory":"Unclaimed"}`+
+        (tile.city?` | ${cityById(tile.city)?.name||"City"}`:""),
+        tile.fog&&!state.fog[tile.id]?"Fogged — scout to reveal.":"Select an action below.","");
     });
-    els.courseFilter.addEventListener("change", () => {
-      populateSets();
-      applyFilters();
-    });
-    els.setFilter.addEventListener("change", applyFilters);
-    els.scenarioFilter.addEventListener("change", renderSetupMetrics);
-    els.panelTabs.forEach((button) => {
-      button.addEventListener("click", () => {
-        state.panel = button.dataset.panel || "province";
-        renderPanel();
-      });
-    });
-    els.startBtn.addEventListener("click", startGame);
-    els.endTurnBtn.addEventListener("click", endTurn);
-    els.pauseBtn.addEventListener("click", () => state.mode === "menu" ? resumeGame() : pauseGame());
-    els.resumeBtn.addEventListener("click", resumeGame);
-    els.restartBtn.addEventListener("click", startGame);
-    els.againBtn.addEventListener("click", startGame);
-    els.setupBtn.addEventListener("click", showSetup);
-    els.exitBtn.addEventListener("click", exitArcade);
-    els.menuExitBtn.addEventListener("click", exitArcade);
-    els.soundBtn.addEventListener("click", () => {
-      audio.enabled = !audio.enabled;
-      els.soundBtn.textContent = audio.enabled ? "Sound On" : "Sound Off";
-      if (audio.enabled) audio.ensure();
-    });
-    els.fullscreenBtn.addEventListener("click", () => {
-      if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
-      else document.exitFullscreen?.();
-    });
-    window.addEventListener("keydown", (event) => {
-      if (event.code === "Escape") {
-        if (state.mode === "playing") pauseGame();
-        else if (state.mode === "menu") resumeGame();
+
+    // Scroll zoom
+    canvas.addEventListener("wheel",(e)=>{
+      e.preventDefault();
+      const delta=e.deltaY>0?-.1:.1;
+      view.size=clamp(view.size*(1+delta),16,60);
+      // Adjust origin to zoom toward mouse
+      const tx=e.clientX, ty=e.clientY;
+      view.ox=tx-(tx-view.ox)*(1+delta);
+      view.oy=ty-(ty-view.oy)*(1+delta);
+    },{passive:false});
+
+    // Pinch zoom (mobile)
+    let lastPinch=0;
+    canvas.addEventListener("touchstart",(e)=>{
+      if(e.touches.length===2){
+        lastPinch=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
       }
-      if (event.code === "Enter" && state.mode === "playing") endTurn();
+    },{passive:true});
+    canvas.addEventListener("touchmove",(e)=>{
+      if(e.touches.length===2){
+        const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+        const scale=d/lastPinch; lastPinch=d;
+        view.size=clamp(view.size*scale,16,60);
+        const mx=(e.touches[0].clientX+e.touches[1].clientX)/2;
+        const my=(e.touches[0].clientY+e.touches[1].clientY)/2;
+        view.ox=mx-(mx-view.ox)*scale;
+        view.oy=my-(my-view.oy)*scale;
+      }
+    },{passive:true});
+
+    // Buttons
+    els.courseFilter.addEventListener("change",()=>{ populateSets(); applyFilters(); });
+    els.setFilter.addEventListener("change",applyFilters);
+    els.panelTabs.forEach(b=>b.addEventListener("click",()=>{ state.panel=b.dataset.panel||"province"; renderPanel(); }));
+    els.startBtn.addEventListener("click",()=>startGame(true));
+    els.endTurnBtn.addEventListener("click",endTurn);
+    els.pauseBtn.addEventListener("click",()=>{ if(state.mode==="playing"){state.mode="menu";els.menuScreen.classList.add("show");} else if(state.mode==="menu"){state.mode="playing";els.menuScreen.classList.remove("show");} });
+    els.resumeBtn.addEventListener("click",()=>{ state.mode="playing"; els.menuScreen.classList.remove("show"); updateHud(); });
+    els.restartBtn.addEventListener("click",()=>{ els.menuScreen.classList.remove("show"); startGame(true); });
+    els.againBtn.addEventListener("click",()=>startGame(true));
+    els.setupBtn.addEventListener("click",()=>{ state.mode="setup"; els.setupScreen.classList.add("show"); els.endScreen.classList.remove("show"); });
+    els.exitBtn.addEventListener("click",()=>window.location.href="../../");
+    els.menuExitBtn.addEventListener("click",()=>window.location.href="../../");
+    els.soundBtn.addEventListener("click",()=>{ const on=audio.toggle(); els.soundBtn.textContent=on?"Sound On":"Sound Off"; if(on) audio._ctx(); });
+    els.fullscreenBtn.addEventListener("click",()=>{ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); });
+    window.addEventListener("keydown",(e)=>{
+      if(e.code==="Escape"){
+        if(state.mode==="playing"){ state.mode="menu"; els.menuScreen.classList.add("show"); }
+        else if(state.mode==="menu"){ state.mode="playing"; els.menuScreen.classList.remove("show"); }
+        else if(state.pendingMove) exitMoveMode();
+      }
+      if(e.code==="Enter"&&state.mode==="playing") endTurn();
+      if(e.code==="KeyM"&&state.mode==="playing"){ const on=audio.toggle(); els.soundBtn.textContent=on?"Sound On":"Sound Off"; }
     });
   }
 
-  async function init() {
-    resize();
-    bind();
-    requestAnimationFrame(loop);
+  function getBaseOx(){
+    const budgetW=Math.max(280,view.w*(view.w>900?.58:.92));
+    const budgetH=view.h*(view.w>900?.8:.55);
+    view.size=view.size; // preserve current zoom
+    view.mapW=view.size*(1.5*(COLS-1)+2);
+    const baseX=(view.w-view.mapW)/2;
+    return baseX+view.size;
+  }
+  function getBaseOy(){
+    view.mapH=view.size*Math.sqrt(3)*(ROWS+.6);
+    const baseY=view.w>900?Math.max(90,(view.h-view.mapH)/2+20):Math.max(150,(view.h-view.mapH)*.4);
+    return baseY+view.size;
+  }
+
+  // ─── INIT ────────────────────────────────────────────────────────────────────
+  async function init(){
+    resize(); bind(); requestAnimationFrame(loop);
+    // Update setup screen start button for continue support
+    if(hasSave()) els.startBtn.textContent="New Game";
     try {
       await loadBank();
-    } catch (error) {
-      console.error(error);
-      els.startBtn.textContent = "Bank failed to load";
-      els.setupMetrics.innerHTML = `<span class="metric-pill">Question bank could not load. Try refreshing the page.</span>`;
+    } catch(err){
+      console.error("Empire Ascendant bank load failed:",err);
+      els.startBtn.disabled=false;
+      els.startBtn.textContent="Found Empire (offline)";
+      // Stub minimal bank so game still runs
+      state.bank={questions:[],courses:[],setsByCourse:{}};
+      state.filtered=[]; state.queue=[];
+      els.setupMetrics.innerHTML=`<span class="metric-pill">Offline mode — questions unavailable</span>`;
     }
   }
 
