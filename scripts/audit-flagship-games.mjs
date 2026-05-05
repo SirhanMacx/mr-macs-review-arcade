@@ -29,8 +29,13 @@ function requireAsset(path, minBytes = 2048) {
 }
 
 requireText("index.html", [
-  '["history-hunters", "archive-quest", "review-maze-chase", "cold-war-invaders", "regents-rally-source-circuit", "regents-practice-exam", "ap-practice-exam"]',
+  '["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "regents-practice-exam", "ap-practice-exam"]',
   "FEATURED_GAME_IDS",
+  "PREMIUM_ARCADE_IDS",
+  "REBUILD_QUEUE_IDS",
+  "PROTOTYPE_IDS",
+  "qualityTier",
+  "isPremiumArcade",
   "featuredBadges",
   "featured-rank",
   "traffic-dashboard",
@@ -41,7 +46,8 @@ requireText("index.html", [
   '"play-lane"',
   '"history-hunters"',
   '"cold-war-invaders"',
-  'if (game.id === "regents-rally-source-circuit") return -4.4',
+  'if (state.lane === "play") return isPremiumArcade(game)',
+  'if (game.id === "timeline-runner") return -4.55',
   "assets/game-thumbnails/"
 ]);
 

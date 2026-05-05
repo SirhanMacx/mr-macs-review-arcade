@@ -4008,8 +4008,12 @@ let currentGame = null;
 let frameLoadTimer = 0;
 let smartMenuLane = "recommended";
 let lastPlayerFocus = null;
-const FEATURED_GAME_IDS = ["history-hunters", "archive-quest", "review-maze-chase", "cold-war-invaders", "regents-rally-source-circuit", "regents-practice-exam", "ap-practice-exam"];
+const FEATURED_GAME_IDS = ["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "regents-practice-exam", "ap-practice-exam"];
 const SOURCE_LOCKED_GAME_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "source-sprint", "source-lab", "regents-gauntlet", "source-audit", "archive-cipher"]);
+const PREMIUM_ARCADE_IDS = new Set(["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite", "chrono-pinball", "time-rift-survivors"]);
+const REBUILD_QUEUE_IDS = new Set(["regents-rally-source-circuit", "review-maze-chase", "boss-rush-arena", "empire-ascendant"]);
+const PRACTICE_TOOL_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "mastery-path", "source-lab", "writing-coach", "source-audit", "source-sprint", "regents-gauntlet"]);
+const PROTOTYPE_IDS = new Set(["arcade-duel", "lightning-review", "vocab-vault"]);
 
 const LANES = [
   { id: "all", label: "All" },
@@ -4231,11 +4235,23 @@ function quickPlayIds() {
 function isQuickPlay(game) {
   return game.collection === "quick-play" || quickPlayIds().includes(game.id);
 }
+function qualityTier(game) {
+  if (!game) return "library";
+  if (PREMIUM_ARCADE_IDS.has(game.id)) return "premium";
+  if (REBUILD_QUEUE_IDS.has(game.id)) return "rebuild";
+  if (PRACTICE_TOOL_IDS.has(game.id)) return "practice";
+  if (PROTOTYPE_IDS.has(game.id)) return "prototype";
+  if (isJeopardyBoard(game)) return "jeopardy";
+  return "library";
+}
+function isPremiumArcade(game) {
+  return qualityTier(game) === "premium";
+}
 function laneMatches(game) {
   if (state.lane === "all") return true;
   const text = searchable(game);
   if (state.lane === "mastery") return game.collection === "mastery-path" || ["mastery-path", "source-lab", "writing-coach"].includes(game.id);
-  if (state.lane === "play") return ["archive-quest", "history-hunters", "review-maze-chase", "cold-war-invaders", "regents-rally-source-circuit", "chrono-defense-infinite", "time-rift-survivors", "chrono-pinball", "empire-ascendant", "boss-rush-arena"].includes(game.id);
+  if (state.lane === "play") return isPremiumArcade(game);
   if (state.lane === "quick") return isQuickPlay(game);
   if (state.lane === "regents") return /regents|stimulus|source-based|source based|crq|enduring issue|document writing|ap-style|frq|dbq|saq/i.test(text) || ["regents-practice-exam", "ap-practice-exam", "source-audit", "regents-rally-source-circuit", "regents-gauntlet", "source-sprint"].includes(game.id);
   if (state.lane === "jeopardy") return isJeopardyBoard(game);
@@ -4258,13 +4274,15 @@ function priority(game) {
   if (game.id === "writing-coach") return -7;
   if (game.id === "history-hunters") return -6;
   if (game.id === "archive-quest") return -5;
-  if (game.id === "review-maze-chase") return -4.85;
   if (game.id === "cold-war-invaders") return -4.7;
-  if (game.id === "regents-rally-source-circuit") return -4.4;
+  if (game.id === "timeline-runner") return -4.55;
+  if (game.id === "chrono-defense-infinite") return -4.35;
+  if (game.id === "chrono-pinball") return -4.2;
+  if (game.id === "time-rift-survivors") return -4.1;
   if (game.id === "regents-practice-exam") return -4;
   if (game.id === "ap-practice-exam") return -3.9;
-  if (game.id === "regents-gauntlet") return -3.6;
-  if (game.id === "timeline-runner") return -3.2;
+  if (game.id === "review-maze-chase") return -2.7;
+  if (game.id === "regents-rally-source-circuit") return -2.6;
   if (game.id === "source-sprint") return -3;
   if (game.id === "lightning-review") return -2;
   if (game.id === "vocab-vault") return -1;
@@ -4329,9 +4347,9 @@ function renderMetrics() {
   const items = [
     { class: "gold",  pre: "Live games",       big: GAMES.length },
     { class: "",      pre: "Courses on deck",  big: courseCount },
-    { class: "rose",  pre: "Arcade modes",     big: typeCount },
+    { class: "rose",  pre: "Premium arcade",   big: GAMES.filter(isPremiumArcade).length },
     { class: "green", pre: "Review prompts",   big: clueCount },
-    { class: "gold",  pre: "Quick play modes", big: GAMES.filter(isQuickPlay).length },
+    { class: "gold",  pre: "Practice tools",   big: GAMES.filter((game) => qualityTier(game) === "practice").length },
     { class: "green", pre: "Jeopardy boards", big: GAMES.filter(isJeopardyBoard).length },
     { class: "",      pre: "Regents sprint sets", big: GAMES.filter(g => g.gameType.includes("Regents")).length },
     { class: "rose",  pre: "AP Psych missions",  big: GAMES.filter(g => g.course === "AP Psychology").length },
@@ -4354,11 +4372,11 @@ function cardSubtitle(game) {
   if (!game) return "";
   if (game.id === "history-hunters") return "Open-world review RPG with battles, party building, rewards, and course quests.";
   if (game.id === "archive-quest") return "Platform levels, double jump, review gates, and question-unlocked powers.";
-  if (game.id === "review-maze-chase") return "Collect evidence pellets, grab source scrolls, and answer through gates to power up.";
+  if (game.id === "review-maze-chase") return "Prototype under rebuild: evidence maze, source scrolls, chasers, and answer gates.";
   if (game.id === "cold-war-invaders") return "Atari-style Space Invaders with Cold War questions, intel bursts, and mobile controls.";
   if (game.id === "regents-practice-exam") return "Full Regents practice with official questions, writing, pacing, and score estimates.";
   if (game.id === "ap-practice-exam") return "Released AP practice with multiple-choice, writing, pacing, and score estimates.";
-  if (game.id === "regents-rally-source-circuit") return "Historical kart drivers drift, collect items, and unlock powerups with quick review clues.";
+  if (game.id === "regents-rally-source-circuit") return "Under rebuild: historical kart drivers, drift, items, and quick review powerups.";
   if (game.id === "source-sprint") return "Fast source-based MCQ reps that sharpen reading, evidence, and accuracy.";
   if (game.id === "regents-gauntlet") return "Mixed Regents MCQ pressure run with explanations after every answer.";
   if (game.id === "writing-coach") return "CRQ, short essay, enduring issue, and Civic Literacy writing practice.";
@@ -4640,10 +4658,10 @@ function smartMenuGames(laneId) {
     return pickGames(["regents-practice-exam", "ap-practice-exam", "writing-coach", "source-lab", "source-sprint", "regents-gauntlet"]);
   }
   if (laneId === "arcade") {
-    return pickGames(["history-hunters", "archive-quest", "review-maze-chase", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite"]);
+    return pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite", "chrono-pinball"]);
   }
   if (laneId === "quick") {
-    return pickGames(["lightning-review", "source-sprint", "archive-cipher", "vocab-vault", "arcade-duel", "regents-gauntlet"]);
+    return pickGames(["source-sprint", "archive-cipher", "lightning-review", "vocab-vault"]);
   }
   if (laneId === "ap") {
     const apBoards = GAMES.filter((game) => laneMatchesWith("ap", game) && isJeopardyBoard(game))

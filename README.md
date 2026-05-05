@@ -53,7 +53,9 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 
 Current flagship priority is a smaller set of real games with strong loops, not many thin quiz skins:
 
-- Keep improving History Hunters 2, Archive Quest, Regents Rally 64, Cold War Invaders, Timeline Runner, Chrono Pinball, Chrono Defense, and Review Maze Chase as the main arcade lane.
+- Premium arcade lane now means the game must have a real controllable loop, readable state, responsive input, meaningful failure/recovery, mobile-safe performance, and review content that changes decisions during play.
+- Keep History Hunters 2, Archive Quest, Cold War Invaders, Timeline Runner, Chrono Defense, Chrono Pinball, and Time Rift Survivors as the current premium arcade lane.
+- Treat Regents Rally 64, Review Maze Chase, Boss Rush Arena, and Empire Ascendant as rebuild candidates until their moment-to-moment feel clears the premium bar.
 - Treat Regents Practice Exam, AP Practice Exam, Source Lab, Mastery Path, Writing Coach, and Source Audit as practice tools, not console-style games.
 - Demote weak prototypes such as Regents Gauntlet, Arcade Duel, Lightning Review, Source Sprint, and Vocab Vault unless they gain stronger real-time gameplay and source-first review loops.
 - Next expansion ideas: a source-inspection stealth game where evidence unlocks routes, class/team cup seasons for Rally, and Mastery Path unlocks that feed personalized enemies/items into flagship games.

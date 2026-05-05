@@ -278,6 +278,33 @@ def check_index_uses_games_json() -> list[str]:
     return errors
 
 
+def check_premium_quality_gate() -> list[str]:
+    errors: list[str] = []
+    index_text = (ROOT / "index.html").read_text(encoding="utf-8")
+    games = load_json(ROOT / "games.json")
+    by_id = {game.get("id"): game for game in games}
+    rebuild_ids = {"regents-rally-source-circuit", "review-maze-chase", "boss-rush-arena", "empire-ascendant"}
+    prototype_ids = {"arcade-duel", "lightning-review", "vocab-vault"}
+    featured_match = re.search(r"const\s+FEATURED_GAME_IDS\s*=\s*\[(.*?)\];", index_text, re.S)
+    if not featured_match:
+        errors.append("index.html missing FEATURED_GAME_IDS quality gate.")
+    else:
+        featured_blob = featured_match.group(1)
+        for game_id in sorted(rebuild_ids | prototype_ids):
+            if f'"{game_id}"' in featured_blob or f"'{game_id}'" in featured_blob:
+                errors.append(f"{game_id} must not be in FEATURED_GAME_IDS while below premium quality.")
+    for marker in ["PREMIUM_ARCADE_IDS", "REBUILD_QUEUE_IDS", "PROTOTYPE_IDS", "qualityTier", "isPremiumArcade"]:
+        if marker not in index_text:
+            errors.append(f"index.html missing premium quality marker: {marker}")
+    for game_id in sorted(rebuild_ids):
+        game = by_id.get(game_id)
+        if not game:
+            continue
+        if game.get("day") == "Master Game":
+            errors.append(f"{game_id} is a rebuild candidate and must not be labeled Master Game.")
+    return errors
+
+
 def check_public_traffic_footer() -> list[str]:
     errors: list[str] = []
     index_text = (ROOT / "index.html").read_text(encoding="utf-8")
@@ -686,6 +713,7 @@ def main() -> int:
         ("flagship game audit", check_flagship_game_audit),
         ("dropdown option contrast", check_select_option_contrast),
         ("index.html games load", check_index_uses_games_json),
+        ("premium quality gate", check_premium_quality_gate),
         ("public traffic footer", check_public_traffic_footer),
         ("game thumbnails", check_game_thumbnails),
         ("mastery platform", check_mastery_platform),

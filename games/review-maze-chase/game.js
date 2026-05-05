@@ -90,11 +90,16 @@
     pelletsLeft: 0,
     correct: 0,
     answered: 0,
+    combo: 0,
     powerUntil: 0,
     player: { x: 10, y: 13, dir: "left", next: "left" },
     chasers: [],
     currentQuestion: null,
     pointer: null,
+    countdownUntil: 0,
+    freezeUntil: 0,
+    message: "",
+    messageUntil: 0,
     lastStep: 0,
     lastDraw: 0,
     speedMs: 128
@@ -120,12 +125,50 @@
   function number(value) {
     return Number(value || 0).toLocaleString();
   }
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+  function lerp(start, end, t) {
+    return start + (end - start) * t;
+  }
+  function ease(t) {
+    const v = clamp(t, 0, 1);
+    return v * v * (3 - 2 * v);
+  }
   function show(panel) {
     [els.setup, els.quiz, els.result].forEach((el) => el.classList.remove("show"));
     if (panel) panel.classList.add("show");
   }
   function canMove(x, y) {
     return y >= 0 && y < ROWS && x >= 0 && x < COLS && LEVEL[y][x] !== "#";
+  }
+  function nextTile(actor, dirName) {
+    const dir = dirs[dirName];
+    if (!dir) return null;
+    let x = actor.x + dir.x;
+    let y = actor.y + dir.y;
+    if (y === 9 && x < 0) x = COLS - 1;
+    if (y === 9 && x >= COLS) x = 0;
+    if (!canMove(x, y)) return null;
+    return { x, y };
+  }
+  function moveActor(actor, x, y, now) {
+    actor.prevX = actor.x;
+    actor.prevY = actor.y;
+    actor.x = x;
+    actor.y = y;
+    actor.moveAt = now;
+  }
+  function actorDisplay(actor, now) {
+    const t = ease((now - Number(actor.moveAt || 0)) / state.speedMs);
+    return {
+      x: lerp(Number(actor.prevX ?? actor.x), actor.x, t),
+      y: lerp(Number(actor.prevY ?? actor.y), actor.y, t)
+    };
+  }
+  function setMessage(text, ms = 1200) {
+    state.message = text;
+    state.messageUntil = performance.now() + ms;
   }
   function setDirection(dir) {
     if (dirs[dir]) state.player.next = dir;
@@ -257,7 +300,9 @@
     if (choice.correct) {
       state.correct += 1;
       state.score += 600;
+      state.combo = 0;
       state.powerUntil = performance.now() + 11000;
+      setMessage("SOURCE POWER: chase the chasers", 1500);
       button.classList.add("correct");
       els.feedback.innerHTML = `<strong>Correct. Source power online.</strong><br>${escapeHtml(state.currentQuestion.explanation || "Chasers are vulnerable. Clear the maze.")}`;
     } else {
@@ -284,25 +329,32 @@
     }
   }
   function resetActors() {
-    state.player = { x: 10, y: 13, dir: "left", next: "left" };
+    const now = performance.now();
+    state.player = { x: 10, y: 13, prevX: 10, prevY: 13, moveAt: now, dir: "left", next: "left" };
     state.chasers = [
-      { x: 9, y: 8, dir: "left", img: "red", scatter: { x: 1, y: 1 } },
-      { x: 10, y: 8, dir: "right", img: "blue", scatter: { x: 19, y: 1 } },
-      { x: 11, y: 8, dir: "up", img: "purple", scatter: { x: 1, y: 15 } },
-      { x: 10, y: 7, dir: "down", img: "green", scatter: { x: 19, y: 15 } }
+      { x: 9, y: 8, prevX: 9, prevY: 8, moveAt: now, dir: "left", img: "red", personality: "hunter", scatter: { x: 1, y: 1 }, home: { x: 9, y: 8 }, releaseAt: now + 400 },
+      { x: 10, y: 8, prevX: 10, prevY: 8, moveAt: now, dir: "right", img: "blue", personality: "ambush", scatter: { x: 19, y: 1 }, home: { x: 10, y: 8 }, releaseAt: now + 1400 },
+      { x: 11, y: 8, prevX: 11, prevY: 8, moveAt: now, dir: "up", img: "purple", personality: "patrol", scatter: { x: 1, y: 15 }, home: { x: 11, y: 8 }, releaseAt: now + 2600 },
+      { x: 10, y: 7, prevX: 10, prevY: 7, moveAt: now, dir: "down", img: "green", personality: "mirror", scatter: { x: 19, y: 15 }, home: { x: 10, y: 7 }, releaseAt: now + 3600 }
     ];
   }
   function startRun() {
+    const now = performance.now();
     state.running = true;
     state.paused = false;
     state.score = 0;
     state.lives = 3;
     state.correct = 0;
     state.answered = 0;
+    state.combo = 0;
     state.powerUntil = 0;
+    state.countdownUntil = now + 2200;
+    state.freezeUntil = 0;
+    state.lastStep = now;
     state.speedMs = els.speedFilter.value === "fast" ? 104 : els.speedFilter.value === "study" ? 162 : 128;
     resetGrid();
     resetActors();
+    setMessage("READY", 2200);
     show(null);
     updateHud();
     window.MrMacsAnalytics?.track("game_open", { gameId: "review-maze-chase", title: "Review Maze Chase" }, { counter: "game-opens" });
@@ -323,17 +375,17 @@
       state.grid[state.player.y][state.player.x] = " ";
       state.score += 80;
       state.pelletsLeft -= 1;
+      setMessage("SOURCE SCROLL", 900);
       openQuestion();
     }
     if (state.pelletsLeft <= 0) endRun(true);
   }
-  function stepPlayer() {
-    const next = dirs[state.player.next];
-    if (next && canMove(state.player.x + next.x, state.player.y + next.y)) state.player.dir = state.player.next;
-    const dir = dirs[state.player.dir];
-    if (dir && canMove(state.player.x + dir.x, state.player.y + dir.y)) {
-      state.player.x += dir.x;
-      state.player.y += dir.y;
+  function stepPlayer(now) {
+    const queued = nextTile(state.player, state.player.next);
+    if (queued) state.player.dir = state.player.next;
+    const tile = nextTile(state.player, state.player.dir);
+    if (tile) {
+      moveActor(state.player, tile.x, tile.y, now);
       eatCell();
     }
   }
@@ -341,10 +393,22 @@
     return Object.entries(dirs)
       .filter(([name, dir]) => name !== opposite[chaser.dir] && canMove(chaser.x + dir.x, chaser.y + dir.y));
   }
-  function stepChasers() {
+  function targetFor(chaser) {
     const powered = performance.now() < state.powerUntil;
+    if (powered) return chaser.scatter;
+    if (chaser.personality === "ambush") {
+      const dir = dirs[state.player.dir] || dirs.left;
+      return { x: clamp(state.player.x + dir.x * 3, 0, COLS - 1), y: clamp(state.player.y + dir.y * 3, 0, ROWS - 1) };
+    }
+    if (chaser.personality === "patrol") return Math.abs(chaser.x - state.player.x) + Math.abs(chaser.y - state.player.y) > 7 ? state.player : chaser.scatter;
+    if (chaser.personality === "mirror") return { x: COLS - 1 - state.player.x, y: ROWS - 1 - state.player.y };
+    return state.player;
+  }
+  function stepChasers(now) {
+    const powered = now < state.powerUntil;
     for (const chaser of state.chasers) {
-      let target = powered ? chaser.scatter : state.player;
+      if (now < chaser.releaseAt) continue;
+      let target = targetFor(chaser);
       let options = chaserOptions(chaser);
       if (!options.length) options = Object.entries(dirs).filter(([, dir]) => canMove(chaser.x + dir.x, chaser.y + dir.y));
       options.sort((a, b) => {
@@ -355,21 +419,26 @@
       const chosen = Math.random() < .18 ? options[Math.floor(Math.random() * options.length)] : options[0];
       if (chosen) {
         chaser.dir = chosen[0];
-        chaser.x += chosen[1].x;
-        chaser.y += chosen[1].y;
+        const tile = nextTile(chaser, chosen[0]);
+        if (tile) moveActor(chaser, tile.x, tile.y, now);
       }
     }
   }
-  function handleCollisions() {
-    const powered = performance.now() < state.powerUntil;
+  function handleCollisions(now) {
+    const powered = now < state.powerUntil;
     for (const chaser of state.chasers) {
       if (chaser.x !== state.player.x || chaser.y !== state.player.y) continue;
       if (powered) {
-        state.score += 300;
-        chaser.x = 10;
-        chaser.y = 8;
+        state.combo += 1;
+        state.score += 300 * state.combo;
+        moveActor(chaser, chaser.home.x, chaser.home.y, now);
+        chaser.releaseAt = now + 1600;
+        setMessage(`${300 * state.combo} SOURCE COMBO`, 900);
       } else {
         state.lives -= 1;
+        state.combo = 0;
+        state.freezeUntil = now + 650;
+        setMessage("SHIELD LOST", 900);
         resetActors();
         if (state.lives <= 0) endRun(false);
       }
@@ -393,11 +462,11 @@
     window.MrMacsAnalytics?.track("game_complete", { gameId: "review-maze-chase", title: "Review Maze Chase", score: accuracy, questions: state.answered }, { counter: "game-completions" });
   }
   function step(now) {
-    if (state.running && !state.paused && now - state.lastStep >= state.speedMs) {
+    if (state.running && !state.paused && now >= state.countdownUntil && now >= state.freezeUntil && now - state.lastStep >= state.speedMs) {
       state.lastStep = now;
-      stepPlayer();
-      stepChasers();
-      handleCollisions();
+      stepPlayer(now);
+      stepChasers(now);
+      handleCollisions(now);
       updateHud();
     }
     draw(now);
@@ -447,20 +516,67 @@
           ctx.fillRect(sx, sy, board.cell, board.cell);
           ctx.strokeStyle = "rgba(111,238,255,.06)";
           ctx.strokeRect(sx + .5, sy + .5, board.cell - 1, board.cell - 1);
-          if (cell === ".") drawImg("pellet", sx + board.cell / 2, sy + board.cell / 2, board.cell * .58);
-          if (cell === "o") drawImg("scroll", sx + board.cell / 2, sy + board.cell / 2, board.cell * 1.12);
+          if (cell === ".") {
+            const pulse = 0.86 + Math.sin(now / 140 + x * 1.7 + y) * 0.1;
+            drawImg("pellet", sx + board.cell / 2, sy + board.cell / 2, board.cell * .58 * pulse);
+          }
+          if (cell === "o") {
+            ctx.save();
+            ctx.shadowColor = "rgba(255,212,92,.78)";
+            ctx.shadowBlur = board.cell * .42;
+            drawImg("scroll", sx + board.cell / 2, sy + board.cell / 2 + Math.sin(now / 180 + x) * board.cell * .06, board.cell * 1.12);
+            ctx.restore();
+          }
         }
       }
     }
     const powered = now < state.powerUntil;
     for (const chaser of state.chasers) {
-      const pos = cellToScreen(chaser.x, chaser.y, board);
+      const at = actorDisplay(chaser, now);
+      const pos = cellToScreen(at.x, at.y, board);
+      const released = now >= chaser.releaseAt;
       drawImg(chaser.img, pos.x, pos.y, board.cell * 1.34, powered ? .48 : 1);
       if (powered) drawImg("burst", pos.x, pos.y, board.cell * .74, .7);
+      if (!released) {
+        ctx.save();
+        ctx.strokeStyle = "rgba(111,238,255,.74)";
+        ctx.lineWidth = Math.max(2, board.cell * .08);
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, board.cell * .58, -Math.PI / 2, Math.PI * 1.5);
+        ctx.stroke();
+        ctx.restore();
+      }
     }
-    const p = cellToScreen(state.player.x, state.player.y, board);
-    drawImg("player", p.x, p.y, board.cell * 1.46);
+    const playerAt = actorDisplay(state.player, now);
+    const p = cellToScreen(playerAt.x, playerAt.y, board);
+    ctx.save();
+    const rotation = state.player.dir === "right" ? 0 : state.player.dir === "down" ? Math.PI / 2 : state.player.dir === "up" ? -Math.PI / 2 : Math.PI;
+    ctx.translate(p.x, p.y);
+    ctx.rotate(rotation);
+    const playerPulse = 1 + Math.sin(now / 85) * .035;
+    const img = image("player");
+    if (img) ctx.drawImage(img, -board.cell * .73 * playerPulse, -board.cell * .73 * playerPulse, board.cell * 1.46 * playerPulse, board.cell * 1.46 * playerPulse);
+    ctx.restore();
     for (let i = 0; i < state.lives; i++) drawImg("shield", board.x + i * board.cell * 1.1 + board.cell * .55, board.y - board.cell * .7, board.cell * .75);
+    ctx.restore();
+    drawOverlayText(now, w, h, board);
+  }
+  function drawOverlayText(now, w, h, board) {
+    const countdown = Math.ceil((state.countdownUntil - now) / 1000);
+    const showCountdown = state.running && !state.paused && countdown > 0;
+    const showMessage = state.message && now < state.messageUntil;
+    if (!showCountdown && !showMessage) return;
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const text = showCountdown ? (countdown > 1 ? String(countdown - 1) : "GO") : state.message;
+    const y = showCountdown ? h * .48 : Math.max(board.y - board.cell * 1.25, h * .18);
+    ctx.font = showCountdown ? `950 ${Math.min(96, Math.max(52, board.cell * 3.4))}px Inter, sans-serif` : `950 ${Math.min(34, Math.max(18, board.cell * .8))}px Inter, sans-serif`;
+    ctx.lineWidth = Math.max(4, board.cell * .16);
+    ctx.strokeStyle = "rgba(3,6,15,.88)";
+    ctx.fillStyle = showCountdown ? "#ffd45c" : "#6eeeff";
+    ctx.strokeText(text, w / 2, y);
+    ctx.fillText(text, w / 2, y);
     ctx.restore();
   }
   function installQaHook() {
@@ -475,7 +591,9 @@
         pelletsLeft: state.pelletsLeft,
         filtered: state.filtered.length,
         running: state.running,
-        paused: state.paused
+        paused: state.paused,
+        combo: state.combo,
+        countdown: Math.max(0, state.countdownUntil - performance.now())
       })
     };
   }
