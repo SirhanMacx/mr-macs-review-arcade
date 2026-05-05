@@ -1574,7 +1574,11 @@
       locked: true,
       fx: null,
       fxTime: 0,
-      capture: 0
+      capture: 0,
+      turn: 1,
+      momentum: 18,
+      combo: 0,
+      lastRead: ""
     };
     state.battle = battle;
     els.battleUi.hidden = false;
@@ -1623,7 +1627,11 @@
       return;
     }
     if (battle.menu === "fight") {
-      els.battleActions.innerHTML = battle.hero.moves.map((item, index) => `<button type="button" data-move="${index}" title="${escapeHtml(item.flavor || item.name)}" ${item.pp <= 0 ? "disabled" : ""}><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(moveStyleLabel(item.style))} / ${escapeHtml(item.type)} / ${item.power} / ${item.pp}/${item.maxPp} energy</small></button>`).join("");
+      els.battleActions.innerHTML = battle.hero.moves.map((item, index) => {
+        const read = battleReadFor(item, battle.enemy.type);
+        const comboPreview = read.tier === "strong" ? Math.min(3, Number(battle.combo || 0) + 1) : Math.max(0, Math.floor(Number(battle.combo || 0)));
+        return `<button class="read-${escapeHtml(read.tier)}" type="button" data-move="${index}" title="${escapeHtml(item.flavor || item.name)}" ${item.pp <= 0 ? "disabled" : ""}><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(read.label)} · ${escapeHtml(moveStyleLabel(item.style))} · PWR ${item.power} · ${item.pp}/${item.maxPp} energy${comboPreview ? ` · Chain x${comboPreview}` : ""}</small></button>`;
+      }).join("");
       [...els.battleActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => useMove(Number(button.dataset.move))));
       return;
     }
@@ -1638,7 +1646,7 @@
       return;
     }
     els.battleActions.innerHTML = [
-      ["fight", "Fight", "moves"],
+      ["fight", "Fight", `${momentumLabel(battle.momentum || 0)} · chain x${battle.combo || 0}`],
       ["bag", "Bag", "items"],
       ["party", "Party", "switch"],
       ["run", "Run", "escape"]
@@ -1652,7 +1660,7 @@
     if (action === "fight") {
       playSfx("menu");
       battle.menu = "fight";
-      setBattleLog("Choose a move.");
+      setBattleLog(`Choose a move. Read the matchup before spending energy.`);
       renderBattleActions();
     } else if (action === "bag") {
       playSfx("menu");
@@ -1672,6 +1680,8 @@
       state.stats.active = next;
       battle.hero = normalizeAlly(activeAlly());
       battle.heroHp = battle.hero.hp;
+      battle.combo = 0;
+      battle.momentum = Math.max(12, Number(battle.momentum || 0) - 10);
       setBattleLog(`${PLAYER_TITLE} threw out ${battle.hero.actualName.toUpperCase()}!`);
       battle.menu = "root";
       writeSave();
@@ -1696,6 +1706,20 @@
     if (multiplier > 1.2) return "It's super effective!";
     if (multiplier < .8) return "It's not very effective.";
     return "It connected.";
+  }
+
+  function battleReadFor(moveUsed, targetType) {
+    const multiplier = typeMultiplier(moveUsed.type, targetType);
+    if (multiplier > 1.2) return { multiplier, label: "Strong Read", tier: "strong", note: "discipline advantage" };
+    if (multiplier < .8) return { multiplier, label: "Risky Read", tier: "weak", note: "poor match" };
+    return { multiplier, label: "Solid Read", tier: "neutral", note: "standard effect" };
+  }
+
+  function momentumLabel(value) {
+    if (value >= 72) return "Commanding";
+    if (value >= 48) return "Pressuring";
+    if (value <= 18) return "Recovering";
+    return "Balanced";
   }
 
   function makeAttackFx(kind, moveUsed, attacker, defender) {
@@ -1739,13 +1763,20 @@
     playSfx("attack", selected);
     await wait(720);
     if (state.battle !== battle) return;
-    const mult = typeMultiplier(selected.type, battle.enemy.type);
-    const damage = Math.max(6, Math.round((selected.power + battle.hero.level * 2) * mult * (.86 + Math.random() * .24)));
+    const read = battleReadFor(selected, battle.enemy.type);
+    const mult = read.multiplier;
+    const wasStrong = read.tier === "strong";
+    const wasWeak = read.tier === "weak";
+    battle.combo = wasStrong ? Math.min(3, Number(battle.combo || 0) + 1) : wasWeak ? 0 : Math.max(0, Number(battle.combo || 0) - 0.35);
+    battle.momentum = clamp(Number(battle.momentum || 0) + (wasStrong ? 20 : wasWeak ? -18 : 7), 0, 100);
+    const chainBonus = 1 + Math.min(0.18, battle.combo * 0.055) + Math.max(0, battle.momentum - 50) * 0.0018;
+    const damage = Math.max(6, Math.round((selected.power + battle.hero.level * 2) * mult * chainBonus * (.86 + Math.random() * .24)));
     battle.enemyHp = clamp(battle.enemyHp - damage, 0, battle.enemyMax);
     battle.capture = clamp(battle.capture + 12 + damage * .34, 0, 100);
+    battle.lastRead = `${read.label}${battle.combo >= 1 ? ` · Chain x${Math.round(battle.combo)}` : ""}`;
     battle.fx = makeImpactFx("enemyHit", selected);
     playSfx(mult > 1.2 ? "super" : mult < .8 ? "weak" : "hit");
-    setBattleLog(`${effectSentence(mult)} ${battle.enemy.actualName.toUpperCase()} lost ${damage} HP.`);
+    setBattleLog(`${effectSentence(mult)} ${read.label}. ${battle.enemy.actualName.toUpperCase()} lost ${damage} HP.`);
     writeSave();
     await wait(880);
     if (state.battle !== battle) return;
@@ -1771,6 +1802,8 @@
     const damage = Math.max(5, Math.round((moveUsed.power + battle.enemy.level) * mult * (.72 + Math.random() * .2)));
     battle.heroHp = clamp(battle.heroHp - damage, 0, battle.hero.maxHp);
     battle.hero.hp = battle.heroHp;
+    battle.momentum = clamp(Number(battle.momentum || 0) - (mult > 1.2 ? 18 : mult < .8 ? 4 : 10), 0, 100);
+    if (mult > 1.2) battle.combo = Math.max(0, Number(battle.combo || 0) - 1);
     battle.fx = makeImpactFx("heroHit", moveUsed);
     playSfx(mult > 1.2 ? "super" : mult < .8 ? "weak" : "hit");
     setBattleLog(`${effectSentence(mult)} ${battle.hero.actualName.toUpperCase()} lost ${damage} HP.`);
@@ -1791,18 +1824,21 @@
         updateHud();
         await wait(900);
         if (state.battle !== battle) return;
+        battle.turn = Number(battle.turn || 1) + 1;
+        battle.combo = 0;
         battle.locked = false;
         battle.fx = null;
-        setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
+        setBattleLog(`Turn ${battle.turn}. What will ${battle.hero.actualName.toUpperCase()} do?`);
         renderBattleActions();
         return;
       }
       closeBattle("Your party needs the Chronicle Center.");
       return;
     }
+    battle.turn = Number(battle.turn || 1) + 1;
     battle.locked = false;
     battle.fx = null;
-    setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
+    setBattleLog(`Turn ${battle.turn}. What will ${battle.hero.actualName.toUpperCase()} do?`);
     renderBattleActions();
   }
 
@@ -1903,6 +1939,9 @@
         battle.enemyHp = next.hp;
         battle.enemyMax = next.maxHp;
         battle.capture = 0;
+        battle.combo = 0;
+        battle.momentum = clamp(Number(battle.momentum || 0) + 8, 0, 100);
+        battle.turn = Number(battle.turn || 1) + 1;
         battle.menu = "root";
         battle.fx = { kind: "enemy", style: "source", color: next.color, accent: "#edf987", moveName: "Next Ally", started: performance.now(), duration: 760 };
         playSfx("battle");
@@ -1911,7 +1950,7 @@
         if (state.battle !== battle) return;
         battle.locked = false;
         battle.fx = null;
-        setBattleLog(`What will ${battle.hero.actualName.toUpperCase()} do?`);
+        setBattleLog(`Turn ${battle.turn}. What will ${battle.hero.actualName.toUpperCase()} do?`);
         renderBattleActions();
         return;
       }
@@ -2759,11 +2798,38 @@
     ctx.globalAlpha = 1;
     drawBattleCard(battle.enemy, Math.max(12, w * .06), portrait ? 56 : 45, battle.enemyHp, battle.enemyMax, false, cardW, cardH);
     drawBattleCard(battle.hero, Math.min(w - cardW - 14, w * (portrait ? .55 : .64)), Math.max(150, fieldH - cardH - 14), battle.heroHp, battle.hero.maxHp, true, cardW, cardH);
+    drawBattleReadOverlay(battle, w, fieldH);
     const enemyShift = fighterShift(battle, "enemy");
     const heroShift = fighterShift(battle, "hero");
     drawFigure(battle.enemy, enemyBaseX - enemyW * .48 + enemyShift.x, enemyBaseY - enemyW * .34 + enemyShift.y, enemyW * enemyShift.scale, enemyW * .75 * enemyShift.scale, false);
     drawFigure(battle.hero, heroBaseX - heroW * .5 + heroShift.x, heroBaseY - heroW * .36 + heroShift.y, heroW * heroShift.scale, heroW * .75 * heroShift.scale, true);
     drawBattleFx(battle);
+  }
+
+  function drawBattleReadOverlay(battle, w, fieldH) {
+    const compact = w < 680;
+    const panelW = compact ? Math.min(w - 24, 270) : 360;
+    const x = w / 2 - panelW / 2;
+    const y = battle.gym ? 48 : 14;
+    const value = clamp(Number(battle.momentum || 0) / 100, 0, 1);
+    ctx.save();
+    ctx.fillStyle = "rgba(7,21,12,.76)";
+    ctx.strokeStyle = "rgba(237,249,135,.7)";
+    ctx.lineWidth = 2;
+    ctx.fillRect(x, y, panelW, compact ? 54 : 64);
+    ctx.strokeRect(x, y, panelW, compact ? 54 : 64);
+    ctx.fillStyle = "rgba(117,244,255,.18)";
+    ctx.fillRect(x + 10, y + (compact ? 39 : 47), panelW - 20, 7);
+    ctx.fillStyle = value >= .5 ? "#75f4ff" : "#ff6a8d";
+    ctx.fillRect(x + 10, y + (compact ? 39 : 47), (panelW - 20) * value, 7);
+    ctx.fillStyle = "#edf987";
+    ctx.font = compact ? "10px Courier New" : "11px Courier New";
+    ctx.fillText(`TURN ${Number(battle.turn || 1)} · ${momentumLabel(battle.momentum || 0).toUpperCase()}`, x + 12, y + 17);
+    ctx.fillStyle = battle.combo >= 2 ? "#f3cf61" : "#75f4ff";
+    ctx.font = compact ? "12px Courier New" : "15px Courier New";
+    const read = battle.lastRead || `CHAIN x${Math.round(battle.combo || 0)} · READ MATCHUP`;
+    ctx.fillText(read.toUpperCase().slice(0, compact ? 28 : 38), x + 12, y + (compact ? 33 : 38));
+    ctx.restore();
   }
 
   function drawBattleCard(ally, x, y, hp, maxHp, player, width = 260, height = 62) {

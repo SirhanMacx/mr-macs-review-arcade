@@ -475,7 +475,7 @@ body {
   background: linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.04));
 }
 
-.item-button:disabled { opacity: .56; cursor: default; }
+.item-button:disabled { opacity: .74; cursor: default; }
 .item-button:not(:disabled) {
   border-color: rgba(255,209,92,.58);
   box-shadow: 0 0 30px rgba(255,209,92,.18), inset 0 1px 0 rgba(255,255,255,.16);
@@ -489,8 +489,16 @@ body {
   background: rgba(0,0,0,.3) center/200% 200% no-repeat;
 }
 
-.item-thumb.ready { box-shadow: 0 0 24px rgba(102,233,255,.32); }
+.item-thumb.ready {
+  box-shadow: 0 0 24px rgba(102,233,255,.32);
+  animation: itemPulse .72s steps(2, end) infinite;
+}
 .item-button strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@keyframes itemPulse {
+  0%, 100% { transform: translateY(0) rotate(-2deg) scale(1); filter: saturate(1); }
+  50% { transform: translateY(-1px) rotate(2deg) scale(1.06); filter: saturate(1.35); }
+}
 
 .race-actions {
   position: absolute;

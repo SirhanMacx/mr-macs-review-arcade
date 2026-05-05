@@ -10,10 +10,10 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - Regents Practice Exam, a timed full-exam simulator with expandable/zoomable source inspection, 28 released-bank MCQs, Global II CRQs, U.S. History short essays, Part IIIA scaffold practice, document essays, January 2026 conversion-chart estimates, and writing guide position
 - Archive Quest, the flagship generated-art 2D social-studies platformer with tuned double jump, smoother camera, three levels, platform physics, enemies, evidence collectibles, review gates, and question-unlocked powerups
 - Archive Cipher, a generated-art review Wordle-style term decoder with course filters, unit filters, animated tile feedback, hints, and explanations from the full review library
-- History Hunters 2, an original all-courses retro handheld social-studies RPG with route walking, a three-historical-starter opening choice, course matchups, historical figure companion lines, answer-powered moves, archive capsules, and review contracts
+- History Hunters 2, an original all-courses retro handheld social-studies RPG with route walking, a three-historical-starter opening choice, course matchups, historical figure companion lines, battle-read momentum chains, answer-powered moves, archive capsules, and review contracts
 - Chrono Pinball, a full-library arcade pinball table with course filters, review lock missions, bumpers, lanes, multipliers, ball save, and multiball
 - Empire Ascendant, a full-library rise-and-fall strategy game with province expansion, city founding, research paths, unlock-gated buildings, wonders, diplomacy, rival relations, era advancement, stability collapse, and review councils
-- Regents Rally 64, a generated-art social-studies kart racer with historical driver select, era-themed karts, animated tracks, rival racers, item cubes, analog steering, tiered drift boosts, speed pads, and short review clues that unlock powerups
+- Regents Rally 64, a generated-art social-studies kart racer with historical driver select, era-themed karts, animated tracks, rival racers, slipstream drafting, near-miss boosts, item roulette, course-read overlays, tiered drift boosts, speed pads, and short review clues that unlock powerups
 - Review Maze Chase, an original generated-art maze-chase game where students collect evidence pellets, grab source scrolls, answer through gate choices, and turn archive chasers vulnerable
 - Timeline Runner, a generated-art endless runner where students dodge archive hazards, collect evidence, and answer by steering through course-filtered answer gates from the full 4,529-prompt review library
 - Time Rift Survivors, a full-library survival arcade game with generated arena art, animated combat, relic upgrades, course filters, stimulus access, and 4,529 review prompts
@@ -58,7 +58,7 @@ Current flagship priority is a smaller set of real games with strong loops, not 
 - Treat Regents Rally 64, Review Maze Chase, Boss Rush Arena, and Empire Ascendant as rebuild candidates until their moment-to-moment feel clears the premium bar.
 - Treat Regents Practice Exam, AP Practice Exam, Source Lab, Mastery Path, Writing Coach, and Source Audit as practice tools, not console-style games.
 - Demote weak prototypes such as Regents Gauntlet, Arcade Duel, Lightning Review, Source Sprint, and Vocab Vault unless they gain stronger real-time gameplay and source-first review loops.
-- Next expansion ideas: a source-inspection stealth game where evidence unlocks routes, class/team cup seasons for Rally, and Mastery Path unlocks that feed personalized enemies/items into flagship games.
+- Next expansion ideas: a source-inspection stealth game where evidence unlocks routes, class/team cup seasons for Rally, Mastery Path unlocks that feed personalized enemies/items into flagship games, a Source Court objection game where evidence builds arguments, and a Landmark Heist co-op mode where teams steal artifacts only by reading primary sources.
 
 ## Content Rule
 

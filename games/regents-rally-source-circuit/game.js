@@ -256,6 +256,16 @@ const ITEMS = [
   }
 ];
 
+const DRIFT_LABELS = ["", "MINI-TURBO", "SUPER MINI-TURBO", "ULTRA MINI-TURBO"];
+const DRIFT_COLORS = ["", "#f8fbff", "#ffd15c", "#66e9ff"];
+const RACECRAFT_EMPTY = () => ({
+  perfectStart: false,
+  nearMisses: 0,
+  draftSeconds: 0,
+  rouletteHits: 0,
+  lineBonus: 0
+});
+
 const POWERUP_CLUE_FALLBACKS = [
   { course: "Global", prompt: "Empire whose capital was Tenochtitlan.", answer: "Aztec Empire", explanation: "Tenochtitlan was the Aztec capital." },
   { course: "Global", prompt: "Trade route that linked China, Central Asia, and Europe.", answer: "Silk Road", explanation: "The Silk Road moved goods and ideas across Eurasia." },
@@ -491,6 +501,11 @@ const state = {
   cameraShake: 0,
   skid: 0,
   item: null,
+  itemRoulette: null,
+  draft: 0,
+  draftBoost: 0,
+  nearMissCooldown: 0,
+  racecraft: RACECRAFT_EMPTY(),
   itemBoxes: [],
   rivals: [],
   particles: [],
@@ -772,6 +787,11 @@ function startRace() {
   state.cameraShake = 0;
   state.skid = 0;
   state.item = null;
+  state.itemRoulette = null;
+  state.draft = 0;
+  state.draftBoost = 0;
+  state.nearMissCooldown = 0;
+  state.racecraft = RACECRAFT_EMPTY();
   state.score = 0;
   state.correct = 0;
   state.attempts = 0;
@@ -845,7 +865,12 @@ function nextQuestion() {
 }
 
 function openItemQuestion() {
-  if (!state.running || state.paused || state.quizOpen || !state.item) return;
+  if (!state.running || state.paused || state.quizOpen) return;
+  if (state.itemRoulette) {
+    setToast("ITEM STILL ROLLING", 0.55);
+    return;
+  }
+  if (!state.item) return;
   const question = nextQuestion();
   state.quizOpen = true;
   state.resolved = false;
@@ -960,17 +985,60 @@ function applyItem(item) {
 }
 
 function collectItem(box) {
-  if (box.taken || state.item || state.quizOpen) return;
+  if (box.taken || state.item || state.itemRoulette || state.quizOpen) return;
   box.taken = true;
-  state.item = box.item;
   state.score += 120;
+  state.itemRoulette = {
+    timer: 0.78,
+    total: 0.78,
+    seed: Math.random() * ITEMS.length,
+    fallback: box.item
+  };
   updateItemHud();
-  setToast("ITEM READY", 1.1);
-  burstParticles(box.lane, state.item.color, 16);
+  setToast("ITEM ROULETTE", 0.75);
+  burstParticles(box.lane, box.item.color, 16);
+}
+
+function pickRouletteItem() {
+  const place = state.place || CHARACTERS.length;
+  const comeback = place >= 5;
+  const frontRun = place <= 2;
+  const pool = comeback
+    ? ["scroll", "scroll", "rocket", "burst", "shield", "burst"]
+    : frontRun
+      ? ["shield", "shield", "scroll", "rocket"]
+      : ["scroll", "rocket", "shield", "burst", "scroll"];
+  const id = pool[Math.floor(Math.random() * pool.length)];
+  return ITEMS.find((item) => item.id === id) || state.itemRoulette?.fallback || ITEMS[0];
+}
+
+function updateItemRoulette(dt) {
+  if (!state.itemRoulette) return;
+  const before = state.itemRoulette.timer;
+  state.itemRoulette.timer = Math.max(0, state.itemRoulette.timer - dt);
+  state.itemRoulette.seed += dt * 16;
+  if (before > 0 && state.itemRoulette.timer <= 0) {
+    state.item = pickRouletteItem();
+    state.racecraft.rouletteHits += 1;
+    state.itemRoulette = null;
+    state.score += 160;
+    updateItemHud();
+    setToast(`${state.item.short.toUpperCase()} READY`, 0.9);
+    burstParticles(state.lane, state.item.color, 20);
+  } else {
+    updateItemHud();
+  }
 }
 
 function updateItemHud() {
-  if (state.item) {
+  if (state.itemRoulette) {
+    const rolling = ITEMS[Math.floor(state.itemRoulette.seed) % ITEMS.length];
+    els.hudItem.textContent = "Rolling...";
+    els.itemThumb.style.backgroundImage = "url('rally-items-v2.webp')";
+    els.itemThumb.style.backgroundPosition = spritePosition(rolling.spriteIndex, 2, 2);
+    els.itemThumb.classList.add("ready");
+    els.itemBtn.disabled = true;
+  } else if (state.item) {
     els.hudItem.textContent = state.item.name;
     els.itemThumb.style.backgroundImage = "url('rally-items-v2.webp')";
     els.itemThumb.style.backgroundPosition = spritePosition(state.item.spriteIndex, 2, 2);
@@ -1013,7 +1081,9 @@ function finishRace() {
     [ordinal(state.place), "place"],
     [`${state.finishTime.toFixed(1)}s`, "time"],
     [`${state.correct}/${state.attempts}`, "items"],
-    [`${accuracy}%`, "accuracy"]
+    [`${accuracy}%`, "accuracy"],
+    [String(state.racecraft.nearMisses), "near misses"],
+    [`${state.racecraft.draftSeconds.toFixed(1)}s`, "draft"]
   ].map(([big, label]) => `<div><strong>${escapeHtml(big)}</strong><span>${escapeHtml(label)}</span></div>`).join("");
   els.coachText.textContent = accuracy >= 85
     ? "Strong item control. Keep racing Rally 64, then move into a full practice exam."
@@ -1058,12 +1128,15 @@ function updateRace(dt) {
     if (before !== after && after > 0) setToast(String(after), 0.85);
     if (!state.countdown && !state.raceReleased) {
       state.raceReleased = true;
-      state.boost = keys.has("ArrowUp") || keys.has("w") || state.touch.gas ? 1.65 : 0;
+      const launchHeld = keys.has("ArrowUp") || keys.has("w") || state.touch.gas;
+      state.racecraft.perfectStart = launchHeld;
+      state.boost = launchHeld ? 1.85 : 0;
       if (state.boost > 0) {
+        state.score += 140;
         state.cameraShake = Math.max(state.cameraShake, 0.2);
         burstParticles(state.lane, state.character.accent, 22);
       }
-      setToast(state.boost > 0 ? "START BOOST" : "GO", 0.95);
+      setToast(state.boost > 0 ? "PERFECT START" : "GO", 0.95);
     }
     state.toastTime = Math.max(0, state.toastTime - dt);
     updateRivals(dt * 0.08);
@@ -1084,8 +1157,9 @@ function updateRace(dt) {
   const statSpeed = 410 + state.character.stats.speed * 27 + weight * 2;
   const naturalRoll = 126 + state.character.stats.speed * 9;
   const boostSpeed = state.boost > 0 ? 250 + state.character.stats.boost * 17 : 0;
+  const draftSpeed = state.draftBoost > 0 ? 92 + state.character.stats.handling * 4 : 0;
   const brakeDrag = brake ? 305 + state.character.stats.handling * 6 : 0;
-  const targetSpeed = clamp((accelerate ? statSpeed : naturalRoll) + boostSpeed - brakeDrag - offroad * 295 - surface.drag - state.spin * 300 - state.bump * 120, 0, 805);
+  const targetSpeed = clamp((accelerate ? statSpeed : naturalRoll) + boostSpeed + draftSpeed - brakeDrag - offroad * 295 - surface.drag - state.spin * 300 - state.bump * 120, 0, 835);
   const launchTorque = accelerate && state.speed < 260 ? (88 + state.character.stats.boost * 4 - weight * 2.5) * dt : 0;
   const brakeBite = brake ? (165 + state.character.stats.handling * 8) * dt : 0;
   const accelRate = accelerate || state.boost > 0 ? 10.2 + state.character.stats.boost * 0.12 - weight * 0.07 : 4.25;
@@ -1123,13 +1197,11 @@ function updateRace(dt) {
   } else if (state.drifting) {
     if (state.driftCharge > 0.45) {
       const tier = state.driftCharge > 2.35 ? 3 : state.driftCharge > 1.45 ? 2 : 1;
-      const labels = ["", "MINI-TURBO", "SUPER MINI-TURBO", "ULTRA MINI-TURBO"];
-      const colors = ["", state.character.accent, "#ffd15c", "#66e9ff"];
       state.boost = Math.max(state.boost, [0, 0.9, 1.7, 2.55][tier] + state.driftCharge * 0.42);
       state.cameraShake = Math.max(state.cameraShake, [0, 0.1, 0.18, 0.26][tier]);
       state.score += Math.round([0, 75, 145, 240][tier] * state.driftCharge);
-      setToast(labels[tier], 0.8);
-      burstParticles(state.lane, colors[tier], [0, 16, 28, 42][tier]);
+      setToast(DRIFT_LABELS[tier], 0.8);
+      burstParticles(state.lane, tier === 1 ? state.character.accent : DRIFT_COLORS[tier], [0, 16, 28, 42][tier]);
     }
     state.driftCharge = 0;
     state.driftTier = 0;
@@ -1139,6 +1211,7 @@ function updateRace(dt) {
   state.distance += state.speed * dt;
   triggerSpeedPad(beforeDistance, state.distance);
   state.boost = Math.max(0, state.boost - dt);
+  state.draftBoost = Math.max(0, state.draftBoost - dt);
   state.shield = Math.max(0, state.shield - dt);
   state.spin = Math.max(0, state.spin - dt * (state.character.id === "toussaint" ? 2.35 : 1.7));
   state.bump = Math.max(0, state.bump - dt * (state.character.id === "abraham-lincoln" ? 4.0 : 2.8));
@@ -1147,9 +1220,12 @@ function updateRace(dt) {
   state.hitFlash = Math.max(0, state.hitFlash - dt);
   state.cameraShake = Math.max(0, state.cameraShake - dt * 1.9);
   state.toastTime = Math.max(0, state.toastTime - dt);
+  state.nearMissCooldown = Math.max(0, state.nearMissCooldown - dt);
   updateRivals(dt);
+  updateRacecraft(dt);
   updateKartCollisions();
   updateItemBoxes();
+  updateItemRoulette(dt);
   updateParticles(dt);
   updateRoadBursts(dt);
   state.score += dt * Math.max(3, state.speed / 34);
@@ -1169,6 +1245,43 @@ function triggerSpeedPad(beforeDistance, afterDistance) {
   state.score += 90;
   setToast("SPEED PAD", 0.55);
   burstParticles(state.lane, "#66e9ff", 22);
+}
+
+function updateRacecraft(dt) {
+  const nearby = state.rivals
+    .map((rival) => ({
+      rival,
+      gap: rival.distance - state.distance,
+      laneGap: Math.abs(rival.lane - state.lane)
+    }))
+    .filter((item) => item.gap > -82 && item.gap < 310)
+    .sort((a, b) => Math.abs(a.gap) - Math.abs(b.gap));
+  const draftTarget = nearby.find((item) => item.gap > 32 && item.gap < 285 && item.laneGap < 0.28);
+  if (draftTarget && state.speed > 285 && !state.quizOpen) {
+    state.draft = clamp(state.draft + dt * (0.72 + state.speed / 720), 0, 1);
+    state.racecraft.draftSeconds += dt;
+    if (state.draft >= 1) {
+      state.draft = 0.18;
+      state.draftBoost = Math.max(state.draftBoost, 1.35);
+      state.score += 180;
+      state.cameraShake = Math.max(state.cameraShake, 0.13);
+      setToast("SLIPSTREAM", 0.62);
+      burstParticles(state.lane, "#66e9ff", 18);
+    }
+  } else {
+    state.draft = Math.max(0, state.draft - dt * 0.9);
+  }
+  const nearMiss = nearby.find((item) => Math.abs(item.gap) < 72 && item.laneGap >= 0.27 && item.laneGap < 0.48);
+  if (nearMiss && state.speed > 340 && state.nearMissCooldown <= 0 && !state.quizOpen) {
+    state.nearMissCooldown = 0.86;
+    state.racecraft.nearMisses += 1;
+    state.racecraft.lineBonus += 1;
+    state.score += 220 + state.racecraft.nearMisses * 18;
+    state.boost = Math.max(state.boost, 0.42);
+    state.cameraShake = Math.max(state.cameraShake, 0.08);
+    setToast("NEAR MISS +BOOST", 0.56);
+    burstParticles(state.lane, "#f8fbff", 14);
+  }
 }
 
 function updateKartCollisions() {
@@ -2102,6 +2215,91 @@ function drawRaceOverlay(w, h) {
     ctx.fillText(String(label), w / 2, h * 0.44);
   }
   ctx.restore();
+  drawRacecraftOverlay(w, h);
+}
+
+function drawMeter(x, y, width, height, pct, color, label, value) {
+  ctx.save();
+  ctx.fillStyle = "rgba(5,8,22,.66)";
+  ctx.strokeStyle = "rgba(255,255,255,.18)";
+  ctx.lineWidth = 1;
+  roundRect(x, y, width, height, 8);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = color;
+  roundRect(x + 4, y + height - 8, Math.max(3, (width - 8) * clamp(pct, 0, 1)), 4, 3);
+  ctx.fill();
+  ctx.fillStyle = "#8b98b6";
+  ctx.font = "850 9px Inter, sans-serif";
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  ctx.fillText(label, x + 8, y + 7);
+  ctx.fillStyle = "#f8fbff";
+  ctx.font = "950 15px Inter, sans-serif";
+  ctx.fillText(value, x + 8, y + 20);
+  ctx.restore();
+}
+
+function drawRacecraftOverlay(w, h) {
+  if (!state.running) return;
+  const compact = w < 680;
+  const panelX = compact ? 10 : 18;
+  const panelY = compact ? 150 : 108;
+  const sample = trackSample(state.distance + Math.max(420, state.speed * 0.86));
+  const curve = clamp(sample.curve / 280, -1, 1);
+  const surface = surfaceAt(state.distance + Math.max(140, state.speed * 0.44));
+  ctx.save();
+  ctx.globalAlpha = state.countdown > 0 ? 0.54 : 0.92;
+  ctx.fillStyle = "rgba(5,8,22,.68)";
+  ctx.strokeStyle = colorAlpha(state.track.accent, 0.55);
+  ctx.lineWidth = 2;
+  roundRect(panelX, panelY, compact ? 190 : 238, compact ? 76 : 88, 12);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = state.track.accent || "#66e9ff";
+  ctx.font = "950 10px Inter, sans-serif";
+  ctx.textBaseline = "top";
+  ctx.fillText("COURSE READ", panelX + 12, panelY + 10);
+  ctx.fillStyle = "#f8fbff";
+  ctx.font = `950 ${compact ? 15 : 18}px Inter, sans-serif`;
+  const arrow = Math.abs(curve) < 0.18 ? "▲" : curve < 0 ? "◀" : "▶";
+  ctx.fillText(`${arrow} ${sample.name.toUpperCase().slice(0, compact ? 16 : 22)}`, panelX + 12, panelY + 28);
+  ctx.fillStyle = "#8b98b6";
+  ctx.font = "850 10px Inter, sans-serif";
+  ctx.fillText(`${sample.surface.toUpperCase()} GRIP ${(surface.grip * 100).toFixed(0)}%`, panelX + 12, panelY + (compact ? 53 : 58));
+  ctx.strokeStyle = colorAlpha(state.track.accent, 0.82);
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  const guideY = panelY + (compact ? 66 : 76);
+  ctx.moveTo(panelX + 128, guideY);
+  ctx.quadraticCurveTo(panelX + 168 + curve * 42, guideY - 34, panelX + (compact ? 180 : 224), guideY - 6);
+  ctx.stroke();
+  ctx.restore();
+
+  const meterY = compact ? panelY + 84 : panelY + 98;
+  drawMeter(panelX, meterY, compact ? 92 : 112, 42, state.draft, "#66e9ff", "DRAFT", state.draftBoost > 0 ? "BOOST" : `${Math.round(state.draft * 100)}%`);
+  const driftPct = state.driftCharge ? clamp(state.driftCharge / 3.4, 0, 1) : 0;
+  drawMeter(panelX + (compact ? 100 : 120), meterY, compact ? 92 : 124, 42, driftPct, state.driftTier >= 2 ? DRIFT_COLORS[state.driftTier] : state.character.accent, "DRIFT", DRIFT_LABELS[state.driftTier] || "READY");
+
+  if (state.itemRoulette) {
+    const rolling = ITEMS[Math.floor(state.itemRoulette.seed) % ITEMS.length];
+    ctx.save();
+    ctx.globalAlpha = 0.96;
+    ctx.translate(w / 2, compact ? h * 0.37 : h * 0.28);
+    ctx.rotate(Math.sin(performance.now() / 80) * 0.08);
+    ctx.fillStyle = "rgba(5,8,22,.78)";
+    ctx.strokeStyle = rolling.color;
+    ctx.lineWidth = 3;
+    roundRect(-92, -30, 184, 60, 16);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = "#f8fbff";
+    ctx.font = "950 17px Inter, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(`ROLLING ${rolling.short.toUpperCase()}`, 0, 0);
+    ctx.restore();
+  }
 }
 
 function drawToast(w, h) {
@@ -2367,6 +2565,18 @@ if (params.get("debug") === "1") {
       state.item = ITEMS[0];
       updateItemHud();
       openItemQuestion();
+    },
+    metrics() {
+      return {
+        running: state.running,
+        speed: Math.round(state.speed),
+        place: state.place,
+        draft: Number(state.draft.toFixed(2)),
+        draftBoost: Number(state.draftBoost.toFixed(2)),
+        nearMisses: state.racecraft.nearMisses,
+        roulette: Boolean(state.itemRoulette),
+        item: state.item?.id || null
+      };
     }
   };
 }
