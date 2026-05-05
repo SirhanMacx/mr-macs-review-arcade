@@ -1097,6 +1097,129 @@
     ctx.restore();
   }
 
+  function drawBackFacingFigure(ally, x, y, width, height) {
+    if (!ally) return;
+    const profile = battleBackProfile(ally);
+    const scaleX = width / 120;
+    const scaleY = height / 132;
+    ctx.save();
+    ctx.translate(x + width / 2, y + height * .55);
+    ctx.scale(scaleX, scaleY);
+    ctx.shadowColor = ally.color || profile.accent;
+    ctx.shadowBlur = 10;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.fillStyle = "rgba(7,21,12,.28)";
+    ctx.beginPath();
+    ctx.ellipse(2, 52, 48, 13, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "rgba(237,249,135,.18)";
+    ctx.beginPath();
+    ctx.ellipse(8, -8, 50, 64, -.18, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = "#07150c";
+    ctx.lineWidth = 7;
+    ctx.fillStyle = profile.robe;
+    ctx.beginPath();
+    ctx.moveTo(-33, -18);
+    ctx.quadraticCurveTo(-47, 8, -39, 47);
+    ctx.lineTo(39, 47);
+    ctx.quadraticCurveTo(46, 6, 30, -21);
+    ctx.quadraticCurveTo(2, -36, -33, -18);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = profile.sash;
+    ctx.beginPath();
+    ctx.moveTo(-33, 4);
+    ctx.lineTo(37, -12);
+    ctx.lineTo(42, 1);
+    ctx.lineTo(-29, 18);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = profile.skin;
+    ctx.beginPath();
+    ctx.ellipse(2, -44, 21, 24, -.08, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = profile.hair;
+    ctx.beginPath();
+    ctx.ellipse(-2, -49, 25, 23, -.1, Math.PI * .96, Math.PI * 2.16);
+    ctx.lineTo(22, -35);
+    ctx.quadraticCurveTo(8, -24, -17, -31);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = profile.headwear;
+    ctx.beginPath();
+    ctx.moveTo(-22, -58);
+    ctx.quadraticCurveTo(2, -75, 26, -58);
+    ctx.lineTo(20, -47);
+    ctx.quadraticCurveTo(2, -58, -17, -47);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.strokeStyle = profile.accent;
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(-18, -55);
+    ctx.quadraticCurveTo(2, -66, 22, -55);
+    ctx.stroke();
+    ctx.strokeStyle = "#07150c";
+    ctx.lineWidth = 6;
+    ctx.fillStyle = profile.skin;
+    ctx.beginPath();
+    ctx.moveTo(32, -6);
+    ctx.quadraticCurveTo(55, -2, 59, 17);
+    ctx.quadraticCurveTo(55, 24, 47, 23);
+    ctx.quadraticCurveTo(41, 9, 25, 7);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = profile.prop;
+    ctx.strokeStyle = "#07150c";
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(46, 7);
+    ctx.lineTo(65, 1);
+    ctx.lineTo(72, 33);
+    ctx.lineTo(52, 39);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.strokeStyle = "rgba(7,21,12,.72)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(54, 12);
+    ctx.lineTo(66, 9);
+    ctx.moveTo(55, 20);
+    ctx.lineTo(67, 17);
+    ctx.moveTo(57, 28);
+    ctx.lineTo(68, 25);
+    ctx.stroke();
+    ctx.fillStyle = "#07150c";
+    ctx.globalAlpha = .3;
+    ctx.fillRect(-24, 47, 12, 20);
+    ctx.fillRect(16, 47, 12, 20);
+    ctx.restore();
+  }
+
+  function battleBackProfile(ally) {
+    const name = `${ally.actualName || ally.name || ""} ${ally.starterChoice || ""}`;
+    if (/Hammurabi/i.test(name)) {
+      return { robe: "#214a91", sash: "#f4ead3", accent: "#ffd15c", skin: "#8f5832", hair: "#1f1612", headwear: "#d49b26", prop: "#b88244" };
+    }
+    if (/Mansa/i.test(name)) {
+      return { robe: "#d99d21", sash: "#174d8d", accent: "#75f4ff", skin: "#6f4127", hair: "#201713", headwear: "#f3cf61", prop: "#e0aa36" };
+    }
+    if (/Harriet|Tubman/i.test(name)) {
+      return { robe: "#304f38", sash: "#8b5a3c", accent: "#77f0af", skin: "#69422c", hair: "#1b1411", headwear: "#d8c8a6", prop: "#f2efe4" };
+    }
+    return { robe: ally.color || "#3c6875", sash: "#edf987", accent: ally.color || "#75f4ff", skin: "#8b5a3c", hair: "#201713", headwear: "#f3cf61", prop: "#f8fbff" };
+  }
+
   function fallbackCompanionRef(name) {
     const sheet = Math.abs(hash(name || "review")) % companionSheets.length;
     const index = Math.floor(Math.abs(hash(`${name}:sprite`)) % 16);
@@ -1629,7 +1752,7 @@
     if (battle.menu === "fight") {
       els.battleActions.innerHTML = battle.hero.moves.map((item, index) => {
         const read = battleReadFor(item, battle.enemy.type);
-        const comboPreview = read.tier === "strong" ? Math.min(3, Number(battle.combo || 0) + 1) : Math.max(0, Math.floor(Number(battle.combo || 0)));
+        const comboPreview = read.tier === "strong" ? Math.min(3, comboLevel(battle) + 1) : comboLevel(battle);
         return `<button class="read-${escapeHtml(read.tier)}" type="button" data-move="${index}" title="${escapeHtml(item.flavor || item.name)}" ${item.pp <= 0 ? "disabled" : ""}><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(read.label)} · ${escapeHtml(moveStyleLabel(item.style))} · PWR ${item.power} · ${item.pp}/${item.maxPp} energy${comboPreview ? ` · Chain x${comboPreview}` : ""}</small></button>`;
       }).join("");
       [...els.battleActions.querySelectorAll("button")].forEach((button) => button.addEventListener("click", () => useMove(Number(button.dataset.move))));
@@ -1646,7 +1769,7 @@
       return;
     }
     els.battleActions.innerHTML = [
-      ["fight", "Fight", `${momentumLabel(battle.momentum || 0)} · chain x${battle.combo || 0}`],
+      ["fight", "Fight", `${momentumLabel(battle.momentum || 0)} · chain x${comboLevel(battle)}`],
       ["bag", "Bag", "items"],
       ["party", "Party", "switch"],
       ["run", "Run", "escape"]
@@ -1720,6 +1843,10 @@
     if (value >= 48) return "Pressuring";
     if (value <= 18) return "Recovering";
     return "Balanced";
+  }
+
+  function comboLevel(battle) {
+    return clamp(Math.round(Number(battle && battle.combo || 0)), 0, 3);
   }
 
   function makeAttackFx(kind, moveUsed, attacker, defender) {
@@ -2035,6 +2162,8 @@
     if (audio.muted) return null;
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) return null;
+    const userActivation = navigator.userActivation;
+    if (!audio.ctx && userActivation && !userActivation.hasBeenActive) return null;
     if (!audio.ctx) {
       audio.ctx = new AudioContext();
       audio.master = audio.ctx.createGain();
@@ -2044,7 +2173,10 @@
       audio.musicGain.gain.value = .24;
       audio.musicGain.connect(audio.master);
     }
-    if (audio.ctx.state === "suspended") audio.ctx.resume();
+    if (audio.ctx.state === "suspended") {
+      if (userActivation && !userActivation.hasBeenActive) return null;
+      audio.ctx.resume().catch(() => {});
+    }
     return audio.ctx;
   }
 
@@ -2719,12 +2851,12 @@
     const minFieldH = compactLandscape ? Math.max(210, h - 170) : 270;
     const fieldH = Math.max(minFieldH, h - uiReserve);
     const skyH = Math.max(118, fieldH * .42);
-    const heroBaseX = portrait ? w * .28 : w * .25;
-    const heroBaseY = portrait ? fieldH * .68 : compactLandscape ? fieldH * .56 : fieldH * .66;
+    const heroBaseX = portrait ? w * .24 : w * .23;
+    const heroBaseY = portrait ? fieldH * .72 : compactLandscape ? fieldH * .62 : fieldH * .72;
     const enemyBaseX = portrait ? w * .72 : w * .72;
     const enemyBaseY = portrait ? fieldH * .30 : fieldH * .32;
-    const heroW = clamp(w * (portrait ? .26 : compactLandscape ? .15 : .18), 82, 216);
-    const enemyW = clamp(w * (portrait ? .28 : compactLandscape ? .15 : .18), 92, 224);
+    const heroW = clamp(w * (portrait ? .34 : compactLandscape ? .19 : .23), 108, 260);
+    const enemyW = clamp(w * (portrait ? .25 : compactLandscape ? .14 : .17), 86, 208);
     const cardW = clamp(w * (portrait ? .33 : .28), 122, 270);
     const cardH = portrait ? 78 : 62;
     battle.layout = { heroX: heroBaseX, heroY: heroBaseY, enemyX: enemyBaseX, enemyY: enemyBaseY };
@@ -2801,8 +2933,8 @@
     drawBattleReadOverlay(battle, w, fieldH);
     const enemyShift = fighterShift(battle, "enemy");
     const heroShift = fighterShift(battle, "hero");
-    drawFigure(battle.enemy, enemyBaseX - enemyW * .48 + enemyShift.x, enemyBaseY - enemyW * .34 + enemyShift.y, enemyW * enemyShift.scale, enemyW * .75 * enemyShift.scale, false);
-    drawFigure(battle.hero, heroBaseX - heroW * .5 + heroShift.x, heroBaseY - heroW * .36 + heroShift.y, heroW * heroShift.scale, heroW * .75 * heroShift.scale, true);
+    drawFigure(battle.enemy, enemyBaseX - enemyW * .48 + enemyShift.x, enemyBaseY - enemyW * .34 + enemyShift.y, enemyW * enemyShift.scale, enemyW * .75 * enemyShift.scale, true);
+    drawBackFacingFigure(battle.hero, heroBaseX - heroW * .5 + heroShift.x, heroBaseY - heroW * .5 + heroShift.y, heroW * heroShift.scale, heroW * .86 * heroShift.scale);
     drawBattleFx(battle);
   }
 

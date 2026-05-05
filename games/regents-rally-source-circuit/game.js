@@ -402,6 +402,7 @@ const ASSETS = {
   speedPads: loadAsset("../../assets/regents-rally/generated/rally-speed-pads.webp", { keyBackdrop: true, soft: true }),
   lowpolyKarts: loadAsset("../../assets/regents-rally/generated/rally-lowpoly-karts.webp", { keyBackdrop: true, soft: true })
 };
+const spriteBoundsCache = new WeakMap();
 
 function trackLayout(track = state?.track || TRACKS[0]) {
   return TRACK_LAYOUTS[track.theme] || TRACK_LAYOUTS.regents;
@@ -839,7 +840,7 @@ function buildRivals() {
     .filter((racer) => racer.id !== state.character.id)
     .map((racer, index) => ({
       racer,
-      distance: 70 + index * 82,
+      distance: 150 + index * 112,
       lane: lanes[index] ?? 0,
       desiredLane: lanes[index] ?? 0,
       base: 392 + racer.stats.speed * 17 + index * 7,
@@ -1167,14 +1168,15 @@ function updateRace(dt) {
   if (brake) state.speed = Math.max(0, state.speed - brakeBite);
   const speedFactor = clamp(state.speed / 465, 0.32, 1.32);
   const grip = (1.2 + state.character.stats.handling * 0.18 - weight * 0.018) * surface.grip;
-  const driftGrip = drift ? 0.34 : brake && steer ? 0.74 : 1;
+  const driftGrip = drift ? 0.48 : brake && steer ? 0.8 : 1;
   const brakeTurn = brake && steer ? 1.32 : 1;
-  const curveAssist = roadCurveAt(state.distance + state.speed * 0.75, 0.6) * 0.000017 * state.speed;
+  const curveAssist = roadCurveAt(state.distance + state.speed * 0.75, 0.6) * 0.00000055 * state.speed;
   const curvePull = curveAssist * (drift ? 0.68 : 1);
   state.laneVel += (steer * grip * driftGrip * brakeTurn - curvePull) * speedFactor * dt;
   if (drift) state.laneVel += steer * 0.052 * dt * clamp(state.speed / 360, 0.55, 1.55);
-  state.laneVel *= Math.pow(drift ? 0.988 : brake ? 0.83 : 0.872, dt * 60);
-  state.lane += state.laneVel * (1.38 + state.speed / 345);
+  state.laneVel = clamp(state.laneVel, -0.14, 0.14);
+  state.laneVel *= Math.pow(drift ? 0.988 : brake ? 0.84 : 0.84, dt * 60);
+  state.lane += state.laneVel * (0.9 + state.speed / 620) * dt * 60;
   const hardEdge = laneLimit + 0.24;
   if (Math.abs(state.lane) > hardEdge) {
     state.lane = clamp(state.lane, -hardEdge, hardEdge);
@@ -1285,6 +1287,7 @@ function updateRacecraft(dt) {
 }
 
 function updateKartCollisions() {
+  if (state.distance < 360) return;
   state.rivals.forEach((rival) => {
     const gap = rival.distance - state.distance;
     const laneGap = rival.lane - state.lane;
@@ -1964,11 +1967,12 @@ function drawVisibleRivals(w, h) {
   state.rivals
     .filter((rival) => rival.distance < total + 300)
     .map((rival) => ({ rival, ahead: rival.distance - state.distance }))
-    .filter((entry) => entry.ahead > -90 && entry.ahead < VISIBLE_RANGE)
+    .filter((entry) => entry.ahead > 44 && entry.ahead < VISIBLE_RANGE)
     .sort((a, b) => b.ahead - a.ahead)
     .forEach(({ rival, ahead }) => {
       const p = objectPoint(ahead, rival.lane, w, h);
-      if (p) drawKartSprite(rival.racer, p.x, p.y, p.scale * 0.74, { rival });
+      if (!p || p.y > h - 124) return;
+      drawKartSprite(rival.racer, p.x, p.y, p.scale * 0.74, { rival });
     });
 }
 
@@ -1976,7 +1980,8 @@ function drawPlayerKart(w, h) {
   const rumble = state.speed > 300 ? Math.sin(performance.now() / 32) * clamp(state.speed / 760, 0, 1) * 2.5 : 0;
   const baseY = w < 520 ? h - 235 : h - 176;
   const y = baseY - state.hop * 95 + rumble;
-  const roadCenter = roadPoint(1, w, h).x;
+  const cameraLean = clamp(roadCurveAt(state.distance + Math.max(120, state.speed * .42), .7) / 260, -1, 1) * Math.min(74, w * .07);
+  const roadCenter = w / 2 + cameraLean;
   const x = roadCenter + state.lane * Math.min(250, w * 0.24) + Math.sin(state.spin * 22) * state.spin * 18 + Math.sin(state.bump * 26) * state.bump * 16;
   const scale = w < 520 ? Math.max(0.58, Math.min(0.72, w / 640)) : Math.max(0.82, Math.min(1.18, w / 1160));
   if (state.boost > 0) {
@@ -2369,15 +2374,20 @@ function drawSpriteStretch(image, sprite, x, y, width, height, columns = 2, rows
 }
 
 function drawGameplayKartSprite(racer, x, y, width, height) {
-  if (ASSETS.lowpolyKarts.complete && ASSETS.lowpolyKarts.naturalWidth) {
-    drawSpriteStretch(ASSETS.lowpolyKarts, racer.spriteIndex, x, y, width, height, 4, 2);
+  if (hasCompleteKartSheet(ASSETS.lowpolyKarts)) {
+    drawSpriteContain(ASSETS.lowpolyKarts, racer.spriteIndex, x, y, width, height, 4, 2);
     return;
   }
   if (ASSETS.gameplayKarts.complete && ASSETS.gameplayKarts.naturalWidth) {
-    drawSpriteStretch(ASSETS.gameplayKarts, racer.spriteIndex, x, y, width, height, 4, 2);
+    drawSpriteContain(ASSETS.gameplayKarts, racer.spriteIndex, x, y, width, height, 4, 2);
     return;
   }
   drawRacerSprite(racer, x, y, width, height, height * 0.14);
+}
+
+function hasCompleteKartSheet(image) {
+  if (!image.complete || !image.naturalWidth || !image.naturalHeight) return false;
+  return image.naturalWidth / image.naturalHeight < 2;
 }
 
 function drawRacerSprite(racer, x, y, width, height, radius) {
@@ -2393,6 +2403,73 @@ function drawRacerSprite(racer, x, y, width, height, radius) {
   ctx.fillStyle = shine;
   ctx.fillRect(x, y, width, height);
   ctx.restore();
+}
+
+function drawSpriteContain(image, sprite, x, y, width, height, columns = 2, rows = 2) {
+  const rect = spriteContentRect(image, sprite, columns, rows);
+  if (!rect) return false;
+  const sourceRatio = rect.sw / rect.sh;
+  const targetRatio = width / height;
+  const drawWidth = sourceRatio > targetRatio ? width : height * sourceRatio;
+  const drawHeight = sourceRatio > targetRatio ? width / sourceRatio : height;
+  ctx.drawImage(rect.source, rect.sx, rect.sy, rect.sw, rect.sh, x + (width - drawWidth) / 2, y + (height - drawHeight) / 2, drawWidth, drawHeight);
+  return true;
+}
+
+function spriteContentRect(image, sprite, columns = 2, rows = 2) {
+  const rect = spriteRect(image, sprite, columns, rows);
+  if (!rect || typeof rect.source.getContext !== "function") return rect;
+  let cache = spriteBoundsCache.get(rect.source);
+  if (!cache) {
+    cache = new Map();
+    spriteBoundsCache.set(rect.source, cache);
+  }
+  const cacheKey = `${rect.sx}:${rect.sy}:${rect.sw}:${rect.sh}`;
+  if (cache.has(cacheKey)) return cache.get(cacheKey);
+  const sourceContext = rect.source.getContext("2d", { willReadFrequently: true });
+  if (!sourceContext) return rect;
+  const sx = Math.floor(rect.sx);
+  const sy = Math.floor(rect.sy);
+  const sw = Math.floor(rect.sw);
+  const sh = Math.floor(rect.sh);
+  let minX = sw;
+  let minY = sh;
+  let maxX = 0;
+  let maxY = 0;
+  try {
+    const data = sourceContext.getImageData(sx, sy, sw, sh).data;
+    for (let pixelY = 0; pixelY < sh; pixelY += 1) {
+      for (let pixelX = 0; pixelX < sw; pixelX += 1) {
+        const alpha = data[(pixelY * sw + pixelX) * 4 + 3];
+        if (alpha <= 18) continue;
+        minX = Math.min(minX, pixelX);
+        minY = Math.min(minY, pixelY);
+        maxX = Math.max(maxX, pixelX);
+        maxY = Math.max(maxY, pixelY);
+      }
+    }
+  } catch {
+    cache.set(cacheKey, rect);
+    return rect;
+  }
+  if (maxX <= minX || maxY <= minY) {
+    cache.set(cacheKey, rect);
+    return rect;
+  }
+  const pad = Math.max(8, Math.round(Math.max(sw, sh) * .035));
+  const contentMinX = Math.max(0, minX - pad);
+  const contentMinY = Math.max(0, minY - pad);
+  const contentMaxX = Math.min(sw, maxX + pad);
+  const contentMaxY = Math.min(sh, maxY + pad);
+  const content = {
+    source: rect.source,
+    sx: sx + contentMinX,
+    sy: sy + contentMinY,
+    sw: contentMaxX - contentMinX,
+    sh: contentMaxY - contentMinY
+  };
+  cache.set(cacheKey, content);
+  return content;
 }
 
 function drawItemSprite(item, x, y, width, height, radius) {
