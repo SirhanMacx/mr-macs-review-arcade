@@ -360,7 +360,13 @@ $("#openHub").addEventListener("click", () => {
 
 document.addEventListener("keydown", (e) => {
   if (!state.run || $("#duel").classList.contains("hidden")) return;
-  if (e.key >= "1" && e.key <= "4") choose(e.key);
+  if (e.key >= "1" && e.key <= "4") {
+    const choice = $$(".choice")[Number(e.key) - 1];
+    if (choice && !choice.disabled) {
+      e.preventDefault();
+      choice.click();
+    }
+  }
   if (e.key === "Enter" && !$("#nextBtn").classList.contains("hidden")) next();
 });
 

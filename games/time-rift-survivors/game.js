@@ -434,6 +434,7 @@
     });
     els.canvas.addEventListener("pointerup", () => { state.pointerDown = false; });
     window.addEventListener("keydown", (event) => {
+      if (isTypingTarget(event.target)) return;
       if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "w", "a", "s", "d", "W", "A", "S", "D"].includes(event.key)) {
         state.keys.add(event.key.toLowerCase());
         player.target = null;
@@ -445,8 +446,15 @@
       }
     });
     window.addEventListener("keyup", (event) => {
+      if (isTypingTarget(event.target)) return;
       state.keys.delete(event.key.toLowerCase());
     });
+  }
+
+  function isTypingTarget(target) {
+    if (!target) return false;
+    const tag = String(target.tagName || "").toLowerCase();
+    return tag === "input" || tag === "textarea" || tag === "select" || Boolean(target.isContentEditable);
   }
 
   function startRun() {

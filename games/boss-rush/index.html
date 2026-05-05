@@ -1099,7 +1099,7 @@ function answerScore(response, clue) {
   const guess = normalize(response);
   const answers = [clue.answer].concat(clue.aliases || []).map(normalize).filter(Boolean);
   if (!guess) return { verdict: "wrong", confidence: "blank response" };
-  if (answers.some(function(answer) { return guess === answer || guess.includes(answer) || answer.includes(guess); })) {
+  if (answers.some(function(answer) { return guess === answer || guess.includes(answer) || significantContainedGuess(guess, answer); })) {
     return { verdict: "correct", confidence: "direct match" };
   }
   for (const answer of answers) {
@@ -1113,6 +1113,12 @@ function answerScore(response, clue) {
     }
   }
   return { verdict: "wrong", confidence: "not enough content match" };
+}
+function significantContainedGuess(guess, answer) {
+  if (!answer.includes(guess)) return false;
+  const guessTokens = guess.split(" ").filter(function(token) { return token.length > 3 || /\d/.test(token); });
+  const answerTokens = answer.split(" ").filter(function(token) { return token.length > 3 || /\d/.test(token); });
+  return guess.length >= 8 && guess.length / answer.length >= .72 && guessTokens.length >= Math.min(2, answerTokens.length || 2);
 }
 function allClues(bank) {
   const clues = [];

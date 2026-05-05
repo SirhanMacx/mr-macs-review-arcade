@@ -1694,12 +1694,13 @@ function roadHillAt(distance, n = 0) {
 function roadPoint(n, w, h) {
   const horizon = h * 0.385 + Math.sin(state.distance * 0.0008 + trackPhase()) * 11;
   const depth = n * n;
-  const distance = state.distance + n * VISIBLE_RANGE * 1.04;
+  const ahead = 1 - n;
+  const distance = state.distance + ahead * VISIBLE_RANGE * 1.04;
   const sample = trackSample(distance);
   const hill = roadHillAt(distance, n) * (1 - n * 0.42);
   const y = horizon + depth * (h - horizon + 120) - hill;
   const roadWidth = (100 + depth * w * 1.16) * sample.width;
-  const curve = roadCurveAt(distance, n) * (0.38 + n * 0.72);
+  const curve = roadCurveAt(distance, n) * (0.38 + ahead * 0.72);
   return { x: w / 2 + curve, y, roadWidth };
 }
 
@@ -1711,7 +1712,7 @@ function drawRoad(w, h) {
     const p1 = roadPoint(n1, w, h);
     const p2 = roadPoint(n2, w, h);
     const stripe = Math.floor((i + state.distance * 0.036) / 2) % 2;
-    const surface = surfaceAt(state.distance + n1 * VISIBLE_RANGE * 1.04);
+    const surface = surfaceAt(state.distance + (1 - n1) * VISIBLE_RANGE * 1.04);
     ctx.fillStyle = surface.colors[stripe ? 1 : 0];
     ctx.beginPath();
     ctx.moveTo(p1.x - p1.roadWidth / 2, p1.y);
@@ -1980,8 +1981,8 @@ function drawPlayerKart(w, h) {
   const rumble = state.speed > 300 ? Math.sin(performance.now() / 32) * clamp(state.speed / 760, 0, 1) * 2.5 : 0;
   const baseY = w < 520 ? h - 235 : h - 176;
   const y = baseY - state.hop * 95 + rumble;
-  const cameraLean = clamp(roadCurveAt(state.distance + Math.max(120, state.speed * .42), .7) / 260, -1, 1) * Math.min(74, w * .07);
-  const roadCenter = w / 2 + cameraLean;
+  const cameraLean = clamp(roadCurveAt(state.distance + Math.max(120, state.speed * .42), .72) / 260, -1, 1) * Math.min(28, w * .028);
+  const roadCenter = roadPoint(1, w, h).x + cameraLean;
   const x = roadCenter + state.lane * Math.min(250, w * 0.24) + Math.sin(state.spin * 22) * state.spin * 18 + Math.sin(state.bump * 26) * state.bump * 16;
   const scale = w < 520 ? Math.max(0.58, Math.min(0.72, w / 640)) : Math.max(0.82, Math.min(1.18, w / 1160));
   if (state.boost > 0) {

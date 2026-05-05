@@ -77,6 +77,8 @@
     mansaMusa: loadImage("../../assets/history-hunters/generated/starter-mansa-musa.webp"),
     harrietTubman: loadImage("../../assets/history-hunters/generated/starter-harriet-tubman.webp")
   };
+  const battleBackStarters = loadImage("../../assets/history-hunters/generated/battle-back-starters-v1.webp");
+  const battleBackStarterCells = { hammurabi: 0, mansaMusa: 1, harrietTubman: 2 };
   const battleFxSheet = loadImage("../../assets/history-hunters/generated/battle-fx-sheet-v2-clean.webp");
   const battleFxCells = {
     legal: 0,
@@ -1099,6 +1101,7 @@
 
   function drawBackFacingFigure(ally, x, y, width, height) {
     if (!ally) return;
+    if (drawRasterBattleBack(ally, x, y, width, height)) return;
     const profile = battleBackProfile(ally);
     const scaleX = width / 120;
     const scaleY = height / 132;
@@ -1204,6 +1207,29 @@
     ctx.fillRect(-24, 47, 12, 20);
     ctx.fillRect(16, 47, 12, 20);
     ctx.restore();
+  }
+
+  function drawRasterBattleBack(ally, x, y, width, height) {
+    const cell = battleBackCellFor(ally);
+    if (!battleBackStarters.complete || !battleBackStarters.naturalWidth) return false;
+    const sourceWidth = battleBackStarters.naturalWidth / 3;
+    const sourceHeight = battleBackStarters.naturalHeight;
+    ctx.save();
+    ctx.shadowColor = ally.color || "#edf987";
+    ctx.shadowBlur = Math.max(9, width * .055);
+    ctx.drawImage(battleBackStarters, cell * sourceWidth, 0, sourceWidth, sourceHeight, x, y, width, height);
+    ctx.restore();
+    return true;
+  }
+
+  function battleBackCellFor(ally) {
+    const starterCell = battleBackStarterCells[ally && ally.starterSprite];
+    if (starterCell !== undefined) return starterCell;
+    const text = `${ally && ally.actualName || ""} ${ally && ally.name || ""} ${ally && ally.type || ""}`;
+    if (/Hammurabi|Confucius|Pericles|Madison|law|court|civic|government|ancient|Grade 6/i.test(text)) return 0;
+    if (/Mansa|Zheng|Battuta|trade|global|world|geo|econom|market|exchange/i.test(text)) return 1;
+    if (/Harriet|Tubman|Lincoln|Wells|Roosevelt|Marshall|rights|reform|US|APUSH|Regents/i.test(text)) return 2;
+    return Math.abs(hash(text || "archive")) % 3;
   }
 
   function battleBackProfile(ally) {
