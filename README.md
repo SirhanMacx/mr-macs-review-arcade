@@ -6,7 +6,7 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 
 ## What Is Included
 
-- 173 browser-playable review games
+- 184 browser-playable review games
 - Regents Practice Exam, a timed full-exam simulator with expandable/zoomable source inspection, 28 released-bank MCQs, Global II CRQs, U.S. History short essays, Part IIIA scaffold practice, document essays, January 2026 conversion-chart estimates, and writing guide position
 - Archive Quest, the flagship generated-art 2D social-studies platformer with tuned double jump, smoother camera, three levels, platform physics, enemies, evidence collectibles, review gates, and question-unlocked powerups
 - Archive Cipher, a generated-art review Wordle-style term decoder with course filters, unit filters, animated tile feedback, hints, and explanations from the full review library
@@ -14,10 +14,10 @@ Live site: https://sirhanmacx.github.io/mr-macs-review-arcade/
 - Chrono Pinball, a full-library arcade pinball table with course filters, review lock missions, bumpers, lanes, multipliers, ball save, and multiball
 - Empire Ascendant, a full-library rise-and-fall strategy game with province expansion, city founding, research paths, unlock-gated buildings, wonders, diplomacy, rival relations, era advancement, stability collapse, and review councils
 - Regents Rally 64, a generated-art social-studies kart racer with historical driver select, era-themed karts, animated tracks, rival racers, item cubes, drift boosts, and short review clues that unlock powerups
-- Timeline Runner, a generated-art endless runner where students dodge archive hazards, collect evidence, and answer by steering through course-filtered answer gates from the full 4,683-prompt review library
-- Time Rift Survivors, a full-library survival arcade game with generated arena art, animated combat, relic upgrades, course filters, stimulus access, and 4,683 review prompts
-- Chrono Defense Infinite, an original endless social-studies tower defense game using the full 4,683-prompt review library
-- Regents Gauntlet, a multi-file MCQ game with 471 answer-keyed Regents questions and cropped original stimulus images
+- Timeline Runner, a generated-art endless runner where students dodge archive hazards, collect evidence, and answer by steering through course-filtered answer gates from the full 4,529-prompt review library
+- Time Rift Survivors, a full-library survival arcade game with generated arena art, animated combat, relic upgrades, course filters, stimulus access, and 4,529 review prompts
+- Chrono Defense Infinite, an original endless social-studies tower defense game using the full 4,529-prompt review library
+- Regents Gauntlet, a multi-file MCQ game with 510 answer-keyed Regents questions and cropped original stimulus images
 - Arcade Duel, a wave-based MCQ combat mode that uses the same Regents MCQ bank (energy powerups + study targets)
 - Boss Rush Arena, a master game with generated arena/boss art, animated attacks, HP/shield/combo scoring, course switching, unit review, and comprehensive review runs
 - Grade 5 Social Studies, aligned to the NYS K-8 Social Studies Framework
