@@ -29,6 +29,9 @@
     dialogueTitle: $("dialogueTitle"),
     dialogueText: $("dialogueText"),
     dialogueActions: $("dialogueActions"),
+    starterChoice: $("starterChoice"),
+    starterGrid: $("starterGrid"),
+    starterCancel: $("starterCancel"),
     menu: $("menu"),
     closeMenu: $("closeMenu"),
     courseSelect: $("courseSelect"),
@@ -69,6 +72,11 @@
     loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v2.webp"),
     loadImage("../../assets/history-hunters/generated/battle-companion-sheet-v3.webp")
   ];
+  const starterPortraits = {
+    hammurabi: loadImage("../../assets/history-hunters/generated/starter-hammurabi.webp"),
+    mansaMusa: loadImage("../../assets/history-hunters/generated/starter-mansa-musa.webp"),
+    harrietTubman: loadImage("../../assets/history-hunters/generated/starter-harriet-tubman.webp")
+  };
   const battleFxSheet = loadImage("../../assets/history-hunters/generated/battle-fx-sheet-v2-clean.webp");
   const battleFxCells = {
     legal: 0,
@@ -169,22 +177,54 @@
   const allFamilies = familyAtlasOrder.flatMap((type) => (familiesByType[type] || familiesByType.Review).map((row) => ({ type, historicalName: row[0], names: row[1], line: row[2] })))
     .map((family, index) => Object.assign(family, { id: compactKey(`${family.type}-${family.historicalName}`), atlas: Math.floor(index / 6), row: index % 6 }));
   const familyById = allFamilies.reduce((acc, family) => (acc[family.id] = family, acc), {});
+  const starterOptions = [
+    {
+      id: "hammurabi",
+      displayName: "Hammurabi",
+      familyName: "Hammurabi",
+      discipline: "Law + Order",
+      image: "../../assets/history-hunters/generated/starter-hammurabi.webp",
+      color: "#ffd15c",
+      intro: "A sturdy starter for ancient civilizations, law codes, social order, and careful rule-based review.",
+      move: "Law Code"
+    },
+    {
+      id: "mansaMusa",
+      displayName: "Mansa Musa",
+      familyName: "Mansa Musa",
+      discipline: "Trade Routes",
+      image: "../../assets/history-hunters/generated/starter-mansa-musa.webp",
+      color: "#75f4ff",
+      intro: "A balanced global starter for trade, Islam, wealth, geography, and trans-Saharan connections.",
+      move: "Gold Road"
+    },
+    {
+      id: "harrietTubman",
+      displayName: "Harriet Tubman",
+      familyName: "Harriet Tubman",
+      discipline: "Resistance",
+      image: "../../assets/history-hunters/generated/starter-harriet-tubman.webp",
+      color: "#77f0af",
+      intro: "A fast U.S. history starter for abolition, resistance networks, Civil War review, and reform.",
+      move: "Freedom Line"
+    }
+  ];
 
   const places = [
     { id: "center", name: "Chronicle Center", kind: "center", gx: 20, gy: 18, icon: "school", text: "Restore party health and save your field log." },
     { id: "mart", name: "Archive Supply", kind: "shop", gx: 27, gy: 18, icon: "chest", text: "Buy capsules, field notes, and restoration tea with shards." },
     { id: "lab", name: "Professor Mac's Lab", kind: "lab", gx: 20, gy: 12, icon: "gate", text: "Choose a starter, learn the route system, and check progress." },
     { id: "museum", name: "Source Museum", kind: "quest", gx: 43, gy: 26, icon: "arch", text: "Take source and review quests for XP, shards, and items." },
-    { id: "harbor", name: "Exchange Harbor", kind: "quest", gx: 61, gy: 37, icon: "portal", text: "Trade-route quests and the Harbor Gym test exchange, migration, and global routes.", gym: { id: "harbor", leader: "Pilot Santos", badge: "Exchange Badge", type: "AP World", roster: ["Zheng He", "Mansa Musa", "Ibn Battuta"], intro: "Pilot Santos lowers the harbor flags. Trade winds are up." } },
-    { id: "capitol", name: "Civic Capitol", kind: "quest", gx: 86, gy: 18, icon: "school", text: "Government, rights, court cases, civic participation, and the Capitol Gym.", gym: { id: "capitol", leader: "Organizer Noor", badge: "Federalism Badge", type: "AP Gov", roster: ["James Madison", "Thurgood Marshall", "Barbara Jordan"], intro: "Organizer Noor calls the chamber to order." } },
-    { id: "ruins", name: "Ancient Ruins", kind: "quest", gx: 16, gy: 49, icon: "arch", text: "River valleys, empires, belief systems, and the Ancient Gym live on this route.", gym: { id: "ancient", leader: "Keeper Imani", badge: "River Valley Badge", type: "Grade 6", roster: ["Hammurabi", "Confucius", "Mansa Musa"], intro: "Keeper Imani raises the clay seal. Ancient law enters the arena." } },
-    { id: "reform", name: "Reform Station", kind: "quest", gx: 74, gy: 57, icon: "gate", text: "Revolution, rights, reform, civil war, industrial change, and the Reform Gym.", gym: { id: "reform", leader: "Curator Rivera", badge: "Reform Badge", type: "Grade 8", roster: ["Abraham Lincoln", "Susan B. Anthony", "Theodore Roosevelt"], intro: "Curator Rivera opens the reform ledger. Every turn changes the timeline." } },
-    { id: "psych", name: "Mind Lab", kind: "quest", gx: 104, gy: 31, icon: "school", text: "AP Psychology quests and the Mind Gym: methods, learning, cognition, and development.", gym: { id: "mind", leader: "Professor Vale", badge: "Cognition Badge", type: "AP Psych", roster: ["Wilhelm Wundt", "B. F. Skinner", "Jean Piaget"], intro: "Professor Vale dims the lab lights. The experiment begins." } },
-    { id: "bazaar", name: "Market Bazaar", kind: "quest", gx: 49, gy: 74, icon: "chest", text: "Economics quests and the Market Gym: scarcity, markets, macro policy, trade, and incentives.", gym: { id: "market", leader: "Analyst Vega", badge: "Incentive Badge", type: "Economics", roster: ["Adam Smith", "John Maynard Keynes", "Milton Friedman"], intro: "Analyst Vega rings the market bell. Supply meets demand." } },
-    { id: "summit", name: "Atlas Summit", kind: "summit", gx: 111, gy: 72, icon: "portal", text: "The late-game summit arena for mixed review and champion route battles.", gym: { id: "summit", leader: "Captain Ellis", badge: "Atlas Badge", type: "Review", roster: ["Archive Keeper", "Mohandas Gandhi", "Nelson Mandela", "Abraham Lincoln"], intro: "Captain Ellis opens the Atlas Gate. This is a champion route." } },
-    { id: "frontier", name: "Frontier Outpost", kind: "quest", gx: 137, gy: 92, icon: "gate", text: "A long-route U.S. history station with a frontier gym for Grade 7, Grade 8, APUSH, and Regents.", gym: { id: "frontier", leader: "Marshal Reed", badge: "Republic Badge", type: "US Regents", roster: ["George Washington", "Harriet Tubman", "Martin Luther King Jr."], intro: "Marshal Reed taps the badge. The republic route is not gentle." } },
-    { id: "observatory", name: "World Observatory", kind: "quest", gx: 133, gy: 23, icon: "arch", text: "Global, AP World, AP Euro, Human Geography, and the Observatory Gym meet here.", gym: { id: "world", leader: "Scribe Hana", badge: "World Systems Badge", type: "Global 10", roster: ["Mohandas Gandhi", "Toussaint Louverture", "Nelson Mandela"], intro: "Scribe Hana turns the star map. Revolutions align." } },
-    { id: "rights", name: "Rights Court", kind: "quest", gx: 96, gy: 96, icon: "school", text: "Civic action, rights, constitutions, court cases, reform movements, and the Rights Gym.", gym: { id: "rights", leader: "Advocate Samira", badge: "Justice Badge", type: "Civics", roster: ["Ida B. Wells", "Eleanor Roosevelt", "Thurgood Marshall"], intro: "Advocate Samira calls the court to session. Rights are on the line." } },
+    { id: "harbor", name: "Exchange Harbor", kind: "quest", gx: 61, gy: 37, icon: "portal", text: "Trade-route quests and the Harbor Trial test exchange, migration, and global routes.", gym: { id: "harbor", leader: "Pilot Santos", badge: "Exchange Seal", type: "AP World", roster: ["Zheng He", "Mansa Musa", "Ibn Battuta"], intro: "Pilot Santos lowers the harbor flags. Trade winds are up." } },
+    { id: "capitol", name: "Civic Capitol", kind: "quest", gx: 86, gy: 18, icon: "school", text: "Government, rights, court cases, civic participation, and the Capitol Trial.", gym: { id: "capitol", leader: "Organizer Noor", badge: "Federalism Seal", type: "AP Gov", roster: ["James Madison", "Thurgood Marshall", "Barbara Jordan"], intro: "Organizer Noor calls the chamber to order." } },
+    { id: "ruins", name: "Ancient Ruins", kind: "quest", gx: 16, gy: 49, icon: "arch", text: "River valleys, empires, belief systems, and the Ancient Trial live on this route.", gym: { id: "ancient", leader: "Keeper Imani", badge: "River Valley Seal", type: "Grade 6", roster: ["Hammurabi", "Confucius", "Mansa Musa"], intro: "Keeper Imani raises the clay seal. Ancient law enters the arena." } },
+    { id: "reform", name: "Reform Station", kind: "quest", gx: 74, gy: 57, icon: "gate", text: "Revolution, rights, reform, civil war, industrial change, and the Reform Trial.", gym: { id: "reform", leader: "Curator Rivera", badge: "Reform Seal", type: "Grade 8", roster: ["Abraham Lincoln", "Susan B. Anthony", "Theodore Roosevelt"], intro: "Curator Rivera opens the reform ledger. Every turn changes the timeline." } },
+    { id: "psych", name: "Mind Lab", kind: "quest", gx: 104, gy: 31, icon: "school", text: "AP Psychology quests and the Mind Trial: methods, learning, cognition, and development.", gym: { id: "mind", leader: "Professor Vale", badge: "Cognition Seal", type: "AP Psych", roster: ["Wilhelm Wundt", "B. F. Skinner", "Jean Piaget"], intro: "Professor Vale dims the lab lights. The experiment begins." } },
+    { id: "bazaar", name: "Market Bazaar", kind: "quest", gx: 49, gy: 74, icon: "chest", text: "Economics quests and the Market Trial: scarcity, markets, macro policy, trade, and incentives.", gym: { id: "market", leader: "Analyst Vega", badge: "Incentive Seal", type: "Economics", roster: ["Adam Smith", "John Maynard Keynes", "Milton Friedman"], intro: "Analyst Vega rings the market bell. Supply meets demand." } },
+    { id: "summit", name: "Atlas Summit", kind: "summit", gx: 111, gy: 72, icon: "portal", text: "The late-game summit arena for mixed review and champion route battles.", gym: { id: "summit", leader: "Captain Ellis", badge: "Atlas Seal", type: "Review", roster: ["Archive Keeper", "Mohandas Gandhi", "Nelson Mandela", "Abraham Lincoln"], intro: "Captain Ellis opens the Atlas Gate. This is a champion route." } },
+    { id: "frontier", name: "Frontier Outpost", kind: "quest", gx: 137, gy: 92, icon: "gate", text: "A long-route U.S. history station with a frontier trial for Grade 7, Grade 8, APUSH, and Regents.", gym: { id: "frontier", leader: "Marshal Reed", badge: "Republic Seal", type: "US Regents", roster: ["George Washington", "Harriet Tubman", "Martin Luther King Jr."], intro: "Marshal Reed taps the route seal. The republic route is not gentle." } },
+    { id: "observatory", name: "World Observatory", kind: "quest", gx: 133, gy: 23, icon: "arch", text: "Global, AP World, AP Euro, Human Geography, and the Observatory Trial meet here.", gym: { id: "world", leader: "Scribe Hana", badge: "World Systems Seal", type: "Global 10", roster: ["Mohandas Gandhi", "Toussaint Louverture", "Nelson Mandela"], intro: "Scribe Hana turns the star map. Revolutions align." } },
+    { id: "rights", name: "Rights Court", kind: "quest", gx: 96, gy: 96, icon: "school", text: "Civic action, rights, constitutions, court cases, reform movements, and the Rights Trial.", gym: { id: "rights", leader: "Advocate Samira", badge: "Justice Seal", type: "Civics", roster: ["Ida B. Wells", "Eleanor Roosevelt", "Thurgood Marshall"], intro: "Advocate Samira calls the court to session. Rights are on the line." } },
     { id: "liberty", name: "Liberty Town", kind: "quest", gx: 151, gy: 18, icon: "school", text: "A U.S. history town route for founding, abolition, civil rights, and constitutional change.", battle: true },
     { id: "renaissance", name: "Renaissance Gallery", kind: "quest", gx: 154, gy: 56, icon: "arch", text: "AP European and Global review route: Renaissance, Reformation, revolution, and nationalism.", battle: true },
     { id: "andes", name: "Andes Trail", kind: "quest", gx: 54, gy: 105, icon: "gate", text: "A Grade 5 and ancient Americas route for geography, trade, empire, and encounter.", battle: true },
@@ -206,11 +246,11 @@
     { id: "marshal", name: "Marshal Reed", type: "Frontier Rival", gx: 135, gy: 89, text: "The western route is long. Bring tea, capsules, and a party that can handle U.S. history eras.", battle: true },
     { id: "advocate", name: "Advocate Samira", type: "Rights Coach", gx: 95, gy: 93, text: "Civil rights, human rights, and constitutional rights all reward precise evidence.", quest: true },
     { id: "quartermaster", name: "Quartermaster Jo", type: "Supply Clerk", gx: 30, gy: 21, text: "Check the bag before boss routes. Capsules recruit allies; tea keeps your party standing.", quest: true },
-    { id: "gymGuide", name: "Badge Coach Vale", type: "Gym Coach", gx: 18, gy: 51, sprite: "gymLeader", text: "Major landmarks hold badge battles. Beat every roster to unlock tougher rematches.", battle: true },
+    { id: "gymGuide", name: "Trial Coach Vale", type: "Trial Coach", gx: 18, gy: 51, sprite: "gymLeader", text: "Major landmarks hold seal trials. Beat every roster to unlock tougher rematches.", battle: true },
     { id: "worldTraveler", name: "Traveler Mina", type: "World Trainer", gx: 123, gy: 25, sprite: "traveler", text: "A route team should understand trade, belief systems, diffusion, and geography.", battle: true },
     { id: "shopkeeper", name: "Shopkeeper Ren", type: "Route Trainer", gx: 47, gy: 77, sprite: "shopkeeper", text: "Markets are not just money. Scarcity, incentives, and choices decide battles.", battle: true },
     { id: "professor", name: "Professor Vale", type: "Mind Trainer", gx: 107, gy: 34, sprite: "professor", text: "Learning sticks when a move has context. Reinforcement helps too.", battle: true },
-    { id: "badgemaster", name: "Badge Master Arun", type: "Summit Trainer", gx: 113, gy: 75, sprite: "gymLeader", text: "The Atlas Summit checks whether your whole party can survive a full trainer roster.", battle: true },
+    { id: "badgemaster", name: "Seal Master Arun", type: "Summit Trainer", gx: 113, gy: 75, sprite: "gymLeader", text: "The Atlas Summit checks whether your whole party can survive a full trainer roster.", battle: true },
     { id: "libertyRival", name: "Rival Ellis", type: "Liberty Trainer", gx: 149, gy: 16, sprite: "rival", text: "Liberty Town battles reward parties that can connect founding ideals to later reform movements.", battle: true },
     { id: "renaissanceGuide", name: "Curator Lucia", type: "Gallery Trainer", gx: 152, gy: 58, sprite: "curator", text: "Renaissance, Reformation, revolution, nationalism: this gallery route is built around turning points.", battle: true },
     { id: "andesScout", name: "Scout Amaru", type: "Andes Trainer", gx: 56, gy: 103, sprite: "traveler", text: "Geography is the boss here. Mountains, roads, trade, and empire all shape the fight.", battle: true },
@@ -761,6 +801,26 @@
     return makeFamilyAlly(family, lane, level, { prompt: prompt || family.line, answer: family.historicalName });
   }
 
+  function makeStarterAlly(choice) {
+    const family = familyByHistoricalName(choice.familyName);
+    const lane = typeRules.find((rule) => rule.name === family.type) || typeRules[typeRules.length - 1];
+    const ally = makeFamilyAlly(family, lane, 1, { prompt: choice.intro, answer: choice.familyName });
+    ally.name = choice.displayName;
+    ally.actualName = choice.familyName;
+    ally.color = choice.color;
+    ally.line = choice.intro;
+    ally.starterChoice = choice.id;
+    ally.starterSprite = choice.id;
+    ally.maxHp += choice.id === "hammurabi" ? 12 : choice.id === "mansaMusa" ? 6 : 0;
+    ally.hp = ally.maxHp;
+    if (ally.moves && ally.moves[0]) ally.moves[0].name = choice.move;
+    return normalizeAlly(ally);
+  }
+
+  function hasStarter() {
+    return state.stats.party.length > 0;
+  }
+
   function badgeFlag(id) {
     return `badge:${id}`;
   }
@@ -771,10 +831,14 @@
 
   function openGymBattle(place) {
     if (!place || !place.gym) return;
+    if (!hasStarter()) {
+      openStarterChoice();
+      return;
+    }
     const gym = place.gym;
     const alreadyWon = Boolean(state.stats.flags[badgeFlag(gym.id)]);
     const baseLevel = Math.max(3, 2 + earnedBadges().length + Math.floor((state.stats.rank || 1) / 2));
-    const roster = (gym.roster || []).map((name, index) => makeRosterAlly(name, gym.type, baseLevel + index + (alreadyWon ? 2 : 0), `${gym.leader} gym battle: ${gym.intro}`));
+    const roster = (gym.roster || []).map((name, index) => makeRosterAlly(name, gym.type, baseLevel + index + (alreadyWon ? 2 : 0), `${gym.leader} trial battle: ${gym.intro}`));
     if (!roster.length) return;
     openBattle(roster[0], true, {
       trainerName: gym.leader,
@@ -807,15 +871,11 @@
   }
 
   function ensureStarter() {
-    if (state.stats.party.length) return;
-    state.stats.party = [makeAlly(null, "Global 9")];
-    state.stats.active = 0;
-    state.stats.flags.starter = true;
-    writeSave();
+    return hasStarter();
   }
 
   function activeAlly() {
-    ensureStarter();
+    if (!hasStarter()) return null;
     state.stats.active = clamp(state.stats.active || 0, 0, state.stats.party.length - 1);
     return normalizeAlly(state.stats.party[state.stats.active]);
   }
@@ -985,7 +1045,26 @@
     return true;
   }
 
+  function drawStarterPortrait(ally, x, y, w, h, flip) {
+    const img = starterPortraits[ally && ally.starterSprite];
+    if (!img || !img.complete || !img.naturalWidth) return false;
+    ctx.save();
+    ctx.shadowColor = ally.color || "#edf987";
+    ctx.shadowBlur = Math.max(7, Math.floor(w * .11));
+    if (flip) {
+      ctx.translate(x + w, y);
+      ctx.scale(-1, 1);
+      ctx.drawImage(img, 0, 0, w, h);
+    } else {
+      ctx.drawImage(img, x, y, w, h);
+    }
+    ctx.restore();
+    return true;
+  }
+
   function drawFigure(ally, x, y, w, h, flip) {
+    if (!ally) return;
+    if (drawStarterPortrait(ally, x - w * .06, y - h * .32, w * 1.12, h * 1.32, flip)) return;
     const family = familyById[ally.familyId] || allFamilies[0];
     const companionRef = companionCells[family.historicalName] || companionCells[ally.actualName] || fallbackCompanionRef(family.historicalName || ally.actualName);
     const companionSheet = companionSheets[companionRef[0]];
@@ -1091,11 +1170,11 @@
     els.dialogueTitle.textContent = target.name;
     els.dialogueText.textContent = target.text || "The route is quiet.";
     const actions = [];
-    if (target.starter && !state.stats.flags.guideGift) actions.push(["starter", "Take Starter"]);
+    if (target.starter && !state.stats.flags.guideGift) actions.push(["starter", "Choose Starter"]);
     if (target.kind === "center") actions.push(["heal", "Heal"]);
     if (target.kind === "shop") actions.push(["shop", "Shop"]);
     if (target.quest || target.kind === "quest" || target.kind === "summit") actions.push(["quest", "Contract"]);
-    if (target.gym) actions.push(["gym", state.stats.flags[badgeFlag(target.gym.id)] ? "Rematch" : "Gym Battle"]);
+    if (target.gym) actions.push(["gym", state.stats.flags[badgeFlag(target.gym.id)] ? "Rematch" : "Trial Battle"]);
     if (target.battle) actions.push(["battle", "Battle"]);
     actions.push(["close", "Close"]);
     els.dialogueActions.innerHTML = actions.map(([id, label]) => `<button type="button" data-action="${id}">${escapeHtml(label)}</button>`).join("");
@@ -1110,18 +1189,65 @@
     els.game.classList.remove("in-dialogue");
   }
 
+  function renderStarterChoices() {
+    if (!els.starterGrid) return;
+    els.starterGrid.innerHTML = starterOptions.map((choice) => `
+      <button class="starter-card" type="button" data-starter="${escapeHtml(choice.id)}">
+        <img src="${escapeHtml(choice.image)}" alt="" loading="eager">
+        <span>
+          <small>${escapeHtml(choice.discipline)}</small>
+          <strong>${escapeHtml(choice.displayName)}</strong>
+          <p>${escapeHtml(choice.intro)}</p>
+        </span>
+      </button>`).join("");
+    [...els.starterGrid.querySelectorAll("[data-starter]")].forEach((button) => {
+      button.addEventListener("click", () => chooseStarter(button.dataset.starter));
+    });
+  }
+
+  function openStarterChoice() {
+    if (!els.starterChoice) return;
+    if (state.mode === "dialogue") closeDialogue();
+    if (state.mode === "menu") closeMenu();
+    state.mode = "starter";
+    renderStarterChoices();
+    els.starterChoice.hidden = false;
+    els.game.classList.add("in-starter");
+    if (els.starterCancel) els.starterCancel.disabled = !hasStarter();
+  }
+
+  function closeStarterChoice() {
+    if (!hasStarter()) return;
+    state.mode = "overworld";
+    els.starterChoice.hidden = true;
+    els.game.classList.remove("in-starter");
+  }
+
+  function chooseStarter(id) {
+    const choice = starterOptions.find((item) => item.id === id) || starterOptions[0];
+    state.stats.party = [makeStarterAlly(choice)];
+    state.stats.active = 0;
+    state.stats.items.capsule += 3;
+    state.stats.items.fieldNote += 2;
+    state.stats.flags.starter = choice.id;
+    state.stats.flags.guideGift = true;
+    state.stats.starterChoice = choice.id;
+    writeSave();
+    updateHud();
+    els.starterChoice.hidden = true;
+    els.game.classList.remove("in-starter");
+    state.mode = "overworld";
+    playSfx("heal");
+    if (els.dialogueText) els.dialogueText.textContent = `${choice.displayName} joined your party. You also received 3 Archive Capsules and 2 Field Notes.`;
+  }
+
   function handleDialogueAction(action) {
     const target = state.dialogTarget;
     playSfx(action === "heal" ? "heal" : "menu");
     if (action === "close") return closeDialogue();
     if (action === "starter") {
-      ensureStarter();
-      state.stats.items.capsule += 3;
-      state.stats.items.fieldNote += 2;
-      state.stats.flags.guideGift = true;
-      writeSave();
-      updateHud();
-      els.dialogueText.textContent = `${activeAlly().actualName} joined your party. You also received 3 Archive Capsules and 2 Field Notes.`;
+      closeDialogue();
+      openStarterChoice();
       return;
     }
     if (action === "heal") {
@@ -1188,8 +1314,8 @@
     const badges = earnedBadges();
     const badgeCard = `
       <div class="menu-card">
-        <strong>Gym Badges ${badges.length}/10</strong>
-        ${badges.length ? badges.map((gym) => escapeHtml(gym.badge)).join(" · ") : "No badges yet. Challenge gyms at major landmarks."}
+        <strong>Trial Seals ${badges.length}/10</strong>
+        ${badges.length ? badges.map((gym) => escapeHtml(gym.badge)).join(" · ") : "No seals yet. Challenge trials at major landmarks."}
       </div>`;
     els.menuList.innerHTML = controls + badgeCard + (party.length ? party.map((ally, index) => `
       <div class="menu-card">
@@ -1412,6 +1538,10 @@
   }
 
   function openBattle(enemy, trainer, options = {}) {
+    if (!hasStarter()) {
+      openStarterChoice();
+      return;
+    }
     const hero = normalizeAlly(activeAlly());
     let foe = normalizeAlly(enemy || makeAlly(nextQuestion()));
     for (let i = 0; foe && foe.id === hero.id && i < 6; i += 1) {
@@ -1440,7 +1570,7 @@
       opening: options.opening || "",
       gym: options.gym || null,
       menu: "root",
-      log: options.opening || (trainer ? `${(options.trainerName || "Route Trainer").toUpperCase()} challenged your route team!` : `Wild ${foe.actualName.toUpperCase()} appeared!`),
+      log: options.opening || (trainer ? `${(options.trainerName || "Route Trainer").toUpperCase()} challenged your route team!` : `Route echo: ${foe.actualName.toUpperCase()} appeared!`),
       locked: true,
       fx: null,
       fxTime: 0,
@@ -1720,7 +1850,7 @@
     }
     if (id === "capsule") {
       if (battle.gym) {
-        setBattleLog("Gym opponents respect the match, not capsules. Win the badge battle.");
+        setBattleLog("Trial opponents respect the match, not capsules. Win the seal battle.");
         battle.locked = false;
         renderBattleActions();
         return;
@@ -1800,7 +1930,7 @@
       const reward = firstClear ? `awarded the ${gym.badge.toUpperCase()}! +80 shards, +2 Field Notes.` : `paid a rematch purse. +35 shards.`;
       setBattleLog(`${gym.leader.toUpperCase()} ${reward}`);
       await wait(1700);
-      trackHunterCompletion("Gym Battle", firstClear ? 100 : 88, 100, []);
+      trackHunterCompletion("Trial Battle", firstClear ? 100 : 88, 100, []);
       closeBattle(firstClear ? `${gym.badge} earned.` : `${gym.leader} rematch cleared.`);
       return;
     }
@@ -1846,7 +1976,6 @@
   }
 
   function updateHud() {
-    ensureStarter();
     els.zoneName.textContent = zoneName();
     els.partyHud.textContent = `Party ${state.stats.party.length}`;
     els.shardHud.textContent = `${state.stats.shards || 0} Shards`;
@@ -2218,6 +2347,7 @@
     const p = state.player;
     const dir = dirs[p.dir] || dirs.down;
     const ally = activeAlly();
+    if (!ally) return;
     const x = p.x - dir.x * TILE - state.camera.x;
     const y = p.y - dir.y * TILE - state.camera.y;
     const bob = Math.sin((p.step || 0) * Math.PI * 4 + Math.PI) * (p.moving ? 2 : 1);
@@ -2705,6 +2835,7 @@
   function cancelButton() {
     if (state.mode === "dialogue") closeDialogue();
     else if (state.mode === "menu") closeMenu();
+    else if (state.mode === "starter") closeStarterChoice();
     else if (state.mode === "quest") closeQuest();
     else if (state.mode === "battle" && state.battle && !state.battle.locked) {
       state.battle.menu = "root";
@@ -2765,9 +2896,9 @@
       playSfx("start");
       els.boot.hidden = true;
       state.mode = "overworld";
-      ensureStarter();
       updateHud();
       writeSave();
+      if (!hasStarter()) openStarterChoice();
     });
     els.closeMenu.addEventListener("click", closeMenu);
     els.huntBtn.addEventListener("click", () => { closeMenu(); openBattle(makeAlly(nextQuestion()), false); });
@@ -2775,6 +2906,7 @@
     els.partyBtn.addEventListener("click", () => renderMenu("party"));
     els.bagBtn.addEventListener("click", () => renderMenu("bag"));
     els.saveBtn.addEventListener("click", () => { writeSave(); renderMenu("party"); });
+    if (els.starterCancel) els.starterCancel.addEventListener("click", closeStarterChoice);
     els.courseSelect.addEventListener("change", () => { fillSets(); applyFilters(); });
     els.setSelect.addEventListener("change", applyFilters);
     els.questForm.addEventListener("submit", (event) => {
@@ -2803,7 +2935,6 @@
     }
     fillFilters();
     applyFilters();
-    ensureStarter();
     updateHud();
     state.mode = "boot";
     requestAnimationFrame(loop);

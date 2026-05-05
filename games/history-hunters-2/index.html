@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>History Hunters 2: Atlas Quest</title>
   <link rel="icon" href="../../assets/history-hunters/recruit-seal.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260502-perfect-pass">
+  <link rel="stylesheet" href="styles.css?v=20260505-starter-trio">
 </head>
 <body>
   <main class="game" id="game">
@@ -30,9 +30,19 @@
 
     <section class="hud top-hud" id="topHud" aria-label="Game status">
       <strong id="zoneName">Atlas Region</strong>
-      <span id="partyHud">Party 1</span>
+      <span id="partyHud">Party 0</span>
       <span id="shardHud">0 Shards</span>
       <span id="courseHud">All Courses</span>
+    </section>
+
+    <section class="starter-choice" id="starterChoice" hidden aria-label="Choose starter companion">
+      <header>
+        <span>Professor Mac's Lab</span>
+        <strong>Choose Your Starter</strong>
+        <p>Pick one historical starter. Each figure turns a different review habit into battle strength.</p>
+      </header>
+      <div class="starter-grid" id="starterGrid"></div>
+      <button class="starter-cancel" id="starterCancel" type="button">Choose Later</button>
     </section>
 
     <section class="dialogue" id="dialogue" hidden>
@@ -104,7 +114,7 @@
   </main>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
-  <script src="game.js?v=20260502-perfect-pass"></script>
+  <script src="game.js?v=20260505-starter-trio"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

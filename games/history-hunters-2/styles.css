@@ -183,6 +183,7 @@ canvas {
 .hud,
 .dialogue,
 .menu,
+.starter-choice,
 .battle-ui,
 .quest,
 .pad {
@@ -224,6 +225,128 @@ canvas {
 
 .game.in-battle .top-hud {
   display: none;
+}
+
+.starter-choice {
+  z-index: 35;
+  left: max(12px, env(safe-area-inset-left));
+  right: max(12px, env(safe-area-inset-right));
+  top: max(64px, calc(env(safe-area-inset-top) + 64px));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  width: min(980px, calc(100vw - 24px));
+  margin: 0 auto;
+  padding: clamp(14px, 3vw, 24px);
+  border: 2px solid rgba(255, 209, 92, .68);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(7,14,27,.9), rgba(7,14,27,.98)),
+    radial-gradient(circle at 20% 0%, rgba(117,244,255,.18), transparent 32%);
+  box-shadow: 0 34px 90px rgba(0,0,0,.62), inset 0 1px 0 rgba(255,255,255,.13);
+  backdrop-filter: blur(18px) saturate(1.12);
+}
+
+.starter-choice[hidden] {
+  display: none;
+}
+
+.starter-choice header {
+  display: grid;
+  gap: 4px;
+  text-align: center;
+}
+
+.starter-choice span {
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.starter-choice strong {
+  color: var(--glow);
+  font-size: clamp(28px, 5vw, 52px);
+  line-height: .95;
+  text-transform: uppercase;
+}
+
+.starter-choice p {
+  margin: 0 auto;
+  max-width: 64ch;
+  color: rgba(248,251,255,.78);
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.starter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(10px, 2vw, 18px);
+  min-height: 0;
+}
+
+.starter-card {
+  display: grid;
+  grid-template-rows: minmax(140px, 1fr) auto;
+  gap: 10px;
+  min-height: 0;
+  padding: 12px;
+  border: 1px solid rgba(117,244,255,.28);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.035)),
+    rgba(3,7,15,.62);
+  color: var(--glow);
+  text-align: left;
+  text-transform: none;
+  box-shadow: 0 22px 48px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.starter-card:hover,
+.starter-card:focus-visible {
+  border-color: rgba(255,209,92,.82);
+  transform: translateY(-2px);
+}
+
+.starter-card img {
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 230px);
+  max-height: 250px;
+  object-fit: contain;
+  image-rendering: auto;
+  filter: drop-shadow(0 18px 24px rgba(0,0,0,.42));
+}
+
+.starter-card strong {
+  margin: 0 0 4px;
+  color: var(--gold);
+  font-size: clamp(18px, 2.4vw, 25px);
+}
+
+.starter-card small {
+  display: block;
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.starter-card p {
+  margin: 6px 0 0;
+  color: rgba(248,251,255,.82);
+  font-size: 13px;
+}
+
+.starter-cancel {
+  justify-self: center;
+  min-height: 44px;
+  padding: 0 18px;
+  background: linear-gradient(135deg, rgba(234,247,255,.92), rgba(117,244,255,.8));
 }
 
 .dialogue {
@@ -772,6 +895,30 @@ canvas {
     right: max(8px, env(safe-area-inset-right));
     width: calc(100vw - 16px);
     max-height: calc(var(--game-height, 100dvh) - 64px);
+  }
+
+  .starter-choice {
+    top: max(52px, calc(env(safe-area-inset-top) + 52px));
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .starter-grid {
+    grid-template-columns: 1fr;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+
+  .starter-card {
+    grid-template-columns: 120px minmax(0, 1fr);
+    grid-template-rows: auto;
+    align-items: center;
+  }
+
+  .starter-card img {
+    width: 110px;
+    max-height: 128px;
   }
 
   .menu-grid {

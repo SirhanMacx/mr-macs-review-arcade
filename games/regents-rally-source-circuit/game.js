@@ -385,7 +385,12 @@ const ASSETS = {
   racers: loadAsset("rally-64-racers-v2.webp", { keyBackdrop: true, soft: true }),
   gameplayKarts: loadAsset("rally-64-gameplay-karts-v2.webp", { keyBackdrop: true }),
   tracks: loadAsset("rally-64-tracks.webp"),
-  items: loadAsset("rally-items-v2.webp", { keyBackdrop: true, soft: true })
+  items: loadAsset("rally-items-v2.webp", { keyBackdrop: true, soft: true }),
+  itemCubes: loadAsset("../../assets/regents-rally/generated/rally-item-cubes.webp", { keyBackdrop: true, soft: true }),
+  driftSparks: loadAsset("../../assets/regents-rally/generated/rally-drift-sparks.webp", { keyBackdrop: true, soft: true }),
+  turboFlames: loadAsset("../../assets/regents-rally/generated/rally-turbo-flames.webp", { keyBackdrop: true, soft: true }),
+  speedPads: loadAsset("../../assets/regents-rally/generated/rally-speed-pads.webp", { keyBackdrop: true, soft: true }),
+  lowpolyKarts: loadAsset("../../assets/regents-rally/generated/rally-lowpoly-karts.webp", { keyBackdrop: true, soft: true })
 };
 
 function trackLayout(track = state?.track || TRACKS[0]) {
@@ -469,6 +474,9 @@ const state = {
   speed: 0,
   lane: 0,
   laneVel: 0,
+  yaw: 0,
+  gripSlip: 0,
+  driftTier: 0,
   driftCharge: 0,
   drifting: false,
   boost: 0,
@@ -502,6 +510,7 @@ const state = {
   lastFrame: 0,
   toast: "",
   toastTime: 0,
+  touch: { steer: 0, gas: false, brake: false, drift: false },
   dpr: 1
 };
 
@@ -746,6 +755,9 @@ function startRace() {
   state.speed = 0;
   state.lane = 0;
   state.laneVel = 0;
+  state.yaw = 0;
+  state.gripSlip = 0;
+  state.driftTier = 0;
   state.driftCharge = 0;
   state.drifting = false;
   state.boost = 0;
@@ -1046,7 +1058,7 @@ function updateRace(dt) {
     if (before !== after && after > 0) setToast(String(after), 0.85);
     if (!state.countdown && !state.raceReleased) {
       state.raceReleased = true;
-      state.boost = keys.has("ArrowUp") || keys.has("w") ? 1.65 : 0;
+      state.boost = keys.has("ArrowUp") || keys.has("w") || state.touch.gas ? 1.65 : 0;
       if (state.boost > 0) {
         state.cameraShake = Math.max(state.cameraShake, 0.2);
         burstParticles(state.lane, state.character.accent, 22);
@@ -1058,12 +1070,12 @@ function updateRace(dt) {
     updateParticles(dt);
     return;
   }
-  const left = keys.has("ArrowLeft") || keys.has("a");
-  const right = keys.has("ArrowRight") || keys.has("d");
-  const accelerate = keys.has("ArrowUp") || keys.has("w");
-  const brake = keys.has("ArrowDown") || keys.has("s");
-  const drift = keys.has(" ") && (left || right) && state.speed > 245;
-  const steer = (right ? 1 : 0) - (left ? 1 : 0);
+  const digitalSteer = (keys.has("ArrowRight") || keys.has("d") ? 1 : 0) - (keys.has("ArrowLeft") || keys.has("a") ? 1 : 0);
+  const touchSteer = Math.abs(state.touch.steer) > 0.08 ? state.touch.steer : 0;
+  const steer = clamp(touchSteer || digitalSteer, -1, 1);
+  const accelerate = keys.has("ArrowUp") || keys.has("w") || state.touch.gas;
+  const brake = keys.has("ArrowDown") || keys.has("s") || state.touch.brake;
+  const drift = (keys.has(" ") || state.touch.drift) && Math.abs(steer) > 0.18 && state.speed > 245;
   const sample = trackSample(state.distance + Math.max(60, state.speed * 0.24));
   const surface = surfaceAt(state.distance + Math.max(80, state.speed * 0.3));
   const laneLimit = 0.9 + sample.width * 0.18;
@@ -1081,13 +1093,14 @@ function updateRace(dt) {
   if (brake) state.speed = Math.max(0, state.speed - brakeBite);
   const speedFactor = clamp(state.speed / 465, 0.32, 1.32);
   const grip = (1.2 + state.character.stats.handling * 0.18 - weight * 0.018) * surface.grip;
-  const driftGrip = drift ? 0.45 : brake && steer ? 0.78 : 1;
-  const brakeTurn = brake && steer ? 1.22 : 1;
+  const driftGrip = drift ? 0.34 : brake && steer ? 0.74 : 1;
+  const brakeTurn = brake && steer ? 1.32 : 1;
   const curveAssist = roadCurveAt(state.distance + state.speed * 0.75, 0.6) * 0.000017 * state.speed;
-  state.laneVel += (steer * grip * driftGrip * brakeTurn - curveAssist) * speedFactor * dt;
-  if (drift) state.laneVel += steer * 0.038 * dt * clamp(state.speed / 360, 0.55, 1.5);
-  state.laneVel *= Math.pow(drift ? 0.982 : brake ? 0.835 : 0.875, dt * 60);
-  state.lane += state.laneVel * (1.34 + state.speed / 360);
+  const curvePull = curveAssist * (drift ? 0.68 : 1);
+  state.laneVel += (steer * grip * driftGrip * brakeTurn - curvePull) * speedFactor * dt;
+  if (drift) state.laneVel += steer * 0.052 * dt * clamp(state.speed / 360, 0.55, 1.55);
+  state.laneVel *= Math.pow(drift ? 0.988 : brake ? 0.83 : 0.872, dt * 60);
+  state.lane += state.laneVel * (1.38 + state.speed / 345);
   const hardEdge = laneLimit + 0.24;
   if (Math.abs(state.lane) > hardEdge) {
     state.lane = clamp(state.lane, -hardEdge, hardEdge);
@@ -1095,28 +1108,36 @@ function updateRace(dt) {
     state.speed *= 0.965;
     state.cameraShake = Math.max(state.cameraShake, 0.12);
   }
-  state.skid = Math.max(0, Math.abs(state.laneVel) * clamp(state.speed / 520, 0, 1));
+  state.gripSlip = clamp(Math.abs(state.laneVel) * clamp(state.speed / 430, 0, 1.45) + offroad * 0.65 + (drift ? 0.32 : 0), 0, 1);
+  state.yaw += (steer * (drift ? 0.42 : 0.24) + state.laneVel * 1.75 - state.yaw) * frameEase(drift ? 7.6 : 5.2, dt);
+  state.skid = Math.max(0, state.gripSlip);
   if (offroad > 0.05 && Math.random() < 0.42) burstParticles(state.lane, "#8b98b6", 1);
   if (drift) {
     if (!state.drifting) state.hop = 0.18;
     const sparkBonus = state.character.id === "joan-of-arc" ? 0.24 : 0;
-    state.driftCharge = Math.min(3.1, state.driftCharge + dt * (1.2 + sparkBonus + Math.abs(steer) * 0.48));
+    state.driftCharge = Math.min(3.4, state.driftCharge + dt * (1.18 + sparkBonus + Math.abs(steer) * 0.72 + state.gripSlip * 0.28));
+    state.driftTier = state.driftCharge > 2.35 ? 3 : state.driftCharge > 1.45 ? 2 : state.driftCharge > 0.62 ? 1 : 0;
     state.drifting = true;
-    const spark = state.driftCharge > 1.35 ? "#ffd15c" : state.character.accent;
-    if (Math.random() < 0.8) burstParticles(state.lane - steer * 0.2, spark, state.driftCharge > 1.35 ? 2 : 1);
+    const spark = state.driftTier >= 3 ? "#66e9ff" : state.driftTier >= 2 ? "#ffd15c" : state.character.accent;
+    if (Math.random() < 0.86) burstParticles(state.lane - steer * 0.2, spark, state.driftTier >= 2 ? 2 : 1);
   } else if (state.drifting) {
     if (state.driftCharge > 0.45) {
-      const strong = state.driftCharge > 1.28;
-      state.boost = Math.max(state.boost, (strong ? 2.05 : 0.95) + state.driftCharge * 0.5);
-      state.cameraShake = Math.max(state.cameraShake, strong ? 0.18 : 0.1);
-      state.score += Math.round((strong ? 120 : 72) * state.driftCharge);
-      setToast(strong ? "SUPER MINI-TURBO" : "MINI-TURBO", 0.8);
-      burstParticles(state.lane, strong ? "#ffd15c" : state.character.accent, strong ? 28 : 16);
+      const tier = state.driftCharge > 2.35 ? 3 : state.driftCharge > 1.45 ? 2 : 1;
+      const labels = ["", "MINI-TURBO", "SUPER MINI-TURBO", "ULTRA MINI-TURBO"];
+      const colors = ["", state.character.accent, "#ffd15c", "#66e9ff"];
+      state.boost = Math.max(state.boost, [0, 0.9, 1.7, 2.55][tier] + state.driftCharge * 0.42);
+      state.cameraShake = Math.max(state.cameraShake, [0, 0.1, 0.18, 0.26][tier]);
+      state.score += Math.round([0, 75, 145, 240][tier] * state.driftCharge);
+      setToast(labels[tier], 0.8);
+      burstParticles(state.lane, colors[tier], [0, 16, 28, 42][tier]);
     }
     state.driftCharge = 0;
+    state.driftTier = 0;
     state.drifting = false;
   }
+  const beforeDistance = state.distance;
   state.distance += state.speed * dt;
+  triggerSpeedPad(beforeDistance, state.distance);
   state.boost = Math.max(0, state.boost - dt);
   state.shield = Math.max(0, state.shield - dt);
   state.spin = Math.max(0, state.spin - dt * (state.character.id === "toussaint" ? 2.35 : 1.7));
@@ -1132,6 +1153,22 @@ function updateRace(dt) {
   updateParticles(dt);
   updateRoadBursts(dt);
   state.score += dt * Math.max(3, state.speed / 34);
+}
+
+function speedPadLane(distance) {
+  return Math.floor(distance / 720) % 2 ? -0.42 : 0.42;
+}
+
+function triggerSpeedPad(beforeDistance, afterDistance) {
+  const nextPad = Math.floor(afterDistance / 720) * 720 + 240;
+  if (nextPad <= beforeDistance || nextPad > afterDistance + 28) return;
+  if (Math.abs(state.lane - speedPadLane(nextPad)) > 0.32) return;
+  state.boost = Math.max(state.boost, 1.15);
+  state.speed = Math.min(835, state.speed + 64);
+  state.cameraShake = Math.max(state.cameraShake, 0.15);
+  state.score += 90;
+  setToast("SPEED PAD", 0.55);
+  burstParticles(state.lane, "#66e9ff", 22);
 }
 
 function updateKartCollisions() {
@@ -1284,6 +1321,7 @@ function drawRace(now) {
   drawEnvironment(w, h, now);
   drawRoad(w, h);
   drawRoadMotion(w, h, now);
+  drawSpeedPads(w, h, now);
   drawTracksideProps(w, h, now);
   drawVisibleItems(w, h, now);
   drawVisibleRivals(w, h);
@@ -1623,6 +1661,37 @@ function drawRoadMotion(w, h, now) {
   ctx.restore();
 }
 
+function drawSpeedPads(w, h, now) {
+  const base = Math.floor((state.distance - 260) / 720) * 720 + 240;
+  for (let d = base; d < state.distance + VISIBLE_RANGE; d += 720) {
+    if (d < state.distance - 40) continue;
+    const p = objectPoint(d - state.distance, speedPadLane(d), w, h);
+    if (!p) continue;
+    const width = 150 * p.scale;
+    const height = 72 * p.scale;
+    ctx.save();
+    ctx.translate(p.x, p.y - 10 * p.scale);
+    ctx.globalAlpha = clamp(0.22 + p.n * 0.78, 0.22, 0.96);
+    if (ASSETS.speedPads.complete && ASSETS.speedPads.naturalWidth) {
+      ctx.rotate(Math.sin(now / 240 + d) * 0.035);
+      ctx.drawImage(ASSETS.speedPads, -width / 2, -height / 2, width, height);
+    } else {
+      ctx.fillStyle = "rgba(102,233,255,.46)";
+      ctx.strokeStyle = "#ffd15c";
+      ctx.lineWidth = Math.max(1, 3 * p.scale);
+      ctx.beginPath();
+      ctx.moveTo(-width / 2, height / 2);
+      ctx.lineTo(-width * .28, -height / 2);
+      ctx.lineTo(width * .28, -height / 2);
+      ctx.lineTo(width / 2, height / 2);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+}
+
 function drawTracksideProps(w, h, now) {
   const total = raceDistance();
   const spacing = trackLayout().props || 240;
@@ -1799,28 +1868,43 @@ function drawPlayerKart(w, h) {
   const scale = w < 520 ? Math.max(0.58, Math.min(0.72, w / 640)) : Math.max(0.82, Math.min(1.18, w / 1160));
   if (state.boost > 0) {
     ctx.save();
-    ctx.strokeStyle = state.character.accent;
-    ctx.globalAlpha = 0.42;
-    ctx.lineWidth = 10;
-    for (let i = 0; i < 6; i += 1) {
-      ctx.beginPath();
-      ctx.moveTo(x - 105 + i * 42, y + 62);
-      ctx.lineTo(x - 170 + i * 28, y + 185);
-      ctx.stroke();
+    if (ASSETS.turboFlames.complete && ASSETS.turboFlames.naturalWidth) {
+      ctx.globalAlpha = clamp(0.36 + state.boost * 0.18, 0.42, 0.86);
+      ctx.drawImage(ASSETS.turboFlames, x - 160 * scale, y + 38 * scale, 320 * scale, 158 * scale);
+    } else {
+      ctx.strokeStyle = state.character.accent;
+      ctx.globalAlpha = 0.42;
+      ctx.lineWidth = 10;
+      for (let i = 0; i < 6; i += 1) {
+        ctx.beginPath();
+        ctx.moveTo(x - 105 + i * 42, y + 62);
+        ctx.lineTo(x - 170 + i * 28, y + 185);
+        ctx.stroke();
+      }
     }
     ctx.restore();
   }
   if (state.drifting || state.skid > 0.035) {
     ctx.save();
-    const spark = state.driftCharge > 1.35 ? "#ffd15c" : state.character.accent;
+    const spark = state.driftTier >= 3 ? "#66e9ff" : state.driftTier >= 2 ? "#ffd15c" : state.character.accent;
     ctx.globalAlpha = clamp(0.18 + state.skid * 2.4, 0.2, 0.78);
-    ctx.strokeStyle = spark;
-    ctx.lineWidth = 4;
-    for (let side of [-1, 1]) {
-      ctx.beginPath();
-      ctx.moveTo(x + side * 48 * scale, y + 86 * scale);
-      ctx.lineTo(x + side * (95 + Math.abs(state.laneVel) * 160) * scale, y + (145 + Math.sin(performance.now() / 55) * 10) * scale);
-      ctx.stroke();
+    if (ASSETS.driftSparks.complete && ASSETS.driftSparks.naturalWidth) {
+      for (let side of [-1, 1]) {
+        ctx.save();
+        ctx.translate(x + side * 60 * scale, y + 86 * scale);
+        ctx.scale(side, 1);
+        ctx.drawImage(ASSETS.driftSparks, -16 * scale, -16 * scale, 92 * scale, 54 * scale);
+        ctx.restore();
+      }
+    } else {
+      ctx.strokeStyle = spark;
+      ctx.lineWidth = 4;
+      for (let side of [-1, 1]) {
+        ctx.beginPath();
+        ctx.moveTo(x + side * 48 * scale, y + 86 * scale);
+        ctx.lineTo(x + side * (95 + Math.abs(state.laneVel) * 160) * scale, y + (145 + Math.sin(performance.now() / 55) * 10) * scale);
+        ctx.stroke();
+      }
     }
     ctx.restore();
   }
@@ -1842,7 +1926,7 @@ function drawKartSprite(racer, x, y, scale, options = {}) {
   const height = (options.player ? 176 : 108) * scale;
   ctx.save();
   ctx.translate(x, y);
-  const lean = clamp(state.laneVel * 0.26, -0.24, 0.24);
+  const lean = options.player ? clamp(state.yaw * 0.58 + state.laneVel * 0.16, -0.34, 0.34) : 0;
   if (options.player) ctx.rotate(lean + Math.sin(state.spin * 28) * state.spin * 0.22);
   ctx.fillStyle = "rgba(0,0,0,.42)";
   ctx.beginPath();
@@ -1881,7 +1965,7 @@ function drawKartSprite(racer, x, y, scale, options = {}) {
     ctx.fillText(name, 0, -height * 1.08);
   }
   if (options.player && state.drifting) {
-    ctx.strokeStyle = state.driftCharge > 1.35 ? "#ffd15c" : racer.accent;
+    ctx.strokeStyle = state.driftTier >= 3 ? "#66e9ff" : state.driftTier >= 2 ? "#ffd15c" : racer.accent;
     ctx.lineWidth = Math.max(2, 4 * scale);
     ctx.globalAlpha = 0.8;
     ctx.beginPath();
@@ -1917,7 +2001,14 @@ function drawItemBox(x, y, size, item, now) {
   roundRect(-size / 2, -size / 2, size, size, size * 0.18);
   ctx.fill();
   ctx.stroke();
-  drawItemSprite(item, -size * 0.42, -size * 0.42, size * 0.84, size * 0.84, size * 0.12);
+  if (ASSETS.itemCubes.complete && ASSETS.itemCubes.naturalWidth) {
+    ctx.save();
+    ctx.globalAlpha = 0.94;
+    drawSpriteCover(ASSETS.itemCubes, item.spriteIndex || 0, -size * 0.58, -size * 0.58, size * 1.16, size * 1.16, 4, 2);
+    ctx.restore();
+  } else {
+    drawItemSprite(item, -size * 0.42, -size * 0.42, size * 0.84, size * 0.84, size * 0.12);
+  }
   ctx.restore();
 }
 
@@ -2080,6 +2171,10 @@ function drawSpriteStretch(image, sprite, x, y, width, height, columns = 2, rows
 }
 
 function drawGameplayKartSprite(racer, x, y, width, height) {
+  if (ASSETS.lowpolyKarts.complete && ASSETS.lowpolyKarts.naturalWidth) {
+    drawSpriteStretch(ASSETS.lowpolyKarts, racer.spriteIndex, x, y, width, height, 4, 2);
+    return;
+  }
   if (ASSETS.gameplayKarts.complete && ASSETS.gameplayKarts.naturalWidth) {
     drawSpriteStretch(ASSETS.gameplayKarts, racer.spriteIndex, x, y, width, height, 4, 2);
     return;
@@ -2163,6 +2258,11 @@ function updateDrivePointer(event) {
   const rect = els.canvas.getBoundingClientRect();
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
+  const steer = clamp((x / rect.width - 0.5) * 2.6, -1, 1);
+  state.touch.steer = Math.abs(steer) < 0.1 ? 0 : steer;
+  state.touch.gas = true;
+  state.touch.brake = y > rect.height * 0.82;
+  state.touch.drift = y > rect.height * 0.58 && Math.abs(steer) > 0.28;
   keys.add("ArrowUp");
   keys.delete("ArrowLeft");
   keys.delete("ArrowRight");
@@ -2174,6 +2274,10 @@ function updateDrivePointer(event) {
 
 function clearDrivePointer() {
   drivePointerId = null;
+  state.touch.steer = 0;
+  state.touch.gas = false;
+  state.touch.brake = false;
+  state.touch.drift = false;
   keys.delete("ArrowLeft");
   keys.delete("ArrowRight");
   keys.delete("ArrowUp");
@@ -2207,14 +2311,22 @@ els.canvas.addEventListener("pointercancel", () => {
 
 document.querySelectorAll("[data-hold-key]").forEach((button) => {
   const key = button.dataset.holdKey === "space" ? " " : button.dataset.holdKey;
+  const syncTouch = () => {
+    state.touch.steer = (keys.has("ArrowRight") ? 1 : 0) - (keys.has("ArrowLeft") ? 1 : 0);
+    state.touch.gas = keys.has("ArrowUp");
+    state.touch.brake = keys.has("ArrowDown");
+    state.touch.drift = keys.has(" ");
+  };
   const press = (event) => {
     event.preventDefault();
     keys.add(key);
+    syncTouch();
     button.classList.add("active");
   };
   const release = (event) => {
     event.preventDefault();
     keys.delete(key);
+    syncTouch();
     button.classList.remove("active");
   };
   button.addEventListener("pointerdown", press);
