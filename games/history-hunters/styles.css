@@ -892,6 +892,84 @@ button:hover {
   text-transform: uppercase;
 }
 
+/* === party-list (in-battle Party menu) === */
+.move-buttons.party-list .party-slot {
+  position: relative;
+  padding-bottom: 22px;
+}
+.move-buttons.party-list .party-slot.is-active {
+  outline: 2px solid var(--type, var(--glow, #88f7c0));
+  outline-offset: -3px;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.06), inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+.move-buttons.party-list .party-slot.is-active::after {
+  content: "ACTIVE";
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  font-weight: 900;
+  color: var(--type, var(--glow, #88f7c0));
+  background: rgba(0,0,0,0.45);
+  border: 1px solid var(--type, var(--glow, #88f7c0));
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.move-buttons.party-list .party-slot.is-fainted {
+  opacity: 0.55;
+  filter: saturate(0.4);
+}
+.move-buttons.party-list .party-slot.is-fainted::after {
+  content: "FAINTED";
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  font-weight: 900;
+  color: #d35454;
+  background: rgba(0,0,0,0.45);
+  border: 1px solid #d35454;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.move-buttons.party-list .party-hp-bar {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 8px;
+  height: 4px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.move-buttons.party-list .party-hp-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--type, #88f7c0), color-mix(in oklab, var(--type, #88f7c0) 70%, white 30%));
+  transition: width 0.35s ease-out;
+}
+.move-buttons.party-list .party-hp-text {
+  position: absolute;
+  bottom: 14px;
+  right: 12px;
+  font-size: 9px;
+  letter-spacing: 0.10em;
+  font-weight: 900;
+  color: rgba(255,255,255,0.55);
+}
+.move-buttons.party-list .party-back {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.12);
+  color: var(--muted);
+}
+.move-buttons.party-list .party-back:hover,
+.move-buttons.party-list .party-back:focus-visible {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
 .source-panel {
   display: grid;
   gap: 10px;

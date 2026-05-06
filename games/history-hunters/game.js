@@ -2017,28 +2017,57 @@
 
   function renderBattleParty() {
     const roster = state.stats.roster || [];
-    els.moveButtons.classList.remove("answering", "open");
+    els.moveButtons.classList.remove("answering");
+    els.moveButtons.classList.add("open", "party-list");
+    const maxHpDefault = state.stats.maxHp || 100;
     if (!roster.length) {
-      els.moveButtons.innerHTML = `<button type="button" data-party="-1"><strong>No Allies Yet</strong><small>back to commands</small></button>`;
+      els.moveButtons.innerHTML =
+        `<button type="button" data-party-back="1" class="party-back">` +
+          `<strong>No Allies Yet</strong>` +
+          `<small>back to commands</small>` +
+        `</button>`;
     } else {
       const activeIndex = clamp(Number(state.stats.activeAlly || 0), 0, Math.max(0, roster.length - 1));
-      els.moveButtons.innerHTML = roster.slice(0, 6).map((ally, index) => {
+      const slots = roster.slice(0, 6).map((ally, index) => {
         const data = typeData[ally.type] || typeData.Review;
-        const active = index === activeIndex ? " / active" : "";
-        return `<button type="button" data-party="${index}" style="--type:${data.color};--effect-y:${typeEffectOffset(ally.type)}">` +
-          `<strong>${escapeHtml(ally.actualName || ally.name)}${active}</strong>` +
-          `<small>${escapeHtml(ally.type || "Review")} / stage ${escapeHtml(String(ally.level || 1))}</small>` +
+        const isActive = index === activeIndex;
+        const allyHp = Math.max(0, Math.round(Number(ally.hp != null ? ally.hp : (isActive ? (state.battle ? state.battle.heroHp : state.stats.playerHp) : maxHpDefault))));
+        const allyMaxHp = Math.max(1, Math.round(Number(ally.maxHp || maxHpDefault)));
+        const hpPct = clamp((allyHp / allyMaxHp) * 100, 0, 100);
+        const fainted = allyHp <= 0;
+        const tags = [
+          isActive ? "ACTIVE" : (fainted ? "FAINTED" : "READY"),
+          escapeHtml(ally.type || "Review"),
+          `L${escapeHtml(String(ally.level || 1))}`
+        ].join(" / ");
+        const cls = `party-slot${isActive ? " is-active" : ""}${fainted ? " is-fainted" : ""}`;
+        return `<button type="button" data-party="${index}" class="${cls}" style="--type:${data.color};--effect-y:${typeEffectOffset(ally.type)}">` +
+          `<strong>${escapeHtml(ally.actualName || ally.name)}</strong>` +
+          `<small>${tags}</small>` +
+          `<span class="party-hp-bar"><span class="party-hp-fill" style="width:${hpPct}%"></span></span>` +
+          `<span class="party-hp-text">${allyHp}/${allyMaxHp}</span>` +
         `</button>`;
       }).join("");
+      const back =
+        `<button type="button" data-party-back="1" class="party-back">` +
+          `<strong>Back</strong>` +
+          `<small>cancel switch</small>` +
+        `</button>`;
+      els.moveButtons.innerHTML = slots + back;
     }
     Array.prototype.forEach.call(els.moveButtons.querySelectorAll("button[data-party]"), (button) => {
       button.addEventListener("click", () => choosePartyAlly(Number(button.dataset.party)));
+    });
+    Array.prototype.forEach.call(els.moveButtons.querySelectorAll("button[data-party-back]"), (button) => {
+      button.addEventListener("click", () => {
+        prepareCommand(`What will ${shout(heroAlly().name)} do?`);
+      });
     });
   }
 
   function renderMoveButtons() {
     const hero = heroAlly();
-    els.moveButtons.classList.remove("answering", "open");
+    els.moveButtons.classList.remove("answering", "open", "party-list");
     els.moveButtons.innerHTML = hero.moves.map((item, index) => {
       const data = typeData[item.type] || typeData.Review;
       return `<button type="button" data-move="${index}" style="--type:${data.color};--effect-y:${typeEffectOffset(item.type)}">` +
@@ -2220,11 +2249,14 @@
     if (!isCurrentBattle(battle)) return;
     state.stats.activeAlly = index;
     writeSave();
+    renderRoster();
     renderBattle();
     setEncounterPhase("sendout");
     flashBattleFx("fx-sendout", 700);
+    if (typeof SFX !== "undefined" && SFX.levelUp) try { SFX.levelUp(); } catch (e) {}
     await showBattleMessage(`${shout(playerTitle())} sent out ${shout(selected.actualName || selected.name)}!`, 700);
     if (!isCurrentBattle(battle)) return;
+    renderBattle();
     await enemyCounterTurn("switch");
     if (!isCurrentBattle(battle) || battle.heroHp <= 0) return;
     prepareCommand(`What will ${shout(heroAlly().name)} do?`);
@@ -2730,13 +2762,22 @@
           level: 1,
           xp: 0
         };
-        // Enforce 6-slot active party (roster beyond 6 = storage)
-        if (state.stats.roster.length < 6) {
-          state.stats.roster.unshift(newEntry);
+        // Enforce 6-slot active party (roster beyond 6 = storage). Captures
+        // unshift to the front, but DO NOT yank the player's chosen active
+        // out from under them — bump activeAlly by 1 so it still points at
+        // the same ally. Only auto-swap to the new capture if the prior
+        // active is missing or fainted.
+        const prevActiveCheck = state.stats.roster[state.stats.activeAlly || 0];
+        const prevActiveFainted = prevActiveCheck && Number(prevActiveCheck.hp || 1) <= 0;
+        const noPriorActive = !state.stats.roster.length || !prevActiveCheck;
+        state.stats.roster.unshift(newEntry);
+        if (state.stats.roster.length > 96) {
+          state.stats.roster = state.stats.roster.slice(0, 96);
+        }
+        if (noPriorActive || prevActiveFainted) {
           state.stats.activeAlly = 0;
         } else {
-          state.stats.roster.unshift(newEntry);
-          state.stats.roster = state.stats.roster.slice(0, 96);
+          state.stats.activeAlly = clamp((state.stats.activeAlly || 0) + 1, 0, state.stats.roster.length - 1);
         }
         markCodexCaught(ally.id);
         // Region catch progress
@@ -2868,16 +2909,28 @@
         `</div>` +
       `</div>`;
     }).join("");
-    // Swap buttons
+    // Swap buttons (field roster panel). If a battle is open, route through
+    // choosePartyAlly so the swap costs a turn — same as the in-battle Party
+    // command — and so the battle UI (sprite, name, type, moves, HP bar) is
+    // properly re-rendered. Otherwise it's a free out-of-battle swap.
     Array.prototype.forEach.call(els.rosterList.querySelectorAll(".swap-btn"), (btn) => {
       btn.addEventListener("click", () => {
         const i = Number(btn.dataset.swap);
-        if (i >= 0 && i < roster.length) {
-          state.stats.activeAlly = i;
-          writeSave();
-          renderRoster();
-          updateHud();
+        if (i < 0 || i >= roster.length) return;
+        if (state.battle && state.encounterOpen) {
+          // In battle: hide the field roster panel and route through the
+          // proper turn-using switch path so battle UI re-renders.
+          if (els.rosterPanel) els.rosterPanel.classList.remove("show");
+          document.body.classList.remove("menu-open");
+          choosePartyAlly(i);
+          return;
         }
+        // Out of battle: free swap, refresh roster + HUD.
+        state.stats.activeAlly = i;
+        writeSave();
+        renderRoster();
+        updateHud();
+        if (typeof SFX !== "undefined" && SFX.levelUp) try { SFX.levelUp(); } catch (e) {}
       });
     });
   }
