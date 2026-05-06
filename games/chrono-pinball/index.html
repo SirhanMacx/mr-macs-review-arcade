@@ -92,20 +92,28 @@
     <!-- ══ SETUP / TITLE SCREEN ══ -->
     <section class="setup-screen show" id="setupScreen" aria-label="Chrono Pinball — game setup" aria-modal="true">
       <div class="setup-card">
-        <!-- Marquee art / cabinet front simulation -->
+        <!-- Marquee art / cabinet front simulation — cinematic hero strip -->
         <div class="marquee-art" aria-hidden="true">
           <div class="marquee-glow"></div>
-          <div class="era-badges" id="eraBadges">
-            <span class="era-badge" style="--ec:#f5c451" title="Renaissance">REN</span>
-            <span class="era-badge" style="--ec:#cd7f32" title="Industrial">IND</span>
-            <span class="era-badge" style="--ec:#5a7a5a" title="World War II">WWI</span>
-            <span class="era-badge" style="--ec:#4fc3c3" title="Cold War">CLD</span>
-            <span class="era-badge" style="--ec:#a991ff" title="Digital Age">DIG</span>
-          </div>
+          <div class="marquee-star marquee-star-1"></div>
+          <div class="marquee-star marquee-star-2"></div>
+          <div class="marquee-star marquee-star-3"></div>
+          <div class="marquee-inner-border"></div>
         </div>
 
         <div class="setup-kicker">Master Table</div>
-        <h1><span class="title-chrono">Chrono</span><br><em class="title-pinball">Pinball</em></h1>
+        <h1><span class="title-chrono">Chrono</span> <em class="title-pinball">Pinball</em></h1>
+
+        <!-- Era campaign pills -->
+        <div class="era-badges-row" id="eraBadges" aria-label="Five era campaign">
+          <span class="era-badge" style="--ec:#f5c451" title="Renaissance">REN</span>
+          <span class="era-badge" style="--ec:#cd7f32" title="Industrial">IND</span>
+          <span class="era-badge" style="--ec:#5a7a5a" title="World War I">WWI</span>
+          <span class="era-badge" style="--ec:#4fc3c3" title="Cold War">CLD</span>
+          <span class="era-badge" style="--ec:#a991ff" title="Digital Age">DIG</span>
+          <span class="era-campaign-label">Five Era Campaign</span>
+        </div>
+
         <p class="setup-sub">Course-filter the archive table · launch the ball · light era targets · earn multiball by clearing review missions. All five eras unlocked = Wizard Mode.</p>
 
         <div class="setup-grid">

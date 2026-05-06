@@ -8,7 +8,7 @@
   <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20260505-empire-4x-polish">
+  <link rel="stylesheet" href="styles.css?v=20260506-title-polish">
 </head>
 <body>
   <main class="empire-shell" id="app" data-era="0">
@@ -94,10 +94,31 @@
 
     <!-- SETUP SCREEN -->
     <section class="setup-screen show" id="setupScreen" aria-label="New game setup" aria-modal="true">
+      <!-- Atmospheric backdrop canvas (hex-tile world preview) -->
+      <canvas id="titleBackdrop" aria-hidden="true"></canvas>
+
+      <!-- Mr. Mac brand mark / arcade-home link -->
+      <a class="arcade-home-mark" href="../../index.html" title="Back to Mr. Mac's Review Arcade" aria-label="Back to Arcade">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 12L12 4l9 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Arcade</span>
+      </a>
+
       <div class="setup-card">
         <div class="setup-kicker">Strategy · Social Studies Review</div>
         <h1>Empire <em>Ascendant</em></h1>
         <p class="setup-sub">A turn-based rise-and-fall strategy game. Build an empire across eras, manage resources and stability, face rival states, and unlock expansion through course-filtered review councils.</p>
+
+        <!-- Era palette indicator -->
+        <div class="era-palette-bar" aria-label="Era progression palette">
+          <div class="era-swatch" data-era-name="Ancient"     style="--sw-color:#f2c14e;"></div>
+          <div class="era-swatch" data-era-name="Classical"   style="--sw-color:#d98a5d;"></div>
+          <div class="era-swatch" data-era-name="Medieval"    style="--sw-color:#f2c14e;"></div>
+          <div class="era-swatch" data-era-name="Industrial"  style="--sw-color:#b79cff;"></div>
+        </div>
+
         <div class="setup-grid">
           <label>
             <span>Course</span>
@@ -116,11 +137,46 @@
             </select>
           </label>
         </div>
+
+        <!-- Stat chips -->
         <div class="setup-metrics" id="setupMetrics" aria-live="polite"></div>
+
+        <!-- Civ portrait row -->
+        <div class="civ-portrait-row" aria-label="Civilizations in play" role="list">
+          <div class="civ-portrait-card" role="listitem" data-civ="player">
+            <canvas class="civ-portrait-canvas" width="80" height="100" aria-hidden="true"></canvas>
+            <div class="civ-portrait-meta">
+              <strong>Mac Dynasty</strong>
+              <span>Your Empire</span>
+            </div>
+          </div>
+          <div class="civ-portrait-card" role="listitem" data-civ="north">
+            <canvas class="civ-portrait-canvas" width="80" height="100" aria-hidden="true"></canvas>
+            <div class="civ-portrait-meta">
+              <strong>Northern League</strong>
+              <span>Expansionist</span>
+            </div>
+          </div>
+          <div class="civ-portrait-card" role="listitem" data-civ="steppe">
+            <canvas class="civ-portrait-canvas" width="80" height="100" aria-hidden="true"></canvas>
+            <div class="civ-portrait-meta">
+              <strong>Steppe Conf.</strong>
+              <span>Military</span>
+            </div>
+          </div>
+          <div class="civ-portrait-card" role="listitem" data-civ="ocean">
+            <canvas class="civ-portrait-canvas" width="80" height="100" aria-hidden="true"></canvas>
+            <div class="civ-portrait-meta">
+              <strong>Ocean Compact</strong>
+              <span>Science</span>
+            </div>
+          </div>
+        </div>
+
         <div class="setup-actions">
-          <button class="btn" id="soundBtn"      type="button">Sound On</button>
-          <button class="btn" id="fullscreenBtn" type="button">Fullscreen</button>
-          <button class="btn primary" id="startBtn" type="button">Begin Era</button>
+          <button class="btn aux-btn" id="soundBtn"      type="button">Sound On</button>
+          <button class="btn aux-btn" id="fullscreenBtn" type="button">Fullscreen</button>
+          <button class="btn begin-era-btn" id="startBtn" type="button">Found Empire</button>
         </div>
       </div>
     </section>

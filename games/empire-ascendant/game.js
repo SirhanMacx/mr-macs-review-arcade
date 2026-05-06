@@ -1528,12 +1528,20 @@
     if(!state.filtered.length) state.filtered=[...state.bank.questions];
     state.queue=shuffle(state.filtered);
     const best=Number(localStorage.getItem(`${SAVE_KEY}:bestScore`)||0);
-    els.setupMetrics.innerHTML=[
-      `${fmtN(state.filtered.length)} council questions`,
-      `${state.bank.courses.length} courses`,
-      `Best score: ${fmtN(best)}`,
-      hasSave()?"Save exists — continue above":""
-    ].filter(Boolean).map(t=>`<span class="metric-pill">${esc(t)}</span>`).join("");
+    // Glass stat chips with SVG glyph + JetBrains Mono number
+    const bookSVG=`<svg class="chip-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 013.5 2h9A1.5 1.5 0 0114 3.5v9a1.5 1.5 0 01-1.5 1.5H8v-1h4.5a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5h-9a.5.5 0 00-.5.5V8H2V3.5z" fill="currentColor" opacity=".7"/><path d="M2 9h4v5H3.5A1.5 1.5 0 012 12.5V9z" fill="currentColor" opacity=".55"/></svg>`;
+    const globeSVG=`<svg class="chip-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2" opacity=".7"/><path d="M8 2c0 0-2 2-2 6s2 6 2 6M8 2c0 0 2 2 2 6s-2 6-2 6M2.5 6h11M2.5 10h11" stroke="currentColor" stroke-width="1" opacity=".55"/></svg>`;
+    const trophySVG=`<svg class="chip-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 2h8v5a4 4 0 01-8 0V2z" stroke="currentColor" stroke-width="1.2" opacity=".7"/><path d="M4 4H2.5A1.5 1.5 0 001 5.5v.5a2 2 0 002 2H4M12 4h1.5A1.5 1.5 0 0115 5.5v.5a2 2 0 01-2 2H12M8 11v3M6 14h4" stroke="currentColor" stroke-width="1" opacity=".55"/></svg>`;
+    const chips=[
+      {icon:bookSVG, num:fmtN(state.filtered.length), label:"council questions"},
+      {icon:globeSVG, num:fmtN(state.bank.courses.length), label:"courses"},
+      {icon:trophySVG, num:fmtN(best), label:"best score"},
+      hasSave()?{icon:"", num:"", label:"Save exists — continue above"}:null
+    ].filter(Boolean).map(c=>c.num
+      ?`<span class="metric-pill">${c.icon}<span class="chip-num">${esc(c.num)}</span><span class="chip-label">${esc(c.label)}</span></span>`
+      :`<span class="metric-pill">${esc(c.label)}</span>`
+    ).join("");
+    els.setupMetrics.innerHTML=chips;
   }
 
   // ─── CANVAS RESIZE ───────────────────────────────────────────────────────────
@@ -2428,9 +2436,193 @@
     return baseY+view.size;
   }
 
+  // ─── TITLE BACKDROP ──────────────────────────────────────────────────────────
+  // Draws a slow-drifting painterly hex-tile world preview behind the setup card.
+  function initTitleBackdrop(){
+    const el=document.getElementById("titleBackdrop");
+    if(!el) return;
+    const TERRAINS_BG=[
+      {color:"#5d8d58",edge:"#9ccc7a"},  // plains
+      {color:"#2f714f",edge:"#77d99b"},  // forest
+      {color:"#3f8d86",edge:"#7bdff2"},  // river
+      {color:"#83684d",edge:"#d98a5d"},  // hills
+      {color:"#9c7a44",edge:"#f2c14e"},  // desert
+      {color:"#3a7a44",edge:"#6dc86d"},  // grassland
+    ];
+    const HEX_R=44;
+    let W,H,dpr,hexes=[];
+
+    function resizeBD(){
+      dpr=Math.min(window.devicePixelRatio||1,1.5);
+      W=window.innerWidth; H=window.innerHeight;
+      el.width=Math.round(W*dpr); el.height=Math.round(H*dpr);
+      el.style.width=W+"px"; el.style.height=H+"px";
+      // Build a grid of hex centres covering the viewport
+      hexes=[];
+      const r=HEX_R, dx=r*1.73, dy=r*1.5;
+      const cols=Math.ceil(W/dx)+3, rows=Math.ceil(H/dy)+3;
+      for(let row=-1;row<rows;row++){
+        for(let col=-1;col<cols;col++){
+          const x=col*dx+(row%2===0?0:dx/2);
+          const y=row*dy;
+          const t=TERRAINS_BG[(Math.abs(row*7+col*13))%TERRAINS_BG.length];
+          hexes.push({
+            bx:x, by:y,     // base position (no drift)
+            ox:0, oy:0,     // drift offset
+            phase:Math.random()*Math.PI*2,
+            spd:0.008+Math.random()*0.006,
+            t,
+            // stipple hatching offset for each hex
+            hatch:(Math.floor(Math.random()*3))
+          });
+        }
+      }
+    }
+
+    function drawHex(cx,cc,r,fill,edge,hatch){
+      const a=Math.PI/3;
+      cc.beginPath();
+      for(let i=0;i<6;i++) cc.lineTo(r*Math.cos(a*i-Math.PI/6)+cx[0], r*Math.sin(a*i-Math.PI/6)+cx[1]);
+      cc.closePath();
+      cc.fillStyle=fill; cc.fill();
+      // Faint hatch lines for texture
+      cc.save(); cc.clip();
+      cc.strokeStyle="rgba(255,255,255,0.045)";
+      cc.lineWidth=.8;
+      const step=6+hatch*3;
+      for(let s=-r*2;s<r*2;s+=step){
+        cc.beginPath(); cc.moveTo(cx[0]-r+s,cx[1]-r); cc.lineTo(cx[0]-r+s+r*.8,cx[1]+r); cc.stroke();
+      }
+      cc.restore();
+      cc.strokeStyle=edge; cc.lineWidth=.9; cc.globalAlpha=.28; cc.stroke(); cc.globalAlpha=1;
+    }
+
+    let t0=null;
+    function frameBD(ts){
+      if(!t0) t0=ts;
+      const t=(ts-t0)*0.001;
+      const cc=el.getContext("2d");
+      cc.setTransform(dpr,0,0,dpr,0,0);
+      cc.clearRect(0,0,W,H);
+
+      // Dark gradient base (replace the pure-black void)
+      const grad=cc.createRadialGradient(W*.5,H*.42,0,W*.5,H*.42,Math.max(W,H)*.72);
+      grad.addColorStop(0,"rgba(14,26,22,.0)");
+      grad.addColorStop(1,"rgba(4,8,10,.0)");
+      cc.fillStyle=grad; cc.fillRect(0,0,W,H);
+
+      // Drift hex tiles
+      const drift=18; // max px drift
+      for(const h of hexes){
+        const dx=Math.sin(t*h.spd*0.7+h.phase)*drift;
+        const dy=Math.cos(t*h.spd+h.phase+1.2)*drift*0.6;
+        const cx=[h.bx+dx, h.by+dy];
+        cc.globalAlpha=0.11;
+        drawHex(cx,cc,HEX_R,h.t.color,h.t.edge,h.hatch);
+        cc.globalAlpha=1;
+      }
+
+      // Parchment-ink vignette to darken edges
+      const vig=cc.createRadialGradient(W*.5,H*.5,H*.22,W*.5,H*.5,H*.78);
+      vig.addColorStop(0,"rgba(7,16,19,0)");
+      vig.addColorStop(1,"rgba(7,16,19,.72)");
+      cc.fillStyle=vig; cc.fillRect(0,0,W,H);
+
+      requestAnimationFrame(frameBD);
+    }
+
+    resizeBD();
+    window.addEventListener("resize",resizeBD,{passive:true});
+    requestAnimationFrame(frameBD);
+  }
+
+  // ─── CIV PORTRAIT CARDS ───────────────────────────────────────────────────────
+  // Draws illuminated-manuscript-style portrait card for each civ on the setup screen.
+  function drawCivPortraits(){
+    const CIV_PORTRAITS=[
+      {key:"player", name:"Mac Dynasty",         color:"#f2c14e", leader:"Emperor",     flag:"▲"},
+      {key:"north",  name:"Northern League",     color:"#7bdff2", leader:"Chancellor",  flag:"◆"},
+      {key:"steppe", name:"Steppe Confederation",color:"#d98a5d", leader:"Khan",        flag:"●"},
+      {key:"ocean",  name:"Ocean Compact",       color:"#b79cff", leader:"Admiral",     flag:"◈"},
+    ];
+    document.querySelectorAll(".civ-portrait-canvas").forEach((cvs,i)=>{
+      const civ=CIV_PORTRAITS[i]; if(!civ) return;
+      const W=cvs.width, H=cvs.height;
+      const cc=cvs.getContext("2d");
+      const dpr=Math.min(window.devicePixelRatio||1,2);
+      cvs.width=Math.round(W*dpr); cvs.height=Math.round(H*dpr);
+      cvs.style.width=W+"px"; cvs.style.height=H+"px";
+      cc.setTransform(dpr,0,0,dpr,0,0);
+
+      // Parchment card background
+      const bg=cc.createLinearGradient(0,0,W,H);
+      bg.addColorStop(0,"rgba(9,22,25,.97)");
+      bg.addColorStop(1,"rgba(16,26,24,.92)");
+      cc.fillStyle=bg; cc.fillRect(0,0,W,H);
+
+      // Civ color stripe at top
+      cc.fillStyle=civ.color;
+      cc.globalAlpha=.55;
+      cc.fillRect(0,0,W,22);
+      cc.globalAlpha=1;
+
+      // Flag glyph in stripe
+      cc.fillStyle="#1a0e00";
+      cc.globalAlpha=.80;
+      cc.font="bold 13px sans-serif";
+      cc.textAlign="center";
+      cc.textBaseline="middle";
+      cc.fillText(civ.flag,W/2,11);
+      cc.globalAlpha=1;
+
+      // Silhouette figure (simple stylized human form)
+      const cx=W/2, cy=H*0.52;
+      cc.fillStyle=civ.color;
+      cc.globalAlpha=.18;
+      cc.beginPath(); // cloak
+      cc.moveTo(cx-18,H-8); cc.lineTo(cx-12,cy+2); cc.lineTo(cx,cy-2); cc.lineTo(cx+12,cy+2); cc.lineTo(cx+18,H-8); cc.closePath();
+      cc.fill();
+      cc.globalAlpha=1;
+
+      // Silhouette head
+      cc.fillStyle=civ.color;
+      cc.globalAlpha=.45;
+      cc.beginPath(); cc.arc(cx,cy-14,9,0,Math.PI*2); cc.fill();
+      cc.globalAlpha=1;
+
+      // Silhouette body
+      cc.fillStyle=civ.color;
+      cc.globalAlpha=.30;
+      cc.fillRect(cx-7,cy-5,14,22);
+      cc.globalAlpha=1;
+
+      // Civ accent border (bottom)
+      cc.strokeStyle=civ.color;
+      cc.lineWidth=1.2;
+      cc.globalAlpha=.45;
+      cc.strokeRect(.6,.6,W-1.2,H-1.2);
+      cc.globalAlpha=1;
+
+      // Inner top highlight
+      cc.strokeStyle="rgba(255,255,255,.12)";
+      cc.lineWidth=1;
+      cc.beginPath(); cc.moveTo(1,1); cc.lineTo(W-1,1); cc.stroke();
+
+      // Leader title at bottom
+      cc.fillStyle="rgba(251,245,230,.60)";
+      cc.font="600 9px 'Inter', sans-serif";
+      cc.textAlign="center";
+      cc.textBaseline="bottom";
+      cc.letterSpacing="0.06em";
+      cc.fillText(civ.leader.toUpperCase(),cx,H-5);
+    });
+  }
+
   // ─── INIT ────────────────────────────────────────────────────────────────────
   async function init(){
     resize(); bind(); requestAnimationFrame(loop);
+    initTitleBackdrop();
+    drawCivPortraits();
     // Update setup screen start button for continue support
     if(hasSave()) els.startBtn.textContent="New Game";
     try {

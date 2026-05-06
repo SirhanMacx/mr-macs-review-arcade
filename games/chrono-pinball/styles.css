@@ -315,26 +315,56 @@ button:disabled { cursor: wait; opacity: .55; }
   box-shadow: 0 8px 24px rgba(0,0,0,.32), var(--glow-cyan);
 }
 
-/* Brass primary button */
+/* Brass primary button — premium inner highlight */
 .brass-btn {
-  border-color: rgba(200,146,42,.65);
-  background: linear-gradient(180deg,
-    rgba(200,146,42,.38) 0%,
-    rgba(180,120,20,.22) 100%);
+  border-color: rgba(200,146,42,.68);
+  background:
+    linear-gradient(180deg,
+      rgba(232,184,75,.18) 0%,         /* inner top highlight */
+      rgba(200,146,42,.42) 28%,
+      rgba(160,106,14,.28) 72%,
+      rgba(180,120,20,.18) 100%);
   color: var(--brass-light);
-  text-shadow: 0 0 12px rgba(200,146,42,.5);
+  text-shadow: 0 0 14px rgba(200,146,42,.60);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),  /* top sheen */
+    inset 0 -1px 0 rgba(0,0,0,.28),        /* bottom shadow */
+    0 6px 20px rgba(0,0,0,.32);
 }
 .brass-btn:hover {
-  border-color: rgba(232,184,75,.80);
-  background: linear-gradient(180deg,
-    rgba(200,146,42,.52) 0%,
-    rgba(180,120,20,.32) 100%);
+  border-color: rgba(232,184,75,.88);
+  background:
+    linear-gradient(180deg,
+      rgba(255,210,100,.22) 0%,
+      rgba(200,146,42,.58) 28%,
+      rgba(160,106,14,.38) 72%,
+      rgba(180,120,20,.24) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(0,0,0,.38), var(--glow-brass);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 0 -1px 0 rgba(0,0,0,.30),
+    0 14px 36px rgba(0,0,0,.42),
+    0 0 32px rgba(200,146,42,.35),
+    0 0 60px rgba(200,146,42,.15);
 }
-.brass-btn:active { transform: translateY(0); }
+.brass-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 2px 6px rgba(0,0,0,.32),
+    0 2px 8px rgba(0,0,0,.28);
+}
 
-.btn-coin { opacity: .75; margin-right: 4px; }
+/* CTA size boost for the main "Insert Coin" button */
+#startBtn {
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  flex: 1;
+}
+
+.btn-coin { opacity: .80; margin-right: 5px; font-size: 1.1em; }
 
 /* Hover lift for all interactive */
 .hud-btn:hover, .btn:hover {
@@ -529,49 +559,111 @@ button:disabled { cursor: wait; opacity: .55; }
 .setup-card.compact { width: min(580px, 100%); }
 .question-card { width: min(880px, 100%); }
 
-/* Marquee art strip at top of setup card */
+/* ─── Marquee art — cinematic hero strip ──────────────────────────────────── */
 .marquee-art {
   position: relative;
-  height: 56px;
-  margin: -clamp(20px,4vw,38px) -clamp(20px,4vw,38px) 22px;
+  height: 140px;
+  margin: -clamp(20px,4vw,38px) -clamp(20px,4vw,38px) 20px;
   border-radius: 13px 13px 0 0;
   overflow: hidden;
-  background: linear-gradient(90deg,
-    #0d0822 0%, #1a0c38 25%, #120a2a 50%, #1a0c38 75%, #0d0822 100%);
-  border-bottom: 1px solid rgba(200,146,42,.28);
+  background:
+    radial-gradient(ellipse at 20% 60%, rgba(93,224,240,.15) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 40%, rgba(160,128,248,.18) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 10%, rgba(200,146,42,.25) 0%, transparent 55%),
+    linear-gradient(160deg, #0d0618 0%, #1a0a38 30%, #0f0828 55%, #1a0c3a 80%, #0d0620 100%);
+  border-bottom: 1px solid rgba(200,146,42,.38);
+  box-shadow: inset 0 -2px 24px rgba(200,146,42,.12);
 }
+/* Pulsing brass glow */
 .marquee-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 100%, rgba(200,146,42,.22), transparent 60%);
-  animation: marqueeGlow 3s ease infinite alternate;
+  background:
+    radial-gradient(ellipse at 50% 110%, rgba(200,146,42,.32) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% -10%, rgba(160,128,248,.18) 0%, transparent 50%);
+  animation: marqueeGlow 3.2s ease infinite alternate;
 }
 @keyframes marqueeGlow {
-  from { opacity: .6; }
+  from { opacity: .55; }
   to   { opacity: 1; }
 }
-
-/* Era badges in marquee */
-.era-badges {
+/* Decorative star-field particles */
+.marquee-star {
   position: absolute;
-  inset: 0;
+  border-radius: 50%;
+  animation: starTwinkle 4s ease infinite alternate;
+}
+.marquee-star-1 {
+  width: 3px; height: 3px;
+  top: 22%; left: 15%;
+  background: rgba(232,184,75,.85);
+  box-shadow: 0 0 8px rgba(232,184,75,.7);
+  animation-delay: 0s;
+}
+.marquee-star-2 {
+  width: 2px; height: 2px;
+  top: 55%; left: 72%;
+  background: rgba(93,224,240,.80);
+  box-shadow: 0 0 6px rgba(93,224,240,.65);
+  animation-delay: 1.4s;
+}
+.marquee-star-3 {
+  width: 4px; height: 4px;
+  top: 30%; left: 88%;
+  background: rgba(160,128,248,.75);
+  box-shadow: 0 0 10px rgba(160,128,248,.6);
+  animation-delay: 2.8s;
+}
+@keyframes starTwinkle {
+  from { opacity: .35; transform: scale(.8); }
+  to   { opacity: 1;   transform: scale(1.2); }
+}
+/* Inner brass border inset */
+.marquee-inner-border {
+  position: absolute;
+  inset: 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(200,146,42,.18);
+  pointer-events: none;
+}
+
+/* ─── Era badges row (below title) ───────────────────────────────────────── */
+.era-badges-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.era-campaign-label {
+  margin-left: 4px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 .era-badge {
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 6px;
-  border: 1px solid rgba(var(--ec), .50);
-  background: rgba(0,0,0,.35);
+  border: 1px solid color-mix(in srgb, var(--ec) 50%, transparent);
+  background: color-mix(in srgb, var(--ec) 10%, rgba(0,0,0,.40));
   color: var(--ec);
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   font-weight: 800;
-  letter-spacing: .14em;
-  text-shadow: 0 0 10px var(--ec);
-  box-shadow: 0 0 14px rgba(var(--ec), .28) inset;
+  letter-spacing: .16em;
+  text-shadow: 0 0 12px var(--ec);
+  box-shadow:
+    inset 0 0 12px color-mix(in srgb, var(--ec) 18%, transparent),
+    0 0 10px color-mix(in srgb, var(--ec) 12%, transparent);
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.era-badge:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 18px color-mix(in srgb, var(--ec) 28%, transparent),
+    0 0 20px color-mix(in srgb, var(--ec) 25%, transparent);
 }
 
 /* ─── Typography ─────────────────────────────────────────────────────────── */
@@ -584,40 +676,49 @@ button:disabled { cursor: wait; opacity: .55; }
 }
 
 h1, h2 {
-  margin: 10px 0 0;
-  line-height: .96;
+  margin: 8px 0 0;
+  line-height: 1;
   letter-spacing: -.01em;
 }
 h1 {
-  max-width: 10ch;
-  font-size: clamp(46px, 9vw, 96px);
+  /* Single-line logotype — no max-width constraint that forces wrapping */
+  max-width: none;
+  font-size: clamp(38px, 6.5vw, 78px);
+  white-space: nowrap;
+  display: flex;
+  align-items: baseline;
+  gap: .25em;
 }
 h2 { font-size: clamp(28px, 5vw, 50px); }
 
+/* "Chrono" — white roman, slightly smaller optical weight */
 .title-chrono {
   font-family: 'Fraunces', Georgia, serif;
   font-style: normal;
   font-weight: 400;
   color: var(--chrome);
-  font-size: .72em;
-  display: block;
-  letter-spacing: .04em;
+  font-size: 1em;           /* matches h1 size */
+  letter-spacing: .02em;
 }
+/* "Pinball" — italic gold, bold, same visual cap height */
 .title-pinball {
   font-family: 'Fraunces', Georgia, serif;
   font-style: italic;
   font-weight: 900;
   color: var(--brass-light);
-  text-shadow: 0 0 30px rgba(200,146,42,.55), 0 0 60px rgba(200,146,42,.22);
-  display: block;
+  font-size: 1.08em;        /* slightly larger to compensate italic optical shrink */
+  text-shadow:
+    0 0 28px rgba(200,146,42,.62),
+    0 0 56px rgba(200,146,42,.25),
+    0 0 90px rgba(200,146,42,.10);
 }
 
 .setup-sub {
-  max-width: 62ch;
-  margin: 14px 0 0;
+  max-width: 66ch;
+  margin: 12px 0 0;
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.55;
+  font-size: 13px;
+  line-height: 1.52;
 }
 
 /* ─── Setup grid (course selectors) ─────────────────────────────────────── */
@@ -654,9 +755,67 @@ select:focus-visible {
 select option, select optgroup { color: #07111f; background: #f0ebff; }
 
 /* ─── Metrics + high score strip ─────────────────────────────────────────── */
-.setup-metrics, .setup-actions, .end-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.setup-metrics, .setup-actions, .end-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 
-.metric-pill, .end-tile {
+/* Glass stat cards — backdrop blur, gold numerals */
+.metric-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  border: 1px solid rgba(200,146,42,.28);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.02) 100%),
+    rgba(0,0,0,.28);
+  backdrop-filter: blur(14px) saturate(1.2);
+  padding: 10px 14px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 0 0 1px rgba(200,146,42,.08),
+    0 4px 16px rgba(0,0,0,.28);
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.metric-pill:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 0 0 1px rgba(200,146,42,.14),
+    0 8px 24px rgba(0,0,0,.36),
+    0 0 20px rgba(200,146,42,.10);
+}
+.metric-pill .mp-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--brass-light);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+/* Best score gets gold star treatment */
+.metric-pill.mp-best .mp-value {
+  color: var(--gold);
+  text-shadow: 0 0 12px rgba(212,160,23,.55);
+}
+.metric-pill.mp-best::before {
+  content: '★';
+  font-size: 9px;
+  color: var(--gold);
+  opacity: .75;
+  margin-bottom: -2px;
+}
+.metric-pill .mp-label {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Legacy .end-tile (game-over screen) — keep existing style */
+.end-tile {
   border: 1px solid rgba(200,146,42,.18);
   border-radius: 8px;
   background: rgba(0,0,0,.22);
@@ -899,11 +1058,16 @@ kbd {
 
   .setup-grid, .choice-grid { grid-template-columns: 1fr; }
   .setup-card, .question-card { max-height: 90dvh; padding: 18px; }
-  h1 { font-size: clamp(42px, 14vw, 70px); }
+  h1 {
+    font-size: clamp(30px, 10vw, 56px);
+    white-space: normal;         /* allow wrap on very small screens */
+    flex-wrap: wrap;
+  }
   #questionPrompt { max-width: 100%; font-size: 24px; }
   .touch-controls { grid-template-columns: 1fr .75fr 1fr; gap: 7px; }
   .flipper-btn, .launch-btn { min-height: 64px; }
-  .era-badges { gap: 8px; }
+  .era-badges-row { gap: 6px; }
+  .marquee-art { height: 100px; }
 }
 
 @media (min-width: 821px) {

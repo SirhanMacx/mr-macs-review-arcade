@@ -441,12 +441,16 @@
     const mcq = state.filtered.filter(q => q.type === "mcq").length;
     const src = state.filtered.filter(hasReliableStimulus).length;
     const best = Number(localStorage.getItem(`${STORAGE_KEY}:highScore`) || 0);
-    els.setupMetrics.innerHTML = [
-      `${formatNumber(total)} review prompts`,
-      `${formatNumber(mcq)} MCQs`,
-      `${formatNumber(src)} source-based`,
-      `Best: ${formatNumber(best)}`
-    ].map(t => `<span class="metric-pill">${escapeHtml(t)}</span>`).join("");
+    const chips = [
+      { value: formatNumber(total), label: "Review Prompts" },
+      { value: formatNumber(mcq),   label: "MCQs" },
+      { value: formatNumber(src),   label: "Source-Based" },
+    ];
+    const bestChip = `<span class="metric-pill mp-best"><span class="mp-value">${escapeHtml(formatNumber(best))}</span><span class="mp-label">Best Score</span></span>`;
+    els.setupMetrics.innerHTML =
+      chips.map(c =>
+        `<span class="metric-pill"><span class="mp-value">${escapeHtml(c.value)}</span><span class="mp-label">${escapeHtml(c.label)}</span></span>`
+      ).join("") + bestChip;
   }
 
   function prepareQueue() { state.queue = shuffle(state.filtered); }

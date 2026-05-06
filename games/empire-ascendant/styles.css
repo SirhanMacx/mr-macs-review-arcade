@@ -867,3 +867,315 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
 .cb-coast    { --cb-pattern: "stipple"; }
 .cb-grassland { --cb-pattern: "fine-dots"; }
 .cb-ocean    { --cb-pattern: "none"; }
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   TITLE SCREEN POLISH — v20260506
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Title backdrop canvas ───────────────────────────────────────────────────── */
+#titleBackdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+}
+
+/* ── Setup screen: stack backdrop behind card ────────────────────────────────── */
+.setup-screen {
+  position: relative;
+}
+
+/* ── Arcade home mark ────────────────────────────────────────────────────────── */
+.arcade-home-mark {
+  position: absolute;
+  top: max(14px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px 7px 9px;
+  border: 1px solid rgba(242,193,78,.28);
+  border-radius: 20px;
+  background: rgba(7,16,19,.72);
+  backdrop-filter: blur(14px);
+  color: rgba(251,245,230,.70);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-decoration: none;
+  transition: color .18s var(--ease), border-color .18s var(--ease),
+              background .18s var(--ease), transform .18s var(--ease);
+}
+.arcade-home-mark:hover {
+  color: var(--gold);
+  border-color: rgba(242,193,78,.55);
+  background: rgba(7,16,19,.88);
+  transform: translateY(-1px);
+}
+.arcade-home-mark svg {
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+/* ── Setup card: parchment texture + gilt frame ──────────────────────────────── */
+.setup-card {
+  position: relative;
+  /* Parchment noise texture via SVG data-URI (CSS-only, no asset file) */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, rgba(9,22,25,.97), rgba(16,26,24,.92)),
+    radial-gradient(ellipse at 12% 12%, var(--era-tint), transparent 40%);
+  /* Gilt corner ornaments via outline + inner glow */
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(242,193,78,.22),
+    inset 0 -1px 0 rgba(242,193,78,.10),
+    inset 1px 0 0 rgba(242,193,78,.10),
+    inset -1px 0 0 rgba(242,193,78,.10);
+  border-color: rgba(242,193,78,.32);
+}
+
+/* Gilt corner ornament pseudo-elements */
+.setup-card::before,
+.setup-card::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  pointer-events: none;
+  border-color: rgba(242,193,78,.55);
+  border-style: solid;
+}
+.setup-card::before {
+  top: 10px; left: 10px;
+  border-width: 2px 0 0 2px;
+  border-radius: 3px 0 0 0;
+}
+.setup-card::after {
+  bottom: 10px; right: 10px;
+  border-width: 0 2px 2px 0;
+  border-radius: 0 0 3px 0;
+}
+
+/* ── Era palette bar ─────────────────────────────────────────────────────────── */
+.era-palette-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 18px;
+  height: 28px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  max-width: 360px;
+}
+.era-swatch {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  background: var(--sw-color);
+  opacity: .22;
+  transition: opacity .2s var(--ease);
+}
+.era-swatch:hover { opacity: .44; }
+.era-swatch::after {
+  content: attr(data-era-name);
+  position: absolute;
+  bottom: 3px;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .10em;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+/* Labels below the bar */
+.era-palette-bar::before {
+  display: none; /* labels handled by ::after on each swatch */
+}
+
+/* ── Stat chip glass refinement ──────────────────────────────────────────────── */
+.metric-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(242,193,78,.22);
+  border-radius: 8px;
+  background: rgba(7,16,19,.52);
+  backdrop-filter: blur(14px) saturate(1.1);
+  padding: 9px 13px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(251,245,230,.80);
+  line-height: 1.2;
+}
+.metric-pill .chip-icon {
+  flex-shrink: 0;
+  width: 16px; height: 16px;
+  opacity: .80;
+}
+.metric-pill .chip-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold);
+  line-height: 1;
+}
+.metric-pill .chip-label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+
+/* ── Civ portrait row ────────────────────────────────────────────────────────── */
+.civ-portrait-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.civ-portrait-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+  transition: transform .18s var(--ease);
+}
+.civ-portrait-card:hover { transform: translateY(-3px); }
+.civ-portrait-canvas {
+  display: block;
+  border-radius: 8px;
+  border: 1px solid rgba(242,193,78,.28);
+  box-shadow: var(--shadow-sm), 0 0 14px rgba(0,0,0,.44);
+}
+.civ-portrait-meta {
+  text-align: center;
+}
+.civ-portrait-meta strong {
+  display: block;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--paper);
+  line-height: 1.2;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.civ-portrait-meta span {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .09em;
+  color: var(--muted);
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+/* ── Auxiliary buttons (Sound / Fullscreen) ──────────────────────────────────── */
+.btn.aux-btn {
+  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+  color: rgba(251,245,230,.72);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 16px;
+}
+.btn.aux-btn:hover {
+  color: var(--paper);
+  border-color: rgba(255,255,255,.26);
+  background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.04));
+  transform: translateY(-1px);
+}
+
+/* ── Cinematic "Begin Era / Found Empire" CTA ────────────────────────────────── */
+.btn.begin-era-btn {
+  background: linear-gradient(135deg, #f5c451, #ffd884, #e8a820);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #1a0e00;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Inter', ui-sans-serif, sans-serif;
+  letter-spacing: .03em;
+  padding: 14px 28px;
+  border-radius: 9px;
+  box-shadow:
+    0 0 40px rgba(245,196,81,.32),
+    0 4px 16px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.45);
+  transition:
+    transform .18s var(--ease),
+    box-shadow .18s var(--ease),
+    filter .18s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.btn.begin-era-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.18) 0%, transparent 55%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+.btn.begin-era-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 60px rgba(245,196,81,.52),
+    0 8px 24px rgba(0,0,0,.44),
+    inset 0 1px 0 rgba(255,255,255,.55);
+  filter: brightness(1.06);
+}
+.btn.begin-era-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 0 28px rgba(245,196,81,.28),
+    0 2px 8px rgba(0,0,0,.36),
+    inset 0 1px 0 rgba(255,255,255,.30);
+}
+/* Disabled / loading state keeps readable text */
+.btn.begin-era-btn:disabled {
+  background: linear-gradient(135deg, rgba(245,196,81,.38), rgba(255,216,132,.28));
+  color: rgba(26,14,0,.55);
+  box-shadow: none;
+  filter: none;
+}
+
+/* Setup actions layout — aux buttons left, CTA right / full-width */
+.setup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+  align-items: center;
+}
+.setup-actions .begin-era-btn {
+  margin-left: auto;
+  min-width: 160px;
+  text-align: center;
+}
+
+/* ── Responsive adjustments for new title elements ───────────────────────────── */
+@media (max-width: 900px) {
+  .civ-portrait-row { gap: 8px; }
+  .civ-portrait-canvas { width: 64px !important; height: 80px !important; }
+  .civ-portrait-meta strong { font-size: 10px; max-width: 64px; }
+  .era-palette-bar { max-width: 100%; }
+  .setup-actions .begin-era-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+  .arcade-home-mark span { display: none; }
+  .arcade-home-mark { padding: 7px 8px; }
+}
