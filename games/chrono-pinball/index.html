@@ -3,109 +3,200 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#03050d">
-  <title>Chrono Pinball - Mr. Mac's Review Arcade</title>
+  <meta name="theme-color" content="#1a0a2e">
+  <title>Chrono Pinball — Mr. Mac's Review Arcade</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css?v=20260428-pinball-launchfix">
+  <!-- Fraunces: display serif for "Pinball" title -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260505-pro-polish">
 </head>
 <body>
   <main class="pinball-shell" id="app">
-    <canvas id="pinballCanvas" aria-label="Chrono Pinball arcade table"></canvas>
+    <!-- Dot-matrix display (DMD) — rendered via JS canvas overlay -->
+    <canvas id="dmdCanvas" aria-hidden="true"></canvas>
 
+    <!-- Main pinball playfield canvas -->
+    <canvas id="pinballCanvas" aria-label="Chrono Pinball arcade table — use keyboard or touch to play"></canvas>
+
+    <!-- Glass overlay reflection -->
+    <div class="glass-overlay" aria-hidden="true"></div>
+
+    <!-- Cabinet bezel UI -->
+    <aside class="cabinet-bezel" aria-hidden="true">
+      <div class="bezel-corner bezel-tl"></div>
+      <div class="bezel-corner bezel-tr"></div>
+      <div class="bezel-corner bezel-bl"></div>
+      <div class="bezel-corner bezel-br"></div>
+      <div class="bezel-rail bezel-rail-left"></div>
+      <div class="bezel-rail bezel-rail-right"></div>
+    </aside>
+
+    <!-- HUD: top strip (sits above DMD) -->
     <section class="top-hud" aria-label="Pinball status">
       <div class="brand">
         <span class="brand-core" aria-hidden="true"></span>
-        <div>
-          <strong>Chrono Pinball</strong>
-          <span>Hit locks. Clear missions. Bank review power.</span>
+        <div class="brand-text">
+          <strong class="brand-title"><span class="brand-chrono">Chrono</span> <em class="brand-pinball">Pinball</em></strong>
+          <span class="brand-sub">Hit locks · Clear missions · Bank review power</span>
         </div>
       </div>
-      <div class="hud-stats">
-        <div><strong id="score">0</strong><span>score</span></div>
-        <div><strong id="balls">3</strong><span>balls</span></div>
-        <div><strong id="multiplier">1x</strong><span>multi</span></div>
-        <div><strong id="locks">0/5</strong><span>locks</span></div>
+      <div class="hud-stats" role="status" aria-live="polite" aria-label="Game statistics">
+        <div class="stat-cell stat-score">
+          <strong id="score" class="stat-value mono" aria-label="Score">0</strong>
+          <span class="stat-label">score</span>
+        </div>
+        <div class="stat-cell stat-balls">
+          <strong id="balls" class="stat-value mono" aria-label="Balls remaining">3</strong>
+          <span class="stat-label">balls</span>
+        </div>
+        <div class="stat-cell stat-mult">
+          <strong id="multiplier" class="stat-value" aria-label="Multiplier">1×</strong>
+          <span class="stat-label">multi</span>
+        </div>
+        <div class="stat-cell stat-era">
+          <strong id="locks" class="stat-value era-gold" aria-label="Eras completed">0/5</strong>
+          <span class="stat-label">eras</span>
+        </div>
       </div>
-      <button class="hud-btn" id="pauseBtn" type="button">Pause</button>
-      <button class="hud-btn" id="exitBtn" type="button">Exit</button>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
+        <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
+      </div>
     </section>
 
-    <section class="mission-panel" id="missionPanel" aria-live="polite">
+    <!-- Mission panel — left side over playfield -->
+    <section class="mission-panel" id="missionPanel" aria-live="polite" aria-label="Current mission">
       <div class="mission-kicker" id="missionKicker">Mission loaded</div>
       <p id="missionText">Launch the archive ball, hit the gold lock targets, and answer review missions for multiball.</p>
       <div class="mission-feedback" id="missionFeedback"></div>
     </section>
 
+    <!-- Touch controls — bottom -->
     <section class="touch-controls" aria-label="Pinball controls">
-      <button class="flipper-btn" id="leftFlip" type="button">Left</button>
-      <button class="launch-btn" id="launchBtn" type="button">Launch</button>
-      <button class="flipper-btn" id="rightFlip" type="button">Right</button>
+      <button class="flipper-btn flipper-left" id="leftFlip" type="button" aria-label="Left flipper (Z or Left Arrow)">
+        <span class="flipper-label">Left</span>
+        <span class="flipper-hint" aria-hidden="true">Z</span>
+      </button>
+      <button class="launch-btn" id="launchBtn" type="button" aria-label="Launch / plunger (Space or Down Arrow)">
+        <span class="launch-icon" aria-hidden="true">▲</span>
+        <span>Launch</span>
+      </button>
+      <button class="flipper-btn flipper-right" id="rightFlip" type="button" aria-label="Right flipper (/ or Right Arrow)">
+        <span class="flipper-label">Right</span>
+        <span class="flipper-hint" aria-hidden="true">/</span>
+      </button>
     </section>
 
-    <section class="setup-screen show" id="setupScreen" aria-label="Chrono Pinball setup">
+    <!-- ══ SETUP / TITLE SCREEN ══ -->
+    <section class="setup-screen show" id="setupScreen" aria-label="Chrono Pinball — game setup" aria-modal="true">
       <div class="setup-card">
-        <div class="setup-kicker">Master Game</div>
-        <h1>Chrono Pinball</h1>
-        <p class="setup-sub">A space-opera review table powered by the full Mr. Mac question library. Course-filter the table, launch the archive ball, light lock targets, and earn multiball by clearing review missions.</p>
+        <!-- Marquee art / cabinet front simulation -->
+        <div class="marquee-art" aria-hidden="true">
+          <div class="marquee-glow"></div>
+          <div class="era-badges" id="eraBadges">
+            <span class="era-badge" style="--ec:#f5c451" title="Renaissance">REN</span>
+            <span class="era-badge" style="--ec:#cd7f32" title="Industrial">IND</span>
+            <span class="era-badge" style="--ec:#5a7a5a" title="World War II">WWI</span>
+            <span class="era-badge" style="--ec:#4fc3c3" title="Cold War">CLD</span>
+            <span class="era-badge" style="--ec:#a991ff" title="Digital Age">DIG</span>
+          </div>
+        </div>
+
+        <div class="setup-kicker">Master Table</div>
+        <h1><span class="title-chrono">Chrono</span><br><em class="title-pinball">Pinball</em></h1>
+        <p class="setup-sub">Course-filter the archive table · launch the ball · light era targets · earn multiball by clearing review missions. All five eras unlocked = Wizard Mode.</p>
+
         <div class="setup-grid">
           <label>
             <span>Course</span>
-            <select id="courseFilter"></select>
+            <select id="courseFilter" aria-label="Select course"></select>
           </label>
           <label>
             <span>Unit / Set</span>
-            <select id="setFilter"></select>
+            <select id="setFilter" aria-label="Select unit or set"></select>
           </label>
           <label>
             <span>Table Mode</span>
-            <select id="modeFilter">
+            <select id="modeFilter" aria-label="Select table mode">
               <option value="standard" selected>Standard table</option>
               <option value="exam">Exam lock rush</option>
               <option value="endless">Endless multiball</option>
             </select>
           </label>
         </div>
+
         <div class="setup-metrics" id="setupMetrics"></div>
+
+        <div class="high-score-strip" id="highScoreStrip" aria-label="High scores"></div>
+
         <div class="setup-actions">
-          <button class="btn" id="soundBtn" type="button">Sound On</button>
-          <button class="btn" id="fullscreenBtn" type="button">Fullscreen</button>
-          <button class="btn primary" id="startBtn" type="button">Launch Table</button>
+          <button class="btn glass-pill" id="soundBtn" type="button" aria-label="Toggle sound">Sound On</button>
+          <button class="btn glass-pill" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">Fullscreen</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button" aria-label="Start the game">
+            <span class="btn-coin" aria-hidden="true">⊙</span> Insert Coin · Launch Table
+          </button>
         </div>
+
+        <p class="key-hints" aria-label="Keyboard controls">
+          <kbd>Z</kbd> Left flipper &nbsp;·&nbsp; <kbd>/</kbd> Right flipper &nbsp;·&nbsp; <kbd>Space</kbd> Plunger &nbsp;·&nbsp; <kbd>T</kbd> Tilt &nbsp;·&nbsp; <kbd>P</kbd> Pause
+        </p>
       </div>
     </section>
 
-    <section class="question-screen" id="questionScreen" aria-label="Review lock mission">
-      <div class="question-card">
-        <div class="question-meta" id="questionMeta">Review Lock</div>
-        <h2 id="questionPrompt">Loading mission...</h2>
+    <!-- ══ QUESTION / MISSION CARD ══ -->
+    <section class="question-screen" id="questionScreen" aria-label="Review lock mission" aria-modal="true">
+      <div class="question-card glass-card">
+        <div class="question-header">
+          <div class="question-meta" id="questionMeta">Review Lock</div>
+          <div class="mission-progress" id="missionProgress" aria-label="Mission progress">
+            <span class="mp-dot active" aria-hidden="true"></span>
+            <span class="mp-dot" aria-hidden="true"></span>
+            <span class="mp-dot" aria-hidden="true"></span>
+          </div>
+        </div>
+        <h2 id="questionPrompt">Loading mission…</h2>
         <div class="stimulus-box" id="stimulusBox"></div>
-        <div class="choice-grid" id="choiceGrid"></div>
-        <p class="explanation" id="explanation"></p>
+        <div class="choice-grid" id="choiceGrid" role="group" aria-label="Answer choices"></div>
+        <p class="explanation" id="explanation" role="status"></p>
       </div>
     </section>
 
-    <section class="pause-screen" id="pauseScreen" aria-label="Paused">
+    <!-- ══ PAUSE SCREEN ══ -->
+    <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
       <div class="setup-card compact">
-        <div class="setup-kicker">Paused</div>
-        <h2>Table suspended</h2>
+        <div class="setup-kicker">⏸ Paused</div>
+        <h2>Table Suspended</h2>
         <p class="setup-sub">Resume the ball or restart with the same course filter.</p>
         <div class="setup-actions">
-          <button class="btn primary" id="resumeBtn" type="button">Resume</button>
-          <button class="btn" id="restartBtn" type="button">Restart</button>
-          <button class="btn" id="pauseExitBtn" type="button">Exit Arcade</button>
+          <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
+          <button class="btn glass-pill" id="restartBtn" type="button">Restart</button>
+          <button class="btn glass-pill" id="pauseExitBtn" type="button">Exit Arcade</button>
         </div>
       </div>
     </section>
 
-    <section class="end-screen" id="endScreen" aria-label="Game summary">
+    <!-- ══ END / GAME OVER SCREEN ══ -->
+    <section class="end-screen" id="endScreen" aria-label="Game summary" aria-modal="true">
       <div class="setup-card compact">
         <div class="setup-kicker">Game Complete</div>
-        <h2 id="endTitle">Archive table closed</h2>
+        <h2 id="endTitle">Archive Table Closed</h2>
         <div class="end-grid" id="endGrid"></div>
+        <!-- High score initials entry -->
+        <div class="initials-entry" id="initialsEntry" aria-label="Enter your initials for high score" style="display:none">
+          <p class="initials-label">New record! Enter initials:</p>
+          <div class="initials-boxes">
+            <input class="initial-box mono" id="ini0" maxlength="1" aria-label="Initial 1" autocomplete="off" spellcheck="false">
+            <input class="initial-box mono" id="ini1" maxlength="1" aria-label="Initial 2" autocomplete="off" spellcheck="false">
+            <input class="initial-box mono" id="ini2" maxlength="1" aria-label="Initial 3" autocomplete="off" spellcheck="false">
+          </div>
+          <button class="btn primary brass-btn" id="saveInitialsBtn" type="button">Save Score</button>
+        </div>
         <div class="study-targets" id="studyTargets"></div>
         <div class="setup-actions">
-          <button class="btn" id="setupBtn" type="button">Change Course</button>
-          <button class="btn primary" id="againBtn" type="button">Play Again</button>
+          <button class="btn glass-pill" id="setupBtn" type="button">Change Course</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
         </div>
       </div>
     </section>
@@ -113,7 +204,7 @@
 
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
   <script src="../../assets/source-bank.js?v=20260502-source-safety"></script>
-  <script src="game.js?v=20260501-source-re"></script>
-<script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
+  <script src="game.js?v=20260505-pro-polish"></script>
+  <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

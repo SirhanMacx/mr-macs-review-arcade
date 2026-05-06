@@ -3,116 +3,342 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#050815">
+  <meta name="theme-color" content="#0e0c08">
   <link rel="icon" href="data:,">
-  <title>Cold War Invaders - Mr. Mac's Review Arcade</title>
-  <link rel="stylesheet" href="styles.css?v=20260502-perfect-pass">
+  <title>Cold War Invaders — Mr. Mac's Review Arcade</title>
+  <link rel="stylesheet" href="styles.css?v=20260505-dossier">
 </head>
 <body>
   <main class="game-shell">
     <canvas id="gameCanvas" aria-label="Cold War Invaders arcade game"></canvas>
 
+    <!-- Mini-map glass disc -->
+    <canvas id="minimap" aria-hidden="true" width="78" height="78"></canvas>
+
+    <!-- Combo display -->
+    <div class="combo-display" id="comboDisplay" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Top bar (hidden while playing) -->
     <header class="topbar">
-      <a class="brand" href="../../index.html" aria-label="Back to arcade">
+      <a class="brand" href="../../index.html" aria-label="Back to Mr. Mac's Arcade">
         <span class="brand-mark">CW</span>
-        <span><small>Mr. Mac's Arcade</small><strong>Cold War Invaders</strong></span>
+        <span>
+          <small>Mr. Mac's Arcade</small>
+          <strong>Cold War Invaders</strong>
+        </span>
       </a>
-      <div class="top-stats" id="topStats">
-        <span>Containment Grid</span><span>Intel Questions</span><span>Arcade Mode</span>
+      <div class="top-stats" id="topStats" aria-label="Mission stats">
+        <span>Containment Grid</span>
+        <span>Intel Questions</span>
+        <span>Arcade Mode</span>
       </div>
     </header>
 
-    <section class="setup-screen show" id="setupScreen" aria-label="Mission setup">
-      <div class="mission-card">
-        <div class="kicker">Cold War Arcade</div>
-        <h1>Cold War Invaders</h1>
-        <p>Defend the satellite line, collect intel, and answer Cold War questions to trigger containment bursts before crises reach Earth.</p>
-        <div class="launch-strip" aria-label="Mission readiness">
-          <span>Classic March Mechanics</span>
-          <span>Intel questions + Power-ups</span>
-          <span>Touch ready</span>
+    <!-- ── Setup / Briefing Room ── -->
+    <section class="setup-screen show" id="setupScreen" aria-label="Mission briefing room" aria-live="polite">
+      <div class="mission-card" role="main">
+
+        <!-- Eyebrow -->
+        <div class="kicker">Cold War Arcade · Declassified</div>
+
+        <!-- Title: "Cold War" normal + "Invaders" italic via em -->
+        <h1>Cold War <em>Invaders</em></h1>
+
+        <!-- Subtitle: Operation [theater] — updated by JS -->
+        <p class="operation-subtitle" id="operationSubtitle">Operation Cold War Core</p>
+
+        <p>Defend the satellite line. Intercept Soviet formations, collect intel, and answer Cold War questions to trigger containment bursts before crises breach the perimeter.</p>
+
+        <!-- Launch badges -->
+        <div class="launch-strip" aria-label="Mission features">
+          <span>Classic march mechanics</span>
+          <span>Intel questions · Power-ups</span>
+          <span>Touch &amp; keyboard ready</span>
         </div>
-        <div class="setup-grid">
+
+        <!-- Theater of Operations — dossier cards -->
+        <fieldset style="border:none;padding:0;margin:0 0 4px;" aria-label="Select theater of operations">
+          <legend class="kicker" style="margin-bottom:10px;">Theater of Operations</legend>
+          <div class="theater-grid" id="theaterGrid">
+            <button
+              class="theater-card selected"
+              type="button"
+              data-theater="korea"
+              data-stamp="THEATER 1"
+              aria-pressed="true"
+              aria-label="Korea — dense cluster formation"
+            >
+              <span class="theater-card-flag">🇰🇷</span>
+              <span class="theater-card-name">Korea</span>
+              <span class="theater-card-desc">Dense cluster · Snow-blue atmospheric · 1950-53</span>
+            </button>
+            <button
+              class="theater-card"
+              type="button"
+              data-theater="cuba"
+              data-stamp="THEATER 2"
+              aria-pressed="false"
+              aria-label="Cuba — curved swarm formation"
+            >
+              <span class="theater-card-flag">🇨🇺</span>
+              <span class="theater-card-name">Cuba</span>
+              <span class="theater-card-desc">Curved swarm · Tropical-green atmospheric · 1962</span>
+            </button>
+            <button
+              class="theater-card"
+              type="button"
+              data-theater="berlin"
+              data-stamp="THEATER 3"
+              aria-pressed="false"
+              aria-label="Berlin — wedge formation"
+            >
+              <span class="theater-card-flag">🇩🇪</span>
+              <span class="theater-card-name">Berlin</span>
+              <span class="theater-card-desc">Wedge formation · Concrete-grey atmospheric · 1961</span>
+            </button>
+            <button
+              class="theater-card"
+              type="button"
+              data-theater="vietnam"
+              data-stamp="THEATER 4"
+              aria-pressed="false"
+              aria-label="Vietnam — dispersed jungle formation"
+            >
+              <span class="theater-card-flag">🇻🇳</span>
+              <span class="theater-card-name">Vietnam</span>
+              <span class="theater-card-desc">Dispersed formation · Jungle-olive atmospheric · 1955-75</span>
+            </button>
+          </div>
+
+          <!-- Hidden native select for accessibility / form submit fallback -->
+          <select id="theaterSelect" style="position:absolute;opacity:0;pointer-events:none;height:0;overflow:hidden;" aria-hidden="true" tabindex="-1">
+            <option value="korea">Korea</option>
+            <option value="cuba">Cuba</option>
+            <option value="berlin">Berlin</option>
+            <option value="vietnam">Vietnam</option>
+            <option value="cold">Cold War Core</option>
+            <option value="us">U.S. History</option>
+            <option value="global">Global History</option>
+            <option value="ap">AP Review</option>
+            <option value="all">All Cold War Bank</option>
+          </select>
+        </fieldset>
+
+        <!-- Additional theater options (non-visual theaters) -->
+        <div class="setup-grid" style="margin-top:10px; margin-bottom:0;">
           <label>
-            Theater of Operations
-            <select id="theaterSelect">
-              <option value="korea">Korea (dense cluster)</option>
-              <option value="cuba">Cuba (curved swarm)</option>
-              <option value="berlin">Berlin (wedge)</option>
-              <option value="vietnam">Vietnam (dispersed)</option>
-              <option value="cold" selected>Cold War Core</option>
+            <span class="kicker">Extended Intel Banks</span>
+            <select id="theaterSelectAlt">
+              <option value="">— Visual theaters above —</option>
+              <option value="cold">Cold War Core</option>
               <option value="us">U.S. History</option>
               <option value="global">Global History</option>
               <option value="ap">AP Review</option>
               <option value="all">All Cold War Bank</option>
             </select>
           </label>
-          <label>
-            Difficulty
-            <select id="difficultySelect">
-              <option value="cadet">Cadet (Easy)</option>
-              <option value="regents" selected>Regents (Normal)</option>
-              <option value="crisis">Crisis (Veteran)</option>
-              <option value="five-star">Five-Star General</option>
-            </select>
-          </label>
         </div>
+
+        <!-- Difficulty pills -->
+        <fieldset style="border:none;padding:0;margin:14px 0 0;" aria-label="Select difficulty">
+          <legend class="kicker" style="margin-bottom:10px;">Difficulty Level</legend>
+          <div class="difficulty-strip" id="difficultyStrip">
+            <button class="diff-pill" type="button" data-diff="cadet" aria-pressed="false">
+              <span class="diff-pill-rank">⭐</span>
+              <span class="diff-pill-label">Cadet</span>
+            </button>
+            <button class="diff-pill selected" type="button" data-diff="regents" aria-pressed="true">
+              <span class="diff-pill-rank">⭐⭐</span>
+              <span class="diff-pill-label">Regents</span>
+            </button>
+            <button class="diff-pill" type="button" data-diff="crisis" aria-pressed="false">
+              <span class="diff-pill-rank">⭐⭐⭐</span>
+              <span class="diff-pill-label">Crisis</span>
+            </button>
+            <button class="diff-pill" type="button" data-diff="five-star" aria-pressed="false">
+              <span class="diff-pill-rank">⭐⭐⭐⭐⭐</span>
+              <span class="diff-pill-label">Five-Star General</span>
+            </button>
+          </div>
+          <!-- Hidden native select fallback -->
+          <select id="difficultySelect" style="position:absolute;opacity:0;pointer-events:none;height:0;overflow:hidden;" aria-hidden="true" tabindex="-1">
+            <option value="cadet">Cadet (Easy)</option>
+            <option value="regents" selected>Regents (Normal)</option>
+            <option value="crisis">Crisis (Veteran)</option>
+            <option value="five-star">Five-Star General</option>
+          </select>
+        </fieldset>
+
+        <!-- Stats (filled by JS) -->
         <div class="mission-metrics" id="missionMetrics"></div>
+
+        <!-- CTAs -->
         <div class="actions">
-          <button class="btn primary" id="startBtn" type="button">Launch Mission</button>
+          <button class="btn primary" id="startBtn" type="button">Begin Mission</button>
           <a class="btn ghost" href="../../index.html">Arcade Home</a>
         </div>
       </div>
     </section>
 
-    <section class="hud" id="hud" aria-label="Mission status">
-      <div><span>Score</span><strong id="score">0</strong></div>
-      <div><span>Wave</span><strong id="wave">1</strong></div>
-      <div><span>Shield</span><strong id="shield">100%</strong></div>
-      <div><span>Intel</span><strong id="intel">0%</strong></div>
-      <button class="mini-btn" id="pauseBtn" type="button">Pause</button>
-      <button class="mini-btn" id="quitBtn" type="button">Quit</button>
-      <button class="mini-btn" id="muteBtn" type="button" title="Toggle sound (M)">🔊</button>
+    <!-- ── In-game HUD ── -->
+    <section class="hud" id="hud" aria-label="Mission status" aria-live="polite">
+      <div aria-label="Score">
+        <span>Score</span>
+        <strong id="score">0</strong>
+      </div>
+      <div aria-label="Wave">
+        <span>Wave</span>
+        <strong id="wave">1</strong>
+      </div>
+      <div aria-label="Shield">
+        <span>Shield</span>
+        <strong id="shield">100%</strong>
+        <div class="shield-bar-wrap"><div class="shield-bar-fill" id="shieldBar" style="width:100%;"></div></div>
+      </div>
+      <div aria-label="Intel">
+        <span>Intel</span>
+        <strong id="intel">0%</strong>
+      </div>
+      <button class="mini-btn" id="pauseBtn" type="button" aria-label="Pause game (Esc)">Pause</button>
+      <button class="mini-btn" id="quitBtn"  type="button" aria-label="Quit to setup">Quit</button>
+      <button class="mini-btn" id="muteBtn"  type="button" aria-label="Toggle sound (M)" title="Toggle sound (M)">🔊</button>
     </section>
 
+    <!-- ── Mobile touch controls ── -->
     <section class="mobile-controls" id="mobileControls" aria-label="Touch controls">
-      <button class="touch-btn" id="touchLeft" type="button" aria-label="Move left">LEFT</button>
+      <button class="touch-btn" id="touchLeft"  type="button" aria-label="Move left">LEFT</button>
       <button class="touch-btn fire" id="touchFire" type="button" aria-label="Fire laser">FIRE</button>
       <button class="touch-btn" id="touchRight" type="button" aria-label="Move right">RIGHT</button>
-      <button class="touch-btn intel" id="touchIntel" type="button" aria-label="Use intel burst">INTEL</button>
+      <button class="touch-btn intel" id="touchIntel" type="button" aria-label="Use intel burst (100% required)">INTEL</button>
     </section>
 
-    <section class="briefing hidden" id="briefing" aria-label="Intel question">
-      <div class="briefing-card">
+    <!-- ── Intel briefing (between-wave dossier) ── -->
+    <section class="briefing hidden" id="briefing" aria-label="Intel briefing" aria-modal="true" role="dialog">
+      <div class="briefing-card" style="position:relative;">
+        <!-- stamp overlay — JS toggles .show + sets .correct/.wrong + text -->
+        <div class="briefing-stamp" id="briefingStamp" aria-hidden="true">
+          <span class="stamp-text" id="stampText"></span>
+        </div>
+
         <div class="briefing-top">
           <span id="questionMeta">Intel Briefing</span>
           <strong id="questionReward">Containment Burst Armed</strong>
         </div>
-        <h2 id="questionPrompt">Loading question...</h2>
+
+        <!-- Time drain bar -->
+        <div class="time-ring" aria-hidden="true">
+          <div class="time-ring-track"><div class="time-ring-fill" id="timeRingFill" style="width:100%;"></div></div>
+        </div>
+
+        <h2 id="questionPrompt">Loading question…</h2>
         <div class="intel-source hidden" id="questionSource"></div>
         <div class="choices" id="choices"></div>
-        <div class="feedback" id="feedback">Answer correctly to clear the nearest wave.</div>
+        <div class="feedback" id="feedback" role="status" aria-live="polite">Answer correctly to clear the nearest wave.</div>
       </div>
     </section>
 
-    <section class="result-screen hidden" id="resultScreen" aria-label="Mission results">
+    <!-- ── End-of-mission classified file ── -->
+    <section class="result-screen hidden" id="resultScreen" aria-label="Mission debriefing" aria-live="polite">
       <div class="mission-card compact">
-        <div class="kicker">Mission Report</div>
+        <div class="kicker">Mission Debriefing · Classified</div>
         <h2 id="resultTitle">Containment Held</h2>
+        <div id="bestWaveBanner"></div>
         <div class="mission-metrics" id="resultMetrics"></div>
         <p id="coachText"></p>
         <div class="actions">
-          <button class="btn primary" id="againBtn" type="button">Play Again</button>
-          <a class="btn ghost" href="../../index.html">Arcade Home</a>
+          <button class="btn primary" id="againBtn" type="button">Continue Mission</button>
+          <a class="btn ghost" href="../../index.html">Abort</a>
         </div>
       </div>
     </section>
 
-    <div class="control-hint">Move: A/D or ←→ · Fire: Space/Z · Intel: E/X · Mute: M · Pause: Esc</div>
+    <div class="control-hint" aria-label="Keyboard controls">Move: A/D or ←→ · Fire: Space · Intel: E/X · Mute: M · Pause: Esc</div>
   </main>
+
   <script src="../../assets/arcade-analytics.js?v=20260502-traffic-progress-hardening"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
-  <script type="module" src="game.js?v=20260502-perfect-pass"></script>
-<script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
+  <script type="module" src="game.js?v=20260505-dossier"></script>
+  <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
+
+  <!-- Dossier UI controller — wires up theater cards, difficulty pills, subtitle -->
+  <script>
+  (function() {
+    "use strict";
+
+    const THEATER_NAMES = {
+      korea:   "Korea",
+      cuba:    "Cuba",
+      berlin:  "Berlin",
+      vietnam: "Vietnam",
+      cold:    "Cold War Core",
+      us:      "U.S. History",
+      global:  "Global History",
+      ap:      "AP Review",
+      all:     "All Theaters"
+    };
+
+    const THEATER_BODY_CLASSES = ["theater-korea","theater-cuba","theater-berlin","theater-vietnam"];
+
+    // Theater card toggle
+    const theaterGrid     = document.getElementById("theaterGrid");
+    const theaterSelect   = document.getElementById("theaterSelect");
+    const theaterAlt      = document.getElementById("theaterSelectAlt");
+    const operationSub    = document.getElementById("operationSubtitle");
+    const diffStrip       = document.getElementById("difficultyStrip");
+    const diffSelect      = document.getElementById("difficultySelect");
+
+    let activeTheater = "korea";
+    let activeDiff    = "regents";
+
+    function setTheater(t) {
+      activeTheater = t;
+      theaterSelect.value = t;
+      // body class for atmospheric tint
+      document.body.classList.remove(...THEATER_BODY_CLASSES);
+      if (["korea","cuba","berlin","vietnam"].includes(t)) {
+        document.body.classList.add("theater-" + t);
+      }
+      // update subtitle
+      operationSub.textContent = "Operation " + (THEATER_NAMES[t] || t);
+      // update card pressed states
+      theaterGrid.querySelectorAll(".theater-card").forEach(card => {
+        const sel = card.dataset.theater === t;
+        card.classList.toggle("selected", sel);
+        card.setAttribute("aria-pressed", sel ? "true" : "false");
+      });
+    }
+
+    theaterGrid.querySelectorAll(".theater-card").forEach(card => {
+      card.addEventListener("click", () => setTheater(card.dataset.theater));
+      card.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setTheater(card.dataset.theater); }
+      });
+    });
+
+    // Alt select for non-visual theaters
+    theaterAlt.addEventListener("change", () => {
+      if (theaterAlt.value) setTheater(theaterAlt.value);
+    });
+
+    // Difficulty pills
+    function setDiff(d) {
+      activeDiff = d;
+      diffSelect.value = d;
+      diffStrip.querySelectorAll(".diff-pill").forEach(pill => {
+        const sel = pill.dataset.diff === d;
+        pill.classList.toggle("selected", sel);
+        pill.setAttribute("aria-pressed", sel ? "true" : "false");
+      });
+    }
+
+    diffStrip.querySelectorAll(".diff-pill").forEach(pill => {
+      pill.addEventListener("click", () => setDiff(pill.dataset.diff));
+    });
+
+    // Init
+    setTheater("korea");
+    setDiff("regents");
+  })();
+  </script>
 </body>
 </html>

@@ -2447,7 +2447,26 @@
     else renderWorld();
     drawParticles();
     ctx.restore();
+    // Era-theming — update body class based on player region
+    updateEraClass();
     requestAnimationFrame(loop);
+  }
+
+  // Axis 2/8: apply era-theming class to game element
+  let _lastEraClass = "";
+  function updateEraClass() {
+    if (state.mode !== "overworld") return;
+    const p = state.player;
+    const region = REGIONS.find((r) =>
+      p.gx >= r.gxRange[0] && p.gx <= r.gxRange[1] &&
+      p.gy >= r.gyRange[0] && p.gy <= r.gyRange[1]
+    );
+    const eraClass = region ? `era-${region.id}` : "";
+    if (eraClass !== _lastEraClass) {
+      if (_lastEraClass) els.game.classList.remove(_lastEraClass);
+      if (eraClass) els.game.classList.add(eraClass);
+      _lastEraClass = eraClass;
+    }
   }
 
   function renderFrame() {
@@ -3028,6 +3047,9 @@
     hpAnim.enemyTarget = battle.enemyHp;
     const animEnemyHp = hpAnim.enemyHp >= 0 ? hpAnim.enemyHp : battle.enemyHp;
     const animHeroHp  = hpAnim.heroHp  >= 0 ? hpAnim.heroHp  : battle.heroHp;
+    // Axis 3: low-HP heartbeat shake on battle-log element
+    const heroRatio = battle.heroHp / (battle.hero.maxHp || 100);
+    els.battleUi.classList.toggle("hp-low", heroRatio < 0.28);
     drawBattleCard(battle.enemy, Math.max(12, w * .06), portrait ? 56 : 45, animEnemyHp, battle.enemyMax, false, cardW, cardH);
     drawBattleCard(battle.hero, Math.min(w - cardW - 14, w * (portrait ? .55 : .64)), Math.max(150, fieldH - cardH - 14), animHeroHp, battle.hero.maxHp, true, cardW, cardH);
     drawBattleReadOverlay(battle, w, fieldH);
@@ -3065,24 +3087,78 @@
   }
 
   function drawBattleCard(ally, x, y, hp, maxHp, player, width = 260, height = 62) {
-    ctx.fillStyle = player ? "rgba(229, 250, 246, .96)" : "rgba(255, 241, 171, .96)";
-    ctx.fillRect(x, y, width, height);
-    ctx.strokeStyle = "#07150c";
-    ctx.lineWidth = 4;
-    ctx.strokeRect(x, y, width, height);
+    const ratio = clamp(hp / maxHp, 0, 1);
+    const lowHp = ratio < 0.3;
+    // Card background — rounded rect
+    ctx.save();
+    ctx.beginPath();
+    roundRect(ctx, x, y, width, height, 8);
+    ctx.fillStyle = player ? "rgba(224,248,242,.96)" : "rgba(255,244,175,.96)";
+    ctx.fill();
+    // Type-color left accent bar
     ctx.fillStyle = ally.color || "#f3cf61";
-    ctx.fillRect(x + 4, y + 4, 6, height - 8);
+    roundRect(ctx, x + 3, y + 4, 7, height - 8, 3);
+    ctx.fill();
+    // Name + type
     ctx.fillStyle = "#07150c";
-    ctx.font = `${width < 160 ? 7 : 9}px Courier New`;
-    ctx.fillText(ally.type.toUpperCase(), x + 16, y + 16);
-    ctx.font = `${width < 160 ? 13 : 18}px Courier New`;
-    ctx.fillText(ally.actualName.toUpperCase(), x + 16, y + (height > 65 ? 43 : 38), width - 26);
-    ctx.fillStyle = "#1f4c1d";
-    const barY = y + height - 16;
-    const barW = width - 30;
-    ctx.fillRect(x + 16, barY, barW, 8);
-    ctx.fillStyle = hp / maxHp < .3 ? "#ff6a8d" : player ? "#75f4ff" : "#07150c";
-    ctx.fillRect(x + 16, barY, Math.max(0, barW * hp / maxHp), 8);
+    ctx.font = `${width < 160 ? 7 : 9}px "JetBrains Mono", "Courier New", monospace`;
+    ctx.fillText(ally.type.slice(0,12).toUpperCase(), x + 16, y + 16);
+    ctx.font = `bold ${width < 160 ? 12 : 16}px "Inter", sans-serif`;
+    ctx.fillText(ally.actualName, x + 16, y + (height > 65 ? 42 : 37), width - 26);
+    // Lv badge
+    ctx.font = `${width < 160 ? 7 : 9}px "JetBrains Mono", monospace`;
+    ctx.fillStyle = "#2a4a2a";
+    ctx.fillText(`Lv ${ally.level}`, x + width - 38, y + 16);
+    // HP bar track
+    const barY = y + height - 14;
+    const barW = width - 28;
+    ctx.fillStyle = "rgba(31,76,29,.36)";
+    roundRect(ctx, x + 14, barY, barW, 8, 4);
+    ctx.fill();
+    // HP bar fill — gradient based on ratio
+    if (ratio > 0) {
+      const grad = ctx.createLinearGradient(x + 14, barY, x + 14 + barW * ratio, barY);
+      if (lowHp) {
+        // Low HP heartbeat shimmer — alternate red tones
+        const beat = Math.sin(performance.now() / 220) * 0.5 + 0.5;
+        grad.addColorStop(0, `rgba(255,${Math.round(106 + beat * 40)},141,1)`);
+        grad.addColorStop(1, `rgba(255,${Math.round(80 + beat * 30)},110,.88)`);
+      } else if (player) {
+        grad.addColorStop(0, "#75f4ff");
+        grad.addColorStop(1, "#2ec4b6");
+      } else {
+        grad.addColorStop(0, "#07150c");
+        grad.addColorStop(1, "#1f4c1d");
+      }
+      ctx.fillStyle = grad;
+      roundRect(ctx, x + 14, barY, Math.max(4, barW * ratio), 8, 4);
+      ctx.fill();
+    }
+    // Low-HP heartbeat glow on card
+    if (lowHp && player) {
+      const pulse = Math.sin(performance.now() / 320) * 0.5 + 0.5;
+      ctx.strokeStyle = `rgba(255,106,141,${0.22 + pulse * 0.36})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      roundRect(ctx, x + 1, y + 1, width - 2, height - 2, 8);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // Polyfill roundRect for canvas (Safari 15 compat)
+  function roundRect(c, x, y, w, h, r) {
+    c.beginPath();
+    c.moveTo(x + r, y);
+    c.lineTo(x + w - r, y);
+    c.quadraticCurveTo(x + w, y, x + w, y + r);
+    c.lineTo(x + w, y + h - r);
+    c.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    c.lineTo(x + r, y + h);
+    c.quadraticCurveTo(x, y + h, x, y + h - r);
+    c.lineTo(x, y + r);
+    c.quadraticCurveTo(x, y, x + r, y);
+    c.closePath();
   }
 
   function drawBattleFx(battle) {
@@ -3399,7 +3475,13 @@
 
   function startContestRound() {
     const r = contestState.round + 1;
-    els.contestRound.textContent = `Round ${r} / ${contestState.totalRounds}`;
+    els.contestRound.textContent = `${r}/${contestState.totalRounds}`;
+    // Update pip indicators
+    const pips = document.querySelectorAll(".contest-round-pip");
+    pips.forEach((pip, i) => {
+      pip.classList.toggle("done", i < contestState.round);
+      pip.classList.toggle("active", i === contestState.round);
+    });
     const q = nextQuestion();
     contestState.q = q;
     contestState.answered = false;
@@ -3445,13 +3527,23 @@
       contestState.streak += 1;
       playSfx2("contestHit");
       triggerShake(3, 180);
+      // Type-colored burst at needle position on meter
+      const needleLeft = pos * 100;
+      spawnContestHitBurst(needleLeft, "#77f0af");
       spawnBurst(els.contestTapBtn, "#77f0af");
+      // Combo score popup
+      if (contestState.streak > 1) {
+        spawnContestScorePopup(`×${contestState.streak} COMBO +${gain}`, "#f3cf61");
+      } else {
+        spawnContestScorePopup(`+${gain}`, "#77f0af");
+      }
       els.contestFeedback.textContent = `Perfect timing! +${gain} confidence`;
     } else {
       const loss = 12;
       contestState.confidence = clamp(contestState.confidence - loss, 0, 100);
       contestState.streak = 0;
       playSfx2("contestMiss");
+      spawnContestScorePopup(`-${loss}`, "#ff6a8d");
       els.contestFeedback.textContent = `Off beat! −${loss} confidence`;
     }
     updateContestHud();
@@ -3470,21 +3562,30 @@
     const conf = contestState.confidence;
     const won = conf >= 40;
     const medal = won ? (conf >= 70 ? "Gold Medal" : "Silver Medal") : "Bronze Medal";
+    const medalIcon = conf >= 70 ? "🥇" : conf >= 40 ? "🥈" : "🥉";
+    // Mark all pips done
+    document.querySelectorAll(".contest-round-pip").forEach((pip) => {
+      pip.classList.remove("active");
+      pip.classList.add("done");
+    });
     // Award
+    const shardGain = won ? 45 + Math.round(conf / 2) : 10;
     if (won) {
-      state.stats.shards += 45 + Math.round(conf / 2);
+      state.stats.shards += shardGain;
       if (!state.stats.items.medal) state.stats.items.medal = 0;
       state.stats.items.medal += 1;
-      spawnConfetti(view.w / 2, view.h / 2, 40, "#f3cf61");
+      spawnConfetti(view.w / 2, view.h / 2, 48, "#f3cf61");
       playSfx2("allianceFanfare");
     } else {
-      state.stats.shards += 10;
+      state.stats.shards += shardGain;
       playSfx("weak");
     }
     writeSave();
     updateHud();
-    els.contestFeedback.textContent = `Contest ended — ${medal} awarded! ${won ? `+${45 + Math.round(conf/2)} shards, +1 Medal item.` : "+10 shards."}`;
-    setTimeout(closeContest, 2200);
+    // Medal cinematic overlay
+    showContestMedal(medalIcon, medal, won ? `+${shardGain} shards · +1 Medal item` : `+${shardGain} shards`);
+    els.contestFeedback.textContent = `${medal} awarded!`;
+    setTimeout(closeContest, 2800);
   }
 
   function closeContest() {
@@ -3500,12 +3601,17 @@
   }
 
   function spawnBurst(element, color) {
-    if (!element || !els.contestBurst) return;
-    const burst = document.createElement("span");
-    burst.className = "contest-burst-dot";
-    burst.style.cssText = `background:${color || "#77f0af"};`;
-    els.contestBurst.appendChild(burst);
-    setTimeout(() => burst.remove(), 700);
+    if (!element || !els.contestBurst || PREFERS_REDUCED) return;
+    const count = 8;
+    for (let i = 0; i < count; i++) {
+      const burst = document.createElement("span");
+      burst.className = "contest-burst-dot";
+      const angle = (i / count) * Math.PI * 2;
+      const dist = 28 + Math.random() * 32;
+      burst.style.cssText = `background:${color || "#77f0af"};--dx:${(Math.cos(angle) * dist).toFixed(1)}px;--dy:${(Math.sin(angle) * dist - 30).toFixed(1)}px;animation-delay:${(i * 0.025).toFixed(3)}s;`;
+      els.contestBurst.appendChild(burst);
+      setTimeout(() => burst.remove(), 720);
+    }
   }
 
   // ── Alliance Panel ─────────────────────────────────────────
@@ -3565,8 +3671,10 @@
     renderBattleActions();
     setBattleLog(`${al.name.toUpperCase()} — ALLIANCE MOVE!`);
     triggerShake(14, 600);
-    spawnConfetti(view.w / 2, view.h / 3, 36, al.color);
+    spawnConfetti(view.w / 2, view.h / 3, 44, al.color);
     playSfx2("allianceFanfare");
+    // Axis 4: Cinematic DUO MOVE banner
+    showDuoBanner(al);
 
     battle.fx = {
       kind: "hero",
@@ -3795,20 +3903,26 @@
     updateHud();
     setBattleLog(`${battle.enemy.actualName.toUpperCase()} fainted. +${xp} XP.${joined ? " It joined the roster." : ""}`);
 
-    // Check evolution on level-up
+    // Check evolution on level-up — Axis 6: full cinematic
     const postHero = state.stats.party[state.stats.active];
     if (postHero && postHero.level > preLevel) {
       const evolved = evolveAllyIfReady(postHero);
       if (evolved) {
-        await wait(700);
+        await wait(500);
+        setBattleLog(`What? ${postHero.actualName.toUpperCase()} is evolving!`);
+        triggerShake(4, 220);
+        // Full-screen evolution cinematic
+        showEvolutionCinematic(postHero);
+        await wait(1800);
         setBattleLog(`${postHero.actualName.toUpperCase()} evolved into ${postHero.name.toUpperCase()}!`);
-        triggerShake(6, 350);
-        spawnConfetti(view.w * 0.28, view.h * 0.65, 22, postHero.color || "#f3cf61");
+        triggerShake(8, 400);
+        spawnConfetti(view.w * 0.28, view.h * 0.60, 34, postHero.color || "#f3cf61");
         playSfx2("levelUp");
+        await wait(600);
       }
     }
 
-    await wait(1300);
+    await wait(1100);
     trackHunterCompletion("Battle", joined ? 95 : 85, 100, []);
     closeBattle(joined ? `${battle.enemy.actualName} joined your roster.` : `${battle.enemy.actualName} fainted.`);
   }
@@ -4152,7 +4266,7 @@
     // ── Sequel buttons ──
     if (els.allianceBtn) els.allianceBtn.addEventListener("click", () => { closeMenu(); openAlliancePanel(); });
     if (els.contestBtn) els.contestBtn.addEventListener("click", () => { closeMenu(); openContest(); });
-    if (els.codexBtn) els.codexBtn.addEventListener("click", () => renderCodex());
+    if (els.codexBtn) els.codexBtn.addEventListener("click", () => renderCodexPro());
     if (els.contestTapBtn) els.contestTapBtn.addEventListener("click", contestTap);
     if (els.closeAlliance) els.closeAlliance.addEventListener("click", closeAlliancePanel);
     if (els.allianceActivateBtn) els.allianceActivateBtn.addEventListener("click", () => {
@@ -4177,6 +4291,136 @@
       if (document.hidden) stopMusic();
       else if (state.mode !== "boot") startMusic();
     });
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  PRO POLISH HELPERS — Axis 4/5/6/8/9/11
+  // ════════════════════════════════════════════════════════════
+
+  // Axis 5: type-colored hit burst at needle position
+  function spawnContestHitBurst(leftPct, color) {
+    if (PREFERS_REDUCED) return;
+    const meter = els.contestMeter;
+    if (!meter) return;
+    const burst = document.createElement("div");
+    burst.className = "contest-hit-burst";
+    burst.style.cssText = `left:${leftPct}%;background:${color};box-shadow:0 0 12px ${color};`;
+    meter.appendChild(burst);
+    setTimeout(() => burst.remove(), 520);
+  }
+
+  // Axis 5: floating score popup
+  function spawnContestScorePopup(text, color) {
+    if (PREFERS_REDUCED) return;
+    const meter = els.contestMeter;
+    if (!meter) return;
+    const popup = document.createElement("div");
+    popup.className = "contest-score-popup";
+    popup.style.cssText = `color:${color};left:50%;transform:translateX(-50%);bottom:0;`;
+    popup.textContent = text;
+    // position above meter
+    meter.style.position = "relative";
+    meter.parentElement.insertBefore(popup, meter.nextSibling);
+    setTimeout(() => popup.remove(), 950);
+  }
+
+  // Axis 5: medal cinematic
+  function showContestMedal(icon, title, sub) {
+    if (PREFERS_REDUCED) return;
+    const overlay = document.createElement("div");
+    overlay.className = "contest-win-overlay";
+    overlay.innerHTML = `<div class="contest-medal">
+      <span class="contest-medal-icon" aria-hidden="true">${escapeHtml(icon)}</span>
+      <span class="contest-medal-title">${escapeHtml(title)}</span>
+      <span class="contest-medal-sub">${escapeHtml(sub)}</span>
+    </div>`;
+    els.contestUi.appendChild(overlay);
+    setTimeout(() => overlay.remove(), 2700);
+  }
+
+  // Axis 4: DUO MOVE cinematic banner
+  function showDuoBanner(al) {
+    if (PREFERS_REDUCED) return;
+    const banner = document.createElement("div");
+    banner.className = "duo-banner";
+    banner.setAttribute("aria-live", "assertive");
+    banner.setAttribute("aria-label", `Alliance move: ${al.name}`);
+    banner.innerHTML = `<div class="duo-banner-inner">
+      <span class="duo-banner-label">Duo Move</span>
+      <span class="duo-banner-name">${escapeHtml(al.name)}</span>
+    </div>`;
+    document.body.appendChild(banner);
+    setTimeout(() => banner.remove(), 2000);
+  }
+
+  // Axis 6: evolution cinematic overlay
+  function showEvolutionCinematic(ally) {
+    if (PREFERS_REDUCED) return;
+    const overlay = document.createElement("div");
+    overlay.className = "evo-overlay";
+    overlay.setAttribute("aria-live", "polite");
+    overlay.setAttribute("aria-label", `${ally.actualName} is evolving into ${ally.name}`);
+    overlay.innerHTML = `<div class="evo-inner">
+      <span class="evo-sub">What?</span>
+      <span class="evo-name">${escapeHtml(ally.actualName)}</span>
+      <span class="evo-sub" style="margin-top:8px">is evolving into</span>
+      <span class="evo-name" style="color:${ally.color || "#f3cf61"}">${escapeHtml(ally.name)}</span>
+    </div>`;
+    // Spawn sparkle particles around overlay
+    for (let i = 0; i < 14; i++) {
+      const sp = document.createElement("div");
+      sp.className = "evo-sparkle";
+      const angle = (i / 14) * Math.PI * 2;
+      const r = 80 + Math.random() * 60;
+      sp.style.cssText = `
+        left:calc(50% + ${Math.cos(angle) * r}px);
+        top:calc(50% + ${Math.sin(angle) * r}px);
+        background:${ally.color || "#f3cf61"};
+        animation-delay:${(i * 0.07).toFixed(2)}s;
+        width:${6 + Math.random() * 8}px;
+        height:${6 + Math.random() * 8}px;`;
+      overlay.appendChild(sp);
+    }
+    document.body.appendChild(overlay);
+    // New-move popup after a short delay
+    setTimeout(() => {
+      const popup = document.createElement("div");
+      popup.className = "evo-move-popup";
+      popup.innerHTML = `<strong>${escapeHtml(ally.name)}</strong> learned a new move!`;
+      document.body.appendChild(popup);
+      setTimeout(() => popup.remove(), 2900);
+    }, 900);
+    setTimeout(() => overlay.remove(), 1900);
+  }
+
+  // Axis 9: render codex with evolution tree + alliance badges
+  function renderCodexPro() {
+    const entries = state.stats.party.map((ally) => {
+      const region = regionFor(ally);
+      const evo = EVOLUTION_CHAINS[ally.actualName];
+      const stage = clamp(Math.floor((Number(ally.level || 1) - 1) / 4), 0, 2);
+      const evoHtml = evo
+        ? `<div class="evo-chain">${evo.map((name, i) =>
+            `<span class="evo-stage${i <= stage ? " known" : ""}">${escapeHtml(name)}</span>${i < evo.length - 1 ? '<span class="evo-arrow">→</span>' : ""}`
+          ).join("")}</div>`
+        : `<div style="color:rgba(248,251,255,.44);font-size:12px;margin-top:4px">No evolution chain.</div>`;
+      const allianceDuos = ALLIANCES.filter((al) =>
+        al.figure1 === ally.actualName || al.figure2 === ally.actualName
+      );
+      const allianceBadges = allianceDuos.length
+        ? allianceDuos.map((al) => `<span class="alliance-compat-badge" title="${escapeHtml(al.desc)}">⚔ ${escapeHtml(al.name)}</span>`).join(" ")
+        : "";
+      return `<div class="menu-card" data-type="${escapeHtml(ally.type)}">
+        <strong>${escapeHtml(ally.actualName)}</strong>
+        <div style="font-size:13px;color:rgba(248,251,255,.72);margin-bottom:4px">${escapeHtml(ally.name)} · Lv ${ally.level} · <span style="color:var(--c-diplomatic)">${escapeHtml(ally.type)}</span></div>
+        <div style="font-size:12px;color:rgba(248,251,255,.54)">Era: ${escapeHtml(region ? region.name : "Historical")}</div>
+        ${evoHtml}
+        ${allianceBadges}
+      </div>`;
+    });
+    els.menuList.innerHTML = entries.length
+      ? entries.join("")
+      : `<div class="menu-card">No figures recorded yet. Battle or capture to fill the Codex.</div>`;
   }
 
   async function init() {

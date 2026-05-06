@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>Chrono Defense Infinite</title>
-<link rel="stylesheet" href="styles.css?v=20260505-full-td">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20260505-polish-v2">
 </head>
 <body>
 <div class="bg"></div>
@@ -13,7 +16,7 @@
   <header class="topbar">
     <div class="brand">
       <span class="sigil"></span>
-      <span><strong>Chrono Defense</strong><em>Social Studies Tower Defense</em></span>
+      <span><strong class="brand-title"><span class="brand-chrono">Chrono</span> <em class="brand-defense">Defense</em></strong><em class="brand-sub">Social Studies Tower Defense</em></span>
     </div>
     <div class="hud">
       <span class="hud-hp">
@@ -29,17 +32,17 @@
       <span><b id="insight">600</b> <small>shards</small></span>
       <span><b id="score">0</b> <small>score</small></span>
       <button id="libraryBtn" class="hud-action library-action" type="button">Library</button>
-      <button id="fullscreenBtn" class="hud-action" type="button">⛶</button>
+      <button id="fullscreenBtn" class="hud-action" type="button" aria-label="Toggle fullscreen">[ ]</button>
     </div>
   </header>
 
   <section class="game">
-    <div class="stage">
-      <canvas id="arena" width="1600" height="900" aria-label="Chrono Defense game arena"></canvas>
-      <div class="mission-panel" id="missionPanel">
+    <div class="stage" role="region" aria-label="Game battlefield">
+      <canvas id="arena" width="1600" height="900" aria-label="Chrono Defense game arena" role="img"></canvas>
+      <div class="mission-panel" id="missionPanel" aria-live="polite">
         <span id="mapLabel">Industrial Era · 1870–1914</span>
         <strong id="missionTitle">Build · Answer · Defend</strong>
-      <p id="missionText"></p>
+        <p id="missionText"></p>
       </div>
       <div class="question-console" id="questionConsole">
         <div class="question-head">
@@ -60,7 +63,7 @@
           <p class="feedback" id="feedback"></p>
         </div>
       </div>
-      <div class="wave-banner" id="waveBanner">Prepare the Archive</div>
+      <div class="wave-banner" id="waveBanner" aria-live="assertive" aria-atomic="true">Prepare the Archive</div>
     </div>
 
     <aside class="command">
@@ -84,7 +87,7 @@
           <button id="pauseBtn" type="button">⏸ Pause</button>
           <button id="speedBtn" type="button">1× Speed</button>
           <button id="autoBtn" type="button">Auto: OFF</button>
-          <button id="soundBtn" type="button">🔊 Sound</button>
+          <button id="soundBtn" type="button">Sound: On</button>
           <button id="resetBtn" type="button">↺ Reset</button>
         </div>
       </section>

@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>Regents Rally 64 - Mr. Mac's Review Arcade</title>
-<link rel="stylesheet" href="styles.css?v=20260505-rally64-v2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20260505-rally64-v3">
 </head>
 <body>
 <div class="scene-bg" aria-hidden="true"></div>
@@ -23,7 +26,7 @@
   <section class="screen active" id="characterScreen">
     <div class="hero-panel">
       <div class="kicker">Historical Kart Grand Prix</div>
-      <h1>Regents Rally 64</h1>
+      <h1 class="hero-title"><span class="hero-rally">Regents <em>Rally</em></span><sup class="hero-64" aria-label="64">64</sup></h1>
       <p>Pick a historical driver, race animated 64-bit courses, drift for tiered mini-turbos, hit speed pads, grab item cubes, answer a fast review clue, then launch boosts, shields, and rival attacks.</p>
       <div class="driver-preview" id="driverPreview" aria-live="polite"></div>
       <div class="mini-strip launch-strip">
@@ -76,41 +79,70 @@
     <canvas id="raceCanvas" aria-label="Animated social studies kart race"></canvas>
 
     <!-- Main HUD (top) -->
-    <div class="hud" id="mainHud">
-      <div class="hud-cell">
-        <span>Racer</span>
-        <strong id="hudRacer">--</strong>
+    <div class="hud" id="mainHud" role="status" aria-label="Race status">
+      <div class="hud-cell" aria-label="Current racer">
+        <span class="hud-eyebrow">Racer</span>
+        <strong id="hudRacer" class="hud-val">--</strong>
       </div>
-      <div class="hud-cell hud-lap">
-        <span>Lap</span>
-        <strong id="hudLap">1/3</strong>
+      <div class="hud-cell hud-lap" aria-label="Lap counter">
+        <span class="hud-eyebrow">Lap</span>
+        <strong id="hudLap" class="hud-val hud-mono">1/3</strong>
+        <span class="final-lap-badge" id="finalLapBadge" aria-live="assertive"></span>
       </div>
-      <div class="hud-cell hud-place" id="hudPlaceCell">
-        <span>Place</span>
-        <strong id="hudPlace">4th</strong>
-        <span class="place-delta" id="placeDelta"></span>
+      <div class="hud-cell hud-place" id="hudPlaceCell" aria-label="Race position">
+        <span class="hud-eyebrow">Place</span>
+        <div class="hud-place-row">
+          <strong id="hudPlace" class="hud-val hud-place-numeral">4th</strong>
+          <span class="place-delta" id="placeDelta" aria-live="polite"></span>
+        </div>
+        <div class="race-stripe" aria-hidden="true"></div>
       </div>
-      <div class="hud-cell">
-        <span>Score</span>
-        <strong id="hudScore">0</strong>
+      <div class="hud-cell" aria-label="Score">
+        <span class="hud-eyebrow">Score</span>
+        <strong id="hudScore" class="hud-val hud-mono">0</strong>
       </div>
     </div>
 
     <!-- Speedometer + boost + item (bottom-left) -->
-    <div class="race-meter">
-      <div class="speedo-wrap">
-        <div class="speedo-label">SPEED</div>
-        <div class="speed-track"><i id="speedBar"></i></div>
-        <div class="speedo-num" id="speedNum">0</div>
+    <div class="race-meter" aria-label="Race instruments">
+      <div class="speedo-wrap" aria-label="Speedometer">
+        <!-- Glass arc gauge -->
+        <div class="speedo-gauge" aria-hidden="true">
+          <svg class="speedo-svg" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Tick marks -->
+            <g class="speedo-ticks" stroke="rgba(255,255,255,.22)" stroke-width="1.5">
+              <line x1="10" y1="68" x2="14" y2="60"/>
+              <line x1="22" y1="40" x2="27" y2="46"/>
+              <line x1="40" y1="22" x2="44" y2="28"/>
+              <line x1="60" y1="16" x2="60" y2="23"/>
+              <line x1="80" y1="22" x2="76" y2="28"/>
+              <line x1="98" y1="40" x2="93" y2="46"/>
+              <line x1="110" y1="68" x2="106" y2="60"/>
+            </g>
+            <!-- Arc track -->
+            <path class="speedo-arc-bg" d="M 12 72 A 52 52 0 0 1 108 72" stroke="rgba(255,255,255,.10)" stroke-width="6" stroke-linecap="round"/>
+            <!-- Arc fill (speed) -->
+            <path class="speedo-arc-fill" id="speedArc" d="M 12 72 A 52 52 0 0 1 108 72" stroke="#7af0ff" stroke-width="6" stroke-linecap="round" stroke-dasharray="163" stroke-dashoffset="163"/>
+          </svg>
+          <div class="speedo-center">
+            <div class="speedo-num-lg" id="speedNum" aria-live="polite" aria-label="Speed">0</div>
+            <div class="speedo-unit">km/h</div>
+          </div>
+        </div>
       </div>
-      <div class="boost-wrap">
-        <div class="speedo-label">BOOST</div>
-        <div class="boost-track"><i id="boostBar"></i></div>
+      <div class="boost-item-col">
+        <div class="boost-wrap" aria-label="Boost meter">
+          <div class="speedo-label">BOOST</div>
+          <div class="boost-segments" id="boostSegments" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="boost-track"><i id="boostBar"></i></div>
+        </div>
+        <button class="item-button" id="itemBtn" type="button" aria-label="Use item">
+          <span class="item-thumb" id="itemThumb" aria-hidden="true"></span>
+          <strong id="hudItem">Empty</strong>
+        </button>
       </div>
-      <button class="item-button" id="itemBtn" type="button">
-        <span class="item-thumb" id="itemThumb"></span>
-        <strong id="hudItem">Empty</strong>
-      </button>
     </div>
 
     <!-- Lap times (bottom-right, desktop) -->
@@ -120,14 +152,16 @@
     </div>
 
     <!-- Question gate card (in-cockpit, right side) -->
-    <aside class="question-card hidden" id="questionCard">
+    <aside class="question-card hidden" id="questionCard" aria-label="Review question" role="dialog">
       <div class="question-shell">
         <div class="question-meta" id="questionMeta">Loading...</div>
         <h2 id="questionText">Loading question...</h2>
-        <div class="timer"><i id="timerBar"></i></div>
-        <div class="answer-dock" id="answerDock"></div>
-        <div class="feedback" id="feedback">Answer to activate the item.</div>
-        <button class="skip-btn" id="skipBtn" type="button">Skip (handling penalty)</button>
+        <div class="timer" aria-label="Time remaining"><i id="timerBar"></i></div>
+        <div class="answer-dock" id="answerDock" role="group" aria-label="Answer choices"></div>
+        <div class="feedback" id="feedback" aria-live="polite">Answer to activate the item.</div>
+        <button class="skip-btn" id="skipBtn" type="button" aria-label="Skip question — applies handling penalty">
+          <span class="skip-icon" aria-hidden="true">⚠</span> Skip — handling penalty
+        </button>
       </div>
     </aside>
 
@@ -153,25 +187,26 @@
   </section>
 
   <section class="screen" id="resultsScreen">
-    <section class="result-card">
+    <section class="result-card" aria-label="Race results">
+      <div class="result-cinematic-bar" aria-hidden="true"></div>
       <div class="kicker" id="resultKicker">Race Complete</div>
-      <h1 id="resultTitle">Podium Finish</h1>
-      <div class="result-grid" id="resultGrid"></div>
-      <div class="best-lap-banner" id="bestLapBanner" style="display:none"></div>
-      <p id="coachText"></p>
+      <h1 id="resultTitle" class="result-title-fraunces">Podium Finish</h1>
+      <div class="result-grid" id="resultGrid" aria-label="Race statistics"></div>
+      <div class="best-lap-banner" id="bestLapBanner" style="display:none" aria-live="polite"></div>
+      <p id="coachText" class="coach-text"></p>
       <div id="gpStandingsWrap" style="display:none">
-        <h3>Grand Prix Standings</h3>
-        <div class="gp-standings" id="gpStandings"></div>
+        <h3 class="gp-section-head">Grand Prix Standings</h3>
+        <div class="gp-standings" id="gpStandings" role="table" aria-label="Grand Prix standings"></div>
       </div>
-      <div class="actions">
+      <div class="actions result-actions">
         <button class="btn primary" id="againBtn" type="button">Race Again</button>
-        <a class="btn ghost" href="../../index.html">Arcade Home</a>
+        <a class="btn ghost" href="../../index.html" aria-label="Return to arcade home">Arcade Home</a>
       </div>
     </section>
   </section>
 </main>
 <script src="../../assets/arcade-analytics.js?v=20260502-traffic-progress-hardening"></script>
 <script src="../../assets/source-bank.js?v=20260502-source-contract"></script>
-<script type="module" src="game.js?v=20260505-rally64-v2"></script>
+<script type="module" src="game.js?v=20260505-rally64-v3"></script>
 </body>
 </html>

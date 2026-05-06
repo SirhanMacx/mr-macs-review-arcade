@@ -516,14 +516,31 @@ function rebuildShieldsPartial() {
 }
 
 function drawShields() {
+  // Determine cell health per shield (density of alive cells)
   for (const sh of state.shields) {
+    const aliveCount = sh.cells.filter(c=>c.alive).length;
+    const healthRatio = aliveCount / sh.cells.length;
+    // Color shifts: full=cream-green, damaged=amber, critical=red
+    const r  = healthRatio > 0.6 ? Math.round(93 + (1-healthRatio)*162)
+              : healthRatio > 0.3 ? Math.round(200 + (0.6-healthRatio)*55)
+              : 200;
+    const g  = healthRatio > 0.6 ? Math.round(196 * healthRatio + 130*(1-healthRatio))
+              : healthRatio > 0.3 ? Math.round(130 * healthRatio)
+              : 37;
+    const b  = healthRatio > 0.6 ? Math.round(138 * healthRatio)
+              : 37;
+    const cellColor = `rgb(${r},${g},${b})`;
+
     for (const cell of sh.cells) {
       if (!cell.alive) continue;
       const px = sh.cx - sh.w/2 + cell.c * CELL_SIZE;
       const py = sh.cy - sh.h/2 + cell.r * CELL_SIZE;
-      ctx.fillStyle = "#6df2a8";
+      ctx.fillStyle   = cellColor;
       ctx.globalAlpha = 0.88;
       ctx.fillRect(Math.floor(px), Math.floor(py), CELL_SIZE-1, CELL_SIZE-1);
+      // Interior shadow (top edge)
+      ctx.fillStyle   = "rgba(0,0,0,.28)";
+      ctx.fillRect(Math.floor(px), Math.floor(py), CELL_SIZE-1, 1);
       ctx.globalAlpha = 1;
     }
   }
@@ -982,7 +999,45 @@ function openBriefing(reason="Containment Burst Armed") {
   els.choices.querySelectorAll(".choice").forEach(btn=>{
     btn.addEventListener("click",()=>gradeAnswer(Number(btn.dataset.index)));
   });
+  hideBriefingStamp();
+  startTimeRing(18);
   els.briefing.classList.remove("hidden");
+}
+
+function showBriefingStamp(correct) {
+  const stampEl = document.getElementById("briefingStamp");
+  const textEl  = document.getElementById("stampText");
+  if (!stampEl || !textEl) return;
+  textEl.textContent = correct ? "Intel Acquired" : "Mission Failed";
+  textEl.className   = "stamp-text " + (correct ? "correct" : "wrong");
+  stampEl.classList.add("show");
+  stampEl.removeAttribute("aria-hidden");
+}
+
+function hideBriefingStamp() {
+  const stampEl = document.getElementById("briefingStamp");
+  if (!stampEl) return;
+  stampEl.classList.remove("show");
+  stampEl.setAttribute("aria-hidden","true");
+}
+
+// Start a time-drain animation on the fill bar
+let _briefingTimerRaf = null;
+function startTimeRing(duration) {
+  const fill = document.getElementById("timeRingFill");
+  if (!fill) return;
+  fill.style.transition = "none";
+  fill.style.width      = "100%";
+  // force reflow
+  fill.getBoundingClientRect();
+  fill.style.transition = `width ${duration}s linear`;
+  fill.style.width      = "0%";
+}
+function resetTimeRing() {
+  const fill = document.getElementById("timeRingFill");
+  if (!fill) return;
+  fill.style.transition = "none";
+  fill.style.width      = "100%";
 }
 
 function gradeAnswer(index) {
@@ -1001,7 +1056,7 @@ function gradeAnswer(index) {
     const puType = POWERUP_TYPES[Math.floor(Math.random()*POWERUP_TYPES.length)];
     setTimeout(()=>applyPowerup(puType), 100);
     els.feedback.className  = "feedback good";
-    els.feedback.innerHTML  = `<strong>CORRECT — POWER-UP INCOMING.</strong> ${esc(state.current.explanation)}`;
+    els.feedback.innerHTML  = `<strong>Intel acquired — power-up incoming.</strong> ${esc(state.current.explanation)}`;
     sfxPowerup();
   } else {
     state.streak = 0;
@@ -1010,13 +1065,15 @@ function gradeAnswer(index) {
     state.shield = Math.max(0, state.shield - 8 * tune().accuracy);
     state.shake  = Math.max(state.shake, 0.42);
     els.feedback.className  = "feedback bad";
-    els.feedback.innerHTML  = `<strong>WRONG — FLEET ACCELERATED.</strong> Correct: ${esc(state.current.answer)}. ${esc(state.current.explanation)}`;
+    els.feedback.innerHTML  = `<strong>Wrong — fleet accelerated.</strong> Correct: ${esc(state.current.answer)}. ${esc(state.current.explanation)}`;
   }
   els.choices.querySelectorAll(".choice").forEach((btn,i)=>{
     btn.classList.toggle("correct", state.current.choices[i].correct);
     btn.classList.toggle("wrong",   i===index && !correct);
     btn.disabled = true;
   });
+  // Slam stamp
+  setTimeout(()=>showBriefingStamp(correct), 80);
   updateHud();
   setTimeout(()=>{
     state.briefing = false;
@@ -1024,6 +1081,8 @@ function gradeAnswer(index) {
     state.safeTime = mobileCtrl.matches ? (correct?16:12) : (correct?7:5);
     state.enemyShots = [];
     state.player.invuln = Math.max(state.player.invuln, mobileCtrl.matches?2.0:1.0);
+    hideBriefingStamp();
+    resetTimeRing();
     els.briefing.classList.add("hidden");
     if (state.shield <= 0 && state.lives <= 0) finish(false);
   }, correct ? 1100 : 2100);
@@ -1128,27 +1187,64 @@ function updateParticles(dt) {
   });
 }
 
+// ─── Theater tint ─────────────────────────────────────────────────────────
+const THEATER_TINT_CLASSES = ["theater-korea","theater-cuba","theater-berlin","theater-vietnam"];
+function applyTheaterTint() {
+  document.body.classList.remove(...THEATER_TINT_CLASSES);
+  if (["korea","cuba","berlin","vietnam"].includes(state.theater)) {
+    document.body.classList.add("theater-" + state.theater);
+  }
+}
+
+// Theater code labels for wave counter
+const THEATER_CODES = { korea:"KOR", cuba:"CUB", berlin:"BLN", vietnam:"VNM", cold:"CWI", us:"USH", global:"GLB", ap:"APR", all:"ALL" };
+
 // ─── HUD ─────────────────────────────────────────────────────────────────
 function updateHud() {
   const displayScore = Math.round(state.score);
   els.score.textContent  = displayScore.toLocaleString();
-  els.wave.textContent   = String(state.wave);
-  els.shield.textContent = `${Math.max(0,Math.round(state.shield))}%`;
+  // Wave code: e.g. "BLN-3"
+  const code = THEATER_CODES[state.theater] || "CWI";
+  els.wave.textContent   = `${code}-${state.wave}`;
+  const shieldPct = Math.max(0, Math.round(state.shield));
+  els.shield.textContent = `${shieldPct}%`;
   els.intel.textContent  = `${Math.round(state.intel)}%`;
-  // Lives indicator in intel slot as prefix
-  const livesIcons = "♥".repeat(Math.max(0,state.lives));
+
+  // Shield bar fill + low-shift (red when low)
+  const shieldBar = document.getElementById("shieldBar");
+  if (shieldBar) {
+    shieldBar.style.width = `${shieldPct}%`;
+    // background-position shifts color: 100% = green zone, 0% = red zone
+    shieldBar.style.backgroundPosition = `${100 - shieldPct}% 0`;
+  }
+
+  // Combo display (HTML overlay)
+  const comboEl = document.getElementById("comboDisplay");
+  if (comboEl) {
+    if (state.combo > 1 && state.running) {
+      comboEl.textContent = `STREAK: ${state.combo}`;
+      comboEl.classList.add("active");
+      comboEl.classList.toggle("flash", state.combo > 8);
+    } else {
+      comboEl.classList.remove("active","flash");
+    }
+  }
+
+  // Lives indicator in top-stats as prefix
+  const livesIcons = "♥".repeat(Math.max(0, state.lives));
   els.topStats.innerHTML = [
     `${displayScore.toLocaleString()} pts`,
-    `Wave ${state.wave} · M${state.mission}`,
-    state.intel >= 100 ? "🔥 Intel armed" : `${Math.round(state.intel)}% intel`,
+    `Wave ${code}-${state.wave} · M${state.mission}`,
+    state.intel >= 100 ? "Intel armed" : `${Math.round(state.intel)}% intel`,
     livesIcons
   ].map(t=>`<span>${esc(t)}</span>`).join("");
 }
 
 // ─── Start / finish ────────────────────────────────────────────────────────
 function startGame() {
-  state.theater    = els.theater.value;
-  state.difficulty = els.difficulty.value;
+  // Read from native selects (kept in sync by the dossier UI controller in index.html)
+  state.theater    = els.theater.value || "korea";
+  state.difficulty = els.difficulty.value || "regents";
   const preset     = DIFF_PRESET[state.difficulty]||DIFF_PRESET.regents;
   state.pool       = shuffle(filteredBank());
   state.running    = true;
@@ -1198,6 +1294,7 @@ function startGame() {
   els.results.classList.add("hidden");
   els.briefing.classList.add("hidden");
   document.body.classList.add("playing");
+  applyTheaterTint();
 
   buildShields();
   spawnWave();
@@ -1218,12 +1315,27 @@ function finish(won=true) {
   els.results.classList.remove("hidden");
   const accuracy = state.answered ? Math.round(state.correct/state.answered*100) : 0;
   const acc2     = state.shotsFired ? Math.round((state.missionStats.shotsHit||state.kills)/Math.max(1,state.shotsFired)*100) : 0;
-  els.resultTitle.textContent = won||state.wave>=5 ? "Containment Held" : "Satellite Line Broken";
+  els.resultTitle.textContent = won||state.wave>=5 ? "Containment held" : "Satellite line broken";
+
+  // Best-wave banner
+  const persist2   = loadPersist();
+  const prevWave   = persist2[`wave_${state.theater}`] || 0;
+  const waveRecord = state.wave > prevWave;
+  const bannerEl   = document.getElementById("bestWaveBanner");
+  if (bannerEl) {
+    bannerEl.innerHTML = waveRecord
+      ? `<span class="best-wave-banner">New Record — Wave ${state.wave}</span>` : "";
+  }
+
+  // Animated count-up metrics
+  const scoreVal    = Math.round(state.score);
+  const shieldUp    = state.missionStats.shieldDmg > 0
+    ? Math.round((1 - state.missionStats.shieldDmg / 100) * 100) : 100;
   els.resultMetrics.innerHTML = [
-    [Math.round(state.score).toLocaleString(), "score"],
+    [scoreVal.toLocaleString(), "score"],
     [state.wave, "wave reached"],
-    [`${state.correct}/${state.answered}`, "intel Qs"],
-    [`${accuracy}%`, "accuracy"]
+    [`${state.missionStats.kills}`, "contacts neutralized"],
+    [`${accuracy}%`, "intel accuracy"]
   ].map(([big,label])=>`<div class="metric"><strong>${esc(big)}</strong><span>${esc(label)}</span></div>`).join("");
   els.coach.textContent = accuracy>=85
     ? "Strong Cold War command. Move into U.S. or Global Regents practice and keep using exact policy names."
@@ -1377,6 +1489,8 @@ function openBriefingBetweenWaves() {
   els.choices.querySelectorAll(".choice").forEach(btn=>{
     btn.addEventListener("click",()=>gradeBetweenWave(Number(btn.dataset.index)));
   });
+  hideBriefingStamp();
+  startTimeRing(22);
   els.briefing.classList.remove("hidden");
 }
 
@@ -1399,13 +1513,13 @@ function gradeBetweenWave(index) {
       const puType = POWERUP_TYPES[Math.floor(Math.random()*POWERUP_TYPES.length)];
       setTimeout(()=>applyPowerup(puType), 100);
       els.feedback.className  = "feedback good";
-      els.feedback.innerHTML  = `<strong>CORRECT — POWER-UP INCOMING.</strong> ${esc(state.current.explanation)}`;
+      els.feedback.innerHTML  = `<strong>Intel acquired — power-up incoming.</strong> ${esc(state.current.explanation)}`;
       sfxPowerup();
     } else {
       state.streak = 0;
       state.marchStepInterval = Math.max(0.06, state.marchStepInterval * 0.88);
       els.feedback.className  = "feedback bad";
-      els.feedback.innerHTML  = `<strong>WRONG — NEXT FLEET FASTER.</strong> Correct: ${esc(state.current.answer)}.`;
+      els.feedback.innerHTML  = `<strong>Wrong — next fleet is faster.</strong> Correct: ${esc(state.current.answer)}.`;
     }
     els.choices.querySelectorAll(".choice").forEach((btn,i)=>{
       if (i < state.current.choices.length) {
@@ -1416,13 +1530,16 @@ function gradeBetweenWave(index) {
     });
   } else {
     els.feedback.className   = "feedback";
-    els.feedback.textContent = "Skipped. No penalty, no reward.";
+    els.feedback.textContent = "Mission skipped — no penalty, no reward. Will resume mission.";
     els.choices.querySelectorAll(".choice").forEach(btn=>btn.disabled=true);
   }
+  if (!skipped) setTimeout(()=>showBriefingStamp(correct), 80);
   updateHud();
   setTimeout(()=>{
     state.briefing = false;
     state.current  = null;
+    hideBriefingStamp();
+    resetTimeRing();
     els.briefing.classList.add("hidden");
     advanceWaveNoQuestion();
   }, skipped ? 600 : correct ? 1000 : 1800);
@@ -1464,10 +1581,39 @@ function draw() {
   drawOverlay();
 }
 
+// Theater silhouette cityscape — drawn near horizon
+const CITYSCAPE_PROFILES = {
+  korea:   [[0,.7],[.05,.62],[.08,.58],[.1,.62],[.15,.65],[.18,.58],[.22,.52],[.25,.55],[.3,.65],[.35,.62],[.38,.56],[.42,.6],[.45,.65],[.5,.62],[.55,.58],[.6,.54],[.63,.6],[.68,.65],[.72,.6],[.75,.56],[.8,.62],[.85,.65],[.88,.6],[.92,.56],[.95,.62],[1,.7]],
+  cuba:    [[0,.72],[.04,.65],[.08,.6],[.12,.65],[.18,.63],[.22,.58],[.26,.64],[.32,.68],[.38,.64],[.42,.6],[.46,.65],[.5,.7],[.55,.65],[.6,.6],[.64,.65],[.7,.68],[.75,.63],[.8,.58],[.85,.64],[.9,.68],[.95,.7],[1,.72]],
+  berlin:  [[0,.68],[.03,.58],[.06,.52],[.09,.58],[.12,.54],[.15,.48],[.18,.54],[.22,.6],[.28,.56],[.32,.5],[.36,.56],[.4,.6],[.44,.54],[.48,.5],[.52,.54],[.56,.6],[.6,.54],[.64,.5],[.68,.54],[.72,.6],[.76,.58],[.8,.52],[.84,.56],[.88,.6],[.92,.55],[.96,.6],[1,.68]],
+  vietnam: [[0,.75],[.05,.7],[.1,.65],[.13,.68],[.18,.72],[.22,.68],[.26,.65],[.3,.7],[.36,.68],[.4,.65],[.44,.7],[.5,.75],[.55,.7],[.6,.65],[.65,.7],[.7,.75],[.75,.7],[.8,.65],[.86,.68],[.9,.72],[.95,.7],[1,.75]],
+};
+
+function drawCityscape() {
+  if (reduceMotion) return;
+  const profile = CITYSCAPE_PROFILES[state.theater];
+  if (!profile) return;
+  const baseY = state.h * 0.78;
+  const alpha  = 0.07;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  // Theater tint
+  const tintMap = { korea:"#6ab0d4", cuba:"#5dc48a", berlin:"#8c9ba8", vietnam:"#7a9a4a" };
+  ctx.fillStyle = tintMap[state.theater] || "#c8252a";
+  ctx.beginPath();
+  ctx.moveTo(0, state.h);
+  profile.forEach(([rx, ry]) => ctx.lineTo(rx * state.w, ry * state.h));
+  ctx.lineTo(state.w, state.h);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
 function drawSpace() {
   const t = performance.now() / 1000;
+  // Dossier ink-black base
   const g = ctx.createLinearGradient(0,0,0,state.h);
-  g.addColorStop(0,"#09143a"); g.addColorStop(0.55,"#050815"); g.addColorStop(1,"#03050d");
+  g.addColorStop(0,"#0e0c08"); g.addColorStop(0.5,"#0a0908"); g.addColorStop(1,"#060504");
   ctx.fillStyle = g; ctx.fillRect(0,0,state.w,state.h);
 
   // Scrolling star tile from sheet
@@ -1489,13 +1635,16 @@ function drawSpace() {
   });
   ctx.globalAlpha = 1;
 
-  // Grid lines
-  ctx.strokeStyle = "rgba(114,243,255,.09)";
+  // Subtle grid lines (dossier amber tint)
+  ctx.strokeStyle = "rgba(212,130,10,.05)";
   ctx.lineWidth   = 1;
   const grid = 72, offset = (t*18)%grid;
   for (let x=-grid; x<state.w+grid; x+=grid) {
     ctx.beginPath(); ctx.moveTo(x+offset,0); ctx.lineTo(x-offset*2,state.h); ctx.stroke();
   }
+
+  // Theater cityscape silhouette
+  drawCityscape();
 }
 
 function drawEarth() {
@@ -1522,9 +1671,28 @@ function drawPlayer() {
   ctx.translate(p.x, p.y);
   // Invuln flicker
   if (p.invuln>0 && Math.floor(performance.now()/65)%2===0) { ctx.restore(); return; }
+
+  // Thrust trail (only while moving or always subtle)
+  if (!reduceMotion) {
+    const t      = performance.now()/1000;
+    const moving = Math.abs(p.vx) > 20;
+    const trailLen = moving ? 36 : 18;
+    const trailAlpha = moving ? 0.52 : 0.22;
+    const grad = ctx.createLinearGradient(0,18,0,18+trailLen);
+    grad.addColorStop(0, "rgba(200,37,42,.62)");
+    grad.addColorStop(1, "rgba(200,37,42,0)");
+    ctx.globalAlpha = trailAlpha * (0.7 + Math.sin(t*14)*0.3);
+    ctx.fillStyle   = grad;
+    // left engine trail
+    ctx.fillRect(-18, 18, 6, trailLen);
+    // right engine trail
+    ctx.fillRect(12, 18, 6, trailLen);
+    ctx.globalAlpha = 1;
+  }
+
   if (drawSprite("player",0,-5,106,76,{alpha:p.invuln>0?0.68:1})) {
-    ctx.strokeStyle = state.activePowerUps.tripleShot>0 ? "#ffd15c" : state.activePowerUps.rapidFire>0 ? "#b892ff" : "#6df2a8";
-    ctx.lineWidth   = 2; ctx.globalAlpha = 0.68;
+    ctx.strokeStyle = state.activePowerUps.tripleShot>0 ? "#d4820a" : state.activePowerUps.rapidFire>0 ? "#c8252a" : "#f4ecd8";
+    ctx.lineWidth   = 2; ctx.globalAlpha = 0.62;
     ctx.beginPath(); ctx.ellipse(0,0,58+Math.sin(performance.now()/120)*3,44,0,0,Math.PI*2); ctx.stroke();
     ctx.restore(); return;
   }
@@ -1553,9 +1721,9 @@ function drawEnemy(enemy) {
   if (drawSprite(spriteName,0,pulse,spriteSize[0],spriteSize[1])) {
     if (state.w>760 && enemy.y<state.h*0.62) {
       ctx.shadowBlur=0;
-      ctx.font="900 8px ui-monospace,SFMono-Regular,Menlo,monospace";
+      ctx.font="700 8px 'JetBrains Mono',ui-monospace,monospace";
       ctx.textAlign="center"; ctx.fillStyle=color;
-      ctx.fillText(enemy.label.toUpperCase(),0,32);
+      ctx.fillText(enemy.label,0,32);
     }
     ctx.restore(); return;
   }
@@ -1570,8 +1738,8 @@ function drawEnemy(enemy) {
     ctx.beginPath(); ctx.moveTo(-30,pulse); ctx.lineTo(30,pulse); ctx.stroke();
   }
   if (state.w>760&&enemy.y<state.h*0.62) {
-    ctx.font="800 8px Inter,sans-serif"; ctx.textAlign="center"; ctx.fillStyle=color;
-    ctx.fillText(enemy.label.toUpperCase(),0,31);
+    ctx.font="700 8px 'JetBrains Mono',ui-monospace,monospace"; ctx.textAlign="center"; ctx.fillStyle=color;
+    ctx.fillText(enemy.label,0,31);
   }
   ctx.restore();
 }
@@ -1580,13 +1748,13 @@ function drawBoss() {
   if (!state.boss) return;
   const b = state.boss;
   ctx.save(); ctx.translate(b.x, b.y);
-  // Phase tinting
-  const phaseColors = ["#ffd15c","#ff9f2a","#ff5f7d"];
+  // Phase tinting: gold → orange → declassified-red
+  const phaseColors = ["#d4820a","#c05000","#c8252a"];
   const pc = phaseColors[b.phase];
-  ctx.shadowColor = pc; ctx.shadowBlur = b.phase > 0 ? 18 : 0;
+  ctx.shadowColor = pc; ctx.shadowBlur = b.phase > 0 ? 22 : 8;
 
   if (drawSprite("boss",0,8,Math.min(320,b.w),148,{alpha:0.97})) {
-    ctx.fillStyle=pc; ctx.font="950 13px ui-monospace,SFMono-Regular,Menlo,monospace";
+    ctx.fillStyle=pc; ctx.font="700 13px 'JetBrains Mono',ui-monospace,monospace";
     ctx.textAlign="center";
     ctx.fillText(b.title,0,-52);
     // HP bar
@@ -1634,15 +1802,31 @@ function drawUfo() {
 
 function drawShot(shot, player) {
   const sprite = player ? (state.activePowerUps.tripleShot>0?"laserGreen":state.activePowerUps.rapidFire>0?"laserGreen":"laserCyan") : "laserRed";
-  if (drawSprite(sprite, shot.x, shot.y, player?16:18, player?56:48, {alpha:0.96})) return;
+  // Draw sprite if available (still add trail on top)
+  const spriteDrawn = drawSprite(sprite, shot.x, shot.y, player?16:18, player?56:48, {alpha:0.96});
   ctx.save();
-  ctx.strokeStyle = shot.color; ctx.lineWidth = player?4:5;
-  ctx.shadowColor = shot.color; ctx.shadowBlur = shot.missile?22:14;
-  ctx.beginPath(); ctx.moveTo(shot.x, shot.y-(player?18:8)); ctx.lineTo(shot.x, shot.y+(player?8:18)); ctx.stroke();
-  if (shot.missile) {
-    // Trail
-    ctx.globalAlpha=0.3; ctx.lineWidth=8;
-    ctx.beginPath(); ctx.moveTo(shot.x, shot.y+8); ctx.lineTo(shot.x, shot.y+28); ctx.stroke();
+  if (!spriteDrawn) {
+    ctx.strokeStyle = shot.color; ctx.lineWidth = player?4:5;
+    ctx.shadowColor = shot.color; ctx.shadowBlur = shot.missile ? 22 : 14;
+    ctx.beginPath(); ctx.moveTo(shot.x, shot.y-(player?18:8)); ctx.lineTo(shot.x, shot.y+(player?8:18)); ctx.stroke();
+  }
+  if (!reduceMotion) {
+    // Motion-blur trail
+    const trailLen   = shot.missile ? 36 : 20;
+    const trailDir   = player ? -1 : 1;  // player bullets go up, enemy go down
+    const trailColor = shot.missile ? "rgba(200,37,42," : (player ? "rgba(244,236,216," : "rgba(212,130,10,");
+    const grad = ctx.createLinearGradient(shot.x, shot.y, shot.x + shot.vx*0.04, shot.y + trailLen*trailDir);
+    grad.addColorStop(0, trailColor + (shot.missile?"0.55)":"0.4)"));
+    grad.addColorStop(1, trailColor + "0)");
+    ctx.globalAlpha  = shot.missile ? 0.72 : 0.42;
+    ctx.strokeStyle  = grad;
+    ctx.lineWidth    = shot.missile ? 6 : 3;
+    ctx.shadowColor  = shot.missile ? "#c8252a" : shot.color;
+    ctx.shadowBlur   = shot.missile ? 14 : 6;
+    ctx.beginPath();
+    ctx.moveTo(shot.x, shot.y);
+    ctx.lineTo(shot.x + shot.vx*0.04, shot.y + trailLen*trailDir);
+    ctx.stroke();
   }
   ctx.restore();
 }
@@ -1686,10 +1870,10 @@ function drawScorePopups() {
   ctx.save();
   for (const sp of state.scorePopups) {
     ctx.globalAlpha = clamp(sp.life/sp.max, 0, 1);
-    ctx.fillStyle   = sp.color||"#ffd15c";
-    ctx.font        = "900 13px ui-monospace,SFMono-Regular,Menlo,monospace";
+    ctx.fillStyle   = sp.color || "#d4820a";
+    ctx.font        = "700 13px 'JetBrains Mono',ui-monospace,monospace";
     ctx.textAlign   = "center";
-    ctx.shadowColor = sp.color||"#ffd15c"; ctx.shadowBlur = 6;
+    ctx.shadowColor = sp.color || "#d4820a"; ctx.shadowBlur = 6;
     ctx.fillText(sp.text, sp.x, sp.y);
   }
   ctx.globalAlpha=1; ctx.shadowBlur=0;
@@ -1699,10 +1883,10 @@ function drawScorePopups() {
 function drawOverlay() {
   ctx.save();
 
-  // Flash
+  // Flash — dossier red
   if (state.flash > 0 && !reduceMotion) {
-    ctx.globalAlpha = state.flash * 0.7;
-    ctx.fillStyle   = "#ff5f7d";
+    ctx.globalAlpha = state.flash * 0.6;
+    ctx.fillStyle   = "#c8252a";
     ctx.fillRect(0,0,state.w,state.h);
     ctx.globalAlpha = 1;
   }
@@ -1754,64 +1938,104 @@ function drawOverlay() {
     ctx.globalAlpha=1;
   }
 
-  // Mini formation map (top-right corner, 60x40)
-  if (state.running && state.enemies.length > 0 && !mobileCtrl.matches) {
+  // Mini-map: drawn into HTML glass disc canvas element
+  if (state.running) {
     drawMiniMap();
   }
 
-  // Toast
+  // Toast — dossier red stamp style
   if (state.toastTime > 0) {
     ctx.globalAlpha = clamp(state.toastTime,0,1);
-    ctx.font        = "950 26px Inter,sans-serif";
+    ctx.font        = "700 22px 'JetBrains Mono',ui-monospace,monospace";
     ctx.textAlign   = "center";
     const toastW = Math.min(state.w-36, ctx.measureText(state.toast).width+44);
     const toastY = Math.max(mobileCtrl.matches?100:82, state.h*0.17);
-    ctx.fillStyle   = "rgba(5,9,21,.8)";
-    ctx.strokeStyle = "#72f3ff";
-    roundRect(state.w/2-toastW/2, toastY, toastW, 50, 14); ctx.fill(); ctx.stroke();
-    ctx.fillStyle   = "#f8fbff";
-    ctx.fillText(state.toast, state.w/2, toastY+32);
+    ctx.fillStyle   = "rgba(10,9,6,.88)";
+    ctx.strokeStyle = "rgba(200,37,42,.7)";
+    ctx.lineWidth   = 1;
+    roundRect(state.w/2-toastW/2, toastY, toastW, 48, 4); ctx.fill(); ctx.stroke();
+    ctx.fillStyle   = "#f4ecd8";
+    ctx.fillText(state.toast, state.w/2, toastY+30);
     ctx.globalAlpha = 1;
   }
 
   // Paused
   if (state.paused) {
-    ctx.globalAlpha = 0.72; ctx.fillStyle = "#050815"; ctx.fillRect(0,0,state.w,state.h);
+    ctx.globalAlpha = 0.76; ctx.fillStyle = "#0e0c08"; ctx.fillRect(0,0,state.w,state.h);
     ctx.globalAlpha = 1;
-    ctx.fillStyle   = "#f8fbff"; ctx.font="950 48px Inter,sans-serif"; ctx.textAlign="center";
-    ctx.fillText("PAUSED",state.w/2,state.h/2);
-    ctx.fillStyle   = "#72f3ff"; ctx.font="22px Inter,sans-serif";
-    ctx.fillText("Esc / Pause button to resume",state.w/2,state.h/2+40);
-    // mute status
-    ctx.fillStyle = "#90a1bf"; ctx.font="18px Inter,sans-serif";
-    ctx.fillText(`Sound: ${muted?"MUTED":"ON"}  (M to toggle)`,state.w/2,state.h/2+72);
+    ctx.fillStyle   = "#f4ecd8"; ctx.font="700 48px 'Inter',sans-serif"; ctx.textAlign="center";
+    ctx.fillText("Paused",state.w/2,state.h/2);
+    ctx.fillStyle   = "#d4820a"; ctx.font="700 20px 'Inter',sans-serif";
+    ctx.fillText("Esc or Pause button to resume",state.w/2,state.h/2+44);
+    ctx.fillStyle = "#8a7a5e"; ctx.font="16px 'JetBrains Mono',monospace";
+    ctx.fillText(`Sound: ${muted?"MUTED":"ON"}  · M to toggle`,state.w/2,state.h/2+76);
   }
 
   ctx.restore();
 }
 
 function drawMiniMap() {
-  const mmW=64, mmH=42, mx=state.w-mmW-8, my=8;
-  ctx.save();
-  ctx.globalAlpha=0.72;
-  ctx.fillStyle="rgba(5,9,21,.7)";
-  roundRect(mx-2,my-2,mmW+4,mmH+4,4); ctx.fill();
-  ctx.strokeStyle="rgba(114,243,255,.4)"; ctx.lineWidth=0.5;
-  roundRect(mx-2,my-2,mmW+4,mmH+4,4); ctx.stroke();
-  // enemies
+  // Draw into the HTML glass disc canvas (#minimap)
+  const mmCanvas = document.getElementById("minimap");
+  if (!mmCanvas) return;
+  const mc   = mmCanvas.getContext("2d");
+  const mmW  = mmCanvas.width;
+  const mmH  = mmCanvas.height;
+  const mmR  = mmW / 2;
+
+  mc.clearRect(0, 0, mmW, mmH);
+
+  // Clip to circle
+  mc.save();
+  mc.beginPath();
+  mc.arc(mmR, mmR, mmR - 1, 0, Math.PI * 2);
+  mc.clip();
+
+  // Background
+  mc.fillStyle = "rgba(10,9,6,.72)";
+  mc.fillRect(0, 0, mmW, mmH);
+
+  // Enemies
+  const colorMap = { satellite:"#6ab0d4", missile:"#c8252a", drone:"#d4820a", sputnik:"#f4ecd8", radar:"#5dc48a" };
   for (const e of state.enemies) {
-    const ex = mx + (e.x/state.w)*mmW;
-    const ey = my + (e.y/state.h)*mmH;
-    const color = { satellite:"#72f3ff", missile:"#ff5f7d", drone:"#ffd15c", sputnik:"#b892ff", radar:"#6df2a8" }[e.kind]||"#72f3ff";
-    ctx.fillStyle = color; ctx.globalAlpha=0.9;
-    ctx.fillRect(ex-1.5,ey-1.5,3,3);
+    const ex = (e.x / state.w) * mmW;
+    const ey = (e.y / state.h) * mmH;
+    mc.fillStyle = colorMap[e.kind] || "#f4ecd8";
+    mc.globalAlpha = 0.85;
+    mc.fillRect(ex - 1.5, ey - 1.5, 3, 3);
   }
-  // player
-  const px = mx + (state.player.x/state.w)*mmW;
-  const py = my + (state.player.y/state.h)*mmH;
-  ctx.fillStyle="#6df2a8"; ctx.globalAlpha=1;
-  ctx.fillRect(px-2,py-2,4,4);
-  ctx.restore();
+
+  // Boss
+  if (state.boss) {
+    const bx = (state.boss.x / state.w) * mmW;
+    const by = (state.boss.y / state.h) * mmH;
+    mc.fillStyle = "#d4820a";
+    mc.globalAlpha = 1;
+    mc.beginPath();
+    mc.arc(bx, by, 4, 0, Math.PI * 2);
+    mc.fill();
+  }
+
+  // Player
+  const px = (state.player.x / state.w) * mmW;
+  const py = (state.player.y / state.h) * mmH;
+  mc.fillStyle = "#f4ecd8";
+  mc.globalAlpha = 1;
+  mc.beginPath();
+  mc.arc(px, py, 3, 0, Math.PI * 2);
+  mc.fill();
+
+  mc.restore();
+
+  // Rim highlight (drawn outside clip)
+  mc.save();
+  mc.globalAlpha = 0.36;
+  mc.strokeStyle = "rgba(244,236,216,.5)";
+  mc.lineWidth   = 1.5;
+  mc.beginPath();
+  mc.arc(mmR, mmR, mmR - 1, 0, Math.PI * 2);
+  mc.stroke();
+  mc.restore();
 }
 
 // ─── Loop ─────────────────────────────────────────────────────────────────
@@ -1913,7 +2137,7 @@ if (els.mute) els.mute.addEventListener("click", ()=>{
   els.mute.textContent = muted ? "🔇" : "🔊";
   setToast(muted?"SOUND MUTED":"SOUND ON", 0.9);
 });
-els.theater.addEventListener("change", ()=>{ state.theater=els.theater.value; renderMetrics(); });
+els.theater.addEventListener("change", ()=>{ state.theater=els.theater.value; renderMetrics(); applyTheaterTint(); });
 els.difficulty.addEventListener("change", ()=>{ state.difficulty=els.difficulty.value; renderMetrics(); });
 
 // ─── Boot ─────────────────────────────────────────────────────────────────

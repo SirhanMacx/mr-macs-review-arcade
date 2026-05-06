@@ -3,78 +3,182 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#050711">
-  <title>Review Maze Chase - Mr. Mac's Review Arcade</title>
+  <meta name="theme-color" content="#06080F">
+  <title>Review Maze Chase — Mr. Mac's Review Arcade</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles.css?v=20260505-arcade-v2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="styles.css?v=20260505-polish-v1">
 </head>
 <body>
+  <!-- Particle canvas for setup screen background -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+
   <main class="maze-shell">
     <canvas id="game" aria-label="Review Maze Chase game board"></canvas>
 
     <header class="hud" aria-label="Game status">
-      <a class="brand" href="../../index.html" aria-label="Back to arcade">
+      <a class="brand" href="../../index.html" aria-label="Back to Mr. Mac's Arcade">
         <span class="brand-orb" aria-hidden="true"></span>
-        <span><strong>Review Maze Chase</strong><small>Collect evidence. Answer to power up.</small></span>
+        <span class="brand-text">
+          <strong>Review Maze Chase</strong>
+          <small>Collect evidence. Answer to power up.</small>
+        </span>
       </a>
-      <div class="hud-stats">
-        <div><strong id="score">0</strong><span>score</span></div>
-        <div><strong id="lives">🔮🔮🔮</strong><span>lives</span></div>
-        <div><strong id="pellets">0</strong><span>evidence</span></div>
-        <div><strong id="power"></strong><span>power</span></div>
-        <div><strong id="levelIndicator">LVL 1</strong><span>level</span></div>
-        <div><strong id="bestScore">0</strong><span>best</span></div>
+      <div class="hud-stats" role="status" aria-label="Game statistics">
+        <div class="hud-chip" aria-label="Score">
+          <strong id="score" class="mono tabular">0</strong>
+          <span>score</span>
+        </div>
+        <div class="hud-chip" aria-label="Lives">
+          <strong id="lives" class="lives-display">🔮🔮🔮</strong>
+          <span>lives</span>
+        </div>
+        <div class="hud-chip" aria-label="Evidence pellets remaining">
+          <strong id="pellets" class="mono tabular">0</strong>
+          <span>evidence</span>
+        </div>
+        <div class="hud-chip" aria-label="Power time remaining">
+          <strong id="power" class="mono tabular"></strong>
+          <span>power</span>
+        </div>
+        <div class="hud-chip" aria-label="Current level">
+          <strong id="levelIndicator" class="mono tabular">LVL 1</strong>
+          <span>level</span>
+        </div>
+        <div class="hud-chip hud-best" aria-label="Best score">
+          <strong id="bestScore" class="mono tabular">0</strong>
+          <span>best</span>
+        </div>
       </div>
     </header>
 
-    <section class="setup show" id="setup">
+    <section class="setup show" id="setup" role="dialog" aria-label="Game setup">
       <div class="setup-card">
-        <div class="kicker">Maze Chase</div>
-        <h1>Review Maze Chase</h1>
-        <p>Clear the archive maze, grab source scrolls, and answer review prompts to turn the chasers vulnerable.</p>
-        <div class="filters">
-          <label>Course<select id="courseFilter"></select></label>
-          <label>Set<select id="setFilter"></select></label>
-          <label>Speed<select id="speedFilter"><option value="normal">Normal</option><option value="fast">Fast</option><option value="study">Study</option></select></label>
+        <div class="kicker" aria-label="Section label">Mr. Mac's Arcade · Maze Chase</div>
+        <h1>The Archive<br><em>is alive.</em></h1>
+        <p class="setup-tagline">Clear the maze, grab source scrolls, and answer review gates to turn the chasers vulnerable.</p>
+        <div class="filters" role="group" aria-label="Game filters">
+          <label for="courseFilter">
+            <span class="label-text">Course</span>
+            <div class="select-wrap">
+              <select id="courseFilter" aria-label="Select course"></select>
+              <span class="select-chevron" aria-hidden="true"></span>
+            </div>
+          </label>
+          <label for="setFilter">
+            <span class="label-text">Set</span>
+            <div class="select-wrap">
+              <select id="setFilter" aria-label="Select question set"></select>
+              <span class="select-chevron" aria-hidden="true"></span>
+            </div>
+          </label>
+          <label for="speedFilter">
+            <span class="label-text">Speed</span>
+            <div class="select-wrap">
+              <select id="speedFilter" aria-label="Select game speed">
+                <option value="normal">Normal</option>
+                <option value="fast">Fast</option>
+                <option value="study">Study</option>
+              </select>
+              <span class="select-chevron" aria-hidden="true"></span>
+            </div>
+          </label>
         </div>
-        <div class="metrics" id="metrics"></div>
+        <div class="metrics" id="metrics" aria-live="polite"></div>
         <div class="actions">
-          <a class="btn ghost" href="../../index.html">Arcade Home</a>
-          <button class="btn primary" id="startBtn" type="button">Start Chase</button>
+          <a class="btn ghost" href="../../index.html" aria-label="Return to Arcade Home">Arcade Home</a>
+          <button class="btn primary" id="startBtn" type="button" aria-label="Start the maze chase">Start Chase</button>
         </div>
       </div>
     </section>
 
-    <section class="quiz" id="quiz" aria-live="polite">
+    <section class="quiz" id="quiz" aria-live="polite" role="dialog" aria-label="Review question">
       <div class="quiz-card">
         <div class="kicker" id="questionMeta">Review Gate</div>
-        <h2 id="questionPrompt">Loading...</h2>
+        <h2 id="questionPrompt">Loading…</h2>
         <div class="stimulus" id="stimulus"></div>
-        <div class="choices" id="choices"></div>
-        <div class="feedback" id="feedback"></div>
+        <div class="choices" id="choices" role="group" aria-label="Answer choices"></div>
+        <div class="feedback" id="feedback" role="status"></div>
       </div>
     </section>
 
-    <section class="result" id="result">
+    <section class="result" id="result" role="dialog" aria-label="Run results">
       <div class="setup-card compact">
         <div class="kicker">Run Complete</div>
         <h2 id="resultTitle">Archive cleared</h2>
-        <div class="metrics" id="resultMetrics"></div>
-        <div class="feedback show-text" id="coach"></div>
+        <div class="metrics" id="resultMetrics" aria-live="polite"></div>
+        <div class="feedback show-text" id="coach" role="status"></div>
         <div class="actions">
-          <button class="btn ghost" id="setupBtn" type="button">Change Course</button>
-          <button class="btn primary" id="againBtn" type="button">Play Again</button>
+          <button class="btn ghost" id="setupBtn" type="button" aria-label="Change course and settings">Change Course</button>
+          <button class="btn primary" id="againBtn" type="button" aria-label="Play again with same settings">Play Again</button>
         </div>
       </div>
     </section>
 
+    <!-- Fallback arrow nav (hidden on desktop, shown on mobile via game.js d-pad injection) -->
     <nav class="controls" aria-label="Movement controls">
-      <button type="button" data-dir="left">◀</button>
-      <button type="button" data-dir="up">▲</button>
-      <button type="button" data-dir="down">▼</button>
-      <button type="button" data-dir="right">▶</button>
+      <button type="button" data-dir="left" aria-label="Move left">◀</button>
+      <button type="button" data-dir="up" aria-label="Move up">▲</button>
+      <button type="button" data-dir="down" aria-label="Move down">▼</button>
+      <button type="button" data-dir="right" aria-label="Move right">▶</button>
     </nav>
   </main>
+
+  <script>
+    // Particle field for setup screen — prefers-reduced-motion aware
+    (function() {
+      const pCanvas = document.getElementById("particles");
+      if (!pCanvas) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        pCanvas.style.display = "none";
+        return;
+      }
+      const ctx = pCanvas.getContext("2d");
+      let W, H, particles = [];
+      function resize() {
+        W = pCanvas.width  = window.innerWidth;
+        H = pCanvas.height = window.innerHeight;
+      }
+      function spawn() {
+        particles = Array.from({ length: 55 }, () => ({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: 0.4 + Math.random() * 1.6,
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: -0.08 - Math.random() * 0.14,
+          alpha: 0.1 + Math.random() * 0.35,
+          phase: Math.random() * Math.PI * 2,
+          hue: Math.random() < 0.7 ? 195 : 42  // cyan or gold
+        }));
+      }
+      function tick() {
+        if (!document.getElementById("setup")?.classList.contains("show")) {
+          requestAnimationFrame(tick); return;
+        }
+        ctx.clearRect(0, 0, W, H);
+        const t = performance.now() / 1000;
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.y < -4) { p.y = H + 4; p.x = Math.random() * W; }
+          if (p.x < -4) p.x = W + 4;
+          if (p.x > W + 4) p.x = -4;
+          const a = p.alpha * (0.6 + 0.4 * Math.sin(t * 0.9 + p.phase));
+          ctx.fillStyle = `hsla(${p.hue},90%,75%,${a.toFixed(2)})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(tick);
+      }
+      resize();
+      spawn();
+      window.addEventListener("resize", () => { resize(); spawn(); });
+      requestAnimationFrame(tick);
+    })();
+  </script>
 
   <script src="../../assets/arcade-analytics.js?v=20260504-counter-refresh-quiet"></script>
   <script src="../../assets/source-bank.js?v=20260504-maze"></script>

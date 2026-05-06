@@ -266,6 +266,8 @@
     shakeUntil: 0, shakeMag: 0,
     // death animation
     deathAnim: null,
+    // level-up flash
+    levelFlashUntil: 0,
     // pause
     explicitPause: false,
     // pointer (swipe)
@@ -512,15 +514,24 @@
 
   // ─── HUD ─────────────────────────────────────────────────────────────────────
   function animateScore(target) {
-    // Tween the displayed score
-    const el     = els.score;
-    const start  = parseInt(el.textContent.replace(/,/g, ""), 10) || 0;
-    const dur    = 320;
-    const t0     = performance.now();
+    // Tween the displayed score with a count-up animation
+    const el    = els.score;
+    const start = parseInt(el.textContent.replace(/,/g, ""), 10) || 0;
+    if (start === target) return;
+    const dur   = 380;
+    const t0    = performance.now();
+    // Pulse the chip briefly
+    const chip = el.closest(".hud-chip");
+    if (chip) {
+      chip.classList.remove("score-pulse");
+      void chip.offsetWidth; // reflow to restart animation
+      chip.classList.add("score-pulse");
+    }
     function tick(now) {
       const p = Math.min(1, (now - t0) / dur);
       el.textContent = number(Math.round(lerp(start, target, ease(p))));
       if (p < 1) requestAnimationFrame(tick);
+      else if (chip) chip.classList.remove("score-pulse");
     }
     requestAnimationFrame(tick);
   }
@@ -773,6 +784,8 @@
     if (state.level >= 10) { endRun(true); return; }
     state.level++;
     state.score += 2000 + state.level * 500;
+    // Golden flash for level-up
+    state.levelFlashUntil = performance.now() + 700;
     setMessage(`LEVEL ${state.level}! ARCHIVE DEEPER`, 2200);
     // Ghost speed increases 5% per level
     state.speedMs = Math.max(80, Math.round(state.baseSpeedMs * Math.pow(0.95, state.level - 1)));
@@ -860,6 +873,7 @@
     state.popups        = [];
     state.ghostSpeedBoost = 0;
     state.deathAnim     = null;
+    state.levelFlashUntil = 0;
     state.countdownUntil = now + 2200;
     state.freezeUntil   = 0;
     state.pelletsAtLastQuestion   = 0;
@@ -1087,6 +1101,16 @@
     // Overlay text (READY / messages)
     drawOverlayText(now, w, h, board);
 
+    // Level-up golden pulse flash
+    if (!prefersReducedMotion && now < state.levelFlashUntil) {
+      const lft = 1 - (state.levelFlashUntil - now) / 700;
+      const lfa = Math.max(0, 0.38 * Math.sin(lft * Math.PI));
+      ctx.save();
+      ctx.fillStyle = `rgba(245,196,81,${lfa.toFixed(3)})`;
+      ctx.fillRect(0, 0, w, h);
+      ctx.restore();
+    }
+
     // Pause screen
     if (state.explicitPause && state.running) drawPauseScreen(w, h);
 
@@ -1122,52 +1146,88 @@
 
   function drawWallCell(gx, gy, px, py, cs) {
     const wallImg = images["wall"];
+
+    // Base fill
     if (wallImg) {
       ctx.drawImage(wallImg, px - 1, py - 1, cs + 2, cs + 2);
     } else {
-      ctx.fillStyle = "#1a2a50";
+      // Gradient fill for depth
+      const wg = ctx.createLinearGradient(px, py, px + cs, py + cs);
+      wg.addColorStop(0, "#18284e");
+      wg.addColorStop(1, "#0e1a35");
+      ctx.fillStyle = wg;
       ctx.fillRect(px, py, cs, cs);
     }
-    // Rounded inner corner highlight — check which neighbors are floor
+
+    // Check which neighbors are floor (adjacent to passable space)
     const N = !isWall(gx, gy-1);
     const S = !isWall(gx, gy+1);
     const E = !isWall(gx+1, gy);
     const W = !isWall(gx-1, gy);
-    const r = Math.max(2, cs * 0.18);
+    const hasExposedFace = N || S || E || W;
 
-    if (N || S || E || W) {
-      // Gradient glow on exposed face
+    if (hasExposedFace) {
       ctx.save();
-      const grad = ctx.createLinearGradient(px, py, px + cs, py + cs);
-      grad.addColorStop(0, "rgba(111,238,255,0.10)");
-      grad.addColorStop(1, "rgba(111,238,255,0.00)");
-      ctx.fillStyle = grad;
+      // Cyan inner-glow along exposed edges
+      const rr = Math.max(1, cs * 0.14);
+      const glowGrad = ctx.createLinearGradient(px, py, px, py + cs);
+      glowGrad.addColorStop(0,   "rgba(122,240,255,0.12)");
+      glowGrad.addColorStop(0.5, "rgba(122,240,255,0.06)");
+      glowGrad.addColorStop(1,   "rgba(122,240,255,0.00)");
+      ctx.fillStyle = glowGrad;
       ctx.beginPath();
-      const rr = Math.max(1, cs * 0.12);
       if (ctx.roundRect) {
         ctx.roundRect(px + 1, py + 1, cs - 2, cs - 2, rr);
       } else {
         ctx.rect(px + 1, py + 1, cs - 2, cs - 2);
       }
       ctx.fill();
+
+      // 1px highlight on the top face edge (fake lighting)
+      if (N || (!S && !E && !W)) {
+        ctx.strokeStyle = "rgba(255,255,255,0.12)";
+        ctx.lineWidth   = 1;
+        ctx.beginPath();
+        ctx.moveTo(px + 1, py + 1);
+        ctx.lineTo(px + cs - 1, py + 1);
+        ctx.stroke();
+      }
+
+      // Subtle cyan rim on exposed edges
+      const rimAlpha = 0.22;
+      ctx.strokeStyle = `rgba(122,240,255,${rimAlpha})`;
+      ctx.lineWidth   = 1;
+      if (N) { ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px + cs, py); ctx.stroke(); }
+      if (S) { ctx.beginPath(); ctx.moveTo(px, py + cs); ctx.lineTo(px + cs, py + cs); ctx.stroke(); }
+      if (E) { ctx.beginPath(); ctx.moveTo(px + cs, py); ctx.lineTo(px + cs, py + cs); ctx.stroke(); }
+      if (W) { ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px, py + cs); ctx.stroke(); }
+
       ctx.restore();
     }
   }
 
   function drawPellet(now, gx, gy, px, py, cs) {
-    const pulse = 0.88 + Math.sin(now / 140 + gx * 1.7 + gy) * 0.1;
+    // Pulse synced with siren frequency (every ~140ms cycle)
+    const pulse = 0.82 + Math.sin(now / 140 + gx * 1.9 + gy * 0.7) * 0.14;
     const cx    = px + cs / 2;
     const cy    = py + cs / 2;
-    const r     = cs * 0.15 * pulse;
+    const r     = cs * 0.145 * pulse;
 
     ctx.save();
-    ctx.shadowColor = "rgba(255,255,255,0.55)";
-    ctx.shadowBlur  = cs * 0.28;
-    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-    g.addColorStop(0, "#ffffff");
-    g.addColorStop(0.5, "#aaddff");
-    g.addColorStop(1, "rgba(111,238,255,0)");
+    // Soft outer glow
+    ctx.shadowColor = "rgba(122,240,255,0.7)";
+    ctx.shadowBlur  = cs * 0.32;
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r * 1.4);
+    g.addColorStop(0,   "#ffffff");
+    g.addColorStop(0.45,"#b8eeff");
+    g.addColorStop(1,   "rgba(122,240,255,0)");
     ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 1.4, 0, Math.PI * 2);
+    ctx.fill();
+    // Bright core
+    ctx.shadowBlur  = 0;
+    ctx.fillStyle   = "#ffffff";
     ctx.beginPath();
     ctx.arc(cx, cy, r, 0, Math.PI * 2);
     ctx.fill();
@@ -1175,35 +1235,69 @@
   }
 
   function drawPowerPellet(now, gx, gy, px, py, cs) {
-    const pulse = 0.9 + Math.sin(now / 180 + gx) * 0.12;
-    const cx    = px + cs / 2;
-    const cy    = py + cs / 2 + Math.sin(now / 180 + gx) * cs * 0.06;
-    const r     = cs * 0.38 * pulse;
+    // Float + breathe animation
+    const breathe  = 0.88 + Math.sin(now / 160 + gx * 0.8) * 0.14;
+    const floatOff = Math.sin(now / 180 + gx * 0.6) * cs * 0.07;
+    const cx       = px + cs / 2;
+    const cy       = py + cs / 2 + floatOff;
+    const r        = cs * 0.36 * breathe;
 
     ctx.save();
-    ctx.shadowColor = "rgba(255,212,92,0.9)";
-    ctx.shadowBlur  = cs * 0.55;
+
+    // Outer halo — slow rotating gold ring
+    ctx.globalAlpha  = 0.28 + 0.14 * Math.sin(now / 220 + gx);
+    ctx.strokeStyle  = "#f5c451";
+    ctx.lineWidth    = cs * 0.07;
+    ctx.shadowColor  = "rgba(245,196,81,0.6)";
+    ctx.shadowBlur   = cs * 0.8;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 1.65, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Core glow
+    ctx.shadowColor = "rgba(245,196,81,0.95)";
+    ctx.shadowBlur  = cs * 0.7;
     const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-    g.addColorStop(0, "#fff8c0");
-    g.addColorStop(0.4, "#ffd45c");
-    g.addColorStop(1, "rgba(255,180,30,0)");
+    g.addColorStop(0,   "#fffde0");
+    g.addColorStop(0.35,"#f5c451");
+    g.addColorStop(0.75,"#e8940a");
+    g.addColorStop(1,   "rgba(232,132,0,0)");
     ctx.fillStyle = g;
     ctx.beginPath();
     ctx.arc(cx, cy, r, 0, Math.PI * 2);
     ctx.fill();
 
-    // Star sparkle
-    ctx.strokeStyle = "rgba(255,240,140,0.5)";
-    ctx.lineWidth   = 1;
+    // 4 rotating sparkle rays (inner + outer tips)
+    const rayRot = now / 420;
+    ctx.shadowBlur  = cs * 0.25;
+    ctx.shadowColor = "rgba(255,248,160,0.85)";
     for (let i = 0; i < 4; i++) {
-      const a  = (now / 500 + i * Math.PI / 2);
-      const d1 = r * 0.85;
-      const d2 = r * 1.35;
+      const angle = rayRot + i * Math.PI / 2;
+      const d1 = r * 0.9;
+      const d2 = r * 1.55;
+      const lw = Math.max(1, cs * 0.055) * (0.7 + 0.3 * breathe);
+      ctx.strokeStyle = `rgba(255,248,160,${0.55 + 0.25 * breathe})`;
+      ctx.lineWidth   = lw;
+      ctx.lineCap     = "round";
       ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a) * d1, cy + Math.sin(a) * d1);
-      ctx.lineTo(cx + Math.cos(a) * d2, cy + Math.sin(a) * d2);
+      ctx.moveTo(cx + Math.cos(angle) * d1, cy + Math.sin(angle) * d1);
+      ctx.lineTo(cx + Math.cos(angle) * d2, cy + Math.sin(angle) * d2);
       ctx.stroke();
     }
+    // Diagonal secondary rays (dimmer, offset 45°)
+    for (let i = 0; i < 4; i++) {
+      const angle = rayRot + i * Math.PI / 2 + Math.PI / 4;
+      const d1 = r * 0.95;
+      const d2 = r * 1.3;
+      ctx.strokeStyle = `rgba(255,230,100,${0.3 + 0.15 * breathe})`;
+      ctx.lineWidth   = Math.max(0.8, cs * 0.035);
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(angle) * d1, cy + Math.sin(angle) * d1);
+      ctx.lineTo(cx + Math.cos(angle) * d2, cy + Math.sin(angle) * d2);
+      ctx.stroke();
+    }
+
     ctx.restore();
   }
 
@@ -1260,33 +1354,53 @@
   }
 
   function drawGhostShape(cx, cy, cs, color, now) {
-    const r = cs * 0.48;
-    ctx.fillStyle = color;
+    const r      = cs * 0.48;
+    const top    = cy - r * 0.15;
+    const bottom = top + r;
+
+    // Build the ghost path (dome + wavy skirt)
     ctx.beginPath();
-    // Dome top
-    ctx.arc(cx, cy - r * 0.15, r, Math.PI, 0, false);
-    // Wavy bottom
+    ctx.arc(cx, top, r, Math.PI, 0, false);
     const waves  = 3;
     const wWidth = (r * 2) / waves;
-    let  wx      = cx + r;
-    const bottom = cy - r * 0.15 + r;
+    let   wx     = cx + r;
     ctx.lineTo(wx, bottom);
     for (let i = 0; i < waves; i++) {
-      const midX = wx - wWidth / 2;
-      const endX = wx - wWidth;
-      const waveY = bottom - cs * 0.12 * ((i % 2 === 0) ? 1 : -0.5);
+      const midX  = wx - wWidth / 2;
+      const endX  = wx - wWidth;
+      const waveY = bottom - cs * 0.12 * (i % 2 === 0 ? 1 : -0.4);
       ctx.quadraticCurveTo(midX, waveY, endX, bottom);
       wx = endX;
     }
     ctx.closePath();
+
+    // Base fill with translucent edges via radial gradient
+    const bodyGrad = ctx.createRadialGradient(cx, top - r * 0.25, 0, cx, top, r * 1.3);
+    bodyGrad.addColorStop(0,    blendAlpha(color, 1.0));   // opaque center
+    bodyGrad.addColorStop(0.7,  blendAlpha(color, 0.92));  // slight edge fade
+    bodyGrad.addColorStop(1,    blendAlpha(color, 0.65));  // translucent edge
+    ctx.fillStyle = bodyGrad;
     ctx.fill();
 
-    // Inner gradient sheen
-    const sheen = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
-    sheen.addColorStop(0, "rgba(255,255,255,0.2)");
-    sheen.addColorStop(1, "rgba(0,0,0,0.12)");
+    // Interior sheen — top-left light catch
+    const sheen = ctx.createLinearGradient(cx - r * 0.6, top - r * 0.5, cx + r * 0.3, top + r * 0.6);
+    sheen.addColorStop(0, "rgba(255,255,255,0.22)");
+    sheen.addColorStop(0.45,"rgba(255,255,255,0.06)");
+    sheen.addColorStop(1,   "rgba(0,0,0,0.1)");
     ctx.fillStyle = sheen;
     ctx.fill();
+  }
+
+  // Helper: parse a hex/rgb color and apply alpha override (returns rgba string)
+  function blendAlpha(color, alpha) {
+    // Simple hex parser for 6-char hex
+    if (color.startsWith("#")) {
+      const r = parseInt(color.slice(1,3), 16);
+      const g = parseInt(color.slice(3,5), 16);
+      const b = parseInt(color.slice(5,7), 16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+    return color;
   }
 
   function drawGhostEyes(cx, cy, cs, dir, scared = false) {
@@ -1408,32 +1522,58 @@
     const t    = (now - da.born) / da.life;
     if (t >= 1) { state.deathAnim = null; return; }
     const { x, y } = da;
+    const w = els.canvas.width;
+    const h = els.canvas.height;
 
     ctx.save();
-    // Radial collapse: arcs disappear
+
+    // Phase 1 (0-0.18): brief white screen flash
+    if (t < 0.18) {
+      const flashAlpha = (0.18 - t) / 0.18 * 0.45;
+      ctx.fillStyle = `rgba(255,255,255,${flashAlpha.toFixed(3)})`;
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    // Slow-mo zoom: canvas scales up slightly during first 40% of anim
+    if (!prefersReducedMotion && t < 0.4) {
+      const zoomT = t / 0.4;
+      const scale = 1 + (1 - zoomT) * 0.025;
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      ctx.translate(-x, -y);
+    }
+
+    // Radial collapse: Pac-Man arc shrinks inward
     const startAngle = -Math.PI / 2;
     const endAngle   = startAngle + (1 - t) * Math.PI * 2;
-    const r          = 20 * (1 + t * 0.5);
-    ctx.globalAlpha  = 1 - t * 0.9;
-    ctx.strokeStyle  = "#ffd45c";
-    ctx.lineWidth    = 4;
-    ctx.shadowColor  = "rgba(255,212,92,0.8)";
-    ctx.shadowBlur   = 12;
+    const baseR      = 22;
+    const r          = baseR * (1 + t * 0.4);
+    ctx.globalAlpha  = 1 - t * 0.92;
+    ctx.strokeStyle  = "#f5c451";
+    ctx.lineWidth    = Math.max(2, 5 * (1 - t));
+    ctx.shadowColor  = "rgba(245,196,81,0.9)";
+    ctx.shadowBlur   = 16 * (1 - t * 0.6);
     ctx.beginPath();
     ctx.arc(x, y, r, startAngle, endAngle);
     ctx.stroke();
-    // Particle burst
+
+    // 8-particle burst — spread outward
+    const colors = ["#f5c451","#ff72d2","#7af0ff","#f5c451","#7ef0a8","#ff72d2","#f5c451","#7af0ff"];
     for (let i = 0; i < 8; i++) {
-      const a  = (i / 8) * Math.PI * 2 + now / 200;
-      const d  = t * 40;
-      const px = x + Math.cos(a) * d;
-      const py = y + Math.sin(a) * d;
-      ctx.globalAlpha = (1 - t) * 0.8;
-      ctx.fillStyle   = i % 2 === 0 ? "#ffd45c" : "#ff72d2";
+      const a    = (i / 8) * Math.PI * 2;
+      const dist = t * 55 + t * t * 20;
+      const px2  = x + Math.cos(a) * dist;
+      const py2  = y + Math.sin(a) * dist;
+      const pr   = Math.max(0, (1 - t) * 4.5);
+      ctx.globalAlpha = (1 - t) * 0.88;
+      ctx.fillStyle   = colors[i];
+      ctx.shadowColor = colors[i];
+      ctx.shadowBlur  = 8;
       ctx.beginPath();
-      ctx.arc(px, py, 3 * (1 - t), 0, Math.PI * 2);
+      ctx.arc(px2, py2, pr, 0, Math.PI * 2);
       ctx.fill();
     }
+
     ctx.restore();
   }
 
@@ -1441,17 +1581,22 @@
     state.popups = state.popups.filter(p => now - p.born < p.life);
     for (const p of state.popups) {
       const t     = (now - p.born) / p.life;
-      const alpha = 1 - t;
-      const y     = p.y - t * 32;
+      // Ease-out rise: fast at start, slow at end
+      const tEase = 1 - (1 - t) * (1 - t);
+      const alpha = t < 0.15 ? t / 0.15 : 1 - ((t - 0.15) / 0.85);
+      const yOff  = tEase * 36;
+      const scale = 1 + (1 - t) * 0.15; // small pop-in scale
       ctx.save();
-      ctx.globalAlpha  = alpha;
-      ctx.font         = `950 ${Math.max(10, 14)}px Inter, sans-serif`;
+      ctx.globalAlpha  = Math.max(0, alpha);
+      ctx.translate(p.x, p.y - yOff);
+      ctx.scale(scale, scale);
       ctx.textAlign    = "center";
       ctx.textBaseline = "middle";
-      ctx.shadowColor  = "rgba(0,0,0,0.7)";
-      ctx.shadowBlur   = 4;
+      ctx.font         = `700 14px "JetBrains Mono", monospace`;
+      ctx.shadowColor  = "rgba(0,0,0,0.75)";
+      ctx.shadowBlur   = 5;
       ctx.fillStyle    = p.color;
-      ctx.fillText(p.text, p.x, y);
+      ctx.fillText(p.text, 0, 0);
       ctx.restore();
     }
   }
@@ -1465,38 +1610,85 @@
     ctx.save();
     ctx.textAlign    = "center";
     ctx.textBaseline = "middle";
-    const text = showCountdown
-      ? (countdown > 1 ? String(countdown - 1) : "GO")
-      : state.message;
-    const ty   = showCountdown
-      ? h * 0.48
-      : Math.max(board.y - board.cell * 1.25, h * 0.18);
-    ctx.font       = showCountdown
-      ? `950 ${Math.min(96, Math.max(52, board.cell * 3.4))}px Inter, sans-serif`
-      : `950 ${Math.min(34, Math.max(18, board.cell * 0.8))}px Inter, sans-serif`;
-    ctx.lineWidth   = Math.max(4, board.cell * 0.16);
-    ctx.strokeStyle = "rgba(3,6,15,0.88)";
-    ctx.fillStyle   = showCountdown ? "#ffd45c" : "#6eeeff";
-    ctx.strokeText(text, w / 2, ty);
-    ctx.fillText(text, w / 2, ty);
+
+    if (showCountdown) {
+      const text = countdown > 1 ? String(countdown - 1) : "GO";
+      const fontSize = Math.min(112, Math.max(56, board.cell * 3.6));
+      const ty = h * 0.48;
+      // Backdrop glow pill
+      const tw = fontSize * text.length * 0.62 + 40;
+      const th = fontSize * 1.1 + 20;
+      ctx.save();
+      const pill = ctx.createRoundRect
+        ? null  // use roundRect if available
+        : null;
+      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = "#06080F";
+      if (ctx.roundRect) {
+        ctx.beginPath();
+        ctx.roundRect(w / 2 - tw / 2, ty - th / 2, tw, th, 18);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      ctx.restore();
+      // Glow halo
+      ctx.shadowColor = text === "GO" ? "rgba(122,240,255,0.9)" : "rgba(245,196,81,0.85)";
+      ctx.shadowBlur  = fontSize * 0.25;
+      ctx.font        = `800 ${fontSize}px "Fraunces", Georgia, serif`;
+      ctx.fillStyle   = text === "GO" ? "#7af0ff" : "#f5c451";
+      ctx.lineWidth   = Math.max(5, fontSize * 0.06);
+      ctx.strokeStyle = "rgba(3,6,15,0.92)";
+      ctx.strokeText(text, w / 2, ty);
+      ctx.fillText(text, w / 2, ty);
+    } else {
+      // In-game message banner
+      const text    = state.message;
+      const fontSize = Math.min(32, Math.max(16, board.cell * 0.78));
+      const ty      = Math.max(board.y - board.cell * 1.5, h * 0.14);
+      const isLevel = /^LEVEL/.test(text);
+      const color   = isLevel ? "#f5c451" : "#7af0ff";
+      const glow    = isLevel ? "rgba(245,196,81,0.85)" : "rgba(122,240,255,0.8)";
+
+      ctx.font        = isLevel
+        ? `700 italic ${fontSize * 1.2}px "Fraunces", Georgia, serif`
+        : `700 ${fontSize}px "JetBrains Mono", monospace`;
+      ctx.shadowColor = glow;
+      ctx.shadowBlur  = fontSize * 0.7;
+      ctx.fillStyle   = color;
+      ctx.lineWidth   = Math.max(3, fontSize * 0.14);
+      ctx.strokeStyle = "rgba(3,6,15,0.9)";
+      ctx.strokeText(text, w / 2, ty);
+      ctx.fillText(text, w / 2, ty);
+    }
+
     ctx.restore();
   }
 
   function drawPauseScreen(w, h) {
     ctx.save();
-    ctx.fillStyle = "rgba(5,7,17,0.6)";
+    // Dimmed overlay
+    ctx.fillStyle = "rgba(5,7,17,0.72)";
     ctx.fillRect(0, 0, w, h);
+
     ctx.textAlign    = "center";
     ctx.textBaseline = "middle";
-    ctx.font         = `950 ${Math.min(64, w * 0.1)}px Inter, sans-serif`;
-    ctx.fillStyle    = "#ffd45c";
-    ctx.strokeStyle  = "rgba(3,6,15,0.9)";
-    ctx.lineWidth    = 6;
-    ctx.strokeText("PAUSED", w / 2, h / 2);
-    ctx.fillText("PAUSED", w / 2, h / 2);
-    ctx.font      = `700 ${Math.min(20, w * 0.035)}px Inter, sans-serif`;
-    ctx.fillStyle = "#6eeeff";
-    ctx.fillText("Press P or tap Pause to resume", w / 2, h / 2 + 52);
+
+    // Large Fraunces italic "PAUSED"
+    const fs = Math.min(80, w * 0.12);
+    ctx.font        = `700 italic ${fs}px "Fraunces", Georgia, serif`;
+    ctx.shadowColor = "rgba(245,196,81,0.8)";
+    ctx.shadowBlur  = fs * 0.25;
+    ctx.fillStyle   = "#f5c451";
+    ctx.strokeStyle = "rgba(3,6,15,0.92)";
+    ctx.lineWidth   = Math.max(6, fs * 0.075);
+    ctx.strokeText("Paused", w / 2, h / 2 - 8);
+    ctx.fillText("Paused", w / 2, h / 2 - 8);
+
+    // Sub-label in mono
+    ctx.shadowBlur  = 0;
+    ctx.font        = `500 ${Math.min(15, w * 0.026)}px "JetBrains Mono", monospace`;
+    ctx.fillStyle   = "rgba(122,240,255,0.75)";
+    ctx.fillText("PRESS P TO RESUME", w / 2, h / 2 + fs * 0.72);
     ctx.restore();
   }
 
@@ -1704,6 +1896,27 @@
       const btn = $("soundBtn");
       setMuted(!muted);
       if (btn) btn.textContent = muted ? "🔇" : "🔊";
+    }
+    // ESC closes quiz/result modals (accessibility axis)
+    if (e.key === "Escape") {
+      if (els.quiz.classList.contains("show")) {
+        // Close quiz: resume with no penalty (same as answer timeout)
+        show(null);
+        state.paused = false;
+        if (state.running && !muted) {
+          const scared = performance.now() < state.powerUntil;
+          if (!sirenOsc) startSiren(scared);
+          else if (sirenGain) {
+            try { sirenGain.gain.setValueAtTime(scared ? 0.1 : 0.06, audioCtx?.currentTime || 0); } catch (_) {}
+          }
+        }
+      } else if (els.result.classList.contains("show")) {
+        // ESC from result → back to setup
+        state.running = false;
+        state.paused  = true;
+        stopSiren();
+        show(els.setup);
+      }
     }
   });
 

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>History Hunters 2: Atlas Quest</title>
   <link rel="icon" href="../../assets/history-hunters/recruit-seal.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260505-sequel-full">
+  <link rel="stylesheet" href="styles.css?v=20260505-sequel-pro">
 </head>
 <body>
   <main class="game" id="game">
@@ -17,14 +17,15 @@
       <div class="boot-art"></div>
       <div class="boot-panel">
         <span>Mr. Mac's Review Arcade</span>
-        <h1>History Hunters 2</h1>
+        <h1>History Hunters 2<span class="atlas-italic">Atlas Quest</span></h1>
+        <span class="boot-subtitle">the Modern Era expansion</span>
         <p>Walk the Atlas Region, collect historical allies, clear review quests, and build a party for every course.</p>
         <div class="launch-strip" aria-label="Game readiness">
           <span>Open-world map</span>
           <span>Course battles</span>
           <span>Local save</span>
         </div>
-        <button id="startBtn" type="button">Start Atlas Quest</button>
+        <button id="startBtn" type="button" aria-label="Start History Hunters 2: Atlas Quest">Start Atlas Quest</button>
       </div>
     </section>
 
@@ -90,20 +91,25 @@
       <header class="contest-header">
         <span id="contestKicker">Speech Contest</span>
         <strong id="contestTitle">Diplomatic Summit</strong>
-        <span id="contestRound">Round 1 / 3</span>
+        <span id="contestRound" aria-label="Round indicator" aria-live="polite">1/3</span>
       </header>
-      <p id="contestPrompt" class="contest-prompt"></p>
-      <div id="contestMeter" class="contest-meter" aria-label="Timing meter">
-        <div id="contestZone" class="contest-zone"></div>
-        <div id="contestNeedle" class="contest-needle"></div>
+      <div class="contest-round-indicator" id="contestRoundPips" aria-hidden="true">
+        <div class="contest-round-pip active" data-pip="1"></div>
+        <div class="contest-round-pip" data-pip="2"></div>
+        <div class="contest-round-pip" data-pip="3"></div>
       </div>
-      <button id="contestTapBtn" type="button" class="contest-tap-btn">TAP</button>
+      <p id="contestPrompt" class="contest-prompt"></p>
+      <div id="contestMeter" class="contest-meter" role="progressbar" aria-label="Timing meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <div id="contestZone" class="contest-zone"></div>
+        <div id="contestNeedle" class="contest-needle" aria-hidden="true"></div>
+      </div>
+      <button id="contestTapBtn" type="button" class="contest-tap-btn" aria-label="Tap to match timing">TAP</button>
       <div id="contestBurst" class="contest-burst" aria-hidden="true"></div>
       <div class="contest-stats">
-        <span>Confidence: <strong id="contestConfidence">0</strong></span>
-        <span>Streak: <strong id="contestStreak">0</strong></span>
+        <span>Confidence: <strong id="contestConfidence" aria-live="polite" aria-label="Confidence score">0</strong></span>
+        <span>Streak: <strong id="contestStreak" aria-live="polite" aria-label="Hit streak">0</strong></span>
       </div>
-      <p id="contestFeedback" class="contest-feedback"></p>
+      <p id="contestFeedback" class="contest-feedback" aria-live="assertive"></p>
     </section>
 
     <section class="alliance-ui" id="alliancePanel" hidden aria-label="Alliance Panel">

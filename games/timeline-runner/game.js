@@ -51,12 +51,132 @@
   const liteFx = new URLSearchParams(location.search).get("fx") !== "full";
   document.documentElement.classList.toggle("perf-lite", liteFx);
 
+  // Title parallax canvas
+  const titleCanvas = $("titleCanvas");
+  const tCtx = titleCanvas ? titleCanvas.getContext("2d") : null;
+  let titleTime = 0;
+
+  // Axis 1: Render title-screen parallax era-bands + drifting silhouettes
+  function drawTitleParallax(dt) {
+    if (!tCtx || reduceMotion) return;
+    titleTime += dt || 0.016;
+    const tw = titleCanvas.offsetWidth || 800;
+    const th = titleCanvas.offsetHeight || 600;
+    if (titleCanvas.width !== tw || titleCanvas.height !== th) {
+      titleCanvas.width = tw; titleCanvas.height = th;
+    }
+    tCtx.clearRect(0, 0, tw, th);
+
+    // Sky gradient — era-band rainbow sweep
+    const g = tCtx.createLinearGradient(0, 0, tw, th);
+    g.addColorStop(0,    "#1a0e06");
+    g.addColorStop(0.28, "#06101a");
+    g.addColorStop(0.56, "#021209");
+    g.addColorStop(1,    "#120618");
+    tCtx.fillStyle = g; tCtx.fillRect(0, 0, tw, th);
+
+    // Layer 1 (sky) — slow horizontal star drift
+    tCtx.save(); tCtx.globalCompositeOperation = "screen";
+    for (let i = 0; i < 60; i++) {
+      const x = ((i * 313 + titleTime * 8) % tw);
+      const y = ((i * 177) % (th * 0.55));
+      const r = 0.5 + (i % 4) * 0.4;
+      const a = 0.15 + (i % 5) * 0.06;
+      const hues = ["#f5a623","#75ecff","#67f0a8","#ff7bcc","#e040fb"];
+      tCtx.fillStyle = hexToRgbaTCtx(hues[i % 5], a);
+      tCtx.beginPath(); tCtx.arc(x, y, r, 0, Math.PI * 2); tCtx.fill();
+    }
+    tCtx.restore();
+
+    // Layer 2 (mid) — era band silhouette buildings / structures
+    tCtx.save(); tCtx.globalCompositeOperation = "source-over";
+    const silColors = ["rgba(61,30,4,.70)","rgba(13,34,64,.72)","rgba(4,26,16,.75)","rgba(30,6,40,.78)"];
+    for (let era = 0; era < 4; era++) {
+      const offsetX = ((era * tw * 0.28) - titleTime * (6 + era * 3)) % (tw * 1.1);
+      tCtx.fillStyle = silColors[era];
+      // Simple skyline
+      const seed = era * 17;
+      for (let b = 0; b < 12; b++) {
+        const bx   = ((b * (seed + 83)) % (tw * 0.9)) + offsetX;
+        const bw   = 18 + (b * seed + 7) % 42;
+        const bh   = 40 + (b * seed + 31) % 90;
+        const by   = th * 0.38 + (b % 3) * 12;
+        tCtx.fillRect(bx % tw, by, bw, bh);
+      }
+    }
+    tCtx.restore();
+
+    // Layer 3 (fore) — ground grid / horizon glow
+    const gridAlpha = 0.18 + Math.sin(titleTime * 0.8) * 0.04;
+    tCtx.save(); tCtx.globalCompositeOperation = "screen";
+    tCtx.strokeStyle = `rgba(117,236,255,${gridAlpha})`;
+    tCtx.lineWidth = 1;
+    const horizon = th * 0.58;
+    // Converging lines
+    for (let i = 0; i < 12; i++) {
+      const lx = (i / 11) * tw;
+      tCtx.beginPath(); tCtx.moveTo(tw/2, horizon); tCtx.lineTo(lx, th); tCtx.stroke();
+    }
+    // Horizontal grid rows
+    for (let r = 0; r < 8; r++) {
+      const ry = horizon + Math.pow(r / 7, 1.6) * (th - horizon);
+      const rowAlpha = gridAlpha * (0.3 + r * 0.08);
+      tCtx.strokeStyle = `rgba(117,236,255,${rowAlpha})`;
+      tCtx.beginPath(); tCtx.moveTo(0, ry); tCtx.lineTo(tw, ry); tCtx.stroke();
+    }
+    // Horizon glow
+    const hg = tCtx.createLinearGradient(0, horizon - 20, 0, horizon + 40);
+    hg.addColorStop(0, "rgba(117,236,255,.22)");
+    hg.addColorStop(1, "rgba(0,0,0,0)");
+    tCtx.fillStyle = hg;
+    tCtx.fillRect(0, horizon - 20, tw, 60);
+    tCtx.restore();
+  }
+
+  // Helper for tCtx (title canvas) — same hex helper but locally scoped
+  function hexToRgbaTCtx(hex, alpha) {
+    const v   = hex.replace("#","");
+    const int = parseInt(v.length===3 ? v.split("").map(c=>c+c).join("") : v, 16);
+    return `rgba(${(int>>16)&255},${(int>>8)&255},${int&255},${alpha})`;
+  }
+
   // ─── Era bands ─────────────────────────────────────────────────────────────
+  // Axis 8: Full palette per era — sky, ground, accent, particles, silhouette tint
   const ERAS = [
-    { name: "Industrial",    startKm: 0,    color: "#c97b3a", sky: "#1a0e06", accent: "#f5a623", filter: "sepia(0.35) hue-rotate(8deg)" },
-    { name: "Cold War",      startKm: 0.5,  color: "#4a7fb5", sky: "#06101a", accent: "#75ecff", filter: "hue-rotate(195deg) saturate(1.1)" },
-    { name: "Digital Age",   startKm: 1.0,  color: "#67f0a8", sky: "#021209", accent: "#00ffaa", filter: "hue-rotate(140deg) saturate(1.25)" },
-    { name: "Future",        startKm: 1.5,  color: "#ff7bcc", sky: "#120618", accent: "#e040fb", filter: "hue-rotate(280deg) saturate(1.3)" }
+    {
+      name: "Industrial",    startKm: 0,
+      color: "#c97b3a",  sky: "#1a0e06",  ground: "#2e1a08",
+      accent: "#f5a623", fog: "#3d1e04",
+      filter: "sepia(0.42) hue-rotate(8deg) brightness(.76)",
+      // Parallax silhouette colors
+      silhouetteColor: "rgba(61,30,4,.85)",
+      // Era-specific obstacle label
+      obstacleTheme: { block: "Factory Crate", pipe: "Steam Pipe", fence: "Wrought Fence", gap: "Rail Gap" }
+    },
+    {
+      name: "Cold War",      startKm: 0.5,
+      color: "#4a7fb5",  sky: "#06101a",  ground: "#0b1929",
+      accent: "#75ecff", fog: "#0d2240",
+      filter: "hue-rotate(195deg) saturate(1.15) brightness(.72)",
+      silhouetteColor: "rgba(13,34,64,.88)",
+      obstacleTheme: { block: "Concrete Barrier", pipe: "Barbed Wire", fence: "Guard Tower", gap: "Bomb Crater" }
+    },
+    {
+      name: "Digital Age",   startKm: 1.0,
+      color: "#67f0a8",  sky: "#021209",  ground: "#041a10",
+      accent: "#00ffaa", fog: "#032912",
+      filter: "hue-rotate(140deg) saturate(1.3) brightness(.70)",
+      silhouetteColor: "rgba(4,26,16,.90)",
+      obstacleTheme: { block: "Data Cube", pipe: "Firewall", fence: "Null Barrier", gap: "Void Gap" }
+    },
+    {
+      name: "Future",        startKm: 1.5,
+      color: "#ff7bcc",  sky: "#120618",  ground: "#1e0628",
+      accent: "#e040fb", fog: "#2a0640",
+      filter: "hue-rotate(280deg) saturate(1.35) brightness(.68)",
+      silhouetteColor: "rgba(30,6,40,.92)",
+      obstacleTheme: { block: "Light Wall", pipe: "Plasma Duct", fence: "Force Field", gap: "Phase Rift" }
+    }
   ];
 
   // ─── Intensity profiles ────────────────────────────────────────────────────
@@ -546,6 +666,15 @@
       `Best run: ${best ? formatKm(best) : "—"}`,
       `Coins: ${formatNumber(state.totalCoins)}`
     ].map(t => `<span class="metric-pill">${escapeHtml(t)}</span>`).join("");
+
+    // Axis 1: Best-distance + coins badges on title screen
+    const badgeEl = $("titleBadges");
+    if (badgeEl) {
+      badgeEl.innerHTML = [
+        best ? `<div class="title-badge title-badge--best"><span>Best</span><span class="badge-val">${escapeHtml(formatKm(best))}</span></div>` : "",
+        `<div class="title-badge title-badge--coins"><span>Coins</span><span class="badge-val">${escapeHtml(formatNumber(state.totalCoins))}</span></div>`
+      ].join("");
+    }
   }
 
   function prepareQueue()    { state.queue = shuffle(state.filtered); }
@@ -609,8 +738,9 @@
     const val = q.value ? ` | ${q.value}` : "";
     els.questionMeta.textContent   = cleanText(`${q.course || "Social Studies"} | ${q.set || "Review"}${val}`);
     els.questionPrompt.textContent = displayPrompt(q);
+    // Axis 7 / 13: Sentence-case lane labels, NOT all-caps
     els.laneChips.innerHTML = state.currentChoices.map(c =>
-      `<button class="lane-chip" type="button" data-lane="${c.lane}" style="--gate:${c.color}">${laneNames[c.lane].toUpperCase()}: ${escapeHtml(c.text)}</button>`
+      `<button class="lane-chip" type="button" data-lane="${c.lane}" style="--gate:${c.color}">${laneNames[c.lane].charAt(0).toUpperCase() + laneNames[c.lane].slice(1)}: ${escapeHtml(c.text)}</button>`
     ).join("");
     els.laneChips.querySelectorAll(".lane-chip").forEach(btn =>
       btn.addEventListener("click", () => moveToLane(Number(btn.dataset.lane)))
@@ -760,19 +890,24 @@
     { id: "powerupDuration", label: "+2s Power-up Duration", cost: 350,  storageKey: `${STORAGE_KEY}:powerupDuration`, bought: () => state.powerupDuration > 0 }
   ];
 
-  function renderShop() {
-    const shopGrid = document.getElementById("shopGrid");
-    if (!shopGrid) return;
-    shopGrid.innerHTML = SHOP_ITEMS.map(item => {
+  // Axis 9: Era-themed shop cards rendered into target grid
+  function renderShopInto(grid) {
+    if (!grid) return;
+    grid.innerHTML = SHOP_ITEMS.map(item => {
       const owned  = item.bought();
       const canBuy = !owned && state.totalCoins >= item.cost;
-      return `<button class="end-stat shop-item${owned ? " owned" : ""}" data-shop="${item.id}" ${owned || !canBuy ? "disabled" : ""} style="cursor:${canBuy && !owned ? "pointer" : "default"};border-color:${owned ? "var(--green)" : "rgba(255,255,255,.12)"}">` +
-        `<strong>${escapeHtml(owned ? "✓ Owned" : `${item.cost} coins`)}</strong>` +
+      const era    = ERAS[state.eraIndex];
+      return `<button class="shop-item${owned ? " owned" : ""}" data-shop="${item.id}"${owned || !canBuy ? " disabled" : ""}>` +
+        `<strong>${escapeHtml(owned ? "Owned" : `${item.cost} coins`)}</strong>` +
         `<span>${escapeHtml(item.label)}</span></button>`;
     }).join("");
-    shopGrid.querySelectorAll("[data-shop]").forEach(btn => {
+    grid.querySelectorAll("[data-shop]").forEach(btn => {
       btn.addEventListener("click", () => buyShopItem(btn.dataset.shop));
     });
+  }
+
+  function renderShop() {
+    renderShopInto(document.getElementById("shopGrid"));
   }
 
   function buyShopItem(id) {
@@ -800,12 +935,26 @@
   }
 
   // ─── HUD update ─────────────────────────────────────────────────────────────
+  // Axis 6: tabular-nums (handled in CSS), multiplier pulse-advance, era-color tint
+  let prevMultiplier = 1;
   function updateHud() {
     const distKm = (state.distance / 1000).toFixed(2);
     els.score.textContent  = formatNumber(state.score);
-    els.streak.textContent = `${state.multiplier.toFixed(1)}×`;
     els.health.textContent = `${state.health}${state.shields ? `+${state.shields}` : ""}`;
-    els.speed.textContent  = `${distKm}km`;
+    els.speed.textContent  = `${distKm}`;
+
+    // Multiplier — pulse the badge when it advances
+    const newMult = state.multiplier.toFixed(1);
+    if (newMult !== els.streak.textContent) {
+      const multStat = els.streak.closest?.(".hud-stat");
+      if (multStat && state.multiplier > prevMultiplier) {
+        multStat.classList.remove("pulse-advance");
+        void multStat.offsetWidth; // reflow to restart animation
+        multStat.classList.add("pulse-advance");
+      }
+    }
+    els.streak.textContent = `${newMult}`;
+    prevMultiplier = state.multiplier;
   }
 
   // ─── Player movement ─────────────────────────────────────────────────────────
@@ -1084,19 +1233,53 @@
   }
 
   // ─── Era management ──────────────────────────────────────────────────────────
+  // Axis 8: Era transitions — CSS vars + full-screen sweep + ambient particle burst
+  let eraSweepProgress = -1; // -1 = idle
+  let eraSweepColor    = "#f5a623";
+  let eraBannerText    = "";
+  let eraBannerAlpha   = 0;
+
   function updateEra() {
-    const km        = state.distance / 1000;
-    let   newIndex  = 0;
+    const km       = state.distance / 1000;
+    let   newIndex = 0;
     for (let i = ERAS.length - 1; i >= 0; i--) {
       if (km >= ERAS[i].startKm) { newIndex = i; break; }
     }
     if (newIndex !== state.eraIndex) {
+      const prev = ERAS[state.eraIndex];
+      const next = ERAS[newIndex];
       audio.eraStinger(newIndex);
-      setFeedback(`Era transition: ${ERAS[newIndex].name}`, "good");
+      setFeedback(`Era shift: ${prev.name} → ${next.name}`, "good");
       state.eraTransition = 0;
       state.eraIndex      = newIndex;
+      // Trigger full-screen sweep
+      eraSweepProgress = 0;
+      eraSweepColor    = next.accent;
+      eraBannerText    = `${prev.name}  →  ${next.name}`;
+      eraBannerAlpha   = 1;
+      // Ambient particle burst
+      if (!reduceMotion) {
+        for (let i = 0; i < 60; i++) {
+          const angle = (i / 60) * Math.PI * 2;
+          const speed = 80 + Math.random() * 220;
+          state.particles.push({
+            x: BASE_W / 2, y: BASE_H / 2,
+            vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 40,
+            radius: 3 + Math.random() * 5,
+            color: next.accent,
+            life: 0.6 + Math.random() * 0.8, maxLife: 1.4
+          });
+        }
+      }
+      // Update CSS vars for UI tinting
+      document.documentElement.style.setProperty("--era-primary", next.color);
+      document.documentElement.style.setProperty("--era-sky",     next.sky);
+      document.documentElement.style.setProperty("--era-accent",  next.accent);
     }
     state.eraTransition = Math.min(1, state.eraTransition + 0.016);
+    // Advance sweep
+    if (eraSweepProgress >= 0) eraSweepProgress = Math.min(1, eraSweepProgress + 0.04);
+    eraBannerAlpha = Math.max(0, eraBannerAlpha - 0.012);
   }
 
   // ─── Magnet effect ───────────────────────────────────────────────────────────
@@ -1369,6 +1552,11 @@
       const s = state.shake;
       ctx.translate((Math.random() - 0.5) * s, (Math.random() - 0.5) * s);
     }
+    // Axis 3: subtle camera bob on jump landing
+    if (!reduceMotion && landingRecoil > 0) {
+      const bob = Math.sin(landingRecoil * Math.PI / 0.18) * 4;
+      ctx.translate(0, bob);
+    }
     ctx.translate(ox, oy);
     ctx.scale(scale, scale);
   }
@@ -1389,47 +1577,142 @@
     drawBossWarning();
     drawEraLabel();
     drawMultiplierBadge();
+    drawEraTransitionSweep();   // Axis 8: full-screen sweep + banner
     drawOverlayEffects();
     audio.music(state.elapsed);
     audio.updateDrone();
   }
 
   // ─── Background + parallax ───────────────────────────────────────────────────
+  // Axis 2: 3-layer parallax (sky/mid/fore) + horizon glow + era-tinted palette
   function drawBackground() {
-    const era = ERAS[state.eraIndex];
+    const era  = ERAS[state.eraIndex];
+    const era2 = ERAS[Math.min(ERAS.length - 1, state.eraIndex + 1)];
+    const t    = state.eraTransition;
+
     if (images.background) {
-      drawImageCover(images.background, 0, 0, BASE_W, BASE_H);
+      if (!liteFx) {
+        ctx.save();
+        ctx.filter = `blur(10px) saturate(1.20) brightness(.64) ${era.filter}`;
+        drawRawImageCover(images.background, -20, -20, BASE_W + 40, BASE_H + 40);
+        ctx.filter = "none";
+        ctx.restore();
+      } else {
+        drawRawImageCover(images.background, 0, 0, BASE_W, BASE_H);
+      }
     } else {
-      const g = ctx.createLinearGradient(0, 0, 0, BASE_H);
-      g.addColorStop(0, era.sky);
-      g.addColorStop(0.55, "#0a1021");
-      g.addColorStop(1, "#050711");
-      ctx.fillStyle = g; ctx.fillRect(0, 0, BASE_W, BASE_H);
+      // Sky gradient — Axis 8: smooth palette shift across eras
+      const skyColor  = lerpColor(era.sky,           era2.sky,           t);
+      const fogColor  = lerpColor(era.fog || "#0a1021", era2.fog || "#0a1021", t);
+      const skyGrd = ctx.createLinearGradient(0, 0, 0, BASE_H);
+      skyGrd.addColorStop(0,    skyColor);
+      skyGrd.addColorStop(0.45, fogColor);
+      skyGrd.addColorStop(1,    "#050711");
+      ctx.fillStyle = skyGrd; ctx.fillRect(0, 0, BASE_W, BASE_H);
     }
-    ctx.fillStyle = "rgba(4,7,15,.22)"; ctx.fillRect(0, 0, BASE_W, BASE_H);
 
-    // Ambient glow (era-tinted)
-    const pulse = 0.5 + Math.sin(state.elapsed * 1.6) * 0.5;
-    const glow  = ctx.createRadialGradient(800, 330, 40, 800, 330, 520);
-    glow.addColorStop(0, hexToRgba(era.accent, 0.18 + pulse * 0.06));
-    glow.addColorStop(0.44, hexToRgba(era.accent, 0.06));
-    glow.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = glow; ctx.fillRect(0, 0, BASE_W, BASE_H);
+    ctx.fillStyle = "rgba(4,7,15,.26)"; ctx.fillRect(0, 0, BASE_W, BASE_H);
 
-    // Star-field / data-streaks (parallax)
     if (!reduceMotion) {
+      // ── Layer 1 (sky) — star field, slowest scroll ───────────────────────
       ctx.save(); ctx.globalCompositeOperation = "screen";
-      for (let i = 0; i < 34; i++) {
-        const y     = ((i * 77 + state.distance * 0.18) % 820) + 40;
-        const x     = 200 + ((i * 193) % 1200);
-        const alpha = 0.05 + (i % 4) * 0.018;
-        ctx.strokeStyle = hexToRgba(era.accent, alpha);
+      for (let i = 0; i < 52; i++) {
+        const sx     = ((i * 313 + state.distance * 0.06) % (BASE_W * 1.05));
+        const sy     = ((i * 177 + state.distance * 0.02) % (BASE_H * 0.50)) + 20;
+        const sr     = 0.5 + (i % 3) * 0.55;
+        const salpha = 0.07 + (i % 5) * 0.028;
+        ctx.fillStyle = hexToRgba(era.accent, salpha);
+        ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+
+      // ── Layer 2 (mid) — era silhouette skyline, medium scroll ───────────
+      drawEraSilhouettes(era, era2, t);
+
+      // ── Layer 3 (fore) — data-streaks, fastest scroll ────────────────────
+      ctx.save(); ctx.globalCompositeOperation = "screen";
+      for (let i = 0; i < 28; i++) {
+        const fy     = ((i * 77 + state.distance * 0.24) % 820) + 40;
+        const fx     = 220 + ((i * 193 + state.distance * 0.14) % 1160);
+        const falpha = 0.04 + (i % 4) * 0.016;
+        ctx.strokeStyle = hexToRgba(era.accent, falpha);
         ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 30 + (i % 5) * 11, y - 10); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(fx + 22 + (i % 5) * 10, fy - 7); ctx.stroke();
       }
       ctx.restore();
     }
+
+    // ── Horizon glow — Axis 2 vanishing point treatment ──────────────────
+    const horizonY  = 300;
+    const pulse     = 0.5 + Math.sin(state.elapsed * 1.5) * 0.5;
+    const accentCol = lerpColor(era.accent, era2.accent, t);
+    const hglow     = ctx.createRadialGradient(BASE_W / 2, horizonY, 10, BASE_W / 2, horizonY, 440);
+    hglow.addColorStop(0,    hexToRgba(accentCol, 0.22 + pulse * 0.07));
+    hglow.addColorStop(0.40, hexToRgba(accentCol, 0.07));
+    hglow.addColorStop(1,    "rgba(0,0,0,0)");
+    ctx.fillStyle = hglow; ctx.fillRect(0, 0, BASE_W, BASE_H);
+
+    // Wide ambient fill
+    const wglow = ctx.createRadialGradient(800, 340, 50, 800, 340, 560);
+    wglow.addColorStop(0,   hexToRgba(accentCol, 0.12 + pulse * 0.04));
+    wglow.addColorStop(0.5, hexToRgba(accentCol, 0.04));
+    wglow.addColorStop(1,   "rgba(0,0,0,0)");
+    ctx.fillStyle = wglow; ctx.fillRect(0, 0, BASE_W, BASE_H);
+
     drawFloatingPanels();
+  }
+
+  // Axis 2/8: Per-era silhouette skyline with era-themed windows
+  function drawEraSilhouettes(era, era2, t) {
+    if (reduceMotion || liteFx) return;
+    ctx.save(); ctx.globalCompositeOperation = "source-over";
+
+    [0, 1].forEach(layerIdx => {
+      const eraRef   = layerIdx === 0 ? era  : era2;
+      const layerAlpha = layerIdx === 0 ? (0.60 * (1 - t * 0.45)) : (0.55 * t * 0.7);
+      if (layerAlpha < 0.03) return;
+      const col  = eraRef.silhouetteColor || "rgba(20,10,4,.80)";
+      const seed = (layerIdx === 0 ? state.eraIndex : Math.min(ERAS.length-1, state.eraIndex+1)) * 53;
+      const scroll = state.distance * (0.08 + layerIdx * 0.04);
+
+      ctx.fillStyle = col;
+      ctx.globalAlpha = layerAlpha;
+      for (let b = 0; b < 22; b++) {
+        const bx = ((b * (seed + 83) + scroll * 0.0028) % (BASE_W * 1.1)) - 40;
+        const bw = 20 + (b * seed + 11) % 62;
+        const bh = 42 + (b * seed + 29) % 120;
+        const by = 308 - bh;
+        ctx.fillRect(bx % BASE_W, by, bw, bh);
+        // Window glints
+        const wina = 0.28 + Math.sin(state.elapsed * 2.8 + b) * 0.10;
+        ctx.fillStyle = hexToRgba(eraRef.accent, wina * layerAlpha);
+        for (let wr = 0; wr < 3; wr++) {
+          for (let wc = 0; wc < 2; wc++) {
+            ctx.fillRect(bx % BASE_W + 5 + wc * 10, by + 10 + wr * 14, 6, 8);
+          }
+        }
+        ctx.fillStyle = col; ctx.globalAlpha = layerAlpha;
+      }
+    });
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  // Color lerp helper for era transitions
+  function lerpColor(hex1, hex2, t) {
+    if (!hex1 || !hex2) return hex1 || "#050711";
+    const c1 = hexToComponents(hex1);
+    const c2 = hexToComponents(hex2);
+    return `rgb(${Math.round(c1[0]+(c2[0]-c1[0])*t)},${Math.round(c1[1]+(c2[1]-c1[1])*t)},${Math.round(c1[2]+(c2[2]-c1[2])*t)})`;
+  }
+  function hexToComponents(hex) {
+    if (!hex || hex.startsWith("rgb")) {
+      const m = (hex||"").match(/\d+/g) || [5,7,17];
+      return [+m[0],+m[1],+m[2]];
+    }
+    const v   = hex.replace("#","");
+    const int = parseInt(v.length===3 ? v.split("").map(c=>c+c).join("") : v, 16);
+    return [(int>>16)&255,(int>>8)&255,int&255];
   }
 
   function drawFloatingPanels() {
@@ -1511,36 +1794,71 @@
   function drawRoad() {
     const bottom  = BASE_H + 28;
     const horizon = 300;
+    const era     = ERAS[state.eraIndex];
+    const era2    = ERAS[Math.min(ERAS.length-1, state.eraIndex+1)];
+    const t       = state.eraTransition;
+
     ctx.save(); ctx.globalCompositeOperation = "source-over";
+
+    // ── Road surface with era-tinted texture ─────────────────────────────
+    const groundCol = lerpColor(era.ground || "#0a1021", era2.ground || "#0a1021", t);
     const road = ctx.createLinearGradient(800, horizon, 800, bottom);
-    road.addColorStop(0, "rgba(7,20,38,.24)");
-    road.addColorStop(0.68, "rgba(4,8,17,.46)");
-    road.addColorStop(1, "rgba(0,0,0,.68)");
+    road.addColorStop(0,    `rgba(7,20,38,.28)`);
+    road.addColorStop(0.45, groundCol.replace("rgb","rgba").replace(")",",0.52)"));
+    road.addColorStop(1,    "rgba(0,0,0,.72)");
     ctx.fillStyle = road;
     ctx.beginPath();
-    ctx.moveTo(690, horizon); ctx.lineTo(910, horizon); ctx.lineTo(1425, bottom); ctx.lineTo(175, bottom);
+    ctx.moveTo(690, horizon); ctx.lineTo(910, horizon);
+    ctx.lineTo(1425, bottom); ctx.lineTo(175, bottom);
     ctx.closePath(); ctx.fill();
-    // Lane dividers
+
+    // ── Surface texture strips (simulated asphalt/cobble/grid per era) ───
+    if (!reduceMotion && !liteFx) {
+      ctx.save(); ctx.globalAlpha = 0.08;
+      ctx.fillStyle = hexToRgba(era.accent, 0.12);
+      for (let i = 0; i < 14; i++) {
+        const p   = (i / 14 + state.distance * 0.00038) % 1;
+        const ry  = lerp(horizon, bottom, Math.pow(p, 1.4));
+        const rw  = lerp(40, 820, Math.pow(p, 1.15));
+        const rh  = lerp(1, 4, p);
+        ctx.fillRect(800 - rw/2, ry, rw, rh);
+      }
+      ctx.restore();
+    }
+
+    // ── Lane edges & dividers with era-color glow ─────────────────────────
+    const accentRgb = lerpColor(era.accent, era2.accent, t);
     for (let l = 0; l < 4; l++) {
       const f      = l / 3;
       const topX   = lerp(690, 910, f);
       const botX   = lerp(175, 1425, f);
       const isEdge = l === 0 || l === 3;
-      const color  = isEdge ? "245,196,81" : "117,236,255";
-      ctx.strokeStyle = `rgba(${color},${isEdge ? 0.50 : 0.38})`;
+      // Edge lines use gold, inner dividers use era accent
+      const lColor = isEdge ? "245,196,81" : "117,236,255";
+      ctx.strokeStyle = `rgba(${lColor},${isEdge ? 0.52 : 0.40})`;
       ctx.lineWidth   = isEdge ? 3 : 2;
-      ctx.shadowColor = `rgba(${color},.40)`; ctx.shadowBlur = 18;
+      ctx.shadowColor = `rgba(${lColor},.42)`; ctx.shadowBlur = 20;
       ctx.beginPath(); ctx.moveTo(topX, horizon); ctx.lineTo(botX, bottom); ctx.stroke();
     }
-    // Dashes
-    ctx.shadowBlur = 0; ctx.lineWidth = 1;
+
+    // ── Vanishing point dot ───────────────────────────────────────────────
+    ctx.shadowBlur = 0;
+    const vpGlow = ctx.createRadialGradient(800, horizon, 0, 800, horizon, 48);
+    vpGlow.addColorStop(0,   hexToRgba(era.accent, 0.55));
+    vpGlow.addColorStop(0.5, hexToRgba(era.accent, 0.18));
+    vpGlow.addColorStop(1,   "rgba(0,0,0,0)");
+    ctx.fillStyle = vpGlow; ctx.fillRect(752, horizon - 48, 96, 96);
+
+    // ── Animated dashes ────────────────────────────────────────────────────
+    ctx.lineWidth = 1; ctx.shadowBlur = 0;
     for (let i = 0; i < 22; i++) {
-      const p = ((i / 22) + state.distance * 0.00075) % 1;
-      const y = lerp(horizon, bottom, Math.pow(p, 1.7));
-      const w = lerp(120, 1050, Math.pow(p, 1.2));
-      ctx.strokeStyle = `rgba(255,255,255,${lerp(0.08, 0.32, p)})`;
-      ctx.beginPath(); ctx.moveTo(800 - w/2, y); ctx.lineTo(800 + w/2, y); ctx.stroke();
+      const p  = ((i / 22) + state.distance * 0.00075) % 1;
+      const dy = lerp(horizon, bottom, Math.pow(p, 1.7));
+      const dw = lerp(120, 1050, Math.pow(p, 1.2));
+      ctx.strokeStyle = `rgba(255,255,255,${lerp(0.07, 0.32, p)})`;
+      ctx.beginPath(); ctx.moveTo(800 - dw/2, dy); ctx.lineTo(800 + dw/2, dy); ctx.stroke();
     }
+
     ctx.restore();
   }
 
@@ -1597,196 +1915,520 @@
     ctx.restore();
   }
 
+  // Axis 5: Collectibles — spinning gold coin with sparkle + era-styled power-up tokens
   function drawPickup(obj) {
     const pt   = lanePoint(obj.lane, obj.progress);
-    if (pt.y < 0 || pt.y > BASE_H + 50) return; // off-screen
-    const bob  = Math.sin(state.elapsed * 5 + obj.lane) * 8;
-    const size = (obj.pickupKind === "coin" ? 32 : 64) * pt.scale;
-    ctx.save(); ctx.globalCompositeOperation = "screen";
-    ctx.shadowColor = obj.color; ctx.shadowBlur = 20;
-    ctx.globalAlpha = 0.92;
+    if (pt.y < 0 || pt.y > BASE_H + 50) return;
+    const bob  = Math.sin(state.elapsed * 5.2 + obj.lane * 1.3) * 9 * pt.scale;
+    const era  = ERAS[state.eraIndex];
 
-    // Draw shape by type (pure canvas — no sprite needed)
+    ctx.save(); ctx.globalCompositeOperation = "screen";
+    ctx.shadowColor = obj.color; ctx.shadowBlur = 22;
+    ctx.globalAlpha = 0.94;
+
     if (obj.pickupKind === "coin") {
+      // Axis 5: spinning coin — squash/stretch to simulate 3D rotation
+      const spin  = state.elapsed * 4.8 + obj.lane * 2.1;
+      const cx    = pt.x;
+      const cy    = pt.y - 18 * pt.scale + bob * 0.5;
+      const r     = 14 * pt.scale;
+      const flipW = Math.abs(Math.cos(spin)) * r; // squash x to simulate spin
+
+      // Gold fill
       ctx.fillStyle = obj.color;
+      ctx.shadowColor = obj.color; ctx.shadowBlur = 16;
       ctx.beginPath();
-      ctx.arc(pt.x, pt.y - 18 * pt.scale + bob * 0.5, size, 0, Math.PI * 2);
+      ctx.ellipse(cx, cy, flipW + 1, r, 0, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = "#fff8"; ctx.lineWidth = size * 0.15;
+
+      // Inner highlight
+      ctx.shadowBlur = 0;
+      ctx.fillStyle  = "rgba(255,255,200,.32)";
       ctx.beginPath();
-      ctx.arc(pt.x, pt.y - 18 * pt.scale + bob * 0.5, size * 0.6, 0, Math.PI * 2);
-      ctx.stroke();
+      ctx.ellipse(cx - flipW * 0.2, cy - r * 0.25, flipW * 0.35 + 0.5, r * 0.38, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Dollar ring line
+      if (flipW > 2) {
+        ctx.strokeStyle = "rgba(255,255,255,.30)"; ctx.lineWidth = r * 0.12;
+        ctx.beginPath(); ctx.ellipse(cx, cy, flipW * 0.6, r * 0.6, 0, 0, Math.PI * 2); ctx.stroke();
+      }
+
+      // Sparkle particles (rare)
+      if (!reduceMotion && Math.random() < 0.04) {
+        const sang = Math.random() * Math.PI * 2;
+        state.particles.push({
+          x: cx + r * Math.cos(sang), y: cy + r * Math.sin(sang),
+          vx: Math.cos(sang) * 28, vy: Math.sin(sang) * 28 - 18,
+          radius: 1.5, color: "#fff8d0",
+          life: 0.3, maxLife: 0.3
+        });
+      }
+
+    } else if (obj.pickupKind === "erakey") {
+      // Axis 5: Era key — prismatic gem with glow rings
+      const cx   = pt.x;
+      const cy   = pt.y - 44 * pt.scale + bob;
+      const r    = 28 * pt.scale;
+      // Prismatic color cycle
+      const hue  = (state.elapsed * 80) % 360;
+      ctx.shadowColor = `hsl(${hue},100%,60%)`; ctx.shadowBlur = 32;
+      // Diamond shape
+      ctx.fillStyle = `hsl(${hue},90%,58%)`;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - r);
+      ctx.lineTo(cx + r * 0.6, cy);
+      ctx.lineTo(cx, cy + r * 0.8);
+      ctx.lineTo(cx - r * 0.6, cy);
+      ctx.closePath(); ctx.fill();
+      // Outer glow ring
+      ctx.strokeStyle = `hsla(${(hue+120)%360},90%,70%,.70)`; ctx.lineWidth = 2.5 * pt.scale;
+      ctx.beginPath(); ctx.arc(cx, cy, r * 1.5, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = `hsla(${(hue+240)%360},90%,70%,.40)`; ctx.lineWidth = 1.5 * pt.scale;
+      ctx.beginPath(); ctx.arc(cx, cy, r * 2.0, 0, Math.PI * 2); ctx.stroke();
+      // Inner facets
+      ctx.strokeStyle = "rgba(255,255,255,.35)"; ctx.lineWidth = 1 * pt.scale;
+      ctx.beginPath(); ctx.moveTo(cx - r * 0.3, cy - r * 0.3); ctx.lineTo(cx + r * 0.25, cy + r * 0.35); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx + r * 0.3, cy - r * 0.3); ctx.lineTo(cx - r * 0.2, cy + r * 0.35); ctx.stroke();
+
     } else {
-      // power-up icon: star shape
+      // Power-up: era-themed star/icon
       const cx = pt.x;
-      const cy = pt.y - 42 * pt.scale + bob;
-      const r1 = size;
-      const r2 = size * 0.45;
+      const cy = pt.y - 44 * pt.scale + bob;
+      const r1 = 26 * pt.scale;
+      const r2 = r1 * 0.44;
       const n  = obj.pickupKind === "jetpack" ? 6 : obj.pickupKind === "magnet" ? 4 : 5;
-      ctx.fillStyle = obj.color;
+      const spin2 = state.elapsed * 1.2 + obj.lane;
+
+      // Outer glow pill
+      ctx.fillStyle = hexToRgba(obj.color, 0.15);
+      ctx.shadowColor = obj.color; ctx.shadowBlur = 30;
+      ctx.beginPath(); ctx.ellipse(cx, cy, r1 * 1.6, r1 * 1.6, 0, 0, Math.PI * 2); ctx.fill();
+
+      // Star shape
+      ctx.fillStyle = obj.color; ctx.shadowBlur = 18;
       ctx.beginPath();
       for (let i = 0; i < n * 2; i++) {
         const r   = i % 2 === 0 ? r1 : r2;
-        const ang = (i / (n * 2)) * Math.PI * 2 - Math.PI / 2;
+        const ang = (i / (n * 2)) * Math.PI * 2 - Math.PI / 2 + spin2;
         if (i === 0) ctx.moveTo(cx + r * Math.cos(ang), cy + r * Math.sin(ang));
-        else ctx.lineTo(cx + r * Math.cos(ang), cy + r * Math.sin(ang));
+        else         ctx.lineTo(cx + r * Math.cos(ang), cy + r * Math.sin(ang));
       }
       ctx.closePath(); ctx.fill();
-      // Era key: special ring
-      if (obj.pickupKind === "erakey") {
-        ctx.strokeStyle = "#fff"; ctx.lineWidth = 2 * pt.scale;
-        ctx.beginPath(); ctx.arc(cx, cy, r1 * 1.4, 0, Math.PI * 2); ctx.stroke();
-      }
+
+      // Era-style center icon (letter)
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "rgba(5,7,17,.82)";
+      ctx.font = `900 ${Math.max(8, 12 * pt.scale)}px Inter, sans-serif`;
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      const icons = { magnet: "M", shield: "S", boost: "B", jetpack: "J" };
+      ctx.fillText(icons[obj.pickupKind] || "?", cx, cy);
     }
     ctx.restore();
   }
 
+  // Axis 4: Distinct per-era obstacle silhouettes
   function drawObstacle(obj) {
-    const pt    = lanePoint(obj.lane, obj.progress);
+    const pt  = lanePoint(obj.lane, obj.progress);
     if (obj.progress < 0) return;
-    const era   = ERAS[state.eraIndex];
+    const era = ERAS[state.eraIndex];
 
-    // Boss: pulsing windup ring
+    // Boss: pulsing 3-second windup with warning bar + dramatic reveal
     if (obj.isBoss && !obj.windupDone) {
       const pct   = 1 - obj.windupLeft / 3.0;
-      const rad   = 80 + pct * 80;
+      const rad   = (60 + pct * 110) * pt.scale;
       ctx.save(); ctx.globalCompositeOperation = "screen";
-      ctx.strokeStyle = "#ff4444"; ctx.lineWidth = 4;
-      ctx.shadowColor = "#ff4444"; ctx.shadowBlur = 40;
-      ctx.beginPath(); ctx.arc(pt.x, pt.y - 80 * pt.scale, rad * pt.scale, 0, Math.PI * 2 * pct);
-      ctx.stroke(); ctx.restore();
-      // Warning label
-      ctx.save();
+      // Outer pulsing ring
+      ctx.strokeStyle = "#ff4444"; ctx.lineWidth = 4 * pt.scale;
+      ctx.shadowColor = "#ff4444"; ctx.shadowBlur = 44;
+      ctx.beginPath(); ctx.arc(pt.x, pt.y - 85 * pt.scale, rad, -Math.PI/2, -Math.PI/2 + Math.PI*2*pct); ctx.stroke();
+      // Inner fill preview
+      ctx.fillStyle = hexToRgba("#ff4444", pct * 0.14);
+      ctx.beginPath(); ctx.arc(pt.x, pt.y - 85 * pt.scale, rad, 0, Math.PI * 2); ctx.fill();
+      // Rotating danger dashes
+      for (let d = 0; d < 8; d++) {
+        const ang = (d / 8) * Math.PI * 2 + state.elapsed * 3;
+        const dx  = pt.x + (rad + 18) * Math.cos(ang);
+        const dy  = (pt.y - 85 * pt.scale) + (rad + 18) * Math.sin(ang);
+        ctx.fillStyle = `rgba(255,68,68,${0.40 * pct})`;
+        ctx.beginPath(); ctx.arc(dx, dy, 3 * pt.scale, 0, Math.PI*2); ctx.fill();
+      }
+      ctx.restore();
+      // Warning text
+      ctx.save(); ctx.globalCompositeOperation = "source-over";
       ctx.fillStyle = "#ff4444";
-      ctx.font = `900 ${Math.max(12, 18 * pt.scale)}px Inter, system-ui, sans-serif`;
+      ctx.font = `900 ${Math.max(11, 16 * pt.scale)}px Inter, system-ui, sans-serif`;
       ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      ctx.fillText("⚠ BOSS", pt.x, pt.y - 140 * pt.scale);
+      ctx.shadowColor = "#ff4444"; ctx.shadowBlur = 20;
+      const warnFlash = Math.sin(state.elapsed * 14) > 0 ? 1 : 0.5;
+      ctx.globalAlpha = warnFlash;
+      ctx.fillText("BOSS INCOMING", pt.x, pt.y - 150 * pt.scale);
       ctx.restore();
       return;
     }
 
-    // Regular obstacle box
-    const tw = (obj.obstacleId === "pipe" ? 120 : obj.obstacleId === "boss" ? 160 : 80) * pt.scale;
-    const th = (obj.obstacleId === "pipe" ? 36  : obj.obstacleId === "boss" ? 160 : 72) * pt.scale;
-    const tx = pt.x - tw / 2;
-    const ty = pt.y - th - 10 * pt.scale;
+    // Obstacle dimensions by type
+    const dims = {
+      block: { w: 82,  h: 74  },
+      pipe:  { w: 124, h: 38  },
+      fence: { w: 52,  h: 170 },
+      cart:  { w: 90,  h: 60  },
+      gap:   { w: 145, h: 18  },
+      boss:  { w: 168, h: 168 }
+    };
+    const d   = dims[obj.obstacleId] || dims.block;
+    const tw  = d.w * pt.scale;
+    const th  = d.h * pt.scale;
+    const tx  = pt.x - tw / 2;
+    const ty  = pt.y - th - 10 * pt.scale;
+    const rad = Math.max(4, 8 * pt.scale);
 
     ctx.save(); ctx.globalCompositeOperation = "screen";
-    ctx.fillStyle   = hexToRgba(obj.color, 0.18);
-    ctx.strokeStyle = obj.color;
-    ctx.lineWidth   = Math.max(1.5, 2.5 * pt.scale);
-    ctx.shadowColor = obj.color; ctx.shadowBlur = 18;
-    roundRect(tx, ty, tw, th, 10 * pt.scale); ctx.fill();
-    roundRect(tx, ty, tw, th, 10 * pt.scale); ctx.stroke();
 
-    // Label chip
-    if (obj.progress > 0.36) {
+    // Axis 4: Gap — show depth (lane drops below view)
+    if (obj.obstacleId === "gap") {
+      ctx.fillStyle = "rgba(0,0,0,.88)";
+      ctx.strokeStyle = obj.color; ctx.lineWidth = Math.max(1.5, 2 * pt.scale);
+      ctx.shadowColor = obj.color; ctx.shadowBlur = 12;
+      roundRect(tx, ty, tw, Math.max(4, 8 * pt.scale), rad); ctx.fill();
+      roundRect(tx, ty, tw, Math.max(4, 8 * pt.scale), rad); ctx.stroke();
+      // Depth lines inside gap
+      ctx.globalAlpha = 0.35;
+      for (let gl = 1; gl < 4; gl++) {
+        const gy = ty + gl * th * 0.32;
+        ctx.strokeStyle = hexToRgba(obj.color, 0.25);
+        ctx.lineWidth = 1; ctx.beginPath();
+        ctx.moveTo(tx + tw * 0.1, gy); ctx.lineTo(tx + tw * 0.9, gy); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    } else {
+      // Standard obstacle: era-tinted silhouette
+      const eraFill   = hexToRgba(obj.color, 0.16);
+      const eraStroke = obj.color;
+      ctx.fillStyle   = eraFill;
+      ctx.strokeStyle = eraStroke;
+      ctx.lineWidth   = Math.max(1.5, 2.5 * pt.scale);
+      ctx.shadowColor = obj.color; ctx.shadowBlur = 20;
+      roundRect(tx, ty, tw, th, rad); ctx.fill();
+      roundRect(tx, ty, tw, th, rad); ctx.stroke();
+
+      // Per-era interior detail lines
+      ctx.globalAlpha = 0.20; ctx.lineWidth = Math.max(0.8, 1.2 * pt.scale);
+      if (obj.obstacleId === "block") {
+        // Factory crate / data cube: grid lines
+        for (let gl = 1; gl < 3; gl++) {
+          ctx.beginPath(); ctx.moveTo(tx + tw*gl/3, ty); ctx.lineTo(tx + tw*gl/3, ty + th); ctx.stroke();
+        }
+        ctx.beginPath(); ctx.moveTo(tx, ty + th*0.45); ctx.lineTo(tx + tw, ty + th*0.45); ctx.stroke();
+      } else if (obj.obstacleId === "pipe") {
+        // Pipe: end caps + bolt circles
+        ctx.beginPath(); ctx.arc(pt.x - tw*0.38, ty + th*0.5, th*0.26, 0, Math.PI*2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(pt.x + tw*0.38, ty + th*0.5, th*0.26, 0, Math.PI*2); ctx.stroke();
+      } else if (obj.obstacleId === "fence" || obj.obstacleId === "cart") {
+        // Fence/cart: horizontal rails
+        for (let fl = 1; fl < 4; fl++) {
+          ctx.beginPath(); ctx.moveTo(tx + 4*pt.scale, ty + th*fl/4); ctx.lineTo(tx + tw - 4*pt.scale, ty + th*fl/4); ctx.stroke();
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // Axis 4: Label chip (action hint) — sentence-case, no ALL-CAPS on chip
+    if (obj.progress > 0.30) {
       ctx.globalCompositeOperation = "source-over"; ctx.shadowBlur = 0;
-      ctx.fillStyle = "rgba(5,7,17,.80)"; ctx.strokeStyle = obj.color; ctx.lineWidth = 1.5;
-      const lw = 72 * pt.scale; const lh = 26 * pt.scale;
-      roundRect(pt.x - lw/2, ty - lh - 4 * pt.scale, lw, lh, 8 * pt.scale); ctx.fill();
-      roundRect(pt.x - lw/2, ty - lh - 4 * pt.scale, lw, lh, 8 * pt.scale); ctx.stroke();
+      ctx.fillStyle = "rgba(5,7,17,.84)"; ctx.strokeStyle = obj.color; ctx.lineWidth = 1.5;
+      const lw2 = 74 * pt.scale; const lh2 = 24 * pt.scale;
+      const chipY = ty - lh2 - 5 * pt.scale;
+      roundRect(pt.x - lw2/2, chipY, lw2, lh2, 7 * pt.scale); ctx.fill();
+      roundRect(pt.x - lw2/2, chipY, lw2, lh2, 7 * pt.scale); ctx.stroke();
       ctx.fillStyle = "#f7f4ec";
-      ctx.font = `900 ${Math.max(9, 11 * pt.scale)}px Inter, system-ui, sans-serif`;
+      ctx.font = `800 ${Math.max(9, 10.5 * pt.scale)}px Inter, system-ui, sans-serif`;
       ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      ctx.fillText(obj.label, pt.x, ty - lh / 2 - 4 * pt.scale + lh / 2);
+      // Axis 13: sentence-case label (not all-caps)
+      const chipLabel = obj.label.charAt(0).toUpperCase() + obj.label.slice(1).toLowerCase();
+      ctx.fillText(chipLabel, pt.x, chipY + lh2 / 2);
     }
     ctx.restore();
   }
 
   // ─── Player ────────────────────────────────────────────────────────────────
+  // Axis 3: refined silhouette, idle bob, jump anticipation+recoil, slide dust,
+  //         lane ghost trail, jetpack flame, hex shield bubble, magnet field
+  let playerPrevLift = 0;     // for landing recoil detection
+  let landingRecoil  = 0;     // countdown timer
+
   function drawPlayer() {
     const pt      = lanePoint(player.visualLane, 0.94);
     const lift    = jumpLift() * 145;
     const sliding = player.slideTime > 0;
     const x       = pt.x;
-    const runBob  = Math.sin(state.elapsed * 15.5) * (sliding ? 2 : 7);
-    const y       = 770 - lift + (sliding ? 24 : 0) + runBob;
-    const size    = sliding ? 126 : 154;
-    const tilt    = (player.lane - player.visualLane) * 0.18 + Math.sin(state.elapsed * 12) * 0.025;
-    const alpha   = player.invulnerable > 0 ? 0.62 + Math.sin(state.elapsed * 28) * 0.22 : 1.0;
+
+    // Landing recoil
+    if (playerPrevLift > 8 && lift < 4 && !player.airborne) {
+      landingRecoil = 0.18;
+      // Camera bob on landing
+      if (!reduceMotion) addParticles(x, 800, 10, gateColors[player.lane], 0.6);
+    }
+    playerPrevLift = lift;
+    if (landingRecoil > 0) landingRecoil -= 0.016;
+
+    // Run bob: idle animation
+    const bobAmp   = sliding ? 2 : (player.airborne ? 1 : 8);
+    const runBob   = Math.sin(state.elapsed * 16) * bobAmp;
+    // Landing squish on recoil
+    const recoilSq = landingRecoil > 0 ? Math.sin(landingRecoil * Math.PI / 0.18) * 10 : 0;
+    const y        = 770 - lift + (sliding ? 26 : 0) + runBob + recoilSq;
+
+    // Jump anticipation squat: right before first jump frame, compress briefly
+    const squatScale = (player.jumpBuffer > 0.06 && !player.airborne) ? 0.90 : 1;
+    const size  = sliding ? 118 : (154 * squatScale);
+    const wscale = sliding ? 1.30 : (1 / squatScale); // wider when crouching
+    const tilt  = (player.lane - player.visualLane) * 0.20 + Math.sin(state.elapsed * 11) * 0.022;
+    const alpha = player.invulnerable > 0 ? 0.60 + Math.sin(state.elapsed * 30) * 0.24 : 1.0;
 
     ctx.save(); ctx.globalAlpha = alpha;
 
-    // Ground shadow
-    ctx.fillStyle = "rgba(0,0,0,.42)";
+    // Ground shadow — bigger when close to ground
+    const shadowScale = 1 - lift / 180;
+    ctx.fillStyle = `rgba(0,0,0,${0.38 * shadowScale})`;
     ctx.beginPath();
-    ctx.ellipse(x, 806, sliding ? 72 : 58, sliding ? 13 : 18, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, 808, (sliding ? 78 : 60) * shadowScale, (sliding ? 12 : 16) * shadowScale, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Jetpack flame
+    // Slide dust particles
+    if (sliding && !reduceMotion && Math.random() < 0.4) {
+      state.particles.push({
+        x: x + (Math.random() - 0.5) * 40,
+        y: 800 + Math.random() * 12,
+        vx: (Math.random() - 0.5) * 60, vy: -18 - Math.random() * 30,
+        radius: 2 + Math.random() * 3,
+        color: "#9bacc8",
+        life: 0.28 + Math.random() * 0.24, maxLife: 0.52
+      });
+    }
+
+    // Jetpack: continuous flame particles + directionality
     if (player.jetpackTimer > 0) {
       ctx.save(); ctx.globalCompositeOperation = "screen";
-      ctx.shadowColor = "#67f0a8"; ctx.shadowBlur = 30;
-      const flame = ctx.createLinearGradient(x, y + size * 0.5, x, y + size * 0.5 + 80);
-      flame.addColorStop(0, "rgba(103,240,168,.95)");
-      flame.addColorStop(0.5, "rgba(245,196,81,.7)");
-      flame.addColorStop(1, "rgba(255,123,204,0)");
-      ctx.fillStyle = flame;
-      ctx.beginPath();
-      const fw = 24 + Math.sin(state.elapsed * 22) * 8;
-      ctx.ellipse(x - 18, y + size * 0.5 + 20, fw * 0.5, 45 + Math.sin(state.elapsed * 18) * 12, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(x + 18, y + size * 0.5 + 20, fw * 0.5, 45 + Math.sin(state.elapsed * 20) * 12, 0, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.shadowColor = "#67f0a8"; ctx.shadowBlur = 32;
+      const fFlicker = 0.85 + Math.sin(state.elapsed * 28) * 0.15;
+      const fw = (26 + Math.sin(state.elapsed * 22) * 8) * fFlicker;
+      // Dual nozzle flames
+      for (const nx of [-20, 20]) {
+        const fGrd = ctx.createLinearGradient(x + nx, y + size * 0.5, x + nx, y + size * 0.5 + 90);
+        fGrd.addColorStop(0,   "rgba(103,240,168,.96)");
+        fGrd.addColorStop(0.4, "rgba(245,196,81,.72)");
+        fGrd.addColorStop(1,   "rgba(255,123,204,0)");
+        ctx.fillStyle = fGrd;
+        ctx.beginPath();
+        ctx.ellipse(x + nx, y + size * 0.5 + 18, fw * 0.48, 50 + Math.sin(state.elapsed * 19 + nx) * 14, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      // Particle emitter from nozzles
+      if (!reduceMotion && Math.random() < 0.5) {
+        for (const nx of [-20, 20]) {
+          state.particles.push({
+            x: x + nx + (Math.random()-0.5)*8,
+            y: y + size * 0.5 + 20 + Math.random() * 20,
+            vx: nx * 0.3 + (Math.random()-0.5)*20, vy: 60 + Math.random()*80,
+            radius: 2 + Math.random()*3,
+            color: Math.random() > 0.5 ? "#67f0a8" : "#f5c451",
+            life: 0.15 + Math.random()*0.25, maxLife: 0.4
+          });
+        }
+      }
       ctx.restore();
     }
 
     // Boost flame trail
     if (player.boostTimer > 0) {
       ctx.save(); ctx.globalCompositeOperation = "screen";
-      ctx.strokeStyle = "rgba(245,196,81,.70)"; ctx.lineWidth = 9;
-      ctx.shadowColor = "#f5c451"; ctx.shadowBlur = 28;
-      ctx.beginPath(); ctx.moveTo(x - 82, y + 30); ctx.lineTo(x - 165, y + 72); ctx.stroke();
-      ctx.strokeStyle = "rgba(117,236,255,.62)"; ctx.lineWidth = 5;
-      ctx.beginPath(); ctx.moveTo(x - 62, y + 8); ctx.lineTo(x - 135, y + 38); ctx.stroke();
+      const bt   = player.boostTimer;
+      const blen = 80 + bt * 16;
+      ctx.strokeStyle = "rgba(245,196,81,.72)"; ctx.lineWidth = 10;
+      ctx.shadowColor = "#f5c451"; ctx.shadowBlur = 30;
+      ctx.lineCap = "round";
+      ctx.beginPath(); ctx.moveTo(x - 75, y + 28); ctx.lineTo(x - 75 - blen, y + 68); ctx.stroke();
+      ctx.strokeStyle = "rgba(117,236,255,.60)"; ctx.lineWidth = 5;
+      ctx.shadowColor = "#75ecff"; ctx.shadowBlur = 20;
+      ctx.beginPath(); ctx.moveTo(x - 58, y + 6); ctx.lineTo(x - 58 - blen * 0.75, y + 36); ctx.stroke();
       ctx.restore();
     }
 
-    // Motion blur on lane change
+    // Axis 3: Lane swap ghost trail (motion blur)
     if (player.laneChangeBlur > 0.02 && !reduceMotion) {
       ctx.save(); ctx.globalCompositeOperation = "screen";
-      const blurAlpha = player.laneChangeBlur * 0.35;
-      ctx.globalAlpha = blurAlpha;
-      for (let i = 1; i <= 3; i++) {
-        const bx = x - (player.lane - player.visualLane > 0 ? -1 : 1) * i * 22;
-        drawPlayerShape(bx, y, size, tilt, sliding, false);
+      for (let i = 1; i <= 4; i++) {
+        const dir   = player.lane - player.visualLane > 0 ? -1 : 1;
+        const bx    = x + dir * i * 26;
+        const bAlph = player.laneChangeBlur * (0.22 - i * 0.04);
+        ctx.globalAlpha = Math.max(0, bAlph);
+        drawPlayerSilhouette(bx, y, size, wscale, 0, sliding);
+      }
+      ctx.restore();
+      ctx.globalAlpha = alpha;
+    }
+
+    // Main player — refined silhouette
+    ctx.globalCompositeOperation = "screen";
+    drawPlayerSilhouette(x, y, size, wscale, tilt, sliding);
+
+    // Axis 3: Shield — hex bubble (NOT just ellipse)
+    if (state.shields > 0) {
+      const hexR    = 88;
+      const hexPulse = 1 + Math.sin(state.elapsed * 4) * 0.03;
+      const hexSides = 6;
+      ctx.save(); ctx.globalCompositeOperation = "screen";
+      ctx.strokeStyle = "rgba(117,236,255,.80)"; ctx.lineWidth = 2.5;
+      ctx.shadowColor = "#75ecff"; ctx.shadowBlur = 24;
+      ctx.fillStyle   = "rgba(117,236,255,.05)";
+      ctx.beginPath();
+      for (let h = 0; h < hexSides; h++) {
+        const ang = (h / hexSides) * Math.PI * 2 - Math.PI / 6;
+        const hx  = x + hexR * hexPulse * Math.cos(ang);
+        const hy  = (y + 8) + hexR * 1.3 * hexPulse * Math.sin(ang);
+        if (h === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
+      }
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+      // Hex grid lines (subtle inner detail)
+      ctx.lineWidth = 0.5; ctx.globalAlpha = 0.30;
+      for (let h = 0; h < hexSides; h++) {
+        const ang = (h / hexSides) * Math.PI * 2 - Math.PI / 6;
+        const hx  = x + hexR * hexPulse * Math.cos(ang);
+        const hy  = (y + 8) + hexR * 1.3 * hexPulse * Math.sin(ang);
+        ctx.beginPath(); ctx.moveTo(x, y + 8); ctx.lineTo(hx, hy); ctx.stroke();
       }
       ctx.restore();
     }
 
-    // Main player
-    ctx.globalCompositeOperation = "screen";
-    drawPlayerShape(x, y, size, tilt, sliding, true);
-
-    // Shield aura
-    if (state.shields > 0) {
-      ctx.strokeStyle = "rgba(117,236,255,.78)"; ctx.lineWidth = 4;
-      ctx.shadowColor = "#75ecff"; ctx.shadowBlur = 22;
-      ctx.beginPath(); ctx.ellipse(x, y + 6, 70, 92, 0, 0, Math.PI * 2); ctx.stroke();
-    }
-
-    // Magnet aura
+    // Axis 3: Magnet — orbiting field rings
     if (player.magnetTimer > 0) {
-      const mag = 0.5 + Math.sin(state.elapsed * 8) * 0.4;
-      ctx.strokeStyle = `rgba(255,123,204,${mag * 0.6})`; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.ellipse(x, y + 6, 90, 115, 0, 0, Math.PI * 2); ctx.stroke();
+      const magPhase = state.elapsed * 2.4;
+      ctx.save(); ctx.globalCompositeOperation = "screen";
+      // Two orbiting particle rings
+      for (let ring = 0; ring < 2; ring++) {
+        const ringR = 92 + ring * 22;
+        const ringA = 0.28 + Math.sin(state.elapsed * 6 + ring) * 0.14;
+        ctx.strokeStyle = `rgba(255,123,204,${ringA})`; ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.ellipse(x, y + 6, ringR, ringR * 1.32, magPhase + ring * 0.8, 0, Math.PI * 2);
+        ctx.stroke();
+        // Orbiting dots
+        for (let d = 0; d < 3; d++) {
+          const dang = magPhase + (d / 3) * Math.PI * 2 + ring * 0.8;
+          const dx   = x + ringR * Math.cos(dang);
+          const dy   = (y + 6) + ringR * 1.32 * Math.sin(dang);
+          ctx.fillStyle = `rgba(255,123,204,${ringA * 2})`;
+          ctx.beginPath(); ctx.arc(dx, dy, 3, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+      ctx.restore();
     }
 
     ctx.restore();
   }
 
-  function drawPlayerShape(x, y, size, tilt, sliding, shadow) {
+  // Axis 3: Refined running silhouette — proper humanoid shape
+  function drawPlayerSilhouette(x, y, size, wscale = 1, tilt = 0, sliding = false) {
     ctx.save(); ctx.translate(x, y); ctx.rotate(tilt);
-    if (shadow) {
+    const era = ERAS[state.eraIndex];
+
+    if (images.sprites) {
+      // Use sprite sheet if available — era-tinted
+      ctx.shadowColor = era.accent; ctx.shadowBlur = 18;
       for (let i = 3; i > 0; i--) {
         ctx.globalAlpha = 0.10 * i;
-        drawSprite(0 /* runner */, -i * 22, i * 10, size * (1 - i * 0.04), 0.22);
+        drawSprite(0, -i * 20, i * 9, size * (1 - i * 0.04), 0.22);
       }
       ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
+      drawSprite(0, 0, 0, size, 1);
+    } else {
+      // Axis 3: Procedural running silhouette
+      const era = ERAS[state.eraIndex];
+      const bodyColor  = era.accent;
+      const accentGlow = hexToRgba(bodyColor, 0.85);
+
+      ctx.shadowColor = bodyColor; ctx.shadowBlur = 22;
+
+      // Limb phase from elapsed time
+      const runPhase = state.elapsed * 14;
+      const legSwing = sliding ? 0 : Math.sin(runPhase) * 0.32;
+      const armSwing = sliding ? 0 : Math.sin(runPhase + Math.PI) * 0.28;
+
+      const hw  = size * 0.22 * wscale; // half-width
+      const hs  = size * 0.5;            // half-height
+
+      if (sliding) {
+        // Slide: low horizontal capsule
+        ctx.fillStyle = accentGlow;
+        roundRect(-hw * 1.6, -hs * 0.4, hw * 3.2, hs * 0.8, hw * 0.35);
+        ctx.fill();
+        ctx.strokeStyle = bodyColor; ctx.lineWidth = 2.5;
+        roundRect(-hw * 1.6, -hs * 0.4, hw * 3.2, hs * 0.8, hw * 0.35);
+        ctx.stroke();
+      } else {
+        // Torso
+        ctx.fillStyle = accentGlow;
+        roundRect(-hw * 0.9, -hs * 0.60, hw * 1.8, hs * 0.80, hw * 0.35);
+        ctx.fill();
+        ctx.strokeStyle = bodyColor; ctx.lineWidth = 2;
+        roundRect(-hw * 0.9, -hs * 0.60, hw * 1.8, hs * 0.80, hw * 0.35);
+        ctx.stroke();
+
+        // Head
+        ctx.fillStyle = accentGlow;
+        ctx.beginPath();
+        ctx.ellipse(0, -hs * 0.78, hw * 0.62, hw * 0.72, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = bodyColor; ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.ellipse(0, -hs * 0.78, hw * 0.62, hw * 0.72, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Legs
+        ctx.strokeStyle = bodyColor; ctx.lineWidth = hw * 0.55;
+        ctx.lineCap = "round";
+        // Left leg
+        ctx.save(); ctx.rotate(-legSwing);
+        ctx.beginPath();
+        ctx.moveTo(-hw * 0.28, hs * 0.20);
+        ctx.quadraticCurveTo(-hw * 0.5, hs * 0.62, -hw * 0.22, hs * 0.85);
+        ctx.stroke();
+        ctx.restore();
+        // Right leg
+        ctx.save(); ctx.rotate(legSwing);
+        ctx.beginPath();
+        ctx.moveTo(hw * 0.28, hs * 0.20);
+        ctx.quadraticCurveTo(hw * 0.5, hs * 0.62, hw * 0.22, hs * 0.85);
+        ctx.stroke();
+        ctx.restore();
+
+        // Arms
+        ctx.lineWidth = hw * 0.40;
+        ctx.save(); ctx.rotate(armSwing);
+        ctx.beginPath();
+        ctx.moveTo(-hw * 0.68, -hs * 0.28);
+        ctx.quadraticCurveTo(-hw * 1.05, hs * 0.05, -hw * 0.55, hs * 0.24);
+        ctx.stroke();
+        ctx.restore();
+        ctx.save(); ctx.rotate(-armSwing);
+        ctx.beginPath();
+        ctx.moveTo(hw * 0.68, -hs * 0.28);
+        ctx.quadraticCurveTo(hw * 1.05, hs * 0.05, hw * 0.55, hs * 0.24);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Inner glow core
+      ctx.shadowBlur = 0;
+      const cg = ctx.createRadialGradient(0, -hs * 0.25, 0, 0, -hs * 0.25, hw * 1.2);
+      cg.addColorStop(0,   hexToRgba(bodyColor, 0.38));
+      cg.addColorStop(0.6, hexToRgba(bodyColor, 0.10));
+      cg.addColorStop(1,   "rgba(0,0,0,0)");
+      ctx.fillStyle = cg; ctx.globalCompositeOperation = "screen";
+      ctx.beginPath(); ctx.ellipse(0, -hs * 0.25, hw * 1.5, hs, 0, 0, Math.PI * 2); ctx.fill();
     }
-    drawSprite(0 /* runner */, 0, 0, size, 1);
     ctx.restore();
   }
 
@@ -1796,7 +2438,7 @@
 
   function drawSprite(index, x, y, size, alpha = 1) {
     if (!images.sprites) {
-      // Fallback: glowing capsule
+      // Fallback capsule (should rarely hit with new drawPlayerSilhouette)
       ctx.save(); ctx.globalAlpha = (ctx.globalAlpha || 1) * alpha;
       ctx.fillStyle = "#75ecff44";
       ctx.beginPath(); ctx.arc(x, y, size / 2, 0, Math.PI * 2); ctx.fill();
@@ -1887,37 +2529,88 @@
     ctx.globalAlpha = 1; ctx.restore();
   }
 
-  // ─── Era label ───────────────────────────────────────────────────────────────
+  // ─── Axis 8: Full-screen era transition sweep + Fraunces banner ──────────────
+  function drawEraTransitionSweep() {
+    if (eraSweepProgress < 0 || eraSweepProgress >= 1) return;
+    const p = eraSweepProgress;
+    // Diagonal wipe left-to-right
+    const wipeX = lerp(-BASE_W * 0.15, BASE_W * 1.15, easeOut(p));
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+    const sg = ctx.createLinearGradient(wipeX - 140, 0, wipeX + 60, 0);
+    sg.addColorStop(0,    "rgba(0,0,0,0)");
+    sg.addColorStop(0.35, hexToRgba(eraSweepColor, 0.28));
+    sg.addColorStop(0.65, hexToRgba(eraSweepColor, 0.18));
+    sg.addColorStop(1,    "rgba(0,0,0,0)");
+    ctx.fillStyle = sg;
+    ctx.fillRect(0, 0, BASE_W, BASE_H);
+    ctx.restore();
+
+    // Era banner in Fraunces italic
+    if (eraBannerAlpha > 0.02 && eraBannerText) {
+      ctx.save();
+      ctx.globalAlpha = clamp(eraBannerAlpha, 0, 1);
+      ctx.globalCompositeOperation = "source-over";
+      // Background pill
+      const bw  = BASE_W * 0.68;
+      const bh  = 64;
+      const bx  = BASE_W / 2 - bw / 2;
+      const by  = BASE_H / 2 - 42;
+      ctx.fillStyle = "rgba(5,7,17,.82)";
+      ctx.shadowColor = eraSweepColor; ctx.shadowBlur = 28;
+      roundRect(bx, by, bw, bh, 16); ctx.fill();
+      ctx.strokeStyle = hexToRgba(eraSweepColor, 0.65); ctx.lineWidth = 1.5;
+      roundRect(bx, by, bw, bh, 16); ctx.stroke();
+      ctx.shadowBlur = 0;
+      // Text
+      ctx.fillStyle   = "#f7f4ec";
+      ctx.textAlign   = "center"; ctx.textBaseline = "middle";
+      ctx.font = `italic 700 ${clamp(Math.floor(BASE_W * 0.026), 18, 30)}px Fraunces, Georgia, serif`;
+      ctx.fillText(eraBannerText, BASE_W / 2, by + bh / 2);
+      ctx.restore();
+    }
+  }
+
+  // ─── Era label (in-game corner badge) ────────────────────────────────────────
   function drawEraLabel() {
     if (!state.running) return;
     const era   = ERAS[state.eraIndex];
-    const alpha = Math.min(1, state.eraTransition * 3) * 0.88;
+    const alpha = Math.min(1, state.eraTransition * 3) * 0.86;
     ctx.save(); ctx.globalAlpha = alpha;
-    ctx.fillStyle = hexToRgba(era.color, 0.90);
-    ctx.font = "700 13px Inter, system-ui, sans-serif";
-    ctx.textAlign = "right"; ctx.textBaseline = "top";
-    ctx.fillText(`ERA: ${era.name.toUpperCase()}`, BASE_W - 18, 14);
+    // Pill background
+    const lw = 138; const lh = 40; const lx = BASE_W - lw - 12; const ly = 10;
+    ctx.fillStyle   = "rgba(5,7,17,.78)";
+    ctx.strokeStyle = hexToRgba(era.color, 0.60); ctx.lineWidth = 1.5;
+    ctx.shadowColor = era.accent; ctx.shadowBlur = 12;
+    roundRect(lx, ly, lw, lh, 12); ctx.fill();
+    roundRect(lx, ly, lw, lh, 12); ctx.stroke();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle   = hexToRgba(era.color, 0.95);
+    ctx.font        = "700 11px Inter, system-ui, sans-serif";
+    ctx.textAlign   = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(era.name.toUpperCase(), lx + lw / 2, ly + lh / 2 - 8);
     // Era key counter
-    ctx.fillStyle = "#f5a623";
-    ctx.textAlign = "right";
-    ctx.fillText(`KEYS: ${state.eraKeys}/5`, BASE_W - 18, 32);
+    ctx.fillStyle = "#f5a623"; ctx.font = "700 10px JetBrains Mono, monospace";
+    ctx.fillText(`Keys: ${state.eraKeys}/5`, lx + lw / 2, ly + lh / 2 + 7);
     ctx.restore();
   }
 
-  // ─── Multiplier badge ─────────────────────────────────────────────────────────
+  // ─── Multiplier badge (canvas) ────────────────────────────────────────────────
+  // Axis 6: pulses on advance, JetBrains Mono
   function drawMultiplierBadge() {
     if (!state.running || state.multiplier <= 1.05) return;
-    const pulse = 1 + Math.sin(state.elapsed * 9) * 0.06;
+    const pulse = 1 + Math.sin(state.elapsed * 9.5) * 0.06;
     ctx.save();
-    ctx.translate(BASE_W - 22, 68);
+    ctx.translate(BASE_W - 24, 74);
     ctx.scale(pulse, pulse);
-    ctx.fillStyle   = "rgba(5,7,17,.82)";
+    ctx.fillStyle   = "rgba(5,7,17,.86)";
     ctx.strokeStyle = "#f5c451"; ctx.lineWidth = 2;
-    ctx.shadowColor = "#f5c451"; ctx.shadowBlur = 18;
-    roundRect(-38, -18, 76, 36, 12); ctx.fill();
-    roundRect(-38, -18, 76, 36, 12); ctx.stroke();
+    ctx.shadowColor = "#f5c451"; ctx.shadowBlur = 20;
+    roundRect(-40, -19, 80, 38, 12); ctx.fill();
+    roundRect(-40, -19, 80, 38, 12); ctx.stroke();
     ctx.shadowBlur = 0;
-    ctx.fillStyle = "#f5c451"; ctx.font = "900 18px Inter, system-ui, sans-serif";
+    ctx.fillStyle = "#f5c451";
+    ctx.font = `900 17px 'JetBrains Mono', monospace`;
     ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText(`×${state.multiplier.toFixed(1)}`, 0, 0);
     ctx.restore();
@@ -2028,6 +2721,21 @@
       else document.exitFullscreen?.();
     });
 
+    // Axis 1: Coin shop from title screen
+    const shopTitleBtn = $("shopTitleBtn");
+    const shopModal    = $("shopModal");
+    const shopCloseBtn = $("shopCloseBtn");
+    const shopGridModal = $("shopGridModal");
+    if (shopTitleBtn && shopModal) {
+      shopTitleBtn.addEventListener("click", () => {
+        renderShopInto(shopGridModal);
+        shopModal.classList.add("show");
+      });
+    }
+    if (shopCloseBtn && shopModal) {
+      shopCloseBtn.addEventListener("click", () => shopModal.classList.remove("show"));
+    }
+
     // Touch dock buttons
     els.leftBtn.addEventListener("click",  () => moveLane(-1));
     els.rightBtn.addEventListener("click", () => moveLane(1));
@@ -2104,6 +2812,8 @@
     if (!state.running || state.paused || state.gameOver) state.elapsed += dt * 0.45;
     update(dt);
     draw();
+    // Axis 1: Title parallax animation
+    if (!state.running || state.paused) drawTitleParallax(dt);
     requestAnimationFrame(loop);
   }
 

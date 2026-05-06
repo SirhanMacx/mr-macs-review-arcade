@@ -9,11 +9,13 @@
   <script>
     if (new URLSearchParams(location.search).get("fx") !== "full") document.documentElement.classList.add("perf-lite");
   </script>
-  <link rel="stylesheet" href="styles.css?v=20260505-v2">
+  <link rel="stylesheet" href="styles.css?v=20260505-v3">
 </head>
 <body>
-  <div class="bg"></div>
+  <div class="bg" aria-hidden="true"></div>
   <canvas id="particleCanvas" aria-hidden="true"></canvas>
+
+  <!-- ROUND INTRO OVERLAY (injected by JS, hidden initially) -->
 
   <main class="shell" id="app">
     <!-- TOP BAR -->
@@ -21,35 +23,46 @@
       <div class="brand">
         <div class="mark" aria-hidden="true"></div>
         <div>
-          <strong>Arcade Duel</strong>
+          <strong>Arcade <em>Duel</em></strong>
           <span>Turn-based MCQ Combat · Best of 3</span>
         </div>
       </div>
       <div class="top-actions">
         <button class="btn icon-btn" id="muteBtn" type="button" title="Toggle sound" aria-label="Toggle sound">🔊</button>
-        <button class="btn icon-btn" id="pauseBtn" type="button" title="Pause" aria-label="Pause" style="display:none">⏸</button>
-        <button class="btn" id="openHub" type="button">Back</button>
+        <button class="btn icon-btn" id="pauseBtn" type="button" title="Pause game" aria-label="Pause game" style="display:none">⏸</button>
+        <button class="btn" id="openHub" type="button" aria-label="Back to Arcade Hub">Back</button>
       </div>
     </header>
 
     <!-- SETUP SCREEN -->
-    <section class="panel setup" id="setup">
-      <div class="panel-head">
-        <h1>Pick your mission</h1>
-        <p>Choose your course, difficulty, and opponent. Correct answers power your strikes — a 3-answer streak unlocks a Finisher.</p>
+    <section class="panel setup" id="setup" aria-label="Game setup">
+      <!-- Big title block -->
+      <div class="setup-title-block">
+        <h1 class="setup-game-title">Arcade <span class="duel-word">Duel</span></h1>
+        <p class="setup-subtitle">Choose your course, difficulty, and opponent. Correct answers power your strikes — a 3-answer streak unlocks a Finisher.</p>
       </div>
+
+      <!-- Story ladder visualization -->
+      <div class="story-ladder" id="storyLadder" aria-label="Story mode opponent ladder">
+        <p class="story-ladder-title">Era Ladder</p>
+        <div class="ladder-list" id="ladderList" role="list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Form options -->
       <div class="form">
         <label>
           <span>Course</span>
-          <select id="courseSelect"></select>
+          <select id="courseSelect" aria-label="Select course"></select>
         </label>
         <label>
           <span>Set</span>
-          <select id="setSelect"></select>
+          <select id="setSelect" aria-label="Select question set"></select>
         </label>
         <label>
           <span>Run length</span>
-          <select id="lengthSelect">
+          <select id="lengthSelect" aria-label="Select run length">
             <option value="15">15 questions</option>
             <option value="25" selected>25 questions</option>
             <option value="35">35 questions</option>
@@ -57,112 +70,113 @@
           </select>
         </label>
         <label>
-          <span>Difficulty</span>
-          <select id="diffSelect">
-            <option value="apprentice">Apprentice</option>
-            <option value="skilled" selected>Skilled</option>
-            <option value="master">Master</option>
-          </select>
-        </label>
-        <label>
           <span>Mode</span>
-          <select id="modeSelect">
+          <select id="modeSelect" aria-label="Select game mode">
             <option value="story">Story — Era Ladder</option>
             <option value="versus">Versus — Pick Opponent</option>
           </select>
         </label>
         <label id="opponentPickWrap" class="hidden">
           <span>Opponent</span>
-          <select id="opponentSelect"></select>
+          <select id="opponentSelect" aria-label="Select opponent"></select>
         </label>
       </div>
+
+      <!-- Difficulty pills -->
+      <div style="padding: 0 22px 14px;">
+        <div style="font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:10px;">Difficulty</div>
+        <div class="diff-pills" role="group" aria-label="Difficulty selection">
+          <button class="diff-pill" data-diff="apprentice" type="button" aria-pressed="false">Apprentice</button>
+          <button class="diff-pill active-skilled" data-diff="skilled" type="button" aria-pressed="true">Skilled</button>
+          <button class="diff-pill" data-diff="master" type="button" aria-pressed="false">Master</button>
+        </div>
+      </div>
+
       <div class="setup-metrics" id="setupMetrics"></div>
       <div class="setup-actions">
-        <button class="btn primary" id="startBtn" type="button">Start Duel</button>
+        <div class="tiny" id="loadStatus" style="padding:0;flex:1">Loading bank…</div>
+        <button class="enter-arena-btn" id="startBtn" type="button" aria-label="Start Duel — Enter Arena">Enter Arena</button>
       </div>
-      <div class="tiny" id="loadStatus">Loading bank…</div>
     </section>
 
     <!-- MATCH SCREEN -->
-    <section class="panel duel hidden" id="duel" aria-live="polite">
+    <section class="panel duel hidden" id="duel" aria-live="polite" aria-label="Battle arena">
 
       <!-- HUD -->
-      <header class="hud">
+      <header class="hud" aria-label="Battle stats">
         <div class="hud-left">
           <div class="hud-title" id="missionTitle">Mission</div>
           <div class="hud-sub" id="missionMeta">Loading…</div>
         </div>
         <div class="hud-center">
-          <div class="round-pips" id="roundPips" aria-label="Round score"></div>
+          <div class="round-pips" id="roundPips" aria-label="Round score" role="img"></div>
           <div class="round-label" id="roundLabel">Round 1 of 3</div>
         </div>
         <div class="hud-right">
           <div class="stat">
-            <strong id="timerText">99</strong>
-            <span>time</span>
+            <strong id="timerText" aria-label="Time remaining">99</strong>
+            <span aria-hidden="true">time</span>
           </div>
           <div class="stat">
-            <strong id="streakText">0</strong>
-            <span>streak</span>
+            <strong id="streakText" aria-label="Current streak">0</strong>
+            <span aria-hidden="true">streak</span>
           </div>
           <div class="stat">
-            <strong id="chargeText">0</strong>
-            <span>charge</span>
+            <strong id="chargeText" aria-label="Charge level">0</strong>
+            <span aria-hidden="true">charge</span>
           </div>
         </div>
       </header>
 
       <!-- HEALTH BARS -->
-      <section class="bars">
+      <section class="bars" aria-label="Health bars">
         <div class="bar-group">
-          <div class="bar-label">YOU</div>
-          <div class="bar-track">
+          <div class="bar-label" aria-hidden="true">You</div>
+          <div class="bar-track" role="progressbar" aria-label="Your HP" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="youBarTrack">
             <div class="bar-fill you" id="youBar"></div>
           </div>
-          <div class="bar-hp" id="youHpText">100</div>
+          <div class="bar-hp" id="youHpText" aria-label="Your HP value">100</div>
         </div>
-        <div class="vs-badge">VS</div>
+        <div class="vs-badge" aria-hidden="true">VS</div>
         <div class="bar-group enemy-side">
-          <div class="bar-hp enemy-hp" id="enemyHpText">100</div>
-          <div class="bar-track">
+          <div class="bar-hp enemy-hp" id="enemyHpText" aria-label="Enemy HP value">100</div>
+          <div class="bar-track" role="progressbar" aria-label="Enemy HP" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="enemyBarTrack">
             <div class="bar-fill enemy" id="enemyBar"></div>
           </div>
-          <div class="bar-label enemy-label" id="enemyBarLabel">Enemy</div>
+          <div class="bar-label enemy-label" id="enemyBarLabel" aria-label="Enemy name">Enemy</div>
         </div>
       </section>
 
       <!-- CHARGE METER -->
-      <div class="charge-row">
-        <div class="charge-label">Special Charge</div>
-        <div class="charge-track" id="chargeTrack">
+      <div class="charge-row" aria-label="Special charge meter">
+        <div class="charge-label" aria-hidden="true">Special Charge</div>
+        <div class="charge-track" role="progressbar" aria-label="Charge" aria-valuenow="0" aria-valuemin="0" aria-valuemax="3" id="chargeTrack">
           <div class="charge-fill" id="chargeFill"></div>
-          <div class="charge-ticks">
+          <div class="charge-ticks" aria-hidden="true">
             <span></span><span></span><span></span>
           </div>
         </div>
-        <div class="charge-ready hidden" id="chargeReady">READY</div>
+        <div class="charge-ready hidden" id="chargeReady" aria-live="polite">READY</div>
       </div>
 
       <!-- COMBAT STAGE -->
       <section class="combat-stage" id="combatStage" aria-hidden="true">
         <div class="stage-vignette"></div>
         <div class="combatant player" id="playerCombatant">
-          <div class="avatar player-avatar" id="playerAvatar"></div>
+          <div class="avatar player-avatar" id="playerAvatar" role="img" aria-label="Your fighter"></div>
           <div class="combat-label">Review Core</div>
         </div>
         <div class="stage-center">
-          <div class="stage-callout" id="stageCallout">Fight!</div>
-          <div class="pulse-ring"></div>
-          <!-- Combo counter -->
-          <div class="combo-counter hidden" id="comboCounter"></div>
+          <div class="stage-callout" id="stageCallout" aria-live="polite">Fight!</div>
+          <div class="pulse-ring" aria-hidden="true"></div>
+          <div class="combo-counter hidden" id="comboCounter" aria-live="polite"></div>
         </div>
         <div class="combatant enemy" id="enemyCombatant">
-          <div class="avatar enemy-avatar" id="enemyAvatar"></div>
+          <div class="avatar enemy-avatar" id="enemyAvatar" role="img" aria-label="Enemy fighter"></div>
           <div class="combat-label" id="enemyStageName">Opponent</div>
         </div>
-        <div class="impact-burst" id="impactBurst"></div>
-        <!-- Stinger banner -->
-        <div class="stinger hidden" id="stinger"></div>
+        <div class="impact-burst" id="impactBurst" aria-hidden="true"></div>
+        <div class="stinger hidden" id="stinger" aria-live="assertive" role="status"></div>
       </section>
 
       <!-- ARENA: STIMULUS + QUESTION + COMMAND MENU -->
@@ -170,102 +184,108 @@
         <aside class="stimulus hidden" id="stimulusPanel" aria-label="Stimulus images">
           <div class="stimulus-head">
             <strong>Stimulus</strong>
-            <button class="btn mini" id="toggleStimulus" type="button">Expand</button>
+            <button class="btn mini" id="toggleStimulus" type="button" aria-expanded="false">Expand</button>
           </div>
           <div class="stimulus-strip" id="stimulusStrip"></div>
         </aside>
 
-        <section class="question" id="questionPanel">
+        <section class="question" id="questionPanel" aria-label="Battle commands and questions">
           <!-- Command menu (visible before question pops) -->
-          <div class="command-menu" id="commandMenu">
-            <button class="cmd-btn attack" id="cmdAttack" type="button" data-key="J">
-              <span class="cmd-icon">⚔️</span>
+          <div class="command-menu" id="commandMenu" role="group" aria-label="Battle commands">
+            <button class="cmd-btn attack" id="cmdAttack" type="button" data-key="J" aria-label="Attack — answer a question">
+              <span class="cmd-icon" aria-hidden="true">⚔️</span>
               <span class="cmd-name">Attack</span>
               <span class="cmd-sub">Answer a question</span>
             </button>
-            <button class="cmd-btn special" id="cmdSpecial" type="button" disabled data-key="L">
-              <span class="cmd-icon">⚡</span>
+            <button class="cmd-btn special" id="cmdSpecial" type="button" disabled data-key="L" aria-label="Special attack — requires 3 charge">
+              <span class="cmd-icon" aria-hidden="true">⚡</span>
               <span class="cmd-name">Special</span>
               <span class="cmd-sub">3 charge needed</span>
+              <div class="charge-pips" id="cmdSpecialPips" aria-hidden="true">
+                <span class="charge-pip" id="cpip0"></span>
+                <span class="charge-pip" id="cpip1"></span>
+                <span class="charge-pip" id="cpip2"></span>
+              </div>
             </button>
-            <button class="cmd-btn defend" id="cmdDefend" type="button" data-key="K">
-              <span class="cmd-icon">🛡️</span>
+            <button class="cmd-btn defend" id="cmdDefend" type="button" data-key="K" aria-label="Defend — reduce next incoming hit by 50%">
+              <span class="cmd-icon" aria-hidden="true">🛡️</span>
               <span class="cmd-name">Defend</span>
               <span class="cmd-sub">Reduce next hit</span>
             </button>
-            <button class="cmd-btn item" id="cmdItem" type="button" data-key="I">
-              <span class="cmd-icon">🧪</span>
+            <button class="cmd-btn item" id="cmdItem" type="button" data-key="I" aria-label="Restore — heal 20 HP, one use per round">
+              <span class="cmd-icon" aria-hidden="true">🧪</span>
               <span class="cmd-name">Restore</span>
               <span class="cmd-sub" id="itemSubLabel">Heal 20 HP (1 use)</span>
             </button>
           </div>
 
           <!-- Question card (hidden until Attack/Special chosen) -->
-          <div class="question-card hidden" id="questionCard">
-            <div class="q-tags" id="qTags"></div>
+          <div class="question-card hidden" id="questionCard" aria-label="Question">
+            <div class="q-tags" id="qTags" aria-label="Question tags"></div>
             <h2 class="q-stem" id="qStem"></h2>
-            <div class="choices" id="choices"></div>
+            <div class="choices" id="choices" role="group" aria-label="Answer choices"></div>
             <div class="q-footer">
-              <button class="btn tool skip-btn" id="skipBtn" type="button">Skip (opponent gets free hit)</button>
+              <button class="btn tool skip-btn" id="skipBtn" type="button" aria-label="Skip this question — opponent gets a free attack">Skip (opponent gets free hit)</button>
             </div>
-            <div class="feedback hidden" id="feedback"></div>
-            <button class="btn primary hidden" id="nextBtn" type="button">Next →</button>
+            <div class="feedback hidden" id="feedback" aria-live="polite" role="status"></div>
+            <button class="btn primary hidden" id="nextBtn" type="button" aria-label="Continue to next action">Next →</button>
           </div>
         </section>
       </section>
 
       <!-- MOBILE TOUCH CONTROLS -->
-      <div class="touch-bar" id="touchBar" aria-label="Touch controls">
-        <button class="touch-btn" id="tAttack" type="button">⚔️ Attack</button>
-        <button class="touch-btn" id="tSpecial" type="button" disabled>⚡ Special</button>
-        <button class="touch-btn" id="tDefend" type="button">🛡️ Defend</button>
-        <button class="touch-btn" id="tItem" type="button">🧪 Restore</button>
+      <div class="touch-bar" id="touchBar" aria-label="Touch battle controls">
+        <button class="touch-btn" id="tAttack" type="button" aria-label="Attack">⚔️ Attack</button>
+        <button class="touch-btn" id="tSpecial" type="button" disabled aria-label="Special (needs charge)">⚡ Special</button>
+        <button class="touch-btn" id="tDefend" type="button" aria-label="Defend">🛡️ Defend</button>
+        <button class="touch-btn" id="tItem" type="button" aria-label="Restore HP">🧪 Restore</button>
       </div>
     </section>
 
     <!-- INTER-ROUND BREATHER -->
-    <section class="panel hidden" id="roundBreather">
+    <section class="panel hidden" id="roundBreather" aria-label="Between rounds">
       <div class="breather-inner">
-        <div class="breather-badge" id="breatherBadge">Round 1 Win!</div>
+        <div class="breather-badge" id="breatherBadge" aria-live="polite">Round 1 Win!</div>
         <h2 id="breatherTitle">Prepare for Round 2</h2>
         <p id="breatherTip"></p>
-        <div class="breather-bars">
+        <div class="breather-bars" aria-label="HP preview for next round">
           <div class="breather-bar-row">
             <span>You</span>
             <div class="bar-track slim"><div class="bar-fill you" id="bYouBar"></div></div>
-            <span id="bYouHp"></span>
+            <span id="bYouHp" aria-label="Your HP next round"></span>
           </div>
           <div class="breather-bar-row">
             <span id="bEnemyName">Enemy</span>
             <div class="bar-track slim"><div class="bar-fill enemy" id="bEnemyBar"></div></div>
-            <span id="bEnemyHp"></span>
+            <span id="bEnemyHp" aria-label="Enemy HP next round"></span>
           </div>
         </div>
-        <button class="btn primary" id="continueRoundBtn" type="button">Fight! →</button>
+        <button class="btn primary" id="continueRoundBtn" type="button" aria-label="Begin next round">Fight! →</button>
       </div>
     </section>
 
     <!-- END SCREEN -->
-    <section class="panel end hidden" id="end">
-      <div class="panel-head">
-        <h2 id="endTitle">Match Over</h2>
-        <p id="endMeta"></p>
+    <section class="panel end hidden" id="end" aria-label="Match results">
+      <div class="end-banner">
+        <h2 class="end-result-title" id="endResultTitle" aria-live="assertive"></h2>
+        <p class="end-result-meta" id="endMeta"></p>
       </div>
-      <div class="end-grid" id="endGrid"></div>
+      <div class="end-metrics-label">Match Summary</div>
+      <div class="end-grid" id="endGrid" aria-label="Match statistics"></div>
       <div class="missed">
         <h3>Study targets</h3>
-        <div class="missed-list" id="missedList"></div>
+        <div class="missed-list" id="missedList" aria-label="Missed questions to review"></div>
       </div>
       <div class="setup-actions">
-        <button class="btn" id="againBtn" type="button">New Duel</button>
+        <button class="btn" id="againBtn" type="button" aria-label="Start a new duel">New Duel</button>
       </div>
     </section>
 
     <!-- PAUSE OVERLAY -->
-    <div class="pause-overlay hidden" id="pauseOverlay">
+    <div class="pause-overlay hidden" id="pauseOverlay" role="dialog" aria-label="Game paused" aria-modal="true">
       <div class="pause-box">
         <h2>Paused</h2>
-        <button class="btn primary" id="resumeBtn" type="button">Resume</button>
+        <button class="btn primary" id="resumeBtn" type="button" autofocus>Resume</button>
         <button class="btn" id="quitBtn" type="button">Quit to Menu</button>
       </div>
     </div>
@@ -273,7 +293,7 @@
 
   <script src="../../assets/source-bank.js?v=20260502-source-contract"></script>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
-  <script src="game.js?v=20260505-v2"></script>
+  <script src="game.js?v=20260505-v3"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

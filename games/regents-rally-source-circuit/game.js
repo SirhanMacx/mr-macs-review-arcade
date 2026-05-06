@@ -794,6 +794,9 @@ const state = {
   dpr: 1
 };
 
+// Reduced-motion: skip shake, warp, speed-lines
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -906,6 +909,18 @@ function renderCharacters() {
       renderDriverPreview();
       updateTopStats();
     });
+    // Perspective tilt on hover (skipped for reduced-motion)
+    if (!prefersReducedMotion) {
+      button.addEventListener("mousemove", (e) => {
+        const r = button.getBoundingClientRect();
+        const nx = (e.clientX - r.left) / r.width - 0.5;
+        const ny = (e.clientY - r.top) / r.height - 0.5;
+        button.style.transform = `translateY(-5px) perspective(400px) rotateX(${(-ny * 7).toFixed(1)}deg) rotateY(${(nx * 10).toFixed(1)}deg)`;
+      });
+      button.addEventListener("mouseleave", () => {
+        button.style.transform = "";
+      });
+    }
   });
   renderDriverPreview();
 }
@@ -1216,6 +1231,8 @@ function openQuestion(source = "item") {
   state.questionSource = source;
   renderQuestion(source);
   els.questionCard.classList.remove("hidden");
+  // Force reflow so transition fires from the transformed state
+  void els.questionCard.offsetWidth;
   els.questionCard.classList.add("active");
   if (els.skipBtn) els.skipBtn.style.display = source === "gate" ? "block" : "none";
   setToast(source === "gate" ? "QUESTION GATE" : "POWERUP CLUE", 0.8);
@@ -1401,8 +1418,11 @@ function updateItemRoulette(dt) {
   if (!state.itemRoulette) return;
   const before = state.itemRoulette.timer;
   state.itemRoulette.timer = Math.max(0, state.itemRoulette.timer - dt);
-  state.itemRoulette.seed += dt * 16;
-  sfxItemRoll();
+  // Decelerate: fast at start, slow at end — easeInQuart decel curve
+  const progress = 1 - state.itemRoulette.timer / state.itemRoulette.total;
+  const speedMult = Math.pow(1 - clamp(progress, 0, 0.94), 2); // quadratic slowdown
+  state.itemRoulette.seed += dt * (24 * (0.15 + speedMult));
+  if (Math.random() < (0.15 + speedMult) * 2) sfxItemRoll();
   if (before > 0 && state.itemRoulette.timer <= 0) {
     state.item = pickRouletteItem();
     state.racecraft.rouletteHits += 1;
@@ -1464,6 +1484,13 @@ function updateHud() {
       setTimeout(() => { state.finalLapFlash = false; }, 600);
       sfxFinalLap();
       setToast("FINAL LAP!", 2.0);
+      // Show red FINAL LAP badge in HUD lap cell
+      const finalBadge = document.getElementById("finalLapBadge");
+      if (finalBadge) {
+        finalBadge.textContent = "FINAL LAP";
+        finalBadge.classList.add("show");
+        setTimeout(() => finalBadge.classList.remove("show"), 3200);
+      }
     } else {
       setToast(newRecord ? `LAP ${newLap - 1} — NEW BEST!` : `LAP ${newLap - 1} — ${formatTime(lapTime)}`, 1.8);
     }
@@ -1492,12 +1519,29 @@ function updateHud() {
   els.hudScore.textContent = String(Math.max(0, Math.round(state.score)));
 
   const speedFrac = clamp(state.speed / 620, 0, 1);
-  els.speedBar.style.transform = `scaleX(${speedFrac})`;
+  // Legacy bar (still used as fallback)
+  if (els.speedBar) els.speedBar.style.transform = `scaleX(${speedFrac})`;
+
+  // Glass arc speedometer — dashoffset drives the needle
+  const speedArc = document.getElementById("speedArc");
+  if (speedArc) {
+    const totalLen = 163; // arc path length for our SVG viewBox
+    const offset = totalLen * (1 - speedFrac);
+    speedArc.style.strokeDashoffset = offset.toFixed(1);
+    // Color shift: cyan → yellow → magenta at high speed
+    const arcColor = speedFrac > .82 ? "#ff3a8c" : speedFrac > .56 ? "#ffce3b" : "#7af0ff";
+    speedArc.style.stroke = arcColor;
+  }
   if (els.speedNum) els.speedNum.textContent = Math.round(state.speed / 6.2);
 
-  // Boost meter
+  // Boost meter segments (5 lit pips)
   const boostFrac = clamp(state.boostMeter, 0, 1);
   if (els.boostBar) els.boostBar.style.transform = `scaleX(${boostFrac})`;
+  const boostSegs = document.getElementById("boostSegments");
+  if (boostSegs) {
+    const litCount = Math.round(boostFrac * 5);
+    boostSegs.querySelectorAll("span").forEach((s, i) => s.classList.toggle("lit", i < litCount));
+  }
 
   if (state.quizOpen && !state.resolved && state.current) {
     const left = Math.max(0, state.deadline - Date.now());
@@ -1587,15 +1631,41 @@ function finishRace() {
 
   if (els.resultTitle) els.resultTitle.textContent = title;
   if (els.resultGrid) {
-    els.resultGrid.innerHTML = [
-      [ordinal(state.place), "place"],
-      [`${state.finishTime.toFixed(1)}s`, "time"],
-      [state.lapBest ? formatTime(state.lapBest) : "--", "best lap"],
-      [`${state.correct}/${state.attempts}`, "items"],
-      [`${accuracy}%`, "accuracy"],
-      [String(state.racecraft.nearMisses), "near misses"],
-      [`${state.racecraft.draftSeconds.toFixed(1)}s`, "draft"]
-    ].map(([big, label]) => `<div><strong>${escapeHtml(big)}</strong><span>${escapeHtml(label)}</span></div>`).join("");
+    const stats = [
+      [ordinal(state.place), "place", false],
+      [`${state.finishTime.toFixed(1)}s`, "time", false],
+      [state.lapBest ? formatTime(state.lapBest) : "--", "best lap", false],
+      [`${state.correct}/${state.attempts}`, "items", false],
+      [`${accuracy}%`, "accuracy", true],
+      [String(state.racecraft.nearMisses), "near misses", true],
+      [`${state.racecraft.draftSeconds.toFixed(1)}s`, "draft", true]
+    ];
+    els.resultGrid.innerHTML = stats.map(([big, label, countUp], idx) => {
+      const id = `rstat-${idx}`;
+      return `<div><strong id="${id}" data-target="${escapeHtml(big)}">${countUp ? "0" : escapeHtml(big)}</strong><span>${escapeHtml(label)}</span></div>`;
+    }).join("");
+
+    // Animate count-up for numeric stats
+    stats.forEach(([big, , countUp], idx) => {
+      if (!countUp) return;
+      const el = document.getElementById(`rstat-${idx}`);
+      if (!el) return;
+      const isFloat = big.includes(".");
+      const rawNum = parseFloat(big);
+      const suffix = big.replace(/[\d.]/g, "");
+      if (!isFinite(rawNum)) return;
+      const start = performance.now();
+      const duration = 900 + idx * 120;
+      function step(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+        const cur = rawNum * eased;
+        el.textContent = (isFloat ? cur.toFixed(1) : Math.round(cur)) + suffix;
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = big;
+      }
+      setTimeout(() => requestAnimationFrame(step), 180 + idx * 60);
+    });
   }
   if (els.coachText) {
     els.coachText.textContent = accuracy >= 85
@@ -1802,6 +1872,9 @@ function updateRace(dt) {
       setToast(DRIFT_LABELS[tier], 0.8);
       sfxMiniTurbo(tier);
       burstParticles(state.lane, tier === 1 ? state.character.accent : DRIFT_COLORS[tier], [0, 16, 28, 42][tier]);
+      // Mini-turbo release: brief screen flash + radial pulse matching tier color
+      const flashColor = tier === 3 ? "#7af0ff" : tier === 2 ? "#ffce3b" : state.character.accent;
+      state._turboFlash = { tier, color: flashColor, life: tier === 3 ? 0.28 : tier === 2 ? 0.22 : 0.15 };
     }
     state.driftCharge = 0;
     state.driftTier = 0;
@@ -1824,6 +1897,10 @@ function updateRace(dt) {
   state.finishPulse = Math.max(0, state.finishPulse - dt);
   state.hitFlash = Math.max(0, state.hitFlash - dt);
   state.cameraShake = Math.max(0, state.cameraShake - dt * 1.9);
+  if (state._turboFlash) {
+    state._turboFlash.life = Math.max(0, state._turboFlash.life - dt);
+    if (state._turboFlash.life <= 0) state._turboFlash = null;
+  }
   state.toastTime = Math.max(0, state.toastTime - dt);
   state.nearMissCooldown = Math.max(0, state.nearMissCooldown - dt);
   state.skipPenalty = Math.max(0, state.skipPenalty - dt);
@@ -2121,14 +2198,15 @@ function drawRace(now) {
   ctx.save();
 
   // Fish-eye / FOV widening at high speed: slight radial stretch
-  if (state.fov > 1.01) {
+  // (skipped when prefers-reduced-motion is set)
+  if (!prefersReducedMotion && state.fov > 1.01) {
     const scale = state.fov;
     ctx.translate(w / 2, h / 2);
     ctx.scale(scale, 1 + (scale - 1) * 0.4);
     ctx.translate(-w / 2, -h / 2);
   }
 
-  if (state.cameraShake > 0) {
+  if (!prefersReducedMotion && state.cameraShake > 0) {
     const amount = state.cameraShake * 18;
     ctx.translate(Math.sin(now * 0.067) * amount, Math.cos(now * 0.051) * amount * 0.62);
   }
@@ -2157,7 +2235,25 @@ function drawRace(now) {
   if (state.hitFlash > 0) {
     ctx.save();
     ctx.globalAlpha = state.hitFlash * 0.35;
-    ctx.fillStyle = "#ff5f9f";
+    ctx.fillStyle = "#ff3a8c";
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+  }
+  // Mini-turbo release flash: brief screen tint + radial pulse
+  if (state._turboFlash && state._turboFlash.life > 0) {
+    const tf = state._turboFlash;
+    const a = clamp(tf.life / (tf.tier === 3 ? 0.28 : tf.tier === 2 ? 0.22 : 0.15), 0, 1);
+    ctx.save();
+    ctx.globalAlpha = a * 0.22;
+    ctx.fillStyle = tf.color;
+    ctx.fillRect(0, 0, w, h);
+    // Radial pulse from kart base
+    const pulseR = (1 - a) * Math.max(w, h) * 0.55;
+    const grad = ctx.createRadialGradient(w / 2, h * 0.72, 0, w / 2, h * 0.72, pulseR);
+    grad.addColorStop(0, colorAlpha(tf.color, a * 0.55));
+    grad.addColorStop(1, colorAlpha(tf.color, 0));
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
     ctx.restore();
   }
@@ -2212,24 +2308,44 @@ function drawSparkParticles(w, h) {
   state.sparkParticles.forEach((p) => {
     const point = objectPoint(p.ahead, p.lane, w, h);
     if (!point) return;
-    ctx.save();
-    ctx.globalAlpha = clamp(p.life / p.max, 0, 1);
-    ctx.fillStyle = p.color;
-    ctx.strokeStyle = p.color;
-    ctx.lineWidth = 1;
+    const baseAlpha = clamp(p.life / p.max, 0, 1);
     const s = Math.max(1.5, point.scale * p.size);
-    // Star-shaped spark
+    ctx.save();
+
+    // Layer 1: tier-colored halo glow (larger, softer)
+    ctx.globalAlpha = baseAlpha * 0.45;
+    ctx.fillStyle = p.color;
+    ctx.shadowBlur = s * 3;
+    ctx.shadowColor = p.color;
     ctx.beginPath();
-    ctx.moveTo(point.x, point.y - s);
-    ctx.lineTo(point.x + s * 0.3, point.y - s * 0.3);
-    ctx.lineTo(point.x + s, point.y);
-    ctx.lineTo(point.x + s * 0.3, point.y + s * 0.3);
-    ctx.lineTo(point.x, point.y + s);
-    ctx.lineTo(point.x - s * 0.3, point.y + s * 0.3);
-    ctx.lineTo(point.x - s, point.y);
-    ctx.lineTo(point.x - s * 0.3, point.y - s * 0.3);
+    ctx.moveTo(point.x, point.y - s * 1.4);
+    ctx.lineTo(point.x + s * 0.4, point.y - s * 0.4);
+    ctx.lineTo(point.x + s * 1.4, point.y);
+    ctx.lineTo(point.x + s * 0.4, point.y + s * 0.4);
+    ctx.lineTo(point.x, point.y + s * 1.4);
+    ctx.lineTo(point.x - s * 0.4, point.y + s * 0.4);
+    ctx.lineTo(point.x - s * 1.4, point.y);
+    ctx.lineTo(point.x - s * 0.4, point.y - s * 0.4);
     ctx.closePath();
     ctx.fill();
+
+    // Layer 2: white core (crisp, small)
+    ctx.globalAlpha = baseAlpha * 0.92;
+    ctx.fillStyle = "#ffffff";
+    ctx.shadowBlur = 0;
+    const sc = s * 0.52;
+    ctx.beginPath();
+    ctx.moveTo(point.x, point.y - sc);
+    ctx.lineTo(point.x + sc * 0.3, point.y - sc * 0.3);
+    ctx.lineTo(point.x + sc, point.y);
+    ctx.lineTo(point.x + sc * 0.3, point.y + sc * 0.3);
+    ctx.lineTo(point.x, point.y + sc);
+    ctx.lineTo(point.x - sc * 0.3, point.y + sc * 0.3);
+    ctx.lineTo(point.x - sc, point.y);
+    ctx.lineTo(point.x - sc * 0.3, point.y - sc * 0.3);
+    ctx.closePath();
+    ctx.fill();
+
     ctx.restore();
   });
 }
@@ -2462,16 +2578,23 @@ function drawCourseLights(w, h, now, accent) {
 }
 
 function drawSpeedLines(w, h, accent) {
+  // Skip entirely if reduced-motion is set
+  if (getComputedStyle(document.body).getPropertyValue('--reduced-motion') === '1') return;
   ctx.save();
-  ctx.strokeStyle = accent;
-  ctx.globalAlpha = clamp(state.speed / 2100, 0.08, 0.34);
-  ctx.lineWidth = 2;
-  for (let i = 0; i < 15; i += 1) {
-    const y = h * 0.26 + i * h * 0.038;
-    const drift = (state.distance * (0.35 + i * 0.04)) % (w + 260);
+  const boostBonus = state.boost > 0 ? clamp(state.boost * 0.22, 0, 0.28) : 0;
+  const baseAlpha = clamp(state.speed / 2100, 0.06, 0.34) + boostBonus;
+  ctx.strokeStyle = state.boost > 0 ? (state.character.accent || accent) : accent;
+  ctx.globalAlpha = baseAlpha;
+  // More lines at high speed / boost
+  const lineCount = state.boost > 0 ? 28 : 15;
+  ctx.lineWidth = state.boost > 0 ? 2.5 : 2;
+  for (let i = 0; i < lineCount; i += 1) {
+    const y = h * 0.22 + i * h * (state.boost > 0 ? 0.032 : 0.04);
+    const drift = (state.distance * (0.35 + i * 0.04)) % (w + 320);
+    const len = state.boost > 0 ? 200 + i * 8 : 120 + i * 4;
     ctx.beginPath();
-    ctx.moveTo(-180 + drift, y);
-    ctx.lineTo(-20 + drift, y - 10);
+    ctx.moveTo(-200 + drift, y);
+    ctx.lineTo(-200 + drift + len, y - 8);
     ctx.stroke();
   }
   ctx.restore();
@@ -2847,9 +2970,15 @@ function drawKartSprite(racer, x, y, scale, options = {}) {
   ctx.translate(x, y);
   const lean = options.player ? clamp(state.yaw * 0.58 + state.laneVel * 0.16, -0.34, 0.34) : 0;
   if (options.player) ctx.rotate(lean + Math.sin(state.spin * 28) * state.spin * 0.22);
-  ctx.fillStyle = "rgba(0,0,0,.42)";
+  // Shadow scales outward + fades as kart goes airborne (hop)
+  const hopAmt = options.player ? clamp(state.hop / 0.22, 0, 1) : 0;
+  const shadowScaleX = 0.48 + hopAmt * 0.22;
+  const shadowScaleY = 0.17 - hopAmt * 0.06;
+  const shadowAlpha = 0.42 - hopAmt * 0.28;
+  const shadowOffset = height * 0.35 + hopAmt * height * 0.18;
+  ctx.fillStyle = `rgba(0,0,0,${shadowAlpha.toFixed(2)})`;
   ctx.beginPath();
-  ctx.ellipse(0, height * 0.35, width * 0.48, height * 0.17, 0, 0, Math.PI * 2);
+  ctx.ellipse(0, shadowOffset, width * shadowScaleX, height * Math.max(0.04, shadowScaleY), 0, 0, Math.PI * 2);
   ctx.fill();
   if (options.rival?.hit > 0) {
     ctx.globalAlpha = 0.68;
@@ -2952,13 +3081,35 @@ function drawMinimap(w, h) {
   const width = 86;
   const total = raceDistance();
   const length = trackLength();
+  const panelX = x - width / 2 - 12;
+  const panelY = y - 14;
+  const panelW = width + 24;
+  const panelH = height + 28;
   ctx.save();
-  ctx.fillStyle = "rgba(5,8,22,.58)";
-  ctx.strokeStyle = "rgba(255,255,255,.2)";
-  ctx.lineWidth = 1;
-  roundRect(x - width / 2 - 10, y - 12, width + 20, height + 24, 18);
+
+  // Glass disc background
+  ctx.fillStyle = "rgba(5,8,22,.68)";
+  roundRect(panelX, panelY, panelW, panelH, 20);
   ctx.fill();
+
+  // Inner highlight rim (glass top edge)
+  ctx.strokeStyle = "rgba(255,255,255,.12)";
+  ctx.lineWidth = 1;
+  roundRect(panelX, panelY, panelW, panelH, 20);
   ctx.stroke();
+
+  // Accent colored outer glow stroke
+  ctx.strokeStyle = colorAlpha(state.track.accent || "#7af0ff", 0.32);
+  ctx.lineWidth = 2;
+  roundRect(panelX + 1, panelY + 1, panelW - 2, panelH - 2, 19);
+  ctx.stroke();
+
+  // "MINIMAP" eyebrow label
+  ctx.fillStyle = colorAlpha(state.track.accent || "#7af0ff", 0.7);
+  ctx.font = "700 9px Inter, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+  ctx.fillText("MAP", x, panelY + 6);
   ctx.strokeStyle = colorAlpha(state.track.accent || "#66e9ff", 0.76);
   ctx.lineWidth = 3;
   ctx.beginPath();

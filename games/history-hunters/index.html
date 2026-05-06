@@ -5,12 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>History Hunters</title>
   <link rel="icon" href="../../assets/history-hunters/recruit-seal.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260502-perfect-pass">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260505-premium-homage">
 </head>
 <body>
   <main class="game-shell">
+    <div class="device-bezel" aria-hidden="true">
+      <div class="device-brand">History Hunters · Handheld Edition</div>
+      <div class="device-led" title="Power on"></div>
+    </div>
     <canvas id="world" aria-label="History Hunters open world"></canvas>
     <div class="world-vignette" aria-hidden="true"></div>
+    <div class="lcd-scanlines" aria-hidden="true"></div>
 
     <header class="hud top-hud">
       <a class="back" href="../../index.html">Arcade</a>
@@ -22,21 +30,22 @@
         </div>
       </div>
       <div class="statbar">
-        <span><strong id="level">1</strong> Rank</span>
-        <span>
-          <strong id="partyHp">100/100</strong> HP
+        <span class="stat-chip" title="Hunter Rank — increases as you win battles" aria-label="Hunter Rank"><span class="stat-label">Rank</span><strong id="level" class="stat-value">1</strong></span>
+        <span class="stat-chip" title="Party HP — total health of your active ally" aria-label="Party HP">
+          <span class="stat-label">HP</span>
+          <strong id="partyHp" class="stat-value">100/100</strong>
           <div class="hp-bar-wrap"><div id="partyHpBar" class="hp-bar-fill"></div></div>
         </span>
-        <span><strong id="rosterCount">0</strong> Allies</span>
-        <span><strong id="shards">0</strong> Shards</span>
-        <span class="streak-stat">
+        <span class="stat-chip" title="Allies recruited to your roster" aria-label="Allies count"><span class="stat-label">Allies</span><strong id="rosterCount" class="stat-value">0</strong></span>
+        <span class="stat-chip" title="Archive Shards — currency for items" aria-label="Shards count"><span class="stat-label">Shards</span><strong id="shards" class="stat-value">0</strong></span>
+        <span class="stat-chip streak-stat" title="Answer streak — keep it going for bonuses" aria-label="Answer streak">
           <svg class="streak-ring" viewBox="0 0 36 36" aria-hidden="true">
             <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="3"/>
             <circle class="streak-ring-fill" cx="18" cy="18" r="15" fill="none" stroke="var(--streak-color,#70f2ff)" stroke-width="3" stroke-dasharray="94.25" stroke-dashoffset="94.25" stroke-linecap="round" transform="rotate(-90 18 18)"/>
           </svg>
-          <strong id="streak">0</strong> Streak
+          <span class="stat-label">Streak</span><strong id="streak" class="stat-value">0</strong>
         </span>
-        <button id="muteBtn" type="button" class="mute-btn">♪ On</button>
+        <button id="muteBtn" type="button" class="mute-btn" aria-label="Toggle sound">♪ On</button>
       </div>
     </header>
 
@@ -174,7 +183,7 @@
           <div class="capture-meter" aria-label="Recruitment progress">
             <span id="captureBar"></span>
           </div>
-          <div id="battleLog" class="battle-log">Pick a move to begin the encounter.</div>
+          <div id="battleLog" class="battle-log" role="log" aria-live="polite" aria-label="Battle log">Pick a move to begin the encounter.</div>
           <div id="battleActions" class="battle-actions"></div>
           <div id="moveButtons" class="move-buttons"></div>
           <div id="sourcePanel" class="source-panel" hidden></div>
@@ -192,17 +201,21 @@
     <aside class="hud quest-log-panel" id="questLogPanel" hidden aria-label="Quest log"></aside>
 
     <section class="start-screen" id="startScreen" aria-label="Start expedition">
-      <div class="start-art"></div>
+      <div class="start-art" aria-hidden="true">
+        <div class="start-particles" aria-hidden="true"></div>
+      </div>
       <div class="start-card">
         <span class="eyebrow">Mr. Mac's Review Arcade</span>
-        <h2>History Hunters</h2>
+        <h2 class="game-title">History <em>Hunters</em></h2>
         <p>Walk routes, battle course-type historical figure echoes, recruit them with Archive Capsules, and clear review side quests for XP, shards, and items.</p>
         <div class="start-stats" id="startStats">
-          <span>4,683 prompts</span>
-          <span>Course-type lanes</span>
-          <span>Open-world review</span>
+          <span class="glass-pill"><strong>4,683</strong> prompts</span>
+          <span class="glass-pill"><strong>Course-type</strong> lanes</span>
+          <span class="glass-pill"><strong>Open-world</strong> review</span>
         </div>
-        <button id="beginBtn" class="primary big" type="button">Enter the Field</button>
+        <div class="start-actions">
+          <button id="beginBtn" class="primary big cta-btn" type="button">Enter the Field</button>
+        </div>
       </div>
     </section>
 

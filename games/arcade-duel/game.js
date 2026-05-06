@@ -43,13 +43,13 @@ function writeSave(data) {
 // OPPONENT ROSTER (Story ladder: 7 opponents)
 // ─────────────────────────────────────────────
 const OPPONENTS = [
-  { id: "spartan",  name: "Spartan Warrior",     era: "Ancient Greece",  hp: 80,  atk: [12,18], special: 20, tell: "Braces shield → heavy incoming", skin: "spartan"  },
-  { id: "samurai",  name: "Samurai Scholar",      era: "Feudal Japan",    hp: 90,  atk: [14,20], special: 24, tell: "Spins blade → counter chance",   skin: "samurai"  },
-  { id: "knight",   name: "Crusader Knight",      era: "Medieval Europe", hp: 100, atk: [16,22], special: 28, tell: "Shield bash → stagger",          skin: "knight"   },
-  { id: "frontier", name: "Frontier Sharpshooter",era: "1800s America",   hp: 95,  atk: [18,25], special: 30, tell: "Draws pistol → dodge or die",    skin: "frontier" },
-  { id: "spy",      name: "Cold War Spy",         era: "20th Century",    hp: 105, atk: [20,28], special: 34, tell: "Gadget flash → disoriented",     skin: "spy"      },
-  { id: "titan",    name: "Knowledge Titan",      era: "All Eras",        hp: 120, atk: [22,32], special: 40, tell: "Eyes glow → finisher incoming",  skin: "titan"    },
-  { id: "ai",       name: "Future AI",            era: "Year 2XXX",       hp: 140, atk: [24,36], special: 46, tell: "Recalculates → all attacks +20%", skin: "ai"      },
+  { id: "spartan",  name: "Spartan Warrior",     era: "Ancient Greece",  hp: 80,  atk: [12,18], special: 20, tell: "Braces shield → heavy incoming", skin: "spartan",  icon: "🏛️" },
+  { id: "samurai",  name: "Samurai Scholar",      era: "Feudal Japan",    hp: 90,  atk: [14,20], special: 24, tell: "Spins blade → counter chance",   skin: "samurai",  icon: "⛩️" },
+  { id: "knight",   name: "Crusader Knight",      era: "Medieval Europe", hp: 100, atk: [16,22], special: 28, tell: "Shield bash → stagger",          skin: "knight",   icon: "⚜️" },
+  { id: "frontier", name: "Frontier Sharpshooter",era: "1800s America",   hp: 95,  atk: [18,25], special: 30, tell: "Draws pistol → dodge or die",    skin: "frontier", icon: "🤠" },
+  { id: "spy",      name: "Cold War Spy",         era: "20th Century",    hp: 105, atk: [20,28], special: 34, tell: "Gadget flash → disoriented",     skin: "spy",      icon: "🕵️" },
+  { id: "titan",    name: "Knowledge Titan",      era: "All Eras",        hp: 120, atk: [22,32], special: 40, tell: "Eyes glow → finisher incoming",  skin: "titan",    icon: "📚" },
+  { id: "ai",       name: "Future AI",            era: "Year 2XXX",       hp: 140, atk: [24,36], special: 46, tell: "Recalculates → all attacks +20%", skin: "ai",      icon: "🤖" },
 ];
 
 // Difficulty multipliers
@@ -368,10 +368,20 @@ function renderHUD() {
   $("#tSpecial").disabled = !ready;
 
   // Item button
-  const itemLabel = r.itemUsed ? "Restore (used)" : "Restore +20 HP";
   $("#itemSubLabel").textContent = r.itemUsed ? "Already used" : "Heal 20 HP (1 use)";
   $("#cmdItem").disabled = r.itemUsed || r.youHp >= r.youMaxHp;
   $("#tItem").disabled = r.itemUsed || r.youHp >= r.youMaxHp;
+
+  // Charge pips in Special button (rendered by polish layer)
+  renderChargePips(r.charge, r.maxCharge);
+
+  // ARIA progress bars
+  const youBarTrack = $("#youBarTrack");
+  if (youBarTrack) youBarTrack.setAttribute("aria-valuenow", String(Math.max(0, r.youHp)));
+  const enemyBarTrack = $("#enemyBarTrack");
+  if (enemyBarTrack) enemyBarTrack.setAttribute("aria-valuenow", String(Math.max(0, r.enemyHp)));
+  const chargeTrack = $("#chargeTrack");
+  if (chargeTrack) chargeTrack.setAttribute("aria-valuenow", String(r.charge));
 }
 
 function renderEnemyInfo() {
@@ -382,6 +392,15 @@ function renderEnemyInfo() {
   $("#enemyAvatar").classList.toggle("boss", isBoss);
   $("#missionTitle").textContent = opp.name;
   $("#missionMeta").textContent = `${opp.era} · ${G.difficulty.charAt(0).toUpperCase() + G.difficulty.slice(1)} · Round ${G.run.currentRound}/3`;
+  // Era-themed stage background
+  const stage = $("#combatStage");
+  if (stage) {
+    stage.className = stage.className.replace(/\bera-\S+/g, "").trim();
+    stage.classList.add("era-" + (opp.skin || "spartan"));
+  }
+  // Round accent on duel panel
+  const duelPanel = $("#duel");
+  if (duelPanel) duelPanel.setAttribute("data-round", String(G.run.currentRound));
 }
 
 // ─────────────────────────────────────────────
@@ -426,6 +445,7 @@ function beginRound(roundNum) {
   startRoundTimer();
   playSound("bell");
   showStinger(`ROUND ${roundNum}`, "round-start", 1600);
+  showRoundIntro(roundNum, m.opponent);
 }
 
 function startRoundTimer() {
@@ -643,8 +663,9 @@ function resolveMove(correct, wasSkip) {
     flashStage("hit-enemy", move === "special" ? `SPECIAL  −${dmg}!` : `Hit! −${dmg}`);
     if (move === "special") showStinger("SPECIAL ATTACK!", "special", 1100);
     showCombo(r.streak);
+    spawnDamageFloat(dmg, "enemy", r.streak >= 3 && move !== "special");
     renderHUD();
-    if (r.enemyHp <= 0) { setTimeout(() => endRound("win"), 700); return; }
+    if (r.enemyHp <= 0) { showKOStamp(); setTimeout(() => endRound("win"), 800); return; }
   } else {
     // Wrong / skip — opponent counter-window
     r.aiCounterWindow = true;
@@ -709,10 +730,12 @@ function enemyAttack() {
 
   hitStop(isSpecial ? 420 : 200);
   r.youHp = Math.max(0, r.youHp - dmg);
+  spawnDamageFloat(dmg, "player", isSpecial);
   renderHUD();
 
   if (r.youHp <= 0) {
-    setTimeout(() => endRound("lose"), 600);
+    showKOStamp();
+    setTimeout(() => endRound("lose"), 700);
     return;
   }
   // Return to command menu
@@ -814,18 +837,42 @@ function endMatch() {
 
   setTimeout(() => {
     setScreen("end");
-    $("#endTitle").textContent = perfect ? "PERFECT! 🏆" : won ? "VICTORY! ✊" : "DEFEAT 💀";
+    // New result title element
+    const resultEl = $("#endResultTitle");
+    if (resultEl) {
+      resultEl.textContent = perfect ? "PERFECT!" : won ? "VICTORY!" : "DEFEAT";
+      resultEl.className = "end-result-title " + (perfect ? "perfect" : won ? "victory" : "defeat");
+    }
     $("#endMeta").textContent = `${G.course} · ${G.set} · vs ${m.opponent.name}`;
     const metrics = [
-      [m.playerWins + "/" + m.totalRounds, "rounds won"],
-      [acc + "%", "accuracy"],
-      [m.totalCorrect + "/" + played, "correct"],
-      [m.bestStreak, "best streak"],
+      { val: m.playerWins, suffix: "/" + m.totalRounds, label: "rounds won", numeric: true },
+      { val: acc, suffix: "%", label: "accuracy", numeric: true },
+      { val: m.totalCorrect, suffix: "/" + played, label: "correct", numeric: true },
+      { val: m.bestStreak, suffix: "", label: "best streak", numeric: true },
     ];
-    $("#endGrid").innerHTML = metrics.map(([v, k]) => `<div class="metric"><strong>${esc(v)}</strong><span>${esc(k)}</span></div>`).join("");
+    $("#endGrid").innerHTML = metrics.map((m, i) => `<div class="metric"><strong id="metric-${i}">${esc(String(m.val) + m.suffix)}</strong><span>${esc(m.label)}</span></div>`).join("");
+    // Animated count-up on numeric metrics
+    metrics.forEach((m, i) => {
+      const el = $("#metric-" + i);
+      if (!el || !m.numeric) return;
+      const orig = String(m.val) + m.suffix;
+      el.textContent = "0" + m.suffix;
+      setTimeout(() => {
+        let current = 0;
+        const target = m.val;
+        const steps = 24;
+        const inc = target / steps;
+        const id = setInterval(() => {
+          current = Math.min(current + inc, target);
+          el.textContent = Math.round(current) + m.suffix;
+          if (current >= target) clearInterval(id);
+        }, 40);
+      }, i * 120);
+    });
     $("#missedList").innerHTML = m.totalMissed.length
       ? m.totalMissed.slice(0, 10).map((q) => `<div class="missed-item"><strong>${esc(q.stem)}</strong><p>${esc((q.course || "") + " · " + (q.day || "") + " · " + (q.source || ""))}</p><p>${esc(q.explanation || "")}</p></div>`).join("")
       : `<div class="missed-item"><strong>No missed questions.</strong><p>Outstanding performance!</p></div>`;
+    renderStoryLadder();
   }, 2600);
 }
 
@@ -895,6 +942,159 @@ function showStinger(text, variant, duration) {
 function slowMo(ms) {
   document.body.classList.add("slow-mo");
   setTimeout(() => document.body.classList.remove("slow-mo"), ms);
+}
+
+// ─────────────────────────────────────────────
+// ROUND INTRO OVERLAY
+// ─────────────────────────────────────────────
+function showRoundIntro(roundNum, opp) {
+  // Remove any existing overlay
+  const old = $("#roundIntroOverlay");
+  if (old) old.remove();
+
+  const roundColors = { 1: "var(--r1)", 2: "var(--r2)", 3: "var(--r3)" };
+  const color = roundColors[roundNum] || "var(--gold)";
+
+  const ov = document.createElement("div");
+  ov.id = "roundIntroOverlay";
+  ov.setAttribute("aria-hidden", "true");
+  ov.style.setProperty("--round-intro-color", color);
+  ov.innerHTML = `
+    <div class="intro-round-num">Round ${roundNum} of 3</div>
+    <div class="intro-fight-word">FIGHT</div>
+    <div class="intro-vs-strip">
+      <div class="intro-fighter player-side">
+        <div class="intro-portrait">🎓</div>
+        <div class="intro-fighter-name">Review Core</div>
+        <div class="intro-fighter-sub">You</div>
+      </div>
+      <div class="intro-vs-divider">
+        <div class="intro-vs-line"></div>
+        VS
+        <div class="intro-vs-line"></div>
+      </div>
+      <div class="intro-fighter enemy-side">
+        <div class="intro-portrait">${opp.icon || "⚔️"}</div>
+        <div class="intro-fighter-name">${esc(opp.name)}</div>
+        <div class="intro-fighter-sub">${esc(opp.era)}</div>
+      </div>
+    </div>
+    <div class="intro-tell-tip">⚠ ${esc(opp.tell)}</div>
+  `;
+  document.body.appendChild(ov);
+
+  // Auto-remove after 2.2s
+  setTimeout(() => {
+    ov.classList.add("fade-out");
+    setTimeout(() => ov.remove(), 420);
+  }, 2200);
+}
+
+// ─────────────────────────────────────────────
+// DAMAGE NUMBER FLOATS
+// ─────────────────────────────────────────────
+function spawnDamageFloat(dmg, side, isCrit) {
+  const stage = $("#combatStage");
+  if (!stage) return;
+  const r = stage.getBoundingClientRect();
+  const el = document.createElement("div");
+  el.className = "dmg-float " + (side === "enemy" ? "enemy-dmg" : "player-dmg") + (isCrit ? " crit" : "");
+  el.textContent = (isCrit ? "✦ " : "−") + dmg;
+  const xBase = side === "enemy" ? r.width * 0.68 : r.width * 0.24;
+  el.style.cssText = `
+    left:${xBase + randInt(-18, 18)}px;
+    top:${r.height * 0.36 + randInt(-12, 12)}px;
+    font-size:${isCrit ? 22 : 16 + Math.min(dmg / 8, 8)}px;
+  `;
+  stage.style.position = "relative";
+  stage.appendChild(el);
+  setTimeout(() => el.remove(), 1200);
+}
+
+// ─────────────────────────────────────────────
+// KO STAMP
+// ─────────────────────────────────────────────
+function showKOStamp() {
+  const stage = $("#combatStage");
+  if (!stage) return;
+  const el = document.createElement("div");
+  el.className = "ko-stamp";
+  el.innerHTML = `<span class="ko-text">K.O.</span>`;
+  stage.appendChild(el);
+  setTimeout(() => el.remove(), 1600);
+  slowMo(800);
+}
+
+// ─────────────────────────────────────────────
+// CHARGE PIPS IN SPECIAL BUTTON
+// ─────────────────────────────────────────────
+function renderChargePips(charge, maxCharge) {
+  for (let i = 0; i < 3; i++) {
+    const pip = $("#cpip" + i);
+    if (pip) pip.classList.toggle("filled", i < charge);
+  }
+}
+
+// ─────────────────────────────────────────────
+// STORY LADDER VISUALIZATION
+// ─────────────────────────────────────────────
+function renderStoryLadder() {
+  const list = $("#ladderList");
+  if (!list) return;
+  const save = loadSave();
+  const beaten = save.beatenOpponents || [];
+  const currentIdx = G.opponentIndex;
+  list.innerHTML = OPPONENTS.map((o, i) => {
+    const isDefeated = beaten.includes(o.id);
+    const isCurrent = i === currentIdx && G.mode === "story";
+    const isLocked = i > 0 && !beaten.includes(OPPONENTS[i-1].id) && !isDefeated && !isCurrent;
+    let cls = "ladder-item";
+    if (isDefeated) cls += " defeated";
+    else if (isCurrent) cls += " current";
+    else if (isLocked) cls += " locked";
+    const badge = isDefeated ? "✓" : isCurrent ? "▶" : isLocked ? "🔒" : "•";
+    return `<div class="${cls}" role="listitem" aria-label="${esc(o.name)}, ${isDefeated ? "defeated" : isCurrent ? "current target" : "pending"}">
+      <span class="ladder-badge" aria-hidden="true">${badge}</span>
+      <div class="ladder-portrait" aria-hidden="true">${o.icon || "⚔️"}</div>
+      <div class="ladder-name">${esc(o.name)}</div>
+      <div class="ladder-era">${esc(o.era)}</div>
+    </div>`;
+  }).join("");
+}
+
+// ─────────────────────────────────────────────
+// DIFFICULTY PILLS
+// ─────────────────────────────────────────────
+function renderDiffPills(active) {
+  $$(".diff-pill").forEach((pill) => {
+    const d = pill.dataset.diff;
+    pill.className = "diff-pill" + (d === active ? " active-" + d : "");
+    pill.setAttribute("aria-pressed", d === active ? "true" : "false");
+  });
+}
+
+// ─────────────────────────────────────────────
+// ANIMATED COUNT-UP
+// ─────────────────────────────────────────────
+function countUp(el, target, duration) {
+  if (!el) return;
+  const start = 0;
+  const step = duration / 30;
+  let current = start;
+  const inc = (target - start) / 30;
+  el.classList.add("metric-counting");
+  const id = setInterval(() => {
+    current += inc;
+    if (current >= target) {
+      el.textContent = target;
+      el.classList.remove("metric-counting");
+      clearInterval(id);
+    } else {
+      el.textContent = typeof target === "number" && !isNaN(target)
+        ? Math.round(current)
+        : target;
+    }
+  }, step);
 }
 
 // ─────────────────────────────────────────────
@@ -987,13 +1187,14 @@ async function load() {
     renderSetOptions();
     renderSetupMetrics();
     renderOpponentSelect();
+    renderStoryLadder();
 
     // Restore prefs
     const save = loadSave();
     if (save.difficulty) {
       G.difficulty = save.difficulty;
-      $("#diffSelect").value = save.difficulty;
     }
+    renderDiffPills(G.difficulty);
 
     $("#loadStatus").textContent = `Loaded ${qs.length} playable MCQs.`;
   } catch (err) {
@@ -1009,16 +1210,29 @@ async function load() {
 $("#courseSelect").addEventListener("change", (e) => { G.course = e.target.value; renderSetOptions(); renderSetupMetrics(); });
 $("#setSelect").addEventListener("change", (e) => { G.set = e.target.value; renderSetupMetrics(); });
 $("#lengthSelect").addEventListener("change", (e) => { G.length = Number(e.target.value); renderSetupMetrics(); });
-$("#diffSelect").addEventListener("change", (e) => { G.difficulty = e.target.value; });
+// Difficulty pills (new UI — replaces hidden diffSelect)
+$$(".diff-pill").forEach((pill) => {
+  pill.addEventListener("click", () => {
+    G.difficulty = pill.dataset.diff;
+    renderDiffPills(G.difficulty);
+    writeSave({ difficulty: G.difficulty });
+  });
+});
+// Keep hidden diffSelect in sync (fallback)
+$("#diffSelect")?.addEventListener("change", (e) => {
+  G.difficulty = e.target.value;
+  renderDiffPills(G.difficulty);
+});
 $("#modeSelect").addEventListener("change", (e) => {
   G.mode = e.target.value;
   $("#opponentPickWrap").classList.toggle("hidden", G.mode !== "versus");
   renderOpponentSelect();
+  renderStoryLadder();
 });
 $("#startBtn").addEventListener("click", () => { ensureCtx(); startMatch(); });
 $("#nextBtn").addEventListener("click", advanceAfterQuestion);
 $("#skipBtn").addEventListener("click", skipQuestion);
-$("#againBtn").addEventListener("click", () => { G.run = null; setScreen("setup"); renderSetupMetrics(); });
+$("#againBtn").addEventListener("click", () => { G.run = null; setScreen("setup"); renderSetupMetrics(); renderStoryLadder(); });
 $("#continueRoundBtn").addEventListener("click", continueRound);
 $("#toggleStimulus").addEventListener("click", () => $("#stimulusPanel").classList.toggle("expanded"));
 
