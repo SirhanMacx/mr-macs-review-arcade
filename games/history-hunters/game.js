@@ -519,6 +519,46 @@
     return acc;
   }, {});
 
+  // ─── AXIS 5: FIGURE SPRITE OVERRIDES ──────────────────────────────────────
+  // For marquee historical figures, override spritePosition() to use a SPECIFIC
+  // atlas cell (stage 2 — most evolved form) rather than the generic family
+  // fallback. Keys = family.id (compactKey). Values = { atlas, stage }.
+  // atlas: 1-10, stage: 0 (base) | 1 (mid) | 2 (final/distinct)
+  // No new image files — we just pick the most distinctive existing cell.
+  const FIGURE_SPRITE_OVERRIDES = {
+    // Hammurabi (Grade 6) — atlas 8 row 0, use stage 2 (most powerful form)
+    "grade6hammurabi":          { atlas: 8, stage: 2 },
+    // Confucius (Grade 6) — atlas 8 row 1
+    "grade6confucius":          { atlas: 8, stage: 2 },
+    // Mansa Musa (AP World) — atlas 5 row 3
+    "apworldmansamusa":         { atlas: 5, stage: 2 },
+    // Mansa Musa (Grade 6) — atlas 8 row 2
+    "grade6mansamusa":          { atlas: 8, stage: 2 },
+    // Hammurabi (Global 9) — atlas 9 row 3
+    "global9hammurabi":         { atlas: 9, stage: 2 },
+    // Pericles (Global 9) — atlas 9 row 4
+    "global9pericles":          { atlas: 9, stage: 2 },
+    // Harriet Tubman (US Regents) — atlas 7 row 1, stage 2
+    "usregentsharriettubman":   { atlas: 7, stage: 2 },
+    // Napoleon Bonaparte (AP Euro) — atlas 3 row 2, stage 2
+    "apeuronapoleonbonaparte":  { atlas: 3, stage: 2 },
+    // Jean Piaget (AP Psych) — atlas 4 row 2, stage 2
+    "appsychjeanpiaget":        { atlas: 4, stage: 2 },
+    // Mohandas Gandhi (AP World) — atlas 5 row 5, stage 2
+    "apworldmohandasgandhi":    { atlas: 5, stage: 2 },
+    // Nelson Mandela (Global 10) — atlas 6 row 4, stage 2
+    "global10nelsonmandela":    { atlas: 6, stage: 2 },
+    // Toussaint Louverture (Global 10) — atlas 6 row 5, stage 2
+    "global10toussaintlouverture": { atlas: 6, stage: 2 },
+    // Mansa Musa (Global Regents) — atlas 10 row 2, stage 2
+    "globalregentsmansamusa":   { atlas: 10, stage: 2 },
+    // Martin Luther King Jr. (US Regents) — atlas 7 row 2, stage 2
+    "usregentsmartinlutherkingjr": { atlas: 7, stage: 2 },
+    // Abraham Lincoln (US Regents) — atlas 7 row 0, stage 2
+    "usregentsabrahamlincoln":  { atlas: 7, stage: 2 }
+  };
+  // ─── END AXIS 5 DATA ──────────────────────────────────────────────────────
+
   const fallbackMoves = [
     { name: "Archive Pulse", type: "Review", power: 24, flavor: "A reliable study hit from the whole arcade." },
     { name: "Source Scan", type: "Review", power: 22, flavor: "Reads the evidence before swinging." },
@@ -734,6 +774,64 @@
     "Genghis Khan":   { type: "AP World",  rarity: "Legendary", blurb: "Founded and led the Mongol Empire, the largest contiguous land empire in history. His campaigns reshaped Eurasia's trade routes and populations.", flavor: "Military", power: 46 }
   };
 
+  // ─── AXIS 3: CODEX LORE BLURBS ────────────────────────────────────────────
+  // Hand-authored blurbs for 15 marquee figures, keyed by family.id (compactKey).
+  // All other families fall back to blurbForFamily() template from family.line.
+  // RARE_FIGURE_DATA blurbs are preserved separately and NOT overwritten.
+
+  const HAND_BLURBS = {
+    // Key = compactKey(`${type}-${historicalName}`) — matches allFigureFamilies
+    // Grade 6 / Global 9 — Hammurabi
+    "grade6hammurabi": "Babylonian king (c. 1754 BCE) who carved 282 laws onto a stone stele, establishing one of history's earliest written legal codes governing trade, property, and justice.",
+    "global9hammurabi": "Babylonian king (c. 1754 BCE) who carved 282 laws onto a stone stele, establishing one of history's earliest written legal codes governing trade, property, and justice.",
+    // Cleopatra VII — also in RARE_FIGURE_DATA, but codex family entry
+    "global9cleopatravii": "Last active pharaoh of Ptolemaic Egypt (r. 51–30 BCE), who mastered multiple languages and forged alliances with Rome to preserve Egyptian independence against conquest.",
+    // Grade 6 / AP World — Mansa Musa
+    "grade6mansamusa": "Emperor of Mali (r. 1312–1337) whose legendary pilgrimage to Mecca distributed so much gold it caused inflation across North Africa and put Mali on European maps.",
+    "apworldmansamusa": "Emperor of Mali (r. 1312–1337) whose legendary pilgrimage to Mecca distributed so much gold it caused inflation across North Africa and put Mali on European maps.",
+    "globalregentsmansamusa": "Emperor of Mali (r. 1312–1337) whose wealth, piety, and trans-Saharan networks made the Mali Empire a central node in medieval global trade and Islamic scholarship.",
+    // Sundiata Keita — check for potential entry
+    // Confucius
+    "grade6confucius": "Chinese philosopher (551–479 BCE) whose teachings on filial piety, education, and virtuous government shaped East Asian culture for over two thousand years.",
+    // Caesar / Augustus — not direct entries, but Pericles is
+    "global9pericles": "Athenian statesman (495–429 BCE) who oversaw the Golden Age of Athens, directing the construction of the Parthenon and expanding democratic participation among citizens.",
+    // Joan of Arc — in RARE_FIGURE_DATA
+    // Cyrus the Great — in RARE_FIGURE_DATA
+    // Genghis Khan — in RARE_FIGURE_DATA
+    // Additional hand-crafted entries for high-impact regular figures
+    "apworldmohandasgandhi": "Indian independence leader (1869–1948) who pioneered nonviolent civil disobedience, leading the Salt March and inspiring anti-colonial movements around the world.",
+    "apworldzhenghe": "Chinese admiral (1371–1433) who commanded seven massive treasure-fleet voyages across the Indian Ocean, projecting Ming power and fostering trade as far as East Africa.",
+    "apushfrederickdouglass": "Escaped enslaved person turned abolitionist orator (1818–1895) who used his autobiography and newspaper to expose slavery and demand full citizenship rights.",
+    "apushharriettubman": "Freedom conductor (c. 1822–1913) who escaped enslavement and returned south at least 13 times to guide others to freedom via the Underground Railroad.",
+    "apushfranklindroosevelt": "U.S. President (1882–1945) who launched the New Deal to combat the Great Depression, then led the Allied coalition through most of World War II.",
+    "global10nelsonmandela": "South African anti-apartheid leader (1918–2013) who endured 27 years of imprisonment before negotiating a peaceful transition to democracy and serving as president.",
+    "global10toussaintlouverture": "Haitian revolutionary general (1743–1803) who led the only successful large-scale slave revolt in history, laying the groundwork for Haitian independence in 1804."
+  };
+
+  // Generate a templated blurb for any family not in HAND_BLURBS
+  function blurbForFamily(family) {
+    if (!family) return "";
+    const id = family.id || "";
+    if (HAND_BLURBS[id]) return HAND_BLURBS[id];
+    // Use the existing family.line (already 100–180 chars in most cases)
+    const line = cleanText(family.line || "");
+    if (line.length >= 60) return line;
+    // Minimal fallback
+    return `${family.historicalName} (${family.type}): ${line || "A key historical figure in this course."}`;
+  }
+
+  // Build the full FAMILY_BLURBS map lazily after allFigureFamilies is defined
+  // (populated below after allFigureFamilies is available)
+  let FAMILY_BLURBS = null;
+  function ensureFamilyBlurbs() {
+    if (FAMILY_BLURBS) return;
+    FAMILY_BLURBS = {};
+    allFigureFamilies.forEach((family) => {
+      FAMILY_BLURBS[family.id] = blurbForFamily(family);
+    });
+  }
+  // ─── END AXIS 3 DATA ──────────────────────────────────────────────────────
+
   // ─── CODEX SEEN STATE (overlay on save) ───────────────────────────────────
   // codex entry: { id, seen: bool, caught: bool, level: number }
 
@@ -852,32 +950,195 @@
     },
     questComplete() {
       [392, 494, 587, 784].forEach((f, i) => playTone(f, "square", 0.14, 0.28, i * 0.12));
+    },
+
+    // ── AXIS 4: BATTLE AUDIO VARIANCE ──────────────────────────────────────
+
+    // Refined encounter stinger: 4-note rising motif, slightly richer than before
+    encounterStinger(encounterType) {
+      ensureAudio(); resumeAudio();
+      // Base motif — E4 G#4 B4 E5 with slight type tint
+      const typeFreqOffset = { Political: 0, Economic: 2, Social: -2, Cultural: 4,
+                                Technological: 7, Military: 5, Religious: -5, Geographic: 3 };
+      const offset = typeFreqOffset[thematicVfxType ? thematicVfxType(encounterType) : ""] || 0;
+      const baseFreqs = [330, 415, 494, 660];
+      baseFreqs.map((f) => f * Math.pow(2, offset / 12))
+               .forEach((f, i) => playTone(f, "square", 0.16, 0.3, i * 0.095));
+      playNoise(0.18, 0.1, 700, 0.38);
+    },
+
+    // Boss-encounter theme: 3 oscillator layers + bass throb
+    startBossDrone() {
+      if (!audioCtx || muted) return;
+      stopBossDroneImpl();
+      // Low bass throb
+      const bassFreq = 55;
+      const bassGain = audioCtx.createGain();
+      bassGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      bassGain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 0.8);
+      bassGain.connect(masterGain);
+      const bass = audioCtx.createOscillator();
+      bass.type = "sawtooth"; bass.frequency.value = bassFreq;
+      bass.connect(bassGain); bass.start();
+      // Mid growl
+      const midGain = audioCtx.createGain();
+      midGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      midGain.gain.linearRampToValueAtTime(0.09, audioCtx.currentTime + 1.2);
+      midGain.connect(masterGain);
+      const mid = audioCtx.createOscillator();
+      mid.type = "sawtooth"; mid.frequency.value = bassFreq * 1.5;
+      mid.connect(midGain); mid.start();
+      // High shimmer
+      const highGain = audioCtx.createGain();
+      highGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      highGain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 1.8);
+      highGain.connect(masterGain);
+      const high = audioCtx.createOscillator();
+      high.type = "sine"; high.frequency.value = bassFreq * 4;
+      high.connect(highGain); high.start();
+      // LFO for throb
+      const lfo = audioCtx.createOscillator();
+      const lfoGain = audioCtx.createGain();
+      lfoGain.gain.value = 0.06;
+      lfo.frequency.value = 2.2;
+      lfo.connect(lfoGain); lfoGain.connect(bassGain.gain);
+      lfo.start();
+      window._bossDroneNodes = [bass, mid, high, lfo];
+      window._bossDroneGains = [bassGain, midGain, highGain];
+    },
+
+    stopBossDrone() { stopBossDroneImpl(); },
+
+    legendaryFanfare() {
+      ensureAudio(); resumeAudio();
+      if (!audioCtx || muted) return;
+      // Ascending arpeggio + held chord for legendary
+      const chord = [330, 415, 524, 659, 880];
+      chord.forEach((f, i) => playTone(f, "square", 0.22, 0.32, i * 0.10));
+      // Sustained held chord at peak
+      [415, 524, 659].forEach((f) => playTone(f, "sine", 0.7, 0.12, 0.55));
+      playNoise(0.25, 0.14, 1100, 0.5);
     }
   };
 
+  // Boss drone cleanup helper (outside SFX object to avoid circular ref)
+  function stopBossDroneImpl() {
+    if (window._bossDroneNodes) {
+      window._bossDroneNodes.forEach((n) => { try { n.stop(); } catch(e){} });
+      window._bossDroneNodes = null;
+    }
+    if (window._bossDroneGains) {
+      window._bossDroneGains.forEach((g) => {
+        try { g.gain.linearRampToValueAtTime(0, (audioCtx || {}).currentTime + 0.4 || 0); } catch(e){}
+      });
+      window._bossDroneGains = null;
+    }
+  }
+
+  // ── Region music: Pokemon-style chord-progression theme per region ────────
+  // Replaces the previous ominous low-bass drone with a proper warm, melodic
+  // 4-chord loop + simple melodic motif. Each region gets a distinct key and
+  // mood — bright C major for Cradle, lyrical D major for Forum, anthemic
+  // F major for Industrial, contemplative E minor→Am for Atlas.
+  const REGION_MUSIC = {
+    early: {
+      // Cradle Theme — bright C major, playful arpeggio motif
+      chords: [[60,64,67],[57,60,64],[65,69,72],[67,71,74]], // C - Am - F - G
+      motif:  [72,67,64,67, 69,64,60,64]
+    },
+    classical: {
+      // Forum Theme — D major lyrical, flowing motif
+      chords: [[62,66,69],[59,62,66],[64,67,71],[57,61,64]], // D - Bm - Em - A
+      motif:  [74,69,66,69, 71,69,66,71]
+    },
+    modern: {
+      // Workshop Theme — F major warm/industrial, ascending motif
+      chords: [[65,69,72],[62,65,69],[67,71,74],[60,64,67]], // F - Dm - G - C
+      motif:  [77,72,69,72, 74,72,69,77]
+    },
+    contemporary: {
+      // Atlas Theme — E minor → Am, anthemic, contemplative motif
+      chords: [[64,67,71],[62,65,69],[67,71,74],[69,72,76]], // Em - Dm - G - Am
+      motif:  [76,71,67,71, 72,71,69,72]
+    }
+  };
+
+  function midiToHz(midi) { return 440 * Math.pow(2, (midi - 69) / 12); }
+
+  function duckRegionDrone() {
+    if (!regionDroneGain || !audioCtx) return;
+    regionDroneGain.gain.linearRampToValueAtTime(0.10, audioCtx.currentTime + 0.35); // duck 60%
+  }
+  function restoreRegionDrone() {
+    if (!regionDroneGain || !audioCtx) return;
+    regionDroneGain.gain.linearRampToValueAtTime(0.30, audioCtx.currentTime + 0.8);
+  }
+
   function startRegionDrone(region) {
-    if (!audioCtx || muted || reduceMotion) return;
-    if (regionDroneNode) {
-      regionDroneGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
-      setTimeout(() => { try { regionDroneNode.stop(); } catch(e){} }, 1600);
+    if (!audioCtx || muted) return;
+    // Stop previous music
+    if (regionDroneGain) {
+      const prevGain = regionDroneGain;
+      const prevState = regionDroneNode;
+      try { prevGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.6); } catch (e) {}
+      if (prevState && typeof prevState === "object") prevState.stopped = true;
+      if (prevState && prevState.nextLoopTimer) clearTimeout(prevState.nextLoopTimer);
+      setTimeout(() => { try { prevGain.disconnect(); } catch (e) {} }, 700);
+      regionDroneGain = null;
+      regionDroneNode = null;
     }
     if (!region) return;
-    const baseFreq = 440 * Math.pow(2, (region.ambientNote - 69) / 12);
+
+    const theme = REGION_MUSIC[region.id] || REGION_MUSIC.early;
     regionDroneGain = audioCtx.createGain();
     regionDroneGain.gain.setValueAtTime(0, audioCtx.currentTime);
-    regionDroneGain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 2);
+    regionDroneGain.gain.linearRampToValueAtTime(0.30, audioCtx.currentTime + 1.4);
     regionDroneGain.connect(masterGain);
-    regionDroneNode = audioCtx.createOscillator();
-    regionDroneNode.type = "sine";
-    regionDroneNode.frequency.value = baseFreq;
-    // Add a slightly detuned phase oscillator for richness
-    const osc2 = audioCtx.createOscillator();
-    osc2.type = "sine";
-    osc2.frequency.value = baseFreq * 1.005;
-    osc2.connect(regionDroneGain);
-    regionDroneNode.connect(regionDroneGain);
-    regionDroneNode.start();
-    osc2.start();
+
+    // State holder (re-uses regionDroneNode slot to keep the rest of the codebase happy)
+    regionDroneNode = { stopped: false, nextLoopTimer: null };
+    const state = regionDroneNode;
+    const musicGain = regionDroneGain;
+    const chordDur = 2.4;        // 2.4s per chord
+    const motifNoteDur = chordDur / 4; // 4 motif notes per chord (eighth-note feel at this tempo)
+
+    function playNote(midi, when, dur, type, vol) {
+      if (!state || state.stopped || !audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      osc.type = type || "triangle";
+      osc.frequency.value = midiToHz(midi);
+      const env = audioCtx.createGain();
+      env.gain.setValueAtTime(0, when);
+      env.gain.linearRampToValueAtTime(vol, when + 0.05);
+      env.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+      osc.connect(env);
+      env.connect(musicGain);
+      try { osc.start(when); osc.stop(when + dur + 0.05); } catch (e) {}
+    }
+
+    function scheduleLoop(loopStart) {
+      if (!state || state.stopped) return;
+      theme.chords.forEach((chord, chordIdx) => {
+        const chordStart = loopStart + chordIdx * chordDur;
+        const root = chord[0];
+        // Bass note — one octave below root, soft triangle for warm low-end (NOT a sub-bass drone)
+        playNote(root - 12, chordStart, chordDur * 0.92, "triangle", 0.060);
+        // Chord pad — root + 3rd + 5th, very soft
+        chord.forEach((note, i) => {
+          playNote(note, chordStart + i * 0.02, chordDur * 0.88, "triangle", 0.038);
+        });
+        // Melodic motif on top — sine for clarity, slightly louder than the pad
+        const motifStart = chordIdx * 4;
+        for (let i = 0; i < 4; i++) {
+          const motifNote = theme.motif[motifStart + i] || (root + 12);
+          playNote(motifNote, chordStart + i * motifNoteDur, motifNoteDur * 0.85, "sine", 0.044);
+        }
+      });
+      const totalLen = chordDur * theme.chords.length;
+      state.nextLoopTimer = setTimeout(() => scheduleLoop(loopStart + totalLen), totalLen * 1000 - 220);
+    }
+
+    scheduleLoop(audioCtx.currentTime + 0.15);
     lastRegionId = region.id;
   }
 
@@ -1644,9 +1905,11 @@
   function spritePosition(ally) {
     const family = ally && ally.familyId ? familiesById[ally.familyId] : null;
     const stage = stageForAlly(ally);
-    const col = clamp(stage, 0, 2);
+    // Axis 5: check sprite override for marquee figures
+    const override = ally && ally.familyId ? FIGURE_SPRITE_OVERRIDES[ally.familyId] : null;
+    const col = override ? clamp(override.stage, 0, 2) : clamp(stage, 0, 2);
     const row = family ? family.row : Number(ally && ally.spriteRow || 0);
-    const atlasIndex = family ? family.atlas : Number(ally && ally.atlas || 1);
+    const atlasIndex = override ? override.atlas : (family ? family.atlas : Number(ally && ally.atlas || 1));
     return {
       image: `url(${figureAtlasFiles[clamp(atlasIndex - 1, 0, figureAtlasFiles.length - 1)]})`,
       x: `${col * 50}%`,
@@ -1801,7 +2064,10 @@
         `</div>`;
       }).join("");
 
-      const blurb = isSeen ? `<p>${escapeHtml(family.line)}</p>` : `<p class="codex-mystery">Encounter this figure to reveal its history.</p>`;
+      // Axis 3: use FAMILY_BLURBS (hand-crafted or templated), fall back to family.line
+      ensureFamilyBlurbs();
+      const familyBlurbText = (FAMILY_BLURBS && FAMILY_BLURBS[familyId]) || cleanText(family.line || "");
+      const blurb = isSeen ? `<p>${escapeHtml(familyBlurbText)}</p>` : `<p class="codex-mystery">Encounter this figure to reveal its history.</p>`;
 
       return `<article class="codex-family${isCaught ? " codex-caught" : ""}" style="--type:${escapeHtml(typeColor)}" data-family-id="${escapeHtml(familyId)}">` +
         `<header>` +
@@ -1890,6 +2156,447 @@
     setTimeout(() => els.encounter.classList.remove(className), duration);
   }
 
+  // ─── AXIS 1: PER-TYPE CANVAS VFX ─────────────────────────────────────────
+  // Maps the 8 THEMATIC types (Political, Economic, …) to distinct canvas effects.
+  // `selected.type` from the battle move is a course name like "AP World", "Grade 9".
+  // We map course → thematic type via a simple keyword scan, then dispatch to
+  // the right renderer.
+
+  const typeVfxCanvas = document.getElementById("type-vfx-canvas");
+  const typeVfxCtx = typeVfxCanvas ? typeVfxCanvas.getContext("2d") : null;
+
+  function resizeTypeVfxCanvas() {
+    if (!typeVfxCanvas) return;
+    typeVfxCanvas.width = innerWidth;
+    typeVfxCanvas.height = innerHeight;
+  }
+  addEventListener("resize", resizeTypeVfxCanvas);
+  resizeTypeVfxCanvas();
+
+  // Map a move/ally type string → one of 8 thematic VFX buckets
+  function thematicVfxType(courseType) {
+    const t = String(courseType || "").toLowerCase();
+    if (/gov|civics|pig|political|govern|federal|const/.test(t)) return "Political";
+    if (/econ|macro|micro|market|money|gdp|trade/.test(t)) return "Economic";
+    if (/psych|social|behavior|people|rights|reform|suffrage/.test(t)) return "Social";
+    if (/euro|culture|art|renaissance|humanities|human geo/.test(t)) return "Cultural";
+    if (/tech|science|industrial|forge|revolution/.test(t)) return "Technological";
+    if (/military|war|battle|conquest|army|mongol|napoleon/.test(t)) return "Military";
+    if (/religion|belief|reform|luther|confucius|spirit|islam|church/.test(t)) return "Religious";
+    if (/geo|global|world|route|region|empire|trade route|ancient|early/.test(t)) return "Geographic";
+    return "Generic";
+  }
+
+  // Main dispatcher — call after fx-impact lands
+  function playTypeVfx(courseType) {
+    if (!typeVfxCtx || reduceMotion) return;
+    const bucket = thematicVfxType(courseType);
+    const cx = innerWidth * 0.72;  // enemy battler region
+    const cy = innerHeight * 0.32;
+    switch (bucket) {
+      case "Political":    drawPoliticalVfx(cx, cy); break;
+      case "Economic":     drawEconomicVfx(cx, cy);  break;
+      case "Social":       drawSocialVfx(cx, cy);    break;
+      case "Cultural":     drawCulturalVfx(cx, cy);  break;
+      case "Technological":drawTechVfx(cx, cy);      break;
+      case "Military":     drawMilitaryVfx(cx, cy);  break;
+      case "Religious":    drawReligiousVfx(cx, cy); break;
+      case "Geographic":   drawGeoVfx(cx, cy);       break;
+      default:             break;
+    }
+    // Apply CSS tint class for rim-glow
+    if (els.encounter && bucket !== "Generic") {
+      const cls = `fx-type-${bucket.toLowerCase()}`;
+      els.encounter.classList.add(cls);
+      setTimeout(() => els.encounter.classList.remove(cls), 740);
+    }
+  }
+
+  // ─── per-type renderers ──────────────────────────────────────────────────
+
+  // helpers
+  function clearTypeVfx() {
+    if (typeVfxCtx) typeVfxCtx.clearRect(0, 0, innerWidth, innerHeight);
+  }
+
+  function animTypeVfx(frames, onFrame, onDone) {
+    let f = 0;
+    function step() {
+      clearTypeVfx();
+      onFrame(f / frames);
+      f++;
+      if (f <= frames) requestAnimationFrame(step);
+      else { clearTypeVfx(); if (onDone) onDone(); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  // POLITICAL — red gavel slam + radial ring + ink splatter
+  function drawPoliticalVfx(cx, cy) {
+    animTypeVfx(22, (t) => {
+      const c = typeVfxCtx;
+      // Impact ring
+      const r = t * 140;
+      c.save();
+      c.strokeStyle = `rgba(200,30,30,${1 - t})`;
+      c.lineWidth = 6 - t * 4;
+      c.beginPath(); c.arc(cx, cy, r, 0, Math.PI * 2);
+      c.stroke();
+      // Second ring slightly delayed
+      if (t > 0.2) {
+        const r2 = (t - 0.2) * 110;
+        c.strokeStyle = `rgba(140,20,20,${0.7*(1-t)})`;
+        c.lineWidth = 4;
+        c.beginPath(); c.arc(cx, cy, r2, 0, Math.PI * 2);
+        c.stroke();
+      }
+      // Gavel head (downward stroke)
+      const gavelY = cy - 60 + t * 80;
+      c.fillStyle = `rgba(180,20,20,${Math.max(0, 1 - t * 2)})`;
+      c.fillRect(cx - 18, gavelY, 36, 22);
+      c.fillRect(cx - 5, gavelY + 22, 10, 32);
+      // Ink splatter particles
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2;
+        const dist = t * (50 + (i % 3) * 20);
+        const px = cx + Math.cos(a) * dist;
+        const py = cy + Math.sin(a) * dist;
+        const size = (1 - t) * 6;
+        if (size > 0) {
+          c.fillStyle = `rgba(180,20,20,${1 - t})`;
+          c.beginPath(); c.arc(px, py, size, 0, Math.PI * 2);
+          c.fill();
+        }
+      }
+      c.restore();
+    });
+  }
+
+  // ECONOMIC — gold coin burst
+  function drawEconomicVfx(cx, cy) {
+    animTypeVfx(24, (t) => {
+      const c = typeVfxCtx;
+      c.save();
+      const numCoins = 10;
+      for (let i = 0; i < numCoins; i++) {
+        const a = (i / numCoins) * Math.PI * 2;
+        const dist = t * (80 + (i % 3) * 30);
+        const px = cx + Math.cos(a) * dist;
+        const py = cy + Math.sin(a) * dist + t * t * 60; // gravity arc
+        const scale = Math.max(0, 1 - t * 1.2);
+        const r = scale * 12;
+        if (r > 0) {
+          c.fillStyle = `rgba(255,215,0,${scale})`;
+          c.beginPath(); c.ellipse(px, py, r, r * 0.55, 0, 0, Math.PI * 2);
+          c.fill();
+          c.strokeStyle = `rgba(180,140,0,${scale * 0.8})`;
+          c.lineWidth = 1.5;
+          c.stroke();
+          // coin cross-detail
+          c.strokeStyle = `rgba(255,240,100,${scale * 0.5})`;
+          c.lineWidth = 1;
+          c.beginPath();
+          c.moveTo(px - r * 0.4, py); c.lineTo(px + r * 0.4, py);
+          c.stroke();
+        }
+      }
+      // Sparkle trails
+      for (let i = 0; i < 6; i++) {
+        const a = (i / 6) * Math.PI * 2 + t * 3;
+        const d = t * 60;
+        const sx = cx + Math.cos(a) * d;
+        const sy = cy + Math.sin(a) * d;
+        c.fillStyle = `rgba(255,250,150,${(1 - t) * 0.9})`;
+        c.beginPath();
+        c.arc(sx, sy, (1 - t) * 4, 0, Math.PI * 2);
+        c.fill();
+      }
+      c.restore();
+    });
+  }
+
+  // SOCIAL — rose bloom (expanding petals)
+  function drawSocialVfx(cx, cy) {
+    animTypeVfx(26, (t) => {
+      const c = typeVfxCtx;
+      c.save();
+      const petals = 6;
+      for (let i = 0; i < petals; i++) {
+        const baseA = (i / petals) * Math.PI * 2;
+        const petalDist = t * 70;
+        const px = cx + Math.cos(baseA) * petalDist;
+        const py = cy + Math.sin(baseA) * petalDist;
+        const size = Math.max(0, (1 - Math.abs(t - 0.5) * 2) * 22);
+        if (size > 0) {
+          const g = c.createRadialGradient(px, py, 0, px, py, size);
+          g.addColorStop(0, `rgba(255,180,210,${1 - t})`);
+          g.addColorStop(1, `rgba(255,100,160,0)`);
+          c.fillStyle = g;
+          c.beginPath();
+          c.ellipse(px, py, size, size * 1.4, baseA, 0, Math.PI * 2);
+          c.fill();
+        }
+      }
+      // Soft center wash
+      if (t < 0.5) {
+        const g2 = c.createRadialGradient(cx, cy, 0, cx, cy, t * 80);
+        g2.addColorStop(0, `rgba(255,160,200,${0.18*(1-t*2)})`);
+        g2.addColorStop(1, `rgba(255,100,160,0)`);
+        c.fillStyle = g2;
+        c.beginPath(); c.arc(cx, cy, t * 80, 0, Math.PI * 2);
+        c.fill();
+      }
+      c.restore();
+    });
+  }
+
+  // CULTURAL — teal kaleidoscope (rotating geometric ring)
+  function drawCulturalVfx(cx, cy) {
+    animTypeVfx(28, (t) => {
+      const c = typeVfxCtx;
+      c.save();
+      c.translate(cx, cy);
+      c.rotate(t * Math.PI * 1.5);
+      const sides = 6;
+      const r = t * 100;
+      // Rotating hexagon
+      c.strokeStyle = `rgba(0,200,220,${1 - t})`;
+      c.lineWidth = 3;
+      c.beginPath();
+      for (let i = 0; i <= sides; i++) {
+        const a = (i / sides) * Math.PI * 2;
+        i === 0 ? c.moveTo(Math.cos(a) * r, Math.sin(a) * r)
+                : c.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+      }
+      c.stroke();
+      // Inner diamond
+      const r2 = r * 0.5;
+      c.strokeStyle = `rgba(0,240,255,${(1 - t) * 0.7})`;
+      c.lineWidth = 2;
+      c.beginPath();
+      for (let i = 0; i <= 4; i++) {
+        const a = (i / 4) * Math.PI * 2 + Math.PI / 4;
+        i === 0 ? c.moveTo(Math.cos(a) * r2, Math.sin(a) * r2)
+                : c.lineTo(Math.cos(a) * r2, Math.sin(a) * r2);
+      }
+      c.stroke();
+      // Iridescent shimmer dots
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2;
+        const d = r * 0.75;
+        const hue = (i * 45 + t * 180) % 360;
+        c.fillStyle = `hsla(${hue},100%,70%,${(1-t)*0.8})`;
+        c.beginPath(); c.arc(Math.cos(a) * d, Math.sin(a) * d, 4, 0, Math.PI * 2);
+        c.fill();
+      }
+      c.restore();
+    });
+  }
+
+  // TECHNOLOGICAL — cyan scanline sweep + glitch fragments
+  function drawTechVfx(cx, cy) {
+    animTypeVfx(20, (t) => {
+      const c = typeVfxCtx;
+      c.save();
+      // Horizontal scan band sweeping top-to-bottom across a 160×100 target box
+      const boxLeft = cx - 80;
+      const boxTop = cy - 50;
+      const boxH = 100;
+      const scanY = boxTop + t * (boxH + 40) - 20;
+      c.fillStyle = `rgba(80,240,255,${0.28 * (1 - Math.abs(t - 0.5) * 2)})`;
+      c.fillRect(boxLeft, scanY, 160, 18);
+      // Scan line highlight edge
+      c.strokeStyle = `rgba(160,255,255,${0.7*(1-t)})`;
+      c.lineWidth = 2;
+      c.beginPath(); c.moveTo(boxLeft, scanY); c.lineTo(boxLeft + 160, scanY);
+      c.stroke();
+      // Glitch offset rectangles
+      for (let i = 0; i < 4; i++) {
+        if (Math.sin(t * 30 + i) > 0.3) {
+          const gx = boxLeft + (i % 2) * 50 - 10;
+          const gy = boxTop + i * 22 + Math.sin(t * 15) * 8;
+          c.fillStyle = `rgba(0,200,220,${0.2*(1-t)})`;
+          c.fillRect(gx, gy, 70 + i * 10, 8);
+          // Slight X-offset for glitch feel
+          c.fillStyle = `rgba(255,80,200,${0.1*(1-t)})`;
+          c.fillRect(gx + 4, gy, 70 + i * 10, 8);
+        }
+      }
+      c.restore();
+    });
+  }
+
+  // MILITARY — orange X-strike + 8-spoke spark burst
+  function drawMilitaryVfx(cx, cy) {
+    animTypeVfx(22, (t) => {
+      const c = typeVfxCtx;
+      c.save();
+      // X-strike
+      const len = t * 90;
+      c.strokeStyle = `rgba(255,140,20,${1 - t})`;
+      c.lineWidth = 5 - t * 3;
+      c.lineCap = "round";
+      // X diagonal 1
+      c.beginPath(); c.moveTo(cx - len, cy - len); c.lineTo(cx + len * 0.6, cy + len * 0.6); c.stroke();
+      // X diagonal 2
+      c.beginPath(); c.moveTo(cx + len, cy - len); c.lineTo(cx - len * 0.6, cy + len * 0.6); c.stroke();
+      // 8-spoke spark burst
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2;
+        const d1 = t * 40;
+        const d2 = t * 90;
+        c.strokeStyle = `rgba(255,200,40,${(1-t)*0.9})`;
+        c.lineWidth = 2;
+        c.beginPath();
+        c.moveTo(cx + Math.cos(a) * d1, cy + Math.sin(a) * d1);
+        c.lineTo(cx + Math.cos(a) * d2, cy + Math.sin(a) * d2);
+        c.stroke();
+        // Spark tip
+        if (t < 0.7) {
+          c.fillStyle = `rgba(255,255,100,${(1-t)*0.8})`;
+          c.beginPath(); c.arc(cx + Math.cos(a) * d2, cy + Math.sin(a) * d2, 3, 0, Math.PI * 2);
+          c.fill();
+        }
+      }
+      c.restore();
+    });
+  }
+
+  // RELIGIOUS — warm white halo + candle-glow rays + ascending sparkle
+  function drawReligiousVfx(cx, cy) {
+    animTypeVfx(30, (t) => {
+      const c = typeVfxCtx;
+      c.save();
+      // Outer halo glow
+      const g = c.createRadialGradient(cx, cy, t * 20, cx, cy, t * 130);
+      g.addColorStop(0, `rgba(255,248,200,${0.3*(1-t)})`);
+      g.addColorStop(0.5, `rgba(255,230,100,${0.15*(1-t)})`);
+      g.addColorStop(1, `rgba(255,200,60,0)`);
+      c.fillStyle = g;
+      c.beginPath(); c.arc(cx, cy, t * 130, 0, Math.PI * 2);
+      c.fill();
+      // Candle rays (8 thin spokes)
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2 + t * 0.4;
+        const r1 = t * 35;
+        const r2 = t * 100;
+        const alpha = (1 - t) * 0.7;
+        c.strokeStyle = `rgba(255,248,180,${alpha})`;
+        c.lineWidth = 1.5 + (i % 2);
+        c.beginPath();
+        c.moveTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1);
+        c.lineTo(cx + Math.cos(a) * r2, cy + Math.sin(a) * r2);
+        c.stroke();
+      }
+      // Ascending sparkles
+      for (let i = 0; i < 7; i++) {
+        const phase = (t + i / 7) % 1;
+        const sx = cx + (i - 3) * 14;
+        const sy = cy + 20 - phase * 90;
+        const alpha = Math.sin(phase * Math.PI) * 0.85;
+        c.fillStyle = `rgba(255,255,200,${alpha})`;
+        c.beginPath(); c.arc(sx, sy, 3.5 - phase * 2, 0, Math.PI * 2);
+        c.fill();
+      }
+      c.restore();
+    });
+  }
+
+  // GEOGRAPHIC — forest-green earth crack + dust + leaf flutter
+  function drawGeoVfx(cx, cy) {
+    animTypeVfx(26, (t) => {
+      const c = typeVfxCtx;
+      c.save();
+      // Jagged ground crack (emanates from center downward)
+      c.strokeStyle = `rgba(30,100,40,${1 - t})`;
+      c.lineWidth = 3 - t * 2;
+      c.beginPath();
+      c.moveTo(cx, cy);
+      const crackLen = t * 80;
+      // Jagged path via fixed offsets
+      const jagged = [[-12,12],[6,20],[-8,30],[10,40],[-5,50],[8,60],[0,70]];
+      for (const [ox, dy] of jagged) {
+        if (dy <= crackLen) c.lineTo(cx + ox, cy + dy);
+      }
+      c.stroke();
+      // Mirror crack going left
+      c.beginPath(); c.moveTo(cx, cy);
+      const jagged2 = [[10,10],[-6,22],[8,32],[-10,44],[6,56],[0,66]];
+      for (const [ox, dy] of jagged2) {
+        if (dy <= crackLen) c.lineTo(cx + ox, cy + dy);
+      }
+      c.stroke();
+      // Dust kick particles
+      for (let i = 0; i < 10; i++) {
+        const a = Math.PI + (i / 10) * Math.PI; // upward arc
+        const d = t * (30 + (i % 3) * 20);
+        const px = cx + Math.cos(a) * d;
+        const py = cy + Math.sin(a) * d - t * 20;
+        const r = Math.max(0, (1 - t) * 7);
+        c.fillStyle = `rgba(80,150,60,${(1-t)*0.6})`;
+        c.beginPath(); c.arc(px, py, r, 0, Math.PI * 2);
+        c.fill();
+      }
+      // Leaf flutter (small elongated ovals)
+      for (let i = 0; i < 5; i++) {
+        const phase = (t * 1.4 + i * 0.22) % 1;
+        const lx = cx + (i - 2) * 22 + Math.sin(phase * Math.PI * 3) * 14;
+        const ly = cy - phase * 80;
+        const alpha = Math.sin(phase * Math.PI) * 0.75;
+        c.fillStyle = `rgba(50,180,70,${alpha})`;
+        c.save();
+        c.translate(lx, ly);
+        c.rotate(phase * Math.PI * 2 + i);
+        c.beginPath(); c.ellipse(0, 0, 5, 10, 0, 0, Math.PI * 2);
+        c.fill();
+        c.restore();
+      }
+      c.restore();
+    });
+  }
+  // ─── END AXIS 1 ───────────────────────────────────────────────────────────
+
+  // ─── AXIS 2: GOTCHA CINEMATIC CAPTURE CARD ────────────────────────────────
+  const gotchaOverlay = document.getElementById("gotcha-overlay");
+  const gotchaSprite  = document.getElementById("gotchaSprite");
+  const gotchaInfoEl  = document.getElementById("gotchaInfo");
+
+  function showGotchaCard(ally) {
+    if (!gotchaOverlay || !ally) return;
+    // Build sprite background
+    const sprite = spritePosition(ally);
+    if (gotchaSprite) {
+      gotchaSprite.style.backgroundImage  = sprite.image;
+      gotchaSprite.style.backgroundPositionX = sprite.x;
+      gotchaSprite.style.backgroundPositionY = sprite.y;
+    }
+    // Type color
+    const typeColor = (typeData[ally.type] || typeData.Review).color;
+    // Blurb: check FAMILY_BLURBS first, fall back to ally.role
+    const family = ally.familyId ? familiesById[ally.familyId] : null;
+    const blurb = (FAMILY_BLURBS && FAMILY_BLURBS[ally.familyId])
+      || (family && family.line)
+      || cleanText(ally.role || "");
+    const rarity = ally.rarity || "Common Echo";
+    const level = ally.level || 1;
+    if (gotchaInfoEl) {
+      gotchaInfoEl.innerHTML =
+        `<strong>${escapeHtml(ally.actualName || ally.name)}</strong>` +
+        `<span class="gotcha-type-chip" style="--type-color:${escapeHtml(typeColor)}">${escapeHtml(ally.type || "Review")}</span>` +
+        `<span class="gotcha-rarity">${escapeHtml(rarity)} · Lv ${level}</span>` +
+        (blurb ? `<p class="gotcha-blurb">${escapeHtml(blurb.slice(0, 180))}</p>` : "");
+    }
+    gotchaOverlay.classList.remove("hidden");
+    // Dismiss: tap overlay or after 2.4 s
+    const dismiss = () => {
+      gotchaOverlay.classList.add("hidden");
+      gotchaOverlay.removeEventListener("pointerdown", dismiss);
+    };
+    gotchaOverlay.addEventListener("pointerdown", dismiss, { once: true });
+    setTimeout(() => { gotchaOverlay.classList.add("hidden"); }, 2400);
+  }
+  // ─── END AXIS 2 ───────────────────────────────────────────────────────────
+
   function battleAccent(type) {
     return (typeData[type] && typeData[type].color) || GB.glow;
   }
@@ -1925,6 +2632,8 @@
     renderBattle();
     await playBattleFx("fx-impact", 230, { "--move-color": color });
     if (!isCurrentBattle(battle)) return false;
+    // Axis 1: fire per-type canvas VFX on impact
+    playTypeVfx(selected.type);
     flashBattleFx("fx-enemy-hit", 480);
     flashBattleFx("fx-field-shake", 380);
     await showBattleMessage(`${effectSentence(result.multiplier)} ${shout(target)} took ${result.amount} damage.`, 720);
@@ -2212,6 +2921,8 @@
         setEncounterPhase("capture");
         SFX.captureFanfare();
         spawnConfetti(innerWidth / 2, innerHeight / 2, 60);
+        // Axis 2: cinematic Gotcha card
+        showGotchaCard(ally);
         await showBattleMessage(`${shout(ally.actualName || ally.name)} joined the Chronicle Roster!`, 1000);
         if (isCurrentBattle(battle)) completeEncounter("capture");
         return;
@@ -2401,21 +3112,28 @@
           sensitive: false,
           isRare: true
         };
-        SFX.encounterAlert();
         _openEncounterWith(rareAlly, false);
         return;
       }
     }
 
     const q = pool[Math.floor(Math.random() * pool.length)];
-    SFX.encounterAlert();
     _openEncounterWith(makeAlly(q), false);
   }
 
   function _openEncounterWith(ally, isBoss) {
     ensureAudio(); resumeAudio();
-    if (isBoss) SFX.bossRoar();
-    else if (!ally.isRare) SFX.encounterAlert();
+    // Axis 4: duck region drone during battle
+    duckRegionDrone();
+    if (isBoss) {
+      SFX.bossRoar();
+      SFX.startBossDrone();
+    } else if (ally.isRare) {
+      SFX.legendaryFanfare();
+    } else {
+      // Use refined encounter stinger tinted by encounter type
+      SFX.encounterStinger(ally.type || "Review");
+    }
     state.currentAlly = ally;
     state.currentQuestion = null;
     state.questActive = null;
@@ -2463,6 +3181,9 @@
     setEncounterPhase("");
     document.body.classList.remove("encounter-open");
     els.encounter.hidden = true;
+    // Axis 4: stop boss drone and restore region drone
+    SFX.stopBossDrone();
+    restoreRegionDrone();
   }
 
   function questRewardFor(q) {

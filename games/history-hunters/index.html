@@ -234,6 +234,18 @@
       <div class="field-hint" id="fieldHint">A: talk / inspect · START: menu</div>
     </div>
   </main>
+  <!-- Type-VFX canvas overlay (Axis 1) -->
+  <canvas id="type-vfx-canvas" aria-hidden="true"></canvas>
+  <!-- Gotcha capture reveal card (Axis 2) -->
+  <div id="gotcha-overlay" class="hidden" role="dialog" aria-label="Figure captured" aria-live="assertive">
+    <div class="gotcha-stamp">
+      <div class="gotcha-word">GOTCHA!</div>
+      <div class="gotcha-reveal-card" id="gotchaCard">
+        <div class="gotcha-sprite" id="gotchaSprite"></div>
+        <div class="gotcha-info" id="gotchaInfo"></div>
+      </div>
+    </div>
+  </div>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
   <script src="game.js?v=20260502-perfect-pass"></script>
