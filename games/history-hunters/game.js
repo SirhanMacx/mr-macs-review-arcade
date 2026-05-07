@@ -624,524 +624,6 @@
     "Zheng He": "maritime isolation"
   };
 
-  // ─── REGIONS ───────────────────────────────────────────────────────────────
-  const REGIONS = [
-    {
-      id: "early-civ",
-      name: "Early Civilizations",
-      label: "Ancient Routes",
-      color: "#c9a0ff",
-      tint: "rgba(120, 60, 200, 0.12)",
-      bounds: [0, 0, 2000, 1700],
-      figures: ["Hammurabi", "Confucius", "Pericles", "Mansa Musa", "Ibn Battuta", "Sacagawea", "Pachacuti", "Moctezuma II"],
-      rareFigures: ["Cleopatra VII", "Cyrus the Great"],
-      bossId: "hammurabi-boss",
-      bossName: "Hammurabi's Law Trial",
-      unlockShards: 0,
-      ambientNote: 55
-    },
-    {
-      id: "classical",
-      name: "Classical & Medieval",
-      label: "Classical Routes",
-      color: "#70f2ff",
-      tint: "rgba(60, 180, 220, 0.10)",
-      bounds: [2000, 0, 5200, 1700],
-      figures: ["Pericles", "Ibn Battuta", "Martin Luther", "Leonardo da Vinci", "Napoleon Bonaparte", "Zheng He", "Toussaint Louverture"],
-      rareFigures: ["Joan of Arc", "Genghis Khan"],
-      bossId: "medieval-boss",
-      bossName: "The Reformation Crisis",
-      unlockShards: 80,
-      ambientNote: 48
-    },
-    {
-      id: "modern",
-      name: "Modern & Industrial",
-      label: "Industrial Routes",
-      color: "#77f0af",
-      tint: "rgba(80, 200, 120, 0.10)",
-      bounds: [0, 1700, 2600, 3400],
-      figures: ["Adam Smith", "John Maynard Keynes", "Karl Marx", "Abraham Lincoln", "Frederick Douglass", "Susan B. Anthony", "Theodore Roosevelt", "Franklin D. Roosevelt"],
-      rareFigures: ["Harriet Tubman", "Mansa Musa"],
-      bossId: "industrial-boss",
-      bossName: "Industrial Revolution Summit",
-      unlockShards: 180,
-      ambientNote: 41
-    },
-    {
-      id: "contemporary",
-      name: "Contemporary & Global",
-      label: "Global Routes",
-      color: "#ffd66e",
-      tint: "rgba(220, 180, 60, 0.10)",
-      bounds: [2600, 1700, 5200, 3400],
-      figures: ["Mohandas Gandhi", "Nelson Mandela", "Martin Luther King Jr.", "Eleanor Roosevelt", "Thurgood Marshall", "Barbara Jordan", "Ida B. Wells", "B. F. Skinner", "Jean Piaget"],
-      rareFigures: ["Mansa Musa", "Cleopatra VII"],
-      bossId: "regents-boss",
-      bossName: "Regents Summit Final",
-      unlockShards: 320,
-      ambientNote: 36
-    }
-  ];
-
-  function regionFor(x, y) {
-    return REGIONS.find((r) => {
-      const [rx, ry, rw, rh] = r.bounds;
-      return x >= rx && x < rw && y >= ry && y < rh;
-    }) || REGIONS[0];
-  }
-
-  // ─── QUEST SYSTEM ──────────────────────────────────────────────────────────
-  const QUEST_TEMPLATES = {
-    "early-civ": [
-      { id: "ec-catch3", title: "Ancient Recruiter", desc: "Catch 3 figures from Ancient/Classical era.", type: "catch", target: 3, reward: { shards: 60, item: "primaryBall" } },
-      { id: "ec-streak5", title: "Law Code Keeper", desc: "Answer 5 questions correctly in a row.", type: "streak", target: 5, reward: { shards: 50, item: "fieldNote" } },
-      { id: "ec-win5", title: "First Campaigns", desc: "Win 5 battles in this region.", type: "wins", target: 5, reward: { shards: 40, item: "capsule" } },
-      { id: "ec-boss", title: "Challenge Hammurabi", desc: "Defeat the Hammurabi boss encounter.", type: "boss", target: 1, reward: { shards: 120, item: "centuryBall" } }
-    ],
-    "classical": [
-      { id: "cl-catch3", title: "Medieval Scholar", desc: "Catch 3 figures from Medieval/Renaissance era.", type: "catch", target: 3, reward: { shards: 80, item: "primaryBall" } },
-      { id: "cl-streak5", title: "Reformation Reader", desc: "Answer 7 questions correctly in a row.", type: "streak", target: 7, reward: { shards: 70, item: "fieldNote" } },
-      { id: "cl-win5", title: "Trade Route Champion", desc: "Win 8 battles in this region.", type: "wins", target: 8, reward: { shards: 60, item: "capsule" } },
-      { id: "cl-boss", title: "Reformation Boss", desc: "Defeat the Reformation Crisis boss.", type: "boss", target: 1, reward: { shards: 160, item: "centuryBall" } }
-    ],
-    "modern": [
-      { id: "mo-catch3", title: "Industrial Recruiter", desc: "Catch 3 figures from the Modern era.", type: "catch", target: 3, reward: { shards: 100, item: "primaryBall" } },
-      { id: "mo-streak5", title: "Reform Movement", desc: "Build a 10-question streak.", type: "streak", target: 10, reward: { shards: 90, item: "fieldNote" } },
-      { id: "mo-win5", title: "Industrial Wins", desc: "Win 10 battles in this region.", type: "wins", target: 10, reward: { shards: 80, item: "healKit" } },
-      { id: "mo-boss", title: "Industrial Summit", desc: "Defeat the Industrial Revolution boss.", type: "boss", target: 1, reward: { shards: 200, item: "centuryBall" } }
-    ],
-    "contemporary": [
-      { id: "co-catch3", title: "Global Roster", desc: "Catch 5 figures from Contemporary era.", type: "catch", target: 5, reward: { shards: 140, item: "primaryBall" } },
-      { id: "co-streak5", title: "Civil Rights March", desc: "Build a 15-question streak.", type: "streak", target: 15, reward: { shards: 120, item: "centuryBall" } },
-      { id: "co-win5", title: "Global Champion", desc: "Win 15 battles in this region.", type: "wins", target: 15, reward: { shards: 100, item: "healKit" } },
-      { id: "co-boss", title: "Regents Final", desc: "Clear the Regents Summit boss.", type: "boss", target: 1, reward: { shards: 300, item: "centuryBall" } }
-    ]
-  };
-
-  // ─── BALL TIERS ────────────────────────────────────────────────────────────
-  const BALL_TIERS = {
-    capsule:     { label: "Archive Capsule",         multiplier: 1.0, historyBonus: false },
-    primaryBall: { label: "Primary-Source Ball",     multiplier: 1.45, historyBonus: false },
-    centuryBall: { label: "Turn-of-Century Ball",    multiplier: 2.0,  historyBonus: true  }
-  };
-
-  // ─── RARE FIGURES ──────────────────────────────────────────────────────────
-  const RARE_FIGURE_DATA = {
-    "Cleopatra VII":  { type: "Global 9",  rarity: "Legendary", blurb: "Last active pharaoh of Ptolemaic Egypt. Formed powerful alliances with Caesar and Antony to preserve Egyptian independence against Roman expansion.", flavor: "Political", power: 42 },
-    "Joan of Arc":    { type: "AP Euro",   rarity: "Legendary", blurb: "French peasant girl who led French armies during the Hundred Years' War. Her military leadership turned the tide before her capture and execution.", flavor: "Military", power: 44 },
-    "Cyrus the Great":{ type: "Global 9",  rarity: "Legendary", blurb: "Founder of the Achaemenid Persian Empire. Known for his policy of religious tolerance and allowing conquered peoples to keep their customs.", flavor: "Political", power: 40 },
-    "Genghis Khan":   { type: "AP World",  rarity: "Legendary", blurb: "Founded and led the Mongol Empire, the largest contiguous land empire in history. His campaigns reshaped Eurasia's trade routes and populations.", flavor: "Military", power: 46 }
-  };
-
-  // ─── CODEX SEEN STATE (overlay on save) ───────────────────────────────────
-  // codex entry: { id, seen: bool, caught: bool, level: number }
-
-  // ─── WEB AUDIO ENGINE ──────────────────────────────────────────────────────
-  let audioCtx = null;
-  let masterGain = null;
-  let muted = false;
-  let regionDroneNode = null;
-  let regionDroneGain = null;
-  let lastRegionId = null;
-
-  function ensureAudio() {
-    if (audioCtx) return;
-    try {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      masterGain = audioCtx.createGain();
-      masterGain.gain.value = 0.5;
-      masterGain.connect(audioCtx.destination);
-    } catch (e) { /* audio not available */ }
-  }
-
-  function resumeAudio() {
-    if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
-  }
-
-  function playTone(freq, type, dur, vol, delay = 0, attack = 0.01, release = 0.08) {
-    if (!audioCtx || muted) return;
-    const t = audioCtx.currentTime + delay;
-    const osc = audioCtx.createOscillator();
-    const env = audioCtx.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, t);
-    env.gain.setValueAtTime(0, t);
-    env.gain.linearRampToValueAtTime(vol, t + attack);
-    env.gain.exponentialRampToValueAtTime(0.001, t + dur - release);
-    osc.connect(env);
-    env.connect(masterGain);
-    osc.start(t);
-    osc.stop(t + dur);
-  }
-
-  function playNoise(dur, vol, freq, delay = 0) {
-    if (!audioCtx || muted) return;
-    const t = audioCtx.currentTime + delay;
-    const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * dur, audioCtx.sampleRate);
-    const data = buf.getChannelData(0);
-    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-    const src = audioCtx.createBufferSource();
-    src.buffer = buf;
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = "bandpass";
-    filter.frequency.value = freq;
-    filter.Q.value = 2;
-    const env = audioCtx.createGain();
-    env.gain.setValueAtTime(vol, t);
-    env.gain.exponentialRampToValueAtTime(0.001, t + dur);
-    src.connect(filter);
-    filter.connect(env);
-    env.connect(masterGain);
-    src.start(t);
-    src.stop(t + dur);
-  }
-
-  const SFX = {
-    step() {
-      if (!audioCtx || muted) return;
-      playTone(110 + Math.random() * 20, "square", 0.04, 0.06);
-    },
-    encounterAlert() {
-      ensureAudio(); resumeAudio();
-      // Rising stinger: E4 G4 B4
-      [330, 392, 494, 659].forEach((f, i) => playTone(f, "square", 0.14, 0.28, i * 0.10));
-      playNoise(0.18, 0.12, 600, 0.40);
-    },
-    ballThrow() {
-      playTone(440, "sine", 0.18, 0.22);
-      playNoise(0.12, 0.1, 800, 0.08);
-    },
-    ballWobble(n) {
-      // n = 1,2,3 — each slightly lower pitch
-      const freqs = [880, 740, 620];
-      playTone(freqs[n] || 740, "square", 0.10, 0.18);
-      playNoise(0.06, 0.08, 400, 0.05);
-    },
-    ballClick() {
-      playTone(220, "square", 0.06, 0.22);
-    },
-    captureFanfare() {
-      // Major arpeggio C E G C'
-      [262, 330, 392, 524, 392, 330, 262].forEach((f, i) => playTone(f, "square", 0.18, 0.3, i * 0.14));
-      playNoise(0.3, 0.1, 1200, 0.6);
-    },
-    battleImpact() {
-      playNoise(0.12, 0.25, 300);
-      playTone(110, "sawtooth", 0.15, 0.2, 0.04);
-    },
-    superEffective() {
-      playTone(784, "square", 0.12, 0.3);
-      playTone(1046, "square", 0.10, 0.28, 0.10);
-      playNoise(0.1, 0.15, 900, 0.08);
-    },
-    bossRoar() {
-      [55, 73, 87].forEach((f, i) => playTone(f, "sawtooth", 0.4, 0.35, i * 0.08));
-      playNoise(0.5, 0.3, 200, 0.1);
-    },
-    levelUp() {
-      // Ascending arpeggio
-      [262, 294, 330, 349, 392, 440, 494, 524].forEach((f, i) => playTone(f, "square", 0.12, 0.28, i * 0.10));
-    },
-    wrong() {
-      [220, 196, 175].forEach((f, i) => playTone(f, "square", 0.10, 0.18, i * 0.08));
-    },
-    correct() {
-      playTone(659, "square", 0.12, 0.22);
-      playTone(880, "square", 0.10, 0.2, 0.10);
-    },
-    questComplete() {
-      [392, 494, 587, 784].forEach((f, i) => playTone(f, "square", 0.14, 0.28, i * 0.12));
-    }
-  };
-
-  function startRegionDrone(region) {
-    if (!audioCtx || muted || reduceMotion) return;
-    if (regionDroneNode) {
-      regionDroneGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
-      setTimeout(() => { try { regionDroneNode.stop(); } catch(e){} }, 1600);
-    }
-    if (!region) return;
-    const baseFreq = 440 * Math.pow(2, (region.ambientNote - 69) / 12);
-    regionDroneGain = audioCtx.createGain();
-    regionDroneGain.gain.setValueAtTime(0, audioCtx.currentTime);
-    regionDroneGain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 2);
-    regionDroneGain.connect(masterGain);
-    regionDroneNode = audioCtx.createOscillator();
-    regionDroneNode.type = "sine";
-    regionDroneNode.frequency.value = baseFreq;
-    // Add a slightly detuned phase oscillator for richness
-    const osc2 = audioCtx.createOscillator();
-    osc2.type = "sine";
-    osc2.frequency.value = baseFreq * 1.005;
-    osc2.connect(regionDroneGain);
-    regionDroneNode.connect(regionDroneGain);
-    regionDroneNode.start();
-    osc2.start();
-    lastRegionId = region.id;
-  }
-
-  // ─── STEP COUNTER FOR AUDIO ────────────────────────────────────────────────
-  let stepTimer = 0;
-  const STEP_INTERVAL = 0.22; // seconds between step pips
-
-  // ─── WOBBLE ANIMATION STATE ────────────────────────────────────────────────
-  let wobblePromiseResolve = null;
-
-  async function animateWobble(catchChance, ballTier) {
-    return new Promise((resolve) => {
-      wobblePromiseResolve = resolve;
-      const tier = BALL_TIERS[ballTier] || BALL_TIERS.capsule;
-      const wobbles = catchChance > 70 ? 3 : catchChance > 40 ? 2 : catchChance > 20 ? 1 : 0;
-      els.encounter.classList.add("wobble-start");
-      SFX.ballThrow();
-
-      setTimeout(() => {
-        els.encounter.classList.remove("wobble-start");
-        let count = 0;
-        function doWobble() {
-          if (count >= wobbles) {
-            // Click (captured) or break
-            if (Math.random() * 100 <= catchChance) {
-              els.encounter.classList.add("wobble-click");
-              SFX.ballClick();
-              setTimeout(() => {
-                els.encounter.classList.remove("wobble-click");
-                resolve(true);
-              }, 600);
-            } else {
-              els.encounter.classList.add("wobble-break");
-              SFX.ballWobble(3);
-              setTimeout(() => {
-                els.encounter.classList.remove("wobble-break");
-                resolve(false);
-              }, 700);
-            }
-            return;
-          }
-          els.encounter.classList.add(`wobble-${count + 1}`);
-          SFX.ballWobble(count);
-          setTimeout(() => {
-            els.encounter.classList.remove(`wobble-${count + 1}`);
-            count++;
-            setTimeout(doWobble, 300);
-          }, 600);
-        }
-        setTimeout(doWobble, 400);
-      }, 400);
-    });
-  }
-
-  // ─── CONFETTI PARTICLES ────────────────────────────────────────────────────
-  function spawnConfetti(x, y, count = 40) {
-    const colors = ["#ffd66e", "#77f0af", "#70f2ff", "#ff789d", "#c9a0ff", "#ffb15f"];
-    for (let i = 0; i < count; i++) {
-      const angle = (Math.random() * Math.PI * 2);
-      const speed = 120 + Math.random() * 280;
-      state.particles.push({
-        x, y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 100,
-        life: 0.8 + Math.random() * 0.6,
-        max: 1.4,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        size: 4 + Math.random() * 6
-      });
-    }
-  }
-
-  // ─── QUEST PROGRESS ────────────────────────────────────────────────────────
-  function initQuestProgress(stats) {
-    if (!stats.questProgress) stats.questProgress = {};
-    if (!stats.codexSeen) stats.codexSeen = {};
-    if (!stats.regionWins) stats.regionWins = {};
-    if (!stats.regionCatches) stats.regionCatches = {};
-    if (!stats.bossesDefeated) stats.bossesDefeated = {};
-    if (!stats.unlockedRegions) stats.unlockedRegions = { "early-civ": true };
-    // Add new ball types to items if missing
-    if (stats.items.primaryBall === undefined) stats.items.primaryBall = 0;
-    if (stats.items.centuryBall === undefined) stats.items.centuryBall = 0;
-    return stats;
-  }
-
-  function getActiveQuests(regionId) {
-    const templates = QUEST_TEMPLATES[regionId] || [];
-    return templates.map((t) => {
-      const progress = state.stats.questProgress[t.id] || { count: 0, done: false };
-      return Object.assign({}, t, { progress });
-    });
-  }
-
-  function advanceQuestProgress(type, regionId, amount = 1) {
-    const templates = QUEST_TEMPLATES[regionId] || [];
-    templates.forEach((t) => {
-      if (t.type !== type) return;
-      const prog = state.stats.questProgress[t.id] || { count: 0, done: false };
-      if (prog.done) return;
-      if (type === "streak") {
-        // Streak quests: use current streak as count (not additive per answer)
-        prog.count = Math.max(prog.count || 0, state.stats.streak || 0);
-      } else {
-        prog.count = Math.min(t.target, (prog.count || 0) + amount);
-      }
-      state.stats.questProgress[t.id] = prog;
-      if (prog.count >= t.target && !prog.done) {
-        prog.done = true;
-        claimQuestReward(t);
-      }
-    });
-    // Don't call writeSave here — caller handles it to avoid double-saves
-  }
-
-  function claimQuestReward(template) {
-    const r = template.reward;
-    if (r.shards) state.stats.shards += r.shards;
-    if (r.item) state.stats.items[r.item] = (state.stats.items[r.item] || 0) + 1;
-    SFX.questComplete();
-    setFeedback(`Quest complete: "${template.title}"! +${r.shards} shards${r.item ? " + " + (BALL_TIERS[r.item] || itemCatalog[r.item] || { label: r.item }).label : ""}.`, "done");
-    updateHud();
-    writeSave();
-  }
-
-  // ─── CODEX SEEN TRACKING ──────────────────────────────────────────────────
-  function markCodexSeen(allyId) {
-    if (!state.stats.codexSeen) state.stats.codexSeen = {};
-    if (!state.stats.codexSeen[allyId]) state.stats.codexSeen[allyId] = "seen";
-  }
-
-  function markCodexCaught(allyId) {
-    if (!state.stats.codexSeen) state.stats.codexSeen = {};
-    state.stats.codexSeen[allyId] = "caught";
-  }
-
-  // ─── SHARD COUNT-UP ANIMATION ─────────────────────────────────────────────
-  let shardDisplayed = 0;
-  let shardTarget = 0;
-  let shardAnimFrame = null;
-
-  function animateShards(target) {
-    shardTarget = target;
-    if (shardAnimFrame) return;
-    function tick() {
-      const diff = shardTarget - shardDisplayed;
-      if (Math.abs(diff) < 1) {
-        shardDisplayed = shardTarget;
-        els.shards.textContent = shardDisplayed.toLocaleString();
-        shardAnimFrame = null;
-        return;
-      }
-      shardDisplayed += Math.sign(diff) * Math.max(1, Math.floor(Math.abs(diff) * 0.12));
-      els.shards.textContent = shardDisplayed.toLocaleString();
-      shardAnimFrame = requestAnimationFrame(tick);
-    }
-    shardAnimFrame = requestAnimationFrame(tick);
-  }
-
-  // ─── STREAK RING ──────────────────────────────────────────────────────────
-  function updateStreakRing(streak) {
-    const ring = document.querySelector(".streak-ring-fill");
-    if (!ring) return;
-    const circumference = 94.25;
-    const pct = Math.min(1, streak / 10);
-    const offset = circumference * (1 - pct);
-    ring.style.strokeDashoffset = `${offset}px`;
-    ring.style.stroke = streak >= 10 ? "#ffd66e" : streak >= 5 ? "#77f0af" : "#70f2ff";
-  }
-
-  // ─── PER-FIGURE XP + LEVEL-UP ─────────────────────────────────────────────
-  const FIGURE_XP_TO_LEVEL = [0, 0, 80, 200, 380, 600, 900, 1300, 1800, 2400, 3200];
-
-  function addFigureXp(ally, amount) {
-    if (!ally) return;
-    ally.xp = (ally.xp || 0) + amount;
-    const newLevel = figureLevel(ally);
-    if (newLevel > (ally.level || 1)) {
-      const oldLevel = ally.level || 1;
-      ally.level = newLevel;
-      // Update name / evolution stage
-      const family = familiesById[ally.familyId];
-      if (family) {
-        const stageIndex = Math.min(newLevel - 1, family.names.length - 1);
-        const oldName = ally.name;
-        ally.name = family.names[stageIndex] || ally.name;
-        ally.species = ally.name;
-      }
-      SFX.levelUp();
-      const learnedMove = levelUpMove(ally, newLevel);
-      setFeedback(`${ally.actualName || ally.name} leveled up to L${newLevel}!${learnedMove ? ` Learned "${learnedMove}"!` : ""}`, "done");
-      flashBattleFx("fx-level-up", 800);
-      return true;
-    }
-    return false;
-  }
-
-  function figureLevel(ally) {
-    const xp = ally.xp || 0;
-    for (let i = FIGURE_XP_TO_LEVEL.length - 1; i >= 1; i--) {
-      if (xp >= FIGURE_XP_TO_LEVEL[i]) return i;
-    }
-    return 1;
-  }
-
-  function levelUpMove(ally, level) {
-    // Return a bonus move name at specific levels, or null
-    const bonusMoves = {
-      3: "Primary Source Rush",
-      5: "Context Surge",
-      7: "Enduring Issue",
-      9: "Regents Rally",
-      10: "Grand Archives"
-    };
-    return bonusMoves[level] || null;
-  }
-
-  // ─── ENCOUNTER TABLE (region-aware) ───────────────────────────────────────
-  function encounterPoolForRegion(region, courseFilter, setFilter) {
-    if (!state.bank) return null;
-    // Build a pool filtered by region figures
-    const regionFigureNames = new Set((region.figures || []).concat(region.rareFigures || []));
-    let pool = state.bank.questions.filter((q) => {
-      if (!isUsableQuestion(q)) return false;
-      if (courseFilter !== "All Courses" && q.course !== courseFilter) return false;
-      if (setFilter !== "All Sets" && q.set !== setFilter) return false;
-      return true;
-    });
-    // Try to weight toward region figures
-    const regionPool = pool.filter((q) => {
-      const name = answerLabel(q);
-      return regionFigureNames.has(name) || (q.tags || []).some((t) => regionFigureNames.has(t));
-    });
-    return (regionPool.length >= 3 ? regionPool : pool);
-  }
-
-  function shouldSpawnRare(region) {
-    return Math.random() < 0.025; // 2.5% chance
-  }
-
-  function makeBossAlly(region) {
-    // Create a boss encounter object
-    const pool = state.bank ? state.bank.questions.filter(isUsableQuestion) : [];
-    const q = pool[Math.floor(Math.random() * pool.length)] || { course: "Review", answer: region.bossName, prompt: region.bossName };
-    const lane = courseTypeFor(q.course);
-    const family = figureFamilyFor(q, lane);
-    const bossAlly = makeAlly(q);
-    bossAlly.name = region.bossName;
-    bossAlly.actualName = region.bossName;
-    bossAlly.rarity = "Boss";
-    bossAlly.isBoss = true;
-    bossAlly.regionId = region.id;
-    return bossAlly;
-  }
-
-  // ─── CAMERA SHAKE ─────────────────────────────────────────────────────────
-  let cameraShake = 0;
-  let cameraShakeDir = { x: 0, y: 0 };
-
-  function triggerShake(intensity = 8, duration = 0.35) {
-    cameraShake = duration;
-    cameraShakeDir = { x: (Math.random() - 0.5) * intensity, y: (Math.random() - 0.5) * intensity };
-  }
-
   const state = {
     bank: null,
     filtered: [],
@@ -1169,9 +651,6 @@
     terrain: null,
     pulse: 0,
     last: 0,
-    currentRegion: REGIONS[0],
-    questLogOpen: false,
-    muteBtn: null,
     stats: readSave()
   };
 
@@ -1192,16 +671,7 @@
       maxHp: 100,
       storyStep: 0,
       flags: {},
-      currentRegionId: "early-civ",
-      playerX: 1320,
-      playerY: 1040,
-      questProgress: {},
-      codexSeen: {},
-      regionWins: {},
-      regionCatches: {},
-      bossesDefeated: {},
-      unlockedRegions: { "early-civ": true },
-      items: { capsule: 3, fieldNote: 2, sourceLens: 1, healKit: 1, treatyPass: 0, primaryBall: 0, centuryBall: 0 }
+      items: { capsule: 3, fieldNote: 2, sourceLens: 1, healKit: 1, treatyPass: 0 }
     };
   }
 
@@ -1266,7 +736,7 @@
     stats.xp = Math.max(0, Number(stats.xp || 0));
     stats.activeAlly = clamp(Number(stats.activeAlly || 0), 0, Math.max(0, stats.roster.length - 1));
     stats.storyStep = clamp(Number(stats.storyStep || 0), 0, storyChapters.length - 1);
-    return initQuestProgress(stats);
+    return stats;
   }
 
   function readSave() {
@@ -1279,10 +749,6 @@
   }
 
   function writeSave() {
-    // Persist player position + region
-    state.stats.playerX = Math.round(state.player.x);
-    state.stats.playerY = Math.round(state.player.y);
-    state.stats.currentRegionId = state.currentRegion ? state.currentRegion.id : "early-civ";
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.stats));
   }
 
@@ -1759,57 +1225,21 @@
       ? Array.from(new Set((state.bank.courses || []).map((course) => courseTypeFor(course).name)))
       : typeOrder;
     const families = allFigureFamilies.filter((family) => availableTypes.includes(family.type));
-    const codexSeen = state.stats.codexSeen || {};
-
-    // Add rare figures
-    const rareEntries = Object.entries(RARE_FIGURE_DATA).map(([name, data]) => ({
-      isRare: true,
-      id: compactKey(`rare|${name}`),
-      historicalName: name,
-      type: data.type,
-      names: [name],
-      line: data.blurb,
-      row: 0,
-      atlas: 1
-    }));
-
-    const allEntries = families.concat(rareEntries);
-
-    els.codexFamilies.innerHTML = allEntries.map((family) => {
-      const familyId = family.id || compactKey(`rare|${family.historicalName}`);
-      const seenState = codexSeen[familyId] || "unseen";
-      const isSeen = seenState !== "unseen";
-      const isCaught = seenState === "caught";
-      const typeColor = (typeData[family.type] || typeData.Review).color;
-
-      const statusBadge = isCaught
-        ? `<span class="codex-badge caught">Caught</span>`
-        : isSeen
-          ? `<span class="codex-badge seen">Seen</span>`
-          : `<span class="codex-badge unseen">?</span>`;
-
+    els.codexFamilies.innerHTML = families.map((family) => {
       const stages = family.names.map((name, stage) => {
         const sprite = {
           image: `url(${figureAtlasFiles[clamp((family.atlas || 1) - 1, 0, figureAtlasFiles.length - 1)]})`,
           x: `${stage * 50}%`,
           y: `${(family.row % 6) * 20}%`
         };
-        const stageLabel = isSeen ? escapeHtml(name) : "???";
-        return `<div class="codex-stage${isCaught ? " caught" : ""}">` +
-          `<div class="codex-sprite" style="--sprite-image:${sprite.image};--sprite-x:${sprite.x};--sprite-y:${sprite.y};${!isSeen ? "filter:brightness(0)" : ""}" role="img" aria-label="${stageLabel}"></div>` +
-          `<em>${stageLabel}</em>` +
+        return `<div class="codex-stage">` +
+          `<div class="codex-sprite" style="--sprite-image:${sprite.image};--sprite-x:${sprite.x};--sprite-y:${sprite.y}" role="img" aria-label="${escapeHtml(name)}"></div>` +
+          `<em>${escapeHtml(name)}</em>` +
         `</div>`;
       }).join("");
-
-      const blurb = isSeen ? `<p>${escapeHtml(family.line)}</p>` : `<p class="codex-mystery">Encounter this figure to reveal its history.</p>`;
-
-      return `<article class="codex-family${isCaught ? " codex-caught" : ""}" style="--type:${escapeHtml(typeColor)}" data-family-id="${escapeHtml(familyId)}">` +
-        `<header>` +
-          `<strong>${escapeHtml(isSeen ? family.type + " Type" : "???")}</strong>` +
-          `<span>${escapeHtml(isSeen ? family.historicalName : "Not yet encountered")}</span>` +
-          statusBadge +
-        `</header>` +
-        blurb +
+      return `<article class="codex-family" style="--type:${escapeHtml((typeData[family.type] || typeData.Review).color)}">` +
+        `<header><strong>${escapeHtml(family.type)} Type</strong><span>${escapeHtml(family.historicalName)}</span></header>` +
+        `<p>${escapeHtml(family.line)}</p>` +
         `<div class="codex-evolutions">${stages}</div>` +
       `</article>`;
     }).join("");
@@ -1866,8 +1296,7 @@
     els.enemyName.textContent = enemy.name;
     els.enemyType.textContent = enemy.type || "Review";
     els.heroHp.style.width = `${clamp((battle.heroHp / (state.stats.maxHp || 100)) * 100, 0, 100)}%`;
-    const maxEhp = battle.maxEnemyHp || 100;
-    els.enemyHp.style.width = `${clamp((battle.enemyHp / maxEhp) * 100, 0, 100)}%`;
+    els.enemyHp.style.width = `${clamp(battle.enemyHp, 0, 100)}%`;
   }
 
   function wait(ms) {
@@ -1918,7 +1347,7 @@
     if (!isCurrentBattle(battle)) return false;
     await playBattleFx("fx-move-shot", 360, { "--move-color": color });
     if (!isCurrentBattle(battle)) return false;
-    battle.enemyHp = clamp(battle.enemyHp - result.amount, 0, battle.maxEnemyHp || 100);
+    battle.enemyHp = clamp(battle.enemyHp - result.amount, 0, 100);
     const trustGain = Math.round(8 + result.amount * .28 + (battle.studyBoost ? 8 : 0) + (result.multiplier > 1.2 ? 6 : 0));
     state.capture = clamp(state.capture + trustGain, 0, 100);
     els.captureBar.style.width = `${state.capture}%`;
@@ -1998,8 +1427,6 @@
     const items = [
       ["fieldNote", "Field Notes", `x${state.stats.items.fieldNote || 0}`, "next move + trust"],
       ["capsule", "Archive Capsule", `x${state.stats.items.capsule || 0}`, "try to recruit"],
-      ["primaryBall", "Primary-Source Ball", `x${state.stats.items.primaryBall || 0}`, "1.45× catch rate"],
-      ["centuryBall", "Turn-of-Century Ball", `x${state.stats.items.centuryBall || 0}`, "2× catch + rare bonus"],
       ["healKit", "Restoration Tea", `x${state.stats.items.healKit || 0}`, "restore 35 HP"],
       ["treatyPass", "Treaty Pass", `x${state.stats.items.treatyPass || 0}`, "safe exit"]
     ];
@@ -2017,57 +1444,28 @@
 
   function renderBattleParty() {
     const roster = state.stats.roster || [];
-    els.moveButtons.classList.remove("answering");
-    els.moveButtons.classList.add("open", "party-list");
-    const maxHpDefault = state.stats.maxHp || 100;
+    els.moveButtons.classList.remove("answering", "open");
     if (!roster.length) {
-      els.moveButtons.innerHTML =
-        `<button type="button" data-party-back="1" class="party-back">` +
-          `<strong>No Allies Yet</strong>` +
-          `<small>back to commands</small>` +
-        `</button>`;
+      els.moveButtons.innerHTML = `<button type="button" data-party="-1"><strong>No Allies Yet</strong><small>back to commands</small></button>`;
     } else {
       const activeIndex = clamp(Number(state.stats.activeAlly || 0), 0, Math.max(0, roster.length - 1));
-      const slots = roster.slice(0, 6).map((ally, index) => {
+      els.moveButtons.innerHTML = roster.slice(0, 6).map((ally, index) => {
         const data = typeData[ally.type] || typeData.Review;
-        const isActive = index === activeIndex;
-        const allyHp = Math.max(0, Math.round(Number(ally.hp != null ? ally.hp : (isActive ? (state.battle ? state.battle.heroHp : state.stats.playerHp) : maxHpDefault))));
-        const allyMaxHp = Math.max(1, Math.round(Number(ally.maxHp || maxHpDefault)));
-        const hpPct = clamp((allyHp / allyMaxHp) * 100, 0, 100);
-        const fainted = allyHp <= 0;
-        const tags = [
-          isActive ? "ACTIVE" : (fainted ? "FAINTED" : "READY"),
-          escapeHtml(ally.type || "Review"),
-          `L${escapeHtml(String(ally.level || 1))}`
-        ].join(" / ");
-        const cls = `party-slot${isActive ? " is-active" : ""}${fainted ? " is-fainted" : ""}`;
-        return `<button type="button" data-party="${index}" class="${cls}" style="--type:${data.color};--effect-y:${typeEffectOffset(ally.type)}">` +
-          `<strong>${escapeHtml(ally.actualName || ally.name)}</strong>` +
-          `<small>${tags}</small>` +
-          `<span class="party-hp-bar"><span class="party-hp-fill" style="width:${hpPct}%"></span></span>` +
-          `<span class="party-hp-text">${allyHp}/${allyMaxHp}</span>` +
+        const active = index === activeIndex ? " / active" : "";
+        return `<button type="button" data-party="${index}" style="--type:${data.color};--effect-y:${typeEffectOffset(ally.type)}">` +
+          `<strong>${escapeHtml(ally.actualName || ally.name)}${active}</strong>` +
+          `<small>${escapeHtml(ally.type || "Review")} / stage ${escapeHtml(String(ally.level || 1))}</small>` +
         `</button>`;
       }).join("");
-      const back =
-        `<button type="button" data-party-back="1" class="party-back">` +
-          `<strong>Back</strong>` +
-          `<small>cancel switch</small>` +
-        `</button>`;
-      els.moveButtons.innerHTML = slots + back;
     }
     Array.prototype.forEach.call(els.moveButtons.querySelectorAll("button[data-party]"), (button) => {
       button.addEventListener("click", () => choosePartyAlly(Number(button.dataset.party)));
-    });
-    Array.prototype.forEach.call(els.moveButtons.querySelectorAll("button[data-party-back]"), (button) => {
-      button.addEventListener("click", () => {
-        prepareCommand(`What will ${shout(heroAlly().name)} do?`);
-      });
     });
   }
 
   function renderMoveButtons() {
     const hero = heroAlly();
-    els.moveButtons.classList.remove("answering", "open", "party-list");
+    els.moveButtons.classList.remove("answering", "open");
     els.moveButtons.innerHTML = hero.moves.map((item, index) => {
       const data = typeData[item.type] || typeData.Review;
       return `<button type="button" data-move="${index}" style="--type:${data.color};--effect-y:${typeEffectOffset(item.type)}">` +
@@ -2179,51 +1577,32 @@
       if (isCurrentBattle(battle)) closeEncounter();
       return;
     }
-    if (id === "capsule" || id === "primaryBall" || id === "centuryBall") {
+    if (id === "capsule") {
       spendItem(id);
-      const tier = BALL_TIERS[id] || BALL_TIERS.capsule;
-      const missingHp = (battle.maxEnemyHp || 100) - clamp(battle.enemyHp, 0, battle.maxEnemyHp || 100);
-      const hpRatio = missingHp / (battle.maxEnemyHp || 100);
-      const alreadyCaught = state.stats.codexSeen && state.stats.codexSeen[ally && ally.id] === "caught";
-      if (alreadyCaught) {
-        // Already in codex — give shard boost instead
-        const shardsGained = 25 + Math.floor(hpRatio * 15);
-        state.stats.shards += shardsGained;
-        SFX.correct();
-        await showBattleMessage(`${shout(ally.actualName || ally.name)} is already in your Codex! You gained ${shardsGained} shards from the encounter.`, 1100);
-        if (!isCurrentBattle(battle)) return;
-        updateHud();
-        writeSave();
-        prepareCommand(`${ally.name} is already recorded. Shards gained.`);
-        return;
-      }
-      const baseChance = 18 + hpRatio * 48 * tier.multiplier + state.capture * 0.44 + (battle.studyBoost ? 12 : 0) + (tier.historyBonus ? 20 : 0) + (ally && ally.isRare ? -15 : 0);
-      const chance = ally && ally.sensitive ? 0 : clamp(baseChance, 8, 94);
-      setBattleLog(`${shout(playerTitle())} threw a ${tier.label.toUpperCase()}!`);
-      SFX.ballThrow();
-
-      // Animated wobble
-      const captured = await animateWobble(chance, id);
+      const missingHp = 100 - clamp(battle.enemyHp, 0, 100);
+      const baseChance = 18 + missingHp * .48 + state.capture * .44 + (battle.studyBoost ? 9 : 0);
+      const chance = ally && ally.sensitive ? 0 : clamp(baseChance, 12, 92);
+      flashBattleFx("fx-capsule", 900);
+      await showBattleMessage(`${shout(playerTitle())} threw an ARCHIVE CAPSULE!`, 680);
       if (!isCurrentBattle(battle)) return;
-
-      if (captured) {
+      await showBattleMessage("Shake... shake...", 760);
+      if (!isCurrentBattle(battle)) return;
+      if (Math.random() * 100 <= chance) {
         state.capture = 100;
         els.captureBar.style.width = "100%";
         setEncounterPhase("capture");
-        SFX.captureFanfare();
-        spawnConfetti(innerWidth / 2, innerHeight / 2, 60);
-        await showBattleMessage(`${shout(ally.actualName || ally.name)} joined the Chronicle Roster!`, 1000);
+        await showBattleMessage(`${shout(ally.actualName || ally.name)} joined the Chronicle Roster!`, 880);
         if (isCurrentBattle(battle)) completeEncounter("capture");
         return;
       }
       state.capture = clamp(state.capture + 8, 0, 100);
       els.captureBar.style.width = `${state.capture}%`;
-      await showBattleMessage(`${shout(ally.name || "The figure")} broke free! Trust: ${state.capture}%.`, 760);
+      await showBattleMessage(`${shout(ally.name)} broke free! It is watching you more closely.`, 760);
       if (!isCurrentBattle(battle)) return;
       await enemyCounterTurn("item");
       if (!isCurrentBattle(battle) || battle.heroHp <= 0) return;
       battle.studyBoost = false;
-      prepareCommand(`Capture improves with lower HP, Field Notes, and Primary-Source Balls. Trust: ${state.capture}%.`);
+      prepareCommand(`Capture chance improves after damage, Field Notes, and low HP. Trust: ${state.capture}%.`);
     }
   }
 
@@ -2249,14 +1628,11 @@
     if (!isCurrentBattle(battle)) return;
     state.stats.activeAlly = index;
     writeSave();
-    renderRoster();
     renderBattle();
     setEncounterPhase("sendout");
     flashBattleFx("fx-sendout", 700);
-    if (typeof SFX !== "undefined" && SFX.levelUp) try { SFX.levelUp(); } catch (e) {}
     await showBattleMessage(`${shout(playerTitle())} sent out ${shout(selected.actualName || selected.name)}!`, 700);
     if (!isCurrentBattle(battle)) return;
-    renderBattle();
     await enemyCounterTurn("switch");
     if (!isCurrentBattle(battle) || battle.heroHp <= 0) return;
     prepareCommand(`What will ${shout(heroAlly().name)} do?`);
@@ -2343,106 +1719,35 @@
     prepareCommand(`What will ${shout(heroAlly().name)} do?`);
   }
 
-  function openEncounter(opts) {
-    opts = opts || {};
-    const region = state.currentRegion || REGIONS[0];
-
-    // Boss encounter path
-    if (opts.boss) {
-      _openEncounterWith(makeBossAlly(region), true);
-      return;
-    }
-
-    const course = els.courseFilter.value;
-    const set = els.setFilter.value;
-    const pool = encounterPoolForRegion(region, course, set);
-    if (!pool || !pool.length) {
-      const fallback = filteredForNode();
-      if (!fallback.length) return;
-      _openEncounterWith(makeAlly(fallback[Math.floor(Math.random() * fallback.length)]), false);
-      return;
-    }
-    ensureStarterAlly(courseTypeFor(course).name);
+  function openEncounter() {
+    const pool = filteredForNode();
+    if (!pool.length) return;
+    ensureStarterAlly(courseTypeFor(els.courseFilter.value).name);
     if ((state.stats.playerHp || 0) <= 0) {
       setDialogue("Party Health", "Party Exhausted", "Visit the Chronicle Center or use Restoration Tea before starting another battle.", [
         { action: "close", label: "Close" }
       ]);
       return;
     }
-
-    // Rare/legendary encounter check
-    if (shouldSpawnRare(region) && region.rareFigures && region.rareFigures.length) {
-      const rareName = region.rareFigures[Math.floor(Math.random() * region.rareFigures.length)];
-      const rareData = RARE_FIGURE_DATA[rareName];
-      if (rareData) {
-        const rareAlly = {
-          id: compactKey(`rare|${rareName}`).slice(0, 80),
-          name: rareName,
-          actualName: rareName,
-          archetype: "Legendary Figure",
-          type: rareData.type,
-          family: rareName,
-          familyId: compactKey(`${rareData.type}-${rareName}`),
-          spriteRow: 0,
-          atlas: 1,
-          species: rareName,
-          level: 3,
-          role: rareData.blurb,
-          course: rareData.type,
-          set: "Legendary",
-          rarity: "Legendary",
-          moves: [
-            move(rareName.split(" ").pop() + " Strike", rareData.type, rareData.power, rareData.blurb),
-            move("Historical Legacy", rareData.type, 36, "A move powered by lasting historical impact."),
-            move("Primary Source Scan", rareData.type, 32, "Reads primary evidence before striking."),
-            move("Context Shift", rareData.type, 28, "Reshapes the historical context of the battle.")
-          ],
-          palette: paletteFor(rareName),
-          sensitive: false,
-          isRare: true
-        };
-        SFX.encounterAlert();
-        _openEncounterWith(rareAlly, false);
-        return;
-      }
-    }
-
-    const q = pool[Math.floor(Math.random() * pool.length)];
-    SFX.encounterAlert();
-    _openEncounterWith(makeAlly(q), false);
-  }
-
-  function _openEncounterWith(ally, isBoss) {
-    ensureAudio(); resumeAudio();
-    if (isBoss) SFX.bossRoar();
-    else if (!ally.isRare) SFX.encounterAlert();
+    els.encounter.classList.remove("answering");
+    state.queue = shuffle(pool);
+    const q = nextQuestion();
+    const ally = makeAlly(q);
     state.currentAlly = ally;
     state.currentQuestion = null;
     state.questActive = null;
-    state.battle = {
-      heroHp: state.stats.playerHp || state.stats.maxHp || 100,
-      enemyHp: isBoss ? 130 : 100,
-      maxEnemyHp: isBoss ? 130 : 100,
-      pendingMove: null,
-      awaitingAnswer: false,
-      phase: "intro",
-      isBoss,
-      isRare: ally.isRare || false
-    };
+    state.battle = { heroHp: state.stats.playerHp || state.stats.maxHp || 100, enemyHp: 100, pendingMove: null, awaitingAnswer: false, phase: "intro" };
     state.capture = 0;
     state.trial = 0;
     state.encounterOpen = true;
-    // Track codex seen
-    markCodexSeen(ally.id);
-    els.encounter.classList.remove("answering", "quest-mode", "boss-mode");
-    if (isBoss) els.encounter.classList.add("boss-mode");
+    els.encounter.classList.remove("quest-mode");
     document.body.classList.add("encounter-open");
     document.body.classList.remove("menu-open");
     renderAlly(ally);
     renderBattle();
     renderBattleActions();
     renderMoveButtons();
-    els.trialKicker.textContent = isBoss ? "Boss Battle!" : (ally.isRare ? "Legendary Encounter!" : "Route Battle");
+    els.trialKicker.textContent = "Route Battle";
     els.trialMeta.textContent = `${cleanText(ally.course || "Social Studies")} / ${cleanText(ally.type || "Review")} type`;
     els.captureBar.style.width = "0%";
     els.encounter.hidden = false;
@@ -2612,39 +1917,30 @@
       state.stats.streak += 1;
       state.stats.bestStreak = Math.max(state.stats.bestStreak || 0, state.stats.streak);
       const studyBonus = battle.studyBoost ? 10 : 0;
-      const isCrit = Math.random() < (multiplier > 1.2 ? 0.18 : 0.06);
-      const critMultiplier = isCrit ? 1.5 : 1;
-      const damage = Math.round((moveUsed.power || 22) * multiplier * critMultiplier + Math.min(14, state.stats.streak * 2) + studyBonus);
-      battle.enemyHp = clamp(battle.enemyHp - damage, 0, battle.maxEnemyHp || 100);
+      const damage = Math.round((moveUsed.power || 22) * multiplier + Math.min(14, state.stats.streak * 2) + studyBonus);
+      battle.enemyHp = clamp(battle.enemyHp - damage, 0, 100);
       const fainted = battle.enemyHp <= 0;
       const gain = (moveUsed.captureBoost ? 46 : q.stimulusRequired ? 34 : 27);
-      state.capture = clamp(state.capture + gain + Math.min(13, state.stats.streak) + (multiplier > 1 ? 8 : 0) + (battle.studyBoost ? 8 : 0) + (isCrit ? 10 : 0), 0, 100);
+      state.capture = clamp(state.capture + gain + Math.min(13, state.stats.streak) + (multiplier > 1 ? 8 : 0) + (battle.studyBoost ? 8 : 0), 0, 100);
       state.stats.shards += 12 + Math.min(18, state.stats.streak * 2);
       addXp(18 + Math.round(damage / 3));
       battle.heroHp = state.stats.playerHp;
       state.pulse = 1;
       burst(state.player.x, state.player.y, ally.palette[0], 22);
-      // Audio feedback
-      SFX.correct();
-      if (multiplier > 1.2) { SFX.superEffective(); triggerShake(10, 0.4); }
-      if (isCrit) { flashBattleFx("fx-crit-flash", 340); SFX.battleImpact(); }
-      SFX.battleImpact();
-      // Quest streak progress
-      advanceQuestProgress("streak", (state.currentRegion || REGIONS[0]).id, 1);
       if (moveUsed.captureBoost) {
-        setBattleLog(isCrit ? "Critical hit! Correct!" : "Correct!");
-        setFeedback(`Correct.${isCrit ? " Critical hit!" : ""}${multiplier > 1.2 ? " Super effective!" : ""} ${q.explanation || "That answer strengthens the bond."}`, "good");
+        setBattleLog("Correct!");
+        setFeedback(`Correct. ${q.explanation || "That answer strengthens the bond."}`, "good");
         flashBattleFx("fx-capsule", 900);
         await wait(650);
         if (!isCurrentBattle(battle)) return;
         setBattleLog(`ARCHIVE CAPSULE clicked shut! Trust rose to ${state.capture}%.`);
       } else {
-        setBattleLog(isCrit ? "Critical hit! Correct!" : "Correct!");
-        setFeedback(`Correct.${isCrit ? " Critical hit!" : ""}${multiplier > 1.2 ? " Super effective!" : ""} ${q.explanation || "That answer strengthens the bond."}`, "good");
+        setBattleLog("Correct!");
+        setFeedback(`Correct. ${q.explanation || "That answer strengthens the bond."}`, "good");
         await wait(520);
         if (!isCurrentBattle(battle)) return;
         flashBattleFx("fx-enemy-hit", 620);
-        setBattleLog(`${shout(actor)}'s ${shout(moveUsed.name)} hit ${target} for ${damage}!${isCrit ? " CRIT!" : ""}${multiplier > 1.2 ? " Super effective!" : ""}`);
+        setBattleLog(`${shout(actor)}'s ${shout(moveUsed.name)} hit ${target}!`);
         renderBattle();
         await wait(820);
         if (!isCurrentBattle(battle)) return;
@@ -2658,8 +1954,6 @@
       state.stats.playerHp = battle.heroHp;
       state.capture = clamp(state.capture - (moveUsed.captureBoost ? 16 : 10), 0, 100);
       burst(state.player.x, state.player.y, "#ff789d", 12);
-      SFX.wrong();
-      triggerShake(5, 0.2);
       setBattleLog("Not quite!");
       setFeedback(`Not quite. Answer: ${expected}. ${q.explanation || ""}`, "bad");
       await wait(1050);
@@ -2707,34 +2001,8 @@
 
   function completeEncounter() {
     const ally = state.currentAlly;
-    const battle = state.battle;
-    const region = state.currentRegion || REGIONS[0];
     if (!ally) return;
-
-    // Track battle win for region quests
-    const regionId = region.id;
-    state.stats.regionWins[regionId] = (state.stats.regionWins[regionId] || 0) + 1;
-    advanceQuestProgress("wins", regionId);
-
-    // Boss completion
-    if (battle && battle.isBoss) {
-      state.stats.bossesDefeated[regionId] = true;
-      advanceQuestProgress("boss", regionId);
-      // Unlock next region
-      const regionIndex = REGIONS.findIndex((r) => r.id === regionId);
-      if (regionIndex >= 0 && regionIndex < REGIONS.length - 1) {
-        const nextRegion = REGIONS[regionIndex + 1];
-        if (!state.stats.unlockedRegions[nextRegion.id]) {
-          state.stats.unlockedRegions[nextRegion.id] = true;
-          state.stats.shards += 80;
-          SFX.levelUp();
-          setFeedback(`Region unlocked: ${nextRegion.name}! +80 shards.`, "done");
-        }
-      }
-      state.stats.shards += 150;
-      addXp(120);
-      setBattleLog(`Boss defeated! ${region.bossName} has been cleared. Large shard reward earned.`);
-    } else if (ally.sensitive) {
+    if (ally.sensitive) {
       state.stats.missions += 1;
       state.stats.shards += 45;
       addXp(45);
@@ -2743,7 +2011,7 @@
     } else {
       const exists = state.stats.roster.some((item) => item.id === ally.id);
       if (!exists) {
-        const newEntry = {
+        state.stats.roster.unshift({
           id: ally.id,
           name: ally.name,
           actualName: ally.actualName,
@@ -2759,66 +2027,31 @@
           rarity: ally.rarity,
           moves: ally.moves,
           palette: ally.palette,
-          level: 1,
-          xp: 0
-        };
-        // Enforce 6-slot active party (roster beyond 6 = storage). Captures
-        // unshift to the front, but DO NOT yank the player's chosen active
-        // out from under them — bump activeAlly by 1 so it still points at
-        // the same ally. Only auto-swap to the new capture if the prior
-        // active is missing or fainted.
-        const prevActiveCheck = state.stats.roster[state.stats.activeAlly || 0];
-        const prevActiveFainted = prevActiveCheck && Number(prevActiveCheck.hp || 1) <= 0;
-        const noPriorActive = !state.stats.roster.length || !prevActiveCheck;
-        state.stats.roster.unshift(newEntry);
-        if (state.stats.roster.length > 96) {
-          state.stats.roster = state.stats.roster.slice(0, 96);
-        }
-        if (noPriorActive || prevActiveFainted) {
-          state.stats.activeAlly = 0;
-        } else {
-          state.stats.activeAlly = clamp((state.stats.activeAlly || 0) + 1, 0, state.stats.roster.length - 1);
-        }
-        markCodexCaught(ally.id);
-        // Region catch progress
-        state.stats.regionCatches[regionId] = (state.stats.regionCatches[regionId] || 0) + 1;
-        advanceQuestProgress("catch", regionId);
-        const shardGain = ally.isRare ? 100 : ally.rarity === "Epic Echo" ? 65 : 40;
-        state.stats.shards += shardGain;
+          level: 1
+        });
+        state.stats.activeAlly = 0;
+        state.stats.roster = state.stats.roster.slice(0, 96);
+        state.stats.shards += 40;
         addXp(60);
-        if (ally.isRare) SFX.levelUp();
-        setFeedback(`${ally.name} joined your party.${ally.isRare ? " LEGENDARY CATCH!" : ""} +${shardGain} shards.`, "done");
+        setFeedback(`${ally.name} joined your party. +40 shards.`, "done");
         setBattleLog(loreLineFor(ally, "victory") + ` ${ally.actualName} joined your roster.`);
-        spawnConfetti(innerWidth / 2, innerHeight * 0.6, ally.isRare ? 80 : 40);
       } else {
         const rosterAlly = state.stats.roster.find((item) => item.id === ally.id);
         if (rosterAlly) {
-          const leveled = addFigureXp(rosterAlly, 60);
-          if (!leveled) {
-            // Still evolve name based on level
-            const family = familiesById[rosterAlly.familyId] || familiesById[ally.familyId];
-            if (family) {
-              const stageIndex = Math.min((rosterAlly.level || 1) - 1, family.names.length - 1);
-              rosterAlly.name = family.names[stageIndex] || rosterAlly.name;
-              rosterAlly.species = rosterAlly.name;
-              rosterAlly.moves = ally.moves;
-            }
+          rosterAlly.level = Math.min(3, Number(rosterAlly.level || 1) + 1);
+          const family = familiesById[rosterAlly.familyId] || familiesById[ally.familyId];
+          if (family) {
+            rosterAlly.name = family.names[stageForAlly(rosterAlly)] || rosterAlly.name;
+            rosterAlly.species = rosterAlly.name;
+            rosterAlly.moves = ally.moves;
           }
         }
         state.stats.shards += 35;
         addXp(45);
-        const newName = rosterAlly ? rosterAlly.name : ally.name;
-        setFeedback(`${newName} gained XP. Level ${rosterAlly ? figureLevel(rosterAlly) : "up"}. +35 shards.`, "done");
+        setFeedback(`${rosterAlly ? rosterAlly.name : ally.name} evolved to stage ${rosterAlly ? rosterAlly.level : 2}. +35 shards.`, "done");
         setBattleLog(`${ally.actualName} leveled up through the timeline. Evolution recorded.`);
       }
     }
-
-    // Also give XP to active roster ally
-    const activeAlly = (state.stats.roster || [])[state.stats.activeAlly];
-    if (activeAlly && activeAlly.id !== ally.id) {
-      addFigureXp(activeAlly, 25);
-    }
-
     state.stats.rank = Math.max(state.stats.rank || 1, 1 + Math.floor((state.stats.roster.length + state.stats.missions) / 5));
     writeSave();
     updateHud();
@@ -2832,47 +2065,7 @@
         course: els.courseFilter.value
       }, { counter: "game-completions" });
     }
-    setTimeout(closeEncounter, 1800);
-  }
-
-  // ─── QUEST LOG PANEL ───────────────────────────────────────────────────────
-  function renderQuestLog() {
-    const region = state.currentRegion || REGIONS[0];
-    const quests = getActiveQuests(region.id);
-    const panel = document.getElementById("questLogPanel");
-    if (!panel) return;
-    panel.innerHTML = `
-      <div class="panel-head">
-        <div><span>Active Region: ${escapeHtml(region.name)}</span><strong>Quest Log</strong></div>
-        <button id="closeQuestLog" type="button">Close</button>
-      </div>
-      <div class="quest-log-list">
-        ${quests.map((q) => {
-          const done = q.progress.done;
-          const pct = Math.min(100, Math.round((q.progress.count / q.target) * 100));
-          const reward = q.reward;
-          const rewardLabel = `${reward.shards} shards${reward.item ? " + " + (BALL_TIERS[reward.item] || itemCatalog[reward.item] || { label: reward.item }).label : ""}`;
-          return `<article class="quest-entry${done ? " done" : ""}">
-            <div class="quest-entry-head">
-              <strong>${escapeHtml(q.title)}</strong>
-              <span class="quest-status">${done ? "Complete!" : `${q.progress.count}/${q.target}`}</span>
-            </div>
-            <p>${escapeHtml(q.desc)}</p>
-            <div class="quest-bar"><div class="quest-bar-fill" style="width:${pct}%"></div></div>
-            <small>Reward: ${escapeHtml(rewardLabel)}</small>
-          </article>`;
-        }).join("")}
-      </div>
-    `;
-    const closeBtn = document.getElementById("closeQuestLog");
-    if (closeBtn) closeBtn.addEventListener("click", () => { panel.hidden = true; });
-  }
-
-  function openQuestLog() {
-    const panel = document.getElementById("questLogPanel");
-    if (!panel) return;
-    renderQuestLog();
-    panel.hidden = false;
+    setTimeout(closeEncounter, 1700);
   }
 
   function renderRoster() {
@@ -2887,80 +2080,24 @@
       const sprite = spritePosition(ally);
       const family = familiesById[ally.familyId] || figureFamilyFor({ course: ally.course, answer: ally.name }, courseTypeFor(ally.course));
       const species = ally.species || family.names[stageForAlly(ally)] || family.names[0];
-      const level = figureLevel(ally);
-      const xp = ally.xp || 0;
-      const nextLevelXp = FIGURE_XP_TO_LEVEL[Math.min(level + 1, FIGURE_XP_TO_LEVEL.length - 1)] || FIGURE_XP_TO_LEVEL[FIGURE_XP_TO_LEVEL.length - 1];
-      const prevLevelXp = FIGURE_XP_TO_LEVEL[level] || 0;
-      const xpPct = nextLevelXp > prevLevelXp ? Math.round(((xp - prevLevelXp) / (nextLevelXp - prevLevelXp)) * 100) : 100;
-      const isActive = index === activeIndex;
-      // Only show first 6 in active party, rest are stored
-      const isInParty = index < 6;
-      return `<div class="roster-item${isActive ? " active" : ""}${!isInParty ? " stored" : ""}" data-roster-index="${index}">` +
+      return `<div class="roster-item${index === activeIndex ? " active" : ""}">` +
         `<div class="mini-portrait" style="--sprite-image:${escapeHtml(sprite.image)};--sprite-x:${escapeHtml(sprite.x)};--sprite-y:${escapeHtml(sprite.y)};--ally-a:${escapeHtml(palette[0])};--ally-b:${escapeHtml(palette[1])}" role="img" aria-label="${escapeHtml(species)}"></div>` +
-        `<div>` +
-          `<strong>${escapeHtml(ally.actualName || ally.name)}</strong>` +
-          `<span>${escapeHtml(ally.type || "Review")} / L${level} / ${escapeHtml(species)}</span>` +
-          `<div class="xp-bar"><div class="xp-bar-fill" style="width:${xpPct}%" title="XP: ${xp}"></div></div>` +
-        `</div>` +
-        `<div class="roster-right">` +
-          `<em>${isActive ? "Active" : escapeHtml(ally.rarity || "")}</em>` +
-          `${!isActive && isInParty ? `<button type="button" class="swap-btn" data-swap="${index}">Swap</button>` : ""}` +
-          `${!isInParty ? `<span class="stored-label">Storage</span>` : ""}` +
-        `</div>` +
+        `<div><strong>${escapeHtml(ally.name)}</strong><span>${escapeHtml(ally.type || "Review")} type / ${escapeHtml(family.historicalName || species)} line / Stage ${escapeHtml(String(ally.level || 1))} / ${escapeHtml(ally.course)}</span></div>` +
+        `<em>${index === activeIndex ? "Active" : escapeHtml(ally.rarity)}</em>` +
       `</div>`;
     }).join("");
-    // Swap buttons (field roster panel). If a battle is open, route through
-    // choosePartyAlly so the swap costs a turn — same as the in-battle Party
-    // command — and so the battle UI (sprite, name, type, moves, HP bar) is
-    // properly re-rendered. Otherwise it's a free out-of-battle swap.
-    Array.prototype.forEach.call(els.rosterList.querySelectorAll(".swap-btn"), (btn) => {
-      btn.addEventListener("click", () => {
-        const i = Number(btn.dataset.swap);
-        if (i < 0 || i >= roster.length) return;
-        if (state.battle && state.encounterOpen) {
-          // In battle: hide the field roster panel and route through the
-          // proper turn-using switch path so battle UI re-renders.
-          if (els.rosterPanel) els.rosterPanel.classList.remove("show");
-          document.body.classList.remove("menu-open");
-          choosePartyAlly(i);
-          return;
-        }
-        // Out of battle: free swap, refresh roster + HUD.
-        state.stats.activeAlly = i;
-        writeSave();
-        renderRoster();
-        updateHud();
-        if (typeof SFX !== "undefined" && SFX.levelUp) try { SFX.levelUp(); } catch (e) {}
-      });
-    });
   }
 
   function updateHud() {
     els.level.textContent = state.stats.rank || 1;
-    if (els.partyHp) {
-      const hp = Math.round(state.stats.playerHp || 0);
-      const maxHp = Math.round(state.stats.maxHp || 100);
-      els.partyHp.textContent = `${hp}/${maxHp}`;
-      // Animate HP bar if present
-      const hpBar = document.getElementById("partyHpBar");
-      if (hpBar) hpBar.style.width = `${clamp((hp / maxHp) * 100, 0, 100)}%`;
-    }
+    if (els.partyHp) els.partyHp.textContent = `${Math.round(state.stats.playerHp || 0)}/${Math.round(state.stats.maxHp || 100)}`;
     els.rosterCount.textContent = (state.stats.roster || []).length;
-    // Animated shard count-up
-    animateShards(state.stats.shards || 0);
+    els.shards.textContent = state.stats.shards || 0;
     els.streak.textContent = state.stats.streak || 0;
-    updateStreakRing(state.stats.streak || 0);
     if (els.actionBtn) {
       const near = state.nearInteraction;
       els.actionBtn.textContent = near ? (near.interactionType === "place" ? "Enter" : "Talk") : "Talk";
     }
-    // Region tint on world vignette
-    const region = state.currentRegion || REGIONS[0];
-    const vignette = document.querySelector(".world-vignette");
-    if (vignette) vignette.style.setProperty("--region-tint", region.tint || "transparent");
-    // Mute button label
-    const muteBtn = document.getElementById("muteBtn");
-    if (muteBtn) muteBtn.textContent = muted ? "♪ Off" : "♪ On";
   }
 
   function burst(x, y, color, count) {
@@ -3453,9 +2590,7 @@
       state.stats.rank = newRank;
       state.stats.maxHp = 100 + (newRank - 1) * 8;
       state.stats.playerHp = state.stats.maxHp;
-      SFX.levelUp();
-      flashBattleFx("fx-level-up", 900);
-      setFeedback(`Level up! Rank ${newRank}. Party HP restored.`, "done");
+      setFeedback(`Level up. Rank ${newRank}. Party health restored.`, "done");
     }
     advanceStory();
   }
@@ -3476,14 +2611,7 @@
   }
 
   function renderBag() {
-    const allItems = Object.assign({}, itemCatalog, {
-      primaryBall: { label: "Primary-Source Ball", price: 55, description: "1.45× catch rate. Powered by primary-source evidence. Better on weakened figures.", battle: true },
-      centuryBall: { label: "Turn-of-Century Ball", price: 90, description: "2× catch rate + history bonus. Best for legendary and rare figures.", battle: true },
-      revive: { label: "Letter of Endorsement", price: 40, description: "Revives an ally at half HP. Use from Bag or in battle.", battle: true }
-    });
-    // Add revive to items if missing
-    if (state.stats.items.revive === undefined) state.stats.items.revive = 0;
-    const entries = Object.entries(allItems);
+    const entries = Object.entries(itemCatalog);
     els.bagList.innerHTML = entries.map(([id, item]) => {
       const count = Number(state.stats.items[id] || 0);
       return `<article class="bag-item">` +
@@ -3548,29 +2676,12 @@
       }
       return;
     }
-    if (id === "capsule" || id === "primaryBall" || id === "centuryBall") {
+    if (id === "capsule") {
       if (!state.battle) {
-        setDialogue("Field Bag", item.label, "Balls work during battle after you build trust.", [{ action: "close", label: "Close" }]);
+        setDialogue("Field Bag", item.label, "Archive Capsules work during battle after you build trust.", [{ action: "close", label: "Close" }]);
         return;
       }
-      chooseBattleItem(id);
-      return;
-    }
-    if (id === "revive") {
-      const roster = state.stats.roster || [];
-      // Revive first fainted ally (HP = 0) or just restore active
-      const fainted = roster.find((a) => (a.hp || 0) <= 0 && a.id !== (roster[state.stats.activeAlly] || {}).id);
-      if (fainted) {
-        fainted.hp = Math.floor((state.stats.maxHp || 100) / 2);
-        spendItem(id);
-        setFeedback(`${fainted.name || fainted.actualName} revived at half HP!`, "good");
-        renderRoster();
-        writeSave();
-        return;
-      }
-      healParty(Math.floor((state.stats.maxHp || 100) / 2));
-      spendItem(id);
-      setFeedback("Letter of Endorsement: party HP partially restored.", "good");
+      chooseBattleItem("capsule");
       return;
     }
     if (id === "treatyPass") {
@@ -3656,21 +2767,7 @@
     if (state.encounterOpen && !state.currentQuestion) closeEncounter();
   }
 
-  function startField(newGame) {
-    ensureAudio(); resumeAudio();
-    if (newGame) {
-      // Wipe save
-      localStorage.removeItem(STORAGE_KEY);
-      state.stats = normalizeStats({});
-      shardDisplayed = 0;
-      shardTarget = 0;
-    } else if (state.stats.playerX && state.stats.playerY) {
-      state.player.x = state.stats.playerX;
-      state.player.y = state.stats.playerY;
-      state.player.tx = state.stats.playerX;
-      state.player.ty = state.stats.playerY;
-    }
-    state.currentRegion = REGIONS.find((r) => r.id === state.stats.currentRegionId) || REGIONS[0];
+  function startField() {
     state.running = true;
     document.body.classList.add("field-mode");
     document.body.classList.remove("menu-open");
@@ -3678,9 +2775,6 @@
     state.camera.x = clamp(state.player.x - innerWidth * .45, 0, WORLD_W - innerWidth);
     state.camera.y = clamp(state.player.y - innerHeight * .55, 0, WORLD_H - innerHeight);
     if (els.fieldHint) els.fieldHint.textContent = "A: talk / inspect · B: cancel · START: menu";
-    updateHud();
-    // Start region drone after a brief delay
-    setTimeout(() => startRegionDrone(state.currentRegion), 800);
   }
 
   function setDirection(dir, pressed) {
@@ -3756,37 +2850,15 @@
       toggleMenu(false);
     });
     els.huntBtn.addEventListener("click", () => {
-      ensureAudio(); resumeAudio();
       toggleMenu(false);
       openEncounter();
     });
-    const bossBtn = document.getElementById("bossBtn");
-    if (bossBtn) {
-      bossBtn.addEventListener("click", () => {
-        ensureAudio(); resumeAudio();
-        toggleMenu(false);
-        openEncounter({ boss: true });
-      });
-    }
     if (els.questBtn) {
       els.questBtn.addEventListener("click", () => {
-        ensureAudio(); resumeAudio();
         toggleMenu(false);
-        openQuestLog();
+        openReviewQuest("Route Contract");
       });
     }
-    // Mute button
-    const muteBtn = document.getElementById("muteBtn");
-    if (muteBtn) {
-      muteBtn.addEventListener("click", () => {
-        muted = !muted;
-        if (masterGain) masterGain.gain.value = muted ? 0 : 0.5;
-        muteBtn.textContent = muted ? "♪ Off" : "♪ On";
-      });
-    }
-    // Resume audio on any user gesture
-    document.addEventListener("pointerdown", () => { ensureAudio(); resumeAudio(); }, { once: false, passive: true });
-    document.addEventListener("keydown", () => { ensureAudio(); resumeAudio(); }, { once: false, passive: true });
     els.actionBtn.addEventListener("click", performAction);
     els.mapBtn.addEventListener("click", () => {
       toggleMenu(false);
@@ -3820,10 +2892,7 @@
     els.closeCodex.addEventListener("click", () => els.codexPanel.classList.remove("show"));
     els.closeDialogue.addEventListener("click", () => els.dialoguePanel.hidden = true);
     els.closeEncounter.addEventListener("click", closeEncounter);
-    els.beginBtn.addEventListener("click", () => startField(false));
-    // "New Game" button (we add this dynamically below)
-    const newGameBtn = document.getElementById("newGameBtn");
-    if (newGameBtn) newGameBtn.addEventListener("click", () => startField(true));
+    els.beginBtn.addEventListener("click", startField);
     els.typedForm.addEventListener("submit", (event) => {
       event.preventDefault();
       submitAnswer(els.typedAnswer.value);
@@ -3849,10 +2918,6 @@
     let dx = 0;
     let dy = 0;
     let movedThisFrame = false;
-    // Camera shake update
-    if (cameraShake > 0) {
-      cameraShake = Math.max(0, cameraShake - dt);
-    }
     const canMove = !state.encounterOpen
       && els.buildingPanel.hidden
       && els.dialoguePanel.hidden
@@ -3899,28 +2964,6 @@
       p.y = clamp(p.y + vy / dist * step, 70, WORLD_H - 70);
       movedThisFrame = step > 0;
       state.wildCooldown = Math.max(0, state.wildCooldown - dt);
-
-      // Step sound pip
-      stepTimer += dt;
-      if (stepTimer >= STEP_INTERVAL) {
-        stepTimer = 0;
-        SFX.step();
-      }
-
-      // Footstep dust particles
-      if (!reduceMotion && Math.random() < dt * 5) {
-        state.particles.push({
-          x: p.x + (Math.random() - 0.5) * 22,
-          y: p.y + 44,
-          vx: (Math.random() - 0.5) * 28,
-          vy: -8 - Math.random() * 12,
-          life: 0.18 + Math.random() * 0.14,
-          max: 0.32,
-          color: GB.mid,
-          size: 3
-        });
-      }
-
       if (isTallGrass(p.x, p.y)) {
         state.wildSteps += step;
         if (!reduceMotion && Math.random() < dt * 7) {
@@ -3934,10 +2977,9 @@
             color: GB.glow
           });
         }
-        // Encounter rate ~1 per 8-12s of walking; cooldown prevents rapid re-encounters
         if (state.running && state.wildCooldown <= 0 && state.wildSteps > 360 && Math.random() < dt * .38) {
           state.wildSteps = 0;
-          state.wildCooldown = 10;
+          state.wildCooldown = 8;
           openEncounter();
         }
       } else {
@@ -3945,35 +2987,6 @@
       }
     } else {
       state.wildCooldown = Math.max(0, state.wildCooldown - dt);
-      stepTimer = 0;
-    }
-
-    // Region change detection
-    const newRegion = regionFor(p.x, p.y);
-    if (newRegion && newRegion.id !== (state.currentRegion || {}).id) {
-      state.currentRegion = newRegion;
-      // Check unlock
-      if (!state.stats.unlockedRegions[newRegion.id] && state.stats.shards < newRegion.unlockShards) {
-        // Push player back gently — just reset tx/ty
-        p.tx = p.x - (vx / (dist || 1)) * 80;
-        p.ty = p.y - (vy / (dist || 1)) * 80;
-        setDialogue("Region Locked", newRegion.name, `This region requires ${newRegion.unlockShards} shards or defeating the previous boss to enter. You have ${state.stats.shards} shards.`, [
-          { action: "close", label: "Turn Back" }
-        ]);
-        state.currentRegion = regionFor(p.tx, p.ty) || REGIONS[0];
-      } else {
-        if (!state.stats.unlockedRegions[newRegion.id]) {
-          state.stats.unlockedRegions[newRegion.id] = true;
-          writeSave();
-        }
-        // Rebuild terrain layer so tint updates
-        state.terrain = null;
-        updateHud();
-        // Region drone
-        if (audioCtx && !muted && lastRegionId !== newRegion.id) {
-          startRegionDrone(newRegion);
-        }
-      }
     }
     const interaction = interactionInFront() || nearestInteraction({ x: p.x, y: p.y }, 118);
     if ((interaction && (!state.nearInteraction || interaction.id !== state.nearInteraction.id)) || (!interaction && state.nearInteraction)) {
@@ -4014,10 +3027,7 @@
     ctx.fillStyle = "#07101f";
     ctx.fillRect(0, 0, w, h);
     ctx.save();
-    // Apply camera shake
-    const shakeX = cameraShake > 0 ? cameraShakeDir.x * cameraShake * 3 : 0;
-    const shakeY = cameraShake > 0 ? cameraShakeDir.y * cameraShake * 3 : 0;
-    ctx.translate(-state.camera.x + shakeX, -state.camera.y + shakeY);
+    ctx.translate(-state.camera.x, -state.camera.y);
     drawWorld(now);
     drawWorldInteractions(now);
     drawNodes(now);
@@ -4352,10 +3362,9 @@
 
   function drawParticles() {
     state.particles.forEach((particle) => {
-      const alpha = Math.max(0, Math.min(1, particle.life / (particle.max || 1)));
-      ctx.globalAlpha = alpha;
+      ctx.globalAlpha = Math.max(0, particle.life);
       ctx.fillStyle = particle.color || GB.ink;
-      const size = particle.size || Math.max(4, Math.round(5 + particle.life * 7));
+      const size = Math.max(4, Math.round(5 + particle.life * 7));
       ctx.fillRect(Math.round(particle.x), Math.round(particle.y), size, size);
     });
     ctx.globalAlpha = 1;
@@ -4386,20 +3395,6 @@
     updateHud();
     renderRoster();
     renderBag();
-    // Show Continue / New Game based on save existence
-    const hasSave = !!(localStorage.getItem(STORAGE_KEY));
-    if (hasSave && els.beginBtn) {
-      els.beginBtn.textContent = "Continue Expedition";
-      // Inject New Game button
-      const ng = document.createElement("button");
-      ng.id = "newGameBtn";
-      ng.type = "button";
-      ng.className = "secondary";
-      ng.style.marginTop = "10px";
-      ng.textContent = "New Game";
-      els.beginBtn.insertAdjacentElement("afterend", ng);
-      ng.addEventListener("click", () => startField(true));
-    }
     await Promise.all([
       loadImage("retroTiles", "../../assets/history-hunters/retro-tile-sprite-atlas.webp"),
       loadImage("retroSheet", "../../assets/history-hunters/retro-title-battle-sheet.webp"),
