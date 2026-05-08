@@ -5062,9 +5062,14 @@ function renderMetrics() {
     courseCount + " courses",
     GAMES.filter(isQuickPlay).length + " quick plays"
   ];
-  document.getElementById("statusPills").innerHTML = pills
-    .map((text) => '<span class="pill">' + escapeHtml(text) + '</span>')
-    .join("");
+  // statusPills was replaced by the Phase 1 profile pill; guard against null
+  // so other consumers can't break if the topbar layout changes again.
+  const statusPillsEl = document.getElementById("statusPills");
+  if (statusPillsEl) {
+    statusPillsEl.innerHTML = pills
+      .map((text) => '<span class="pill">' + escapeHtml(text) + '</span>')
+      .join("");
+  }
 
   const items = [
     { class: "gold",  pre: "Live games",       big: GAMES.length },
