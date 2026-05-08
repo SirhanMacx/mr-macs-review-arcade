@@ -292,6 +292,13 @@ let engineGain = null;
 let engineFilter = null;
 let muted = false;
 
+/* ═══════════════════════════════════════════════
+   MRMACS PROFILE — shards wallet
+═══════════════════════════════════════════════ */
+function awardShards(n) {
+  try { window.MrMacsProfile && window.MrMacsProfile.addShards(n, "regents-rally"); } catch (e) { /* ignore */ }
+}
+
 function initAudio() {
   if (audioCtx) return;
   try {
@@ -1301,6 +1308,11 @@ function gradeAnswer(index, timedOut = false) {
     state.maxStreak = Math.max(state.maxStreak, state.streak);
     state.score += 750 + state.streak * 120;
     sfxQuestionCorrect();
+    // MrMacsProfile — shards + first-correct achievement
+    awardShards(2);
+    if (state.correct === 1) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlock("first-correct"); } catch (e) { /* ignore */ }
+    }
     if (isGate) {
       // Gate correct: instant additive boost + green spark trail
       const gateBoost = 2.2 + state.character.stats.boost * 0.12;
@@ -1390,6 +1402,8 @@ function collectItem(box) {
   if (box.taken || state.item || state.itemRoulette || state.quizOpen) return;
   box.taken = true;
   state.score += 120;
+  // MrMacsProfile — item box collected
+  awardShards(20);
   state.itemRoulette = {
     timer: 0.78,
     total: 0.78,
@@ -1478,6 +1492,8 @@ function updateHud() {
     const newRecord = setBestLap(state.track.id, lapTime);
 
     sfxLapComplete();
+    // MrMacsProfile — lap completed
+    awardShards(50);
     if (newLap === state.track.laps) {
       // Final lap flash + stinger
       state.finalLapFlash = true;
@@ -1598,6 +1614,13 @@ function finishRace() {
   const accuracy = state.attempts ? Math.round((state.correct / state.attempts) * 100) : 0;
   const title = state.place === 1 ? "First Place" : state.place <= 3 ? "Podium Finish" : "Race Finished";
 
+  // MrMacsProfile — race finish shards + achievements
+  awardShards(75);
+  if (state.place === 1) {
+    awardShards(150);
+    try { window.MrMacsProfile && window.MrMacsProfile.unlock("rally-podium"); } catch (e) { /* ignore */ }
+  }
+
   // Best lap check
   const newBestLap = state.lapBest !== null && setBestLap(state.track.id, state.lapBest);
   if (els.bestLapBanner) {
@@ -1698,6 +1721,14 @@ function finishRace() {
       incGPCompletions();
       gpState.active = false;
       if (els.againBtn) els.againBtn.textContent = "New Grand Prix";
+      // MrMacsProfile — GP win shards + achievements
+      awardShards(500);
+      try {
+        if (window.MrMacsProfile) {
+          if (engineClass === "150cc") window.MrMacsProfile.unlock("rally-gp-150");
+          if (engineClass === "mirror") window.MrMacsProfile.unlock("rally-mirror");
+        }
+      } catch (e) { /* ignore */ }
     }
   } else {
     if (els.gpStandingsWrap) els.gpStandingsWrap.style.display = "none";
@@ -3654,6 +3685,34 @@ if (params.get("debug") === "1") {
 renderCharacters();
 renderTracks();
 setupModeUI();
+
+/* ═══════════════════════════════════════════════
+   MRMACS PROFILE — boot integration
+═══════════════════════════════════════════════ */
+if (window.MrMacsProfile) {
+  window.MrMacsProfile.recordPlay({
+    id: "regents-rally-source-circuit",
+    title: "Regents Rally 64",
+    course: "All Courses",
+    file: "games/regents-rally-source-circuit/index.html"
+  });
+  // Honor sound setting at boot
+  try {
+    if (window.MrMacsProfile.getSettings().sound === "off") muted = true;
+  } catch (e) { /* ignore */ }
+  // Listen for live settings changes
+  try {
+    window.MrMacsProfile.on("settings:change", (settings) => {
+      if (settings && settings.sound !== undefined) {
+        muted = settings.sound === "off";
+        if (engineGain) engineGain.gain.value = muted ? 0 : 0;
+        const btn = document.getElementById("muteBtn");
+        if (btn) btn.textContent = muted ? "🔇" : "🔊";
+      }
+    });
+  } catch (e) { /* ignore */ }
+}
+
 loadBanks().catch(() => {
   els.topStats.innerHTML = "<span>Powerup clues failed to load</span>";
 });

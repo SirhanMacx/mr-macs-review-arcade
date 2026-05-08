@@ -3902,6 +3902,16 @@
     writeSave();
     updateHud();
     setBattleLog(`${battle.enemy.actualName.toUpperCase()} fainted. +${xp} XP.${joined ? " It joined the roster." : ""}`);
+    if (window.MrMacsProfile) {
+      if (captured && joined) {
+        MrMacsProfile.addShards(50, "history-hunters-2");
+        MrMacsProfile.unlock("hh-first-catch");
+        if (state.stats.party.length >= 6) MrMacsProfile.unlock("hh-roster-6");
+        if (battle.enemy.isRare) MrMacsProfile.unlock("hh-rare");
+      } else {
+        MrMacsProfile.addShards(10, "history-hunters-2");
+      }
+    }
 
     // Check evolution on level-up — Axis 6: full cinematic
     const postHero = state.stats.party[state.stats.active];
@@ -4431,6 +4441,11 @@
     buildWorld();
     bindEvents();
     updateSoundButton();
+    if (window.MrMacsProfile) {
+      MrMacsProfile.recordPlay({ id: "history-hunters-2", title: "History Hunters 2: Atlas Quest", course: "All Courses", file: "games/history-hunters-2/index.html" });
+      const settings = MrMacsProfile.getSettings();
+      if (settings && typeof settings.sound === "boolean") setMuted(!settings.sound);
+    }
     try {
       const res = await fetch("../../data/chrono-defense-bank.json?v=20260502-source-contract");
       state.bank = await res.json();

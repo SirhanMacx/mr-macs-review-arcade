@@ -539,6 +539,11 @@
     state.last = performance.now();
     hideAllScreens();
     window.MrMacsAnalytics?.track("game_play", { gameId: "chrono-pinball", title: "Chrono Pinball", course: els.courseFilter.value || "All Courses", gameType: "Pinball" }, { counter: "game-plays", once: false });
+    // MrMacsProfile — boot hook
+    if (window.MrMacsProfile) {
+      window.MrMacsProfile.recordPlay({ id: "chrono-pinball", title: "Chrono Pinball", course: "All Courses", file: "games/chrono-pinball/index.html" });
+      audio.modeStart();
+    }
   }
 
   function hideAllScreens() {
@@ -826,6 +831,7 @@
     addScore(b.score + state.combo * 15, b.x, b.y - b.r - 20, b.color);
     addParticles(ball.x, ball.y, FX_LITE ? 12 : 22, b.color, 1.1);
     audio.bumper(idx);
+    window.MrMacsProfile?.addShards(1, "chrono-pinball:bumper");
   }
 
   function collideSling(ball, sling, idx) {
@@ -843,6 +849,7 @@
     addScore(580, (sling.x1 + sling.x2) / 2, (sling.y1 + sling.y2) / 2 - 20, sling.color, "SLING!");
     addParticles((sling.x1 + sling.x2) / 2, (sling.y1 + sling.y2) / 2, FX_LITE ? 8 : 14, sling.color, 0.8);
     audio.sling();
+    window.MrMacsProfile?.addShards(1, "chrono-pinball:slingshot");
   }
 
   function collideRamp(ball, rp) {
@@ -860,6 +867,7 @@
     addParticles(rp.x + rp.w / 2, rp.y, FX_LITE ? 14 : 26, rp.color, 1.2);
     audio.ramp();
     state.shake = Math.max(state.shake, 0.12);
+    window.MrMacsProfile?.addShards(5, "chrono-pinball:ramp");
     // Advance mission ramp requirement
     if (state.currentMissionEra >= 0 && !state.missionRampDone) {
       state.missionRampDone = true;
@@ -910,6 +918,7 @@
       era.completed = true;
       state.eraCompleted++;
       state.bonus += 5000;
+      window.MrMacsProfile?.addShards(25, "chrono-pinball:drop-target-row");
       setTimeout(() => startEraMission(era), 300);
     }
   }
@@ -1078,6 +1087,11 @@
       els.multiplier.classList.remove("pumped");
       void els.multiplier.offsetWidth;
       els.multiplier.classList.add("pumped");
+      // MrMacsProfile — correct answer shards + first-correct achievement
+      if (window.MrMacsProfile) {
+        window.MrMacsProfile.addShards(15, "chrono-pinball:correct-answer");
+        window.MrMacsProfile.unlock("first-correct");
+      }
     } else {
       state.missionStreak = 0;
       state.multiplier = Math.max(1, state.multiplier - 1);
@@ -1112,6 +1126,7 @@
         state.shake = 0.25;
       }
       state.missionsCompleted++;
+      window.MrMacsProfile?.addShards(100, "chrono-pinball:era-mission");
 
       // Check wizard mode (all 5 era missions done)
       if (state.missionsCompleted >= 5 && !state.wizardMode) {
@@ -1155,6 +1170,11 @@
     setMission("WIZARD MODE", "All 5 eras mastered! 5× scoring + multiball for 60 seconds!", "WIZARD!", "good");
     setDmdMsg("★ WIZARD MODE ★  5× SCORING  ALL ERAS MASTERED", "", "#d4a017", 2.5);
     updateHud();
+    // MrMacsProfile — Wizard Mode shards + achievement
+    if (window.MrMacsProfile) {
+      window.MrMacsProfile.addShards(500, "chrono-pinball:wizard-mode");
+      window.MrMacsProfile.unlock("pinball-wizard");
+    }
   }
 
   function spawnMultiball() {
@@ -1176,6 +1196,8 @@
       addText(450, 480, "MULTIBALL!", "#f5c451");
       setMission("MULTIBALL!", "Keep all balls alive and keep scoring.", "multiball active", "good");
       setDmdMsg("MULTIBALL!", "Keep all balls live", "#f07bb8", 1.8);
+      // MrMacsProfile — multiball achievement
+      window.MrMacsProfile?.unlock("pinball-multiball");
     }
   }
 

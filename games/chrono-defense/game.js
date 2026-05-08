@@ -449,7 +449,9 @@
     // persistence
     mapsUnlocked: save.mapsUnlocked || [true, false, false, false],
     bestWave: save.bestWave || [0, 0, 0, 0],
-    totalShards: save.totalShards || 0
+    totalShards: save.totalShards || 0,
+    // MrMacsProfile: track base damage this run for td-perfect-base achievement
+    baseDamageThisRun: 0
   };
 
   // Sync map unlock from save
@@ -683,6 +685,8 @@
     state.lives = Math.max(0, state.lives - e.damage);
     state.shake = 0.6;
     addText(e.x, e.y, `-${e.damage} HP`, "#ff5167");
+    // MrMacsProfile: track base damage for td-perfect-base achievement
+    state.baseDamageThisRun += e.damage;
     updateHud();
     if (state.lives <= 0) endGame();
   }
@@ -852,10 +856,14 @@
       state.shake = 1.2;
       addText(e.x, e.y - 40, `+${shards} BOSS!`, "#ffd76b");
       if (state.sound) audio.abilityStinger();
+      // MrMacsProfile: boss kill shard award
+      if (window.MrMacsProfile) MrMacsProfile.addShards(75, "chrono-defense-boss-kill");
     } else {
       addBurstAt(e.x, e.y, e.color, 18);
       addText(e.x, e.y, `+${shards}`, "#66f2ac");
       if (state.sound) audio.pop();
+      // MrMacsProfile: enemy kill shard award
+      if (window.MrMacsProfile) MrMacsProfile.addShards(1, "chrono-defense-kill");
     }
     updateHud();
     persistProgress();
@@ -996,9 +1004,18 @@
     }
 
     if (state.wave >= state.maxWave) {
+      // MrMacsProfile: map cleared (wave 30 reached)
+      if (window.MrMacsProfile) {
+        MrMacsProfile.addShards(200, "chrono-defense-map-clear");
+        MrMacsProfile.unlock("td-wave-30");
+        if (state.baseDamageThisRun === 0) MrMacsProfile.unlock("td-perfect-base");
+      }
       endGame(true);
       return;
     }
+
+    // MrMacsProfile: wave survived shard award
+    if (window.MrMacsProfile) MrMacsProfile.addShards(50, "chrono-defense-wave-survived");
 
     showBanner(hpBonus > 0 ? `Wave ${state.wave} Cleared · Perfect! +${hpBonus}` : `Wave ${state.wave} Cleared · +${waveBonus}`);
     updateHud();
@@ -1077,6 +1094,11 @@
       const reward = 80 + Math.min(120, state.streak * 8) + state.wave * 3;
       state.insight += reward;
       state.score += 200 + state.streak * 30 + state.wave * 10;
+      // MrMacsProfile: mid-wave correct answer shard award + first-correct achievement
+      if (window.MrMacsProfile) {
+        MrMacsProfile.addShards(15, "chrono-defense-correct-answer");
+        if (state.correct === 1) MrMacsProfile.unlock("first-correct");
+      }
       // question effect: cycle through crit, voucher, slowtime
       const roll = Math.random();
       if (roll < 0.40) {
@@ -2511,6 +2533,7 @@
     state.streak = 0;
     state.correct = 0;
     state.answered = 0;
+    state.baseDamageThisRun = 0;
     state.selectedTower = null;
     state.freezeUntil = 0;
     state.shake = 0;
@@ -2602,6 +2625,21 @@
   // ─── Boot ─────────────────────────────────────────────────────────────────────
   async function init() {
     activateMap(0);
+    // ─── MrMacsProfile boot hooks ─────────────────────────────────────────────
+    if (window.MrMacsProfile) {
+      MrMacsProfile.recordPlay({
+        id: "chrono-defense",
+        title: "Chrono Defense",
+        course: "All Courses",
+        file: "games/chrono-defense/index.html"
+      });
+      // Sync profile sound setting to game
+      const profileSettings = MrMacsProfile.getSettings();
+      if (profileSettings && profileSettings.sound === "off") {
+        state.sound = false;
+      }
+    }
+    // ─────────────────────────────────────────────────────────────────────────
     const res = await fetch("../../data/chrono-defense-bank.json?v=20260502-source-contract");
     state.bank = await res.json();
     state.bank.questions = (state.bank.questions || []).filter(isPlayable);

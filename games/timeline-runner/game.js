@@ -800,7 +800,7 @@
       objects: [], particles: [], texts: [], speedLines: [], wrongs: [],
       shake: 0, flash: 0, flashColor: "#75ecff", deathAnim: 0,
       eraIndex: 0, eraTransition: 0, bossWarning: 0, eraKeys: 0,
-      gateActive: null, sawFirstGate: false, debriefUntil: 0,
+      gateActive: null, sawFirstGate: false, debriefUntil: 0, _5kmAwarded: false,
       runCourse: els.courseFilter.value  || "All Courses",
       runSet:    els.setFilter.value     || "All Sets",
       runIntensity: els.intensityFilter.value || "standard"
@@ -1036,6 +1036,7 @@
         addText(pt.x, pt.y - 20, `+${coinScore}`, "#f5c451");
         addParticles(pt.x, pt.y, 14, "#f5c451", 1.0);
         audio.coin();
+        window.MrMacsProfile?.addShards(1, "timeline-runner:coin");
         break;
       case "magnet":
         player.magnetTimer = PICKUP_TYPES.magnet.duration + state.powerupDuration;
@@ -1043,6 +1044,7 @@
         audio.powerupArpeggio("magnet");
         addText(pt.x, pt.y - 20, "magnet", "#ff7bcc");
         addParticles(pt.x, pt.y, 22, "#ff7bcc", 1.2);
+        window.MrMacsProfile?.addShards(20, "timeline-runner:powerup");
         break;
       case "shield":
         state.shields = Math.min(3, state.shields + 1);
@@ -1050,6 +1052,7 @@
         audio.shield();
         addText(pt.x, pt.y - 20, "+shield", "#75ecff");
         addParticles(pt.x, pt.y, 18, "#75ecff", 1.0);
+        window.MrMacsProfile?.addShards(20, "timeline-runner:powerup");
         break;
       case "boost":
         player.boostTimer = PICKUP_TYPES.boost.duration + state.powerupDuration;
@@ -1059,6 +1062,7 @@
         addText(pt.x, pt.y - 20, "boost!", "#f5c451");
         addParticles(pt.x, pt.y, 24, "#f5c451", 1.3);
         spawnSpeedLines();
+        window.MrMacsProfile?.addShards(20, "timeline-runner:powerup");
         break;
       case "jetpack":
         player.jetpackTimer = PICKUP_TYPES.jetpack.duration + state.powerupDuration;
@@ -1067,6 +1071,7 @@
         audio.powerupArpeggio("jetpack");
         addText(pt.x, pt.y - 20, "jetpack!", "#67f0a8");
         addParticles(pt.x, pt.y, 28, "#67f0a8", 1.4);
+        window.MrMacsProfile?.addShards(20, "timeline-runner:powerup");
         break;
       case "erakey":
         state.eraKeys++;
@@ -1074,7 +1079,12 @@
         addText(pt.x, pt.y - 20, "era key!", "#f5a623");
         addParticles(pt.x, pt.y, 30, "#f5a623", 1.5);
         setFeedback(`Era Key collected! ${state.eraKeys}/5 — collect all to win!`, "good");
-        if (state.eraKeys >= 5) endRun();
+        window.MrMacsProfile?.addShards(100, "timeline-runner:era-key");
+        if (state.eraKeys >= 5) {
+          window.MrMacsProfile?.unlock("tr-all-eras");
+          window.MrMacsProfile?.addShards(500, "timeline-runner:all-era-keys");
+          endRun();
+        }
         break;
     }
   }
@@ -1181,6 +1191,8 @@
       addText(pt.x, pt.y - 80, `+${bonus}`, "#67f0a8");
       addParticles(pt.x, pt.y - 80, 36, "#67f0a8", 1.3);
       audio.correct();
+      window.MrMacsProfile?.addShards(15, "timeline-runner:correct-gate");
+      if (state.correct === 1) window.MrMacsProfile?.unlock("first-correct");
     } else {
       state.wrongs.push({ prompt: displayPrompt(q), answer, explanation });
       state.streak = 0;
@@ -1250,6 +1262,7 @@
       const next = ERAS[newIndex];
       audio.eraStinger(newIndex);
       setFeedback(`Era shift: ${prev.name} → ${next.name}`, "good");
+      window.MrMacsProfile?.addShards(50, "timeline-runner:era-band");
       state.eraTransition = 0;
       state.eraIndex      = newIndex;
       // Trigger full-screen sweep
@@ -1314,6 +1327,12 @@
     // Distance and score
     state.distance += dt * (42 + 118 * state.speedPace);
     state.score    += dt * (9 + state.streak * 0.9) * state.speedPace;
+    // ── MrMacsProfile: 5 km milestone ────────────────────────────────────────
+    if (!state._5kmAwarded && state.distance >= 5000) {
+      state._5kmAwarded = true;
+      window.MrMacsProfile?.unlock("tr-distance-5km");
+    }
+    // ─────────────────────────────────────────────────────────────────────────
 
     // Power-up timers
     player.boostTimer   = Math.max(0, player.boostTimer   - dt);
@@ -2821,6 +2840,20 @@
   async function init() {
     bindEvents();
     resizeCanvas();
+    // ── MrMacsProfile: boot hook ──────────────────────────────────────────────
+    if (window.MrMacsProfile) {
+      window.MrMacsProfile.recordPlay({
+        id: "timeline-runner", title: "Timeline Runner",
+        course: "All Courses", file: "games/timeline-runner/index.html"
+      });
+      const ps = window.MrMacsProfile.getSettings();
+      if (ps && typeof ps.sound === "boolean") {
+        state.sound = ps.sound;
+        els.soundBtn.textContent = state.sound ? "Sound On" : "Sound Off";
+      }
+      if (state.sound) audio.ensure();
+    }
+    // ─────────────────────────────────────────────────────────────────────────
     requestAnimationFrame(loop);
     try {
       await Promise.all([loadAssets(), loadBank()]);

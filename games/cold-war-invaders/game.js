@@ -286,7 +286,10 @@ const state = {
   safeTime: 0,
   ufoTimer: 0,
   last: 0,
-  missionStats: { kills:0, shotsFired:0, shotsHit:0, intelEarned:0, shieldDmg:0 }
+  missionStats: { kills:0, shotsFired:0, shotsHit:0, intelEarned:0, shieldDmg:0 },
+  // profile tracking
+  bunkersRebuilt: 0,
+  firstCorrectFired: false
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────
@@ -513,6 +516,7 @@ function rebuildShieldsPartial() {
       if (!isBottomCenter && !cell.alive && Math.random() < 0.6) cell.alive = true;
     }
   }
+  state.bunkersRebuilt++;
 }
 
 function drawShields() {
@@ -613,6 +617,7 @@ function updateUfo(dt) {
         state.ufo = null; stopUfoSiren();
         sfxWaveClear();
         state.missionStats.shotsHit++;
+        window.MrMacsProfile?.addShards(25, "cold-war-invaders");
         return;
       }
     }
@@ -893,6 +898,7 @@ function collide() {
           state.intel = Math.min(100, state.intel + 4.5);
           // chance to drop power-up (low)
           if (Math.random() < 0.04) spawnPowerup(e.x, e.y);
+          window.MrMacsProfile?.addShards(2, "cold-war-invaders");
         } else {
           explode(e.x, e.y, "#ffd15c", 6);
         }
@@ -916,6 +922,9 @@ function collide() {
         sfxWaveClear();
         state.shake = Math.max(state.shake, 1.2);
         state.flash = 0.35;
+        window.MrMacsProfile?.addShards(300, "cold-war-invaders");
+        window.MrMacsProfile?.unlock("cwi-mission-clear");
+        if (state.bunkersRebuilt === 0) window.MrMacsProfile?.unlock("cwi-no-shield");
       }
     }
     // vs shield
@@ -964,6 +973,7 @@ function collide() {
     if (Math.abs(pu.x-state.player.x)<28 && Math.abs(pu.y-state.player.y)<28) {
       pu.dead = true;
       applyPowerup(pu.type);
+      window.MrMacsProfile?.addShards(20, "cold-war-invaders");
     }
   }
   state.powerUps = state.powerUps.filter(p=>!p.dead);
@@ -1058,6 +1068,11 @@ function gradeAnswer(index) {
     els.feedback.className  = "feedback good";
     els.feedback.innerHTML  = `<strong>Intel acquired — power-up incoming.</strong> ${esc(state.current.explanation)}`;
     sfxPowerup();
+    window.MrMacsProfile?.addShards(15, "cold-war-invaders");
+    if (!state.firstCorrectFired) {
+      state.firstCorrectFired = true;
+      window.MrMacsProfile?.unlock("first-correct");
+    }
   } else {
     state.streak = 0;
     // Wrong = fleet speed penalty
@@ -1287,6 +1302,8 @@ function startGame() {
   state.shake      = 0;
   state.activePowerUps = { tripleShot:0, rapidFire:0, slowFleet:0 };
   state.missionStats   = { kills:0, shotsFired:0, shotsHit:0, intelEarned:0, shieldDmg:0 };
+  state.bunkersRebuilt = 0;
+  state.firstCorrectFired = false;
   marchPhase  = 0;
   marchTimer  = 0;
 
@@ -1449,6 +1466,7 @@ function update(dt) {
       // Trigger between-wave briefing (but only between waves, not before boss)
       if (state.waveMission <= WAVES_PER_MISSION) {
         setToast(`WAVE ${state.wave} CLEAR`, 1.2);
+        window.MrMacsProfile?.addShards(100, "cold-war-invaders");
         // Delay then ask question then spawn next wave
         setTimeout(()=>{
           if (!state.running || state.over) return;
@@ -1515,6 +1533,11 @@ function gradeBetweenWave(index) {
       els.feedback.className  = "feedback good";
       els.feedback.innerHTML  = `<strong>Intel acquired — power-up incoming.</strong> ${esc(state.current.explanation)}`;
       sfxPowerup();
+      window.MrMacsProfile?.addShards(15, "cold-war-invaders");
+      if (!state.firstCorrectFired) {
+        state.firstCorrectFired = true;
+        window.MrMacsProfile?.unlock("first-correct");
+      }
     } else {
       state.streak = 0;
       state.marchStepInterval = Math.max(0.06, state.marchStepInterval * 0.88);
@@ -2146,3 +2169,13 @@ mobileCtrl.addEventListener?.("change", resize);
 resize();
 loadBank();
 draw();
+
+// ── MrMacsProfile boot ────────────────────────────────────────────────────
+if (window.MrMacsProfile) {
+  MrMacsProfile.recordPlay({ id: "cold-war-invaders", title: "Cold War Invaders", course: "All Courses", file: "games/cold-war-invaders/index.html" });
+  const _settings = MrMacsProfile.getSettings?.();
+  if (_settings && typeof _settings.muted === "boolean") {
+    muted = _settings.muted;
+    if (muted) { if (els.mute) els.mute.textContent = "🔇"; stopUfoSiren(); }
+  }
+}

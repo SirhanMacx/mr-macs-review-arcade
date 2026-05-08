@@ -357,6 +357,12 @@
     audio.found();
     burst(tile,"#f2c14e",30);
     floatText(tile,"CITY FOUNDED","#f2c14e");
+    // MrMacsProfile: shards + first-city achievement
+    if (civId === "player") {
+      window.MrMacsProfile?.addShards(20, "empire-ascendant:city-founded");
+      const playerCityCount = state.cities.filter(c => c.civId === "player").length;
+      if (playerCityCount === 1) window.MrMacsProfile?.unlock("empire-found");
+    }
     return city;
   }
 
@@ -428,6 +434,10 @@
       spawnUnit(city.civId, city.buildQueue, tile);
       city.buildProgress=0; city.buildQueue=null;
       floatText(tile,"Unit ready","#f2c14e");
+      // MrMacsProfile: shards for unit trained
+      if (city.civId === "player") {
+        window.MrMacsProfile?.addShards(30, "empire-ascendant:unit-trained");
+      }
     }
   }
 
@@ -561,6 +571,8 @@
         const cap=state.cities.find(c=>c.civId==="player"&&c.capital);
         if(cap) burst(getTileById(cap.tileId),"#7bdff2",20);
         setAdvisor("Technology Discovered",`${tech.name} unlocked. ${tech.quote}`,`Unlocks: ${tech.unlocks}`,"good");
+        // MrMacsProfile: shards for tech research
+        window.MrMacsProfile?.addShards(40, "empire-ascendant:tech-researched");
       }
       // auto pick next
       const era=state.era;
@@ -716,6 +728,9 @@
   function triggerVictory(type, message){
     if(state.victory) return;
     state.victory=type;
+    // MrMacsProfile: shards + victory achievement
+    window.MrMacsProfile?.addShards(800, "empire-ascendant:victory");
+    window.MrMacsProfile?.unlock("empire-victory");
     endGame(`Victory: ${type}`,message);
   }
 
@@ -1148,6 +1163,9 @@
       els.explanation.className="explanation good";
       applySuccess(action);
       audio.correct();
+      // MrMacsProfile: shards + first-correct achievement
+      window.MrMacsProfile?.addShards(20, "empire-ascendant:council-correct");
+      if (state.correct === 1) window.MrMacsProfile?.unlock("first-correct");
     } else {
       els.explanation.textContent=`Correct: ${cleanText(q.answer)}. ${displayExplanation(q)}`;
       els.explanation.className="explanation bad";
@@ -1304,6 +1322,8 @@
       // Show cinematic era banner
       showEraBanner(ERAS[state.era]);
       flashScreen("#f2c14e");
+      // MrMacsProfile: shards for era advance
+      window.MrMacsProfile?.addShards(100, "empire-ascendant:era-advanced");
     }
   }
 
@@ -2623,6 +2643,25 @@
     resize(); bind(); requestAnimationFrame(loop);
     initTitleBackdrop();
     drawCivPortraits();
+
+    // ── MrMacsProfile: boot hook ──────────────────────────────────────────────
+    if (window.MrMacsProfile) {
+      MrMacsProfile.recordPlay({
+        id:     "empire-ascendant",
+        title:  "Empire Ascendant",
+        course: "All Courses",
+        file:   "games/empire-ascendant/index.html"
+      });
+      // Sound at boot: respect profile sound setting
+      const profileSettings = MrMacsProfile.getSettings();
+      if (profileSettings && profileSettings.sound === false) {
+        audio.on = false;
+        if (els.soundBtn) els.soundBtn.textContent = "Sound Off";
+      } else {
+        audio._ctx();
+      }
+    }
+    // ─────────────────────────────────────────────────────────────────────────
     // Update setup screen start button for continue support
     if(hasSave()) els.startBtn.textContent="New Game";
     try {

@@ -589,6 +589,7 @@ html.perf-lite .world::after,html.perf-lite .boss-sprite,html.perf-lite .preview
   .mcq-btn,.btn,.seg,.mini-btn,.diff-pill{min-height:48px;}
 }
 </style>
+<script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
 </head>
 <body>
 <div class="world" aria-hidden="true"></div>
@@ -1440,6 +1441,8 @@ function renderBattle() {
   if (_lastPhaseNum !== -1 && phase.phaseNum > _lastPhaseNum) {
     const pLabel = boss.phaseLabels?.[phase.phaseNum] || phase.label;
     triggerPhaseTransition(pLabel, phase.phaseNum);
+    // ── MrMacsProfile: phase transition cleared shards ───────────────────
+    if (window.MrMacsProfile) MrMacsProfile.addShards(50);
   }
   _lastPhaseNum = phase.phaseNum;
 
@@ -1714,6 +1717,8 @@ function applyResult(verdict, confidence, manual) {
       run.specialUsed = false;
       playSound("streakReady");
       showFloatingMsg("SPECIAL READY! ⚡", "special");
+      // ── MrMacsProfile: streak-special activation shards ─────────────────
+      if (window.MrMacsProfile) MrMacsProfile.addShards(75);
     }
 
     if (useSpecial) {
@@ -1729,10 +1734,16 @@ function applyResult(verdict, confidence, manual) {
     queueBurst("hit");
     playSound("hit");
     showFeedback("correct","Direct Hit ✓",clue,confidence,effectiveDmg,manual);
+    // ── MrMacsProfile: correct answer shards + first-correct achievement ──
+    if (window.MrMacsProfile) {
+      MrMacsProfile.addShards(15);
+      if (run.correct === 1) MrMacsProfile.unlock("first-correct");
+    }
   } else {
     run.combo = 0;
     if (currentBoss().mechanic==="strike") boss.chainCount = 0;
     run.specialReady = false;
+    run.damageTakenThisBoss = (run.damageTakenThisBoss||0) + 1; // track for boss-perfect
 
     // Boss attacks: drain shield first, then HP
     const rawDmg = run.diffCfg.playerDmg;
@@ -1910,6 +1921,12 @@ function nextQuestion() {
     run.scoreMultiplier = 1 + run.bossesDefeated * 0.5;
     playSound("bossDefeated");
     triggerConfetti();
+    // ── MrMacsProfile: boss defeated shards + achievements ───────────────
+    if (window.MrMacsProfile) {
+      MrMacsProfile.addShards(250);
+      if (run.bossesDefeated === 1) MrMacsProfile.unlock("boss-first");
+      if ((run.damageTakenThisBoss||0) === 0) MrMacsProfile.unlock("boss-perfect");
+    }
     if (run.bossIndex>=run.bosses.length-1) return finishRun(true);
     // Heal between bosses
     const hpGain = 30, shieldGain = 40;
@@ -1941,6 +1958,7 @@ function nextQuestion() {
 function primeBoss() {
   run.qIndex=0;
   run.answered=false;
+  run.damageTakenThisBoss=0; // track for boss-perfect achievement
 }
 
 // ── PHASE TRANSITION ──────────────────────────────────────────────────
@@ -2077,7 +2095,14 @@ function triggerConfetti() {
 function finishRun(victory) {
   stopTimer();
   if (telegraphTimeout) { clearTimeout(telegraphTimeout); telegraphTimeout=null; }
-  if (victory) { playSound("bossDefeated"); triggerConfetti(); }
+  if (victory) {
+    playSound("bossDefeated"); triggerConfetti();
+    // ── MrMacsProfile: full run completed shards + final-form achievement ─
+    if (window.MrMacsProfile) {
+      MrMacsProfile.addShards(1000);
+      if (run.difficulty === "final") MrMacsProfile.unlock("boss-final-form");
+    }
+  }
 
   const elapsed = Math.round((Date.now()-run.startTime)/1000);
   const accuracy = run.total ? Math.round(run.correct/run.total*100) : 0;
@@ -2239,6 +2264,11 @@ function startRun() {
   buildRun();
   if (!run.bosses.length) return;
   _lastPhaseNum=-1;
+  run.damageTakenThisBoss=0; // reset for first boss
+  // ── MrMacsProfile boot hook ──────────────────────────────────────────
+  if (window.MrMacsProfile) {
+    MrMacsProfile.recordPlay({ id: "boss-rush", title: "Boss Rush", course: "All Courses", file: "games/boss-rush/index.html" });
+  }
   playSound("start");
   showScreen("battleScreen");
   const boss = run.bosses[0];

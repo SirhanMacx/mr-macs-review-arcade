@@ -1829,6 +1829,7 @@
     battle.studyBoost = false;
     battle.pendingMove = null;
     if (battle.enemyHp <= 0) {
+      if (window.MrMacsProfile) window.MrMacsProfile.addShards(10, "history-hunters");
       setEncounterPhase("faint");
       await playBattleFx("fx-faint", 720, { "--move-color": battleAccent(selected.type) });
       if (!isCurrentBattle(battle)) return;
@@ -2056,6 +2057,17 @@
     writeSave();
     updateHud();
     renderRoster();
+    if (window.MrMacsProfile) {
+      window.MrMacsProfile.addShards(50, "history-hunters");
+      window.MrMacsProfile.unlock("hh-first-catch");
+      try {
+        var roster = (state && state.stats && state.stats.roster) || [];
+        if (roster.length >= 6) window.MrMacsProfile.unlock("hh-roster-6");
+      } catch (e) {}
+      try {
+        if (state.currentAlly && state.currentAlly.isRare) window.MrMacsProfile.unlock("hh-rare");
+      } catch (e) {}
+    }
     if (window.MrMacsAnalytics && typeof window.MrMacsAnalytics.track === "function") {
       window.MrMacsAnalytics.track("game_complete", {
         gameId: "history-hunters",
@@ -3390,6 +3402,17 @@
   }
 
   async function init() {
+    if (window.MrMacsProfile) {
+      window.MrMacsProfile.recordPlay({
+        id: "history-hunters",
+        title: "History Hunters",
+        course: "All Courses",
+        file: "games/history-hunters/index.html"
+      });
+      if (window.MrMacsProfile.getSettings().sound === "off") {
+        // no internal audio variable present in this build — no-op
+      }
+    }
     resize();
     initControls();
     updateHud();

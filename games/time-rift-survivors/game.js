@@ -697,6 +697,21 @@
     giveStartingWeapon();
     renderHUD(); updateRelicPanel();
     showBanner("Enter the Rift");
+    // ── MrMacsProfile boot ──────────────────────────────────────────────────
+    if (window.MrMacsProfile) {
+      MrMacsProfile.recordPlay({
+        id: "time-rift-survivors",
+        title: "Time Rift Survivors",
+        course: "All Courses",
+        file: "games/time-rift-survivors/index.html"
+      });
+      const settings = MrMacsProfile.getSettings();
+      if (settings.sound === "off") {
+        state.sound = false;
+        els.soundBtn.textContent = "Sound Off";
+      }
+    }
+    // ────────────────────────────────────────────────────────────────────────
     requestAnimationFrame(loop);
   }
 
@@ -1026,7 +1041,15 @@
     if (state.deathSlowmo>0) state.deathSlowmo=Math.max(0,state.deathSlowmo-rawDt);
     if (!state.paused&&!state.gameOver&&!state.choosingUpgrade) {
       state.elapsed+=dt;
-      if (state.running) state.runTime+=dt;
+      if (state.running) {
+        const prevTime = state.runTime;
+        state.runTime+=dt;
+        // 15-minute survival milestone (900 seconds)
+        if (prevTime < 900 && state.runTime >= 900) {
+          window.MrMacsProfile?.addShards(500, "time-rift-survive-15min");
+          window.MrMacsProfile?.unlock("tr-survivor-15");
+        }
+      }
       update(dt);
     }
     draw(now/1000);
@@ -1395,6 +1418,7 @@
       sfx.magnetSweep();
     } else if (pk.kind===PICKUP_CHEST) {
       showUpgradeChoices(false,true); // chest = 3 choices with 1 mandatory rare
+      window.MrMacsProfile?.addShards(20, "time-rift-chest");
     }
   }
 
@@ -1459,8 +1483,10 @@
     if (e.boss) {
       state.pickups.push({ kind:PICKUP_CHEST, x:e.x, y:e.y });
       state.shards+=10; state.gold+=50;
+      window.MrMacsProfile?.addShards(75, "time-rift-boss-kill");
     } else {
       state.gold+=Math.round(e.reward*0.3*(state.metaUpgrades.goldFind?1.2:1));
+      window.MrMacsProfile?.addShards(1, "time-rift-kill");
     }
     state.score+=Math.round((e.reward*18+(e.boss?2000:0))*(1+state.scoreBonus));
     addBurst(e.x,e.y,e.color,e.boss?70:20);
@@ -1491,6 +1517,7 @@
       state.score+=200*state.level;
       addText(player.x,player.y-70,`LEVEL ${state.level}`,"#ffd66e");
       sfx.levelUp();
+      window.MrMacsProfile?.addShards(15, "time-rift-level-up");
       // XP bar pulse handled in CSS via class toggle
       els.xpBar.style.width="0%";
       showUpgradeChoices(false);
@@ -1655,6 +1682,8 @@
       }
       showBanner(`EVOLVED: ${u.name}`);
       sfx.levelUp();
+      window.MrMacsProfile?.addShards(150, "time-rift-evolution");
+      window.MrMacsProfile?.unlock("tr-evolution");
     }
     state.choosingUpgrade=false;
     els.upgradeScreen.classList.remove("show");

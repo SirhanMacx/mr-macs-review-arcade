@@ -237,6 +237,11 @@
     }
   }
 
+  // ─── MrMacsProfile shards helper ────────────────────────────────────────────
+  function awardShards(n) {
+    try { window.MrMacsProfile && window.MrMacsProfile.addShards(n, "review-maze-chase"); } catch (e) {}
+  }
+
   // ─── Game state ──────────────────────────────────────────────────────────────
   const state = {
     // data
@@ -277,7 +282,10 @@
     message: "", messageUntil: 0,
     lastStep: 0, speedMs: 128,
     // stars
-    stars: []
+    stars: [],
+    // profile integration
+    fruitEatenThisRun: 0,
+    hasAnsweredCorrectlyOnce: false
   };
 
   // ─── Utility ─────────────────────────────────────────────────────────────────
@@ -608,6 +616,11 @@
     if (choice.correct) {
       state.correct += 1;
       state.score   += 600;
+      awardShards(50);
+      if (!state.hasAnsweredCorrectlyOnce) {
+        state.hasAnsweredCorrectlyOnce = true;
+        try { window.MrMacsProfile && window.MrMacsProfile.unlock("first-correct"); } catch (e) {}
+      }
       // Bonus: extend power time, give speed boost
       if (now < state.powerUntil) {
         state.powerUntil += 4000; // 4s extra scare time
@@ -723,6 +736,7 @@
       state.score      += 10;
       state.pelletsLeft--;
       playWakka();
+      awardShards(1);
       const pos = cellToScreen(x, y, board);
       addPopup("+10", pos.x, pos.y, "#ffffff");
     } else if (cell === "o") {
@@ -730,6 +744,7 @@
       state.score      += 50;
       state.pelletsLeft--;
       playPowerPellet();
+      awardShards(5);
       const powerDur  = Math.max(4000, 7000 - (state.level - 1) * 300);
       state.powerUntil  = now + powerDur;
       state.powerFlashAt = now + powerDur - 2000;
@@ -760,6 +775,11 @@
       playTone(880, "triangle", 0.3, 0.28);
       state.fruitCell  = null;
       state.fruitUntil = 0;
+      awardShards(25);
+      state.fruitEatenThisRun++;
+      if (state.fruitEatenThisRun === 10) {
+        try { window.MrMacsProfile && window.MrMacsProfile.unlock("maze-fruit-king"); } catch (e) {}
+      }
       updateHud();
     }
 
@@ -782,8 +802,12 @@
   // ─── Level advance ────────────────────────────────────────────────────────────
   function advanceLevel() {
     if (state.level >= 10) { endRun(true); return; }
+    awardShards(100);
     state.level++;
     state.score += 2000 + state.level * 500;
+    if (state.level === 5) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlock("maze-level-5"); } catch (e) {}
+    }
     // Golden flash for level-up
     state.levelFlashUntil = performance.now() + 700;
     setMessage(`LEVEL ${state.level}! ARCHIVE DEEPER`, 2200);
@@ -828,6 +852,7 @@
         addPopup(`+${pts}`, pos.x, pos.y, "#6eeeff");
         playGhostEat(chain - 1);
         shake(180, 4);
+        awardShards(15);
         chaser.eaten     = true;
         chaser.releaseAt = now + 4000; // will be set again on home arrival
         setMessage(`GHOST ${chain}x CHAIN!`, 900);
@@ -878,6 +903,16 @@
     state.freezeUntil   = 0;
     state.pelletsAtLastQuestion   = 0;
     state.ghostEatsAtLastQuestion = 0;
+    state.fruitEatenThisRun       = 0;
+    state.hasAnsweredCorrectlyOnce = false;
+
+    // Honor MrMacsProfile sound setting
+    if (window.MrMacsProfile) {
+      try {
+        const settings = window.MrMacsProfile.getSettings();
+        if (settings && settings.sound === "off") setMuted(true);
+      } catch (e) {}
+    }
 
     const speedSel = els.speedFilter.value;
     state.baseSpeedMs = speedSel === "fast" ? 104 : speedSel === "study" ? 162 : 128;
@@ -1979,6 +2014,29 @@
     injectHudExtras();
     updateHud();
     installQaHook();
+
+    // MrMacsProfile: record play session
+    if (window.MrMacsProfile) {
+      window.MrMacsProfile.recordPlay({
+        id:    "review-maze-chase",
+        title: "Review Maze Chase",
+        course: "All Courses",
+        file:  "games/review-maze-chase/index.html"
+      });
+      // Honor sound setting at boot
+      try {
+        const settings = window.MrMacsProfile.getSettings();
+        if (settings && settings.sound === "off") setMuted(true);
+      } catch (e) {}
+      // Re-apply whenever settings change
+      window.MrMacsProfile.on("settings:change", (settings) => {
+        try {
+          if (settings && settings.sound === "off") setMuted(true);
+          else setMuted(false);
+        } catch (e) {}
+      });
+    }
+
     requestAnimationFrame(step);
   });
 

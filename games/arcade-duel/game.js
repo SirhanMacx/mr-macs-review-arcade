@@ -1,4 +1,4 @@
-/* global MrMacsAnalytics */
+/* global MrMacsAnalytics, MrMacsProfile */
 /* Arcade Duel v2 — Turn-based MCQ combat, best-of-3, all upgrades
    Direction: Turn-based / command-menu (Pokemon-trainer style)
    No new asset files — pure canvas + Web Audio + CSS only. */
@@ -114,6 +114,8 @@ function mkRound(opponent, diff) {
     // round timer
     timeLeft: 99,
     timerID: null,
+    // MrMacsProfile flawless tracking (Hook 4b)
+    damageTakenThisRound: 0,
   };
 }
 
@@ -614,6 +616,13 @@ function choose(label) {
   $("#nextBtn").classList.remove("hidden");
 
   playSound(correct ? "correct" : "wrong");
+
+  // MrMacsProfile — per-answer shards + first-correct achievement (Hooks 3a, 4a)
+  if (correct && window.MrMacsProfile) {
+    MrMacsProfile.addShards(15, "arcade-duel-correct");
+    MrMacsProfile.unlock("first-correct");
+  }
+
   resolveMove(correct, false);
 }
 
@@ -730,6 +739,7 @@ function enemyAttack() {
 
   hitStop(isSpecial ? 420 : 200);
   r.youHp = Math.max(0, r.youHp - dmg);
+  r.damageTakenThisRound += dmg; // MrMacsProfile flawless tracking (Hook 4b)
   spawnDamageFloat(dmg, "player", isSpecial);
   renderHUD();
 
@@ -755,6 +765,11 @@ function endRound(result) {
     m.playerWins++;
     playSound("wave");
     showStinger("ROUND WIN!", "round-win", 1800);
+    // MrMacsProfile — round win shards + flawless achievement (Hooks 3b, 4b)
+    if (window.MrMacsProfile) {
+      MrMacsProfile.addShards(75, "arcade-duel-round-win");
+      if (r.damageTakenThisRound === 0) MrMacsProfile.unlock("duel-flawless");
+    }
   } else {
     m.enemyWins++;
     playSound("ko");
@@ -823,6 +838,15 @@ function endMatch() {
     writeSave({ beatenOpponents: beaten, difficulty: G.difficulty });
   }
   if (m.bestStreak > (save.bestStreak || 0)) writeSave({ bestStreak: m.bestStreak });
+
+  // MrMacsProfile — match win shards + ladder shards + achievements (Hooks 3c, 3d, 4c)
+  if (won && window.MrMacsProfile) {
+    MrMacsProfile.addShards(200, "arcade-duel-match-win");
+    if (G.mode === "story") {
+      MrMacsProfile.addShards(500, "arcade-duel-ladder-opponent");
+      if (G.opponentIndex === OPPONENTS.length - 1) MrMacsProfile.unlock("duel-ladder");
+    }
+  }
 
   const played = m.totalPlayed;
   const acc = played ? Math.round((m.totalCorrect / played) * 100) : 0;
@@ -1195,6 +1219,17 @@ async function load() {
       G.difficulty = save.difficulty;
     }
     renderDiffPills(G.difficulty);
+
+    // MrMacsProfile — boot hook (Hook 2)
+    if (window.MrMacsProfile) {
+      MrMacsProfile.recordPlay({ id: "arcade-duel", title: "Arcade Duel", course: "All Courses", file: "games/arcade-duel/index.html" });
+      // Sound at boot: respect profile mute preference (Hook 5)
+      const profileSettings = MrMacsProfile.getSettings();
+      if (profileSettings && profileSettings.sound === false) {
+        G.muted = true;
+        $("#muteBtn").textContent = "🔇";
+      }
+    }
 
     $("#loadStatus").textContent = `Loaded ${qs.length} playable MCQs.`;
   } catch (err) {
