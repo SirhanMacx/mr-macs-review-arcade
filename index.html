@@ -6230,6 +6230,20 @@ const SMART_TITLE_ALIASES = {
 function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 }
+
+// True when the game's `course` field matches the player's enrolled
+// course exactly OR is a compound course tag like
+// "Grade 10 Global History II + Grade 11 U.S. History" that includes
+// the enrolled course as a token. Used everywhere the platform asks
+// "is this game relevant to the student's enrolled course?".
+function gameMatchesEnrolledCourse(game, enrolledCourse) {
+  if (!game || !enrolledCourse || !game.course) return false;
+  if (game.course === enrolledCourse) return true;
+  if (game.course.indexOf(" + ") !== -1) {
+    return game.course.split(" + ").map(function (s) { return s.trim(); }).indexOf(enrolledCourse) !== -1;
+  }
+  return false;
+}
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -6674,12 +6688,13 @@ function renderFeatured() {
   document.getElementById("launchFeatured").onclick = () => {
     // If the student has an enrolled course and that course has games
     // available, prefer the highest-priority featured game from that
-    // course. Falls back to the global #1 featured pick when there's
-    // no course set or no course-specific featured games.
+    // course (also matches compound courses like "G10 + G11"). Falls
+    // back to the global #1 featured pick when no course is set or
+    // there are no course-relevant featured games.
     const enrolled = (window.MrMacsProfile && window.MrMacsProfile.getCourse)
       ? window.MrMacsProfile.getCourse() : "";
     if (enrolled) {
-      const courseFeatured = games.find((g) => g.course === enrolled);
+      const courseFeatured = games.find((g) => gameMatchesEnrolledCourse(g, enrolled));
       if (courseFeatured) {
         openGame(courseFeatured);
         return;
@@ -7485,12 +7500,12 @@ async function boot() {
       var enrolledCourse = (window.MrMacsProfile && window.MrMacsProfile.getCourse)
         ? window.MrMacsProfile.getCourse() : "";
       if (enrolledCourse) {
-        // Confirm the enrolled course actually has games on this build —
-        // if not, fall back to "All Courses" so the library doesn't go
-        // empty (e.g., a course with only Jeopardy boards but no GAMES
-        // catalog entries).
+        // Confirm the enrolled course actually has games on this build
+        // (including compound-course tags) — if not, fall back to
+        // "All Courses" so the library doesn't go empty for niche
+        // courses without catalog entries.
         var hasGames = (typeof GAMES !== "undefined" ? GAMES : []).some(
-          function (g) { return g.course === enrolledCourse; }
+          function (g) { return gameMatchesEnrolledCourse(g, enrolledCourse); }
         );
         if (hasGames) {
           state.course = enrolledCourse;
@@ -7558,14 +7573,14 @@ async function boot() {
       }
       if (newCourse) {
         var hasGames = (typeof GAMES !== "undefined" ? GAMES : []).some(
-          function (g) { return g.course === newCourse; }
+          function (g) { return gameMatchesEnrolledCourse(g, newCourse); }
         );
         if (hasGames) {
           state.course = newCourse;
           if (cf) cf.value = newCourse;
         }
         var hasJeopardy = (typeof GAMES !== "undefined" ? GAMES : []).some(
-          function (g) { return g.course === newCourse && /jeopardy/i.test(g.gameType || ""); }
+          function (g) { return gameMatchesEnrolledCourse(g, newCourse) && /jeopardy/i.test(g.gameType || ""); }
         );
         if (hasJeopardy && typeof jeopardyState !== "undefined") {
           jeopardyState.course = newCourse;
@@ -8308,9 +8323,11 @@ boot();
     // and that course has at least 3 candidates in the pool, pick from
     // those; otherwise fall back to the full pool. The 3-candidate
     // floor avoids serving the same single game every day for niche
-    // courses.
+    // courses. Compound course tags like "G10 + G11" still match.
     if (enrolledCourse) {
-      var coursePool = pool.filter(function (g) { return g.course === enrolledCourse; });
+      var coursePool = pool.filter(function (g) {
+        return gameMatchesEnrolledCourse(g, enrolledCourse);
+      });
       if (coursePool.length >= 3) pool = coursePool;
     }
     return pool[seed % pool.length];
