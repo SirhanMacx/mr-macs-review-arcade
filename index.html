@@ -5050,6 +5050,143 @@ body {
   .nba-pill:hover .nba-arrow { transform: none; }
 }
 
+/* Today's Plan band — 3 daily goal checklist + shared shard bonus */
+.daily-plan-band {
+  padding: clamp(12px, 1.6vh, 20px) 0 0;
+}
+.daily-plan-band[hidden] { display: none; }
+.daily-plan-card {
+  padding: 14px 18px 16px;
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(105, 240, 170, .14), transparent 56%),
+    linear-gradient(180deg, rgba(13, 17, 27, .82), rgba(8, 11, 20, .96));
+  border: 1px solid rgba(105, 240, 170, .35);
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.28);
+}
+.daily-plan-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.daily-plan-title {
+  margin: 4px 0 0;
+  font-family: "Fraunces", serif;
+  font-weight: 540;
+  font-size: clamp(18px, 2.0vw, 22px);
+  line-height: 1.15;
+  color: var(--paper);
+}
+.daily-plan-title em {
+  font-style: italic; font-weight: 700;
+  color: #69f0aa;
+}
+.daily-plan-claim {
+  padding: 9px 16px;
+  background: linear-gradient(135deg, rgba(105, 240, 170, .92), rgba(245, 196, 81, .92));
+  color: #052614;
+  border: 1px solid rgba(105, 240, 170, .65);
+  border-radius: 999px;
+  font: 800 12.5px/1 "Inter", sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(105, 240, 170, .22);
+  animation: dpClaimPulse 2s ease-in-out infinite;
+}
+.daily-plan-claim:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(105, 240, 170, .32); }
+.daily-plan-claim[hidden] { display: none; }
+.daily-plan-claimed {
+  padding: 7px 14px;
+  background: rgba(105, 240, 170, .12);
+  border: 1px solid rgba(105, 240, 170, .42);
+  border-radius: 999px;
+  font: 700 11px/1 "JetBrains Mono", monospace;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: #69f0aa;
+}
+.daily-plan-claimed[hidden] { display: none; }
+@keyframes dpClaimPulse {
+  0%, 100% { box-shadow: 0 8px 22px rgba(105, 240, 170, .22); }
+  50%      { box-shadow: 0 12px 28px rgba(105, 240, 170, .42), 0 0 18px rgba(105, 240, 170, .28); }
+}
+.daily-plan-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.daily-plan-goal {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, .03);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 12px;
+  color: var(--paper);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: transform .2s, border-color .2s, background .2s;
+}
+.daily-plan-goal:hover {
+  transform: translateY(-1px);
+  border-color: rgba(122, 240, 255, .55);
+  background: rgba(122, 240, 255, .06);
+}
+.daily-plan-goal.is-done {
+  border-color: rgba(105, 240, 170, .55);
+  background: linear-gradient(180deg, rgba(105, 240, 170, .08), rgba(13, 17, 27, .82));
+  cursor: default;
+}
+.dp-check {
+  width: 22px; height: 22px;
+  display: inline-grid; place-items: center;
+  border-radius: 50%;
+  border: 2px solid var(--line-2, rgba(255,255,255,.18));
+  flex-shrink: 0;
+  position: relative;
+}
+.dp-check::after {
+  content: "✓";
+  position: absolute;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 800;
+  color: #052614;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.daily-plan-goal.is-done .dp-check {
+  background: linear-gradient(135deg, #69f0aa, #7af0ff);
+  border-color: rgba(105, 240, 170, .85);
+}
+.daily-plan-goal.is-done .dp-check::after { opacity: 1; }
+.dp-text { display: inline-flex; flex-direction: column; gap: 2px; min-width: 0; }
+.dp-text strong {
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 540;
+  font-size: 14px;
+  color: var(--paper);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.dp-text .dp-sub {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.daily-plan-goal.is-done .dp-text strong { color: #69f0aa; }
+.daily-plan-goal.is-done .dp-text .dp-sub { color: rgba(105, 240, 170, .65); }
+@media (max-width: 760px) {
+  .daily-plan-list { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .daily-plan-goal { transition: none; }
+  .daily-plan-goal:hover { transform: none; }
+  .daily-plan-claim { animation: none; }
+}
+
 /* Test-prep countdown band */
 .testprep-band {
   padding: clamp(16px, 2vh, 24px) 0 0;
@@ -6899,6 +7036,43 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       </span>
       <span class="nba-arrow" aria-hidden="true">→</span>
     </button>
+  </section>
+
+  <!-- Today's Plan checklist — 3 daily goals with shared shard bonus -->
+  <section class="band daily-plan-band" id="dailyPlanBand" aria-label="Today's plan" hidden>
+    <div class="daily-plan-card">
+      <div class="daily-plan-head">
+        <div>
+          <span class="band-eyebrow">Today's Plan</span>
+          <h2 class="daily-plan-title">Three quick goals · <em>+60 bonus</em></h2>
+        </div>
+        <button class="daily-plan-claim" id="dailyPlanClaim" type="button" hidden>Claim +60 shards 💎</button>
+        <span class="daily-plan-claimed" id="dailyPlanClaimed" hidden>✓ Claimed today</span>
+      </div>
+      <div class="daily-plan-list">
+        <button class="daily-plan-goal" id="dpGoalChallenge" type="button" data-goal="challenge">
+          <span class="dp-check" aria-hidden="true"></span>
+          <span class="dp-text">
+            <strong>Today's Challenge</strong>
+            <span class="dp-sub">Play the daily pick</span>
+          </span>
+        </button>
+        <button class="daily-plan-goal" id="dpGoalAnswers" type="button" data-goal="tenCorrect">
+          <span class="dp-check" aria-hidden="true"></span>
+          <span class="dp-text">
+            <strong>10 right answers</strong>
+            <span class="dp-sub" id="dpGoalAnswersSub">0 of 10 today</span>
+          </span>
+        </button>
+        <button class="daily-plan-goal" id="dpGoalStreak" type="button" data-goal="streak">
+          <span class="dp-check" aria-hidden="true"></span>
+          <span class="dp-text">
+            <strong>Keep your streak</strong>
+            <span class="dp-sub" id="dpGoalStreakSub">Play any game</span>
+          </span>
+        </button>
+      </div>
+    </div>
   </section>
 
   <!-- Test-prep countdown band (shown only when student has set a target test date) -->
@@ -10081,6 +10255,100 @@ boot();
     });
   }
 
+  // ---- Today's Plan checklist ----
+  // 3 daily goals derived from profile state. When all 3 are done,
+  // student can claim a +60 shard bonus once per day. Claimed state
+  // lives in profile.dailyGoalsClaimed[YYYY-MM-DD] = true.
+  function todayKey() {
+    var d = new Date();
+    return d.getFullYear() + "-" +
+           String(d.getMonth() + 1).padStart(2, "0") + "-" +
+           String(d.getDate()).padStart(2, "0");
+  }
+  function renderDailyPlan() {
+    var band = document.getElementById("dailyPlanBand");
+    if (!band || !window.MrMacsProfile) return;
+    var P2 = window.MrMacsProfile;
+    var profile = P2.get();
+    if (!profile.createdAt) {
+      band.hidden = true;
+      return;
+    }
+    var today = todayKey();
+    var dailyAns = profile.dailyAnswers || {};
+    var todayCorrect = (dailyAns[today] && dailyAns[today].correct) || 0;
+    // Goal 1: daily challenge — read from existing per-day completion log
+    var dailyDoneFlag = false;
+    try {
+      var dailyLog = JSON.parse(localStorage.getItem("mr-macs-arcade-daily-v1") || "{}");
+      dailyDoneFlag = !!(dailyLog[today] && dailyLog[today].completed);
+    } catch (e) {}
+    // Goal 2: 10 correct answers
+    var tenCorrect = todayCorrect >= 10;
+    // Goal 3: streak — current streak's lastDay is today
+    var streakKept = (profile.streak && profile.streak.lastDay === today);
+    // Apply done-state to UI
+    var setDone = function (id, done, subText) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.classList.toggle("is-done", !!done);
+      if (subText) {
+        var sub = el.querySelector(".dp-sub");
+        if (sub) sub.textContent = subText;
+      }
+    };
+    setDone("dpGoalChallenge", dailyDoneFlag, dailyDoneFlag ? "✓ Done · come back tomorrow" : "Play the daily pick");
+    setDone("dpGoalAnswers", tenCorrect, todayCorrect >= 10 ? "✓ " + todayCorrect + " correct today" : todayCorrect + " of 10 today");
+    setDone("dpGoalStreak", streakKept, streakKept ? "✓ Streak day banked" : "Play any game");
+    // Claim button
+    var allDone = dailyDoneFlag && tenCorrect && streakKept;
+    var claimedMap = (profile.dailyGoalsClaimed || {});
+    var alreadyClaimed = !!claimedMap[today];
+    var claimBtn = document.getElementById("dailyPlanClaim");
+    var claimedBadge = document.getElementById("dailyPlanClaimed");
+    if (claimBtn) claimBtn.hidden = !(allDone && !alreadyClaimed);
+    if (claimedBadge) claimedBadge.hidden = !alreadyClaimed;
+    band.hidden = false;
+  }
+  // Wire goal click → take action
+  function wireDailyPlanActions() {
+    var goalChallenge = document.getElementById("dpGoalChallenge");
+    var goalAnswers = document.getElementById("dpGoalAnswers");
+    var goalStreak = document.getElementById("dpGoalStreak");
+    if (goalChallenge) goalChallenge.addEventListener("click", function () {
+      // Click → scroll to + click the daily-band play button
+      var dailyPlay = document.getElementById("dailyPlay");
+      if (dailyPlay) dailyPlay.click();
+    });
+    if (goalAnswers) goalAnswers.addEventListener("click", function () {
+      // Click → start the diagnostic (best place to rack up correct answers)
+      var btn = document.getElementById("rcDiagnostic");
+      if (btn) btn.click();
+    });
+    if (goalStreak) goalStreak.addEventListener("click", function () {
+      // Click → scroll to library random or daily band
+      var dailyPlay = document.getElementById("dailyPlay");
+      if (dailyPlay) dailyPlay.click();
+    });
+    var claimBtn = document.getElementById("dailyPlanClaim");
+    if (claimBtn) claimBtn.addEventListener("click", function () {
+      // Award +60 shards and mark today's claim. Use shallow set
+      // through P.set so we don't lose other fields.
+      var profile = window.MrMacsProfile.get();
+      var today = todayKey();
+      var claimed = Object.assign({}, profile.dailyGoalsClaimed || {});
+      claimed[today] = Date.now();
+      // Prune entries older than 30 days
+      Object.keys(claimed).forEach(function (k) {
+        var dd = new Date(k + "T00:00:00").getTime();
+        if (Date.now() - dd > 30 * 24 * 3600 * 1000) delete claimed[k];
+      });
+      window.MrMacsProfile.set({ dailyGoalsClaimed: claimed });
+      window.MrMacsProfile.addShards(60, "daily-plan");
+      renderDailyPlan();
+    });
+  }
+
   // ---- Next Best Action ----
   // Compute the highest-priority recommendation based on profile state
   // and surface it as a single tap-to-act pill above the daily band.
@@ -10300,23 +10568,30 @@ boot();
     renderRecentAchievements();
     renderTestPrep();
     renderNextBestAction();
+    renderDailyPlan();
+    wireDailyPlanActions();
     wireRandom();
     renderTopicChips();
     // Keep the continue rail + achievements strip in sync with profile updates
     if (window.MrMacsProfile) {
       window.MrMacsProfile.on("profile:update", renderContinue);
       window.MrMacsProfile.on("profile:update", renderNextBestAction);
+      window.MrMacsProfile.on("profile:update", renderDailyPlan);
       window.MrMacsProfile.on("achievement:unlock", renderRecentAchievements);
       window.MrMacsProfile.on("profile:create", renderRecentAchievements);
       window.MrMacsProfile.on("testprep:change", renderTestPrep);
       window.MrMacsProfile.on("testprep:change", renderNextBestAction);
       window.MrMacsProfile.on("profile:update", renderTestPrep);
       window.MrMacsProfile.on("answer:record", renderNextBestAction);
+      window.MrMacsProfile.on("answer:record", renderDailyPlan);
+      window.MrMacsProfile.on("streak:advance", renderDailyPlan);
+      window.MrMacsProfile.on("wallet:change", renderDailyPlan);
       // Re-roll the daily challenge when the student changes course so
       // the pick is from their new enrolled course immediately.
       window.MrMacsProfile.on("course:change", function () {
         renderDaily();
         renderNextBestAction();
+        renderDailyPlan();
       });
     }
   });
