@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04060f">
+  <title>Centiquill &mdash; Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="styles.css?v=20260509-centiquill">
+</head>
+<body>
+  <main class="centi-shell" id="app">
+    <canvas id="centiCanvas" aria-label="Centiquill &mdash; Centipede-style vertical shooter, defend the bottom of the page from segmented quill-creatures, blast scholar inkblots for bonus shards"></canvas>
+
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <!-- HUD: top strip -->
+    <section class="top-hud" aria-label="Centiquill status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong class="brand-title"><span class="brand-prefix">Centi</span><em class="brand-suffix">quill</em></strong>
+          <span class="brand-sub" id="brandSub">Aim &middot; Blast &middot; Verify</span>
+        </div>
+      </div>
+      <div class="hud-stats" aria-label="Game statistics">
+        <div class="stat-cell">
+          <strong id="hudScore" class="stat-value mono" role="status" aria-live="polite" aria-label="Score">0</strong>
+          <span class="stat-label">score</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudLives" class="stat-value mono" role="status" aria-live="polite" aria-label="Lives">3</strong>
+          <span class="stat-label">lives</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudLevel" class="stat-value mono" role="status" aria-live="polite" aria-label="Stage">1</strong>
+          <span class="stat-label">stage</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudSegments" class="stat-value mono" role="status" aria-live="polite" aria-label="Segments left">12</strong>
+          <span class="stat-label">segs</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudBest" class="stat-value mono" role="status" aria-live="polite" aria-label="Best">0</strong>
+          <span class="stat-label">best</span>
+        </div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
+        <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
+      </div>
+    </section>
+
+    <!-- Goal ribbon -->
+    <section class="wave-ribbon" id="waveRibbon" aria-label="Goal status">
+      <span class="wave-kicker">Wave</span>
+      <strong class="wave-name" id="goalName">Centiquill descending</strong>
+      <span class="wave-meta" id="goalMeta">Powerups &middot; 0 active</span>
+    </section>
+
+    <!-- Powerup tray (1-5 keys / clickable) -->
+    <section class="powerup-tray" id="powerupTray" aria-label="Power-up inventory">
+      <button class="pwr-slot" data-slot="0" id="pwrSlot0" type="button" aria-label="Power-up slot 1 (1 key)"><span class="pwr-key">1</span><span class="pwr-glyph">&middot;</span></button>
+      <button class="pwr-slot" data-slot="1" id="pwrSlot1" type="button" aria-label="Power-up slot 2 (2 key)"><span class="pwr-key">2</span><span class="pwr-glyph">&middot;</span></button>
+      <button class="pwr-slot" data-slot="2" id="pwrSlot2" type="button" aria-label="Power-up slot 3 (3 key)"><span class="pwr-key">3</span><span class="pwr-glyph">&middot;</span></button>
+    </section>
+
+    <!-- Combo callouts overlay -->
+    <section class="popup-overlay" id="popupOverlay" aria-hidden="true"></section>
+
+    <!-- Mobile virtual D-pad + fire button -->
+    <section class="touch-controls" id="touchControls" aria-hidden="true">
+      <button class="tc-btn tc-up" id="tcUp" type="button" aria-label="Move up">&#x25B2;</button>
+      <button class="tc-btn tc-down" id="tcDown" type="button" aria-label="Move down">&#x25BC;</button>
+      <button class="tc-btn tc-left" id="tcLeft" type="button" aria-label="Move left">&#x25C0;</button>
+      <button class="tc-btn tc-right" id="tcRight" type="button" aria-label="Move right">&#x25B6;</button>
+      <button class="tc-fire" id="tcFire" type="button" aria-label="Fire">FIRE</button>
+    </section>
+
+    <!-- Setup / title screen -->
+    <section class="setup-screen show" id="setupScreen" aria-label="Centiquill &mdash; game setup" aria-modal="true">
+      <div class="setup-card">
+        <div class="marquee-art" aria-hidden="true">
+          <div class="marquee-glow"></div>
+          <div class="marquee-spark spark-a" data-arcade-heavy></div>
+          <div class="marquee-spark spark-b" data-arcade-heavy></div>
+          <div class="marquee-spark spark-c" data-arcade-heavy></div>
+          <div class="marquee-inner-border"></div>
+        </div>
+
+        <div class="setup-kicker">Centipede Vertical Shooter</div>
+        <h1><span class="title-prefix">Centi</span><em class="title-suffix">quill</em></h1>
+
+        <div class="ship-badges-row" aria-label="Cast">
+          <span class="ship-badge badge-bronze" title="Editor sprite (you)">EDITOR</span>
+          <span class="ship-badge badge-violet" title="Centiquill segment">QUILL</span>
+          <span class="ship-badge badge-gold" title="Ink-pot mushroom">INK-POT</span>
+          <span class="ship-badge badge-emerald" title="Quill-spider">SPIDER</span>
+          <span class="ship-badge badge-cyan" title="Page-flea">FLEA</span>
+          <span class="ship-badge badge-rose" title="Misconception-scarab">SCARAB</span>
+          <span class="ship-campaign-label">Endless Defense</span>
+        </div>
+
+        <p class="setup-sub">Defend the bottom of the archive page from a segmented <em>centiquill</em> winding through a field of ink-pots. Shoot segments &mdash; bodies <em>split</em>, heads <em>shorten</em> the chain. Watch for <em>quill-spiders</em>, <em>page-fleas</em>, and the lethal <em>misconception-scarab</em>. Once per stage one ink-pot glows gold &mdash; the <em>scholar inkblot</em>. Shoot it to trigger an optional review prompt for +1500 and 12 shards.</p>
+
+        <div class="resume-card" id="resumeCard" hidden></div>
+        <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
+
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="soundBtn" type="button" aria-label="Toggle sound">Sound On</button>
+          <button class="btn glass-pill" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">Fullscreen</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button" aria-label="Start the game">
+            <span class="btn-coin" aria-hidden="true">&#9678;</span> Insert Coin &middot; Start Centiquill
+          </button>
+        </div>
+
+        <p class="key-hints" aria-label="Keyboard controls">
+          <kbd>W</kbd>/<kbd>A</kbd>/<kbd>S</kbd>/<kbd>D</kbd> or <kbd>&uarr;</kbd>/<kbd>&larr;</kbd>/<kbd>&darr;</kbd>/<kbd>&rarr;</kbd> move &nbsp;&middot;&nbsp; <kbd>Space</kbd> fire &nbsp;&middot;&nbsp; <kbd>1</kbd>-<kbd>3</kbd> use power-up &nbsp;&middot;&nbsp; <kbd>Esc</kbd>/<kbd>P</kbd> pause
+        </p>
+      </div>
+    </section>
+
+    <!-- Scholar review modal -->
+    <section class="question-screen" id="questionScreen" aria-label="Scholar inkblot &mdash; review question" aria-modal="true">
+      <div class="question-card glass-card">
+        <div class="question-header">
+          <div class="question-meta" id="questionMeta">Scholar Inkblot</div>
+          <button class="question-close glass-pill" id="questionCloseBtn" type="button" aria-label="Skip and return to game">Skip</button>
+        </div>
+        <h2 id="questionPrompt">Loading prompt&hellip;</h2>
+        <div class="choice-grid" id="choiceGrid" role="group" aria-label="Answer choices"></div>
+        <p class="explanation" id="explanation" role="status"></p>
+      </div>
+    </section>
+
+    <!-- Pause screen -->
+    <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker"><span class="kicker-pause-glyph" aria-hidden="true">&#10074;&#10074;</span> Paused</div>
+        <h2>Quill Held</h2>
+        <p class="setup-sub">Resume the defense or start over.</p>
+        <div class="setup-actions">
+          <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
+          <button class="btn glass-pill" id="restartBtn" type="button">Restart</button>
+          <button class="btn glass-pill" id="pauseExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- End / game over screen -->
+    <section class="end-screen" id="endScreen" aria-label="Game summary" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="endKicker">Run Ended</div>
+        <h2 id="endTitle">Centiquill &middot; Run complete</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <p class="setup-sub" id="retryHint" style="margin-top:8px"></p>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="setupBtn" type="button">Setup</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-celebration.js?v=20260509-celebration"></script>
+  <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
+  <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="game.js?v=20260509-centiquill"></script>
+</body>
+</html>
