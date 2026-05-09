@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04060f">
+  <title>Source Snake — Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="styles.css?v=20260509-source-snake">
+</head>
+<body>
+  <main class="snake-shell" id="app">
+    <canvas id="snakeCanvas" aria-label="Source Snake — grid-based archive snake collecting primary sources"></canvas>
+
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <!-- HUD: top strip -->
+    <section class="top-hud" aria-label="Source Snake status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong class="brand-title"><span class="brand-prefix">Source</span> <em class="brand-suffix">Snake</em></strong>
+          <span class="brand-sub" id="brandSub">Crawl · Collect · Decode · Survive</span>
+        </div>
+      </div>
+      <div class="hud-stats" aria-label="Game statistics">
+        <div class="stat-cell">
+          <strong id="hudScore" class="stat-value mono" role="status" aria-live="polite" aria-label="Score">0</strong>
+          <span class="stat-label">score</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudLength" class="stat-value mono" role="status" aria-live="polite" aria-label="Length">3</strong>
+          <span class="stat-label">length</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudRetry" class="stat-value mono" role="status" aria-live="polite" aria-label="Retries">0</strong>
+          <span class="stat-label">retry</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudBest" class="stat-value mono" role="status" aria-live="polite" aria-label="Best">0</strong>
+          <span class="stat-label">best</span>
+        </div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
+        <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
+      </div>
+    </section>
+
+    <!-- Banner ribbon -->
+    <section class="wave-ribbon" id="waveRibbon" aria-label="Current pace">
+      <span class="wave-kicker">Archive</span>
+      <strong class="wave-name" id="waveName">Reading Room</strong>
+      <span class="wave-meta" id="waveMeta">Pace · 140 ms</span>
+    </section>
+
+    <!-- Powerup tray (visible when active) -->
+    <section class="powerup-tray" id="powerupTray" aria-label="Active power-ups"></section>
+
+    <!-- Score popup overlay -->
+    <section class="popup-overlay" id="popupOverlay" aria-hidden="true"></section>
+
+    <!-- Setup / title screen -->
+    <section class="setup-screen show" id="setupScreen" aria-label="Source Snake — game setup" aria-modal="true">
+      <div class="setup-card">
+        <div class="marquee-art" aria-hidden="true">
+          <div class="marquee-glow"></div>
+          <div class="marquee-spark spark-a" data-arcade-heavy></div>
+          <div class="marquee-spark spark-b" data-arcade-heavy></div>
+          <div class="marquee-spark spark-c" data-arcade-heavy></div>
+          <div class="marquee-inner-border"></div>
+        </div>
+
+        <div class="setup-kicker">Archive Crawler</div>
+        <h1><span class="title-prefix">Source</span> <em class="title-suffix">Snake</em></h1>
+
+        <div class="ship-badges-row" aria-label="Pellet types">
+          <span class="ship-badge badge-gold" title="Primary source">PRI</span>
+          <span class="ship-badge badge-rose" title="Rumor scrap">RMR</span>
+          <span class="ship-badge badge-violet" title="Scholar pellet">SCH</span>
+          <span class="ship-badge badge-cyan" title="Speed">SPD</span>
+          <span class="ship-badge badge-cyan" title="Slow time">SLO</span>
+          <span class="ship-badge badge-cyan" title="Phase">PHS</span>
+          <span class="ship-badge badge-cyan" title="Magnet">MAG</span>
+          <span class="ship-badge badge-cyan" title="Shrink">SHR</span>
+          <span class="ship-campaign-label">Endless Crawl</span>
+        </div>
+
+        <p class="setup-sub">Steer your research thread through the archive grid. Eat <em>gold primary sources</em> and dodge <em>red rumor scraps</em> — both grow the thread. Rare <em>purple scholar pellets</em> open an optional review modal: nail the prompt for +500 score and a power-up cascade. Walls and self-collisions end the run, but a stocked retry token can save you.</p>
+
+        <div class="resume-card" id="resumeCard" hidden></div>
+        <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
+
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="soundBtn" type="button" aria-label="Toggle sound">Sound On</button>
+          <button class="btn glass-pill" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">Fullscreen</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button" aria-label="Start the game">
+            <span class="btn-coin" aria-hidden="true">&#9678;</span> Insert Coin · Start Crawl
+          </button>
+        </div>
+
+        <p class="key-hints" aria-label="Keyboard controls">
+          <kbd>&larr;</kbd><kbd>&rarr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd> or <kbd>WASD</kbd> &nbsp;·&nbsp; <kbd>Space</kbd>/<kbd>P</kbd> pause &nbsp;·&nbsp; <kbd>R</kbd> retry &nbsp;·&nbsp; <kbd>Esc</kbd> menu
+        </p>
+      </div>
+    </section>
+
+    <!-- Scholar review modal -->
+    <section class="question-screen" id="questionScreen" aria-label="Scholar pellet — review question" aria-modal="true">
+      <div class="question-card glass-card">
+        <div class="question-header">
+          <div class="question-meta" id="questionMeta">Scholar Pellet</div>
+          <button class="question-close glass-pill" id="questionCloseBtn" type="button" aria-label="Skip and return to game">Skip</button>
+        </div>
+        <h2 id="questionPrompt">Loading prompt&hellip;</h2>
+        <div class="choice-grid" id="choiceGrid" role="group" aria-label="Answer choices"></div>
+        <p class="explanation" id="explanation" role="status"></p>
+      </div>
+    </section>
+
+    <!-- Pause screen -->
+    <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker"><span class="kicker-pause-glyph" aria-hidden="true">&#10074;&#10074;</span> Paused</div>
+        <h2>Thread Holding</h2>
+        <p class="setup-sub">Resume the crawl or restart the run.</p>
+        <div class="setup-actions">
+          <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
+          <button class="btn glass-pill" id="restartBtn" type="button">Restart</button>
+          <button class="btn glass-pill" id="pauseExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- End / game over screen -->
+    <section class="end-screen" id="endScreen" aria-label="Game summary" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="endKicker">Thread Severed</div>
+        <h2 id="endTitle">Source Snake · Run complete</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <p class="setup-sub" id="retryHint" style="margin-top:8px"></p>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="setupBtn" type="button">Setup</button>
+          <button class="btn glass-pill" id="retryBtn" type="button" hidden>Use Retry (R)</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-celebration.js?v=20260509-celebration"></script>
+  <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
+  <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="game.js?v=20260509-source-snake"></script>
+</body>
+</html>
