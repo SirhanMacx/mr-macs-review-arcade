@@ -581,6 +581,22 @@
     if (window.MrMacsArcadeTour) {
       setTimeout(() => MrMacsArcadeTour.start("chrono-pinball", TOUR_STEPS), 600);
     }
+    // Wave 5 — start periodic session snapshots (~10s)
+    try {
+      if (state.__wave5SnapTimer) clearInterval(state.__wave5SnapTimer);
+      state.__wave5SnapTimer = setInterval(() => {
+        try {
+          if (state.mode !== "playing" || !window.MrMacsSessions) return;
+          window.MrMacsSessions.save("chrono-pinball", {
+            score: Math.floor(state.scoreCountTarget),
+            ballsLeft: state.ballsLeft,
+            missionsCompleted: state.missionsCompleted,
+            eraCompleted: state.eraCompleted,
+            wizardMode: !!state.wizardMode
+          });
+        } catch (e) {}
+      }, 10000);
+    } catch (e) {}
   }
 
   function hideAllScreens() {
@@ -1354,6 +1370,23 @@
       score: Math.floor(state.scoreCountTarget), accuracy,
       questions: state.answered, course: els.courseFilter.value || "All Courses"
     }, { counter: "game-completions", once: false });
+    // Wave 5 — leaderboard submit + session clear
+    try {
+      if (window.MrMacsSessions) window.MrMacsSessions.clear("chrono-pinball");
+    } catch (e) {}
+    try {
+      if (window.MrMacsLeaderboards) {
+        const finalScore = Math.floor(state.scoreCountTarget);
+        const result = window.MrMacsLeaderboards.submit("chrono-pinball", finalScore, {
+          accuracy: accuracy, missions: state.missionsCompleted, eras: state.eraCompleted
+        });
+        if (result && result.isNewRecord && window.MrMacsToast) {
+          window.MrMacsToast.push({ icon: "🏆", title: "New high score!", sub: "Rank #" + result.rank, tone: "good", ms: 4200 });
+        } else if (result && window.MrMacsToast) {
+          window.MrMacsToast.push({ icon: "🏅", title: "Top 5 score", sub: "Rank #" + result.rank, tone: "good", ms: 3600 });
+        }
+      }
+    } catch (e) {}
   }
 
   function showSetup() {
@@ -2757,6 +2790,18 @@
       await loadBank();
       setMission("Chrono Pinball ready", "Select a course, then hit Launch Table. Z = left flipper  / = right flipper  Space = plunger  T = tilt.", "");
       setDmdMsg("CHRONO PINBALL  SELECT COURSE  INSERT COIN TO PLAY", "", "#d4a017", 0);
+      // Wave 5 — surface a resume hint if a saved session exists
+      try {
+        if (window.MrMacsSessions) {
+          const prev = window.MrMacsSessions.load("chrono-pinball");
+          if (prev && prev.state && window.MrMacsToast) {
+            window.MrMacsToast.push({
+              icon: "⏯", title: "Last session: " + formatNumber(prev.state.score || 0) + " pts",
+              sub: "Launch a new ball to continue", tone: "info", ms: 5000
+            });
+          }
+        }
+      } catch (e) {}
     } catch (err) {
       console.error("Bank load failed:", err);
       els.startBtn.textContent = "Bank failed — refresh";

@@ -4640,6 +4640,95 @@ body {
    Daily Challenge band, Continue rail, Random button, Topic chips.
    ============================================================================ */
 
+/* Next Best Action band — small actionable pill on the hub */
+.nba-band {
+  padding: clamp(12px, 1.6vh, 20px) 0 0;
+}
+.nba-band[hidden] { display: none; }
+.nba-pill {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 18px;
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(122, 240, 255, .14), transparent 56%),
+    linear-gradient(180deg, rgba(13, 17, 27, .82), rgba(8, 11, 20, .96));
+  border: 1px solid rgba(122, 240, 255, .35);
+  border-radius: 14px;
+  color: var(--paper);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+  box-shadow: 0 8px 22px rgba(0,0,0,.28);
+}
+.nba-pill:hover, .nba-pill:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(122, 240, 255, .65);
+  box-shadow: 0 14px 32px rgba(0,0,0,.4), 0 0 22px rgba(122, 240, 255, .14);
+  outline: none;
+}
+.nba-pill[data-tone="urgent"] {
+  border-color: rgba(255, 124, 200, .55);
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(255, 124, 200, .18), transparent 56%),
+    linear-gradient(180deg, rgba(13, 17, 27, .82), rgba(8, 11, 20, .96));
+}
+.nba-pill[data-tone="urgent"]:hover { box-shadow: 0 14px 32px rgba(0,0,0,.4), 0 0 26px rgba(255, 124, 200, .22); }
+.nba-pill[data-tone="warm"] {
+  border-color: rgba(245, 196, 81, .55);
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(245, 196, 81, .14), transparent 56%),
+    linear-gradient(180deg, rgba(13, 17, 27, .82), rgba(8, 11, 20, .96));
+}
+.nba-pill[data-tone="warm"]:hover { box-shadow: 0 14px 32px rgba(0,0,0,.4), 0 0 26px rgba(245, 196, 81, .22); }
+.nba-icon {
+  display: inline-grid; place-items: center;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(122, 240, 255, .22), rgba(122, 240, 255, .06));
+  color: #7af0ff;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.nba-pill[data-tone="urgent"] .nba-icon { color: #ff7cc8; background: linear-gradient(135deg, rgba(255, 124, 200, .22), rgba(255, 124, 200, .06)); }
+.nba-pill[data-tone="warm"] .nba-icon { color: #f5c451; background: linear-gradient(135deg, rgba(245, 196, 81, .22), rgba(245, 196, 81, .06)); }
+.nba-text {
+  display: inline-flex; flex-direction: column; gap: 3px;
+  min-width: 0;
+}
+.nba-kicker {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--cyan, #7af0ff);
+}
+.nba-pill[data-tone="urgent"] .nba-kicker { color: #ff7cc8; }
+.nba-pill[data-tone="warm"]   .nba-kicker { color: #f5c451; }
+.nba-title {
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 540;
+  font-size: clamp(15px, 1.8vw, 19px);
+  line-height: 1.15;
+  color: var(--paper);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.nba-arrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 18px;
+  color: var(--cyan, #7af0ff);
+  transition: transform .25s ease;
+}
+.nba-pill[data-tone="urgent"] .nba-arrow { color: #ff7cc8; }
+.nba-pill[data-tone="warm"]   .nba-arrow { color: #f5c451; }
+.nba-pill:hover .nba-arrow { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) {
+  .nba-pill { transition: none; }
+  .nba-pill:hover { transform: none; }
+  .nba-pill:hover .nba-arrow { transform: none; }
+}
+
 /* Test-prep countdown band */
 .testprep-band {
   padding: clamp(16px, 2vh, 24px) 0 0;
@@ -6156,6 +6245,20 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 </div>
 
 <main class="shell" id="main">
+
+  <!-- Next Best Action band — small dynamic pill recommending the
+       highest-priority action based on profile state. Hidden on first
+       render; populated by renderNextBestAction(). -->
+  <section class="band nba-band" id="nbaBand" aria-label="Next best action" hidden>
+    <button class="nba-pill" id="nbaPill" type="button">
+      <span class="nba-icon" id="nbaIcon" aria-hidden="true">→</span>
+      <span class="nba-text">
+        <span class="nba-kicker" id="nbaKicker">Next move</span>
+        <strong class="nba-title" id="nbaTitle"></strong>
+      </span>
+      <span class="nba-arrow" aria-hidden="true">→</span>
+    </button>
+  </section>
 
   <!-- Test-prep countdown band (shown only when student has set a target test date) -->
   <section class="band testprep-band" id="testprepBand" aria-label="Test-prep countdown" hidden>
@@ -9063,6 +9166,156 @@ boot();
     });
   }
 
+  // ---- Next Best Action ----
+  // Compute the highest-priority recommendation based on profile state
+  // and surface it as a single tap-to-act pill above the daily band.
+  // Priority order (first match wins):
+  //   1. No course set                       → "Set your course"
+  //   2. Diagnostic stale > 14 days          → "Take a 2-min diagnostic"
+  //   3. Wrong-queue ≥ 5                     → "Drill X misses"
+  //   4. Enrolled course has untouched unit  → "Try [unit]"
+  //   5. Test date < 30 days                 → "Push toward your test"
+  //   6. Default (skip — daily band covers)  → null
+  function renderNextBestAction() {
+    var band = document.getElementById("nbaBand");
+    var pill = document.getElementById("nbaPill");
+    var iconEl = document.getElementById("nbaIcon");
+    var kickerEl = document.getElementById("nbaKicker");
+    var titleEl = document.getElementById("nbaTitle");
+    if (!band || !pill || !window.MrMacsProfile) return;
+    var P2 = window.MrMacsProfile;
+    var profile = P2.get();
+    var enrolled = profile.course || "";
+    var action = null;
+
+    // 1. No course set
+    if (!enrolled) {
+      action = {
+        kicker: "Set up",
+        title: "Pick your course so we drill what counts",
+        icon: "🎓",
+        tone: "warm",
+        run: function () {
+          var pillBtn = document.getElementById("profilePill");
+          if (pillBtn) pillBtn.click();
+          setTimeout(function () {
+            var sel = document.getElementById("pdCourseSelect");
+            if (sel) { sel.scrollIntoView({ behavior: "smooth", block: "center" }); sel.focus(); }
+          }, 360);
+        }
+      };
+    }
+    // 2. Stale or never-taken diagnostic
+    if (!action) {
+      var diag = profile.diagnostic;
+      var staleDays = 14;
+      var isStale = !diag || !diag.takenAt ||
+        ((Date.now() - diag.takenAt) / (24 * 3600 * 1000) > staleDays);
+      if (isStale) {
+        action = {
+          kicker: diag ? "Refresh" : "Find your gaps",
+          title: diag ? "Take a fresh 8-question diagnostic" : "Run a quick 2-minute diagnostic",
+          icon: "🩺",
+          tone: "default",
+          run: function () {
+            var btn = document.getElementById("rcDiagnostic");
+            if (btn) btn.click();
+          }
+        };
+      }
+    }
+    // 3. Wrong queue >= 5 — surface drill mode
+    if (!action) {
+      var wq = (profile.wrongAnswers || []).length;
+      if (wq >= 5) {
+        action = {
+          kicker: "Drill",
+          title: wq + " missed answers waiting for retrieval practice",
+          icon: "🎯",
+          tone: "urgent",
+          run: function () {
+            var btn = document.getElementById("rcWrongQueue");
+            if (btn) btn.click();
+            // Auto-trigger the drill button after the modal opens
+            setTimeout(function () {
+              var drillBtn = document.getElementById("wqDrill");
+              if (drillBtn) drillBtn.click();
+            }, 400);
+          }
+        };
+      }
+    }
+    // 4. Enrolled-course untouched unit (from diagnostic bank)
+    if (!action && enrolled && typeof DIAG_BANK_BY_COURSE !== "undefined" && DIAG_BANK_BY_COURSE[enrolled]) {
+      var topicStats = profile.topicStats || {};
+      var courseStats = topicStats[enrolled] || {};
+      var seenSets = {};
+      var untouched = [];
+      DIAG_BANK_BY_COURSE[enrolled].forEach(function (q) {
+        if (seenSets[q.set]) return;
+        seenSets[q.set] = true;
+        if (!courseStats[q.set] || !courseStats[q.set].total) {
+          untouched.push(q.set);
+        }
+      });
+      if (untouched.length) {
+        var nextUnit = untouched[0];
+        action = {
+          kicker: enrolled,
+          title: "Open " + nextUnit,
+          icon: "📚",
+          tone: "default",
+          run: function () {
+            // Open Mastery Map and let the student tap the unit
+            var btn = document.getElementById("rcMastery");
+            if (btn) btn.click();
+          }
+        };
+      }
+    }
+    // 5. Test date < 30 days
+    if (!action) {
+      var tp = (P2.getTestPrep && P2.getTestPrep()) || {};
+      if (tp.date) {
+        var d = new Date(tp.date + "T00:00:00");
+        var nowMid = new Date();
+        nowMid.setHours(0, 0, 0, 0);
+        var daysLeft = Math.ceil((d.getTime() - nowMid.getTime()) / (24 * 3600 * 1000));
+        if (daysLeft >= 0 && daysLeft <= 30) {
+          action = {
+            kicker: "Test prep",
+            title: daysLeft === 0 ? "Test day — final review" :
+                   daysLeft === 1 ? "1 day to go — last drill" :
+                   daysLeft + " days to your test — keep practicing",
+            icon: "📅",
+            tone: "warm",
+            run: function () {
+              var btn = document.getElementById("rcMastery");
+              if (btn) btn.click();
+            }
+          };
+        }
+      }
+    }
+
+    if (!action) {
+      band.hidden = true;
+      return;
+    }
+    pill.dataset.tone = action.tone || "default";
+    if (iconEl) iconEl.textContent = action.icon || "→";
+    if (kickerEl) kickerEl.textContent = action.kicker || "Next move";
+    if (titleEl) titleEl.textContent = action.title || "";
+    if (!pill.dataset.bound) {
+      pill.dataset.bound = "1";
+      pill.addEventListener("click", function () {
+        if (typeof pill._action === "function") pill._action();
+      });
+    }
+    pill._action = action.run;
+    band.hidden = false;
+  }
+
   // ---- Test-prep countdown band ----
   function renderTestPrep() {
     var band = document.getElementById("testprepBand");
@@ -9131,19 +9384,24 @@ boot();
     renderContinue();
     renderRecentAchievements();
     renderTestPrep();
+    renderNextBestAction();
     wireRandom();
     renderTopicChips();
     // Keep the continue rail + achievements strip in sync with profile updates
     if (window.MrMacsProfile) {
       window.MrMacsProfile.on("profile:update", renderContinue);
+      window.MrMacsProfile.on("profile:update", renderNextBestAction);
       window.MrMacsProfile.on("achievement:unlock", renderRecentAchievements);
       window.MrMacsProfile.on("profile:create", renderRecentAchievements);
       window.MrMacsProfile.on("testprep:change", renderTestPrep);
+      window.MrMacsProfile.on("testprep:change", renderNextBestAction);
       window.MrMacsProfile.on("profile:update", renderTestPrep);
+      window.MrMacsProfile.on("answer:record", renderNextBestAction);
       // Re-roll the daily challenge when the student changes course so
       // the pick is from their new enrolled course immediately.
       window.MrMacsProfile.on("course:change", function () {
         renderDaily();
+        renderNextBestAction();
       });
     }
   });
