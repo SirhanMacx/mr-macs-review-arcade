@@ -4575,6 +4575,118 @@ body {
    Daily Challenge band, Continue rail, Random button, Topic chips.
    ============================================================================ */
 
+/* Test-prep countdown band */
+.testprep-band {
+  padding: clamp(16px, 2vh, 24px) 0 0;
+}
+.testprep-band[hidden] { display: none; }
+.testprep-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px 18px;
+  align-items: center;
+  padding: 14px 20px;
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(255, 124, 200, .14), transparent 56%),
+    linear-gradient(180deg, rgba(13, 17, 27, .80), rgba(8, 11, 20, .94));
+  border: 1px solid rgba(255, 124, 200, .35);
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.32), 0 0 22px rgba(255, 124, 200, .08);
+  position: relative;
+  overflow: hidden;
+}
+.testprep-card[data-state="overdue"] {
+  border-color: rgba(255, 102, 125, .55);
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(255, 102, 125, .14), transparent 56%),
+    linear-gradient(180deg, rgba(13, 17, 27, .80), rgba(8, 11, 20, .94));
+}
+.testprep-card[data-state="today"] {
+  border-color: rgba(245, 196, 81, .65);
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(245, 196, 81, .18), transparent 56%),
+    linear-gradient(180deg, rgba(13, 17, 27, .80), rgba(8, 11, 20, .94));
+  box-shadow: 0 10px 24px rgba(0,0,0,.32), 0 0 28px rgba(245, 196, 81, .22);
+}
+.testprep-card[data-state="imminent"] {
+  border-color: rgba(255, 142, 111, .55);
+}
+.testprep-meta {
+  display: inline-flex; align-items: baseline; gap: 10px;
+  flex-wrap: wrap;
+}
+.testprep-days {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 800;
+  font-size: clamp(20px, 2.6vw, 30px);
+  letter-spacing: .04em;
+  color: #ff7cc8;
+  font-variant-numeric: tabular-nums;
+}
+.testprep-card[data-state="overdue"] .testprep-days  { color: #ff667d; }
+.testprep-card[data-state="today"]   .testprep-days  { color: #ffd884; }
+.testprep-card[data-state="imminent"] .testprep-days { color: #ff8e6f; }
+.testprep-sep {
+  color: var(--muted, #9aa3bb);
+  font-size: 18px;
+}
+.testprep-name {
+  font-family: "Fraunces", serif;
+  font-weight: 540; font-style: italic;
+  font-size: clamp(14px, 1.6vw, 18px);
+  color: var(--paper);
+}
+.testprep-detail {
+  display: inline-flex; align-items: center; gap: 14px;
+  justify-content: end;
+  flex-wrap: wrap;
+}
+.testprep-date {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  font-variant-numeric: tabular-nums;
+}
+.testprep-edit {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 11px;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 999px;
+  color: var(--paper);
+  font: 600 11px/1 "Inter", sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.testprep-edit:hover {
+  background: rgba(255, 124, 200, .14);
+  border-color: rgba(255, 124, 200, .55);
+  transform: translateY(-1px);
+}
+.testprep-bar {
+  grid-column: 1 / -1;
+  height: 3px;
+  background: rgba(255, 255, 255, .06);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.testprep-bar-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #b892ff, #ff7cc8 60%, #f5c451);
+  border-radius: 999px;
+  transition: width .8s cubic-bezier(.18, .89, .32, 1.18);
+}
+@media (prefers-reduced-motion: reduce) {
+  .testprep-bar-fill { transition: none; }
+}
+@media (max-width: 760px) {
+  .testprep-card { grid-template-columns: 1fr; }
+  .testprep-detail { justify-content: start; }
+}
+
 /* Daily Challenge */
 .daily-band {
   padding: clamp(20px, 3vh, 40px) 0 clamp(8px, 1vh, 18px);
@@ -5173,6 +5285,103 @@ body {
   cursor: pointer;
 }
 .wq-actions button:hover { background: rgba(255,255,255,.10); }
+.wq-actions .wq-drill-btn {
+  background: linear-gradient(135deg, rgba(245, 196, 81, .92), rgba(255, 216, 132, .92));
+  color: #14100a;
+  border-color: rgba(245, 196, 81, .65);
+  box-shadow: 0 8px 22px rgba(245, 196, 81, .18);
+}
+.wq-actions .wq-drill-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 216, 132, 1), rgba(245, 196, 81, 1));
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(245, 196, 81, .28);
+}
+
+/* Drill mode — active retrieval flashcards */
+.wq-drill-stem {
+  margin: 14px 0 18px;
+  padding: 18px 20px;
+  background: rgba(13, 17, 27, .70);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 14px;
+  font: 540 italic 18px/1.4 "Fraunces", serif;
+  color: var(--paper);
+}
+.wq-drill-reveal {
+  margin: 0 0 18px;
+  padding: 16px 20px;
+  background: linear-gradient(180deg, rgba(105, 240, 170, .10), rgba(13, 17, 27, .80));
+  border: 1px solid rgba(105, 240, 170, .42);
+  border-radius: 14px;
+  animation: wqRevealFade .35s ease-out;
+}
+@keyframes wqRevealFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.wq-drill-answer-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: #69f0aa;
+  margin-bottom: 6px;
+}
+.wq-drill-answer {
+  font: 600 16px/1.4 "Inter", sans-serif;
+  color: var(--paper);
+}
+.wq-drill-actions {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.wq-drill-show {
+  width: 100%;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(122, 240, 255, .15), rgba(122, 240, 255, .06));
+  border: 1px solid rgba(122, 240, 255, .42);
+  border-radius: 12px;
+  color: #7af0ff;
+  font: 700 14px/1 "Inter", sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .2s, background .2s;
+}
+.wq-drill-show:hover { transform: translateY(-1px); background: rgba(122, 240, 255, .22); }
+.wq-drill-grade {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.wq-drill-grade-yes,
+.wq-drill-grade-no {
+  padding: 14px 16px;
+  border-radius: 12px;
+  font: 700 13px/1 "Inter", sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .2s, background .2s, box-shadow .2s;
+}
+.wq-drill-grade-yes {
+  background: linear-gradient(135deg, rgba(105, 240, 170, .92), rgba(122, 240, 255, .82));
+  color: #052614;
+  border: 1px solid rgba(105, 240, 170, .65);
+  box-shadow: 0 8px 22px rgba(105, 240, 170, .18);
+}
+.wq-drill-grade-yes:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(105, 240, 170, .28);
+}
+.wq-drill-grade-no {
+  background: rgba(255, 255, 255, .06);
+  color: var(--paper);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+}
+.wq-drill-grade-no:hover { background: rgba(255, 255, 255, .12); transform: translateY(-1px); }
+@media (max-width: 480px) {
+  .wq-drill-grade { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wq-drill-reveal { animation: none; }
+}
+
 .wq-section-head {
   font-family: "JetBrains Mono", monospace;
   font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
@@ -5650,6 +5859,23 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         <div class="pd-ach-grid" id="pdAchGrid" role="list" aria-label="Achievements"></div>
       </section>
 
+      <section class="pd-section pd-section-testprep">
+        <header class="pd-section-head">
+          <h3>Test Prep Target</h3>
+          <span class="pd-section-meta" id="pdTestPrepStatus">Set a target test date and we'll show your countdown.</span>
+        </header>
+        <div class="pd-testprep-grid">
+          <label class="pd-setting">
+            <span>Test date</span>
+            <input type="date" id="setTestDate" aria-label="Test target date">
+          </label>
+          <label class="pd-setting">
+            <span>Test label</span>
+            <input type="text" id="setTestName" maxlength="60" placeholder="e.g. Global Regents · AP Psych" aria-label="Test name">
+          </label>
+        </div>
+      </section>
+
       <section class="pd-section pd-section-settings">
         <header class="pd-section-head">
           <h3>Settings</h3>
@@ -5825,6 +6051,24 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 </div>
 
 <main class="shell" id="main">
+
+  <!-- Test-prep countdown band (shown only when student has set a target test date) -->
+  <section class="band testprep-band" id="testprepBand" aria-label="Test-prep countdown" hidden>
+    <div class="testprep-card" id="testprepCard">
+      <div class="testprep-meta">
+        <strong class="testprep-days" id="testprepDays">T-0</strong>
+        <span class="testprep-sep" aria-hidden="true">·</span>
+        <span class="testprep-name" id="testprepName">your test</span>
+      </div>
+      <div class="testprep-detail">
+        <span class="testprep-date" id="testprepDate"></span>
+        <button class="testprep-edit" id="testprepEdit" type="button" aria-label="Edit test prep target">Update target →</button>
+      </div>
+      <div class="testprep-bar" aria-hidden="true">
+        <span class="testprep-bar-fill" id="testprepBarFill" style="width:0%"></span>
+      </div>
+    </div>
+  </section>
 
   <!-- Phase 2: Daily Challenge band (deterministic per UTC day) -->
   <section class="band daily-band" id="daily" aria-label="Today's challenge" hidden>
@@ -6146,6 +6390,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-icons.js?v=20260509-icons"></script>
 <script src="assets/arcade-toast.js?v=20260509-toast"></script>
 <script src="assets/arcade-celebration.js?v=20260509-celebration"></script>
+<script src="assets/arcade-progress-extras.js?v=20260509-progress-extras"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
@@ -8169,7 +8414,17 @@ boot();
       });
     }
 
+    // Top scores section (best-3 across all games for the current player).
+    if (window.MrMacsLeaderboards && typeof window.MrMacsLeaderboards.renderDrawerTopScores === "function") {
+      window.MrMacsLeaderboards.renderDrawerTopScores(function (gameId) {
+        var hit = (typeof GAMES !== "undefined" && Array.isArray(GAMES))
+          ? GAMES.find(function (g) { return g.id === gameId; }) : null;
+        return hit ? (hit.title || hit.name || gameId) : gameId;
+      });
+    }
+
     refreshSettings();
+    if (typeof refreshTestPrepInputs === "function") refreshTestPrepInputs();
   }
 
   if (pdNameSave) pdNameSave.addEventListener("click", function () {
@@ -8226,6 +8481,44 @@ boot();
   bindSetting(setFont, "fontFamily");
   bindSetting(setColorblind, "colorblind");
   bindSetting(setContrast, "contrast");
+
+  // Test-prep target inputs
+  var setTestDate = document.getElementById("setTestDate");
+  var setTestName = document.getElementById("setTestName");
+  function refreshTestPrepInputs() {
+    if (!P.getTestPrep) return;
+    var tp = P.getTestPrep();
+    if (setTestDate) setTestDate.value = tp.date || "";
+    if (setTestName) setTestName.value = tp.name || "";
+    var statusEl = document.getElementById("pdTestPrepStatus");
+    if (statusEl) {
+      if (tp.date) {
+        var d = new Date(tp.date + "T00:00:00");
+        var now = new Date();
+        var msPerDay = 24 * 3600 * 1000;
+        var nowMid = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+        var daysLeft = Math.ceil((d.getTime() - nowMid) / msPerDay);
+        var label = tp.name || "your test";
+        if (daysLeft > 0) {
+          statusEl.textContent = "T-" + daysLeft + " days until " + label;
+        } else if (daysLeft === 0) {
+          statusEl.textContent = "Test day — go get it.";
+        } else {
+          statusEl.textContent = "Past target (" + Math.abs(daysLeft) + " days ago) — pick a new date";
+        }
+      } else {
+        statusEl.textContent = "Set a target test date and we'll show your countdown.";
+      }
+    }
+  }
+  if (setTestDate) setTestDate.addEventListener("change", function () {
+    P.setTestPrep({ date: setTestDate.value });
+    refreshTestPrepInputs();
+  });
+  if (setTestName) setTestName.addEventListener("input", function () {
+    P.setTestPrep({ name: setTestName.value });
+    refreshTestPrepInputs();
+  });
 
   if (pdReset) pdReset.addEventListener("click", function () {
     if (confirm("Wipe trainer profile from this device? Shards, achievements, and settings will all reset. Cannot be undone.")) {
@@ -8471,6 +8764,10 @@ boot();
         else if (card.dataset.file) location.href = card.dataset.file;
       });
     });
+    // Decorate any cards that have a saved auto-resume snapshot.
+    if (window.MrMacsSessions && typeof window.MrMacsSessions.decorateContinueCards === "function") {
+      window.MrMacsSessions.decorateContinueCards(rail);
+    }
     band.hidden = false;
   }
 
@@ -8618,11 +8915,74 @@ boot();
     });
   }
 
+  // ---- Test-prep countdown band ----
+  function renderTestPrep() {
+    var band = document.getElementById("testprepBand");
+    var card = document.getElementById("testprepCard");
+    if (!band || !card || !window.MrMacsProfile || !window.MrMacsProfile.getTestPrep) return;
+    var tp = window.MrMacsProfile.getTestPrep();
+    var daysEl = document.getElementById("testprepDays");
+    var nameEl = document.getElementById("testprepName");
+    var dateEl = document.getElementById("testprepDate");
+    var fillEl = document.getElementById("testprepBarFill");
+    var editEl = document.getElementById("testprepEdit");
+    if (!tp.date) {
+      band.hidden = true;
+      return;
+    }
+    var d = new Date(tp.date + "T00:00:00");
+    if (isNaN(d.getTime())) {
+      band.hidden = true;
+      return;
+    }
+    var now = new Date();
+    var nowMid = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    var msPerDay = 24 * 3600 * 1000;
+    var daysLeft = Math.ceil((d.getTime() - nowMid) / msPerDay);
+    var label = tp.name || "your test";
+    if (nameEl) nameEl.textContent = label;
+    var displayDate = d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+    if (dateEl) dateEl.textContent = displayDate;
+    var state = "future";
+    if (daysLeft < 0) state = "overdue";
+    else if (daysLeft === 0) state = "today";
+    else if (daysLeft <= 14) state = "imminent";
+    card.dataset.state = state;
+    if (daysEl) {
+      if (daysLeft > 0) daysEl.textContent = "T-" + daysLeft;
+      else if (daysLeft === 0) daysEl.textContent = "Today";
+      else daysEl.textContent = "+" + Math.abs(daysLeft);
+    }
+    // Progress bar: % through a 90-day prep window. Clamps to [0, 100].
+    if (fillEl) {
+      var prepWindow = 90;
+      var pct = Math.max(0, Math.min(100, ((prepWindow - daysLeft) / prepWindow) * 100));
+      if (daysLeft <= 0) pct = 100;
+      fillEl.style.width = pct.toFixed(1) + "%";
+    }
+    band.hidden = false;
+    if (editEl && !editEl.dataset.bound) {
+      editEl.dataset.bound = "1";
+      editEl.addEventListener("click", function () {
+        var pillBtn = document.getElementById("profilePill");
+        if (pillBtn) pillBtn.click();
+        // Scroll the drawer down to the test-prep section after open
+        setTimeout(function () {
+          var section = document.querySelector(".pd-section-testprep");
+          if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+          var dateInput = document.getElementById("setTestDate");
+          if (dateInput) dateInput.focus();
+        }, 360);
+      });
+    }
+  }
+
   // ---- Wire everything once GAMES is ready ----
   whenGamesReady().then(function () {
     renderDaily();
     renderContinue();
     renderRecentAchievements();
+    renderTestPrep();
     wireRandom();
     renderTopicChips();
     // Keep the continue rail + achievements strip in sync with profile updates
@@ -8630,6 +8990,8 @@ boot();
       window.MrMacsProfile.on("profile:update", renderContinue);
       window.MrMacsProfile.on("achievement:unlock", renderRecentAchievements);
       window.MrMacsProfile.on("profile:create", renderRecentAchievements);
+      window.MrMacsProfile.on("testprep:change", renderTestPrep);
+      window.MrMacsProfile.on("profile:update", renderTestPrep);
       // Re-roll the daily challenge when the student changes course so
       // the pick is from their new enrolled course immediately.
       window.MrMacsProfile.on("course:change", function () {
@@ -9194,7 +9556,10 @@ boot();
             '<div class="wq-meta">' + safeHTML(w.course) + ' · ' + safeHTML(w.set) + ' · ' + when + '</div>' +
           '</div>';
       }).join("");
-      html = rendered + '<div class="wq-actions"><button id="wqClear" type="button">Clear queue</button></div>';
+      html = rendered + '<div class="wq-actions">' +
+        '<button id="wqDrill" class="wq-drill-btn" type="button">Drill 10</button>' +
+        '<button id="wqClear" type="button">Clear queue</button>' +
+      '</div>';
     }
     openModal("Wrong-Answer Queue", html);
     var clearBtn = document.getElementById("wqClear");
@@ -9205,6 +9570,113 @@ boot();
         updateRoutingSubs();
       }
     });
+    var drillBtn = document.getElementById("wqDrill");
+    if (drillBtn) drillBtn.addEventListener("click", function () {
+      startWrongAnswerDrill();
+    });
+  }
+
+  // ---- Wrong-answer DRILL mode (active retrieval practice) ----
+  // Flashcard-style retry of queued misses. Student sees the prompt,
+  // hits "Show answer", then self-rates as "I remember" (retire from
+  // queue + earn 5 shards) or "Need more practice" (keep in queue).
+  // Up to 10 cards per session, biased toward enrolled-course misses.
+  function startWrongAnswerDrill() {
+    var queue = P.getWrongQueue(80);
+    var enrolled = (P && P.getCourse) ? P.getCourse() : "";
+    if (!queue.length) return;
+
+    // Stable shuffle, but bias enrolled-course items to the front.
+    var sorted = queue.slice().sort(function (a, b) {
+      var aIs = (enrolled && a.course === enrolled) ? 0 : 1;
+      var bIs = (enrolled && b.course === enrolled) ? 0 : 1;
+      if (aIs !== bIs) return aIs - bIs;
+      return Math.random() - 0.5;
+    });
+    var session = sorted.slice(0, Math.min(10, sorted.length));
+    var idx = 0;
+    var remembered = 0;
+    var stillUnsure = 0;
+
+    function render() {
+      var w = session[idx];
+      if (!w) return showSummary();
+      var when = "";
+      if (w.ts) {
+        var diff = Date.now() - w.ts;
+        var min = Math.floor(diff / 60000);
+        var hour = Math.floor(min / 60);
+        var day = Math.floor(hour / 24);
+        if (day > 0) when = day + "d ago";
+        else if (hour > 0) when = hour + "h ago";
+        else when = (min || 0) + "m ago";
+      }
+      var pct = Math.round((idx / session.length) * 100);
+      var html =
+        '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
+        '<div class="diag-meta">' + safeHTML(w.course) + ' · ' + safeHTML(w.set) + ' · Card ' + (idx + 1) + ' / ' + session.length + ' · missed ' + when + '</div>' +
+        '<p class="diag-stem wq-drill-stem">' + safeHTML(w.prompt) + '</p>' +
+        '<div class="wq-drill-reveal" id="wqDrillReveal" hidden>' +
+          '<div class="wq-drill-answer-label">Correct answer</div>' +
+          '<div class="wq-drill-answer">' + safeHTML(w.answer) + '</div>' +
+        '</div>' +
+        '<div class="wq-drill-actions">' +
+          '<button class="wq-drill-show" id="wqDrillShow" type="button">Show answer</button>' +
+          '<div class="wq-drill-grade" id="wqDrillGrade" hidden>' +
+            '<button class="wq-drill-grade-yes" id="wqDrillYes" type="button">I remember</button>' +
+            '<button class="wq-drill-grade-no" id="wqDrillNo" type="button">Need more practice</button>' +
+          '</div>' +
+        '</div>';
+      openModal("Drill — retrieve the missed answer", html);
+      var showBtn = document.getElementById("wqDrillShow");
+      var reveal = document.getElementById("wqDrillReveal");
+      var grade = document.getElementById("wqDrillGrade");
+      if (showBtn) showBtn.addEventListener("click", function () {
+        showBtn.style.display = "none";
+        if (reveal) reveal.hidden = false;
+        if (grade) grade.hidden = false;
+      });
+      var yesBtn = document.getElementById("wqDrillYes");
+      var noBtn = document.getElementById("wqDrillNo");
+      if (yesBtn) yesBtn.addEventListener("click", function () {
+        remembered++;
+        try {
+          P.removeWrongAnswer(w.prompt);
+          P.recordAnswer({ course: w.course, set: w.set, correct: true, prompt: w.prompt, answer: w.answer, gameId: "wrong-drill" });
+        } catch (e) {}
+        idx++;
+        render();
+      });
+      if (noBtn) noBtn.addEventListener("click", function () {
+        stillUnsure++;
+        // Keep in queue. Do NOT remove. Move on.
+        idx++;
+        render();
+      });
+    }
+
+    function showSummary() {
+      var shardAward = remembered * 5;
+      try { if (shardAward > 0) P.addShards(shardAward, "wrong-drill"); } catch (e) {}
+      var summaryHTML =
+        '<div class="diag-summary">' +
+          '<h4>Drill complete</h4>' +
+          '<p style="color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 12px;">' +
+            remembered + ' retired from your queue · ' + stillUnsure + ' still need practice' +
+            (shardAward > 0 ? ' · earned <strong style="color:#f5c451">+' + shardAward + ' shards</strong>' : '') +
+          '</p>' +
+          '<div class="wq-actions" style="margin-top:14px;">' +
+            (P.getWrongQueue(1).length ? '<button class="wq-drill-btn" id="wqDrillAgain" type="button">Drill 10 more</button>' : '') +
+            '<button id="wqDone" type="button">Done</button>' +
+          '</div>' +
+        '</div>';
+      openModal("Drill complete", summaryHTML);
+      var again = document.getElementById("wqDrillAgain");
+      if (again) again.addEventListener("click", function () { startWrongAnswerDrill(); });
+      var done = document.getElementById("wqDone");
+      if (done) done.addEventListener("click", function () { closeModal(); updateRoutingSubs(); });
+    }
+    render();
   }
 
   // ---- Cram Mode playlist generator ----

@@ -174,6 +174,12 @@
       // question selection, daily challenge weighting, library +
       // jeopardy default filters, etc. Empty string = "all courses".
       course: "",
+      // Test-prep target. testDate is an ISO 'YYYY-MM-DD' string in
+      // the student's local time; testName is a short human label
+      // (e.g., "Global Regents" or "AP Psych exam"). Both empty by
+      // default — the countdown widget hides itself when unset.
+      testDate: "",
+      testName: "",
       createdAt: 0,
       lastVisit: 0,
       // Phase 7 — content routing
@@ -320,6 +326,21 @@
       emit("profile:update", { profile: clone(p) });
       emit("course:change", { course: next, previous: prev });
       return p.course;
+    },
+
+    getTestPrep: function () {
+      var p = read();
+      return { date: p.testDate || "", name: p.testName || "" };
+    },
+    setTestPrep: function (opts) {
+      var p = read();
+      opts = opts || {};
+      if (typeof opts.date === "string") p.testDate = opts.date.trim();
+      if (typeof opts.name === "string") p.testName = opts.name.trim().slice(0, 60);
+      write(p);
+      emit("profile:update", { profile: clone(p) });
+      emit("testprep:change", { date: p.testDate, name: p.testName });
+      return { date: p.testDate, name: p.testName };
     },
 
     // ---- Wallet ----
@@ -508,6 +529,21 @@
       var p = read();
       var n = Number(limit) || 10;
       return (p.wrongAnswers || []).slice(0, n);
+    },
+    // Remove a single entry from the wrong-answer queue, identified by
+    // its prompt text (stable enough since the queue caps at 80). Used
+    // by the drill mode to retire questions the student answers
+    // correctly during retrieval practice.
+    removeWrongAnswer: function (prompt) {
+      var p = read();
+      var key = String(prompt || "").trim();
+      if (!key) return 0;
+      p.wrongAnswers = (p.wrongAnswers || []).filter(function (w) {
+        return String(w.prompt || "").trim() !== key;
+      });
+      write(p);
+      emit("profile:update", { profile: clone(p) });
+      return p.wrongAnswers.length;
     },
     clearWrongQueue: function () {
       var p = read();
