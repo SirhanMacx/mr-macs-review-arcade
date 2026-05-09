@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04060f">
+  <title>Citadel &mdash; Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="styles.css?v=20260509-citadel">
+</head>
+<body>
+  <main class="citadel-shell" id="app">
+    <canvas id="citadelCanvas" aria-label="Citadel &mdash; match-3 of scholarly crests, decode rare scholar gems"></canvas>
+
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <!-- HUD: top strip -->
+    <section class="top-hud" aria-label="Citadel status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong class="brand-title"><span class="brand-prefix">Cit</span><em class="brand-suffix">adel</em></strong>
+          <span class="brand-sub" id="brandSub">Match &middot; Cascade &middot; Decode</span>
+        </div>
+      </div>
+      <div class="hud-stats" aria-label="Game statistics">
+        <div class="stat-cell">
+          <strong id="hudScore" class="stat-value mono" role="status" aria-live="polite" aria-label="Score">0</strong>
+          <span class="stat-label">score</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudTarget" class="stat-value mono" role="status" aria-live="polite" aria-label="Target">1500</strong>
+          <span class="stat-label">target</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudMoves" class="stat-value mono" role="status" aria-live="polite" aria-label="Moves remaining">25</strong>
+          <span class="stat-label">moves</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudLevel" class="stat-value mono" role="status" aria-live="polite" aria-label="Level">1</strong>
+          <span class="stat-label">level</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudLives" class="stat-value mono" role="status" aria-live="polite" aria-label="Lives">3</strong>
+          <span class="stat-label">lives</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudBest" class="stat-value mono" role="status" aria-live="polite" aria-label="Best">0</strong>
+          <span class="stat-label">best</span>
+        </div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
+        <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
+      </div>
+    </section>
+
+    <!-- Goal ribbon -->
+    <section class="wave-ribbon" id="waveRibbon" aria-label="Goal status">
+      <span class="wave-kicker">Goal</span>
+      <strong class="wave-name" id="goalName">Reach 1,500 in 25 moves</strong>
+      <span class="wave-meta" id="goalMeta">Combo &times;1 &middot; Power-ups: 0</span>
+    </section>
+
+    <!-- Combo callouts overlay -->
+    <section class="popup-overlay" id="popupOverlay" aria-hidden="true"></section>
+
+    <!-- Power-up inventory (bottom-right) -->
+    <section class="powerup-tray" id="powerupTray" aria-label="Power-up inventory">
+      <button class="powerup-slot" id="powerupSlot0" type="button" data-slot="0" aria-label="Power-up slot 1 (key 1)"><span class="pu-icon"></span><span class="pu-num">1</span></button>
+      <button class="powerup-slot" id="powerupSlot1" type="button" data-slot="1" aria-label="Power-up slot 2 (key 2)"><span class="pu-icon"></span><span class="pu-num">2</span></button>
+      <button class="powerup-slot" id="powerupSlot2" type="button" data-slot="2" aria-label="Power-up slot 3 (key 3)"><span class="pu-icon"></span><span class="pu-num">3</span></button>
+    </section>
+
+    <!-- Activation hint (e.g. Hammer cursor active) -->
+    <section class="activation-hint" id="activationHint" aria-hidden="true">
+      <span id="activationHintText">Pick a gem</span>
+    </section>
+
+    <!-- Color picker (for Color Bomb power-up) -->
+    <section class="color-picker" id="colorPicker" aria-label="Pick a gem color to clear">
+      <div class="cp-card">
+        <div class="cp-title">Color Bomb &middot; Pick a color</div>
+        <div class="cp-grid" id="colorPickerGrid"></div>
+        <button class="btn glass-pill" id="colorPickerCancel" type="button">Cancel</button>
+      </div>
+    </section>
+
+    <!-- Setup / title screen -->
+    <section class="setup-screen show" id="setupScreen" aria-label="Citadel &mdash; game setup" aria-modal="true">
+      <div class="setup-card">
+        <div class="marquee-art" aria-hidden="true">
+          <div class="marquee-glow"></div>
+          <div class="marquee-spark spark-a" data-arcade-heavy></div>
+          <div class="marquee-spark spark-b" data-arcade-heavy></div>
+          <div class="marquee-spark spark-c" data-arcade-heavy></div>
+          <div class="marquee-inner-border"></div>
+        </div>
+
+        <div class="setup-kicker">Match-3 Bejeweled</div>
+        <h1><span class="title-prefix">Cit</span><em class="title-suffix">adel</em></h1>
+
+        <div class="ship-badges-row" aria-label="Gem palette">
+          <span class="ship-badge badge-crim" title="History scroll">SCROLL</span>
+          <span class="ship-badge badge-cyan" title="Science atom">ATOM</span>
+          <span class="ship-badge badge-violet" title="Art palette">PALETTE</span>
+          <span class="ship-badge badge-emerald" title="Language quill">QUILL</span>
+          <span class="ship-badge badge-gold" title="Math compass">COMPASS</span>
+          <span class="ship-badge badge-indigo" title="Geography globe">GLOBE</span>
+          <span class="ship-campaign-label">Endless Cascade</span>
+        </div>
+
+        <p class="setup-sub">Swap adjacent <em>discipline crests</em> to make rows or columns of three or more. Cascades multiply your score, four-of-a-kind forges a <em>Striker</em>, five forges a <em>Codex</em>, and L-shapes drop a <em>Bomb</em>. Every so often a crest turns gold &mdash; a <em>scholar gem</em> that opens an optional review prompt for big bonuses.</p>
+
+        <div class="resume-card" id="resumeCard" hidden></div>
+        <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
+
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="soundBtn" type="button" aria-label="Toggle sound">Sound On</button>
+          <button class="btn glass-pill" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">Fullscreen</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button" aria-label="Start the game">
+            <span class="btn-coin" aria-hidden="true">&#9678;</span> Insert Coin &middot; Start Citadel
+          </button>
+        </div>
+
+        <p class="key-hints" aria-label="Keyboard controls">
+          <kbd>&uarr;</kbd>/<kbd>&darr;</kbd>/<kbd>&larr;</kbd>/<kbd>&rarr;</kbd> move cursor &middot; <kbd>Enter</kbd> select/swap &nbsp;&middot;&nbsp; <kbd>1</kbd>&ndash;<kbd>3</kbd> power-ups &nbsp;&middot;&nbsp; <kbd>Esc</kbd>/<kbd>P</kbd> pause
+        </p>
+      </div>
+    </section>
+
+    <!-- Scholar review modal -->
+    <section class="question-screen" id="questionScreen" aria-label="Scholar gem &mdash; review question" aria-modal="true">
+      <div class="question-card glass-card">
+        <div class="question-header">
+          <div class="question-meta" id="questionMeta">Scholar Gem</div>
+          <button class="question-close glass-pill" id="questionCloseBtn" type="button" aria-label="Skip and return to game">Skip</button>
+        </div>
+        <h2 id="questionPrompt">Loading prompt&hellip;</h2>
+        <div class="choice-grid" id="choiceGrid" role="group" aria-label="Answer choices"></div>
+        <p class="explanation" id="explanation" role="status"></p>
+      </div>
+    </section>
+
+    <!-- Pause screen -->
+    <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker"><span class="kicker-pause-glyph" aria-hidden="true">&#10074;&#10074;</span> Paused</div>
+        <h2>Citadel Held</h2>
+        <p class="setup-sub">Resume the cascade or start over.</p>
+        <div class="setup-actions">
+          <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
+          <button class="btn glass-pill" id="restartBtn" type="button">Restart</button>
+          <button class="btn glass-pill" id="pauseExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- End / game over screen -->
+    <section class="end-screen" id="endScreen" aria-label="Game summary" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="endKicker">Run Ended</div>
+        <h2 id="endTitle">Citadel &middot; Run complete</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <p class="setup-sub" id="retryHint" style="margin-top:8px"></p>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="setupBtn" type="button">Setup</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-celebration.js?v=20260509-celebration"></script>
+  <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
+  <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="game.js?v=20260509-citadel"></script>
+</body>
+</html>
