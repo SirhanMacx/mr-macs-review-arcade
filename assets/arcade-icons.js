@@ -120,7 +120,23 @@
     // Shield
     "shield": '<path d="M12 3 L20 6 V12 C20 17 16 20.5 12 22 C8 20.5 4 17 4 12 V6 Z"/><path d="M12 8 V16"/><path d="M8 11 H16"/>',
     // Sparkles
-    "sparkles": '<path d="M12 4 L13 9.5 L18.5 11 L13 12.5 L12 18 L11 12.5 L5.5 11 L11 9.5 Z"/><circle cx="18" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="6" cy="18" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="19" r="0.8" fill="currentColor" stroke="none"/>'
+    "sparkles": '<path d="M12 4 L13 9.5 L18.5 11 L13 12.5 L12 18 L11 12.5 L5.5 11 L11 9.5 Z"/><circle cx="18" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="6" cy="18" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="19" r="0.8" fill="currentColor" stroke="none"/>',
+    // Crystal-ball / orb (lives in Maze Chase)
+    "orb": '<circle cx="12" cy="13" r="6.5"/><path d="M9 11 C9.5 9.5 10.7 8.5 12.2 8.3"/><path d="M7 19.5 H17 L15.5 22 H8.5 Z"/><circle cx="9.6" cy="11.5" r="0.8" fill="currentColor" stroke="none" fill-opacity="0.55"/>',
+    // Speaker with sound waves (audio on)
+    "audio-on": '<path d="M5 10 H8 L12 6 V18 L8 14 H5 Z"/><path d="M15 9 C16.6 10.4 16.6 13.6 15 15"/><path d="M17.5 6.5 C20.5 9 20.5 15 17.5 17.5"/>',
+    // Speaker with X (audio off / muted)
+    "audio-off": '<path d="M5 10 H8 L12 6 V18 L8 14 H5 Z"/><line x1="15" y1="9" x2="20" y2="14"/><line x1="20" y1="9" x2="15" y2="14"/>',
+    // Triangle warning (skip / penalty / caution)
+    "warning": '<path d="M12 3.5 L21.5 19.5 H2.5 Z"/><line x1="12" y1="10" x2="12" y2="14.5"/><circle cx="12" cy="17" r="0.9" fill="currentColor" stroke="none"/>',
+    // Pause (two bars)
+    "pause": '<rect x="6.5" y="5" width="3.5" height="14" rx="0.6"/><rect x="14" y="5" width="3.5" height="14" rx="0.6"/>',
+    // Checkered flag (race start/finish)
+    "checkered-flag": '<line x1="5" y1="3" x2="5" y2="21"/><path d="M5 4 H19 V12 H5 Z"/><rect x="5" y="4" width="3.5" height="2.6" fill="currentColor" stroke="none"/><rect x="12" y="4" width="3.5" height="2.6" fill="currentColor" stroke="none"/><rect x="8.5" y="6.6" width="3.5" height="2.6" fill="currentColor" stroke="none"/><rect x="15.5" y="6.6" width="3.5" height="2.6" fill="currentColor" stroke="none"/><rect x="5" y="9.2" width="3.5" height="2.6" fill="currentColor" stroke="none"/><rect x="12" y="9.2" width="3.5" height="2.6" fill="currentColor" stroke="none"/>',
+    // Podium (1-2-3 racing finish)
+    "podium": '<rect x="9" y="7" width="6" height="14"/><rect x="3" y="11" width="6" height="10"/><rect x="15" y="14" width="6" height="7"/><line x1="2" y1="21" x2="22" y2="21"/>',
+    // Mirror / rear-view (rally mirror class)
+    "mirror": '<path d="M5 8 C5 5.5 7 4 12 4 C17 4 19 5.5 19 8 L19 13 C19 15.5 17 17 12 17 C7 17 5 15.5 5 13 Z"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="9" y1="21" x2="15" y2="21"/>'
   };
 
   // Emoji → registered name (for legacy emoji-keyed storage)
@@ -171,7 +187,17 @@
     "🛡": "shield",
     "✨": "sparkles",
     "⚛": "atom",
-    "🌍": "globe"
+    "🌍": "globe",
+    // Game-specific glyphs
+    "🔮": "orb",
+    "🔊": "audio-on",
+    "🔇": "audio-off",
+    "⚠": "warning",
+    "⚠️": "warning",
+    "⏸": "pause",
+    "🏁": "checkered-flag",
+    "🥇": "podium",
+    "🪞": "mirror"
   };
 
   function svg(name) {

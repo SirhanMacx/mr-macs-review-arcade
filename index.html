@@ -5002,6 +5002,122 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   .routing-card:hover .ic { transform: none; }
 }
 
+/* ── Keyboard shortcuts overlay ─────────────────────────────────────── */
+.ks-overlay {
+  position: fixed; inset: 0; z-index: 9500;
+  display: grid; place-items: center;
+  padding: clamp(12px, 4vw, 32px);
+}
+.ks-overlay[hidden] { display: none; }
+.ks-overlay .ks-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(3, 4, 12, .68);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.ks-overlay .ks-panel {
+  position: relative;
+  width: min(560px, 100%);
+  background: linear-gradient(180deg, rgba(13, 17, 27, .96), rgba(8, 11, 20, .98));
+  border: 1px solid rgba(245, 196, 81, .35);
+  border-radius: 18px;
+  padding: clamp(20px, 3vw, 28px);
+  box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 28px rgba(245, 196, 81, .12);
+  color: var(--paper, #f0f3fa);
+  animation: ksPop .25s cubic-bezier(.18, .89, .32, 1.18);
+}
+@keyframes ksPop {
+  from { opacity: 0; transform: translateY(8px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);   }
+}
+.ks-head { display: flex; align-items: center; justify-content: space-between; }
+.ks-title {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-weight: 540; font-style: italic;
+  font-size: clamp(20px, 2.4vw, 24px);
+  color: var(--paper);
+}
+.ks-close {
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--paper-2);
+  cursor: pointer;
+  font-size: 14px;
+}
+.ks-close:hover { border-color: rgba(245, 196, 81, .55); color: var(--paper); }
+.ks-sub {
+  margin: 8px 0 18px;
+  color: var(--muted, #9aa3bb);
+  font-size: 13.5px; line-height: 1.5;
+}
+.ks-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.ks-row {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,.025);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--paper-2);
+  font-size: 13.5px;
+}
+.ks-key {
+  display: inline-grid; place-items: center;
+  height: 28px; min-width: 28px; padding: 0 8px;
+  border: 1px solid rgba(245, 196, 81, .42);
+  border-radius: 6px;
+  background: rgba(245, 196, 81, .10);
+  color: #f5c451;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .04em;
+  box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 2px 0 rgba(0,0,0,.35);
+}
+.ks-foot {
+  margin: 16px 0 0;
+  font-size: 12px; color: var(--muted, #9aa3bb);
+  font-style: italic;
+}
+@media (max-width: 540px) {
+  .ks-overlay { display: none; }   /* keyboard shortcuts UI is desktop-only */
+  .ks-fob     { display: none; }
+}
+.ks-fob {
+  position: fixed; z-index: 8500;
+  left: clamp(14px, 2vw, 24px); bottom: clamp(14px, 2vh, 24px);
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  background: rgba(13, 17, 27, .65);
+  color: var(--paper-2);
+  cursor: pointer;
+  font: 700 14px/1 "Fraunces", serif;
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  backdrop-filter: blur(10px) saturate(1.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  transition: transform .2s, border-color .2s, color .2s, background .2s;
+  opacity: .55;
+}
+.ks-fob:hover, .ks-fob:focus-visible {
+  opacity: 1;
+  transform: translateY(-2px);
+  border-color: rgba(245, 196, 81, .55);
+  color: #f5c451;
+  background: rgba(13, 17, 27, .85);
+  outline: none;
+}
+
 </style>
 </head>
 <body>
@@ -5210,6 +5326,35 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     <div class="hm-track" id="marqueeTrack"></div>
   </div>
 </section>
+
+<!-- Floating help fob (desktop only) — opens keyboard-shortcuts overlay -->
+<button class="ks-fob" id="ksFob" type="button" aria-label="Show keyboard shortcuts (press ? for this panel)">
+  <span class="ks-fob-glyph" aria-hidden="true">?</span>
+</button>
+
+<!-- Keyboard shortcuts overlay (toggled with `?` or Shift+/) -->
+<div class="ks-overlay" id="ksOverlay" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" hidden>
+  <div class="ks-backdrop" id="ksBackdrop"></div>
+  <div class="ks-panel" role="document">
+    <div class="ks-head">
+      <h2 class="ks-title">Keyboard shortcuts</h2>
+      <button class="ks-close" id="ksClose" type="button" aria-label="Close shortcuts">✕</button>
+    </div>
+    <p class="ks-sub">Power-user moves for the arcade. Tap any chip to dismiss.</p>
+    <div class="ks-grid">
+      <div class="ks-row"><kbd class="ks-key">?</kbd><span>Open this panel</span></div>
+      <div class="ks-row"><kbd class="ks-key">Esc</kbd><span>Close any open dialog</span></div>
+      <div class="ks-row"><kbd class="ks-key">/</kbd><span>Jump to library search</span></div>
+      <div class="ks-row"><kbd class="ks-key">G</kbd><span>Then a course key — jump to that course</span></div>
+      <div class="ks-row"><kbd class="ks-key">D</kbd><span>Open the Daily Challenge</span></div>
+      <div class="ks-row"><kbd class="ks-key">R</kbd><span>Random game from the Library</span></div>
+      <div class="ks-row"><kbd class="ks-key">P</kbd><span>Open / close the Trainer Profile drawer</span></div>
+      <div class="ks-row"><kbd class="ks-key">Tab</kbd><span>Walk through interactive elements</span></div>
+      <div class="ks-row"><kbd class="ks-key">Enter</kbd><span>Activate the focused element</span></div>
+    </div>
+    <p class="ks-foot">Inside a game cabinet, each game shows its own controls.</p>
+  </div>
+</div>
 
 <main class="shell" id="main">
 
@@ -5519,6 +5664,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-perf.js?v=20260507-phase5"></script>
 <script src="assets/arcade-tour.js?v=20260507-phase3"></script>
 <script src="assets/arcade-icons.js?v=20260509-icons"></script>
+<script src="assets/arcade-toast.js?v=20260509-toast"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
@@ -7001,10 +7147,56 @@ boot();
   if (pdClose) pdClose.addEventListener("click", closeDrawer);
   if (pdBackdrop) pdBackdrop.addEventListener("click", closeDrawer);
 
+  // Keyboard shortcuts overlay
+  var ksOverlay = document.getElementById("ksOverlay");
+  var ksClose = document.getElementById("ksClose");
+  var ksBackdrop = document.getElementById("ksBackdrop");
+  function openKs() { if (ksOverlay) { ksOverlay.hidden = false; setTimeout(function () { if (ksClose) ksClose.focus(); }, 50); } }
+  function closeKs() { if (ksOverlay) ksOverlay.hidden = true; }
+  if (ksClose) ksClose.addEventListener("click", closeKs);
+  if (ksBackdrop) ksBackdrop.addEventListener("click", closeKs);
+  var ksFob = document.getElementById("ksFob");
+  if (ksFob) ksFob.addEventListener("click", openKs);
+
   document.addEventListener("keydown", function (e) {
+    // Don't intercept when typing in form fields
+    var target = e.target || document.activeElement;
+    var isField = target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "SELECT" || target.isContentEditable);
+
     if (e.key === "Escape") {
-      if (drawer && !drawer.hidden) closeDrawer();
-      else if (welcomeOverlay && !welcomeOverlay.hidden) closeWelcome();
+      if (ksOverlay && !ksOverlay.hidden) { closeKs(); return; }
+      if (drawer && !drawer.hidden) { closeDrawer(); return; }
+      if (welcomeOverlay && !welcomeOverlay.hidden) { closeWelcome(); return; }
+    }
+    if (isField) return;
+
+    // Power-user shortcuts
+    if ((e.key === "?" || (e.key === "/" && e.shiftKey)) && !e.metaKey && !e.ctrlKey) {
+      e.preventDefault();
+      if (ksOverlay && ksOverlay.hidden) openKs(); else closeKs();
+      return;
+    }
+    if (e.key === "/" && !e.shiftKey && !e.metaKey && !e.ctrlKey) {
+      var search = document.getElementById("librarySearch") || document.querySelector('input[type="search"]');
+      if (search) { e.preventDefault(); search.scrollIntoView({ block: "center", behavior: "smooth" }); search.focus(); }
+      return;
+    }
+    if (e.key === "p" || e.key === "P") {
+      e.preventDefault();
+      if (drawer && drawer.hidden) {
+        if (P.exists()) openDrawer(); else openWelcome();
+      } else { closeDrawer(); }
+      return;
+    }
+    if (e.key === "d" || e.key === "D") {
+      var dailyBtn = document.getElementById("dailyPlay");
+      if (dailyBtn) { e.preventDefault(); dailyBtn.click(); }
+      return;
+    }
+    if (e.key === "r" || e.key === "R") {
+      var rnd = document.getElementById("libraryRandom");
+      if (rnd) { e.preventDefault(); rnd.click(); }
+      return;
     }
   });
 
