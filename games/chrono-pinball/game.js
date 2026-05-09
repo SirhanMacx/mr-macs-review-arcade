@@ -574,6 +574,9 @@
       window.MrMacsProfile.recordPlay({ id: "chrono-pinball", title: "Chrono Pinball", course: "All Courses", file: "games/chrono-pinball/index.html" });
       audio.modeStart();
     }
+    // Phase 4 — start cabinet music (brass + chrome major-key anthem). Will
+    // no-op if user has muted sound in their profile drawer.
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("pinball-cabinet"); } catch (e) {}
     // Phase 3 — first-launch tour (no-op if already seen)
     if (window.MrMacsArcadeTour) {
       setTimeout(() => MrMacsArcadeTour.start("chrono-pinball", TOUR_STEPS), 600);
@@ -1293,6 +1296,8 @@
     if (state.mode === "ended") return;
     state.mode = "ended"; state.running = false;
     els.endScreen.classList.add("show");
+    // Phase 4 — fade out cabinet music
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (e) {}
     const accuracy = state.answered ? Math.round((state.correct / state.answered) * 100) : 0;
     // Persistence
     const prevBest = Number(localStorage.getItem(`${STORAGE_KEY}:highScore`) || 0);
