@@ -1,0 +1,132 @@
+/* Mr. Mac's Arcade — Shared Accessibility Layer
+ *
+ * Drop into any game with a single <link rel="stylesheet">.
+ * Body classes are set by arcade-profile.js + arcade-perf.js.
+ *
+ *   .font-dyslexic         -> OpenDyslexic everywhere
+ *   .contrast-high         -> brighter borders, stronger text
+ *   .cb-deuteranope/.cb-protanope/.cb-tritanope -> color filter on canvas/imagery
+ *   .arcade-lite           -> gate heavy effects via this class
+ *   .arcade-reduced-motion -> kill animations
+ *
+ * All flagship games include this so accessibility is consistent across the arcade.
+ */
+
+/* Dyslexia-friendly font (loaded only if user opts in) */
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap");
+
+body.font-dyslexic,
+body.font-dyslexic *:not(canvas):not(svg):not(svg *) {
+  font-family: "Lexend", "Inter", system-ui, sans-serif !important;
+  letter-spacing: 0.02em;
+}
+
+/* High contrast — boost border + text contrast across all UI surfaces */
+body.contrast-high {
+  --line: rgba(255,255,255,.22) !important;
+  --line-2: rgba(255,255,255,.40) !important;
+  --line-3: rgba(255,255,255,.55) !important;
+  --muted: #cbd1e0 !important;
+}
+body.contrast-high * {
+  border-color: rgba(255,255,255,0.32) !important;
+}
+body.contrast-high :focus-visible {
+  outline: 3px solid #ffd884 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 6px rgba(255, 216, 132, 0.3) !important;
+}
+
+/* Colorblind-safe palette filters — applied to canvases and key UI */
+body.cb-deuteranope canvas,
+body.cb-deuteranope img,
+body.cb-deuteranope .cb-target {
+  filter: hue-rotate(-15deg) saturate(0.85) contrast(1.05);
+}
+body.cb-protanope canvas,
+body.cb-protanope img,
+body.cb-protanope .cb-target {
+  filter: hue-rotate(8deg) saturate(0.82) contrast(1.05);
+}
+body.cb-tritanope canvas,
+body.cb-tritanope img,
+body.cb-tritanope .cb-target {
+  filter: hue-rotate(20deg) saturate(0.80) contrast(1.05);
+}
+
+/* Lite mode — disable particle storms, parallax, costly box-shadow stacks */
+body.arcade-lite *,
+body.arcade-lite ::before,
+body.arcade-lite ::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 100ms !important;
+}
+body.arcade-lite .arcade-heavy-effect,
+body.arcade-lite .arcade-particle,
+body.arcade-lite [data-arcade-heavy] {
+  display: none !important;
+}
+
+/* Reduced motion — wipe transforms + animations */
+body.arcade-reduced-motion *,
+body.arcade-reduced-motion ::before,
+body.arcade-reduced-motion ::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Universal focus ring — always visible on any tabbable element */
+*:focus-visible {
+  outline: 2px solid #7af0ff;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip-to-main-content link, hidden until focused */
+.arcade-skip-link {
+  position: absolute;
+  top: -40px;
+  left: 8px;
+  background: #f5c451;
+  color: #14100a;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font: 700 13px/1 "Inter", sans-serif;
+  z-index: 99999;
+  transition: top 0.2s;
+  text-decoration: none;
+}
+.arcade-skip-link:focus {
+  top: 8px;
+}
+
+/* Tap targets ≥ 44px on touch devices */
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  a {
+    min-height: 44px;
+  }
+}
+
+/* Respect "no-prefers-reduced-motion" for animations that are essential
+   for understanding gameplay (boss telegraph, capture wobble) — those
+   classes opt-in via .arcade-essential-motion */
+@media (prefers-reduced-motion: reduce) {
+  .arcade-essential-motion {
+    animation-play-state: running !important;
+  }
+}
+
+/* Higher contrast for screen-reader-only labels */
+.arcade-sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

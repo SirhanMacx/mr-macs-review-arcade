@@ -4528,6 +4528,385 @@ body {
 }
 .topic-chips .topic-chip[aria-pressed="true"] .topic-chip-count { color: #f5c451; opacity: .8; }
 
+/* ============================================================================
+   PHASE 7 — Smart Content Routing (diagnostic / mastery / wrong-queue / cram)
+   ============================================================================ */
+
+.routing-band {
+  padding: clamp(40px, 6vh, 70px) 0 clamp(28px, 4vh, 48px);
+}
+.routing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: clamp(20px, 3vh, 32px);
+}
+@media (max-width: 1100px) { .routing-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .routing-grid { grid-template-columns: 1fr; } }
+.routing-card {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 22px;
+  text-align: left;
+  background:
+    radial-gradient(140% 100% at 100% 0%, rgba(122, 240, 255, .14), transparent 55%),
+    linear-gradient(180deg, rgba(13, 17, 27, .82), rgba(8, 11, 20, .94));
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 16px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+  color: var(--paper);
+  min-height: 130px;
+}
+.routing-card:hover, .routing-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(245, 196, 81, .45);
+  box-shadow: 0 18px 40px rgba(0,0,0,.45), 0 0 24px rgba(245, 196, 81, .12);
+  outline: none;
+}
+.routing-card .rc-icon {
+  display: grid; place-items: center;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(122, 240, 255, .14);
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+.routing-card .rc-title {
+  font-family: "Fraunces", serif;
+  font-weight: 360; font-style: italic;
+  font-size: 19px;
+  line-height: 1.1;
+  color: var(--paper);
+  letter-spacing: -.012em;
+}
+.routing-card .rc-sub {
+  font-family: "Inter", sans-serif;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--muted, #9aa3bb);
+  letter-spacing: .005em;
+}
+
+/* Routing modal — reused across all 4 tools */
+.routing-modal {
+  position: fixed; inset: 0; z-index: 8500;
+}
+.routing-modal[hidden] { display: none; }
+.routing-modal .rm-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(6, 8, 15, .68);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  animation: rm-fade .25s ease-out;
+}
+@keyframes rm-fade { from { opacity: 0; } to { opacity: 1; } }
+.routing-modal .rm-panel {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(640px, 92vw);
+  max-height: 86vh;
+  display: flex; flex-direction: column;
+  background: linear-gradient(180deg, rgba(13, 17, 27, .98), rgba(6, 8, 15, .98));
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 18px;
+  box-shadow: 0 40px 100px rgba(0,0,0,.6);
+  overflow: hidden;
+  animation: rm-pop .35s cubic-bezier(.16, 1, .3, 1);
+}
+@keyframes rm-pop {
+  from { transform: translate(-50%, -48%) scale(0.96); opacity: 0; }
+  to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+.rm-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line, rgba(255,255,255,.08));
+}
+.rm-title {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-weight: 540; font-style: italic;
+  font-size: 22px;
+  color: var(--paper);
+}
+.rm-close {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  color: var(--paper);
+  cursor: pointer;
+  font-size: 14px;
+}
+.rm-close:hover { background: rgba(255,255,255,.10); }
+.rm-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 24px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Diagnostic */
+.diag-stem {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--paper);
+  margin: 0 0 16px;
+}
+.diag-meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  margin-bottom: 10px;
+}
+.diag-choices {
+  display: grid;
+  gap: 8px;
+}
+.diag-choice {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  background: rgba(13, 17, 27, .65);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 10px;
+  color: var(--paper);
+  font: 600 14px/1.4 "Inter", sans-serif;
+  cursor: pointer;
+  transition: transform .18s, border-color .18s;
+}
+.diag-choice:hover {
+  transform: translateY(-1px);
+  border-color: rgba(245, 196, 81, .55);
+}
+.diag-choice.is-correct {
+  border-color: rgba(105, 240, 170, .65);
+  background: rgba(105, 240, 170, .12);
+}
+.diag-choice.is-wrong {
+  border-color: rgba(255, 102, 125, .65);
+  background: rgba(255, 102, 125, .12);
+}
+.diag-progress {
+  height: 4px;
+  background: rgba(255,255,255,.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.diag-progress-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #7af0ff, #f5c451);
+  transition: width .35s ease-out;
+}
+.diag-summary h4 {
+  margin: 16px 0 8px;
+  font-family: "Fraunces", serif;
+  font-weight: 540; font-style: italic;
+  font-size: 18px;
+  color: var(--paper);
+}
+.diag-summary .diag-rec {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  background: rgba(245, 196, 81, .10);
+  border: 1px solid rgba(245, 196, 81, .35);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+.diag-summary .diag-rec:hover { background: rgba(245, 196, 81, .18); }
+.diag-summary .diag-rec strong {
+  font-family: "Fraunces", serif;
+  font-weight: 540; font-style: italic;
+  font-size: 15px;
+  color: var(--paper);
+}
+.diag-summary .diag-rec span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted, #9aa3bb);
+  font-size: 12px;
+}
+
+/* Mastery dashboard */
+.mastery-list {
+  display: grid; gap: 10px;
+}
+.mastery-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(13, 17, 27, .55);
+  border: 1px solid var(--line, rgba(255,255,255,.08));
+  border-radius: 10px;
+}
+.mastery-row .mr-name {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--paper);
+}
+.mastery-row .mr-pct {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted, #9aa3bb);
+}
+.mastery-bar {
+  grid-column: 1 / -1;
+  height: 5px;
+  background: rgba(255,255,255,.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.mastery-bar-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #ff667d, #f5c451 50%, #69f0aa);
+  transition: width .4s ease-out;
+}
+.mastery-empty {
+  padding: 20px;
+  text-align: center;
+  color: var(--muted, #9aa3bb);
+  font-style: italic;
+}
+
+/* Wrong-answer queue */
+.wq-item {
+  padding: 14px 16px;
+  background: rgba(13, 17, 27, .65);
+  border: 1px solid var(--line, rgba(255,255,255,.08));
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+.wq-item .wq-prompt {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--paper);
+  margin: 0 0 8px;
+}
+.wq-item .wq-answer {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(105, 240, 170, .12);
+  border: 1px solid rgba(105, 240, 170, .35);
+  border-radius: 6px;
+  font: 600 12px/1 "JetBrains Mono", monospace;
+  color: #69f0aa;
+}
+.wq-item .wq-meta {
+  margin-top: 8px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+}
+.wq-empty {
+  padding: 30px 20px;
+  text-align: center;
+  color: var(--muted, #9aa3bb);
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 16px;
+}
+.wq-actions {
+  display: flex; gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.wq-actions button {
+  padding: 9px 14px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 8px;
+  color: var(--paper);
+  font: 700 12px/1 "Inter", sans-serif;
+  letter-spacing: .04em;
+  cursor: pointer;
+}
+.wq-actions button:hover { background: rgba(255,255,255,.10); }
+
+/* Cram mode */
+.cram-form {
+  display: grid; gap: 12px;
+  margin-bottom: 16px;
+}
+.cram-form label {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  margin-bottom: 6px;
+}
+.cram-form select {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background: rgba(13, 17, 27, .72);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 10px;
+  color: var(--paper);
+  font: 600 14px/1 "Inter", sans-serif;
+}
+.cram-playlist {
+  margin-top: 12px;
+}
+.cram-step {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(13, 17, 27, .55);
+  border: 1px solid var(--line, rgba(255,255,255,.08));
+  border-radius: 10px;
+  margin-bottom: 6px;
+  text-decoration: none;
+  color: var(--paper);
+  cursor: pointer;
+}
+.cram-step:hover { border-color: rgba(245, 196, 81, .45); background: rgba(245, 196, 81, .06); }
+.cram-step .cs-num {
+  display: grid; place-items: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(122, 240, 255, .14);
+  color: var(--cyan, #7af0ff);
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 12px;
+}
+.cram-step .cs-title {
+  font-family: "Fraunces", serif;
+  font-weight: 540; font-style: italic;
+  font-size: 14px;
+  line-height: 1.2;
+}
+.cram-step .cs-meta {
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11.5px;
+  color: var(--muted, #9aa3bb);
+  margin-top: 3px;
+}
+.cram-step .cs-arrow {
+  font-size: 14px;
+  color: var(--paper);
+}
+
 /* Honor settings.fontFamily / settings.contrast / settings.colorblind on body */
 body.font-dyslexic { font-family: "OpenDyslexic", "Inter", system-ui, sans-serif; }
 body.contrast-high {
@@ -4774,6 +5153,51 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     </div>
   </section>
 
+  <!-- Phase 7: Smart Content Routing -->
+  <section class="band routing-band" id="routing" aria-label="Smart study tools">
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Smart Study Tools</div>
+        <h2 class="band-title">Find your <em>weak spots</em>, drill the right reps.</h2>
+        <p class="band-sub">Diagnostic finds gaps, mastery dashboard shows progress, wrong-answer queue serves up what you've missed, cram playlists chain games for any unit.</p>
+      </div>
+    </div>
+    <div class="routing-grid">
+      <button class="routing-card" id="rcDiagnostic" type="button">
+        <span class="rc-icon" aria-hidden="true">🩺</span>
+        <span class="rc-title">Diagnostic</span>
+        <span class="rc-sub" id="rcDiagSub">8 questions, ~2 minutes</span>
+      </button>
+      <button class="routing-card" id="rcMastery" type="button">
+        <span class="rc-icon" aria-hidden="true">📊</span>
+        <span class="rc-title">Mastery Map</span>
+        <span class="rc-sub" id="rcMasterySub">Track every unit</span>
+      </button>
+      <button class="routing-card" id="rcWrongQueue" type="button">
+        <span class="rc-icon" aria-hidden="true">🎯</span>
+        <span class="rc-title">Wrong-Answer Queue</span>
+        <span class="rc-sub" id="rcWrongSub">0 in queue</span>
+      </button>
+      <button class="routing-card" id="rcCram" type="button">
+        <span class="rc-icon" aria-hidden="true">📚</span>
+        <span class="rc-title">Cram Playlist</span>
+        <span class="rc-sub" id="rcCramSub">Chain 4 games on a unit</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Phase 7: Routing modal — single overlay reused for diagnostic / mastery / wrong-queue / cram -->
+  <div class="routing-modal" id="routingModal" role="dialog" aria-modal="true" aria-label="Smart study tools" hidden>
+    <div class="rm-backdrop" id="rmBackdrop"></div>
+    <div class="rm-panel">
+      <div class="rm-head">
+        <h3 class="rm-title" id="rmTitle">Smart Study</h3>
+        <button class="rm-close" id="rmClose" type="button" aria-label="Close">✕</button>
+      </div>
+      <div class="rm-body" id="rmBody"></div>
+    </div>
+  </div>
+
   <!-- Phase 2: Continue Where You Left Off rail -->
   <section class="band continue-band" id="continue" aria-label="Continue where you left off" hidden>
     <div class="band-head reveal">
@@ -5008,6 +5432,8 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 
 <script src="assets/arcade-analytics.js?v=20260504-counter-refresh-quiet"></script>
 <script src="assets/arcade-profile.js?v=20260507-phase1"></script>
+<script src="assets/arcade-perf.js?v=20260507-phase5"></script>
+<script src="assets/arcade-tour.js?v=20260507-phase3"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
@@ -6871,6 +7297,337 @@ boot();
     if (window.MrMacsProfile) {
       window.MrMacsProfile.on("profile:update", renderContinue);
     }
+  });
+})();
+
+// ============================================================================
+// PHASE 7 — Smart Content Routing
+// Diagnostic mini-quiz, Mastery dashboard, Wrong-Answer queue, Cram playlist.
+// All driven from MrMacsProfile + GAMES (no server, no telemetry).
+// ============================================================================
+(function () {
+  if (!window.MrMacsProfile) return;
+  var P = window.MrMacsProfile;
+
+  function whenGamesReady() {
+    return new Promise(function (resolve) {
+      var attempts = 0;
+      var tick = setInterval(function () {
+        if (typeof GAMES !== "undefined" && GAMES && GAMES.length) { clearInterval(tick); resolve(); }
+        else if (++attempts > 120) { clearInterval(tick); resolve(); }
+      }, 100);
+    });
+  }
+  function safeHTML(s) {
+    return String(s || "").replace(/[<>&"]/g, function (c) {
+      return c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;";
+    });
+  }
+
+  var modal = document.getElementById("routingModal");
+  var rmTitle = document.getElementById("rmTitle");
+  var rmBody = document.getElementById("rmBody");
+  var rmClose = document.getElementById("rmClose");
+  var rmBackdrop = document.getElementById("rmBackdrop");
+
+  function openModal(title, html) {
+    if (!modal || !rmBody) return;
+    rmTitle.textContent = title;
+    rmBody.innerHTML = html;
+    modal.hidden = false;
+    rmBody.scrollTop = 0;
+  }
+  function closeModal() { if (modal) modal.hidden = true; }
+  if (rmClose) rmClose.addEventListener("click", closeModal);
+  if (rmBackdrop) rmBackdrop.addEventListener("click", closeModal);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal && !modal.hidden) closeModal();
+  });
+
+  // ---- Diagnostic mini-quiz (8 questions, 2 minutes) ----
+  // Picks 1 question from each of 8 different courses; tracks correct/wrong;
+  // emits topic stats so the result reflects in the mastery dashboard.
+  var DIAG_BANK = [
+    { course: "Grade 10 Global History II", set: "Industrial Revolution", prompt: "What new energy source powered the Industrial Revolution after 1850?", choices: ["Wind", "Steam from coal", "Solar", "Atomic"], correct: 1 },
+    { course: "Grade 11 U.S. History", set: "Civil Rights", prompt: "Which 1964 federal law banned discrimination in public accommodations?", choices: ["Voting Rights Act", "Civil Rights Act", "Fair Housing Act", "13th Amendment"], correct: 1 },
+    { course: "AP Psychology", set: "Cognition", prompt: "Loftus's lost-in-the-mall study challenged the reliability of:", choices: ["Sensation", "Eyewitness memory", "Conditioning", "Sleep stages"], correct: 1 },
+    { course: "AP World History: Modern", set: "Imperialism", prompt: "The 1885 Berlin Conference is best known for:", choices: ["Ending the Crimean War", "Partitioning Africa among European powers", "Founding the League of Nations", "Establishing free trade in Asia"], correct: 1 },
+    { course: "AP United States History", set: "Cold War", prompt: "George Kennan's 'Long Telegram' (1946) advocated:", choices: ["Appeasement", "Containment", "Pre-emptive war", "Disengagement"], correct: 1 },
+    { course: "AP European History", set: "Reformation", prompt: "Luther's 95 Theses (1517) primarily protested:", choices: ["The sale of indulgences", "Papal taxation of monarchs", "Vernacular Bibles", "Monastic vows"], correct: 0 },
+    { course: "AP Macroeconomics", set: "Monetary Policy", prompt: "When the Fed BUYS bonds via open market operations, the federal funds rate:", choices: ["Rises", "Falls", "Stays the same", "Floats"], correct: 1 },
+    { course: "AP U.S. Government and Politics", set: "Required Cases", prompt: "Marbury v. Madison (1803) established:", choices: ["Federalism", "Judicial review", "Executive privilege", "Habeas corpus"], correct: 1 }
+  ];
+
+  function startDiagnostic() {
+    var idx = 0;
+    var results = []; // [{course, set, correct}, ...]
+    function renderQ() {
+      var q = DIAG_BANK[idx];
+      if (!q) return showSummary();
+      var pct = Math.round((idx / DIAG_BANK.length) * 100);
+      var html =
+        '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
+        '<div class="diag-meta">' + safeHTML(q.course) + ' · ' + safeHTML(q.set) + ' · Question ' + (idx + 1) + ' / ' + DIAG_BANK.length + '</div>' +
+        '<p class="diag-stem">' + safeHTML(q.prompt) + '</p>' +
+        '<div class="diag-choices">' +
+          q.choices.map(function (c, i) {
+            return '<button class="diag-choice" data-i="' + i + '" type="button">' + safeHTML(c) + '</button>';
+          }).join("") +
+        '</div>';
+      openModal("Diagnostic — find your weak spots", html);
+      Array.prototype.forEach.call(rmBody.querySelectorAll(".diag-choice"), function (btn) {
+        btn.addEventListener("click", function () {
+          var pickIdx = Number(btn.dataset.i);
+          var correct = pickIdx === q.correct;
+          results.push({ course: q.course, set: q.set, correct: correct });
+          P.recordAnswer({ course: q.course, set: q.set, correct: correct, prompt: q.prompt, answer: q.choices[q.correct], gameId: "diagnostic" });
+          // Visual feedback
+          rmBody.querySelectorAll(".diag-choice").forEach(function (b) {
+            var bi = Number(b.dataset.i);
+            if (bi === q.correct) b.classList.add("is-correct");
+            else if (bi === pickIdx && !correct) b.classList.add("is-wrong");
+            b.disabled = true;
+          });
+          setTimeout(function () { idx++; renderQ(); }, 720);
+        });
+      });
+    }
+    function showSummary() {
+      var weakUnits = results.filter(function (r) { return !r.correct; });
+      var strongUnits = results.filter(function (r) { return r.correct; });
+      var weakCourses = {};
+      weakUnits.forEach(function (r) { weakCourses[r.course] = (weakCourses[r.course] || 0) + 1; });
+
+      var recHTML = "";
+      var recommendations = [];
+      Object.keys(weakCourses).slice(0, 3).forEach(function (course) {
+        var match = (typeof GAMES !== "undefined" ? GAMES : []).filter(function (g) {
+          return g.course === course;
+        });
+        var pick = match[Math.floor(Math.random() * match.length)];
+        if (pick) recommendations.push({ course: course, game: pick });
+      });
+      if (recommendations.length) {
+        recHTML += '<h4>Recommended drills</h4>';
+        recommendations.forEach(function (r) {
+          recHTML += '<button class="diag-rec" data-id="' + safeHTML(r.game.id) + '" type="button">' +
+            '<span style="font-size:24px;">📍</span>' +
+            '<span><strong>' + safeHTML(r.game.title) + '</strong>' +
+            '<span>' + safeHTML(r.course) + '</span></span></button>';
+        });
+      } else {
+        recHTML += '<p style="color: var(--muted); font-style: italic; text-align: center; padding: 20px 0;">' +
+          'You aced the diagnostic — try Boss Rush or Cram Mode for new challenges.</p>';
+      }
+
+      var summaryHTML =
+        '<div class="diag-summary">' +
+          '<h4>Your score: ' + strongUnits.length + ' / ' + results.length + '</h4>' +
+          '<p style="color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 12px;">' +
+            (weakUnits.length === 0 ? 'Perfect run.' :
+             weakUnits.length <= 2 ? 'Strong baseline. Drill the misses to lock it in.' :
+             'Plenty of room to grow. Start with the recommendations below.') +
+          '</p>' +
+          recHTML +
+        '</div>';
+      openModal("Diagnostic results", summaryHTML);
+      P.setDiagnostic({ results: results, weakCourses: Object.keys(weakCourses), recommendations: recommendations.map(function (r) { return r.game.id; }) });
+      Array.prototype.forEach.call(rmBody.querySelectorAll(".diag-rec"), function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.dataset.id;
+          var match = (typeof GAMES !== "undefined" ? GAMES : []).find(function (g) { return g.id === id; });
+          if (match && typeof openGame === "function") { closeModal(); openGame(match); }
+        });
+      });
+    }
+    renderQ();
+  }
+
+  // ---- Mastery dashboard ----
+  function showMastery() {
+    var stats = P.getTopicStats();
+    var rows = [];
+    Object.keys(stats).forEach(function (course) {
+      Object.keys(stats[course]).forEach(function (set) {
+        var bucket = stats[course][set];
+        if (!bucket.total) return;
+        rows.push({
+          course: course,
+          set: set,
+          correct: bucket.correct || 0,
+          total: bucket.total,
+          pct: Math.round((bucket.correct / bucket.total) * 100)
+        });
+      });
+    });
+    rows.sort(function (a, b) { return a.pct - b.pct; }); // weak first
+    var html;
+    if (!rows.length) {
+      html = '<div class="mastery-empty">Play a game (Jeopardy, Boss Rush, the diagnostic, etc.) and your topic mastery will appear here.</div>';
+    } else {
+      html = '<div class="mastery-list">' + rows.map(function (r) {
+        return '<div class="mastery-row">' +
+          '<div class="mr-name">' + safeHTML(r.course) + ' / ' + safeHTML(r.set) + '</div>' +
+          '<div class="mr-pct">' + r.correct + '/' + r.total + ' · ' + r.pct + '%</div>' +
+          '<div class="mastery-bar"><span class="mastery-bar-fill" style="width:' + r.pct + '%"></span></div>' +
+        '</div>';
+      }).join("") + '</div>';
+    }
+    openModal("Mastery Map", html);
+  }
+
+  // ---- Wrong-answer queue ----
+  function showWrongQueue() {
+    var queue = P.getWrongQueue(40);
+    var html;
+    if (!queue.length) {
+      html = '<div class="wq-empty">No misses queued. Get something wrong in Jeopardy or Boss Rush and it lands here.</div>';
+    } else {
+      html = queue.map(function (w) {
+        var when = "";
+        if (w.ts) {
+          var diff = Date.now() - w.ts;
+          var min = Math.floor(diff / 60000);
+          var hour = Math.floor(min / 60);
+          var day = Math.floor(hour / 24);
+          if (day > 0) when = day + "d ago";
+          else if (hour > 0) when = hour + "h ago";
+          else when = (min || 0) + "m ago";
+        }
+        return '<div class="wq-item">' +
+          '<p class="wq-prompt">' + safeHTML(w.prompt) + '</p>' +
+          '<span class="wq-answer">' + safeHTML(w.answer) + '</span>' +
+          '<div class="wq-meta">' + safeHTML(w.course) + ' · ' + safeHTML(w.set) + ' · ' + when + '</div>' +
+        '</div>';
+      }).join("") +
+      '<div class="wq-actions"><button id="wqClear" type="button">Clear queue</button></div>';
+    }
+    openModal("Wrong-Answer Queue", html);
+    var clearBtn = document.getElementById("wqClear");
+    if (clearBtn) clearBtn.addEventListener("click", function () {
+      if (confirm("Clear all queued wrong answers?")) {
+        P.clearWrongQueue();
+        showWrongQueue();
+        updateRoutingSubs();
+      }
+    });
+  }
+
+  // ---- Cram Mode playlist generator ----
+  function showCramForm() {
+    var courses = [...new Set(((typeof GAMES !== "undefined") ? GAMES : []).map(function (g) { return g.course; }).filter(Boolean))].sort();
+    var html =
+      '<div class="cram-form">' +
+        '<label>Course' +
+          '<select id="cramCourse">' +
+            '<option value="">— pick a course —</option>' +
+            courses.map(function (c) { return '<option value="' + safeHTML(c) + '">' + safeHTML(c) + '</option>'; }).join("") +
+          '</select>' +
+        '</label>' +
+        '<button class="welcome-cta" id="cramBuild" type="button" disabled style="margin-top:6px;">' +
+          '<span>Build my cram playlist</span><span class="arrow">→</span>' +
+        '</button>' +
+      '</div>' +
+      '<div class="cram-playlist" id="cramPlaylist"></div>';
+    openModal("Cram Playlist", html);
+    var sel = document.getElementById("cramCourse");
+    var build = document.getElementById("cramBuild");
+    if (sel && build) {
+      sel.addEventListener("change", function () { build.disabled = !sel.value; });
+      build.addEventListener("click", function () { renderCramPlaylist(sel.value); });
+    }
+  }
+  function renderCramPlaylist(course) {
+    var pool = (typeof GAMES !== "undefined" ? GAMES : []).filter(function (g) { return g.course === course; });
+    if (!pool.length) {
+      document.getElementById("cramPlaylist").innerHTML =
+        '<div style="padding:14px;color:var(--muted);text-align:center;">No games for that course yet.</div>';
+      return;
+    }
+    // Try to chain 4 different game-types for variety
+    var byType = {};
+    pool.forEach(function (g) {
+      var t = (g.gameType || "Other").toLowerCase();
+      byType[t] = byType[t] || [];
+      byType[t].push(g);
+    });
+    var types = Object.keys(byType);
+    // Prefer order: sprint → unit jeopardy → boss rush → cumulative/practice
+    var preferOrder = ["sprint", "unit", "jeopardy", "boss", "cumulative", "practice", "gauntlet"];
+    var picks = [];
+    preferOrder.forEach(function (key) {
+      types.forEach(function (t) {
+        if (picks.length >= 4) return;
+        if (t.indexOf(key) >= 0 && byType[t].length) {
+          picks.push(byType[t].shift());
+          delete byType[t];
+        }
+      });
+    });
+    while (picks.length < 4 && pool.length) {
+      var any = pool.find(function (g) { return picks.indexOf(g) === -1; });
+      if (!any) break;
+      picks.push(any);
+    }
+    var listEl = document.getElementById("cramPlaylist");
+    listEl.innerHTML = picks.map(function (g, i) {
+      return '<a class="cram-step" data-id="' + safeHTML(g.id) + '" role="button" tabindex="0">' +
+        '<span class="cs-num">' + (i + 1) + '</span>' +
+        '<span class="cs-title">' + safeHTML(g.title) +
+          '<span class="cs-meta">' + safeHTML(g.gameType || "") + (g.day ? ' · ' + safeHTML(g.day) : '') + '</span>' +
+        '</span>' +
+        '<span class="cs-arrow">→</span>' +
+      '</a>';
+    }).join("");
+    Array.prototype.forEach.call(listEl.querySelectorAll(".cram-step"), function (step) {
+      step.addEventListener("click", function () {
+        var id = step.dataset.id;
+        var match = (typeof GAMES !== "undefined" ? GAMES : []).find(function (g) { return g.id === id; });
+        if (match && typeof openGame === "function") { closeModal(); openGame(match); }
+      });
+    });
+    P.recordCramRun({ course: course, picks: picks.map(function (g) { return g.id; }) });
+  }
+
+  // ---- Wire the routing card buttons ----
+  function updateRoutingSubs() {
+    var queue = P.getWrongQueue(80);
+    var subQ = document.getElementById("rcWrongSub");
+    if (subQ) subQ.textContent = queue.length + " in queue";
+    var d = P.getDiagnostic();
+    var subD = document.getElementById("rcDiagSub");
+    if (subD) {
+      if (d && d.takenAt) {
+        var days = Math.floor((Date.now() - d.takenAt) / 86400000);
+        subD.textContent = days === 0 ? "Taken today · re-take" : "Taken " + days + "d ago · re-take";
+      } else {
+        subD.textContent = "8 questions, ~2 minutes";
+      }
+    }
+    var stats = P.getTopicStats();
+    var topicCount = 0;
+    Object.keys(stats).forEach(function (c) { topicCount += Object.keys(stats[c] || {}).length; });
+    var subM = document.getElementById("rcMasterySub");
+    if (subM) subM.textContent = topicCount ? topicCount + " topics tracked" : "Track every unit";
+    var subC = document.getElementById("rcCramSub");
+    if (subC) {
+      var hist = P.getCramHistory();
+      subC.textContent = hist.length ? hist.length + " runs · build another" : "Chain 4 games on a unit";
+    }
+  }
+  updateRoutingSubs();
+  P.on("profile:update", updateRoutingSubs);
+  P.on("answer:record", updateRoutingSubs);
+
+  whenGamesReady().then(function () {
+    var diagBtn = document.getElementById("rcDiagnostic");
+    var masteryBtn = document.getElementById("rcMastery");
+    var wqBtn = document.getElementById("rcWrongQueue");
+    var cramBtn = document.getElementById("rcCram");
+    if (diagBtn) diagBtn.addEventListener("click", startDiagnostic);
+    if (masteryBtn) masteryBtn.addEventListener("click", showMastery);
+    if (wqBtn) wqBtn.addEventListener("click", showWrongQueue);
+    if (cramBtn) cramBtn.addEventListener("click", showCramForm);
   });
 })();
 </script>

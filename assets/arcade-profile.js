@@ -165,12 +165,20 @@
 
   function defaultProfile() {
     return {
-      version: 1,
+      version: 2,
       name: "",
       avatar: "🎓",
       avatarKind: "emoji",
       createdAt: 0,
       lastVisit: 0,
+      // Phase 7 — content routing
+      topicStats: {},      // course -> set -> { correct, total, lastSeen }
+      wrongAnswers: [],    // ring buffer of {prompt, answer, course, set, gameId, ts}
+      // Phase 3 — tour bookkeeping
+      tourSeen: {},        // gameId -> timestamp
+      // Phase 7 — completed cram playlists / diagnostic results
+      cramHistory: [],     // [{ course, completedAt, results: {...} }]
+      diagnostic: null,    // { takenAt, results: {course: weakUnits[]}, recommendation }
       shards: 0,
       totalShardsEarned: 0,
       achievements: {},
@@ -431,6 +439,91 @@
     },
 
     getStreak: function () { return clone(read().streak); },
+
+    // ---- Phase 7: topic stats + wrong-answer queue ----
+    // Call once per Q answered. correct = boolean. course/set are course folder + unit/topic name.
+    recordAnswer: function (meta) {
+      meta = meta || {};
+      var course = String(meta.course || "Unknown");
+      var set = String(meta.set || meta.unit || "General");
+      var p = read();
+      p.topicStats = p.topicStats || {};
+      p.topicStats[course] = p.topicStats[course] || {};
+      var bucket = p.topicStats[course][set] = p.topicStats[course][set] || { correct: 0, total: 0, lastSeen: 0 };
+      bucket.total = (bucket.total || 0) + 1;
+      if (meta.correct) bucket.correct = (bucket.correct || 0) + 1;
+      bucket.lastSeen = Date.now();
+      // Wrong-answer ring buffer (cap 80)
+      if (!meta.correct) {
+        p.wrongAnswers = p.wrongAnswers || [];
+        p.wrongAnswers.unshift({
+          prompt: String(meta.prompt || "").slice(0, 220),
+          answer: String(meta.answer || "").slice(0, 80),
+          course: course, set: set,
+          gameId: String(meta.gameId || ""),
+          ts: Date.now()
+        });
+        if (p.wrongAnswers.length > 80) p.wrongAnswers.length = 80;
+      }
+      write(p);
+      // Don't emit profile:update on every answer (too chatty); emit a cheaper event
+      emit("answer:record", { course: course, set: set, correct: !!meta.correct });
+      return { correct: bucket.correct, total: bucket.total };
+    },
+    getTopicStats: function (course) {
+      var p = read();
+      var ts = p.topicStats || {};
+      return course ? clone(ts[course] || {}) : clone(ts);
+    },
+    getWrongQueue: function (limit) {
+      var p = read();
+      var n = Number(limit) || 10;
+      return (p.wrongAnswers || []).slice(0, n);
+    },
+    clearWrongQueue: function () {
+      var p = read();
+      p.wrongAnswers = [];
+      write(p);
+      emit("profile:update", { profile: clone(p) });
+    },
+
+    // ---- Phase 3: first-run tour ----
+    hasSeenTour: function (gameId) {
+      var p = read();
+      return !!(p.tourSeen && p.tourSeen[gameId]);
+    },
+    markTourSeen: function (gameId) {
+      var p = read();
+      p.tourSeen = p.tourSeen || {};
+      p.tourSeen[gameId] = Date.now();
+      write(p);
+      return true;
+    },
+    resetTour: function (gameId) {
+      var p = read();
+      p.tourSeen = p.tourSeen || {};
+      if (gameId) delete p.tourSeen[gameId];
+      else p.tourSeen = {};
+      write(p);
+    },
+
+    // ---- Phase 7: cram history + diagnostic ----
+    recordCramRun: function (entry) {
+      var p = read();
+      p.cramHistory = p.cramHistory || [];
+      p.cramHistory.unshift(Object.assign({ completedAt: Date.now() }, entry || {}));
+      if (p.cramHistory.length > 24) p.cramHistory.length = 24;
+      write(p);
+      emit("profile:update", { profile: clone(p) });
+    },
+    getCramHistory: function () { return clone(read().cramHistory || []); },
+    setDiagnostic: function (results) {
+      var p = read();
+      p.diagnostic = Object.assign({ takenAt: Date.now() }, results || {});
+      write(p);
+      emit("profile:update", { profile: clone(p) });
+    },
+    getDiagnostic: function () { return clone(read().diagnostic || null); },
 
     // ---- Settings ----
     getSettings: function () { return clone(read().settings || DEFAULT_SETTINGS); },
