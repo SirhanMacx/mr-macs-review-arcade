@@ -4341,6 +4341,36 @@ body {
   width: 28px; height: 28px;
   color: var(--gold-2, #ffd884);
 }
+.pd-ach .ach-progress {
+  margin-top: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+.pd-ach .ach-progress-bar {
+  flex: 1; min-width: 60px;
+  height: 4px;
+  background: rgba(255,255,255,.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.pd-ach .ach-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan, #7af0ff), var(--gold, #f5c451));
+  border-radius: 999px;
+  transition: width .8s cubic-bezier(.18, .89, .32, 1.18);
+}
+.pd-ach .ach-progress-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.pd-ach.is-locked .ach-progress-fill {
+  background: linear-gradient(90deg, rgba(122, 240, 255, .55), rgba(245, 196, 81, .55));
+}
+@media (prefers-reduced-motion: reduce) {
+  .pd-ach .ach-progress-fill { transition: none; }
+}
 .pd-ach[data-tier="silver"] .ach-icon    { color: #d6dcef; }
 .pd-ach[data-tier="gold"] .ach-icon      { color: #ffd884; }
 .pd-ach[data-tier="legendary"] .ach-icon { color: #ff7cc8; }
@@ -5100,6 +5130,27 @@ body {
   cursor: pointer;
 }
 .wq-actions button:hover { background: rgba(255,255,255,.10); }
+.wq-section-head {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  padding: 14px 0 6px;
+  border-top: 1px dashed var(--line, rgba(255,255,255,.08));
+  margin-top: 4px;
+}
+.wq-section-head:first-child {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+.wq-section-head.wq-section-enrolled {
+  color: #f5c451;
+  border-top-color: rgba(245, 196, 81, .25);
+}
+.wq-item.wq-item-enrolled {
+  border-color: rgba(245, 196, 81, .35);
+  background: linear-gradient(180deg, rgba(245, 196, 81, .04), rgba(13, 17, 27, .82));
+}
 
 /* Cram mode */
 .cram-form {
@@ -6577,7 +6628,22 @@ function renderFeatured() {
   document.querySelectorAll(".mode-button").forEach((button) => {
     button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
   });
-  document.getElementById("launchFeatured").onclick = () => games[0] && openGame(games[0]);
+  document.getElementById("launchFeatured").onclick = () => {
+    // If the student has an enrolled course and that course has games
+    // available, prefer the highest-priority featured game from that
+    // course. Falls back to the global #1 featured pick when there's
+    // no course set or no course-specific featured games.
+    const enrolled = (window.MrMacsProfile && window.MrMacsProfile.getCourse)
+      ? window.MrMacsProfile.getCourse() : "";
+    if (enrolled) {
+      const courseFeatured = games.find((g) => g.course === enrolled);
+      if (courseFeatured) {
+        openGame(courseFeatured);
+        return;
+      }
+    }
+    if (games[0]) openGame(games[0]);
+  };
 }
 
 function buttonCard(game, fallback, className) {
@@ -7418,11 +7484,29 @@ async function boot() {
     window.addEventListener("focus", () => { renderProgressReport(); renderSmartMenu(); });
     // When the user changes their enrolled course, re-default the
     // library + jeopardy filters and re-render the daily challenge.
+    // Also reset subject + lane to defaults so the student doesn't land
+    // on an empty filter combination (subject from the old course
+    // doesn't apply to the new one).
     window.MrMacsProfile?.on("course:change", function (e) {
       var newCourse = (e && e.detail && e.detail.course) || "";
       // Update visible select inputs
       var cf = document.getElementById("courseFilter");
+      var sf = document.getElementById("subjectFilter");
       var jc = document.getElementById("jeopardyCourseSelect");
+      var jsubj = document.getElementById("jeopardySubjectSelect");
+      // Always reset subject + lane to broadest defaults — the new
+      // course's subject taxonomy is different.
+      state.subject = "All Subjects";
+      state.lane = "all";
+      if (sf) sf.value = "All Subjects";
+      // Reset lane tabs visual state to "all"
+      document.querySelectorAll("#laneTabs .lane-tab").forEach(function (b) {
+        b.classList.toggle("active", b.dataset.lane === "all");
+      });
+      if (typeof jeopardyState !== "undefined") {
+        jeopardyState.subject = (typeof JEOPARDY_ALL_SUBJECTS !== "undefined") ? JEOPARDY_ALL_SUBJECTS : "All Subjects";
+        if (jsubj) jsubj.value = jeopardyState.subject;
+      }
       if (newCourse) {
         var hasGames = (typeof GAMES !== "undefined" ? GAMES : []).some(
           function (g) { return g.course === newCourse; }
@@ -7441,8 +7525,8 @@ async function boot() {
       } else {
         state.course = "All Courses";
         if (cf) cf.value = "All Courses";
-        if (typeof jeopardyState !== "undefined") jeopardyState.course = "All Courses";
-        if (jc) jc.value = "All Courses";
+        if (typeof jeopardyState !== "undefined") jeopardyState.course = (typeof JEOPARDY_ALL_COURSES !== "undefined") ? JEOPARDY_ALL_COURSES : "All Courses";
+        if (jc) jc.value = jeopardyState.course;
       }
       render();
       if (typeof renderJeopardyModes === "function") renderJeopardyModes();
@@ -7905,6 +7989,26 @@ boot();
     return { key: "apprentice", name: "Apprentice", current: s, threshold: 0, next: 100, ratio: 0 };
   }
 
+  // Compute trackable progress for achievements that map to a single
+  // counter on the profile. Returns null for achievements that don't
+  // have a measurable progress signal — those show as plain locked.
+  function computeAchievementProgress(def, profile) {
+    if (!def || !def.id || !profile) return null;
+    var streakNow = (profile.streak && profile.streak.current) || 0;
+    var totalShards = profile.totalShardsEarned || profile.shards || 0;
+    switch (def.id) {
+      case "streak-3":  return { current: Math.min(streakNow, 3), target: 3, unit: "days" };
+      case "streak-7":  return { current: Math.min(streakNow, 7), target: 7, unit: "days" };
+      case "streak-30": return { current: Math.min(streakNow, 30), target: 30, unit: "days" };
+      case "cross-shards-1k":
+        return { current: Math.min(totalShards, 1000), target: 1000, unit: "shards" };
+      case "cross-shards-10k":
+        return { current: Math.min(totalShards, 10000), target: 10000, unit: "shards" };
+      default:
+        return null;
+    }
+  }
+
   function refreshTier(profile) {
     var tier = getTier(profile.shards);
     var el = document.getElementById("pdTier");
@@ -7949,6 +8053,21 @@ boot();
 
     if (pdAchGrid) {
       pdAchGrid.innerHTML = ach.map(function (a) {
+        // Compute partial progress on common tier-stretch achievements
+        // so the locked tile shows e.g. "4 / 7 days" while the user is
+        // working toward streak-7. Only achievements with a clear
+        // measurable counter get a progress bar; the rest just show
+        // their description.
+        var prog = computeAchievementProgress(a.def, profile);
+        var progBar = "";
+        if (!a.unlocked && prog) {
+          var pct = Math.max(0, Math.min(100, (prog.current / prog.target) * 100));
+          progBar =
+            '<div class="ach-progress" aria-label="' + prog.current + ' of ' + prog.target + '">' +
+              '<div class="ach-progress-bar"><div class="ach-progress-fill" style="width:' + pct.toFixed(1) + '%"></div></div>' +
+              '<span class="ach-progress-label">' + prog.current.toLocaleString() + ' / ' + prog.target.toLocaleString() + (prog.unit ? ' ' + prog.unit : '') + '</span>' +
+            '</div>';
+        }
         return '<div class="pd-ach' + (a.unlocked ? '' : ' is-locked') + '" data-tier="' +
           (a.def.tier || 'bronze') + '" role="listitem" title="' +
           (a.unlocked ? 'Unlocked' : 'Locked') + '">' +
@@ -7956,6 +8075,7 @@ boot();
           '<div class="ach-text">' +
             '<div class="ach-title">' + a.def.title + '</div>' +
             '<div class="ach-desc">' + (a.unlocked ? a.def.desc : (a.def.desc || '???')) + '</div>' +
+            progBar +
           '</div>' +
         '</div>';
       }).join("");
@@ -8666,6 +8786,14 @@ boot();
   // Pick an 8-question diagnostic biased toward the player's enrolled
   // course. Excludes recently-asked question IDs (last 24, ~3 sessions)
   // so each diagnostic feels fresh.
+  // Aliases — courses in COURSE_OPTIONS that don't have a direct
+  // bank entry but DO have related course bank entries we can pull from.
+  // Lets a student enrolled in "AP Macro/Micro Combined" still get
+  // course-relevant questions (~5/8) from the macro + micro banks.
+  var COURSE_BANK_ALIASES = {
+    "AP Macro/Micro Combined": ["AP Macroeconomics", "AP Microeconomics"]
+  };
+
   function pickDiagnosticSet(profile) {
     var QUESTIONS_PER_SESSION = 8;
     var enrolled = profile && profile.course;
@@ -8685,14 +8813,32 @@ boot();
       return a;
     }
 
+    // Resolve the course's question pool, honoring aliases.
+    function poolForCourse(courseName) {
+      if (!courseName) return [];
+      if (DIAG_BANK_BY_COURSE[courseName]) {
+        return DIAG_BANK_BY_COURSE[courseName].map(function (q) {
+          return Object.assign({ course: courseName }, q);
+        });
+      }
+      var aliasList = COURSE_BANK_ALIASES[courseName];
+      if (!aliasList) return [];
+      var combined = [];
+      aliasList.forEach(function (aliasCourse) {
+        if (!DIAG_BANK_BY_COURSE[aliasCourse]) return;
+        DIAG_BANK_BY_COURSE[aliasCourse].forEach(function (q) {
+          combined.push(Object.assign({ course: aliasCourse }, q));
+        });
+      });
+      return combined;
+    }
+
     var picks = [];
     var seenIds = {};
 
     // Pull from the enrolled course first (target 5/8)
-    if (enrolled && DIAG_BANK_BY_COURSE[enrolled]) {
-      var courseQs = DIAG_BANK_BY_COURSE[enrolled].map(function (q) {
-        return Object.assign({ course: enrolled }, q);
-      });
+    var courseQs = poolForCourse(enrolled);
+    if (courseQs.length) {
       var courseFresh = shuffle(fresh(courseQs));
       // If the entire course bank has been seen recently, fall back to
       // the full set — better to repeat than to stall.
@@ -8899,12 +9045,25 @@ boot();
 
   // ---- Wrong-answer queue ----
   function showWrongQueue() {
-    var queue = P.getWrongQueue(40);
+    var queue = P.getWrongQueue(60);
+    var enrolled = (P && P.getCourse) ? P.getCourse() : "";
     var html;
     if (!queue.length) {
       html = '<div class="wq-empty">No misses queued. Get something wrong in Jeopardy or Boss Rush and it lands here.</div>';
     } else {
-      html = queue.map(function (w) {
+      // Sort: enrolled-course misses to the top, then by recency.
+      // Within each group, newest first.
+      var sortedQueue = queue.slice().sort(function (a, b) {
+        var aCourse = (enrolled && a.course === enrolled) ? 0 : 1;
+        var bCourse = (enrolled && b.course === enrolled) ? 0 : 1;
+        if (aCourse !== bCourse) return aCourse - bCourse;
+        return (b.ts || 0) - (a.ts || 0);
+      });
+      // Cap visible to 40 items so the modal scrolls comfortably.
+      sortedQueue = sortedQueue.slice(0, 40);
+      var courseHeaderInjected = false;
+      var inOtherSection = false;
+      var rendered = sortedQueue.map(function (w, idx) {
         var when = "";
         if (w.ts) {
           var diff = Date.now() - w.ts;
@@ -8915,13 +9074,25 @@ boot();
           else if (hour > 0) when = hour + "h ago";
           else when = (min || 0) + "m ago";
         }
-        return '<div class="wq-item">' +
-          '<p class="wq-prompt">' + safeHTML(w.prompt) + '</p>' +
-          '<span class="wq-answer">' + safeHTML(w.answer) + '</span>' +
-          '<div class="wq-meta">' + safeHTML(w.course) + ' · ' + safeHTML(w.set) + ' · ' + when + '</div>' +
-        '</div>';
-      }).join("") +
-      '<div class="wq-actions"><button id="wqClear" type="button">Clear queue</button></div>';
+        var prefix = "";
+        var isInEnrolled = enrolled && w.course === enrolled;
+        // Inject a section header before the first non-enrolled item
+        if (enrolled && !isInEnrolled && !inOtherSection) {
+          inOtherSection = true;
+          prefix = '<div class="wq-section-head">From other courses</div>';
+        }
+        if (enrolled && isInEnrolled && !courseHeaderInjected) {
+          courseHeaderInjected = true;
+          prefix = '<div class="wq-section-head wq-section-enrolled">' + safeHTML(enrolled) + '</div>';
+        }
+        return prefix +
+          '<div class="wq-item' + (isInEnrolled ? ' wq-item-enrolled' : '') + '">' +
+            '<p class="wq-prompt">' + safeHTML(w.prompt) + '</p>' +
+            '<span class="wq-answer">' + safeHTML(w.answer) + '</span>' +
+            '<div class="wq-meta">' + safeHTML(w.course) + ' · ' + safeHTML(w.set) + ' · ' + when + '</div>' +
+          '</div>';
+      }).join("");
+      html = rendered + '<div class="wq-actions"><button id="wqClear" type="button">Clear queue</button></div>';
     }
     openModal("Wrong-Answer Queue", html);
     var clearBtn = document.getElementById("wqClear");
@@ -8937,15 +9108,20 @@ boot();
   // ---- Cram Mode playlist generator ----
   function showCramForm() {
     var courses = [...new Set(((typeof GAMES !== "undefined") ? GAMES : []).map(function (g) { return g.course; }).filter(Boolean))].sort();
+    var enrolled = (P && P.getCourse) ? P.getCourse() : "";
+    var enrolledHasGames = enrolled && courses.indexOf(enrolled) !== -1;
     var html =
       '<div class="cram-form">' +
         '<label>Course' +
           '<select id="cramCourse">' +
             '<option value="">— pick a course —</option>' +
-            courses.map(function (c) { return '<option value="' + safeHTML(c) + '">' + safeHTML(c) + '</option>'; }).join("") +
+            courses.map(function (c) {
+              var sel = (enrolledHasGames && c === enrolled) ? ' selected' : '';
+              return '<option value="' + safeHTML(c) + '"' + sel + '>' + safeHTML(c) + '</option>';
+            }).join("") +
           '</select>' +
         '</label>' +
-        '<button class="welcome-cta" id="cramBuild" type="button" disabled style="margin-top:6px;">' +
+        '<button class="welcome-cta" id="cramBuild" type="button"' + (enrolledHasGames ? '' : ' disabled') + ' style="margin-top:6px;">' +
           '<span>Build my cram playlist</span><span class="arrow">→</span>' +
         '</button>' +
       '</div>' +
@@ -8956,6 +9132,10 @@ boot();
     if (sel && build) {
       sel.addEventListener("change", function () { build.disabled = !sel.value; });
       build.addEventListener("click", function () { renderCramPlaylist(sel.value); });
+      // Auto-build if the enrolled course was pre-selected
+      if (enrolledHasGames) {
+        renderCramPlaylist(enrolled);
+      }
     }
   }
   function renderCramPlaylist(course) {
