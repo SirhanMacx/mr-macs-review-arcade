@@ -4643,8 +4643,16 @@ body {
 /* Next Best Action band — small actionable pill on the hub */
 .nba-band {
   padding: clamp(12px, 1.6vh, 20px) 0 0;
+  animation: nbaSlide .45s cubic-bezier(.16, 1, .3, 1);
 }
 .nba-band[hidden] { display: none; }
+@keyframes nbaSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nba-band { animation: none; }
+}
 .nba-pill {
   width: 100%;
   display: grid;
