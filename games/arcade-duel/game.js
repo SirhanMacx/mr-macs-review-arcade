@@ -1305,10 +1305,12 @@ async function load() {
       }
     }
 
-    $("#loadStatus").textContent = `Loaded ${qs.length} playable MCQs.`;
+    $("#loadStatus").innerHTML =
+      `<span class="load-ok">${ico("check") || "✓"} Loaded ${qs.length.toLocaleString()} playable MCQs.</span>`;
   } catch (err) {
     console.error(err);
-    $("#loadStatus").textContent = "Failed to load bank.";
+    $("#loadStatus").innerHTML =
+      `<span class="load-error">${ico("warning")} Failed to load question bank. Refresh to retry.</span>`;
     $("#startBtn").disabled = true;
   }
 }

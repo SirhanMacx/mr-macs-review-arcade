@@ -307,3 +307,86 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
     flex: 1 1 142px;
   }
 }
+
+/* ── 20260509 polish pass ─────────────────────────────────────────────── */
+/* Typography ladder: Fraunces (display) · Inter (body) · JetBrains Mono (numerals) */
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-feature-settings:"ss01","cv11"}
+.hero h1,.summary-card h1,.panel h2,.work-head h2,.summary-card h2,.question-card h3,.writing-card h3,.doc-card h3,.official-exam-card h3{font-family:"Fraunces","Source Serif Pro",ui-serif,Georgia,serif;font-weight:900;letter-spacing:-.012em;font-optical-sizing:auto}
+.kicker,.brand small,.panel-head span,.work-head span,.tab small,.tag,.pill,.source-line,.guide-step,.exam-trust-strip span,.source-zoom-label,.source-health,.score-badge{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-feature-settings:"tnum" 1,"cv11" 1;letter-spacing:.04em}
+/* Tabular numerals for live counters and the scoreboard */
+.metric strong,.status-tile strong,.score-badge,#overallClock,#sectionClock,#answeredCount,#writingCount,.qdot,.brand strong,.guide-step,.word-row span{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.status-tile strong,#overallClock,#sectionClock,#answeredCount,#writingCount{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;letter-spacing:-.005em}
+.timer-strip .pill{font-family:"JetBrains Mono",ui-monospace,monospace;font-feature-settings:"tnum" 1}
+
+/* Inline icon glyph baseline */
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+
+/* Editorial focus ring — visible on keyboard nav */
+:focus{outline:none}
+.btn:focus-visible,.inspect-btn:focus-visible,.choice:focus-visible,.qdot:focus-visible,.tab:focus-visible,select:focus-visible,textarea:focus-visible,.source-tool:focus-visible,.source-expand:focus-visible,.mini-link:focus-visible{outline:none;box-shadow:0 0 0 2px rgba(5,8,18,.96),0 0 0 4px var(--cyan),0 12px 28px rgba(98,233,255,.18)}
+.btn.primary:focus-visible{box-shadow:0 0 0 2px rgba(5,8,18,.96),0 0 0 4px var(--gold),0 16px 34px rgba(255,209,92,.32)}
+
+/* Hover lift — tasteful, only interactive surfaces */
+.btn,.inspect-btn,.tab,.qdot{transition:transform .14s ease,border-color .14s ease,background .14s ease,box-shadow .18s ease}
+.btn:not(.primary):not(.danger):hover{transform:translateY(-1px)}
+.btn.primary:hover{transform:translateY(-1px);box-shadow:0 18px 38px rgba(0,0,0,.4),0 0 30px rgba(255,209,92,.32)}
+.qdot:hover{transform:translateY(-1px);border-color:rgba(98,233,255,.55)}
+.tab:hover{border-color:rgba(98,233,255,.5)}
+.choice{transition:transform .18s cubic-bezier(.22,.61,.36,1),border-color .18s ease,background .18s ease,box-shadow .22s ease}
+.choice:hover{transform:translateY(-1px);border-color:rgba(98,233,255,.55);box-shadow:0 14px 26px rgba(0,0,0,.32),0 0 0 1px rgba(98,233,255,.16) inset}
+
+/* Ambient pulse — PRIMARY CTA only */
+@keyframes mm-cta-pulse-pe{0%,100%{box-shadow:0 12px 28px rgba(0,0,0,.36),0 0 22px rgba(255,209,92,.22)}50%{box-shadow:0 12px 28px rgba(0,0,0,.36),0 0 36px rgba(255,209,92,.42)}}
+.btn.primary:not(:disabled){animation:mm-cta-pulse-pe 3.4s ease-in-out infinite}
+.btn.primary:hover,.btn.primary:focus-visible,.btn.primary[disabled]{animation:none}
+
+/* Editorial timer strip — pill-row that breathes */
+.timer-strip .pill{transition:border-color .25s ease,background .25s ease}
+
+/* Question dot polish — color-shift on answered, soft active */
+.qdot{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:700}
+.qdot.active{box-shadow:0 0 0 1px var(--cyan),0 8px 18px rgba(98,233,255,.16)}
+.qdot.answered.active{box-shadow:0 0 0 1px var(--cyan),0 0 0 3px rgba(90,240,174,.24),0 8px 18px rgba(98,233,255,.18)}
+
+/* Status-tile aware on Verified/Check */
+.status-tile{transition:border-color .25s ease,background .25s ease}
+.doc-audit-tile.good{box-shadow:inset 0 0 0 1px rgba(90,240,174,.32)}
+.doc-audit-tile.warn{box-shadow:inset 0 0 0 1px rgba(255,97,120,.36)}
+
+/* Source-health pill subtle pulse only when warning (one-off, not infinite) */
+@keyframes mm-warn-pulse{0%,100%{opacity:1}50%{opacity:.78}}
+.source-warn .source-health{animation:mm-warn-pulse 2.2s ease-in-out 3}
+
+/* Empty stimulus panel — feels intentional, not lazy */
+.stimulus-panel.empty{display:grid;place-items:center;min-height:240px;padding:28px;border-style:dashed;border-color:rgba(98,233,255,.22);background:linear-gradient(135deg,rgba(98,233,255,.04),rgba(0,0,0,.18));color:var(--soft);font-family:"Fraunces",ui-serif,Georgia,serif;font-style:italic;font-size:15px;line-height:1.5;text-align:center;text-wrap:balance}
+.stimulus-panel.empty:before{content:"";display:block;width:34px;height:34px;margin-bottom:12px;border-radius:50%;border:1px dashed rgba(98,233,255,.32);background:radial-gradient(circle,rgba(98,233,255,.18),transparent 60%)}
+
+/* Loading state for source-health */
+.source-health{transition:border-color .3s ease,background .3s ease,color .3s ease}
+
+/* Document-audit text default state */
+#docAuditText{font-family:"JetBrains Mono",ui-monospace,monospace;font-feature-settings:"tnum" 1}
+
+/* Score badge rendered with a pinch of glow */
+.score-badge{box-shadow:0 8px 18px rgba(255,209,92,.22)}
+
+/* Guide-step ladder — tighter editorial feel */
+.guide-step{transition:border-color .2s ease,background .2s ease,color .2s ease}
+.guide-step.current{box-shadow:0 0 0 1px rgba(255,209,92,.48),0 6px 14px rgba(255,209,92,.16)}
+
+/* Reduced motion */
+@media (prefers-reduced-motion:reduce){
+  .btn.primary:not(:disabled){animation:none}
+  .source-warn .source-health{animation:none}
+  .choice,.btn,.inspect-btn,.tab,.qdot,.timer-strip .pill{transition:none}
+  .qdot.active,.choice:hover,.btn:hover{transform:none}
+}
+
+/* Touch targets ≥44px on coarse pointers */
+@media (pointer:coarse){
+  .btn{min-height:48px}
+  .qdot{min-height:44px;height:auto;padding:6px}
+  .choice{min-height:64px}
+  .source-tool,.source-expand,.source-toolbar a,.inspect-btn,.mini-link{min-height:44px}
+  .tab{min-height:58px}
+}
