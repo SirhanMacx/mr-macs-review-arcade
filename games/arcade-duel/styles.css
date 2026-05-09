@@ -175,7 +175,14 @@ body {
 }
 .btn.mini { padding: 7px 10px; font-size: 11px; border-radius: 8px; }
 .btn.tool { width: 100%; }
-.icon-btn { padding: 9px 11px; font-size: 16px; line-height: 1; border-radius: 12px; }
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 9px 11px; font-size: 16px; line-height: 1; border-radius: 12px;
+  min-width: 38px; min-height: 38px;
+}
+@media (pointer: coarse) {
+  .icon-btn { min-width: 44px; min-height: 44px; padding: 10px 12px; }
+}
 .skip-btn { opacity: .65; font-size: 12px; padding: 8px 14px; }
 .hidden { display: none !important; }
 
@@ -195,7 +202,9 @@ body {
   box-shadow: 0 6px 28px rgba(232,64,64,.45), inset 0 1px 0 rgba(255,255,255,.22);
   transition: transform .16s var(--ease), box-shadow .16s;
   text-transform: uppercase;
-  display: flex; align-items: center; gap: 10px;
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 48px;
+  animation: enterArenaBreath 3.6s ease-in-out infinite;
 }
 .enter-arena-btn::after {
   content: "▶";
@@ -209,8 +218,13 @@ body {
 .enter-arena-btn:focus-visible {
   outline: 2px solid #e84040;
   outline-offset: 4px;
+  box-shadow: 0 10px 36px rgba(232,64,64,.58), 0 0 0 4px rgba(232,64,64,.22), inset 0 1px 0 rgba(255,255,255,.22);
 }
-.enter-arena-btn:disabled { opacity: .42; cursor: not-allowed; transform: none; }
+.enter-arena-btn:disabled { opacity: .42; cursor: not-allowed; transform: none; animation: none; }
+@keyframes enterArenaBreath {
+  0%,100% { box-shadow: 0 6px 28px rgba(232,64,64,.45), inset 0 1px 0 rgba(255,255,255,.22); }
+  50%      { box-shadow: 0 8px 36px rgba(232,64,64,.62), inset 0 1px 0 rgba(255,255,255,.22); }
+}
 
 /* ── PANEL ── */
 .panel {
@@ -912,8 +926,16 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   opacity: .38; cursor: not-allowed; transform: none;
 }
 .cmd-btn:disabled .cmd-name::after {
-  content: " 🔒";
-  font-size: .75em; opacity: .8;
+  /* Inline-SVG padlock — replaces the legacy 🔒 emoji */
+  content: "";
+  display: inline-block;
+  width: .85em; height: .85em;
+  margin-left: 6px;
+  vertical-align: -0.12em;
+  background-color: currentColor;
+  opacity: .75;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="9.5" rx="1.6"/><path d="M7.5 10.5 V8 C7.5 5.5 9.5 3.5 12 3.5 C14.5 3.5 16.5 5.5 16.5 8 V10.5"/></svg>') center / contain no-repeat;
+          mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="9.5" rx="1.6"/><path d="M7.5 10.5 V8 C7.5 5.5 9.5 3.5 12 3.5 C14.5 3.5 16.5 5.5 16.5 8 V10.5"/></svg>') center / contain no-repeat;
 }
 .cmd-icon { font-size: 28px; line-height: 1; }
 .cmd-name { font-size: 13px; font-weight: 800; letter-spacing: -.01em; }
@@ -1036,18 +1058,32 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   border-top: 1px solid var(--line);
 }
 .touch-btn {
-  padding: 16px 4px;
+  display: inline-flex;
+  align-items: center; justify-content: center; gap: 6px;
+  padding: 14px 6px;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,.14);
   background: rgba(255,255,255,.05);
   color: var(--paper);
-  font-size: 14px; font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: -.005em;
   cursor: pointer; text-align: center;
-  transition: background .18s, transform .14s;
+  transition: background .18s var(--ease), border-color .18s, transform .14s, box-shadow .18s;
   min-height: 56px;
 }
+.touch-btn .touch-label { line-height: 1; }
+.touch-btn:hover:not(:disabled) {
+  border-color: rgba(122,240,255,.36);
+  background: rgba(122,240,255,.08);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.22);
+}
+.touch-btn:focus-visible {
+  outline: 2px solid var(--round-accent, var(--cyan));
+  outline-offset: 2px;
+}
 .touch-btn:active { transform: scale(.95); }
-.touch-btn:disabled { opacity: .36; cursor: not-allowed; }
+.touch-btn:disabled { opacity: .36; cursor: not-allowed; transform: none; }
 
 /* ── ROUND BREATHER ── */
 #roundBreather { overflow: clip; }
@@ -1315,6 +1351,10 @@ body.slow-mo * {
   .shell.shaking { animation: none !important; }
   .bar-fill.you.danger,
   .bar-fill.enemy.danger { animation: none !important; }
+  .enter-arena-btn,
+  .ladder-item.current .ladder-portrait,
+  .charge-ready,
+  .pulse-ring { animation: none !important; }
 }
 
 /* ── PERF LITE (no fx param) ── */

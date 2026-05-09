@@ -51,7 +51,13 @@ button:disabled{cursor:not-allowed;opacity:.52;}
 .brand{display:flex;align-items:center;gap:12px;}
 .mark{width:48px;height:48px;border:1px solid rgba(105,245,255,.56);border-radius:8px;background:radial-gradient(circle,rgba(105,245,255,.95),rgba(105,245,255,.12) 36%,transparent 60%),linear-gradient(135deg,rgba(255,215,107,.38),rgba(255,103,205,.2));box-shadow:0 0 32px rgba(105,245,255,.28),inset 0 0 18px rgba(255,255,255,.18);}
 /* ── TYPOGRAPHY ── */
-.hud-value,.score-card strong,.metric strong,.damage-number,#scoreText,#bossHpText,#playerHpText,#comboText,.timer-text,#timerText{font-family:var(--font-mono);font-variant-numeric:tabular-nums;}
+.hud-value,.score-card strong,.metric strong,.damage-number,#scoreText,#bossHpText,#playerHpText,#comboText,.timer-text,#timerText,#multText,#runStatus,#diffLabel,.lb-score,.interboss-heal strong,#shieldFill,.bar-hp{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1,"lnum" 1;}
+/* ── ICON LIBRARY (monoline SVG glyphs) ── */
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-0.14em;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;pointer-events:none;}
+.icon-btn .ic{width:18px;height:18px;vertical-align:-0.18em;}
+.pause-box h2 .ic,.pause-h2-ic .ic{width:0.85em;height:0.85em;vertical-align:-0.08em;color:var(--gold);}
+.telegraph-icon .ic{width:1em;height:1em;vertical-align:-0.12em;}
+.boss-card-threat .ic{width:11px;height:11px;vertical-align:-0.18em;margin-right:2px;}
 .title-rush{font-family:var(--font-display);font-style:italic;font-weight:900;}
 .brand small,.kicker,.hud-label{display:block;color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;}
 .brand strong{display:block;margin-top:2px;font-size:clamp(20px,2vw,27px);line-height:.96;letter-spacing:0;}
@@ -324,6 +330,12 @@ select option,select optgroup{color:#06101c;background:#f4f8ff;}
   box-shadow:0 0 32px rgba(255,208,85,.28),0 14px 28px rgba(0,0,0,.38);
   transition:all .18s;pointer-events:auto;}
 .boss-intro-begin:hover{transform:translateY(-2px);box-shadow:0 0 44px rgba(255,208,85,.38),0 18px 32px rgba(0,0,0,.44);}
+.boss-intro-begin:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(255,232,138,.55),0 0 44px rgba(255,208,85,.38),0 18px 32px rgba(0,0,0,.44);}
+@keyframes ctaBreath{0%,100%{box-shadow:0 14px 32px rgba(0,0,0,.36),0 0 28px rgba(255,208,85,.26),inset 0 1px 0 rgba(255,255,255,.28);}50%{box-shadow:0 14px 32px rgba(0,0,0,.36),0 0 36px rgba(255,208,85,.42),inset 0 1px 0 rgba(255,255,255,.32);}}
+#startBtn.btn.primary{animation:ctaBreath 3.6s ease-in-out infinite;}
+#startBtn.btn.primary:disabled,#startBtn.btn.primary:hover,#startBtn.btn.primary:focus-visible{animation:none;}
+.boss-intro-begin{animation:ctaBreath 3.6s ease-in-out infinite;}
+.boss-intro-begin:hover,.boss-intro-begin:focus-visible{animation:none;}
 /* Command panel */
 .command{min-height:calc(100vh - 210px);display:flex;flex-direction:column;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.026)),rgba(4,9,20,.88);}
 .question-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
@@ -449,6 +461,7 @@ select option,select optgroup{color:#06101c;background:#f4f8ff;}
 .ctrl-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .ctrl-left,.ctrl-right{display:flex;gap:8px;flex-wrap:wrap;}
 .icon-btn{min-height:36px;min-width:36px;padding:0 10px;font-size:13px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;gap:6px;}
+@media (pointer:coarse){.icon-btn{min-height:44px;min-width:44px;padding:0 12px;}}
 .hidden{display:none !important;}
 /* ── LEADERBOARD ── */
 .lb-list{display:grid;gap:5px;margin-top:10px;}
@@ -543,7 +556,8 @@ select option,select optgroup{color:#06101c;background:#f4f8ff;}
 @media (prefers-reduced-motion:reduce){
   #fx,#confettiCanvas{display:none;}
   .world::after,.boss-sprite,.preview-boss,.boss-aura,.boss-aura::after,
-  .boss-intro-portrait,.phase-flash-text,#specialBtn::after{animation:none !important;}
+  .boss-intro-portrait,.phase-flash-text,#specialBtn::after,
+  #startBtn.btn.primary,.boss-intro-begin{animation:none !important;}
   .boss-intro .boss-intro-portrait,.boss-intro .boss-intro-panel{transition:none !important;}
   .question-card::before{animation:none;}
 }
@@ -595,6 +609,7 @@ html.perf-lite #specialBtn:not(:disabled)::after{animation:none;}
   .mcq-btn,.btn,.seg,.mini-btn,.diff-pill{min-height:48px;}
 }
 </style>
+<script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
 <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
 <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260507-phase6">
 <script src="../../assets/arcade-perf.js?v=20260507-phase5"></script>
@@ -841,8 +856,8 @@ html.perf-lite #specialBtn:not(:disabled)::after{animation:none;}
       <div class="command" id="commandPanel">
         <div class="ctrl-bar">
           <div class="ctrl-left">
-            <button class="btn icon-btn ghost" id="muteBtn" type="button" title="Mute (M)">🔊</button>
-            <button class="btn icon-btn ghost" id="pauseBtn" type="button" title="Pause (Esc)">⏸</button>
+            <button class="btn icon-btn ghost" id="muteBtn" type="button" title="Mute (M)" aria-label="Mute sound" aria-pressed="false"><span data-icon="audio-on" aria-hidden="true"></span></button>
+            <button class="btn icon-btn ghost" id="pauseBtn" type="button" title="Pause (Esc)" aria-label="Pause game"><span data-icon="pause" aria-hidden="true"></span></button>
           </div>
           <div class="ctrl-right">
             <button class="btn icon-btn ghost" id="quitRun" type="button">✕ Abandon</button>
@@ -902,12 +917,35 @@ html.perf-lite #specialBtn:not(:disabled)::after{animation:none;}
   </section>
 </main>
 
+<script>
+  /* Upgrade [data-icon] placeholders → monoline SVG via MrMacsIcons.
+     Idempotent: already-upgraded nodes are skipped. */
+  (function () {
+    var I = window.MrMacsIcons;
+    if (!I) return;
+    function upgrade(root) {
+      var nodes = (root || document).querySelectorAll("[data-icon]:not([data-icon-upgraded])");
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        var name = n.getAttribute("data-icon");
+        var svg = I.svg(name);
+        if (svg) { n.innerHTML = svg; n.setAttribute("data-icon-upgraded", ""); }
+      }
+    }
+    upgrade();
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function () { upgrade(); });
+    }
+    window.MrMacsIconsUpgrade = upgrade;
+  })();
+</script>
+
 <!-- PAUSE OVERLAY -->
-<div class="pause-overlay hidden" id="pauseOverlay">
+<div class="pause-overlay hidden" id="pauseOverlay" role="dialog" aria-modal="true" aria-label="Game paused">
   <div class="pause-box">
-    <h2>⏸ Paused</h2>
+    <h2><span class="pause-h2-ic" data-icon="pause" aria-hidden="true"></span> Paused</h2>
     <p style="color:var(--muted);margin:0;">Press Esc or Resume to continue.</p>
-    <button class="btn primary" id="resumeBtn" type="button">▶ Resume</button>
+    <button class="btn primary" id="resumeBtn" type="button" autofocus>▶ Resume</button>
     <button class="btn danger" id="abandonBtn" type="button">✕ Abandon Run</button>
   </div>
 </div>
@@ -1937,7 +1975,9 @@ function scheduleTelegraph(boss, phase) {
   const delay = 3000 + Math.random()*4000;
   telegraphTimeout = setTimeout(()=>{
     if (run.answered||paused) return;
-    icon.textContent = phase.phaseNum===1?"⚡":"☠";
+    icon.innerHTML = phase.phaseNum===1
+      ? "⚡"
+      : (window.MrMacsIcons ? window.MrMacsIcons.svg("skull") : "☠");
     icon.classList.add("visible");
     playSound("telegraph");
     // Animate fill bar over 2s
@@ -2434,7 +2474,14 @@ document.getElementById("quitRun").addEventListener("click",()=>finishRun(false)
 document.getElementById("pauseBtn").addEventListener("click",togglePause);
 document.getElementById("muteBtn").addEventListener("click",()=>{
   muted=!muted;
-  document.getElementById("muteBtn").textContent=muted?"🔇":"🔊";
+  const _btn=document.getElementById("muteBtn");
+  if (window.MrMacsIcons) {
+    _btn.innerHTML=window.MrMacsIcons.svg(muted?"audio-off":"audio-on");
+  } else {
+    _btn.textContent=muted?"🔇":"🔊";
+  }
+  _btn.setAttribute("aria-pressed", muted ? "true" : "false");
+  _btn.setAttribute("aria-label", muted ? "Unmute sound" : "Mute sound");
 });
 document.getElementById("resumeBtn").addEventListener("click",resumeRun);
 document.getElementById("abandonBtn").addEventListener("click",()=>{

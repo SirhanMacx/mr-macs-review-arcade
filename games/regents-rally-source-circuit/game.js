@@ -1109,7 +1109,8 @@ function poolForTrack(track) {
 
 function startRace(trackOverride) {
   if (!state.banks) {
-    els.topStats.innerHTML = "<span>Still loading question banks...</span>";
+    els.topStats.innerHTML =
+      `<span class="topstat-loading">${iconSvg("compass")}<em>Still loading question banks…</em></span>`;
     return;
   }
   if (trackOverride) state.track = trackOverride;

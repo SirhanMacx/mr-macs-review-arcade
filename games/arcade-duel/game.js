@@ -657,7 +657,7 @@ function choose(label) {
   });
 
   const explanation = q.explanation || ("Correct: " + (q.choices.find((c) => c.label === q.correct)?.text || ""));
-  $("#feedback").innerHTML = `<strong>${correct ? `${ico("check")} Correct!` : `${ico("cross-thin")} Wrong.`}</strong><p>${esc(explanation)}</p>`;
+  $("#feedback").innerHTML = `<strong>${correct ? "✓ Correct!" : "✗ Wrong."}</strong><p>${esc(explanation)}</p>`;
   if (r.streak === 3) {
     $("#feedback").innerHTML += `<p class="finisher-notice">${ico("flame")} FINISHER UNLOCKED — use Special now!</p>`;
   }
@@ -1147,7 +1147,7 @@ function renderStoryLadder() {
     if (isDefeated) cls += " defeated";
     else if (isCurrent) cls += " current";
     else if (isLocked) cls += " locked";
-    const badge = isDefeated ? ico("check")
+    const badge = isDefeated ? "✓"
                 : isCurrent  ? "▶"
                 : isLocked   ? ico("lock")
                 : "•";
@@ -1363,7 +1363,9 @@ $("#resumeBtn").addEventListener("click", togglePause);
 $("#quitBtn").addEventListener("click", () => { togglePause(); G.run = null; stopAmbient(); try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (e) {} setScreen("setup"); });
 $("#muteBtn").addEventListener("click", () => {
   G.muted = !G.muted;
-  $("#muteBtn").textContent = G.muted ? "🔇" : "🔊";
+  $("#muteBtn").innerHTML = G.muted ? ico("audio-off") : ico("audio-on");
+  $("#muteBtn").setAttribute("aria-pressed", G.muted ? "true" : "false");
+  $("#muteBtn").setAttribute("aria-label", G.muted ? "Unmute sound" : "Mute sound");
   if (G.muted) stopAmbient(); else startAmbient();
 });
 

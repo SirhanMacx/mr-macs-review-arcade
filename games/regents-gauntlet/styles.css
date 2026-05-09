@@ -4,3 +4,75 @@ html.perf-lite .bg:after,html.perf-lite .portal span{animation:none!important}ht
 .source-lock-pill{display:inline-flex;align-items:center;width:max-content;max-width:100%;padding:6px 9px;border:1px solid rgba(95,240,170,.42);border-radius:999px;background:rgba(95,240,170,.10);color:#caffdf;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.04em}.source-lock-pill.warn{border-color:rgba(255,100,120,.58);background:rgba(255,100,120,.12);color:#ffd5dc}
 
 select option, select optgroup { color: #07111f; background: #f8fbff; }
+
+/* ── 20260509 polish pass ─────────────────────────────────────────────── */
+/* Typography ladder: Fraunces (display) · Inter (body) · JetBrains Mono (numerals) */
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-feature-settings:"ss01","cv11"}
+.hero h1,.summary-card h1,.panel h2,.status-panel h2,.question-card h2{font-family:"Fraunces","Source Serif Pro",ui-serif,Georgia,serif;font-weight:900;letter-spacing:-.012em;font-optical-sizing:auto}
+.kicker,.brand small,.panel-head span,.hud-card span,.metric span,.score-card span,.tag,.pill,.missed-item p{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-feature-settings:"tnum" 1,"cv11" 1;letter-spacing:.04em}
+/* Tabular numerals on every place numbers update */
+.metric strong,.hud-card strong,.score-card strong,.score-badge,#progressText,#livesText,#streakText,.brand strong{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.hud-card strong{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;letter-spacing:-.005em}
+
+/* Inline icon glyph baseline */
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+
+/* Editorial focus ring — visible on keyboard nav, friendly to mouse users */
+:focus{outline:none}
+.btn:focus-visible,.mini-btn:focus-visible,.choice:focus-visible,select:focus-visible,input:focus-visible{outline:none;box-shadow:0 0 0 2px rgba(5,7,13,.96),0 0 0 4px var(--cyan),0 12px 28px rgba(94,231,255,.18)}
+.btn.primary:focus-visible{box-shadow:0 0 0 2px rgba(5,7,13,.96),0 0 0 4px var(--gold),0 16px 34px rgba(255,211,106,.32)}
+
+/* Hover lift — subtle, tasteful, only on interactive surfaces */
+.btn,.mini-btn{transition:transform .14s ease,border-color .14s ease,background .14s ease,box-shadow .18s ease}
+.btn:not(.primary):hover{transform:translateY(-1px)}
+.btn.primary:hover{transform:translateY(-1px);box-shadow:0 18px 38px rgba(0,0,0,.4),0 0 30px rgba(255,211,106,.34)}
+.score-card{transition:border-color .2s ease,box-shadow .25s ease}
+.tag{transition:border-color .14s ease,background .14s ease}
+.tag:hover{border-color:rgba(94,231,255,.44);background:rgba(94,231,255,.08)}
+
+/* Ambient pulse — PRIMARY CTA only (not on every button) */
+@keyframes mm-cta-pulse{0%,100%{box-shadow:0 16px 34px rgba(0,0,0,.36),0 0 24px rgba(255,211,106,.22)}50%{box-shadow:0 16px 34px rgba(0,0,0,.36),0 0 38px rgba(255,211,106,.42)}}
+.btn.primary:not(:disabled){animation:mm-cta-pulse 3.4s ease-in-out infinite}
+.btn.primary:hover,.btn.primary:focus-visible{animation:none}
+
+/* Editorial progress + timer bars — softer easing, subtle inner glow */
+.bar{position:relative;background:linear-gradient(180deg,rgba(0,0,0,.42),rgba(0,0,0,.26));box-shadow:inset 0 1px 0 rgba(255,255,255,.04),inset 0 -1px 0 rgba(0,0,0,.4)}
+.bar i{transition:width .55s cubic-bezier(.22,.61,.36,1);box-shadow:0 0 12px rgba(94,231,255,.42)}
+.bar.gold i{box-shadow:0 0 14px rgba(255,211,106,.55)}
+.bar.danger i{box-shadow:0 0 14px rgba(255,100,120,.5)}
+
+/* Choice micro-interaction polish — tighter ease */
+.choice{transition:transform .18s cubic-bezier(.22,.61,.36,1),border-color .18s ease,background .18s ease,box-shadow .22s ease}
+.choice:hover{box-shadow:0 14px 26px rgba(0,0,0,.32),0 0 0 1px rgba(94,231,255,.16) inset}
+
+/* HUD card hover — invites attention to live numbers */
+.hud-card{transition:border-color .2s ease,box-shadow .25s ease}
+
+/* Empty / "no missed questions" placeholder treatment */
+.missed-item:only-child:has(strong:first-child){display:grid;gap:8px;padding:22px;border-style:dashed;border-color:rgba(95,240,170,.32);background:linear-gradient(135deg,rgba(95,240,170,.08),rgba(94,231,255,.04));text-align:center}
+.missed-item:only-child:has(strong:first-child) strong{color:#caffdf;font-family:"Fraunces",ui-serif,Georgia,serif;font-size:18px;font-weight:700}
+
+/* Stimulus empty/loading-state — subtle feel, not a void */
+.source-lock-pill.warn{animation:none}
+.stimulus-strip:empty:before{content:"Loading source materials…";display:block;padding:24px;color:var(--muted);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;text-align:center}
+
+/* Score-card active glow uses cyan ring instead of harsh shadow */
+.score-card.active{box-shadow:0 0 0 1px var(--cyan),0 12px 28px rgba(94,231,255,.18)}
+
+/* Progress text typography — keep it crisp */
+#progressText,#livesText,#streakText{font-feature-settings:"tnum" 1,"zero" 1}
+
+/* Reduced motion — respect user preference */
+@media (prefers-reduced-motion:reduce){
+  .btn.primary:not(:disabled){animation:none}
+  .bar i{transition:width .25s linear}
+  .choice{transition:none}
+  .btn,.mini-btn{transition:none}
+}
+
+/* Touch targets ≥44px on coarse pointers (iPad, mobile) */
+@media (pointer:coarse){
+  .btn,.mini-btn,.choice,select,input{min-height:48px}
+  .mini-btn{min-height:44px}
+  .tag{min-height:34px;padding:8px 11px}
+}

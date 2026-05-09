@@ -1765,7 +1765,7 @@
       state.equippedEvolutions.push(u.name);
       const replaced=state.weaponSlots.find(w=>w.id===u.replaces);
       if (replaced) {
-        Object.assign(replaced, { id:u.name, name:u.name, ...u.weaponOverride, level:1, cooldownTimer:0 });
+        Object.assign(replaced, { id:u.name, name:u.name, icon:u.icon, color:u.color, ...u.weaponOverride, level:1, cooldownTimer:0 });
       }
       showBanner(`EVOLVED: ${u.name}`);
       sfx.levelUp();

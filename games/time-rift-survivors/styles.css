@@ -59,9 +59,8 @@ button, input, select { font: inherit; }
 .ic circle,
 .ic ellipse { vector-effect: non-scaling-stroke; }
 
-/* Upgrade card icons render at ~32px (was 34px emoji) */
-.upgrade-icon { font-size: 32px; line-height: 1; }
-.upgrade-icon .ic { width: 32px; height: 32px; vertical-align: middle; }
+/* Upgrade card icons (SVG) — sized to match prior 34px emoji glyph */
+.upgrade-icon .ic { width: 34px; height: 34px; vertical-align: middle; }
 
 /* Relic chip icons render at ~22px (was 20px emoji) */
 .relic-icon-svg { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
@@ -96,7 +95,7 @@ button:disabled { opacity: .4; cursor: not-allowed; transform: none; }
   letter-spacing: .03em;
   animation: primaryPulse 3.4s ease-in-out infinite;
 }
-.primary:hover {
+.primary:hover, .primary:focus-visible {
   box-shadow: 0 0 40px rgba(255,46,189,.55), 0 6px 24px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.2);
   animation: none;
 }
@@ -905,6 +904,7 @@ select option { color: #07101d; }
   .upgrade-grid { gap: 8px; }
   .upgrade-card { min-height: 140px; padding: 10px; border-radius: 10px; }
   .upgrade-card .relic-icon { width: 62px; height: 50px; }
+  .upgrade-icon .ic { width: 26px; height: 26px; }
   .upgrade-card strong { font-size: 13px; }
   .upgrade-card span { font-size: 10px; }
 }
