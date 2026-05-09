@@ -1551,8 +1551,11 @@ function openBriefingBetweenWaves() {
   els.feedback.className   = "feedback";
   els.feedback.textContent = "Correct = power-up. Wrong = fleet speed boost next wave. Skip = no penalty.";
   // Add a skip button
+  const skipIcon = (window.MrMacsIcons && typeof window.MrMacsIcons.svg === "function")
+    ? window.MrMacsIcons.svg("skip-fwd")
+    : "";
   els.choices.innerHTML = state.current.choices.map((c,i)=>`<button class="choice" type="button" data-index="${i}"><b>${String.fromCharCode(65+i)}.</b>${esc(c.text)}</button>`).join("")
-    + `<button class="choice skip-btn" type="button" data-index="-1" style="grid-column:1/-1;opacity:.7;">⏭ Skip (no penalty)</button>`;
+    + `<button class="choice skip-btn" type="button" data-index="-1" style="grid-column:1/-1;opacity:.7;"><span class="skip-ic" aria-hidden="true">${skipIcon}</span> Skip (no penalty)</button>`;
   els.choices.querySelectorAll(".choice").forEach(btn=>{
     btn.addEventListener("click",()=>gradeBetweenWave(Number(btn.dataset.index)));
   });
@@ -2144,6 +2147,7 @@ document.addEventListener("keydown", ev=>{
   if ((ev.key==="m"||ev.key==="M")) {
     muted = !muted;
     if (muted) stopUfoSiren();
+    syncMuteButton();
     setToast(muted?"SOUND MUTED":"SOUND ON", 1.0);
   }
   if (ev.key==="Escape" && state.running && !state.briefing) {
@@ -2205,12 +2209,39 @@ els.pause.addEventListener("click", ()=>{
   els.pause.textContent = state.paused?"Resume":"Pause";
 });
 els.quit.addEventListener("click", ()=>finish(false));
-if (els.mute) els.mute.addEventListener("click", ()=>{
-  muted = !muted;
-  if (muted) stopUfoSiren();
-  els.mute.textContent = muted ? "🔇" : "🔊";
-  setToast(muted?"SOUND MUTED":"SOUND ON", 0.9);
-});
+// Sync the mute button (icon + aria) with the current muted state.
+// Uses MrMacsIcons monoline glyphs when available, falls back to text.
+function syncMuteButton() {
+  if (!els.mute) return;
+  const iconEl = els.mute.querySelector(".mute-icon");
+  const labelEl = els.mute.querySelector(".mute-label");
+  const Icons = window.MrMacsIcons;
+  if (iconEl) {
+    if (Icons && typeof Icons.svg === "function") {
+      iconEl.innerHTML = muted ? Icons.svg("audio-off") : Icons.svg("audio-on");
+    } else {
+      // Fallback: stable monoline glyph (no color emoji on any platform)
+      iconEl.textContent = muted ? "✕" : "♪";
+    }
+  } else {
+    // Older markup — fall back to overwriting the button text
+    els.mute.textContent = muted ? "MUTE" : "SND";
+  }
+  if (labelEl) labelEl.textContent = muted ? "OFF" : "SND";
+  els.mute.setAttribute("data-muted", muted ? "true" : "false");
+  els.mute.setAttribute("aria-pressed", muted ? "true" : "false");
+}
+
+if (els.mute) {
+  els.mute.addEventListener("click", ()=>{
+    muted = !muted;
+    if (muted) stopUfoSiren();
+    syncMuteButton();
+    setToast(muted?"SOUND MUTED":"SOUND ON", 0.9);
+  });
+  // Initial paint so the icon renders even if music/profile boot is slow
+  syncMuteButton();
+}
 els.theater.addEventListener("change", ()=>{ state.theater=els.theater.value; renderMetrics(); applyTheaterTint(); });
 els.difficulty.addEventListener("change", ()=>{ state.difficulty=els.difficulty.value; renderMetrics(); });
 
@@ -2227,6 +2258,7 @@ if (window.MrMacsProfile) {
   const _settings = MrMacsProfile.getSettings?.();
   if (_settings && typeof _settings.muted === "boolean") {
     muted = _settings.muted;
-    if (muted) { if (els.mute) els.mute.textContent = "🔇"; stopUfoSiren(); }
+    if (muted) stopUfoSiren();
+    syncMuteButton();
   }
 }

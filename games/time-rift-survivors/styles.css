@@ -35,6 +35,38 @@ body {
 }
 button, input, select { font: inherit; }
 
+/* Counters that update mid-run get tabular-nums so digits don't jitter */
+#level, #hp, #score, #killCount, #goldCount, #runTimer, #questionTimer,
+.run-summary-stats b, .meta-shop-gold {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Monoline icon system (window.MrMacsIcons SVGs) ─────────────────────────── */
+.ic {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.16em;
+  flex-shrink: 0;
+  color: currentColor;
+  fill: none;
+}
+.ic path,
+.ic line,
+.ic polyline,
+.ic polygon,
+.ic rect,
+.ic circle,
+.ic ellipse { vector-effect: non-scaling-stroke; }
+
+/* Upgrade card icons render at ~32px (was 34px emoji) */
+.upgrade-icon { font-size: 32px; line-height: 1; }
+.upgrade-icon .ic { width: 32px; height: 32px; vertical-align: middle; }
+
+/* Relic chip icons render at ~22px (was 20px emoji) */
+.relic-icon-svg { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+.relic-icon-svg .ic { width: 22px; height: 22px; }
+
 /* ── BUTTONS ────────────────────────────────────────────────────────────────── */
 button {
   min-height: 42px;
@@ -62,10 +94,20 @@ button:disabled { opacity: .4; cursor: not-allowed; transform: none; }
   box-shadow: 0 0 28px rgba(255,46,189,.35), 0 4px 16px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.2);
   font-weight: 900;
   letter-spacing: .03em;
+  animation: primaryPulse 3.4s ease-in-out infinite;
 }
 .primary:hover {
   box-shadow: 0 0 40px rgba(255,46,189,.55), 0 6px 24px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.2);
+  animation: none;
 }
+@keyframes primaryPulse {
+  0%, 100% { box-shadow: 0 0 22px rgba(255,46,189,.30), 0 4px 16px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.2); }
+  50%      { box-shadow: 0 0 36px rgba(255,46,189,.50), 0 4px 16px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.2); }
+}
+
+/* Press / active feedback */
+button:active { transform: translateY(0) scale(.985); transition-duration: 60ms; }
+.upgrade-card:not([disabled]):active { transform: scale(.97); transition-duration: 60ms; }
 
 /* ── BACKDROP ───────────────────────────────────────────────────────────────── */
 .backdrop {
@@ -459,7 +501,7 @@ select option { color: #07101d; }
   background-repeat: no-repeat;
   background-size: 400% 300%;
 }
-.relic-icon-emoji { font-size: 20px; text-align: center; line-height: 1; }
+/* legacy emoji class removed — superseded by .relic-icon-svg (monoline SVG icon) */
 .relic-chip-info { display: grid; gap: 3px; }
 .relic-chip-info strong { font-size: 10px; font-weight: 700; line-height: 1.1; text-transform: uppercase; }
 .relic-chip strong { display: block; font-size: 10px; font-weight: 700; line-height: 1.1; text-align: center; text-transform: uppercase; }
@@ -894,6 +936,7 @@ html.perf-lite .rift-banner.show,
 html.perf-lite .library-panel.is-highlighted,
 html.perf-lite .upgrade-screen.show,
 html.perf-lite .death-shatter,
+html.perf-lite .primary,
 html.perf-lite .hp-critical #hpBar { animation: none !important; }
 html.perf-lite .topbar,
 html.perf-lite .mission-panel,
@@ -907,6 +950,7 @@ html.perf-lite .stimulus-zoom { backdrop-filter: none !important; }
   .backdrop::after, .sigil, .rift-banner.show,
   .library-panel.is-highlighted, .upgrade-screen.show,
   .death-shatter, .hp-critical #hpBar,
+  .primary,
   .xp-pulse #xpBar { animation: none !important; }
   * { transition-duration: .01ms !important; }
 }

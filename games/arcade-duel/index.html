@@ -29,8 +29,8 @@
         </div>
       </div>
       <div class="top-actions">
-        <button class="btn icon-btn" id="muteBtn" type="button" title="Toggle sound" aria-label="Toggle sound">🔊</button>
-        <button class="btn icon-btn" id="pauseBtn" type="button" title="Pause game" aria-label="Pause game" style="display:none">⏸</button>
+        <button class="btn icon-btn" id="muteBtn" type="button" title="Toggle sound" aria-label="Toggle sound"><span data-icon="audio-on" aria-hidden="true"></span></button>
+        <button class="btn icon-btn" id="pauseBtn" type="button" title="Pause game" aria-label="Pause game" style="display:none"><span data-icon="pause" aria-hidden="true"></span></button>
         <button class="btn" id="openHub" type="button" aria-label="Back to Arcade Hub">Back</button>
       </div>
     </header>
@@ -194,12 +194,12 @@
           <!-- Command menu (visible before question pops) -->
           <div class="command-menu" id="commandMenu" role="group" aria-label="Battle commands">
             <button class="cmd-btn attack" id="cmdAttack" type="button" data-key="J" aria-label="Attack — answer a question">
-              <span class="cmd-icon" aria-hidden="true">⚔️</span>
+              <span class="cmd-icon" data-icon="swords" aria-hidden="true"></span>
               <span class="cmd-name">Attack</span>
               <span class="cmd-sub">Answer a question</span>
             </button>
             <button class="cmd-btn special" id="cmdSpecial" type="button" disabled data-key="L" aria-label="Special attack — requires 3 charge">
-              <span class="cmd-icon" aria-hidden="true">⚡</span>
+              <span class="cmd-icon" data-icon="bolt" aria-hidden="true"></span>
               <span class="cmd-name">Special</span>
               <span class="cmd-sub">3 charge needed</span>
               <div class="charge-pips" id="cmdSpecialPips" aria-hidden="true">
@@ -209,12 +209,12 @@
               </div>
             </button>
             <button class="cmd-btn defend" id="cmdDefend" type="button" data-key="K" aria-label="Defend — reduce next incoming hit by 50%">
-              <span class="cmd-icon" aria-hidden="true">🛡️</span>
+              <span class="cmd-icon" data-icon="shield" aria-hidden="true"></span>
               <span class="cmd-name">Defend</span>
               <span class="cmd-sub">Reduce next hit</span>
             </button>
             <button class="cmd-btn item" id="cmdItem" type="button" data-key="I" aria-label="Restore — heal 20 HP, one use per round">
-              <span class="cmd-icon" aria-hidden="true">🧪</span>
+              <span class="cmd-icon" data-icon="flask" aria-hidden="true"></span>
               <span class="cmd-name">Restore</span>
               <span class="cmd-sub" id="itemSubLabel">Heal 20 HP (1 use)</span>
             </button>
@@ -236,10 +236,10 @@
 
       <!-- MOBILE TOUCH CONTROLS -->
       <div class="touch-bar" id="touchBar" aria-label="Touch battle controls">
-        <button class="touch-btn" id="tAttack" type="button" aria-label="Attack">⚔️ Attack</button>
-        <button class="touch-btn" id="tSpecial" type="button" disabled aria-label="Special (needs charge)">⚡ Special</button>
-        <button class="touch-btn" id="tDefend" type="button" aria-label="Defend">🛡️ Defend</button>
-        <button class="touch-btn" id="tItem" type="button" aria-label="Restore HP">🧪 Restore</button>
+        <button class="touch-btn" id="tAttack" type="button" aria-label="Attack"><span data-icon="swords" aria-hidden="true"></span><span class="touch-label">Attack</span></button>
+        <button class="touch-btn" id="tSpecial" type="button" disabled aria-label="Special (needs charge)"><span data-icon="bolt" aria-hidden="true"></span><span class="touch-label">Special</span></button>
+        <button class="touch-btn" id="tDefend" type="button" aria-label="Defend"><span data-icon="shield" aria-hidden="true"></span><span class="touch-label">Defend</span></button>
+        <button class="touch-btn" id="tItem" type="button" aria-label="Restore HP"><span data-icon="flask" aria-hidden="true"></span><span class="touch-label">Restore</span></button>
       </div>
     </section>
 
@@ -292,13 +292,37 @@
     </div>
   </main>
 
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script>
+    /* Upgrade [data-icon="name"] placeholders → monoline SVG via MrMacsIcons.
+       Idempotent: already-upgraded nodes are skipped. */
+    (function () {
+      var I = window.MrMacsIcons;
+      if (!I) return;
+      function upgrade(root) {
+        var nodes = (root || document).querySelectorAll("[data-icon]:not([data-icon-upgraded])");
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          var name = n.getAttribute("data-icon");
+          var svg = I.svg(name);
+          if (svg) { n.innerHTML = svg; n.setAttribute("data-icon-upgraded", ""); }
+        }
+      }
+      upgrade();
+      // Re-run on DOM ready for any late-injected nodes (e.g. ladder cards)
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function () { upgrade(); });
+      }
+      window.MrMacsIconsUpgrade = upgrade;
+    })();
+  </script>
   <script src="../../assets/source-bank.js?v=20260502-source-contract"></script>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
   <script src="../../assets/arcade-perf.js?v=20260508-perf"></script>
   <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
   <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
-  <script src="game.js?v=20260508-v4"></script>
+  <script src="game.js?v=20260509-icons"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

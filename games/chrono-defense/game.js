@@ -146,7 +146,7 @@
       upgradeMult: [1, 1.7, 2.8],
       rangeMult: [1, 1.15, 1.3],
       rateMult: [1, 1.1, 1.2],
-      icon: "🎯"
+      icon: "target"
     },
     {
       id: "cannon",
@@ -160,7 +160,7 @@
       upgradeMult: [1, 1.6, 2.5],
       rangeMult: [1, 1.1, 1.2],
       rateMult: [1, 1.15, 1.35],
-      icon: "💣"
+      icon: "flame"
     },
     {
       id: "slow",
@@ -174,7 +174,7 @@
       upgradeMult: [1, 1.2, 1.5],
       rangeMult: [1, 1.15, 1.35],
       rateMult: [1, 1.1, 1.2],
-      icon: "❄️"
+      icon: "diamond"
     },
     {
       id: "dot",
@@ -188,7 +188,7 @@
       upgradeMult: [1, 1.5, 2.4],
       rangeMult: [1, 1.1, 1.2],
       rateMult: [1, 1.15, 1.3],
-      icon: "☣️"
+      icon: "atom"
     },
     {
       id: "boost",
@@ -202,7 +202,7 @@
       upgradeMult: [1, 1, 1],
       rangeMult: [1, 1.2, 1.4],
       rateMult: [1, 1, 1],
-      icon: "⚡"
+      icon: "bolt"
     }
   ];
 
@@ -262,27 +262,29 @@
   ];
 
   // ─── Special abilities ────────────────────────────────────────────────────────
+  // Note: `icon` may be either a Unicode dingbat or an SVG icon name resolved
+  // via window.MrMacsIcons at render time. See renderAbilities().
   const ABILITIES = [
     {
       id: "timestop",
       name: "Time Stop",
       desc: "Freeze all enemies for 5 sec",
       cost: 0, cooldown: 45, duration: 5,
-      color: "#84f3ff", icon: "⏸"
+      color: "#84f3ff", icon: "⏸", iconKind: "text"
     },
     {
       id: "erastorm",
       name: "Era Storm",
       desc: "Industrial Smog: heavy AOE damage",
       cost: 0, cooldown: 60, duration: 0,
-      color: "#ff8d4d", icon: "🌪"
+      color: "#ff8d4d", icon: "bolt", iconKind: "svg"
     },
     {
       id: "reinforce",
       name: "Reinforcements",
       desc: "Place 1-2 free random towers",
       cost: 0, cooldown: 50, duration: 0,
-      color: "#66f2ac", icon: "🏗"
+      color: "#66f2ac", icon: "shield", iconKind: "svg"
     }
   ];
 
@@ -1469,12 +1471,16 @@
                 style="transition:stroke-dasharray .3s ease;opacity:${ready?1:0.7}"/>
             </svg>`;
       })();
+      // Icon glyph: monoline SVG if available, fallback to text dingbat
+      const iconGlyph = (ab.iconKind === "svg" && window.MrMacsIcons && window.MrMacsIcons.has(ab.icon))
+        ? `<span class="ability-glyph" style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;font-size:24px;color:${ready ? ab.color : "var(--muted)"};">${window.MrMacsIcons.svg(ab.icon)}</span>`
+        : `<span style="position:relative;z-index:1;font-size:22px;line-height:52px;">${esc(ab.icon)}</span>`;
       return `
         <button class="power-card ${ready ? "" : "cooling"}" type="button" data-ability="${ab.id}"
           aria-label="${esc(ab.name)}: ${ready ? "ready" : rem + "s cooldown"}">
           <span class="ability-icon" style="position:relative;">
             ${ringHtml}
-            <span style="position:relative;z-index:1;font-size:22px;line-height:52px;">${esc(ab.icon)}</span>
+            ${iconGlyph}
           </span>
           <span><strong>${esc(ab.name)}</strong><span>${esc(ab.desc)}</span></span>
           <em class="cost" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${ready ? ab.color : "var(--muted)"};">${ready ? "READY" : rem + "s"}</em>
@@ -1486,7 +1492,8 @@
     if (!els.mapSelect) return;
     els.mapSelect.innerHTML = MAPS.map((m, i) => {
       const locked = !state.mapsUnlocked[i];
-      return `<option value="${i}" ${locked ? "disabled" : ""} ${i === state.currentMap ? "selected" : ""}>${locked ? "🔒 " : ""}${esc(m.name)} ${locked ? "(locked)" : "· Wave " + (state.bestWave[i] || 0) + " best"}</option>`;
+      // Note: <option> elements only render text — no SVG. Use clean ASCII glyph.
+      return `<option value="${i}" ${locked ? "disabled" : ""} ${i === state.currentMap ? "selected" : ""}>${locked ? "[Locked] " : ""}${esc(m.name)}${locked ? "" : " · Wave " + (state.bestWave[i] || 0) + " best"}</option>`;
     }).join("");
   }
 
@@ -2715,8 +2722,12 @@
   }
 
   init().catch(err => {
-    console.error(err);
-    els.missionTitle.textContent = "Engine failed to load";
-    els.missionText.textContent = "Refresh the page. Question bank or network error.";
+    console.error("Chrono Defense init failed:", err);
+    if (els.missionTitle) els.missionTitle.textContent = "Engine failed to load";
+    if (els.missionText)  els.missionText.textContent  = "Question bank or network error. Tap Reset, then refresh the page.";
+    if (els.feedback) {
+      els.feedback.textContent = "If the problem persists, check your connection.";
+      els.feedback.className = "feedback bad";
+    }
   });
 })();

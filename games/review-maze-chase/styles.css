@@ -261,11 +261,70 @@ input {
 .mono { font-family: var(--font-mono); }
 .tabular { font-variant-numeric: tabular-nums; }
 
-/* Lives display — uses emoji not mono */
+/* ─── Monoline icon base (shared by HUD chips + buttons) ─────────────
+   Pairs with assets/arcade-icons.js — every glyph inherits currentColor */
+.ic {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.16em;
+  flex-shrink: 0;
+  color: currentColor;
+  fill: none;
+}
+.ic path,
+.ic line,
+.ic polyline,
+.ic polygon,
+.ic rect,
+.ic circle,
+.ic ellipse { vector-effect: non-scaling-stroke; }
+
+/* Lives display — orb SVG glyphs in a tight row */
 .lives-display {
-  font-family: var(--font-body) !important;
-  font-size: 13px !important;
-  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-family: var(--font-mono) !important;
+  font-size: 18px !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--cyan);
+}
+
+.life-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  color: var(--cyan);
+  filter: drop-shadow(0 0 6px rgba(122,240,255,.45));
+  transition: transform var(--t-fast), opacity var(--t-fast);
+}
+
+.life-icon .ic {
+  width: 16px;
+  height: 16px;
+  vertical-align: 0;
+}
+
+.life-empty {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Subtle ambient breath on the orb row when lives are full (cosmetic only) */
+  @keyframes life-breath {
+    0%, 100% { opacity: 0.92; }
+    50%      { opacity: 1; }
+  }
+  .lives-display .life-icon { animation: life-breath 3.6s ease-in-out infinite; }
+  .lives-display .life-icon:nth-child(2) { animation-delay: 0.4s; }
+  .lives-display .life-icon:nth-child(3) { animation-delay: 0.8s; }
 }
 
 /* Pause / sound pill buttons injected by game.js */
@@ -273,7 +332,7 @@ input {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 6px;
   min-height: 34px;
   padding: 6px 12px;
   border-radius: var(--r-pill);
@@ -282,11 +341,31 @@ input {
   color: var(--soft);
   font-size: 13px;
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
   letter-spacing: 0.03em;
   margin-left: 6px;
   cursor: pointer;
-  transition: background var(--t-fast), border-color var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+  transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
   box-shadow: var(--shadow-xs);
+}
+
+.pause-btn .ic {
+  width: 16px;
+  height: 16px;
+  vertical-align: 0;
+  color: var(--cyan);
+  transition: color var(--t-fast);
+}
+
+.pause-btn:hover .ic { color: var(--ink); }
+
+.pause-btn .pause-key {
+  display: inline-block;
+  min-width: 14px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0;
+  color: inherit;
 }
 
 .pause-btn:hover {
@@ -303,6 +382,16 @@ input {
 
 .pause-btn:active {
   transform: translateY(0) scale(0.99);
+}
+
+/* Coarse-pointer minimum touch target (>=44px per platform guidelines) */
+@media (pointer: coarse) {
+  .pause-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 8px 14px;
+  }
+  .pause-btn .ic { width: 18px; height: 18px; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -629,6 +718,16 @@ select option {
     0 0 40px rgba(245,196,81,.5),
     inset 0 1px 0 rgba(255,255,255,.4);
   transform: translateY(-3px) scale(1.02);
+}
+
+/* Ambient pulse — subtle gold breath on the hero CTA */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes maze-cta-breathe {
+    0%, 100% { box-shadow: var(--shadow-md), 0 0 28px rgba(245,196,81,.35), inset 0 1px 0 rgba(255,255,255,.35); }
+    50%      { box-shadow: var(--shadow-md), 0 0 40px rgba(245,196,81,.48), inset 0 1px 0 rgba(255,255,255,.42); }
+  }
+  .setup .btn.primary { animation: maze-cta-breathe 4.6s ease-in-out infinite; }
+  .setup .btn.primary:hover { animation: none; }
 }
 
 .btn.primary::after {

@@ -136,7 +136,33 @@
     // Podium (1-2-3 racing finish)
     "podium": '<rect x="9" y="7" width="6" height="14"/><rect x="3" y="11" width="6" height="10"/><rect x="15" y="14" width="6" height="7"/><line x1="2" y1="21" x2="22" y2="21"/>',
     // Mirror / rear-view (rally mirror class)
-    "mirror": '<path d="M5 8 C5 5.5 7 4 12 4 C17 4 19 5.5 19 8 L19 13 C19 15.5 17 17 12 17 C7 17 5 15.5 5 13 Z"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="9" y1="21" x2="15" y2="21"/>'
+    "mirror": '<path d="M5 8 C5 5.5 7 4 12 4 C17 4 19 5.5 19 8 L19 13 C19 15.5 17 17 12 17 C7 17 5 15.5 5 13 Z"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="9" y1="21" x2="15" y2="21"/>',
+    // Check (✓) — same shape as the dingbat but as svg, currentColor
+    "check": '<polyline points="4,12.5 9.5,18 20,6.5"/>',
+    // Cross thin (✗) — diagonal X distinct from upright "close"
+    "cross-thin": '<line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="5.5" y2="18.5"/>',
+    // Lock — closed padlock (locked rung)
+    "lock": '<rect x="5" y="10.5" width="14" height="9.5" rx="1.6"/><path d="M7.5 10.5 V8 C7.5 5.5 9.5 3.5 12 3.5 C14.5 3.5 16.5 5.5 16.5 8 V10.5"/><circle cx="12" cy="14.5" r="1.4"/><line x1="12" y1="15.4" x2="12" y2="17.6"/>',
+    // Flask / potion (Restore)
+    "flask": '<path d="M9.5 3 H14.5 V8 L18.4 17 C19 18.4 18 20 16.4 20 H7.6 C6 20 5 18.4 5.6 17 L9.5 8 Z"/><line x1="8.5" y1="3" x2="15.5" y2="3"/><line x1="7.6" y1="14" x2="16.4" y2="14"/>',
+    // Skull (defeat / lose)
+    "skull": '<path d="M5.5 11 C5.5 7 8.4 4 12 4 C15.6 4 18.5 7 18.5 11 V14.4 L17 16 V18.6 H14.6 V16.8 H9.4 V18.6 H7 V16 L5.5 14.4 Z"/><circle cx="9.5" cy="11.5" r="1.4"/><circle cx="14.5" cy="11.5" r="1.4"/><line x1="11.4" y1="14.5" x2="12.6" y2="14.5"/>',
+    // Greek temple (Spartan / Athens)
+    "temple": '<path d="M3 8 L12 3 L21 8 Z"/><line x1="3.5" y1="9.6" x2="20.5" y2="9.6"/><line x1="6" y1="9.6" x2="6" y2="17"/><line x1="10" y1="9.6" x2="10" y2="17"/><line x1="14" y1="9.6" x2="14" y2="17"/><line x1="18" y1="9.6" x2="18" y2="17"/><rect x="3" y="17" width="18" height="3" rx="0.4"/>',
+    // Torii gate (Samurai / Japan)
+    "torii": '<line x1="2.5" y1="6" x2="21.5" y2="6"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="6" y1="9" x2="6" y2="21"/><line x1="18" y1="9" x2="18" y2="21"/><line x1="6" y1="13" x2="18" y2="13"/>',
+    // Fleur-de-lis (Crusader)
+    "fleur": '<path d="M12 3 C11 5 10.8 7.5 12 10 C13.2 7.5 13 5 12 3 Z"/><path d="M12 10 C9.5 9 6.5 9.5 6 12.5 C7.5 13.5 10 13 12 12"/><path d="M12 10 C14.5 9 17.5 9.5 18 12.5 C16.5 13.5 14 13 12 12"/><line x1="6" y1="14" x2="18" y2="14"/><path d="M9 14 L9 18.5 C9 20 10.4 21 12 21 C13.6 21 15 20 15 18.5 L15 14"/>',
+    // Cowboy hat (Frontier sharpshooter)
+    "cowboy-hat": '<path d="M5 14 C5 11 8 8.5 12 8.5 C16 8.5 19 11 19 14"/><path d="M2.5 14.5 C5 16.5 9 17 12 17 C15 17 19 16.5 21.5 14.5 C20 13.5 17 13 12 13 C7 13 4 13.5 2.5 14.5 Z"/><line x1="9" y1="13" x2="9" y2="9"/><line x1="15" y1="13" x2="15" y2="9"/>',
+    // Spy / agent (fedora + dark glasses)
+    "spy": '<path d="M5 11 C5 8 8 6 12 6 C16 6 19 8 19 11"/><path d="M3 11.5 C5 12.5 8 13 12 13 C16 13 19 12.5 21 11.5"/><circle cx="9" cy="16" r="2.4"/><circle cx="15" cy="16" r="2.4"/><line x1="11.4" y1="16" x2="12.6" y2="16"/>',
+    // Robot head (Future AI)
+    "robot": '<rect x="5" y="6" width="14" height="13" rx="2"/><line x1="12" y1="3" x2="12" y2="6"/><circle cx="12" cy="2.6" r="0.9" fill="currentColor" stroke="none"/><circle cx="9.5" cy="11" r="1.4" fill="currentColor" stroke="none"/><circle cx="14.5" cy="11" r="1.4" fill="currentColor" stroke="none"/><line x1="9.5" y1="15.5" x2="14.5" y2="15.5"/><line x1="2.5" y1="11" x2="5" y2="11"/><line x1="19" y1="11" x2="21.5" y2="11"/>',
+    // Star outline (unfilled rung / pending threat)
+    "star-empty": '<polygon points="12,3 14.5,9.5 21.5,10 16,14.5 18,21.5 12,17.5 6,21.5 8,14.5 2.5,10 9.5,9.5" fill="none"/>',
+    // Skip-forward (two right triangles + bar) — for "skip question" buttons
+    "skip-fwd": '<polygon points="4,5 12,12 4,19" fill="currentColor" stroke="none"/><polygon points="11.5,5 19.5,12 11.5,19" fill="currentColor" stroke="none"/><line x1="20.5" y1="5" x2="20.5" y2="19"/>'
   };
 
   // Emoji → registered name (for legacy emoji-keyed storage)
@@ -195,9 +221,31 @@
     "⚠": "warning",
     "⚠️": "warning",
     "⏸": "pause",
+    "⏭": "skip-fwd",
+    "⏭️": "skip-fwd",
     "🏁": "checkered-flag",
     "🥇": "podium",
-    "🪞": "mirror"
+    "🪞": "mirror",
+    // Combat / battle glyphs (Arcade Duel + Boss Rush)
+    "✓": "check",
+    "✗": "cross-thin",
+    "🔒": "lock",
+    "🧪": "flask",
+    "💀": "skull",
+    "☠": "skull",
+    "☠️": "skull",
+    "☆": "star-empty",
+    // Era opponents (Arcade Duel ladder)
+    "🏛": "temple",
+    "🏛️": "temple",
+    "⛩": "torii",
+    "⛩️": "torii",
+    "⚜": "fleur",
+    "⚜️": "fleur",
+    "🤠": "cowboy-hat",
+    "🕵": "spy",
+    "🕵️": "spy",
+    "🤖": "robot"
   };
 
   function svg(name) {

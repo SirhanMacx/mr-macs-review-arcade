@@ -43,14 +43,21 @@ function writeSave(data) {
 // OPPONENT ROSTER (Story ladder: 7 opponents)
 // ─────────────────────────────────────────────
 const OPPONENTS = [
-  { id: "spartan",  name: "Spartan Warrior",     era: "Ancient Greece",  hp: 80,  atk: [12,18], special: 20, tell: "Braces shield → heavy incoming", skin: "spartan",  icon: "🏛️" },
-  { id: "samurai",  name: "Samurai Scholar",      era: "Feudal Japan",    hp: 90,  atk: [14,20], special: 24, tell: "Spins blade → counter chance",   skin: "samurai",  icon: "⛩️" },
-  { id: "knight",   name: "Crusader Knight",      era: "Medieval Europe", hp: 100, atk: [16,22], special: 28, tell: "Shield bash → stagger",          skin: "knight",   icon: "⚜️" },
-  { id: "frontier", name: "Frontier Sharpshooter",era: "1800s America",   hp: 95,  atk: [18,25], special: 30, tell: "Draws pistol → dodge or die",    skin: "frontier", icon: "🤠" },
-  { id: "spy",      name: "Cold War Spy",         era: "20th Century",    hp: 105, atk: [20,28], special: 34, tell: "Gadget flash → disoriented",     skin: "spy",      icon: "🕵️" },
-  { id: "titan",    name: "Knowledge Titan",      era: "All Eras",        hp: 120, atk: [22,32], special: 40, tell: "Eyes glow → finisher incoming",  skin: "titan",    icon: "📚" },
-  { id: "ai",       name: "Future AI",            era: "Year 2XXX",       hp: 140, atk: [24,36], special: 46, tell: "Recalculates → all attacks +20%", skin: "ai",      icon: "🤖" },
+  { id: "spartan",  name: "Spartan Warrior",     era: "Ancient Greece",  hp: 80,  atk: [12,18], special: 20, tell: "Braces shield → heavy incoming", skin: "spartan",  icon: "temple" },
+  { id: "samurai",  name: "Samurai Scholar",      era: "Feudal Japan",    hp: 90,  atk: [14,20], special: 24, tell: "Spins blade → counter chance",   skin: "samurai",  icon: "torii" },
+  { id: "knight",   name: "Crusader Knight",      era: "Medieval Europe", hp: 100, atk: [16,22], special: 28, tell: "Shield bash → stagger",          skin: "knight",   icon: "fleur" },
+  { id: "frontier", name: "Frontier Sharpshooter",era: "1800s America",   hp: 95,  atk: [18,25], special: 30, tell: "Draws pistol → dodge or die",    skin: "frontier", icon: "cowboy-hat" },
+  { id: "spy",      name: "Cold War Spy",         era: "20th Century",    hp: 105, atk: [20,28], special: 34, tell: "Gadget flash → disoriented",     skin: "spy",      icon: "spy" },
+  { id: "titan",    name: "Knowledge Titan",      era: "All Eras",        hp: 120, atk: [22,32], special: 40, tell: "Eyes glow → finisher incoming",  skin: "titan",    icon: "books" },
+  { id: "ai",       name: "Future AI",            era: "Year 2XXX",       hp: 140, atk: [24,36], special: 46, tell: "Recalculates → all attacks +20%", skin: "ai",      icon: "robot" },
 ];
+
+// Tiny helper: render a registered icon by name (falls back to text glyph for legacy data)
+function ico(name) {
+  if (window.MrMacsIcons && window.MrMacsIcons.has(name)) return window.MrMacsIcons.svg(name);
+  if (window.MrMacsIcons && window.MrMacsIcons.fromEmoji(name)) return window.MrMacsIcons.fromEmoji(name);
+  return "";
+}
 
 // Difficulty multipliers
 const DIFF = {
@@ -650,9 +657,9 @@ function choose(label) {
   });
 
   const explanation = q.explanation || ("Correct: " + (q.choices.find((c) => c.label === q.correct)?.text || ""));
-  $("#feedback").innerHTML = `<strong>${correct ? "✓ Correct!" : "✗ Wrong."}</strong><p>${esc(explanation)}</p>`;
+  $("#feedback").innerHTML = `<strong>${correct ? `${ico("check")} Correct!` : `${ico("cross-thin")} Wrong.`}</strong><p>${esc(explanation)}</p>`;
   if (r.streak === 3) {
-    $("#feedback").innerHTML += `<p class="finisher-notice">🔥 FINISHER UNLOCKED — use Special now!</p>`;
+    $("#feedback").innerHTML += `<p class="finisher-notice">${ico("flame")} FINISHER UNLOCKED — use Special now!</p>`;
   }
   $("#feedback").classList.remove("hidden");
   $("#skipBtn").classList.add("hidden");
@@ -760,7 +767,7 @@ function enemyAttack() {
     // AI "skips" this turn — telegraphed tell
     r.aiTell = true;
     flashStage("ai-tell", `${opp.name}: ${opp.tell}`);
-    showStinger("⚠ TELL!", "ai-tell", 900);
+    showStinger(`${ico("warning")} TELL!`, "ai-tell", 900);
     setTimeout(() => { r.aiTell = false; showPhase("command"); }, 1100);
     return;
   }
@@ -850,7 +857,9 @@ function showBreather(lastResult) {
   const perfectBonus = r.youHp === r.youMaxHp;
   if (perfectBonus && won) r.youHp = Math.min(r.youMaxHp, r.youHp + 15);
 
-  $("#breatherBadge").textContent = won ? "Round Win! 🏆" : "Round Lost 💀";
+  $("#breatherBadge").innerHTML = won
+    ? `Round Win! ${ico("trophy")}`
+    : `Round Lost ${ico("skull")}`;
   $("#breatherBadge").className = "breather-badge " + (won ? "win" : "lose");
   $("#breatherTitle").textContent = `Prepare for Round ${m.currentRound + 1}`;
   const tip = TIPS[Math.floor(Math.random() * TIPS.length)];
@@ -1048,7 +1057,7 @@ function showRoundIntro(roundNum, opp) {
     <div class="intro-fight-word">FIGHT</div>
     <div class="intro-vs-strip">
       <div class="intro-fighter player-side">
-        <div class="intro-portrait">🎓</div>
+        <div class="intro-portrait">${ico("cap")}</div>
         <div class="intro-fighter-name">Review Core</div>
         <div class="intro-fighter-sub">You</div>
       </div>
@@ -1058,12 +1067,12 @@ function showRoundIntro(roundNum, opp) {
         <div class="intro-vs-line"></div>
       </div>
       <div class="intro-fighter enemy-side">
-        <div class="intro-portrait">${opp.icon || "⚔️"}</div>
+        <div class="intro-portrait">${ico(opp.icon) || ico("swords")}</div>
         <div class="intro-fighter-name">${esc(opp.name)}</div>
         <div class="intro-fighter-sub">${esc(opp.era)}</div>
       </div>
     </div>
-    <div class="intro-tell-tip">⚠ ${esc(opp.tell)}</div>
+    <div class="intro-tell-tip">${ico("warning")} ${esc(opp.tell)}</div>
   `;
   document.body.appendChild(ov);
 
@@ -1138,10 +1147,13 @@ function renderStoryLadder() {
     if (isDefeated) cls += " defeated";
     else if (isCurrent) cls += " current";
     else if (isLocked) cls += " locked";
-    const badge = isDefeated ? "✓" : isCurrent ? "▶" : isLocked ? "🔒" : "•";
+    const badge = isDefeated ? ico("check")
+                : isCurrent  ? "▶"
+                : isLocked   ? ico("lock")
+                : "•";
     return `<div class="${cls}" role="listitem" aria-label="${esc(o.name)}, ${isDefeated ? "defeated" : isCurrent ? "current target" : "pending"}">
       <span class="ladder-badge" aria-hidden="true">${badge}</span>
-      <div class="ladder-portrait" aria-hidden="true">${o.icon || "⚔️"}</div>
+      <div class="ladder-portrait" aria-hidden="true">${ico(o.icon) || ico("swords")}</div>
       <div class="ladder-name">${esc(o.name)}</div>
       <div class="ladder-era">${esc(o.era)}</div>
     </div>`;
@@ -1289,7 +1301,7 @@ async function load() {
       const profileSettings = MrMacsProfile.getSettings();
       if (profileSettings && profileSettings.sound === false) {
         G.muted = true;
-        $("#muteBtn").textContent = "🔇";
+        $("#muteBtn").innerHTML = ico("audio-off");
       }
     }
 

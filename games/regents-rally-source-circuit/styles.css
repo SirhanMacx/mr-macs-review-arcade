@@ -65,6 +65,24 @@ body::after {
   background-size: 200px 200px;
 }
 
+/* ─── Monoline icon base (paired with assets/arcade-icons.js) ───── */
+.ic {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.16em;
+  flex-shrink: 0;
+  color: currentColor;
+  fill: none;
+}
+.ic path,
+.ic line,
+.ic polyline,
+.ic polygon,
+.ic rect,
+.ic circle,
+.ic ellipse { vector-effect: non-scaling-stroke; }
+
 /* ─── Background scene ────────────────────────────── */
 .scene-bg {
   position: fixed;
@@ -140,6 +158,27 @@ body::after {
   font-size: 12px;
   font-weight: 700;
   box-shadow: var(--shadow-card);
+}
+
+.topstat-error {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px !important;
+  border: 1px solid rgba(255,138,61,.45) !important;
+  background: rgba(255,138,61,.10) !important;
+  color: var(--ink) !important;
+}
+.topstat-error .ic {
+  width: 14px;
+  height: 14px;
+  vertical-align: 0;
+  color: var(--orange);
+}
+.topstat-error em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--ink);
 }
 
 /* ─── Screens ─────────────────────────────────────── */
@@ -602,8 +641,40 @@ body::after {
   box-shadow: 0 0 0 1px rgba(255,206,59,.3) inset, 0 24px 62px rgba(0,0,0,.5), 0 0 38px rgba(255,206,59,.32);
 }
 
+/* Ambient pulse on the hero CTA — calm, low-frequency, respects reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes cta-breathe {
+    0%, 100% { box-shadow: 0 0 0 1px rgba(255,206,59,.18) inset, 0 18px 50px rgba(0,0,0,.45), 0 0 28px rgba(255,206,59,.22); }
+    50%      { box-shadow: 0 0 0 1px rgba(255,206,59,.28) inset, 0 18px 50px rgba(0,0,0,.45), 0 0 38px rgba(255,206,59,.34); }
+  }
+  .choose-driver { animation: cta-breathe 4.6s ease-in-out infinite; }
+  .choose-driver:hover { animation: none; }
+}
+
 .btn.ghost,
 .mini-btn { color: var(--soft); font-size: 13px; font-weight: 700; }
+
+.mini-btn .ic {
+  width: 16px;
+  height: 16px;
+  vertical-align: 0;
+  color: var(--cyan);
+  transition: color 200ms var(--ease-out);
+}
+.mini-btn:hover .ic { color: var(--ink); }
+#muteBtn[aria-pressed="true"] .ic { color: var(--magenta); }
+
+/* Tabular numerals everywhere a number updates live */
+#hudScore,
+#hudLap,
+#hudPlace,
+#speedNum,
+.lap-row .lt-time,
+.lap-row .lt-num,
+.gp-points,
+.gp-pos,
+.timer i,
+.boost-segments span { font-variant-numeric: tabular-nums; }
 
 /* ─── Mode row (engine class / format) ────────────── */
 .mode-row {
@@ -1309,8 +1380,26 @@ body::after {
 .skip-btn:hover {
   background: rgba(255,255,255,.1);
   color: var(--soft);
+  border-color: rgba(255,206,59,.45);
 }
-.skip-icon { font-size: 14px; }
+.skip-btn:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+.skip-btn:active { transform: translateY(1px); }
+.skip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--yellow);
+  line-height: 0;
+}
+.skip-icon .ic {
+  width: 14px;
+  height: 14px;
+  vertical-align: 0;
+}
+.skip-label { font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
 
 /* ─── Final lap flash overlay ─────────────────────── */
 .final-lap-flash {

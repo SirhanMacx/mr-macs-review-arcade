@@ -45,7 +45,34 @@ body {
 /* Tabular numerics everywhere that counts matter */
 .bar-hp, #timerText, #streakText, #chargeText,
 .stat strong, .metric strong,
-.breather-bar-row span:last-child { font-variant-numeric: tabular-nums; }
+.bar-hp.enemy-hp, #youHpText, #enemyHpText,
+#bYouHp, #bEnemyHp,
+.end-grid .metric strong,
+.dmg-float, .ko-stamp, .combo-counter,
+.breather-bar-row span:last-child { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "lnum" 1; }
+
+/* ── ICON LIBRARY (monoline SVG glyphs) ── */
+.ic {
+  width: 1em; height: 1em;
+  display: inline-block; vertical-align: -0.14em;
+  flex: 0 0 auto;
+  fill: none; stroke: currentColor;
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  pointer-events: none;
+}
+.cmd-icon .ic           { width: 28px; height: 28px; vertical-align: 0; }
+.icon-btn .ic           { width: 18px; height: 18px; vertical-align: -0.18em; }
+.touch-btn .ic          { width: 20px; height: 20px; vertical-align: -0.22em; margin-right: 4px; }
+.ladder-portrait .ic    { width: 26px; height: 26px; vertical-align: 0; }
+.ladder-badge .ic       { width: 11px; height: 11px; vertical-align: 0; }
+.intro-portrait .ic     { width: 64px; height: 64px; vertical-align: 0; }
+.feedback .ic           { width: 14px; height: 14px; vertical-align: -0.14em; margin-right: 3px; }
+.dmg-float .ic          { width: 0.9em; height: 0.9em; vertical-align: -0.12em; }
+.intro-tell-tip .ic     { width: 14px; height: 14px; vertical-align: -0.18em; margin-right: 4px; color: var(--gold); }
+.cmd-name .lock-ic      { width: .85em; height: .85em; vertical-align: -0.1em; opacity: .8; }
+/* Stinger / status icons inherit size from the host text */
+.stinger .ic,
+.stage-callout .ic { width: 1em; height: 1em; vertical-align: -0.1em; }
 
 /* ── PARTICLE CANVAS ── */
 #particleCanvas {

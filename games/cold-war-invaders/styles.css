@@ -61,10 +61,31 @@ button, select, input { font: inherit; }
 button { cursor: pointer; border: none; }
 
 /* ── Numeric tabular figures everywhere numbers appear ── */
-.hud strong, .metric strong, .score-val, [id="score"], [id="wave"], [id="shield"], [id="intel"] {
+.hud strong, .metric strong, .score-val, [id="score"], [id="wave"], [id="shield"], [id="intel"],
+#bestWaveBanner, .top-stats span, .powerup-pill, .stamp-text {
   font-variant-numeric: tabular-nums;
+}
+.hud strong, .metric strong, .score-val, [id="score"], [id="wave"], [id="shield"], [id="intel"] {
   font-family: "JetBrains Mono", ui-monospace, monospace;
 }
+
+/* ── Monoline icon system (window.MrMacsIcons SVGs) ── */
+.ic {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.16em;
+  flex-shrink: 0;
+  color: currentColor;
+  fill: none;
+}
+.ic path,
+.ic line,
+.ic polyline,
+.ic polygon,
+.ic rect,
+.ic circle,
+.ic ellipse { vector-effect: non-scaling-stroke; }
 
 /* ── Game shell ── */
 .game-shell {
@@ -179,6 +200,17 @@ body.playing .topbar {
   font-size: 13px;
   letter-spacing: .08em;
   box-shadow: 0 0 24px rgba(200,37,42,.22), 0 0 0 1px rgba(200,37,42,.18) inset;
+  transition: box-shadow .2s var(--ease), transform .15s var(--ease);
+}
+.brand:hover .brand-mark,
+.brand:focus-visible .brand-mark {
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(200,37,42,.42), 0 0 0 1px rgba(200,37,42,.36) inset;
+}
+.brand:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+  border-radius: 6px;
 }
 
 .brand small {
@@ -515,6 +547,11 @@ h2 {
   border-color: var(--red);
   background: var(--red);
   color: var(--cream);
+  box-shadow: 0 4px 18px rgba(200,37,42,.38), inset 0 1px 0 rgba(255,255,255,.14);
+}
+.diff-pill.selected .diff-pill-rank {
+  color: var(--amber-bright);
+  text-shadow: 0 0 10px rgba(245,166,35,.55);
 }
 .diff-pill-rank {
   font-size: 16px;
@@ -625,7 +662,7 @@ select option, select optgroup { color: #07111f; background: #f4ecd8; }
   transform: translateY(0);
 }
 
-/* "Begin Mission" — dossier stamp style */
+/* "Begin Mission" — dossier stamp style + ambient brass pulse */
 .btn.primary {
   background: var(--red);
   color: var(--cream);
@@ -635,12 +672,25 @@ select option, select optgroup { color: #07111f; background: #f4ecd8; }
   letter-spacing: .1em;
   text-transform: uppercase;
   box-shadow: 0 4px 18px rgba(200,37,42,.38), var(--shadow-inset);
+  animation: dossierPulse 3.4s ease-in-out infinite;
+}
+@keyframes dossierPulse {
+  0%, 100% { box-shadow: 0 4px 18px rgba(200,37,42,.38), var(--shadow-inset); }
+  50%      { box-shadow: 0 6px 26px rgba(200,37,42,.55), 0 0 0 rgba(200,37,42,0), var(--shadow-inset); }
 }
 .btn.primary:hover,
 .btn.primary:focus-visible {
   background: var(--red-bright);
   border-color: var(--red-bright);
   box-shadow: 0 8px 28px rgba(200,37,42,.52), var(--shadow-inset);
+  animation: none;
+}
+.btn.primary:disabled {
+  animation: none;
+  opacity: .6;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn.primary { animation: none; }
 }
 
 .btn.ghost,
@@ -760,6 +810,52 @@ body.playing .hud:focus-within { opacity: 1; }
   letter-spacing: .06em;
 }
 
+/* Mute / sound button — icon + tiny label (replaces speaker emoji) */
+.mute-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 9px;
+}
+.mute-btn .mute-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--cream);
+  transition: color .15s var(--ease);
+}
+.mute-btn .mute-icon .ic { width: 16px; height: 16px; vertical-align: 0; }
+.mute-btn .mute-label {
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--muted);
+}
+.mute-btn[data-muted="true"] .mute-icon { color: var(--red-bright); }
+.mute-btn[data-muted="true"] .mute-label { color: var(--red-bright); }
+.mute-btn[data-muted="true"] {
+  border-color: rgba(200,37,42,.45);
+  background: rgba(200,37,42,.10);
+}
+
+/* Skip-forward icon inside dossier skip button */
+.skip-btn .skip-ic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  color: var(--soft);
+  margin-right: 4px;
+  vertical-align: -.18em;
+}
+.skip-btn .skip-ic .ic { width: 14px; height: 14px; vertical-align: 0; }
+@media (max-width: 520px) {
+  .mute-btn .mute-label { display: none; }
+  .mute-btn { padding: 6px; }
+}
+
 /* ── Mini-map — glass disc ── */
 #minimap {
   position: absolute;
@@ -876,7 +972,10 @@ body.playing #minimap { opacity: .88; }
   color: var(--cream);
   margin: 0 0 14px;
   line-height: 1.35;
+  min-height: 2em; /* avoid layout jump while bank loads */
 }
+/* Loading shimmer when prompt is the placeholder text */
+#questionPrompt:empty::before { content: "\00a0"; }
 
 /* Time ring (drawn on canvas by JS or via CSS custom) */
 .time-ring {

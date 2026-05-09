@@ -562,12 +562,22 @@
     requestAnimationFrame(tick);
   }
 
+  // Resolve a monoline SVG icon by registered name (falls back gracefully).
+  function iconSvg(name) {
+    try {
+      if (window.MrMacsIcons && window.MrMacsIcons.svg) return window.MrMacsIcons.svg(name) || "";
+    } catch (_) {}
+    return "";
+  }
+
+  // Cached life-icon markup (orb glyph wrapped in a label-styled span)
+  const LIFE_ICON_HTML = `<span class="life-icon" aria-hidden="true">${iconSvg("orb")}</span>`;
+
   function updateHud() {
     animateScore(state.score);
-    // Lives icons
-    els.lives.innerHTML = Array.from({ length: Math.max(0, state.lives) },
-      () => '<span class="life-icon" aria-hidden="true">🔮</span>'
-    ).join("") || "0";
+    // Lives icons (monoline SVG orbs)
+    const orbs = Array.from({ length: Math.max(0, state.lives) }, () => LIFE_ICON_HTML).join("");
+    els.lives.innerHTML = orbs || '<span class="life-empty mono tabular" aria-label="No lives remaining">0</span>';
     els.pellets.textContent = state.pelletsLeft;
     const powerSec = Math.max(0, Math.ceil((state.powerUntil - performance.now()) / 1000));
     els.power.textContent  = powerSec > 0 ? `${powerSec}s` : "";
@@ -1890,28 +1900,31 @@
       div.innerHTML = `<strong id="bestScore">0</strong><span>best</span>`;
       hudStats.appendChild(div);
     }
-    // Pause button
+    // Pause button (monoline icon + key hint)
     if (!$("pauseBtn")) {
       const btn = document.createElement("button");
       btn.id        = "pauseBtn";
       btn.className = "btn ghost pause-btn";
       btn.type      = "button";
-      btn.textContent = "⏸ P";
+      btn.innerHTML = `${iconSvg("pause")}<span class="pause-key" aria-hidden="true">P</span>`;
       btn.setAttribute("aria-label", "Pause (P)");
       btn.addEventListener("click", togglePause);
       document.querySelector(".hud")?.appendChild(btn);
     }
-    // Sound toggle
+    // Sound toggle (monoline icon)
     if (!$("soundBtn")) {
       const btn = document.createElement("button");
       btn.id        = "soundBtn";
       btn.className = "btn ghost pause-btn";
       btn.type      = "button";
-      btn.textContent = "🔊";
-      btn.setAttribute("aria-label", "Toggle sound");
+      btn.innerHTML = iconSvg("audio-on");
+      btn.setAttribute("aria-label", "Mute audio");
+      btn.setAttribute("aria-pressed", "false");
       btn.addEventListener("click", () => {
         setMuted(!muted);
-        btn.textContent = muted ? "🔇" : "🔊";
+        btn.innerHTML = iconSvg(muted ? "audio-off" : "audio-on");
+        btn.setAttribute("aria-pressed", muted ? "true" : "false");
+        btn.setAttribute("aria-label", muted ? "Unmute audio" : "Mute audio");
       });
       document.querySelector(".hud")?.appendChild(btn);
     }
@@ -1969,7 +1982,11 @@
     if (e.key === "m" || e.key === "M") {
       const btn = $("soundBtn");
       setMuted(!muted);
-      if (btn) btn.textContent = muted ? "🔇" : "🔊";
+      if (btn) {
+        btn.innerHTML = iconSvg(muted ? "audio-off" : "audio-on");
+        btn.setAttribute("aria-pressed", muted ? "true" : "false");
+        btn.setAttribute("aria-label", muted ? "Unmute audio" : "Mute audio");
+      }
     }
     // ESC closes quiz/result modals (accessibility axis)
     if (e.key === "Escape") {

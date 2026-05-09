@@ -929,8 +929,11 @@
       { label: "streak",   value: formatNumber(state.streak) }
     ].map(i => `<div class="end-stat"><strong>${escapeHtml(i.value)}</strong><span>${escapeHtml(i.label)}</span></div>`).join("");
     const targets = state.wrongs.slice(-4).reverse();
+    const sparkleIcon = (window.MrMacsIcons && window.MrMacsIcons.has("sparkles"))
+      ? `<span style="color:var(--gold);margin-right:6px;vertical-align:-.16em">${window.MrMacsIcons.svg("sparkles")}</span>`
+      : "";
     els.studyTargets.innerHTML = !targets.length
-      ? `<div class="study-target"><strong>Clean run.</strong>No missed gates this session.</div>`
+      ? `<div class="study-target">${sparkleIcon}<strong>Clean run.</strong>No missed gates this session.</div>`
       : targets.map(i => `<div class="study-target"><strong>${escapeHtml(i.answer)}</strong>${escapeHtml(i.prompt)}<br>${escapeHtml(i.explanation)}</div>`).join("");
     renderShop();
   }
@@ -2578,10 +2581,11 @@
   // ─── Power-up timer rings (HUD overlay on canvas) ─────────────────────────
   function drawPowerupRings() {
     if (!state.running) return;
+    // Power-up rings — labels were never rendered to canvas; ring color carries identity.
     const rings = [
-      { timer: player.boostTimer,   max: 5,  color: "#f5c451", label: "⚡" },
-      { timer: player.magnetTimer,  max: 8,  color: "#ff7bcc", label: "🧲" },
-      { timer: player.jetpackTimer, max: 8,  color: "#67f0a8", label: "🚀" }
+      { timer: player.boostTimer,   max: 5,  color: "#f5c451" },
+      { timer: player.magnetTimer,  max: 8,  color: "#ff7bcc" },
+      { timer: player.jetpackTimer, max: 8,  color: "#67f0a8" }
     ].filter(r => r.timer > 0);
     if (!rings.length) return;
     ctx.save(); ctx.globalCompositeOperation = "source-over";

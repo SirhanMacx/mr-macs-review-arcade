@@ -96,7 +96,29 @@ button:focus-visible {
 .resource-bar strong,
 .hud-turn-counter,
 .end-tile strong,
-.metric-pill { font-variant-numeric: tabular-nums; }
+.metric-pill,
+.metric-pill .chip-num,
+.advisor-head span,
+.research-bar-fill,
+.build-progress-fill { font-variant-numeric: tabular-nums; }
+
+/* ── Monoline icon system (window.MrMacsIcons SVGs) ───────────────────────── */
+.ic {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.16em;
+  flex-shrink: 0;
+  color: currentColor;
+  fill: none;
+}
+.ic path,
+.ic line,
+.ic polyline,
+.ic polygon,
+.ic rect,
+.ic circle,
+.ic ellipse { vector-effect: non-scaling-stroke; }
 
 /* ── Shell ───────────────────────────────────────────────────────────────────── */
 .empire-shell {
@@ -207,6 +229,7 @@ button:focus-visible {
 .resource-bar .res-delta {
   display: inline; font-size: 9px;
   font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
   color: var(--jade); opacity: .8; margin-left: 2px;
 }
 .resource-bar .res-delta.neg { color: var(--danger); }
@@ -410,6 +433,12 @@ button:focus-visible {
   font-family: var(--era-header);
   font-size: 15px; font-weight: 600;
   letter-spacing: .02em;
+  animation: turnAmbient 3.6s ease-in-out infinite;
+}
+.end-turn:active { transform: translateY(0); filter: brightness(.96); }
+@keyframes turnAmbient {
+  0%, 100% { box-shadow: var(--glow-gold); }
+  50%      { box-shadow: 0 0 22px rgba(242,193,78,.55); }
 }
 
 /* ── OVERLAY SCREENS ─────────────────────────────────────────────────────────── */
@@ -507,6 +536,11 @@ select {
   transition: border-color .18s;
 }
 select:focus { border-color: var(--era-accent); }
+select:focus-visible {
+  border-color: var(--era-accent);
+  outline: 2px solid var(--era-accent);
+  outline-offset: 2px;
+}
 select option, select optgroup { color: #07111f; background: #f8fbff; }
 
 /* Metrics / pills */
@@ -853,7 +887,17 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;
   }
-  .era-flash, .era-banner { display: none !important; }
+  .era-flash, .era-banner, .end-turn, .btn.begin-era-btn,
+  .metric-pill.loading-pill { animation: none !important; }
+}
+
+/* ── COARSE POINTER (touch / iPad) — meet 44px target minimums ───────────── */
+@media (pointer: coarse) {
+  .hud-btn { min-height: 44px; }
+  .panel-tabs button { min-height: 44px; }
+  .btn, .end-turn { min-height: 48px; }
+  .action-grid button { min-height: 56px; }
+  .choice-grid button { min-height: 64px; }
 }
 
 /* ── A11Y color-blind pattern fills (applied via canvas, CSS anchors below) ─── */
@@ -1034,6 +1078,17 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   font-size: 11px;
   font-weight: 600;
   letter-spacing: .06em;
+}
+
+/* Loading state for setup metrics — gentle shimmer */
+.metric-pill.loading-pill {
+  color: var(--muted);
+  font-style: italic;
+  animation: shimmerLoad 1.6s ease-in-out infinite;
+}
+@keyframes shimmerLoad {
+  0%, 100% { opacity: .6; }
+  50%      { opacity: 1; }
 }
 
 /* ── Civ portrait row ────────────────────────────────────────────────────────── */

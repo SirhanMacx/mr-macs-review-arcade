@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e0c08">
   <link rel="icon" href="data:,">
   <title>Cold War Invaders — Mr. Mac's Review Arcade</title>
-  <link rel="stylesheet" href="styles.css?v=20260505-dossier">
+  <link rel="stylesheet" href="styles.css?v=20260509-polish">
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260507-phase6">
 </head>
 <body>
@@ -145,19 +145,19 @@
           <legend class="kicker" style="margin-bottom:10px;">Difficulty Level</legend>
           <div class="difficulty-strip" id="difficultyStrip">
             <button class="diff-pill" type="button" data-diff="cadet" aria-pressed="false">
-              <span class="diff-pill-rank">⭐</span>
+              <span class="diff-pill-rank">★</span>
               <span class="diff-pill-label">Cadet</span>
             </button>
             <button class="diff-pill selected" type="button" data-diff="regents" aria-pressed="true">
-              <span class="diff-pill-rank">⭐⭐</span>
+              <span class="diff-pill-rank">★★</span>
               <span class="diff-pill-label">Regents</span>
             </button>
             <button class="diff-pill" type="button" data-diff="crisis" aria-pressed="false">
-              <span class="diff-pill-rank">⭐⭐⭐</span>
+              <span class="diff-pill-rank">★★★</span>
               <span class="diff-pill-label">Crisis</span>
             </button>
             <button class="diff-pill" type="button" data-diff="five-star" aria-pressed="false">
-              <span class="diff-pill-rank">⭐⭐⭐⭐⭐</span>
+              <span class="diff-pill-rank">★★★★★</span>
               <span class="diff-pill-label">Five-Star General</span>
             </button>
           </div>
@@ -202,7 +202,7 @@
       </div>
       <button class="mini-btn" id="pauseBtn" type="button" aria-label="Pause game (Esc)">Pause</button>
       <button class="mini-btn" id="quitBtn"  type="button" aria-label="Quit to setup">Quit</button>
-      <button class="mini-btn" id="muteBtn"  type="button" aria-label="Toggle sound (M)" title="Toggle sound (M)">🔊</button>
+      <button class="mini-btn mute-btn" id="muteBtn"  type="button" aria-label="Toggle sound (M)" title="Toggle sound (M)" data-muted="false"><span class="mute-icon" aria-hidden="true"></span><span class="mute-label">SND</span></button>
     </section>
 
     <!-- ── Mobile touch controls ── -->
@@ -256,13 +256,14 @@
     <div class="control-hint" aria-label="Keyboard controls">Move: A/D or ←→ · Fire: Space · Intel: E/X · Mute: M · Pause: Esc</div>
   </main>
 
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
   <script src="../../assets/arcade-analytics.js?v=20260502-traffic-progress-hardening"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
   <script src="../../assets/arcade-perf.js?v=20260507-phase5"></script>
   <script src="../../assets/arcade-tour.js?v=20260507-phase3"></script>
   <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
-  <script type="module" src="game.js?v=20260508-phases356"></script>
+  <script type="module" src="game.js?v=20260509-polish"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 
   <!-- Dossier UI controller — wires up theater cards, difficulty pills, subtitle -->

@@ -83,6 +83,24 @@ button:disabled { cursor: wait; opacity: .55; }
   letter-spacing: -.01em;
 }
 
+/* ─── Monoline icon system (window.MrMacsIcons SVGs) ───────────────────── */
+.ic {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.16em;
+  flex-shrink: 0;
+  color: currentColor;
+  fill: none;
+}
+.ic path,
+.ic line,
+.ic polyline,
+.ic polygon,
+.ic rect,
+.ic circle,
+.ic ellipse { vector-effect: non-scaling-stroke; }
+
 /* ─── Pinball shell ─────────────────────────────────────────────────────── */
 .pinball-shell {
   position: relative;
@@ -263,6 +281,7 @@ button:disabled { cursor: wait; opacity: .55; }
   font-weight: 900;
   line-height: 1;
   min-width: 48px;
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-score .stat-value { color: var(--brass-light); }
@@ -355,13 +374,38 @@ button:disabled { cursor: wait; opacity: .55; }
     0 2px 8px rgba(0,0,0,.28);
 }
 
-/* CTA size boost for the main "Insert Coin" button */
+/* CTA size boost for the main "Insert Coin" button + ambient brass aura */
 #startBtn {
   padding: 14px 28px;
   font-size: 14px;
   font-weight: 900;
   letter-spacing: .04em;
   flex: 1;
+  position: relative;
+  animation: ctaAura 3.6s ease-in-out infinite;
+}
+@keyframes ctaAura {
+  0%, 100% {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.16),
+      inset 0 -1px 0 rgba(0,0,0,.28),
+      0 6px 20px rgba(0,0,0,.32),
+      0 0 0 rgba(200,146,42,0);
+  }
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.18),
+      inset 0 -1px 0 rgba(0,0,0,.28),
+      0 8px 24px rgba(0,0,0,.36),
+      0 0 28px rgba(200,146,42,.32);
+  }
+}
+#startBtn:hover, #startBtn:focus-visible {
+  animation: none; /* let the brass-btn:hover treatment take over */
+}
+#startBtn:disabled {
+  animation: none;
+  opacity: .55;
 }
 
 .btn-coin { opacity: .80; margin-right: 5px; font-size: 1.1em; }
@@ -674,6 +718,13 @@ button:disabled { cursor: wait; opacity: .55; }
   letter-spacing: .18em;
   text-transform: uppercase;
 }
+.kicker-pause-glyph {
+  display: inline-block;
+  margin-right: 4px;
+  letter-spacing: -.05em; /* tighten the two bars */
+  color: var(--brass-light);
+  vertical-align: -.04em;
+}
 
 h1, h2 {
   margin: 8px 0 0;
@@ -847,6 +898,21 @@ select option, select optgroup { color: #07111f; background: #f0ebff; }
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  min-height: 0;
+}
+/* Empty-state hint when there are no high scores yet */
+.high-score-strip:empty::before {
+  content: 'No high scores yet · be the first';
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px dashed rgba(200,146,42,.20);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .75;
 }
 .hs-entry {
   display: flex;
@@ -857,10 +923,16 @@ select option, select optgroup { color: #07111f; background: #f0ebff; }
   border: 1px solid rgba(200,146,42,.22);
   border-radius: 8px;
   background: rgba(0,0,0,.20);
+  transition: transform .15s var(--ease), border-color .15s var(--ease), box-shadow .15s var(--ease);
 }
-.hs-rank { color: var(--gold); font-size: 9px; font-weight: 900; letter-spacing: .1em; }
-.hs-initials { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 800; color: var(--brass-light); }
-.hs-score { color: var(--muted); font-size: 10px; font-family: 'JetBrains Mono', monospace; }
+.hs-entry:hover {
+  transform: translateY(-1px);
+  border-color: rgba(200,146,42,.42);
+  box-shadow: 0 6px 18px rgba(0,0,0,.32), 0 0 16px rgba(200,146,42,.10);
+}
+.hs-rank { color: var(--gold); font-size: 9px; font-weight: 900; letter-spacing: .1em; font-variant-numeric: tabular-nums; }
+.hs-initials { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 800; color: var(--brass-light); font-variant-numeric: tabular-nums; }
+.hs-score { color: var(--muted); font-size: 10px; font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
 
 /* ─── Initials entry ─────────────────────────────────────────────────────── */
 .initials-entry {
@@ -891,8 +963,11 @@ select option, select optgroup { color: #07111f; background: #f0ebff; }
   text-transform: uppercase;
   outline: none;
 }
-.initial-box:focus {
+.initial-box:focus,
+.initial-box:focus-visible {
   border-color: var(--brass-light);
+  outline: 2px solid rgba(232,184,75,.85);
+  outline-offset: 2px;
   box-shadow: 0 0 18px rgba(200,146,42,.45);
 }
 
@@ -1122,7 +1197,9 @@ kbd {
 /* Multiplier pulse badge */
 #multiplier {
   font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
 }
+#balls { font-variant-numeric: tabular-nums; }
 #multiplier.pumped {
   color: var(--brass-light);
   text-shadow: 0 0 14px rgba(200,146,42,.7);

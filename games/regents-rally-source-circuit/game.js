@@ -439,11 +439,25 @@ function sfxSlipstream() {
   playTone(440, "sine", 0.1, 0.1, 0.01, 0.1);
 }
 
+// Resolve a monoline SVG icon by registered name (falls back to empty string).
+function iconSvg(name) {
+  try {
+    if (window.MrMacsIcons && window.MrMacsIcons.svg) return window.MrMacsIcons.svg(name) || "";
+  } catch (_) {}
+  return "";
+}
+
+function syncMuteBtn(btn) {
+  if (!btn) return;
+  btn.innerHTML = iconSvg(muted ? "audio-off" : "audio-on");
+  btn.setAttribute("aria-pressed", muted ? "true" : "false");
+  btn.setAttribute("aria-label", muted ? "Unmute audio" : "Mute audio");
+}
+
 function toggleMute() {
   muted = !muted;
   if (engineGain) engineGain.gain.value = muted ? 0 : 0;
-  const btn = document.getElementById("muteBtn");
-  if (btn) btn.textContent = muted ? "🔇" : "🔊";
+  syncMuteBtn(document.getElementById("muteBtn"));
 }
 
 /* ═══════════════════════════════════════════════
@@ -3696,6 +3710,13 @@ document.querySelector("[data-tap-item]")?.addEventListener("click", (event) => 
 els.itemBtn.addEventListener("click", openItemQuestion);
 els.skipBtn?.addEventListener("click", skipQuestion);
 els.muteBtn?.addEventListener("click", toggleMute);
+
+// Boot-time icon injection (monoline SVGs replace prior color emojis)
+syncMuteBtn(els.muteBtn);
+if (els.skipBtn) {
+  const skipIcon = els.skipBtn.querySelector(".skip-icon");
+  if (skipIcon) skipIcon.innerHTML = iconSvg("warning");
+}
 els.chooseDriverBtn.addEventListener("click", () => {
   showScreen(els.trackScreen);
   updateTopStats();
@@ -3777,13 +3798,14 @@ if (window.MrMacsProfile) {
       if (settings && settings.sound !== undefined) {
         muted = settings.sound === "off";
         if (engineGain) engineGain.gain.value = muted ? 0 : 0;
-        const btn = document.getElementById("muteBtn");
-        if (btn) btn.textContent = muted ? "🔇" : "🔊";
+        syncMuteBtn(document.getElementById("muteBtn"));
       }
     });
   } catch (e) { /* ignore */ }
 }
 
 loadBanks().catch(() => {
-  els.topStats.innerHTML = "<span>Powerup clues failed to load</span>";
+  // Surface a friendly load failure with the warning glyph + retry hint
+  els.topStats.innerHTML =
+    `<span class="topstat-error">${iconSvg("warning")}<em>Powerup clues couldn't load.</em> Refresh to retry.</span>`;
 });

@@ -42,12 +42,15 @@
   };
 
   // Strategic resources: tile bonus + unit/building buff label
+  // Note: glyphs are rendered on canvas via drawResourceGlyph() — these `glyph`
+  // labels are reference text only (used in tooltips / future UI). Avoid color
+  // emoji to preserve the monoline editorial aesthetic on iOS Safari.
   const RESOURCES = {
-    iron:   { label:"Iron",   color:"#c0b9c0", emoji:"⚙", bonusProd:2, unlockUnit:"horseman" },
-    horses: { label:"Horses", color:"#c8a96e", emoji:"🐎", bonusProd:1, unlockUnit:"horseman" },
-    gold_r: { label:"Gold",   color:"#f2c14e", emoji:"✦", bonusGold:3  },
-    silk:   { label:"Silk",   color:"#e8a0d0", emoji:"◈", bonusGold:2, bonusCulture:1 },
-    scrolls:{ label:"Scrolls",color:"#7bdff2", emoji:"📜", bonusSci:2   }
+    iron:   { label:"Iron",   color:"#c0b9c0", glyph:"⚙", bonusProd:2, unlockUnit:"horseman" },
+    horses: { label:"Horses", color:"#c8a96e", glyph:"⚞", bonusProd:1, unlockUnit:"horseman" },
+    gold_r: { label:"Gold",   color:"#f2c14e", glyph:"✦", bonusGold:3  },
+    silk:   { label:"Silk",   color:"#e8a0d0", glyph:"◈", bonusGold:2, bonusCulture:1 },
+    scrolls:{ label:"Scrolls",color:"#7bdff2", glyph:"⌬", bonusSci:2   }
   };
 
   // Technology tree (4 eras, 0-indexed)
@@ -2714,6 +2717,11 @@
     // ─────────────────────────────────────────────────────────────────────────
     // Update setup screen start button for continue support
     if(hasSave()) els.startBtn.textContent="New Game";
+    // Brief loading state while review bank fetches
+    if (els.setupMetrics && !els.setupMetrics.innerHTML.trim()) {
+      els.setupMetrics.innerHTML =
+        `<span class="metric-pill loading-pill" aria-live="polite">Loading review councils...</span>`;
+    }
     try {
       await loadBank();
     } catch(err){
@@ -2723,7 +2731,7 @@
       // Stub minimal bank so game still runs
       state.bank={questions:[],courses:[],setsByCourse:{}};
       state.filtered=[]; state.queue=[];
-      els.setupMetrics.innerHTML=`<span class="metric-pill">Offline mode — questions unavailable</span>`;
+      els.setupMetrics.innerHTML=`<span class="metric-pill" role="status" style="border-color:rgba(255,111,111,.42);background:rgba(255,111,111,.10);color:rgba(251,245,230,.92);">Offline mode — review questions unavailable. Check your connection or play without reform councils.</span>`;
     }
   }
 

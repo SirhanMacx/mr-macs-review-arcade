@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
-  <link rel="stylesheet" href="styles.css?v=20260505-pro-polish">
+  <link rel="stylesheet" href="styles.css?v=20260509-polish">
 </head>
 <body>
   <main class="pinball-shell" id="app">
@@ -175,7 +175,7 @@
     <!-- ══ PAUSE SCREEN ══ -->
     <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
       <div class="setup-card compact">
-        <div class="setup-kicker">⏸ Paused</div>
+        <div class="setup-kicker"><span class="kicker-pause-glyph" aria-hidden="true">❚❚</span> Paused</div>
         <h2>Table Suspended</h2>
         <p class="setup-sub">Resume the ball or restart with the same course filter.</p>
         <div class="setup-actions">
@@ -211,13 +211,14 @@
     </section>
   </main>
 
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
   <script src="../../assets/source-bank.js?v=20260502-source-safety"></script>
   <script src="../../assets/arcade-perf.js?v=20260508-perf-lite"></script>
   <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
   <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
-  <script src="game.js?v=20260508-phase4"></script>
+  <script src="game.js?v=20260509-polish"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

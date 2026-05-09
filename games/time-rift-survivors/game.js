@@ -68,7 +68,7 @@
   // Each weapon has 8 levels. Level stats are interpolated between level 1 and 8.
   const WEAPONS = {
     cannonball: {
-      name: "Cannonball", icon: "💣", color: "#ffd66e",
+      name: "Cannonball", icon: "diamond", color: "#ffd66e",
       desc: "Slow heavy bolt — massive damage",
       baseCooldown: 2.2, baseDamage: 85, baseSpeed: 320, baseRadius: 18, basePierce: 1,
       // per-level multipliers [cooldown, damage, area, pierce]
@@ -95,7 +95,7 @@
       }
     },
     musket: {
-      name: "Musket Volley", icon: "🔫", color: "#c58cff",
+      name: "Musket Volley", icon: "sparkles", color: "#c58cff",
       desc: "3-shot spread — rapid triple fire",
       levels: [
         { cd: 1.4, dmg: 28, shots: 3, spread: 0.22 },
@@ -124,7 +124,7 @@
       }
     },
     saber: {
-      name: "Saber Slash", icon: "⚔️", color: "#6cf3b2",
+      name: "Saber Slash", icon: "swords", color: "#6cf3b2",
       desc: "Close-range arc — hits all nearby foes",
       levels: [
         { cd: 0.9, dmg: 45, range: 160, arc: Math.PI*0.7 },
@@ -159,7 +159,7 @@
       }
     },
     pendulum: {
-      name: "Pendulum", icon: "⚙️", color: "#ff8b6b",
+      name: "Pendulum", icon: "target", color: "#ff8b6b",
       desc: "Orbiting mass — damages on contact",
       levels: [
         { cd: 999, orbs: 1, dmg: 22, radius: 100, orbRadius: 20 },
@@ -174,7 +174,7 @@
       fire() {} // handled by updateOrbitals
     },
     telegraph: {
-      name: "Telegraph", icon: "⚡", color: "#72f2ff",
+      name: "Telegraph", icon: "bolt", color: "#72f2ff",
       desc: "Chain lightning — jumps between enemies",
       levels: [
         { cd: 1.8, dmg: 38, chains: 2, range: 250 },
@@ -214,7 +214,7 @@
       }
     },
     boomerang: {
-      name: "Boomerang", icon: "🪃", color: "#ffd66e",
+      name: "Boomerang", icon: "arrow-right", color: "#ffd66e",
       desc: "Returns to sender — pierces enemies",
       levels: [
         { cd: 1.6, dmg: 32, pierce: 5, speed: 600 },
@@ -241,7 +241,7 @@
       }
     },
     eraBomb: {
-      name: "Era Bomb", icon: "💥", color: "#ff5d72",
+      name: "Era Bomb", icon: "flame", color: "#ff5d72",
       desc: "Timed AOE explosion",
       levels: [
         { cd: 4.0, dmg: 120, blastR: 140 },
@@ -263,7 +263,7 @@
       }
     },
     timeEcho: {
-      name: "Time Echo", icon: "👻", color: "#c58cff",
+      name: "Time Echo", icon: "phoenix", color: "#c58cff",
       desc: "Summons a copy of yourself that fights for 3 seconds",
       levels: [
         { cd: 8.0, dmg: 0.5, duration: 3 },
@@ -292,17 +292,17 @@
   // ─── PASSIVE DEFINITIONS ─────────────────────────────────────────────────────
   const PASSIVES = {
     speed: {
-      name:"Swift Boots", icon:"👟", desc:"Move speed +12% per level",
+      name:"Swift Boots", icon:"rocket", desc:"Move speed +12% per level",
       levels:[12,24,36,50,65,82,100,120],
       apply(lv) { player.speedBonus = 1 + PASSIVES.speed.levels[lv-1]/100; }
     },
     magnet: {
-      name:"Lodestone", icon:"🧲", desc:"XP pickup range +60px per level",
+      name:"Lodestone", icon:"compass", desc:"XP pickup range +60px per level",
       levels:[60,120,180,240,300,370,450,550],
       apply(lv) { state.magnetRange = 96 + PASSIVES.magnet.levels[lv-1]; }
     },
     maxhp: {
-      name:"Iron Will", icon:"❤️", desc:"Max HP +20 per level",
+      name:"Iron Will", icon:"shield", desc:"Max HP +20 per level",
       levels:[20,40,60,85,112,142,175,215],
       apply(lv) {
         const old = player.maxHp;
@@ -312,27 +312,27 @@
       }
     },
     regen: {
-      name:"Vital Tide", icon:"💚", desc:"+1 HP/sec regen per level",
+      name:"Vital Tide", icon:"heart-pulse", desc:"+1 HP/sec regen per level",
       levels:[1,2,3.5,5,7,9.5,12.5,16],
       apply(lv) { state.regenRate = PASSIVES.regen.levels[lv-1]; }
     },
     area: {
-      name:"Rift Lens", icon:"🔬", desc:"Weapon AoE +10% per level",
+      name:"Rift Lens", icon:"explorer", desc:"Weapon AoE +10% per level",
       levels:[10,20,32,45,60,77,97,120],
       apply(lv) { state.areaBonus = 1 + PASSIVES.area.levels[lv-1]/100; }
     },
     multishot: {
-      name:"Powder Keg", icon:"💨", desc:"+1 projectile per 2 levels",
+      name:"Powder Keg", icon:"spark", desc:"+1 projectile per 2 levels",
       levels:[1,1,2,2,3,3,4,4],
       apply(lv) { state.extraProjectiles = PASSIVES.multishot.levels[lv-1]; }
     },
     crit: {
-      name:"Eagle Eye", icon:"🦅", desc:"Crit chance +8% per level",
+      name:"Eagle Eye", icon:"target", desc:"Crit chance +8% per level",
       levels:[8,16,24,32,42,52,64,78],
       apply(lv) { state.critChance = PASSIVES.crit.levels[lv-1]/100; }
     },
     cooldown: {
-      name:"Hourglass", icon:"⏳", desc:"Cooldown -8% per level",
+      name:"Hourglass", icon:"pulse", desc:"Cooldown -8% per level",
       levels:[8,15,22,29,36,43,50,58],
       apply(lv) { state.cooldownReduction = PASSIVES.cooldown.levels[lv-1]/100; }
     }
@@ -341,7 +341,7 @@
   // ─── EVOLUTIONS ──────────────────────────────────────────────────────────────
   const EVOLUTIONS = [
     {
-      name:"Siege Cannon", icon:"🏰", color:"#ffd66e",
+      name:"Siege Cannon", icon:"diamond", color:"#ffd66e",
       desc:"Cannonball+Hourglass → massive slow AoE cannon",
       requires:["cannonball","cooldown"],
       replaces:"cannonball",
@@ -359,7 +359,7 @@
       }
     },
     {
-      name:"Storm Telegraph", icon:"🌩️", color:"#72f2ff",
+      name:"Storm Telegraph", icon:"bolt", color:"#72f2ff",
       desc:"Telegraph+Eagle Eye → bounces crit bolts",
       requires:["telegraph","crit"],
       replaces:"telegraph",
@@ -393,7 +393,7 @@
       }
     },
     {
-      name:"Ghost Army", icon:"💀", color:"#c58cff",
+      name:"Ghost Army", icon:"phoenix", color:"#c58cff",
       desc:"TimeEcho+Speed → 3 echoes at once",
       requires:["timeEcho","speed"],
       replaces:"timeEcho",
@@ -584,6 +584,15 @@
   function escapeHtml(v) {
     return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
       .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  }
+  // Resolve a registered MrMacsIcons name → SVG markup. Falls back to fallbackName,
+  // then to a small empty span if the icon library is unavailable.
+  function iconSvgFor(name, fallbackName) {
+    var lib = (typeof window !== "undefined") ? window.MrMacsIcons : null;
+    if (!lib) return "";
+    if (name && lib.has(name)) return lib.svg(name);
+    if (fallbackName && lib.has(fallbackName)) return lib.svg(fallbackName);
+    return "";
   }
   function isTypingTarget(t) {
     if (!t) return false;
@@ -1704,7 +1713,7 @@
           data-upgrade-id="${escapeHtml(u.id||u.name)}"
           style="--card-color:${u.color||"#ffd66e"}"
           aria-label="Choose ${escapeHtml(u.name)}">
-        <span class="upgrade-icon" aria-hidden="true">${u.icon||"⭐"}</span>
+        <span class="upgrade-icon" aria-hidden="true" style="color:${u.color||"#ffd66e"}">${iconSvgFor(u.icon, "star")}</span>
         <strong>${escapeHtml(u.name)}</strong>
         <span style="color:var(--magenta);font-size:10px;font-weight:800;letter-spacing:.1em">${kindLabel}</span>
         <span>${escapeHtml(u.desc||"")}</span>
@@ -1902,7 +1911,7 @@
     for (const ws of state.weaponSlots) {
       const dots=Array.from({length:8},(_,i)=>`<span class="lvdot${i<ws.level?" active":""}">`).join("</span>");
       rows.push(`<div class="relic-chip weapon-chip">
-        <span class="relic-icon-emoji">${ws.icon||"⚔"}</span>
+        <span class="relic-icon-svg" aria-hidden="true" style="color:${ws.color||"#ffd66e"}">${iconSvgFor(ws.icon, "swords")}</span>
         <div class="relic-chip-info"><strong>${escapeHtml(ws.name)}</strong><div class="lvdots">${dots}</div></div>
       </div>`);
     }
@@ -1910,11 +1919,16 @@
       const p=PASSIVES[ps.id];
       const dots=Array.from({length:8},(_,i)=>`<span class="lvdot${i<ps.level?" active":""}">`).join("</span>");
       rows.push(`<div class="relic-chip passive-chip">
-        <span class="relic-icon-emoji">${p.icon||"★"}</span>
+        <span class="relic-icon-svg" aria-hidden="true" style="color:var(--cyan)">${iconSvgFor(p.icon, "star")}</span>
         <div class="relic-chip-info"><strong>${escapeHtml(p.name)}</strong><div class="lvdots">${dots}</div></div>
       </div>`);
     }
-    els.relicList.innerHTML=rows.length?rows.join(""):`<div class="library-status">Level up to unlock relics.</div>`;
+    if (rows.length) {
+      els.relicList.innerHTML = rows.join("");
+    } else {
+      const star = iconSvgFor("star","star");
+      els.relicList.innerHTML = `<div class="library-status"><span aria-hidden="true" style="color:var(--gold);margin-right:6px;vertical-align:-.16em">${star}</span>Level up to unlock relics.</div>`;
+    }
   }
 
   function showBanner(text) {
@@ -2812,8 +2826,9 @@
   // ─── BOOT ────────────────────────────────────────────────────────────────────
   init().catch((error) => {
     console.error("Time Rift Survivors init error:", error);
-    els.missionTitle.textContent = "Engine failed to load";
-    els.questionPrompt.textContent = "Refresh the page. If this repeats, the question bank or asset files did not load.";
+    if (els.missionTitle) els.missionTitle.textContent = "Engine failed to load";
+    if (els.questionPrompt) els.questionPrompt.textContent = "Refresh the page. If this repeats, the question bank or asset files did not load.";
+    if (els.startBtn) { els.startBtn.disabled = true; els.startBtn.textContent = "Library Error"; }
   });
 
 })();

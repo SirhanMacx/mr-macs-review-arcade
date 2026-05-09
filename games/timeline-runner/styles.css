@@ -66,6 +66,29 @@ button { cursor: pointer; border: none; background: none; color: inherit; }
 .mono { font-family: var(--mono-font); font-variant-numeric: tabular-nums; }
 .mono small { font-size: .6em; opacity: .75; letter-spacing: .02em; }
 
+/* Counters that update mid-run get tabular-nums even outside .mono so digits don't jitter */
+#health, #score, #streak, #speed, .end-stat strong, .badge-val, .shop-item strong {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Monoline icon system (window.MrMacsIcons SVGs) ───────────────────── */
+.ic {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.16em;
+  flex-shrink: 0;
+  color: currentColor;
+  fill: none;
+}
+.ic path,
+.ic line,
+.ic polyline,
+.ic polygon,
+.ic rect,
+.ic circle,
+.ic ellipse { vector-effect: non-scaling-stroke; }
+
 /* ─── 2. Shell & canvas ─────────────────────────────────────────────────── */
 .runner-shell {
   position: relative;
@@ -559,18 +582,31 @@ select:focus-visible { outline: none; border-color: var(--cyan); box-shadow: var
 }
 .btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 
-/* Axis 1: "Run" CTA — era-1 to era-2 gradient */
+/* Axis 1: "Run" CTA — era-1 to era-2 gradient + ambient pulse */
 .btn--run {
   border-color: rgba(245, 196, 81, .50);
   background: linear-gradient(135deg,
     rgba(245, 196, 81, .28)  0%,
     rgba(117, 236, 255, .18) 100%);
   color: var(--gold);
+  animation: runPulse 3.4s ease-in-out infinite;
 }
 .btn--run:hover, .btn--run:focus-visible {
   border-color: var(--gold);
   box-shadow: var(--glow-gold), var(--shadow-sm);
+  animation: none;
 }
+@keyframes runPulse {
+  0%, 100% { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,.06), 0 0 0 0 rgba(245, 196, 81, 0); }
+  50%      { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,.10), 0 0 24px rgba(245, 196, 81, .28); }
+}
+
+/* Press / active feedback — buttons settle subtly under tap */
+.btn:active { transform: translateY(0) scale(.985); transition-duration: 60ms; }
+.glass-pill:active { transform: translateY(0) scale(.96); transition-duration: 60ms; }
+.dock-btn:active { transform: translateY(0) scale(.96); transition-duration: 60ms; }
+.lane-chip:active { transform: translateY(0) scale(.985); transition-duration: 60ms; }
+.shop-item:not([disabled]):active { transform: translateY(0) scale(.985); transition-duration: 60ms; }
 
 .btn--shop {
   border-color: rgba(224, 64, 251, .38);
@@ -748,6 +784,7 @@ select:focus-visible { outline: none; border-color: var(--cyan); box-shadow: var
 
 /* ─── 14. Perf-lite mode ───────────────────────────────────────────────── */
 html.perf-lite .mark,
+html.perf-lite .btn--run,
 html.perf-lite .runner-shell::before { animation: none !important; }
 html.perf-lite .top-hud,
 html.perf-lite .question-card,
