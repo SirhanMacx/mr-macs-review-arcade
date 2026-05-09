@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+<!-- Mr. Mac's Arcade thumbnail · Citadel · 400×250 editorial dark -->
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#10141d"/>
+    <stop offset="1" stop-color="#0a0d14"/>
+  </linearGradient>
+  <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bff8ff"/><stop offset="1" stop-color="#7af0ff"/></linearGradient>
+  <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd0eb"/><stop offset="1" stop-color="#ff7cc8"/></linearGradient>
+  <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a0"/><stop offset="1" stop-color="#f5c451"/></linearGradient>
+  <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8efc6"/><stop offset="1" stop-color="#5fd699"/></linearGradient>
+  <linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcc8ff"/><stop offset="1" stop-color="#b892ff"/></linearGradient>
+  <linearGradient id="g6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc1aa"/><stop offset="1" stop-color="#ff8e6f"/></linearGradient>
+</defs>
+<rect width="400" height="250" fill="url(#bg)"/>
+<!-- gem grid 6x4 (gem size ~24) starting x=128 y=70 -->
+<!-- gem helper: diamond -->
+<g stroke="#0a0d14" stroke-width="0.8">
+  <!-- row 1 -->
+  <polygon points="140,70 152,80 140,92 128,80" fill="url(#g1)"/>
+  <polygon points="172,70 184,80 172,92 160,80" fill="url(#g2)"/>
+  <polygon points="204,70 216,80 204,92 192,80" fill="url(#g3)"/>
+  <polygon points="236,70 248,80 236,92 224,80" fill="url(#g4)"/>
+  <polygon points="268,70 280,80 268,92 256,80" fill="url(#g5)"/>
+  <polygon points="300,70 312,80 300,92 288,80" fill="url(#g6)"/>
+  <!-- row 2 -->
+  <polygon points="140,102 152,112 140,124 128,112" fill="url(#g4)"/>
+  <polygon points="172,102 184,112 172,124 160,112" fill="url(#g3)"/>
+  <polygon points="204,102 216,112 204,124 192,112" fill="url(#g3)"/>
+  <polygon points="236,102 248,112 236,124 224,112" fill="url(#g3)"/>
+  <polygon points="268,102 280,112 268,124 256,112" fill="url(#g6)"/>
+  <polygon points="300,102 312,112 300,124 288,112" fill="url(#g1)"/>
+  <!-- row 3 -->
+  <polygon points="140,134 152,144 140,156 128,144" fill="url(#g5)"/>
+  <polygon points="172,134 184,144 172,156 160,144" fill="url(#g6)"/>
+  <polygon points="204,134 216,144 204,156 192,144" fill="url(#g2)"/>
+  <polygon points="236,134 248,144 236,156 224,144" fill="url(#g4)"/>
+  <polygon points="268,134 280,144 268,156 256,144" fill="url(#g1)"/>
+  <polygon points="300,134 312,144 300,156 288,144" fill="url(#g5)"/>
+  <!-- row 4 -->
+  <polygon points="140,166 152,176 140,188 128,176" fill="url(#g6)"/>
+  <polygon points="172,166 184,176 172,188 160,176" fill="url(#g1)"/>
+  <polygon points="204,166 216,176 204,188 192,176" fill="url(#g5)"/>
+  <polygon points="236,166 248,176 236,188 224,176" fill="url(#g2)"/>
+  <polygon points="268,166 280,176 268,188 256,176" fill="url(#g4)"/>
+  <polygon points="300,166 312,176 300,188 288,176" fill="url(#g3)"/>
+</g>
+<!-- highlights -->
+<g fill="white" opacity="0.45">
+  <polygon points="140,75 144,80 140,82 136,80"/>
+  <polygon points="172,75 176,80 172,82 168,80"/>
+  <polygon points="204,107 208,112 204,114 200,112"/>
+  <polygon points="268,139 272,144 268,146 264,144"/>
+  <polygon points="300,171 304,176 300,178 296,176"/>
+</g>
+<!-- highlighted match line on row 2 -->
+<rect x="118" y="98" width="200" height="28" rx="4" fill="none" stroke="#f5c451" stroke-width="1" stroke-dasharray="3,3" opacity="0.7"/>
+<!-- left crest banner -->
+<g transform="translate(60,150)">
+  <polygon points="0,-30 24,-22 24,18 0,30 -24,18 -24,-22" fill="#5a3414" stroke="#f5c451" stroke-width="1.5"/>
+  <text x="0" y="4" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#f5c451" font-weight="700">⚔</text>
+</g>
+<!-- right crest banner -->
+<g transform="translate(345,150)">
+  <polygon points="0,-30 24,-22 24,18 0,30 -24,18 -24,-22" fill="#0d3b5c" stroke="#7af0ff" stroke-width="1.5"/>
+  <text x="0" y="4" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="12" fill="#7af0ff" font-weight="700">✦</text>
+</g>
+<!-- scanlines -->
+<g opacity="0.06" stroke="white" stroke-width="0.5">
+  <line x1="0" y1="0" x2="400" y2="0"/><line x1="0" y1="3" x2="400" y2="3"/><line x1="0" y1="6" x2="400" y2="6"/><line x1="0" y1="9" x2="400" y2="9"/><line x1="0" y1="12" x2="400" y2="12"/><line x1="0" y1="15" x2="400" y2="15"/><line x1="0" y1="18" x2="400" y2="18"/><line x1="0" y1="21" x2="400" y2="21"/><line x1="0" y1="24" x2="400" y2="24"/><line x1="0" y1="27" x2="400" y2="27"/><line x1="0" y1="30" x2="400" y2="30"/><line x1="0" y1="33" x2="400" y2="33"/><line x1="0" y1="36" x2="400" y2="36"/><line x1="0" y1="39" x2="400" y2="39"/><line x1="0" y1="42" x2="400" y2="42"/><line x1="0" y1="45" x2="400" y2="45"/><line x1="0" y1="48" x2="400" y2="48"/><line x1="0" y1="51" x2="400" y2="51"/><line x1="0" y1="54" x2="400" y2="54"/><line x1="0" y1="57" x2="400" y2="57"/><line x1="0" y1="60" x2="400" y2="60"/><line x1="0" y1="63" x2="400" y2="63"/><line x1="0" y1="66" x2="400" y2="66"/><line x1="0" y1="69" x2="400" y2="69"/><line x1="0" y1="72" x2="400" y2="72"/><line x1="0" y1="75" x2="400" y2="75"/><line x1="0" y1="78" x2="400" y2="78"/><line x1="0" y1="81" x2="400" y2="81"/><line x1="0" y1="84" x2="400" y2="84"/><line x1="0" y1="87" x2="400" y2="87"/><line x1="0" y1="90" x2="400" y2="90"/><line x1="0" y1="93" x2="400" y2="93"/><line x1="0" y1="96" x2="400" y2="96"/><line x1="0" y1="99" x2="400" y2="99"/><line x1="0" y1="102" x2="400" y2="102"/><line x1="0" y1="105" x2="400" y2="105"/><line x1="0" y1="108" x2="400" y2="108"/><line x1="0" y1="111" x2="400" y2="111"/><line x1="0" y1="114" x2="400" y2="114"/><line x1="0" y1="117" x2="400" y2="117"/><line x1="0" y1="120" x2="400" y2="120"/><line x1="0" y1="123" x2="400" y2="123"/><line x1="0" y1="126" x2="400" y2="126"/><line x1="0" y1="129" x2="400" y2="129"/><line x1="0" y1="132" x2="400" y2="132"/><line x1="0" y1="135" x2="400" y2="135"/><line x1="0" y1="138" x2="400" y2="138"/><line x1="0" y1="141" x2="400" y2="141"/><line x1="0" y1="144" x2="400" y2="144"/><line x1="0" y1="147" x2="400" y2="147"/><line x1="0" y1="150" x2="400" y2="150"/><line x1="0" y1="153" x2="400" y2="153"/><line x1="0" y1="156" x2="400" y2="156"/><line x1="0" y1="159" x2="400" y2="159"/><line x1="0" y1="162" x2="400" y2="162"/><line x1="0" y1="165" x2="400" y2="165"/><line x1="0" y1="168" x2="400" y2="168"/><line x1="0" y1="171" x2="400" y2="171"/><line x1="0" y1="174" x2="400" y2="174"/><line x1="0" y1="177" x2="400" y2="177"/><line x1="0" y1="180" x2="400" y2="180"/><line x1="0" y1="183" x2="400" y2="183"/><line x1="0" y1="186" x2="400" y2="186"/><line x1="0" y1="189" x2="400" y2="189"/><line x1="0" y1="192" x2="400" y2="192"/><line x1="0" y1="195" x2="400" y2="195"/><line x1="0" y1="198" x2="400" y2="198"/><line x1="0" y1="201" x2="400" y2="201"/><line x1="0" y1="204" x2="400" y2="204"/><line x1="0" y1="207" x2="400" y2="207"/><line x1="0" y1="210" x2="400" y2="210"/><line x1="0" y1="213" x2="400" y2="213"/><line x1="0" y1="216" x2="400" y2="216"/><line x1="0" y1="219" x2="400" y2="219"/><line x1="0" y1="222" x2="400" y2="222"/><line x1="0" y1="225" x2="400" y2="225"/><line x1="0" y1="228" x2="400" y2="228"/><line x1="0" y1="231" x2="400" y2="231"/><line x1="0" y1="234" x2="400" y2="234"/><line x1="0" y1="237" x2="400" y2="237"/><line x1="0" y1="240" x2="400" y2="240"/><line x1="0" y1="243" x2="400" y2="243"/><line x1="0" y1="246" x2="400" y2="246"/><line x1="0" y1="249" x2="400" y2="249"/>
+</g>
+<!-- title -->
+<text x="16" y="28" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" font-weight="700" fill="#ffffff" letter-spacing="2" style="text-shadow:0 0 4px #b892ff">CITADEL</text>
+<text x="16" y="42" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="8" fill="#b892ff" letter-spacing="3" opacity="0.7">CREST&#160;MATCH</text>
+<!-- genre tag -->
+<text x="384" y="240" text-anchor="end" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="9" fill="#b8895c" letter-spacing="2">MATCH-3</text>
+<!-- border -->
+<rect x="1" y="1" width="398" height="248" fill="none" stroke="#b8895c" stroke-width="2"/>
+</svg>

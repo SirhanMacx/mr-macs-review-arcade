@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+<!-- Mr. Mac's Arcade thumbnail · Tron Trails · 400×250 editorial dark -->
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#10141d"/>
+    <stop offset="1" stop-color="#0a0d14"/>
+  </linearGradient>
+  <linearGradient id="cyanT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bff8ff"/><stop offset="1" stop-color="#7af0ff"/></linearGradient>
+  <linearGradient id="magT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd0eb"/><stop offset="1" stop-color="#ff7cc8"/></linearGradient>
+</defs>
+<rect width="400" height="250" fill="url(#bg)"/>
+<!-- grid floor -->
+<g stroke="#7af0ff" stroke-width="0.4" opacity="0.18">
+  <line x1="40" y1="55" x2="360" y2="55"/>
+  <line x1="40" y1="75" x2="360" y2="75"/>
+  <line x1="40" y1="95" x2="360" y2="95"/>
+  <line x1="40" y1="115" x2="360" y2="115"/>
+  <line x1="40" y1="135" x2="360" y2="135"/>
+  <line x1="40" y1="155" x2="360" y2="155"/>
+  <line x1="40" y1="175" x2="360" y2="175"/>
+  <line x1="40" y1="195" x2="360" y2="195"/>
+  <line x1="40" y1="215" x2="360" y2="215"/>
+  <line x1="40" y1="55" x2="40" y2="215"/>
+  <line x1="60" y1="55" x2="60" y2="215"/>
+  <line x1="80" y1="55" x2="80" y2="215"/>
+  <line x1="100" y1="55" x2="100" y2="215"/>
+  <line x1="120" y1="55" x2="120" y2="215"/>
+  <line x1="140" y1="55" x2="140" y2="215"/>
+  <line x1="160" y1="55" x2="160" y2="215"/>
+  <line x1="180" y1="55" x2="180" y2="215"/>
+  <line x1="200" y1="55" x2="200" y2="215"/>
+  <line x1="220" y1="55" x2="220" y2="215"/>
+  <line x1="240" y1="55" x2="240" y2="215"/>
+  <line x1="260" y1="55" x2="260" y2="215"/>
+  <line x1="280" y1="55" x2="280" y2="215"/>
+  <line x1="300" y1="55" x2="300" y2="215"/>
+  <line x1="320" y1="55" x2="320" y2="215"/>
+  <line x1="340" y1="55" x2="340" y2="215"/>
+  <line x1="360" y1="55" x2="360" y2="215"/>
+</g>
+<!-- cyan trail (path with bends) -->
+<path d="M 60 200 L 60 140 L 140 140 L 140 100 L 220 100 L 220 70" fill="none" stroke="url(#cyanT)" stroke-width="3" stroke-linejoin="miter" filter="url(#none)"/>
+<path d="M 60 200 L 60 140 L 140 140 L 140 100 L 220 100 L 220 70" fill="none" stroke="#bff8ff" stroke-width="1" stroke-linejoin="miter" opacity="0.7"/>
+<!-- magenta trail -->
+<path d="M 340 70 L 340 130 L 260 130 L 260 170 L 200 170" fill="none" stroke="url(#magT)" stroke-width="3" stroke-linejoin="miter"/>
+<path d="M 340 70 L 340 130 L 260 130 L 260 170 L 200 170" fill="none" stroke="#ffd0eb" stroke-width="1" stroke-linejoin="miter" opacity="0.7"/>
+<!-- light cycle (cyan) at trail head -->
+<g transform="translate(220,70)">
+  <rect x="-6" y="-3" width="12" height="6" rx="1" fill="#7af0ff" stroke="#0a0d14" stroke-width="0.8"/>
+  <rect x="-7" y="3" width="14" height="3" rx="1" fill="#bff8ff"/>
+  <circle cx="-4" cy="6" r="2" fill="#0a0d14"/>
+  <circle cx="4" cy="6" r="2" fill="#0a0d14"/>
+</g>
+<!-- light cycle (magenta) at trail head -->
+<g transform="translate(200,170)">
+  <rect x="-6" y="-3" width="12" height="6" rx="1" fill="#ff7cc8" stroke="#0a0d14" stroke-width="0.8"/>
+  <rect x="-7" y="3" width="14" height="3" rx="1" fill="#ffd0eb"/>
+  <circle cx="-4" cy="6" r="2" fill="#0a0d14"/>
+  <circle cx="4" cy="6" r="2" fill="#0a0d14"/>
+</g>
+<!-- glow nodes at corners -->
+<g>
+  <circle cx="60" cy="140" r="3" fill="#7af0ff" opacity="0.7"/>
+  <circle cx="140" cy="140" r="3" fill="#7af0ff" opacity="0.7"/>
+  <circle cx="140" cy="100" r="3" fill="#7af0ff" opacity="0.7"/>
+  <circle cx="220" cy="100" r="3" fill="#7af0ff" opacity="0.7"/>
+  <circle cx="340" cy="130" r="3" fill="#ff7cc8" opacity="0.7"/>
+  <circle cx="260" cy="130" r="3" fill="#ff7cc8" opacity="0.7"/>
+  <circle cx="260" cy="170" r="3" fill="#ff7cc8" opacity="0.7"/>
+</g>
+<!-- horizon glow -->
+<rect x="40" y="55" width="320" height="2" fill="#7af0ff" opacity="0.4"/>
+<!-- scanlines -->
+<g opacity="0.06" stroke="white" stroke-width="0.5">
+  <line x1="0" y1="0" x2="400" y2="0"/><line x1="0" y1="3" x2="400" y2="3"/><line x1="0" y1="6" x2="400" y2="6"/><line x1="0" y1="9" x2="400" y2="9"/><line x1="0" y1="12" x2="400" y2="12"/><line x1="0" y1="15" x2="400" y2="15"/><line x1="0" y1="18" x2="400" y2="18"/><line x1="0" y1="21" x2="400" y2="21"/><line x1="0" y1="24" x2="400" y2="24"/><line x1="0" y1="27" x2="400" y2="27"/><line x1="0" y1="30" x2="400" y2="30"/><line x1="0" y1="33" x2="400" y2="33"/><line x1="0" y1="36" x2="400" y2="36"/><line x1="0" y1="39" x2="400" y2="39"/><line x1="0" y1="42" x2="400" y2="42"/><line x1="0" y1="45" x2="400" y2="45"/><line x1="0" y1="48" x2="400" y2="48"/><line x1="0" y1="51" x2="400" y2="51"/><line x1="0" y1="54" x2="400" y2="54"/><line x1="0" y1="57" x2="400" y2="57"/><line x1="0" y1="60" x2="400" y2="60"/><line x1="0" y1="63" x2="400" y2="63"/><line x1="0" y1="66" x2="400" y2="66"/><line x1="0" y1="69" x2="400" y2="69"/><line x1="0" y1="72" x2="400" y2="72"/><line x1="0" y1="75" x2="400" y2="75"/><line x1="0" y1="78" x2="400" y2="78"/><line x1="0" y1="81" x2="400" y2="81"/><line x1="0" y1="84" x2="400" y2="84"/><line x1="0" y1="87" x2="400" y2="87"/><line x1="0" y1="90" x2="400" y2="90"/><line x1="0" y1="93" x2="400" y2="93"/><line x1="0" y1="96" x2="400" y2="96"/><line x1="0" y1="99" x2="400" y2="99"/><line x1="0" y1="102" x2="400" y2="102"/><line x1="0" y1="105" x2="400" y2="105"/><line x1="0" y1="108" x2="400" y2="108"/><line x1="0" y1="111" x2="400" y2="111"/><line x1="0" y1="114" x2="400" y2="114"/><line x1="0" y1="117" x2="400" y2="117"/><line x1="0" y1="120" x2="400" y2="120"/><line x1="0" y1="123" x2="400" y2="123"/><line x1="0" y1="126" x2="400" y2="126"/><line x1="0" y1="129" x2="400" y2="129"/><line x1="0" y1="132" x2="400" y2="132"/><line x1="0" y1="135" x2="400" y2="135"/><line x1="0" y1="138" x2="400" y2="138"/><line x1="0" y1="141" x2="400" y2="141"/><line x1="0" y1="144" x2="400" y2="144"/><line x1="0" y1="147" x2="400" y2="147"/><line x1="0" y1="150" x2="400" y2="150"/><line x1="0" y1="153" x2="400" y2="153"/><line x1="0" y1="156" x2="400" y2="156"/><line x1="0" y1="159" x2="400" y2="159"/><line x1="0" y1="162" x2="400" y2="162"/><line x1="0" y1="165" x2="400" y2="165"/><line x1="0" y1="168" x2="400" y2="168"/><line x1="0" y1="171" x2="400" y2="171"/><line x1="0" y1="174" x2="400" y2="174"/><line x1="0" y1="177" x2="400" y2="177"/><line x1="0" y1="180" x2="400" y2="180"/><line x1="0" y1="183" x2="400" y2="183"/><line x1="0" y1="186" x2="400" y2="186"/><line x1="0" y1="189" x2="400" y2="189"/><line x1="0" y1="192" x2="400" y2="192"/><line x1="0" y1="195" x2="400" y2="195"/><line x1="0" y1="198" x2="400" y2="198"/><line x1="0" y1="201" x2="400" y2="201"/><line x1="0" y1="204" x2="400" y2="204"/><line x1="0" y1="207" x2="400" y2="207"/><line x1="0" y1="210" x2="400" y2="210"/><line x1="0" y1="213" x2="400" y2="213"/><line x1="0" y1="216" x2="400" y2="216"/><line x1="0" y1="219" x2="400" y2="219"/><line x1="0" y1="222" x2="400" y2="222"/><line x1="0" y1="225" x2="400" y2="225"/><line x1="0" y1="228" x2="400" y2="228"/><line x1="0" y1="231" x2="400" y2="231"/><line x1="0" y1="234" x2="400" y2="234"/><line x1="0" y1="237" x2="400" y2="237"/><line x1="0" y1="240" x2="400" y2="240"/><line x1="0" y1="243" x2="400" y2="243"/><line x1="0" y1="246" x2="400" y2="246"/><line x1="0" y1="249" x2="400" y2="249"/>
+</g>
+<!-- title -->
+<text x="16" y="28" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" font-weight="700" fill="#ffffff" letter-spacing="2" style="text-shadow:0 0 4px #7af0ff">TRON TRAILS</text>
+<text x="16" y="42" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="8" fill="#7af0ff" letter-spacing="3" opacity="0.7">LIGHT&#160;CYCLE</text>
+<!-- genre tag -->
+<text x="384" y="240" text-anchor="end" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="9" fill="#b8895c" letter-spacing="2">SNAKE DUEL</text>
+<!-- border -->
+<rect x="1" y="1" width="398" height="248" fill="none" stroke="#b8895c" stroke-width="2"/>
+</svg>

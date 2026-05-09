@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+<!-- Mr. Mac's Arcade thumbnail · Chronohop · 400×250 editorial dark -->
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#10141d"/>
+    <stop offset="1" stop-color="#0a0d14"/>
+  </linearGradient>
+  <linearGradient id="river" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#0d3b5c"/>
+    <stop offset="0.5" stop-color="#1d6a96"/>
+    <stop offset="1" stop-color="#0d3b5c"/>
+  </linearGradient>
+  <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#181818"/>
+    <stop offset="1" stop-color="#101010"/>
+  </linearGradient>
+</defs>
+<rect width="400" height="250" fill="url(#bg)"/>
+<!-- safe top strip -->
+<rect x="20" y="60" width="360" height="14" fill="#1a3a2a" opacity="0.6"/>
+<!-- river band -->
+<rect x="20" y="76" width="360" height="44" fill="url(#river)" opacity="0.8"/>
+<!-- lily pads on river -->
+<ellipse cx="80" cy="98" rx="14" ry="6" fill="#5fd699" opacity="0.85"/>
+<ellipse cx="180" cy="98" rx="14" ry="6" fill="#5fd699" opacity="0.85"/>
+<ellipse cx="280" cy="98" rx="14" ry="6" fill="#5fd699" opacity="0.85"/>
+<!-- log on river -->
+<rect x="220" y="92" width="50" height="12" rx="4" fill="#8a5d3a"/>
+<line x1="225" y1="98" x2="265" y2="98" stroke="#5a3a22" stroke-width="0.5"/>
+<!-- median strip -->
+<rect x="20" y="122" width="360" height="6" fill="#2a2a2a"/>
+<!-- road band -->
+<rect x="20" y="128" width="360" height="44" fill="url(#road)"/>
+<!-- lane markings -->
+<g stroke="#f5c451" stroke-width="1" stroke-dasharray="6,5" opacity="0.7">
+  <line x1="20" y1="142" x2="380" y2="142"/>
+  <line x1="20" y1="158" x2="380" y2="158"/>
+</g>
+<!-- vehicles -->
+<rect x="60" y="133" width="32" height="10" rx="2" fill="#e85f4d"/>
+<rect x="220" y="133" width="32" height="10" rx="2" fill="#7af0ff"/>
+<rect x="100" y="148" width="32" height="10" rx="2" fill="#f5c451"/>
+<rect x="280" y="148" width="32" height="10" rx="2" fill="#b892ff"/>
+<rect x="160" y="163" width="32" height="10" rx="2" fill="#ff8e6f"/>
+<!-- bottom safe strip -->
+<rect x="20" y="174" width="360" height="14" fill="#1a3a2a" opacity="0.6"/>
+<!-- frog on lily pad -->
+<g transform="translate(180,93)">
+  <ellipse cx="0" cy="6" rx="14" ry="5" fill="#5fd699"/>
+  <circle cx="0" cy="0" r="6" fill="#5fd699" stroke="#0a0d14" stroke-width="0.8"/>
+  <circle cx="-3" cy="-3" r="2" fill="#fff"/>
+  <circle cx="3" cy="-3" r="2" fill="#fff"/>
+  <circle cx="-3" cy="-3" r="0.9" fill="#0a0d14"/>
+  <circle cx="3" cy="-3" r="0.9" fill="#0a0d14"/>
+</g>
+<!-- arrow up -->
+<g transform="translate(180,205)" opacity="0.55">
+  <line x1="0" y1="-12" x2="0" y2="6" stroke="#5fd699" stroke-width="1.5"/>
+  <polygon points="-4,-8 0,-14 4,-8" fill="#5fd699"/>
+</g>
+<!-- scanlines -->
+<g opacity="0.06" stroke="white" stroke-width="0.5">
+  <line x1="0" y1="0" x2="400" y2="0"/><line x1="0" y1="3" x2="400" y2="3"/><line x1="0" y1="6" x2="400" y2="6"/><line x1="0" y1="9" x2="400" y2="9"/><line x1="0" y1="12" x2="400" y2="12"/><line x1="0" y1="15" x2="400" y2="15"/><line x1="0" y1="18" x2="400" y2="18"/><line x1="0" y1="21" x2="400" y2="21"/><line x1="0" y1="24" x2="400" y2="24"/><line x1="0" y1="27" x2="400" y2="27"/><line x1="0" y1="30" x2="400" y2="30"/><line x1="0" y1="33" x2="400" y2="33"/><line x1="0" y1="36" x2="400" y2="36"/><line x1="0" y1="39" x2="400" y2="39"/><line x1="0" y1="42" x2="400" y2="42"/><line x1="0" y1="45" x2="400" y2="45"/><line x1="0" y1="48" x2="400" y2="48"/><line x1="0" y1="51" x2="400" y2="51"/><line x1="0" y1="54" x2="400" y2="54"/><line x1="0" y1="57" x2="400" y2="57"/><line x1="0" y1="60" x2="400" y2="60"/><line x1="0" y1="63" x2="400" y2="63"/><line x1="0" y1="66" x2="400" y2="66"/><line x1="0" y1="69" x2="400" y2="69"/><line x1="0" y1="72" x2="400" y2="72"/><line x1="0" y1="75" x2="400" y2="75"/><line x1="0" y1="78" x2="400" y2="78"/><line x1="0" y1="81" x2="400" y2="81"/><line x1="0" y1="84" x2="400" y2="84"/><line x1="0" y1="87" x2="400" y2="87"/><line x1="0" y1="90" x2="400" y2="90"/><line x1="0" y1="93" x2="400" y2="93"/><line x1="0" y1="96" x2="400" y2="96"/><line x1="0" y1="99" x2="400" y2="99"/><line x1="0" y1="102" x2="400" y2="102"/><line x1="0" y1="105" x2="400" y2="105"/><line x1="0" y1="108" x2="400" y2="108"/><line x1="0" y1="111" x2="400" y2="111"/><line x1="0" y1="114" x2="400" y2="114"/><line x1="0" y1="117" x2="400" y2="117"/><line x1="0" y1="120" x2="400" y2="120"/><line x1="0" y1="123" x2="400" y2="123"/><line x1="0" y1="126" x2="400" y2="126"/><line x1="0" y1="129" x2="400" y2="129"/><line x1="0" y1="132" x2="400" y2="132"/><line x1="0" y1="135" x2="400" y2="135"/><line x1="0" y1="138" x2="400" y2="138"/><line x1="0" y1="141" x2="400" y2="141"/><line x1="0" y1="144" x2="400" y2="144"/><line x1="0" y1="147" x2="400" y2="147"/><line x1="0" y1="150" x2="400" y2="150"/><line x1="0" y1="153" x2="400" y2="153"/><line x1="0" y1="156" x2="400" y2="156"/><line x1="0" y1="159" x2="400" y2="159"/><line x1="0" y1="162" x2="400" y2="162"/><line x1="0" y1="165" x2="400" y2="165"/><line x1="0" y1="168" x2="400" y2="168"/><line x1="0" y1="171" x2="400" y2="171"/><line x1="0" y1="174" x2="400" y2="174"/><line x1="0" y1="177" x2="400" y2="177"/><line x1="0" y1="180" x2="400" y2="180"/><line x1="0" y1="183" x2="400" y2="183"/><line x1="0" y1="186" x2="400" y2="186"/><line x1="0" y1="189" x2="400" y2="189"/><line x1="0" y1="192" x2="400" y2="192"/><line x1="0" y1="195" x2="400" y2="195"/><line x1="0" y1="198" x2="400" y2="198"/><line x1="0" y1="201" x2="400" y2="201"/><line x1="0" y1="204" x2="400" y2="204"/><line x1="0" y1="207" x2="400" y2="207"/><line x1="0" y1="210" x2="400" y2="210"/><line x1="0" y1="213" x2="400" y2="213"/><line x1="0" y1="216" x2="400" y2="216"/><line x1="0" y1="219" x2="400" y2="219"/><line x1="0" y1="222" x2="400" y2="222"/><line x1="0" y1="225" x2="400" y2="225"/><line x1="0" y1="228" x2="400" y2="228"/><line x1="0" y1="231" x2="400" y2="231"/><line x1="0" y1="234" x2="400" y2="234"/><line x1="0" y1="237" x2="400" y2="237"/><line x1="0" y1="240" x2="400" y2="240"/><line x1="0" y1="243" x2="400" y2="243"/><line x1="0" y1="246" x2="400" y2="246"/><line x1="0" y1="249" x2="400" y2="249"/>
+</g>
+<!-- title -->
+<text x="16" y="28" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" font-weight="700" fill="#ffffff" letter-spacing="2" style="text-shadow:0 0 4px #5fd699">CHRONOHOP</text>
+<text x="16" y="42" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="8" fill="#5fd699" letter-spacing="3" opacity="0.7">RIVER&#160;OF&#160;TIME</text>
+<!-- genre tag -->
+<text x="384" y="240" text-anchor="end" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="9" fill="#b8895c" letter-spacing="2">FROGGER</text>
+<!-- border -->
+<rect x="1" y="1" width="398" height="248" fill="none" stroke="#b8895c" stroke-width="2"/>
+</svg>

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+<!-- Mr. Mac's Arcade thumbnail · Mahjong Mosaic · 400×250 editorial dark -->
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#10141d"/>
+    <stop offset="1" stop-color="#0a0d14"/>
+  </linearGradient>
+  <linearGradient id="tileTop" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff8e0"/>
+    <stop offset="1" stop-color="#e8d5a0"/>
+  </linearGradient>
+  <linearGradient id="tileSide" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#a08560"/>
+    <stop offset="1" stop-color="#5a4530"/>
+  </linearGradient>
+</defs>
+<rect width="400" height="250" fill="url(#bg)"/>
+<!-- We'll draw tile pyramid: base 7 wide x 4 tall stacked back further. Each tile face 28x36, depth 5 -->
+<!-- Tile drawing is layer-by-layer, lowest first (back) -->
+<!-- Tile helper: at (x,y) top-left of face -->
+<!-- Layer 0 (bottom, widest) - 8 tiles -->
+<g>
+  <!-- Each tile: face rect; right side parallelogram; top side parallelogram -->
+  <!-- We'll draw 8 tiles in a row, then 6 above, then 4, then 2 -->
+</g>
+<!-- bottom row 8 tiles, y = 195 -->
+<g stroke="#0a0d14" stroke-width="0.8">
+  <!-- tile 1 -->
+  <polygon points="80,195 108,190 108,222 80,227" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="80" y="195" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="94" y="218" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#a04432" font-weight="700">三</text>
+
+  <polygon points="115,195 143,190 143,222 115,227" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="115" y="195" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="129" y="218" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#0a3a5c" font-weight="700">東</text>
+
+  <polygon points="150,195 178,190 178,222 150,227" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="150" y="195" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="164" y="218" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#2a7a4a" font-weight="700">發</text>
+
+  <polygon points="185,195 213,190 213,222 185,227" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="185" y="195" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="199" y="218" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#a04432" font-weight="700">中</text>
+
+  <polygon points="220,195 248,190 248,222 220,227" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="220" y="195" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="234" y="218" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#5a3a8a" font-weight="700">五</text>
+
+  <polygon points="255,195 283,190 283,222 255,227" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="255" y="195" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="269" y="218" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#0a3a5c" font-weight="700">南</text>
+
+  <polygon points="290,195 318,190 318,222 290,227" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="290" y="195" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="304" y="218" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#2a7a4a" font-weight="700">九</text>
+</g>
+<!-- row 2 (6 tiles, indented) y=158 -->
+<g stroke="#0a0d14" stroke-width="0.8">
+  <polygon points="98,158 126,153 126,185 98,190" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="98" y="158" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="112" y="181" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#0a3a5c" font-weight="700">西</text>
+
+  <polygon points="133,158 161,153 161,185 133,190" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="133" y="158" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="147" y="181" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#a04432" font-weight="700">七</text>
+
+  <polygon points="168,158 196,153 196,185 168,190" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="168" y="158" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="182" y="181" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#2a7a4a" font-weight="700">北</text>
+
+  <polygon points="203,158 231,153 231,185 203,190" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="203" y="158" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="217" y="181" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#5a3a8a" font-weight="700">二</text>
+
+  <polygon points="238,158 266,153 266,185 238,190" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="238" y="158" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="252" y="181" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#a04432" font-weight="700">白</text>
+
+  <polygon points="273,158 301,153 301,185 273,190" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="273" y="158" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="287" y="181" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#0a3a5c" font-weight="700">六</text>
+</g>
+<!-- row 3 (4 tiles) y=121 -->
+<g stroke="#0a0d14" stroke-width="0.8">
+  <polygon points="133,121 161,116 161,148 133,153" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="133" y="121" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="147" y="144" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#2a7a4a" font-weight="700">一</text>
+
+  <polygon points="168,121 196,116 196,148 168,153" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="168" y="121" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="182" y="144" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#a04432" font-weight="700">中</text>
+
+  <polygon points="203,121 231,116 231,148 203,153" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="203" y="121" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="217" y="144" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#5a3a8a" font-weight="700">八</text>
+
+  <polygon points="238,121 266,116 266,148 238,153" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="238" y="121" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="252" y="144" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#0a3a5c" font-weight="700">四</text>
+</g>
+<!-- top tile (king) -->
+<g stroke="#0a0d14" stroke-width="0.8">
+  <polygon points="186,84 214,79 214,111 186,116" fill="url(#tileSide)" opacity="0.7"/>
+  <rect x="186" y="84" width="28" height="32" fill="url(#tileTop)"/>
+  <text x="200" y="107" text-anchor="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" fill="#a04432" font-weight="700">龍</text>
+</g>
+<!-- highlight glow on top tile -->
+<rect x="184" y="82" width="32" height="35" fill="none" stroke="#f5c451" stroke-width="1" opacity="0.6"/>
+<!-- scanlines -->
+<g opacity="0.06" stroke="white" stroke-width="0.5">
+  <line x1="0" y1="0" x2="400" y2="0"/><line x1="0" y1="3" x2="400" y2="3"/><line x1="0" y1="6" x2="400" y2="6"/><line x1="0" y1="9" x2="400" y2="9"/><line x1="0" y1="12" x2="400" y2="12"/><line x1="0" y1="15" x2="400" y2="15"/><line x1="0" y1="18" x2="400" y2="18"/><line x1="0" y1="21" x2="400" y2="21"/><line x1="0" y1="24" x2="400" y2="24"/><line x1="0" y1="27" x2="400" y2="27"/><line x1="0" y1="30" x2="400" y2="30"/><line x1="0" y1="33" x2="400" y2="33"/><line x1="0" y1="36" x2="400" y2="36"/><line x1="0" y1="39" x2="400" y2="39"/><line x1="0" y1="42" x2="400" y2="42"/><line x1="0" y1="45" x2="400" y2="45"/><line x1="0" y1="48" x2="400" y2="48"/><line x1="0" y1="51" x2="400" y2="51"/><line x1="0" y1="54" x2="400" y2="54"/><line x1="0" y1="57" x2="400" y2="57"/><line x1="0" y1="60" x2="400" y2="60"/><line x1="0" y1="63" x2="400" y2="63"/><line x1="0" y1="66" x2="400" y2="66"/><line x1="0" y1="69" x2="400" y2="69"/><line x1="0" y1="72" x2="400" y2="72"/><line x1="0" y1="75" x2="400" y2="75"/><line x1="0" y1="78" x2="400" y2="78"/><line x1="0" y1="81" x2="400" y2="81"/><line x1="0" y1="84" x2="400" y2="84"/><line x1="0" y1="87" x2="400" y2="87"/><line x1="0" y1="90" x2="400" y2="90"/><line x1="0" y1="93" x2="400" y2="93"/><line x1="0" y1="96" x2="400" y2="96"/><line x1="0" y1="99" x2="400" y2="99"/><line x1="0" y1="102" x2="400" y2="102"/><line x1="0" y1="105" x2="400" y2="105"/><line x1="0" y1="108" x2="400" y2="108"/><line x1="0" y1="111" x2="400" y2="111"/><line x1="0" y1="114" x2="400" y2="114"/><line x1="0" y1="117" x2="400" y2="117"/><line x1="0" y1="120" x2="400" y2="120"/><line x1="0" y1="123" x2="400" y2="123"/><line x1="0" y1="126" x2="400" y2="126"/><line x1="0" y1="129" x2="400" y2="129"/><line x1="0" y1="132" x2="400" y2="132"/><line x1="0" y1="135" x2="400" y2="135"/><line x1="0" y1="138" x2="400" y2="138"/><line x1="0" y1="141" x2="400" y2="141"/><line x1="0" y1="144" x2="400" y2="144"/><line x1="0" y1="147" x2="400" y2="147"/><line x1="0" y1="150" x2="400" y2="150"/><line x1="0" y1="153" x2="400" y2="153"/><line x1="0" y1="156" x2="400" y2="156"/><line x1="0" y1="159" x2="400" y2="159"/><line x1="0" y1="162" x2="400" y2="162"/><line x1="0" y1="165" x2="400" y2="165"/><line x1="0" y1="168" x2="400" y2="168"/><line x1="0" y1="171" x2="400" y2="171"/><line x1="0" y1="174" x2="400" y2="174"/><line x1="0" y1="177" x2="400" y2="177"/><line x1="0" y1="180" x2="400" y2="180"/><line x1="0" y1="183" x2="400" y2="183"/><line x1="0" y1="186" x2="400" y2="186"/><line x1="0" y1="189" x2="400" y2="189"/><line x1="0" y1="192" x2="400" y2="192"/><line x1="0" y1="195" x2="400" y2="195"/><line x1="0" y1="198" x2="400" y2="198"/><line x1="0" y1="201" x2="400" y2="201"/><line x1="0" y1="204" x2="400" y2="204"/><line x1="0" y1="207" x2="400" y2="207"/><line x1="0" y1="210" x2="400" y2="210"/><line x1="0" y1="213" x2="400" y2="213"/><line x1="0" y1="216" x2="400" y2="216"/><line x1="0" y1="219" x2="400" y2="219"/><line x1="0" y1="222" x2="400" y2="222"/><line x1="0" y1="225" x2="400" y2="225"/><line x1="0" y1="228" x2="400" y2="228"/><line x1="0" y1="231" x2="400" y2="231"/><line x1="0" y1="234" x2="400" y2="234"/><line x1="0" y1="237" x2="400" y2="237"/><line x1="0" y1="240" x2="400" y2="240"/><line x1="0" y1="243" x2="400" y2="243"/><line x1="0" y1="246" x2="400" y2="246"/><line x1="0" y1="249" x2="400" y2="249"/>
+</g>
+<!-- title -->
+<text x="16" y="28" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="14" font-weight="700" fill="#ffffff" letter-spacing="2" style="text-shadow:0 0 4px #f5c451">MAHJONG MOSAIC</text>
+<text x="16" y="42" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="8" fill="#f5c451" letter-spacing="3" opacity="0.7">MATCH&#160;PAIRS</text>
+<!-- genre tag -->
+<text x="384" y="240" text-anchor="end" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="9" fill="#b8895c" letter-spacing="2">MAHJONG</text>
+<!-- border -->
+<rect x="1" y="1" width="398" height="248" fill="none" stroke="#b8895c" stroke-width="2"/>
+</svg>
