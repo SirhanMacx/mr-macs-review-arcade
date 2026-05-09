@@ -3836,6 +3836,24 @@ body {
 .profile-pill .pp-shards { color: #f5c451; }
 .profile-pill .pp-streak { color: #ff7e5f; }
 .profile-pill .pp-streak.is-zero { color: var(--muted, #9aa3bb); opacity: .55; }
+/* Hot-streak flame: subtle 2.4s flicker for ≥7-day streaks */
+.profile-pill .pp-streak.is-hot {
+  animation: streakFlicker 2.4s ease-in-out infinite;
+}
+/* Blazing-streak: faster, more intense flicker for ≥30-day streaks */
+.profile-pill .pp-streak.is-blazing {
+  animation: streakFlicker 1.2s ease-in-out infinite;
+  text-shadow: 0 0 8px rgba(255, 126, 95, .55);
+}
+@keyframes streakFlicker {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(255, 126, 95, 0));   transform: translateY(0); }
+  35%      { filter: drop-shadow(0 0 6px rgba(255, 126, 95, .55)); transform: translateY(-0.5px); }
+  65%      { filter: drop-shadow(0 0 8px rgba(245, 196, 81, .50)); transform: translateY(0.5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-pill .pp-streak.is-hot,
+  .profile-pill .pp-streak.is-blazing { animation: none; }
+}
 .profile-pill[data-empty="true"] {
   border-style: dashed;
   border-color: rgba(245, 196, 81, .45);
@@ -5437,7 +5455,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <div class="welcome-overlay" id="welcomeOverlay" role="dialog" aria-modal="true" aria-label="Welcome to Mr. Mac's Arcade" hidden>
   <div class="welcome-card">
     <button class="welcome-skip" id="welcomeSkip" type="button" aria-label="Skip setup">Skip</button>
-    <div class="welcome-eyebrow">Welcome, hunter</div>
+    <div class="welcome-eyebrow" id="welcomeEyebrow">Welcome, hunter</div>
     <h2 class="welcome-title">Set up your <em>trainer</em>.</h2>
     <p class="welcome-sub">Your name + avatar travel with you across every game. Progress, shards, and achievements stay on this device — nothing is sent off your browser.</p>
     <label class="welcome-field">
@@ -7420,11 +7438,16 @@ boot();
       var streakNum = profile.streak.current || 0;
       ppStreak.innerHTML = flameSvg + ' <span class="pp-streak-num">' + streakNum + '</span>';
       ppStreak.classList.toggle("is-zero", streakNum < 1);
+      // Hot streak (>= 7 days) gets a subtle flicker animation on the flame
+      ppStreak.classList.toggle("is-hot", streakNum >= 7);
+      ppStreak.classList.toggle("is-blazing", streakNum >= 30);
     } else {
       if (ppAvatar) ppAvatar.innerHTML = renderIcon("🎓");
       ppName.textContent = "Sign in";
       ppShards.innerHTML = diamondSvg + ' <span class="pp-shards-num">0</span>';
       ppStreak.innerHTML = flameSvg + ' <span class="pp-streak-num">0</span>';
+      ppStreak.classList.remove("is-hot");
+      ppStreak.classList.remove("is-blazing");
     }
   }
   updatePill();
@@ -7505,6 +7528,17 @@ boot();
   function openWelcome() {
     if (!welcomeOverlay) return;
     buildWelcomeAvatars();
+    // Time-of-day greeting: morning / afternoon / evening / late night
+    var eyebrow = document.getElementById("welcomeEyebrow");
+    if (eyebrow) {
+      var h = new Date().getHours();
+      var greet = "Welcome, hunter";
+      if (h >= 5 && h < 12) greet = "Good morning, hunter";
+      else if (h >= 12 && h < 17) greet = "Good afternoon, hunter";
+      else if (h >= 17 && h < 22) greet = "Good evening, hunter";
+      else greet = "Up late, hunter?";
+      eyebrow.textContent = greet;
+    }
     welcomeOverlay.hidden = false;
     setTimeout(function () { if (welcomeName) welcomeName.focus(); }, 120);
   }
