@@ -116,6 +116,90 @@
   var soundOn = true;
   var lastSnapshotTs = 0;
   var pendingBossModal = false;
+
+  // ── SFX (Web Audio) ──────────────────────────────────────────────────────
+  // Lightweight oscillator-based sound effects. Single shared
+  // AudioContext, lazy-init on first use (browsers require a user
+  // gesture before audio works). Every cue respects soundOn.
+  var sfxCtx = null;
+  function sfxInit() {
+    if (sfxCtx || !soundOn) return sfxCtx;
+    try {
+      sfxCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) { sfxCtx = null; }
+    return sfxCtx;
+  }
+  function sfxTone(freq, duration, opts) {
+    if (!soundOn) return;
+    var ctxA = sfxInit();
+    if (!ctxA) return;
+    opts = opts || {};
+    var type = opts.type || "square";
+    var vol = opts.volume == null ? 0.18 : opts.volume;
+    var attack = opts.attack || 0.005;
+    var decay = opts.decay == null ? duration : opts.decay;
+    var now = ctxA.currentTime;
+    try {
+      var osc = ctxA.createOscillator();
+      var gain = ctxA.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, now);
+      if (opts.endFreq != null) {
+        osc.frequency.exponentialRampToValueAtTime(Math.max(20, opts.endFreq), now + duration);
+      }
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(vol, now + attack);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + decay);
+      osc.connect(gain).connect(ctxA.destination);
+      osc.start(now);
+      osc.stop(now + duration + 0.05);
+    } catch (e) {}
+  }
+  // Pre-baked cues
+  var sfx = {
+    brick: function (rowIdx) {
+      // Pitch climbs with row index (top rows = higher pitch). Square
+      // wave for crunchy 8-bit feel.
+      var base = 220;
+      var freq = base * Math.pow(2, (BRICK_ROWS - rowIdx) / 12);
+      sfxTone(freq, 0.08, { type: "square", volume: 0.10 });
+    },
+    paddle: function () {
+      sfxTone(180, 0.05, { type: "triangle", volume: 0.14, endFreq: 110 });
+    },
+    wall: function () {
+      sfxTone(320, 0.03, { type: "sine", volume: 0.06 });
+    },
+    powerup: function () {
+      // Two-note ascending chime
+      sfxTone(660, 0.10, { type: "triangle", volume: 0.16 });
+      setTimeout(function () { sfxTone(880, 0.14, { type: "triangle", volume: 0.16 }); }, 80);
+    },
+    boss: function () {
+      // Three-note flourish — gold fanfare
+      var notes = [523, 659, 880]; // C5, E5, A5
+      notes.forEach(function (n, i) {
+        setTimeout(function () {
+          sfxTone(n, 0.16, { type: "sawtooth", volume: 0.16 });
+        }, i * 100);
+      });
+    },
+    lose: function () {
+      sfxTone(280, 0.18, { type: "triangle", volume: 0.18, endFreq: 110 });
+    },
+    laser: function () {
+      sfxTone(1200, 0.05, { type: "square", volume: 0.06, endFreq: 1800 });
+    },
+    combo: function (level) {
+      // Ascending triple-tone for milestone combos
+      var notes = [392, 494, 659];
+      notes.forEach(function (n, i) {
+        setTimeout(function () {
+          sfxTone(n + level * 22, 0.10, { type: "triangle", volume: 0.13 });
+        }, i * 60);
+      });
+    }
+  };
   // ── DOM ──────────────────────────────────────────────────────────────────
   var dom = {};
 
@@ -262,7 +346,8 @@
           color: color,
           isBoss: isBoss,
           dropPower: !isBoss && Math.random() < POWERUP_DROP_RATE,
-          cracked: 0
+          cracked: 0,
+          row: r // for sfx pitch mapping
         };
         grid.push(brick);
         totalCount++;
@@ -392,10 +477,10 @@
       b.x += b.vx * speedMul * dt;
       b.y += b.vy * speedMul * dt;
 
-      // Wall collisions
-      if (b.x < BALL_R) { b.x = BALL_R; b.vx = Math.abs(b.vx); }
-      if (b.x > LOGICAL_W - BALL_R) { b.x = LOGICAL_W - BALL_R; b.vx = -Math.abs(b.vx); }
-      if (b.y < BALL_R) { b.y = BALL_R; b.vy = Math.abs(b.vy); }
+      // Wall collisions (with quiet wall thunk)
+      if (b.x < BALL_R) { b.x = BALL_R; b.vx = Math.abs(b.vx); sfx.wall(); }
+      if (b.x > LOGICAL_W - BALL_R) { b.x = LOGICAL_W - BALL_R; b.vx = -Math.abs(b.vx); sfx.wall(); }
+      if (b.y < BALL_R) { b.y = BALL_R; b.vy = Math.abs(b.vy); sfx.wall(); }
 
       // Lost ball
       if (b.y > LOGICAL_H + 40) {
@@ -414,10 +499,11 @@
           b.vx = Math.sin(angle) * spd;
           b.vy = -Math.abs(Math.cos(angle) * spd);
           b.y = paddleTop - BALL_R - 0.5;
-          // Polish: paddle hit ripple + small shake
+          // Polish: paddle hit ripple + small shake + thunk
           var era = ERAS[(state.level - 1) % ERAS.length];
           spawnRipple(b.x, paddleTop, era.accent, 28);
           triggerShake(1.5, 80);
+          sfx.paddle();
           // Combo resets when ball touches paddle without breaking a brick
           if (state.combo > 1) {
             state.combo = 1;
@@ -560,6 +646,7 @@
     state.lasers.push({ x: p.x - halfW + 12, y: y });
     state.lasers.push({ x: p.x + halfW - 12, y: y });
     state.lasersFireCooldown = LASER_COOLDOWN;
+    sfx.laser();
   }
 
   function laserHitBrick(ls) {
@@ -603,8 +690,9 @@
     if (br.hp <= 0) {
       shatterBrick(i, fromBall);
     } else {
-      // Tiny particle burst on chip
+      // Tiny particle burst on chip + tone keyed to row
       spawnParticles(br.x + br.w / 2, br.y + br.h / 2, br.color, reducedMotion ? 2 : 5, 0.4);
+      sfx.brick(br.row || 0);
     }
   }
 
@@ -628,6 +716,7 @@
       if (milestones[state.combo] && state.lastComboMilestone < state.combo) {
         state.lastComboMilestone = state.combo;
         spawnCallout(cx, cy - 18, milestones[state.combo], era.accent, 1.3 + state.combo * 0.08);
+        sfx.combo(state.combo);
       }
     }
 
@@ -639,6 +728,9 @@
     // Screen shake — small for normal, big for boss
     triggerShake(br.isBoss ? 9 : 3, br.isBoss ? 360 : 140);
     if (br.isBoss) triggerHitPause(90);
+    // Sound: brick thunk by row, boss fanfare for gold
+    if (br.isBoss) sfx.boss();
+    else sfx.brick(br.row || 0);
 
     // Drop power-up
     if (br.dropPower && state.powerups.length < 3) {
@@ -775,6 +867,7 @@
     var px = state.paddle.x;
     var py = LOGICAL_H - PADDLE_Y_OFFSET - PADDLE_H;
     triggerShake(2, 110);
+    sfx.powerup();
     if (kind === "extend") {
       state.paddle.w = PADDLE_BASE_W * 1.5;
       state.activePowerups.extend = nowTs + POWERUP_DURATIONS.extend;
@@ -835,7 +928,10 @@
   function loseLife() {
     state.lives--;
     state.combo = 1;
+    state.lastComboMilestone = 0;
     updateHud();
+    sfx.lose();
+    triggerShake(6, 280);
     if (state.lives <= 0) {
       gameOver(false);
     } else {
