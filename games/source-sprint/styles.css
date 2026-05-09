@@ -43,6 +43,8 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
 }
 .empty-state.error { border-color: rgba(255,97,120,.38); }
 .empty-state.error .empty-icon { color: #ff8c9c; border-color: rgba(255,140,156,.55); }
+/* When dropped into the .mini-metrics grid, span full width */
+.mini-metrics > .empty-state { grid-column: 1 / -1; }
 
 /* Hover lift + focus rings */
 .btn { transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease, background .14s ease; display:inline-flex; align-items:center; justify-content:center; }
