@@ -8335,6 +8335,14 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-toast.js?v=20260509-toast"></script>
 <script src="assets/arcade-celebration.js?v=20260509-celebration"></script>
 <script src="assets/arcade-progress-extras.js?v=20260509-progress-extras"></script>
+<script src="assets/arcade-leaderboards.js?v=20260509-leaderboards"></script>
+<script src="assets/arcade-sessions.js?v=20260509-sessions"></script>
+<script src="assets/arcade-cram-mode.js?v=20260509-cram"></script>
+<script src="assets/arcade-onboarding-flow.js?v=20260509-onboarding"></script>
+<script src="assets/arcade-quick-stats-panel.js?v=20260509-quickstats"></script>
+<script src="assets/arcade-recommender.js?v=20260509-recommender"></script>
+<script src="assets/arcade-keyboard-remap.js?v=20260509-keyboard"></script>
+<script src="assets/arcade-dev-tools.js?v=20260509-devtools"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
@@ -8356,12 +8364,20 @@ let frameLoadTimer = 0;
 let smartMenuLane = "recommended";
 let lastPlayerFocus = null;
 // Featured carousel — rotates between the May 2026 flagship sweep
-// and the existing premium classics so new players land on something
-// fresh.
+// (rounds 1, 1.5, 2) and the existing premium classics so new players
+// always land on something fresh.
 const FEATURED_GAME_IDS = [
+  // Newest first — round 2
+  "mahjong-mosaic", "reflex-run", "tower-climb", "plinko-lab", "tron-trails",
+  // Round 1.5
+  "galaxy-defender", "echo-hall", "anagram-atlas", "centiquill",
+  // Round 1
   "rumor-whack", "citadel", "step-pyramid", "chronohop",
+  // Old classics
   "history-hunters", "archive-quest", "cold-war-invaders",
+  // Round 1 continued
   "brickoria", "stellar-drift", "cascade",
+  // Practice exams
   "regents-practice-exam", "ap-practice-exam"
 ];
 const SOURCE_LOCKED_GAME_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "source-sprint", "source-lab", "regents-gauntlet", "source-audit", "archive-cipher"]);
@@ -8369,9 +8385,13 @@ const PREMIUM_ARCADE_IDS = new Set([
   "history-hunters", "archive-quest", "cold-war-invaders",
   "timeline-runner", "chrono-defense-infinite", "chrono-pinball",
   "time-rift-survivors",
-  // ── May 2026 flagship sweep — game-first, review-secondary arcade originals
+  // ── May 2026 flagship sweep (round 1) — game-first, review-secondary
   "brickoria", "stellar-drift", "source-snake", "chronoblocks",
-  "cascade", "chronohop", "step-pyramid", "citadel", "rumor-whack"
+  "cascade", "chronohop", "step-pyramid", "citadel", "rumor-whack",
+  // ── Round 1.5 sweep
+  "galaxy-defender", "echo-hall", "sokoban-scribe", "centiquill", "anagram-atlas",
+  // ── Round 2 sweep
+  "tron-trails", "plinko-lab", "tower-climb", "mahjong-mosaic", "reflex-run"
 ]);
 const REBUILD_QUEUE_IDS = new Set(["regents-rally-source-circuit", "review-maze-chase", "boss-rush-arena", "empire-ascendant"]);
 const PRACTICE_TOOL_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "mastery-path", "source-lab", "writing-coach", "source-audit", "source-sprint", "regents-gauntlet"]);
@@ -9102,7 +9122,11 @@ function cumulativeJeopardyPicks() {
 // hid the May 2026 sweep behind hard-coded old-classics arrays.
 // Order matters: newest first so they surface on the front page.
 const NEW_FLAGSHIP_IDS = [
-  "rumor-whack", "citadel", "step-pyramid", "chronohop",
+  // Round-2 flagships (May 2026 second sweep)
+  "mahjong-mosaic", "reflex-run", "tower-climb", "plinko-lab", "tron-trails",
+  // Round-1 May 2026 flagships
+  "rumor-whack", "citadel", "anagram-atlas", "centiquill", "sokoban-scribe",
+  "echo-hall", "galaxy-defender", "step-pyramid", "chronohop",
   "cascade", "chronoblocks", "source-snake", "stellar-drift", "brickoria"
 ];
 function smartMenuGames(laneId) {
@@ -11691,15 +11715,13 @@ boot();
   // Drawn from games.json by ID so it stays in sync as we add games.
   // Order matters — newest first.
   var NEW_FLAGSHIPS = [
-    "rumor-whack",
-    "citadel",
-    "step-pyramid",
-    "chronohop",
-    "cascade",
-    "chronoblocks",
-    "source-snake",
-    "stellar-drift",
-    "brickoria"
+    // Round 2 sweep (May 9 2026)
+    "mahjong-mosaic", "reflex-run", "tower-climb", "plinko-lab", "tron-trails",
+    // Round 1.5 sweep
+    "anagram-atlas", "centiquill", "sokoban-scribe", "echo-hall", "galaxy-defender",
+    // Round 1 sweep
+    "rumor-whack", "citadel", "step-pyramid", "chronohop",
+    "cascade", "chronoblocks", "source-snake", "stellar-drift", "brickoria"
   ];
 
   function renderNewCabinet() {

@@ -192,10 +192,46 @@
     { id: "rumor-fact-spare",  title: "Truth Sentinel",        desc: "Spare 25 verified facts in Rumor Whack.",          tier: "silver",    icon: "🛡" },
     { id: "scholar-decoder",   title: "Scholar Decoder",       desc: "Answer 50 scholar prompts correctly across all games.", tier: "gold", icon: "🎓" },
 
+    // ---- Per-flagship depth (round-2 achievements) ----
+    // Brickoria depth
+    { id: "brickoria-boss",       title: "Scholar Boss Down",     desc: "Defeat a scholar boss in Brickoria.",                tier: "gold",      icon: "🧱" },
+    // Stellar Drift depth
+    { id: "stellar-no-hyperspace",title: "Pure Pilot",            desc: "Clear 5 waves without using hyperspace in Stellar Drift.", tier: "gold", icon: "🚀" },
+    // Source Snake depth
+    { id: "snake-no-power",       title: "Bare Fang",             desc: "Reach 30 segments without picking up any power-up.", tier: "gold",      icon: "🐍" },
+    // Chronoblocks depth
+    { id: "chronoblocks-100-lines",title: "Centurion Stacker",    desc: "Clear 100 lines in a single Chronoblocks run.",      tier: "legendary", icon: "🟦" },
+    // Cascade depth
+    { id: "cascade-pressure-zero",title: "Pressure Released",     desc: "Pop a cluster while under final-row pressure in Cascade.", tier: "gold", icon: "🫧" },
+    // Chronohop depth
+    { id: "chronohop-no-shield",  title: "Naked Hop",             desc: "Fill all 5 lily pads without using a shield in Chronohop.", tier: "gold", icon: "🐸" },
+    // Step Pyramid extra
+    { id: "step-pyramid-disc-double", title: "Twin Disc",         desc: "Use both discs in a single Step Pyramid level.",     tier: "silver",    icon: "🌀" },
+    // Citadel depth
+    { id: "citadel-codex",        title: "Codex Forged",          desc: "Forge a Codex (5-match line) in Citadel.",           tier: "gold",      icon: "📖" },
+    // Rumor Whack depth
+    { id: "rumor-50-streak",      title: "Truth Streak",          desc: "Hit a 50-rumor combo in Rumor Whack.",               tier: "legendary", icon: "🔨" },
+    // Galaxy Defender depth
+    { id: "galaxy-mothership",    title: "Mothership Down (GD)",  desc: "Defeat the Misinfo Mothership in Galaxy Defender.",  tier: "gold",      icon: "🛸" },
+    { id: "galaxy-no-shield",     title: "Bare Cockpit",          desc: "Clear stage 5 without picking up a shield in Galaxy Defender.", tier: "gold", icon: "🚀" },
+    // Echo Hall depth
+    { id: "echo-hard-mode",       title: "Echo Master",           desc: "Reach hard mode (round 8) in Echo Hall.",            tier: "silver",    icon: "🎶" },
+    { id: "echo-reverse-clear",   title: "Reverse Echo",          desc: "Complete a reverse round in Echo Hall.",             tier: "silver",    icon: "⏪" },
+    // Sokoban Scribe depth
+    { id: "sokoban-l10",          title: "Scribe Initiate",       desc: "Clear level 10 in Sokoban Scribe.",                  tier: "silver",    icon: "🧱" },
+    { id: "sokoban-no-undo",      title: "First Try Scribe",      desc: "Clear any level without undoing in Sokoban Scribe.", tier: "gold",      icon: "📜" },
+    // Centiquill depth
+    { id: "centiquill-page-flip", title: "Page Flipper",          desc: "Use a Page Flip power-up in Centiquill.",            tier: "silver",    icon: "📄" },
+    { id: "centiquill-stage-5",   title: "Editor's Edge",         desc: "Clear stage 5 in Centiquill.",                       tier: "gold",      icon: "✒" },
+    // Anagram Atlas depth
+    { id: "anagram-perfect",      title: "Perfect Anagram",       desc: "Solve a 12+ letter term in Anagram Atlas.",          tier: "gold",      icon: "🔤" },
+    { id: "anagram-no-hint",      title: "Pure Mind",             desc: "Solve 10 terms in a row without using a hint in Anagram Atlas.", tier: "gold", icon: "🧠" },
+
     // ---- Cross-arcade ----
     { id: "cross-3-genres",    title: "Genre-Hopper",          desc: "Play 3 different flagship games.",                 tier: "silver",    icon: "🎲" },
     { id: "cross-7-genres",    title: "Cabinet Curator",       desc: "Play 7 different flagship games.",                 tier: "gold",      icon: "🕹" },
     { id: "cross-12-genres",   title: "Arcade Polymath",       desc: "Play 12 different flagship games.",                tier: "legendary", icon: "🏛" },
+    { id: "cross-15-genres",   title: "Cabinet Master",        desc: "Play 15 different flagship games.",                tier: "legendary", icon: "🏛" },
     { id: "cross-shards-1k",   title: "Shard Hoarder",         desc: "Earn 1,000 lifetime shards.",                      tier: "gold",      icon: "💎" },
     { id: "cross-shards-10k",  title: "Treasure Vault",        desc: "Earn 10,000 lifetime shards.",                     tier: "legendary", icon: "💰" },
     { id: "cross-cram",        title: "Cram Sesh",             desc: "Complete a 4-game Cram Mode playlist.",            tier: "gold",      icon: "📚" },
@@ -1170,6 +1206,7 @@
       if (distinctGenres >= 3)  API.unlock("cross-3-genres");
       if (distinctGenres >= 7)  API.unlock("cross-7-genres");
       if (distinctGenres >= 12) API.unlock("cross-12-genres");
+      if (distinctGenres >= 15) API.unlock("cross-15-genres");
       // Cross-arcade: 100 lifetime plays
       var totalPlays = 0;
       Object.keys(p.perGameStats).forEach(function (k) {
