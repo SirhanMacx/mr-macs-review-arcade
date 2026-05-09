@@ -8171,9 +8171,24 @@ let currentGame = null;
 let frameLoadTimer = 0;
 let smartMenuLane = "recommended";
 let lastPlayerFocus = null;
-const FEATURED_GAME_IDS = ["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "regents-practice-exam", "ap-practice-exam"];
+// Featured carousel — rotates between the May 2026 flagship sweep
+// and the existing premium classics so new players land on something
+// fresh.
+const FEATURED_GAME_IDS = [
+  "rumor-whack", "citadel", "step-pyramid", "chronohop",
+  "history-hunters", "archive-quest", "cold-war-invaders",
+  "brickoria", "stellar-drift", "cascade",
+  "regents-practice-exam", "ap-practice-exam"
+];
 const SOURCE_LOCKED_GAME_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "source-sprint", "source-lab", "regents-gauntlet", "source-audit", "archive-cipher"]);
-const PREMIUM_ARCADE_IDS = new Set(["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite", "chrono-pinball", "time-rift-survivors"]);
+const PREMIUM_ARCADE_IDS = new Set([
+  "history-hunters", "archive-quest", "cold-war-invaders",
+  "timeline-runner", "chrono-defense-infinite", "chrono-pinball",
+  "time-rift-survivors",
+  // ── May 2026 flagship sweep — game-first, review-secondary arcade originals
+  "brickoria", "stellar-drift", "source-snake", "chronoblocks",
+  "cascade", "chronohop", "step-pyramid", "citadel", "rumor-whack"
+]);
 const REBUILD_QUEUE_IDS = new Set(["regents-rally-source-circuit", "review-maze-chase", "boss-rush-arena", "empire-ascendant"]);
 const PRACTICE_TOOL_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "mastery-path", "source-lab", "writing-coach", "source-audit", "source-sprint", "regents-gauntlet"]);
 const PROTOTYPE_IDS = new Set(["arcade-duel", "lightning-review", "vocab-vault"]);
@@ -8243,6 +8258,10 @@ function uniq(values) {
 // "is this game relevant to the student's enrolled course?".
 function gameMatchesEnrolledCourse(game, enrolledCourse) {
   if (!game || !enrolledCourse || !game.course) return false;
+  // Universal-course games (Arcade flagships, etc.) are relevant to
+  // every enrolled student. Without this check the front-page surfaces
+  // hide the entire May 2026 flagship sweep from anyone with a course set.
+  if (game.course === "All Courses") return true;
   if (game.course === enrolledCourse) return true;
   if (game.course.indexOf(" + ") !== -1) {
     return game.course.split(" + ").map(function (s) { return s.trim(); }).indexOf(enrolledCourse) !== -1;
