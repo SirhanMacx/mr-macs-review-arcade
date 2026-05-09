@@ -499,11 +499,20 @@
       p.dailyShards = p.dailyShards || {};
       p.dailyShards[today] = (p.dailyShards[today] || 0) + n;
       pruneRollingMap(p, "dailyShards", 60);
+      // Auto-detect scholar-correct events from any game without
+      // requiring per-game wiring. Sources matching "*-scholar-correct"
+      // or "*scholar*correct*" bump the cross-game scholar counter.
+      var srcRaw = String(source || "").toLowerCase();
+      if (n > 0 && (srcRaw.indexOf("scholar") >= 0 && srcRaw.indexOf("correct") >= 0)) {
+        p.scholarCorrect = (p.scholarCorrect || 0) + 1;
+      }
       write(p);
-      emit("wallet:change", { delta: n, total: p.shards, source: actualSource, lucky: luckyApplied });
+      emit("wallet:change", { delta: n, total: p.shards, source: actualSource, lucky: luckyApplied, doubler: doublerApplied });
       // Cross-arcade shard milestones
       if (p.totalShardsEarned >= 10000) API.unlock("cross-shards-10k");
       else if (p.totalShardsEarned >= 1000) API.unlock("cross-shards-1k");
+      // Scholar Decoder cross-game milestone
+      if ((p.scholarCorrect || 0) >= 50) API.unlock("scholar-decoder");
       return p.shards;
     },
     spendShards: function (n, source) {
