@@ -1630,6 +1630,54 @@ textarea:focus-visible {
     linear-gradient(135deg, var(--jump-a), var(--jump-b));
 }
 
+/* "Latest games" footer card — populated by JS once the catalog
+   resolves. Sits below the footer-actions row. */
+.footer-latest[hidden] { display: none; }
+.footer-latest {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  margin-top: 4px;
+  border: 1px solid rgba(245, 196, 81, .32);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(245, 196, 81, .06), rgba(255, 123, 204, .04)),
+    rgba(13, 17, 27, .55);
+}
+.footer-latest-label {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--gold-warm, #ffd884);
+}
+.footer-latest-list {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.footer-latest-game {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(245, 196, 81, .32);
+  border-radius: 999px;
+  background: rgba(13, 17, 27, .65);
+  color: var(--paper);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+.footer-latest-game:hover,
+.footer-latest-game:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(245, 196, 81, .7);
+  box-shadow: 0 6px 16px rgba(0,0,0,.36), 0 0 14px rgba(245, 196, 81, .22);
+}
+
 /* ============== Player ============== */
 .player {
   position: fixed;
@@ -6015,6 +6063,112 @@ body {
   .new-cabinet-band .rail .new-cabinet-card::before { display: none; }
 }
 
+/* "What's new this month" editorial callout — sits directly above
+   #newCabinet to draw attention to the May 2026 flagship sweep. */
+.whats-new-band[hidden] { display: none; }
+.whats-new-band {
+  margin: clamp(18px, 3vw, 28px) 0 4px 0;
+}
+.whats-new-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: clamp(20px, 4vw, 36px);
+  padding: clamp(22px, 3.4vw, 36px) clamp(22px, 3.6vw, 40px);
+  border: 1px solid rgba(245, 196, 81, .42);
+  border-radius: 22px;
+  background:
+    radial-gradient(80% 120% at 100% 0%, rgba(255, 123, 204, .14), transparent 60%),
+    radial-gradient(80% 120% at 0% 100%, rgba(122, 240, 255, .12), transparent 60%),
+    linear-gradient(135deg, rgba(13, 17, 27, .92), rgba(8, 11, 22, .96));
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.05) inset,
+    0 30px 80px rgba(0,0,0,.55),
+    0 0 32px rgba(245, 196, 81, .12);
+  position: relative;
+  overflow: hidden;
+}
+.whats-new-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(245, 196, 81, .55), rgba(255, 123, 204, .55), rgba(122, 240, 255, .55), rgba(245, 196, 81, .55));
+  background-size: 300% 100%;
+  animation: whatsNewSweep 14s linear infinite;
+  height: 2px;
+  bottom: auto;
+}
+@keyframes whatsNewSweep {
+  0% { background-position: 0% 0; }
+  100% { background-position: 300% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .whats-new-card::before { animation: none; }
+}
+.whats-new-copy { display: grid; gap: 10px; }
+.whats-new-copy .band-eyebrow { color: var(--gold-warm, #ffd884); }
+.whats-new-copy .band-title { margin: 0; }
+.whats-new-copy .band-sub  { margin: 0; max-width: 56ch; color: var(--paper-2, #e2e6ee); }
+.whats-new-cta {
+  margin-top: 8px;
+  align-self: start;
+  border-color: rgba(245, 196, 81, .55);
+  background: linear-gradient(180deg, rgba(245, 196, 81, .22), rgba(255, 123, 204, .14));
+}
+.whats-new-cta:hover {
+  border-color: rgba(245, 196, 81, .8);
+  box-shadow: 0 8px 20px rgba(0,0,0,.32), 0 0 22px rgba(245, 196, 81, .26);
+}
+.whats-new-stat {
+  text-align: center;
+  display: grid;
+  gap: 4px;
+  padding: 14px 22px;
+  border-left: 1px solid rgba(255,255,255,.08);
+  min-width: 160px;
+}
+.whats-new-stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 72px);
+  line-height: 1;
+  background: linear-gradient(135deg, var(--gold-warm, #ffd884), var(--rose, #ff7bcc));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 24px rgba(255, 216, 132, .35);
+}
+.whats-new-stat span {
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted, #8d97b0);
+  font-weight: 600;
+}
+@media (max-width: 720px) {
+  .whats-new-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .whats-new-stat {
+    border-left: 0;
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 12px 0 0 0;
+  }
+}
+
+/* "New" badge for cards in the library that match NEW_FLAGSHIP_IDS.
+   Lives inside .gc-stripe (top-left of card art). */
+.game-card .badge.is-new {
+  background: linear-gradient(135deg, rgba(245, 196, 81, .94), rgba(255, 123, 204, .92));
+  color: #1a0c0c;
+  font-weight: 800;
+  letter-spacing: .03em;
+  border-color: rgba(255, 216, 132, .85);
+  box-shadow: 0 0 14px rgba(245, 196, 81, .42);
+}
+
 /* Library random button + library-meta wrapper */
 .library-meta {
   display: flex; align-items: center; gap: 10px;
@@ -7639,7 +7793,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       </span>
       <span class="pp-buffs" id="ppBuffs" aria-hidden="true"></span>
     </button>
-    <a class="nav-link" href="#launch-paths">Enter Arcade</a>
+    <a class="nav-link" id="enterArcadeBtn" href="#launch-paths">Enter Arcade</a>
   </div>
 </header>
 
@@ -7911,6 +8065,28 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   </section>
 
   <!-- New Cabinet — recently shipped arcade flagships -->
+  <!-- "What's new this month" editorial callout. Lives directly above
+       the New Cabinet rail and points students at it. The CTA scrolls
+       smoothly into #newCabinet. Hidden by default; shown by the New
+       Cabinet wiring once at least one flagship resolves in GAMES. -->
+  <section class="band whats-new-band" id="whatsNewCallout" aria-label="What's new this month" hidden>
+    <div class="whats-new-card reveal">
+      <div class="whats-new-copy">
+        <span class="band-eyebrow">New This Month · May 2026</span>
+        <h2 class="band-title">Nine fresh <em>flagships</em> shipped to the arcade.</h2>
+        <p class="band-sub">Brick breakers, snake grids, asteroid belts, hopscotch grids, and rumor-whackers — all built around primary-source review pickups. Pick a cabinet and run a session.</p>
+        <button class="action primary whats-new-cta" id="whatsNewCta" type="button">
+          <span>Browse all 9 cabinets</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+      <div class="whats-new-stat" aria-hidden="true">
+        <strong>9</strong>
+        <span>brand-new arcade originals</span>
+      </div>
+    </div>
+  </section>
+
   <section class="band continue-band new-cabinet-band" id="newCabinet" aria-label="New arcade flagships" hidden>
     <div class="band-head reveal">
       <div>
@@ -8111,11 +8287,19 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       </article>
     </section>
     <nav class="footer-actions" aria-label="Footer shortcuts">
+      <a class="footer-jump" href="#newCabinet">🆕 New This Month</a>
       <a class="footer-jump" href="#featured">Play Arcade</a>
       <a class="footer-jump" href="#practice">Regents Practice</a>
       <a class="footer-jump" href="#arcade-menu">Game Modes</a>
       <a class="footer-jump" href="#jeopardy">Jeopardy Boards</a>
       <a class="footer-jump" href="#library">Full Library</a>
+    </nav>
+    <!-- Latest games footer card — populated at boot with the first
+         three NEW_FLAGSHIP_IDS that resolve in GAMES. Hidden until
+         the catalog has loaded so we never show a broken list. -->
+    <nav class="footer-latest" id="footerLatest" aria-label="Latest arcade games" hidden>
+      <span class="footer-latest-label">Latest games</span>
+      <div class="footer-latest-list" id="footerLatestList"></div>
     </nav>
   </div>
 </footer>
@@ -8409,11 +8593,13 @@ function initFilters() {
   fillSelect("typeFilter", "All Game Types", uniq(GAMES.map(displayGameType)));
   fillSelect("jeopardyCourseSelect", JEOPARDY_ALL_COURSES, uniq(GAMES.filter(isJeopardyBoard).map((game) => game.course)));
   fillSelect("jeopardySubjectSelect", JEOPARDY_ALL_SUBJECTS, subjectOptions(GAMES.filter(isJeopardyBoard)));
-  document.getElementById("search").addEventListener("input", (event) => { state.query = event.target.value; render(); });
-  document.getElementById("courseFilter").addEventListener("change", (event) => { state.course = event.target.value; render(); });
-  document.getElementById("subjectFilter").addEventListener("change", (event) => { state.subject = event.target.value; render(); });
-  document.getElementById("typeFilter").addEventListener("change", (event) => { state.type = event.target.value; render(); });
-  document.getElementById("sortFilter").addEventListener("change", (event) => { state.sort = event.target.value; render(); });
+  // Guard each listener so a stripped-down build (e.g. embedded preview)
+  // doesn't throw when one of the filter controls is absent.
+  document.getElementById("search")?.addEventListener("input", (event) => { state.query = event.target.value; render(); });
+  document.getElementById("courseFilter")?.addEventListener("change", (event) => { state.course = event.target.value; render(); });
+  document.getElementById("subjectFilter")?.addEventListener("change", (event) => { state.subject = event.target.value; render(); });
+  document.getElementById("typeFilter")?.addEventListener("change", (event) => { state.type = event.target.value; render(); });
+  document.getElementById("sortFilter")?.addEventListener("change", (event) => { state.sort = event.target.value; render(); });
   document.getElementById("jeopardyCourseSelect")?.addEventListener("change", (event) => { jeopardyState.course = event.target.value; renderJeopardyModes(); });
   document.getElementById("jeopardySubjectSelect")?.addEventListener("change", (event) => { jeopardyState.subject = event.target.value; renderJeopardyModes(); });
   document.getElementById("jeopardySearch")?.addEventListener("input", (event) => { jeopardyState.query = event.target.value; renderJeopardyModes(); });
@@ -8545,6 +8731,10 @@ function filteredGames() {
   });
 }
 function featuredGames() {
+  // Returns the top 5 featured games for the bento bento layout
+  // (which uses fixed nth-child positions for slots 1-4 and overflow
+  // for slot 5). FEATURED_GAME_IDS is ordered new-flagships-first so
+  // half the bento always reflects the latest sweep.
   const picks = FEATURED_GAME_IDS.map((id) => GAMES.find((game) => game.id === id));
   return [...new Map(picks.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 5);
 }
@@ -8662,12 +8852,26 @@ function renderHeroConsole() {
     primaryCard.onclick = () => openGame(primary);
   }
 
+  // Hero console fast-launch grid. Two practice exams stay pinned (top
+  // priority for exam students) and the other two slots rotate from
+  // the May 2026 flagship sweep so the front-page console actually
+  // reflects what's "fresh on the floor" right now.
   const slots = [
     GAMES.find((game) => game.id === "regents-practice-exam"),
     GAMES.find((game) => game.id === "ap-practice-exam"),
-    GAMES.find((game) => game.id === "archive-quest"),
-    GAMES.find((game) => game.id === "cold-war-invaders")
+    GAMES.find((game) => game.id === "rumor-whack"),
+    GAMES.find((game) => game.id === "citadel")
   ].filter(Boolean);
+  // If a new flagship hasn't loaded (catalog mismatch), fall back to
+  // the legacy premium arcade picks so the grid never shrinks.
+  while (slots.length < 4) {
+    const fallback = ["archive-quest", "cold-war-invaders", "history-hunters"]
+      .map((id) => GAMES.find((g) => g.id === id))
+      .filter(Boolean)
+      .find((g) => !slots.some((s) => s.id === g.id));
+    if (!fallback) break;
+    slots.push(fallback);
+  }
   const grid = document.getElementById("heroConsoleGrid");
   if (!grid) return;
   grid.innerHTML = slots.map((game, index) => {
@@ -8894,26 +9098,46 @@ function cumulativeJeopardyPicks() {
   });
   return [...firstByCourse.values()];
 }
+// Master flagship list used by Smart Menu lanes that previously
+// hid the May 2026 sweep behind hard-coded old-classics arrays.
+// Order matters: newest first so they surface on the front page.
+const NEW_FLAGSHIP_IDS = [
+  "rumor-whack", "citadel", "step-pyramid", "chronohop",
+  "cascade", "chronoblocks", "source-snake", "stellar-drift", "brickoria"
+];
 function smartMenuGames(laneId) {
   const summary = window.MrMacsProgress?.summary(GAMES) || { recent: [], data: {}, recommendation: {} };
   const recommended = summary.recommendation?.game ? [summary.recommendation.game] : [];
   const recents = recentProgressGames(summary);
   const popular = localPopularGames(summary);
   const featured = featuredGames();
+  // Pick the first three new flagships up front so they appear in the
+  // generic "recommended" / "popular" lanes for fresh players whose
+  // progress signal is empty.
+  const newPicks = pickGames(NEW_FLAGSHIP_IDS);
   if (laneId === "recommended") {
-    return uniqueGames(recommended.concat(recents, popular, featured, pickGames(["mastery-path", "source-lab"]))).slice(0, 6);
+    // Seed with the player's recommendation + recents, then surface 3
+    // brand-new flagships (so a fresh player sees something new), then
+    // fall back to popular / featured / mastery tools.
+    return uniqueGames(recommended.concat(recents, newPicks.slice(0, 3), popular, featured, pickGames(["mastery-path", "source-lab"]))).slice(0, 6);
   }
   if (laneId === "continue") {
-    return uniqueGames(recents.concat(recommended, popular, featured)).slice(0, 6);
+    return uniqueGames(recents.concat(recommended, popular, newPicks.slice(0, 3), featured)).slice(0, 6);
   }
   if (laneId === "popular") {
-    return uniqueGames(popular.concat(pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam", "ap-practice-exam", "source-sprint"]))).slice(0, 6);
+    // Mix local-popular + new flagships + classic premium picks. New
+    // flagships go BEFORE the classics so they get visible carousel
+    // slots before the slice cap.
+    return uniqueGames(popular.concat(newPicks.slice(0, 3), pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam", "ap-practice-exam", "source-sprint"]))).slice(0, 6);
   }
   if (laneId === "exams") {
     return pickGames(["regents-practice-exam", "ap-practice-exam", "writing-coach", "source-lab", "source-sprint", "regents-gauntlet"]);
   }
   if (laneId === "arcade") {
-    return pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite", "chrono-pinball"]);
+    // "Review Games" lane — was old classics only. Now leads with the
+    // 9 new flagships (May 2026) and chases with the legacy premium
+    // arcade games. Slice 8 so the rail shows two visible rows.
+    return uniqueGames(newPicks.concat(pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite", "chrono-pinball"]))).slice(0, 8);
   }
   if (laneId === "quick") {
     return pickGames(["source-sprint", "archive-cipher", "lightning-review", "vocab-vault"]);
@@ -9240,10 +9464,15 @@ function card(game) {
   const art = cssUrlForAttr(thumb);
   const categoryLine = (game.categories || []).slice(0, 3).join(" · ");
   const meta = game.id === "regents-practice-exam" ? "28 MCQs + writing" : game.id === "ap-practice-exam" ? "MCQ + FRQ practice" : (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " clues") + " · " + (game.hasFinal ? "Final wager" : "Practice");
+  // Mark cards for the May 2026 flagship sweep with a gold "New" pill
+  // so they pop in the library grid even when filters are wide.
+  const isNew = NEW_FLAGSHIP_IDS.indexOf(game.id) !== -1;
+  const newBadge = isNew ? '<span class="badge is-new" title="Shipped May 2026">🆕 New</span>' : '';
   return '<button class="game-card" type="button" style="--accent:' + accent + ';--course-glyph:\'' + glyph + '\';--card-art:' + art + '" data-id="' + escapeHtml(game.id) + '">' +
     '<div class="gc-art">' +
       '<img class="gc-thumb" src="' + escapeHtml(thumb) + '" alt="" loading="lazy" decoding="async" onerror="this.hidden=true;this.closest(\'.gc-art\').classList.add(\'missing-thumb\')">' +
       '<div class="gc-stripe">' +
+        newBadge +
         '<span class="badge hot">' + escapeHtml(game.day || game.grade) + '</span>' +
         '<span class="badge">' + escapeHtml(displayGameType(game)) + '</span>' +
       '</div>' +
@@ -9270,30 +9499,51 @@ function shouldLimitDefaultLibrary() {
 function render() {
   renderLaneTabs();
   const games = filteredGames();
+  const totalGames = (typeof GAMES !== "undefined" && GAMES) ? GAMES.length : games.length;
   const previewLimit = libraryPreviewLimit();
   const limited = shouldLimitDefaultLibrary() && games.length > previewLimit;
   const visibleGames = limited ? games.slice(0, previewLimit) : games;
   const countLabel = document.getElementById("countLabel");
-  countLabel.textContent = limited
-    ? visibleGames.length + " of " + games.length + " games showing"
-    : games.length + (games.length === 1 ? " game showing" : " games showing");
-  grid.innerHTML = visibleGames.length ? visibleGames.map(card).join("") : (
-    '<div class="empty" role="status">' +
-      '<span class="empty-ic" aria-hidden="true">' + ((window.MrMacsIcons && window.MrMacsIcons.svg("explorer")) || "") + '</span>' +
-      '<p class="empty-title">No missions match that search</p>' +
-      '<p class="empty-sub">Try a broader keyword, clear the lane filter, or open the Random pick on the right.</p>' +
-      '<button class="empty-cta" type="button" id="libraryResetBtn">Clear filters ' + ((window.MrMacsIcons && window.MrMacsIcons.svg("arrow-right")) || "→") + '</button>' +
-    '</div>'
-  );
+  // Filter clarity: when filters are active (any non-default), show
+  // "X of Y games match" so the player can tell at a glance how many
+  // games were filtered out. Otherwise stay concise.
+  const filtersActive = state.lane !== "all" ||
+    state.course !== "All Courses" ||
+    state.subject !== "All Subjects" ||
+    state.type !== "All Game Types" ||
+    String(state.query || "").trim().length > 0;
+  if (countLabel) {
+    if (limited) {
+      countLabel.textContent = visibleGames.length + " of " + totalGames + " games · showing top picks";
+    } else if (filtersActive) {
+      countLabel.textContent = games.length + " of " + totalGames + " games match";
+    } else {
+      countLabel.textContent = games.length + (games.length === 1 ? " game showing" : " games showing");
+    }
+  }
+  if (grid) {
+    grid.innerHTML = visibleGames.length ? visibleGames.map(card).join("") : (
+      '<div class="empty" role="status">' +
+        '<span class="empty-ic" aria-hidden="true">' + ((window.MrMacsIcons && window.MrMacsIcons.svg("explorer")) || "") + '</span>' +
+        '<p class="empty-title">No missions match those filters</p>' +
+        '<p class="empty-sub">' + (filtersActive
+          ? 'Try a broader keyword, clear the lane filter, or hit Reset to see every game in the catalog.'
+          : 'Try a broader keyword, clear the lane filter, or open the Random pick on the right.') + '</p>' +
+        '<button class="empty-cta" type="button" id="libraryResetBtn">Clear filters ' + ((window.MrMacsIcons && window.MrMacsIcons.svg("arrow-right")) || "→") + '</button>' +
+      '</div>'
+    );
+  }
   const libraryActions = document.getElementById("libraryActions");
   const showAllLibraryBtn = document.getElementById("showAllLibraryBtn");
   if (libraryActions && showAllLibraryBtn) {
     libraryActions.hidden = !limited;
     showAllLibraryBtn.textContent = "Show All " + games.length + " Games";
   }
-  grid.querySelectorAll(".game-card").forEach((button) => {
-    button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
-  });
+  if (grid) {
+    grid.querySelectorAll(".game-card").forEach((button) => {
+      button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
+    });
+  }
 }
 
 function settleHashTarget() {
@@ -9554,6 +9804,68 @@ async function boot() {
     render();
     settleHashTarget();
     initReveal();
+    // Wire the topbar "Enter Arcade" button. For a brand-new player
+    // (no plays in this browser) we point them at #newCabinet so they
+    // see the May 2026 sweep. Returning players keep the default
+    // #launch-paths target.
+    var enterArcadeBtn = document.getElementById("enterArcadeBtn");
+    if (enterArcadeBtn) {
+      enterArcadeBtn.addEventListener("click", function (event) {
+        try {
+          var summary = window.MrMacsProgress && window.MrMacsProgress.summary
+            ? window.MrMacsProgress.summary(GAMES) : null;
+          var totalPlays = summary && summary.data && summary.data.recent
+            ? summary.data.recent.length : 0;
+          var freshPlayer = !totalPlays;
+          var cabinet = document.getElementById("newCabinet");
+          if (freshPlayer && cabinet && !cabinet.hidden) {
+            event.preventDefault();
+            cabinet.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        } catch (e) { /* fall through to default href */ }
+      });
+    }
+    // Rotate the library search placeholder through new flagship titles
+    // for fresh players (< 3 plays). Draws attention to fresh content
+    // that they otherwise might not search for. Stops once the user
+    // types or once the player has played a few games.
+    (function rotateSearchPlaceholder() {
+      var input = document.getElementById("search");
+      if (!input) return;
+      try {
+        var summary = window.MrMacsProgress && window.MrMacsProgress.summary
+          ? window.MrMacsProgress.summary(GAMES) : null;
+        var totalPlays = summary && summary.data && summary.data.recent
+          ? summary.data.recent.length : 0;
+        if (totalPlays >= 3) return;
+      } catch (e) {}
+      var newGameTitles = (typeof NEW_FLAGSHIP_IDS !== "undefined" ? NEW_FLAGSHIP_IDS : [])
+        .map(function (id) {
+          var g = GAMES.find(function (game) { return game.id === id; });
+          return g ? g.title : null;
+        })
+        .filter(Boolean);
+      if (!newGameTitles.length) return;
+      var basePlaceholder = "Search civil rights · imperialism · cold war · memory…";
+      var prompts = newGameTitles.map(function (t) { return "Try: " + t; });
+      prompts.push(basePlaceholder);
+      var idx = 0;
+      var timer = setInterval(function () {
+        if (input.value || document.activeElement === input) {
+          clearInterval(timer);
+          input.placeholder = basePlaceholder;
+          return;
+        }
+        input.placeholder = prompts[idx % prompts.length];
+        idx += 1;
+      }, 3500);
+      // Stop rotating as soon as the user engages with the input.
+      input.addEventListener("input", function () { clearInterval(timer); }, { once: true });
+      input.addEventListener("focus", function () {
+        clearInterval(timer);
+        input.placeholder = basePlaceholder;
+      }, { once: true });
+    })();
     window.addEventListener("hashchange", settleHashTarget);
     window.matchMedia?.("(max-width: 760px)").addEventListener?.("change", () => render());
     window.addEventListener("mrmacs-progress", () => { renderProgressReport(); renderSmartMenu(); });
@@ -11393,14 +11705,73 @@ boot();
   function renderNewCabinet() {
     var band = document.getElementById("newCabinet");
     var rail = document.getElementById("newCabinetRail");
+    var callout = document.getElementById("whatsNewCallout");
+    var calloutCta = document.getElementById("whatsNewCta");
     if (!band || !rail) return;
-    if (!GAMES || !GAMES.length) { band.hidden = true; return; }
+    if (!GAMES || !GAMES.length) {
+      band.hidden = true;
+      if (callout) callout.hidden = true;
+      return;
+    }
     var lookup = {};
     GAMES.forEach(function (g) { lookup[g.id] = g; });
     var picks = NEW_FLAGSHIPS
       .map(function (id) { return lookup[id]; })
       .filter(Boolean);
-    if (!picks.length) { band.hidden = true; return; }
+    if (!picks.length) {
+      band.hidden = true;
+      if (callout) callout.hidden = true;
+      return;
+    }
+    // Reveal the "what's new this month" callout band ONLY once the
+    // new flagships actually exist in the live catalog. CTA smooth
+    // scrolls into the New Cabinet rail (one section below).
+    if (callout) {
+      callout.hidden = false;
+      // Update the count in the kicker + stat to reflect actual loaded
+      // flagships (graceful when some haven't shipped yet).
+      var statBig = callout.querySelector(".whats-new-stat strong");
+      if (statBig) statBig.textContent = String(picks.length);
+      var titleEl = callout.querySelector(".whats-new-copy .band-title");
+      if (titleEl) {
+        var word = picks.length === 1 ? "flagship" : "flagships";
+        titleEl.innerHTML = (picks.length === 1 ? "One" : (picks.length === 9 ? "Nine" : String(picks.length))) +
+          " fresh <em>" + word + "</em> shipped to the arcade.";
+      }
+      var ctaSpan = callout.querySelector(".whats-new-cta span:first-child");
+      if (ctaSpan) ctaSpan.textContent = "Browse all " + picks.length + " cabinet" + (picks.length === 1 ? "" : "s");
+    }
+    if (calloutCta && !calloutCta.dataset.wired) {
+      calloutCta.dataset.wired = "1";
+      calloutCta.addEventListener("click", function () {
+        var target = document.getElementById("newCabinet");
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+    // Footer "Latest games" mini-rail. Lists the top three new
+    // flagships as quick-launch chips. Hidden until the catalog has
+    // at least one resolved entry.
+    var latestNav = document.getElementById("footerLatest");
+    var latestList = document.getElementById("footerLatestList");
+    if (latestNav && latestList) {
+      var safeText = function (v) { return String(v || "").replace(/[<>&"]/g, function (c) {
+        return c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;";
+      }); };
+      latestList.innerHTML = picks.slice(0, 3).map(function (g) {
+        return '<button class="footer-latest-game" type="button" data-id="' + safeText(g.id) + '">' +
+          '<span aria-hidden="true">🎮</span> ' + safeText(g.title) +
+        '</button>';
+      }).join("");
+      Array.prototype.forEach.call(latestList.querySelectorAll(".footer-latest-game"), function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.dataset.id;
+          var match = (GAMES || []).find(function (g) { return g.id === id; });
+          if (match && typeof openGame === "function") openGame(match);
+          else if (match && match.file) location.href = match.file;
+        });
+      });
+      latestNav.hidden = false;
+    }
     var profile = window.MrMacsProfile ? window.MrMacsProfile.get() : { perGameStats: {} };
     var perGame = (profile && profile.perGameStats) || {};
     var safe = function (v) { return String(v || "").replace(/[<>&"]/g, function (c) {
