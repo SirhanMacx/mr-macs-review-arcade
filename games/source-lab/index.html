@@ -7,8 +7,56 @@
 <title>Source Reading Lab - Mr. Mac's Review Arcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../mastery-path/styles.css?v=20260430-mastery1">
+<style>
+/* ── Polish layer (20260509) — Source Lab ── */
+body { font-family: Inter, Rajdhani, var(--font); }
+.brand strong, h1, h2, h3,
+.band-head h2, .panel h2, .question-card h2, .results-card h2,
+.action-card strong, .card strong, .skill-card strong {
+  font-family: Fraunces, Bungee, var(--display);
+}
+.metric strong, .score-badge,
+#sourceNumber, #score, #habitScore, #resultScore,
+.pill, .source-line { font-variant-numeric: tabular-nums; }
+.metric strong, .score-badge,
+#sourceNumber, #score, #habitScore, #resultScore {
+  font-family: "JetBrains Mono", Bungee, monospace;
+}
+.btn { transition: transform .18s cubic-bezier(.2,.7,.2,1), border-color .18s cubic-bezier(.2,.7,.2,1), box-shadow .18s cubic-bezier(.2,.7,.2,1); }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(0,0,0,.32); }
+.btn:focus-visible { outline: none; border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(122,240,255,.32); }
+.btn:active { transform: translateY(0); }
+.btn.primary { animation: cta-pulse 3.2s ease-in-out infinite; }
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 14px 30px rgba(245,196,81,.20); }
+  50% { box-shadow: 0 18px 40px rgba(245,196,81,.40); }
+}
+.choice { transition: transform .16s cubic-bezier(.2,.7,.2,1), border-color .16s cubic-bezier(.2,.7,.2,1), background .16s cubic-bezier(.2,.7,.2,1); }
+.choice:hover { transform: translateY(-1px); border-color: rgba(122,240,255,.5); }
+.choice:focus-visible { outline: none; border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(122,240,255,.32); }
+.action-card { transition: transform .2s cubic-bezier(.2,.7,.2,1), border-color .2s cubic-bezier(.2,.7,.2,1); }
+.action-card:hover { transform: translateY(-2px); border-color: rgba(122,240,255,.4); }
+.empty-card {
+  display: grid; justify-items: center; gap: 10px;
+  padding: 30px 22px;
+  border: 1px dashed rgba(255,255,255,.18);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+  color: var(--soft); text-align: center; line-height: 1.42;
+}
+.empty-card .ic { width: 30px; height: 30px; color: var(--cyan); opacity: .85; }
+.empty-card strong { font-family: Fraunces, Bungee, serif; font-size: 19px; font-weight: 900; color: var(--paper); }
+.empty-card span { max-width: 480px; color: var(--muted); font-size: 14px; font-weight: 700; text-transform: none; letter-spacing: 0; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .btn:hover, .choice:hover, .action-card:hover { transform: none; }
+}
+@media (pointer: coarse) {
+  .btn, select, input, .choice { min-height: 44px; }
+}
+</style>
 </head>
 <body>
 <main class="shell">
@@ -112,10 +160,11 @@
     </article>
   </section>
 </main>
+<script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
 <script src="../../assets/arcade-analytics.js?v=20260502-traffic-progress-hardening"></script>
 <script src="../../assets/source-bank.js?v=20260502-source-contract"></script>
 <script src="../../assets/mastery-engine.js?v=20260502-source-lab-fix"></script>
-<script src="game.js?v=20260502-source-lab-fix"></script>
+<script src="game.js?v=20260509-polish"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

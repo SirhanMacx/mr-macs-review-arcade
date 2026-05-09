@@ -834,6 +834,60 @@ select {
   .key.wide { flex: 1.6; }
 }
 
+/* ── Polish layer (20260509) — Archive Cipher ── */
+.brand strong,
+#termTitle,
+.result-card h2,
+.panel-kicker {
+  font-family: Fraunces, Inter, ui-serif, serif;
+}
+#termTitle, .result-card h2 { letter-spacing: -.01em; }
+.stats strong,
+#streak, #solved, #accuracy, #best,
+.tile,
+.message,
+#resultAnswer,
+.library-count,
+.meta-pill {
+  font-variant-numeric: tabular-nums;
+}
+.stats strong,
+#streak, #solved, #accuracy, #best,
+#resultAnswer {
+  font-family: "JetBrains Mono", Inter, monospace;
+}
+.btn:focus-visible,
+.hud-btn:focus-visible,
+.key:focus-visible,
+select:focus-visible,
+.source-open:focus-visible {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(117,236,255,.32);
+}
+.btn.primary {
+  animation: cta-pulse 3.2s ease-in-out infinite;
+}
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 14px 30px rgba(245,196,81,.16); }
+  50% { box-shadow: 0 18px 40px rgba(245,196,81,.36); }
+}
+.empty-card {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 24px 18px;
+  border: 1px dashed rgba(255,255,255,.18);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+  color: var(--paper);
+  text-align: center;
+  line-height: 1.42;
+}
+.empty-card .ic { width: 28px; height: 28px; color: var(--cyan); opacity: .85; }
+.empty-card strong { font-family: Fraunces, Inter, serif; font-size: 17px; font-weight: 900; color: var(--paper); }
+.empty-card span { max-width: 380px; color: var(--muted); font-size: 13px; font-weight: 700; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation: none !important;

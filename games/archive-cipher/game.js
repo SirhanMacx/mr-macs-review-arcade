@@ -496,6 +496,12 @@
     els.message.className = `message ${type}`.trim();
   }
 
+  function emptyCard(iconName, title, sub) {
+    const Icons = (typeof window !== "undefined" && window.MrMacsIcons) ? window.MrMacsIcons : null;
+    const icon = Icons && Icons.has(iconName) ? Icons.svg(iconName) : "";
+    return `<div class="empty-card">${icon}<strong>${escapeHtml(title)}</strong><span>${escapeHtml(sub)}</span></div>`;
+  }
+
   function handleKey(key) {
     if (!state.target || state.locked) return;
     if (key === "ENTER") {

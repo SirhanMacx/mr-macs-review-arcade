@@ -10,6 +10,12 @@ function show(id) {
   scrollTo({ top: 0, behavior: "auto" });
 }
 
+function emptyCard(iconName, title, sub) {
+  const icon = (typeof window !== "undefined" && window.MrMacsIcons && window.MrMacsIcons.has(iconName))
+    ? window.MrMacsIcons.svg(iconName) : "";
+  return '<div class="empty-card">' + icon + '<strong>' + M.esc(title) + '</strong><span>' + M.esc(sub) + '</span></div>';
+}
+
 function fillCourses() {
   const params = new URLSearchParams(location.search);
   const requested = params.get("course");
@@ -119,7 +125,7 @@ function start() {
   state.habits = 0;
   state.misses = [];
   if (!state.session.length) {
-    $("#sourceMetrics").innerHTML = '<div class="metric"><strong>0</strong><span>No verified source questions in this course yet.</span></div>';
+    $("#sourceMetrics").innerHTML = emptyCard("scroll", "No verified sources yet", "This course has no image-backed source questions in the bank. Try another course.");
     return;
   }
   show("playScreen");
@@ -193,5 +199,5 @@ async function boot() {
 
 boot().catch((error) => {
   console.error(error);
-  $("#sourceMetrics").innerHTML = '<div class="metric"><strong>Error</strong><span>Refresh to reload source bank.</span></div>';
+  $("#sourceMetrics").innerHTML = emptyCard("warning", "Could not load source bank", "Refresh the page to try again.");
 });

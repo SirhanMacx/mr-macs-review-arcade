@@ -202,13 +202,19 @@ function renderRecord(record) {
   '</article>';
 }
 
+function emptyCard(iconName, title, sub) {
+  const icon = (typeof window !== "undefined" && window.MrMacsIcons && window.MrMacsIcons.has(iconName))
+    ? window.MrMacsIcons.svg(iconName) : "";
+  return '<div class="empty">' + icon + '<strong>' + esc(title) + '</strong><span>' + esc(sub) + '</span></div>';
+}
+
 function renderList() {
   const records = filteredRecords();
   $("#resultCount").textContent = records.length + " records";
   $("#resultTitle").textContent = state.status === "issue" ? "Records Needing Review" : "Source Records";
   $("#auditList").innerHTML = records.length
-    ? records.slice(0, 240).map(renderRecord).join("") + (records.length > 240 ? '<div class="empty">Showing first 240 records. Narrow the filters or export CSV for the full audit.</div>' : "")
-    : '<div class="empty">No source records match these filters.</div>';
+    ? records.slice(0, 240).map(renderRecord).join("") + (records.length > 240 ? emptyCard("scroll", "Showing first 240 records", "Narrow the filters or export CSV for the full audit.") : "")
+    : emptyCard("compass", "No source records match these filters", "Try a different course, status, or search term.");
 }
 
 function render() {
@@ -257,5 +263,7 @@ async function boot() {
 
 boot().catch((error) => {
   console.error(error);
-  $("#metrics").innerHTML = '<article class="metric warn"><strong>Error</strong><span>Could not load the Regents source bank.</span></article>';
+  const warn = (typeof window !== "undefined" && window.MrMacsIcons && window.MrMacsIcons.has("warning"))
+    ? window.MrMacsIcons.svg("warning") : "";
+  $("#metrics").innerHTML = '<article class="metric warn"><strong>' + warn + 'Error</strong><span>Could not load the Regents source bank. Reload the page.</span></article>';
 });
