@@ -961,6 +961,28 @@ textarea:focus-visible {
   box-shadow: var(--shadow-2), 0 30px 70px color-mix(in oklab, var(--accent, #7af0ff) 20%, transparent);
 }
 .course-tile:hover::before { opacity: .85; transform: scale(1.1); }
+/* Enrolled-course tile gets a gold "Yours" badge + accent border */
+.course-tile.is-enrolled {
+  border-color: rgba(245, 196, 81, .55);
+  box-shadow: var(--shadow-1), 0 0 24px rgba(245, 196, 81, .14);
+}
+.course-tile.is-enrolled:hover {
+  border-color: rgba(245, 196, 81, .80);
+  box-shadow: var(--shadow-2), 0 30px 70px rgba(245, 196, 81, .22);
+}
+.course-tile-mine {
+  position: absolute; top: 12px; right: 12px;
+  z-index: 3;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px;
+  background: linear-gradient(135deg, rgba(245, 196, 81, .92), rgba(255, 216, 132, .92));
+  color: #14100a;
+  border-radius: 999px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px; font-weight: 800;
+  letter-spacing: .14em; text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(245, 196, 81, .35);
+}
 .course-tile small {
   font-family: var(--font-pixel);
   font-size: 10.5px; letter-spacing: 0;
@@ -5069,6 +5091,27 @@ body {
   background: linear-gradient(90deg, #ff667d, #f5c451 50%, #69f0aa);
   transition: width .4s ease-out;
 }
+.mastery-section-head {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  padding: 14px 0 6px;
+  border-top: 1px dashed var(--line, rgba(255,255,255,.08));
+  margin-top: 4px;
+}
+.mastery-list > .mastery-section-head:first-child {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+.mastery-section-head.mastery-section-enrolled {
+  color: #f5c451;
+  border-top-color: rgba(245, 196, 81, .25);
+}
+.mastery-row.mastery-row-enrolled {
+  border-color: rgba(245, 196, 81, .35);
+  background: linear-gradient(180deg, rgba(245, 196, 81, .04), rgba(13, 17, 27, .68));
+}
 .mastery-empty {
   padding: 20px;
   text-align: center;
@@ -7108,6 +7151,8 @@ function renderCourseTiles() {
     if (ai === -1) return 1; if (bi === -1) return -1;
     return ai - bi;
   });
+  const enrolledCourse = (window.MrMacsProfile && window.MrMacsProfile.getCourse)
+    ? window.MrMacsProfile.getCourse() : "";
   const html = courses.map((course, index) => {
     const games = GAMES.filter((game) => game.course === course);
     const palette = paletteFor(course);
@@ -7115,7 +7160,11 @@ function renderCourseTiles() {
     const lead = types[0] || "Review";
     const count = games.length;
     const labelType = course.startsWith("AP") ? "AP Course" : (course.startsWith("Grade") ? "NYS course" : "Elective");
-    return '<button class="course-tile" type="button" style="--accent:' + palette.accent + ';--course-glyph:\'' + palette.glyph + '\';--i:' + index + '" data-course="' + escapeHtml(course) + '">' +
+    const isEnrolled = course === enrolledCourse;
+    const enrolledBadge = isEnrolled ? '<span class="course-tile-mine" aria-label="Your enrolled course">Yours</span>' : '';
+    const enrolledClass = isEnrolled ? ' is-enrolled' : '';
+    return '<button class="course-tile' + enrolledClass + '" type="button" style="--accent:' + palette.accent + ';--course-glyph:\'' + palette.glyph + '\';--i:' + index + '" data-course="' + escapeHtml(course) + '">' +
+      enrolledBadge +
       '<small>' + escapeHtml(labelType) + '</small>' +
       '<strong>' + escapeHtml(course) + '</strong>' +
       '<span>' + count + ' games · ' + escapeHtml(lead) + '</span>' +
@@ -7530,6 +7579,7 @@ async function boot() {
       }
       render();
       if (typeof renderJeopardyModes === "function") renderJeopardyModes();
+      if (typeof renderCourseTiles === "function") renderCourseTiles();
       if (typeof window.dispatchEvent === "function") {
         window.dispatchEvent(new Event("mrmacs-course-changed"));
       }
@@ -9026,6 +9076,7 @@ boot();
   // ---- Mastery dashboard ----
   function showMastery() {
     var stats = P.getTopicStats();
+    var enrolled = (P && P.getCourse) ? P.getCourse() : "";
     var rows = [];
     Object.keys(stats).forEach(function (course) {
       Object.keys(stats[course]).forEach(function (set) {
@@ -9040,17 +9091,38 @@ boot();
         });
       });
     });
-    rows.sort(function (a, b) { return a.pct - b.pct; }); // weak first
+    // Sort: enrolled-course rows first (weak-first within), then other
+    // courses (also weak-first within). Students see their own course's
+    // weakest topics at the top of the dashboard.
+    rows.sort(function (a, b) {
+      var aIs = (enrolled && a.course === enrolled) ? 0 : 1;
+      var bIs = (enrolled && b.course === enrolled) ? 0 : 1;
+      if (aIs !== bIs) return aIs - bIs;
+      return a.pct - b.pct; // weak first within group
+    });
     var html;
     if (!rows.length) {
       html = '<div class="mastery-empty">Play a game (Jeopardy, Boss Rush, the diagnostic, etc.) and your topic mastery will appear here.</div>';
     } else {
+      var sectionInjected = false;
+      var inOtherSection = false;
       html = '<div class="mastery-list">' + rows.map(function (r) {
-        return '<div class="mastery-row">' +
-          '<div class="mr-name">' + safeHTML(r.course) + ' / ' + safeHTML(r.set) + '</div>' +
-          '<div class="mr-pct">' + r.correct + '/' + r.total + ' · ' + r.pct + '%</div>' +
-          '<div class="mastery-bar"><span class="mastery-bar-fill" style="width:' + r.pct + '%"></span></div>' +
-        '</div>';
+        var prefix = "";
+        var isEnrolled = enrolled && r.course === enrolled;
+        if (enrolled && isEnrolled && !sectionInjected) {
+          sectionInjected = true;
+          prefix = '<div class="mastery-section-head mastery-section-enrolled">' + safeHTML(enrolled) + '</div>';
+        }
+        if (enrolled && !isEnrolled && !inOtherSection) {
+          inOtherSection = true;
+          prefix = '<div class="mastery-section-head">From other courses</div>';
+        }
+        return prefix +
+          '<div class="mastery-row' + (isEnrolled ? ' mastery-row-enrolled' : '') + '">' +
+            '<div class="mr-name">' + safeHTML(r.course) + ' / ' + safeHTML(r.set) + '</div>' +
+            '<div class="mr-pct">' + r.correct + '/' + r.total + ' · ' + r.pct + '%</div>' +
+            '<div class="mastery-bar"><span class="mastery-bar-fill" style="width:' + r.pct + '%"></span></div>' +
+          '</div>';
       }).join("") + '</div>';
     }
     openModal("Mastery Map", html);
