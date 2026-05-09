@@ -4381,6 +4381,72 @@ body {
   gap: 8px;
   margin-top: 6px;
 }
+/* This Week — 4-cell quick stats grid */
+.pd-weekly-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+.pd-weekly-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 12px 10px;
+  background: rgba(13, 17, 27, .55);
+  border: 1px solid var(--line, rgba(255,255,255,.08));
+  border-radius: 12px;
+  position: relative;
+  min-height: 88px;
+}
+.pd-weekly-num {
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 700;
+  font-size: clamp(18px, 2.4vw, 28px);
+  color: var(--paper);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.pd-weekly-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  line-height: 1.2;
+  margin-top: auto;
+}
+.pd-weekly-sub {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: var(--cyan, #7af0ff);
+  font-variant-numeric: tabular-nums;
+}
+.pd-weekly-emoji {
+  font-size: 14px;
+  line-height: 1;
+  position: absolute;
+  top: 10px; right: 10px;
+}
+.pd-weekly-bar {
+  display: block;
+  height: 3px;
+  background: rgba(255,255,255,.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.pd-weekly-bar-fill {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--cyan, #7af0ff), var(--gold, #f5c451));
+  border-radius: 999px;
+  transition: width .8s cubic-bezier(.18, .89, .32, 1.18);
+}
+@media (max-width: 540px) {
+  .pd-weekly-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pd-weekly-bar-fill { transition: none; }
+}
+
 /* Streak calendar — 21-day rolling grid */
 .pd-streak-cal {
   display: grid;
@@ -6117,6 +6183,35 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <summary>Change avatar</summary>
           <div class="pd-avatar-grid" id="pdAvatarGrid" role="radiogroup" aria-label="Avatar selection"></div>
         </details>
+      </section>
+
+      <section class="pd-section pd-section-weekly">
+        <header class="pd-section-head">
+          <h3>This Week</h3>
+          <span class="pd-section-meta" id="pdWeeklyMeta">Rolling 7 days</span>
+        </header>
+        <div class="pd-weekly-grid" id="pdWeeklyGrid">
+          <div class="pd-weekly-cell">
+            <strong class="pd-weekly-num" id="pdWeeklyDays">0</strong>
+            <span class="pd-weekly-bar"><span class="pd-weekly-bar-fill" id="pdWeeklyDaysFill" style="width:0%"></span></span>
+            <span class="pd-weekly-label">days active · 7</span>
+          </div>
+          <div class="pd-weekly-cell">
+            <strong class="pd-weekly-num" id="pdWeeklyAnswers">0</strong>
+            <span class="pd-weekly-sub" id="pdWeeklyAccuracy">— accuracy</span>
+            <span class="pd-weekly-label">questions answered</span>
+          </div>
+          <div class="pd-weekly-cell">
+            <strong class="pd-weekly-num" id="pdWeeklyShards">0</strong>
+            <span class="pd-weekly-emoji" aria-hidden="true">💎</span>
+            <span class="pd-weekly-label">shards earned</span>
+          </div>
+          <div class="pd-weekly-cell">
+            <strong class="pd-weekly-num" id="pdWeeklyAch">0</strong>
+            <span class="pd-weekly-emoji" aria-hidden="true">🏆</span>
+            <span class="pd-weekly-label">achievements</span>
+          </div>
+        </div>
       </section>
 
       <section class="pd-section pd-section-streakcal">
@@ -8678,6 +8773,62 @@ boot();
       }
     }
 
+    // ---- Weekly stats card (rolling 7 days) ----
+    var weeklyDaysEl = document.getElementById("pdWeeklyDays");
+    if (weeklyDaysEl) {
+      var todayDt = new Date();
+      var msPerDay = 24 * 3600 * 1000;
+      var sevenDaysAgo = todayDt.getTime() - 7 * msPerDay;
+      var keyOf = function (d) {
+        return d.getFullYear() + "-" +
+               String(d.getMonth() + 1).padStart(2, "0") + "-" +
+               String(d.getDate()).padStart(2, "0");
+      };
+      // Days active in last 7 days
+      var daysSet = {};
+      (profile.playDays || []).forEach(function (d) {
+        var dd = new Date(d + "T00:00:00");
+        if (dd.getTime() >= sevenDaysAgo) daysSet[d] = true;
+      });
+      var daysActive = Object.keys(daysSet).length;
+      // Questions answered + accuracy
+      var weeklyTotal = 0, weeklyCorrect = 0;
+      var dailyAns = profile.dailyAnswers || {};
+      Object.keys(dailyAns).forEach(function (d) {
+        var dd = new Date(d + "T00:00:00");
+        if (dd.getTime() >= sevenDaysAgo) {
+          weeklyTotal += (dailyAns[d].total || 0);
+          weeklyCorrect += (dailyAns[d].correct || 0);
+        }
+      });
+      // Shards earned
+      var weeklyShards = 0;
+      var dailyShards = profile.dailyShards || {};
+      Object.keys(dailyShards).forEach(function (d) {
+        var dd = new Date(d + "T00:00:00");
+        if (dd.getTime() >= sevenDaysAgo) weeklyShards += (dailyShards[d] || 0);
+      });
+      // Achievements unlocked this week
+      var weeklyAch = (profile.achievements ? Object.keys(profile.achievements) : []).filter(function (id) {
+        var ach = profile.achievements[id];
+        return ach && ach.unlockedAt && ach.unlockedAt >= sevenDaysAgo;
+      }).length;
+      // Render
+      weeklyDaysEl.textContent = daysActive;
+      var daysFill = document.getElementById("pdWeeklyDaysFill");
+      if (daysFill) daysFill.style.width = ((daysActive / 7) * 100).toFixed(0) + "%";
+      var ansEl = document.getElementById("pdWeeklyAnswers");
+      if (ansEl) ansEl.textContent = weeklyTotal.toLocaleString();
+      var accEl = document.getElementById("pdWeeklyAccuracy");
+      if (accEl) accEl.textContent = weeklyTotal > 0
+        ? Math.round((weeklyCorrect / weeklyTotal) * 100) + "% correct"
+        : "no answers yet";
+      var shardsEl = document.getElementById("pdWeeklyShards");
+      if (shardsEl) shardsEl.textContent = weeklyShards.toLocaleString();
+      var achEl = document.getElementById("pdWeeklyAch");
+      if (achEl) achEl.textContent = weeklyAch.toLocaleString();
+    }
+
     // Streak calendar — last 21 days as a 3×7 grid
     var streakCal = document.getElementById("pdStreakCal");
     if (streakCal) {
@@ -10341,7 +10492,11 @@ boot();
   // queue + earn 5 shards) or "Need more practice" (keep in queue).
   // Up to 10 cards per session, biased toward enrolled-course misses.
   function startWrongAnswerDrill() {
-    var queue = P.getWrongQueue(80);
+    // Spaced-repetition: prefer cards whose nextShowAt has elapsed.
+    // If nothing is due yet, fall back to recent misses so the student
+    // can still drill on demand.
+    var dueQueue = (P.getDueWrongAnswers ? P.getDueWrongAnswers(80) : []);
+    var queue = dueQueue.length ? dueQueue : P.getWrongQueue(80);
     var enrolled = (P && P.getCourse) ? P.getCourse() : "";
     if (!queue.length) return;
 
@@ -10356,6 +10511,8 @@ boot();
     var idx = 0;
     var remembered = 0;
     var stillUnsure = 0;
+    var mastered = 0;
+    var sessionMode = dueQueue.length ? "spaced" : "all";
 
     function render() {
       var w = session[idx];
@@ -10400,7 +10557,9 @@ boot();
       if (yesBtn) yesBtn.addEventListener("click", function () {
         remembered++;
         try {
-          P.removeWrongAnswer(w.prompt);
+          // Spaced repetition: advance the box; mastered (box 5) retires.
+          var grade = P.gradeWrongAnswer ? P.gradeWrongAnswer(w.prompt, true) : null;
+          if (grade && grade.retired) mastered++;
           P.recordAnswer({ course: w.course, set: w.set, correct: true, prompt: w.prompt, answer: w.answer, gameId: "wrong-drill" });
         } catch (e) {}
         idx++;
@@ -10408,24 +10567,30 @@ boot();
       });
       if (noBtn) noBtn.addEventListener("click", function () {
         stillUnsure++;
-        // Keep in queue. Do NOT remove. Move on.
+        try {
+          // Spaced repetition: reset to box 1, schedule for tomorrow.
+          if (P.gradeWrongAnswer) P.gradeWrongAnswer(w.prompt, false);
+        } catch (e) {}
         idx++;
         render();
       });
     }
 
     function showSummary() {
-      var shardAward = remembered * 5;
+      var shardAward = remembered * 5 + mastered * 10; // bonus 10 per mastery
       try { if (shardAward > 0) P.addShards(shardAward, "wrong-drill"); } catch (e) {}
+      var stats = remembered + ' remembered · ' + stillUnsure + ' need more practice' +
+                  (mastered > 0 ? ' · <strong style="color:#69f0aa">' + mastered + ' mastered</strong>' : '');
+      var modeNote = sessionMode === "spaced" ? "Cards re-surface on a 1d → 3d → 7d → 14d ladder. Mastered cards drop off the queue." : "";
       var summaryHTML =
         '<div class="diag-summary">' +
           '<h4>Drill complete</h4>' +
-          '<p style="color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 12px;">' +
-            remembered + ' retired from your queue · ' + stillUnsure + ' still need practice' +
+          '<p style="color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 6px;">' + stats +
             (shardAward > 0 ? ' · earned <strong style="color:#f5c451">+' + shardAward + ' shards</strong>' : '') +
           '</p>' +
+          (modeNote ? '<p style="color:var(--muted-2);font-size:11.5px;line-height:1.45;margin:0 0 12px;font-style:italic;">' + modeNote + '</p>' : '') +
           '<div class="wq-actions" style="margin-top:14px;">' +
-            (P.getWrongQueue(1).length ? '<button class="wq-drill-btn" id="wqDrillAgain" type="button">Drill 10 more</button>' : '') +
+            ((P.getDueWrongAnswers ? P.getDueWrongAnswers(1) : P.getWrongQueue(1)).length ? '<button class="wq-drill-btn" id="wqDrillAgain" type="button">Drill 10 more</button>' : '') +
             '<button id="wqDone" type="button">Done</button>' +
           '</div>' +
         '</div>';

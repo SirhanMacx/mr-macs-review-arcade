@@ -194,6 +194,10 @@
       // the student played at least one game. Drives the streak
       // calendar grid in the drawer. Deduped + sorted on every write.
       playDays: [],
+      // Per-day shard / question counters keyed by ISO date string,
+      // capped at 60 days. Drives the Weekly Stats card.
+      dailyShards: {},   // { "YYYY-MM-DD": shardsEarnedThatDay }
+      dailyAnswers: {},  // { "YYYY-MM-DD": { correct: N, total: N } }
       // Phase 3 — tour bookkeeping
       tourSeen: {},        // gameId -> timestamp
       // Phase 7 — completed cram playlists / diagnostic results
@@ -260,6 +264,19 @@
     var da = Date.UTC(pa[0], pa[1] - 1, pa[2]);
     var db = Date.UTC(pb[0], pb[1] - 1, pb[2]);
     return Math.round((db - da) / 86400000);
+  }
+
+  // Prune a date-keyed rolling map to its N most-recent entries.
+  // Used by dailyShards / dailyAnswers (and any future per-day buffer)
+  // so the profile blob stays small.
+  function pruneRollingMap(p, key, days) {
+    if (!p[key] || typeof p[key] !== "object") return;
+    var keys = Object.keys(p[key]).sort();
+    if (keys.length <= days) return;
+    var keep = keys.slice(-days);
+    var fresh = {};
+    keep.forEach(function (k) { fresh[k] = p[key][k]; });
+    p[key] = fresh;
   }
 
   // ============== Public API ==============
@@ -355,6 +372,11 @@
       var p = read();
       p.shards = Math.max(0, (p.shards || 0) + n);
       if (n > 0) p.totalShardsEarned = (p.totalShardsEarned || 0) + n;
+      // Per-day shard counter (last 60 days) — drives Weekly Stats
+      var today = todayKey();
+      p.dailyShards = p.dailyShards || {};
+      p.dailyShards[today] = (p.dailyShards[today] || 0) + n;
+      pruneRollingMap(p, "dailyShards", 60);
       write(p);
       emit("wallet:change", { delta: n, total: p.shards, source: source || "unknown" });
       // Cross-arcade shard milestones
@@ -511,15 +533,28 @@
       bucket.total = (bucket.total || 0) + 1;
       if (meta.correct) bucket.correct = (bucket.correct || 0) + 1;
       bucket.lastSeen = Date.now();
-      // Wrong-answer ring buffer (cap 80)
+      // Per-day answer counter (last 60 days) — drives Weekly Stats
+      var todayK = todayKey();
+      p.dailyAnswers = p.dailyAnswers || {};
+      var day = p.dailyAnswers[todayK] = p.dailyAnswers[todayK] || { correct: 0, total: 0 };
+      day.total = (day.total || 0) + 1;
+      if (meta.correct) day.correct = (day.correct || 0) + 1;
+      pruneRollingMap(p, "dailyAnswers", 60);
+      // Wrong-answer ring buffer (cap 80) with spaced-repetition fields
       if (!meta.correct) {
         p.wrongAnswers = p.wrongAnswers || [];
+        var nowTs = Date.now();
         p.wrongAnswers.unshift({
           prompt: String(meta.prompt || "").slice(0, 220),
           answer: String(meta.answer || "").slice(0, 80),
           course: course, set: set,
           gameId: String(meta.gameId || ""),
-          ts: Date.now()
+          ts: nowTs,
+          // SR fields: when to next surface this card + box level
+          // (1=show daily, 2=3 days, 3=7 days, 4=14 days, 5=mastered)
+          nextShowAt: nowTs + 24 * 3600 * 1000, // tomorrow
+          boxLevel: 1,
+          lapses: 0
         });
         if (p.wrongAnswers.length > 80) p.wrongAnswers.length = 80;
       }
@@ -546,8 +581,7 @@
     },
     // Remove a single entry from the wrong-answer queue, identified by
     // its prompt text (stable enough since the queue caps at 80). Used
-    // by the drill mode to retire questions the student answers
-    // correctly during retrieval practice.
+    // by the drill mode to retire mastered questions.
     removeWrongAnswer: function (prompt) {
       var p = read();
       var key = String(prompt || "").trim();
@@ -558,6 +592,73 @@
       write(p);
       emit("profile:update", { profile: clone(p) });
       return p.wrongAnswers.length;
+    },
+
+    // Spaced-repetition: bump or reset a wrong-answer card's box level.
+    // recall = true   → advance box (1→2→3→4→5=mastered, then retire)
+    // recall = false  → reset box to 1, increment lapses, schedule for tomorrow
+    // Box → next-show interval map: 1=1d, 2=3d, 3=7d, 4=14d, 5=mastered
+    gradeWrongAnswer: function (prompt, recall) {
+      var BOX_INTERVALS = [null, 1, 3, 7, 14, null]; // index = boxLevel
+      var p = read();
+      var key = String(prompt || "").trim();
+      if (!key) return null;
+      var found = null;
+      var msPerDay = 24 * 3600 * 1000;
+      var nowTs = Date.now();
+      p.wrongAnswers = (p.wrongAnswers || []).reduce(function (acc, w) {
+        if (String(w.prompt || "").trim() !== key) {
+          acc.push(w);
+          return acc;
+        }
+        // Match — apply grading and either keep or retire
+        var box = Math.max(1, w.boxLevel || 1);
+        var lapses = w.lapses || 0;
+        if (recall) {
+          box = Math.min(5, box + 1);
+          if (box >= 5) {
+            // Mastered — retire from queue
+            found = { boxLevel: 5, retired: true, lapses: lapses };
+            return acc;
+          }
+        } else {
+          box = 1;
+          lapses += 1;
+        }
+        var interval = BOX_INTERVALS[box] || 1;
+        w.boxLevel = box;
+        w.lapses = lapses;
+        w.nextShowAt = nowTs + (interval * msPerDay);
+        w.lastGradedAt = nowTs;
+        found = { boxLevel: box, retired: false, lapses: lapses };
+        acc.push(w);
+        return acc;
+      }, []);
+      write(p);
+      emit("profile:update", { profile: clone(p) });
+      return found;
+    },
+
+    // Returns ONLY wrong-queue cards whose nextShowAt is in the past
+    // (or who have no nextShowAt — legacy entries created pre-SR).
+    // Limit defaults to 10. Falls back to recent misses if no due cards.
+    getDueWrongAnswers: function (limit) {
+      var p = read();
+      var n = Number(limit) || 10;
+      var nowTs = Date.now();
+      var all = (p.wrongAnswers || []);
+      var due = all.filter(function (w) {
+        if (typeof w.nextShowAt !== "number") return true; // legacy: always due
+        return w.nextShowAt <= nowTs;
+      });
+      // Sort: oldest-due first (longest overdue), then most recently missed
+      due.sort(function (a, b) {
+        var ad = (typeof a.nextShowAt === "number") ? a.nextShowAt : 0;
+        var bd = (typeof b.nextShowAt === "number") ? b.nextShowAt : 0;
+        if (ad !== bd) return ad - bd;
+        return (b.ts || 0) - (a.ts || 0);
+      });
+      return due.slice(0, n);
     },
     clearWrongQueue: function () {
       var p = read();
