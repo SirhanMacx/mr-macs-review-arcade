@@ -122,7 +122,15 @@
     { id: "cross-3-genres",    title: "Genre-Hopper",          desc: "Play 3 different flagship games.",                 tier: "silver",    icon: "🎲" },
     { id: "cross-shards-1k",   title: "Shard Hoarder",         desc: "Earn 1,000 lifetime shards.",                      tier: "gold",      icon: "💎" },
     { id: "cross-shards-10k",  title: "Treasure Vault",        desc: "Earn 10,000 lifetime shards.",                     tier: "legendary", icon: "💰" },
-    { id: "cross-cram",        title: "Cram Sesh",             desc: "Complete a 4-game Cram Mode playlist.",            tier: "gold",      icon: "📚" }
+    { id: "cross-cram",        title: "Cram Sesh",             desc: "Complete a 4-game Cram Mode playlist.",            tier: "gold",      icon: "📚" },
+
+    // ---- Hidden / Easter eggs ----
+    { id: "code-master",       title: "Code Master",            desc: "Discovered the secret konami sequence.",           tier: "gold",      icon: "🎮" },
+    { id: "click-whisperer",   title: "Click Whisperer",        desc: "Clicked the brand mark seven times in five seconds.", tier: "silver", icon: "🪄" },
+    { id: "fortune-seeker",    title: "Fortune Seeker",         desc: "Read 30 different daily fortunes.",                tier: "silver",    icon: "🔮" },
+    { id: "midnight-hunter",   title: "Midnight Hunter",        desc: "Played a game between midnight and 4 AM.",         tier: "silver",    icon: "🌙" },
+    { id: "early-bird",        title: "Early Bird",             desc: "Played a game between 5 AM and 7 AM.",             tier: "silver",    icon: "🌅" },
+    { id: "weekend-warrior",   title: "Weekend Warrior",        desc: "Played on both Saturday and Sunday in one week.",  tier: "silver",    icon: "🛡" }
   ];
 
   var ACHIEVEMENT_INDEX = {};
@@ -560,6 +568,38 @@
       // Cross-arcade: 3 different genres
       var distinctGenres = Object.keys(p.perGameStats).length;
       if (distinctGenres >= 3) API.unlock("cross-3-genres");
+      // Time-of-day easter eggs
+      var hr = new Date(now).getHours();
+      if (hr >= 0 && hr < 4) API.unlock("midnight-hunter");
+      else if (hr >= 5 && hr < 7) API.unlock("early-bird");
+      // Weekend warrior — track sat + sun played in current ISO week
+      var dayOfWeek = new Date(now).getDay(); // 0=Sun, 6=Sat
+      if (dayOfWeek === 0 || dayOfWeek === 6) {
+        p.weekendDays = p.weekendDays || {};
+        // Use ISO week as the bucket key
+        var year = new Date(now).getFullYear();
+        var weekNum = (function () {
+          var d = new Date(now);
+          d.setHours(0, 0, 0, 0);
+          d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+          var yearStart = new Date(d.getFullYear(), 0, 1);
+          return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+        })();
+        var weekKey = year + "-W" + weekNum;
+        p.weekendDays[weekKey] = p.weekendDays[weekKey] || { sat: false, sun: false };
+        if (dayOfWeek === 6) p.weekendDays[weekKey].sat = true;
+        if (dayOfWeek === 0) p.weekendDays[weekKey].sun = true;
+        if (p.weekendDays[weekKey].sat && p.weekendDays[weekKey].sun) {
+          API.unlock("weekend-warrior");
+        }
+        // Cap to last 12 weeks
+        var weeks = Object.keys(p.weekendDays).sort();
+        if (weeks.length > 12) {
+          var fresh = {};
+          weeks.slice(-12).forEach(function (k) { fresh[k] = p.weekendDays[k]; });
+          p.weekendDays = fresh;
+        }
+      }
       write(p);
       // First-play achievement
       if (gs.plays === 1 && Object.keys(p.perGameStats).length === 1) API.unlock("first-play");

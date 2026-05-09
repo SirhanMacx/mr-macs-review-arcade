@@ -5295,6 +5295,85 @@ body {
   .nba-pill:hover .nba-arrow { transform: none; }
 }
 
+/* Daily fortune card — small whimsical motivational banner */
+.fortune-band {
+  padding: clamp(10px, 1.4vh, 16px) 0 0;
+}
+.fortune-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 11px 16px;
+  background:
+    radial-gradient(140% 100% at 0% 0%, rgba(184, 146, 255, .14), transparent 56%),
+    linear-gradient(135deg, rgba(13, 17, 27, .88), rgba(8, 11, 20, .94));
+  border: 1px solid rgba(184, 146, 255, .26);
+  border-radius: 999px;
+  color: var(--paper);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: transform .2s, border-color .2s, background .2s;
+}
+.fortune-card:hover, .fortune-card:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(184, 146, 255, .55);
+  background:
+    radial-gradient(140% 100% at 0% 0%, rgba(184, 146, 255, .22), transparent 56%),
+    linear-gradient(135deg, rgba(13, 17, 27, .92), rgba(8, 11, 20, .98));
+  outline: none;
+}
+.fortune-orb {
+  font-size: 20px;
+  line-height: 1;
+  display: inline-grid;
+  place-items: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(184, 146, 255, .55), rgba(122, 240, 255, .15));
+  filter: drop-shadow(0 0 8px rgba(184, 146, 255, .35));
+  animation: fortuneFloat 5s ease-in-out infinite;
+}
+@keyframes fortuneFloat {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-2px) rotate(3deg); }
+}
+.fortune-text { display: inline-flex; flex-direction: column; gap: 1px; min-width: 0; }
+.fortune-kicker {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+  color: #b892ff;
+}
+.fortune-body {
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 540;
+  font-size: clamp(13px, 1.6vw, 16px);
+  line-height: 1.25;
+  color: var(--paper);
+}
+.fortune-shuffle {
+  width: 28px; height: 28px;
+  display: inline-grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  color: var(--muted, #9aa3bb);
+  font-size: 14px;
+  transition: transform .35s, color .2s;
+}
+.fortune-card:hover .fortune-shuffle {
+  color: #b892ff;
+  transform: rotate(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fortune-card { transition: none; }
+  .fortune-card:hover { transform: none; }
+  .fortune-orb { animation: none; }
+  .fortune-card:hover .fortune-shuffle { transform: none; }
+}
+
 /* Today's Plan band — 3 daily goal checklist + shared shard bonus */
 .daily-plan-band {
   padding: clamp(12px, 1.6vh, 20px) 0 0;
@@ -7366,6 +7445,18 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         <strong class="nba-title" id="nbaTitle"></strong>
       </span>
       <span class="nba-arrow" aria-hidden="true">→</span>
+    </button>
+  </section>
+
+  <!-- Daily fortune — small rotating motivational message -->
+  <section class="band fortune-band" id="fortuneBand" aria-label="Daily fortune">
+    <button class="fortune-card" id="fortuneCard" type="button" aria-label="Pull a new fortune">
+      <span class="fortune-orb" aria-hidden="true">🔮</span>
+      <span class="fortune-text">
+        <span class="fortune-kicker" id="fortuneKicker">Today's fortune</span>
+        <span class="fortune-body" id="fortuneBody">Loading…</span>
+      </span>
+      <span class="fortune-shuffle" aria-hidden="true">↻</span>
     </button>
   </section>
 
@@ -12707,6 +12798,197 @@ boot();
     if (wqBtn) wqBtn.addEventListener("click", showWrongQueue);
     if (cramBtn) cramBtn.addEventListener("click", showCramForm);
     if (mockBtn) mockBtn.addEventListener("click", showMockExamSetup);
+  });
+})();
+
+// ============================================================================
+// FUN LAYER — daily fortunes, easter eggs, hidden achievements
+// ============================================================================
+(function () {
+  if (!window.MrMacsProfile) return;
+  var P = window.MrMacsProfile;
+
+  // ---- Daily fortunes (50+ social-studies-flavored motivational lines) ----
+  var FORTUNES = [
+    "The Erie Canal believes in you today.",
+    "FDR would be proud of this work ethic.",
+    "Even Napoleon had Mondays. Keep going.",
+    "The Magna Carta took 800 years to land. Your test is one day.",
+    "Caesar studied harder. Look how he turned out.",
+    "Lincoln read by candlelight. You have AI tutors. Use them.",
+    "Manifest your destiny — by reviewing Westward Expansion.",
+    "Confucius say: practice multiple choice make wisdom.",
+    "If Rome wasn't built in a day, neither is your study streak.",
+    "Hannibal crossed the Alps. You can finish this Jeopardy round.",
+    "The Mongols conquered Eurasia without a calculator. No excuses.",
+    "Maslow's hierarchy starts with: pass the Regents.",
+    "Pavlov's dogs studied. So can you. Drool optional.",
+    "Plato thought. So should you. About the Berlin Conference.",
+    "Marie Curie won two Nobel Prizes. You can win this drill.",
+    "Genghis Khan had 16 million descendants. You have 16 questions.",
+    "The Berlin Wall fell in 1989. Your weak topics will too.",
+    "Aristotle: 'We are what we repeatedly do.' So drill more.",
+    "If Muhammad can climb a mountain, you can climb this study session.",
+    "Peace summits last years. Your diagnostic takes two minutes.",
+    "Hammurabi wrote his code in stone. You can rewrite yours.",
+    "The Silk Road took years. Your Cram playlist? Twenty minutes.",
+    "Socrates: 'I know that I know nothing.' Then he wasn't ready for Regents.",
+    "Joan of Arc was 19. She did okay.",
+    "Spartans trained at age 7. You're already ahead.",
+    "The Renaissance was a vibe. Be Renaissance about your test.",
+    "Catherine the Great earned her name. Earn yours.",
+    "Tubman never lost a passenger. Don't lose a streak day.",
+    "Mansa Musa was the richest person ever. Stack your shards.",
+    "The Iroquois Confederacy out-democracied Europe. Take notes.",
+    "Sun Tzu: 'Know your enemy.' Today the enemy is the AP rubric.",
+    "Frederick Douglass taught himself to read. Imagine what you can do.",
+    "Galileo got house arrest for being right. You only need to be right enough.",
+    "Cleopatra spoke 9 languages. You only need to read 4 choices.",
+    "Suffragists waited 72 years for the vote. Be patient with this unit.",
+    "The Greeks invented the marathon. You can survive Boss Rush.",
+    "Stoicism says: focus on what you control. Like answering this question.",
+    "Mendel counted 28,000 pea plants. You only need to count to 100%.",
+    "Tesla slept 2 hours a night. Don't be Tesla. Sleep first, drill second.",
+    "The Founding Fathers were nervous too. Then they signed.",
+    "Constantinople fell in 1453. Don't fall for the wrong choice.",
+    "Cyrus respected enemies. Respect this question.",
+    "Akhenaten changed religion overnight. You can change one wrong answer.",
+    "Eleanor of Aquitaine ran two kingdoms. You're running one drill.",
+    "The Maya predicted eclipses without telescopes. You have games.",
+    "Cousteau explored the ocean. Explore your Mastery Map.",
+    "Florence Nightingale invented stats for nursing. Stats are friends.",
+    "Pythagoras had cult vibes about numbers. You can have cult vibes about answers.",
+    "The Aztecs played ball with their hips. Your fingers will be fine.",
+    "Kublai Khan ruled the largest empire ever. You can rule one unit.",
+    "Beethoven kept composing while deaf. Keep drilling while tired.",
+    "Aesop wrote in 600 BC. His morals still slap.",
+    "Queen Liliʻuokalani fought annexation with poetry. Use what you've got.",
+    "The Library of Alexandria burned. Save your work.",
+    "Plato wrote 'The Republic.' You wrote a CRQ. Equal energy.",
+    "Maya Angelou taught herself 6 languages. Self-teaching is canon.",
+    "Ibn Battuta walked 75,000 miles. You only need to walk through this list.",
+    "Charlemagne couldn't read until adulthood. Then he ran Europe.",
+    "Catherine of Aragon held her ground. So can you.",
+    "Anne Frank kept writing. Always keep writing.",
+    "Susan B. Anthony got arrested for voting. Voting matters."
+  ];
+
+  function pickFortune(profile) {
+    // Deterministic per UTC day per profile so the fortune doesn't
+    // change on every render — but rotates daily.
+    var seedStr = (profile.name || "trainer") + "|" + new Date().toISOString().slice(0, 10);
+    var hash = 0;
+    for (var i = 0; i < seedStr.length; i++) {
+      hash = ((hash << 5) - hash + seedStr.charCodeAt(i)) | 0;
+    }
+    return Math.abs(hash) % FORTUNES.length;
+  }
+  function renderFortune(forceRandom) {
+    var body = document.getElementById("fortuneBody");
+    if (!body) return;
+    var profile = P.get();
+    var idx;
+    if (forceRandom) {
+      idx = Math.floor(Math.random() * FORTUNES.length);
+    } else {
+      idx = pickFortune(profile);
+    }
+    body.textContent = FORTUNES[idx];
+    // Track unique fortunes seen — once 30 distinct, unlock Fortune Seeker
+    try {
+      var seen = JSON.parse(localStorage.getItem("mr-macs-arcade-fortunes-seen") || "[]");
+      if (seen.indexOf(idx) === -1) seen.push(idx);
+      localStorage.setItem("mr-macs-arcade-fortunes-seen", JSON.stringify(seen));
+      if (seen.length >= 30) P.unlock("fortune-seeker");
+    } catch (e) {}
+  }
+  var fortuneCard = document.getElementById("fortuneCard");
+  if (fortuneCard) {
+    renderFortune(false);
+    fortuneCard.addEventListener("click", function () { renderFortune(true); });
+  }
+
+  // ---- Konami code easter egg ----
+  // Up Up Down Down Left Right Left Right B A → confetti rain + Code Master
+  var KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
+                "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+  var konamiBuffer = [];
+  document.addEventListener("keydown", function (e) {
+    var key = e.key === "B" ? "b" : (e.key === "A" ? "a" : e.key);
+    konamiBuffer.push(key);
+    if (konamiBuffer.length > KONAMI.length) konamiBuffer.shift();
+    var matched = konamiBuffer.length === KONAMI.length &&
+      konamiBuffer.every(function (k, i) { return k === KONAMI[i]; });
+    if (matched) {
+      konamiBuffer = [];
+      // Big celebration burst from center of screen
+      try {
+        if (window.MrMacsCelebration) {
+          window.MrMacsCelebration.burst({
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 3,
+            count: 80,
+            palette: ["#ff7cc8", "#7af0ff", "#f5c451", "#69f0aa", "#b892ff", "#ff8e6f"],
+            life: 1.8,
+            vScale: 1.2
+          });
+        }
+      } catch (err) {}
+      // Toast
+      try {
+        if (window.MrMacsToast) {
+          window.MrMacsToast.push({
+            icon: "controller",
+            title: "↑↑↓↓←→←→BA",
+            sub: "you found the secret. +200 shards",
+            tone: "achievement",
+            ms: 6000
+          });
+        }
+      } catch (err) {}
+      try { P.unlock("code-master"); } catch (err) {}
+      try { P.addShards(200, "konami-code"); } catch (err) {}
+    }
+  });
+
+  // ---- Brand-mark 7-clicks-in-5-seconds easter egg ----
+  // Click Whisperer achievement
+  var brandClickTimes = [];
+  document.querySelectorAll(".brand-mark").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      // Don't interfere with the brand link's normal behavior — just count
+      var now = Date.now();
+      brandClickTimes = brandClickTimes.filter(function (t) { return now - t < 5000; });
+      brandClickTimes.push(now);
+      if (brandClickTimes.length >= 7) {
+        brandClickTimes = [];
+        try {
+          if (window.MrMacsCelebration) {
+            var rect = el.getBoundingClientRect();
+            window.MrMacsCelebration.burst({
+              x: rect.left + rect.width / 2,
+              y: rect.top + rect.height / 2,
+              count: 32,
+              palette: ["#f5c451", "#ffd884", "#7af0ff"],
+              life: 1.4
+            });
+          }
+        } catch (err) {}
+        try {
+          if (window.MrMacsToast) {
+            window.MrMacsToast.push({
+              icon: "sparkles",
+              title: "Click Whisperer",
+              sub: "you found the brand-click secret. +75 shards",
+              tone: "achievement",
+              ms: 5000
+            });
+          }
+        } catch (err) {}
+        try { P.unlock("click-whisperer"); } catch (err) {}
+        try { P.addShards(75, "brand-clicks"); } catch (err) {}
+      }
+    });
   });
 })();
 </script>
