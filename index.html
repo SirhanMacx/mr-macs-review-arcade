@@ -6158,6 +6158,59 @@ body {
   border-color: rgba(255, 102, 125, .65);
   background: rgba(255, 102, 125, .12);
 }
+/* Inline hint button (consumes a Hint Token from inventory) */
+.quiz-hint-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 10px 0 6px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.quiz-hint-bar[hidden] { display: none; }
+.quiz-hint-bar .qh-meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+}
+.quiz-hint-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px;
+  background: linear-gradient(135deg, rgba(245, 196, 81, .18), rgba(255, 124, 200, .08));
+  border: 1px solid rgba(245, 196, 81, .55);
+  color: #f5c451;
+  border-radius: 999px;
+  font: 700 11px/1 "Inter", sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.quiz-hint-btn:hover {
+  background: linear-gradient(135deg, rgba(245, 196, 81, .32), rgba(255, 124, 200, .14));
+  transform: translateY(-1px);
+}
+.quiz-hint-btn:disabled {
+  opacity: .42;
+  cursor: not-allowed;
+  transform: none;
+}
+.quiz-hint-btn .qh-count {
+  display: inline-grid; place-items: center;
+  min-width: 18px; height: 18px;
+  padding: 0 5px;
+  background: rgba(245, 196, 81, .35);
+  border-radius: 999px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px;
+  font-variant-numeric: tabular-nums;
+}
+.diag-choice.is-eliminated {
+  opacity: .35;
+  text-decoration: line-through;
+  cursor: not-allowed;
+  pointer-events: none;
+  border-color: rgba(255, 102, 125, .35) !important;
+  background: rgba(255, 102, 125, .04) !important;
+}
+
 /* Post-submit explanation reveal — pedagogical lock-in */
 .diag-explanation {
   margin-top: 14px;
@@ -11859,10 +11912,18 @@ boot();
       currentCorrectIdx = sh.correctIdx;
       var total = sessionQs.length;
       var pct = Math.round((idx / total) * 100);
+      var hintTokens = (P.getInventory ? P.getInventory().hintTokens : 0);
+      var hintUsedThisQ = false;
       var html =
         '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
         '<div class="diag-meta">' + safeHTML(q.course) + ' · ' + safeHTML(q.set) + ' · Question ' + (idx + 1) + ' / ' + total + '</div>' +
         '<p class="diag-stem">' + safeHTML(q.prompt) + '</p>' +
+        (hintTokens > 0
+          ? '<div class="quiz-hint-bar">' +
+              '<span class="qh-meta">Stuck? Use a hint token to eliminate one wrong choice.</span>' +
+              '<button class="quiz-hint-btn" id="diagHint" type="button">💡 Use hint <span class="qh-count">' + hintTokens + '</span></button>' +
+            '</div>'
+          : '') +
         '<div class="diag-choices">' +
           currentChoices.map(function (c, i) {
             return '<button class="diag-choice" data-i="' + i + '" type="button">' + safeHTML(c) + '</button>';
@@ -11873,6 +11934,27 @@ boot();
           '<button class="diag-advance-btn" id="diagAdvanceBtn" type="button">Next question →</button>' +
         '</div>';
       openModal("Diagnostic — find your weak spots", html);
+      // Wire hint button — eliminates a random wrong choice + consumes
+      // one Hint Token from the player's inventory.
+      var hintBtn = document.getElementById("diagHint");
+      if (hintBtn) hintBtn.addEventListener("click", function () {
+        if (hintUsedThisQ) return;
+        var wrongIdxs = [];
+        for (var ci = 0; ci < currentChoices.length; ci++) {
+          if (ci !== currentCorrectIdx) wrongIdxs.push(ci);
+        }
+        if (!wrongIdxs.length) return;
+        var pickIdx = wrongIdxs[Math.floor(Math.random() * wrongIdxs.length)];
+        var btn = rmBody.querySelector('.diag-choice[data-i="' + pickIdx + '"]');
+        if (btn) {
+          btn.classList.add("is-eliminated");
+          btn.disabled = true;
+        }
+        hintUsedThisQ = true;
+        if (P.consumeItem) P.consumeItem("hintTokens");
+        hintBtn.disabled = true;
+        hintBtn.textContent = "✓ hint used";
+      });
       Array.prototype.forEach.call(rmBody.querySelectorAll(".diag-choice"), function (btn) {
         btn.addEventListener("click", function () {
           var pickIdx = Number(btn.dataset.i);
@@ -12156,10 +12238,18 @@ boot();
       if (!q) return finish();
       var sh = shuffleChoices(q);
       var pct = Math.round((idx / sessionQs.length) * 100);
+      var hintTokens = (P.getInventory ? P.getInventory().hintTokens : 0);
+      var hintUsedThisQ = false;
       var html =
         '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
         '<div class="diag-meta">' + safeHTML(course) + ' · ' + safeHTML(set) + ' · Q ' + (idx + 1) + ' / ' + sessionQs.length + '</div>' +
         '<p class="diag-stem">' + safeHTML(q.prompt) + '</p>' +
+        (hintTokens > 0
+          ? '<div class="quiz-hint-bar">' +
+              '<span class="qh-meta">Stuck? Use a hint token to eliminate one wrong choice.</span>' +
+              '<button class="quiz-hint-btn" id="topicHint" type="button">💡 Use hint <span class="qh-count">' + hintTokens + '</span></button>' +
+            '</div>'
+          : '') +
         '<div class="diag-choices">' +
           sh.order.map(function (c, i) {
             return '<button class="diag-choice" data-i="' + i + '" type="button">' + safeHTML(c) + '</button>';
@@ -12170,6 +12260,25 @@ boot();
           '<button class="diag-advance-btn" id="topicDrillAdvanceBtn" type="button">Next →</button>' +
         '</div>';
       openModal("Topic Drill — " + set, html);
+      var hintBtn = document.getElementById("topicHint");
+      if (hintBtn) hintBtn.addEventListener("click", function () {
+        if (hintUsedThisQ) return;
+        var wrongIdxs = [];
+        for (var ci = 0; ci < sh.order.length; ci++) {
+          if (ci !== sh.correctIdx) wrongIdxs.push(ci);
+        }
+        if (!wrongIdxs.length) return;
+        var pickIdx = wrongIdxs[Math.floor(Math.random() * wrongIdxs.length)];
+        var elBtn = rmBody.querySelector('.diag-choice[data-i="' + pickIdx + '"]');
+        if (elBtn) {
+          elBtn.classList.add("is-eliminated");
+          elBtn.disabled = true;
+        }
+        hintUsedThisQ = true;
+        if (P.consumeItem) P.consumeItem("hintTokens");
+        hintBtn.disabled = true;
+        hintBtn.textContent = "✓ hint used";
+      });
       Array.prototype.forEach.call(rmBody.querySelectorAll(".diag-choice"), function (btn) {
         btn.addEventListener("click", function () {
           var pickIdx = Number(btn.dataset.i);
@@ -12719,6 +12828,10 @@ boot();
       var hudRight = timed
         ? '<span class="mh-timer" id="mockTimer">' + formatMMSS(deadlineAt - Date.now()) + '</span>'
         : '<span class="mh-label">Untimed</span>';
+      var inv = (P.getInventory ? P.getInventory() : { hintTokens: 0, timeBoosts: 0 });
+      var hintTokens = inv.hintTokens || 0;
+      var timeBoosts = inv.timeBoosts || 0;
+      var hintUsedThisQ = false;
       var html =
         '<div class="mock-hud">' +
           '<span class="mh-label">Question ' + (idx + 1) + ' / ' + total + '</span>' +
@@ -12727,6 +12840,15 @@ boot();
         '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
         '<div class="diag-meta">' + safeHTML(q.course) + ' · ' + safeHTML(q.set) + '</div>' +
         '<p class="diag-stem">' + safeHTML(q.prompt) + '</p>' +
+        ((hintTokens > 0 || (timed && timeBoosts > 0))
+          ? '<div class="quiz-hint-bar">' +
+              '<span class="qh-meta">Power-ups</span>' +
+              '<span style="display:inline-flex;gap:6px;flex-wrap:wrap;">' +
+                (hintTokens > 0 ? '<button class="quiz-hint-btn" id="mockHint" type="button">💡 Hint <span class="qh-count">' + hintTokens + '</span></button>' : '') +
+                (timed && timeBoosts > 0 ? '<button class="quiz-hint-btn" id="mockTimeBoost" type="button" style="border-color:rgba(122,240,255,.55);color:#7af0ff;background:linear-gradient(135deg,rgba(122,240,255,.18),rgba(184,146,255,.08));">⏱ +30s <span class="qh-count">' + timeBoosts + '</span></button>' : '') +
+              '</span>' +
+            '</div>'
+          : '') +
         '<div class="diag-choices">' +
           currentChoices.map(function (c, i) {
             return '<button class="diag-choice" data-i="' + i + '" type="button">' + safeHTML(c) + '</button>';
@@ -12735,6 +12857,41 @@ boot();
         '<button class="mock-submit" id="mockSubmit" type="button" disabled>Submit answer</button>' +
         '<div class="mock-skip"><button id="mockSkip" type="button">Skip / flag for review →</button></div>';
       openModal("Mock Exam — " + safeHTML(course), html);
+      // Wire mock-exam hint button
+      var mockHintBtn = document.getElementById("mockHint");
+      if (mockHintBtn) mockHintBtn.addEventListener("click", function () {
+        if (hintUsedThisQ) return;
+        var wrongIdxs = [];
+        for (var ci = 0; ci < currentChoices.length; ci++) {
+          if (ci !== currentCorrectIdx) wrongIdxs.push(ci);
+        }
+        if (!wrongIdxs.length) return;
+        var pickIdx = wrongIdxs[Math.floor(Math.random() * wrongIdxs.length)];
+        var elBtn = rmBody.querySelector('.diag-choice[data-i="' + pickIdx + '"]');
+        if (elBtn) {
+          elBtn.classList.add("is-eliminated");
+          elBtn.disabled = true;
+        }
+        hintUsedThisQ = true;
+        if (P.consumeItem) P.consumeItem("hintTokens");
+        mockHintBtn.disabled = true;
+        mockHintBtn.textContent = "✓ used";
+      });
+      // Wire time-boost button (extends deadlineAt by 30 seconds)
+      var mockTimeBoostBtn = document.getElementById("mockTimeBoost");
+      if (mockTimeBoostBtn) mockTimeBoostBtn.addEventListener("click", function () {
+        if (!timed) return;
+        deadlineAt += 30 * 1000;
+        if (P.consumeItem) P.consumeItem("timeBoosts");
+        mockTimeBoostBtn.disabled = true;
+        mockTimeBoostBtn.textContent = "✓ +30s";
+        // Force-tick so the visible timer jumps immediately
+        var t = document.getElementById("mockTimer");
+        if (t) {
+          t.textContent = formatMMSS(deadlineAt - Date.now());
+          t.classList.remove("is-low");
+        }
+      });
 
       Array.prototype.forEach.call(rmBody.querySelectorAll(".diag-choice"), function (btn) {
         btn.addEventListener("click", function () {

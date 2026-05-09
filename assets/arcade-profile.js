@@ -505,8 +505,8 @@
     // Returns { ok, reason, inventory } so callers can show feedback.
     SHOP_ITEMS: {
       streakShield: { cost: 200, label: "Streak Shield", icon: "🛡", desc: "Saves your streak if you miss a day. Auto-consumed on the next gap." },
-      hintTokens:   { cost: 50,  label: "Hint Token",    icon: "💡", desc: "Reveals one wrong choice in a quiz question. Coming soon." },
-      timeBoosts:   { cost: 75,  label: "Time Boost",    icon: "⏱", desc: "Adds 30 seconds to your next mock-exam timer. Coming soon." },
+      hintTokens:   { cost: 50,  label: "Hint Token",    icon: "💡", desc: "Eliminates one wrong choice on any quiz question. One per question." },
+      timeBoosts:   { cost: 75,  label: "Time Boost",    icon: "⏱", desc: "Adds 30 seconds to your timer in any timed mock exam. One use per boost." },
       luckyCharm:   { cost: 350, label: "Lucky Charm",   icon: "✨", desc: "Doubles every shard you earn for 24 hours." }
     },
     buyItem: function (itemId) {
