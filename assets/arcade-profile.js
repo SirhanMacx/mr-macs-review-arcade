@@ -190,6 +190,10 @@
       // entries fall off the front. Used by pickDiagnosticSet to avoid
       // repeating the same questions session-to-session.
       diagHistory: [],
+      // Rolling 90-day buffer of ISO 'YYYY-MM-DD' strings — every day
+      // the student played at least one game. Drives the streak
+      // calendar grid in the drawer. Deduped + sorted on every write.
+      playDays: [],
       // Phase 3 — tour bookkeeping
       tourSeen: {},        // gameId -> timestamp
       // Phase 7 — completed cram playlists / diagnostic results
@@ -447,6 +451,16 @@
         else if (p.streak.current >= 7) API.unlock("streak-7");
         else if (p.streak.current >= 3) API.unlock("streak-3");
       }
+      // Rolling 90-day playDays buffer (ISO 'YYYY-MM-DD' strings).
+      // Drives the streak calendar grid in the profile drawer. We
+      // dedupe + sort + cap on every write so the buffer stays clean.
+      p.playDays = p.playDays || [];
+      if (p.playDays.indexOf(today) === -1) p.playDays.push(today);
+      // Keep only the last 90 distinct days
+      p.playDays = p.playDays
+        .filter(function (d, i, arr) { return arr.indexOf(d) === i; })
+        .sort()
+        .slice(-90);
       // Per-game stats
       p.perGameStats = p.perGameStats || {};
       var gs = p.perGameStats[entry.id] || { plays: 0, bestScore: 0, lastPlayed: 0, completions: 0 };

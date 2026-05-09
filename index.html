@@ -4337,6 +4337,71 @@ body {
   gap: 8px;
   margin-top: 6px;
 }
+/* Streak calendar — 21-day rolling grid */
+.pd-streak-cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 6px;
+}
+.pd-streak-cell {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .02);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  color: var(--muted, #9aa3bb);
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  cursor: default;
+  transition: transform .2s, border-color .2s;
+}
+.pd-streak-cell.pd-streak-played {
+  background: linear-gradient(135deg, rgba(245, 196, 81, .85), rgba(255, 216, 132, .85));
+  color: #14100a;
+  border-color: rgba(245, 196, 81, .65);
+  box-shadow: 0 4px 12px rgba(245, 196, 81, .18);
+  font-weight: 700;
+}
+.pd-streak-cell.pd-streak-today {
+  border-color: rgba(122, 240, 255, .85);
+  box-shadow: 0 0 0 1px rgba(122, 240, 255, .55), 0 6px 14px rgba(122, 240, 255, .18);
+}
+.pd-streak-cell.pd-streak-played.pd-streak-today {
+  border-color: rgba(122, 240, 255, .85);
+  box-shadow: 0 0 0 1px rgba(122, 240, 255, .85), 0 6px 14px rgba(245, 196, 81, .35);
+}
+.pd-streak-cell:hover {
+  transform: scale(1.06);
+  z-index: 2;
+}
+.pd-streak-cell::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%; transform: translateX(-50%);
+  padding: 4px 8px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .08em;
+  background: rgba(13, 17, 27, .96);
+  border: 1px solid var(--line, rgba(255,255,255,.08));
+  border-radius: 6px;
+  color: var(--paper);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+  z-index: 3;
+}
+.pd-streak-cell:hover::after {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pd-streak-cell { transition: none; }
+  .pd-streak-cell:hover { transform: none; }
+}
 .pd-ach {
   position: relative;
   display: flex; align-items: center; gap: 10px;
@@ -5849,6 +5914,14 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <summary>Change avatar</summary>
           <div class="pd-avatar-grid" id="pdAvatarGrid" role="radiogroup" aria-label="Avatar selection"></div>
         </details>
+      </section>
+
+      <section class="pd-section pd-section-streakcal">
+        <header class="pd-section-head">
+          <h3>Streak Calendar</h3>
+          <span class="pd-section-meta" id="pdStreakCalMeta">Last 21 days · gold = played</span>
+        </header>
+        <div class="pd-streak-cal" id="pdStreakCal" aria-label="Daily activity, last 21 days"></div>
       </section>
 
       <section class="pd-section pd-section-achievements">
@@ -8353,6 +8426,49 @@ boot();
       });
     } else if (pdCourseSelect) {
       pdCourseSelect.value = profile.course || "";
+    }
+
+    // Streak calendar — last 21 days as a 3×7 grid
+    var streakCal = document.getElementById("pdStreakCal");
+    if (streakCal) {
+      var playSet = {};
+      (profile.playDays || []).forEach(function (d) { playSet[d] = true; });
+      var todayDate = new Date();
+      var todayKey = todayDate.getFullYear() + "-" +
+        String(todayDate.getMonth() + 1).padStart(2, "0") + "-" +
+        String(todayDate.getDate()).padStart(2, "0");
+      var cells = [];
+      for (var d = 20; d >= 0; d--) {
+        var date = new Date(todayDate);
+        date.setDate(todayDate.getDate() - d);
+        var dayKey = date.getFullYear() + "-" +
+          String(date.getMonth() + 1).padStart(2, "0") + "-" +
+          String(date.getDate()).padStart(2, "0");
+        var played = !!playSet[dayKey];
+        var isToday = dayKey === todayKey;
+        var classes = ["pd-streak-cell"];
+        if (played) classes.push("pd-streak-played");
+        if (isToday) classes.push("pd-streak-today");
+        var tooltip = date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" }) +
+          (played ? " · played" : " · no activity");
+        cells.push(
+          '<div class="' + classes.join(" ") +
+          '" data-tooltip="' + tooltip.replace(/"/g, "&quot;") + '">' +
+          date.getDate() + '</div>'
+        );
+      }
+      streakCal.innerHTML = cells.join("");
+      var meta = document.getElementById("pdStreakCalMeta");
+      if (meta) {
+        var playedCount = (profile.playDays || []).filter(function (d) {
+          // Only count last 21 days
+          var dd = new Date(d + "T00:00:00");
+          var cutoff = new Date(todayDate);
+          cutoff.setDate(todayDate.getDate() - 20);
+          return dd >= cutoff;
+        }).length;
+        meta.textContent = playedCount + " of last 21 days · current streak " + (profile.streak.current || 0);
+      }
     }
 
     var ach = P.listAchievements();
