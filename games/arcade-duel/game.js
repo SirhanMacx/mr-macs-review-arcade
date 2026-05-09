@@ -262,7 +262,11 @@ function spawnStageParticles(side, type) {
   const y = r.top + r.height * 0.45;
   const color = type === "spark" ? "#7af0ff"
     : side === "enemy" ? "#ff7bcc" : "#69f0aa";
-  spawnParticles(x, y, color, type === "spark" ? 12 : 18, type);
+  // Phase 5: cap spark count in lite mode (parry sparks are the most particle-heavy)
+  const lite = window.MrMacsArcadePerf && MrMacsArcadePerf.isLite();
+  const baseCount = type === "spark" ? 12 : 18;
+  const count = lite ? Math.min(4, baseCount) : baseCount;
+  spawnParticles(x, y, color, count, type);
 }
 
 function animateParticles() {
@@ -394,11 +398,12 @@ function renderEnemyInfo() {
   $("#enemyAvatar").classList.toggle("boss", isBoss);
   $("#missionTitle").textContent = opp.name;
   $("#missionMeta").textContent = `${opp.era} · ${G.difficulty.charAt(0).toUpperCase() + G.difficulty.slice(1)} · Round ${G.run.currentRound}/3`;
-  // Era-themed stage background
+  // Era-themed stage background — Phase 5: skip animation class in lite mode (static gradient)
   const stage = $("#combatStage");
   if (stage) {
     stage.className = stage.className.replace(/\bera-\S+/g, "").trim();
-    stage.classList.add("era-" + (opp.skin || "spartan"));
+    const lite = window.MrMacsArcadePerf && MrMacsArcadePerf.isLite();
+    if (!lite) stage.classList.add("era-" + (opp.skin || "spartan"));
   }
   // Round accent on duel panel
   const duelPanel = $("#duel");
@@ -425,6 +430,39 @@ function startMatch() {
   beginRound(1);
   startAmbient();
   playSound("start");
+
+  // Phase 3 — First-run tour: 4 steps after first match starts
+  // Delay so the duel screen and command menu are rendered
+  setTimeout(function () {
+    if (window.MrMacsArcadeTour) {
+      MrMacsArcadeTour.start("arcade-duel", [
+        {
+          target: "#commandMenu",
+          title: "4 commands",
+          body: "Attack / Special / Defend / Restore. Special needs 3 streak charges; Restore is once per round.",
+          placement: "auto",
+        },
+        {
+          target: "#combatStage",
+          title: "Watch the tells",
+          body: "Each opponent has a tell — a brief windup before their attack. Block at the right time for a counter.",
+          placement: "auto",
+        },
+        {
+          target: "#questionPanel",
+          title: "Answers fuel attacks",
+          body: "Correct = full damage + crit chance. Wrong = half damage + opponent counter window.",
+          placement: "auto",
+        },
+        {
+          target: "#storyLadder",
+          title: "7-opponent story ladder",
+          body: "Spartan → Samurai → Knight → Frontiersman → Cold War Spy → Knowledge Titan → Future AI. Beat them all.",
+          placement: "center",
+        },
+      ]);
+    }
+  }, 800);
 }
 
 function beginRound(roundNum) {
@@ -621,6 +659,18 @@ function choose(label) {
   if (correct && window.MrMacsProfile) {
     MrMacsProfile.addShards(15, "arcade-duel-correct");
     MrMacsProfile.unlock("first-correct");
+  }
+
+  // Phase 1 — recordAnswer: track per-topic stats + wrong-answer queue
+  if (window.MrMacsProfile && MrMacsProfile.recordAnswer) {
+    MrMacsProfile.recordAnswer({
+      course: q.course || G.course,
+      set: q.set || G.set,
+      gameId: "arcade-duel",
+      correct: correct,
+      prompt: q.stem || "",
+      answer: (q.choices || []).find((c) => c.label === q.correct)?.text || "",
+    });
   }
 
   resolveMove(correct, false);
@@ -927,12 +977,16 @@ function hitStop(ms) {
   hitStopTimeout = setTimeout(() => stage.classList.remove("hit-stop"), ms);
 }
 
-// Camera shake via CSS class
+// Camera shake via CSS class — Phase 5: lite mode reduces intensity
 let shakeTimeout = null;
 function cameraShake(intensity) {
   const shell = $("#app");
   if (!shell) return;
-  shell.style.setProperty("--shake", intensity + "px");
+  // Lite mode: halve shake on heavy hits (intensity > 8), skip if very light
+  const lite = window.MrMacsArcadePerf && MrMacsArcadePerf.isLite();
+  if (lite && intensity <= 4) return;
+  const effectiveIntensity = lite ? Math.max(2, Math.round(intensity * 0.45)) : intensity;
+  shell.style.setProperty("--shake", effectiveIntensity + "px");
   shell.classList.add("shaking");
   clearTimeout(shakeTimeout);
   shakeTimeout = setTimeout(() => shell.classList.remove("shaking"), 420);
@@ -1046,7 +1100,9 @@ function showKOStamp() {
   el.innerHTML = `<span class="ko-text">K.O.</span>`;
   stage.appendChild(el);
   setTimeout(() => el.remove(), 1600);
-  slowMo(800);
+  // Phase 5: skip slow-mo in lite mode
+  const lite = window.MrMacsArcadePerf && MrMacsArcadePerf.isLite();
+  if (!lite) slowMo(800);
 }
 
 // ─────────────────────────────────────────────

@@ -550,6 +550,12 @@ select option,select optgroup{color:#06101c;background:#f4f8ff;}
 @media (max-width:820px){#fx{display:none;}.world::after,.boss-sprite,.preview-boss,.boss-aura,.boss-aura::after{animation:none;}}
 html.perf-lite #fx{display:none;}
 html.perf-lite .world::after,html.perf-lite .boss-sprite,html.perf-lite .preview-boss,html.perf-lite .boss-aura,html.perf-lite .boss-aura::after{animation:none!important;}
+/* Phase 5: reduce boss portrait phase-rim glow intensity in lite mode */
+html.perf-lite .stage.phase-two .boss-sprite{filter:drop-shadow(0 0 20px rgba(255,208,85,.18)) drop-shadow(0 42px 52px rgba(0,0,0,.66));}
+html.perf-lite .stage.phase-three .boss-sprite{filter:drop-shadow(0 0 22px rgba(255,61,86,.2)) drop-shadow(0 42px 52px rgba(0,0,0,.66));}
+html.perf-lite .stage.phase-two{box-shadow:0 30px 88px rgba(0,0,0,.56),0 0 0 1px rgba(255,208,85,.06);}
+html.perf-lite .stage.phase-three{box-shadow:0 30px 88px rgba(0,0,0,.56),0 0 0 1px rgba(255,61,86,.07);}
+html.perf-lite #specialBtn:not(:disabled)::after{animation:none;}
 @media (max-width:1180px){
   .setup,.combat-grid{grid-template-columns:1fr;}
   .battle-hud{grid-template-columns:repeat(3,minmax(0,1fr));}
@@ -590,6 +596,9 @@ html.perf-lite .world::after,html.perf-lite .boss-sprite,html.perf-lite .preview
 }
 </style>
 <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+<link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260507-phase6">
+<script src="../../assets/arcade-perf.js?v=20260507-phase5"></script>
+<script src="../../assets/arcade-tour.js?v=20260507-phase3"></script>
 </head>
 <body>
 <div class="world" aria-hidden="true"></div>
@@ -800,13 +809,13 @@ html.perf-lite .world::after,html.perf-lite .boss-sprite,html.perf-lite .preview
     <!-- COMBAT -->
     <div class="combat-grid">
       <!-- STAGE -->
-      <div class="stage" id="bossStage">
+      <div class="stage" id="bossStage" aria-label="Battle arena">
         <div class="telegraph-bar"><div class="telegraph-bar-fill" id="telegraphFill"></div></div>
         <div class="telegraph-icon" id="telegraphIcon">⚡</div>
         <div class="phase-badge" id="phaseBadge">Phase One</div>
         <div class="boss-aura" aria-hidden="true"></div>
         <div class="boss-frame">
-          <div class="boss-sprite" id="bossSprite" aria-label="Boss"></div>
+          <div class="boss-sprite" id="bossSprite" role="img" aria-label="Boss portrait"></div>
         </div>
         <svg class="strike-fx" aria-hidden="true" viewBox="0 0 920 640" fill="none">
           <path d="M460 40 L200 340 L380 340 L120 600 L480 260 L310 260 Z" fill="url(#strikeFill)" opacity=".86"/>
@@ -855,7 +864,7 @@ html.perf-lite .world::after,html.perf-lite .boss-sprite,html.perf-lite .preview
         <!-- Dynamic answer area -->
         <div id="answerArea"></div>
         <!-- Feedback -->
-        <div class="feedback hidden" id="feedback"></div>
+        <div class="feedback hidden" id="feedback" aria-live="assertive" aria-atomic="true"></div>
         <!-- Special attack -->
         <button class="btn special hidden" id="specialBtn" style="width:100%;margin-top:10px;" type="button" aria-label="Activate special attack (Spacebar)">
           ⚡ SPECIAL ATTACK — Triple Damage
@@ -1513,6 +1522,34 @@ function renderBattle() {
   startTimer(timerSecs, clue);
 
   renderScores();
+
+  // ── Phase 3: Tour — fire once after first run start ───────────────────
+  if (run.bossIndex === 0 && run.qIndex === 0 && window.MrMacsArcadeTour) {
+    setTimeout(()=>{
+      MrMacsArcadeTour.start("boss-rush", [
+        {
+          target: ".boss-frame",
+          title: "Cinematic boss intro",
+          body: "Each boss slides in with name + threat tags + phase preview. 4 archetypes: Knowledge Titan, Energy Strike, Era Hydra, The Curriculum."
+        },
+        {
+          target: "#bossHpCard",
+          title: "3 phases per boss",
+          body: "HP segments at 75/50/25%. Each phase changes attack pattern + boss color rim (cyan→gold→red)."
+        },
+        {
+          target: ".question-card",
+          title: "4 question types",
+          body: "Jeopardy free-text, MCQ 2×2, Multi-Correct (select all), and Essay (3 key points). Each chip color-coded."
+        },
+        {
+          target: "#streakMeter",
+          title: "Streak special",
+          body: "3 correct in a row arms a triple-damage Overload attack. Use it to skip a phase or finish a boss."
+        }
+      ]);
+    }, 400);
+  }
 }
 
 function getTimerSecs(clue) {
@@ -1541,21 +1578,21 @@ function renderAnswerArea(clue, boss, phase) {
 
   if (qType==="mcq" && clue.mcqData) {
     const opts = clue.mcqData.options;
-    area.innerHTML = `<div class="mcq-options" id="mcqOpts">` +
-      opts.map((opt,i)=>`<button class="mcq-btn" type="button" data-opt="${i}" data-answer="${escapeHtml(opt)}">
+    area.innerHTML = `<div class="mcq-options" id="mcqOpts" role="radiogroup" aria-label="Answer choices">` +
+      opts.map((opt,i)=>`<button class="mcq-btn" type="button" role="radio" aria-pressed="false" data-opt="${i}" data-answer="${escapeHtml(opt)}">
         <span class="opt-letter">${["A","B","C","D"][i]}</span>
         <span>${escapeHtml(opt)}</span>
       </button>`).join("") +
     `</div><div style="color:var(--muted);font-size:11px;margin-top:6px;">Keys 1-4 or tap to answer</div>`;
     area.querySelectorAll(".mcq-btn").forEach(btn=>{
-      btn.addEventListener("click",()=>submitMcq(btn.dataset.answer, clue));
-      btn.addEventListener("touchend",e=>{e.preventDefault();submitMcq(btn.dataset.answer,clue);});
+      btn.addEventListener("click",()=>{ btn.setAttribute("aria-pressed","true"); submitMcq(btn.dataset.answer, clue); });
+      btn.addEventListener("touchend",e=>{e.preventDefault(); btn.setAttribute("aria-pressed","true"); submitMcq(btn.dataset.answer,clue);});
     });
   } else if (qType==="multiCorrect" && clue.mcqData) {
     const opts = clue.mcqData.options;
     area.innerHTML = `<div style="color:var(--muted);font-size:12px;margin-bottom:8px;">Select ALL correct answers, then click Confirm</div>
-      <div class="mcq-options" id="mcqOpts">` +
-      opts.map((opt,i)=>`<button class="mcq-btn" type="button" data-opt="${i}" data-answer="${escapeHtml(opt)}">
+      <div class="mcq-options" id="mcqOpts" role="group" aria-label="Answer choices (select all that apply)">` +
+      opts.map((opt,i)=>`<button class="mcq-btn" type="button" role="checkbox" aria-pressed="false" data-opt="${i}" data-answer="${escapeHtml(opt)}">
         <span class="opt-letter">${["A","B","C","D"][i]}</span>
         <span>${escapeHtml(opt)}</span>
       </button>`).join("") +
@@ -1563,6 +1600,7 @@ function renderAnswerArea(clue, boss, phase) {
     area.querySelectorAll(".mcq-btn").forEach(btn=>{
       btn.addEventListener("click",()=>{
         btn.classList.toggle("multi-selected");
+        btn.setAttribute("aria-pressed", btn.classList.contains("multi-selected") ? "true" : "false");
       });
     });
     document.getElementById("multiConfirm")?.addEventListener("click",()=>submitMultiCorrect(clue));
@@ -1724,7 +1762,10 @@ function applyResult(verdict, confidence, manual) {
     if (useSpecial) {
       run.specialReady = false;
       run.specialUsed = true;
-      stageReaction("special-fire");
+      // Phase 5: skip slow-mo special-fire reaction in lite mode
+      const _lite = window.MrMacsArcadePerf ? window.MrMacsArcadePerf.isLite() : document.documentElement.classList.contains("perf-lite");
+      if (!_lite) stageReaction("special-fire");
+      else stageReaction("hit");
       playSound("special");
       spawnDamage("SPECIAL x3 −"+effectiveDmg, false, true);
     } else {
@@ -1769,6 +1810,17 @@ function applyResult(verdict, confidence, manual) {
     showFeedback("wrong","Shield Break ✗",clue,confidence,0,manual);
   }
 
+  // ── Phase 1: recordAnswer ─────────────────────────────────────────────
+  if (window.MrMacsProfile && MrMacsProfile.recordAnswer) {
+    MrMacsProfile.recordAnswer({
+      gameId: "boss-rush",
+      course: clue.course || boss.course || "Unknown",
+      set: clue.sourceTitle || clue.category || boss.subtitle || "General",
+      correct: ok,
+      prompt: (clue.clue || "").slice(0, 220),
+      answer: (clue.answer || "").slice(0, 80)
+    });
+  }
   if (run.teams.length>1) run.active=(run.active+1)%run.teams.length;
   document.getElementById("nextQuestion").classList.remove("hidden");
   document.getElementById("specialBtn").classList.toggle("hidden",!run.specialReady);
@@ -1963,15 +2015,19 @@ function primeBoss() {
 
 // ── PHASE TRANSITION ──────────────────────────────────────────────────
 function triggerPhaseTransition(label, phaseNum) {
-  const overlay = document.getElementById("phaseFlash");
-  const txt = document.getElementById("phaseFlashText");
-  txt.textContent = label;
-  txt.style.color = phaseNum===2?"var(--red)":phaseNum===1?"var(--gold)":"var(--cyan)";
-  overlay.classList.remove("active");
-  void overlay.offsetWidth;
-  overlay.classList.add("active");
+  // Phase 5: skip zoom-in cinematic in lite mode
+  const lite = window.MrMacsArcadePerf ? window.MrMacsArcadePerf.isLite() : document.documentElement.classList.contains("perf-lite");
+  if (!lite) {
+    const overlay = document.getElementById("phaseFlash");
+    const txt = document.getElementById("phaseFlashText");
+    txt.textContent = label;
+    txt.style.color = phaseNum===2?"var(--red)":phaseNum===1?"var(--gold)":"var(--cyan)";
+    overlay.classList.remove("active");
+    void overlay.offsetWidth;
+    overlay.classList.add("active");
+    setTimeout(()=>overlay.classList.remove("active"),900);
+  }
   playSound("phaseTransition");
-  setTimeout(()=>overlay.classList.remove("active"),900);
 }
 
 // ── STAGE REACTIONS ───────────────────────────────────────────────────
@@ -2062,6 +2118,24 @@ function playSound(type) {
 function triggerConfetti() {
   const canvas = document.getElementById("confettiCanvas");
   if (!canvas) return;
+  // Phase 5: lite mode uses a simple full-screen flash fade instead of particle confetti
+  const lite = window.MrMacsArcadePerf ? window.MrMacsArcadePerf.isLite() : document.documentElement.classList.contains("perf-lite");
+  if (lite) {
+    canvas.width = innerWidth; canvas.height = innerHeight;
+    canvas.style.display = "block";
+    const ctx = canvas.getContext("2d");
+    let opacity = 0.55;
+    function fadeDraw() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = "rgba(87,238,170,"+opacity+")";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      opacity -= 0.025;
+      if (opacity > 0) requestAnimationFrame(fadeDraw);
+      else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display="none"; }
+    }
+    requestAnimationFrame(fadeDraw);
+    return;
+  }
   canvas.width = innerWidth; canvas.height = innerHeight;
   canvas.style.display="block";
   const ctx = canvas.getContext("2d");
@@ -2191,7 +2265,7 @@ function retryMissed() {
 
 // ── CANVAS FX ─────────────────────────────────────────────────────────
 function initCanvas() {
-  const liteFx=document.documentElement.classList.contains("perf-lite");
+  const liteFx=document.documentElement.classList.contains("perf-lite")||(window.MrMacsArcadePerf&&window.MrMacsArcadePerf.isLite());
   if (liteFx||window.matchMedia("(prefers-reduced-motion:reduce)").matches||window.innerWidth<820) {
     const c=document.getElementById("fx");
     if(c) c.style.display="none"; return;
@@ -2200,11 +2274,13 @@ function initCanvas() {
   const ctx=canvas.getContext("2d");
   let particles=[];
   let frameSkip=false;
+  // Phase 5: cap particle count to 40 in lite mode (already bailed above, but guard for dynamic flip)
+  const PARTICLE_CAP = (window.MrMacsArcadePerf&&window.MrMacsArcadePerf.isLite()) ? 40 : 90;
   function resize(){
     const scale=Math.min(devicePixelRatio||1,1.3);
     canvas.width=Math.floor(innerWidth*scale);
     canvas.height=Math.floor(innerHeight*scale);
-    particles=Array.from({length:Math.min(90,Math.floor(innerWidth/18))},()=>({
+    particles=Array.from({length:Math.min(PARTICLE_CAP,Math.floor(innerWidth/18))},()=>({
       x:Math.random()*canvas.width,y:Math.random()*canvas.height,
       s:.5+Math.random()*1.9,v:.18+Math.random()*.72,h:Math.random()
     }));
@@ -2341,7 +2417,8 @@ document.getElementById("specialBtn").addEventListener("click",()=>{
   run.score+=bonusDmg;
   run.teamScores[run.active]+=bonusDmg;
   run.specialReady=false; run.specialUsed=true;
-  stageReaction("special-fire");
+  { const _lite2=window.MrMacsArcadePerf?window.MrMacsArcadePerf.isLite():document.documentElement.classList.contains("perf-lite");
+    if (!_lite2) stageReaction("special-fire"); else stageReaction("hit"); }
   spawnDamage("⚡ SPECIAL −"+bonusDmg,false,true);
   queueBurst("hit");
   playSound("special");

@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900&family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=20260505-synthwave">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
 </head>
 <body>
   <main class="runner-shell" id="app">
@@ -27,19 +28,19 @@
       </div>
       <div class="hud-stats">
         <div class="hud-stat hud-stat--distance">
-          <strong id="speed" class="mono">0.00<small>km</small></strong>
+          <strong id="speed" class="mono" aria-live="polite" aria-atomic="true">0.00<small>km</small></strong>
           <span>distance</span>
         </div>
         <div class="hud-stat hud-stat--mult">
-          <strong id="streak" class="mono">1.0<small>×</small></strong>
+          <strong id="streak" class="mono" aria-live="polite" aria-atomic="true">1.0<small>×</small></strong>
           <span>mult</span>
         </div>
         <div class="hud-stat hud-stat--coins">
-          <strong id="score" class="mono">0</strong>
+          <strong id="score" class="mono" aria-live="polite" aria-atomic="true">0</strong>
           <span>score</span>
         </div>
         <div class="hud-stat hud-stat--health">
-          <strong id="health">3</strong>
+          <strong id="health" aria-live="polite" aria-atomic="true">3</strong>
           <span>hearts</span>
         </div>
       </div>
@@ -55,7 +56,7 @@
       <p id="questionPrompt">Dodge hazards and steer into the correct answer gate.</p>
       <div class="stimulus-strip" id="stimulusStrip" aria-label="Question stimulus"></div>
       <div class="lane-chips" id="laneChips"></div>
-      <div class="feedback" id="feedback"></div>
+      <div class="feedback" id="feedback" aria-live="assertive" aria-atomic="true"></div>
     </section>
 
     <!-- Axis 11: Mobile touch dock with aria-labels -->
@@ -152,7 +153,9 @@
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
   <script src="../../assets/source-bank.js?v=20260502-prompt-quality"></script>
-  <script src="game.js?v=20260505-synthwave"></script>
+  <script src="../../assets/arcade-perf.js?v=20260508-perf"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="game.js?v=20260508-phases356"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

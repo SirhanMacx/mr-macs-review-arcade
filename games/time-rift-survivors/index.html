@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css?v=20260505-prism-polish">
+<link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
 </head>
 <body>
 <div class="backdrop" aria-hidden="true"></div>
@@ -21,21 +22,23 @@
       </span>
     </div>
     <div class="hud" role="status" aria-label="Game stats">
-      <span aria-label="Level"><b id="level">1</b> <span aria-hidden="true">lvl</span></span>
-      <span aria-label="Hit points"><b id="hp">100</b> <span aria-hidden="true">hp</span></span>
+      <span aria-label="Level" aria-live="off"><b id="level">1</b> <span aria-hidden="true">lvl</span></span>
+      <span aria-label="Hit points" aria-live="polite" aria-atomic="true"><b id="hp">100</b> <span aria-hidden="true">hp</span></span>
       <span aria-label="Current era"><b id="era">Ancient</b></span>
-      <span aria-label="Score"><b id="score">0</b> <span aria-hidden="true">pts</span></span>
-      <span class="hud-kills" aria-label="Kill count"><b id="killCount">0</b> <span aria-hidden="true">kills</span></span>
-      <span class="hud-gold" aria-label="Gold"><b id="goldCount">0</b> <span aria-hidden="true">gold</span></span>
-      <span aria-label="Run timer" id="runTimer">0:00</span>
+      <span aria-label="Score" aria-live="off"><b id="score">0</b> <span aria-hidden="true">pts</span></span>
+      <span class="hud-kills" aria-label="Kill count" aria-live="off"><b id="killCount">0</b> <span aria-hidden="true">kills</span></span>
+      <span class="hud-gold" aria-label="Gold" aria-live="off"><b id="goldCount">0</b> <span aria-hidden="true">gold</span></span>
+      <span aria-label="Run timer" aria-live="off" id="runTimer">0:00</span>
       <button id="libraryBtn" class="hud-action library-action" type="button" aria-label="Open question library">Library</button>
       <button id="fullscreenBtn" class="hud-action" type="button" aria-label="Toggle fullscreen">Fullscreen</button>
     </div>
+    <!-- aria-live region for level-up and XP announcements (Phase 6) -->
+    <div id="gameAnnouncer" class="arcade-sr-only" aria-live="assertive" aria-atomic="true"></div>
   </header>
 
   <section class="game">
     <div class="stage">
-      <canvas id="arena" width="1600" height="900" aria-label="Time Rift Survivors game arena"></canvas>
+      <canvas id="arena" width="1600" height="900" role="img" aria-label="Time Rift Survivors game arena — WASD or virtual joystick to move; weapons fire automatically"></canvas>
       <div class="mission-panel" aria-label="Player status">
         <span>Timeline Integrity</span>
         <strong id="missionTitle">Survive the Rift</strong>
@@ -92,7 +95,7 @@
           <input id="typedAnswer" autocomplete="off" placeholder="Type an answer">
           <button type="submit">Cast</button>
         </form>
-        <p class="feedback" id="feedback"></p>
+        <p class="feedback" id="feedback" aria-live="polite" aria-atomic="true"></p>
       </section>
 
       <section class="panel powers-panel">
@@ -109,8 +112,10 @@
 
 <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
 <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+<script src="../../assets/arcade-perf.js?v=20260508-perf-lite"></script>
+<script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
 <script src="../../assets/source-bank.js?v=20260502-prompt-quality"></script>
-<script src="game.js?v=20260505-input-guard"></script>
+<script src="game.js?v=20260508-tour-perf-a11y"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

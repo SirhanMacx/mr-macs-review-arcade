@@ -7,6 +7,8 @@
   const STORAGE_KEY = "mr-macs-chrono-pinball-v1";
   const params = new URLSearchParams(window.location.search);
   const FX_LITE = params.get("fx") === "lite" || window.matchMedia("(max-width: 820px)").matches;
+  // Runtime lite check — merges compile-time FX_LITE with arcade-perf.js runtime signal
+  function isLiteMode() { return FX_LITE || !!(window.MrMacsArcadePerf && window.MrMacsArcadePerf.isLite()); }
   const MAX_PARTICLES = FX_LITE ? 80 : 200;
   const GRAVITY = 700;
   const SUBSTEPS = 3;
@@ -532,6 +534,34 @@
     setMission("Chrono Pinball", "Hold SPACE / Launch button to charge plunger. Z = left flipper  / = right flipper  T = tilt.", "");
   }
 
+  // Phase 3 — tour step definitions
+  const TOUR_STEPS = [
+    {
+      target: "#pinballCanvas",
+      title: "Pinball physics",
+      body: "Velocity-Verlet sim with substep collision. Z = left flipper, / = right, Space = plunger, T = tilt nudge.",
+      placement: "auto"
+    },
+    {
+      target: "#missionPanel",
+      title: "Era drop targets",
+      body: "5 eras (Renaissance, Industrial, WWII, Cold War, Digital). Knock down a row to start its mission.",
+      placement: "auto"
+    },
+    {
+      target: "#missionPanel",
+      title: "Mission flow",
+      body: "Each mission needs 3 correct answers AND 1 ramp. Jackpot up to 200,000 pts.",
+      placement: "auto"
+    },
+    {
+      target: "#score",
+      title: "Wizard Mode",
+      body: "Beat all 5 era missions to unlock Wizard Mode: 60 seconds of 5× scoring + multiball.",
+      placement: "auto"
+    }
+  ];
+
   function startGame() {
     audio.ensure();
     resetGameState();
@@ -543,6 +573,10 @@
     if (window.MrMacsProfile) {
       window.MrMacsProfile.recordPlay({ id: "chrono-pinball", title: "Chrono Pinball", course: "All Courses", file: "games/chrono-pinball/index.html" });
       audio.modeStart();
+    }
+    // Phase 3 — first-launch tour (no-op if already seen)
+    if (window.MrMacsArcadeTour) {
+      setTimeout(() => MrMacsArcadeTour.start("chrono-pinball", TOUR_STEPS), 600);
     }
   }
 
@@ -780,9 +814,9 @@
       collideFlipper(ball, getFlipper("right"), 1);
     }
 
-    // Trail
+    // Trail — capped to 6 in lite mode
     ball.trail.push({ x: ball.x, y: ball.y, life: 0.44 });
-    if (ball.trail.length > 18) ball.trail.shift();
+    if (ball.trail.length > (isLiteMode() ? 6 : 18)) ball.trail.shift();
 
     if (ball.y > TABLE_H + 80) drainBall(ball);
   }
@@ -794,7 +828,7 @@
     ball.y += ball.vy * dt;
     ball.spin += ball.vy * dt * 0.016;
     ball.trail.push({ x: ball.x, y: ball.y, life: 0.44 });
-    if (ball.trail.length > 16) ball.trail.shift();
+    if (ball.trail.length > (isLiteMode() ? 6 : 16)) ball.trail.shift();
     if (ball.y <= 168) {
       ball.launchLane = false;
       ball.x = 710; ball.y = 178;
@@ -1074,6 +1108,18 @@
       btn.classList.toggle("correct", !!state.currentChoices[i]?.correct);
       if (i === index && !choice.correct) btn.classList.add("wrong");
     });
+    // Phase 1 — recordAnswer hook
+    if (window.MrMacsProfile && window.MrMacsProfile.recordAnswer) {
+      window.MrMacsProfile.recordAnswer({
+        course: q.course || els.courseFilter.value || "Social Studies",
+        set:    q.set    || q.subject || els.setFilter.value || "General",
+        correct: !!choice.correct,
+        prompt:  q.prompt || q.question || "",
+        answer:  cleanText(q.answer || ""),
+        gameId:  "chrono-pinball"
+      });
+    }
+
     if (choice.correct) {
       state.correct++; state.missionStreak++;
       state.multiplier = clamp(state.multiplier + 1, 1, 6);
@@ -1433,7 +1479,7 @@
     if (!dmdCtx) return;
     dmd.scrollTimer += dt;
     if (dmd.flashTimer > 0) dmd.flashTimer -= dt;
-    if (dmd.scrollTimer > 0.045) { dmd.scrollX -= 2; dmd.scrollTimer = 0; }
+    if (dmd.scrollTimer > (isLiteMode() ? 0.09 : 0.045)) { dmd.scrollX -= 2; dmd.scrollTimer = 0; }
 
     const dpr = table.dpr;
     const W = dmdCanvas.width / dpr;
@@ -1703,8 +1749,8 @@
     ctx.fillStyle = pf;
     ctx.fillRect(74, 66, 654, 1262);
 
-    // Subtle atmosphere particles
-    if (!FX_LITE) {
+    // Subtle atmosphere particles — skipped in lite mode
+    if (!isLiteMode()) {
       ctx.globalAlpha = 0.055;
       for (let i = 0; i < 8; i++) {
         const px = 74 + (i * 90 + state.elapsed * 8 + i * 37) % 630;
@@ -2252,8 +2298,8 @@
     ctx.strokeStyle = "rgba(255,255,255,0.28)"; ctx.lineWidth = 10;
     ctx.beginPath(); ctx.moveTo(f.pivot.x, f.pivot.y); ctx.lineTo(f.end.x, f.end.y); ctx.stroke();
 
-    // Active flash
-    if (flash > 0.4) {
+    // Active flash — skipped in lite mode
+    if (!isLiteMode() && flash > 0.4) {
       ctx.strokeStyle = hexToRgba(color, flash * 0.50); ctx.lineWidth = 40;
       ctx.beginPath(); ctx.moveTo(f.pivot.x, f.pivot.y); ctx.lineTo(f.end.x, f.end.y); ctx.stroke();
     }

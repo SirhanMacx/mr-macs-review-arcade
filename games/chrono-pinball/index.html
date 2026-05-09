@@ -10,12 +10,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
   <link rel="stylesheet" href="styles.css?v=20260505-pro-polish">
 </head>
 <body>
   <main class="pinball-shell" id="app">
     <!-- Dot-matrix display (DMD) — rendered via JS canvas overlay -->
-    <canvas id="dmdCanvas" aria-hidden="true"></canvas>
+    <canvas id="dmdCanvas" aria-label="Dot-matrix display" role="img" aria-live="polite"></canvas>
 
     <!-- Main pinball playfield canvas -->
     <canvas id="pinballCanvas" aria-label="Chrono Pinball arcade table — use keyboard or touch to play"></canvas>
@@ -42,21 +43,21 @@
           <span class="brand-sub">Hit locks · Clear missions · Bank review power</span>
         </div>
       </div>
-      <div class="hud-stats" role="status" aria-live="polite" aria-label="Game statistics">
+      <div class="hud-stats" aria-label="Game statistics">
         <div class="stat-cell stat-score">
-          <strong id="score" class="stat-value mono" aria-label="Score">0</strong>
+          <strong id="score" class="stat-value mono" role="status" aria-live="polite" aria-label="Score">0</strong>
           <span class="stat-label">score</span>
         </div>
         <div class="stat-cell stat-balls">
-          <strong id="balls" class="stat-value mono" aria-label="Balls remaining">3</strong>
+          <strong id="balls" class="stat-value mono" role="status" aria-live="polite" aria-label="Balls remaining">3</strong>
           <span class="stat-label">balls</span>
         </div>
         <div class="stat-cell stat-mult">
-          <strong id="multiplier" class="stat-value" aria-label="Multiplier">1×</strong>
+          <strong id="multiplier" class="stat-value" role="status" aria-live="polite" aria-label="Multiplier">1×</strong>
           <span class="stat-label">multi</span>
         </div>
         <div class="stat-cell stat-era">
-          <strong id="locks" class="stat-value era-gold" aria-label="Eras completed">0/5</strong>
+          <strong id="locks" class="stat-value era-gold" role="status" aria-live="polite" aria-label="Eras completed">0/5</strong>
           <span class="stat-label">eras</span>
         </div>
       </div>
@@ -67,9 +68,9 @@
     </section>
 
     <!-- Mission panel — left side over playfield -->
-    <section class="mission-panel" id="missionPanel" aria-live="polite" aria-label="Current mission">
-      <div class="mission-kicker" id="missionKicker">Mission loaded</div>
-      <p id="missionText">Launch the archive ball, hit the gold lock targets, and answer review missions for multiball.</p>
+    <section class="mission-panel" id="missionPanel" aria-label="Current mission">
+      <div class="mission-kicker" id="missionKicker" role="status" aria-live="polite">Mission loaded</div>
+      <p id="missionText" role="status" aria-live="polite">Launch the archive ball, hit the gold lock targets, and answer review missions for multiball.</p>
       <div class="mission-feedback" id="missionFeedback"></div>
     </section>
 
@@ -95,9 +96,9 @@
         <!-- Marquee art / cabinet front simulation — cinematic hero strip -->
         <div class="marquee-art" aria-hidden="true">
           <div class="marquee-glow"></div>
-          <div class="marquee-star marquee-star-1"></div>
-          <div class="marquee-star marquee-star-2"></div>
-          <div class="marquee-star marquee-star-3"></div>
+          <div class="marquee-star marquee-star-1" data-arcade-heavy aria-hidden="true"></div>
+          <div class="marquee-star marquee-star-2" data-arcade-heavy aria-hidden="true"></div>
+          <div class="marquee-star marquee-star-3" data-arcade-heavy aria-hidden="true"></div>
           <div class="marquee-inner-border"></div>
         </div>
 
@@ -213,7 +214,9 @@
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
   <script src="../../assets/source-bank.js?v=20260502-source-safety"></script>
-  <script src="game.js?v=20260505-pro-polish"></script>
+  <script src="../../assets/arcade-perf.js?v=20260508-perf-lite"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="game.js?v=20260508-phase3-5-6"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

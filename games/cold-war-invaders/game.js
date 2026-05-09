@@ -41,7 +41,8 @@ const ctx           = els.canvas.getContext("2d");
 const keys          = new Set();
 const reduceMotion  = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const mobileCtrl    = matchMedia("(max-width: 820px)");
-const perfLite      = matchMedia("(pointer: coarse)").matches || innerWidth < 760;
+const perfLite      = matchMedia("(pointer: coarse)").matches || innerWidth < 760
+                   || !!(window.MrMacsArcadePerf && window.MrMacsArcadePerf.isLite());
 const SourceBank    = window.MrMacsSourceBank ?? null;
 
 // ─── Audio (Web Audio API — no files) ─────────────────────────────────────
@@ -104,7 +105,7 @@ function startUfoSiren() {
     const gain2 = ac.createGain();
     lfo.type = "sine"; lfo.frequency.value = 6;
     ufoOsc.type = "sine"; ufoOsc.frequency.value = 520;
-    gain2.gain.value = 120;
+    gain2.gain.value = perfLite ? 30 : 120; // Phase 5: cap siren oscillator depth in lite mode
     lfo.connect(gain2);
     gain2.connect(ufoOsc.frequency);
     ufoOsc.connect(env);
@@ -1056,6 +1057,21 @@ function gradeAnswer(index) {
   const choice   = state.current.choices[index];
   const correct  = Boolean(choice?.correct);
   state.answered++;
+
+  // Phase 1 — recordAnswer hook
+  if (window.MrMacsProfile) {
+    try {
+      window.MrMacsProfile.recordAnswer({
+        course:  state.current.course || "Cold War Review",
+        set:     state.current.set    || "Cold War",
+        correct: correct,
+        prompt:  state.current.prompt,
+        answer:  state.current.answer,
+        gameId:  "cold-war-invaders"
+      });
+    } catch (e) {}
+  }
+
   if (correct) {
     state.correct++;
     state.streak++;
@@ -1183,8 +1199,9 @@ function showInterMission() {
 // ─── Particles ────────────────────────────────────────────────────────────
 function explode(x, y, color, count) {
   if (reduceMotion) return;
-  // Sprite flash
-  state.particles.push({ x,y, vx:0,vy:0, life:0.44,max:0.44, size: count>20?88:58, color, sprite:true });
+  // Sprite flash — Phase 5: cap explosion sprite size in lite mode
+  const flashSize = perfLite ? (count>20?52:38) : (count>20?88:58);
+  state.particles.push({ x,y, vx:0,vy:0, life:0.44,max:0.44, size: flashSize, color, sprite:true });
   // Pixel spray
   const cap = perfLite ? Math.floor(count*0.6) : count;
   for (let i=0; i<cap; i++) {
@@ -1320,6 +1337,34 @@ function startGame() {
   state.last = performance.now();
   requestAnimationFrame(loop);
   window.MrMacsAnalytics?.track("game_play",{gameId:"cold-war-invaders",title:"Cold War Invaders"},{counter:"game-plays"});
+
+  // Phase 3 — First-run tour (fires only once, after first mission start)
+  if (window.MrMacsArcadeTour) {
+    setTimeout(function () {
+      window.MrMacsArcadeTour.start("cold-war-invaders", [
+        {
+          target: "#theaterGrid",
+          title:  "Pick a theater",
+          body:   "Korea / Cuba / Berlin / Vietnam — each formation pattern is different. Berlin’s wedge is the toughest opener."
+        },
+        {
+          target: "#gameCanvas",
+          title:  "Move + fire",
+          body:   "Arrow keys / A–D + Space. Touch: hold left/right zones, tap fire."
+        },
+        {
+          target: "#hud",
+          title:  "Bunkers erode",
+          body:   "Take cover but they take damage. Beating a mission without rebuilding earns the no-shield achievement."
+        },
+        {
+          target: "#briefing",
+          title:  "Briefings between waves",
+          body:   "Answer briefing questions for power-ups. Skip is a free pass with no reward."
+        }
+      ]);
+    }, 800);
+  }
 }
 
 function finish(won=true) {
@@ -1830,10 +1875,10 @@ function drawShot(shot, player) {
   ctx.save();
   if (!spriteDrawn) {
     ctx.strokeStyle = shot.color; ctx.lineWidth = player?4:5;
-    ctx.shadowColor = shot.color; ctx.shadowBlur = shot.missile ? 22 : 14;
+    ctx.shadowColor = shot.color; ctx.shadowBlur = perfLite ? (shot.missile ? 8 : 4) : (shot.missile ? 22 : 14); // Phase 5: cap missile glow in lite mode
     ctx.beginPath(); ctx.moveTo(shot.x, shot.y-(player?18:8)); ctx.lineTo(shot.x, shot.y+(player?8:18)); ctx.stroke();
   }
-  if (!reduceMotion) {
+  if (!reduceMotion && !perfLite) { // Phase 5: skip motion-blur trail in lite mode
     // Motion-blur trail
     const trailLen   = shot.missile ? 36 : 20;
     const trailDir   = player ? -1 : 1;  // player bullets go up, enemy go down

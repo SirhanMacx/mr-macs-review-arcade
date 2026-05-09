@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="styles.css?v=20260506-title-polish">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
 </head>
 <body>
   <main class="empire-shell" id="app" data-era="0">
@@ -32,7 +33,7 @@
         </div>
       </div>
 
-      <div class="resource-bar" role="group" aria-label="Empire resources">
+      <div class="resource-bar" role="group" aria-label="Empire resources" aria-live="polite" aria-atomic="false">
         <div data-res="gold" title="Gold — treasury income">
           <strong id="food" aria-label="Gold">0</strong>
           <span class="res-label">gold</span>
@@ -55,7 +56,7 @@
         </div>
       </div>
 
-      <div class="hud-turn-counter" id="hudTurnCounter" aria-label="Era and turn">
+      <div class="hud-turn-counter" id="hudTurnCounter" aria-label="Era and turn" aria-live="polite" aria-atomic="true">
         Ancient Era · Turn 1/200
       </div>
 
@@ -84,9 +85,9 @@
       </div>
       <div class="panel-tabs" role="tablist" aria-label="Empire panels">
         <button class="active" data-panel="province"  role="tab" aria-selected="true"  type="button">Province</button>
-        <button                data-panel="research"  role="tab" aria-selected="false" type="button">Research</button>
-        <button                data-panel="wonders"   role="tab" aria-selected="false" type="button">Wonders</button>
-        <button                data-panel="diplomacy" role="tab" aria-selected="false" type="button">Diplomacy</button>
+        <button                data-panel="research"  role="tab" aria-selected="false" aria-pressed="false" type="button">Research</button>
+        <button                data-panel="wonders"   role="tab" aria-selected="false" aria-pressed="false" type="button">Wonders</button>
+        <button                data-panel="diplomacy" role="tab" aria-selected="false" aria-pressed="false" type="button">Diplomacy</button>
       </div>
       <div class="action-grid" id="actionGrid" role="group" aria-label="Available actions"></div>
       <button class="end-turn" id="endTurnBtn" type="button" aria-label="End your turn and advance time">End Turn</button>
@@ -223,8 +224,10 @@
 
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
+  <script src="../../assets/arcade-perf.js?v=20260508-perf"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
   <script src="../../assets/source-bank.js?v=20260502-prompt-quality"></script>
-  <script src="game.js?v=20260507-profile"></script>
+  <script src="game.js?v=20260508-phases"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

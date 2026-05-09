@@ -1315,8 +1315,10 @@
   }
 
   function flashBattleFx(className, duration = 520) {
+    // Phase 5 — lite: halve shake animation duration on low-end devices
+    const d = (className === "fx-field-shake" && window.MrMacsArcadePerf && window.MrMacsArcadePerf.isLite()) ? Math.round(duration * 0.5) : duration;
     els.encounter.classList.add(className);
-    setTimeout(() => els.encounter.classList.remove(className), duration);
+    setTimeout(() => els.encounter.classList.remove(className), d);
   }
 
   function battleAccent(type) {
@@ -1863,6 +1865,8 @@
     if (!quest || !q) return;
     state.locked = true;
     const correct = checkAnswer(q, raw);
+    // recordAnswer hook (Phase 1)
+    if (window.MrMacsProfile) window.MrMacsProfile.recordAnswer({ course: q.course || "Unknown", set: q.set || q.unit || "Field Battle", correct, prompt: q.prompt || q.stem, answer: q.answer, gameId: "history-hunters" });
     const expected = answerLabel(q);
     els.choices.style.display = "none";
     els.typedForm.style.display = "none";
@@ -1904,6 +1908,8 @@
     if (!q || !ally || !battle || !battle.pendingMove) return;
     state.locked = true;
     const correct = checkAnswer(q, raw);
+    // recordAnswer hook (Phase 1)
+    if (window.MrMacsProfile) window.MrMacsProfile.recordAnswer({ course: q.course || (ally && ally.course) || "Unknown", set: q.set || q.unit || (ally && ally.set) || "Field Battle", correct, prompt: q.prompt || q.stem, answer: q.answer, gameId: "history-hunters" });
     state.trial += 1;
     const expected = answerLabel(q);
     const moveUsed = battle.pendingMove;
@@ -2113,13 +2119,15 @@
   }
 
   function burst(x, y, color, count) {
+    // Phase 5 — lite: shorten particle lifespan on low-end devices
+    const liteMode = window.MrMacsArcadePerf && window.MrMacsArcadePerf.isLite();
     for (let i = 0; i < count; i++) {
       state.particles.push({
         x,
         y,
         vx: (Math.random() - .5) * 360,
         vy: (Math.random() - .5) * 360,
-        life: .55 + Math.random() * .45,
+        life: liteMode ? (.28 + Math.random() * .22) : (.55 + Math.random() * .45),
         max: 1,
         color
       });
@@ -2787,6 +2795,16 @@
     state.camera.x = clamp(state.player.x - innerWidth * .45, 0, WORLD_W - innerWidth);
     state.camera.y = clamp(state.player.y - innerHeight * .55, 0, WORLD_H - innerHeight);
     if (els.fieldHint) els.fieldHint.textContent = "A: talk / inspect · B: cancel · START: menu";
+    // Phase 3 — first-run tour (fires once after first walk on map)
+    if (window.MrMacsArcadeTour) {
+      setTimeout(() => {
+        MrMacsArcadeTour.start("history-hunters", [
+          { target: "#world", title: "Walk and battle", body: "Move with the D-pad or arrow keys. Routes are full of historical figures to capture." },
+          { target: "#battleActions", title: "Type matchups matter", body: "Each figure has a type (Political, Cultural, Economic, etc.). Super-effective hits do double damage." },
+          { target: "#rosterBtn", title: "Build your party", body: "Caught figures join your roster. Swap actives any time from the field menu or mid-battle." }
+        ]);
+      }, 800);
+    }
   }
 
   function setDirection(dir, pressed) {
@@ -3413,6 +3431,10 @@
         // no internal audio variable present in this build — no-op
       }
     }
+    // Phase 6 — a11y: set missing aria attributes once on boot
+    if (els.canvas && !els.canvas.getAttribute("aria-label")) els.canvas.setAttribute("aria-label", "History Hunters open world");
+    if (els.battleLog) els.battleLog.setAttribute("aria-live", "polite");
+    if (els.battleActions) { els.battleActions.setAttribute("role", "group"); els.battleActions.setAttribute("aria-label", "Battle commands"); }
     resize();
     initControls();
     updateHud();

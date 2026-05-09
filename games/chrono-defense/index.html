@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=20260505-polish-v2">
+<link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
 </head>
 <body>
 <div class="bg"></div>
@@ -19,18 +20,18 @@
       <span><strong class="brand-title"><span class="brand-chrono">Chrono</span> <em class="brand-defense">Defense</em></strong><em class="brand-sub">Social Studies Tower Defense</em></span>
     </div>
     <div class="hud">
-      <span class="hud-hp">
+      <span class="hud-hp" aria-live="polite" aria-label="Hit points">
         <b id="lives">20</b>
         <span class="hp-track"><span class="hp-fill" id="hpFill"></span></span>
         <small>HP</small>
       </span>
-      <span><b id="wave">0</b><small>/30 wave</small></span>
+      <span aria-live="polite" aria-label="Wave"><b id="wave">0</b><small>/30 wave</small></span>
       <span class="hud-wave-prog">
         <small>progress</small>
         <span class="wp-track" id="waveProgress"><span class="wp-fill" id="waveProgressFill"></span></span>
       </span>
-      <span><b id="insight">600</b> <small>shards</small></span>
-      <span><b id="score">0</b> <small>score</small></span>
+      <span aria-live="polite" aria-label="Insight shards"><b id="insight">600</b> <small>shards</small></span>
+      <span aria-live="polite" aria-label="Score"><b id="score">0</b> <small>score</small></span>
       <button id="libraryBtn" class="hud-action library-action" type="button">Library</button>
       <button id="fullscreenBtn" class="hud-action" type="button" aria-label="Toggle fullscreen">[ ]</button>
     </div>
@@ -48,7 +49,7 @@
         <div class="question-head">
           <span id="questionMeta">Review Reactor</span>
           <div class="question-actions">
-            <strong id="questionStreak">0 streak</strong>
+            <strong id="questionStreak" aria-live="polite">0 streak</strong>
             <button id="toggleQuestion" class="reactor-toggle" type="button" aria-expanded="true">Map View</button>
           </div>
         </div>
@@ -60,7 +61,7 @@
             <input id="typedAnswer" autocomplete="off" placeholder="Type the answer">
             <button type="submit">Strike</button>
           </form>
-          <p class="feedback" id="feedback"></p>
+          <p class="feedback" id="feedback" aria-live="polite" aria-atomic="true"></p>
         </div>
       </div>
       <div class="wave-banner" id="waveBanner" aria-live="assertive" aria-atomic="true">Prepare the Archive</div>
@@ -144,7 +145,9 @@
 <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
 <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
 <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
-<script src="game.js?v=20260505-full-td"></script>
+<script src="../../assets/arcade-perf.js?v=20260508-perf"></script>
+<script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+<script src="game.js?v=20260508-phases356"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

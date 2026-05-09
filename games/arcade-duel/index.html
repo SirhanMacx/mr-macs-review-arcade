@@ -10,6 +10,7 @@
     if (new URLSearchParams(location.search).get("fx") !== "full") document.documentElement.classList.add("perf-lite");
   </script>
   <link rel="stylesheet" href="styles.css?v=20260505-v3">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
 </head>
 <body>
   <div class="bg" aria-hidden="true"></div>
@@ -114,15 +115,15 @@
         </div>
         <div class="hud-right">
           <div class="stat">
-            <strong id="timerText" aria-label="Time remaining">99</strong>
+            <strong id="timerText" aria-label="Time remaining" aria-live="polite" aria-atomic="true">99</strong>
             <span aria-hidden="true">time</span>
           </div>
           <div class="stat">
-            <strong id="streakText" aria-label="Current streak">0</strong>
+            <strong id="streakText" aria-label="Current streak" aria-live="polite" aria-atomic="true">0</strong>
             <span aria-hidden="true">streak</span>
           </div>
           <div class="stat">
-            <strong id="chargeText" aria-label="Charge level">0</strong>
+            <strong id="chargeText" aria-label="Charge level" aria-live="polite" aria-atomic="true">0</strong>
             <span aria-hidden="true">charge</span>
           </div>
         </div>
@@ -135,11 +136,11 @@
           <div class="bar-track" role="progressbar" aria-label="Your HP" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="youBarTrack">
             <div class="bar-fill you" id="youBar"></div>
           </div>
-          <div class="bar-hp" id="youHpText" aria-label="Your HP value">100</div>
+          <div class="bar-hp" id="youHpText" aria-label="Your HP value" aria-live="polite" aria-atomic="true">100</div>
         </div>
         <div class="vs-badge" aria-hidden="true">VS</div>
         <div class="bar-group enemy-side">
-          <div class="bar-hp enemy-hp" id="enemyHpText" aria-label="Enemy HP value">100</div>
+          <div class="bar-hp enemy-hp" id="enemyHpText" aria-label="Enemy HP value" aria-live="polite" aria-atomic="true">100</div>
           <div class="bar-track" role="progressbar" aria-label="Enemy HP" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="enemyBarTrack">
             <div class="bar-fill enemy" id="enemyBar"></div>
           </div>
@@ -160,7 +161,7 @@
       </div>
 
       <!-- COMBAT STAGE -->
-      <section class="combat-stage" id="combatStage" aria-hidden="true">
+      <section class="combat-stage" id="combatStage" aria-label="Combat arena — visual battle stage">
         <div class="stage-vignette"></div>
         <div class="combatant player" id="playerCombatant">
           <div class="avatar player-avatar" id="playerAvatar" role="img" aria-label="Your fighter"></div>
@@ -294,7 +295,9 @@
   <script src="../../assets/source-bank.js?v=20260502-source-contract"></script>
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
-  <script src="game.js?v=20260505-v3"></script>
+  <script src="../../assets/arcade-perf.js?v=20260508-perf"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="game.js?v=20260508-v4"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@
   <link rel="icon" href="data:,">
   <title>Cold War Invaders — Mr. Mac's Review Arcade</title>
   <link rel="stylesheet" href="styles.css?v=20260505-dossier">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260507-phase6">
 </head>
 <body>
   <main class="game-shell">
@@ -184,11 +185,11 @@
     <section class="hud" id="hud" aria-label="Mission status" aria-live="polite">
       <div aria-label="Score">
         <span>Score</span>
-        <strong id="score">0</strong>
+        <strong id="score" aria-live="polite" aria-atomic="true">0</strong>
       </div>
       <div aria-label="Wave">
         <span>Wave</span>
-        <strong id="wave">1</strong>
+        <strong id="wave" aria-live="polite" aria-atomic="true">1</strong>
       </div>
       <div aria-label="Shield">
         <span>Shield</span>
@@ -197,7 +198,7 @@
       </div>
       <div aria-label="Intel">
         <span>Intel</span>
-        <strong id="intel">0%</strong>
+        <strong id="intel" aria-live="polite" aria-atomic="true">0%</strong>
       </div>
       <button class="mini-btn" id="pauseBtn" type="button" aria-label="Pause game (Esc)">Pause</button>
       <button class="mini-btn" id="quitBtn"  type="button" aria-label="Quit to setup">Quit</button>
@@ -258,7 +259,9 @@
   <script src="../../assets/arcade-analytics.js?v=20260502-traffic-progress-hardening"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
-  <script type="module" src="game.js?v=20260505-dossier"></script>
+  <script src="../../assets/arcade-perf.js?v=20260507-phase5"></script>
+  <script src="../../assets/arcade-tour.js?v=20260507-phase3"></script>
+  <script type="module" src="game.js?v=20260508-phases356"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 
   <!-- Dossier UI controller — wires up theater cards, difficulty pills, subtitle -->

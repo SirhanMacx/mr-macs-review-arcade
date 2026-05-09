@@ -602,6 +602,32 @@ let drivePointerId = null;
 const params = new URLSearchParams(location.search);
 const perfLite = params.get("perf") === "lite" || params.get("fx") === "lite" || matchMedia("(pointer: coarse)").matches || innerWidth < 760;
 const TRACK_LENGTH = 5400;
+
+// ── Phase 3: First-run tour definition ──
+const GAME_ID_TOUR = "regents-rally-source-circuit";
+const TOUR_STEPS = [
+  {
+    target: "#characterGrid",
+    title: "Pick your driver",
+    body: "Each historical figure has unique speed/grip/boost stats and a perk. Mansa Musa runs hottest; Cleopatra holds the line."
+  },
+  {
+    target: "#chooseDriverBtn",
+    title: "Drift for tier-up boost",
+    body: "Hold X (or the Drift button on touch) into a turn — your sparks tier from blue → orange → purple. Release for a mini-turbo."
+  },
+  {
+    target: "#itemBtn",
+    title: "Items help the underdog",
+    body: "Item boxes drop items weighted by your current rank. Mid-pack racers get balanced rolls; tail-enders get rubber-banders."
+  },
+  {
+    target: "#questionCard",
+    title: "Question gates fill the boost meter",
+    body: "Answer the source/Regents prompts at gates to add to your boost. Skip costs a few seconds of handling."
+  }
+];
+let _tourFired = false;
 const VISIBLE_RANGE = 1150;
 const COUNTDOWN_SECONDS = 3.15;
 
@@ -803,6 +829,14 @@ const state = {
 
 // Reduced-motion: skip shake, warp, speed-lines
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ── Phase 5: Lite-mode gate (reads MrMacsArcadePerf; falls back to perfLite) ──
+let liteModeActive = (window.MrMacsArcadePerf ? window.MrMacsArcadePerf.isLite() : false) || perfLite;
+if (window.MrMacsArcadePerf) {
+  window.MrMacsArcadePerf.onChange((isNowLite) => {
+    liteModeActive = isNowLite || perfLite;
+  });
+}
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -1302,6 +1336,19 @@ function gradeAnswer(index, timedOut = false) {
   const correct = index === state.current.correctIndex;
   const isGate = state.questionSource === "gate";
   state.attempts += 1;
+  // Phase 1 extra — record answer in MrMacsProfile for topic stats + wrong-answer queue
+  try {
+    if (window.MrMacsProfile && window.MrMacsProfile.recordAnswer) {
+      window.MrMacsProfile.recordAnswer({
+        course: state.current.course || "Unknown",
+        set: state.current.set || state.current.unit || "General",
+        correct,
+        prompt: state.current.prompt || "",
+        answer: (index >= 0 && state.current.choices) ? (state.current.choices[index] || "") : "",
+        gameId: "regents-rally-source-circuit"
+      });
+    }
+  } catch (e) { /* ignore */ }
   if (correct) {
     state.correct += 1;
     state.streak += 1;
@@ -1784,6 +1831,13 @@ function updateRace(dt) {
         burstParticles(state.lane, state.character.accent, 22);
       }
       setToast(state.boost > 0 ? "PERFECT START" : "GO", 0.95);
+      // Phase 3 — fire first-run tour once after the very first race release
+      if (!_tourFired && window.MrMacsArcadeTour) {
+        _tourFired = true;
+        setTimeout(() => {
+          window.MrMacsArcadeTour.start(GAME_ID_TOUR, TOUR_STEPS);
+        }, 1800);
+      }
     }
     state.toastTime = Math.max(0, state.toastTime - dt);
     updateRivals(dt * 0.08);
@@ -1959,6 +2013,9 @@ function updateRace(dt) {
 }
 
 function addSparkParticle(lane, color) {
+  // Phase 5 — lite mode: cap drift spark particle count at 4 instead of 12
+  const sparkCap = liteModeActive ? 4 : 12;
+  if (state.sparkParticles.length >= sparkCap) return;
   state.sparkParticles.push({
     lane,
     ahead: -12, // just behind kart
@@ -2229,16 +2286,23 @@ function drawRace(now) {
   ctx.save();
 
   // Fish-eye / FOV widening at high speed: slight radial stretch
-  // (skipped when prefers-reduced-motion is set)
-  if (!prefersReducedMotion && state.fov > 1.01) {
+  // (skipped when prefers-reduced-motion or lite mode is set)
+  if (!prefersReducedMotion && !liteModeActive && state.fov > 1.01) {
     const scale = state.fov;
     ctx.translate(w / 2, h / 2);
     ctx.scale(scale, 1 + (scale - 1) * 0.4);
     ctx.translate(-w / 2, -h / 2);
+  } else if (!prefersReducedMotion && liteModeActive && state.fov > 1.01) {
+    // Phase 5 — lite mode: halve FOV warp amplitude
+    const scale = 1 + (state.fov - 1) * 0.5;
+    ctx.translate(w / 2, h / 2);
+    ctx.scale(scale, 1 + (scale - 1) * 0.2);
+    ctx.translate(-w / 2, -h / 2);
   }
 
+  // Phase 5 — lite mode: skip radial blur on screen-shake (only apply translation)
   if (!prefersReducedMotion && state.cameraShake > 0) {
-    const amount = state.cameraShake * 18;
+    const amount = state.cameraShake * (liteModeActive ? 6 : 18);
     ctx.translate(Math.sin(now * 0.067) * amount, Math.cos(now * 0.051) * amount * 0.62);
   }
   drawEnvironment(w, h, now);
@@ -2453,7 +2517,8 @@ function drawSunDisc(w, h, now, accent) {
 
 function drawPixelClouds(w, h, now, accent) {
   ctx.save();
-  const drift = state.distance * 0.035 + now * 0.012;
+  // Phase 5 — lite mode: freeze parallax sky drift
+  const drift = liteModeActive ? (state.distance * 0.035) : (state.distance * 0.035 + now * 0.012);
   for (let i = 0; i < 8; i += 1) {
     const width = 78 + (i % 3) * 28;
     const x = ((i * 211 - drift) % (w + 220) + w + 220) % (w + 220) - 120;
@@ -2613,11 +2678,13 @@ function drawSpeedLines(w, h, accent) {
   if (getComputedStyle(document.body).getPropertyValue('--reduced-motion') === '1') return;
   ctx.save();
   const boostBonus = state.boost > 0 ? clamp(state.boost * 0.22, 0, 0.28) : 0;
-  const baseAlpha = clamp(state.speed / 2100, 0.06, 0.34) + boostBonus;
+  // Phase 5 — lite mode: cap brightness
+  const alphaMax = liteModeActive ? 0.18 : 0.34;
+  const baseAlpha = clamp(state.speed / 2100, 0.06, alphaMax) + (liteModeActive ? boostBonus * 0.5 : boostBonus);
   ctx.strokeStyle = state.boost > 0 ? (state.character.accent || accent) : accent;
   ctx.globalAlpha = baseAlpha;
-  // More lines at high speed / boost
-  const lineCount = state.boost > 0 ? 28 : 15;
+  // More lines at high speed / boost; Phase 5 — lite mode: reduce streak count
+  const lineCount = liteModeActive ? (state.boost > 0 ? 10 : 6) : (state.boost > 0 ? 28 : 15);
   ctx.lineWidth = state.boost > 0 ? 2.5 : 2;
   for (let i = 0; i < lineCount; i += 1) {
     const y = h * 0.22 + i * h * (state.boost > 0 ? 0.032 : 0.04);
@@ -3655,6 +3722,10 @@ els.againBtn.addEventListener("click", () => {
   }
 });
 els.backToCharacters.addEventListener("click", () => showScreen(els.characterScreen));
+// Phase 3 — replay-tour button (accessible, keyboard-tabbable via mini-btn class)
+document.getElementById("replayTourBtn")?.addEventListener("click", () => {
+  if (window.MrMacsArcadeTour) window.MrMacsArcadeTour.start(GAME_ID_TOUR, TOUR_STEPS, { force: true });
+});
 addEventListener("resize", resizeCanvas, { passive: true });
 
 if (params.get("debug") === "1") {

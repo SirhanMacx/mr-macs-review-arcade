@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
   <link rel="stylesheet" href="styles.css?v=20260505-polish-v1">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260507-phase6">
 </head>
 <body>
   <!-- Particle canvas for setup screen background -->
@@ -27,7 +28,7 @@
         </span>
       </a>
       <div class="hud-stats" role="status" aria-label="Game statistics">
-        <div class="hud-chip" aria-label="Score">
+        <div class="hud-chip" aria-label="Score" aria-live="polite">
           <strong id="score" class="mono tabular">0</strong>
           <span>score</span>
         </div>
@@ -43,7 +44,7 @@
           <strong id="power" class="mono tabular"></strong>
           <span>power</span>
         </div>
-        <div class="hud-chip" aria-label="Current level">
+        <div class="hud-chip" aria-label="Current level" aria-live="polite">
           <strong id="levelIndicator" class="mono tabular">LVL 1</strong>
           <span>level</span>
         </div>
@@ -100,7 +101,7 @@
         <h2 id="questionPrompt">Loading…</h2>
         <div class="stimulus" id="stimulus"></div>
         <div class="choices" id="choices" role="group" aria-label="Answer choices"></div>
-        <div class="feedback" id="feedback" role="status"></div>
+        <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
       </div>
     </section>
 
@@ -132,6 +133,11 @@
       const pCanvas = document.getElementById("particles");
       if (!pCanvas) return;
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        pCanvas.style.display = "none";
+        return;
+      }
+      // Phase 5 — skip particle field in lite-mode
+      if (window.MrMacsArcadePerf && window.MrMacsArcadePerf.isLite()) {
         pCanvas.style.display = "none";
         return;
       }
@@ -182,6 +188,8 @@
 
   <script src="../../assets/arcade-analytics.js?v=20260504-counter-refresh-quiet"></script>
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-perf.js?v=20260507-phase5"></script>
+  <script src="../../assets/arcade-tour.js?v=20260507-phase3"></script>
   <script src="../../assets/source-bank.js?v=20260504-maze"></script>
   <script src="game.js?v=20260505-arcade-v2"></script>
 </body>

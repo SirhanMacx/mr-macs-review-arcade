@@ -37,7 +37,9 @@
 
   const ctx = els.canvas.getContext("2d", { alpha: false });
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const liteFx = new URLSearchParams(location.search).get("fx") !== "full";
+  // Phase 5 — perf-lite: prefer arcade-perf detection, fall back to URL param
+  const liteFx = (window.MrMacsArcadePerf && MrMacsArcadePerf.isLite())
+    || new URLSearchParams(location.search).get("fx") !== "full";
   document.documentElement.classList.toggle("perf-lite", liteFx);
 
   // ─── Persistence ─────────────────────────────────────────────────────────────
@@ -853,7 +855,7 @@
     state.score += shards * 8 + (e.boss ? 1200 : e.splitter ? 200 : 80);
     if (e.boss) {
       addBurstAt(e.x, e.y, "#ff6479", 80);
-      state.shake = 1.2;
+      state.shake = liteFx ? 0.4 : 1.2; // Phase 5: reduced boss shake in lite mode
       addText(e.x, e.y - 40, `+${shards} BOSS!`, "#ffd76b");
       if (state.sound) audio.abilityStinger();
       // MrMacsProfile: boss kill shard award
@@ -1088,6 +1090,17 @@
     const q = state.currentQuestion; if (!q) return;
     const correct = checkAnswer(q, raw);
     state.answered++;
+    // Phase 1 — recordAnswer: log to profile topic stats for cram/diagnostic routing
+    if (window.MrMacsProfile && MrMacsProfile.recordAnswer) {
+      MrMacsProfile.recordAnswer({
+        course: q.course || els.courseFilter.value || "Unknown",
+        set: q.set || els.setFilter.value || "General",
+        correct,
+        prompt: displayPrompt(q),
+        answer: String(q.answer || ""),
+        gameId: "chrono-defense"
+      });
+    }
     if (correct) {
       state.correct++;
       state.streak++;
@@ -1440,20 +1453,24 @@
       const elapsed = now - ab.lastUsed;
       const ready = elapsed >= ab.cooldown;
       const rem = ready ? 0 : Math.ceil(ab.cooldown - elapsed);
-      const pct = ready ? 100 : Math.round(elapsed / ab.cooldown * 100);
-      const circumference = 44; // 2π×7 ≈ 44
-      const dash = Math.round((pct / 100) * circumference);
-      return `
-        <button class="power-card ${ready ? "" : "cooling"}" type="button" data-ability="${ab.id}"
-          aria-label="${esc(ab.name)}: ${ready ? "ready" : rem + "s cooldown"}">
-          <span class="ability-icon" style="position:relative;">
-            <svg width="52" height="52" viewBox="0 0 52 52" style="position:absolute;top:0;left:0;" aria-hidden="true">
+      // Phase 5: skip SVG cooldown ring in lite mode — keep icon + text countdown
+      const ringHtml = liteFx ? "" : (() => {
+        const pct = ready ? 100 : Math.round(elapsed / ab.cooldown * 100);
+        const circumference = 44; // 2π×7 ≈ 44
+        const dash = Math.round((pct / 100) * circumference);
+        return `<svg width="52" height="52" viewBox="0 0 52 52" style="position:absolute;top:0;left:0;" aria-hidden="true">
               <circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3"/>
               <circle cx="26" cy="26" r="22" fill="none" stroke="${ab.color}"
                 stroke-width="3" stroke-dasharray="${dash} ${circumference}"
                 stroke-linecap="round" transform="rotate(-90 26 26)"
                 style="transition:stroke-dasharray .3s ease;opacity:${ready?1:0.7}"/>
-            </svg>
+            </svg>`;
+      })();
+      return `
+        <button class="power-card ${ready ? "" : "cooling"}" type="button" data-ability="${ab.id}"
+          aria-label="${esc(ab.name)}: ${ready ? "ready" : rem + "s cooldown"}">
+          <span class="ability-icon" style="position:relative;">
+            ${ringHtml}
             <span style="position:relative;z-index:1;font-size:22px;line-height:52px;">${esc(ab.icon)}</span>
           </span>
           <span><strong>${esc(ab.name)}</strong><span>${esc(ab.desc)}</span></span>
@@ -1644,28 +1661,30 @@
       g.addColorStop(1,  "#0a0500");
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, BASE_W, BASE_H);
-      // brick texture columns
-      ctx.save();
-      ctx.globalAlpha = 0.04;
-      ctx.strokeStyle = "#c87020";
-      ctx.lineWidth = 1;
-      for (let x = 60; x < BASE_W; x += 60) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, BASE_H); ctx.stroke();
+      if (!liteFx) {
+        // brick texture columns
+        ctx.save();
+        ctx.globalAlpha = 0.04;
+        ctx.strokeStyle = "#c87020";
+        ctx.lineWidth = 1;
+        for (let x = 60; x < BASE_W; x += 60) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, BASE_H); ctx.stroke();
+        }
+        for (let y = 40; y < BASE_H; y += 40) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(BASE_W, y); ctx.stroke();
+        }
+        ctx.restore();
+        // smokestack silhouettes
+        ctx.save();
+        ctx.globalAlpha = 0.07;
+        ctx.fillStyle = "#6b3a10";
+        const stacks = [[200,BASE_H-160],[500,BASE_H-200],[950,BASE_H-180],[1350,BASE_H-220],[1500,BASE_H-150]];
+        for (const [sx, sy] of stacks) {
+          ctx.fillRect(sx-14, sy, 28, BASE_H-sy+10);
+          ctx.fillRect(sx-20, sy-50, 40, 22);
+        }
+        ctx.restore();
       }
-      for (let y = 40; y < BASE_H; y += 40) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(BASE_W, y); ctx.stroke();
-      }
-      ctx.restore();
-      // smokestack silhouettes
-      ctx.save();
-      ctx.globalAlpha = 0.07;
-      ctx.fillStyle = "#6b3a10";
-      const stacks = [[200,BASE_H-160],[500,BASE_H-200],[950,BASE_H-180],[1350,BASE_H-220],[1500,BASE_H-150]];
-      for (const [sx, sy] of stacks) {
-        ctx.fillRect(sx-14, sy, 28, BASE_H-sy+10);
-        ctx.fillRect(sx-20, sy-50, 40, 22);
-      }
-      ctx.restore();
     } else if (id === "coldwar") {
       // Concrete + amber: brutalist architecture, overcast sky
       const g = ctx.createLinearGradient(0, 0, 0, BASE_H);
@@ -1674,29 +1693,31 @@
       g.addColorStop(1,  "#020508");
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, BASE_W, BASE_H);
-      // concrete panel lines
-      ctx.save();
-      ctx.globalAlpha = 0.035;
-      ctx.strokeStyle = "#8ca0b8";
-      ctx.lineWidth = 1;
-      for (let x = 80; x < BASE_W; x += 80) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, BASE_H); ctx.stroke();
+      if (!liteFx) {
+        // concrete panel lines
+        ctx.save();
+        ctx.globalAlpha = 0.035;
+        ctx.strokeStyle = "#8ca0b8";
+        ctx.lineWidth = 1;
+        for (let x = 80; x < BASE_W; x += 80) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, BASE_H); ctx.stroke();
+        }
+        for (let y = 80; y < BASE_H; y += 80) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(BASE_W, y); ctx.stroke();
+        }
+        ctx.restore();
+        // radioactive amber glow pulses
+        ctx.save();
+        const pulseR = (Math.sin(time*0.6)+1)/2;
+        ctx.globalAlpha = 0.03 + pulseR * 0.02;
+        const ag = ctx.createRadialGradient(BASE_W*0.15, BASE_H*0.8, 0, BASE_W*0.15, BASE_H*0.8, 300);
+        ag.addColorStop(0, "#ffb347"); ag.addColorStop(1, "transparent");
+        ctx.fillStyle = ag; ctx.fillRect(0, 0, BASE_W, BASE_H);
+        const ag2 = ctx.createRadialGradient(BASE_W*0.85, BASE_H*0.2, 0, BASE_W*0.85, BASE_H*0.2, 280);
+        ag2.addColorStop(0, "#ffb347"); ag2.addColorStop(1, "transparent");
+        ctx.fillStyle = ag2; ctx.fillRect(0, 0, BASE_W, BASE_H);
+        ctx.restore();
       }
-      for (let y = 80; y < BASE_H; y += 80) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(BASE_W, y); ctx.stroke();
-      }
-      ctx.restore();
-      // radioactive amber glow pulses
-      ctx.save();
-      const pulseR = (Math.sin(time*0.6)+1)/2;
-      ctx.globalAlpha = 0.03 + pulseR * 0.02;
-      const ag = ctx.createRadialGradient(BASE_W*0.15, BASE_H*0.8, 0, BASE_W*0.15, BASE_H*0.8, 300);
-      ag.addColorStop(0, "#ffb347"); ag.addColorStop(1, "transparent");
-      ctx.fillStyle = ag; ctx.fillRect(0, 0, BASE_W, BASE_H);
-      const ag2 = ctx.createRadialGradient(BASE_W*0.85, BASE_H*0.2, 0, BASE_W*0.85, BASE_H*0.2, 280);
-      ag2.addColorStop(0, "#ffb347"); ag2.addColorStop(1, "transparent");
-      ctx.fillStyle = ag2; ctx.fillRect(0, 0, BASE_W, BASE_H);
-      ctx.restore();
     } else if (id === "modern") {
       // Glass + cobalt: city skyline, cool blues
       const g = ctx.createLinearGradient(0, 0, 0, BASE_H);
@@ -1705,29 +1726,31 @@
       g.addColorStop(1,  "#010408");
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, BASE_W, BASE_H);
-      // glass panel reflections
-      ctx.save();
-      ctx.globalAlpha = 0.028;
-      ctx.strokeStyle = "#4090c8";
-      ctx.lineWidth = 1;
-      for (let x = 90; x < BASE_W; x += 90) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, BASE_H); ctx.stroke();
+      if (!liteFx) {
+        // glass panel reflections
+        ctx.save();
+        ctx.globalAlpha = 0.028;
+        ctx.strokeStyle = "#4090c8";
+        ctx.lineWidth = 1;
+        for (let x = 90; x < BASE_W; x += 90) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, BASE_H); ctx.stroke();
+        }
+        for (let y = 60; y < BASE_H; y += 60) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(BASE_W, y); ctx.stroke();
+        }
+        ctx.restore();
+        // city skyline silhouettes
+        ctx.save();
+        ctx.globalAlpha = 0.06;
+        ctx.fillStyle = "#0a2040";
+        const buildings = [[100,260],[180,200],[280,230],[400,170],[520,190],[700,150],[900,160],[1100,140],[1280,170],[1400,200],[1500,240]];
+        for (let i = 0; i < buildings.length-1; i++) {
+          const [bx,by] = buildings[i];
+          const bw = buildings[i+1][0]-bx;
+          ctx.fillRect(bx, by, bw-4, BASE_H-by+10);
+        }
+        ctx.restore();
       }
-      for (let y = 60; y < BASE_H; y += 60) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(BASE_W, y); ctx.stroke();
-      }
-      ctx.restore();
-      // city skyline silhouettes
-      ctx.save();
-      ctx.globalAlpha = 0.06;
-      ctx.fillStyle = "#0a2040";
-      const buildings = [[100,260],[180,200],[280,230],[400,170],[520,190],[700,150],[900,160],[1100,140],[1280,170],[1400,200],[1500,240]];
-      for (let i = 0; i < buildings.length-1; i++) {
-        const [bx,by] = buildings[i];
-        const bw = buildings[i+1][0]-bx;
-        ctx.fillRect(bx, by, bw-4, BASE_H-by+10);
-      }
-      ctx.restore();
     } else {
       // Future Arc: chrome + neon
       const g = ctx.createLinearGradient(0, 0, BASE_W, BASE_H);
@@ -1736,28 +1759,30 @@
       g.addColorStop(1,  "#08020a");
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, BASE_W, BASE_H);
-      // neon grid
-      ctx.save();
-      ctx.globalAlpha = 0.045;
-      ctx.strokeStyle = "#c981ff";
-      ctx.lineWidth = 1;
-      const gSize = 90;
-      const gOff = (time * 15) % gSize;
-      for (let x = -gSize + gOff; x < BASE_W + gSize; x += gSize) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, BASE_H); ctx.stroke();
+      if (!liteFx) {
+        // neon grid
+        ctx.save();
+        ctx.globalAlpha = 0.045;
+        ctx.strokeStyle = "#c981ff";
+        ctx.lineWidth = 1;
+        const gSize = 90;
+        const gOff = (time * 15) % gSize;
+        for (let x = -gSize + gOff; x < BASE_W + gSize; x += gSize) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, BASE_H); ctx.stroke();
+        }
+        for (let y = -gSize + gOff*0.5; y < BASE_H + gSize; y += gSize) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(BASE_W, y); ctx.stroke();
+        }
+        ctx.restore();
+        // neon pulse radials
+        ctx.save();
+        const fp = (Math.sin(time*1.2)+1)/2;
+        ctx.globalAlpha = 0.04 + fp*0.03;
+        const fg = ctx.createRadialGradient(BASE_W/2, BASE_H/2, 0, BASE_W/2, BASE_H/2, BASE_H*0.7);
+        fg.addColorStop(0, "#c981ff"); fg.addColorStop(1, "transparent");
+        ctx.fillStyle = fg; ctx.fillRect(0, 0, BASE_W, BASE_H);
+        ctx.restore();
       }
-      for (let y = -gSize + gOff*0.5; y < BASE_H + gSize; y += gSize) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(BASE_W, y); ctx.stroke();
-      }
-      ctx.restore();
-      // neon pulse radials
-      ctx.save();
-      const fp = (Math.sin(time*1.2)+1)/2;
-      ctx.globalAlpha = 0.04 + fp*0.03;
-      const fg = ctx.createRadialGradient(BASE_W/2, BASE_H/2, 0, BASE_W/2, BASE_H/2, BASE_H*0.7);
-      fg.addColorStop(0, "#c981ff"); fg.addColorStop(1, "transparent");
-      ctx.fillStyle = fg; ctx.fillRect(0, 0, BASE_W, BASE_H);
-      ctx.restore();
     }
   }
 
@@ -2656,6 +2681,33 @@
     if (matchMedia("(max-width: 1120px) and (orientation: landscape)").matches) setQuestionCollapsed(true);
     prepareQuestion();
     requestAnimationFrame(loop);
+
+    // Phase 3 — first-run tour (fires after first map load, once per game ID)
+    if (window.MrMacsArcadeTour) {
+      const tourSteps = [
+        {
+          target: "#towerList",
+          title: "5 tower archetypes",
+          body: "Sniper hits stealth, Cannon splashes, Cryo slows, Plague poisons over time, Boost amps neighbors."
+        },
+        {
+          target: "#arena",
+          title: "Place + upgrade",
+          body: "Tap a road-adjacent cell, pick a tower. Tap your tower again to upgrade or sell at 70%."
+        },
+        {
+          target: "#waveProgress",
+          title: "30 waves per map",
+          body: "Bosses every 5 waves, double bosses on 10. Beat wave 30 to unlock the next era map."
+        },
+        {
+          target: "#powerList",
+          title: "Special abilities",
+          body: "Time Stop / Era Storm / Reinforcements — long cooldowns. Save them for boss waves."
+        }
+      ];
+      MrMacsArcadeTour.start("chrono-defense", tourSteps);
+    }
   }
 
   init().catch(err => {

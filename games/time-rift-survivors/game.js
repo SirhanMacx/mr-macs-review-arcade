@@ -24,13 +24,35 @@
     stimulusZoom: $("stimulusZoom"), stimulusZoomImg: $("stimulusZoomImg"), stimulusClose: $("stimulusClose"),
     typedForm: $("typedForm"), typedAnswer: $("typedAnswer"), feedback: $("feedback"),
     relicList: $("relicList"), buildPower: $("buildPower"),
-    upgradeScreen: $("upgradeScreen"), upgradeGrid: $("upgradeGrid"), riftBanner: $("riftBanner")
+    upgradeScreen: $("upgradeScreen"), upgradeGrid: $("upgradeGrid"), riftBanner: $("riftBanner"),
+    gameAnnouncer: $("gameAnnouncer")
   };
 
   const ctx = els.canvas.getContext("2d", { alpha: false });
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const liteFx = new URLSearchParams(location.search).get("fx") !== "full";
+  // Phase 5: lite mode — URL param OR MrMacsArcadePerf device detection
+  const _fxParam = new URLSearchParams(location.search).get("fx");
+  const liteFx = _fxParam !== "full" && (_fxParam === "lite" || (window.MrMacsArcadePerf ? window.MrMacsArcadePerf.isLite() : true));
   document.documentElement.classList.toggle("perf-lite", liteFx);
+  // Re-evaluate if perf settings change (e.g. user toggles lite mode in profile drawer)
+  if (window.MrMacsArcadePerf) {
+    window.MrMacsArcadePerf.onChange(function () {
+      document.documentElement.classList.toggle("perf-lite", window.MrMacsArcadePerf.isLite());
+    });
+  }
+
+  // ─── A11Y ANNOUNCER (Phase 6) ─────────────────────────────────────────────────
+  // Debounced so rapid HUD ticks don't spam screen readers.
+  let _announceTimer = 0;
+  function announce(msg) {
+    if (!els.gameAnnouncer) return;
+    clearTimeout(_announceTimer);
+    _announceTimer = setTimeout(function () {
+      els.gameAnnouncer.textContent = "";
+      // Force a DOM cycle so the same string re-triggers aria-live
+      requestAnimationFrame(function () { els.gameAnnouncer.textContent = msg; });
+    }, 120);
+  }
 
   const images = {};
   const assetPaths = {
@@ -171,9 +193,11 @@
         if (!first) return;
         const hit = new Set([first]);
         let last = first;
+        // Phase 5: cap beam-branch particle count to 3 chains in lite mode
+        const _chainLimit = liteFx ? Math.min(lv.chains, 3) : lv.chains;
         damageEnemy(first, lv.dmg, "#72f2ff");
         state.particles.push({ kind:"beam", x:player.x, y:player.y-20, tx:first.x, ty:first.y, color:"#72f2ff", life:0.18, maxLife:0.18 });
-        for (let c = 1; c < lv.chains; c++) {
+        for (let c = 1; c < _chainLimit; c++) {
           let best = null, bd = Infinity;
           for (const e of state.enemies) {
             if (hit.has(e) || e.dead) continue;
@@ -347,9 +371,11 @@
           const first = nearestEnemy(); if (!first) return;
           const hit = new Set([first]);
           let last = first;
+          // Phase 5: cap beam-branch particle count to 3 in lite mode (evolution: 12 → 3)
+          const _evoChainLimit = liteFx ? 3 : lv.chains;
           damageEnemy(first, lv.dmg, "#72f2ff", true);
           state.particles.push({ kind:"beam", x:player.x, y:player.y-20, tx:first.x, ty:first.y, color:"#72f2ff", life:0.25, maxLife:0.25 });
-          for (let c = 1; c < lv.chains; c++) {
+          for (let c = 1; c < _evoChainLimit; c++) {
             let best = null, bd = Infinity;
             for (const e of state.enemies) {
               if (hit.has(e)||e.dead) continue;
@@ -896,6 +922,36 @@
     els.pauseBtn.textContent="Pause";
     showBanner("Rift Open");
     sfx.startDrone();
+    // Phase 3: fire first-run tour once per profile
+    if (!state.tourFired) {
+      state.tourFired = true;
+      window.setTimeout(function () {
+        if (window.MrMacsArcadeTour) {
+          window.MrMacsArcadeTour.start("time-rift-survivors", [
+            {
+              target: "#arena",
+              title: "WASD / virtual joystick",
+              body: "Move only. Weapons fire automatically. Drop your guard for half a second and the horde catches up."
+            },
+            {
+              target: "#runTimer",
+              title: "Survive 20 minutes",
+              body: "Spawns escalate: drips at 0-2min, hordes at 5-10, boss waves 15+. Bosses spawn every 5 minutes."
+            },
+            {
+              target: "#upgradeScreen",
+              title: "Level-up picks build your loadout",
+              body: "8 weapons, 8 levels each. Max + a specific passive evolves into a SUPER weapon."
+            },
+            {
+              target: "#goldCount",
+              title: "Run end → meta shop",
+              body: "Gold persists across runs. Spend at the meta shop for permanent +damage / +pickup-range upgrades."
+            }
+          ]);
+        }
+      }, 800);
+    }
   }
 
   function resetRun() {
@@ -918,6 +974,7 @@
     state.damage=1; state.guard=0; state.correctHeal=8;
     state.shake=0; state.flash=0; state.deathSlowmo=0;
     state.lastBossTime=0; state._bossBanner=0;
+    // tourFired persists across resets — do NOT reset here (tour fires once per session)
     player.x=BASE_W/2; player.y=BASE_H/2;
     player.hp=100; player.maxHp=100;
     player.baseSpeed=265; player.speedBonus=1; player.facing=0;
@@ -1002,6 +1059,19 @@
     if (!q||state.choosingUpgrade) return;
     const isCorrect=checkAnswer(q,raw);
     state.answered+=1; state.trialOpen=false; state.trialTimer=state.trialEvery;
+    // Phase 1: recordAnswer hook — feeds topic stats + wrong-answer queue
+    if (window.MrMacsProfile && typeof window.MrMacsProfile.recordAnswer === "function") {
+      try {
+        window.MrMacsProfile.recordAnswer({
+          gameId: "time-rift-survivors",
+          course: q.course || (els.courseFilter && els.courseFilter.value) || "All Courses",
+          set: q.set || (els.setFilter && els.setFilter.value) || "Time Rift",
+          correct: isCorrect,
+          prompt: q.prompt || q.stem || "",
+          answer: q.answer || ""
+        });
+      } catch(e) {}
+    }
     if (isCorrect) {
       state.correct+=1; state.streak+=1;
       const reward=260+state.streak*45;
@@ -1011,12 +1081,16 @@
       els.feedback.textContent=`Timeline strike. ${q.explanation||q.answer}`;
       els.feedback.className="feedback good";
       sfx.correct();
+      // Phase 6: announce correct answer to screen readers
+      announce(`Correct! ${q.explanation||q.answer}`);
       // bonus upgrade roll for correct answer
       window.setTimeout(()=>showUpgradeChoices(true),450);
     } else {
       state.streak=0; state.shake=0.55; spawnAmbush();
       els.feedback.textContent=`Rift unstable. Answer: ${q.answer}. ${q.explanation||""}`;
       els.feedback.className="feedback bad"; sfx.wrong();
+      // Phase 6: announce wrong answer to screen readers
+      announce(`Incorrect. Correct answer: ${q.answer}.`);
     }
     renderHUD();
     window.setTimeout(prepareQuestion, isCorrect?1300:2300);
@@ -1520,6 +1594,8 @@
       window.MrMacsProfile?.addShards(15, "time-rift-level-up");
       // XP bar pulse handled in CSS via class toggle
       els.xpBar.style.width="0%";
+      // Phase 6: announce level-up to screen readers
+      announce(`Level ${state.level}! Choose a relic upgrade.`);
       showUpgradeChoices(false);
     }
   }
@@ -1960,7 +2036,9 @@
   }
 
   // Drifting era-portal fragments on background
-  const _frags = Array.from({length: 22}, (_, i) => ({
+  // Phase 5: reduce ambient field to 8 in lite mode (was 22)
+  const _fragCount = liteFx ? 8 : 22;
+  const _frags = Array.from({length: _fragCount}, (_, i) => ({
     x: Math.random() * BASE_W, y: Math.random() * BASE_H,
     vx: (Math.random()-0.5)*8, vy: (Math.random()-0.5)*8,
     r: 4 + Math.random()*18, alpha: 0.04 + Math.random()*0.1,
@@ -2010,8 +2088,8 @@
     ctx.rotate(capeAngle);
 
     if (images.sprites) {
-      // chromatic-split on hit: draw ghost copies offset in R+B channels
-      if (hit) {
+      // Phase 5: chromatic-split on hit — skip ghost copies in lite mode, just flicker
+      if (hit && !liteFx) {
         ctx.save();
         ctx.globalAlpha = 0.55;
         ctx.globalCompositeOperation = "screen";
@@ -2059,8 +2137,8 @@
       ctx.fillStyle = "#ffd66e";
       ctx.beginPath(); ctx.arc(r*0.85, -r*0.6, r*0.18, 0, Math.PI*2); ctx.fill();
 
-      // Chromatic split ghosts on hit
-      if (hit) {
+      // Chromatic split ghosts on hit — Phase 5: skip in lite mode
+      if (hit && !liteFx) {
         ctx.globalAlpha = 0.35;
         ctx.globalCompositeOperation = "screen";
         ctx.fillStyle = "#ff2ebd";
@@ -2250,8 +2328,9 @@
     for (let i=0; i<orbs; i++) {
       const angle=time*angSpeed+i*Math.PI*2/orbs;
 
-      // motion trail (5 ghost orbs)
-      for (let t2=1; t2<=5; t2++) {
+      // motion trail — Phase 5: cap at 2 ghosts in lite mode (was 5)
+      const _orbTrail = liteFx ? 2 : 5;
+      for (let t2=1; t2<=_orbTrail; t2++) {
         const ta=angle-t2*0.12;
         const tx=player.x+Math.cos(ta)*orbR, ty=player.y+Math.sin(ta)*orbR;
         ctx.save();
@@ -2360,8 +2439,9 @@
       } else if (p.kind === "boomerang") {
         // Spinning blade with motion blur arc
         ctx.translate(p.x, p.y);
-        // motion blur trail
-        for (let i=1; i<=3; i++) {
+        // motion blur trail — Phase 5: cap at 2 ghosts in lite mode (was 3)
+        const _trailCount = liteFx ? 2 : 3;
+        for (let i=1; i<=_trailCount; i++) {
           ctx.globalAlpha = 0.15 / i;
           ctx.fillStyle = p.color;
           const trailAngle = angle + time*8 - i*0.4;
@@ -2580,10 +2660,10 @@
       ctx.restore();
     }
 
-    // Prismatic chromatic-shatter death
+    // Prismatic chromatic-shatter death — Phase 5: simple fade in lite mode
     if (state.deathSlowmo > 0 && state.gameOver) {
       const t2 = state.deathSlowmo; // 1.5 → 0
-      if (!reduceMotion) {
+      if (!reduceMotion && !liteFx) {
         const split = clamp((1.5-t2)/1.5, 0, 1) * 18;
         // Chromatic aberration overlay: shift RGB planes
         ctx.save();
@@ -2622,6 +2702,13 @@
           }
           ctx.restore();
         }
+      } else if (!reduceMotion && liteFx) {
+        // Phase 5 lite: simple dark fade instead of prismatic shatter
+        ctx.save();
+        ctx.globalAlpha = clamp((1.5-t2)/1.5, 0, 1) * 0.55;
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, BASE_W, BASE_H);
+        ctx.restore();
       }
     }
 

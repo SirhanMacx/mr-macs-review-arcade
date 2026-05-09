@@ -48,7 +48,11 @@
 
   const ctx = els.canvas.getContext("2d", { alpha: false });
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const liteFx = new URLSearchParams(location.search).get("fx") !== "full";
+  // Phase 5 — lite mode: honour arcade-perf signal OR explicit ?fx=lite (default), override with ?fx=full
+  const _fxParam = new URLSearchParams(location.search).get("fx");
+  const liteFx = _fxParam === "full" ? false
+               : _fxParam === "lite" ? true
+               : (window.MrMacsArcadePerf ? window.MrMacsArcadePerf.isLite() : true);
   document.documentElement.classList.toggle("perf-lite", liteFx);
 
   // Title parallax canvas
@@ -59,6 +63,8 @@
   // Axis 1: Render title-screen parallax era-bands + drifting silhouettes
   function drawTitleParallax(dt) {
     if (!tCtx || reduceMotion) return;
+    // Phase 5 lite: skip parallax title canvas entirely (3-layer synthwave grid)
+    if (liteFx) return;
     titleTime += dt || 0.016;
     const tw = titleCanvas.offsetWidth || 800;
     const th = titleCanvas.offsetHeight || 600;
@@ -818,10 +824,44 @@
     updateHud();
   }
 
+  // Phase 3 — Tour steps (shown once after first run starts)
+  const TOUR_STEPS = [
+    {
+      target: "#runnerCanvas",
+      title: "Three lanes",
+      body: "Swipe (or arrow keys) to swap lanes. Tap or Space jumps; hold for higher arcs. Slide under low pipes.",
+      placement: "top"
+    },
+    {
+      target: ".hud-stats",
+      title: "Coin streak multiplies",
+      body: "Unbroken coin chain caps at 8×. One hit resets it — but power-ups can save you.",
+      placement: "bottom"
+    },
+    {
+      target: ".hud-stat--distance",
+      title: "Eras shift the world",
+      body: "Industrial → Cold War → Digital → Future. Collect 5 era keys in one run for a 500-shard bonus.",
+      placement: "bottom"
+    },
+    {
+      target: "#questionCard",
+      title: "Gates ask history",
+      body: "Pick the lane labeled with the right answer. Wrong = brief slowdown + multiplier reset.",
+      placement: "top"
+    }
+  ];
+
   function startRun(opts = {}) {
     if (!state.filtered.length) applyFilters();
     if (!opts.silent) audio.startRun();
     resetRun();
+    // Phase 3 — show tour once after the very first run start
+    if (window.MrMacsArcadeTour) {
+      requestAnimationFrame(() => {
+        MrMacsArcadeTour.start("timeline-runner", TOUR_STEPS);
+      });
+    }
   }
 
   function hideOverlays() {
@@ -1218,6 +1258,21 @@
 
     state.objects   = state.objects.filter(o => o.gateId !== state.gateActive);
     state.gateActive = null;
+
+    // Phase 1 — recordAnswer hook
+    if (window.MrMacsProfile) {
+      try {
+        window.MrMacsProfile.recordAnswer({
+          course:  state.currentQuestion.course || state.runCourse || "All Courses",
+          set:     state.currentQuestion.set    || state.runSet    || "Timeline Runner",
+          correct: choice.correct,
+          prompt:  displayPrompt(state.currentQuestion),
+          answer:  cleanText(state.currentQuestion.answer),
+          gameId:  "timeline-runner"
+        });
+      } catch (_) {}
+    }
+
     state.currentQuestion = null;
     state.currentChoices  = [];
     const profile  = intensityProfiles[state.runIntensity] || intensityProfiles.standard;
@@ -1230,7 +1285,9 @@
   // ─── Speed lines (boost juice) ────────────────────────────────────────────
   function spawnSpeedLines() {
     if (reduceMotion) return;
-    for (let i = 0; i < 16; i++) {
+    // Phase 5 lite: cap streak count
+    const lineCount = liteFx ? 4 : 16;
+    for (let i = 0; i < lineCount; i++) {
       const side = Math.random() > 0.5 ? -1 : 1;
       state.speedLines.push({
         x: BASE_W * 0.5 + side * (400 + Math.random() * 360),
@@ -1270,10 +1327,11 @@
       eraSweepColor    = next.accent;
       eraBannerText    = `${prev.name}  →  ${next.name}`;
       eraBannerAlpha   = 1;
-      // Ambient particle burst
+      // Ambient particle burst — Phase 5 lite: cap at 12 instead of 60
       if (!reduceMotion) {
-        for (let i = 0; i < 60; i++) {
-          const angle = (i / 60) * Math.PI * 2;
+        const burstCount = liteFx ? 12 : 60;
+        for (let i = 0; i < burstCount; i++) {
+          const angle = (i / burstCount) * Math.PI * 2;
           const speed = 80 + Math.random() * 220;
           state.particles.push({
             x: BASE_W / 2, y: BASE_H / 2,
@@ -2214,8 +2272,8 @@
     ctx.ellipse(x, 808, (sliding ? 78 : 60) * shadowScale, (sliding ? 12 : 16) * shadowScale, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Slide dust particles
-    if (sliding && !reduceMotion && Math.random() < 0.4) {
+    // Slide dust particles — Phase 5 lite: skip emitter
+    if (sliding && !reduceMotion && !liteFx && Math.random() < 0.4) {
       state.particles.push({
         x: x + (Math.random() - 0.5) * 40,
         y: 800 + Math.random() * 12,
@@ -2274,8 +2332,8 @@
       ctx.restore();
     }
 
-    // Axis 3: Lane swap ghost trail (motion blur)
-    if (player.laneChangeBlur > 0.02 && !reduceMotion) {
+    // Axis 3: Lane swap ghost trail (motion blur) — Phase 5 lite: skip
+    if (player.laneChangeBlur > 0.02 && !reduceMotion && !liteFx) {
       ctx.save(); ctx.globalCompositeOperation = "screen";
       for (let i = 1; i <= 4; i++) {
         const dir   = player.lane - player.visualLane > 0 ? -1 : 1;

@@ -6,7 +6,15 @@
   const COLS      = 14;
   const ROWS      = 10;
   const MAX_TURNS = 200;
-  const FX_LITE   = window.matchMedia("(max-width:900px)").matches;
+  // Phase 5: lite-mode flag — combines viewport width, prefers-reduced-motion, and arcade-perf.js
+  function FX_LITE_CHECK(){
+    if(window.MrMacsArcadePerf) return window.MrMacsArcadePerf.isLite();
+    return window.matchMedia("(max-width:900px)").matches||
+           window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  }
+  // Evaluated once at game start; reactive updates (profile setting changes) handled via onChange below
+  let FX_LITE = FX_LITE_CHECK();
+  if(window.MrMacsArcadePerf) window.MrMacsArcadePerf.onChange(function(lite){ FX_LITE=lite; });
   const SourceBank = window.MrMacsSourceBank || null;
 
   const ERAS = ["Ancient", "Classical", "Medieval", "Industrial"];
@@ -512,7 +520,7 @@
     attacker.hp=clamp(attacker.hp-dDmg,0,attacker.maxHp);
     defUnit.hp=clamp(defUnit.hp-aDmg,0,defUnit.maxHp);
     audio.combat();
-    burst(defTile,"#ff6f6f",20);
+    if(!FX_LITE) burst(defTile,"#ff6f6f",20);
     floatText(defTile,`-${aDmg}`,"#ff6f6f");
     floatText(getTileById(attacker.tileId),`-${dDmg}`,"#ffb0b0");
     if(defUnit.hp<=0){
@@ -809,7 +817,12 @@
 
   // ─── PANEL RENDERING ─────────────────────────────────────────────────────────
   function updatePanelTabs(){
-    els.panelTabs.forEach(b=>b.classList.toggle("active",b.dataset.panel===state.panel));
+    els.panelTabs.forEach(b=>{
+      const active=b.dataset.panel===state.panel;
+      b.classList.toggle("active",active);
+      b.setAttribute("aria-selected",active?"true":"false");
+      b.setAttribute("aria-pressed",active?"true":"false");
+    });
   }
 
   function renderPanel(){
@@ -1161,17 +1174,37 @@
       state.correct+=1;
       els.explanation.textContent=displayExplanation(q);
       els.explanation.className="explanation good";
+      els.explanation.setAttribute("aria-live","polite");
       applySuccess(action);
       audio.correct();
       // MrMacsProfile: shards + first-correct achievement
       window.MrMacsProfile?.addShards(20, "empire-ascendant:council-correct");
       if (state.correct === 1) window.MrMacsProfile?.unlock("first-correct");
+      // recordAnswer
+      window.MrMacsProfile?.recordAnswer({
+        course: els.courseFilter?.value||"All Courses",
+        set:    els.setFilter?.value||"All Sets",
+        gameId: "empire-ascendant",
+        prompt: cleanText(q.prompt||q.question||""),
+        answer: cleanText(q.answer||""),
+        correct: true
+      });
     } else {
       els.explanation.textContent=`Correct: ${cleanText(q.answer)}. ${displayExplanation(q)}`;
       els.explanation.className="explanation bad";
+      els.explanation.setAttribute("aria-live","assertive");
       state.missed.push(q);
       applyFailure(action);
       audio.wrong();
+      // recordAnswer
+      window.MrMacsProfile?.recordAnswer({
+        course: els.courseFilter?.value||"All Courses",
+        set:    els.setFilter?.value||"All Sets",
+        gameId: "empire-ascendant",
+        prompt: cleanText(q.prompt||q.question||""),
+        answer: cleanText(q.answer||""),
+        correct: false
+      });
     }
     updateHud(); renderPanel();
     setTimeout(closeCouncil, choice.correct?1200:2400);
@@ -1299,6 +1332,16 @@
     checkVictory();
     // Auto-save
     saveGame();
+    // Phase 3 — first-turn tour (fires after turn 1 resolves, before any council or advisor update)
+    if(state.turn===2){
+      setTimeout(()=>{ window.MrMacsArcadeTour?.start("empire-ascendant",[
+        { target:"#empireCanvas",             title:"Found cities, found empires",   body:"Move your settler with click-to-move (or tap on touch). End-turn advances all units + AI rivals.", placement:"right" },
+        { target:".resource-bar",             title:"Six yields drive your civ",     body:"Gold / food / production / science / culture / faith. Watch the per-turn deltas — they're your throttle.", placement:"bottom" },
+        { target:"[data-panel='research']",   title:"Research advances eras",        body:"12 techs across 4 eras. Each era brings new units, buildings, and a palette shift across the entire UI.", placement:"bottom" },
+        { target:"[data-panel='diplomacy']",  title:"3 rival civs",                  body:"Each AI has a personality (expansionist / military / scientific). Diplomacy + war affect long-term victory.", placement:"bottom" },
+        { target:"#councilScreen .council-card", title:"Reform Councils",            body:"Every 4 turns. Correct answer = +25% science bonus that turn; wrong = small penalty.", placement:"center" }
+      ]); }, 300);
+    }
     // Question every 4 turns
     if(state.turn%4===0&&state.mode==="playing"){
       openCouncil({type:"reform",tile:state.selected||state.tiles.find(t=>t.owner==="player"),cost:{}});
@@ -1315,13 +1358,13 @@
       state.res.player.sci-=thresholds[state.era];
       state.era=next;
       audio.era_advance();
-      for(const t of tilesByOwner("player")) burst(t,"#f2c14e",4);
+      if(!FX_LITE){ for(const t of tilesByOwner("player")) burst(t,"#f2c14e",4); }
       setAdvisor("Era Advanced",`Your empire entered the ${ERAS[state.era]} Era. New technologies unlock.`,"+stability +prod","good");
       // Update era token on shell immediately
       if(els.appShell) els.appShell.dataset.era=String(state.era);
-      // Show cinematic era banner
+      // Show era banner (lite: no burst/flash, banner text still announces via aria-live)
       showEraBanner(ERAS[state.era]);
-      flashScreen("#f2c14e");
+      if(!FX_LITE) flashScreen("#f2c14e");
       // MrMacsProfile: shards for era advance
       window.MrMacsProfile?.addShards(100, "empire-ascendant:era-advanced");
     }
@@ -2113,8 +2156,8 @@
       const tile=getTileById(u.tileId); if(!tile) continue;
       const fogged=tile.fog&&!state.fog[tile.id]; if(fogged&&u.civId!=="player") continue;
       const p=hexToPixel(tile);
-      // Lerp animation
-      if(u.animFrac<1){ u.animFrac=Math.min(1,u.animFrac+.12); }
+      // Lerp animation (lite mode: snap immediately, no easing)
+      if(u.animFrac<1){ u.animFrac=FX_LITE?1:Math.min(1,u.animFrac+.12); }
       const ox=u.animX*(1-u.animFrac), oy=u.animY*(1-u.animFrac);
       const ux=p.x+ox, uy=p.y+oy;
       const civ=CIVS[u.civId];
@@ -2505,15 +2548,17 @@
       for(let i=0;i<6;i++) cc.lineTo(r*Math.cos(a*i-Math.PI/6)+cx[0], r*Math.sin(a*i-Math.PI/6)+cx[1]);
       cc.closePath();
       cc.fillStyle=fill; cc.fill();
-      // Faint hatch lines for texture
-      cc.save(); cc.clip();
-      cc.strokeStyle="rgba(255,255,255,0.045)";
-      cc.lineWidth=.8;
-      const step=6+hatch*3;
-      for(let s=-r*2;s<r*2;s+=step){
-        cc.beginPath(); cc.moveTo(cx[0]-r+s,cx[1]-r); cc.lineTo(cx[0]-r+s+r*.8,cx[1]+r); cc.stroke();
+      // Faint hatch lines for texture (skipped in lite mode — flat tint only)
+      if(!FX_LITE){
+        cc.save(); cc.clip();
+        cc.strokeStyle="rgba(255,255,255,0.045)";
+        cc.lineWidth=.8;
+        const step=6+hatch*3;
+        for(let s=-r*2;s<r*2;s+=step){
+          cc.beginPath(); cc.moveTo(cx[0]-r+s,cx[1]-r); cc.lineTo(cx[0]-r+s+r*.8,cx[1]+r); cc.stroke();
+        }
+        cc.restore();
       }
-      cc.restore();
       cc.strokeStyle=edge; cc.lineWidth=.9; cc.globalAlpha=.28; cc.stroke(); cc.globalAlpha=1;
     }
 
@@ -2531,11 +2576,12 @@
       grad.addColorStop(1,"rgba(4,8,10,.0)");
       cc.fillStyle=grad; cc.fillRect(0,0,W,H);
 
-      // Drift hex tiles
+      // Drift hex tiles (skipped in lite mode — just flat static tint)
       const drift=18; // max px drift
+      const lite=FX_LITE;
       for(const h of hexes){
-        const dx=Math.sin(t*h.spd*0.7+h.phase)*drift;
-        const dy=Math.cos(t*h.spd+h.phase+1.2)*drift*0.6;
+        const dx=lite?0:Math.sin(t*h.spd*0.7+h.phase)*drift;
+        const dy=lite?0:Math.cos(t*h.spd+h.phase+1.2)*drift*0.6;
         const cx=[h.bx+dx, h.by+dy];
         cc.globalAlpha=0.11;
         drawHex(cx,cc,HEX_R,h.t.color,h.t.edge,h.hatch);

@@ -104,6 +104,17 @@
   const ctx = els.canvas.getContext("2d", { alpha: false });
   const images = {};
 
+  // ─── Phase 5 — Lite-mode flag ────────────────────────────────────────────────
+  let liteMode = false;
+  function applyLiteMode(lite) {
+    liteMode = !!lite;
+    // screen-shake amplitude: zeroed in shake() below when liteMode is true
+  }
+  if (window.MrMacsArcadePerf) {
+    applyLiteMode(window.MrMacsArcadePerf.isLite());
+    window.MrMacsArcadePerf.onChange(applyLiteMode);
+  }
+
   // ─── Audio engine ────────────────────────────────────────────────────────────
   let audioCtx = null;
   let muted = false;
@@ -511,7 +522,7 @@
   function shake(ms = 320, mag = 6) {
     if (prefersReducedMotion) return;
     state.shakeUntil = performance.now() + ms;
-    state.shakeMag   = mag;
+    state.shakeMag   = liteMode ? 0 : mag;
   }
 
   // ─── Death animation ──────────────────────────────────────────────────────────
@@ -644,6 +655,21 @@
     }
     els.feedback.classList.add("show-text");
     updateHud();
+
+    // Phase 1 — recordAnswer hook
+    if (window.MrMacsProfile) {
+      try {
+        window.MrMacsProfile.recordAnswer({
+          course:  state.currentQuestion.course || "All Courses",
+          set:     state.currentQuestion.set || "Maze Chase",
+          correct: choice.correct,
+          prompt:  promptFor(state.currentQuestion),
+          answer:  answerFor(state.currentQuestion),
+          gameId:  "review-maze-chase"
+        });
+      } catch (e) {}
+    }
+
     const delay = choice.correct ? 1100 : 2100;
     setTimeout(() => {
       show(null);
@@ -1087,14 +1113,14 @@
       ctx.globalAlpha = 1;
     }
 
-    // Scanlines (subtle)
-    if (!prefersReducedMotion) {
+    // Scanlines (subtle) — skipped in lite-mode
+    if (!prefersReducedMotion && !liteMode) {
       ctx.fillStyle = "rgba(0,0,0,0.06)";
       for (let ly = 0; ly < h; ly += 4) ctx.fillRect(0, ly, w, 2);
     }
 
-    // Stars
-    if (!prefersReducedMotion) {
+    // Stars — skipped in lite-mode
+    if (!prefersReducedMotion && !liteMode) {
       for (const star of state.stars) {
         const alpha = 0.3 + 0.4 * Math.sin(now * star.speed + star.phase);
         ctx.fillStyle = `rgba(200,230,255,${alpha.toFixed(2)})`;
@@ -2035,6 +2061,32 @@
           else setMuted(false);
         } catch (e) {}
       });
+    }
+
+    // Phase 3 — First-run tour (fires only once; MrMacsArcadeTour tracks hasSeenTour internally)
+    if (window.MrMacsArcadeTour) {
+      setTimeout(function() {
+        window.MrMacsArcadeTour.start("review-maze-chase", [
+          {
+            target: "#game",
+            title: "Eat pellets, dodge chasers",
+            body: "Use arrow keys, WASD, or the on-screen D-pad. Each pellet feeds your shards wallet.",
+            placement: "auto"
+          },
+          {
+            target: "#score",
+            title: "Questions show up between rounds",
+            body: "Answer correctly to spawn a fruit bonus and earn 50 shards.",
+            placement: "auto"
+          },
+          {
+            target: "#soundBtn",
+            title: "Settings travel with you",
+            body: "Sound, motion, and font preferences come from your trainer profile in the hub.",
+            placement: "auto"
+          }
+        ]);
+      }, 800);
     }
 
     requestAnimationFrame(step);

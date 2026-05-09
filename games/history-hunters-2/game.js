@@ -21,6 +21,15 @@
   const params = new URLSearchParams(window.location.search);
   const FX_LITE = params.get("fx") === "lite" || params.get("fx") === "low";
   const PREFERS_REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ── Phase 5: Lite-mode gate (reads MrMacsArcadePerf at load; updates reactively) ──
+  let liteModeActive = (window.MrMacsArcadePerf ? window.MrMacsArcadePerf.isLite() : false) || FX_LITE;
+  if (window.MrMacsArcadePerf) {
+    window.MrMacsArcadePerf.onChange((isNowLite) => {
+      liteModeActive = isNowLite || FX_LITE;
+    });
+  }
+
   const $ = (id) => document.getElementById(id);
   const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
   const view = { w: 960, h: 540, dpr: 1 };
@@ -1698,6 +1707,19 @@
     const q = state.quest && state.quest.q;
     if (!q) return;
     const correct = q.type === "mcq" ? String(raw) === String(q.correct) : typedMatches(raw, [q.answer].concat(q.aliases || []));
+    // Phase 1 — recordAnswer hook
+    if (window.MrMacsProfile) {
+      try {
+        window.MrMacsProfile.recordAnswer({
+          course:  q.course || state.stats.course || "All Courses",
+          set:     q.set || q.unit || q.category || "Review Contract",
+          correct,
+          prompt:  q.prompt || q.stem || "",
+          answer:  answerLabel(q),
+          gameId:  "history-hunters-2"
+        });
+      } catch (e) {}
+    }
     const reward = correct ? 38 : 10;
     state.stats.shards += reward;
     state.stats.xp += correct ? 30 : 8;
@@ -1970,6 +1992,19 @@
     battle.fx = makeImpactFx("enemyHit", selected);
     playSfx(mult > 1.2 ? "super" : mult < .8 ? "weak" : "hit");
     setBattleLog(`${effectSentence(mult)} ${read.label}. ${battle.enemy.actualName.toUpperCase()} lost ${damage} HP.`);
+    // Phase 1 — recordAnswer hook (battle: super-effective read = correct)
+    if (window.MrMacsProfile) {
+      try {
+        window.MrMacsProfile.recordAnswer({
+          course:  state.stats.course || "All Courses",
+          set:     battle.enemy.type || "Field Battle",
+          correct: wasStrong,
+          prompt:  battle.enemy.line || battle.enemy.actualName,
+          answer:  battle.enemy.actualName,
+          gameId:  "history-hunters-2"
+        });
+      } catch (e) {}
+    }
     writeSave();
     await wait(880);
     if (state.battle !== battle) return;
@@ -2456,6 +2491,11 @@
   let _lastEraClass = "";
   function updateEraClass() {
     if (state.mode !== "overworld") return;
+    // Phase 5: skip chromatic era-tint shimmer in lite mode
+    if (liteModeActive) {
+      if (_lastEraClass) { els.game.classList.remove(_lastEraClass); _lastEraClass = ""; }
+      return;
+    }
     const p = state.player;
     const region = REGIONS.find((r) =>
       p.gx >= r.gxRange[0] && p.gx <= r.gxRange[1] &&
@@ -3512,6 +3552,7 @@
   function contestTap() {
     if (!contestState.active || contestState.answered) return;
     contestState.answered = true;
+    if (els.contestTapBtn) { els.contestTapBtn.setAttribute("aria-pressed", "true"); setTimeout(() => els.contestTapBtn && els.contestTapBtn.setAttribute("aria-pressed", "false"), 200); }
     const phase = (performance.now() / 1000 * contestState.needleSpeed + contestState.needlePhase);
     const pos = (Math.sin(phase) + 1) / 2;
     const inZone = pos >= contestState.zoneLeft && pos <= contestState.zoneRight;
@@ -3526,7 +3567,7 @@
       contestState.confidence = clamp(contestState.confidence + gain, 0, 100);
       contestState.streak += 1;
       playSfx2("contestHit");
-      triggerShake(3, 180);
+      triggerShake(liteModeActive ? 1.5 : 3, 180); // Phase 5: halve shake in lite mode
       // Type-colored burst at needle position on meter
       const needleLeft = pos * 100;
       spawnContestHitBurst(needleLeft, "#77f0af");
@@ -3602,7 +3643,7 @@
 
   function spawnBurst(element, color) {
     if (!element || !els.contestBurst || PREFERS_REDUCED) return;
-    const count = 8;
+    const count = liteModeActive ? 6 : 8; // Phase 5: cap particles in lite mode
     for (let i = 0; i < count; i++) {
       const burst = document.createElement("span");
       burst.className = "contest-burst-dot";
@@ -3654,6 +3695,7 @@
           els.allianceDesc.textContent = al.flavor;
           const ready = eligible.some((e) => e.id === al.id) && !allianceOnCooldown(al.id);
           els.allianceActivateBtn.disabled = !ready || state.mode !== "alliance";
+          els.allianceActivateBtn.setAttribute("aria-pressed", (!ready || state.mode !== "alliance") ? "false" : "true");
           els.allianceActivateBtn.dataset.alliance = al.id;
         }
       });
@@ -4266,6 +4308,37 @@
       updateHud();
       writeSave();
       if (!hasStarter()) openStarterChoice();
+      // Phase 3 — First-run tour (fires once after first map load)
+      if (window.MrMacsArcadeTour) {
+        setTimeout(function () {
+          window.MrMacsArcadeTour.start("history-hunters-2", [
+            {
+              target: "#screen",
+              title: "Walk modern history",
+              body: "5 era zones — Industrial, Imperialism, World Wars, Cold War, Globalization. Each zone has its own roster + boss.",
+              placement: "auto"
+            },
+            {
+              target: "#battleActions",
+              title: "Alliances stack",
+              body: "Get both members of an alliance pair into your roster (FDR + Churchill, Marx + Engels...) to unlock duo moves.",
+              placement: "auto"
+            },
+            {
+              target: "#contestBtn",
+              title: "Speech Contest",
+              body: "Tap-rhythm side game. Hit the green window 3 rounds in a row for a Medal item.",
+              placement: "auto"
+            },
+            {
+              target: "#starterGrid",
+              title: "Figures evolve",
+              body: "Senator Lincoln → President Lincoln → Great Emancipator. Level up to unlock bigger stats and new moves.",
+              placement: "auto"
+            }
+          ]);
+        }, 900);
+      }
     });
     els.closeMenu.addEventListener("click", closeMenu);
     els.huntBtn.addEventListener("click", () => { closeMenu(); openBattle(makeAlly(nextQuestion()), false); });

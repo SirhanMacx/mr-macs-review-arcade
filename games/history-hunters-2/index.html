@@ -6,6 +6,7 @@
   <title>History Hunters 2: Atlas Quest</title>
   <link rel="icon" href="../../assets/history-hunters/recruit-seal.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css?v=20260505-sequel-pro">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260507-phase6">
 </head>
 <body>
   <main class="game" id="game">
@@ -83,7 +84,7 @@
     </section>
 
     <section class="battle-ui" id="battleUi" hidden>
-      <div class="battle-log" id="battleLog">A route echo appeared.</div>
+      <div class="battle-log" id="battleLog" aria-live="polite" aria-atomic="true">A route echo appeared.</div>
       <div class="battle-actions" id="battleActions"></div>
     </section>
 
@@ -103,7 +104,7 @@
         <div id="contestZone" class="contest-zone"></div>
         <div id="contestNeedle" class="contest-needle" aria-hidden="true"></div>
       </div>
-      <button id="contestTapBtn" type="button" class="contest-tap-btn" aria-label="Tap to match timing">TAP</button>
+      <button id="contestTapBtn" type="button" class="contest-tap-btn" aria-label="Tap to match timing" aria-pressed="false">TAP</button>
       <div id="contestBurst" class="contest-burst" aria-hidden="true"></div>
       <div class="contest-stats">
         <span>Confidence: <strong id="contestConfidence" aria-live="polite" aria-label="Confidence score">0</strong></span>
@@ -120,7 +121,7 @@
       </header>
       <p id="allianceDesc" class="alliance-desc">Pair two figures from your roster to unlock a duo move. Alliances are era- and ideology-based.</p>
       <div id="allianceList" class="alliance-list"></div>
-      <button id="allianceActivateBtn" class="alliance-activate-btn" type="button" disabled>Activate Alliance</button>
+      <button id="allianceActivateBtn" class="alliance-activate-btn" type="button" aria-pressed="false" disabled>Activate Alliance</button>
     </section>
 
     <section class="quest" id="quest" hidden>
@@ -156,6 +157,8 @@
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
   <script src="game.js?v=20260505-sequel-full-1"></script>
-<script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
+  <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
+  <script src="../../assets/arcade-perf.js?v=20260507-phase5"></script>
+  <script src="../../assets/arcade-tour.js?v=20260507-phase3"></script>
 </body>
 </html>
