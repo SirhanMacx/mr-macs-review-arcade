@@ -4124,6 +4124,69 @@ body {
   color: var(--muted, #9aa3bb);
   font-variant-numeric: tabular-nums;
 }
+.pd-tier {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, rgba(245, 196, 81, .08), rgba(122, 240, 255, .04));
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  flex-wrap: wrap;
+}
+.pd-tier-badge {
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 540;
+  font-size: 13px;
+  color: var(--gold, #f5c451);
+  letter-spacing: .005em;
+}
+.pd-tier-progress {
+  position: relative;
+  flex: 1; min-width: 80px;
+  height: 4px;
+  background: rgba(255, 255, 255, .06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.pd-tier-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold, #f5c451), var(--gold-warm, #ffd884));
+  border-radius: 999px;
+  transition: width .8s cubic-bezier(.18, .89, .32, 1.18);
+}
+.pd-tier-next {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--muted, #9aa3bb);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pd-tier-fill { transition: none; }
+}
+.pd-tier[data-tier="legendary"] .pd-tier-badge {
+  background: linear-gradient(120deg, #ff7cc8, #b892ff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.pd-tier[data-tier="mythic"] .pd-tier-fill {
+  background: linear-gradient(90deg, #ff7cc8, #b892ff);
+}
+.pd-tier[data-tier="legendary"] .pd-tier-fill {
+  background: linear-gradient(90deg, #ff7cc8, #f5c451, #b892ff);
+  animation: tierShimmer 4s linear infinite;
+}
+@keyframes tierShimmer {
+  0%   { background-position: 0% 0; }
+  100% { background-position: 200% 0; }
+}
+.pd-tier[data-tier="legendary"] .pd-tier-fill {
+  background-size: 200% 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pd-tier[data-tier="legendary"] .pd-tier-fill { animation: none; background: linear-gradient(90deg, #ff7cc8, #f5c451, #b892ff); }
+}
 .pd-stat strong {
   color: var(--paper);
   font-weight: 700;
@@ -5217,6 +5280,95 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   outline: none;
 }
 
+/* ── Recent achievements strip ──────────────────────────────────────── */
+.achievements-strip-band {
+  padding: clamp(20px, 3vh, 40px) 0 clamp(8px, 1vh, 18px);
+}
+.achievements-strip-band[hidden] { display: none; }
+.ach-strip-head {
+  display: flex; align-items: end; justify-content: space-between;
+  gap: 14px; margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.ach-strip-more {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 16px;
+  background: rgba(255, 124, 200, .10);
+  border: 1px solid rgba(255, 124, 200, .35);
+  border-radius: 999px;
+  color: #ff7cc8;
+  font: 700 12px/1 "Inter", sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .2s, background .2s, border-color .2s;
+}
+.ach-strip-more:hover, .ach-strip-more:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(255, 124, 200, .20);
+  border-color: rgba(255, 124, 200, .60);
+  outline: none;
+}
+.ach-strip-rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 260px);
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.ach-strip-card {
+  scroll-snap-align: start;
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(255, 124, 200, .14), transparent 55%),
+    linear-gradient(180deg, rgba(13, 17, 27, .82), rgba(8, 11, 20, .96));
+  border: 1px solid rgba(255, 124, 200, .35);
+  border-radius: 14px;
+  color: var(--paper);
+  text-align: left;
+  box-shadow: 0 12px 30px rgba(0,0,0,.32), 0 0 24px rgba(255, 124, 200, .08);
+  position: relative;
+  overflow: hidden;
+}
+.ach-strip-card[data-tier="silver"]   { border-color: rgba(189, 198, 215, .45); box-shadow: 0 12px 30px rgba(0,0,0,.32), 0 0 24px rgba(189, 198, 215, .12); }
+.ach-strip-card[data-tier="gold"]     { border-color: rgba(245, 196, 81, .45); box-shadow: 0 12px 30px rgba(0,0,0,.32), 0 0 24px rgba(245, 196, 81, .14); }
+.ach-strip-card[data-tier="legendary"]{
+  border-color: rgba(255, 124, 200, .55);
+  box-shadow: 0 12px 30px rgba(0,0,0,.32), 0 0 28px rgba(255, 124, 200, .22);
+}
+.ach-strip-card .as-icon {
+  display: grid; place-items: center;
+  width: 44px; height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 124, 200, .22), rgba(184, 146, 255, .12));
+  color: #ff7cc8;
+}
+.ach-strip-card[data-tier="silver"] .as-icon { color: #d6dcef; background: linear-gradient(135deg, rgba(189, 198, 215, .22), rgba(255, 255, 255, .06)); }
+.ach-strip-card[data-tier="gold"]   .as-icon { color: #ffd884; background: linear-gradient(135deg, rgba(245, 196, 81, .22), rgba(255, 216, 132, .10)); }
+.ach-strip-card .as-icon .ic { width: 22px; height: 22px; vertical-align: 0; }
+.ach-strip-card .as-text { flex: 1; min-width: 0; }
+.ach-strip-card .as-title {
+  display: block;
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 540;
+  font-size: 14.5px; line-height: 1.15;
+  color: var(--paper);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ach-strip-card .as-meta {
+  display: block;
+  margin-top: 3px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  font-variant-numeric: tabular-nums;
+}
+
 /* ── Scroll progress indicator (top of page) ─────────────────────────── */
 .scroll-progress {
   position: fixed;
@@ -5282,6 +5434,11 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
             <div class="pd-name-line">
               <input type="text" class="pd-name-input" id="pdNameInput" maxlength="24" aria-label="Trainer name">
               <button class="pd-name-save" id="pdNameSave" type="button">Save</button>
+            </div>
+            <div class="pd-tier" id="pdTier" aria-label="Player tier">
+              <span class="pd-tier-badge" id="pdTierBadge">Apprentice</span>
+              <span class="pd-tier-progress" aria-hidden="true"><span class="pd-tier-fill" id="pdTierFill" style="width:0%"></span></span>
+              <span class="pd-tier-next" id="pdTierNext"></span>
             </div>
             <div class="pd-stat-line">
               <span class="pd-stat" data-icon="diamond" title="Shards earned"><strong id="pdShards">0</strong> <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3 L17.5 3 L21.5 9 L12 21 L2.5 9 Z"/><line x1="2.5" y1="9" x2="21.5" y2="9"/><line x1="6.5" y1="3" x2="9" y2="9"/><line x1="9" y1="9" x2="12" y2="21"/><line x1="17.5" y1="3" x2="15" y2="9"/><line x1="15" y1="9" x2="12" y2="21"/></svg> shards</span>
@@ -5501,6 +5658,18 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         <span class="daily-status" id="dailyStatus"></span>
       </div>
     </div>
+  </section>
+
+  <!-- Recent achievements strip (visible only when user has unlocks) -->
+  <section class="band achievements-strip-band" id="achievementsStrip" aria-label="Recently unlocked achievements" hidden>
+    <div class="ach-strip-head">
+      <div>
+        <div class="band-eyebrow">Trophy Case</div>
+        <h2 class="band-title">Recently <em>unlocked</em>.</h2>
+      </div>
+      <button class="ach-strip-more" id="achStripMore" type="button" aria-label="See all achievements">See all<span aria-hidden="true">→</span></button>
+    </div>
+    <div class="ach-strip-rail" id="achStripRail" role="list"></div>
   </section>
 
   <!-- Phase 7: Smart Content Routing -->
@@ -7240,6 +7409,24 @@ boot();
       pill.classList.add("is-burst");
       setTimeout(function () { pill && pill.classList.remove("is-burst"); }, 1300);
     }
+    // Live-update tier in drawer (if open) and detect tier-up moments
+    if (e && e.detail) {
+      var newShards = (typeof e.detail.total === "number") ? e.detail.total : (P.get().shards || 0);
+      var delta = (typeof e.detail.delta === "number") ? e.detail.delta : 0;
+      var oldShards = Math.max(0, newShards - delta);
+      var oldTier = getTier(oldShards);
+      var newTier = getTier(newShards);
+      if (drawer && !drawer.hidden) refreshTier(P.get());
+      if (oldTier.key !== newTier.key && delta > 0 && window.MrMacsToast) {
+        window.MrMacsToast.push({
+          icon: "crown",
+          title: "Tier up: " + newTier.name,
+          sub: "you've climbed to the next rung",
+          tone: "achievement",
+          ms: 5200
+        });
+      }
+    }
   });
   P.on("streak:advance", updatePill);
   P.on("settings:change", function (e) { applySettingsToBody(e.detail.settings); });
@@ -7419,6 +7606,54 @@ boot();
     }
   });
 
+  // Shard-tier ladder. Pure derive — no storage migration needed.
+  // Returns { name, key, current, threshold, next, ratio }
+  function getTier(shards) {
+    var s = Math.max(0, Math.floor(shards || 0));
+    var ladder = [
+      { key: "apprentice", name: "Apprentice", at: 0,     to: 100 },
+      { key: "scholar",    name: "Scholar",    at: 100,   to: 500 },
+      { key: "master",     name: "Master",     at: 500,   to: 2000 },
+      { key: "sage",       name: "Sage",       at: 2000,  to: 5000 },
+      { key: "mythic",     name: "Mythic",     at: 5000,  to: 15000 },
+      { key: "legendary",  name: "Legendary",  at: 15000, to: Infinity }
+    ];
+    for (var i = ladder.length - 1; i >= 0; i--) {
+      if (s >= ladder[i].at) {
+        var rung = ladder[i];
+        var span = (rung.to === Infinity) ? Math.max(1, s - rung.at) : (rung.to - rung.at);
+        var into = s - rung.at;
+        var ratio = (rung.to === Infinity) ? 1 : Math.min(1, into / span);
+        return {
+          key: rung.key,
+          name: rung.name,
+          current: s,
+          threshold: rung.at,
+          next: rung.to === Infinity ? null : rung.to,
+          ratio: ratio
+        };
+      }
+    }
+    return { key: "apprentice", name: "Apprentice", current: s, threshold: 0, next: 100, ratio: 0 };
+  }
+
+  function refreshTier(profile) {
+    var tier = getTier(profile.shards);
+    var el = document.getElementById("pdTier");
+    var bd = document.getElementById("pdTierBadge");
+    var fl = document.getElementById("pdTierFill");
+    var nx = document.getElementById("pdTierNext");
+    if (!el) return;
+    el.dataset.tier = tier.key;
+    if (bd) bd.textContent = tier.name;
+    if (fl) fl.style.width = (tier.ratio * 100).toFixed(1) + "%";
+    if (nx) {
+      nx.textContent = tier.next == null
+        ? "max tier"
+        : ((tier.next - tier.current).toLocaleString() + " to next");
+    }
+  }
+
   function refreshDrawer() {
     var profile = P.get();
     if (pdAvatar) pdAvatar.innerHTML = renderIcon(profile.avatar || "🎓");
@@ -7426,6 +7661,7 @@ boot();
     if (pdShards) pdShards.textContent = profile.shards.toLocaleString();
     if (pdStreak) pdStreak.textContent = profile.streak.current || 0;
     if (pdStreakBest) pdStreakBest.textContent = profile.streak.best || 0;
+    refreshTier(profile);
 
     var ach = P.listAchievements();
     var unlocked = ach.filter(function (a) { return a.unlocked; }).length;
@@ -7826,15 +8062,84 @@ boot();
     bar.hidden = false;
   }
 
+  // ---- Recent achievements strip (Trophy Case) ----
+  function renderRecentAchievements() {
+    var band = document.getElementById("achievementsStrip");
+    var rail = document.getElementById("achStripRail");
+    if (!band || !rail || !window.MrMacsProfile) return;
+    var ach = window.MrMacsProfile.listAchievements();
+    var unlocked = ach
+      .filter(function (a) { return a.unlocked; })
+      .sort(function (a, b) { return (b.unlockedAt || 0) - (a.unlockedAt || 0); })
+      .slice(0, 6);
+    if (!unlocked.length) {
+      band.hidden = true;
+      return;
+    }
+    var renderIcon = function (emojiOrName) {
+      if (!emojiOrName) return "";
+      if (window.MrMacsIcons) {
+        if (window.MrMacsIcons.has(emojiOrName)) return window.MrMacsIcons.svg(emojiOrName);
+        var fromE = window.MrMacsIcons.fromEmoji(emojiOrName);
+        if (fromE) return fromE;
+      }
+      return "";
+    };
+    rail.innerHTML = unlocked.map(function (a) {
+      var def = a.def || {};
+      var tier = def.tier || "bronze";
+      var when = "";
+      if (a.unlockedAt) {
+        var diff = Date.now() - a.unlockedAt;
+        var min = Math.floor(diff / 60000);
+        var hour = Math.floor(min / 60);
+        var day = Math.floor(hour / 24);
+        if (day > 0) when = day + "d ago";
+        else if (hour > 0) when = hour + "h ago";
+        else if (min > 0) when = min + "m ago";
+        else when = "just now";
+      }
+      var safe = function (v) { return String(v || "").replace(/[<>&]/g, function (c) {
+        return c === "<" ? "&lt;" : c === ">" ? "&gt;" : "&amp;";
+      }); };
+      return '<div class="ach-strip-card" role="listitem" data-tier="' + safe(tier) + '">' +
+        '<span class="as-icon" aria-hidden="true">' + renderIcon(def.icon || "🏆") + '</span>' +
+        '<span class="as-text">' +
+          '<strong class="as-title">' + safe(def.title || "Achievement") + '</strong>' +
+          '<span class="as-meta">' + safe(tier).toUpperCase() + ' · ' + safe(when) + '</span>' +
+        '</span>' +
+      '</div>';
+    }).join("");
+    band.hidden = false;
+  }
+
+  // Wire "See all" button
+  var achStripMore = document.getElementById("achStripMore");
+  if (achStripMore) {
+    achStripMore.addEventListener("click", function () {
+      // Open profile drawer + scroll to achievements section
+      var pillBtn = document.getElementById("profilePill");
+      if (pillBtn) pillBtn.click();
+      // After drawer opens, scroll within drawer to achievements
+      setTimeout(function () {
+        var sect = document.querySelector(".pd-section-achievements");
+        if (sect) sect.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 360);
+    });
+  }
+
   // ---- Wire everything once GAMES is ready ----
   whenGamesReady().then(function () {
     renderDaily();
     renderContinue();
+    renderRecentAchievements();
     wireRandom();
     renderTopicChips();
-    // Keep the continue rail in sync with profile updates
+    // Keep the continue rail + achievements strip in sync with profile updates
     if (window.MrMacsProfile) {
       window.MrMacsProfile.on("profile:update", renderContinue);
+      window.MrMacsProfile.on("achievement:unlock", renderRecentAchievements);
+      window.MrMacsProfile.on("profile:create", renderRecentAchievements);
     }
   });
 })();
