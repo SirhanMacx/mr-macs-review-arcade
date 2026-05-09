@@ -1228,15 +1228,63 @@ textarea:focus-visible {
 
 .empty {
   grid-column: 1 / -1;
-  padding: 60px 30px;
+  padding: 56px 30px;
   text-align: center;
   color: var(--muted);
   font-family: var(--font-display);
   font-style: normal;
-  font-size: 22px;
+  font-size: 18px;
+  line-height: 1.45;
   border: 1px dashed var(--line-2);
-  border-radius: 8px;
+  border-radius: 14px;
+  background:
+    radial-gradient(60% 80% at 50% 0%, rgba(245, 196, 81, .05), transparent 70%),
+    rgba(13, 17, 27, .35);
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
 }
+.empty .empty-ic {
+  display: grid; place-items: center;
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(245, 196, 81, .14), rgba(122, 240, 255, .08));
+  color: rgba(245, 196, 81, .68);
+  margin-bottom: 4px;
+}
+.empty .empty-ic .ic { width: 28px; height: 28px; vertical-align: 0; }
+.empty .empty-title {
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 540;
+  font-size: 22px; line-height: 1.15;
+  color: var(--paper, #f0f3fa);
+  margin: 0;
+}
+.empty .empty-sub {
+  font-family: "Inter", sans-serif;
+  font-style: normal; font-weight: 400;
+  font-size: 13.5px; line-height: 1.5;
+  color: var(--muted);
+  max-width: 38ch;
+  margin: 0;
+}
+.empty .empty-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px;
+  background: rgba(245, 196, 81, .12);
+  border: 1px solid rgba(245, 196, 81, .42);
+  border-radius: 999px;
+  color: #f5c451;
+  font: 700 12.5px/1 "Inter", sans-serif;
+  letter-spacing: .03em; text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .2s, background .2s, border-color .2s;
+}
+.empty .empty-cta:hover, .empty .empty-cta:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(245, 196, 81, .22);
+  border-color: rgba(245, 196, 81, .65);
+  outline: none;
+}
+.empty .empty-cta .ic { width: 13px; height: 13px; vertical-align: 0; }
 
 /* ============== Footer ============== */
 .footer {
@@ -5910,6 +5958,44 @@ function initFilters() {
     state.libraryExpanded = true;
     render();
   });
+
+  // Empty-state CTA delegations: clearing filters when there are no results
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest && event.target.closest("button, a");
+    if (!target) return;
+    if (target.id === "jeopardyResetBtn") {
+      jeopardyState.course = "All Courses";
+      jeopardyState.subject = "All Subjects";
+      jeopardyState.query = "";
+      const c = document.getElementById("jeopardyCourseSelect");
+      const s = document.getElementById("jeopardySubjectSelect");
+      const q = document.getElementById("jeopardySearch");
+      if (c) c.value = "All Courses";
+      if (s) s.value = "All Subjects";
+      if (q) q.value = "";
+      if (typeof renderJeopardyModes === "function") renderJeopardyModes();
+    }
+    if (target.id === "libraryResetBtn") {
+      state.query = "";
+      state.lane = "all";
+      state.course = "All Courses";
+      state.subject = "All Subjects";
+      state.type = "All Game Types";
+      const search = document.getElementById("search");
+      const cf = document.getElementById("courseFilter");
+      const sf = document.getElementById("subjectFilter");
+      const tf = document.getElementById("typeFilter");
+      if (search) search.value = "";
+      if (cf) cf.value = "All Courses";
+      if (sf) sf.value = "All Subjects";
+      if (tf) tf.value = "All Game Types";
+      // Reset lane tab visual state
+      document.querySelectorAll("#laneTabs .lane-tab").forEach((b) => {
+        b.classList.toggle("active", b.dataset.lane === "all");
+      });
+      render();
+    }
+  });
 }
 function searchable(game) {
   return [game.title, game.subtitle, game.day, game.course, game.subject, normalizedSubject(game.subject), game.grade, game.gameType, displayGameType(game), game.originalFile].concat(game.categories || [], game.tags || []).join(" ").toLowerCase();
@@ -6414,7 +6500,14 @@ function renderSmartMenu() {
   summary.innerHTML =
     '<span><strong>' + games.length + '</strong> picks · ' + escapeHtml(lane.summary) + '</span>' +
     '<button class="action compact" type="button" data-smart-more>See More</button>';
-  grid.innerHTML = games.length ? games.map(smartCard).join("") : '<div class="empty">No picks yet. Start with Recommended or clear a filter.</div>';
+  grid.innerHTML = games.length ? games.map(smartCard).join("") : (
+    '<div class="empty" role="status">' +
+      '<span class="empty-ic" aria-hidden="true">' + ((window.MrMacsIcons && window.MrMacsIcons.svg("compass")) || "") + '</span>' +
+      '<p class="empty-title">No picks yet</p>' +
+      '<p class="empty-sub">Try clearing a course filter, switching tabs, or hit Recommended on the hero.</p>' +
+      '<a class="empty-cta" href="#launch-paths">Start Recommended ' + ((window.MrMacsIcons && window.MrMacsIcons.svg("arrow-right")) || "→") + '</a>' +
+    '</div>'
+  );
   tabs.querySelectorAll("[data-smart-lane]").forEach((button) => {
     button.addEventListener("click", () => {
       smartMenuLane = button.dataset.smartLane;
@@ -6470,7 +6563,14 @@ function renderJeopardyModes() {
   container.innerHTML = preview.length ? preview.map((game) => {
     const board = { ...game, gameType: "Jeopardy", day: jeopardyBoardMeta(game), subtitle: game.subtitle || game.course };
     return buttonCard(board, null, "focus-card");
-  }).join("") : '<div class="empty">No Jeopardy boards match those filters.</div>';
+  }).join("") : (
+    '<div class="empty" role="status">' +
+      '<span class="empty-ic" aria-hidden="true">' + ((window.MrMacsIcons && window.MrMacsIcons.svg("mind")) || "") + '</span>' +
+      '<p class="empty-title">No Jeopardy boards match</p>' +
+      '<p class="empty-sub">Loosen the course or subject filter, or clear the search box to see all boards.</p>' +
+      '<button class="empty-cta" type="button" id="jeopardyResetBtn">Reset filters ' + ((window.MrMacsIcons && window.MrMacsIcons.svg("arrow-right")) || "→") + '</button>' +
+    '</div>'
+  );
   container.querySelectorAll(".focus-card").forEach((button) => {
     button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
   });
@@ -6692,7 +6792,14 @@ function render() {
   countLabel.textContent = limited
     ? visibleGames.length + " of " + games.length + " games showing"
     : games.length + (games.length === 1 ? " game showing" : " games showing");
-  grid.innerHTML = visibleGames.length ? visibleGames.map(card).join("") : '<div class="empty">No missions match that search. Clear a filter or search a different term.</div>';
+  grid.innerHTML = visibleGames.length ? visibleGames.map(card).join("") : (
+    '<div class="empty" role="status">' +
+      '<span class="empty-ic" aria-hidden="true">' + ((window.MrMacsIcons && window.MrMacsIcons.svg("explorer")) || "") + '</span>' +
+      '<p class="empty-title">No missions match that search</p>' +
+      '<p class="empty-sub">Try a broader keyword, clear the lane filter, or open the Random pick on the right.</p>' +
+      '<button class="empty-cta" type="button" id="libraryResetBtn">Clear filters ' + ((window.MrMacsIcons && window.MrMacsIcons.svg("arrow-right")) || "→") + '</button>' +
+    '</div>'
+  );
   const libraryActions = document.getElementById("libraryActions");
   const showAllLibraryBtn = document.getElementById("showAllLibraryBtn");
   if (libraryActions && showAllLibraryBtn) {
@@ -6971,7 +7078,14 @@ async function boot() {
   } catch (error) {
     console.error(error);
     document.getElementById("countLabel").textContent = "Games failed to load";
-    grid.innerHTML = '<div class="empty">Game library could not load. Refresh the page.</div>';
+    grid.innerHTML = (
+      '<div class="empty" role="alert">' +
+        '<span class="empty-ic" aria-hidden="true">' + ((window.MrMacsIcons && window.MrMacsIcons.svg("warning")) || "") + '</span>' +
+        '<p class="empty-title">Game library couldn\'t load</p>' +
+        '<p class="empty-sub">Your browser had a hiccup pulling the catalog. A refresh usually fixes it.</p>' +
+        '<button class="empty-cta" type="button" onclick="location.reload()">Refresh page ' + ((window.MrMacsIcons && window.MrMacsIcons.svg("arrow-right")) || "→") + '</button>' +
+      '</div>'
+    );
   }
 }
 
