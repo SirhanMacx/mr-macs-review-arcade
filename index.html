@@ -3734,7 +3734,11 @@ body {
   border-radius: 50%;
   background: linear-gradient(140deg, rgba(245,196,81,.20), rgba(122,240,255,.18));
   font-size: 19px; line-height: 1;
+  color: #f5c451;
 }
+.profile-pill .pp-avatar .ic { width: 18px; height: 18px; vertical-align: 0; }
+.profile-pill .pp-shards .ic { width: 11px; height: 11px; vertical-align: -0.13em; margin-right: 2px; }
+.profile-pill .pp-streak .ic { width: 11px; height: 11px; vertical-align: -0.13em; margin-right: 2px; }
 .profile-pill .pp-text {
   display: inline-flex; flex-direction: column; gap: 1px;
   text-align: left; min-width: 0;
@@ -3887,13 +3891,16 @@ body {
   border: 2px solid transparent;
   border-radius: 10px;
   font-size: 22px;
+  color: #d6dcef;
   cursor: pointer;
-  transition: transform .15s, background .15s, border-color .15s;
+  transition: transform .15s, background .15s, border-color .15s, color .15s;
 }
-.welcome-avatar-btn:hover { background: rgba(255,255,255,.10); transform: scale(1.06); }
+.welcome-avatar-btn:hover { background: rgba(255,255,255,.10); transform: scale(1.06); color: #f5c451; }
+.welcome-avatar-btn .ic { width: 28px; height: 28px; vertical-align: 0; }
 .welcome-avatar-btn[aria-checked="true"] {
   border-color: #f5c451;
   background: rgba(245, 196, 81, .18);
+  color: #f5c451;
   box-shadow: 0 0 18px rgba(245, 196, 81, .25);
 }
 .welcome-cta {
@@ -4077,13 +4084,16 @@ body {
   border: 2px solid transparent;
   border-radius: 8px;
   font-size: 18px;
+  color: #d6dcef;
   cursor: pointer;
-  transition: transform .15s, background .15s, border-color .15s;
+  transition: transform .15s, background .15s, border-color .15s, color .15s;
 }
-.pd-avatar-btn:hover { background: rgba(255,255,255,.10); transform: scale(1.05); }
+.pd-avatar-btn:hover { background: rgba(255,255,255,.10); transform: scale(1.05); color: #f5c451; }
+.pd-avatar-btn .ic { width: 22px; height: 22px; vertical-align: 0; }
 .pd-avatar-btn[aria-checked="true"] {
   border-color: #f5c451;
   background: rgba(245, 196, 81, .16);
+  color: #f5c451;
 }
 
 /* Achievements grid */
@@ -4115,7 +4125,14 @@ body {
 .pd-ach .ach-icon {
   font-size: 20px; line-height: 1;
   flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  color: var(--gold-2, #ffd884);
 }
+.pd-ach[data-tier="silver"] .ach-icon    { color: #d6dcef; }
+.pd-ach[data-tier="gold"] .ach-icon      { color: #ffd884; }
+.pd-ach[data-tier="legendary"] .ach-icon { color: #ff7cc8; }
+.pd-ach .ach-icon .ic { width: 22px; height: 22px; vertical-align: 0; }
 .pd-ach .ach-text { flex: 1; min-width: 0; }
 .pd-ach .ach-title {
   font-family: "Fraunces", serif;
@@ -4918,6 +4935,73 @@ body.cb-deuteranope .ce { filter: hue-rotate(-12deg) saturate(.85); }
 body.cb-protanope   .ce { filter: hue-rotate(8deg) saturate(.85); }
 body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 
+/* ── Monoline icon system ────────────────────────────────────────────
+   Replaces color emojis across the hub + drawer with editorial-style
+   monoline SVGs (see assets/arcade-icons.js). Every icon inherits its
+   color through currentColor and scales with the parent container. */
+.ic {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.16em;
+  flex-shrink: 0;
+  color: currentColor;
+  fill: none;
+}
+.ic path,
+.ic line,
+.ic polyline,
+.ic polygon,
+.ic rect,
+.ic circle,
+.ic ellipse {
+  vector-effect: non-scaling-stroke;
+}
+
+/* Override container font-size where the SVG sits as the visual */
+.daily-icon .ic       { width: 28px; height: 28px; vertical-align: 0; color: var(--gold-2, #ffd884); }
+.routing-card .ic     { width: 22px; height: 22px; vertical-align: 0; color: var(--cyan, #7af0ff); }
+.library-random .ic   { width: 14px; height: 14px; vertical-align: 0; color: var(--gold, #f5c451); }
+.pd-identity-avatar .ic { width: 32px; height: 32px; vertical-align: 0; color: var(--gold, #f5c451); }
+.pd-stat .ic          { width: 13px; height: 13px; vertical-align: -0.18em; margin-right: 1px; color: var(--gold-2, #ffd884); }
+.pd-stat[data-icon="diamond"] .ic { color: #7af0ff; }
+.pd-stat[data-icon="flame"] .ic   { color: #ff6f5a; }
+.pd-stat[data-icon="trophy"] .ic  { color: #f5c451; }
+.diag-rec .ic         { width: 22px; height: 22px; color: var(--gold, #f5c451); }
+.daily-icon .ic[data-icon="bolt"]    { color: #f6d35a; }
+.daily-icon .ic[data-icon="flame"]   { color: #ff6f5a; }
+.daily-icon .ic[data-icon="memo"]    { color: #b6c2db; }
+.daily-icon .ic[data-icon="mind"]    { color: #c9b8ff; }
+.daily-icon .ic[data-icon="swords"]  { color: #7af0ff; }
+.ach-icon .ic         { width: 22px; height: 22px; color: currentColor; }
+/* Per-routing-card tint (cyan diagnostic, gold mastery, coral wrong-queue, indigo cram) */
+.routing-card#rcDiagnostic .ic  { color: #7af0ff; }
+.routing-card#rcMastery .ic     { color: #ffd884; }
+.routing-card#rcWrongQueue .ic  { color: #ff8e6f; }
+.routing-card#rcCram .ic        { color: #c9b8ff; }
+.routing-card#rcDiagnostic { background: linear-gradient(180deg, rgba(122,240,255,.05), rgba(13,17,27,.65)); border-color: rgba(122,240,255,.22); }
+.routing-card#rcMastery    { background: linear-gradient(180deg, rgba(255,216,132,.05), rgba(13,17,27,.65)); border-color: rgba(255,216,132,.22); }
+.routing-card#rcWrongQueue { background: linear-gradient(180deg, rgba(255,142,111,.05), rgba(13,17,27,.65)); border-color: rgba(255,142,111,.22); }
+.routing-card#rcCram       { background: linear-gradient(180deg, rgba(201,184,255,.05), rgba(13,17,27,.65)); border-color: rgba(201,184,255,.22); }
+.routing-card .rc-icon { color: inherit; }
+/* Daily icon ambient pulse when the challenge is unfinished */
+.daily-card:not(.is-done) .daily-icon { animation: dailyIconPulse 4.6s ease-in-out infinite; }
+@keyframes dailyIconPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 196, 81, 0); }
+  50%      { box-shadow: 0 0 0 6px rgba(245, 196, 81, .14); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .daily-card:not(.is-done) .daily-icon { animation: none; }
+}
+
+/* Smooth hover micro-interactions on key icons */
+.library-random:hover .ic     { transform: rotate(180deg) scale(1.06); transition: transform .35s ease; }
+.routing-card:hover .ic       { transform: translateY(-1px); transition: transform .25s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .library-random:hover .ic,
+  .routing-card:hover .ic { transform: none; }
+}
+
 </style>
 </head>
 <body>
@@ -4959,16 +5043,16 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     <div class="pd-body">
       <section class="pd-section pd-identity">
         <div class="pd-identity-row">
-          <span class="pd-identity-avatar" id="pdAvatar" aria-hidden="true">🎓</span>
+          <span class="pd-identity-avatar" id="pdAvatar" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9 L12 4.5 L21.5 9 L12 13.5 Z"/><path d="M6 11 L6 16 C6 17.2 9 18 12 18 C15 18 18 17.2 18 16 L18 11"/><path d="M21.5 9 L21.5 14"/></svg></span>
           <div class="pd-identity-text">
             <div class="pd-name-line">
               <input type="text" class="pd-name-input" id="pdNameInput" maxlength="24" aria-label="Trainer name">
               <button class="pd-name-save" id="pdNameSave" type="button">Save</button>
             </div>
             <div class="pd-stat-line">
-              <span class="pd-stat" title="Shards earned"><strong id="pdShards">0</strong> 💎 shards</span>
-              <span class="pd-stat" title="Daily streak"><strong id="pdStreak">0</strong> 🔥 streak (best <span id="pdStreakBest">0</span>)</span>
-              <span class="pd-stat" title="Achievements unlocked"><strong id="pdAchCount">0</strong> / <span id="pdAchTotal">0</span> 🏆 achievements</span>
+              <span class="pd-stat" data-icon="diamond" title="Shards earned"><strong id="pdShards">0</strong> <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3 L17.5 3 L21.5 9 L12 21 L2.5 9 Z"/><line x1="2.5" y1="9" x2="21.5" y2="9"/><line x1="6.5" y1="3" x2="9" y2="9"/><line x1="9" y1="9" x2="12" y2="21"/><line x1="17.5" y1="3" x2="15" y2="9"/><line x1="15" y1="9" x2="12" y2="21"/></svg> shards</span>
+              <span class="pd-stat" data-icon="flame" title="Daily streak"><strong id="pdStreak">0</strong> <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5 C8.4 21.5 5.5 18.8 5.5 14.7 C5.5 11.5 8 9 8 6 C9.4 7.8 10.6 8.7 10.6 11.4 C11.6 9.6 12.6 8.2 13.5 6 C14.5 8 17.5 10.5 17.5 14.7 C17.5 18.8 15.4 21.5 12 21.5 Z"/><path d="M12 21.5 C10.5 20.7 9.3 19.1 9.3 17.3 C9.3 15.6 10.6 14.3 12 13 C13.4 14.3 14.7 15.6 14.7 17.3 C14.7 19.1 13.4 20.7 12 21.5 Z" fill="currentColor" fill-opacity="0.25" stroke="none"/></svg> streak (best <span id="pdStreakBest">0</span>)</span>
+              <span class="pd-stat" data-icon="trophy" title="Achievements unlocked"><strong id="pdAchCount">0</strong> / <span id="pdAchTotal">0</span> <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4 L17 4 L17 9 C17 12.5 14.7 14.5 12 14.5 C9.3 14.5 7 12.5 7 9 Z"/><path d="M7 6 L4 6 C4 9 5 11 7 11"/><path d="M17 6 L20 6 C20 9 19 11 17 11"/><line x1="12" y1="14.5" x2="12" y2="18"/><path d="M9 18 L15 18 L15 20.5 L9 20.5 Z"/></svg> achievements</span>
             </div>
           </div>
         </div>
@@ -5063,12 +5147,12 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       <a href="#library">Library</a>
     </nav>
     <button class="profile-pill" id="profilePill" type="button" aria-label="Open trainer profile" aria-expanded="false">
-      <span class="pp-avatar" id="ppAvatar" aria-hidden="true">🎓</span>
+      <span class="pp-avatar" id="ppAvatar" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9 L12 4.5 L21.5 9 L12 13.5 Z"/><path d="M6 11 L6 16 C6 17.2 9 18 12 18 C15 18 18 17.2 18 16 L18 11"/><path d="M21.5 9 L21.5 14"/></svg></span>
       <span class="pp-text">
         <span class="pp-name" id="ppName">Sign in</span>
         <span class="pp-meta">
-          <span class="pp-shards" id="ppShards" title="Shards earned">💎 0</span>
-          <span class="pp-streak" id="ppStreak" title="Daily streak">🔥 0</span>
+          <span class="pp-shards" id="ppShards" title="Shards earned"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3 L17.5 3 L21.5 9 L12 21 L2.5 9 Z"/><line x1="2.5" y1="9" x2="21.5" y2="9"/><line x1="6.5" y1="3" x2="9" y2="9"/><line x1="9" y1="9" x2="12" y2="21"/><line x1="17.5" y1="3" x2="15" y2="9"/><line x1="15" y1="9" x2="12" y2="21"/></svg> <span class="pp-shards-num">0</span></span>
+          <span class="pp-streak" id="ppStreak" title="Daily streak"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5 C8.4 21.5 5.5 18.8 5.5 14.7 C5.5 11.5 8 9 8 6 C9.4 7.8 10.6 8.7 10.6 11.4 C11.6 9.6 12.6 8.2 13.5 6 C14.5 8 17.5 10.5 17.5 14.7 C17.5 18.8 15.4 21.5 12 21.5 Z"/></svg> <span class="pp-streak-num">0</span></span>
         </span>
       </span>
     </button>
@@ -5137,7 +5221,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         <strong class="daily-date" id="dailyDate"></strong>
       </div>
       <div class="daily-body">
-        <span class="daily-icon" id="dailyIcon" aria-hidden="true">🎯</span>
+        <span class="daily-icon" id="dailyIcon" aria-hidden="true" data-icon="target"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
         <div class="daily-text">
           <div class="daily-title" id="dailyTitle">Loading…</div>
           <div class="daily-sub" id="dailySub"></div>
@@ -5164,22 +5248,22 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     </div>
     <div class="routing-grid">
       <button class="routing-card" id="rcDiagnostic" type="button">
-        <span class="rc-icon" aria-hidden="true">🩺</span>
+        <span class="rc-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2.5,12 6.5,12 9,7 12,17 14.5,9.5 16.5,12 21.5,12"/></svg></span>
         <span class="rc-title">Diagnostic</span>
         <span class="rc-sub" id="rcDiagSub">8 questions, ~2 minutes</span>
       </button>
       <button class="routing-card" id="rcMastery" type="button">
-        <span class="rc-icon" aria-hidden="true">📊</span>
+        <span class="rc-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="20" x2="5" y2="13"/><line x1="12" y1="20" x2="12" y2="8"/><line x1="19" y1="20" x2="19" y2="4"/><line x1="3" y1="22" x2="21" y2="22"/></svg></span>
         <span class="rc-title">Mastery Map</span>
         <span class="rc-sub" id="rcMasterySub">Track every unit</span>
       </button>
       <button class="routing-card" id="rcWrongQueue" type="button">
-        <span class="rc-icon" aria-hidden="true">🎯</span>
+        <span class="rc-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
         <span class="rc-title">Wrong-Answer Queue</span>
         <span class="rc-sub" id="rcWrongSub">0 in queue</span>
       </button>
       <button class="routing-card" id="rcCram" type="button">
-        <span class="rc-icon" aria-hidden="true">📚</span>
+        <span class="rc-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="5.5" height="14" rx="0.6"/><rect x="10" y="3" width="5.5" height="17" rx="0.6"/><path d="M17.5 7.5 L21 8.4 L18.5 21 L15.6 20.2 Z"/></svg></span>
         <span class="rc-title">Cram Playlist</span>
         <span class="rc-sub" id="rcCramSub">Chain 4 games on a unit</span>
       </button>
@@ -5341,7 +5425,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       <div class="library-meta">
         <span class="count-pill" id="countLabel"></span>
         <button class="library-random" id="libraryRandom" type="button" aria-label="Open a random game">
-          <span class="lr-icon" aria-hidden="true">🎲</span>
+          <span class="lr-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16,3 21,3 21,8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21,16 21,21 16,21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></span>
           <span class="lr-text">Random</span>
         </button>
       </div>
@@ -5434,6 +5518,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-profile.js?v=20260507-phase1"></script>
 <script src="assets/arcade-perf.js?v=20260507-phase5"></script>
 <script src="assets/arcade-tour.js?v=20260507-phase3"></script>
+<script src="assets/arcade-icons.js?v=20260509-icons"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
@@ -6747,6 +6832,28 @@ boot();
   if (!window.MrMacsProfile) return;
   var P = window.MrMacsProfile;
 
+  // ---- Icon rendering (emoji → monoline SVG, with safe fallback) ----
+  // Avatars and achievement icons are stored as legacy emoji glyphs for
+  // forward-compat with older saved profiles. We render them as SVG if
+  // window.MrMacsIcons knows the emoji, otherwise we render the raw glyph.
+  function renderIcon(emoji, opts) {
+    if (!emoji) return "";
+    if (window.MrMacsIcons && typeof window.MrMacsIcons.fromEmoji === "function") {
+      var svg = window.MrMacsIcons.fromEmoji(emoji);
+      if (svg) {
+        if (opts && opts.dataIcon) {
+          var name = window.MrMacsIcons.EMOJI_MAP[emoji];
+          return svg.replace('<svg class="ic"', '<svg class="ic" data-icon="' + name + '"');
+        }
+        return svg;
+      }
+    }
+    // Fallback — escape just in case
+    return String(emoji).replace(/[<>&]/g, function (c) {
+      return c === "<" ? "&lt;" : c === ">" ? "&gt;" : "&amp;";
+    });
+  }
+
   // ---- Body-class application for settings (font / contrast / colorblind) ----
   function applySettingsToBody(s) {
     s = s || P.getSettings();
@@ -6771,18 +6878,20 @@ boot();
     var profile = P.get();
     var hasProfile = P.exists();
     pill.dataset.empty = hasProfile ? "false" : "true";
+    var diamondSvg = renderIcon("💎");
+    var flameSvg = renderIcon("🔥");
     if (hasProfile) {
-      ppAvatar.textContent = profile.avatar || "🎓";
+      if (ppAvatar) ppAvatar.innerHTML = renderIcon(profile.avatar || "🎓");
       ppName.textContent = profile.name;
-      ppShards.textContent = "💎 " + profile.shards.toLocaleString();
+      ppShards.innerHTML = diamondSvg + ' <span class="pp-shards-num">' + profile.shards.toLocaleString() + '</span>';
       var streakNum = profile.streak.current || 0;
-      ppStreak.textContent = "🔥 " + streakNum;
+      ppStreak.innerHTML = flameSvg + ' <span class="pp-streak-num">' + streakNum + '</span>';
       ppStreak.classList.toggle("is-zero", streakNum < 1);
     } else {
-      ppAvatar.textContent = "🎓";
+      if (ppAvatar) ppAvatar.innerHTML = renderIcon("🎓");
       ppName.textContent = "Sign in";
-      ppShards.textContent = "💎 0";
-      ppStreak.textContent = "🔥 0";
+      ppShards.innerHTML = diamondSvg + ' <span class="pp-shards-num">0</span>';
+      ppStreak.innerHTML = flameSvg + ' <span class="pp-streak-num">0</span>';
     }
   }
   updatePill();
@@ -6805,7 +6914,7 @@ boot();
     welcomeAvatars.innerHTML = P.AVATARS.map(function (a, i) {
       return '<button type="button" class="welcome-avatar-btn" role="radio" aria-checked="' +
         (i === 0 ? 'true' : 'false') + '" data-emoji="' + a.emoji +
-        '" aria-label="' + a.label + '">' + a.emoji + '</button>';
+        '" aria-label="' + a.label + '">' + renderIcon(a.emoji) + '</button>';
     }).join("");
     welcomeAvatars.querySelectorAll(".welcome-avatar-btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -6901,7 +7010,7 @@ boot();
 
   function refreshDrawer() {
     var profile = P.get();
-    if (pdAvatar) pdAvatar.textContent = profile.avatar || "🎓";
+    if (pdAvatar) pdAvatar.innerHTML = renderIcon(profile.avatar || "🎓");
     if (pdNameInput) pdNameInput.value = profile.name || "";
     if (pdShards) pdShards.textContent = profile.shards.toLocaleString();
     if (pdStreak) pdStreak.textContent = profile.streak.current || 0;
@@ -6918,7 +7027,7 @@ boot();
         return '<div class="pd-ach' + (a.unlocked ? '' : ' is-locked') + '" data-tier="' +
           (a.def.tier || 'bronze') + '" role="listitem" title="' +
           (a.unlocked ? 'Unlocked' : 'Locked') + '">' +
-          '<span class="ach-icon">' + (a.def.icon || '🏆') + '</span>' +
+          '<span class="ach-icon">' + renderIcon(a.def.icon || '🏆') + '</span>' +
           '<div class="ach-text">' +
             '<div class="ach-title">' + a.def.title + '</div>' +
             '<div class="ach-desc">' + (a.unlocked ? a.def.desc : (a.def.desc || '???')) + '</div>' +
@@ -6931,7 +7040,7 @@ boot();
       pdAvatarGrid.innerHTML = P.AVATARS.map(function (a) {
         return '<button type="button" class="pd-avatar-btn" role="radio" aria-checked="' +
           (a.emoji === profile.avatar ? "true" : "false") + '" data-emoji="' + a.emoji +
-          '" aria-label="' + a.label + '">' + a.emoji + '</button>';
+          '" aria-label="' + a.label + '">' + renderIcon(a.emoji) + '</button>';
       }).join("");
       pdAvatarGrid.dataset.built = "1";
       pdAvatarGrid.querySelectorAll(".pd-avatar-btn").forEach(function (btn) {
@@ -6941,7 +7050,7 @@ boot();
           });
           btn.setAttribute("aria-checked", "true");
           P.setAvatar(btn.dataset.emoji, "emoji");
-          if (pdAvatar) pdAvatar.textContent = btn.dataset.emoji;
+          if (pdAvatar) pdAvatar.innerHTML = renderIcon(btn.dataset.emoji);
         });
       });
     } else if (pdAvatarGrid) {
@@ -7108,13 +7217,16 @@ boot();
     if (iconEl) {
       // Pick an icon based on game type
       var gt = (pick.gameType || "").toLowerCase();
-      var icon = "🎯";
-      if (gt.indexOf("sprint") >= 0) icon = "⚡";
-      else if (gt.indexOf("jeopardy") >= 0) icon = "🧠";
-      else if (gt.indexOf("practice") >= 0) icon = "📝";
-      else if (gt.indexOf("gauntlet") >= 0) icon = "⚔";
-      else if (gt.indexOf("rush") >= 0) icon = "🔥";
-      iconEl.textContent = icon;
+      var iconName = "target";
+      if (gt.indexOf("sprint") >= 0) iconName = "bolt";
+      else if (gt.indexOf("jeopardy") >= 0) iconName = "mind";
+      else if (gt.indexOf("practice") >= 0) iconName = "memo";
+      else if (gt.indexOf("gauntlet") >= 0) iconName = "swords";
+      else if (gt.indexOf("rush") >= 0) iconName = "flame";
+      iconEl.setAttribute("data-icon", iconName);
+      var iconSvg = (window.MrMacsIcons && window.MrMacsIcons.svg(iconName)) || "";
+      // Tag the inner SVG with data-icon so per-icon color rules apply
+      iconEl.innerHTML = iconSvg.replace('<svg class="ic"', '<svg class="ic" data-icon="' + iconName + '"');
     }
     if (titleEl) titleEl.textContent = pick.title;
     if (subEl) {
@@ -7163,6 +7275,9 @@ boot();
       statusEl.classList.toggle("is-done", completed);
       statusEl.textContent = completed ? "Completed today · +50 shards" : "Resets at midnight UTC";
     }
+    // Toggle .is-done on the card itself so the icon pulse stops once played
+    var dailyCard = band.querySelector(".daily-card");
+    if (dailyCard) dailyCard.classList.toggle("is-done", completed);
     band.hidden = false;
   }
 
@@ -7410,8 +7525,9 @@ boot();
       if (recommendations.length) {
         recHTML += '<h4>Recommended drills</h4>';
         recommendations.forEach(function (r) {
+          var pinSvg = (window.MrMacsIcons && window.MrMacsIcons.svg("pin")) || "";
           recHTML += '<button class="diag-rec" data-id="' + safeHTML(r.game.id) + '" type="button">' +
-            '<span style="font-size:24px;">📍</span>' +
+            '<span class="diag-rec-icon" aria-hidden="true">' + pinSvg + '</span>' +
             '<span><strong>' + safeHTML(r.game.title) + '</strong>' +
             '<span>' + safeHTML(r.course) + '</span></span></button>';
         });
