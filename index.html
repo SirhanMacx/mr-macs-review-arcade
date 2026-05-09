@@ -5174,6 +5174,25 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   outline: none;
 }
 
+/* ── Scroll progress indicator (top of page) ─────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(122,240,255,.85), rgba(245,196,81,.85), rgba(255,124,200,.65));
+  box-shadow: 0 0 8px rgba(245, 196, 81, .42);
+  z-index: 9800;
+  transition: width 80ms linear, opacity .3s;
+  pointer-events: none;
+  opacity: 0;
+}
+.scroll-progress.is-active { opacity: 1; }
+@media print { .scroll-progress { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { transition: width 0s, opacity 0s; }
+}
+
 </style>
 </head>
 <body>
@@ -5382,6 +5401,9 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     <div class="hm-track" id="marqueeTrack"></div>
   </div>
 </section>
+
+<!-- Scroll progress indicator -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <!-- Floating help fob (desktop only) — opens keyboard-shortcuts overlay -->
 <button class="ks-fob" id="ksFob" type="button" aria-label="Show keyboard shortcuts (press ? for this panel)">
@@ -7279,6 +7301,28 @@ boot();
   if (ksBackdrop) ksBackdrop.addEventListener("click", closeKs);
   var ksFob = document.getElementById("ksFob");
   if (ksFob) ksFob.addEventListener("click", openKs);
+
+  // Scroll progress indicator — thin gradient rule that fills as you scroll
+  var progressBar = document.getElementById("scrollProgress");
+  if (progressBar) {
+    var ticking = false;
+    var updateProgress = function () {
+      var doc = document.documentElement;
+      var max = (doc.scrollHeight || 0) - (window.innerHeight || 0);
+      var ratio = max > 0 ? Math.max(0, Math.min(1, (window.scrollY || 0) / max)) : 0;
+      progressBar.style.width = (ratio * 100).toFixed(2) + "%";
+      progressBar.classList.toggle("is-active", window.scrollY > 60);
+      ticking = false;
+    };
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        window.requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    }, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    updateProgress();
+  }
 
   document.addEventListener("keydown", function (e) {
     // Don't intercept when typing in form fields

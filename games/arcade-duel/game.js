@@ -1024,7 +1024,8 @@ let stingerTimeout = null;
 function showStinger(text, variant, duration) {
   const el = $("#stinger");
   if (!el) return;
-  el.textContent = text;
+  // Allow icon SVG markup (callers prefix with ico("…")). All callers are trusted internal strings.
+  el.innerHTML = text;
   el.className = "stinger stinger-" + variant;
   el.classList.remove("hidden");
   clearTimeout(stingerTimeout);
