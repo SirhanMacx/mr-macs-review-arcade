@@ -208,7 +208,7 @@
       sirenGain = ac.createGain();
       sirenOsc.type = "sine";
       sirenOsc.frequency.setValueAtTime(scared ? 440 : 180, ac.currentTime);
-      sirenGain.gain.setValueAtTime(muted ? 0 : 0.06, ac.currentTime);
+      sirenGain.gain.setValueAtTime(muted ? 0 : sirenGainFor(scared), ac.currentTime);
       sirenOsc.connect(sirenGain);
       sirenGain.connect(ac.destination);
       sirenOsc.start();
@@ -221,6 +221,13 @@
     sirenGain = null;
   }
 
+  // If the cabinet music engine is running, pull the siren down 30% so both layers coexist cleanly.
+  function sirenGainFor(scared) {
+    const base = scared ? 0.1 : 0.06;
+    const musicActive = !!(window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.isPlaying && window.MrMacsArcadeMusic.isPlaying());
+    return musicActive ? base * 0.7 : base;
+  }
+
   function updateSirenPitch(pelletsLeft, total, scared) {
     if (!sirenOsc || muted) return;
     const ac = getAudio();
@@ -231,7 +238,7 @@
       const top   = scared ? 880 : 340;
       const freq  = base + (top - base) * ratio;
       sirenOsc.frequency.setValueAtTime(freq, ac.currentTime);
-      if (sirenGain) sirenGain.gain.setValueAtTime(muted ? 0 : (scared ? 0.1 : 0.06), ac.currentTime);
+      if (sirenGain) sirenGain.gain.setValueAtTime(muted ? 0 : sirenGainFor(scared), ac.currentTime);
     } catch (_) {}
   }
 
@@ -594,6 +601,8 @@
     if (sirenGain) {
       try { sirenGain.gain.setValueAtTime(0, audioCtx?.currentTime || 0); } catch (_) {}
     }
+    // Duck cabinet music during question modal
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck && window.MrMacsArcadeMusic.duck(); } catch (_) {}
 
     els.feedback.classList.remove("show-text");
     els.feedback.textContent = "";
@@ -674,12 +683,14 @@
     setTimeout(() => {
       show(null);
       state.paused = false;
+      // Restore cabinet music after modal
+      try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore && window.MrMacsArcadeMusic.restore(); } catch (_) {}
       // Resume siren
       if (state.running && !muted) {
         const scared = performance.now() < state.powerUntil;
         if (!sirenOsc) startSiren(scared);
         else if (sirenGain) {
-          try { sirenGain.gain.setValueAtTime(scared ? 0.1 : 0.06, audioCtx?.currentTime || 0); } catch (_) {}
+          try { sirenGain.gain.setValueAtTime(sirenGainFor(scared), audioCtx?.currentTime || 0); } catch (_) {}
         }
       }
       if (state.lives <= 0) endRun(false);
@@ -951,6 +962,7 @@
     updateHud();
     stopSiren();
     startSiren(false);
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("maze-cabinet"); } catch (e) {}
 
     // Best score from localStorage
     const stored = parseInt(localStorage.getItem("mazeChaseBest") || "0", 10);
@@ -967,6 +979,7 @@
     state.running = false;
     state.paused  = true;
     stopSiren();
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (e) {}
 
     if (state.score > state.bestScore) {
       state.bestScore = state.score;
@@ -1008,7 +1021,7 @@
       if (!muted && !sirenOsc) startSiren(performance.now() < state.powerUntil);
       else if (sirenGain && !muted) {
         const scared = performance.now() < state.powerUntil;
-        try { sirenGain.gain.setValueAtTime(scared ? 0.1 : 0.06, audioCtx?.currentTime || 0); } catch (_) {}
+        try { sirenGain.gain.setValueAtTime(sirenGainFor(scared), audioCtx?.currentTime || 0); } catch (_) {}
       }
     }
   }
@@ -1964,11 +1977,13 @@
         // Close quiz: resume with no penalty (same as answer timeout)
         show(null);
         state.paused = false;
+        // Restore cabinet music (ESC-dismissed quiz)
+        try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore && window.MrMacsArcadeMusic.restore(); } catch (_) {}
         if (state.running && !muted) {
           const scared = performance.now() < state.powerUntil;
           if (!sirenOsc) startSiren(scared);
           else if (sirenGain) {
-            try { sirenGain.gain.setValueAtTime(scared ? 0.1 : 0.06, audioCtx?.currentTime || 0); } catch (_) {}
+            try { sirenGain.gain.setValueAtTime(sirenGainFor(scared), audioCtx?.currentTime || 0); } catch (_) {}
           }
         }
       } else if (els.result.classList.contains("show")) {
@@ -1976,6 +1991,7 @@
         state.running = false;
         state.paused  = true;
         stopSiren();
+        try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (_) {}
         show(els.setup);
       }
     }

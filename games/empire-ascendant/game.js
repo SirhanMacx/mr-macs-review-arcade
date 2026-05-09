@@ -1128,6 +1128,7 @@
     action.choices=buildChoices(q);
     renderCouncil(action,q);
     els.councilScreen.classList.add("show");
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck(); } catch(e) {}
   }
 
   function renderCouncil(action,q){
@@ -1289,6 +1290,7 @@
 
   function closeCouncil(){
     els.councilScreen.classList.remove("show");
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore(); } catch(e) {}
     state.pendingAction=null;
     state.mode="playing";
     checkEra(); checkCollapse();
@@ -1441,11 +1443,13 @@
     updateHud(); renderPanel();
     setAdvisor("Imperial Council","Found your capital, train units, research techs, and outpace your rivals.","The first dynasty rises.","good");
     window.MrMacsAnalytics?.track("game_play",{gameId:"empire-ascendant",title:"Empire Ascendant",course:els.courseFilter?.value||"All Courses",gameType:"Strategy"},{counter:"game-plays",once:false});
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("empire-strategic"); } catch(e) {}
   }
 
   function endGame(title,message){
     if(state.mode==="ended") return;
     state.mode="ended";
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch(e) {}
     const accuracy=state.councils?Math.round(state.correct/state.councils*100):0;
     const territory=tilesByOwner("player").length;
     const finalScore=Math.floor(state.score+territory*200+state.era*1000+state.res.player.stability*20);

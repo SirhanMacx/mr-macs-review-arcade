@@ -722,10 +722,17 @@
 
   // ─── Question card UI ───────────────────────────────────────────────────────
   function setQuestionMode(mode) {
+    const prev = state.checkpointMode;
     state.checkpointMode = mode;
     els.questionCard.classList.toggle("standby",    mode === "standby");
     els.questionCard.classList.toggle("checkpoint", mode === "checkpoint");
     els.questionCard.classList.toggle("debrief",    mode === "debrief");
+    // Phase 4 — duck music during gate-question modal, restore after
+    if (mode === "checkpoint" && prev !== "checkpoint") {
+      try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck && window.MrMacsArcadeMusic.duck(); } catch (e) {}
+    } else if (prev === "checkpoint" && mode !== "checkpoint") {
+      try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore && window.MrMacsArcadeMusic.restore(); } catch (e) {}
+    }
   }
 
   function renderStandby() {
@@ -856,6 +863,8 @@
     if (!state.filtered.length) applyFilters();
     if (!opts.silent) audio.startRun();
     resetRun();
+    // Phase 4 — shared music engine
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("runner-synthwave"); } catch (e) {}
     // Phase 3 — show tour once after the very first run start
     if (window.MrMacsArcadeTour) {
       requestAnimationFrame(() => {
@@ -893,6 +902,8 @@
     state.gameOver = true; state.running = false;
     state.deathAnim = 1.2;
     audio.stopDrone();
+    // Phase 4 — shared music engine
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (e) {}
     const km = state.distance;
     if (km > state.bestDistance) state.bestDistance = km;
     persistState();

@@ -430,6 +430,7 @@ function startMatch() {
   beginRound(1);
   startAmbient();
   playSound("start");
+  try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("duel-arena"); } catch (e) {}
 
   // Phase 3 — First-run tour: 4 steps after first match starts
   // Delay so the duel screen and command menu are rendered
@@ -526,9 +527,13 @@ function showPhase(phase) {
     $("#questionCard").classList.add("hidden");
     $("#feedback").classList.add("hidden");
     $("#nextBtn").classList.add("hidden");
+    // Restore music after question card dismissed
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore(400); } catch (e) {}
   } else {
     $("#commandMenu").classList.add("hidden");
     $("#questionCard").classList.remove("hidden");
+    // Duck music during question card modal
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck && window.MrMacsArcadeMusic.duck(true); } catch (e) {}
   }
   renderHUD();
 }
@@ -874,6 +879,7 @@ function endMatch() {
   stopAmbient();
   clearInterval(currentRound()?.timerID);
 
+  try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (e) {}
   const won = m.playerWins > m.enemyWins;
   const perfect = m.enemyWins === 0;
   const stingerText = perfect ? "PERFECT!" : won ? "VICTORY!" : "DEFEAT";
@@ -1342,7 +1348,7 @@ $("#tItem").addEventListener("click", cmdItem);
 // Pause / mute
 $("#pauseBtn").addEventListener("click", togglePause);
 $("#resumeBtn").addEventListener("click", togglePause);
-$("#quitBtn").addEventListener("click", () => { togglePause(); G.run = null; stopAmbient(); setScreen("setup"); });
+$("#quitBtn").addEventListener("click", () => { togglePause(); G.run = null; stopAmbient(); try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (e) {} setScreen("setup"); });
 $("#muteBtn").addEventListener("click", () => {
   G.muted = !G.muted;
   $("#muteBtn").textContent = G.muted ? "🔇" : "🔊";

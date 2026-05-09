@@ -599,6 +599,7 @@ html.perf-lite #specialBtn:not(:disabled)::after{animation:none;}
 <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260507-phase6">
 <script src="../../assets/arcade-perf.js?v=20260507-phase5"></script>
 <script src="../../assets/arcade-tour.js?v=20260507-phase3"></script>
+<script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
 </head>
 <body>
 <div class="world" aria-hidden="true"></div>
@@ -1370,10 +1371,12 @@ function showBossIntro(boss, onDismiss) {
 
   // Show
   overlay.classList.add("active");
+  try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck(0.4, 350); } catch (e) {}
   playSound("phaseTransition");
 
   const dismiss = ()=>{
     overlay.classList.remove("active");
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore(350); } catch (e) {}
     beginBtn.removeEventListener("click", dismiss);
     document.removeEventListener("keydown", onKey);
     setTimeout(onDismiss, 120);
@@ -2167,6 +2170,7 @@ function triggerConfetti() {
 
 // ── FINISH RUN ────────────────────────────────────────────────────────
 function finishRun(victory) {
+  try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (e) {}
   stopTimer();
   if (telegraphTimeout) { clearTimeout(telegraphTimeout); telegraphTimeout=null; }
   if (victory) {
@@ -2345,6 +2349,7 @@ function startRun() {
   if (window.MrMacsProfile) {
     MrMacsProfile.recordPlay({ id: "boss-rush", title: "Boss Rush", course: "All Courses", file: "games/boss-rush/index.html" });
   }
+  try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("boss-rush-arena"); } catch (e) {}
   playSound("start");
   showScreen("battleScreen");
   const boss = run.bosses[0];

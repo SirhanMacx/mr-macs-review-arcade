@@ -922,6 +922,7 @@
     els.pauseBtn.textContent="Pause";
     showBanner("Rift Open");
     sfx.startDrone();
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("rift-survivors"); } catch (e) {}
     // Phase 3: fire first-run tour once per profile
     if (!state.tourFired) {
       state.tourFired = true;
@@ -1734,6 +1735,7 @@
 
     els.upgradeScreen.classList.add("show");
     els.upgradeScreen.setAttribute("aria-hidden","false");
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck(0.4, 250); } catch (e) {}
   }
 
   function applyUpgrade(u) {
@@ -1764,6 +1766,7 @@
     state.choosingUpgrade=false;
     els.upgradeScreen.classList.remove("show");
     els.upgradeScreen.setAttribute("aria-hidden","true");
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore(250); } catch (e) {}
     updateRelicPanel(); renderHUD();
     showBanner(u.name);
   }
@@ -1776,6 +1779,7 @@
     state.deathSlowmo=1.5; // trigger slowmo zoom
     sfx.stopDrone();
     sfx.death();
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (e) {}
     if (state.score>state.bestScore) {
       state.bestScore=state.score;
       localStorage.setItem(`${STORAGE_KEY}:best`,String(state.bestScore));

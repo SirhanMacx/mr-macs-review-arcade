@@ -956,6 +956,7 @@
     state.betweenWaves = false;
     els.pauseBtn.textContent = "Pause";
     els.startWave.disabled = true;
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("td-strategic"); } catch (e) {}
 
     const bossWave = state.wave % 10 === 0;
     const midBoss  = state.wave % 5 === 0 && !bossWave;
@@ -1042,6 +1043,7 @@
     if (!q) return;
     state.currentQuestion = q;
     prepareQuestion(q);
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck(0.4, 250); } catch (e) {}
     // next question in combat 12-20 sec
     state.questionCooldown = 12 + Math.random() * 8;
   }
@@ -1152,6 +1154,7 @@
     setTimeout(() => {
       state.currentQuestion = null;
       prepareQuestion();
+      try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore(400); } catch (e) {}
     }, correct ? 1000 : 2000);
   }
 
@@ -2576,6 +2579,7 @@
   }
 
   function endGame(victory = false) {
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (e) {}
     state.gameOver = true;
     state.running = false;
     const map = MAPS[state.currentMap];

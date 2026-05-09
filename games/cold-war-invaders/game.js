@@ -1013,6 +1013,7 @@ function openBriefing(reason="Containment Burst Armed") {
   hideBriefingStamp();
   startTimeRing(18);
   els.briefing.classList.remove("hidden");
+  try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck(0.3, 300); } catch (e) {}
 }
 
 function showBriefingStamp(correct) {
@@ -1115,6 +1116,7 @@ function gradeAnswer(index) {
     hideBriefingStamp();
     resetTimeRing();
     els.briefing.classList.add("hidden");
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore(400); } catch (e) {}
     if (state.shield <= 0 && state.lives <= 0) finish(false);
   }, correct ? 1100 : 2100);
 }
@@ -1337,6 +1339,7 @@ function startGame() {
   state.last = performance.now();
   requestAnimationFrame(loop);
   window.MrMacsAnalytics?.track("game_play",{gameId:"cold-war-invaders",title:"Cold War Invaders"},{counter:"game-plays"});
+  try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("cold-war-mission"); } catch (e) {}
 
   // Phase 3 — First-run tour (fires only once, after first mission start)
   if (window.MrMacsArcadeTour) {
@@ -1371,6 +1374,7 @@ function finish(won=true) {
   if (!state.running) return;
   state.running = false;
   state.over    = true;
+  try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.stop(); } catch (e) {}
   state.touch   = { left:false, right:false, fire:false };
   stopUfoSiren();
   document.body.classList.remove("playing");
@@ -1555,6 +1559,7 @@ function openBriefingBetweenWaves() {
   hideBriefingStamp();
   startTimeRing(22);
   els.briefing.classList.remove("hidden");
+  try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck(0.3, 300); } catch (e) {}
 }
 
 function gradeBetweenWave(index) {
@@ -1609,6 +1614,7 @@ function gradeBetweenWave(index) {
     hideBriefingStamp();
     resetTimeRing();
     els.briefing.classList.add("hidden");
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore(400); } catch (e) {}
     advanceWaveNoQuestion();
   }, skipped ? 600 : correct ? 1000 : 1800);
 }
