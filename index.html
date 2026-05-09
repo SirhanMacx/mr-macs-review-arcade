@@ -10093,6 +10093,13 @@ boot();
     if (!def || !def.id || !profile) return null;
     var streakNow = (profile.streak && profile.streak.current) || 0;
     var totalShards = profile.totalShardsEarned || profile.shards || 0;
+    var perGame = profile.perGameStats || {};
+    var distinctGenres = Object.keys(perGame).length;
+    var totalPlays = 0;
+    Object.keys(perGame).forEach(function (k) { totalPlays += (perGame[k].plays || 0); });
+    var dailyDone = (profile.dailyChallenge && profile.dailyChallenge.completedCount) || 0;
+    var shopSpent = profile.lifetimeShopSpend || 0;
+    var scholarHits = profile.scholarCorrect || 0;
     switch (def.id) {
       case "streak-3":  return { current: Math.min(streakNow, 3), target: 3, unit: "days" };
       case "streak-7":  return { current: Math.min(streakNow, 7), target: 7, unit: "days" };
@@ -10101,6 +10108,22 @@ boot();
         return { current: Math.min(totalShards, 1000), target: 1000, unit: "shards" };
       case "cross-shards-10k":
         return { current: Math.min(totalShards, 10000), target: 10000, unit: "shards" };
+      case "cross-3-genres":
+        return { current: Math.min(distinctGenres, 3), target: 3, unit: "games" };
+      case "cross-7-genres":
+        return { current: Math.min(distinctGenres, 7), target: 7, unit: "games" };
+      case "cross-12-genres":
+        return { current: Math.min(distinctGenres, 12), target: 12, unit: "games" };
+      case "cross-100-plays":
+        return { current: Math.min(totalPlays, 100), target: 100, unit: "plays" };
+      case "cross-daily-7":
+        return { current: Math.min(dailyDone, 7), target: 7, unit: "claims" };
+      case "cross-daily-30":
+        return { current: Math.min(dailyDone, 30), target: 30, unit: "claims" };
+      case "cross-shop-spender":
+        return { current: Math.min(shopSpent, 1000), target: 1000, unit: "shards" };
+      case "scholar-decoder":
+        return { current: Math.min(scholarHits, 50), target: 50, unit: "scholars" };
       default:
         return null;
     }
