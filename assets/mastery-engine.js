@@ -476,6 +476,265 @@
     };
   }
 
+  // ---- Topic mastery scoring -----------------------------------------------
+  //
+  // Stable thresholds (configurable via MrMacsMastery.setThresholds):
+  //   <40% mastery   -> "novice"
+  //   <70%           -> "practicing"
+  //   <90%           -> "proficient"
+  //   >=90% with >=10 attempts -> "mastered"
+  //
+  // Score is a weighted average across the most recent N attempts so that
+  // recent performance counts more. When MrMacsProgress is unavailable we
+  // fall back to a zeroed record rather than throwing.
+
+  var MASTERY_THRESHOLDS = {
+    novice: 40,
+    practicing: 70,
+    proficient: 90,
+    masteryAttempts: 10,
+    recentWindow: 12
+  };
+
+  function setThresholds(overrides) {
+    if (!overrides || typeof overrides !== "object") return Object.assign({}, MASTERY_THRESHOLDS);
+    Object.keys(overrides).forEach(function (key) {
+      if (Object.prototype.hasOwnProperty.call(MASTERY_THRESHOLDS, key)) {
+        var value = Number(overrides[key]);
+        if (Number.isFinite(value)) MASTERY_THRESHOLDS[key] = value;
+      }
+    });
+    return Object.assign({}, MASTERY_THRESHOLDS);
+  }
+
+  function masteryLabel(score, attempts) {
+    if (!Number.isFinite(score)) return "novice";
+    if (score >= MASTERY_THRESHOLDS.proficient && attempts >= MASTERY_THRESHOLDS.masteryAttempts) return "mastered";
+    if (score >= MASTERY_THRESHOLDS.proficient) return "proficient";
+    if (score >= MASTERY_THRESHOLDS.practicing) return "practicing";
+    if (score >= MASTERY_THRESHOLDS.novice) return "practicing";
+    return "novice";
+  }
+
+  function progressData() {
+    if (typeof window !== "undefined" && window.MrMacsProgress && typeof window.MrMacsProgress.read === "function") {
+      try { return window.MrMacsProgress.read() || {}; } catch (e) {}
+    }
+    return { games: {}, weakTopics: {}, courseTotals: {}, recent: [] };
+  }
+
+  function recentEventsForCourse(data, course) {
+    var courseLabel = course ? courseProfile(course).label : "";
+    var events = Array.isArray(data && data.recent) ? data.recent : [];
+    var window_ = MASTERY_THRESHOLDS.recentWindow;
+    var filtered = events.filter(function (event) {
+      if (!event) return false;
+      if (!courseLabel) return true;
+      return String(event.course || "") === courseLabel;
+    });
+    return filtered.slice(0, window_);
+  }
+
+  function setKey(course, set) {
+    return slug(course || "all") + "::" + slug(set || "all");
+  }
+
+  function aggregateBySet(data, course) {
+    var bySet = Object.create(null);
+    var games = (data && data.games) || {};
+    Object.keys(games).forEach(function (gameId) {
+      var entry = games[gameId] || {};
+      if (course && entry.course && courseProfile(course).label !== entry.course) return;
+      var gameSet = entry.set || entry.subject || entry.title || gameId;
+      var key = setKey(entry.course || course || "", gameSet);
+      var bucket = bySet[key] || (bySet[key] = {
+        course: entry.course || course || "",
+        set: gameSet,
+        attempts: 0,
+        plays: 0,
+        completions: 0,
+        scoreSum: 0,
+        scoreCount: 0,
+        accuracySum: 0,
+        accuracyCount: 0,
+        bestScore: null,
+        bestAccuracy: null,
+        lastSeen: ""
+      });
+      bucket.attempts += Number(entry.completions || 0) + Number(entry.plays || 0);
+      bucket.plays += Number(entry.plays || 0);
+      bucket.completions += Number(entry.completions || 0);
+      if (Number.isFinite(Number(entry.bestScore))) {
+        bucket.scoreSum += Number(entry.bestScore);
+        bucket.scoreCount += 1;
+        bucket.bestScore = bucket.bestScore == null
+          ? Number(entry.bestScore)
+          : Math.max(bucket.bestScore, Number(entry.bestScore));
+      }
+      if (Number.isFinite(Number(entry.bestAccuracy))) {
+        bucket.accuracySum += Number(entry.bestAccuracy);
+        bucket.accuracyCount += 1;
+        bucket.bestAccuracy = bucket.bestAccuracy == null
+          ? Number(entry.bestAccuracy)
+          : Math.max(bucket.bestAccuracy, Number(entry.bestAccuracy));
+      }
+      if (entry.lastSeen && String(entry.lastSeen) > String(bucket.lastSeen)) {
+        bucket.lastSeen = entry.lastSeen;
+      }
+    });
+    return bySet;
+  }
+
+  function recencyWeightedScore(bucket, recent) {
+    var fallback = null;
+    if (bucket.accuracyCount > 0) fallback = bucket.accuracySum / bucket.accuracyCount;
+    else if (bucket.scoreCount > 0) fallback = bucket.scoreSum / bucket.scoreCount;
+    var matching = recent.filter(function (event) {
+      if (!event) return false;
+      var eventSet = event.set || event.subject || event.title || "";
+      return slug(eventSet) === slug(bucket.set);
+    });
+    if (!matching.length) return fallback;
+    var weightSum = 0;
+    var valueSum = 0;
+    matching.forEach(function (event, index) {
+      var weight = matching.length - index; // most recent first weighs most
+      var value = Number.isFinite(Number(event.accuracy))
+        ? Number(event.accuracy)
+        : Number.isFinite(Number(event.score)) ? Number(event.score) : null;
+      if (value == null) return;
+      weightSum += weight;
+      valueSum += value * weight;
+    });
+    if (!weightSum) return fallback;
+    var weighted = valueSum / weightSum;
+    if (fallback == null) return weighted;
+    // blend: 70% recent, 30% historical best, smooths spikes.
+    return weighted * 0.7 + fallback * 0.3;
+  }
+
+  function getMasteryFor(course, set) {
+    var data = progressData();
+    var courseLabel = course ? courseProfile(course).label : "";
+    var recent = recentEventsForCourse(data, course);
+    var bySet = aggregateBySet(data, courseLabel);
+    var key = setKey(courseLabel, set);
+    var bucket = bySet[key];
+    if (!bucket) {
+      // partial match: try set-only when course is missing
+      Object.keys(bySet).forEach(function (k) {
+        if (!bucket && slug(bySet[k].set) === slug(set)) bucket = bySet[k];
+      });
+    }
+    if (!bucket) {
+      return {
+        course: courseLabel,
+        set: set || "",
+        score: 0,
+        total: 0,
+        attempts: 0,
+        completions: 0,
+        plays: 0,
+        bestScore: null,
+        bestAccuracy: null,
+        lastSeen: "",
+        mastery: "novice",
+        confidence: 0
+      };
+    }
+    var rawScore = recencyWeightedScore(bucket, recent);
+    var score = Number.isFinite(rawScore) ? Math.max(0, Math.min(100, Math.round(rawScore))) : 0;
+    var attempts = bucket.attempts;
+    // confidence rises from 0 -> 1 as attempts approach 2x the mastery floor
+    var confidence = Math.max(0, Math.min(1, attempts / (MASTERY_THRESHOLDS.masteryAttempts * 2)));
+    return {
+      course: bucket.course || courseLabel,
+      set: bucket.set,
+      score: score,
+      total: bucket.completions + bucket.plays,
+      attempts: attempts,
+      completions: bucket.completions,
+      plays: bucket.plays,
+      bestScore: bucket.bestScore,
+      bestAccuracy: bucket.bestAccuracy,
+      lastSeen: bucket.lastSeen,
+      mastery: masteryLabel(score, attempts),
+      confidence: Math.round(confidence * 100) / 100
+    };
+  }
+
+  function getWeakestTopics(course, count) {
+    count = Number.isFinite(Number(count)) && Number(count) > 0 ? Number(count) : 5;
+    var data = progressData();
+    var courseLabel = course ? courseProfile(course).label : "";
+    var bySet = aggregateBySet(data, courseLabel);
+    var recent = recentEventsForCourse(data, course);
+    var rows = Object.keys(bySet).map(function (key) {
+      var bucket = bySet[key];
+      var rawScore = recencyWeightedScore(bucket, recent);
+      var score = Number.isFinite(rawScore) ? Math.round(rawScore) : 0;
+      return {
+        course: bucket.course,
+        set: bucket.set,
+        score: score,
+        attempts: bucket.attempts,
+        completions: bucket.completions,
+        lastSeen: bucket.lastSeen,
+        mastery: masteryLabel(score, bucket.attempts)
+      };
+    }).filter(function (row) {
+      return row.attempts > 0;
+    });
+    // also consider weakTopics (frequency-weighted misses)
+    var weakTopics = (data && data.weakTopics) || {};
+    Object.keys(weakTopics).forEach(function (id) {
+      var topic = weakTopics[id] || {};
+      if (rows.some(function (row) { return slug(row.set) === slug(topic.title); })) return;
+      rows.push({
+        course: courseLabel,
+        set: topic.title || id,
+        score: 0,
+        attempts: Number(topic.count || 0),
+        completions: 0,
+        lastSeen: topic.lastSeen || "",
+        mastery: "novice",
+        flagged: true
+      });
+    });
+    rows.sort(function (a, b) {
+      if (a.score !== b.score) return a.score - b.score;
+      return Number(b.attempts || 0) - Number(a.attempts || 0);
+    });
+    return rows.slice(0, count);
+  }
+
+  function getRecommendation(course) {
+    var weakest = getWeakestTopics(course, 1)[0];
+    if (!weakest) {
+      return {
+        topic: null,
+        reason: "No attempts logged yet — start with a diagnostic to seed the recommender."
+      };
+    }
+    var reason;
+    if (weakest.mastery === "novice") {
+      reason = "Lowest current mastery (" + weakest.score + "%). Build foundations here next.";
+    } else if (weakest.mastery === "practicing") {
+      reason = "Practicing band (" + weakest.score + "%). One more pass should push this to proficient.";
+    } else if (weakest.mastery === "proficient") {
+      reason = "Proficient (" + weakest.score + "%) but under " + MASTERY_THRESHOLDS.masteryAttempts + " attempts. Add reps to lock in mastery.";
+    } else {
+      reason = "Even the strongest topic deserves a quick spot-check.";
+    }
+    return {
+      topic: weakest.set,
+      course: weakest.course,
+      score: weakest.score,
+      mastery: weakest.mastery,
+      reason: reason
+    };
+  }
+
   window.MrMacsMastery = {
     COURSES: COURSES,
     SKILL_LABELS: SKILL_LABELS,
@@ -499,6 +758,12 @@
     courseSummary: courseSummary,
     trustedSource: trustedSource,
     sourceLock: sourceLock,
-    sourceBased: sourceBased
+    sourceBased: sourceBased,
+    getMasteryFor: getMasteryFor,
+    getWeakestTopics: getWeakestTopics,
+    getRecommendation: getRecommendation,
+    masteryLabel: masteryLabel,
+    setThresholds: setThresholds,
+    thresholds: function () { return Object.assign({}, MASTERY_THRESHOLDS); }
   };
 })();

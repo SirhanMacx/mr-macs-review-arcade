@@ -1,60 +1,262 @@
-/* Mr. Mac's Arcade — Shared Accessibility Layer
- *
- * Drop into any game with a single <link rel="stylesheet">.
- * Body classes are set by arcade-profile.js + arcade-perf.js.
- *
- *   .font-dyslexic         -> OpenDyslexic everywhere
- *   .contrast-high         -> brighter borders, stronger text
- *   .cb-deuteranope/.cb-protanope/.cb-tritanope -> color filter on canvas/imagery
- *   .arcade-lite           -> gate heavy effects via this class
- *   .arcade-reduced-motion -> kill animations
- *
- * All flagship games include this so accessibility is consistent across the arcade.
- */
+/* ============================================================================
+   Mr. Mac's Arcade — Shared Accessibility Layer
+   ============================================================================
+   Drop into any game with a single <link rel="stylesheet">.
 
-/* Dyslexia-friendly font (loaded only if user opts in) */
+   Body classes / data-attrs are set by arcade-profile.js + arcade-perf.js,
+   OR respected from OS-level user preferences via @media queries.
+
+   CLASS-BASED HOOKS (set by JS):
+     .font-dyslexic              -> OpenDyslexic / Lexend everywhere
+     .contrast-high              -> brighter borders, stronger text
+     .cb-deuteranope             -> deuteranopia color filter
+     .cb-protanope               -> protanopia color filter
+     .cb-tritanope               -> tritanopia color filter
+     .arcade-lite                -> gate heavy effects via this class
+     .arcade-reduced-motion      -> kill animations
+     .arcade-essential-motion    -> opt-in: keep this animation even in reduced
+
+   DATA-ATTR HOOKS (alternate / OS-fallback):
+     body[data-font="dyslexic"]            -> mirror of .font-dyslexic
+     body[data-motion="reduce"]            -> mirror of .arcade-reduced-motion
+     body[data-colorblind="protanopia"]    -> mirror of .cb-protanope
+     body[data-colorblind="deuteranopia"]  -> mirror of .cb-deuteranope
+     body[data-colorblind="tritanopia"]    -> mirror of .cb-tritanope
+     body[data-keyboard-mode="true"]       -> show extra focus hints
+
+   OS-LEVEL HOOKS (auto):
+     @media (prefers-reduced-motion: reduce)   -> see § Reduced motion
+     @media (prefers-contrast: more)           -> see § High contrast
+     @media (forced-colors: active)            -> see § Forced colors
+     @media (pointer: coarse)                  -> see § Touch targets
+     @media print                              -> see § Print styles
+
+   This file is intentionally additive + defensive. It backstops sub-stylesheets
+   that may forget to honor user preferences.
+   ============================================================================ */
+
+
+/* ============================================================================
+   § Imports — dyslexia-friendly font
+   Loaded only when the user opts in (or class/attr is set on body).
+   ============================================================================ */
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap");
 
+
+/* ============================================================================
+   § Dyslexia-friendly font
+   Both class-based (`.font-dyslexic`) and data-attr (`[data-font="dyslexic"]`)
+   are accepted so JS or settings can drive the same end state.
+   OpenDyslexic preferred if available locally; Lexend + Comic Sans fallbacks.
+   ============================================================================ */
 body.font-dyslexic,
-body.font-dyslexic *:not(canvas):not(svg):not(svg *) {
-  font-family: "Lexend", "Inter", system-ui, sans-serif !important;
+body[data-font="dyslexic"],
+body.font-dyslexic *:not(canvas):not(svg):not(svg *),
+body[data-font="dyslexic"] *:not(canvas):not(svg):not(svg *) {
+  font-family: "OpenDyslexic", "Lexend", "Comic Sans MS", "Inter",
+               system-ui, sans-serif !important;
   letter-spacing: 0.02em;
+  word-spacing: 0.05em;
 }
 
-/* High contrast — boost border + text contrast across all UI surfaces */
-body.contrast-high {
-  --line: rgba(255,255,255,.22) !important;
-  --line-2: rgba(255,255,255,.40) !important;
-  --line-3: rgba(255,255,255,.55) !important;
-  --muted: #cbd1e0 !important;
+
+/* ============================================================================
+   § Universal focus ring — always visible on tabbable elements
+   :focus-visible only — mouse users don't see the ring, keyboard users do.
+   Cyan (#7af0ff) reads against the arcade's dark backdrop.
+   ============================================================================ */
+*:focus {
+  /* legacy browsers without :focus-visible — keep ring rather than nothing */
+  outline-color: #7af0ff;
 }
-body.contrast-high * {
-  border-color: rgba(255,255,255,0.32) !important;
+*:focus:not(:focus-visible) {
+  /* modern browsers: suppress ring for non-keyboard focus */
+  outline: none;
 }
-body.contrast-high :focus-visible {
-  outline: 3px solid #ffd884 !important;
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[role="button"]:focus-visible,
+[role="link"]:focus-visible,
+[role="menuitem"]:focus-visible,
+[role="tab"]:focus-visible,
+[role="checkbox"]:focus-visible,
+[role="radio"]:focus-visible,
+[tabindex]:focus-visible,
+*:focus-visible {
+  outline: 3px solid #7af0ff !important;
   outline-offset: 2px !important;
-  box-shadow: 0 0 0 6px rgba(255, 216, 132, 0.3) !important;
+  border-radius: 4px;
+  box-shadow: 0 0 0 5px rgba(122, 240, 255, 0.25) !important;
 }
 
-/* Colorblind-safe palette filters — applied to canvases and key UI */
-body.cb-deuteranope canvas,
-body.cb-deuteranope img,
-body.cb-deuteranope .cb-target {
-  filter: hue-rotate(-15deg) saturate(0.85) contrast(1.05);
+
+/* ============================================================================
+   § Skip-to-main-content link
+   Visually hidden until focused. Both `.arcade-skip-link` (existing) and
+   `.skip-nav` (generic / requested name) supported.
+   ============================================================================ */
+.arcade-skip-link,
+.skip-nav {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  background: #f5c451;
+  color: #14100a;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font: 700 14px/1 "Inter", system-ui, sans-serif;
+  text-decoration: none;
+  z-index: 99999;
+  transition: top 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
-body.cb-protanope canvas,
-body.cb-protanope img,
-body.cb-protanope .cb-target {
-  filter: hue-rotate(8deg) saturate(0.82) contrast(1.05);
-}
-body.cb-tritanope canvas,
-body.cb-tritanope img,
-body.cb-tritanope .cb-target {
-  filter: hue-rotate(20deg) saturate(0.80) contrast(1.05);
+.arcade-skip-link:focus,
+.arcade-skip-link:focus-visible,
+.skip-nav:focus,
+.skip-nav:focus-visible {
+  top: 8px;
+  outline: 3px solid #14100a !important;
+  outline-offset: 2px !important;
 }
 
-/* Lite mode — disable particle storms, parallax, costly box-shadow stacks */
+
+/* ============================================================================
+   § Screen-reader-only utility
+   Visually hidden but readable by assistive tech. Both `.arcade-sr-only`
+   (existing) and `.sr-only` (generic / Bootstrap-compat) provided.
+   `.sr-only-focusable` reveals on focus (for skip links etc.)
+   ============================================================================ */
+.arcade-sr-only,
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.sr-only-focusable:focus,
+.sr-only-focusable:focus-visible,
+.sr-only-focusable:active {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip: auto !important;
+  clip-path: none !important;
+  white-space: normal !important;
+}
+
+
+/* ============================================================================
+   § Touch target sizing — WCAG 2.5.5 (44×44 px minimum)
+   Coarse pointers (touch + Apple TV remote) get bumped tap targets.
+   Covers .btn / .nav-link / .profile-pill / .fortune-card per spec.
+   ============================================================================ */
+@media (pointer: coarse) {
+  button,
+  a,
+  [role="button"],
+  [role="link"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  .btn,
+  .nav-link,
+  .profile-pill,
+  .fortune-card {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  /* checkbox + radio inputs themselves stay small but their hit area expands */
+  label:has(input[type="checkbox"]),
+  label:has(input[type="radio"]) {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+
+/* ============================================================================
+   § Reduced motion — comprehensive override
+   Belt-and-suspenders: respects OS preference AND class AND data-attr.
+   Sub-stylesheets that forget reduced-motion get caught here.
+   `.arcade-essential-motion` opts back in for telegraphs that are required
+   for understanding gameplay (boss tells, capture wobble).
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+  /* nuke transform-based hover lifts/scales that imply motion */
+  *:hover {
+    transform: none !important;
+  }
+  /* essential-motion opt-in (boss telegraphs etc.) */
+  .arcade-essential-motion,
+  .arcade-essential-motion::before,
+  .arcade-essential-motion::after {
+    animation-duration: revert !important;
+    animation-iteration-count: revert !important;
+    transition-duration: revert !important;
+    animation-play-state: running !important;
+  }
+}
+
+/* User-driven reduce (mirrors media query so settings panel works
+   even when OS doesn't expose the preference). */
+body.arcade-reduced-motion *,
+body.arcade-reduced-motion *::before,
+body.arcade-reduced-motion *::after,
+body[data-motion="reduce"] *,
+body[data-motion="reduce"] *::before,
+body[data-motion="reduce"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  animation-delay: 0ms !important;
+  transition-duration: 0.001ms !important;
+  transition-delay: 0ms !important;
+  scroll-behavior: auto !important;
+}
+body.arcade-reduced-motion *:hover,
+body[data-motion="reduce"] *:hover {
+  transform: none !important;
+}
+body.arcade-reduced-motion .arcade-essential-motion,
+body[data-motion="reduce"] .arcade-essential-motion {
+  animation-duration: revert !important;
+  transition-duration: revert !important;
+  animation-play-state: running !important;
+}
+
+
+/* ============================================================================
+   § Lite mode — disable particle storms, parallax, expensive box-shadow stacks
+   Triggered by `.arcade-lite` (set by perf.js when device is low-power).
+   Distinct from reduced-motion: lite is about GPU/CPU cost, not vestibular.
+   ============================================================================ */
 body.arcade-lite *,
 body.arcade-lite ::before,
 body.arcade-lite ::after {
@@ -68,65 +270,384 @@ body.arcade-lite [data-arcade-heavy] {
   display: none !important;
 }
 
-/* Reduced motion — wipe transforms + animations */
-body.arcade-reduced-motion *,
-body.arcade-reduced-motion ::before,
-body.arcade-reduced-motion ::after {
-  animation: none !important;
-  transition: none !important;
-  scroll-behavior: auto !important;
+
+/* ============================================================================
+   § High contrast — class-based (set via settings panel)
+   Boost border + text contrast across all UI surfaces.
+   ============================================================================ */
+body.contrast-high {
+  --line: rgba(255, 255, 255, 0.22) !important;
+  --line-2: rgba(255, 255, 255, 0.40) !important;
+  --line-3: rgba(255, 255, 255, 0.55) !important;
+  --muted: #cbd1e0 !important;
+  --text: #ffffff !important;
+}
+body.contrast-high * {
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+body.contrast-high :focus-visible {
+  outline: 3px solid #ffd884 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 6px rgba(255, 216, 132, 0.35) !important;
 }
 
-/* Universal focus ring — always visible on any tabbable element */
-*:focus-visible {
-  outline: 2px solid #7af0ff;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
 
-/* Skip-to-main-content link, hidden until focused */
-.arcade-skip-link {
-  position: absolute;
-  top: -40px;
-  left: 8px;
-  background: #f5c451;
-  color: #14100a;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font: 700 13px/1 "Inter", sans-serif;
-  z-index: 99999;
-  transition: top 0.2s;
-  text-decoration: none;
-}
-.arcade-skip-link:focus {
-  top: 8px;
-}
-
-/* Tap targets ≥ 44px on touch devices */
-@media (pointer: coarse) {
+/* ============================================================================
+   § High contrast — OS preference (prefers-contrast: more)
+   Triggered automatically on Mac "Increase Contrast" / Win "High Contrast Text".
+   Applies stronger borders, higher-contrast text, solid backgrounds.
+   ============================================================================ */
+@media (prefers-contrast: more) {
+  :root,
+  body {
+    --line: rgba(255, 255, 255, 0.50) !important;
+    --line-2: rgba(255, 255, 255, 0.70) !important;
+    --line-3: rgba(255, 255, 255, 0.90) !important;
+    --muted: #e8ecf5 !important;
+    --text: #ffffff !important;
+  }
+  /* bump border weights from ~1.5px to ~2.5px on framed surfaces */
   button,
+  .btn,
+  input,
+  select,
+  textarea,
+  .card,
+  .panel,
   [role="button"],
+  [role="dialog"],
+  .nav-link,
+  .profile-pill,
+  .fortune-card {
+    border-width: 2.5px !important;
+    border-style: solid !important;
+    border-color: currentColor !important;
+  }
+  /* solid backgrounds — kill semi-transparent overlays that wash out */
+  .glass,
+  .overlay,
+  [class*="rgba"],
+  .backdrop {
+    background-color: #0b0d12 !important;
+    backdrop-filter: none !important;
+  }
+  /* link underlines mandatory in high contrast */
   a {
-    min-height: 44px;
+    text-decoration: underline !important;
+    text-underline-offset: 2px;
+  }
+  /* focus ring even more pronounced */
+  *:focus-visible {
+    outline-width: 4px !important;
+    outline-offset: 3px !important;
   }
 }
 
-/* Respect "no-prefers-reduced-motion" for animations that are essential
-   for understanding gameplay (boss telegraph, capture wobble) — those
-   classes opt-in via .arcade-essential-motion */
+
+/* ============================================================================
+   § Forced colors mode (Windows High Contrast / Edge Forced Colors)
+   System colors take over. Don't fight them — make sure focus indicators
+   still show and content remains legible.
+   ============================================================================ */
+@media (forced-colors: active) {
+  :root,
+  body {
+    --bg: Canvas;
+    --text: CanvasText;
+    --line: CanvasText;
+    --accent: LinkText;
+  }
+  body {
+    background-color: Canvas !important;
+    color: CanvasText !important;
+  }
+  a,
+  a:visited {
+    color: LinkText !important;
+  }
+  button,
+  .btn,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"] {
+    background-color: ButtonFace !important;
+    color: ButtonText !important;
+    border: 1px solid ButtonText !important;
+    forced-color-adjust: none;
+  }
+  *:focus-visible {
+    outline: 3px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+  /* SVGs / icons that depend on currentColor stay legible */
+  svg {
+    forced-color-adjust: auto;
+  }
+  /* Hide pure decoration that conveys no information */
+  .arcade-particle,
+  .arcade-heavy-effect,
+  [data-arcade-decorative] {
+    display: none !important;
+  }
+}
+
+
+/* ============================================================================
+   § Color-blind palettes — class-based filters (existing canvas filters)
+   Filters preserve information while shifting hues away from confusable axes.
+   Both class form (`.cb-deuteranope`) and data-attr form
+   (`[data-colorblind="deuteranopia"]`) accepted.
+   ============================================================================ */
+body.cb-deuteranope canvas,
+body.cb-deuteranope img,
+body.cb-deuteranope .cb-target,
+body[data-colorblind="deuteranopia"] canvas,
+body[data-colorblind="deuteranopia"] img,
+body[data-colorblind="deuteranopia"] .cb-target {
+  filter: hue-rotate(-15deg) saturate(0.85) contrast(1.05);
+}
+body.cb-protanope canvas,
+body.cb-protanope img,
+body.cb-protanope .cb-target,
+body[data-colorblind="protanopia"] canvas,
+body[data-colorblind="protanopia"] img,
+body[data-colorblind="protanopia"] .cb-target {
+  filter: hue-rotate(8deg) saturate(0.82) contrast(1.05);
+}
+body.cb-tritanope canvas,
+body.cb-tritanope img,
+body.cb-tritanope .cb-target,
+body[data-colorblind="tritanopia"] canvas,
+body[data-colorblind="tritanopia"] img,
+body[data-colorblind="tritanopia"] .cb-target {
+  filter: hue-rotate(20deg) saturate(0.80) contrast(1.05);
+}
+
+
+/* ============================================================================
+   § Color-blind palettes — semantic UI overrides
+   Critical info encoded in red/green (correct/wrong) gets remapped to
+   blue/orange/yellow axes that survive every form of color-vision deficiency.
+   Pair with shape/icon redundancy in markup (✓ / ✗ characters etc.).
+   ============================================================================ */
+/* protanopia + deuteranopia: red <-> green confusion → blue/orange axis */
+body.cb-protanope .feedback-correct,
+body[data-colorblind="protanopia"] .feedback-correct,
+body.cb-deuteranope .feedback-correct,
+body[data-colorblind="deuteranopia"] .feedback-correct,
+body.cb-protanope [data-feedback="correct"],
+body[data-colorblind="protanopia"] [data-feedback="correct"],
+body.cb-deuteranope [data-feedback="correct"],
+body[data-colorblind="deuteranopia"] [data-feedback="correct"] {
+  --semantic-correct: #4da6ff !important;   /* blue */
+  color: #4da6ff !important;
+  border-color: #4da6ff !important;
+}
+body.cb-protanope .feedback-wrong,
+body[data-colorblind="protanopia"] .feedback-wrong,
+body.cb-deuteranope .feedback-wrong,
+body[data-colorblind="deuteranopia"] .feedback-wrong,
+body.cb-protanope [data-feedback="wrong"],
+body[data-colorblind="protanopia"] [data-feedback="wrong"],
+body.cb-deuteranope [data-feedback="wrong"],
+body[data-colorblind="deuteranopia"] [data-feedback="wrong"] {
+  --semantic-wrong: #ff8c1a !important;     /* orange */
+  color: #ff8c1a !important;
+  border-color: #ff8c1a !important;
+}
+
+/* tritanopia: blue <-> yellow confusion → red/green axis is fine here */
+body.cb-tritanope .feedback-correct,
+body[data-colorblind="tritanopia"] .feedback-correct,
+body.cb-tritanope [data-feedback="correct"],
+body[data-colorblind="tritanopia"] [data-feedback="correct"] {
+  --semantic-correct: #2ecc71 !important;
+  color: #2ecc71 !important;
+  border-color: #2ecc71 !important;
+}
+body.cb-tritanope .feedback-wrong,
+body[data-colorblind="tritanopia"] .feedback-wrong,
+body.cb-tritanope [data-feedback="wrong"],
+body[data-colorblind="tritanopia"] [data-feedback="wrong"] {
+  --semantic-wrong: #e74c3c !important;
+  color: #e74c3c !important;
+  border-color: #e74c3c !important;
+}
+
+/* Gold/red distinction — redundancy via icon glyph injected before the value */
+body[class*="cb-"] .gold-vs-red::before,
+body[data-colorblind] .gold-vs-red::before {
+  display: inline-block;
+  margin-right: 0.35em;
+  font-weight: 900;
+  content: attr(data-icon, "★");
+}
+
+
+/* ============================================================================
+   § Color contrast — body-text WCAG AA backstops
+   Ensures default text colors meet 4.5:1 (normal) / 3:1 (large).
+   Sub-stylesheets are free to override; this only kicks in if --text is unset.
+   Default arcade backdrop is near-black so text needs to be near-white.
+   ============================================================================ */
+:root {
+  --a11y-text-strong: #f5f7fb;       /* ≥ 16:1 on #0b0d12 */
+  --a11y-text-default: #e3e7f0;      /* ≥ 13:1 on #0b0d12 */
+  --a11y-text-muted: #b8c0d0;        /* ≥ 8:1  on #0b0d12 — still passes AA */
+  --a11y-text-large: #a3acc0;        /* large-text only, ≥ 5:1 */
+}
+body {
+  color: var(--text, var(--a11y-text-default));
+}
+.muted,
+.text-muted,
+small {
+  color: var(--muted, var(--a11y-text-muted));
+}
+
+
+/* ============================================================================
+   § Keyboard-only enhancements
+   When `body[data-keyboard-mode="true"]` is set (toggled by arcade-profile.js
+   on first Tab keypress), surface extra hints and stronger focus affordances.
+   ============================================================================ */
+body[data-keyboard-mode="true"] *:focus-visible {
+  outline-width: 4px !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 7px rgba(122, 240, 255, 0.30) !important;
+}
+/* "Tab to continue" prompt slot — markup can inject a [data-kbd-hint] element
+   that becomes visible only in keyboard mode. */
+[data-kbd-hint] {
+  display: none;
+}
+body[data-keyboard-mode="true"] [data-kbd-hint] {
+  display: inline-block;
+  font: 600 12px/1.2 "Inter", system-ui, sans-serif;
+  color: #7af0ff;
+  background: rgba(122, 240, 255, 0.12);
+  border: 1px solid rgba(122, 240, 255, 0.45);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+/* Decorative "press Tab" arrow that points at the next focusable item */
+body[data-keyboard-mode="true"] .kbd-next-hint::after {
+  content: " ↹";
+  display: inline-block;
+  margin-left: 4px;
+  color: #7af0ff;
+  font-weight: 700;
+  animation: kbd-pulse 1.4s ease-in-out infinite;
+}
+@keyframes kbd-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+/* Reduced-motion catch — no pulse if user has disabled motion */
 @media (prefers-reduced-motion: reduce) {
-  .arcade-essential-motion {
-    animation-play-state: running !important;
+  body[data-keyboard-mode="true"] .kbd-next-hint::after {
+    animation: none !important;
+    opacity: 0.85;
   }
 }
 
-/* Higher contrast for screen-reader-only labels */
-.arcade-sr-only {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+
+/* ============================================================================
+   § Print styles
+   Strip nav/drawer/music/modals/particles. Keep main content legible on paper.
+   Black text on white background, no decorative backgrounds.
+   ============================================================================ */
+@media print {
+  /* Force light, ink-friendly palette */
+  :root,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  body * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+  }
+  /* Hide all chrome that doesn't belong on paper */
+  nav,
+  header nav,
+  .arcade-nav,
+  .nav,
+  .drawer,
+  .arcade-drawer,
+  .music-controls,
+  .audio-controls,
+  .arcade-music,
+  .modal,
+  .arcade-modal,
+  [role="dialog"],
+  canvas,
+  .particle-canvas,
+  .arcade-particle,
+  .arcade-heavy-effect,
+  [data-arcade-decorative],
+  .skip-nav,
+  .arcade-skip-link,
+  .toast,
+  .arcade-toast,
+  video,
+  iframe[src*="youtube"],
+  iframe[src*="vimeo"] {
+    display: none !important;
+  }
+  /* Make sure links print their URL */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555 !important;
+  }
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+  /* Avoid splitting blocks awkwardly across pages */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  p, blockquote, table, ul, ol {
+    page-break-inside: avoid;
+  }
+  /* Ensure body content fills the page */
+  main,
+  .arcade-main,
+  [role="main"] {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 }
+
+
+/* ============================================================================
+   § Animation safety — final catch-all
+   If, despite everything, a sub-stylesheet runs an infinite animation that
+   could induce vestibular distress, this layer will throttle it on any
+   `[data-arcade-vestibular="risk"]` element when reduced-motion is active.
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  [data-arcade-vestibular="risk"],
+  .parallax,
+  .auto-scroll,
+  [data-autoplay] {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ============================================================================
+   END — Mr. Mac's Arcade Accessibility Layer
+   ============================================================================ */

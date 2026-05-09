@@ -274,6 +274,158 @@
     return promptQuality(question).ok;
   }
 
+  // ---- Curated bank: indexable lookup / tag / course helpers ---------------
+  //
+  // The arcade ships question banks via JSON (regents-gauntlet-bank.json,
+  // chrono-defense-bank.json, etc.). Some games want a stable handle: a unique
+  // ID per source, a tag list, and an alt-text-aware image. The helpers below
+  // build a normalized view over any array of question records and let games
+  // call lookup(id) / searchByTag(tag) / getAllForCourse(course).
+
+  var bankIndex = null;
+  var bankRecords = [];
+  var bankRegistered = false;
+
+  function stableId(record, fallbackIndex) {
+    if (!record) return "src-" + (fallbackIndex || 0);
+    if (record.id) return String(record.id);
+    if (record.officialQuestionNumber && record.course) {
+      return slugify(record.course) + ":" + slugify(record.officialQuestionNumber);
+    }
+    var src = stimulusImages(record).map(function (image) { return image.src; }).join("|");
+    if (src) return "img:" + slugify(src.slice(0, 80));
+    var prompt = String(record.prompt || record.stem || "").slice(0, 80);
+    if (prompt) return "p:" + slugify(prompt);
+    return "src-" + (fallbackIndex || 0);
+  }
+
+  function slugify(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 100) || "unknown";
+  }
+
+  function recordTags(record) {
+    record = record || {};
+    var raw = [];
+    if (Array.isArray(record.tags)) raw = raw.concat(record.tags);
+    if (record.skill) raw.push(record.skill);
+    if (record.topic) raw.push(record.topic);
+    if (record.set) raw.push(record.set);
+    if (record.day) raw.push(record.day);
+    if (record.subject) raw.push(record.subject);
+    if (sourceBased(record)) raw.push("source-based");
+    if (hasStimulusImages(record)) raw.push("has-image");
+    var seen = Object.create(null);
+    var out = [];
+    raw.forEach(function (tag) {
+      if (tag == null) return;
+      var s = slugify(tag);
+      if (!s || seen[s]) return;
+      seen[s] = true;
+      out.push(s);
+    });
+    return out;
+  }
+
+  function recordImages(record) {
+    return stimulusImages(record).map(function (image, idx) {
+      return {
+        src: image.src,
+        alt: String(image.alt || image.label || displayStimulusLabel(record, image) || ("Source image " + (idx + 1))),
+        label: image.label || ""
+      };
+    });
+  }
+
+  function indexRecord(record, fallbackIndex) {
+    var id = stableId(record, fallbackIndex);
+    return {
+      id: id,
+      record: record,
+      course: String(record && record.course || ""),
+      tags: recordTags(record),
+      images: recordImages(record),
+      sourceBased: sourceBased(record),
+      trusted: trustedSource(record),
+      label: displaySource(record) || displayPrompt(record) || id
+    };
+  }
+
+  function buildIndex(records) {
+    var arr = Array.isArray(records) ? records : [];
+    var byId = Object.create(null);
+    var byTag = Object.create(null);
+    var byCourse = Object.create(null);
+    var entries = arr.map(function (record, i) {
+      var entry = indexRecord(record, i);
+      // ensure id uniqueness
+      var base = entry.id;
+      var n = 1;
+      while (byId[entry.id]) {
+        n += 1;
+        entry.id = base + "-" + n;
+      }
+      byId[entry.id] = entry;
+      entry.tags.forEach(function (tag) {
+        (byTag[tag] = byTag[tag] || []).push(entry);
+      });
+      var courseKey = slugify(entry.course || "uncategorized");
+      (byCourse[courseKey] = byCourse[courseKey] || []).push(entry);
+      return entry;
+    });
+    return { entries: entries, byId: byId, byTag: byTag, byCourse: byCourse };
+  }
+
+  function ensureIndex() {
+    if (bankIndex) return bankIndex;
+    bankIndex = buildIndex(bankRecords);
+    return bankIndex;
+  }
+
+  function registerRecords(records) {
+    bankRecords = Array.isArray(records) ? records.slice() : [];
+    bankIndex = null;
+    bankRegistered = true;
+    return ensureIndex();
+  }
+
+  function lookup(id) {
+    if (id == null) return null;
+    var idx = ensureIndex();
+    return idx.byId[String(id)] || null;
+  }
+
+  function searchByTag(tag) {
+    if (!tag) return [];
+    var idx = ensureIndex();
+    var key = slugify(tag);
+    return (idx.byTag[key] || []).slice();
+  }
+
+  function getAllForCourse(course) {
+    var idx = ensureIndex();
+    if (!course) return idx.entries.slice();
+    var key = slugify(course);
+    var direct = idx.byCourse[key];
+    if (direct && direct.length) return direct.slice();
+    // fallback: substring match on course label
+    var needle = slugify(course);
+    return idx.entries.filter(function (entry) {
+      return slugify(entry.course).indexOf(needle) !== -1;
+    });
+  }
+
+  function bankSize() {
+    return ensureIndex().entries.length;
+  }
+
+  function isRegistered() {
+    return bankRegistered;
+  }
+
   root.MrMacsSourceBank = {
     sourcePattern: SOURCE_RE,
     stimulusImages: stimulusImages,
@@ -293,6 +445,15 @@
     playableSharedPrompt: playableSharedPrompt,
     displayPrompt: displayPrompt,
     displaySource: displaySource,
-    displayStimulusLabel: displayStimulusLabel
+    displayStimulusLabel: displayStimulusLabel,
+    // Curated bank registry (additive — games may opt in)
+    registerRecords: registerRecords,
+    lookup: lookup,
+    searchByTag: searchByTag,
+    getAllForCourse: getAllForCourse,
+    bankSize: bankSize,
+    isRegistered: isRegistered,
+    stableId: stableId,
+    recordTags: recordTags
   };
 })(typeof window !== "undefined" ? window : globalThis);

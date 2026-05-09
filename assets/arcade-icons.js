@@ -6,22 +6,56 @@
    and scales via the .ic CSS class. No external assets, zero runtime cost.
 
    Usage:
-     window.MrMacsIcons.svg("flame")        → <svg>…</svg> string
-     window.MrMacsIcons.fromEmoji("🔥")      → same string
-     window.MrMacsIcons.has("cap")           → boolean
-     window.MrMacsIcons.list()               → array of names
+     window.MrMacsIcons.svg("flame")            → <svg>…</svg> string
+     window.MrMacsIcons.svg("flame", {color, size})
+     window.MrMacsIcons.fromEmoji("🔥")         → same string
+     window.MrMacsIcons.has("cap")              → boolean
+     window.MrMacsIcons.list()                  → array of names
+     window.MrMacsIcons.tierIcon("gold")        → "trophy" / "podium" / etc.
+     window.MrMacsIcons.setDefaultColor("#7af0ff")  // global currentColor fallback
+     window.MrMacsIcons.colorPresets             // { gold, cyan, magenta, indigo, coral }
 
    Design notes:
    - 1.6px stroke, square caps + miter joins, viewBox 0 0 24 24
    - Editorial glyph aesthetic — geometric, minimal, dignified
    - Pairs with Fraunces / Inter / JetBrains Mono ladder
+   - All svgs use stroke="currentColor" so callers may style via CSS color.
+     Passing `opts.color` overrides via inline style (does not break currentColor).
+
+   Performance:
+   - Rendered SVG strings are cached by (name, color, size) tuple so repeat
+     calls for the same icon skip the string concat.
    ─────────────────────────────────────────────────────────────────────── */
 (function (root) {
   "use strict";
   if (root.MrMacsIcons) return;
 
-  // Common open tag — closing tag appended in REGISTRY entries below
-  var O = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+  // ── Color presets — tuned to the Mr. Mac's palette ────────────────────
+  var COLOR_PRESETS = {
+    gold:    "#f5c451",
+    cyan:    "#7af0ff",
+    magenta: "#ff7cc8",
+    indigo:  "#b892ff",
+    coral:   "#ff8e6f"
+  };
+
+  // Optional global default — settable via setDefaultColor().
+  // null = let CSS / currentColor decide (the recommended default).
+  var DEFAULT_COLOR = null;
+
+  // Build the open <svg ...> tag. Inline style is added only when a color
+  // override is requested so the default path stays a CSS-themable one.
+  function openTag(opts) {
+    var size = (opts && opts.size) ? opts.size : null;
+    var color = (opts && opts.color) ? opts.color : DEFAULT_COLOR;
+    var classAttr = 'class="ic"';
+    var sizeAttr = size ? (' width="' + size + '" height="' + size + '"') : '';
+    var styleAttr = color ? (' style="color:' + color + '"') : '';
+    return '<svg ' + classAttr + sizeAttr + styleAttr +
+           ' viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+           ' stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"' +
+           ' aria-hidden="true">';
+  }
   var C = '</svg>';
 
   // ── Icon paths ───────────────────────────────────────────────────────
@@ -162,7 +196,41 @@
     // Star outline (unfilled rung / pending threat)
     "star-empty": '<polygon points="12,3 14.5,9.5 21.5,10 16,14.5 18,21.5 12,17.5 6,21.5 8,14.5 2.5,10 9.5,9.5" fill="none"/>',
     // Skip-forward (two right triangles + bar) — for "skip question" buttons
-    "skip-fwd": '<polygon points="4,5 12,12 4,19" fill="currentColor" stroke="none"/><polygon points="11.5,5 19.5,12 11.5,19" fill="currentColor" stroke="none"/><line x1="20.5" y1="5" x2="20.5" y2="19"/>'
+    "skip-fwd": '<polygon points="4,5 12,12 4,19" fill="currentColor" stroke="none"/><polygon points="11.5,5 19.5,12 11.5,19" fill="currentColor" stroke="none"/><line x1="20.5" y1="5" x2="20.5" y2="19"/>',
+
+    // ── Game-glyph additions (May 2026) ─────────────────────────────────
+    // Brick (🧱) — staggered course of bricks
+    "brick": '<rect x="3" y="5" width="18" height="14" rx="0.4"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="3" y1="14" x2="21" y2="14"/><line x1="9" y1="5" x2="9" y2="10"/><line x1="15" y1="5" x2="15" y2="10"/><line x1="6" y1="10" x2="6" y2="14"/><line x1="12" y1="10" x2="12" y2="14"/><line x1="18" y1="10" x2="18" y2="14"/><line x1="9" y1="14" x2="9" y2="19"/><line x1="15" y1="14" x2="15" y2="19"/>',
+    // Snake (🐍) — coiled S shape with eye
+    "snake": '<path d="M5 6 C5 4 7 3 9 3 C12 3 13 5 13 7 C13 9 11 10 9 10 C7 10 5 11 5 13 C5 15 7 16 10 16 C13 16 16 15 18 13 C20 11 20 8 19 6"/><path d="M19 6 L20 4.5 M19 6 L17.5 5"/><circle cx="7.6" cy="6.2" r="0.7" fill="currentColor" stroke="none"/><path d="M9 18 H15"/><path d="M9 20 H15"/>',
+    // Blue-square (🟦) — filled rounded square
+    "blue-square": '<rect x="4" y="4" width="16" height="16" rx="1.6" fill="currentColor" fill-opacity="0.85"/>',
+    // Bubble (🫧) — bubble cluster
+    "bubble": '<circle cx="9" cy="13" r="5"/><circle cx="16.5" cy="8" r="3"/><circle cx="18" cy="16.5" r="2.2"/><path d="M6.5 11 C7 10 8 9.5 9 9.5"/>',
+    // Frog (🐸) — wide head with eyes
+    "frog": '<path d="M3 14 C3 9 7 5 12 5 C17 5 21 9 21 14 V17 C21 18 20 19 18.5 19 H5.5 C4 19 3 18 3 17 Z"/><circle cx="8.5" cy="8.5" r="2.4"/><circle cx="15.5" cy="8.5" r="2.4"/><circle cx="8.5" cy="8.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="0.9" fill="currentColor" stroke="none"/><path d="M9 14.5 C10 16 14 16 15 14.5"/>',
+    // Red-triangle (🔺) — solid up-triangle
+    "red-triangle": '<polygon points="12,3.5 21.5,20 2.5,20" fill="currentColor" fill-opacity="0.9"/>',
+    // Hammer (🔨) — claw hammer
+    "hammer": '<path d="M5 8 H14 V12 H5 Z"/><path d="M6 8 L4 6 H8 L6 8 Z"/><line x1="14" y1="10" x2="20" y2="16"/><path d="M19 15 L21 17 L17 21 L15 19 Z"/>',
+    // Pistol (🔫) — stylized side-view
+    "pistol": '<path d="M3 9 H17 L17 13 L13 13 L11 17 H7 L8 13 L3 13 Z"/><line x1="14" y1="9" x2="14" y2="6"/><circle cx="14" cy="6" r="1"/>',
+    // Explosion (💥) — burst rays
+    "explosion": '<polygon points="12,3 14,8 19,4 16,10 22,11 16,13 19,19 14,15 12,21 10,15 5,19 8,13 2,11 8,10 5,4 10,8" fill="currentColor" fill-opacity="0.85"/>',
+    // Refresh (🔄) — circular arrows (distinct from "shuffle")
+    "refresh": '<path d="M4 12 A8 8 0 0 1 18 7"/><polyline points="14,4 18,7 15,11"/><path d="M20 12 A8 8 0 0 1 6 17"/><polyline points="10,20 6,17 9,13"/>',
+    // Search (🔍) — magnifier
+    "search": '<circle cx="10.5" cy="10.5" r="6"/><line x1="15" y1="15" x2="20.5" y2="20.5"/>',
+    // Lightbulb (💡) — bulb + filament base
+    "lightbulb": '<path d="M9 16 C7 14.5 6 12.5 6 10.5 C6 7 8.7 4.5 12 4.5 C15.3 4.5 18 7 18 10.5 C18 12.5 17 14.5 15 16 Z"/><line x1="9" y1="17.5" x2="15" y2="17.5"/><line x1="10" y1="19.5" x2="14" y2="19.5"/><line x1="11" y1="21.5" x2="13" y2="21.5"/>',
+    // Snowflake (❄) — six-pointed
+    "snowflake": '<line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="5.5" y2="18.5"/><polyline points="9,5 12,3 15,5"/><polyline points="9,19 12,21 15,19"/><polyline points="5,9 3,12 5,15"/><polyline points="19,9 21,12 19,15"/>',
+    // Coin (🪙) — circle with $ glyph
+    "coin": '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="6.5" fill="none"/><path d="M14.5 9.5 C13.7 8.5 11 8 10 9.5 C8.5 12 14.5 12 14 14.5 C13.7 16 10 16 9 14.5"/><line x1="12" y1="6.5" x2="12" y2="17.5"/>',
+    // Newspaper (📰)
+    "newspaper": '<rect x="3" y="5" width="18" height="14" rx="0.6"/><line x1="3" y1="9" x2="21" y2="9"/><rect x="6" y="11" width="5" height="5"/><line x1="13" y1="12" x2="19" y2="12"/><line x1="13" y1="14" x2="19" y2="14"/><line x1="13" y1="16" x2="19" y2="16"/>',
+    // Cart (🛒) — shopping cart
+    "cart": '<path d="M3 4 H6 L8.2 16.5 H19"/><path d="M8.2 16.5 H19 L21 8 H7"/><circle cx="10" cy="20" r="1.4"/><circle cx="17.5" cy="20" r="1.4"/>'
   };
 
   // Emoji → registered name (for legacy emoji-keyed storage)
@@ -192,6 +260,7 @@
     "✕": "close",
     "→": "arrow-right",
     "★": "star",
+    "⭐": "star",
     "📅": "calendar",
     // Avatar set
     "🧭": "compass",
@@ -211,6 +280,7 @@
     "🗝": "key",
     "👑": "crown",
     "🛡": "shield",
+    "🛡️": "shield",
     "✨": "sparkles",
     "⚛": "atom",
     "🌍": "globe",
@@ -245,24 +315,78 @@
     "🤠": "cowboy-hat",
     "🕵": "spy",
     "🕵️": "spy",
-    "🤖": "robot"
+    "🤖": "robot",
+    // Game-glyph additions (May 2026)
+    "🧱": "brick",
+    "🐍": "snake",
+    "🟦": "blue-square",
+    "🫧": "bubble",
+    "🐸": "frog",
+    "🔺": "red-triangle",
+    "🔨": "hammer",
+    "🔫": "pistol",
+    "💥": "explosion",
+    "🔄": "refresh",
+    "🔍": "search",
+    "💡": "lightbulb",
+    "❄": "snowflake",
+    "❄️": "snowflake",
+    "🪙": "coin",
+    "📰": "newspaper",
+    "🛒": "cart"
   };
 
-  function svg(name) {
-    var path = REGISTRY[name];
-    if (!path) return "";
-    return O + path + C;
+  // Tier mapping — maps "bronze"/"silver"/"gold"/"legendary" to icon names.
+  // Callers can override or extend by writing into MrMacsIcons.TIER_MAP.
+  var TIER_MAP = {
+    bronze:    "shield",
+    silver:    "star-empty",
+    gold:      "trophy",
+    legendary: "crown"
+  };
+
+  // ── Render cache: keyed by (name|color|size) ─────────────────────────
+  var RENDER_CACHE = Object.create(null);
+  function cacheKey(name, color, size) {
+    return name + "|" + (color || "") + "|" + (size || "");
   }
 
-  function fromEmoji(emoji) {
+  function svg(name, opts) {
+    var path = REGISTRY[name];
+    if (!path) return "";
+    var color = (opts && opts.color) || "";
+    var size = (opts && opts.size) || "";
+    var key = cacheKey(name, color || (DEFAULT_COLOR || ""), size);
+    var hit = RENDER_CACHE[key];
+    if (hit) return hit;
+    var out = openTag(opts) + path + C;
+    RENDER_CACHE[key] = out;
+    return out;
+  }
+
+  function fromEmoji(emoji, opts) {
     var name = EMOJI_MAP[emoji];
     if (!name) return null;
-    return svg(name);
+    return svg(name, opts);
   }
 
   function has(name) { return Object.prototype.hasOwnProperty.call(REGISTRY, name); }
   function list() { return Object.keys(REGISTRY); }
   function listEmoji() { return Object.keys(EMOJI_MAP); }
+
+  // tierIcon: returns the registered icon name for a tier label.
+  // Falls back to "trophy" for unrecognized tiers so callers always render.
+  function tierIcon(tier) {
+    if (!tier) return TIER_MAP.gold || "trophy";
+    var key = String(tier).toLowerCase();
+    return TIER_MAP[key] || TIER_MAP.gold || "trophy";
+  }
+
+  // setDefaultColor: global currentColor fallback. Call with null to clear.
+  function setDefaultColor(hex) {
+    DEFAULT_COLOR = (hex == null) ? null : String(hex);
+    // Cache invalidates implicitly because the key includes the color.
+  }
 
   /* Convenience: walk a string and replace any emoji we know about with
      the corresponding SVG markup. Useful for HTML strings assembled in JS. */
@@ -285,7 +409,11 @@
     list: list,
     listEmoji: listEmoji,
     expandEmojiInString: expandEmojiInString,
+    tierIcon: tierIcon,
+    setDefaultColor: setDefaultColor,
+    colorPresets: COLOR_PRESETS,
     REGISTRY: REGISTRY,
-    EMOJI_MAP: EMOJI_MAP
+    EMOJI_MAP: EMOJI_MAP,
+    TIER_MAP: TIER_MAP
   };
 })(typeof window !== "undefined" ? window : this);

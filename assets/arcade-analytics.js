@@ -5,7 +5,48 @@
   var LOCAL_KEY = PREFIX + ":local-traffic";
   var PUBLIC_CACHE_KEY = PREFIX + ":public-traffic-cache";
   var SESSION_KEY = PREFIX + ":session-id";
+  var EVENT_LOG_KEY = PREFIX + ":event-log";
   var API = "https://countapi.mileshilliard.com/api/v1";
+
+  // Privacy: never persist or transmit these keys. They are stripped before
+  // detail payloads enter the local event log or any global counter.
+  var PII_KEYS = [
+    "name", "firstName", "lastName", "fullName", "studentName", "userName",
+    "email", "emailAddress", "phone", "phoneNumber",
+    "address", "ip", "ssn", "dob", "birthday"
+  ];
+  var EVENT_LOG_LIMIT = 200;
+  var eventListeners = [];
+  var debugMode = false;
+  try {
+    debugMode = (typeof window !== "undefined" && window.__MR_MACS_DEBUG__ === true) ||
+      (typeof localStorage !== "undefined" && localStorage.getItem(PREFIX + ":debug") === "1");
+  } catch (error) {}
+
+  function debugLog() {
+    if (!debugMode || typeof console === "undefined" || typeof console.log !== "function") return;
+    try { console.log.apply(console, ["[mrmacs-analytics]"].concat(Array.prototype.slice.call(arguments))); } catch (error) {}
+  }
+
+  function stripPII(detail) {
+    if (!detail || typeof detail !== "object") return detail;
+    var clean = {};
+    Object.keys(detail).forEach(function (key) {
+      var lowered = String(key).toLowerCase();
+      if (PII_KEYS.indexOf(key) !== -1 || PII_KEYS.indexOf(lowered) !== -1) return;
+      var value = detail[key];
+      if (value && typeof value === "object" && !Array.isArray(value)) {
+        clean[key] = stripPII(value);
+      } else if (Array.isArray(value)) {
+        clean[key] = value.map(function (item) {
+          return (item && typeof item === "object" && !Array.isArray(item)) ? stripPII(item) : item;
+        });
+      } else {
+        clean[key] = value;
+      }
+    });
+    return clean;
+  }
   var pagePath = location.pathname.replace(/\/+$/, "") || "/";
   var isGamePage = /\/games\//.test(pagePath);
   var localOnly = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname || "") || location.protocol === "file:";
@@ -777,22 +818,85 @@
     });
   }
 
+  function readEventLog() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(EVENT_LOG_KEY) || "[]");
+      return Array.isArray(raw) ? raw : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function writeEventLog(entries) {
+    try {
+      localStorage.setItem(EVENT_LOG_KEY, JSON.stringify(entries.slice(0, EVENT_LOG_LIMIT)));
+    } catch (error) {}
+  }
+
+  function appendEvent(type, detail) {
+    var entry = {
+      type: String(type || "unknown"),
+      at: new Date().toISOString(),
+      detail: stripPII(detail || {}),
+      session: sessionId(),
+      device: deviceClass()
+    };
+    var log = readEventLog();
+    log.unshift(entry);
+    writeEventLog(log);
+    eventListeners.forEach(function (handler) {
+      try { handler(entry); } catch (error) {
+        debugLog("listener error", error);
+      }
+    });
+    debugLog("event", entry.type, entry.detail);
+    return entry;
+  }
+
+  function getEventLog(limit) {
+    var log = readEventLog();
+    var n = Number(limit);
+    if (Number.isFinite(n) && n > 0) return log.slice(0, n);
+    return log.slice();
+  }
+
+  function resetLog() {
+    try { localStorage.removeItem(EVENT_LOG_KEY); } catch (error) {}
+  }
+
+  function onEvent(handler) {
+    if (typeof handler !== "function") return function () {};
+    eventListeners.push(handler);
+    return function off() {
+      var idx = eventListeners.indexOf(handler);
+      if (idx >= 0) eventListeners.splice(idx, 1);
+    };
+  }
+
+  function setDebug(flag) {
+    debugMode = !!flag;
+    try { localStorage.setItem(PREFIX + ":debug", debugMode ? "1" : "0"); } catch (error) {}
+    return debugMode;
+  }
+
   function track(type, detail, options) {
     detail = detail || {};
     options = options || {};
     if (!detail.gameId && isGamePage) detail.gameId = gameIdFromPath();
     if (!detail.title) detail.title = document.title;
-    var local = bumpLocal(type, detail);
+    var safeDetail = stripPII(detail);
+    var local = bumpLocal(type, safeDetail);
     if (window.MrMacsProgress && window.MrMacsProgress.recordEvent) {
-      window.MrMacsProgress.recordEvent(type, detail);
+      window.MrMacsProgress.recordEvent(type, safeDetail);
     }
+    appendEvent(type, safeDetail);
     render();
 
     var counterName = options.counter || aggregateCounter(type);
     if (!counterName) return Promise.resolve(local);
 
-    var onceKeyValue = options.once === false ? "" : (options.onceKey || counterName + ":" + (detail.gameId || detail.path || pagePath || "session"));
-    var counters = [counterName].concat(detailCounters(type, detail));
+    var onceKeyValue = options.once === false ? "" : (options.onceKey || counterName + ":" + (safeDetail.gameId || safeDetail.path || pagePath || "session"));
+    var counters = [counterName].concat(detailCounters(type, safeDetail));
     return hitCounters(counters, onceKeyValue).then(function () {
       return local;
     });
@@ -803,7 +907,13 @@
     refresh: refreshGlobal,
     render: render,
     stats: readLocal,
-    device: deviceClass
+    device: deviceClass,
+    getEventLog: getEventLog,
+    resetLog: resetLog,
+    onEvent: onEvent,
+    stripPII: stripPII,
+    setDebug: setDebug,
+    isDebug: function () { return debugMode; }
   };
 
   document.addEventListener("DOMContentLoaded", function () {
