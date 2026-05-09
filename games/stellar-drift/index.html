@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04060f">
+  <title>Stellar Drift — Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="styles.css?v=20260509-stellar-drift">
+</head>
+<body>
+  <main class="stellar-shell" id="app">
+    <canvas id="stellarCanvas" aria-label="Stellar Drift — vector-line space drift through asteroid fields"></canvas>
+
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <!-- HUD: top strip -->
+    <section class="top-hud" aria-label="Stellar Drift status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong class="brand-title"><span class="brand-prefix">Stellar</span> <em class="brand-suffix">Drift</em></strong>
+          <span class="brand-sub" id="brandSub">Thrust · Rotate · Fragment · Intercept</span>
+        </div>
+      </div>
+      <div class="hud-stats" aria-label="Game statistics">
+        <div class="stat-cell">
+          <strong id="hudScore" class="stat-value mono" role="status" aria-live="polite" aria-label="Score">0</strong>
+          <span class="stat-label">score</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudLives" class="stat-value mono" role="status" aria-live="polite" aria-label="Lives">3</strong>
+          <span class="stat-label">ships</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudWave" class="stat-value mono" role="status" aria-live="polite" aria-label="Wave">1</strong>
+          <span class="stat-label">wave</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudHyper" class="stat-value mono" role="status" aria-live="polite" aria-label="Hyperspace">RDY</strong>
+          <span class="stat-label">jump</span>
+        </div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
+        <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
+      </div>
+    </section>
+
+    <!-- Wave ribbon -->
+    <section class="wave-ribbon" id="waveRibbon" aria-label="Current wave">
+      <span class="wave-kicker">Sector</span>
+      <strong class="wave-name" id="waveName">Wave 1</strong>
+      <span class="wave-meta" id="waveMeta">Asteroids: 0 / 0</span>
+    </section>
+
+    <!-- Powerup tray (visible when active) -->
+    <section class="powerup-tray" id="powerupTray" aria-label="Active power-ups"></section>
+
+    <!-- Touch controls (mobile/tablet) -->
+    <section class="touch-pad" id="touchPad" aria-label="Touch controls" aria-hidden="true">
+      <div class="touch-cluster touch-left">
+        <button class="touch-btn" id="touchRotL" type="button" aria-label="Rotate left">&larr;</button>
+        <button class="touch-btn" id="touchRotR" type="button" aria-label="Rotate right">&rarr;</button>
+      </div>
+      <div class="touch-cluster touch-right">
+        <button class="touch-btn touch-thrust" id="touchThrust" type="button" aria-label="Thrust">&#9650;</button>
+        <button class="touch-btn touch-fire" id="touchFire" type="button" aria-label="Fire">&#9679;</button>
+        <button class="touch-btn touch-hyper" id="touchHyper" type="button" aria-label="Hyperspace">~</button>
+      </div>
+    </section>
+
+    <!-- Setup / title screen -->
+    <section class="setup-screen show" id="setupScreen" aria-label="Stellar Drift — game setup" aria-modal="true">
+      <div class="setup-card">
+        <div class="marquee-art" aria-hidden="true">
+          <div class="marquee-glow"></div>
+          <div class="marquee-spark spark-a" data-arcade-heavy></div>
+          <div class="marquee-spark spark-b" data-arcade-heavy></div>
+          <div class="marquee-spark spark-c" data-arcade-heavy></div>
+          <div class="marquee-inner-border"></div>
+        </div>
+
+        <div class="setup-kicker">Archive Cruiser</div>
+        <h1><span class="title-prefix">Stellar</span> <em class="title-suffix">Drift</em></h1>
+
+        <div class="ship-badges-row" aria-label="Cruiser systems">
+          <span class="ship-badge" title="Thrust">THR</span>
+          <span class="ship-badge" title="Rotation">ROT</span>
+          <span class="ship-badge" title="Fire">FIR</span>
+          <span class="ship-badge" title="Hyperspace">HYP</span>
+          <span class="ship-badge" title="Shield">SHD</span>
+          <span class="ship-badge" title="Triple Shot">TRP</span>
+          <span class="ship-badge" title="Slow Time">SLO</span>
+          <span class="ship-campaign-label">Vector Survival</span>
+        </div>
+
+        <p class="setup-sub">Pilot the Archive Cruiser through drifting fields of misconception asteroids. <kbd>W</kbd> thrust, <kbd>A</kbd>/<kbd>D</kbd> rotate, <kbd>Space</kbd> fire, <kbd>Shift</kbd> hyperspace. Asteroids split when shot — large becomes two medium, medium becomes two small. Every five waves, a Misconception Mothership rolls in. Watch for gold <em>intel asteroids</em> — fragmenting them opens an optional review challenge for bonus shards.</p>
+
+        <div class="resume-card" id="resumeCard" hidden></div>
+        <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
+
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="soundBtn" type="button" aria-label="Toggle sound">Sound On</button>
+          <button class="btn glass-pill" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">Fullscreen</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button" aria-label="Start the game">
+            <span class="btn-coin" aria-hidden="true">&#9678;</span> Insert Coin · Launch Cruiser
+          </button>
+        </div>
+
+        <p class="key-hints" aria-label="Keyboard controls">
+          <kbd>W</kbd>/<kbd>&uarr;</kbd> thrust &nbsp;·&nbsp; <kbd>A</kbd>/<kbd>D</kbd> rotate &nbsp;·&nbsp; <kbd>Space</kbd> fire &nbsp;·&nbsp; <kbd>Shift</kbd> hyperspace &nbsp;·&nbsp; <kbd>P</kbd>/<kbd>Esc</kbd> pause
+        </p>
+      </div>
+    </section>
+
+    <!-- Intel intercept (review) screen -->
+    <section class="question-screen" id="questionScreen" aria-label="Intel intercept — review question" aria-modal="true">
+      <div class="question-card glass-card">
+        <div class="question-header">
+          <div class="question-meta" id="questionMeta">Intel Intercept</div>
+          <button class="question-close glass-pill" id="questionCloseBtn" type="button" aria-label="Skip and return to game">Skip</button>
+        </div>
+        <h2 id="questionPrompt">Loading intercept&hellip;</h2>
+        <div class="choice-grid" id="choiceGrid" role="group" aria-label="Answer choices"></div>
+        <p class="explanation" id="explanation" role="status"></p>
+      </div>
+    </section>
+
+    <!-- Pause screen -->
+    <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker"><span class="kicker-pause-glyph" aria-hidden="true">&#10074;&#10074;</span> Paused</div>
+        <h2>Cruiser Holding</h2>
+        <p class="setup-sub">Resume drift or restart the run.</p>
+        <div class="setup-actions">
+          <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
+          <button class="btn glass-pill" id="restartBtn" type="button">Restart</button>
+          <button class="btn glass-pill" id="pauseExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- End / game over screen -->
+    <section class="end-screen" id="endScreen" aria-label="Game summary" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="endKicker">Cruiser Lost</div>
+        <h2 id="endTitle">Stellar Drift · Run complete</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="setupBtn" type="button">Setup</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-celebration.js?v=20260509-celebration"></script>
+  <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
+  <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="game.js?v=20260509-stellar-drift"></script>
+</body>
+</html>
