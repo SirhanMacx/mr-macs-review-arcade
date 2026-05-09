@@ -7348,26 +7348,32 @@ boot();
   if (!window.MrMacsProfile) return;
   var P = window.MrMacsProfile;
 
-  // ---- Icon rendering (emoji → monoline SVG, with safe fallback) ----
-  // Avatars and achievement icons are stored as legacy emoji glyphs for
-  // forward-compat with older saved profiles. We render them as SVG if
-  // window.MrMacsIcons knows the emoji, otherwise we render the raw glyph.
-  function renderIcon(emoji, opts) {
-    if (!emoji) return "";
-    if (window.MrMacsIcons && typeof window.MrMacsIcons.fromEmoji === "function") {
-      var svg = window.MrMacsIcons.fromEmoji(emoji);
-      if (svg) {
-        if (opts && opts.dataIcon) {
-          var name = window.MrMacsIcons.EMOJI_MAP[emoji];
-          return svg.replace('<svg class="ic"', '<svg class="ic" data-icon="' + name + '"');
-        }
-        return svg;
+  // ---- Icon rendering (svg name OR avatar id → monoline SVG markup) ----
+  // Avatars are stored by id (e.g. "scholar"); we look up the avatar def
+  // and render its `svg` field. Achievement icons are direct svg names.
+  // Backward compat: if we receive a raw glyph string we never resolve, we
+  // return empty string so the UI degrades silently to no icon.
+  function renderIcon(spec, opts) {
+    if (!spec || typeof spec !== "string") return "";
+    if (!window.MrMacsIcons || typeof window.MrMacsIcons.svg !== "function") return "";
+    // Direct svg name?
+    if (window.MrMacsIcons.has(spec)) {
+      var svg = window.MrMacsIcons.svg(spec);
+      if (opts && opts.dataIcon) {
+        return svg.replace('<svg class="ic"', '<svg class="ic" data-icon="' + spec + '"');
       }
+      return svg;
     }
-    // Fallback — escape just in case
-    return String(emoji).replace(/[<>&]/g, function (c) {
-      return c === "<" ? "&lt;" : c === ">" ? "&gt;" : "&amp;";
-    });
+    // Avatar id? Resolve via AVATARS lookup.
+    var av = (P && P.AVATARS) ? P.AVATARS.find(function (a) { return a.id === spec; }) : null;
+    if (av && av.svg && window.MrMacsIcons.has(av.svg)) {
+      var svg2 = window.MrMacsIcons.svg(av.svg);
+      if (opts && opts.dataIcon) {
+        return svg2.replace('<svg class="ic"', '<svg class="ic" data-icon="' + av.svg + '"');
+      }
+      return svg2;
+    }
+    return "";
   }
 
   // ---- Body-class application for settings (font / contrast / colorblind) ----
@@ -7394,17 +7400,17 @@ boot();
     var profile = P.get();
     var hasProfile = P.exists();
     pill.dataset.empty = hasProfile ? "false" : "true";
-    var diamondSvg = renderIcon("💎");
-    var flameSvg = renderIcon("🔥");
+    var diamondSvg = renderIcon("diamond");
+    var flameSvg = renderIcon("flame");
     if (hasProfile) {
-      if (ppAvatar) ppAvatar.innerHTML = renderIcon(profile.avatar || "🎓");
+      if (ppAvatar) ppAvatar.innerHTML = renderIcon(profile.avatar || "scholar");
       ppName.textContent = profile.name;
       ppShards.innerHTML = diamondSvg + ' <span class="pp-shards-num">' + profile.shards.toLocaleString() + '</span>';
       var streakNum = profile.streak.current || 0;
       ppStreak.innerHTML = flameSvg + ' <span class="pp-streak-num">' + streakNum + '</span>';
       ppStreak.classList.toggle("is-zero", streakNum < 1);
     } else {
-      if (ppAvatar) ppAvatar.innerHTML = renderIcon("🎓");
+      if (ppAvatar) ppAvatar.innerHTML = renderIcon("scholar");
       ppName.textContent = "Sign in";
       ppShards.innerHTML = diamondSvg + ' <span class="pp-shards-num">0</span>';
       ppStreak.innerHTML = flameSvg + ' <span class="pp-streak-num">0</span>';
@@ -7451,14 +7457,14 @@ boot();
   var welcomeAvatars = document.getElementById("welcomeAvatars");
   var welcomeContinue = document.getElementById("welcomeContinue");
   var welcomeSkip = document.getElementById("welcomeSkip");
-  var welcomeAvatar = "🎓";
+  var welcomeAvatar = "scholar";  // avatar id; resolves via P.AVATARS
 
   function buildWelcomeAvatars() {
     if (!welcomeAvatars) return;
     welcomeAvatars.innerHTML = P.AVATARS.map(function (a, i) {
       return '<button type="button" class="welcome-avatar-btn" role="radio" aria-checked="' +
-        (i === 0 ? 'true' : 'false') + '" data-emoji="' + a.emoji +
-        '" aria-label="' + a.label + '">' + renderIcon(a.emoji) + '</button>';
+        (i === 0 ? 'true' : 'false') + '" data-avatar-id="' + a.id +
+        '" aria-label="' + a.label + '">' + renderIcon(a.id) + '</button>';
     }).join("");
     welcomeAvatars.querySelectorAll(".welcome-avatar-btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -7466,7 +7472,7 @@ boot();
           b.setAttribute("aria-checked", "false");
         });
         btn.setAttribute("aria-checked", "true");
-        welcomeAvatar = btn.dataset.emoji;
+        welcomeAvatar = btn.dataset.avatarId;
       });
     });
   }
@@ -7536,7 +7542,7 @@ boot();
     welcomeContinue.addEventListener("click", function () {
       var name = (welcomeName.value || "").trim();
       if (!name) return;
-      P.setAvatar(welcomeAvatar, "emoji");
+      P.setAvatar(welcomeAvatar, "id");
       P.setName(name);
       closeWelcome();
       // Fire the hub tour right after the welcome dialog has dismissed
@@ -7722,7 +7728,7 @@ boot();
 
   function refreshDrawer() {
     var profile = P.get();
-    if (pdAvatar) pdAvatar.innerHTML = renderIcon(profile.avatar || "🎓");
+    if (pdAvatar) pdAvatar.innerHTML = renderIcon(profile.avatar || "scholar");
     if (pdNameInput) pdNameInput.value = profile.name || "";
     if (pdShards) pdShards.textContent = profile.shards.toLocaleString();
     if (pdStreak) pdStreak.textContent = profile.streak.current || 0;
@@ -7740,7 +7746,7 @@ boot();
         return '<div class="pd-ach' + (a.unlocked ? '' : ' is-locked') + '" data-tier="' +
           (a.def.tier || 'bronze') + '" role="listitem" title="' +
           (a.unlocked ? 'Unlocked' : 'Locked') + '">' +
-          '<span class="ach-icon">' + renderIcon(a.def.icon || '🏆') + '</span>' +
+          '<span class="ach-icon">' + renderIcon(a.def.icon || 'trophy') + '</span>' +
           '<div class="ach-text">' +
             '<div class="ach-title">' + a.def.title + '</div>' +
             '<div class="ach-desc">' + (a.unlocked ? a.def.desc : (a.def.desc || '???')) + '</div>' +
@@ -7752,8 +7758,8 @@ boot();
     if (pdAvatarGrid && !pdAvatarGrid.dataset.built) {
       pdAvatarGrid.innerHTML = P.AVATARS.map(function (a) {
         return '<button type="button" class="pd-avatar-btn" role="radio" aria-checked="' +
-          (a.emoji === profile.avatar ? "true" : "false") + '" data-emoji="' + a.emoji +
-          '" aria-label="' + a.label + '">' + renderIcon(a.emoji) + '</button>';
+          (a.id === profile.avatar ? "true" : "false") + '" data-avatar-id="' + a.id +
+          '" aria-label="' + a.label + '">' + renderIcon(a.id) + '</button>';
       }).join("");
       pdAvatarGrid.dataset.built = "1";
       pdAvatarGrid.querySelectorAll(".pd-avatar-btn").forEach(function (btn) {
@@ -7762,13 +7768,13 @@ boot();
             b.setAttribute("aria-checked", "false");
           });
           btn.setAttribute("aria-checked", "true");
-          P.setAvatar(btn.dataset.emoji, "emoji");
-          if (pdAvatar) pdAvatar.innerHTML = renderIcon(btn.dataset.emoji);
+          P.setAvatar(btn.dataset.avatarId, "id");
+          if (pdAvatar) pdAvatar.innerHTML = renderIcon(btn.dataset.avatarId);
         });
       });
     } else if (pdAvatarGrid) {
       pdAvatarGrid.querySelectorAll(".pd-avatar-btn").forEach(function (btn) {
-        btn.setAttribute("aria-checked", btn.dataset.emoji === profile.avatar ? "true" : "false");
+        btn.setAttribute("aria-checked", btn.dataset.avatarId === profile.avatar ? "true" : "false");
       });
     }
 
@@ -7864,7 +7870,7 @@ boot();
     toast.setAttribute("role", "status");
     toast.setAttribute("aria-live", "polite");
     toast.innerHTML =
-      '<div class="ach-toast-icon">' + (def.icon || "🏆") + '</div>' +
+      '<div class="ach-toast-icon">' + renderIcon(def.icon || "trophy") + '</div>' +
       '<div class="ach-toast-body"><small>Achievement unlocked</small><strong>' + def.title + '</strong></div>';
     document.body.appendChild(toast);
     setTimeout(function () { try { toast.remove(); } catch (e) {} }, 5400);
@@ -8186,7 +8192,7 @@ boot();
         return c === "<" ? "&lt;" : c === ">" ? "&gt;" : "&amp;";
       }); };
       return '<div class="ach-strip-card" role="listitem" data-tier="' + safe(tier) + '">' +
-        '<span class="as-icon" aria-hidden="true">' + renderIcon(def.icon || "🏆") + '</span>' +
+        '<span class="as-icon" aria-hidden="true">' + renderIcon(def.icon || "trophy") + '</span>' +
         '<span class="as-text">' +
           '<strong class="as-title">' + safe(def.title || "Achievement") + '</strong>' +
           '<span class="as-meta">' + safe(tier).toUpperCase() + ' · ' + safe(when) + '</span>' +

@@ -2478,7 +2478,8 @@ document.getElementById("muteBtn").addEventListener("click",()=>{
   if (window.MrMacsIcons) {
     _btn.innerHTML=window.MrMacsIcons.svg(muted?"audio-off":"audio-on");
   } else {
-    _btn.textContent=muted?"🔇":"🔊";
+    // Icon library not loaded yet — leave blank rather than show legacy glyphs.
+    _btn.textContent = muted ? "[muted]" : "[sound]";
   }
   _btn.setAttribute("aria-pressed", muted ? "true" : "false");
   _btn.setAttribute("aria-label", muted ? "Unmute sound" : "Mute sound");

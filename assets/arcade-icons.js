@@ -1,20 +1,21 @@
 /* ─────────────────────────────────────────────────────────────────────
    Mr. Mac's Arcade · monoline icon library
    ──────────────────────────────────────────────────────────────────────
-   Drop-in replacement for color emojis used in arcade UI.
-   Every icon is a 24×24 monoline SVG that inherits color via currentColor
-   and scales via the .ic CSS class. No external assets, zero runtime cost.
+   Single source of truth for every glyph in the arcade. The legacy
+   emoji-lookup path (fromEmoji / EMOJI_MAP / expandEmojiInString) was
+   removed in May 2026 when the platform went emoji-free. Every glyph
+   is now keyed by a stable svg name string.
 
    Usage:
-     window.MrMacsIcons.svg("flame")        → <svg>…</svg> string
-     window.MrMacsIcons.fromEmoji("🔥")      → same string
-     window.MrMacsIcons.has("cap")           → boolean
-     window.MrMacsIcons.list()               → array of names
+     window.MrMacsIcons.svg("flame")  → <svg>…</svg> string
+     window.MrMacsIcons.has("cap")    → boolean
+     window.MrMacsIcons.list()        → array of names
 
    Design notes:
    - 1.6px stroke, square caps + miter joins, viewBox 0 0 24 24
    - Editorial glyph aesthetic — geometric, minimal, dignified
    - Pairs with Fraunces / Inter / JetBrains Mono ladder
+   - All icons inherit color via currentColor; size via .ic CSS class
    ─────────────────────────────────────────────────────────────────────── */
 (function (root) {
   "use strict";
@@ -162,90 +163,43 @@
     // Star outline (unfilled rung / pending threat)
     "star-empty": '<polygon points="12,3 14.5,9.5 21.5,10 16,14.5 18,21.5 12,17.5 6,21.5 8,14.5 2.5,10 9.5,9.5" fill="none"/>',
     // Skip-forward (two right triangles + bar) — for "skip question" buttons
-    "skip-fwd": '<polygon points="4,5 12,12 4,19" fill="currentColor" stroke="none"/><polygon points="11.5,5 19.5,12 11.5,19" fill="currentColor" stroke="none"/><line x1="20.5" y1="5" x2="20.5" y2="19"/>'
-  };
-
-  // Emoji → registered name (for legacy emoji-keyed storage)
-  var EMOJI_MAP = {
-    // Hub UI icons
-    "🎓": "cap",
-    "🎯": "target",
-    "🎲": "shuffle",
-    "🏆": "trophy",
-    "💎": "diamond",
-    "📊": "bars",
-    "📍": "pin",
-    "📚": "books",
-    "📝": "memo",
-    "🔥": "flame",
-    "🧠": "mind",
-    "🩺": "pulse",
-    "⚡": "bolt",
-    "⚔": "swords",
-    "✦": "spark",
-    "📖": "library",
-    "🌅": "phoenix",
-    "🔬": "explorer",
-    "🪲": "bookworm",
-    "❤": "heart-pulse",
-    "❓": "help",
-    "✕": "close",
-    "→": "arrow-right",
-    "★": "star",
-    "📅": "calendar",
-    // Avatar set
-    "🧭": "compass",
-    "📜": "scroll",
-    "🧙": "wizard",
-    "🦉": "owl",
-    "🦊": "fox",
-    "🦁": "lion",
-    "🐉": "dragon",
-    "🦸": "hero",
-    "🥷": "ninja",
-    "🚀": "rocket",
-    "🔭": "telescope",
-    "🔱": "trident",
-    "🏺": "amphora",
-    "🪶": "quill",
-    "🗝": "key",
-    "👑": "crown",
-    "🛡": "shield",
-    "✨": "sparkles",
-    "⚛": "atom",
-    "🌍": "globe",
-    // Game-specific glyphs
-    "🔮": "orb",
-    "🔊": "audio-on",
-    "🔇": "audio-off",
-    "⚠": "warning",
-    "⚠️": "warning",
-    "⏸": "pause",
-    "⏭": "skip-fwd",
-    "⏭️": "skip-fwd",
-    "🏁": "checkered-flag",
-    "🥇": "podium",
-    "🪞": "mirror",
-    // Combat / battle glyphs (Arcade Duel + Boss Rush)
-    "✓": "check",
-    "✗": "cross-thin",
-    "🔒": "lock",
-    "🧪": "flask",
-    "💀": "skull",
-    "☠": "skull",
-    "☠️": "skull",
-    "☆": "star-empty",
-    // Era opponents (Arcade Duel ladder)
-    "🏛": "temple",
-    "🏛️": "temple",
-    "⛩": "torii",
-    "⛩️": "torii",
-    "⚜": "fleur",
-    "⚜️": "fleur",
-    "🤠": "cowboy-hat",
-    "🕵": "spy",
-    "🕵️": "spy",
-    "🤖": "robot"
+    "skip-fwd": '<polygon points="4,5 12,12 4,19" fill="currentColor" stroke="none"/><polygon points="11.5,5 19.5,12 11.5,19" fill="currentColor" stroke="none"/><line x1="20.5" y1="5" x2="20.5" y2="19"/>',
+    // Gamepad / controller — d-pad on left, two action buttons on right
+    "controller": '<rect x="2.5" y="8" width="19" height="9" rx="3.5"/><line x1="6" y1="11.5" x2="6" y2="13.5"/><line x1="5" y1="12.5" x2="7" y2="12.5"/><circle cx="16" cy="11.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="18" cy="13.5" r="0.9" fill="currentColor" stroke="none"/>',
+    // Gear / cog (settings)
+    "gear": '<circle cx="12" cy="12" r="3"/><path d="M12 3 L12 5 M12 19 L12 21 M3 12 L5 12 M19 12 L21 12 M5.5 5.5 L7 7 M17 17 L18.5 18.5 M5.5 18.5 L7 17 M17 7 L18.5 5.5"/>',
+    // Lightbulb (insight)
+    "lightbulb": '<path d="M9 16 C7 14.5 6 12.8 6 10.5 C6 7 8.7 4.5 12 4.5 C15.3 4.5 18 7 18 10.5 C18 12.8 17 14.5 15 16"/><path d="M9 16 V19 H15 V16"/><line x1="10.5" y1="21" x2="13.5" y2="21"/>',
+    // Burst / star explosion (boss defeat)
+    "burst": '<polygon points="12,2 14,8 20,8 15,12 17,18 12,15 7,18 9,12 4,8 10,8"/>',
+    // Ghost (oval head with wavy bottom)
+    "ghost": '<path d="M5 11 C5 7 8 4 12 4 C16 4 19 7 19 11 V20 L17 18 L15 20 L13 18 L11 20 L9 18 L7 20 L5 18 Z"/><circle cx="9.5" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="14.5" cy="11" r="0.9" fill="currentColor" stroke="none"/>',
+    // Cherry (two circles + stem)
+    "cherry": '<circle cx="8" cy="17" r="3"/><circle cx="15.5" cy="17" r="3"/><path d="M8 14 C8 9 11 6 13 4 M15.5 14 C15.5 9 14.5 6 13 4"/>',
+    // Playing card (rectangle with corner pip)
+    "playing-card": '<rect x="6" y="3" width="12" height="18" rx="1.5"/><line x1="9" y1="6" x2="9" y2="9"/><line x1="9" y1="6" x2="11" y2="6"/>',
+    // Urn (capture vessel)
+    "urn": '<path d="M9 4 H15 L17 8 C17 12 15.5 14 13 14 H11 C8.5 14 7 12 7 8 Z"/><line x1="8.5" y1="3" x2="15.5" y2="3"/><path d="M11 14 V20.5 H13 V14"/><line x1="8" y1="20.5" x2="16" y2="20.5"/>',
+    // UFO (flying saucer)
+    "ufo": '<ellipse cx="12" cy="13" rx="9" ry="2.5"/><path d="M7.5 12 C8 9 10 7 12 7 C14 7 16 9 16.5 12"/><circle cx="12" cy="9" r="1.4"/><circle cx="5.5" cy="17.5" r="0.7" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="0.7" fill="currentColor" stroke="none"/><circle cx="18.5" cy="17.5" r="0.7" fill="currentColor" stroke="none"/>',
+    // Castle / fortress (TD endgame)
+    "castle": '<path d="M3 20 V11 L5 11 V8 L7 8 V11 L9 11 V8 L11 8 V11 L13 11 V8 L15 8 V11 L17 11 V8 L19 8 V11 L21 11 V20 Z"/><line x1="3" y1="14" x2="21" y2="14"/><rect x="10" y="14" width="4" height="6"/>',
+    // Eight-ball (pinball multiball)
+    "eight-ball": '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><text x="12" y="14.5" font-family="Inter,sans-serif" font-size="5.5" font-weight="800" text-anchor="middle" fill="currentColor" stroke="none">8</text>',
+    // Runner / sprinter
+    "runner": '<circle cx="14" cy="5.5" r="2"/><path d="M9 14 L13 11 L16 13 L19 11"/><path d="M9 14 L11 18 L9 21"/><path d="M16 13 L17 17 L19 19"/><path d="M11 11 L7 12 L7 9"/>',
+    // Boxing glove
+    "boxing-glove": '<path d="M5 11 C5 8 7 6 10 6 H15 C17 6 19 8 19 11 V14 C19 17 17 19 14.5 19 H10 C7 19 5 17 5 14 Z"/><path d="M19 9 C20.5 9 21 10 21 11.5 C21 13 20.5 14 19 14"/><path d="M5 15 H9 V19"/>',
+    // Coin stack (treasure vault)
+    "coin-stack": '<ellipse cx="12" cy="6" rx="6" ry="2"/><path d="M6 6 V10 C6 11.1 8.7 12 12 12 C15.3 12 18 11.1 18 10 V6"/><path d="M6 10 V14 C6 15.1 8.7 16 12 16 C15.3 16 18 15.1 18 14 V10"/><path d="M6 14 V18 C6 19.1 8.7 20 12 20 C15.3 20 18 19.1 18 18 V14"/>',
+    // Hourglass
+    "hourglass": '<path d="M6 3 H18 V5 L13 12 L18 19 V21 H6 V19 L11 12 L6 5 Z"/><path d="M9 6 H15"/><path d="M9 18 H15"/>',
+    // Medal — gold (1st)
+    "medal-gold": '<circle cx="12" cy="14" r="6"/><path d="M8 8 L6.5 3 L10.5 3 L12 7"/><path d="M16 8 L17.5 3 L13.5 3 L12 7"/><circle cx="12" cy="14" r="2.5" fill="currentColor" stroke="none"/>',
+    // Medal — silver (2nd)
+    "medal-silver": '<circle cx="12" cy="14" r="6"/><path d="M8 8 L6.5 3 L10.5 3 L12 7"/><path d="M16 8 L17.5 3 L13.5 3 L12 7"/><text x="12" y="16" font-family="Inter,sans-serif" font-size="6.5" font-weight="800" text-anchor="middle" fill="currentColor" stroke="none">2</text>',
+    // Medal — bronze (3rd)
+    "medal-bronze": '<circle cx="12" cy="14" r="6"/><path d="M8 8 L6.5 3 L10.5 3 L12 7"/><path d="M16 8 L17.5 3 L13.5 3 L12 7"/><text x="12" y="16" font-family="Inter,sans-serif" font-size="6.5" font-weight="800" text-anchor="middle" fill="currentColor" stroke="none">3</text>'
   };
 
   function svg(name) {
@@ -254,38 +208,13 @@
     return O + path + C;
   }
 
-  function fromEmoji(emoji) {
-    var name = EMOJI_MAP[emoji];
-    if (!name) return null;
-    return svg(name);
-  }
-
   function has(name) { return Object.prototype.hasOwnProperty.call(REGISTRY, name); }
   function list() { return Object.keys(REGISTRY); }
-  function listEmoji() { return Object.keys(EMOJI_MAP); }
-
-  /* Convenience: walk a string and replace any emoji we know about with
-     the corresponding SVG markup. Useful for HTML strings assembled in JS. */
-  function expandEmojiInString(s) {
-    if (!s || typeof s !== "string") return s;
-    var emojis = listEmoji();
-    var out = s;
-    for (var i = 0; i < emojis.length; i++) {
-      var e = emojis[i];
-      if (out.indexOf(e) === -1) continue;
-      out = out.split(e).join(fromEmoji(e));
-    }
-    return out;
-  }
 
   root.MrMacsIcons = {
     svg: svg,
-    fromEmoji: fromEmoji,
     has: has,
     list: list,
-    listEmoji: listEmoji,
-    expandEmojiInString: expandEmojiInString,
-    REGISTRY: REGISTRY,
-    EMOJI_MAP: EMOJI_MAP
+    REGISTRY: REGISTRY
   };
 })(typeof window !== "undefined" ? window : this);

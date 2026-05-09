@@ -3603,7 +3603,7 @@
     const conf = contestState.confidence;
     const won = conf >= 40;
     const medal = won ? (conf >= 70 ? "Gold Medal" : "Silver Medal") : "Bronze Medal";
-    const medalIcon = conf >= 70 ? "🥇" : conf >= 40 ? "🥈" : "🥉";
+    const medalIcon = conf >= 70 ? "medal-gold" : conf >= 40 ? "medal-silver" : "medal-bronze";
     // Mark all pips done
     document.querySelectorAll(".contest-round-pip").forEach((pip) => {
       pip.classList.remove("active");
@@ -4408,12 +4408,19 @@
   }
 
   // Axis 5: medal cinematic
-  function showContestMedal(icon, title, sub) {
+  // `iconName` is one of "medal-gold" | "medal-silver" | "medal-bronze"
+  // (svg names registered in arcade-icons.js). We render the SVG via the
+  // global library if available; otherwise we fall back to a [Medal] tag.
+  function showContestMedal(iconName, title, sub) {
     if (PREFERS_REDUCED) return;
     const overlay = document.createElement("div");
     overlay.className = "contest-win-overlay";
+    let iconMarkup = "[Medal]";
+    if (typeof window !== "undefined" && window.MrMacsIcons && window.MrMacsIcons.has(iconName)) {
+      iconMarkup = window.MrMacsIcons.svg(iconName);
+    }
     overlay.innerHTML = `<div class="contest-medal">
-      <span class="contest-medal-icon" aria-hidden="true">${escapeHtml(icon)}</span>
+      <span class="contest-medal-icon" aria-hidden="true">${iconMarkup}</span>
       <span class="contest-medal-title">${escapeHtml(title)}</span>
       <span class="contest-medal-sub">${escapeHtml(sub)}</span>
     </div>`;
