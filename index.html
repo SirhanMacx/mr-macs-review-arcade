@@ -4229,6 +4229,36 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .pd-tier[data-tier="legendary"] .pd-tier-fill { animation: none; background: linear-gradient(90deg, #ff7cc8, #f5c451, #b892ff); }
 }
+.pd-course {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: rgba(122, 240, 255, .06);
+  border: 1px solid rgba(122, 240, 255, .26);
+  border-radius: 12px;
+}
+.pd-course-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--cyan, #7af0ff);
+  white-space: nowrap;
+}
+.pd-course-select {
+  flex: 1; min-width: 0;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: rgba(0, 0, 0, .3);
+  color: var(--paper);
+  font: 600 13px/1 "Inter", sans-serif;
+  cursor: pointer;
+}
+.pd-course-select:focus-visible {
+  outline: 2px solid rgba(122, 240, 255, .65);
+  outline-offset: 2px;
+  border-color: rgba(122, 240, 255, .55);
+}
 .pd-stat strong {
   color: var(--paper);
   font-weight: 700;
@@ -5462,6 +5492,12 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       <span>Trainer name</span>
       <input type="text" id="welcomeName" maxlength="24" placeholder="e.g. Avi, Ms. Chen, JoanDarcFan42" autocomplete="off" spellcheck="false">
     </label>
+    <label class="welcome-field">
+      <span>Your course (so we know what to drill first)</span>
+      <select id="welcomeCourse" aria-label="Enrolled course">
+        <option value="">— Pick your course —</option>
+      </select>
+    </label>
     <div class="welcome-field">
       <span>Pick an avatar</span>
       <div class="welcome-avatars" id="welcomeAvatars" role="radiogroup" aria-label="Avatar selection"></div>
@@ -5495,6 +5531,10 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
               <span class="pd-tier-progress" aria-hidden="true"><span class="pd-tier-fill" id="pdTierFill" style="width:0%"></span></span>
               <span class="pd-tier-next" id="pdTierNext"></span>
             </div>
+            <label class="pd-course" aria-label="Enrolled course">
+              <span class="pd-course-label">Enrolled course</span>
+              <select class="pd-course-select" id="pdCourseSelect" aria-label="Enrolled course"></select>
+            </label>
             <div class="pd-stat-line">
               <span class="pd-stat" data-icon="diamond" title="Shards earned"><strong id="pdShards">0</strong> <span class="pd-stat-emoji" aria-hidden="true">💎</span> shards</span>
               <span class="pd-stat" data-icon="flame" title="Daily streak"><strong id="pdStreak">0</strong> <span class="pd-stat-emoji" aria-hidden="true">🔥</span> streak (best <span id="pdStreakBest">0</span>)</span>
@@ -7324,6 +7364,25 @@ function initReveal() {
 async function boot() {
   try {
     await loadGamesManifest();
+    // Apply enrolled-course default to library + jeopardy filters BEFORE
+    // initFilters() so the course-aware default lands on first render.
+    try {
+      var enrolledCourse = (window.MrMacsProfile && window.MrMacsProfile.getCourse)
+        ? window.MrMacsProfile.getCourse() : "";
+      if (enrolledCourse) {
+        // Confirm the enrolled course actually has games on this build —
+        // if not, fall back to "All Courses" so the library doesn't go
+        // empty (e.g., a course with only Jeopardy boards but no GAMES
+        // catalog entries).
+        var hasGames = (typeof GAMES !== "undefined" ? GAMES : []).some(
+          function (g) { return g.course === enrolledCourse; }
+        );
+        if (hasGames) {
+          state.course = enrolledCourse;
+          if (typeof jeopardyState !== "undefined") jeopardyState.course = enrolledCourse;
+        }
+      }
+    } catch (e) {}
     initFilters();
     renderMetrics();
     renderLaunchPaths();
@@ -7357,6 +7416,40 @@ async function boot() {
       }
     });
     window.addEventListener("focus", () => { renderProgressReport(); renderSmartMenu(); });
+    // When the user changes their enrolled course, re-default the
+    // library + jeopardy filters and re-render the daily challenge.
+    window.MrMacsProfile?.on("course:change", function (e) {
+      var newCourse = (e && e.detail && e.detail.course) || "";
+      // Update visible select inputs
+      var cf = document.getElementById("courseFilter");
+      var jc = document.getElementById("jeopardyCourseSelect");
+      if (newCourse) {
+        var hasGames = (typeof GAMES !== "undefined" ? GAMES : []).some(
+          function (g) { return g.course === newCourse; }
+        );
+        if (hasGames) {
+          state.course = newCourse;
+          if (cf) cf.value = newCourse;
+        }
+        var hasJeopardy = (typeof GAMES !== "undefined" ? GAMES : []).some(
+          function (g) { return g.course === newCourse && /jeopardy/i.test(g.gameType || ""); }
+        );
+        if (hasJeopardy && typeof jeopardyState !== "undefined") {
+          jeopardyState.course = newCourse;
+          if (jc) jc.value = newCourse;
+        }
+      } else {
+        state.course = "All Courses";
+        if (cf) cf.value = "All Courses";
+        if (typeof jeopardyState !== "undefined") jeopardyState.course = "All Courses";
+        if (jc) jc.value = "All Courses";
+      }
+      render();
+      if (typeof renderJeopardyModes === "function") renderJeopardyModes();
+      if (typeof window.dispatchEvent === "function") {
+        window.dispatchEvent(new Event("mrmacs-course-changed"));
+      }
+    });
     document.getElementById("printReportBtn")?.addEventListener("click", () => window.print());
     document.getElementById("clearReportBtn")?.addEventListener("click", () => {
       if (confirm("Clear local progress and saved practice drafts stored in this browser?")) {
@@ -7503,9 +7596,47 @@ boot();
   var welcomeOverlay = document.getElementById("welcomeOverlay");
   var welcomeName = document.getElementById("welcomeName");
   var welcomeAvatars = document.getElementById("welcomeAvatars");
+  var welcomeCourse = document.getElementById("welcomeCourse");
   var welcomeContinue = document.getElementById("welcomeContinue");
   var welcomeSkip = document.getElementById("welcomeSkip");
   var welcomeAvatar = "🎓";
+
+  // Canonical course list — matches the order used by the course rail
+  // and the diagnostic bank. Used to populate both the welcome picker
+  // and the drawer's course selector.
+  var COURSE_OPTIONS = [
+    "Grade 5 Social Studies",
+    "Grade 6 Social Studies",
+    "Grade 7 U.S. History I",
+    "Grade 8 U.S. History II",
+    "Grade 9 Global History I",
+    "Grade 10 Global History II",
+    "Grade 11 U.S. History",
+    "AP Psychology",
+    "AP United States History",
+    "AP World History: Modern",
+    "AP European History",
+    "AP Human Geography",
+    "AP U.S. Government and Politics",
+    "AP Macroeconomics",
+    "AP Microeconomics",
+    "AP Macro/Micro Combined",
+    "Civics and Participation in Government",
+    "Economics"
+  ];
+
+  function populateCourseSelect(sel, currentValue) {
+    if (!sel) return;
+    var html = '<option value="">— Pick your course —</option>';
+    COURSE_OPTIONS.forEach(function (c) {
+      var selected = (c === currentValue) ? ' selected' : '';
+      html += '<option value="' + c.replace(/"/g, "&quot;") + '"' + selected + '>' +
+        c.replace(/[<>&]/g, function (ch) {
+          return ch === "<" ? "&lt;" : ch === ">" ? "&gt;" : "&amp;";
+        }) + '</option>';
+    });
+    sel.innerHTML = html;
+  }
 
   function buildWelcomeAvatars() {
     if (!welcomeAvatars) return;
@@ -7528,6 +7659,7 @@ boot();
   function openWelcome() {
     if (!welcomeOverlay) return;
     buildWelcomeAvatars();
+    populateCourseSelect(welcomeCourse, P.getCourse ? P.getCourse() : "");
     // Time-of-day greeting: morning / afternoon / evening / late night
     var eyebrow = document.getElementById("welcomeEyebrow");
     if (eyebrow) {
@@ -7602,6 +7734,11 @@ boot();
       var name = (welcomeName.value || "").trim();
       if (!name) return;
       P.setAvatar(welcomeAvatar, "emoji");
+      // Save course choice (may be empty — that's fine; student can
+      // pick later from the drawer). Save course BEFORE setName so the
+      // profile:create event carries the course value.
+      var courseChoice = welcomeCourse ? welcomeCourse.value : "";
+      if (courseChoice && P.setCourse) P.setCourse(courseChoice);
       P.setName(name);
       closeWelcome();
       // Fire the hub tour right after the welcome dialog has dismissed
@@ -7793,6 +7930,16 @@ boot();
     if (pdStreak) pdStreak.textContent = profile.streak.current || 0;
     if (pdStreakBest) pdStreakBest.textContent = profile.streak.best || 0;
     refreshTier(profile);
+    var pdCourseSelect = document.getElementById("pdCourseSelect");
+    if (pdCourseSelect && !pdCourseSelect.dataset.built) {
+      populateCourseSelect(pdCourseSelect, profile.course || "");
+      pdCourseSelect.dataset.built = "1";
+      pdCourseSelect.addEventListener("change", function () {
+        if (P.setCourse) P.setCourse(pdCourseSelect.value || "");
+      });
+    } else if (pdCourseSelect) {
+      pdCourseSelect.value = profile.course || "";
+    }
 
     var ach = P.listAchievements();
     var unlocked = ach.filter(function (a) { return a.unlocked; }).length;
@@ -7978,15 +8125,24 @@ boot();
     for (var i = 0; i < str.length; i++) h = ((h << 5) - h) + str.charCodeAt(i) | 0;
     return Math.abs(h);
   }
-  function dailyPick(games, seed) {
+  function dailyPick(games, seed, enrolledCourse) {
     if (!games || !games.length) return null;
     // Prefer Jeopardy unit reviews + sprints + practice exams (~15-30 min runs)
-    // over flagship arcade games for daily challenge
+    // over flagship arcade games for daily challenge.
     var preferred = games.filter(function (g) {
       var t = (g.gameType || "").toLowerCase();
       return /unit|sprint|jeopardy|practice|gauntlet/.test(t);
     });
     var pool = preferred.length ? preferred : games;
+    // Course-aware filtering: if the student has an enrolled course
+    // and that course has at least 3 candidates in the pool, pick from
+    // those; otherwise fall back to the full pool. The 3-candidate
+    // floor avoids serving the same single game every day for niche
+    // courses.
+    if (enrolledCourse) {
+      var coursePool = pool.filter(function (g) { return g.course === enrolledCourse; });
+      if (coursePool.length >= 3) pool = coursePool;
+    }
     return pool[seed % pool.length];
   }
 
@@ -7995,7 +8151,8 @@ boot();
     if (!band) return;
     if (!GAMES || !GAMES.length) return;
     var today = todayUTC();
-    var pick = dailyPick(GAMES, hashSeed(today));
+    var enrolled = (P && P.getCourse) ? P.getCourse() : "";
+    var pick = dailyPick(GAMES, hashSeed(today), enrolled);
     if (!pick) return;
     var dateEl = document.getElementById("dailyDate");
     var iconEl = document.getElementById("dailyIcon");
@@ -8286,6 +8443,11 @@ boot();
       window.MrMacsProfile.on("profile:update", renderContinue);
       window.MrMacsProfile.on("achievement:unlock", renderRecentAchievements);
       window.MrMacsProfile.on("profile:create", renderRecentAchievements);
+      // Re-roll the daily challenge when the student changes course so
+      // the pick is from their new enrolled course immediately.
+      window.MrMacsProfile.on("course:change", function () {
+        renderDaily();
+      });
     }
   });
 })();
@@ -8334,33 +8496,274 @@ boot();
     if (e.key === "Escape" && modal && !modal.hidden) closeModal();
   });
 
-  // ---- Diagnostic mini-quiz (8 questions, 2 minutes) ----
-  // Picks 1 question from each of 8 different courses; tracks correct/wrong;
-  // emits topic stats so the result reflects in the mastery dashboard.
-  var DIAG_BANK = [
-    { course: "Grade 10 Global History II", set: "Industrial Revolution", prompt: "What new energy source powered the Industrial Revolution after 1850?", choices: ["Wind", "Steam from coal", "Solar", "Atomic"], correct: 1 },
-    { course: "Grade 11 U.S. History", set: "Civil Rights", prompt: "Which 1964 federal law banned discrimination in public accommodations?", choices: ["Voting Rights Act", "Civil Rights Act", "Fair Housing Act", "13th Amendment"], correct: 1 },
-    { course: "AP Psychology", set: "Cognition", prompt: "Loftus's lost-in-the-mall study challenged the reliability of:", choices: ["Sensation", "Eyewitness memory", "Conditioning", "Sleep stages"], correct: 1 },
-    { course: "AP World History: Modern", set: "Imperialism", prompt: "The 1885 Berlin Conference is best known for:", choices: ["Ending the Crimean War", "Partitioning Africa among European powers", "Founding the League of Nations", "Establishing free trade in Asia"], correct: 1 },
-    { course: "AP United States History", set: "Cold War", prompt: "George Kennan's 'Long Telegram' (1946) advocated:", choices: ["Appeasement", "Containment", "Pre-emptive war", "Disengagement"], correct: 1 },
-    { course: "AP European History", set: "Reformation", prompt: "Luther's 95 Theses (1517) primarily protested:", choices: ["The sale of indulgences", "Papal taxation of monarchs", "Vernacular Bibles", "Monastic vows"], correct: 0 },
-    { course: "AP Macroeconomics", set: "Monetary Policy", prompt: "When the Fed BUYS bonds via open market operations, the federal funds rate:", choices: ["Rises", "Falls", "Stays the same", "Floats"], correct: 1 },
-    { course: "AP U.S. Government and Politics", set: "Required Cases", prompt: "Marbury v. Madison (1803) established:", choices: ["Federalism", "Judicial review", "Executive privilege", "Habeas corpus"], correct: 1 }
-  ];
+  // ---- Diagnostic question bank (course-tagged, May 2026) ----
+  // Each question stores `correctText` (not an index) so we can shuffle
+  // choices on every render. The renderer finds which shuffled index
+  // matches `correctText` and uses that for grading. This eliminates
+  // the old "always option B" pattern that made the answer look
+  // pre-highlighted.
+  //
+  // The diagnostic prefers questions from the player's enrolled course
+  // (profile.course), drawing roughly 5/8 from that course and 3/8 from
+  // other major courses for breadth. It also remembers the last 24
+  // question IDs asked (profile.diagHistory) and skips those, so the
+  // student doesn't see a repeat for at least 3 sessions.
+  var DIAG_BANK_BY_COURSE = {
+    "Grade 5 Social Studies": [
+      { id: "g5-01", set: "Early Peoples", prompt: "Which of these civilizations built terraced farms and stone cities high in the Andes?", choices: ["Aztec", "Inca", "Maya", "Olmec"], correctText: "Inca" },
+      { id: "g5-02", set: "Geography of the Americas", prompt: "The longest mountain range in the Western Hemisphere is the:", choices: ["Rockies", "Andes", "Sierra Madre", "Appalachians"], correctText: "Andes" },
+      { id: "g5-03", set: "European Exploration", prompt: "The Columbian Exchange refers to the trade of plants, animals, and diseases between:", choices: ["Asia and Africa", "North and South America", "Europe and the Americas", "Russia and the Pacific"], correctText: "Europe and the Americas" },
+      { id: "g5-04", set: "Cultures", prompt: "The Maya, Aztec, and Inca civilizations all developed sophisticated:", choices: ["Iron tools", "Wheel-based transport", "Calendars and writing systems", "Gunpowder weapons"], correctText: "Calendars and writing systems" },
+      { id: "g5-05", set: "Government", prompt: "A representative democracy is BEST described as a system in which citizens:", choices: ["Vote on every law directly", "Choose leaders to make laws for them", "Are ruled by a single king", "Are ruled by religious authorities"], correctText: "Choose leaders to make laws for them" },
+      { id: "g5-06", set: "Economics", prompt: "Scarcity occurs when:", choices: ["A country prints too much money", "Wants exceed available resources", "Goods are imported from abroad", "People save instead of spend"], correctText: "Wants exceed available resources" }
+    ],
+    "Grade 6 Social Studies": [
+      { id: "g6-01", set: "First Humans", prompt: "The Neolithic Revolution describes the shift from hunting and gathering to:", choices: ["Industrial manufacturing", "Settled agriculture", "Long-distance trade", "Monotheistic religion"], correctText: "Settled agriculture" },
+      { id: "g6-02", set: "River Valleys", prompt: "Hammurabi's Code is most associated with which river valley civilization?", choices: ["Egyptian", "Mesopotamian", "Indus", "Chinese"], correctText: "Mesopotamian" },
+      { id: "g6-03", set: "Belief Systems", prompt: "Buddhism teaches that suffering ends by following the:", choices: ["Five Pillars", "Eightfold Path", "Ten Commandments", "Mandate of Heaven"], correctText: "Eightfold Path" },
+      { id: "g6-04", set: "Classical Civilizations", prompt: "Greek city-states like Athens are credited as early experiments in:", choices: ["Theocracy", "Democracy", "Feudalism", "Communism"], correctText: "Democracy" },
+      { id: "g6-05", set: "Mediterranean", prompt: "The Pax Romana was a 200-year period of:", choices: ["Constant civil war", "Mongol expansion", "Roman peace and stability", "Greek colonization"], correctText: "Roman peace and stability" },
+      { id: "g6-06", set: "Eastern Hemisphere Trade", prompt: "The Silk Road primarily connected:", choices: ["Europe and the Americas", "China and the Mediterranean", "India and Australia", "Russia and Antarctica"], correctText: "China and the Mediterranean" }
+    ],
+    "Grade 7 U.S. History I": [
+      { id: "g7-01", set: "Native Americans", prompt: "The Iroquois Confederacy was a political alliance located in:", choices: ["Modern-day New York", "Florida", "California", "Mexico"], correctText: "Modern-day New York" },
+      { id: "g7-02", set: "Colonial Era", prompt: "The Mayflower Compact (1620) is significant because it:", choices: ["Ended the slave trade", "Established self-government among the Pilgrims", "Created a national bank", "Guaranteed religious freedom"], correctText: "Established self-government among the Pilgrims" },
+      { id: "g7-03", set: "American Independence", prompt: "The Declaration of Independence (1776) was primarily authored by:", choices: ["John Adams", "Thomas Jefferson", "George Washington", "Benjamin Franklin"], correctText: "Thomas Jefferson" },
+      { id: "g7-04", set: "Constitution", prompt: "The Bill of Rights refers to the first ___ amendments to the U.S. Constitution.", choices: ["3", "5", "10", "13"], correctText: "10" },
+      { id: "g7-05", set: "Westward Expansion", prompt: "The Louisiana Purchase (1803) doubled the size of the U.S. and was negotiated with:", choices: ["Britain", "Spain", "France", "Mexico"], correctText: "France" },
+      { id: "g7-06", set: "Reform & Division", prompt: "Which event most directly led to the U.S. Civil War?", choices: ["The War of 1812", "Lincoln's election in 1860", "The Embargo Act", "The XYZ Affair"], correctText: "Lincoln's election in 1860" }
+    ],
+    "Grade 8 U.S. History II": [
+      { id: "g8-01", set: "Reconstruction", prompt: "The 13th, 14th, and 15th Amendments are known collectively as the:", choices: ["Civil War Amendments", "Bill of Rights", "Progressive Amendments", "Reconstruction Amendments"], correctText: "Reconstruction Amendments" },
+      { id: "g8-02", set: "Industrialization", prompt: "Andrew Carnegie made his fortune in which industry?", choices: ["Oil", "Steel", "Railroads", "Banking"], correctText: "Steel" },
+      { id: "g8-03", set: "Imperialism & WWI", prompt: "The U.S. entered World War I in 1917 most directly because of:", choices: ["The sinking of the Lusitania alone", "The Zimmermann Telegram and unrestricted submarine warfare", "The assassination of Archduke Ferdinand", "Pearl Harbor"], correctText: "The Zimmermann Telegram and unrestricted submarine warfare" },
+      { id: "g8-04", set: "Great Depression", prompt: "FDR's New Deal is BEST described as a program of:", choices: ["Foreign intervention", "Tax cuts for the wealthy", "Federal relief, recovery, and reform", "Strict isolationism"], correctText: "Federal relief, recovery, and reform" },
+      { id: "g8-05", set: "World War II", prompt: "The U.S. entered World War II after which event?", choices: ["The Battle of Britain", "Japan's attack on Pearl Harbor (1941)", "The fall of France", "The invasion of Poland"], correctText: "Japan's attack on Pearl Harbor (1941)" },
+      { id: "g8-06", set: "Civil Rights", prompt: "Brown v. Board of Education (1954) ruled that:", choices: ["Segregated schools are unconstitutional", "Affirmative action is required by law", "Voting rights are a state matter", "Interracial marriage is protected"], correctText: "Segregated schools are unconstitutional" }
+    ],
+    "Grade 9 Global History I": [
+      { id: "g9-01", set: "Belief Systems", prompt: "Confucianism is BEST described as a:", choices: ["Polytheistic religion", "Code of social and ethical conduct", "Monastic order", "Trade language"], correctText: "Code of social and ethical conduct" },
+      { id: "g9-02", set: "Classical Civilizations", prompt: "Hellenistic culture spread across the eastern Mediterranean as a result of the conquests of:", choices: ["Julius Caesar", "Alexander the Great", "Darius I", "Constantine"], correctText: "Alexander the Great" },
+      { id: "g9-03", set: "Trade Networks", prompt: "Marco Polo's travels in the 13th century described his journey to the court of:", choices: ["Charlemagne", "Suleiman the Magnificent", "Kublai Khan", "Mansa Musa"], correctText: "Kublai Khan" },
+      { id: "g9-04", set: "Postclassical Powers", prompt: "Mansa Musa's hajj of 1324 is famous for spreading the wealth and influence of which empire?", choices: ["Songhai", "Ghana", "Mali", "Aksum"], correctText: "Mali" },
+      { id: "g9-05", set: "Renaissance", prompt: "The Renaissance is described as a 'rebirth' of interest in:", choices: ["Egyptian religion", "Greco-Roman art and learning", "Confucian ethics", "Hindu philosophy"], correctText: "Greco-Roman art and learning" },
+      { id: "g9-06", set: "Encounters", prompt: "The 1492 voyage of Columbus opened a sustained exchange of crops, animals, and disease known as the:", choices: ["Triangle Trade", "Columbian Exchange", "Mediterranean Exchange", "Silk Road"], correctText: "Columbian Exchange" }
+    ],
+    "Grade 10 Global History II": [
+      { id: "g10-01", set: "Enlightenment", prompt: "John Locke's idea that government draws its authority from the consent of the governed influenced which document?", choices: ["The Magna Carta", "The Declaration of Independence", "The Treaty of Westphalia", "The Code of Hammurabi"], correctText: "The Declaration of Independence" },
+      { id: "g10-02", set: "Industrial Revolution", prompt: "The Industrial Revolution began in which country in the late 18th century?", choices: ["Germany", "Great Britain", "France", "Russia"], correctText: "Great Britain" },
+      { id: "g10-03", set: "Imperialism", prompt: "The 1885 Berlin Conference is BEST known for:", choices: ["Ending the Crimean War", "Partitioning Africa among European powers", "Founding the League of Nations", "Opening Japan to trade"], correctText: "Partitioning Africa among European powers" },
+      { id: "g10-04", set: "World War I", prompt: "The immediate trigger of World War I in 1914 was the assassination of:", choices: ["Czar Nicholas II", "Archduke Franz Ferdinand", "Kaiser Wilhelm I", "Tsar Alexander III"], correctText: "Archduke Franz Ferdinand" },
+      { id: "g10-05", set: "Cold War", prompt: "The Marshall Plan (1948) provided U.S. aid to:", choices: ["Latin America", "Postwar Western Europe", "Sub-Saharan Africa", "Southeast Asia"], correctText: "Postwar Western Europe" },
+      { id: "g10-06", set: "Decolonization", prompt: "Mohandas Gandhi led the Indian independence movement using a strategy of:", choices: ["Armed insurrection", "Nonviolent civil disobedience", "Religious conversion", "Diplomatic isolation"], correctText: "Nonviolent civil disobedience" },
+      { id: "g10-07", set: "Human Rights", prompt: "The 1948 Universal Declaration of Human Rights was issued by the:", choices: ["League of Nations", "United Nations", "International Red Cross", "European Union"], correctText: "United Nations" },
+      { id: "g10-08", set: "Globalization", prompt: "The fall of the Berlin Wall in 1989 marked:", choices: ["The start of the Cold War", "German unification and the Cold War's end", "The collapse of the Soviet Union", "The launch of the Marshall Plan"], correctText: "German unification and the Cold War's end" }
+    ],
+    "Grade 11 U.S. History": [
+      { id: "g11-01", set: "Constitution", prompt: "The system of checks and balances is designed to:", choices: ["Speed up lawmaking", "Prevent any one branch from gaining too much power", "Centralize power in the presidency", "Allow states to override federal law"], correctText: "Prevent any one branch from gaining too much power" },
+      { id: "g11-02", set: "Civil War & Reconstruction", prompt: "The Emancipation Proclamation (1863):", choices: ["Freed all enslaved people in the U.S. immediately", "Freed enslaved people in Confederate-held territory", "Was overturned by the Supreme Court", "Was signed by President Andrew Johnson"], correctText: "Freed enslaved people in Confederate-held territory" },
+      { id: "g11-03", set: "Progressive Era", prompt: "The 19th Amendment (1920) granted:", choices: ["Direct election of senators", "Women's suffrage", "An income tax", "Prohibition of alcohol"], correctText: "Women's suffrage" },
+      { id: "g11-04", set: "Great Depression & New Deal", prompt: "The Social Security Act (1935) created a federal program of:", choices: ["Universal healthcare", "Old-age insurance and unemployment benefits", "Free public housing", "Direct cash payments to all Americans"], correctText: "Old-age insurance and unemployment benefits" },
+      { id: "g11-05", set: "Cold War", prompt: "The Cuban Missile Crisis (1962) was resolved when:", choices: ["Cuba invaded Florida", "The Soviet Union withdrew nuclear missiles from Cuba", "The U.S. dropped a nuclear bomb", "The U.S. occupied Havana"], correctText: "The Soviet Union withdrew nuclear missiles from Cuba" },
+      { id: "g11-06", set: "Civil Rights", prompt: "Which 1964 federal law banned discrimination in public accommodations?", choices: ["Voting Rights Act", "Civil Rights Act", "Fair Housing Act", "Equal Pay Act"], correctText: "Civil Rights Act" },
+      { id: "g11-07", set: "Modern Era", prompt: "The 9/11 attacks led most directly to U.S. military intervention in:", choices: ["Iran", "Afghanistan", "Syria", "Libya"], correctText: "Afghanistan" }
+    ],
+    "AP Psychology": [
+      { id: "appsy-01", set: "Research Methods", prompt: "A double-blind procedure is used primarily to control for:", choices: ["Random sampling error", "Experimenter and participant bias", "Confounding variables", "Sampling bias"], correctText: "Experimenter and participant bias" },
+      { id: "appsy-02", set: "Biological Bases", prompt: "The neurotransmitter most associated with mood regulation, often targeted by SSRIs, is:", choices: ["Dopamine", "Serotonin", "Acetylcholine", "GABA"], correctText: "Serotonin" },
+      { id: "appsy-03", set: "Sensation & Perception", prompt: "The just-noticeable difference (JND) demonstrates which principle?", choices: ["Weber's law", "Gestalt grouping", "Top-down processing", "Sensory adaptation"], correctText: "Weber's law" },
+      { id: "appsy-04", set: "Cognition", prompt: "Loftus's lost-in-the-mall study challenged the reliability of:", choices: ["Sensation", "Eyewitness memory", "Operant conditioning", "Sleep stages"], correctText: "Eyewitness memory" },
+      { id: "appsy-05", set: "Development & Learning", prompt: "Piaget's stage in which children master conservation but struggle with abstract reasoning is the:", choices: ["Sensorimotor stage", "Preoperational stage", "Concrete operational stage", "Formal operational stage"], correctText: "Concrete operational stage" },
+      { id: "appsy-06", set: "Social Psychology", prompt: "The fundamental attribution error refers to the tendency to:", choices: ["Overemphasize situational causes for others' behavior", "Overemphasize dispositional causes for others' behavior", "Conform to majority opinion", "Obey authority figures"], correctText: "Overemphasize dispositional causes for others' behavior" },
+      { id: "appsy-07", set: "Personality & Clinical", prompt: "Cognitive-behavioral therapy is most often used to treat:", choices: ["Schizophrenia", "Depression and anxiety disorders", "Dissociative identity disorder", "Bipolar I"], correctText: "Depression and anxiety disorders" }
+    ],
+    "AP United States History": [
+      { id: "apush-01", set: "Period 2 (1607-1754)", prompt: "The triangular trade primarily exchanged enslaved Africans, sugar, and rum among:", choices: ["Britain, Africa, and the Americas", "China, India, and Russia", "France, Spain, and Italy", "Japan, Korea, and the Philippines"], correctText: "Britain, Africa, and the Americas" },
+      { id: "apush-02", set: "Period 3 (1754-1800)", prompt: "The Federalist Papers were written to support ratification of the:", choices: ["Articles of Confederation", "U.S. Constitution", "Declaration of Independence", "Treaty of Paris"], correctText: "U.S. Constitution" },
+      { id: "apush-03", set: "Period 5 (1844-1877)", prompt: "Manifest Destiny was the belief that the United States was destined to:", choices: ["Spread democracy worldwide", "Expand from the Atlantic to the Pacific", "Free all enslaved people", "Industrialize the South"], correctText: "Expand from the Atlantic to the Pacific" },
+      { id: "apush-04", set: "Period 6 (1865-1898)", prompt: "The Dawes Act (1887) attempted to assimilate Native Americans by:", choices: ["Granting full citizenship rights immediately", "Dividing tribal lands into individual plots", "Establishing reservations in the West", "Funding Indigenous schools"], correctText: "Dividing tribal lands into individual plots" },
+      { id: "apush-05", set: "Period 7 (1890-1945)", prompt: "The Treaty of Versailles (1919) was rejected by the U.S. Senate primarily because of opposition to:", choices: ["War reparations on Germany", "Joining the League of Nations", "Self-determination for Eastern Europe", "Disarmament clauses"], correctText: "Joining the League of Nations" },
+      { id: "apush-06", set: "Period 8 (1945-1980)", prompt: "George Kennan's 'Long Telegram' (1946) advocated:", choices: ["Appeasement", "Containment of Soviet expansion", "Pre-emptive war", "Disengagement from Europe"], correctText: "Containment of Soviet expansion" },
+      { id: "apush-07", set: "Period 9 (1980-Present)", prompt: "Reaganomics is most associated with which combination of policies?", choices: ["High taxes and high spending", "Tax cuts, deregulation, and military buildup", "Wage and price controls", "Universal healthcare"], correctText: "Tax cuts, deregulation, and military buildup" }
+    ],
+    "AP World History: Modern": [
+      { id: "apwh-01", set: "Unit 1 (c. 1200)", prompt: "The Mongol Empire under Genghis Khan and his successors is best known for:", choices: ["Founding Christianity", "Connecting Eurasia and reviving Silk Road trade", "Inventing gunpowder", "Conquering the Americas"], correctText: "Connecting Eurasia and reviving Silk Road trade" },
+      { id: "apwh-02", set: "Unit 2 Networks", prompt: "The Black Death (14th c.) traveled along which trade network into Europe?", choices: ["The Trans-Saharan", "The Indian Ocean only", "The Silk Roads", "The Trans-Atlantic"], correctText: "The Silk Roads" },
+      { id: "apwh-03", set: "Unit 3 Land-Based Empires", prompt: "The Ottoman, Safavid, and Mughal empires are often grouped because they were all:", choices: ["Christian theocracies", "Gunpowder empires", "Mediterranean republics", "Chinese tributary states"], correctText: "Gunpowder empires" },
+      { id: "apwh-04", set: "Unit 5 Revolutions", prompt: "The Haitian Revolution (1791-1804) was unique because it:", choices: ["Restored slavery", "Was a successful slave revolt that founded an independent nation", "Was funded by Spain", "Failed within a year"], correctText: "Was a successful slave revolt that founded an independent nation" },
+      { id: "apwh-05", set: "Unit 6 Industrialization", prompt: "The 1885 Berlin Conference is best known for:", choices: ["Ending the Crimean War", "Partitioning Africa among European powers", "Founding the League of Nations", "Opening Japan"], correctText: "Partitioning Africa among European powers" },
+      { id: "apwh-06", set: "Unit 7 Global Conflict", prompt: "The Treaty of Versailles imposed which on Germany after WWI?", choices: ["Disarmament, war guilt, and reparations", "Free trade with Britain", "Joining the Soviet Union", "Adoption of Communism"], correctText: "Disarmament, war guilt, and reparations" },
+      { id: "apwh-07", set: "Unit 9 Globalization", prompt: "The dissolution of the Soviet Union occurred in:", choices: ["1985", "1989", "1991", "2001"], correctText: "1991" }
+    ],
+    "AP European History": [
+      { id: "apeuro-01", set: "Renaissance & Exploration", prompt: "Machiavelli's The Prince is best characterized as a treatise on:", choices: ["Christian theology", "Practical political power", "Renaissance painting", "Humanist education"], correctText: "Practical political power" },
+      { id: "apeuro-02", set: "Reformation", prompt: "Luther's 95 Theses (1517) primarily protested:", choices: ["The sale of indulgences", "Papal taxation of monarchs", "Vernacular Bibles", "Monastic vows"], correctText: "The sale of indulgences" },
+      { id: "apeuro-03", set: "Absolutism", prompt: "Louis XIV of France famously declared 'L'état, c'est moi' to assert:", choices: ["Constitutional monarchy", "Absolute royal authority", "Religious toleration", "Parliamentary supremacy"], correctText: "Absolute royal authority" },
+      { id: "apeuro-04", set: "Scientific Revolution", prompt: "Newton's Principia Mathematica (1687) is most famous for:", choices: ["Heliocentrism", "Universal laws of motion and gravitation", "Theory of evolution", "Quantum mechanics"], correctText: "Universal laws of motion and gravitation" },
+      { id: "apeuro-05", set: "French Revolution", prompt: "The Reign of Terror (1793-94) is most associated with:", choices: ["Louis XVI", "Maximilien Robespierre", "Napoleon Bonaparte", "Cardinal Richelieu"], correctText: "Maximilien Robespierre" },
+      { id: "apeuro-06", set: "20th-Century Conflict", prompt: "The Treaty of Versailles is most associated with the end of:", choices: ["The Napoleonic Wars", "World War I", "World War II", "The Cold War"], correctText: "World War I" },
+      { id: "apeuro-07", set: "Cold War & Contemporary", prompt: "The Marshall Plan was a U.S. program to:", choices: ["Rebuild postwar Western Europe", "Expand NATO into Asia", "Aid the Soviet bloc", "Decolonize Africa"], correctText: "Rebuild postwar Western Europe" }
+    ],
+    "AP Human Geography": [
+      { id: "aphug-01", set: "Thinking Geographically", prompt: "Which is an example of a formal region?", choices: ["A neighborhood that feels like home", "A country defined by political borders", "A market area around a shopping mall", "A perceived 'cool' part of town"], correctText: "A country defined by political borders" },
+      { id: "aphug-02", set: "Population", prompt: "The Demographic Transition Model's Stage 4 is characterized by:", choices: ["High birth and death rates", "Falling death rates and high birth rates", "Low birth and low death rates", "Negative population growth always"], correctText: "Low birth and low death rates" },
+      { id: "aphug-03", set: "Cultural Patterns", prompt: "A relocation diffusion is BEST illustrated by:", choices: ["Pizza spreading from a hearth across Europe", "Immigrants bringing language to a new country", "A new fashion trending on social media", "A local crop variety dominating regionally"], correctText: "Immigrants bringing language to a new country" },
+      { id: "aphug-04", set: "Political Geography", prompt: "Gerrymandering refers to:", choices: ["Drawing district lines for partisan advantage", "Redrawing international borders after war", "Forming a confederation of states", "Granting universal suffrage"], correctText: "Drawing district lines for partisan advantage" },
+      { id: "aphug-05", set: "Agriculture", prompt: "The Green Revolution refers to mid-20th-century innovations in:", choices: ["Renewable energy", "High-yield seeds, fertilizers, and irrigation", "Recycling programs", "Forest conservation"], correctText: "High-yield seeds, fertilizers, and irrigation" },
+      { id: "aphug-06", set: "Urban Land Use", prompt: "The Concentric Zone Model places the central business district in the:", choices: ["Outer ring", "Center of the city", "Suburb", "Industrial periphery"], correctText: "Center of the city" }
+    ],
+    "AP U.S. Government and Politics": [
+      { id: "apgov-01", set: "Foundations", prompt: "Federalist No. 10 argues that a large republic protects against:", choices: ["Foreign invasion", "The dangers of factions", "Judicial overreach", "Executive tyranny only"], correctText: "The dangers of factions" },
+      { id: "apgov-02", set: "Branches", prompt: "Marbury v. Madison (1803) established:", choices: ["Federalism", "Judicial review", "Executive privilege", "Habeas corpus"], correctText: "Judicial review" },
+      { id: "apgov-03", set: "Civil Liberties", prompt: "Gideon v. Wainwright (1963) guaranteed which right to defendants in state criminal cases?", choices: ["The right to a speedy trial", "The right to remain silent", "The right to court-appointed counsel", "The right to a jury of peers"], correctText: "The right to court-appointed counsel" },
+      { id: "apgov-04", set: "Civil Rights", prompt: "Brown v. Board of Education (1954) overturned the 'separate but equal' doctrine from:", choices: ["Plessy v. Ferguson", "Dred Scott v. Sandford", "Korematsu v. U.S.", "Lochner v. New York"], correctText: "Plessy v. Ferguson" },
+      { id: "apgov-05", set: "Political Beliefs", prompt: "A primary election allows party members to:", choices: ["Pass legislation directly", "Choose their party's nominee", "Override a presidential veto", "Confirm Supreme Court justices"], correctText: "Choose their party's nominee" },
+      { id: "apgov-06", set: "Political Participation", prompt: "Citizens United v. FEC (2010) ruled that:", choices: ["Independent corporate political spending is protected speech", "Voter ID laws are unconstitutional", "Gerrymandering is illegal", "Public financing of campaigns is required"], correctText: "Independent corporate political spending is protected speech" }
+    ],
+    "AP Macroeconomics": [
+      { id: "apmacro-01", set: "Basic Concepts", prompt: "GDP measures the market value of:", choices: ["All goods produced anywhere by a country's citizens", "Final goods and services produced within a country in a year", "All transactions in the economy", "Government spending only"], correctText: "Final goods and services produced within a country in a year" },
+      { id: "apmacro-02", set: "Indicators", prompt: "Cyclical unemployment is BEST associated with:", choices: ["Workers between jobs", "Mismatched skills", "Economic recessions", "Permanent layoffs from automation"], correctText: "Economic recessions" },
+      { id: "apmacro-03", set: "AD/AS", prompt: "An expansionary fiscal policy uses which tools?", choices: ["Higher taxes and lower spending", "Lower taxes and higher government spending", "Open market sales by the Fed", "Higher reserve requirements"], correctText: "Lower taxes and higher government spending" },
+      { id: "apmacro-04", set: "Financial Sector", prompt: "When the Fed BUYS bonds via open market operations, the federal funds rate:", choices: ["Rises", "Falls", "Stays the same", "Floats freely"], correctText: "Falls" },
+      { id: "apmacro-05", set: "Stabilization", prompt: "The Phillips curve shows the short-run trade-off between:", choices: ["GDP and unemployment", "Inflation and unemployment", "Taxes and spending", "Imports and exports"], correctText: "Inflation and unemployment" },
+      { id: "apmacro-06", set: "Open Economy", prompt: "If the U.S. dollar appreciates against the euro:", choices: ["U.S. exports to Europe become more expensive", "U.S. imports from Europe become more expensive", "Both rise in price", "Both fall in price"], correctText: "U.S. exports to Europe become more expensive" }
+    ],
+    "AP Microeconomics": [
+      { id: "apmicro-01", set: "Basic Concepts", prompt: "Opportunity cost is BEST defined as:", choices: ["The dollar price of a good", "The next-best alternative given up", "Total benefits minus total costs", "A sunk cost"], correctText: "The next-best alternative given up" },
+      { id: "apmicro-02", set: "Supply & Demand", prompt: "If demand for a good is inelastic, a price increase will:", choices: ["Decrease total revenue", "Increase total revenue", "Leave revenue unchanged", "Cause a shortage"], correctText: "Increase total revenue" },
+      { id: "apmicro-03", set: "Production & Cost", prompt: "Marginal cost equals marginal revenue at the firm's:", choices: ["Break-even point", "Profit-maximizing output", "Shut-down price", "Average cost minimum"], correctText: "Profit-maximizing output" },
+      { id: "apmicro-04", set: "Imperfect Competition", prompt: "A monopolist earns long-run economic profit because of:", choices: ["Free entry", "Barriers to entry", "Perfectly elastic demand", "Identical products"], correctText: "Barriers to entry" },
+      { id: "apmicro-05", set: "Factor Markets", prompt: "In a competitive labor market, a worker's wage equals their:", choices: ["Total revenue product", "Marginal revenue product", "Average product of labor", "Hourly minimum wage"], correctText: "Marginal revenue product" },
+      { id: "apmicro-06", set: "Market Failure", prompt: "A negative externality (e.g., pollution) leads markets to produce:", choices: ["The socially optimal quantity", "Less than the socially optimal quantity", "More than the socially optimal quantity", "No output at all"], correctText: "More than the socially optimal quantity" }
+    ],
+    "Civics and Participation in Government": [
+      { id: "civics-01", set: "Foundations", prompt: "The supreme law of the United States is the:", choices: ["Declaration of Independence", "U.S. Constitution", "Articles of Confederation", "Bill of Rights"], correctText: "U.S. Constitution" },
+      { id: "civics-02", set: "Branches", prompt: "Veto power belongs to which branch of the federal government?", choices: ["Executive", "Legislative", "Judicial", "Bureaucratic"], correctText: "Executive" },
+      { id: "civics-03", set: "Rights", prompt: "Freedom of speech, press, religion, assembly, and petition are protected by the:", choices: ["1st Amendment", "5th Amendment", "10th Amendment", "14th Amendment"], correctText: "1st Amendment" },
+      { id: "civics-04", set: "Elections", prompt: "U.S. presidential elections are decided by the:", choices: ["Popular vote alone", "Electoral College", "Senate", "Supreme Court"], correctText: "Electoral College" },
+      { id: "civics-05", set: "Civic Action", prompt: "A nonprofit organization that advocates for a cause is BEST classified as a(n):", choices: ["Political action committee", "Interest group", "Federal agency", "Political party"], correctText: "Interest group" },
+      { id: "civics-06", set: "Federalism", prompt: "Powers reserved to the states are protected by the:", choices: ["1st Amendment", "10th Amendment", "Necessary and Proper Clause", "Commerce Clause"], correctText: "10th Amendment" }
+    ],
+    "Economics": [
+      { id: "econ-01", set: "Decision-Making", prompt: "Scarcity forces individuals and societies to:", choices: ["Print more money", "Make trade-offs", "Eliminate competition", "Stop producing"], correctText: "Make trade-offs" },
+      { id: "econ-02", set: "Markets & Prices", prompt: "If demand rises and supply stays constant, equilibrium price will:", choices: ["Fall", "Rise", "Stay the same", "Become negative"], correctText: "Rise" },
+      { id: "econ-03", set: "Personal Finance", prompt: "Compound interest is interest earned on:", choices: ["Principal only", "Principal plus previously earned interest", "Future deposits only", "The bank's costs"], correctText: "Principal plus previously earned interest" },
+      { id: "econ-04", set: "Macroeconomics", prompt: "GDP per capita is BEST used as a rough indicator of:", choices: ["A nation's average income or standard of living", "Total population", "Inflation rate", "Trade deficit"], correctText: "A nation's average income or standard of living" },
+      { id: "econ-05", set: "Government & Global", prompt: "A tariff is a tax placed on:", choices: ["Domestic goods", "Imported goods", "Income", "Stock dividends"], correctText: "Imported goods" },
+      { id: "econ-06", set: "Money & Banking", prompt: "The primary purpose of the Federal Reserve is to:", choices: ["Print currency only", "Conduct U.S. monetary policy and stabilize the financial system", "Collect federal income taxes", "Set tariffs on imports"], correctText: "Conduct U.S. monetary policy and stabilize the financial system" }
+    ]
+  };
+
+  // Flatten the bank for easy iteration when no course is set, and so
+  // the "no enrolled course" path still works on a fresh device.
+  var DIAG_BANK_FLAT = [];
+  Object.keys(DIAG_BANK_BY_COURSE).forEach(function (courseName) {
+    DIAG_BANK_BY_COURSE[courseName].forEach(function (q) {
+      DIAG_BANK_FLAT.push(Object.assign({ course: courseName }, q));
+    });
+  });
+
+  // Pick an 8-question diagnostic biased toward the player's enrolled
+  // course. Excludes recently-asked question IDs (last 24, ~3 sessions)
+  // so each diagnostic feels fresh.
+  function pickDiagnosticSet(profile) {
+    var QUESTIONS_PER_SESSION = 8;
+    var enrolled = profile && profile.course;
+    var history = (profile && profile.diagHistory) ? profile.diagHistory : [];
+    var historySet = {};
+    history.forEach(function (id) { historySet[id] = true; });
+
+    function fresh(arr) {
+      return arr.filter(function (q) { return !historySet[q.id]; });
+    }
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    var picks = [];
+    var seenIds = {};
+
+    // Pull from the enrolled course first (target 5/8)
+    if (enrolled && DIAG_BANK_BY_COURSE[enrolled]) {
+      var courseQs = DIAG_BANK_BY_COURSE[enrolled].map(function (q) {
+        return Object.assign({ course: enrolled }, q);
+      });
+      var courseFresh = shuffle(fresh(courseQs));
+      // If the entire course bank has been seen recently, fall back to
+      // the full set — better to repeat than to stall.
+      if (!courseFresh.length) courseFresh = shuffle(courseQs);
+      var courseTarget = Math.min(5, courseFresh.length);
+      for (var i = 0; i < courseTarget && picks.length < QUESTIONS_PER_SESSION; i++) {
+        picks.push(courseFresh[i]);
+        seenIds[courseFresh[i].id] = true;
+      }
+    }
+
+    // Fill the rest with broad-spectrum questions from other courses.
+    var others = DIAG_BANK_FLAT.filter(function (q) {
+      return !seenIds[q.id] && q.course !== enrolled;
+    });
+    var othersFresh = shuffle(fresh(others));
+    if (!othersFresh.length) othersFresh = shuffle(others);
+    for (var k = 0; k < othersFresh.length && picks.length < QUESTIONS_PER_SESSION; k++) {
+      picks.push(othersFresh[k]);
+      seenIds[othersFresh[k].id] = true;
+    }
+
+    // Final safety: shuffle the assembled set so the enrolled-course
+    // questions don't all bunch at the front.
+    return shuffle(picks);
+  }
 
   function startDiagnostic() {
+    // Pull a fresh, course-aware set every time the diagnostic opens.
+    // The set is drawn from DIAG_BANK_BY_COURSE, biased toward the
+    // student's enrolled course (~5/8) and excluding the last 24
+    // question IDs so questions don't repeat across sessions.
+    var profile = P.get();
+    var sessionQs = pickDiagnosticSet(profile);
     var idx = 0;
     var results = []; // [{course, set, correct}, ...]
+
+    // Per-question state lives in the closure so we can shuffle
+    // choices anew every render and still grade by `correctText`.
+    var currentQuestion = null;
+    var currentChoices = [];   // shuffled choice strings for this render
+    var currentCorrectIdx = 0; // shuffled-array index of the correct text
+
+    function shuffleChoices(q) {
+      var arr = q.choices.slice();
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+      }
+      var idxOfCorrect = arr.indexOf(q.correctText);
+      // Defensive: if the bank has a typo and correctText isn't in
+      // choices, reset to the first item rather than crash.
+      if (idxOfCorrect < 0) idxOfCorrect = 0;
+      return { order: arr, correctIdx: idxOfCorrect };
+    }
+
     function renderQ() {
-      var q = DIAG_BANK[idx];
-      if (!q) return showSummary();
-      var pct = Math.round((idx / DIAG_BANK.length) * 100);
+      currentQuestion = sessionQs[idx];
+      if (!currentQuestion) return showSummary();
+      var q = currentQuestion;
+      var sh = shuffleChoices(q);
+      currentChoices = sh.order;
+      currentCorrectIdx = sh.correctIdx;
+      var total = sessionQs.length;
+      var pct = Math.round((idx / total) * 100);
       var html =
         '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
-        '<div class="diag-meta">' + safeHTML(q.course) + ' · ' + safeHTML(q.set) + ' · Question ' + (idx + 1) + ' / ' + DIAG_BANK.length + '</div>' +
+        '<div class="diag-meta">' + safeHTML(q.course) + ' · ' + safeHTML(q.set) + ' · Question ' + (idx + 1) + ' / ' + total + '</div>' +
         '<p class="diag-stem">' + safeHTML(q.prompt) + '</p>' +
         '<div class="diag-choices">' +
-          q.choices.map(function (c, i) {
+          currentChoices.map(function (c, i) {
             return '<button class="diag-choice" data-i="' + i + '" type="button">' + safeHTML(c) + '</button>';
           }).join("") +
         '</div>';
@@ -8368,13 +8771,30 @@ boot();
       Array.prototype.forEach.call(rmBody.querySelectorAll(".diag-choice"), function (btn) {
         btn.addEventListener("click", function () {
           var pickIdx = Number(btn.dataset.i);
-          var correct = pickIdx === q.correct;
-          results.push({ course: q.course, set: q.set, correct: correct });
-          P.recordAnswer({ course: q.course, set: q.set, correct: correct, prompt: q.prompt, answer: q.choices[q.correct], gameId: "diagnostic" });
-          // Visual feedback
+          var correct = pickIdx === currentCorrectIdx;
+          results.push({
+            id: q.id,
+            course: q.course,
+            set: q.set,
+            correct: correct,
+            prompt: q.prompt,
+            chosen: currentChoices[pickIdx],
+            correctText: q.correctText
+          });
+          P.recordAnswer({
+            course: q.course,
+            set: q.set,
+            correct: correct,
+            prompt: q.prompt,
+            answer: q.correctText,
+            gameId: "diagnostic"
+          });
+          // Visual feedback — reveal the correct answer ONLY after the
+          // user commits. We never apply .is-correct on initial render,
+          // so the answer can't appear pre-highlighted.
           rmBody.querySelectorAll(".diag-choice").forEach(function (b) {
             var bi = Number(b.dataset.i);
-            if (bi === q.correct) b.classList.add("is-correct");
+            if (bi === currentCorrectIdx) b.classList.add("is-correct");
             else if (bi === pickIdx && !correct) b.classList.add("is-wrong");
             b.disabled = true;
           });
@@ -8387,6 +8807,17 @@ boot();
       var strongUnits = results.filter(function (r) { return r.correct; });
       var weakCourses = {};
       weakUnits.forEach(function (r) { weakCourses[r.course] = (weakCourses[r.course] || 0) + 1; });
+
+      // Persist the IDs we just asked so the next diagnostic skips
+      // them. Cap the ring at 24 (~3 sessions) so the bank stays
+      // reachable.
+      try {
+        var p = P.get();
+        var hist = (p.diagHistory || []).slice();
+        results.forEach(function (r) { if (r.id) hist.push(r.id); });
+        if (hist.length > 24) hist = hist.slice(hist.length - 24);
+        P.set({ diagHistory: hist });
+      } catch (e) {}
 
       var recHTML = "";
       var recommendations = [];

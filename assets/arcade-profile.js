@@ -169,11 +169,21 @@
       name: "",
       avatar: "🎓",
       avatarKind: "emoji",
+      // The student's primary enrolled course. Set during welcome
+      // setup; editable from the profile drawer. Drives diagnostic
+      // question selection, daily challenge weighting, library +
+      // jeopardy default filters, etc. Empty string = "all courses".
+      course: "",
       createdAt: 0,
       lastVisit: 0,
       // Phase 7 — content routing
       topicStats: {},      // course -> set -> { correct, total, lastSeen }
       wrongAnswers: [],    // ring buffer of {prompt, answer, course, set, gameId, ts}
+      // Diagnostic ring buffer of recently-asked question IDs (cap 24,
+      // roughly 3 sessions worth). New questions are appended; older
+      // entries fall off the front. Used by pickDiagnosticSet to avoid
+      // repeating the same questions session-to-session.
+      diagHistory: [],
       // Phase 3 — tour bookkeeping
       tourSeen: {},        // gameId -> timestamp
       // Phase 7 — completed cram playlists / diagnostic results
@@ -297,6 +307,19 @@
       write(p);
       emit("profile:update", { profile: clone(p) });
       return p.avatar;
+    },
+
+    getCourse: function () { return read().course || ""; },
+    setCourse: function (courseName) {
+      var p = read();
+      var prev = p.course || "";
+      var next = String(courseName || "").trim();
+      if (prev === next) return next;
+      p.course = next;
+      write(p);
+      emit("profile:update", { profile: clone(p) });
+      emit("course:change", { course: next, previous: prev });
+      return p.course;
     },
 
     // ---- Wallet ----
