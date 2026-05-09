@@ -4281,6 +4281,50 @@ body {
   outline-offset: 2px;
   border-color: rgba(122, 240, 255, .55);
 }
+/* Aggregate course mastery — sums all topicStats for enrolled course */
+.pd-course-mastery {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, rgba(122, 240, 255, .06), rgba(245, 196, 81, .06));
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+}
+.pd-course-mastery[hidden] { display: none; }
+.pd-course-mastery-pct {
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 700;
+  font-size: clamp(20px, 2.4vw, 28px);
+  color: var(--gold, #f5c451);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.pd-course-mastery-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  white-space: nowrap;
+}
+.pd-course-mastery-bar {
+  grid-column: 1 / -1;
+  height: 4px;
+  background: rgba(255, 255, 255, .06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.pd-course-mastery-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #ff667d, #f5c451 50%, #69f0aa);
+  border-radius: 999px;
+  transition: width .8s cubic-bezier(.18, .89, .32, 1.18);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pd-course-mastery-fill { transition: none; }
+}
 .pd-stat strong {
   color: var(--paper);
   font-weight: 700;
@@ -6032,6 +6076,11 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
               <span class="pd-course-label">Enrolled course</span>
               <select class="pd-course-select" id="pdCourseSelect" aria-label="Enrolled course"></select>
             </label>
+            <div class="pd-course-mastery" id="pdCourseMastery" hidden>
+              <span class="pd-course-mastery-pct" id="pdCourseMasteryPct">0%</span>
+              <span class="pd-course-mastery-label" id="pdCourseMasteryLabel">course mastery</span>
+              <span class="pd-course-mastery-bar"><span class="pd-course-mastery-fill" id="pdCourseMasteryFill" style="width:0%"></span></span>
+            </div>
             <div class="pd-stat-line">
               <span class="pd-stat" data-icon="diamond" title="Shards earned"><strong id="pdShards">0</strong> <span class="pd-stat-emoji" aria-hidden="true">💎</span> shards</span>
               <span class="pd-stat" data-icon="flame" title="Daily streak"><strong id="pdStreak">0</strong> <span class="pd-stat-emoji" aria-hidden="true">🔥</span> streak (best <span id="pdStreakBest">0</span>)</span>
@@ -8569,6 +8618,33 @@ boot();
       });
     } else if (pdCourseSelect) {
       pdCourseSelect.value = profile.course || "";
+    }
+
+    // Aggregate course mastery — sums all topicStats buckets for the
+    // enrolled course. Hidden when no course is set or the student
+    // hasn't answered any questions for that course yet.
+    var courseMasteryEl = document.getElementById("pdCourseMastery");
+    if (courseMasteryEl) {
+      var enrolledCourse = profile.course || "";
+      var topicStats = profile.topicStats || {};
+      var courseStats = topicStats[enrolledCourse] || {};
+      var aggCorrect = 0, aggTotal = 0;
+      Object.keys(courseStats).forEach(function (set) {
+        aggCorrect += (courseStats[set].correct || 0);
+        aggTotal += (courseStats[set].total || 0);
+      });
+      if (enrolledCourse && aggTotal > 0) {
+        var pct = Math.round((aggCorrect / aggTotal) * 100);
+        var pctEl = document.getElementById("pdCourseMasteryPct");
+        var labelEl = document.getElementById("pdCourseMasteryLabel");
+        var fillEl = document.getElementById("pdCourseMasteryFill");
+        if (pctEl) pctEl.textContent = pct + "%";
+        if (labelEl) labelEl.textContent = aggCorrect + " / " + aggTotal + " correct";
+        if (fillEl) fillEl.style.width = pct + "%";
+        courseMasteryEl.hidden = false;
+      } else {
+        courseMasteryEl.hidden = true;
+      }
     }
 
     // Streak calendar — last 21 days as a 3×7 grid
