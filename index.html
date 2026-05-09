@@ -3890,6 +3890,51 @@ body {
   letter-spacing: .01em;
 }
 .profile-pill[data-empty="true"] .pp-meta { display: none; }
+.profile-pill[data-empty="true"] .pp-buffs { display: none !important; }
+
+/* Active buff cluster on the topbar profile pill */
+.profile-pill .pp-buffs {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  margin-left: 6px;
+  border-left: 1px solid rgba(245, 196, 81, .25);
+  font-size: 13px;
+}
+.profile-pill .pp-buff {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  line-height: 1;
+}
+.profile-pill .pp-buff sup {
+  font-size: 9px;
+  font-weight: 700;
+  color: #f5c451;
+  margin-left: 1px;
+  font-family: "JetBrains Mono", monospace;
+}
+.profile-pill .pp-buff-lucky { color: #ffd884; filter: drop-shadow(0 0 4px rgba(245, 196, 81, .55)); }
+.profile-pill .pp-buff-coin  { color: #ffc66b; filter: drop-shadow(0 0 4px rgba(245, 196, 81, .45)); }
+.profile-pill .pp-buff-shield { color: #7af0ff; }
+.profile-pill.is-buffed {
+  border-color: rgba(245, 196, 81, .55);
+  box-shadow: 0 0 0 1px rgba(245, 196, 81, .35), 0 0 16px rgba(245, 196, 81, .20);
+}
+@keyframes pp-buff-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.12); }
+}
+.profile-pill .pp-buff-lucky,
+.profile-pill .pp-buff-coin {
+  animation: pp-buff-pulse 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-pill .pp-buff-lucky,
+  .profile-pill .pp-buff-coin { animation: none; }
+}
 @media (max-width: 880px) {
   .profile-pill { display: none; }     /* hidden behind the mobile menu — drawer reachable from welcome flow */
 }
@@ -7592,6 +7637,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <span class="pp-streak" id="ppStreak" title="Daily streak">🔥 <span class="pp-streak-num">0</span></span>
         </span>
       </span>
+      <span class="pp-buffs" id="ppBuffs" aria-hidden="true"></span>
     </button>
     <a class="nav-link" href="#launch-paths">Enter Arcade</a>
   </div>
@@ -9650,10 +9696,37 @@ boot();
       ppStreak.classList.remove("is-hot");
       ppStreak.classList.remove("is-blazing");
     }
+    // Active boost indicators in topbar pill
+    var ppBuffs = document.getElementById("ppBuffs");
+    if (ppBuffs && hasProfile && P.getInventory) {
+      var inv = P.getInventory();
+      var pieces = [];
+      if (inv.luckyCharmActive) {
+        pieces.push('<span class="pp-buff pp-buff-lucky" title="Lucky Charm active — 2x shards">✨</span>');
+      }
+      if (inv.coinDoublerActive) {
+        pieces.push('<span class="pp-buff pp-buff-coin" title="Coin Doubler active — 2x shards">🪙</span>');
+      }
+      if ((inv.streakShield || 0) > 0) {
+        pieces.push('<span class="pp-buff pp-buff-shield" title="' + inv.streakShield + ' streak shield' + (inv.streakShield > 1 ? 's' : '') + ' ready">🛡<sup>' + inv.streakShield + '</sup></span>');
+      }
+      ppBuffs.innerHTML = pieces.join("");
+      ppBuffs.style.display = pieces.length ? "inline-flex" : "none";
+      // Pill gets a glow ring whenever any timed buff is active
+      pill.classList.toggle("is-buffed", inv.luckyCharmActive || inv.coinDoublerActive);
+    } else if (ppBuffs) {
+      ppBuffs.innerHTML = "";
+      ppBuffs.style.display = "none";
+      pill.classList.remove("is-buffed");
+    }
   }
   updatePill();
   P.on("profile:update", updatePill);
   P.on("profile:create", updatePill);
+  P.on("inventory:change", updatePill);
+  // Buff timers tick down — re-render every minute so the pill clears
+  // when a buff expires without requiring an action.
+  setInterval(updatePill, 60 * 1000);
   P.on("wallet:change", function (e) {
     updatePill();
     // Brief gold-glow burst on the topbar profile pill when shards are added.
