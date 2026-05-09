@@ -151,6 +151,16 @@ textarea:focus-visible {
     radial-gradient(50% 40% at 12% 100%, rgba(245, 196, 81, .12), transparent 70%),
     linear-gradient(0deg, rgba(122,240,255,.035), transparent 28%);
   mix-blend-mode: screen;
+  animation: heroAurora 38s ease-in-out infinite;
+}
+@keyframes heroAurora {
+  0%, 100% { filter: hue-rotate(0deg)   saturate(1); }
+  25%      { filter: hue-rotate(-12deg) saturate(1.05); }
+  50%      { filter: hue-rotate(8deg)   saturate(1.10); }
+  75%      { filter: hue-rotate(-4deg)  saturate(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg::before { animation: none; }
 }
 .hero-bg::after {
   content: "";
@@ -5983,6 +5993,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-tour.js?v=20260507-phase3"></script>
 <script src="assets/arcade-icons.js?v=20260509-icons"></script>
 <script src="assets/arcade-toast.js?v=20260509-toast"></script>
+<script src="assets/arcade-celebration.js?v=20260509-celebration"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
@@ -7437,14 +7448,28 @@ boot();
       var oldTier = getTier(oldShards);
       var newTier = getTier(newShards);
       if (drawer && !drawer.hidden) refreshTier(P.get());
-      if (oldTier.key !== newTier.key && delta > 0 && window.MrMacsToast) {
-        window.MrMacsToast.push({
-          icon: "crown",
-          title: "Tier up: " + newTier.name,
-          sub: "you've climbed to the next rung",
-          tone: "achievement",
-          ms: 5200
-        });
+      if (oldTier.key !== newTier.key && delta > 0) {
+        if (window.MrMacsToast) {
+          window.MrMacsToast.push({
+            icon: "crown",
+            title: "Tier up: " + newTier.name,
+            sub: "you've climbed to the next rung",
+            tone: "achievement",
+            ms: 5200
+          });
+        }
+        // Confetti burst from the topbar profile pill on tier-up.
+        // Legendary tier gets a bigger, multi-colored celebration.
+        if (window.MrMacsCelebration) {
+          var tierPalette = newTier.key === "legendary"
+            ? ["#ff7cc8", "#b892ff", "#f5c451", "#ffd884"]
+            : (newTier.key === "mythic" ? ["#ff7cc8", "#b892ff", "#7af0ff"] : null);
+          window.MrMacsCelebration.burstFromElement(pill, {
+            count: newTier.key === "legendary" ? 40 : 28,
+            palette: tierPalette || undefined,
+            life: 1.4
+          });
+        }
       }
     }
   });
