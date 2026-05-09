@@ -8965,6 +8965,19 @@ boot();
         P.set({ diagHistory: hist });
       } catch (e) {}
 
+      // Reward: 30 shards for completing + 5 per correct answer (max
+      // +40 for a perfect 8). Encourages students to finish the
+      // diagnostic instead of bailing mid-way. The completion
+      // reward only fires when results > 0 to avoid edge cases.
+      try {
+        if (results.length) {
+          var completionAward = 30;
+          var perCorrectAward = strongUnits.length * 5;
+          var totalAward = completionAward + perCorrectAward;
+          P.addShards(totalAward, "diagnostic");
+        }
+      } catch (e) {}
+
       var recHTML = "";
       var recommendations = [];
       Object.keys(weakCourses).slice(0, 3).forEach(function (course) {

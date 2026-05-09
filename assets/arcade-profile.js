@@ -491,6 +491,12 @@
       write(p);
       // Don't emit profile:update on every answer (too chatty); emit a cheaper event
       emit("answer:record", { course: course, set: set, correct: !!meta.correct });
+      // Fire the "First Strike" achievement on the player's first
+      // correct answer ever. Subsequent answers are no-ops for the
+      // unlock (alreadyUnlocked path).
+      if (meta.correct) {
+        try { API.unlock("first-correct"); } catch (e) {}
+      }
       return { correct: bucket.correct, total: bucket.total };
     },
     getTopicStats: function (course) {
