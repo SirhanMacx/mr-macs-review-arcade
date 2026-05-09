@@ -1621,7 +1621,7 @@
       }
       state.questionsAnsweredCorrect++;
       addScore(1500);
-      addShards(12);
+      addShards(12, GAME_ID + "-scholar-correct");
       sfx.scholarCorrect();
       if (window.MrMacsCelebration && !reducedMotion) {
         try { window.MrMacsCelebration.burst({ count: 24, palette: ["#f5c451", "#a991ff", "#4dd49b"] }); } catch (e) {}
@@ -2404,14 +2404,14 @@
   }
 
   // -- Hub integration -------------------------------------------------------
-  function addShards(n) {
+  function addShards(n, source) {
     if (n <= 0) return;
     var capped = Math.max(0, Math.min(n, SHARDS_CAP - state.shardsAwarded));
     if (capped <= 0) return;
     state.shardsAwarded += capped;
     try {
       if (window.MrMacsProfile && window.MrMacsProfile.addShards) {
-        window.MrMacsProfile.addShards(capped, GAME_ID);
+        window.MrMacsProfile.addShards(capped, source || GAME_ID);
       }
     } catch (e) {}
   }

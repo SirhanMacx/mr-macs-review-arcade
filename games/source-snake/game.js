@@ -1366,7 +1366,7 @@
   function closeQuestion(wasCorrect) {
     if (wasCorrect) {
       addScore(SCORE_SCHOLAR_BONUS);
-      addShards(20);
+      addShards(20, GAME_ID + "-scholar-correct");
       // Spawn one of every kind of power-up nearby that isn't already on the field
       var head = state.snake[0] || { c: Math.floor(COLS / 2), r: Math.floor(ROWS / 2) };
       spawnPowerupsNearby(head.c, head.r);
@@ -1424,14 +1424,14 @@
   }
 
   // -- Hub integration -------------------------------------------------------
-  function addShards(n) {
+  function addShards(n, source) {
     if (n <= 0) return;
     var capped = Math.max(0, Math.min(n, SHARDS_CAP - state.shardsAwarded));
     if (capped <= 0) return;
     state.shardsAwarded += capped;
     try {
       if (window.MrMacsProfile && window.MrMacsProfile.addShards) {
-        window.MrMacsProfile.addShards(capped, GAME_ID);
+        window.MrMacsProfile.addShards(capped, source || GAME_ID);
       }
     } catch (e) {}
   }

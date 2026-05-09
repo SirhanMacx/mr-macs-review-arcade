@@ -1646,7 +1646,7 @@
   function closeQuestion(wasCorrect) {
     if (wasCorrect) {
       addScore(1000);
-      addShards(50);
+      addShards(50, GAME_ID + "-scholar-correct");
       try {
         if (window.MrMacsCelebration && !reducedMotion) {
           window.MrMacsCelebration.burst({ count: 36, palette: ["#f0d068", "#5de0f0", "#52e8a0"] });
@@ -1707,14 +1707,14 @@
     showScreen("end");
   }
 
-  function addShards(n) {
+  function addShards(n, source) {
     if (n <= 0) return;
     var capped = Math.max(0, Math.min(n, SHARDS_CAP - state.shardsAwarded));
     if (capped <= 0) return;
     state.shardsAwarded += capped;
     try {
       if (window.MrMacsProfile && window.MrMacsProfile.addShards) {
-        window.MrMacsProfile.addShards(capped, GAME_ID);
+        window.MrMacsProfile.addShards(capped, source || GAME_ID);
       }
     } catch (e) {}
   }

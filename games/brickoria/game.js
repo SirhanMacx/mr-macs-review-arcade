@@ -1471,7 +1471,7 @@
       if (wasCorrect) {
         state.lives++;
         var shardsBonus = 25;
-        addShards(shardsBonus);
+        addShards(shardsBonus, GAME_ID + "-scholar-correct");
         updateHud();
       }
       state.bonusQuestionsLeft--;
@@ -1522,14 +1522,14 @@
     showScreen("end");
   }
 
-  function addShards(n) {
+  function addShards(n, source) {
     if (n <= 0) return;
     var capped = Math.max(0, Math.min(n, SHARDS_CAP - state.shardsAwarded));
     if (capped <= 0) return;
     state.shardsAwarded += capped;
     try {
       if (window.MrMacsProfile && window.MrMacsProfile.addShards) {
-        window.MrMacsProfile.addShards(capped, GAME_ID);
+        window.MrMacsProfile.addShards(capped, source || GAME_ID);
       }
     } catch (e) {}
   }
