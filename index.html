@@ -10096,16 +10096,20 @@ boot();
       var inv = P.getInventory();
       var shards = profile.shards || 0;
       var items = P.SHOP_ITEMS;
-      var ownedFor = function (id) {
-        if (id === "luckyCharm") return inv.luckyCharmActive ? "active" : 0;
-        var key = id;
-        return inv[key] || 0;
+      var TIMED_BUFFS = { luckyCharm: "luckyCharmExpiresAt", coinDoubler: "coinDoublerExpiresAt" };
+      var isTimedActive = function (id) {
+        if (id === "luckyCharm") return inv.luckyCharmActive;
+        if (id === "coinDoubler") return inv.coinDoublerActive;
+        return false;
       };
       var renderCount = function (id) {
-        if (id === "luckyCharm") {
-          if (!inv.luckyCharmActive) return "";
-          var hrsLeft = Math.max(0, Math.round((inv.luckyCharmExpiresAt - Date.now()) / (3600 * 1000)));
-          return "Active · " + hrsLeft + "h left";
+        if (TIMED_BUFFS[id]) {
+          if (!isTimedActive(id)) return "Owned: 0";
+          var stamp = inv[TIMED_BUFFS[id]] || 0;
+          var msLeft = Math.max(0, stamp - Date.now());
+          var hrsLeft = Math.max(0, Math.round(msLeft / (3600 * 1000)));
+          var minLeft = Math.max(0, Math.round(msLeft / 60000));
+          return hrsLeft >= 1 ? "Active · " + hrsLeft + "h left" : "Active · " + minLeft + "m left";
         }
         var n = inv[id] || 0;
         return n > 0 ? "Owned: " + n : "Owned: 0";
@@ -10117,15 +10121,23 @@ boot();
         var safe = function (v) { return String(v || "").replace(/[<>&"]/g, function (c) {
           return c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;";
         }); };
-        return '<div class="pd-shop-card" data-id="' + id + '" data-active="' + isLuckyActive + '" role="listitem">' +
+        var timedActive = isTimedActive(id);
+        // Lucky Charm hard-locks while active. Coin Doubler can stack (extend the timer).
+        var hardLocked = id === "luckyCharm" && timedActive;
+        var btnLabel;
+        if (hardLocked) btnLabel = "Active";
+        else if (!canAfford) btnLabel = "Need " + (spec.cost - shards) + " more";
+        else if (id === "coinDoubler" && timedActive) btnLabel = "Extend";
+        else btnLabel = "Buy";
+        return '<div class="pd-shop-card" data-id="' + id + '" data-active="' + (timedActive ? "true" : "false") + '" role="listitem">' +
           '<span class="ps-icon" aria-hidden="true">' + safe(spec.icon) + '</span>' +
           '<span class="ps-name">' + safe(spec.label) + '</span>' +
           '<span class="ps-desc">' + safe(spec.desc) + '</span>' +
           '<div class="ps-foot">' +
             '<span class="ps-cost">💎 ' + spec.cost + '</span>' +
             '<span class="ps-owned">' + renderCount(id) + '</span>' +
-            '<button class="ps-buy" data-id="' + id + '" type="button"' + (!canAfford || isLuckyActive ? ' disabled' : '') + '>' +
-              (isLuckyActive ? "Active" : (canAfford ? "Buy" : "Need " + (spec.cost - shards) + " more")) +
+            '<button class="ps-buy" data-id="' + id + '" type="button"' + (!canAfford || hardLocked ? ' disabled' : '') + '>' +
+              btnLabel +
             '</button>' +
           '</div>' +
         '</div>';
@@ -10137,10 +10149,18 @@ boot();
           var result = P.buyItem(id);
           if (result.ok) {
             if (window.MrMacsToast) {
+              var subMsg;
+              switch (id) {
+                case "luckyCharm":     subMsg = "2x shards active for the next 24 hours"; break;
+                case "coinDoubler":    subMsg = "2x shards active for the next 4 hours · stacks with Lucky Charm"; break;
+                case "fortuneRefresh": subMsg = "reroll today's daily fortune from the hub"; break;
+                case "dailyDouble":    subMsg = "next Daily Challenge payout is doubled"; break;
+                default:               subMsg = "added to your inventory";
+              }
               window.MrMacsToast.push({
                 icon: "sparkles",
                 title: "Purchased: " + (P.SHOP_ITEMS[id] && P.SHOP_ITEMS[id].label),
-                sub: id === "luckyCharm" ? "2x shards active for the next 24 hours" : "added to your inventory",
+                sub: subMsg,
                 tone: "achievement",
                 ms: 4500
               });
@@ -10160,15 +10180,32 @@ boot();
           }
         });
       });
-      // Active boost banner
+      // Active boost banner — shows whichever boosts/inventory are most relevant
       var activeEl = document.getElementById("pdShopActive");
       if (activeEl) {
+        var bannerLines = [];
         if (inv.luckyCharmActive) {
-          var hrsLeft = Math.max(0, Math.round((inv.luckyCharmExpiresAt - Date.now()) / (3600 * 1000)));
-          activeEl.innerHTML = '✨ <strong>Lucky Charm</strong> active — every shard you earn is doubled for ' + hrsLeft + ' more hours.';
-          activeEl.hidden = false;
-        } else if (inv.streakShield > 0) {
-          activeEl.innerHTML = '🛡 <strong>' + inv.streakShield + ' streak shield' + (inv.streakShield > 1 ? 's' : '') + '</strong> ready · auto-saves your next missed-day streak.';
+          var lcMs = Math.max(0, inv.luckyCharmExpiresAt - Date.now());
+          var lcHrs = Math.max(0, Math.round(lcMs / (3600 * 1000)));
+          bannerLines.push('✨ <strong>Lucky Charm</strong> active — 2x shards for ' + lcHrs + ' more hours');
+        }
+        if (inv.coinDoublerActive) {
+          var cdMs = Math.max(0, inv.coinDoublerExpiresAt - Date.now());
+          var cdHrs = Math.floor(cdMs / (3600 * 1000));
+          var cdMin = Math.max(0, Math.round((cdMs - cdHrs * 3600 * 1000) / 60000));
+          bannerLines.push('🪙 <strong>Coin Doubler</strong> active — 2x shards for ' + (cdHrs > 0 ? cdHrs + 'h ' + cdMin + 'm' : cdMin + 'm') + ' more');
+        }
+        if (inv.streakShield > 0) {
+          bannerLines.push('🛡 <strong>' + inv.streakShield + ' streak shield' + (inv.streakShield > 1 ? 's' : '') + '</strong> ready · auto-saves your next missed-day streak');
+        }
+        if (inv.dailyDouble > 0) {
+          bannerLines.push('📰 <strong>' + inv.dailyDouble + ' Daily Double</strong> ready · 2x next Daily Challenge payout');
+        }
+        if (inv.fortuneRefresh > 0) {
+          bannerLines.push('🔮 <strong>' + inv.fortuneRefresh + ' fortune reroll</strong> ready · use from the daily fortune card');
+        }
+        if (bannerLines.length) {
+          activeEl.innerHTML = bannerLines.join(" · ");
           activeEl.hidden = false;
         } else {
           activeEl.hidden = true;
@@ -11054,7 +11091,25 @@ boot();
           if (!data[today]) {
             data[today] = { gameId: pick.id, openedAt: Date.now(), completed: false };
             localStorage.setItem("mr-macs-arcade-daily-v1", JSON.stringify(data));
-            if (window.MrMacsProfile) window.MrMacsProfile.addShards(50, "daily-challenge");
+            // Use the new server-of-truth claimDailyChallenge API which:
+            // - tracks completion count for cross-daily-7 / cross-daily-30 achievements
+            // - honors Daily Double inventory (2x payout)
+            // - pays out via addShards (so Lucky Charm + Coin Doubler stack on top)
+            if (window.MrMacsProfile && window.MrMacsProfile.claimDailyChallenge) {
+              var claim = window.MrMacsProfile.claimDailyChallenge({ gameId: pick.id, payout: 60 });
+              if (claim.ok && claim.doubled && window.MrMacsToast) {
+                window.MrMacsToast.push({
+                  icon: "sparkles",
+                  title: "📰 Daily Double consumed!",
+                  sub: "Today's payout doubled to " + claim.payout + " shards",
+                  tone: "achievement",
+                  ms: 4500
+                });
+              }
+            } else if (window.MrMacsProfile) {
+              // Fallback for older profile builds
+              window.MrMacsProfile.addShards(60, "daily-challenge");
+            }
             data[today].completed = true;
             localStorage.setItem("mr-macs-arcade-daily-v1", JSON.stringify(data));
           }
@@ -11066,7 +11121,18 @@ boot();
     }
     if (statusEl) {
       statusEl.classList.toggle("is-done", completed);
-      statusEl.textContent = completed ? "Completed today · +50 shards" : "Resets at midnight UTC";
+      // Show "Daily Double ready" hint when the player owns one
+      var hasDouble = false;
+      if (window.MrMacsProfile && window.MrMacsProfile.getInventory) {
+        hasDouble = (window.MrMacsProfile.getInventory().dailyDouble || 0) > 0;
+      }
+      if (completed) {
+        statusEl.textContent = "Completed today · come back tomorrow";
+      } else if (hasDouble) {
+        statusEl.textContent = "📰 Daily Double ready · 2x payout on completion";
+      } else {
+        statusEl.textContent = "Resets at midnight UTC · +60 shards";
+      }
     }
     // Toggle .is-done on the card itself so the icon pulse stops once played
     var dailyCard = band.querySelector(".daily-card");
@@ -13297,7 +13363,28 @@ boot();
   var fortuneCard = document.getElementById("fortuneCard");
   if (fortuneCard) {
     renderFortune(false);
-    fortuneCard.addEventListener("click", function () { renderFortune(true); });
+    fortuneCard.addEventListener("click", function () {
+      // Always reroll on click — but if the player owns a Fortune Refresh
+      // token, consume one to log it as an "intentional" reroll. Free
+      // rerolls don't deplete inventory.
+      var hasToken = false;
+      if (window.MrMacsProfile && window.MrMacsProfile.getInventory) {
+        hasToken = (window.MrMacsProfile.getInventory().fortuneRefresh || 0) > 0;
+      }
+      renderFortune(true);
+      if (hasToken && window.MrMacsProfile && window.MrMacsProfile.consumeItem) {
+        window.MrMacsProfile.consumeItem("fortuneRefresh");
+        if (window.MrMacsToast) {
+          window.MrMacsToast.push({
+            icon: "sparkles",
+            title: "🔮 Fortune rerolled",
+            sub: "1 refresh token consumed · keep pulling for more wisdom",
+            tone: "default",
+            ms: 3200
+          });
+        }
+      }
+    });
   }
 
   // ---- Read-aloud helper (Web Speech API) ----

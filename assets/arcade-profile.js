@@ -118,11 +118,30 @@
     { id: "duel-flawless",     title: "Flawless Round",        desc: "Win a round without taking damage.",               tier: "silver",    icon: "🥊" },
     { id: "duel-ladder",       title: "Era Ladder Climb",      desc: "Defeat all 7 ladder opponents.",                   tier: "legendary", icon: "🏆" },
 
+    // ---- New flagship arcade games (May 2026 sweep) ----
+    { id: "brickoria-clear",   title: "Wall Breaker",          desc: "Clear an era stage in Brickoria.",                 tier: "silver",    icon: "🧱" },
+    { id: "stellar-mothership",title: "Mothership Down",       desc: "Defeat the Misconception Mothership in Stellar Drift.", tier: "gold",  icon: "🛸" },
+    { id: "snake-tail-50",     title: "Long Tail",             desc: "Grow Source Snake to 50 segments.",                tier: "silver",    icon: "🐍" },
+    { id: "chronoblocks-tetris",title: "Chronostack",          desc: "Clear four lines at once in Chronoblocks.",        tier: "gold",      icon: "🟦" },
+    { id: "cascade-rainbow",   title: "Spectral Drop",         desc: "Pop a rainbow wildcard cluster in Cascade.",       tier: "silver",    icon: "🌈" },
+    { id: "chronohop-pads",    title: "Lily Pad Five",         desc: "Fill all five lily pads in Chronohop.",            tier: "gold",      icon: "🐸" },
+    { id: "step-pyramid-clear",title: "Pyramid Cleared",       desc: "Clear an entire pyramid in Step Pyramid.",         tier: "silver",    icon: "🔺" },
+    { id: "step-pyramid-lured",title: "Lured Coily",           desc: "Trick Coily off the pyramid in Step Pyramid.",     tier: "gold",      icon: "🌀" },
+    { id: "citadel-cascade",   title: "Mega Cascade",          desc: "Trigger a 4x cascade in Citadel.",                 tier: "gold",      icon: "💎" },
+    { id: "rumor-fact-spare",  title: "Truth Sentinel",        desc: "Spare 25 verified facts in Rumor Whack.",          tier: "silver",    icon: "🛡" },
+    { id: "scholar-decoder",   title: "Scholar Decoder",       desc: "Answer 50 scholar prompts correctly across all games.", tier: "gold", icon: "🎓" },
+
     // ---- Cross-arcade ----
     { id: "cross-3-genres",    title: "Genre-Hopper",          desc: "Play 3 different flagship games.",                 tier: "silver",    icon: "🎲" },
+    { id: "cross-7-genres",    title: "Cabinet Curator",       desc: "Play 7 different flagship games.",                 tier: "gold",      icon: "🕹" },
+    { id: "cross-12-genres",   title: "Arcade Polymath",       desc: "Play 12 different flagship games.",                tier: "legendary", icon: "🏛" },
     { id: "cross-shards-1k",   title: "Shard Hoarder",         desc: "Earn 1,000 lifetime shards.",                      tier: "gold",      icon: "💎" },
     { id: "cross-shards-10k",  title: "Treasure Vault",        desc: "Earn 10,000 lifetime shards.",                     tier: "legendary", icon: "💰" },
     { id: "cross-cram",        title: "Cram Sesh",             desc: "Complete a 4-game Cram Mode playlist.",            tier: "gold",      icon: "📚" },
+    { id: "cross-100-plays",   title: "Centurion",             desc: "Log 100 total plays across the arcade.",           tier: "gold",      icon: "💯" },
+    { id: "cross-daily-7",     title: "Daily Dispatch",        desc: "Complete the Daily Challenge 7 days.",             tier: "gold",      icon: "📰" },
+    { id: "cross-daily-30",    title: "Daily Disciple",        desc: "Complete the Daily Challenge 30 days.",            tier: "legendary", icon: "🗞" },
+    { id: "cross-shop-spender",title: "Shop Patron",           desc: "Spend 1,000 shards in the power-up shop.",         tier: "silver",    icon: "🛒" },
 
     // ---- Hidden / Easter eggs ----
     { id: "code-master",       title: "Code Master",            desc: "Discovered the secret konami sequence.",           tier: "gold",      icon: "🎮" },
@@ -458,12 +477,19 @@
       // skip the multiplier on shop purchases and on the boost itself
       // to prevent infinite loops.
       var luckyApplied = false;
-      if (n > 0 && actualSource !== "shop" && actualSource !== "lucky-charm-boost") {
+      var doublerApplied = false;
+      if (n > 0 && actualSource !== "shop" && actualSource !== "lucky-charm-boost" && actualSource !== "coin-doubler-boost") {
         var inv = p.inventory || {};
-        if (inv.luckyCharmExpiresAt && inv.luckyCharmExpiresAt > Date.now()) {
+        var nowTs = Date.now();
+        if (inv.luckyCharmExpiresAt && inv.luckyCharmExpiresAt > nowTs) {
           n = n * 2;
           luckyApplied = true;
           actualSource = actualSource + " · ✨2x";
+        }
+        if (inv.coinDoublerExpiresAt && inv.coinDoublerExpiresAt > nowTs) {
+          n = n * 2;
+          doublerApplied = true;
+          actualSource = actualSource + " · 🪙2x";
         }
       }
       p.shards = Math.max(0, (p.shards || 0) + n);
@@ -493,21 +519,29 @@
     // ---- Power-up shop inventory ----
     getInventory: function () {
       var inv = read().inventory || {};
+      var now = Date.now();
       return {
         streakShield: inv.streakShield || 0,
         hintTokens: inv.hintTokens || 0,
         timeBoosts: inv.timeBoosts || 0,
+        fortuneRefresh: inv.fortuneRefresh || 0,
+        dailyDouble: inv.dailyDouble || 0,
         luckyCharmExpiresAt: inv.luckyCharmExpiresAt || 0,
-        luckyCharmActive: !!(inv.luckyCharmExpiresAt && inv.luckyCharmExpiresAt > Date.now())
+        luckyCharmActive: !!(inv.luckyCharmExpiresAt && inv.luckyCharmExpiresAt > now),
+        coinDoublerExpiresAt: inv.coinDoublerExpiresAt || 0,
+        coinDoublerActive: !!(inv.coinDoublerExpiresAt && inv.coinDoublerExpiresAt > now)
       };
     },
     // Buy an item by id. Costs are defined here (single source of truth).
     // Returns { ok, reason, inventory } so callers can show feedback.
     SHOP_ITEMS: {
-      streakShield: { cost: 200, label: "Streak Shield", icon: "🛡", desc: "Saves your streak if you miss a day. Auto-consumed on the next gap." },
-      hintTokens:   { cost: 50,  label: "Hint Token",    icon: "💡", desc: "Eliminates one wrong choice on any quiz question. One per question." },
-      timeBoosts:   { cost: 75,  label: "Time Boost",    icon: "⏱", desc: "Adds 30 seconds to your timer in any timed mock exam. One use per boost." },
-      luckyCharm:   { cost: 350, label: "Lucky Charm",   icon: "✨", desc: "Doubles every shard you earn for 24 hours." }
+      streakShield:  { cost: 200, label: "Streak Shield",  icon: "🛡", desc: "Saves your streak if you miss a day. Auto-consumed on the next gap." },
+      hintTokens:    { cost: 50,  label: "Hint Token",     icon: "💡", desc: "Eliminates one wrong choice on any quiz question. One per question." },
+      timeBoosts:    { cost: 75,  label: "Time Boost",     icon: "⏱", desc: "Adds 30 seconds to your timer in any timed mock exam. One use per boost." },
+      luckyCharm:    { cost: 350, label: "Lucky Charm",    icon: "✨", desc: "Doubles every shard you earn for 24 hours." },
+      fortuneRefresh:{ cost: 25,  label: "Fortune Refresh", icon: "🔮", desc: "Reroll today's daily fortune. One reroll per purchase." },
+      dailyDouble:   { cost: 150, label: "Daily Double",   icon: "📰", desc: "Doubles your shard payout on the next Daily Challenge completion." },
+      coinDoubler:   { cost: 500, label: "Coin Doubler",   icon: "🪙", desc: "Doubles every shard you earn for 4 hours. Stacks with Lucky Charm." }
     },
     buyItem: function (itemId) {
       var spec = API.SHOP_ITEMS[itemId];
@@ -518,16 +552,23 @@
       // because this needs to bypass lucky-charm doubling)
       p.shards = (p.shards || 0) - spec.cost;
       p.inventory = p.inventory || {};
-      // Lucky Charm is time-based, not stackable
+      // Lifetime shop spend (drives Shop Patron achievement)
+      p.lifetimeShopSpend = (p.lifetimeShopSpend || 0) + spec.cost;
+      // Timed buffs are not stackable as counts — they extend a deadline.
+      var nowTs = Date.now();
       if (itemId === "luckyCharm") {
-        var now = Date.now();
-        var current = p.inventory.luckyCharmExpiresAt || 0;
-        var base = current > now ? current : now;
-        p.inventory.luckyCharmExpiresAt = base + 24 * 3600 * 1000;
+        var lcCurrent = p.inventory.luckyCharmExpiresAt || 0;
+        var lcBase = lcCurrent > nowTs ? lcCurrent : nowTs;
+        p.inventory.luckyCharmExpiresAt = lcBase + 24 * 3600 * 1000;
+      } else if (itemId === "coinDoubler") {
+        var cdCurrent = p.inventory.coinDoublerExpiresAt || 0;
+        var cdBase = cdCurrent > nowTs ? cdCurrent : nowTs;
+        p.inventory.coinDoublerExpiresAt = cdBase + 4 * 3600 * 1000;
       } else {
         p.inventory[itemId] = (p.inventory[itemId] || 0) + 1;
       }
       write(p);
+      if (p.lifetimeShopSpend >= 1000) API.unlock("cross-shop-spender");
       emit("wallet:change", { delta: -spec.cost, total: p.shards, source: "shop" });
       emit("inventory:change", { item: itemId, source: "purchase", inventory: API.getInventory() });
       return { ok: true, inventory: API.getInventory() };
@@ -655,9 +696,17 @@
       gs.plays = (gs.plays || 0) + 1;
       gs.lastPlayed = now;
       p.perGameStats[entry.id] = gs;
-      // Cross-arcade: 3 different genres
+      // Cross-arcade: distinct-genre tiers
       var distinctGenres = Object.keys(p.perGameStats).length;
-      if (distinctGenres >= 3) API.unlock("cross-3-genres");
+      if (distinctGenres >= 3)  API.unlock("cross-3-genres");
+      if (distinctGenres >= 7)  API.unlock("cross-7-genres");
+      if (distinctGenres >= 12) API.unlock("cross-12-genres");
+      // Cross-arcade: 100 lifetime plays
+      var totalPlays = 0;
+      Object.keys(p.perGameStats).forEach(function (k) {
+        totalPlays += (p.perGameStats[k].plays || 0);
+      });
+      if (totalPlays >= 100) API.unlock("cross-100-plays");
       // Time-of-day achievement: only Early Bird is rewarded.
       // Late-night play is intentionally NOT incentivized — students
       // need sleep, especially before exams.
@@ -718,6 +767,57 @@
     },
 
     getStreak: function () { return clone(read().streak); },
+
+    // ---- Daily Challenge ----
+    // The hub picks a featured game per day (deterministic per date) and
+    // grants a bonus payout the first time the player completes it that
+    // day. We track the date they last claimed + a rolling completion
+    // count for the Daily Dispatch achievements.
+    getDailyChallengeState: function () {
+      var p = read();
+      var dc = p.dailyChallenge || { lastClaimedDay: "", completedCount: 0 };
+      return {
+        lastClaimedDay: dc.lastClaimedDay || "",
+        completedCount: dc.completedCount || 0,
+        claimedToday: (dc.lastClaimedDay === todayKey())
+      };
+    },
+    claimDailyChallenge: function (meta) {
+      var today = todayKey();
+      var p = read();
+      p.dailyChallenge = p.dailyChallenge || { lastClaimedDay: "", completedCount: 0 };
+      if (p.dailyChallenge.lastClaimedDay === today) {
+        return { ok: false, reason: "already-claimed" };
+      }
+      // Daily Double inventory item, if held, doubles the payout once.
+      var basePayout = Number(meta && meta.payout) || 60;
+      var doubled = false;
+      p.inventory = p.inventory || {};
+      if ((p.inventory.dailyDouble || 0) > 0) {
+        p.inventory.dailyDouble -= 1;
+        basePayout *= 2;
+        doubled = true;
+      }
+      p.dailyChallenge.lastClaimedDay = today;
+      p.dailyChallenge.completedCount = (p.dailyChallenge.completedCount || 0) + 1;
+      write(p);
+      // Pay out via addShards (so lucky charm + coin doubler stack on top)
+      API.addShards(basePayout, "daily-challenge");
+      // Daily Dispatch achievements
+      if (p.dailyChallenge.completedCount >= 30) API.unlock("cross-daily-30");
+      else if (p.dailyChallenge.completedCount >= 7) API.unlock("cross-daily-7");
+      emit("daily:claim", { gameId: meta && meta.gameId, payout: basePayout, doubled: doubled });
+      return { ok: true, payout: basePayout, doubled: doubled, completedCount: p.dailyChallenge.completedCount };
+    },
+
+    // ---- Scholar prompt counter (drives Scholar Decoder achievement) ----
+    recordScholarCorrect: function (gameId) {
+      var p = read();
+      p.scholarCorrect = (p.scholarCorrect || 0) + 1;
+      write(p);
+      if (p.scholarCorrect >= 50) API.unlock("scholar-decoder");
+      return p.scholarCorrect;
+    },
 
     // ---- Phase 7: topic stats + wrong-answer queue ----
     // Call once per Q answered. correct = boolean. course/set are course folder + unit/topic name.
