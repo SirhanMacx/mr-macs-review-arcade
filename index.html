@@ -5289,6 +5289,38 @@ body {
   border-color: rgba(245, 196, 81, .35);
   background: linear-gradient(180deg, rgba(245, 196, 81, .04), rgba(13, 17, 27, .68));
 }
+.mastery-row.mastery-row-clickable {
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font: inherit;
+  color: var(--paper);
+  position: relative;
+  transition: transform .2s, border-color .2s, background .2s;
+}
+.mastery-row.mastery-row-clickable:hover,
+.mastery-row.mastery-row-clickable:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(245, 196, 81, .65);
+  background: linear-gradient(180deg, rgba(245, 196, 81, .08), rgba(13, 17, 27, .80));
+  outline: none;
+}
+.mastery-row.mastery-row-clickable:hover .mr-name::after,
+.mastery-row.mastery-row-clickable:focus-visible .mr-name::after {
+  content: " · drill →";
+  color: rgba(245, 196, 81, .9);
+  font-style: italic;
+  font-weight: 500;
+}
+.mastery-row.mastery-row-untouched {
+  opacity: .65;
+}
+.mastery-row.mastery-row-untouched .mr-pct { color: rgba(255, 255, 255, .35); }
+.mastery-row.mastery-row-untouched:hover { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .mastery-row.mastery-row-clickable { transition: none; }
+  .mastery-row.mastery-row-clickable:hover { transform: none; }
+}
 .mastery-empty {
   padding: 20px;
   text-align: center;
@@ -9572,12 +9604,48 @@ boot();
   function showMastery() {
     var stats = P.getTopicStats();
     var enrolled = (P && P.getCourse) ? P.getCourse() : "";
-    var rows = [];
+
+    // ---- Build the enrolled-course Unit Map ----
+    // Lists every unit from the diagnostic bank (canonical course
+    // outline) so the student sees ALL units in their course — even
+    // ones they haven't touched yet. Played units show real
+    // mastery; untouched units show 0/0 with a "Try" affordance.
+    var unitRows = [];
+    if (enrolled && DIAG_BANK_BY_COURSE[enrolled]) {
+      var seenSets = {};
+      DIAG_BANK_BY_COURSE[enrolled].forEach(function (q) {
+        if (seenSets[q.set]) return;
+        seenSets[q.set] = true;
+        var bucket = (stats[enrolled] && stats[enrolled][q.set]) || { correct: 0, total: 0 };
+        unitRows.push({
+          course: enrolled,
+          set: q.set,
+          correct: bucket.correct || 0,
+          total: bucket.total || 0,
+          pct: bucket.total ? Math.round((bucket.correct / bucket.total) * 100) : null,
+          touched: !!bucket.total
+        });
+      });
+      // Order: untouched units first (so student knows what's open),
+      // then touched-weak (so they know what to drill), then strong.
+      unitRows.sort(function (a, b) {
+        if (a.touched !== b.touched) return a.touched ? 1 : -1;
+        if (a.pct === null && b.pct === null) return 0;
+        return (a.pct || 0) - (b.pct || 0);
+      });
+    }
+
+    // ---- Build the topicStats-based "other progress" rows ----
+    // (rows the student has actually played, excluding enrolled
+    // course's units which are already covered above)
+    var otherRows = [];
     Object.keys(stats).forEach(function (course) {
       Object.keys(stats[course]).forEach(function (set) {
         var bucket = stats[course][set];
         if (!bucket.total) return;
-        rows.push({
+        // Skip enrolled-course rows — they're covered by the unit map.
+        if (enrolled && course === enrolled && unitRows.some(function (u) { return u.set === set; })) return;
+        otherRows.push({
           course: course,
           set: set,
           correct: bucket.correct || 0,
@@ -9586,41 +9654,142 @@ boot();
         });
       });
     });
-    // Sort: enrolled-course rows first (weak-first within), then other
-    // courses (also weak-first within). Students see their own course's
-    // weakest topics at the top of the dashboard.
-    rows.sort(function (a, b) {
+    otherRows.sort(function (a, b) {
       var aIs = (enrolled && a.course === enrolled) ? 0 : 1;
       var bIs = (enrolled && b.course === enrolled) ? 0 : 1;
       if (aIs !== bIs) return aIs - bIs;
-      return a.pct - b.pct; // weak first within group
+      return a.pct - b.pct;
     });
-    var html;
-    if (!rows.length) {
-      html = '<div class="mastery-empty">Play a game (Jeopardy, Boss Rush, the diagnostic, etc.) and your topic mastery will appear here.</div>';
-    } else {
-      var sectionInjected = false;
-      var inOtherSection = false;
-      html = '<div class="mastery-list">' + rows.map(function (r) {
-        var prefix = "";
-        var isEnrolled = enrolled && r.course === enrolled;
-        if (enrolled && isEnrolled && !sectionInjected) {
-          sectionInjected = true;
-          prefix = '<div class="mastery-section-head mastery-section-enrolled">' + safeHTML(enrolled) + '</div>';
-        }
-        if (enrolled && !isEnrolled && !inOtherSection) {
-          inOtherSection = true;
-          prefix = '<div class="mastery-section-head">From other courses</div>';
-        }
-        return prefix +
-          '<div class="mastery-row' + (isEnrolled ? ' mastery-row-enrolled' : '') + '">' +
-            '<div class="mr-name">' + safeHTML(r.course) + ' / ' + safeHTML(r.set) + '</div>' +
-            '<div class="mr-pct">' + r.correct + '/' + r.total + ' · ' + r.pct + '%</div>' +
-            '<div class="mastery-bar"><span class="mastery-bar-fill" style="width:' + r.pct + '%"></span></div>' +
-          '</div>';
-      }).join("") + '</div>';
+
+    var html = "";
+
+    if (unitRows.length) {
+      html += '<div class="mastery-list">';
+      html += '<div class="mastery-section-head mastery-section-enrolled">' + safeHTML(enrolled) + ' · unit map</div>';
+      html += unitRows.map(function (r) {
+        var pctStr = (r.pct === null) ? "—" : (r.correct + "/" + r.total + " · " + r.pct + "%");
+        var pctWidth = (r.pct === null) ? 0 : r.pct;
+        var touchedClass = r.touched ? "" : " mastery-row-untouched";
+        return '<button class="mastery-row mastery-row-enrolled mastery-row-clickable' + touchedClass +
+          '" type="button" data-course="' + safeHTML(r.course) + '" data-set="' + safeHTML(r.set) + '">' +
+          '<div class="mr-name">' + safeHTML(r.set) + '</div>' +
+          '<div class="mr-pct">' + pctStr + '</div>' +
+          '<div class="mastery-bar"><span class="mastery-bar-fill" style="width:' + pctWidth + '%"></span></div>' +
+        '</button>';
+      }).join("");
+      html += '</div>';
     }
+
+    if (otherRows.length) {
+      html += '<div class="mastery-list">';
+      html += '<div class="mastery-section-head">' + (unitRows.length ? "From other courses" : "Your progress") + '</div>';
+      html += otherRows.map(function (r) {
+        var isEnrolled = enrolled && r.course === enrolled;
+        return '<div class="mastery-row' + (isEnrolled ? ' mastery-row-enrolled' : '') + '">' +
+          '<div class="mr-name">' + safeHTML(r.course) + ' / ' + safeHTML(r.set) + '</div>' +
+          '<div class="mr-pct">' + r.correct + '/' + r.total + ' · ' + r.pct + '%</div>' +
+          '<div class="mastery-bar"><span class="mastery-bar-fill" style="width:' + r.pct + '%"></span></div>' +
+        '</div>';
+      }).join("");
+      html += '</div>';
+    }
+
+    if (!html) {
+      html = '<div class="mastery-empty">Play a game (Jeopardy, Boss Rush, the diagnostic, etc.) and your topic mastery will appear here.</div>';
+    }
+
     openModal("Mastery Map", html);
+
+    // Wire clickable unit rows → topic-targeted 5-question drill
+    Array.prototype.forEach.call(rmBody.querySelectorAll(".mastery-row-clickable"), function (btn) {
+      btn.addEventListener("click", function () {
+        startTopicDrill(btn.dataset.course, btn.dataset.set);
+      });
+    });
+  }
+
+  // ---- Topic-targeted drill (5 questions on a single course/set) ----
+  // Triggered by clicking a unit row in the Mastery Map. Pulls
+  // questions from DIAG_BANK_BY_COURSE filtered by set, shuffles
+  // choices per render, awards 5 shards per correct.
+  function startTopicDrill(course, set) {
+    if (!course || !set) return;
+    var bank = DIAG_BANK_BY_COURSE[course];
+    if (!bank) return;
+    var sessionQs = bank.filter(function (q) { return q.set === set; }).map(function (q) {
+      return Object.assign({ course: course }, q);
+    });
+    if (!sessionQs.length) return;
+    // Shuffle session order
+    for (var i = sessionQs.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = sessionQs[i]; sessionQs[i] = sessionQs[j]; sessionQs[j] = tmp;
+    }
+    var idx = 0;
+    var correctCount = 0;
+    var shuffleChoices = function (q) {
+      var arr = q.choices.slice();
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+      }
+      var idxOfCorrect = arr.indexOf(q.correctText);
+      if (idxOfCorrect < 0) idxOfCorrect = 0;
+      return { order: arr, correctIdx: idxOfCorrect };
+    };
+    function render() {
+      var q = sessionQs[idx];
+      if (!q) return finish();
+      var sh = shuffleChoices(q);
+      var pct = Math.round((idx / sessionQs.length) * 100);
+      var html =
+        '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
+        '<div class="diag-meta">' + safeHTML(course) + ' · ' + safeHTML(set) + ' · Q ' + (idx + 1) + ' / ' + sessionQs.length + '</div>' +
+        '<p class="diag-stem">' + safeHTML(q.prompt) + '</p>' +
+        '<div class="diag-choices">' +
+          sh.order.map(function (c, i) {
+            return '<button class="diag-choice" data-i="' + i + '" type="button">' + safeHTML(c) + '</button>';
+          }).join("") +
+        '</div>';
+      openModal("Topic Drill — " + set, html);
+      Array.prototype.forEach.call(rmBody.querySelectorAll(".diag-choice"), function (btn) {
+        btn.addEventListener("click", function () {
+          var pickIdx = Number(btn.dataset.i);
+          var correct = pickIdx === sh.correctIdx;
+          if (correct) correctCount++;
+          P.recordAnswer({ course: course, set: set, correct: correct, prompt: q.prompt, answer: q.correctText, gameId: "topic-drill" });
+          rmBody.querySelectorAll(".diag-choice").forEach(function (b) {
+            var bi = Number(b.dataset.i);
+            if (bi === sh.correctIdx) b.classList.add("is-correct");
+            else if (bi === pickIdx && !correct) b.classList.add("is-wrong");
+            b.disabled = true;
+          });
+          setTimeout(function () { idx++; render(); }, 720);
+        });
+      });
+    }
+    function finish() {
+      var shardAward = correctCount * 5;
+      if (shardAward > 0) try { P.addShards(shardAward, "topic-drill"); } catch (e) {}
+      var summaryHTML =
+        '<div class="diag-summary">' +
+          '<h4>Topic drill complete</h4>' +
+          '<p style="color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 12px;">' +
+            correctCount + ' / ' + sessionQs.length + ' correct on ' + safeHTML(set) +
+            (shardAward > 0 ? ' · earned <strong style="color:#f5c451">+' + shardAward + ' shards</strong>' : '') +
+          '</p>' +
+          '<div class="wq-actions" style="margin-top:14px;">' +
+            '<button class="wq-drill-btn" id="topicDrillAgain" type="button">Try this topic again</button>' +
+            '<button id="topicDrillDone" type="button">Back to Mastery Map</button>' +
+          '</div>' +
+        '</div>';
+      openModal("Drill complete", summaryHTML);
+      var again = document.getElementById("topicDrillAgain");
+      var done = document.getElementById("topicDrillDone");
+      if (again) again.addEventListener("click", function () { startTopicDrill(course, set); });
+      if (done) done.addEventListener("click", function () { showMastery(); });
+    }
+    render();
   }
 
   // ---- Wrong-answer queue ----
