@@ -4124,6 +4124,20 @@ body {
   color: var(--muted, #9aa3bb);
   font-variant-numeric: tabular-nums;
 }
+.pd-stat { display: inline-flex; align-items: center; gap: 4px; }
+.pd-stat-emoji {
+  font-size: 14px;
+  line-height: 1;
+  vertical-align: -0.16em;
+  margin: 0 2px;
+  filter: saturate(1.05);
+}
+.pd-stat[data-icon="diamond"] .pd-stat-emoji,
+.pd-stat[data-icon="flame"]   .pd-stat-emoji,
+.pd-stat[data-icon="trophy"]  .pd-stat-emoji {
+  /* The native color emoji renders by itself — these hooks are kept
+     for any future per-stat tinting with mix-blend-mode. */
+}
 .pd-tier {
   display: flex; align-items: center; gap: 10px;
   margin-top: 10px;
@@ -5442,7 +5456,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     <div class="pd-body">
       <section class="pd-section pd-identity">
         <div class="pd-identity-row">
-          <span class="pd-identity-avatar" id="pdAvatar" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9 L12 4.5 L21.5 9 L12 13.5 Z"/><path d="M6 11 L6 16 C6 17.2 9 18 12 18 C15 18 18 17.2 18 16 L18 11"/><path d="M21.5 9 L21.5 14"/></svg></span>
+          <span class="pd-identity-avatar" id="pdAvatar" aria-hidden="true">🎓</span>
           <div class="pd-identity-text">
             <div class="pd-name-line">
               <input type="text" class="pd-name-input" id="pdNameInput" maxlength="24" aria-label="Trainer name">
@@ -5454,9 +5468,9 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
               <span class="pd-tier-next" id="pdTierNext"></span>
             </div>
             <div class="pd-stat-line">
-              <span class="pd-stat" data-icon="diamond" title="Shards earned"><strong id="pdShards">0</strong> <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3 L17.5 3 L21.5 9 L12 21 L2.5 9 Z"/><line x1="2.5" y1="9" x2="21.5" y2="9"/><line x1="6.5" y1="3" x2="9" y2="9"/><line x1="9" y1="9" x2="12" y2="21"/><line x1="17.5" y1="3" x2="15" y2="9"/><line x1="15" y1="9" x2="12" y2="21"/></svg> shards</span>
-              <span class="pd-stat" data-icon="flame" title="Daily streak"><strong id="pdStreak">0</strong> <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5 C8.4 21.5 5.5 18.8 5.5 14.7 C5.5 11.5 8 9 8 6 C9.4 7.8 10.6 8.7 10.6 11.4 C11.6 9.6 12.6 8.2 13.5 6 C14.5 8 17.5 10.5 17.5 14.7 C17.5 18.8 15.4 21.5 12 21.5 Z"/><path d="M12 21.5 C10.5 20.7 9.3 19.1 9.3 17.3 C9.3 15.6 10.6 14.3 12 13 C13.4 14.3 14.7 15.6 14.7 17.3 C14.7 19.1 13.4 20.7 12 21.5 Z" fill="currentColor" fill-opacity="0.25" stroke="none"/></svg> streak (best <span id="pdStreakBest">0</span>)</span>
-              <span class="pd-stat" data-icon="trophy" title="Achievements unlocked"><strong id="pdAchCount">0</strong> / <span id="pdAchTotal">0</span> <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4 L17 4 L17 9 C17 12.5 14.7 14.5 12 14.5 C9.3 14.5 7 12.5 7 9 Z"/><path d="M7 6 L4 6 C4 9 5 11 7 11"/><path d="M17 6 L20 6 C20 9 19 11 17 11"/><line x1="12" y1="14.5" x2="12" y2="18"/><path d="M9 18 L15 18 L15 20.5 L9 20.5 Z"/></svg> achievements</span>
+              <span class="pd-stat" data-icon="diamond" title="Shards earned"><strong id="pdShards">0</strong> <span class="pd-stat-emoji" aria-hidden="true">💎</span> shards</span>
+              <span class="pd-stat" data-icon="flame" title="Daily streak"><strong id="pdStreak">0</strong> <span class="pd-stat-emoji" aria-hidden="true">🔥</span> streak (best <span id="pdStreakBest">0</span>)</span>
+              <span class="pd-stat" data-icon="trophy" title="Achievements unlocked"><strong id="pdAchCount">0</strong> / <span id="pdAchTotal">0</span> <span class="pd-stat-emoji" aria-hidden="true">🏆</span> achievements</span>
             </div>
           </div>
         </div>
@@ -5552,12 +5566,12 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       <a href="#library"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="5.5" height="14" rx="0.6"/><rect x="10" y="3" width="5.5" height="17" rx="0.6"/><path d="M17.5 7.5 L21 8.4 L18.5 21 L15.6 20.2 Z"/></svg><span>Library</span></a>
     </nav>
     <button class="profile-pill" id="profilePill" type="button" aria-label="Open trainer profile" aria-expanded="false">
-      <span class="pp-avatar" id="ppAvatar" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9 L12 4.5 L21.5 9 L12 13.5 Z"/><path d="M6 11 L6 16 C6 17.2 9 18 12 18 C15 18 18 17.2 18 16 L18 11"/><path d="M21.5 9 L21.5 14"/></svg></span>
+      <span class="pp-avatar" id="ppAvatar" aria-hidden="true">🎓</span>
       <span class="pp-text">
         <span class="pp-name" id="ppName">Sign in</span>
         <span class="pp-meta">
-          <span class="pp-shards" id="ppShards" title="Shards earned"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3 L17.5 3 L21.5 9 L12 21 L2.5 9 Z"/><line x1="2.5" y1="9" x2="21.5" y2="9"/><line x1="6.5" y1="3" x2="9" y2="9"/><line x1="9" y1="9" x2="12" y2="21"/><line x1="17.5" y1="3" x2="15" y2="9"/><line x1="15" y1="9" x2="12" y2="21"/></svg> <span class="pp-shards-num">0</span></span>
-          <span class="pp-streak" id="ppStreak" title="Daily streak"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5 C8.4 21.5 5.5 18.8 5.5 14.7 C5.5 11.5 8 9 8 6 C9.4 7.8 10.6 8.7 10.6 11.4 C11.6 9.6 12.6 8.2 13.5 6 C14.5 8 17.5 10.5 17.5 14.7 C17.5 18.8 15.4 21.5 12 21.5 Z"/></svg> <span class="pp-streak-num">0</span></span>
+          <span class="pp-shards" id="ppShards" title="Shards earned">💎 <span class="pp-shards-num">0</span></span>
+          <span class="pp-streak" id="ppStreak" title="Daily streak">🔥 <span class="pp-streak-num">0</span></span>
         </span>
       </span>
     </button>
@@ -5658,7 +5672,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         <strong class="daily-date" id="dailyDate"></strong>
       </div>
       <div class="daily-body">
-        <span class="daily-icon" id="dailyIcon" aria-hidden="true" data-icon="target"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <span class="daily-icon" id="dailyIcon" aria-hidden="true" data-icon="target">🎯</span>
         <div class="daily-text">
           <div class="daily-title" id="dailyTitle">Loading…</div>
           <div class="daily-sub" id="dailySub"></div>
@@ -5697,22 +5711,22 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     </div>
     <div class="routing-grid">
       <button class="routing-card" id="rcDiagnostic" type="button">
-        <span class="rc-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2.5,12 6.5,12 9,7 12,17 14.5,9.5 16.5,12 21.5,12"/></svg></span>
+        <span class="rc-icon" aria-hidden="true">🩺</span>
         <span class="rc-title">Diagnostic</span>
         <span class="rc-sub" id="rcDiagSub">8 questions, ~2 minutes</span>
       </button>
       <button class="routing-card" id="rcMastery" type="button">
-        <span class="rc-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="20" x2="5" y2="13"/><line x1="12" y1="20" x2="12" y2="8"/><line x1="19" y1="20" x2="19" y2="4"/><line x1="3" y1="22" x2="21" y2="22"/></svg></span>
+        <span class="rc-icon" aria-hidden="true">📊</span>
         <span class="rc-title">Mastery Map</span>
         <span class="rc-sub" id="rcMasterySub">Track every unit</span>
       </button>
       <button class="routing-card" id="rcWrongQueue" type="button">
-        <span class="rc-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <span class="rc-icon" aria-hidden="true">🎯</span>
         <span class="rc-title">Wrong-Answer Queue</span>
         <span class="rc-sub" id="rcWrongSub">0 in queue</span>
       </button>
       <button class="routing-card" id="rcCram" type="button">
-        <span class="rc-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="5.5" height="14" rx="0.6"/><rect x="10" y="3" width="5.5" height="17" rx="0.6"/><path d="M17.5 7.5 L21 8.4 L18.5 21 L15.6 20.2 Z"/></svg></span>
+        <span class="rc-icon" aria-hidden="true">📚</span>
         <span class="rc-title">Cram Playlist</span>
         <span class="rc-sub" id="rcCramSub">Chain 4 games on a unit</span>
       </button>
@@ -5874,7 +5888,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       <div class="library-meta">
         <span class="count-pill" id="countLabel"></span>
         <button class="library-random" id="libraryRandom" type="button" aria-label="Open a random game">
-          <span class="lr-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16,3 21,3 21,8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21,16 21,21 16,21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></span>
+          <span class="lr-icon" aria-hidden="true">🎲</span>
           <span class="lr-text">Random</span>
         </button>
       </div>
@@ -7348,23 +7362,15 @@ boot();
   if (!window.MrMacsProfile) return;
   var P = window.MrMacsProfile;
 
-  // ---- Icon rendering (emoji → monoline SVG, with safe fallback) ----
-  // Avatars and achievement icons are stored as legacy emoji glyphs for
-  // forward-compat with older saved profiles. We render them as SVG if
-  // window.MrMacsIcons knows the emoji, otherwise we render the raw glyph.
-  function renderIcon(emoji, opts) {
+  // ---- Icon rendering ----
+  // We let the browser render native colorful emojis directly. The
+  // MrMacsIcons SVG library is still available for places that genuinely
+  // need a monoline glyph (topnav, ks-fob, etc.), but emoji-bound things
+  // (avatars, achievements, daily-icon, routing icons) just emit the raw
+  // emoji char so the OS renders it as a colorful native glyph.
+  // Codex-generated image assets will replace these later.
+  function renderIcon(emoji /* , opts */) {
     if (!emoji) return "";
-    if (window.MrMacsIcons && typeof window.MrMacsIcons.fromEmoji === "function") {
-      var svg = window.MrMacsIcons.fromEmoji(emoji);
-      if (svg) {
-        if (opts && opts.dataIcon) {
-          var name = window.MrMacsIcons.EMOJI_MAP[emoji];
-          return svg.replace('<svg class="ic"', '<svg class="ic" data-icon="' + name + '"');
-        }
-        return svg;
-      }
-    }
-    // Fallback — escape just in case
     return String(emoji).replace(/[<>&]/g, function (c) {
       return c === "<" ? "&lt;" : c === ">" ? "&gt;" : "&amp;";
     });
@@ -7945,18 +7951,18 @@ boot();
       dateEl.textContent = nice;
     }
     if (iconEl) {
-      // Pick an icon based on game type
+      // Pick an emoji glyph based on game type. Native browser rendering
+      // means students see colorful Apple/Google glyphs.
       var gt = (pick.gameType || "").toLowerCase();
+      var iconChar = "🎯";
       var iconName = "target";
-      if (gt.indexOf("sprint") >= 0) iconName = "bolt";
-      else if (gt.indexOf("jeopardy") >= 0) iconName = "mind";
-      else if (gt.indexOf("practice") >= 0) iconName = "memo";
-      else if (gt.indexOf("gauntlet") >= 0) iconName = "swords";
-      else if (gt.indexOf("rush") >= 0) iconName = "flame";
+      if (gt.indexOf("sprint") >= 0)        { iconChar = "⚡";  iconName = "bolt";   }
+      else if (gt.indexOf("jeopardy") >= 0) { iconChar = "🧠"; iconName = "mind";   }
+      else if (gt.indexOf("practice") >= 0) { iconChar = "📝"; iconName = "memo";   }
+      else if (gt.indexOf("gauntlet") >= 0) { iconChar = "⚔";  iconName = "swords"; }
+      else if (gt.indexOf("rush") >= 0)     { iconChar = "🔥"; iconName = "flame";  }
       iconEl.setAttribute("data-icon", iconName);
-      var iconSvg = (window.MrMacsIcons && window.MrMacsIcons.svg(iconName)) || "";
-      // Tag the inner SVG with data-icon so per-icon color rules apply
-      iconEl.innerHTML = iconSvg.replace('<svg class="ic"', '<svg class="ic" data-icon="' + iconName + '"');
+      iconEl.textContent = iconChar;
     }
     if (titleEl) titleEl.textContent = pick.title;
     if (subEl) {
@@ -8041,13 +8047,11 @@ boot();
       var stats = perGame[entry.id];
       var bestStr = "";
       if (stats && stats.bestScore && stats.bestScore > 0) {
-        bestStr = '<span class="cc-best" title="Personal best">' +
-          ((window.MrMacsIcons && window.MrMacsIcons.svg("trophy")) || "") +
-          ' ' + stats.bestScore.toLocaleString() + '</span>';
+        bestStr = '<span class="cc-best" title="Personal best">🏆 ' +
+          stats.bestScore.toLocaleString() + '</span>';
       } else if (stats && stats.plays && stats.plays > 1) {
-        bestStr = '<span class="cc-best cc-plays" title="Times played">' +
-          ((window.MrMacsIcons && window.MrMacsIcons.svg("shuffle")) || "") +
-          ' ' + stats.plays + '×</span>';
+        bestStr = '<span class="cc-best cc-plays" title="Times played">🎲 ' +
+          stats.plays + '×</span>';
       }
       return '<button class="continue-card" type="button" data-id="' + safe(entry.id) +
         '" data-file="' + safe(entry.file) + '" role="listitem">' +
@@ -8337,9 +8341,8 @@ boot();
       if (recommendations.length) {
         recHTML += '<h4>Recommended drills</h4>';
         recommendations.forEach(function (r) {
-          var pinSvg = (window.MrMacsIcons && window.MrMacsIcons.svg("pin")) || "";
           recHTML += '<button class="diag-rec" data-id="' + safeHTML(r.game.id) + '" type="button">' +
-            '<span class="diag-rec-icon" aria-hidden="true">' + pinSvg + '</span>' +
+            '<span class="diag-rec-icon" aria-hidden="true">📍</span>' +
             '<span><strong>' + safeHTML(r.game.title) + '</strong>' +
             '<span>' + safeHTML(r.course) + '</span></span></button>';
         });
