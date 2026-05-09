@@ -1296,7 +1296,9 @@ function startGame() {
   state.paused     = false;
   state.briefing   = false;
   state.over       = false;
-  state.score      = 0;
+  // Setup-extras Resume support: honor a carried-over score from prior session.
+  state.score      = Math.max(0, Number(state.__resumeScoreCarry || 0));
+  state.__resumeScoreCarry = 0; state.__resumeWaveCarry = 0;
   state.displayScore = 0;
   state.wave       = 1;
   state.waveMission= 1;
@@ -2310,19 +2312,102 @@ if (window.MrMacsProfile) {
   }
 }
 
-// Wave 5 — surface resume hint if a saved session exists
-try {
-  if (window.MrMacsSessions) {
-    const prev = window.MrMacsSessions.load("cold-war-invaders");
-    if (prev && prev.state && window.MrMacsToast) {
-      setTimeout(function () {
-        try {
-          window.MrMacsToast.push({
-            icon: "⏯", title: "Last run: Wave " + (prev.state.wave || 1),
-            sub: "Start a mission to continue", tone: "info", ms: 5000
-          });
-        } catch (e) {}
-      }, 800);
-    }
+// ── Setup-screen extras: resume card + top-5 leaderboard ──────────────────
+function _cwiFmtAgo(ts) {
+  const ms = Date.now() - (Number(ts) || 0);
+  if (ms < 60000) return "just now";
+  const m = Math.floor(ms / 60000);
+  if (m < 60) return m + " min ago";
+  const h = Math.floor(m / 60);
+  if (h < 24) return h + " hr ago";
+  const d = Math.floor(h / 24);
+  if (d === 1) return "yesterday";
+  return d + " days ago";
+}
+function _cwiSafe(v) {
+  return String(v == null ? "" : v).replace(/[<>&"]/g, c =>
+    c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;");
+}
+function _cwiRenderResumeCard() {
+  const card = document.getElementById("resumeCard");
+  if (!card) return;
+  if (!window.MrMacsSessions) { card.hidden = true; return; }
+  let prev = null;
+  try { prev = window.MrMacsSessions.load("cold-war-invaders"); } catch (e) {}
+  if (!prev || !prev.state || !prev.ts) { card.hidden = true; return; }
+  if (Date.now() - prev.ts > 24 * 3600 * 1000) { card.hidden = true; return; }
+  const s = prev.state || {};
+  const wave = s.wave || 1;
+  const score = Math.round(s.score || 0);
+  card.hidden = false;
+  card.innerHTML =
+    '<div class="resume-card-head">' +
+      '<span class="resume-card-title">Resume your run?</span>' +
+      '<span class="resume-card-time">' + _cwiSafe(_cwiFmtAgo(prev.ts)) + '</span>' +
+    '</div>' +
+    '<div class="resume-card-meta">Wave ' + wave + ' · score ' + score.toLocaleString() + '</div>' +
+    '<div class="resume-card-actions">' +
+      '<button type="button" class="resume-btn resume-btn--primary" id="resumeRunBtn">Resume</button>' +
+      '<button type="button" class="resume-btn" id="resumeFreshBtn">Start fresh</button>' +
+    '</div>';
+  const resumeBtn = card.querySelector("#resumeRunBtn");
+  const freshBtn  = card.querySelector("#resumeFreshBtn");
+  if (resumeBtn) {
+    resumeBtn.addEventListener("click", () => {
+      // Best-effort restore: bring carried-over score forward, then begin
+      // a fresh mission. Cold War Invaders rebuilds enemy formations from
+      // scratch — so we honor the score but reset the playfield safely.
+      try {
+        if (typeof state === "object") {
+          state.__resumeScoreCarry = Math.round(s.score || 0);
+          state.__resumeWaveCarry  = Math.max(1, Number(s.wave) || 1);
+        }
+      } catch (e) {}
+      try {
+        if (window.MrMacsToast) window.MrMacsToast.push({
+          icon: "⏯", title: "Resuming from wave " + wave,
+          sub: "Score " + score.toLocaleString() + " carried over", tone: "info", ms: 3500
+        });
+      } catch (e) {}
+      const startBtn = document.getElementById("startBtn");
+      if (startBtn) startBtn.click();
+    });
   }
-} catch (e) {}
+  if (freshBtn) {
+    freshBtn.addEventListener("click", () => {
+      try { window.MrMacsSessions.clear("cold-war-invaders"); } catch (e) {}
+      card.hidden = true;
+      const startBtn = document.getElementById("startBtn");
+      if (startBtn) startBtn.click();
+    });
+  }
+}
+function _cwiRenderLeaderboardPanel() {
+  const panel = document.getElementById("leaderboardPanel");
+  if (!panel) return;
+  if (!window.MrMacsLeaderboards) { panel.hidden = true; return; }
+  let rows = [];
+  try { rows = window.MrMacsLeaderboards.top("cold-war-invaders", 5) || []; } catch (e) { rows = []; }
+  panel.hidden = false;
+  if (!rows.length) {
+    panel.innerHTML =
+      '<div class="lb-head">Top scores</div>' +
+      '<div class="lb-empty">No high scores yet — set one!</div>';
+    return;
+  }
+  panel.innerHTML =
+    '<div class="lb-head">Top scores</div>' +
+    '<ol class="lb-list">' +
+    rows.map((r, i) =>
+      '<li class="lb-row">' +
+        '<span class="lb-rank">#' + (i + 1) + '</span>' +
+        '<span class="lb-avatar">' + _cwiSafe(r.avatar || "") + '</span>' +
+        '<span class="lb-name">' + _cwiSafe(r.name || "Trainer") + '</span>' +
+        '<span class="lb-score">' + Math.round(r.score || 0).toLocaleString() + '</span>' +
+        '<span class="lb-ago">' + _cwiSafe(_cwiFmtAgo(r.ts || 0)) + '</span>' +
+      '</li>'
+    ).join("") +
+    '</ol>';
+}
+try { _cwiRenderResumeCard(); } catch (e) {}
+try { _cwiRenderLeaderboardPanel(); } catch (e) {}

@@ -2790,24 +2790,119 @@
       await loadBank();
       setMission("Chrono Pinball ready", "Select a course, then hit Launch Table. Z = left flipper  / = right flipper  Space = plunger  T = tilt.", "");
       setDmdMsg("CHRONO PINBALL  SELECT COURSE  INSERT COIN TO PLAY", "", "#d4a017", 0);
-      // Wave 5 — surface a resume hint if a saved session exists
-      try {
-        if (window.MrMacsSessions) {
-          const prev = window.MrMacsSessions.load("chrono-pinball");
-          if (prev && prev.state && window.MrMacsToast) {
-            window.MrMacsToast.push({
-              icon: "⏯", title: "Last session: " + formatNumber(prev.state.score || 0) + " pts",
-              sub: "Launch a new ball to continue", tone: "info", ms: 5000
-            });
-          }
-        }
-      } catch (e) {}
+      // Setup-screen extras (resume card + top-5 leaderboard)
+      try { initSetupExtras(); } catch (e) {}
     } catch (err) {
       console.error("Bank load failed:", err);
       els.startBtn.textContent = "Bank failed — refresh";
       els.setupMetrics.innerHTML = `<span class="metric-pill">Question bank offline. Try refreshing.</span>`;
       setMission("Bank error", "The review library did not load. Refresh the page.", "bank offline", "bad");
     }
+  }
+
+  // ─── Setup-screen extras: resume card + top-5 leaderboard ────────────────
+  // Idempotent — called once after loadBank() resolves. Both blocks fail
+  // silently if the underlying modules aren't loaded.
+  function initSetupExtras() {
+    renderResumeCard();
+    renderLeaderboardPanel();
+  }
+
+  function fmtAgo(ts) {
+    const ms = Date.now() - (Number(ts) || 0);
+    if (ms < 60000) return "just now";
+    const m = Math.floor(ms / 60000);
+    if (m < 60) return m + " min ago";
+    const h = Math.floor(m / 60);
+    if (h < 24) return h + " hr ago";
+    const d = Math.floor(h / 24);
+    if (d === 1) return "yesterday";
+    return d + " days ago";
+  }
+
+  function renderResumeCard() {
+    const card = document.getElementById("resumeCard");
+    if (!card) return;
+    if (!window.MrMacsSessions) { card.hidden = true; return; }
+    let prev = null;
+    try { prev = window.MrMacsSessions.load("chrono-pinball"); } catch (e) {}
+    if (!prev || !prev.state || !prev.ts) { card.hidden = true; return; }
+    if (Date.now() - prev.ts > 24 * 3600 * 1000) { card.hidden = true; return; }
+    const s = prev.state || {};
+    const score = formatNumber(s.score || 0);
+    const ball = (s.ballsLeft != null) ? s.ballsLeft : 3;
+    const era = s.eraCompleted || 0;
+    card.hidden = false;
+    card.innerHTML =
+      '<div class="resume-card-head">' +
+        '<span class="resume-card-title">Resume your run?</span>' +
+        '<span class="resume-card-time">' + fmtAgo(prev.ts) + '</span>' +
+      '</div>' +
+      '<div class="resume-card-meta">Score ' + score + ' · ball ' + ball + ' · era ' + era + '/5</div>' +
+      '<div class="resume-card-actions">' +
+        '<button type="button" class="resume-btn resume-btn--primary" id="resumeRunBtn">Resume</button>' +
+        '<button type="button" class="resume-btn" id="resumeFreshBtn">Start fresh</button>' +
+      '</div>';
+    const resumeBtn = card.querySelector("#resumeRunBtn");
+    const freshBtn  = card.querySelector("#resumeFreshBtn");
+    if (resumeBtn) {
+      resumeBtn.addEventListener("click", () => {
+        // Best-effort restore: bring the displayed score/ball/era into view,
+        // then start a fresh run so physics + bank stay sane. The toast
+        // acknowledges that prior progress is being honored.
+        try {
+          state.scoreCountTarget = Number(s.score) || 0;
+          state.scoreDisplay     = state.scoreCountTarget;
+          state.eraCompleted     = Math.min(5, Math.max(0, Number(s.eraCompleted) || 0));
+          state.missionsCompleted = Math.max(0, Number(s.missionsCompleted) || 0);
+          updateHud();
+        } catch (e) {}
+        try {
+          if (window.MrMacsToast) window.MrMacsToast.push({
+            icon: "⏯", title: "Resuming from " + score + " pts",
+            sub: "Era progress restored", tone: "info", ms: 3500
+          });
+        } catch (e) {}
+        if (els.startBtn) els.startBtn.click();
+      });
+    }
+    if (freshBtn) {
+      freshBtn.addEventListener("click", () => {
+        try { window.MrMacsSessions.clear("chrono-pinball"); } catch (e) {}
+        card.hidden = true;
+        if (els.startBtn) els.startBtn.click();
+      });
+    }
+  }
+
+  function renderLeaderboardPanel() {
+    const panel = document.getElementById("leaderboardPanel");
+    if (!panel) return;
+    if (!window.MrMacsLeaderboards) { panel.hidden = true; return; }
+    let rows = [];
+    try { rows = window.MrMacsLeaderboards.top("chrono-pinball", 5) || []; } catch (e) { rows = []; }
+    panel.hidden = false;
+    if (!rows.length) {
+      panel.innerHTML =
+        '<div class="lb-head">Top scores</div>' +
+        '<div class="lb-empty">No high scores yet — set one!</div>';
+      return;
+    }
+    const safe = (v) => String(v == null ? "" : v).replace(/[<>&"]/g, c =>
+      c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;");
+    panel.innerHTML =
+      '<div class="lb-head">Top scores</div>' +
+      '<ol class="lb-list">' +
+      rows.map((r, i) =>
+        '<li class="lb-row">' +
+          '<span class="lb-rank">#' + (i + 1) + '</span>' +
+          '<span class="lb-avatar">' + safe(r.avatar || "") + '</span>' +
+          '<span class="lb-name">' + safe(r.name || "Trainer") + '</span>' +
+          '<span class="lb-score">' + formatNumber(r.score || 0) + '</span>' +
+          '<span class="lb-ago">' + safe(fmtAgo(r.ts || 0)) + '</span>' +
+        '</li>'
+      ).join("") +
+      '</ol>';
   }
 
   function bindInitialsEntry() {

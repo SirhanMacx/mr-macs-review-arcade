@@ -2976,22 +2976,8 @@
     }
     // ─────────────────────────────────────────────────────────────────────────
     requestAnimationFrame(loop);
-    // Wave 5 — surface resume hint via toast if a saved session exists
-    try {
-      if (window.MrMacsSessions) {
-        const prev = window.MrMacsSessions.load("timeline-runner");
-        if (prev && prev.state && window.MrMacsToast) {
-          setTimeout(() => {
-            try {
-              window.MrMacsToast.push({
-                icon: "⏯", title: "Last run: " + formatKm(prev.state.distance || 0),
-                sub: "Start a new run to continue", tone: "info", ms: 5000
-              });
-            } catch (e) {}
-          }, 800);
-        }
-      }
-    } catch (e) {}
+    // Setup-screen extras (resume card + top-5 leaderboard)
+    try { initSetupExtras(); } catch (e) {}
     try {
       await Promise.all([loadAssets(), loadBank()]);
       renderStandby();
@@ -3009,6 +2995,100 @@
       els.startBtn.textContent = "Library Error";
       els.setupMetrics.innerHTML = `<span class="metric-pill">Library failed to load</span>`;
     }
+  }
+
+  // ─── Setup-screen extras: resume card + top-5 leaderboard ────────────────
+  function _tlrFmtAgo(ts) {
+    const ms = Date.now() - (Number(ts) || 0);
+    if (ms < 60000) return "just now";
+    const m = Math.floor(ms / 60000);
+    if (m < 60) return m + " min ago";
+    const h = Math.floor(m / 60);
+    if (h < 24) return h + " hr ago";
+    const d = Math.floor(h / 24);
+    if (d === 1) return "yesterday";
+    return d + " days ago";
+  }
+  function _tlrSafe(v) {
+    return String(v == null ? "" : v).replace(/[<>&"]/g, c =>
+      c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;");
+  }
+  function initSetupExtras() {
+    _tlrRenderResumeCard();
+    _tlrRenderLeaderboardPanel();
+  }
+  function _tlrRenderResumeCard() {
+    const card = document.getElementById("resumeCard");
+    if (!card) return;
+    if (!window.MrMacsSessions) { card.hidden = true; return; }
+    let prev = null;
+    try { prev = window.MrMacsSessions.load("timeline-runner"); } catch (e) {}
+    if (!prev || !prev.state || !prev.ts) { card.hidden = true; return; }
+    if (Date.now() - prev.ts > 24 * 3600 * 1000) { card.hidden = true; return; }
+    const s = prev.state || {};
+    const distLabel = formatKm(s.distance || 0);
+    const eraIdx = Math.max(0, Math.min(ERAS.length - 1, Number(s.era) || 0));
+    const eraName = (ERAS[eraIdx] && ERAS[eraIdx].name) || "Industrial";
+    card.hidden = false;
+    card.innerHTML =
+      '<div class="resume-card-head">' +
+        '<span class="resume-card-title">Resume your run?</span>' +
+        '<span class="resume-card-time">' + _tlrSafe(_tlrFmtAgo(prev.ts)) + '</span>' +
+      '</div>' +
+      '<div class="resume-card-meta">Distance ' + _tlrSafe(distLabel) + ' · era ' + _tlrSafe(eraName) + '</div>' +
+      '<div class="resume-card-actions">' +
+        '<button type="button" class="resume-btn resume-btn--primary" id="resumeRunBtn">Resume</button>' +
+        '<button type="button" class="resume-btn" id="resumeFreshBtn">Start fresh</button>' +
+      '</div>';
+    const resumeBtn = card.querySelector("#resumeRunBtn");
+    const freshBtn  = card.querySelector("#resumeFreshBtn");
+    if (resumeBtn) {
+      resumeBtn.addEventListener("click", () => {
+        // Endless runner — runs reset on hit, so start a fresh run with toast
+        // acknowledgement of the prior best.
+        try {
+          if (window.MrMacsToast) window.MrMacsToast.push({
+            icon: "⏯", title: "Resuming · last run " + distLabel,
+            sub: "Reached " + eraName + " era", tone: "info", ms: 3500
+          });
+        } catch (e) {}
+        const startBtn = document.getElementById("startBtn");
+        if (startBtn) startBtn.click();
+      });
+    }
+    if (freshBtn) {
+      freshBtn.addEventListener("click", () => {
+        try { window.MrMacsSessions.clear("timeline-runner"); } catch (e) {}
+        card.hidden = true;
+      });
+    }
+  }
+  function _tlrRenderLeaderboardPanel() {
+    const panel = document.getElementById("leaderboardPanel");
+    if (!panel) return;
+    if (!window.MrMacsLeaderboards) { panel.hidden = true; return; }
+    let rows = [];
+    try { rows = window.MrMacsLeaderboards.top("timeline-runner", 5) || []; } catch (e) { rows = []; }
+    panel.hidden = false;
+    if (!rows.length) {
+      panel.innerHTML =
+        '<div class="lb-head">Top scores</div>' +
+        '<div class="lb-empty">No high scores yet — set one!</div>';
+      return;
+    }
+    panel.innerHTML =
+      '<div class="lb-head">Top scores</div>' +
+      '<ol class="lb-list">' +
+      rows.map((r, i) =>
+        '<li class="lb-row">' +
+          '<span class="lb-rank">#' + (i + 1) + '</span>' +
+          '<span class="lb-avatar">' + _tlrSafe(r.avatar || "") + '</span>' +
+          '<span class="lb-name">' + _tlrSafe(r.name || "Trainer") + '</span>' +
+          '<span class="lb-score">' + Math.round(r.score || 0).toLocaleString() + '</span>' +
+          '<span class="lb-ago">' + _tlrSafe(_tlrFmtAgo(r.ts || 0)) + '</span>' +
+        '</li>'
+      ).join("") +
+      '</ol>';
   }
 
   init();

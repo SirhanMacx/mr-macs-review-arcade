@@ -2735,22 +2735,8 @@
     updateSelectedPanel();
     els.missionTitle.textContent = "Build · Answer · Defend";
     els.missionText.textContent = "Place towers, survive 30 waves per map, answer questions to power up. Four era maps unlock progressively.";
-    // Wave 5 — resume hint
-    try {
-      if (window.MrMacsSessions) {
-        const prev = window.MrMacsSessions.load("chrono-defense");
-        if (prev && prev.state && window.MrMacsToast) {
-          setTimeout(() => {
-            try {
-              window.MrMacsToast.push({
-                icon: "⏯", title: "Last run: Wave " + (prev.state.wave || 1),
-                sub: "Build a tower to start a fresh run", tone: "info", ms: 5000
-              });
-            } catch (e) {}
-          }, 800);
-        }
-      }
-    } catch (e) {}
+    // Setup-screen extras (resume card + top-5 leaderboard)
+    try { initSetupExtras(); } catch (e) {}
     if (matchMedia("(max-width: 1120px) and (orientation: landscape)").matches) setQuestionCollapsed(true);
     prepareQuestion();
     requestAnimationFrame(loop);
@@ -2781,6 +2767,105 @@
       ];
       MrMacsArcadeTour.start("chrono-defense", tourSteps);
     }
+  }
+
+  // ─── Setup-screen extras: resume card + top-5 leaderboard ────────────────
+  function _cdFmtAgo(ts) {
+    const ms = Date.now() - (Number(ts) || 0);
+    if (ms < 60000) return "just now";
+    const m = Math.floor(ms / 60000);
+    if (m < 60) return m + " min ago";
+    const h = Math.floor(m / 60);
+    if (h < 24) return h + " hr ago";
+    const d = Math.floor(h / 24);
+    if (d === 1) return "yesterday";
+    return d + " days ago";
+  }
+  function _cdSafe(v) {
+    return String(v == null ? "" : v).replace(/[<>&"]/g, c =>
+      c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;");
+  }
+  function initSetupExtras() {
+    renderResumeCard();
+    renderLeaderboardPanel();
+  }
+  function renderResumeCard() {
+    const card = document.getElementById("resumeCard");
+    if (!card) return;
+    if (!window.MrMacsSessions) { card.hidden = true; return; }
+    let prev = null;
+    try { prev = window.MrMacsSessions.load("chrono-defense"); } catch (e) {}
+    if (!prev || !prev.state || !prev.ts) { card.hidden = true; return; }
+    if (Date.now() - prev.ts > 24 * 3600 * 1000) { card.hidden = true; return; }
+    const s = prev.state || {};
+    const wave = s.wave || 1;
+    const mapId = s.map || "industrial";
+    card.hidden = false;
+    card.innerHTML =
+      '<div class="resume-card-head">' +
+        '<span class="resume-card-title">Resume your run?</span>' +
+        '<span class="resume-card-time">' + _cdSafe(_cdFmtAgo(prev.ts)) + '</span>' +
+      '</div>' +
+      '<div class="resume-card-meta">Wave ' + wave + ' · map ' + _cdSafe(mapId) + '</div>' +
+      '<div class="resume-card-actions">' +
+        '<button type="button" class="resume-btn resume-btn--primary" id="resumeRunBtn">Resume</button>' +
+        '<button type="button" class="resume-btn" id="resumeFreshBtn">Start fresh</button>' +
+      '</div>';
+    const resumeBtn = card.querySelector("#resumeRunBtn");
+    const freshBtn  = card.querySelector("#resumeFreshBtn");
+    if (resumeBtn) {
+      resumeBtn.addEventListener("click", () => {
+        // Best-effort: jump to the saved map (so the player keeps their era)
+        // without restoring towers — Chrono Defense rebuilds the playfield
+        // from scratch each run. Toast acknowledges the prior progress.
+        try {
+          if (Array.isArray(MAPS)) {
+            const idx = MAPS.findIndex(m => m && m.id === mapId);
+            if (idx >= 0) activateMap(idx);
+          }
+        } catch (e) {}
+        try {
+          if (window.MrMacsToast) window.MrMacsToast.push({
+            icon: "⏯", title: "Resuming on " + _cdSafe(mapId),
+            sub: "Build towers — last run reached wave " + wave, tone: "info", ms: 3500
+          });
+        } catch (e) {}
+        card.hidden = true;
+      });
+    }
+    if (freshBtn) {
+      freshBtn.addEventListener("click", () => {
+        try { window.MrMacsSessions.clear("chrono-defense"); } catch (e) {}
+        card.hidden = true;
+      });
+    }
+  }
+  function renderLeaderboardPanel() {
+    const panel = document.getElementById("leaderboardPanel");
+    if (!panel) return;
+    if (!window.MrMacsLeaderboards) { panel.hidden = true; return; }
+    let rows = [];
+    try { rows = window.MrMacsLeaderboards.top("chrono-defense", 5) || []; } catch (e) { rows = []; }
+    panel.hidden = false;
+    if (!rows.length) {
+      panel.innerHTML =
+        '<div class="lb-head">Top scores</div>' +
+        '<div class="lb-empty">No high scores yet — set one!</div>';
+      return;
+    }
+    panel.innerHTML =
+      '<div class="lb-head">Top scores</div>' +
+      '<ol class="lb-list">' +
+      rows.map((r, i) =>
+        '<li class="lb-row">' +
+          '<span class="lb-rank">#' + (i + 1) + '</span>' +
+          '<span class="lb-avatar">' + _cdSafe(r.avatar || "") + '</span>' +
+          '<span class="lb-name">' + _cdSafe(r.name || "Trainer") + '</span>' +
+          '<span class="lb-score">' + Math.round(r.score || 0).toLocaleString() + '</span>' +
+          '<span class="lb-ago">' + _cdSafe(_cdFmtAgo(r.ts || 0)) + '</span>' +
+        '</li>'
+      ).join("") +
+      '</ol>';
   }
 
   init().catch(err => {
