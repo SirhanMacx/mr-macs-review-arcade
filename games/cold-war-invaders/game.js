@@ -1147,6 +1147,17 @@ function advanceWave() {
   state.wave++;
   rebuildShieldsPartial();
   state.intel = Math.min(100, state.intel + 28);
+  // Wave 5 — snapshot on wave transition
+  try {
+    if (window.MrMacsSessions) {
+      window.MrMacsSessions.save("cold-war-invaders", {
+        score: Math.round(state.score || 0),
+        wave: state.wave, lives: state.lives,
+        intelEarned: (state.missionStats && state.missionStats.intelEarned) || 0,
+        theater: state.theater, difficulty: state.difficulty
+      });
+    }
+  } catch (e) {}
 
   if (state.waveMission > WAVES_PER_MISSION) {
     // Mission boss wave
@@ -1341,6 +1352,23 @@ function startGame() {
   window.MrMacsAnalytics?.track("game_play",{gameId:"cold-war-invaders",title:"Cold War Invaders"},{counter:"game-plays"});
   try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("cold-war-mission"); } catch (e) {}
 
+  // Wave 5 — clear stale snapshot + start ~10s session snapshots
+  try {
+    if (window.MrMacsSessions) window.MrMacsSessions.clear("cold-war-invaders");
+    if (state.__wave5SnapTimer) clearInterval(state.__wave5SnapTimer);
+    state.__wave5SnapTimer = setInterval(function () {
+      try {
+        if (!state.running || state.paused || state.over || !window.MrMacsSessions) return;
+        window.MrMacsSessions.save("cold-war-invaders", {
+          score: Math.round(state.score || 0),
+          wave: state.wave, lives: state.lives,
+          intelEarned: (state.missionStats && state.missionStats.intelEarned) || 0,
+          theater: state.theater, difficulty: state.difficulty
+        });
+      } catch (e) {}
+    }, 10000);
+  } catch (e) {}
+
   // Phase 3 — First-run tour (fires only once, after first mission start)
   if (window.MrMacsArcadeTour) {
     setTimeout(function () {
@@ -1417,6 +1445,25 @@ function finish(won=true) {
   if ((persist[waveKey]||0) < state.wave) savePersist({ [waveKey]: state.wave });
   savePersist({ [intelKey]: (persist[intelKey]||0) + state.correct });
   window.MrMacsAnalytics?.track("game_complete",{gameId:"cold-war-invaders",title:"Cold War Invaders",score:Math.round(state.score),accuracy,questions:state.answered,weakTopics:accuracy<70?["Cold War vocabulary","Containment and crisis events"]:[]},{counter:"game-completions"});
+  // Wave 5 — leaderboard submit + session clear
+  try {
+    if (state.__wave5SnapTimer) { clearInterval(state.__wave5SnapTimer); state.__wave5SnapTimer = null; }
+    if (window.MrMacsSessions) window.MrMacsSessions.clear("cold-war-invaders");
+  } catch (e) {}
+  try {
+    if (window.MrMacsLeaderboards) {
+      const shards = (state.missionStats && state.missionStats.intelEarned) || 0;
+      const wave5Score = Math.max(1, state.wave) * Math.max(1, shards);
+      const result = window.MrMacsLeaderboards.submit("cold-war-invaders", wave5Score, {
+        wave: state.wave, intelEarned: shards, theater: state.theater, accuracy
+      });
+      if (result && result.isNewRecord && window.MrMacsToast) {
+        window.MrMacsToast.push({ icon: "🏆", title: "New high score!", sub: "Rank #" + result.rank, tone: "good", ms: 4200 });
+      } else if (result && window.MrMacsToast) {
+        window.MrMacsToast.push({ icon: "🏅", title: "Top 5 score", sub: "Rank #" + result.rank, tone: "good", ms: 3600 });
+      }
+    }
+  } catch (e) {}
 }
 
 // ─── Main update ──────────────────────────────────────────────────────────
@@ -2262,3 +2309,20 @@ if (window.MrMacsProfile) {
     syncMuteButton();
   }
 }
+
+// Wave 5 — surface resume hint if a saved session exists
+try {
+  if (window.MrMacsSessions) {
+    const prev = window.MrMacsSessions.load("cold-war-invaders");
+    if (prev && prev.state && window.MrMacsToast) {
+      setTimeout(function () {
+        try {
+          window.MrMacsToast.push({
+            icon: "⏯", title: "Last run: Wave " + (prev.state.wave || 1),
+            sub: "Start a mission to continue", tone: "info", ms: 5000
+          });
+        } catch (e) {}
+      }, 800);
+    }
+  }
+} catch (e) {}

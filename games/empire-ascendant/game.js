@@ -1372,6 +1372,16 @@
       if(!FX_LITE) flashScreen("#f2c14e");
       // MrMacsProfile: shards for era advance
       window.MrMacsProfile?.addShards(100, "empire-ascendant:era-advanced");
+      // Wave 5 — snapshot on era transition
+      try {
+        if (window.MrMacsSessions) {
+          window.MrMacsSessions.save("empire-ascendant", {
+            era: state.era, eraName: ERAS[state.era] || "Ancient",
+            turn: state.turn, score: state.score,
+            resources: state.res && state.res.player ? { ...state.res.player } : null
+          });
+        }
+      } catch (e) {}
     }
   }
 
@@ -1447,6 +1457,21 @@
     setAdvisor("Imperial Council","Found your capital, train units, research techs, and outpace your rivals.","The first dynasty rises.","good");
     window.MrMacsAnalytics?.track("game_play",{gameId:"empire-ascendant",title:"Empire Ascendant",course:els.courseFilter?.value||"All Courses",gameType:"Strategy"},{counter:"game-plays",once:false});
     try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("empire-strategic"); } catch(e) {}
+    // Wave 5 — clear stale shared snapshot, start ~10s session snapshots
+    try {
+      if (fresh && window.MrMacsSessions) window.MrMacsSessions.clear("empire-ascendant");
+      if (state.__wave5SnapTimer) clearInterval(state.__wave5SnapTimer);
+      state.__wave5SnapTimer = setInterval(() => {
+        try {
+          if (state.mode !== "playing" || !window.MrMacsSessions) return;
+          window.MrMacsSessions.save("empire-ascendant", {
+            era: state.era, eraName: ERAS[state.era] || "Ancient",
+            turn: state.turn, score: state.score,
+            resources: state.res && state.res.player ? { ...state.res.player } : null
+          });
+        } catch (e) {}
+      }, 10000);
+    } catch (e) {}
   }
 
   function endGame(title,message){
@@ -1475,6 +1500,24 @@
     els.endScreen.classList.add("show");
     clearSave();
     window.MrMacsAnalytics?.track("game_complete",{gameId:"empire-ascendant",score:finalScore,accuracy,questions:state.councils,victory:state.victory||"score"},{counter:"game-completions",once:false});
+    // Wave 5 — leaderboard submit + session clear
+    try {
+      if (state.__wave5SnapTimer) { clearInterval(state.__wave5SnapTimer); state.__wave5SnapTimer = null; }
+      if (window.MrMacsSessions) window.MrMacsSessions.clear("empire-ascendant");
+    } catch(e) {}
+    try {
+      if (window.MrMacsLeaderboards) {
+        const result = window.MrMacsLeaderboards.submit("empire-ascendant", finalScore, {
+          era: state.era, eraName: ERAS[state.era] || "Ancient",
+          turn: state.turn, accuracy, victory: state.victory || "score"
+        });
+        if (result && result.isNewRecord && window.MrMacsToast) {
+          window.MrMacsToast.push({ icon: "🏆", title: "New high score!", sub: "Rank #" + result.rank, tone: "good", ms: 4200 });
+        } else if (result && window.MrMacsToast) {
+          window.MrMacsToast.push({ icon: "🏅", title: "Top 5 score", sub: "Rank #" + result.rank, tone: "good", ms: 3600 });
+        }
+      }
+    } catch(e) {}
   }
 
   // ─── PERSISTENCE ─────────────────────────────────────────────────────────────
@@ -2717,6 +2760,22 @@
     // ─────────────────────────────────────────────────────────────────────────
     // Update setup screen start button for continue support
     if(hasSave()) els.startBtn.textContent="New Game";
+    // Wave 5 — surface resume hint via toast if a saved cross-game session exists
+    try {
+      if (window.MrMacsSessions) {
+        const prev = window.MrMacsSessions.load("empire-ascendant");
+        if (prev && prev.state && window.MrMacsToast) {
+          setTimeout(() => {
+            try {
+              window.MrMacsToast.push({
+                icon: "⏯", title: "Last empire: " + (prev.state.eraName || "Ancient") + " Era",
+                sub: "Score " + fmtN(prev.state.score || 0) + " · resume from setup", tone: "info", ms: 5000
+              });
+            } catch (e) {}
+          }, 800);
+        }
+      }
+    } catch (e) {}
     // Brief loading state while review bank fetches
     if (els.setupMetrics && !els.setupMetrics.innerHTML.trim()) {
       els.setupMetrics.innerHTML =

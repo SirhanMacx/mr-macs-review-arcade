@@ -871,6 +871,23 @@
         MrMacsArcadeTour.start("timeline-runner", TOUR_STEPS);
       });
     }
+    // Wave 5 — clear stale snapshot + start ~10s session snapshots
+    try {
+      if (window.MrMacsSessions) window.MrMacsSessions.clear("timeline-runner");
+      if (state.__wave5SnapTimer) clearInterval(state.__wave5SnapTimer);
+      state.__wave5SnapTimer = setInterval(() => {
+        try {
+          if (!state.running || state.paused || state.gameOver || !window.MrMacsSessions) return;
+          window.MrMacsSessions.save("timeline-runner", {
+            distance: Math.floor(state.distance || 0),
+            score: Math.floor(state.score || 0),
+            lane: player && player.lane != null ? player.lane : 1,
+            era: state.eraIndex || 0,
+            health: state.health
+          });
+        } catch (e) {}
+      }, 10000);
+    } catch (e) {}
   }
 
   function hideOverlays() {
@@ -915,6 +932,26 @@
       gameId: "timeline-runner", title: "Timeline Runner",
       score: Math.floor(state.score), answered: state.answered, correct: state.correct
     }, { counter: "game-completions", once: false });
+    // Wave 5 — leaderboard submit + session clear
+    try {
+      if (state.__wave5SnapTimer) { clearInterval(state.__wave5SnapTimer); state.__wave5SnapTimer = null; }
+      if (window.MrMacsSessions) window.MrMacsSessions.clear("timeline-runner");
+    } catch (e) {}
+    try {
+      if (window.MrMacsLeaderboards) {
+        const dist = Math.floor(state.distance || 0);
+        const result = window.MrMacsLeaderboards.submit("timeline-runner", dist, {
+          distance: dist, score: Math.floor(state.score || 0),
+          era: state.eraIndex || 0,
+          accuracy: state.answered ? Math.round((state.correct / state.answered) * 100) : 0
+        });
+        if (result && result.isNewRecord && window.MrMacsToast) {
+          window.MrMacsToast.push({ icon: "🏆", title: "New high score!", sub: "Rank #" + result.rank, tone: "good", ms: 4200 });
+        } else if (result && window.MrMacsToast) {
+          window.MrMacsToast.push({ icon: "🏅", title: "Top 5 score", sub: "Rank #" + result.rank, tone: "good", ms: 3600 });
+        }
+      }
+    } catch (e) {}
   }
 
   function renderEndScreen() {
@@ -1336,6 +1373,17 @@
       window.MrMacsProfile?.addShards(50, "timeline-runner:era-band");
       state.eraTransition = 0;
       state.eraIndex      = newIndex;
+      // Wave 5 — snapshot on era transition
+      try {
+        if (window.MrMacsSessions) {
+          window.MrMacsSessions.save("timeline-runner", {
+            distance: Math.floor(state.distance || 0),
+            score: Math.floor(state.score || 0),
+            lane: player && player.lane != null ? player.lane : 1,
+            era: newIndex, health: state.health
+          });
+        }
+      } catch (e) {}
       // Trigger full-screen sweep
       eraSweepProgress = 0;
       eraSweepColor    = next.accent;
@@ -2928,6 +2976,22 @@
     }
     // ─────────────────────────────────────────────────────────────────────────
     requestAnimationFrame(loop);
+    // Wave 5 — surface resume hint via toast if a saved session exists
+    try {
+      if (window.MrMacsSessions) {
+        const prev = window.MrMacsSessions.load("timeline-runner");
+        if (prev && prev.state && window.MrMacsToast) {
+          setTimeout(() => {
+            try {
+              window.MrMacsToast.push({
+                icon: "⏯", title: "Last run: " + formatKm(prev.state.distance || 0),
+                sub: "Start a new run to continue", tone: "info", ms: 5000
+              });
+            } catch (e) {}
+          }, 800);
+        }
+      }
+    } catch (e) {}
     try {
       await Promise.all([loadAssets(), loadBank()]);
       renderStandby();

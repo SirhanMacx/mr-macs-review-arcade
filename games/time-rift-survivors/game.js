@@ -747,6 +747,24 @@
       }
     }
     // ────────────────────────────────────────────────────────────────────────
+    // Wave 5 — surface resume hint via toast if a saved session exists
+    try {
+      if (window.MrMacsSessions) {
+        const prev = window.MrMacsSessions.load("time-rift-survivors");
+        if (prev && prev.state && window.MrMacsToast) {
+          setTimeout(() => {
+            try {
+              const m = Math.floor((prev.state.runTime || 0) / 60);
+              const s = Math.floor((prev.state.runTime || 0) % 60);
+              window.MrMacsToast.push({
+                icon: "⏯", title: "Last run: " + m + ":" + String(s).padStart(2, "0"),
+                sub: "Level " + (prev.state.level || 1) + " · start a new run", tone: "info", ms: 5000
+              });
+            } catch (e) {}
+          }, 800);
+        }
+      }
+    } catch (e) {}
     requestAnimationFrame(loop);
   }
 
@@ -932,6 +950,21 @@
     showBanner("Rift Open");
     sfx.startDrone();
     try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("rift-survivors"); } catch (e) {}
+    // Wave 5 — clear stale snapshot + start ~10s session snapshots
+    try {
+      if (window.MrMacsSessions) window.MrMacsSessions.clear("time-rift-survivors");
+      if (state.__wave5SnapTimer) clearInterval(state.__wave5SnapTimer);
+      state.__wave5SnapTimer = setInterval(() => {
+        try {
+          if (!state.running || state.paused || state.gameOver || !window.MrMacsSessions) return;
+          window.MrMacsSessions.save("time-rift-survivors", {
+            runTime: Math.floor(state.runTime || 0),
+            level: state.level, kills: state.kills, score: state.score,
+            era: typeof currentEraIndex === "function" ? currentEraIndex() : 0
+          });
+        } catch (e) {}
+      }, 10000);
+    } catch (e) {}
     // Phase 3: fire first-run tour once per profile
     if (!state.tourFired) {
       state.tourFired = true;
@@ -1594,6 +1627,18 @@
 
   function gainXp(value) {
     state.xp+=value;
+    // Wave 5 — snapshot on each level-up boundary (cheap, only fires here)
+    if (state.xp >= state.xpNext && state.level < 25) {
+      try {
+        if (window.MrMacsSessions) {
+          window.MrMacsSessions.save("time-rift-survivors", {
+            runTime: Math.floor(state.runTime || 0),
+            level: state.level + 1, kills: state.kills, score: state.score,
+            era: typeof currentEraIndex === "function" ? currentEraIndex() : 0
+          });
+        }
+      } catch (e) {}
+    }
     while (state.xp>=state.xpNext&&state.level<25) {
       state.xp-=state.xpNext;
       state.level+=1;
@@ -1805,6 +1850,26 @@
       score:state.score, level:state.level,
       accuracy:state.answered?Math.round(state.correct/state.answered*100):0
     },{counter:"game-completions"});
+    // Wave 5 — leaderboard submit + session clear
+    try {
+      if (state.__wave5SnapTimer) { clearInterval(state.__wave5SnapTimer); state.__wave5SnapTimer = null; }
+      if (window.MrMacsSessions) window.MrMacsSessions.clear("time-rift-survivors");
+    } catch (e) {}
+    try {
+      if (window.MrMacsLeaderboards) {
+        const runSeconds = Math.max(1, Math.floor(state.runTime || 0));
+        const wave5Score = runSeconds * Math.max(1, state.kills || 0);
+        const result = window.MrMacsLeaderboards.submit("time-rift-survivors", wave5Score, {
+          score: state.score, runTime: runSeconds, kills: state.kills, level: state.level,
+          accuracy: state.answered ? Math.round(state.correct / state.answered * 100) : 0
+        });
+        if (result && result.isNewRecord && window.MrMacsToast) {
+          window.MrMacsToast.push({ icon: "🏆", title: "New high score!", sub: "Rank #" + result.rank, tone: "good", ms: 4200 });
+        } else if (result && window.MrMacsToast) {
+          window.MrMacsToast.push({ icon: "🏅", title: "Top 5 score", sub: "Rank #" + result.rank, tone: "good", ms: 3600 });
+        }
+      }
+    } catch (e) {}
   }
 
   function showRunSummary() {

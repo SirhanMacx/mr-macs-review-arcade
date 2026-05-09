@@ -984,6 +984,29 @@
 
     // queue a question in ~8 sec
     state.questionCooldown = 6 + Math.random() * 6;
+
+    // Wave 5 — snapshot on wave start + ensure periodic timer is running
+    try {
+      if (window.MrMacsSessions) {
+        window.MrMacsSessions.save("chrono-defense", {
+          wave: state.wave, lives: state.lives, score: state.score,
+          map: MAPS[state.currentMap].id,
+          towers: (state.towers || []).map(t => ({ x: t.x, y: t.y, level: t.level, type: t.type && t.type.id }))
+        });
+      }
+      if (!state.__wave5SnapTimer) {
+        state.__wave5SnapTimer = setInterval(() => {
+          try {
+            if (state.gameOver || !state.running || !window.MrMacsSessions) return;
+            window.MrMacsSessions.save("chrono-defense", {
+              wave: state.wave, lives: state.lives, score: state.score,
+              map: MAPS[state.currentMap].id,
+              towers: (state.towers || []).map(t => ({ x: t.x, y: t.y, level: t.level, type: t.type && t.type.id }))
+            });
+          } catch (e) {}
+        }, 10000);
+      }
+    } catch (e) {}
   }
 
   function endWave() {
@@ -2551,6 +2574,11 @@
 
   // ─── Reset / end ─────────────────────────────────────────────────────────────
   function resetGame(full = true) {
+    // Wave 5 — clear stale snapshot when starting a fresh run
+    try {
+      if (full && window.MrMacsSessions) window.MrMacsSessions.clear("chrono-defense");
+      if (full && state.__wave5SnapTimer) { clearInterval(state.__wave5SnapTimer); state.__wave5SnapTimer = null; }
+    } catch (e) {}
     if (full) state.wave = 0;
     state.lives = state.maxLives;
     state.insight = 600;
@@ -2602,6 +2630,24 @@
       score: state.score, wave: state.wave, map: map.id,
       accuracy: state.answered ? Math.round(state.correct / state.answered * 100) : 0
     }, { counter: "game-completions" });
+    // Wave 5 — leaderboard submit + session clear
+    try {
+      if (state.__wave5SnapTimer) { clearInterval(state.__wave5SnapTimer); state.__wave5SnapTimer = null; }
+      if (window.MrMacsSessions) window.MrMacsSessions.clear("chrono-defense");
+    } catch (e) {}
+    try {
+      if (window.MrMacsLeaderboards) {
+        const result = window.MrMacsLeaderboards.submit("chrono-defense", state.wave, {
+          score: state.score, map: map.id, victory: !!victory,
+          accuracy: state.answered ? Math.round(state.correct / state.answered * 100) : 0
+        });
+        if (result && result.isNewRecord && window.MrMacsToast) {
+          window.MrMacsToast.push({ icon: "🏆", title: "New high score!", sub: "Rank #" + result.rank, tone: "good", ms: 4200 });
+        } else if (result && window.MrMacsToast) {
+          window.MrMacsToast.push({ icon: "🏅", title: "Top 5 score", sub: "Rank #" + result.rank, tone: "good", ms: 3600 });
+        }
+      }
+    } catch (e) {}
   }
 
   function persistProgress() {
@@ -2689,6 +2735,22 @@
     updateSelectedPanel();
     els.missionTitle.textContent = "Build · Answer · Defend";
     els.missionText.textContent = "Place towers, survive 30 waves per map, answer questions to power up. Four era maps unlock progressively.";
+    // Wave 5 — resume hint
+    try {
+      if (window.MrMacsSessions) {
+        const prev = window.MrMacsSessions.load("chrono-defense");
+        if (prev && prev.state && window.MrMacsToast) {
+          setTimeout(() => {
+            try {
+              window.MrMacsToast.push({
+                icon: "⏯", title: "Last run: Wave " + (prev.state.wave || 1),
+                sub: "Build a tower to start a fresh run", tone: "info", ms: 5000
+              });
+            } catch (e) {}
+          }, 800);
+        }
+      }
+    } catch (e) {}
     if (matchMedia("(max-width: 1120px) and (orientation: landscape)").matches) setQuestionCollapsed(true);
     prepareQuestion();
     requestAnimationFrame(loop);
