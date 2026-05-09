@@ -4358,6 +4358,19 @@ body {
   line-height: 1.4;
   max-width: 36ch;
 }
+.pd-replay-btn {
+  margin-top: 8px;
+  padding: 8px 14px;
+  background: rgba(122, 240, 255, .10);
+  border: 1px solid rgba(122, 240, 255, .35);
+  color: #7af0ff;
+  border-radius: 8px;
+  font: 700 12px/1 "Inter", sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.pd-replay-btn:hover { background: rgba(122, 240, 255, .22); border-color: rgba(122, 240, 255, .55); }
 
 /* Mobile adaptations */
 @media (max-width: 600px) {
@@ -5518,6 +5531,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         <div class="pd-danger-zone">
           <button class="pd-danger-btn" id="pdReset" type="button">Reset profile</button>
           <small>Wipes name, shards, achievements, and settings on this device. No undo.</small>
+          <button class="pd-replay-btn" id="pdReplayTour" type="button">Replay hub tour</button>
         </div>
       </section>
     </div>
@@ -7478,6 +7492,46 @@ boot();
       if (e.key === "Enter" && !welcomeContinue.disabled) welcomeContinue.click();
     });
   }
+  // First-run hub tour — fires after welcome closes (or on a 2nd visit if
+  // user skipped welcome). Uses arcade-tour.js so the seen flag is shared
+  // with per-game tours.
+  function startHubTour() {
+    if (!window.MrMacsArcadeTour) return;
+    var steps = [
+      {
+        target: null,
+        title: "Welcome to the Arcade.",
+        body: "Quick tour — under 30 seconds. Everything stays on this device. Nothing leaves your browser.",
+        placement: "center"
+      },
+      {
+        target: "#daily",
+        title: "Today's Challenge",
+        body: "A new game pick lands every UTC midnight. Play it for +50 shards and a streak day.",
+        placement: "bottom"
+      },
+      {
+        target: "#routing",
+        title: "Smart Study Tools",
+        body: "Diagnostic finds your weak spots. Mastery shows progress. Wrong-Answer Queue serves the misses you've made. Cram chains 4 games on any unit.",
+        placement: "bottom"
+      },
+      {
+        target: "#library",
+        title: "Every game, one search.",
+        body: "Filter by course, lane, or type. Hit / on a keyboard to jump to search. The Random button rolls something fresh.",
+        placement: "top"
+      },
+      {
+        target: "#profilePill",
+        title: "Your trainer profile.",
+        body: "Click the pill (or press P) to see shards, achievements, settings, and your tier ladder. Press ? any time to see all keyboard shortcuts.",
+        placement: "bottom"
+      }
+    ];
+    try { window.MrMacsArcadeTour.start("hub", steps); } catch (e) {}
+  }
+
   if (welcomeContinue) {
     welcomeContinue.addEventListener("click", function () {
       var name = (welcomeName.value || "").trim();
@@ -7485,13 +7539,25 @@ boot();
       P.setAvatar(welcomeAvatar, "emoji");
       P.setName(name);
       closeWelcome();
+      // Fire the hub tour right after the welcome dialog has dismissed
+      setTimeout(startHubTour, 360);
     });
   }
   if (welcomeSkip) {
     welcomeSkip.addEventListener("click", function () {
       // Allow skipping — they can set up later via the profile pill
       closeWelcome();
+      // Skipping the welcome still triggers the hub tour
+      setTimeout(startHubTour, 360);
     });
+  }
+  // For users who already had a profile (skipped welcome on prior visit),
+  // also try to surface the hub tour exactly once.
+  if (P.exists() && window.MrMacsArcadeTour) {
+    setTimeout(function () {
+      // Only fires if hasSeenTour("hub") returns false in MrMacsProfile
+      startHubTour();
+    }, 1100);
   }
 
   // ---- Profile drawer ----
@@ -7771,6 +7837,23 @@ boot();
       // Reload to re-trigger welcome flow
       setTimeout(function () { location.reload(); }, 100);
     }
+  });
+
+  // Replay the hub tour — bypasses hasSeenTour via { force: true }
+  var pdReplayTour = document.getElementById("pdReplayTour");
+  if (pdReplayTour) pdReplayTour.addEventListener("click", function () {
+    closeDrawer();
+    setTimeout(function () {
+      if (!window.MrMacsArcadeTour) return;
+      var steps = [
+        { target: null,         title: "Welcome back.",          body: "Quick refresher of the hub layout — under 30 seconds.",                                                      placement: "center" },
+        { target: "#daily",     title: "Today's Challenge",      body: "A new game pick lands every UTC midnight. Play it for +50 shards and a streak day.",                       placement: "bottom" },
+        { target: "#routing",   title: "Smart Study Tools",      body: "Diagnostic finds your weak spots. Mastery shows progress. Wrong-Answer Queue serves the misses you've made.", placement: "bottom" },
+        { target: "#library",   title: "Every game, one search.",body: "Filter by course, lane, or type. Hit / on a keyboard to jump to search.",                                   placement: "top"    },
+        { target: "#profilePill", title: "Your trainer profile.", body: "Click the pill (or press P) to see shards, achievements, settings, and your tier ladder.",                  placement: "bottom" }
+      ];
+      try { window.MrMacsArcadeTour.start("hub", steps, { force: true }); } catch (e) {}
+    }, 320);
   });
 
   // ---- Achievement unlock toast ----
