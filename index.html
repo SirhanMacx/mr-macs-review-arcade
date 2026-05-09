@@ -3843,6 +3843,18 @@ body {
 @media (max-width: 880px) {
   .profile-pill { display: none; }     /* hidden behind the mobile menu — drawer reachable from welcome flow */
 }
+/* Brief gold glow when shards land */
+.profile-pill.is-burst {
+  animation: pillBurst 1.2s cubic-bezier(.18, .89, .32, 1.18);
+}
+@keyframes pillBurst {
+  0%   { box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 12px 30px rgba(0,0,0,.32), 0 0 0   rgba(245, 196, 81, 0); }
+  35%  { box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 12px 30px rgba(0,0,0,.32), 0 0 36px rgba(245, 196, 81, .55); }
+  100% { box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 12px 30px rgba(0,0,0,.32), 0 0 0   rgba(245, 196, 81, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-pill.is-burst { animation: none; }
+}
 
 /* ---------- Welcome overlay (first visit) ---------- */
 .welcome-overlay {
@@ -7218,7 +7230,17 @@ boot();
   updatePill();
   P.on("profile:update", updatePill);
   P.on("profile:create", updatePill);
-  P.on("wallet:change", updatePill);
+  P.on("wallet:change", function (e) {
+    updatePill();
+    // Brief gold-glow burst on the topbar profile pill when shards are added.
+    if (pill && e && e.detail && typeof e.detail.delta === "number" && e.detail.delta > 0) {
+      pill.classList.remove("is-burst");
+      // Force reflow to restart the animation
+      void pill.offsetWidth;
+      pill.classList.add("is-burst");
+      setTimeout(function () { pill && pill.classList.remove("is-burst"); }, 1300);
+    }
+  });
   P.on("streak:advance", updatePill);
   P.on("settings:change", function (e) { applySettingsToBody(e.detail.settings); });
 
