@@ -230,6 +230,15 @@ textarea:focus-visible {
   border-radius: 8px;
   background: var(--emblem) center / cover no-repeat, linear-gradient(135deg, #1a0412, #05040d);
   box-shadow: 0 0 28px rgba(255,47,179,.22), 0 0 22px rgba(122,240,255,.14), inset 0 0 18px rgba(122,240,255,.12);
+  transition: transform .35s var(--ease, ease), box-shadow .35s var(--ease, ease), border-color .35s var(--ease, ease);
+}
+.brand:hover .brand-mark {
+  transform: translateY(-1px) rotate(-1.5deg);
+  border-color: rgba(245, 196, 81, .65);
+  box-shadow: 0 0 32px rgba(255,47,179,.32), 0 0 28px rgba(245, 196, 81, .22), inset 0 0 22px rgba(245, 196, 81, .14);
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand:hover .brand-mark { transform: none; }
 }
 .brand strong {
   display: block;
