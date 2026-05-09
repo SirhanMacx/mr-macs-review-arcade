@@ -187,6 +187,13 @@
       powerups: [],
       lasers: [],
       particles: [],
+      // Polish layers — all populated by update + render loops.
+      fragments: [],   // brick-shatter fragments (rotating rectangles that scatter + fade)
+      callouts: [],    // floating text callouts ("STREAK 5×!", "PERFECT!", etc.)
+      ripples: [],     // expanding-ring shockwaves (paddle hits, boss breaks)
+      shake: { x: 0, y: 0, intensity: 0, life: 0, totalLife: 0 },
+      hitPauseUntil: 0, // performance.now() ms — update loop skips while < this
+      lastComboMilestone: 0, // tracks combo levels we've already announced
       activePowerups: {}, // key -> expiresAt
       ballSpeedMul: 1,
       lasersOn: false,
@@ -304,7 +311,8 @@
       vx: 0,
       vy: 0,
       stuck: true,
-      speed: ballSpeedForLevel(state.level)
+      speed: ballSpeedForLevel(state.level),
+      trail: [] // motion-blur ghost positions
     }];
   }
 
@@ -333,6 +341,11 @@
   }
 
   function update(dt) {
+    // Hit-pause: skip simulation while we're in a brief impact freeze
+    // (boss break = ~90ms). Particles/ripples still freeze with us
+    // since they all read from state arrays — that's fine.
+    if (state.hitPauseUntil && performance.now() < state.hitPauseUntil) return;
+
     var p = state.paddle;
 
     // Paddle keyboard
@@ -370,6 +383,12 @@
         continue;
       }
       var speedMul = state.ballSpeedMul;
+      // Motion-blur trail — sample current position before move
+      if (!reducedMotion) {
+        b.trail = b.trail || [];
+        b.trail.push({ x: b.x, y: b.y });
+        if (b.trail.length > 6) b.trail.shift();
+      }
       b.x += b.vx * speedMul * dt;
       b.y += b.vy * speedMul * dt;
 
@@ -395,9 +414,16 @@
           b.vx = Math.sin(angle) * spd;
           b.vy = -Math.abs(Math.cos(angle) * spd);
           b.y = paddleTop - BALL_R - 0.5;
+          // Polish: paddle hit ripple + small shake
+          var era = ERAS[(state.level - 1) % ERAS.length];
+          spawnRipple(b.x, paddleTop, era.accent, 28);
+          triggerShake(1.5, 80);
           // Combo resets when ball touches paddle without breaking a brick
-          state.combo = 1;
-          updateHud();
+          if (state.combo > 1) {
+            state.combo = 1;
+            state.lastComboMilestone = 0;
+            updateHud();
+          }
         }
       }
 
@@ -450,6 +476,45 @@
       pt.vy += 220 * dt;
       pt.life -= dt;
       if (pt.life <= 0) state.particles.splice(m, 1);
+    }
+    // Update brick fragments (gravity + drag + rotation)
+    for (var fi = state.fragments.length - 1; fi >= 0; fi--) {
+      var fg = state.fragments[fi];
+      fg.x += fg.vx * dt;
+      fg.y += fg.vy * dt;
+      fg.vy += 360 * dt;     // gravity
+      fg.vx *= 0.992;         // drag
+      fg.rot += fg.vRot * dt;
+      fg.life -= dt;
+      if (fg.life <= 0 || fg.y > LOGICAL_H + 40) state.fragments.splice(fi, 1);
+    }
+    // Update floating callouts (drift up + fade)
+    for (var ci = state.callouts.length - 1; ci >= 0; ci--) {
+      var co = state.callouts[ci];
+      co.y += co.vy * dt;
+      co.vy *= 0.96; // ease-out drift
+      co.life -= dt;
+      if (co.life <= 0) state.callouts.splice(ci, 1);
+    }
+    // Update ripples (expanding ring)
+    for (var ri = state.ripples.length - 1; ri >= 0; ri--) {
+      var rp = state.ripples[ri];
+      var rprog = 1 - (rp.life / rp.maxLife);
+      rp.r = 8 + rprog * (rp.maxR - 8);
+      rp.life -= dt;
+      if (rp.life <= 0) state.ripples.splice(ri, 1);
+    }
+    // Decay screen shake
+    if (state.shake.life > 0) {
+      state.shake.life -= dt;
+      if (state.shake.life <= 0) {
+        state.shake.x = 0; state.shake.y = 0;
+        state.shake.intensity = 0;
+      } else {
+        var damping = state.shake.life / state.shake.totalLife;
+        state.shake.x = (Math.random() - 0.5) * 2 * state.shake.intensity * damping;
+        state.shake.y = (Math.random() - 0.5) * 2 * state.shake.intensity * damping;
+      }
     }
 
     // Tick power-up timers
@@ -546,6 +611,8 @@
   function shatterBrick(i, fromBall) {
     var br = state.bricks[i];
     var era = ERAS[(state.level - 1) % ERAS.length];
+    var cx = br.x + br.w / 2;
+    var cy = br.y + br.h / 2;
 
     // Score with combo
     if (fromBall) {
@@ -555,22 +622,38 @@
     var pts = 100 * state.combo;
     state.score += pts;
 
-    // Particles
-    spawnParticles(br.x + br.w / 2, br.y + br.h / 2, br.color, reducedMotion ? 6 : 14, 0.7);
+    // Combo milestone callouts
+    if (fromBall) {
+      var milestones = { 3: "STREAK 3×!", 5: "INCREDIBLE 5×!", 8: "ARCHIVE LEGEND 8×!" };
+      if (milestones[state.combo] && state.lastComboMilestone < state.combo) {
+        state.lastComboMilestone = state.combo;
+        spawnCallout(cx, cy - 18, milestones[state.combo], era.accent, 1.3 + state.combo * 0.08);
+      }
+    }
+
+    // Particles + fragments
+    spawnParticles(cx, cy, br.color, reducedMotion ? 6 : 14, 0.7);
+    spawnFragments(br);
+    spawnRipple(cx, cy, br.color, 36 + state.combo * 4);
+
+    // Screen shake — small for normal, big for boss
+    triggerShake(br.isBoss ? 9 : 3, br.isBoss ? 360 : 140);
+    if (br.isBoss) triggerHitPause(90);
 
     // Drop power-up
     if (br.dropPower && state.powerups.length < 3) {
-      spawnPowerup(br.x + br.w / 2, br.y + br.h / 2);
+      spawnPowerup(cx, cy);
     }
 
     if (br.isBoss) {
       state.bossBricksRemaining--;
+      spawnCallout(cx, cy - 30, "BOSS DOWN!", era.bossPalette[0] || era.accent, 1.6);
       // Big celebration on boss shatter
       try {
         if (window.MrMacsCelebration && !reducedMotion) {
           window.MrMacsCelebration.burst({
-            x: offsetX + (br.x + br.w / 2) * scale + canvas.getBoundingClientRect().left,
-            y: offsetY + (br.y + br.h / 2) * scale + canvas.getBoundingClientRect().top,
+            x: offsetX + cx * scale + canvas.getBoundingClientRect().left,
+            y: offsetY + cy * scale + canvas.getBoundingClientRect().top,
             count: 40,
             palette: era.bossPalette
           });
@@ -599,6 +682,87 @@
     }
   }
 
+  // Spawn 4 rectangular fragments that scatter + rotate + fade.
+  // Used when a brick fully shatters to give the break real heft.
+  function spawnFragments(br) {
+    if (reducedMotion) return;
+    var halfW = br.w / 2;
+    var halfH = br.h / 2;
+    var positions = [
+      { dx: -halfW / 2, dy: -halfH / 2 },
+      { dx:  halfW / 2, dy: -halfH / 2 },
+      { dx: -halfW / 2, dy:  halfH / 2 },
+      { dx:  halfW / 2, dy:  halfH / 2 }
+    ];
+    var cx = br.x + halfW;
+    var cy = br.y + halfH;
+    for (var i = 0; i < 4; i++) {
+      var p = positions[i];
+      var ang = Math.atan2(p.dy, p.dx);
+      var spd = 110 + Math.random() * 140;
+      state.fragments.push({
+        x: cx + p.dx,
+        y: cy + p.dy,
+        vx: Math.cos(ang) * spd,
+        vy: Math.sin(ang) * spd - 60,
+        rot: 0,
+        vRot: (Math.random() - 0.5) * 8,
+        w: br.w * 0.45,
+        h: br.h * 0.45,
+        color: br.color,
+        life: 0.7 + Math.random() * 0.3,
+        maxLife: 1
+      });
+    }
+  }
+
+  // Floating italic-text callout that drifts up + fades. Used for
+  // combo milestones, perfect catches, multi-ball spawns.
+  function spawnCallout(x, y, text, color, scale) {
+    if (reducedMotion) {
+      // Reduced motion still sees the text but without the float.
+      state.callouts.push({ x: x, y: y, text: text, color: color || "#f5f0ff",
+        life: 0.9, maxLife: 0.9, scale: scale || 1, vy: 0 });
+      return;
+    }
+    state.callouts.push({
+      x: x, y: y,
+      text: text,
+      color: color || "#f5f0ff",
+      life: 1.1,
+      maxLife: 1.1,
+      scale: scale || 1,
+      vy: -90
+    });
+  }
+
+  // Expanding-ring shockwave (paddle hit, boss break).
+  function spawnRipple(x, y, color, maxR) {
+    if (reducedMotion) return;
+    state.ripples.push({ x: x, y: y, r: 8, maxR: maxR || 60, color: color || "#f5f0ff",
+      life: 0.45, maxLife: 0.45 });
+  }
+
+  // Trigger a screen shake. Layered in: small (paddle hit, regular
+  // brick), medium (power-up grab, multi-ball), big (boss break).
+  function triggerShake(intensity, durationMs) {
+    if (reducedMotion) return;
+    durationMs = durationMs || 220;
+    // Don't downgrade a stronger active shake
+    if (state.shake.life > 0 && state.shake.intensity > intensity) return;
+    state.shake.intensity = intensity;
+    state.shake.life = durationMs / 1000;
+    state.shake.totalLife = state.shake.life;
+  }
+
+  // Briefly freeze the simulation (used on boss break for crunchy
+  // impact). Update loop short-circuits while performance.now() is
+  // less than state.hitPauseUntil.
+  function triggerHitPause(durationMs) {
+    if (reducedMotion) return;
+    state.hitPauseUntil = performance.now() + (durationMs || 80);
+  }
+
   function spawnPowerup(x, y) {
     var kinds = ["extend", "multi", "slow", "laser"];
     if (Math.random() < 0.08) kinds.push("life");
@@ -608,10 +772,15 @@
 
   function applyPowerup(kind) {
     var nowTs = performance.now() / 1000;
+    var px = state.paddle.x;
+    var py = LOGICAL_H - PADDLE_Y_OFFSET - PADDLE_H;
+    triggerShake(2, 110);
     if (kind === "extend") {
       state.paddle.w = PADDLE_BASE_W * 1.5;
       state.activePowerups.extend = nowTs + POWERUP_DURATIONS.extend;
       toast("Paddle Extended", "extend");
+      spawnCallout(px, py - 30, "PADDLE+", "#52e8a0", 1.1);
+      spawnRipple(px, py, "#52e8a0", 80);
     } else if (kind === "multi") {
       // Add 2 extra balls
       var base = state.balls[0];
@@ -623,23 +792,30 @@
             vx: Math.cos(ang) * base.speed,
             vy: Math.sin(ang) * base.speed,
             stuck: false,
-            speed: base.speed
+            speed: base.speed,
+            trail: []
           });
         }
       }
       toast("Multi-ball!", "multi");
+      spawnCallout(base ? base.x : px, base ? base.y - 30 : py - 30, "MULTI-BALL!", "#7af0ff", 1.4);
+      spawnRipple(base ? base.x : px, base ? base.y : py, "#7af0ff", 90);
     } else if (kind === "slow") {
       state.ballSpeedMul = 0.7;
       state.activePowerups.slow = nowTs + POWERUP_DURATIONS.slow;
       toast("Slow-mo", "slow");
+      spawnCallout(px, py - 30, "SLOW-MO", "#a991ff", 1.15);
     } else if (kind === "laser") {
       state.lasersOn = true;
       state.activePowerups.laser = nowTs + POWERUP_DURATIONS.laser;
       toast("Laser Paddle", "laser");
+      spawnCallout(px, py - 30, "LASER PADDLE", "#ff7cc8", 1.15);
+      spawnRipple(px, py, "#ff7cc8", 80);
     } else if (kind === "life") {
       state.lives++;
       updateHud();
       toast("+1 Life", "life");
+      spawnCallout(px, py - 30, "+1 LIFE", "#52e8a0", 1.4);
       try {
         if (window.MrMacsCelebration && !reducedMotion) {
           window.MrMacsCelebration.burst({ count: 30, palette: ["#52e8a0", "#5de0f0"] });
@@ -727,8 +903,13 @@
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Map logical coords -> device pixel coords with letterbox
-    ctx.setTransform(scale * dpr, 0, 0, scale * dpr, offsetX * dpr, offsetY * dpr);
+    // Screen-shake offset (zero when no shake active)
+    var shakeX = (state && state.shake) ? state.shake.x : 0;
+    var shakeY = (state && state.shake) ? state.shake.y : 0;
+
+    // Map logical coords -> device pixel coords with letterbox + shake
+    ctx.setTransform(scale * dpr, 0, 0, scale * dpr,
+      (offsetX + shakeX) * dpr, (offsetY + shakeY) * dpr);
 
     // Background gradient (logical-coord)
     var era = ERAS[((state ? state.level - 1 : 0)) % ERAS.length];
@@ -769,8 +950,53 @@
       ctx.fillRect(ls.x - 1.5, ls.y, 3, 12);
     }
 
+    // Draw rotating brick fragments (behind paddle/balls)
+    for (var fp = 0; fp < state.fragments.length; fp++) {
+      var fg = state.fragments[fp];
+      var fa = Math.max(0, Math.min(1, fg.life / fg.maxLife));
+      ctx.save();
+      ctx.globalAlpha = fa;
+      ctx.translate(fg.x, fg.y);
+      ctx.rotate(fg.rot);
+      ctx.fillStyle = fg.color;
+      ctx.fillRect(-fg.w / 2, -fg.h / 2, fg.w, fg.h);
+      ctx.restore();
+    }
+
+    // Expanding ripples (behind paddle, ahead of bg)
+    for (var rip = 0; rip < state.ripples.length; rip++) {
+      var rp = state.ripples[rip];
+      var ra = rp.life / rp.maxLife;
+      ctx.save();
+      ctx.globalAlpha = ra * 0.6;
+      ctx.strokeStyle = rp.color;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
     // Draw paddle
     drawPaddle(era);
+
+    // Draw ball motion-blur trails before each ball
+    if (!reducedMotion) {
+      for (var tb = 0; tb < state.balls.length; tb++) {
+        var trailBall = state.balls[tb];
+        var tr = trailBall.trail || [];
+        for (var ti = 0; ti < tr.length; ti++) {
+          var ta = ((ti + 1) / tr.length) * 0.32;
+          ctx.save();
+          ctx.globalAlpha = ta;
+          ctx.fillStyle = era.accent;
+          ctx.beginPath();
+          ctx.arc(tr[ti].x, tr[ti].y, BALL_R * (0.4 + (ti / tr.length) * 0.6), 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+    }
 
     // Draw balls
     ctx.fillStyle = "#f5f0ff";
@@ -796,6 +1022,27 @@
       ctx.globalAlpha = Math.max(0, Math.min(1, pt.life / pt.maxLife));
       ctx.fillStyle = pt.color;
       ctx.fillRect(pt.x - 1.5, pt.y - 1.5, 3, 3);
+      ctx.restore();
+    }
+
+    // Draw floating callouts (above everything, italic Fraunces serif)
+    for (var co = 0; co < state.callouts.length; co++) {
+      var cc = state.callouts[co];
+      var cAlpha = Math.max(0, Math.min(1, cc.life / cc.maxLife));
+      var cScale = cc.scale || 1;
+      // Pop-in scale on the early frames
+      var pop = 1 + (1 - cAlpha) * 0.15;
+      ctx.save();
+      ctx.globalAlpha = cAlpha;
+      ctx.translate(cc.x, cc.y);
+      ctx.scale(cScale * pop, cScale * pop);
+      ctx.font = "italic 800 22px Fraunces, Georgia, serif";
+      ctx.textAlign = "center";
+      ctx.strokeStyle = "rgba(0,0,0,.55)";
+      ctx.lineWidth = 4;
+      ctx.strokeText(cc.text, 0, 0);
+      ctx.fillStyle = cc.color;
+      ctx.fillText(cc.text, 0, 0);
       ctx.restore();
     }
 
