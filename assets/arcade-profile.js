@@ -50,148 +50,108 @@
 
   // ============== Achievement registry (seeded; each game adds via unlock()) ==============
 
-  // Achievement icons reference monoline glyph names (see arcade-icons.js).
-  // No emoji literals. Hub renders via window.MrMacsIcons.svg(def.icon).
   var ACHIEVEMENTS = [
     // ---- Onboarding ----
-    { id: "first-name",        title: "Welcome, Hunter",       desc: "Set up your trainer profile.",                     tier: "bronze",    icon: "cap"          },
-    { id: "first-play",        title: "First Mission",         desc: "Open your first game.",                            tier: "bronze",    icon: "controller"   },
-    { id: "first-correct",     title: "First Strike",          desc: "Answer your first question correctly.",            tier: "bronze",    icon: "check"        },
-    { id: "settings-tuned",    title: "Tuned In",              desc: "Open the settings drawer.",                        tier: "bronze",    icon: "gear"         },
+    { id: "first-name",        title: "Welcome, Hunter",     desc: "Set up your trainer profile.",                     tier: "bronze",    icon: "🎓" },
+    { id: "first-play",        title: "First Mission",       desc: "Open your first game.",                            tier: "bronze",    icon: "🎮" },
+    { id: "first-correct",     title: "First Strike",        desc: "Answer your first question correctly.",            tier: "bronze",    icon: "✅" },
+    { id: "settings-tuned",    title: "Tuned In",             desc: "Open the settings drawer.",                        tier: "bronze",    icon: "⚙" },
 
     // ---- Streaks ----
-    { id: "streak-3",          title: "Three-Day Hunt",        desc: "Play 3 days in a row.",                            tier: "silver",    icon: "flame"        },
-    { id: "streak-7",          title: "Week Warrior",          desc: "Play 7 days in a row.",                            tier: "gold",      icon: "flame"        },
-    { id: "streak-30",         title: "Marathon Mind",         desc: "Play 30 days in a row.",                           tier: "legendary", icon: "trophy"       },
+    { id: "streak-3",          title: "Three-Day Hunt",       desc: "Play 3 days in a row.",                            tier: "silver",    icon: "🔥" },
+    { id: "streak-7",          title: "Week Warrior",         desc: "Play 7 days in a row.",                            tier: "gold",      icon: "🔥" },
+    { id: "streak-30",         title: "Marathon Mind",        desc: "Play 30 days in a row.",                           tier: "legendary", icon: "🏆" },
 
     // ---- Jeopardy ----
-    { id: "jeopardy-clear",    title: "Board Wipe",            desc: "Answer every clue on a board.",                    tier: "silver",    icon: "mind"         },
-    { id: "jeopardy-final",    title: "Final Answer",          desc: "Win Final Jeopardy.",                              tier: "silver",    icon: "lightbulb"    },
-    { id: "jeopardy-streak-10",title: "Hot Hand",              desc: "Get 10 Jeopardy answers correct in a row.",        tier: "gold",      icon: "flame"        },
-    { id: "jeopardy-master",   title: "Quizmaster",            desc: "Clear 25 Jeopardy boards.",                        tier: "legendary", icon: "trophy"       },
+    { id: "jeopardy-clear",    title: "Board Wipe",            desc: "Answer every clue on a board.",                    tier: "silver",    icon: "🧠" },
+    { id: "jeopardy-final",    title: "Final Answer",          desc: "Win Final Jeopardy.",                              tier: "silver",    icon: "💡" },
+    { id: "jeopardy-streak-10",title: "Hot Hand",              desc: "Get 10 Jeopardy answers correct in a row.",        tier: "gold",      icon: "🔥" },
+    { id: "jeopardy-master",   title: "Quizmaster",            desc: "Clear 25 Jeopardy boards.",                        tier: "legendary", icon: "🏆" },
 
     // ---- Boss Rush ----
-    { id: "boss-first",        title: "First Boss Down",       desc: "Defeat any boss in Boss Rush.",                    tier: "silver",    icon: "burst"        },
-    { id: "boss-perfect",      title: "Untouched Sage",        desc: "Defeat a boss without taking damage.",             tier: "gold",      icon: "shield"       },
-    { id: "boss-final-form",   title: "Final Form",            desc: "Beat Boss Rush on Final Form difficulty.",         tier: "legendary", icon: "crown"        },
+    { id: "boss-first",        title: "First Boss Down",       desc: "Defeat any boss in Boss Rush.",                    tier: "silver",    icon: "💥" },
+    { id: "boss-perfect",      title: "Untouched Sage",        desc: "Defeat a boss without taking damage.",             tier: "gold",      icon: "🛡" },
+    { id: "boss-final-form",   title: "Final Form",            desc: "Beat Boss Rush on Final Form difficulty.",         tier: "legendary", icon: "👑" },
 
     // ---- Pacman / Maze Chase ----
-    { id: "maze-level-5",      title: "Pellet Pilgrim",        desc: "Reach level 5 in Review Maze Chase.",              tier: "silver",    icon: "ghost"        },
-    { id: "maze-fruit-king",   title: "Fruit King",            desc: "Eat 10 fruit in a single run.",                    tier: "gold",      icon: "cherry"       },
+    { id: "maze-level-5",      title: "Pellet Pilgrim",        desc: "Reach level 5 in Review Maze Chase.",              tier: "silver",    icon: "👻" },
+    { id: "maze-fruit-king",   title: "Fruit King",            desc: "Eat 10 fruit in a single run.",                    tier: "gold",      icon: "🍒" },
 
     // ---- Mario Kart / Regents Rally ----
-    { id: "rally-podium",      title: "On the Podium",         desc: "Finish 1st in any Rally race.",                    tier: "silver",    icon: "medal-gold"   },
-    { id: "rally-gp-150",      title: "150cc Champion",        desc: "Win a Grand Prix at 150cc.",                       tier: "gold",      icon: "checkered-flag" },
-    { id: "rally-mirror",      title: "Mirror Master",         desc: "Win a Grand Prix in Mirror mode.",                 tier: "legendary", icon: "mirror"       },
+    { id: "rally-podium",      title: "On the Podium",         desc: "Finish 1st in any Rally race.",                    tier: "silver",    icon: "🥇" },
+    { id: "rally-gp-150",      title: "150cc Champion",        desc: "Win a Grand Prix at 150cc.",                       tier: "gold",      icon: "🏁" },
+    { id: "rally-mirror",      title: "Mirror Master",         desc: "Win a Grand Prix in Mirror mode.",                 tier: "legendary", icon: "🪞" },
 
     // ---- Pokemon / History Hunters ----
-    { id: "hh-first-catch",    title: "First Capture",         desc: "Catch your first historical figure.",              tier: "bronze",    icon: "urn"          },
-    { id: "hh-roster-6",       title: "Full Party",            desc: "Build a roster of 6 figures.",                     tier: "silver",    icon: "playing-card" },
-    { id: "hh-rare",           title: "Legendary Encounter",   desc: "Catch a rare figure.",                             tier: "gold",      icon: "sparkles"     },
-    { id: "hh-codex-complete", title: "Codex Complete",        desc: "Catch every figure in your region.",               tier: "legendary", icon: "library"      },
+    { id: "hh-first-catch",    title: "First Capture",         desc: "Catch your first historical figure.",              tier: "bronze",    icon: "⚱" },
+    { id: "hh-roster-6",       title: "Full Party",            desc: "Build a roster of 6 figures.",                     tier: "silver",    icon: "🎴" },
+    { id: "hh-rare",           title: "Legendary Encounter",   desc: "Catch a rare figure.",                             tier: "gold",      icon: "✨" },
+    { id: "hh-codex-complete", title: "Codex Complete",        desc: "Catch every figure in your region.",               tier: "legendary", icon: "📖" },
 
     // ---- Space Invaders / Cold War Invaders ----
-    { id: "cwi-mission-clear", title: "Mission Cleared",       desc: "Clear a 5-wave mission.",                          tier: "silver",    icon: "ufo"          },
-    { id: "cwi-no-shield",     title: "Shieldless Run",        desc: "Beat a mission without rebuilding bunkers.",       tier: "gold",      icon: "rocket"       },
+    { id: "cwi-mission-clear", title: "Mission Cleared",       desc: "Clear a 5-wave mission.",                          tier: "silver",    icon: "🛸" },
+    { id: "cwi-no-shield",     title: "Shieldless Run",        desc: "Beat a mission without rebuilding bunkers.",       tier: "gold",      icon: "🚀" },
 
     // ---- Tower Defense / Chrono Defense ----
-    { id: "td-wave-30",        title: "Last Wave Standing",    desc: "Survive wave 30 on any map.",                      tier: "gold",      icon: "temple"       },
-    { id: "td-perfect-base",   title: "Untouched Base",        desc: "Beat a map without losing base HP.",               tier: "legendary", icon: "castle"       },
+    { id: "td-wave-30",        title: "Last Wave Standing",    desc: "Survive wave 30 on any map.",                      tier: "gold",      icon: "🛕" },
+    { id: "td-perfect-base",   title: "Untouched Base",        desc: "Beat a map without losing base HP.",               tier: "legendary", icon: "🏰" },
 
     // ---- Pinball / Chrono Pinball ----
-    { id: "pinball-multiball", title: "Multiball Mayhem",      desc: "Trigger multiball.",                               tier: "silver",    icon: "eight-ball"   },
-    { id: "pinball-wizard",    title: "Wizard Mode",           desc: "Reach Wizard Mode.",                               tier: "legendary", icon: "wizard"       },
+    { id: "pinball-multiball", title: "Multiball Mayhem",      desc: "Trigger multiball.",                               tier: "silver",    icon: "🎱" },
+    { id: "pinball-wizard",    title: "Wizard Mode",            desc: "Reach Wizard Mode.",                               tier: "legendary", icon: "🧙" },
 
     // ---- 4X / Empire Ascendant ----
-    { id: "empire-found",      title: "First Settlement",      desc: "Found your first city.",                           tier: "bronze",    icon: "temple"       },
-    { id: "empire-victory",    title: "Era Conqueror",         desc: "Win an Empire Ascendant game (any victory).",      tier: "gold",      icon: "crown"        },
+    { id: "empire-found",      title: "First Settlement",      desc: "Found your first city.",                           tier: "bronze",    icon: "🏛" },
+    { id: "empire-victory",    title: "Era Conqueror",         desc: "Win an Empire Ascendant game (any victory).",      tier: "gold",      icon: "👑" },
 
     // ---- Endless Runner / Timeline Runner ----
-    { id: "tr-distance-5km",   title: "Five Klick Sprint",     desc: "Run 5 km in a single run.",                        tier: "silver",    icon: "runner"       },
-    { id: "tr-all-eras",       title: "Across the Eras",       desc: "Collect all 5 era keys in one run.",               tier: "gold",      icon: "key"          },
+    { id: "tr-distance-5km",   title: "Five Klick Sprint",     desc: "Run 5 km in a single run.",                        tier: "silver",    icon: "🏃" },
+    { id: "tr-all-eras",       title: "Across the Eras",       desc: "Collect all 5 era keys in one run.",               tier: "gold",      icon: "🗝" },
 
     // ---- Vampire Survivors / Time Rift ----
-    { id: "tr-survivor-15",    title: "Quarter Hour Survivor", desc: "Survive 15 minutes in Time Rift.",                 tier: "gold",      icon: "hourglass"    },
-    { id: "tr-evolution",      title: "Weapon Evolved",        desc: "Evolve a weapon.",                                 tier: "silver",    icon: "swords"       },
+    { id: "tr-survivor-15",    title: "Quarter Hour Survivor", desc: "Survive 15 minutes in Time Rift.",                 tier: "gold",      icon: "⏳" },
+    { id: "tr-evolution",      title: "Weapon Evolved",        desc: "Evolve a weapon.",                                 tier: "silver",    icon: "⚔" },
 
     // ---- Battle Game / Arcade Duel ----
-    { id: "duel-flawless",     title: "Flawless Round",        desc: "Win a round without taking damage.",               tier: "silver",    icon: "boxing-glove" },
-    { id: "duel-ladder",       title: "Era Ladder Climb",      desc: "Defeat all 7 ladder opponents.",                   tier: "legendary", icon: "trophy"       },
+    { id: "duel-flawless",     title: "Flawless Round",        desc: "Win a round without taking damage.",               tier: "silver",    icon: "🥊" },
+    { id: "duel-ladder",       title: "Era Ladder Climb",      desc: "Defeat all 7 ladder opponents.",                   tier: "legendary", icon: "🏆" },
 
     // ---- Cross-arcade ----
-    { id: "cross-3-genres",    title: "Genre-Hopper",          desc: "Play 3 different flagship games.",                 tier: "silver",    icon: "shuffle"      },
-    { id: "cross-shards-1k",   title: "Shard Hoarder",         desc: "Earn 1,000 lifetime shards.",                      tier: "gold",      icon: "diamond"      },
-    { id: "cross-shards-10k",  title: "Treasure Vault",        desc: "Earn 10,000 lifetime shards.",                     tier: "legendary", icon: "coin-stack"   },
-    { id: "cross-cram",        title: "Cram Sesh",             desc: "Complete a 4-game Cram Mode playlist.",            tier: "gold",      icon: "books"        }
+    { id: "cross-3-genres",    title: "Genre-Hopper",          desc: "Play 3 different flagship games.",                 tier: "silver",    icon: "🎲" },
+    { id: "cross-shards-1k",   title: "Shard Hoarder",         desc: "Earn 1,000 lifetime shards.",                      tier: "gold",      icon: "💎" },
+    { id: "cross-shards-10k",  title: "Treasure Vault",        desc: "Earn 10,000 lifetime shards.",                     tier: "legendary", icon: "💰" },
+    { id: "cross-cram",        title: "Cram Sesh",             desc: "Complete a 4-game Cram Mode playlist.",            tier: "gold",      icon: "📚" }
   ];
 
   var ACHIEVEMENT_INDEX = {};
   ACHIEVEMENTS.forEach(function (a) { ACHIEVEMENT_INDEX[a.id] = a; });
 
-  // Each avatar is identified by its `id` and renders via `MrMacsIcons.svg(svg)`.
-  // The legacy `emoji` field was removed in May 2026 when the platform went
-  // emoji-free; existing user profiles get migrated on load (see migrateAvatar).
   var AVATARS = [
-    { id: "scholar",  svg: "cap",        label: "Scholar"    },
-    { id: "explorer", svg: "compass",    label: "Explorer"   },
-    { id: "scribe",   svg: "scroll",     label: "Scribe"     },
-    { id: "wizard",   svg: "wizard",     label: "Wizard"     },
-    { id: "owl",      svg: "owl",        label: "Owl"        },
-    { id: "fox",      svg: "fox",        label: "Fox"        },
-    { id: "lion",     svg: "lion",       label: "Lion"       },
-    { id: "dragon",   svg: "dragon",     label: "Dragon"     },
-    { id: "phoenix",  svg: "phoenix",    label: "Phoenix"    },
-    { id: "compass",  svg: "compass",    label: "Pathfinder" },
-    { id: "bookworm", svg: "bookworm",   label: "Bookworm"   },
-    { id: "atom",     svg: "atom",       label: "Atom"       },
-    { id: "globe",    svg: "globe",      label: "Globe"      },
-    { id: "hero",     svg: "hero",       label: "Hero"       },
-    { id: "ninja",    svg: "ninja",      label: "Ninja"      },
-    { id: "rocket",   svg: "rocket",     label: "Rocket"     },
-    { id: "telescope",svg: "telescope",  label: "Stargazer"  },
-    { id: "amulet",   svg: "trident",    label: "Trident"    },
-    { id: "amphora",  svg: "amphora",    label: "Amphora"    },
-    { id: "scroll",   svg: "quill",      label: "Quill"      },
-    { id: "key",      svg: "key",        label: "Keykeeper"  },
-    { id: "crown",    svg: "crown",      label: "Sovereign"  },
-    { id: "shield",   svg: "shield",     label: "Defender"   },
-    { id: "spark",    svg: "sparkles",   label: "Spark"      }
+    { id: "scholar",  emoji: "🎓", label: "Scholar"  },
+    { id: "explorer", emoji: "🧭", label: "Explorer" },
+    { id: "scribe",   emoji: "📜", label: "Scribe"   },
+    { id: "wizard",   emoji: "🧙", label: "Wizard"   },
+    { id: "owl",      emoji: "🦉", label: "Owl"      },
+    { id: "fox",      emoji: "🦊", label: "Fox"      },
+    { id: "lion",     emoji: "🦁", label: "Lion"     },
+    { id: "dragon",   emoji: "🐉", label: "Dragon"   },
+    { id: "phoenix",  emoji: "🔥", label: "Phoenix"  },
+    { id: "compass",  emoji: "🧭", label: "Pathfinder" },
+    { id: "bookworm", emoji: "📚", label: "Bookworm" },
+    { id: "atom",     emoji: "⚛",  label: "Atom"     },
+    { id: "globe",    emoji: "🌍", label: "Globe"    },
+    { id: "hero",     emoji: "🦸", label: "Hero"     },
+    { id: "ninja",    emoji: "🥷", label: "Ninja"    },
+    { id: "rocket",   emoji: "🚀", label: "Rocket"   },
+    { id: "telescope",emoji: "🔭", label: "Stargazer" },
+    { id: "amulet",   emoji: "🔱", label: "Trident"  },
+    { id: "amphora",  emoji: "🏺", label: "Amphora"  },
+    { id: "scroll",   emoji: "🪶", label: "Quill"    },
+    { id: "key",      emoji: "🗝",  label: "Keykeeper"},
+    { id: "crown",    emoji: "👑", label: "Sovereign"},
+    { id: "shield",   emoji: "🛡",  label: "Defender" },
+    { id: "spark",    emoji: "✨", label: "Spark"    }
   ];
-
-  // One-time migration table: legacy emoji avatar values → avatar id.
-  // Used only when reading a profile saved before the May 2026 emoji-free
-  // refactor. After migration runs once, the profile stores the avatar id
-  // (e.g. "scholar") instead of the emoji char.
-  // The keys are constructed at runtime from raw codepoints so this
-  // file contains zero emoji literals.
-  var LEGACY_AVATAR_EMOJI_TO_ID = (function () {
-    function cp(n) { return String.fromCodePoint(n); }
-    var t = {};
-    t[cp(0x1F393)] = "scholar";   // graduation cap
-    t[cp(0x1F9ED)] = "compass";
-    t[cp(0x1F4DC)] = "scribe";    // scroll-of-paper
-    t[cp(0x1F9D9)] = "wizard";
-    t[cp(0x1F989)] = "owl";
-    t[cp(0x1F98A)] = "fox";
-    t[cp(0x1F981)] = "lion";
-    t[cp(0x1F409)] = "dragon";
-    t[cp(0x1F525)] = "phoenix";   // flame
-    t[cp(0x1F4DA)] = "bookworm";  // books
-    t[cp(0x269B)]  = "atom";
-    t[cp(0x1F30D)] = "globe";
-    t[cp(0x1F9B8)] = "hero";
-    t[cp(0x1F977)] = "ninja";
-    t[cp(0x1F680)] = "rocket";
-    t[cp(0x1F52D)] = "telescope";
-    t[cp(0x1F531)] = "amulet";    // trident
-    t[cp(0x1F3FA)] = "amphora";
-    t[cp(0x1FAB6)] = "scroll";    // quill (legacy used the quill emoji here)
-    t[cp(0x1F5DD)] = "key";
-    t[cp(0x1F451)] = "crown";
-    t[cp(0x1F6E1)] = "shield";
-    t[cp(0x2728)]  = "spark";     // sparkles
-    return t;
-  })();
 
   var DEFAULT_SETTINGS = {
     motion: "auto",
@@ -207,8 +167,8 @@
     return {
       version: 2,
       name: "",
-      avatar: "scholar",  // default avatar id; renders via AVATARS lookup → SVG
-      avatarKind: "id",
+      avatar: "🎓",
+      avatarKind: "emoji",
       createdAt: 0,
       lastVisit: 0,
       // Phase 7 — content routing
@@ -233,21 +193,6 @@
     try { return JSON.parse(JSON.stringify(value)); } catch (e) { return value; }
   }
 
-  // May 2026 emoji-free migration: if a saved profile carries an emoji
-  // string in `avatar`, swap it for the corresponding avatar id so the
-  // value matches the new AVATARS schema and renders via SVG.
-  function migrateAvatar(p) {
-    if (!p || typeof p.avatar !== "string" || !p.avatar) return p;
-    if (LEGACY_AVATAR_EMOJI_TO_ID[p.avatar]) {
-      p.avatar = LEGACY_AVATAR_EMOJI_TO_ID[p.avatar];
-      p.avatarKind = "id";
-      // Best-effort persist so the migration runs once per device, not
-      // every read. The next write() will pick this up regardless.
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); } catch (e) {}
-    }
-    return p;
-  }
-
   function read() {
     var raw = null;
     try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) { return defaultProfile(); }
@@ -265,8 +210,6 @@
         // Streak deep-merge
         p.streak = Object.assign({ current: 0, best: 0, lastDay: "" }, parsed.streak || {});
       }
-      // Legacy emoji avatar → avatar id (one-time, per device)
-      migrateAvatar(p);
       return p;
     } catch (e) { return defaultProfile(); }
   }

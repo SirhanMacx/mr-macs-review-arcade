@@ -931,7 +931,7 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   opacity: .38; cursor: not-allowed; transform: none;
 }
 .cmd-btn:disabled .cmd-name::after {
-  /* Inline-SVG padlock — disabled command indicator */
+  /* Inline-SVG padlock — replaces the legacy 🔒 emoji */
   content: "";
   display: inline-block;
   width: .85em; height: .85em;
