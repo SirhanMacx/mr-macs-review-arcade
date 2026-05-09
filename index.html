@@ -6158,6 +6158,44 @@ body {
   border-color: rgba(255, 102, 125, .65);
   background: rgba(255, 102, 125, .12);
 }
+/* Read-aloud button (Web Speech API) — accessibility helper */
+.diag-stem {
+  position: relative;
+}
+.read-aloud-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 26px; height: 26px;
+  margin-left: 8px;
+  vertical-align: middle;
+  background: rgba(122, 240, 255, .10);
+  border: 1px solid rgba(122, 240, 255, .35);
+  border-radius: 50%;
+  color: var(--cyan, #7af0ff);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .2s, transform .2s, border-color .2s;
+}
+.read-aloud-btn:hover {
+  background: rgba(122, 240, 255, .22);
+  border-color: rgba(122, 240, 255, .65);
+  transform: scale(1.05);
+}
+.read-aloud-btn[aria-pressed="true"] {
+  background: linear-gradient(135deg, rgba(122, 240, 255, .55), rgba(184, 146, 255, .35));
+  color: #052614;
+  border-color: rgba(122, 240, 255, .85);
+  animation: readAloudPulse 1.5s ease-in-out infinite;
+}
+@keyframes readAloudPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(122, 240, 255, .55); }
+  50%      { box-shadow: 0 0 0 6px rgba(122, 240, 255, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .read-aloud-btn[aria-pressed="true"] { animation: none; }
+  .read-aloud-btn:hover { transform: none; }
+}
+
 /* Inline hint button (consumes a Hint Token from inventory) */
 .quiz-hint-bar {
   display: flex; align-items: center; justify-content: space-between;
@@ -11917,7 +11955,7 @@ boot();
       var html =
         '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
         '<div class="diag-meta">' + safeHTML(q.course) + ' · ' + safeHTML(q.set) + ' · Question ' + (idx + 1) + ' / ' + total + '</div>' +
-        '<p class="diag-stem">' + safeHTML(q.prompt) + '</p>' +
+        '<p class="diag-stem">' + safeHTML(q.prompt) + ' <button class="read-aloud-btn" type="button" aria-label="Read prompt aloud" aria-pressed="false" data-text="' + safeHTML(q.prompt) + '">🔊</button></p>' +
         (hintTokens > 0
           ? '<div class="quiz-hint-bar">' +
               '<span class="qh-meta">Stuck? Use a hint token to eliminate one wrong choice.</span>' +
@@ -12243,7 +12281,7 @@ boot();
       var html =
         '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
         '<div class="diag-meta">' + safeHTML(course) + ' · ' + safeHTML(set) + ' · Q ' + (idx + 1) + ' / ' + sessionQs.length + '</div>' +
-        '<p class="diag-stem">' + safeHTML(q.prompt) + '</p>' +
+        '<p class="diag-stem">' + safeHTML(q.prompt) + ' <button class="read-aloud-btn" type="button" aria-label="Read prompt aloud" aria-pressed="false" data-text="' + safeHTML(q.prompt) + '">🔊</button></p>' +
         (hintTokens > 0
           ? '<div class="quiz-hint-bar">' +
               '<span class="qh-meta">Stuck? Use a hint token to eliminate one wrong choice.</span>' +
@@ -12450,7 +12488,7 @@ boot();
       var html =
         '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
         '<div class="diag-meta">' + safeHTML(w.course) + ' · ' + safeHTML(w.set) + ' · Card ' + (idx + 1) + ' / ' + session.length + ' · missed ' + when + '</div>' +
-        '<p class="diag-stem wq-drill-stem">' + safeHTML(w.prompt) + '</p>' +
+        '<p class="diag-stem wq-drill-stem">' + safeHTML(w.prompt) + ' <button class="read-aloud-btn" type="button" aria-label="Read prompt aloud" aria-pressed="false" data-text="' + safeHTML(w.prompt) + '">🔊</button></p>' +
         '<div class="wq-drill-reveal" id="wqDrillReveal" hidden>' +
           '<div class="wq-drill-answer-label">Correct answer</div>' +
           '<div class="wq-drill-answer">' + safeHTML(w.answer) + '</div>' +
@@ -12839,7 +12877,7 @@ boot();
         '</div>' +
         '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
         '<div class="diag-meta">' + safeHTML(q.course) + ' · ' + safeHTML(q.set) + '</div>' +
-        '<p class="diag-stem">' + safeHTML(q.prompt) + '</p>' +
+        '<p class="diag-stem">' + safeHTML(q.prompt) + ' <button class="read-aloud-btn" type="button" aria-label="Read prompt aloud" aria-pressed="false" data-text="' + safeHTML(q.prompt) + '">🔊</button></p>' +
         ((hintTokens > 0 || (timed && timeBoosts > 0))
           ? '<div class="quiz-hint-bar">' +
               '<span class="qh-meta">Power-ups</span>' +
@@ -13261,6 +13299,62 @@ boot();
     renderFortune(false);
     fortuneCard.addEventListener("click", function () { renderFortune(true); });
   }
+
+  // ---- Read-aloud helper (Web Speech API) ----
+  // Document-level click handler powers every .read-aloud-btn that
+  // gets injected next to a question prompt. No external libs — uses
+  // the browser's native speechSynthesis. Toggle on/off, with auto-
+  // cancel when the modal closes, the user changes question, or
+  // they press Escape. Browsers without the API silently disable
+  // the button.
+  var raCurrentBtn = null;
+  function raStop() {
+    try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) {}
+    if (raCurrentBtn) raCurrentBtn.setAttribute("aria-pressed", "false");
+    raCurrentBtn = null;
+  }
+  document.addEventListener("click", function (e) {
+    var btn = e.target && e.target.closest && e.target.closest(".read-aloud-btn");
+    if (!btn) return;
+    e.preventDefault();
+    if (typeof window.speechSynthesis === "undefined") {
+      btn.disabled = true;
+      btn.title = "Your browser doesn't support read-aloud.";
+      return;
+    }
+    if (raCurrentBtn === btn) {
+      raStop();
+      return;
+    }
+    raStop();
+    var text = btn.dataset.text || "";
+    if (!text && btn.parentNode) {
+      text = (btn.parentNode.textContent || "").replace(/🔊/g, "").trim();
+    }
+    if (!text) return;
+    try {
+      var u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.95;
+      u.pitch = 1;
+      u.volume = 1;
+      u.onend = function () {
+        if (raCurrentBtn === btn) raStop();
+      };
+      u.onerror = u.onend;
+      raCurrentBtn = btn;
+      btn.setAttribute("aria-pressed", "true");
+      window.speechSynthesis.speak(u);
+    } catch (err) { raStop(); }
+  });
+  // Stop on Escape or modal-close clicks
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") raStop();
+  });
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+    if (!t || !t.id) return;
+    if (t.id === "rmClose" || t.id === "rmBackdrop") raStop();
+  });
 
   // ---- Konami code easter egg ----
   // Up Up Down Down Left Right Left Right B A → confetti rain + Code Master
