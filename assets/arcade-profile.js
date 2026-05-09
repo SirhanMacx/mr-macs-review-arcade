@@ -198,6 +198,10 @@
       // capped at 60 days. Drives the Weekly Stats card.
       dailyShards: {},   // { "YYYY-MM-DD": shardsEarnedThatDay }
       dailyAnswers: {},  // { "YYYY-MM-DD": { correct: N, total: N } }
+      // Cards retired from the spaced-repetition queue at box-5. Used
+      // for the "Mastered cards" archive view in the drawer. Capped
+      // at 200 entries so the profile blob stays modest.
+      masteredCards: [],
       // Phase 3 — tour bookkeeping
       tourSeen: {},        // gameId -> timestamp
       // Phase 7 — completed cram playlists / diagnostic results
@@ -617,7 +621,19 @@
         if (recall) {
           box = Math.min(5, box + 1);
           if (box >= 5) {
-            // Mastered — retire from queue
+            // Mastered — retire from queue and append to the
+            // mastered-cards archive (cap 200, oldest dropped).
+            p.masteredCards = p.masteredCards || [];
+            p.masteredCards.unshift({
+              prompt: w.prompt,
+              answer: w.answer,
+              course: w.course,
+              set: w.set,
+              masteredAt: nowTs,
+              lapses: lapses,
+              firstMissedAt: w.ts || nowTs
+            });
+            if (p.masteredCards.length > 200) p.masteredCards.length = 200;
             found = { boxLevel: 5, retired: true, lapses: lapses };
             return acc;
           }
@@ -637,6 +653,12 @@
       write(p);
       emit("profile:update", { profile: clone(p) });
       return found;
+    },
+
+    getMasteredCards: function (limit) {
+      var p = read();
+      var n = Number(limit) || 50;
+      return (p.masteredCards || []).slice(0, n);
     },
 
     // Returns ONLY wrong-queue cards whose nextShowAt is in the past
