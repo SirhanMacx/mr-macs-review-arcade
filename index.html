@@ -4604,6 +4604,31 @@ body {
   transition: background .2s, border-color .2s;
 }
 .pd-replay-btn:hover { background: rgba(122, 240, 255, .22); border-color: rgba(122, 240, 255, .55); }
+.pd-portability {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-items: start;
+}
+.pd-portability .pd-portability-help {
+  grid-column: 1 / -1;
+  font-size: 10.5px;
+  color: var(--muted-2, #6b7691);
+  line-height: 1.45;
+  max-width: 56ch;
+}
+.pd-portability .pd-export-btn {
+  background: rgba(245, 196, 81, .12);
+  border-color: rgba(245, 196, 81, .42);
+  color: #f5c451;
+}
+.pd-portability .pd-export-btn:hover {
+  background: rgba(245, 196, 81, .22);
+  border-color: rgba(245, 196, 81, .65);
+}
 
 /* Mobile adaptations */
 @media (max-width: 600px) {
@@ -6180,6 +6205,12 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
               <option value="high">High</option>
             </select>
           </label>
+        </div>
+        <div class="pd-portability">
+          <button class="pd-replay-btn pd-export-btn" id="pdExport" type="button">Export progress</button>
+          <button class="pd-replay-btn pd-import-btn" id="pdImport" type="button">Import progress</button>
+          <input type="file" id="pdImportFile" accept="application/json,.json" hidden>
+          <small class="pd-portability-help">Save a JSON snapshot of your trainer (name, course, shards, achievements, settings). Import on another device to pick up where you left off — nothing leaves your browser.</small>
         </div>
         <div class="pd-danger-zone">
           <button class="pd-danger-btn" id="pdReset" type="button">Reset profile</button>
@@ -8863,6 +8894,95 @@ boot();
       setTimeout(function () { location.reload(); }, 100);
     }
   });
+
+  // ---- Profile export/import (data portability) ----
+  // Lets the student save a JSON snapshot to disk and restore it on
+  // another device. Local-only, no server. The export bundle is the
+  // exact MrMacsProfile.get() blob plus a small wrapper with a
+  // schema version + export date for forward compat.
+  var pdExport = document.getElementById("pdExport");
+  var pdImport = document.getElementById("pdImport");
+  var pdImportFile = document.getElementById("pdImportFile");
+  if (pdExport) pdExport.addEventListener("click", function () {
+    try {
+      var profile = P.get();
+      var bundle = {
+        schema: "mr-macs-arcade-profile-export",
+        schemaVersion: 1,
+        exportedAt: new Date().toISOString(),
+        profile: profile
+      };
+      var blob = new Blob([JSON.stringify(bundle, null, 2)], { type: "application/json" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      var safeName = (profile.name || "trainer").replace(/[^A-Za-z0-9_-]/g, "_").slice(0, 24) || "trainer";
+      var date = new Date().toISOString().slice(0, 10);
+      a.download = "mr-macs-arcade-" + safeName + "-" + date + ".json";
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () {
+        URL.revokeObjectURL(url);
+        if (a.parentNode) a.parentNode.removeChild(a);
+      }, 200);
+      if (window.MrMacsToast) {
+        window.MrMacsToast.push({
+          icon: "trophy",
+          title: "Progress exported",
+          sub: "saved to your downloads folder",
+          tone: "default",
+          ms: 3200
+        });
+      }
+    } catch (err) {
+      alert("Couldn't export your profile. " + (err && err.message ? err.message : ""));
+    }
+  });
+  if (pdImport && pdImportFile) {
+    pdImport.addEventListener("click", function () { pdImportFile.click(); });
+    pdImportFile.addEventListener("change", function () {
+      var file = pdImportFile.files && pdImportFile.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          var bundle = JSON.parse(String(reader.result || ""));
+          var inbound = (bundle && bundle.profile) ? bundle.profile : bundle;
+          if (!inbound || typeof inbound !== "object" || !inbound.name) {
+            throw new Error("This file doesn't look like a Mr. Mac's Arcade export.");
+          }
+          var current = P.get();
+          var summary = "Replace your local progress with the imported snapshot?\n\n" +
+            "Current: " + (current.name || "(empty)") + " · " + (current.shards || 0).toLocaleString() + " shards\n" +
+            "Imported: " + inbound.name + " · " + (inbound.shards || 0).toLocaleString() + " shards\n\n" +
+            "This cannot be undone.";
+          if (!confirm(summary)) {
+            pdImportFile.value = "";
+            return;
+          }
+          // Reset then merge — set() shallow-merges so we get every field
+          P.reset();
+          P.set(inbound);
+          closeDrawer();
+          if (window.MrMacsToast) {
+            window.MrMacsToast.push({
+              icon: "sparkles",
+              title: "Progress imported",
+              sub: "welcome back, " + (inbound.name || "trainer"),
+              tone: "default",
+              ms: 4200
+            });
+          }
+          setTimeout(function () { location.reload(); }, 600);
+        } catch (err) {
+          alert("Couldn't import that file. " + (err && err.message ? err.message : ""));
+        }
+        pdImportFile.value = "";
+      };
+      reader.onerror = function () { alert("Couldn't read that file."); pdImportFile.value = ""; };
+      reader.readAsText(file);
+    });
+  }
 
   // Replay the hub tour — bypasses hasSeenTour via { force: true }
   var pdReplayTour = document.getElementById("pdReplayTour");
