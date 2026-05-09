@@ -4276,6 +4276,258 @@ body {
   .ach-toast { left: 12px; right: 12px; max-width: none; top: 12px; }
 }
 
+/* ============================================================================
+   PHASE 2 — Smart Discovery
+   Daily Challenge band, Continue rail, Random button, Topic chips.
+   ============================================================================ */
+
+/* Daily Challenge */
+.daily-band {
+  padding: clamp(20px, 3vh, 40px) 0 clamp(8px, 1vh, 18px);
+}
+.daily-band[hidden] { display: none; }
+.daily-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px 24px;
+  padding: clamp(18px, 2.4vw, 26px) clamp(20px, 2.8vw, 30px);
+  background:
+    radial-gradient(120% 100% at 100% 0%, rgba(245, 196, 81, .12), transparent 60%),
+    linear-gradient(180deg, rgba(13, 17, 27, .82), rgba(8, 11, 20, .92));
+  border: 1px solid rgba(245, 196, 81, .35);
+  border-radius: 18px;
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.06) inset,
+    0 24px 60px rgba(0,0,0,.45),
+    0 0 60px rgba(245, 196, 81, .08);
+  position: relative;
+  overflow: hidden;
+}
+.daily-card::before {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(245, 196, 81, .55), rgba(122, 240, 255, .35), transparent);
+}
+.daily-meta {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  margin-bottom: -6px;
+}
+.daily-date {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+}
+.daily-body {
+  display: flex; align-items: center; gap: 16px;
+  min-width: 0;
+}
+.daily-icon {
+  display: grid; place-items: center;
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(245, 196, 81, .26), rgba(122, 240, 255, .14));
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.daily-text { min-width: 0; }
+.daily-title {
+  font-family: "Fraunces", serif;
+  font-weight: 360; font-style: italic;
+  font-size: clamp(20px, 2.4vw, 28px);
+  line-height: 1.05;
+  color: var(--paper);
+  letter-spacing: -.012em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.daily-sub {
+  margin-top: 4px;
+  color: var(--paper-2, #e2e6ee);
+  font-size: 13.5px; line-height: 1.45;
+}
+.daily-actions {
+  display: flex; align-items: center; gap: 12px;
+  flex-shrink: 0;
+}
+.daily-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #f5c451, #ffd884);
+  color: #14100a;
+  border: 1px solid rgba(245, 196, 81, .55);
+  border-radius: 999px;
+  font: 800 13.5px/1 "Inter", sans-serif;
+  letter-spacing: .005em;
+  cursor: pointer;
+  box-shadow: 0 14px 32px rgba(245, 196, 81, .22), 0 1px 0 rgba(255,255,255,.45) inset;
+  transition: transform .2s, box-shadow .2s;
+}
+.daily-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(245, 196, 81, .32), 0 1px 0 rgba(255,255,255,.55) inset;
+}
+.daily-cta .arrow { transition: transform .2s; }
+.daily-cta:hover .arrow { transform: translateX(3px); }
+.daily-cta.is-done {
+  background: rgba(122, 240, 255, .14);
+  color: #7af0ff;
+  border-color: rgba(122, 240, 255, .45);
+  box-shadow: none;
+}
+.daily-status {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  font-variant-numeric: tabular-nums;
+}
+.daily-status.is-done { color: #7af0ff; }
+@media (max-width: 720px) {
+  .daily-card { grid-template-columns: 1fr; }
+  .daily-actions { width: 100%; justify-content: space-between; }
+  .daily-title { white-space: normal; }
+}
+
+/* Continue rail */
+.continue-band {
+  padding: clamp(28px, 4vh, 48px) 0 clamp(12px, 2vh, 24px);
+}
+.continue-band[hidden] { display: none; }
+.continue-band .rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 260px);
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: 8px;
+  padding-right: 12px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.continue-card {
+  scroll-snap-align: start;
+  position: relative;
+  display: flex; flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  background:
+    radial-gradient(120% 100% at 100% 0%, color-mix(in oklab, var(--accent, #7af0ff) 18%, transparent), transparent 55%),
+    linear-gradient(180deg, rgba(13, 17, 27, .80), rgba(8, 11, 20, .94));
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+.continue-card:hover, .continue-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(245, 196, 81, .50);
+  box-shadow: 0 18px 40px rgba(0,0,0,.45), 0 0 24px rgba(245, 196, 81, .12);
+  outline: none;
+}
+.continue-card .cc-kicker {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--cyan, #7af0ff);
+}
+.continue-card .cc-title {
+  font-family: "Fraunces", serif;
+  font-weight: 540; font-style: italic;
+  font-size: 17px;
+  line-height: 1.15;
+  color: var(--paper);
+  letter-spacing: -.01em;
+}
+.continue-card .cc-meta {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: auto;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .10em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+}
+.continue-card .cc-meta .cc-arrow {
+  margin-left: auto;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: var(--paper);
+  transition: transform .2s;
+}
+.continue-card:hover .cc-meta .cc-arrow { transform: translateX(4px); }
+
+/* Library random button + library-meta wrapper */
+.library-meta {
+  display: flex; align-items: center; gap: 10px;
+}
+.library-random {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px 8px 10px;
+  height: 40px;
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 999px;
+  background: rgba(13, 17, 27, .55);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--paper);
+  font: 700 12.5px/1 "Inter", sans-serif;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+.library-random:hover {
+  transform: translateY(-2px);
+  border-color: rgba(245, 196, 81, .55);
+  box-shadow: 0 12px 24px rgba(0,0,0,.32), 0 0 18px rgba(245, 196, 81, .14);
+}
+.library-random .lr-icon {
+  display: grid; place-items: center;
+  width: 24px; height: 24px;
+  font-size: 16px;
+  border-radius: 50%;
+  background: rgba(245, 196, 81, .18);
+}
+.library-random:active .lr-icon { transform: rotate(180deg) scale(1.05); transition: transform .35s; }
+
+/* Topic chips */
+.topic-chips {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin: 8px 0 14px;
+}
+.topic-chips[hidden] { display: none; }
+.topic-chips .topic-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 13px;
+  background: rgba(13, 17, 27, .55);
+  border: 1px solid var(--line, rgba(255,255,255,.10));
+  border-radius: 999px;
+  color: var(--paper-2, #e2e6ee);
+  font: 600 11.5px/1 "Inter", sans-serif;
+  letter-spacing: .02em;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: background .2s, color .2s, border-color .2s;
+}
+.topic-chips .topic-chip:hover {
+  background: rgba(255,255,255,.08);
+  color: var(--paper);
+  border-color: var(--line-2, rgba(255,255,255,.18));
+}
+.topic-chips .topic-chip[aria-pressed="true"] {
+  background: rgba(245, 196, 81, .18);
+  border-color: rgba(245, 196, 81, .55);
+  color: #f5c451;
+}
+.topic-chips .topic-chip-count {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px;
+  color: var(--muted, #9aa3bb);
+}
+.topic-chips .topic-chip[aria-pressed="true"] .topic-chip-count { color: #f5c451; opacity: .8; }
+
 /* Honor settings.fontFamily / settings.contrast / settings.colorblind on body */
 body.font-dyslexic { font-family: "OpenDyslexic", "Inter", system-ui, sans-serif; }
 body.contrast-high {
@@ -4498,6 +4750,45 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 
 <main class="shell" id="main">
 
+  <!-- Phase 2: Daily Challenge band (deterministic per UTC day) -->
+  <section class="band daily-band" id="daily" aria-label="Today's challenge" hidden>
+    <div class="daily-card">
+      <div class="daily-meta">
+        <div class="band-eyebrow">Today's Challenge</div>
+        <strong class="daily-date" id="dailyDate"></strong>
+      </div>
+      <div class="daily-body">
+        <span class="daily-icon" id="dailyIcon" aria-hidden="true">🎯</span>
+        <div class="daily-text">
+          <div class="daily-title" id="dailyTitle">Loading…</div>
+          <div class="daily-sub" id="dailySub"></div>
+        </div>
+      </div>
+      <div class="daily-actions">
+        <button class="daily-cta" id="dailyPlay" type="button">
+          <span>Take the Challenge</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </button>
+        <span class="daily-status" id="dailyStatus"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 2: Continue Where You Left Off rail -->
+  <section class="band continue-band" id="continue" aria-label="Continue where you left off" hidden>
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Pick up where you left off</div>
+        <h2 class="band-title">Resume your <em>last games</em>.</h2>
+      </div>
+      <div class="rail-controls">
+        <button class="rail-btn prev" type="button" aria-label="Scroll left" data-rail="continueRail">‹</button>
+        <button class="rail-btn next" type="button" aria-label="Scroll right" data-rail="continueRail">›</button>
+      </div>
+    </div>
+    <div class="rail" id="continueRail" role="list"></div>
+  </section>
+
   <section class="band path-band" id="launch-paths" aria-label="Launch paths">
     <div class="band-head reveal">
       <div>
@@ -4623,9 +4914,16 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         <h2 class="band-title">Every <em>mission</em>, one search.</h2>
         <p class="band-sub">Search every game, Jeopardy board, and practice set.</p>
       </div>
-      <span class="count-pill" id="countLabel"></span>
+      <div class="library-meta">
+        <span class="count-pill" id="countLabel"></span>
+        <button class="library-random" id="libraryRandom" type="button" aria-label="Open a random game">
+          <span class="lr-icon" aria-hidden="true">🎲</span>
+          <span class="lr-text">Random</span>
+        </button>
+      </div>
     </div>
     <div class="lane-tabs reveal" id="laneTabs" aria-label="Library shortcuts"></div>
+    <div class="topic-chips reveal" id="topicChips" aria-label="Quick topic filters" hidden></div>
     <section class="filters reveal" aria-label="Game filters">
       <input class="field search" id="search" type="search" autocomplete="off" placeholder="Search civil rights · imperialism · cold war · memory…">
       <select class="field" id="courseFilter"></select>
@@ -6319,6 +6617,261 @@ boot();
   // Expose drawer open API for other UI to call (e.g., the hero "Sign in" button)
   window.MrMacsProfile.openDrawer = openDrawer;
   window.MrMacsProfile.openWelcome = openWelcome;
+})();
+
+// ============================================================================
+// PHASE 2 — Smart Discovery
+// Daily Challenge, Continue rail, Random button, Topic chips.
+// ============================================================================
+(function () {
+  // Wait for GAMES to populate from boot() before rendering anything
+  function whenGamesReady() {
+    return new Promise(function (resolve) {
+      var attempts = 0;
+      var tick = setInterval(function () {
+        if (typeof GAMES !== "undefined" && GAMES && GAMES.length) {
+          clearInterval(tick); resolve();
+        } else if (++attempts > 120) {
+          clearInterval(tick); resolve(); // give up after 12s; just no-op
+        }
+      }, 100);
+    });
+  }
+
+  // ---- Daily Challenge ----
+  function todayUTC() {
+    var d = new Date();
+    return d.getUTCFullYear() + "-" + String(d.getUTCMonth() + 1).padStart(2, "0") + "-" + String(d.getUTCDate()).padStart(2, "0");
+  }
+  function hashSeed(str) {
+    var h = 0;
+    for (var i = 0; i < str.length; i++) h = ((h << 5) - h) + str.charCodeAt(i) | 0;
+    return Math.abs(h);
+  }
+  function dailyPick(games, seed) {
+    if (!games || !games.length) return null;
+    // Prefer Jeopardy unit reviews + sprints + practice exams (~15-30 min runs)
+    // over flagship arcade games for daily challenge
+    var preferred = games.filter(function (g) {
+      var t = (g.gameType || "").toLowerCase();
+      return /unit|sprint|jeopardy|practice|gauntlet/.test(t);
+    });
+    var pool = preferred.length ? preferred : games;
+    return pool[seed % pool.length];
+  }
+
+  function renderDaily() {
+    var band = document.getElementById("daily");
+    if (!band) return;
+    if (!GAMES || !GAMES.length) return;
+    var today = todayUTC();
+    var pick = dailyPick(GAMES, hashSeed(today));
+    if (!pick) return;
+    var dateEl = document.getElementById("dailyDate");
+    var iconEl = document.getElementById("dailyIcon");
+    var titleEl = document.getElementById("dailyTitle");
+    var subEl = document.getElementById("dailySub");
+    var ctaEl = document.getElementById("dailyPlay");
+    var statusEl = document.getElementById("dailyStatus");
+    if (dateEl) {
+      var nice = new Date(today + "T12:00:00Z").toLocaleDateString(undefined, {
+        weekday: "long", month: "short", day: "numeric"
+      });
+      dateEl.textContent = nice;
+    }
+    if (iconEl) {
+      // Pick an icon based on game type
+      var gt = (pick.gameType || "").toLowerCase();
+      var icon = "🎯";
+      if (gt.indexOf("sprint") >= 0) icon = "⚡";
+      else if (gt.indexOf("jeopardy") >= 0) icon = "🧠";
+      else if (gt.indexOf("practice") >= 0) icon = "📝";
+      else if (gt.indexOf("gauntlet") >= 0) icon = "⚔";
+      else if (gt.indexOf("rush") >= 0) icon = "🔥";
+      iconEl.textContent = icon;
+    }
+    if (titleEl) titleEl.textContent = pick.title;
+    if (subEl) {
+      var bits = [];
+      if (pick.course) bits.push(pick.course);
+      if (pick.gameType) bits.push(pick.gameType);
+      if (pick.day) bits.push(pick.day);
+      subEl.textContent = bits.filter(Boolean).join(" · ");
+    }
+
+    // Check completion state
+    var completed = false;
+    try {
+      var raw = localStorage.getItem("mr-macs-arcade-daily-v1");
+      var dailyData = raw ? JSON.parse(raw) : {};
+      completed = !!(dailyData[today] && dailyData[today].completed);
+    } catch (e) {}
+
+    if (ctaEl) {
+      if (completed) {
+        ctaEl.classList.add("is-done");
+        ctaEl.querySelector("span").textContent = "★ Played — Replay";
+      } else {
+        ctaEl.classList.remove("is-done");
+        var label = ctaEl.querySelector("span");
+        if (label) label.textContent = "Take the Challenge";
+      }
+      ctaEl.onclick = function () {
+        // Mark as played on click (any open counts; reward fires at game completion if game emits it)
+        try {
+          var data = JSON.parse(localStorage.getItem("mr-macs-arcade-daily-v1") || "{}");
+          if (!data[today]) {
+            data[today] = { gameId: pick.id, openedAt: Date.now(), completed: false };
+            localStorage.setItem("mr-macs-arcade-daily-v1", JSON.stringify(data));
+            if (window.MrMacsProfile) window.MrMacsProfile.addShards(50, "daily-challenge");
+            data[today].completed = true;
+            localStorage.setItem("mr-macs-arcade-daily-v1", JSON.stringify(data));
+          }
+        } catch (e) {}
+        // Open the game using the existing openGame() if available
+        if (typeof openGame === "function") openGame(pick);
+        else if (pick.file) location.href = pick.file;
+      };
+    }
+    if (statusEl) {
+      statusEl.classList.toggle("is-done", completed);
+      statusEl.textContent = completed ? "Completed today · +50 shards" : "Resets at midnight UTC";
+    }
+    band.hidden = false;
+  }
+
+  // ---- Continue rail ----
+  function renderContinue() {
+    var band = document.getElementById("continue");
+    var rail = document.getElementById("continueRail");
+    if (!band || !rail || !window.MrMacsProfile) return;
+    var recent = window.MrMacsProfile.getRecent(8);
+    if (!recent || !recent.length) {
+      band.hidden = true;
+      return;
+    }
+    rail.innerHTML = recent.map(function (entry) {
+      var when = "";
+      if (entry.ts) {
+        var diff = Date.now() - entry.ts;
+        var min = Math.floor(diff / 60000);
+        var hour = Math.floor(min / 60);
+        var day = Math.floor(hour / 24);
+        if (day > 0) when = day + "d ago";
+        else if (hour > 0) when = hour + "h ago";
+        else if (min > 0) when = min + "m ago";
+        else when = "just now";
+      }
+      var safe = function (v) { return String(v || "").replace(/[<>&"]/g, function (c) {
+        return c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;";
+      }); };
+      return '<button class="continue-card" type="button" data-id="' + safe(entry.id) +
+        '" data-file="' + safe(entry.file) + '" role="listitem">' +
+        '<span class="cc-kicker">' + safe(entry.course || "Mr. Mac’s Arcade") + '</span>' +
+        '<span class="cc-title">' + safe(entry.title) + '</span>' +
+        '<span class="cc-meta"><span>' + when + '</span><span class="cc-arrow">→</span></span>' +
+      '</button>';
+    }).join("");
+    Array.prototype.forEach.call(rail.querySelectorAll(".continue-card"), function (card) {
+      card.addEventListener("click", function () {
+        var id = card.dataset.id;
+        var match = (GAMES || []).find(function (g) { return g.id === id; });
+        if (match && typeof openGame === "function") openGame(match);
+        else if (card.dataset.file) location.href = card.dataset.file;
+      });
+    });
+    band.hidden = false;
+  }
+
+  // ---- Random button ----
+  function wireRandom() {
+    var btn = document.getElementById("libraryRandom");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      if (!GAMES || !GAMES.length) return;
+      // Try to pick from currently filtered games if state is exposed; else any
+      var pool = GAMES;
+      try {
+        if (typeof filteredGames === "function") {
+          var f = filteredGames();
+          if (f && f.length) pool = f;
+        }
+      } catch (e) {}
+      var pick = pool[Math.floor(Math.random() * pool.length)];
+      if (!pick) return;
+      // Brief visual feedback
+      btn.classList.add("is-rolling");
+      setTimeout(function () { btn.classList.remove("is-rolling"); }, 350);
+      if (typeof openGame === "function") openGame(pick);
+      else if (pick.file) location.href = pick.file;
+    });
+  }
+
+  // ---- Topic chips ----
+  function renderTopicChips() {
+    var bar = document.getElementById("topicChips");
+    if (!bar || !GAMES || !GAMES.length) return;
+    // Pick 7-9 most-common short tags / category fragments across the library
+    var counts = {};
+    GAMES.forEach(function (g) {
+      var tags = (g.tags || []).concat(g.categories || []);
+      tags.forEach(function (t) {
+        if (!t) return;
+        // Keep concise topics (≤ 22 chars), drop the catch-all ones
+        var s = String(t).trim();
+        if (s.length > 22) return;
+        if (/^all|^solo|^team|^practice|^review|^cumulative$/i.test(s)) return;
+        counts[s] = (counts[s] || 0) + 1;
+      });
+    });
+    var sorted = Object.keys(counts).map(function (k) { return [k, counts[k]]; })
+      .sort(function (a, b) { return b[1] - a[1]; })
+      .slice(0, 9);
+    if (!sorted.length) return;
+    bar.innerHTML = sorted.map(function (entry) {
+      var label = entry[0];
+      var count = entry[1];
+      var safe = label.replace(/[<>&"]/g, function (c) {
+        return c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;";
+      });
+      return '<button type="button" class="topic-chip" data-topic="' + safe + '" aria-pressed="false">' +
+        '<span>' + safe + '</span><span class="topic-chip-count">' + count + '</span></button>';
+    }).join("");
+    var searchEl = document.getElementById("search");
+    Array.prototype.forEach.call(bar.querySelectorAll(".topic-chip"), function (chip) {
+      chip.addEventListener("click", function () {
+        // Toggle: pressed chip writes its label into the search box; pressing
+        // the active chip clears.
+        var pressed = chip.getAttribute("aria-pressed") === "true";
+        bar.querySelectorAll(".topic-chip").forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+        if (pressed) {
+          if (searchEl) { searchEl.value = ""; searchEl.dispatchEvent(new Event("input", { bubbles: true })); }
+        } else {
+          chip.setAttribute("aria-pressed", "true");
+          if (searchEl) {
+            searchEl.value = chip.dataset.topic;
+            searchEl.dispatchEvent(new Event("input", { bubbles: true }));
+            // Smooth scroll to library
+            var lib = document.getElementById("library");
+            if (lib) lib.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      });
+    });
+    bar.hidden = false;
+  }
+
+  // ---- Wire everything once GAMES is ready ----
+  whenGamesReady().then(function () {
+    renderDaily();
+    renderContinue();
+    wireRandom();
+    renderTopicChips();
+    // Keep the continue rail in sync with profile updates
+    if (window.MrMacsProfile) {
+      window.MrMacsProfile.on("profile:update", renderContinue);
+    }
+  });
 })();
 </script>
 </body>
