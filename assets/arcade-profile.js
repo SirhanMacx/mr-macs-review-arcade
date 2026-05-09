@@ -45,7 +45,9 @@
 (function () {
   "use strict";
 
-  var STORAGE_KEY = "mr-macs-arcade-profile-v1";
+  var STORAGE_KEY = "mr-macs-arcade-profile-v1";  // legacy single-profile key (read-only after migration)
+  var ROSTER_KEY = "mr-macs-arcade-roster-v1";    // roster: { activeId, profiles: { [id]: profile } }
+  var DEFAULT_PROFILE_ID = "p_default";
   var EVENT_TARGET = (typeof window !== "undefined" && window) ? new EventTarget() : null;
 
   // ============== Achievement registry (seeded; each game adds via unlock()) ==============
@@ -207,6 +209,9 @@
       // Phase 7 — completed cram playlists / diagnostic results
       cramHistory: [],     // [{ course, completedAt, results: {...} }]
       diagnostic: null,    // { takenAt, results: {course: weakUnits[]}, recommendation }
+      // Phase 7 — full-length Mock Exam history (cap 10). Each entry:
+      // { course, total, correct, count, durationMs, takenAt, weakUnits: [...] }
+      mockExams: [],
       shards: 0,
       totalShardsEarned: 0,
       achievements: {},
@@ -221,30 +226,89 @@
     try { return JSON.parse(JSON.stringify(value)); } catch (e) { return value; }
   }
 
-  function read() {
-    var raw = null;
-    try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) { return defaultProfile(); }
-    if (!raw) return defaultProfile();
-    try {
-      var parsed = JSON.parse(raw);
-      // Migration: ensure all expected keys exist
-      var p = defaultProfile();
-      if (parsed && typeof parsed === "object") {
-        Object.keys(p).forEach(function (k) {
-          if (parsed[k] !== undefined) p[k] = parsed[k];
-        });
-        // Settings deep-merge
-        p.settings = Object.assign({}, DEFAULT_SETTINGS, parsed.settings || {});
-        // Streak deep-merge
-        p.streak = Object.assign({ current: 0, best: 0, lastDay: "" }, parsed.streak || {});
-      }
-      return p;
-    } catch (e) { return defaultProfile(); }
+  // Generate a small URL-safe profile id. Local-only, collision risk
+  // is irrelevant given typical profile counts (1-10).
+  function generateProfileId() {
+    return "p_" + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-4);
   }
 
+  // Hydrate a raw profile blob into a full default-shaped profile so
+  // older saves still expose every key the current code expects.
+  function hydrateProfile(parsed) {
+    var p = defaultProfile();
+    if (parsed && typeof parsed === "object") {
+      Object.keys(p).forEach(function (k) {
+        if (parsed[k] !== undefined) p[k] = parsed[k];
+      });
+      p.settings = Object.assign({}, DEFAULT_SETTINGS, parsed.settings || {});
+      p.streak = Object.assign({ current: 0, best: 0, lastDay: "" }, parsed.streak || {});
+    }
+    return p;
+  }
+
+  // Read the full roster (with active-profile pointer + all profile
+  // slots) from localStorage. Migrates the legacy single-profile key
+  // on first read post-multi-profile rollout. Returns a fresh
+  // single-default roster if nothing's stored yet.
+  function readRoster() {
+    var raw = null;
+    try { raw = localStorage.getItem(ROSTER_KEY); } catch (e) { return null; }
+    if (raw) {
+      try {
+        var parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object" && parsed.profiles) {
+          // Hydrate every profile slot through the migration path
+          Object.keys(parsed.profiles).forEach(function (id) {
+            parsed.profiles[id] = hydrateProfile(parsed.profiles[id]);
+          });
+          if (!parsed.activeId || !parsed.profiles[parsed.activeId]) {
+            parsed.activeId = Object.keys(parsed.profiles)[0] || DEFAULT_PROFILE_ID;
+          }
+          return parsed;
+        }
+      } catch (e) { /* fall through to legacy migration */ }
+    }
+    // No roster stored — try to migrate from the legacy single-key
+    var legacy = null;
+    try { legacy = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+    var roster;
+    if (legacy) {
+      try {
+        var legacyParsed = JSON.parse(legacy);
+        var legacyProfile = hydrateProfile(legacyParsed);
+        roster = {
+          activeId: DEFAULT_PROFILE_ID,
+          profiles: {}
+        };
+        roster.profiles[DEFAULT_PROFILE_ID] = legacyProfile;
+        // Persist the migrated roster so subsequent reads skip this path
+        try { localStorage.setItem(ROSTER_KEY, JSON.stringify(roster)); } catch (e) {}
+        return roster;
+      } catch (e) { /* fall through */ }
+    }
+    // Truly fresh device — start with a single empty profile slot
+    roster = { activeId: DEFAULT_PROFILE_ID, profiles: {} };
+    roster.profiles[DEFAULT_PROFILE_ID] = defaultProfile();
+    return roster;
+  }
+
+  function writeRoster(roster) {
+    try { localStorage.setItem(ROSTER_KEY, JSON.stringify(roster)); } catch (e) {}
+  }
+
+  // Read the ACTIVE profile. Existing API methods all flow through
+  // this so the multi-profile refactor is transparent — every method
+  // operates on the active slot.
+  function read() {
+    var roster = readRoster();
+    return clone(roster.profiles[roster.activeId] || defaultProfile());
+  }
+
+  // Write the ACTIVE profile back to its roster slot.
   function write(p) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
-    catch (e) {}
+    var roster = readRoster();
+    roster.profiles[roster.activeId] = p;
+    writeRoster(roster);
   }
 
   function emit(name, detail) {
@@ -727,6 +791,27 @@
     },
     getDiagnostic: function () { return clone(read().diagnostic || null); },
 
+    // ---- Phase 7: Mock Exam history ----
+    // recordMockExam(meta) — append a completed full-length exam.
+    // Expected meta keys: course, total, correct, count, durationMs,
+    // takenAt, weakUnits. Caps the buffer at the last 10 runs so the
+    // profile blob stays small; oldest entries fall off the end.
+    recordMockExam: function (meta) {
+      var p = read();
+      p.mockExams = p.mockExams || [];
+      var entry = Object.assign({ takenAt: Date.now() }, meta || {});
+      p.mockExams.unshift(entry);
+      if (p.mockExams.length > 10) p.mockExams.length = 10;
+      write(p);
+      emit("profile:update", { profile: clone(p) });
+      return clone(entry);
+    },
+    getMockExamHistory: function (limit) {
+      var p = read();
+      var n = Number(limit) || 10;
+      return clone((p.mockExams || []).slice(0, n));
+    },
+
     // ---- Settings ----
     getSettings: function () { return clone(read().settings || DEFAULT_SETTINGS); },
     setSettings: function (partial) {
@@ -747,6 +832,98 @@
     off: function (name, handler) {
       if (!EVENT_TARGET) return;
       EVENT_TARGET.removeEventListener(name, handler);
+    },
+
+    // ---- Multi-profile roster (May 2026) ----
+    // Supports multiple students sharing a single device. Each profile
+    // is fully isolated (own shards / achievements / settings / course
+    // / streak / etc.) — every existing API method operates on the
+    // ACTIVE profile. The roster pointer + profile slots all live in
+    // a single localStorage key so switching is atomic.
+    roster: {
+      // List all profiles as compact summaries. Sorts active first.
+      list: function () {
+        var roster = readRoster();
+        var ids = Object.keys(roster.profiles);
+        return ids.map(function (id) {
+          var prof = roster.profiles[id];
+          return {
+            id: id,
+            isActive: id === roster.activeId,
+            name: prof.name || "(unnamed)",
+            avatar: prof.avatar || "🎓",
+            avatarKind: prof.avatarKind || "emoji",
+            course: prof.course || "",
+            shards: prof.shards || 0,
+            streak: (prof.streak && prof.streak.current) || 0,
+            lastVisit: prof.lastVisit || 0,
+            createdAt: prof.createdAt || 0
+          };
+        }).sort(function (a, b) {
+          if (a.isActive !== b.isActive) return a.isActive ? -1 : 1;
+          return (b.lastVisit || 0) - (a.lastVisit || 0);
+        });
+      },
+      // Currently-active profile id.
+      getActiveId: function () { return readRoster().activeId; },
+      // Create a new empty profile and switch to it. Returns the id.
+      // Optional opts: { name, avatar, course } seeds those fields.
+      create: function (opts) {
+        opts = opts || {};
+        var roster = readRoster();
+        var id = generateProfileId();
+        var fresh = defaultProfile();
+        if (opts.name) fresh.name = String(opts.name).trim().slice(0, 24);
+        if (opts.avatar) fresh.avatar = opts.avatar;
+        if (opts.course) fresh.course = String(opts.course).trim();
+        // If a name was provided, treat this as a real created profile
+        if (fresh.name) fresh.createdAt = Date.now();
+        roster.profiles[id] = fresh;
+        roster.activeId = id;
+        writeRoster(roster);
+        emit("roster:change", { activeId: id, list: API.roster.list() });
+        emit("profile:update", { profile: clone(fresh) });
+        return id;
+      },
+      // Switch the active profile. Returns true on success.
+      switch: function (id) {
+        var roster = readRoster();
+        if (!roster.profiles[id]) return false;
+        if (roster.activeId === id) return true;
+        roster.activeId = id;
+        writeRoster(roster);
+        emit("roster:change", { activeId: id, list: API.roster.list() });
+        emit("profile:update", { profile: clone(roster.profiles[id]) });
+        return true;
+      },
+      // Remove a profile slot. Refuses to delete the active one (caller
+      // must switch first). Returns true on success.
+      remove: function (id) {
+        var roster = readRoster();
+        if (!roster.profiles[id]) return false;
+        if (roster.activeId === id) return false; // can't delete active
+        delete roster.profiles[id];
+        writeRoster(roster);
+        emit("roster:change", { activeId: roster.activeId, list: API.roster.list() });
+        return true;
+      },
+      // Rename a profile (used by drawer name editor — operates on any
+      // slot, not just active).
+      rename: function (id, newName) {
+        var roster = readRoster();
+        if (!roster.profiles[id]) return false;
+        roster.profiles[id].name = String(newName || "").trim().slice(0, 24);
+        writeRoster(roster);
+        emit("roster:change", { activeId: roster.activeId, list: API.roster.list() });
+        if (id === roster.activeId) {
+          emit("profile:update", { profile: clone(roster.profiles[id]) });
+        }
+        return true;
+      },
+      // Total count.
+      count: function () {
+        return Object.keys(readRoster().profiles).length;
+      }
     }
   };
 

@@ -4157,6 +4157,184 @@ body {
   outline: none;
 }
 .pd-name-input:focus { border-color: var(--cyan, #7af0ff); }
+
+/* Profile roster pill — opens the multi-profile switcher */
+.pd-roster-pill {
+  margin-top: 10px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, rgba(184, 146, 255, .08), rgba(122, 240, 255, .04));
+  border: 1px solid rgba(184, 146, 255, .35);
+  border-radius: 999px;
+  color: var(--paper);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  transition: transform .2s, border-color .2s, background .2s;
+}
+.pd-roster-pill:hover, .pd-roster-pill:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(184, 146, 255, .65);
+  background: linear-gradient(135deg, rgba(184, 146, 255, .14), rgba(122, 240, 255, .08));
+  outline: none;
+}
+.pd-roster-emoji { font-size: 18px; line-height: 1; }
+.pd-roster-text { display: inline-flex; flex-direction: column; gap: 1px; min-width: 0; }
+.pd-roster-active {
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 540;
+  font-size: 13px;
+  color: var(--paper);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pd-roster-hint {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+}
+.pd-roster-arrow {
+  color: #b892ff;
+  font-size: 14px;
+  transition: transform .2s;
+}
+.pd-roster-pill:hover .pd-roster-arrow { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) {
+  .pd-roster-pill { transition: none; }
+  .pd-roster-pill:hover { transform: none; }
+  .pd-roster-pill:hover .pd-roster-arrow { transform: none; }
+}
+
+/* Roster picker overlay */
+.roster-overlay {
+  position: fixed; inset: 0;
+  z-index: 9900;
+  display: grid; place-items: center;
+  background: rgba(3, 5, 12, .78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 24px;
+}
+.roster-overlay[hidden] { display: none; }
+.roster-card {
+  width: min(440px, 100%);
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 22px 22px 16px;
+  background: linear-gradient(180deg, rgba(13, 17, 27, .98), rgba(8, 11, 20, 1));
+  border: 1px solid rgba(184, 146, 255, .35);
+  border-radius: 18px;
+  color: var(--paper);
+  box-shadow: 0 28px 70px rgba(0,0,0,.55);
+}
+.roster-card h3 {
+  margin: 0 0 4px;
+  font-family: "Fraunces", serif;
+  font-weight: 540; font-style: italic;
+  font-size: 22px;
+}
+.roster-card .roster-sub {
+  margin: 0 0 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+}
+.roster-list {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-bottom: 14px;
+}
+.roster-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, .02);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  color: var(--paper);
+  text-align: left;
+  font: inherit;
+}
+.roster-item.is-active {
+  background: linear-gradient(135deg, rgba(184, 146, 255, .14), rgba(122, 240, 255, .04));
+  border-color: rgba(184, 146, 255, .55);
+}
+.roster-item-avatar { font-size: 24px; line-height: 1; }
+.roster-item-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.roster-item-name {
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 540;
+  font-size: 15px;
+  color: var(--paper);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.roster-item-sub {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .04em;
+  color: var(--muted, #9aa3bb);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.roster-switch-btn,
+.roster-delete-btn {
+  padding: 6px 10px;
+  font: 700 10.5px/1 "Inter", sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.roster-switch-btn {
+  background: rgba(184, 146, 255, .14);
+  border: 1px solid rgba(184, 146, 255, .42);
+  color: #b892ff;
+}
+.roster-switch-btn:hover { background: rgba(184, 146, 255, .26); border-color: rgba(184, 146, 255, .65); }
+.roster-delete-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 102, 125, .26);
+  color: rgba(255, 102, 125, .7);
+}
+.roster-delete-btn:hover { background: rgba(255, 102, 125, .14); border-color: rgba(255, 102, 125, .55); color: #ff667d; }
+.roster-item.is-active .roster-switch-btn,
+.roster-item.is-active .roster-delete-btn { display: none; }
+.roster-item.is-active::after {
+  content: "active";
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: #b892ff;
+  padding: 4px 8px;
+  border: 1px solid rgba(184, 146, 255, .35);
+  border-radius: 999px;
+}
+.roster-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.roster-add-btn,
+.roster-cancel-btn {
+  flex: 1;
+  padding: 11px 14px;
+  font: 700 12px/1 "Inter", sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.roster-add-btn {
+  background: linear-gradient(135deg, rgba(184, 146, 255, .92), rgba(255, 124, 200, .92));
+  border: 1px solid rgba(184, 146, 255, .65);
+  color: #14102a;
+  box-shadow: 0 8px 22px rgba(184, 146, 255, .22);
+}
+.roster-add-btn:hover { transform: translateY(-1px); }
+.roster-cancel-btn {
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid var(--line-2);
+  color: var(--paper);
+}
+.roster-cancel-btn:hover { background: rgba(255, 255, 255, .10); }
 .pd-name-save {
   height: 36px; padding: 0 14px;
   border-radius: 8px;
@@ -5262,10 +5440,11 @@ body {
 }
 .routing-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 14px;
   margin-top: clamp(20px, 3vh, 32px);
 }
+@media (max-width: 1320px) { .routing-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 1100px) { .routing-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px)  { .routing-grid { grid-template-columns: 1fr; } }
 .routing-card {
@@ -5626,6 +5805,262 @@ body {
   box-shadow: 0 12px 28px rgba(245, 196, 81, .28);
 }
 
+/* Mock Exam — setup form, exam HUD, score report */
+.mock-setup {
+  display: grid; gap: 18px;
+  font-family: "Inter", sans-serif;
+}
+.mock-setup .ms-row {
+  display: grid; gap: 8px;
+}
+.mock-setup .ms-label {
+  font: 700 11px/1 "JetBrains Mono", monospace;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255, 167, 94, .9);
+}
+.mock-setup .ms-help {
+  font-size: 12px; color: var(--muted, #9aa3bb); line-height: 1.45;
+}
+.mock-setup select.ms-course {
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(13, 17, 27, .8);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 10px;
+  color: var(--paper);
+  font: 600 14px/1.4 "Inter", sans-serif;
+}
+.mock-setup select.ms-course:focus {
+  outline: none;
+  border-color: rgba(255, 167, 94, .55);
+}
+.mock-setup .ms-pills {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.mock-setup .ms-pill {
+  padding: 9px 14px;
+  background: rgba(13, 17, 27, .65);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 999px;
+  color: var(--paper);
+  font: 700 12px/1 "Inter", sans-serif;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: transform .18s, border-color .18s, background .18s;
+}
+.mock-setup .ms-pill:hover { transform: translateY(-1px); border-color: rgba(255,167,94,.55); }
+.mock-setup .ms-pill.is-active {
+  background: linear-gradient(135deg, rgba(255, 167, 94, .92), rgba(255, 142, 111, .92));
+  color: #14100a;
+  border-color: rgba(255, 167, 94, .65);
+  box-shadow: 0 8px 22px rgba(255, 167, 94, .22);
+}
+.mock-setup .ms-start {
+  width: 100%;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(255, 167, 94, .96), rgba(255, 142, 111, .96));
+  border: 1px solid rgba(255, 167, 94, .65);
+  border-radius: 12px;
+  color: #14100a;
+  font: 700 14px/1 "Inter", sans-serif;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(255, 167, 94, .25);
+  transition: transform .2s;
+}
+.mock-setup .ms-start:hover { transform: translateY(-1px); }
+.mock-hud {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.mock-hud .mh-label {
+  font: 700 10.5px/1 "JetBrains Mono", monospace;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+}
+.mock-hud .mh-timer {
+  font: 700 14px/1 "JetBrains Mono", monospace;
+  letter-spacing: .04em;
+  color: rgba(255, 167, 94, .96);
+  font-variant-numeric: tabular-nums;
+  padding: 6px 10px;
+  background: rgba(13, 17, 27, .65);
+  border: 1px solid rgba(255, 167, 94, .28);
+  border-radius: 8px;
+}
+.mock-hud .mh-timer.is-low {
+  color: #ff8e6f;
+  border-color: rgba(255, 142, 111, .55);
+  animation: mockTimerPulse 1.1s ease-in-out infinite;
+}
+@keyframes mockTimerPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 142, 111, 0); }
+  50%      { box-shadow: 0 0 0 5px rgba(255, 142, 111, .14); }
+}
+@media (prefers-reduced-motion: reduce) { .mock-hud .mh-timer.is-low { animation: none; } }
+.mock-skip {
+  margin-top: 10px;
+  text-align: right;
+}
+.mock-skip button {
+  padding: 6px 10px;
+  background: transparent;
+  border: 0;
+  color: var(--muted, #9aa3bb);
+  font: 600 12px/1 "Inter", sans-serif;
+  cursor: pointer;
+  text-decoration: underline dotted;
+}
+.mock-skip button:hover { color: var(--paper); }
+.mock-submit {
+  margin-top: 14px;
+  width: 100%;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(255, 167, 94, .92), rgba(255, 142, 111, .92));
+  border: 1px solid rgba(255, 167, 94, .65);
+  border-radius: 10px;
+  color: #14100a;
+  font: 700 13px/1 "Inter", sans-serif;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform .18s, opacity .18s;
+}
+.mock-submit:hover:not(:disabled) { transform: translateY(-1px); }
+.mock-submit:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+.mock-feedback {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font: 600 13px/1.4 "Inter", sans-serif;
+}
+.mock-feedback.is-correct {
+  background: rgba(105, 240, 170, .10);
+  border: 1px solid rgba(105, 240, 170, .55);
+  color: #b8f5d6;
+}
+.mock-feedback.is-wrong {
+  background: rgba(255, 142, 111, .10);
+  border: 1px solid rgba(255, 142, 111, .55);
+  color: #ffc6b3;
+}
+.mock-report {
+  display: grid; gap: 16px;
+}
+.mock-report .mr-score {
+  text-align: center;
+  padding: 18px 14px;
+  background: linear-gradient(180deg, rgba(255, 167, 94, .10), rgba(13, 17, 27, .55));
+  border: 1px solid rgba(255, 167, 94, .35);
+  border-radius: 14px;
+}
+.mock-report .mr-score .big {
+  font-family: "Fraunces", serif;
+  font-weight: 540; font-style: italic;
+  font-size: 36px;
+  color: var(--paper);
+  letter-spacing: .01em;
+}
+.mock-report .mr-score .pct {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: rgba(255, 167, 94, .96);
+  margin-top: 4px;
+  letter-spacing: .08em;
+}
+.mock-report .mr-score .meta {
+  font-size: 12px;
+  color: var(--muted, #9aa3bb);
+  margin-top: 8px;
+}
+.mock-report .mr-section-head {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+  margin-bottom: 8px;
+}
+.mock-report .mr-unit-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 12px;
+  background: rgba(13, 17, 27, .55);
+  border: 1px solid var(--line, rgba(255,255,255,.08));
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+.mock-report .mr-unit-row .u-name {
+  font: 600 13px/1.3 "Inter", sans-serif;
+  color: var(--paper);
+}
+.mock-report .mr-unit-row .u-score {
+  font: 700 11px/1 "JetBrains Mono", monospace;
+  color: var(--muted, #9aa3bb);
+  font-variant-numeric: tabular-nums;
+}
+.mock-report .mr-weak {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  background: rgba(255, 142, 111, .10);
+  border: 1px solid rgba(255, 142, 111, .45);
+  border-radius: 12px;
+  color: var(--paper);
+  font: 600 13px/1.4 "Inter", sans-serif;
+  cursor: pointer;
+  margin-bottom: 6px;
+  transition: transform .18s, background .18s;
+}
+.mock-report .mr-weak:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 142, 111, .18);
+}
+.mock-report .mr-weak strong {
+  font-family: "Fraunces", serif;
+  font-weight: 540; font-style: italic;
+  font-size: 14px;
+  display: block;
+}
+.mock-report .mr-weak span {
+  font: 500 12px/1.3 "Inter", sans-serif;
+  color: var(--muted, #9aa3bb);
+  margin-top: 3px;
+  display: block;
+}
+.mock-report .mr-actions {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;
+}
+.mock-report .mr-actions button {
+  flex: 1;
+  min-width: 130px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font: 700 12px/1 "Inter", sans-serif;
+  letter-spacing: .04em;
+  cursor: pointer;
+}
+.mock-report .mr-actions .mr-again {
+  background: linear-gradient(135deg, rgba(255, 167, 94, .92), rgba(255, 142, 111, .92));
+  color: #14100a;
+  border: 1px solid rgba(255, 167, 94, .65);
+}
+.mock-report .mr-actions .mr-done {
+  background: rgba(255,255,255,.04);
+  color: var(--paper);
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+}
+.mock-report .mr-actions .mr-again:hover { transform: translateY(-1px); }
+.mock-report .mr-actions .mr-done:hover { background: rgba(255,255,255,.10); }
+
 /* Drill mode — active retrieval flashcards */
 .wq-drill-stem {
   margin: 14px 0 18px;
@@ -5853,15 +6288,17 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 .daily-icon .ic[data-icon="mind"]    { color: #c9b8ff; }
 .daily-icon .ic[data-icon="swords"]  { color: #7af0ff; }
 .ach-icon .ic         { width: 22px; height: 22px; color: currentColor; }
-/* Per-routing-card tint (cyan diagnostic, gold mastery, coral wrong-queue, indigo cram) */
+/* Per-routing-card tint (cyan diagnostic, gold mastery, coral wrong-queue, indigo cram, amber mock exam) */
 .routing-card#rcDiagnostic .ic  { color: #7af0ff; }
 .routing-card#rcMastery .ic     { color: #ffd884; }
 .routing-card#rcWrongQueue .ic  { color: #ff8e6f; }
 .routing-card#rcCram .ic        { color: #c9b8ff; }
+.routing-card#rcMockExam .ic    { color: #ffa75e; }
 .routing-card#rcDiagnostic { background: linear-gradient(180deg, rgba(122,240,255,.05), rgba(13,17,27,.65)); border-color: rgba(122,240,255,.22); }
 .routing-card#rcMastery    { background: linear-gradient(180deg, rgba(255,216,132,.05), rgba(13,17,27,.65)); border-color: rgba(255,216,132,.22); }
 .routing-card#rcWrongQueue { background: linear-gradient(180deg, rgba(255,142,111,.05), rgba(13,17,27,.65)); border-color: rgba(255,142,111,.22); }
 .routing-card#rcCram       { background: linear-gradient(180deg, rgba(201,184,255,.05), rgba(13,17,27,.65)); border-color: rgba(201,184,255,.22); }
+.routing-card#rcMockExam   { background: linear-gradient(180deg, rgba(255,167,94,.06), rgba(13,17,27,.65)); border-color: rgba(255,167,94,.26); }
 .routing-card .rc-icon { color: inherit; }
 /* Daily icon ambient pulse when the challenge is unfinished */
 .daily-card:not(.is-done) .daily-icon { animation: dailyIconPulse 4.6s ease-in-out infinite; }
@@ -6158,6 +6595,14 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
               <input type="text" class="pd-name-input" id="pdNameInput" maxlength="24" aria-label="Trainer name">
               <button class="pd-name-save" id="pdNameSave" type="button">Save</button>
             </div>
+            <button class="pd-roster-pill" id="pdRosterPill" type="button" aria-label="Switch profile">
+              <span class="pd-roster-emoji" aria-hidden="true">👥</span>
+              <span class="pd-roster-text">
+                <span class="pd-roster-active" id="pdRosterActive">1 profile</span>
+                <span class="pd-roster-hint">Switch · Add new</span>
+              </span>
+              <span class="pd-roster-arrow" aria-hidden="true">→</span>
+            </button>
             <div class="pd-tier" id="pdTier" aria-label="Player tier">
               <span class="pd-tier-badge" id="pdTierBadge">Apprentice</span>
               <span class="pd-tier-progress" aria-hidden="true"><span class="pd-tier-fill" id="pdTierFill" style="width:0%"></span></span>
@@ -6316,6 +6761,19 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     </div>
   </div>
 </aside>
+
+<!-- Multi-profile roster picker overlay -->
+<div class="roster-overlay" id="rosterOverlay" role="dialog" aria-modal="true" aria-label="Switch profile" hidden>
+  <div class="roster-card">
+    <h3>Trainer profiles</h3>
+    <p class="roster-sub">Multiple students sharing this device · each profile is fully separate</p>
+    <div class="roster-list" id="rosterList" role="list"></div>
+    <div class="roster-actions">
+      <button class="roster-add-btn" id="rosterAddBtn" type="button">+ Add new profile</button>
+      <button class="roster-cancel-btn" id="rosterCancelBtn" type="button">Close</button>
+    </div>
+  </div>
+</div>
 
 <header class="topbar">
   <div class="shell topbar-inner">
@@ -6526,6 +6984,11 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         <span class="rc-icon" aria-hidden="true">📚</span>
         <span class="rc-title">Cram Playlist</span>
         <span class="rc-sub" id="rcCramSub">Chain 4 games on a unit</span>
+      </button>
+      <button class="routing-card" id="rcMockExam" type="button">
+        <span class="rc-icon" aria-hidden="true">🏛️</span>
+        <span class="rc-title">Mock Exam</span>
+        <span class="rc-sub" id="rcMockExamSub">Full-length timed run</span>
       </button>
     </div>
   </section>
@@ -8953,6 +9416,103 @@ boot();
     if (e.key === "Enter") { e.preventDefault(); pdNameSave.click(); }
   });
 
+  // ---- Multi-profile roster picker ----
+  var pdRosterPill = document.getElementById("pdRosterPill");
+  var rosterOverlay = document.getElementById("rosterOverlay");
+  var rosterList = document.getElementById("rosterList");
+  var rosterAddBtn = document.getElementById("rosterAddBtn");
+  var rosterCancelBtn = document.getElementById("rosterCancelBtn");
+
+  function refreshRosterPill() {
+    if (!pdRosterPill || !P.roster) return;
+    var profiles = P.roster.list();
+    var active = profiles.find(function (p) { return p.isActive; });
+    var activeText = document.getElementById("pdRosterActive");
+    if (activeText) {
+      var label = active ? (active.name || "(unnamed)") : "1 profile";
+      var count = profiles.length;
+      activeText.textContent = label + (count > 1 ? " · " + count + " profiles" : " · 1 profile");
+    }
+  }
+  refreshRosterPill();
+
+  function renderRosterList() {
+    if (!rosterList || !P.roster) return;
+    var profiles = P.roster.list();
+    rosterList.innerHTML = profiles.map(function (p) {
+      var when = p.lastVisit
+        ? (function () {
+            var diff = Date.now() - p.lastVisit;
+            var min = Math.floor(diff / 60000);
+            var hour = Math.floor(min / 60);
+            var day = Math.floor(hour / 24);
+            if (day > 0) return day + "d ago";
+            if (hour > 0) return hour + "h ago";
+            if (min > 0) return min + "m ago";
+            return "just now";
+          })()
+        : "never";
+      var avatarStr = p.avatar || "🎓";
+      var sub = (p.shards.toLocaleString() + " shards · " + when);
+      var safe = function (v) { return String(v || "").replace(/[<>&"]/g, function (c) {
+        return c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;";
+      }); };
+      return '<div class="roster-item' + (p.isActive ? ' is-active' : '') + '" data-id="' + safe(p.id) + '">' +
+        '<span class="roster-item-avatar" aria-hidden="true">' + safe(avatarStr) + '</span>' +
+        '<span class="roster-item-meta">' +
+          '<span class="roster-item-name">' + safe(p.name) + '</span>' +
+          '<span class="roster-item-sub">' + safe(sub) + '</span>' +
+        '</span>' +
+        (p.isActive ? '' : '<button class="roster-switch-btn" type="button" data-action="switch" data-id="' + safe(p.id) + '">Switch</button>') +
+        (p.isActive ? '' : '<button class="roster-delete-btn" type="button" data-action="delete" data-id="' + safe(p.id) + '" aria-label="Delete profile">Delete</button>') +
+      '</div>';
+    }).join("");
+  }
+
+  function openRosterPicker() {
+    if (!rosterOverlay) return;
+    renderRosterList();
+    rosterOverlay.hidden = false;
+  }
+  function closeRosterPicker() {
+    if (rosterOverlay) rosterOverlay.hidden = true;
+  }
+  if (pdRosterPill) pdRosterPill.addEventListener("click", openRosterPicker);
+  if (rosterCancelBtn) rosterCancelBtn.addEventListener("click", closeRosterPicker);
+  if (rosterOverlay) rosterOverlay.addEventListener("click", function (e) {
+    if (e.target === rosterOverlay) closeRosterPicker();
+  });
+  if (rosterList) rosterList.addEventListener("click", function (e) {
+    var btn = e.target.closest && e.target.closest("button[data-action]");
+    if (!btn) return;
+    var action = btn.dataset.action;
+    var id = btn.dataset.id;
+    if (action === "switch") {
+      if (P.roster.switch(id)) {
+        // Reload so every UI surface picks up the new active profile.
+        location.reload();
+      }
+    } else if (action === "delete") {
+      var p = P.roster.list().find(function (x) { return x.id === id; });
+      if (!p) return;
+      if (confirm("Delete profile '" + (p.name || "(unnamed)") + "'? This cannot be undone.")) {
+        P.roster.remove(id);
+        renderRosterList();
+        refreshRosterPill();
+      }
+    }
+  });
+  if (rosterAddBtn) rosterAddBtn.addEventListener("click", function () {
+    var name = (prompt("Name for the new trainer profile:") || "").trim();
+    if (!name) return;
+    P.roster.create({ name: name });
+    closeRosterPicker();
+    location.reload(); // refresh UI for new active profile
+  });
+  // Refresh the roster pill any time the active profile changes
+  P.on("roster:change", refreshRosterPill);
+  P.on("profile:update", refreshRosterPill);
+
   // Settings inputs
   var setSound = document.getElementById("setSound");
   var setMusic = document.getElementById("setMusic");
@@ -10688,6 +11248,439 @@ boot();
     P.recordCramRun({ course: course, picks: picks.map(function (g) { return g.id; }) });
   }
 
+  // ---- Mock Exam ----
+  // Full-length, timed, scored MCQ simulation. Pulls from the same
+  // DIAG_BANK_BY_COURSE pool as the diagnostic, but draws N questions
+  // (10/20/30) from the chosen course (alias-aware) and runs a single
+  // timer for the whole session. Each answered question still flows
+  // through P.recordAnswer so topic stats + wrong-queue + the
+  // first-correct achievement keep updating normally.
+  //
+  // State lives entirely inside a closure created by startMockExam(opts)
+  // — every new attempt allocates fresh state, so re-takes don't
+  // inherit the previous run's idx, results, or timer.
+  var mockTimerHandle = null;
+  function clearMockTimer() {
+    if (mockTimerHandle) {
+      try { clearInterval(mockTimerHandle); } catch (e) {}
+      mockTimerHandle = null;
+    }
+  }
+
+  function mockShuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function mockPoolForCourse(courseName) {
+    if (!courseName) return [];
+    if (DIAG_BANK_BY_COURSE[courseName]) {
+      return DIAG_BANK_BY_COURSE[courseName].map(function (q) {
+        return Object.assign({ course: courseName }, q);
+      });
+    }
+    var aliasList = COURSE_BANK_ALIASES[courseName];
+    if (!aliasList) return [];
+    var combined = [];
+    aliasList.forEach(function (aliasCourse) {
+      if (!DIAG_BANK_BY_COURSE[aliasCourse]) return;
+      DIAG_BANK_BY_COURSE[aliasCourse].forEach(function (q) {
+        combined.push(Object.assign({ course: aliasCourse }, q));
+      });
+    });
+    return combined;
+  }
+
+  function formatMMSS(ms) {
+    if (ms < 0) ms = 0;
+    var totalSec = Math.ceil(ms / 1000);
+    var m = Math.floor(totalSec / 60);
+    var s = totalSec % 60;
+    return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  function showMockExamSetup() {
+    // Reset any leftover timer from a previously interrupted attempt.
+    clearMockTimer();
+    var courseKeys = Object.keys(DIAG_BANK_BY_COURSE);
+    // Include alias courses (e.g. AP Macro/Micro Combined) too, so
+    // students enrolled there can still launch a mock exam.
+    Object.keys(COURSE_BANK_ALIASES).forEach(function (aliasName) {
+      if (courseKeys.indexOf(aliasName) === -1) courseKeys.push(aliasName);
+    });
+    courseKeys.sort();
+    var enrolled = (P && P.getCourse) ? P.getCourse() : "";
+    var defaultCourse = (enrolled && courseKeys.indexOf(enrolled) !== -1) ? enrolled : courseKeys[0];
+    var courseOptions = courseKeys.map(function (c) {
+      var sel = (c === defaultCourse) ? ' selected' : '';
+      return '<option value="' + safeHTML(c) + '"' + sel + '>' + safeHTML(c) + '</option>';
+    }).join("");
+
+    var html =
+      '<div class="mock-setup">' +
+        '<div class="ms-row">' +
+          '<span class="ms-label">Course</span>' +
+          '<select class="ms-course" id="mockCourse">' + courseOptions + '</select>' +
+        '</div>' +
+        '<div class="ms-row">' +
+          '<span class="ms-label">Question count</span>' +
+          '<div class="ms-pills" id="mockCount">' +
+            '<button class="ms-pill" data-val="10" type="button">10</button>' +
+            '<button class="ms-pill is-active" data-val="20" type="button">20</button>' +
+            '<button class="ms-pill" data-val="30" type="button">30</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="ms-row">' +
+          '<span class="ms-label">Timed</span>' +
+          '<div class="ms-pills" id="mockTimed">' +
+            '<button class="ms-pill" data-val="off" type="button">Off</button>' +
+            '<button class="ms-pill is-active" data-val="on" type="button">On</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="ms-row" id="mockLimitRow">' +
+          '<span class="ms-label">Time limit</span>' +
+          '<div class="ms-pills" id="mockLimit">' +
+            '<button class="ms-pill" data-val="15" type="button">15 min</button>' +
+            '<button class="ms-pill is-active" data-val="30" type="button">30 min</button>' +
+            '<button class="ms-pill" data-val="45" type="button">45 min</button>' +
+            '<button class="ms-pill" data-val="60" type="button">60 min</button>' +
+          '</div>' +
+          '<span class="ms-help">~1.5 min/question. Auto-submits when the clock hits zero.</span>' +
+        '</div>' +
+        '<button class="ms-start" id="mockStart" type="button">Start exam</button>' +
+      '</div>';
+    openModal("Mock Exam — set up your run", html);
+
+    var countGroup = document.getElementById("mockCount");
+    var timedGroup = document.getElementById("mockTimed");
+    var limitGroup = document.getElementById("mockLimit");
+    var limitRow = document.getElementById("mockLimitRow");
+
+    function wirePills(group) {
+      Array.prototype.forEach.call(group.querySelectorAll(".ms-pill"), function (b) {
+        b.addEventListener("click", function () {
+          group.querySelectorAll(".ms-pill").forEach(function (x) { x.classList.remove("is-active"); });
+          b.classList.add("is-active");
+          // Adapt the default time limit to the chosen question count
+          // (1.5 min/q): 10 → 15, 20 → 30, 30 → 45.
+          if (group === countGroup) {
+            var n = Number(b.dataset.val);
+            var defaultLimit = n === 10 ? "15" : n === 30 ? "45" : "30";
+            limitGroup.querySelectorAll(".ms-pill").forEach(function (x) {
+              x.classList.toggle("is-active", x.dataset.val === defaultLimit);
+            });
+          }
+          // Toggle the time-limit row when Timed=Off
+          if (group === timedGroup) {
+            limitRow.style.display = (b.dataset.val === "on") ? "" : "none";
+          }
+        });
+      });
+    }
+    wirePills(countGroup);
+    wirePills(timedGroup);
+    wirePills(limitGroup);
+
+    var startBtn = document.getElementById("mockStart");
+    if (startBtn) {
+      startBtn.addEventListener("click", function () {
+        var course = document.getElementById("mockCourse").value;
+        var countPill = countGroup.querySelector(".ms-pill.is-active");
+        var timedPill = timedGroup.querySelector(".ms-pill.is-active");
+        var limitPill = limitGroup.querySelector(".ms-pill.is-active");
+        var count = countPill ? Number(countPill.dataset.val) : 20;
+        var timed = timedPill ? timedPill.dataset.val === "on" : true;
+        var limitMin = limitPill ? Number(limitPill.dataset.val) : 30;
+        startMockExam({ course: course, count: count, timed: timed, limitMs: limitMin * 60 * 1000 });
+      });
+    }
+  }
+
+  function startMockExam(opts) {
+    opts = opts || {};
+    // Always wipe any prior timer before allocating fresh state. This
+    // guarantees re-takes start clean even if a previous attempt was
+    // closed mid-question.
+    clearMockTimer();
+
+    var course = opts.course || "";
+    var pool = mockPoolForCourse(course);
+    if (!pool.length) {
+      openModal("Mock Exam", '<p style="color:var(--muted);padding:18px 0;text-align:center;">No questions available for that course yet.</p>');
+      return;
+    }
+    var requested = Math.max(1, Number(opts.count) || 20);
+    var sessionQs = mockShuffle(pool).slice(0, Math.min(requested, pool.length));
+    var total = sessionQs.length;
+    var timed = !!opts.timed;
+    var limitMs = Math.max(60 * 1000, Number(opts.limitMs) || 30 * 60 * 1000);
+
+    // Per-attempt state — closure-scoped so re-takes never inherit it.
+    var idx = 0;
+    var results = []; // [{course, set, correct, prompt, chosenText, correctText, skipped}]
+    var startedAt = Date.now();
+    var deadlineAt = startedAt + limitMs;
+    var endedAt = 0;
+    var timedOut = false;
+    var finished = false;
+    var currentChoices = [];
+    var currentCorrectIdx = -1;
+    var currentPickIdx = -1;
+    var feedbackUntil = 0;
+
+    function shuffleChoices(q) {
+      var arr = mockShuffle(q.choices);
+      var idxOfCorrect = arr.indexOf(q.correctText);
+      if (idxOfCorrect < 0) idxOfCorrect = 0;
+      return { order: arr, correctIdx: idxOfCorrect };
+    }
+
+    function tickTimer() {
+      var el = document.getElementById("mockTimer");
+      if (!el) return;
+      if (finished) return;
+      var remaining = deadlineAt - Date.now();
+      if (remaining <= 0) {
+        el.textContent = "00:00";
+        el.classList.add("is-low");
+        clearMockTimer();
+        timedOut = true;
+        finishExam();
+        return;
+      }
+      el.textContent = formatMMSS(remaining);
+      if (remaining < 60 * 1000) el.classList.add("is-low");
+      else el.classList.remove("is-low");
+    }
+
+    function renderQ() {
+      if (idx >= total) return finishExam();
+      var q = sessionQs[idx];
+      var sh = shuffleChoices(q);
+      currentChoices = sh.order;
+      currentCorrectIdx = sh.correctIdx;
+      currentPickIdx = -1;
+      feedbackUntil = 0;
+      var pct = Math.round((idx / total) * 100);
+      var hudRight = timed
+        ? '<span class="mh-timer" id="mockTimer">' + formatMMSS(deadlineAt - Date.now()) + '</span>'
+        : '<span class="mh-label">Untimed</span>';
+      var html =
+        '<div class="mock-hud">' +
+          '<span class="mh-label">Question ' + (idx + 1) + ' / ' + total + '</span>' +
+          hudRight +
+        '</div>' +
+        '<div class="diag-progress"><span class="diag-progress-fill" style="width:' + pct + '%"></span></div>' +
+        '<div class="diag-meta">' + safeHTML(q.course) + ' · ' + safeHTML(q.set) + '</div>' +
+        '<p class="diag-stem">' + safeHTML(q.prompt) + '</p>' +
+        '<div class="diag-choices">' +
+          currentChoices.map(function (c, i) {
+            return '<button class="diag-choice" data-i="' + i + '" type="button">' + safeHTML(c) + '</button>';
+          }).join("") +
+        '</div>' +
+        '<button class="mock-submit" id="mockSubmit" type="button" disabled>Submit answer</button>' +
+        '<div class="mock-skip"><button id="mockSkip" type="button">Skip / flag for review →</button></div>';
+      openModal("Mock Exam — " + safeHTML(course), html);
+
+      Array.prototype.forEach.call(rmBody.querySelectorAll(".diag-choice"), function (btn) {
+        btn.addEventListener("click", function () {
+          if (Date.now() < feedbackUntil) return; // ignore clicks during feedback window
+          currentPickIdx = Number(btn.dataset.i);
+          rmBody.querySelectorAll(".diag-choice").forEach(function (b) {
+            b.classList.remove("is-correct");
+            b.classList.remove("is-wrong");
+          });
+          btn.classList.add("is-correct");
+          // Tint as a "tentative pick" — reuse the green hover until
+          // submission. The actual grading pass below replaces it
+          // with the real correct/wrong tint.
+          var submitBtn = document.getElementById("mockSubmit");
+          if (submitBtn) submitBtn.disabled = false;
+        });
+      });
+
+      var submitBtn = document.getElementById("mockSubmit");
+      if (submitBtn) submitBtn.addEventListener("click", function () { commitAnswer(false); });
+      var skipBtn = document.getElementById("mockSkip");
+      if (skipBtn) skipBtn.addEventListener("click", function () { commitAnswer(true); });
+    }
+
+    function commitAnswer(isSkip) {
+      if (Date.now() < feedbackUntil) return;
+      var q = sessionQs[idx];
+      var pickIdx = isSkip ? -1 : currentPickIdx;
+      var correct = !isSkip && pickIdx === currentCorrectIdx;
+      var chosenText = (pickIdx >= 0 && pickIdx < currentChoices.length) ? currentChoices[pickIdx] : "";
+      results.push({
+        id: q.id,
+        course: q.course,
+        set: q.set,
+        correct: correct,
+        prompt: q.prompt,
+        chosenText: chosenText,
+        correctText: q.correctText,
+        skipped: !!isSkip
+      });
+      // Topic stats + wrong-queue + first-correct achievement run
+      // through the standard recordAnswer pipeline. Skips count as
+      // wrong (so they enter the wrong-queue for retrieval drilling),
+      // matching how a Regents skip costs the same as a wrong.
+      try {
+        P.recordAnswer({
+          course: q.course,
+          set: q.set,
+          correct: correct,
+          prompt: q.prompt,
+          answer: q.correctText,
+          gameId: "mock-exam"
+        });
+      } catch (e) {}
+      // Visual feedback
+      rmBody.querySelectorAll(".diag-choice").forEach(function (b) {
+        b.classList.remove("is-correct");
+        b.classList.remove("is-wrong");
+        var bi = Number(b.dataset.i);
+        if (bi === currentCorrectIdx) b.classList.add("is-correct");
+        else if (!isSkip && bi === pickIdx && !correct) b.classList.add("is-wrong");
+        b.disabled = true;
+      });
+      var submitBtn = document.getElementById("mockSubmit");
+      if (submitBtn) submitBtn.disabled = true;
+      var fb = document.createElement("div");
+      fb.className = "mock-feedback " + (correct ? "is-correct" : "is-wrong");
+      fb.textContent = isSkip
+        ? "Skipped — correct answer: " + q.correctText
+        : (correct ? "Correct." : "Not quite — correct answer: " + q.correctText);
+      var submitParent = submitBtn && submitBtn.parentNode ? submitBtn.parentNode : rmBody;
+      submitParent.insertBefore(fb, submitBtn);
+      feedbackUntil = Date.now() + 1200;
+      setTimeout(function () {
+        if (finished) return;
+        idx++;
+        renderQ();
+      }, 1200);
+    }
+
+    function finishExam() {
+      if (finished) return;
+      finished = true;
+      clearMockTimer();
+      endedAt = Date.now();
+      var correctCount = results.filter(function (r) { return r.correct; }).length;
+      var skippedCount = results.filter(function (r) { return r.skipped; }).length;
+      var answered = results.length;
+      // Per-unit accuracy across the questions actually shown
+      var unitMap = {};
+      results.forEach(function (r) {
+        var key = r.course + "::" + r.set;
+        var u = unitMap[key] = unitMap[key] || { course: r.course, set: r.set, correct: 0, total: 0 };
+        u.total++;
+        if (r.correct) u.correct++;
+      });
+      var unitRows = Object.keys(unitMap).map(function (k) { return unitMap[k]; })
+        .sort(function (a, b) {
+          var aPct = a.total ? a.correct / a.total : 0;
+          var bPct = b.total ? b.correct / b.total : 0;
+          if (aPct !== bPct) return aPct - bPct; // weakest first
+          return a.set.localeCompare(b.set);
+        });
+      var weakUnits = unitRows.filter(function (u) {
+        return u.total > 0 && (u.correct / u.total) < 0.7;
+      }).slice(0, 3);
+
+      // Shard reward: 50 base for completing + 5 per correct
+      var shardAward = (answered ? 50 : 0) + correctCount * 5;
+      try { if (shardAward > 0) P.addShards(shardAward, "mock-exam"); } catch (e) {}
+
+      var durationMs = endedAt - startedAt;
+      try {
+        P.recordMockExam({
+          course: course,
+          total: total,
+          correct: correctCount,
+          count: answered,
+          durationMs: durationMs,
+          takenAt: endedAt,
+          weakUnits: weakUnits.map(function (u) { return { course: u.course, set: u.set, correct: u.correct, total: u.total }; })
+        });
+      } catch (e) {}
+
+      var pct = total ? Math.round((correctCount / total) * 100) : 0;
+      var unitHTML = unitRows.map(function (u) {
+        var p = u.total ? Math.round((u.correct / u.total) * 100) : 0;
+        return '<div class="mr-unit-row">' +
+          '<span class="u-name">' + safeHTML(u.set) + '</span>' +
+          '<span class="u-score">' + u.correct + '/' + u.total + ' · ' + p + '%</span>' +
+        '</div>';
+      }).join("");
+
+      var weakHTML = "";
+      if (weakUnits.length) {
+        weakHTML += '<div class="mr-section-head">Drill these ' + weakUnits.length + ' unit' + (weakUnits.length === 1 ? '' : 's') + ' →</div>';
+        weakUnits.forEach(function (u) {
+          var p = u.total ? Math.round((u.correct / u.total) * 100) : 0;
+          weakHTML += '<button class="mr-weak" type="button" data-course="' + safeHTML(u.course) + '" data-set="' + safeHTML(u.set) + '">' +
+            '<strong>' + safeHTML(u.set) + '</strong>' +
+            '<span>' + safeHTML(u.course) + ' · ' + u.correct + '/' + u.total + ' · ' + p + '% · tap to drill</span>' +
+          '</button>';
+        });
+      }
+
+      var minutes = Math.floor(durationMs / 60000);
+      var seconds = Math.floor((durationMs % 60000) / 1000);
+      var timeLine = (timedOut ? "Out of time · " : "") + minutes + "m " + (seconds < 10 ? "0" : "") + seconds + "s";
+      var skippedLine = skippedCount ? skippedCount + " skipped · " : "";
+
+      var summaryHTML =
+        '<div class="mock-report">' +
+          '<div class="mr-score">' +
+            '<div class="big">' + correctCount + ' / ' + total + '</div>' +
+            '<div class="pct">' + pct + '% correct</div>' +
+            '<div class="meta">' + skippedLine + timeLine +
+              (shardAward > 0 ? ' · earned <strong style="color:#f5c451">+' + shardAward + ' shards</strong>' : '') +
+            '</div>' +
+          '</div>' +
+          (unitRows.length ? '<div><div class="mr-section-head">Course breakdown</div>' + unitHTML + '</div>' : '') +
+          (weakHTML ? '<div>' + weakHTML + '</div>' : '') +
+          '<div class="mr-actions">' +
+            '<button class="mr-again" id="mockAgain" type="button">Take another</button>' +
+            '<button class="mr-done" id="mockDone" type="button">Done</button>' +
+          '</div>' +
+        '</div>';
+      openModal("Mock Exam — results", summaryHTML);
+
+      Array.prototype.forEach.call(rmBody.querySelectorAll(".mr-weak"), function (btn) {
+        btn.addEventListener("click", function () {
+          startTopicDrill(btn.dataset.course, btn.dataset.set);
+        });
+      });
+      var again = document.getElementById("mockAgain");
+      var done = document.getElementById("mockDone");
+      if (again) again.addEventListener("click", function () { showMockExamSetup(); });
+      if (done) done.addEventListener("click", function () { closeModal(); updateRoutingSubs(); });
+    }
+
+    if (timed) {
+      mockTimerHandle = setInterval(tickTimer, 250);
+    }
+    renderQ();
+  }
+
+  // Cancel any active mock-exam timer if the modal is dismissed
+  // mid-attempt (Esc, backdrop click, close button). Otherwise the
+  // countdown would keep ticking and could auto-submit a hidden run.
+  // We only clear on Escape when the modal is actually open, so
+  // pressing Escape elsewhere on the page is a no-op for the timer.
+  if (rmClose) rmClose.addEventListener("click", clearMockTimer);
+  if (rmBackdrop) rmBackdrop.addEventListener("click", clearMockTimer);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal && !modal.hidden) clearMockTimer();
+  });
+
   // ---- Wire the routing card buttons ----
   function updateRoutingSubs() {
     var queue = P.getWrongQueue(80);
@@ -10713,6 +11706,17 @@ boot();
       var hist = P.getCramHistory();
       subC.textContent = hist.length ? hist.length + " runs · build another" : "Chain 4 games on a unit";
     }
+    var subMx = document.getElementById("rcMockExamSub");
+    if (subMx && P.getMockExamHistory) {
+      var mxHist = P.getMockExamHistory(1);
+      if (mxHist && mxHist.length) {
+        var last = mxHist[0];
+        var lastPct = last.total ? Math.round((last.correct / last.total) * 100) : 0;
+        subMx.textContent = "Last: " + last.correct + "/" + last.total + " · " + lastPct + "%";
+      } else {
+        subMx.textContent = "Full-length timed run";
+      }
+    }
   }
   updateRoutingSubs();
   P.on("profile:update", updateRoutingSubs);
@@ -10723,10 +11727,12 @@ boot();
     var masteryBtn = document.getElementById("rcMastery");
     var wqBtn = document.getElementById("rcWrongQueue");
     var cramBtn = document.getElementById("rcCram");
+    var mockBtn = document.getElementById("rcMockExam");
     if (diagBtn) diagBtn.addEventListener("click", startDiagnostic);
     if (masteryBtn) masteryBtn.addEventListener("click", showMastery);
     if (wqBtn) wqBtn.addEventListener("click", showWrongQueue);
     if (cramBtn) cramBtn.addEventListener("click", showCramForm);
+    if (mockBtn) mockBtn.addEventListener("click", showMockExamSetup);
   });
 })();
 </script>
