@@ -4662,6 +4662,108 @@ body {
   .pd-weekly-bar-fill { transition: none; }
 }
 
+/* Power-Up Shop grid in drawer */
+.pd-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.pd-shop-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px 12px;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, rgba(13, 17, 27, .60), rgba(8, 11, 20, .82));
+  border: 1px solid var(--line-2, rgba(255,255,255,.14));
+  border-radius: 12px;
+  position: relative;
+  transition: border-color .2s, transform .2s;
+}
+.pd-shop-card:hover { border-color: rgba(184, 146, 255, .55); transform: translateY(-1px); }
+.pd-shop-card[data-active="true"] {
+  border-color: rgba(245, 196, 81, .65);
+  background: linear-gradient(180deg, rgba(245, 196, 81, .10), rgba(13, 17, 27, .72));
+}
+.pd-shop-card .ps-icon {
+  font-size: 24px;
+  line-height: 1;
+  display: inline-grid;
+  place-items: center;
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(184, 146, 255, .18), rgba(122, 240, 255, .08));
+  grid-row: 1 / 3;
+}
+.pd-shop-card .ps-name {
+  font-family: "Fraunces", serif;
+  font-style: italic; font-weight: 540;
+  font-size: 14px;
+  color: var(--paper);
+}
+.pd-shop-card .ps-desc {
+  font-family: "Inter", sans-serif;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--muted, #9aa3bb);
+  grid-column: 1 / -1;
+}
+.pd-shop-card .ps-foot {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line, rgba(255,255,255,.08));
+}
+.pd-shop-card .ps-cost {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; letter-spacing: .04em;
+  color: var(--gold-2, #ffd884);
+  font-variant-numeric: tabular-nums;
+}
+.pd-shop-card .ps-owned {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+}
+.pd-shop-card .ps-buy {
+  padding: 7px 14px;
+  background: linear-gradient(135deg, rgba(184, 146, 255, .22), rgba(122, 240, 255, .14));
+  border: 1px solid rgba(184, 146, 255, .42);
+  color: var(--paper);
+  border-radius: 999px;
+  font: 700 11px/1 "Inter", sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.pd-shop-card .ps-buy:hover {
+  background: linear-gradient(135deg, rgba(184, 146, 255, .42), rgba(122, 240, 255, .26));
+  border-color: rgba(184, 146, 255, .65);
+}
+.pd-shop-card .ps-buy:disabled {
+  opacity: .42;
+  cursor: not-allowed;
+}
+.pd-shop-active {
+  margin-top: 10px;
+  padding: 9px 14px;
+  background: linear-gradient(135deg, rgba(245, 196, 81, .12), rgba(255, 124, 200, .08));
+  border: 1px solid rgba(245, 196, 81, .42);
+  border-radius: 999px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; letter-spacing: .08em;
+  color: var(--gold, #f5c451);
+  display: flex; align-items: center; gap: 8px;
+}
+.pd-shop-active[hidden] { display: none; }
+.pd-shop-active strong { color: var(--paper); font-weight: 700; }
+@media (prefers-reduced-motion: reduce) {
+  .pd-shop-card { transition: none; }
+  .pd-shop-card:hover { transform: none; }
+}
+
 /* Progress-over-time chart — 8-week SVG bar chart with accuracy line */
 .pd-progress-chart {
   margin-top: 8px;
@@ -7180,6 +7282,15 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
             <span class="pd-weekly-label">achievements</span>
           </div>
         </div>
+      </section>
+
+      <section class="pd-section pd-section-shop">
+        <header class="pd-section-head">
+          <h3>Power-Up Shop</h3>
+          <span class="pd-section-meta" id="pdShopMeta">Spend shards on consumables</span>
+        </header>
+        <div class="pd-shop-grid" id="pdShopGrid" role="list" aria-label="Shop items"></div>
+        <div class="pd-shop-active" id="pdShopActive" hidden></div>
       </section>
 
       <section class="pd-section pd-section-streakcal">
@@ -9886,6 +9997,92 @@ boot();
       if (shardsEl) shardsEl.textContent = weeklyShards.toLocaleString();
       var achEl = document.getElementById("pdWeeklyAch");
       if (achEl) achEl.textContent = weeklyAch.toLocaleString();
+    }
+
+    // ---- Power-Up Shop grid ----
+    var shopGrid = document.getElementById("pdShopGrid");
+    if (shopGrid && P.SHOP_ITEMS && P.getInventory) {
+      var inv = P.getInventory();
+      var shards = profile.shards || 0;
+      var items = P.SHOP_ITEMS;
+      var ownedFor = function (id) {
+        if (id === "luckyCharm") return inv.luckyCharmActive ? "active" : 0;
+        var key = id;
+        return inv[key] || 0;
+      };
+      var renderCount = function (id) {
+        if (id === "luckyCharm") {
+          if (!inv.luckyCharmActive) return "";
+          var hrsLeft = Math.max(0, Math.round((inv.luckyCharmExpiresAt - Date.now()) / (3600 * 1000)));
+          return "Active · " + hrsLeft + "h left";
+        }
+        var n = inv[id] || 0;
+        return n > 0 ? "Owned: " + n : "Owned: 0";
+      };
+      shopGrid.innerHTML = Object.keys(items).map(function (id) {
+        var spec = items[id];
+        var canAfford = shards >= spec.cost;
+        var isLuckyActive = id === "luckyCharm" && inv.luckyCharmActive;
+        var safe = function (v) { return String(v || "").replace(/[<>&"]/g, function (c) {
+          return c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;";
+        }); };
+        return '<div class="pd-shop-card" data-id="' + id + '" data-active="' + isLuckyActive + '" role="listitem">' +
+          '<span class="ps-icon" aria-hidden="true">' + safe(spec.icon) + '</span>' +
+          '<span class="ps-name">' + safe(spec.label) + '</span>' +
+          '<span class="ps-desc">' + safe(spec.desc) + '</span>' +
+          '<div class="ps-foot">' +
+            '<span class="ps-cost">💎 ' + spec.cost + '</span>' +
+            '<span class="ps-owned">' + renderCount(id) + '</span>' +
+            '<button class="ps-buy" data-id="' + id + '" type="button"' + (!canAfford || isLuckyActive ? ' disabled' : '') + '>' +
+              (isLuckyActive ? "Active" : (canAfford ? "Buy" : "Need " + (spec.cost - shards) + " more")) +
+            '</button>' +
+          '</div>' +
+        '</div>';
+      }).join("");
+      // Wire buy buttons (idempotent — re-binds on every refresh)
+      shopGrid.querySelectorAll(".ps-buy").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.dataset.id;
+          var result = P.buyItem(id);
+          if (result.ok) {
+            if (window.MrMacsToast) {
+              window.MrMacsToast.push({
+                icon: "sparkles",
+                title: "Purchased: " + (P.SHOP_ITEMS[id] && P.SHOP_ITEMS[id].label),
+                sub: id === "luckyCharm" ? "2x shards active for the next 24 hours" : "added to your inventory",
+                tone: "achievement",
+                ms: 4500
+              });
+            }
+            // Re-render the drawer to reflect new shards + inventory
+            refreshDrawer();
+          } else if (result.reason === "not-enough-shards") {
+            if (window.MrMacsToast) {
+              window.MrMacsToast.push({
+                icon: "warning",
+                title: "Not enough shards",
+                sub: "need " + result.needed + " more · keep playing",
+                tone: "default",
+                ms: 3500
+              });
+            }
+          }
+        });
+      });
+      // Active boost banner
+      var activeEl = document.getElementById("pdShopActive");
+      if (activeEl) {
+        if (inv.luckyCharmActive) {
+          var hrsLeft = Math.max(0, Math.round((inv.luckyCharmExpiresAt - Date.now()) / (3600 * 1000)));
+          activeEl.innerHTML = '✨ <strong>Lucky Charm</strong> active — every shard you earn is doubled for ' + hrsLeft + ' more hours.';
+          activeEl.hidden = false;
+        } else if (inv.streakShield > 0) {
+          activeEl.innerHTML = '🛡 <strong>' + inv.streakShield + ' streak shield' + (inv.streakShield > 1 ? 's' : '') + '</strong> ready · auto-saves your next missed-day streak.';
+          activeEl.hidden = false;
+        } else {
+          activeEl.hidden = true;
+        }
+      }
     }
 
     // Streak calendar — last 21 days as a 3×7 grid

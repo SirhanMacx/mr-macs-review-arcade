@@ -128,7 +128,6 @@
     { id: "code-master",       title: "Code Master",            desc: "Discovered the secret konami sequence.",           tier: "gold",      icon: "🎮" },
     { id: "click-whisperer",   title: "Click Whisperer",        desc: "Clicked the brand mark seven times in five seconds.", tier: "silver", icon: "🪄" },
     { id: "fortune-seeker",    title: "Fortune Seeker",         desc: "Read 30 different daily fortunes.",                tier: "silver",    icon: "🔮" },
-    { id: "midnight-hunter",   title: "Midnight Hunter",        desc: "Played a game between midnight and 4 AM.",         tier: "silver",    icon: "🌙" },
     { id: "early-bird",        title: "Early Bird",             desc: "Played a game between 5 AM and 7 AM.",             tier: "silver",    icon: "🌅" },
     { id: "weekend-warrior",   title: "Weekend Warrior",        desc: "Played on both Saturday and Sunday in one week.",  tier: "silver",    icon: "🛡" }
   ];
@@ -212,6 +211,14 @@
       // for the "Mastered cards" archive view in the drawer. Capped
       // at 200 entries so the profile blob stays modest.
       masteredCards: [],
+      // Power-up shop inventory. Counts of consumable items + a
+      // timestamp for the time-limited lucky-charm boost.
+      inventory: {
+        streakShield: 0,        // saves a missed-day streak break
+        hintTokens: 0,          // reveal one wrong choice in a quiz
+        timeBoosts: 0,          // +30s in mock exam
+        luckyCharmExpiresAt: 0  // ms timestamp when 2x shards boost ends
+      },
       // Phase 3 — tour bookkeeping
       tourSeen: {},        // gameId -> timestamp
       // Phase 7 — completed cram playlists / diagnostic results
@@ -446,6 +453,19 @@
       n = Number(n) || 0;
       if (!n) return read().shards;
       var p = read();
+      var actualSource = source || "unknown";
+      // Lucky Charm: 2x positive shards if the boost is active. We
+      // skip the multiplier on shop purchases and on the boost itself
+      // to prevent infinite loops.
+      var luckyApplied = false;
+      if (n > 0 && actualSource !== "shop" && actualSource !== "lucky-charm-boost") {
+        var inv = p.inventory || {};
+        if (inv.luckyCharmExpiresAt && inv.luckyCharmExpiresAt > Date.now()) {
+          n = n * 2;
+          luckyApplied = true;
+          actualSource = actualSource + " · ✨2x";
+        }
+      }
       p.shards = Math.max(0, (p.shards || 0) + n);
       if (n > 0) p.totalShardsEarned = (p.totalShardsEarned || 0) + n;
       // Per-day shard counter (last 60 days) — drives Weekly Stats
@@ -454,7 +474,7 @@
       p.dailyShards[today] = (p.dailyShards[today] || 0) + n;
       pruneRollingMap(p, "dailyShards", 60);
       write(p);
-      emit("wallet:change", { delta: n, total: p.shards, source: source || "unknown" });
+      emit("wallet:change", { delta: n, total: p.shards, source: actualSource, lucky: luckyApplied });
       // Cross-arcade shard milestones
       if (p.totalShardsEarned >= 10000) API.unlock("cross-shards-10k");
       else if (p.totalShardsEarned >= 1000) API.unlock("cross-shards-1k");
@@ -468,6 +488,60 @@
       write(p);
       emit("wallet:change", { delta: -n, total: p.shards, source: source || "spend" });
       return true;
+    },
+
+    // ---- Power-up shop inventory ----
+    getInventory: function () {
+      var inv = read().inventory || {};
+      return {
+        streakShield: inv.streakShield || 0,
+        hintTokens: inv.hintTokens || 0,
+        timeBoosts: inv.timeBoosts || 0,
+        luckyCharmExpiresAt: inv.luckyCharmExpiresAt || 0,
+        luckyCharmActive: !!(inv.luckyCharmExpiresAt && inv.luckyCharmExpiresAt > Date.now())
+      };
+    },
+    // Buy an item by id. Costs are defined here (single source of truth).
+    // Returns { ok, reason, inventory } so callers can show feedback.
+    SHOP_ITEMS: {
+      streakShield: { cost: 200, label: "Streak Shield", icon: "🛡", desc: "Saves your streak if you miss a day. Auto-consumed on the next gap." },
+      hintTokens:   { cost: 50,  label: "Hint Token",    icon: "💡", desc: "Reveals one wrong choice in a quiz question. Coming soon." },
+      timeBoosts:   { cost: 75,  label: "Time Boost",    icon: "⏱", desc: "Adds 30 seconds to your next mock-exam timer. Coming soon." },
+      luckyCharm:   { cost: 350, label: "Lucky Charm",   icon: "✨", desc: "Doubles every shard you earn for 24 hours." }
+    },
+    buyItem: function (itemId) {
+      var spec = API.SHOP_ITEMS[itemId];
+      if (!spec) return { ok: false, reason: "unknown-item" };
+      var p = read();
+      if ((p.shards || 0) < spec.cost) return { ok: false, reason: "not-enough-shards", needed: spec.cost - (p.shards || 0) };
+      // Deduct shards (don't go through addShards/spendShards path
+      // because this needs to bypass lucky-charm doubling)
+      p.shards = (p.shards || 0) - spec.cost;
+      p.inventory = p.inventory || {};
+      // Lucky Charm is time-based, not stackable
+      if (itemId === "luckyCharm") {
+        var now = Date.now();
+        var current = p.inventory.luckyCharmExpiresAt || 0;
+        var base = current > now ? current : now;
+        p.inventory.luckyCharmExpiresAt = base + 24 * 3600 * 1000;
+      } else {
+        p.inventory[itemId] = (p.inventory[itemId] || 0) + 1;
+      }
+      write(p);
+      emit("wallet:change", { delta: -spec.cost, total: p.shards, source: "shop" });
+      emit("inventory:change", { item: itemId, source: "purchase", inventory: API.getInventory() });
+      return { ok: true, inventory: API.getInventory() };
+    },
+    // Decrement an inventory count (or extend a timed effect).
+    // Returns the new count (or 0 for nothing-to-consume).
+    consumeItem: function (itemId) {
+      var p = read();
+      p.inventory = p.inventory || {};
+      if (!(p.inventory[itemId] || 0)) return 0;
+      p.inventory[itemId] = Math.max(0, p.inventory[itemId] - 1);
+      write(p);
+      emit("inventory:change", { item: itemId, source: "consume", inventory: API.getInventory() });
+      return p.inventory[itemId];
     },
 
     // ---- Achievements ----
@@ -536,14 +610,30 @@
       var today = todayKey();
       if (p.streak.lastDay !== today) {
         var gap = daysBetween(p.streak.lastDay, today);
+        var shieldUsed = false;
         if (gap === 1) {
           p.streak.current = (p.streak.current || 0) + 1;
-        } else if (gap > 1 || !p.streak.lastDay) {
+        } else if (gap > 1) {
+          // Streak would break. Consume a Streak Shield if we have
+          // one in inventory — keeps the streak alive at its current
+          // count + 1 (so today still counts as a play day).
+          p.inventory = p.inventory || {};
+          if ((p.inventory.streakShield || 0) > 0) {
+            p.inventory.streakShield = p.inventory.streakShield - 1;
+            p.streak.current = (p.streak.current || 0) + 1;
+            shieldUsed = true;
+          } else {
+            p.streak.current = 1;
+          }
+        } else if (!p.streak.lastDay) {
           p.streak.current = 1;
         }
         p.streak.lastDay = today;
         p.streak.best = Math.max(p.streak.best || 0, p.streak.current);
-        emit("streak:advance", { current: p.streak.current, best: p.streak.best });
+        emit("streak:advance", { current: p.streak.current, best: p.streak.best, shieldUsed: shieldUsed });
+        if (shieldUsed) {
+          emit("inventory:change", { streakShield: p.inventory.streakShield, source: "shield-consumed" });
+        }
         // Streak achievements
         if (p.streak.current >= 30) API.unlock("streak-30");
         else if (p.streak.current >= 7) API.unlock("streak-7");
@@ -568,10 +658,11 @@
       // Cross-arcade: 3 different genres
       var distinctGenres = Object.keys(p.perGameStats).length;
       if (distinctGenres >= 3) API.unlock("cross-3-genres");
-      // Time-of-day easter eggs
+      // Time-of-day achievement: only Early Bird is rewarded.
+      // Late-night play is intentionally NOT incentivized — students
+      // need sleep, especially before exams.
       var hr = new Date(now).getHours();
-      if (hr >= 0 && hr < 4) API.unlock("midnight-hunter");
-      else if (hr >= 5 && hr < 7) API.unlock("early-bird");
+      if (hr >= 5 && hr < 7) API.unlock("early-bird");
       // Weekend warrior — track sat + sun played in current ISO week
       var dayOfWeek = new Date(now).getDay(); // 0=Sun, 6=Sat
       if (dayOfWeek === 0 || dayOfWeek === 6) {
