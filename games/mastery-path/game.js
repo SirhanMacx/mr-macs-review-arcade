@@ -11,6 +11,18 @@ const state = {
 };
 
 const $ = (selector) => document.querySelector(selector);
+const ICONS = (typeof window !== "undefined" && window.MrMacsIcons) || null;
+const ic = (name) => (ICONS && ICONS.has(name)) ? ICONS.svg(name) : "";
+
+// Map dashboard card titles to icon names
+const CARD_ICON = {
+  "Assessment": "trophy",
+  "Game Library": "books",
+  "Source Bank": "library",
+  "Review Bank": "memo",
+  "Recent Result": "podium",
+  "Focus Skills": "target"
+};
 
 function show(id) {
   document.querySelectorAll(".screen").forEach((screen) => screen.classList.remove("active"));
@@ -31,7 +43,8 @@ function fillCourses() {
 }
 
 function card(title, value, body, tone) {
-  return '<article class="card"><span class="pill ' + (tone || "") + '">' + M.esc(title) + '</span><strong>' + M.esc(value) + '</strong><span>' + M.esc(body) + '</span></article>';
+  const icon = CARD_ICON[title] ? ic(CARD_ICON[title]) : "";
+  return '<article class="card"><span class="pill ' + (tone || "") + '">' + icon + M.esc(title) + '</span><strong>' + M.esc(value) + '</strong><span>' + M.esc(body) + '</span></article>';
 }
 
 function metric(title, value) {
@@ -39,11 +52,13 @@ function metric(title, value) {
 }
 
 function actionCard(action) {
+  const tagLabel = action.id === "jeopardy" ? "Review Board" : "Practice Tool";
+  const tagIcon = action.id === "jeopardy" ? ic("mind") : ic("bolt");
   return '<a class="action-card" href="' + M.esc(courseHref(action.href)) + '">' +
-    '<span class="tag">' + M.esc(action.id === "jeopardy" ? "Review Board" : "Practice Tool") + '</span>' +
+    '<span class="tag">' + tagIcon + M.esc(tagLabel) + '</span>' +
     '<strong>' + M.esc(action.title) + '</strong>' +
     '<span>' + M.esc(action.body) + '</span>' +
-    '<span class="btn primary">Start</span>' +
+    '<span class="btn primary">' + ic("arrow-right") + 'Start</span>' +
   '</a>';
 }
 
@@ -202,5 +217,9 @@ async function boot() {
 
 boot().catch((error) => {
   console.error(error);
-  $("#dashboardCards").innerHTML = '<article class="card"><strong>Could not load the mastery path.</strong><span>Refresh the page and try again.</span></article>';
+  $("#dashboardCards").innerHTML =
+    '<article class="error-state">' + ic("warning") +
+      '<strong>Could not load the mastery path.</strong>' +
+      '<span>Refresh the page and try again. If the issue continues, check your network or refresh the data feed.</span>' +
+    '</article>';
 });

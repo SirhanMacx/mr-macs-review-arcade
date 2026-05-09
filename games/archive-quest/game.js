@@ -49,6 +49,8 @@
 
   const ctx = els.canvas.getContext("2d", { alpha: false });
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const ICONS = (typeof window !== "undefined" && window.MrMacsIcons) || null;
+  const ic = (name) => (ICONS && ICONS.has(name)) ? ICONS.svg(name) : "";
   const params = new URLSearchParams(location.search);
   const perfLite = params.get("perf") === "lite" || params.get("fx") === "lite" || matchMedia("(pointer: coarse)").matches || innerWidth < 760;
   const qaMode = new URLSearchParams(location.search).get("qa");
@@ -371,6 +373,11 @@
   function renderSetupMetrics() {
     const mcq = state.filtered.filter((q) => q.type === "mcq").length;
     const stimulus = state.filtered.filter((q) => stimulusImagesFor(q).length).length;
+    if (!state.filtered.length) {
+      els.setupMetrics.innerHTML =
+        `<div class="metric empty">${ic("scroll")}<strong>No prompts in this filter</strong><span>Pick a different course or set, then start the quest.</span></div>`;
+      return;
+    }
     els.setupMetrics.innerHTML = [
       [`${formatNumber(state.filtered.length)}`, "review prompts"],
       [`${formatNumber(mcq)}`, "MCQs"],
@@ -866,7 +873,7 @@
     const targets = topMissedTargets();
     els.studyTargets.innerHTML = targets.length
       ? targets.map(([label, count]) => `<div class="study-card"><strong>${escapeHtml(label)}</strong><span>${count} miss${count === 1 ? "" : "es"} in this quest</span></div>`).join("")
-      : `<div class="study-card"><strong>Clean run</strong><span>No major weak topic surfaced.</span></div>`;
+      : `<div class="study-card empty">${ic("checkered-flag")}<strong>Clean run</strong><span>No major weak topic surfaced this quest.</span></div>`;
   }
 
   function topMissedTargets() {
@@ -1233,9 +1240,19 @@
     }
   }
 
+  function decorateIconHooks() {
+    if (!ICONS) return;
+    document.querySelectorAll("[data-ic]").forEach((el) => {
+      const name = el.getAttribute("data-ic");
+      if (!name || !ICONS.has(name)) return;
+      el.insertAdjacentHTML("afterbegin", ICONS.svg(name) + " ");
+    });
+  }
+
   async function init() {
     resize();
     wireEvents();
+    decorateIconHooks();
     showOnly("setup");
     render();
     try {
@@ -1244,7 +1261,7 @@
       els.startBtn.textContent = "Start Quest";
     } catch (error) {
       console.error(error);
-      els.setupMetrics.innerHTML = `<div class="metric"><strong>Offline</strong><span>Question bank did not load.</span></div>`;
+      els.setupMetrics.innerHTML = `<div class="metric error">${ic("warning")}<strong>Question bank offline</strong><span>The bank did not load. Refresh the page or check your connection, then try again.</span></div>`;
       els.startBtn.disabled = true;
     }
     requestAnimationFrame(loop);
