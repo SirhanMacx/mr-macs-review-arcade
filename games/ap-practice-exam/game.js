@@ -90,6 +90,19 @@
     renderQuestion();
     requestAnimationFrame(() => $("questionCard")?.scrollIntoView({ block: "start", behavior: "auto" }));
     showScreen("examScreen");
+    // Record play with the shared profile module so the hub Continue rail
+    // and recent-game tracking pick this up.
+    try {
+      if (window.MrMacsProfile) {
+        var formMeta = state.officialForms.find((form) => form.id === state.selection) || state.officialForms[0];
+        window.MrMacsProfile.recordPlay({
+          id: "ap-practice-exam",
+          title: "Practice AP Exam — " + (formMeta && formMeta.title ? formMeta.title : state.selection),
+          course: (formMeta && formMeta.course) || "AP",
+          file: "games/ap-practice-exam/index.html"
+        });
+      }
+    } catch (e) {}
   }
 
   function buildOfficialExam(form) {

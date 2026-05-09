@@ -1127,3 +1127,34 @@ textarea:focus-visible,
     display: grid;
   }
 }
+
+/* ── 2026-05-09 polish layer ─────────────────────────────────────────
+   Brings ap-practice-exam in line with the Mr. Mac's editorial system:
+   Fraunces / Inter / JetBrains Mono ladder, monoline icons via .ic,
+   tabular-nums on every live numeric, focus rings, ambient pulse on
+   the primary CTA only, ≥44px coarse-pointer touch targets. */
+.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.16em; flex-shrink: 0; color: currentColor; fill: none; }
+.ic path, .ic line, .ic polyline, .ic polygon, .ic rect, .ic circle, .ic ellipse { vector-effect: non-scaling-stroke; }
+.timer, #answeredCount, #scoreGrid strong { font-variant-numeric: tabular-nums; font-feature-settings: "tnum","lnum"; }
+.eyebrow { font-family: "JetBrains Mono", monospace; }
+h1, h2, .results-card h2 { font-family: "Fraunces", serif; }
+button, select, input, .field span { font-family: "Inter", sans-serif; }
+button.primary {
+  position: relative;
+}
+@keyframes apxBreath {
+  0%, 100% { box-shadow: 0 14px 32px rgba(245,196,81,.22), 0 1px 0 rgba(255,255,255,.45) inset, 0 0 0 0 rgba(245,196,81,0); }
+  50%      { box-shadow: 0 18px 40px rgba(245,196,81,.30), 0 1px 0 rgba(255,255,255,.55) inset, 0 0 22px rgba(245,196,81,.22); }
+}
+button.primary:not(:disabled) { animation: apxBreath 4.6s ease-in-out infinite; }
+button.primary:hover, button.primary:focus-visible { animation: none; }
+button:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid rgba(122, 240, 255, .65);
+  outline-offset: 2px;
+}
+@media (pointer: coarse) {
+  button, select, input, .secondary, .primary { min-height: 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  button.primary:not(:disabled) { animation: none; }
+}
