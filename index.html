@@ -5921,8 +5921,54 @@ body {
   border-color: rgba(122, 240, 255, .30);
   color: #7af0ff;
 }
+.continue-card .cc-meta .cc-best.cc-fresh {
+  background: rgba(255, 124, 200, .12);
+  border-color: rgba(255, 124, 200, .35);
+  color: #ff7cc8;
+}
 .continue-card .cc-meta .cc-best .ic { width: 11px; height: 11px; vertical-align: 0; }
 .continue-card .cc-meta .cc-arrow { color: var(--paper); }
+
+/* New Cabinet rail — bigger, more dramatic cards with gradient borders */
+.new-cabinet-band .rail .new-cabinet-card {
+  min-width: 280px;
+  background: linear-gradient(155deg, rgba(245, 196, 81, .08), rgba(122, 240, 255, .04) 60%, rgba(255, 124, 200, .07));
+  border: 1px solid rgba(245, 196, 81, .25);
+  position: relative;
+  overflow: hidden;
+}
+.new-cabinet-band .rail .new-cabinet-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 30%, rgba(245, 196, 81, .07) 50%, transparent 70%);
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+}
+.new-cabinet-band .rail .new-cabinet-card:hover::before { opacity: 1; }
+.new-cabinet-band .rail .new-cabinet-card:hover {
+  border-color: rgba(245, 196, 81, .55);
+  transform: translateY(-2px);
+}
+.new-cabinet-band .rail .new-cabinet-card .cc-kicker {
+  color: #f5c451;
+  font-weight: 700;
+  letter-spacing: .045em;
+}
+.new-cabinet-band .rail .new-cabinet-card .cc-sub {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden; text-overflow: ellipsis;
+  font-size: 12.5px; line-height: 1.45;
+  color: var(--muted, #9aa3bb);
+  margin: 6px 0 8px 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .new-cabinet-band .rail .new-cabinet-card { transition: none; }
+  .new-cabinet-band .rail .new-cabinet-card:hover { transform: none; }
+  .new-cabinet-band .rail .new-cabinet-card::before { display: none; }
+}
 
 /* Library random button + library-meta wrapper */
 .library-meta {
@@ -7816,6 +7862,22 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       </div>
     </div>
     <div class="rail" id="continueRail" role="list"></div>
+  </section>
+
+  <!-- New Cabinet — recently shipped arcade flagships -->
+  <section class="band continue-band new-cabinet-band" id="newCabinet" aria-label="New arcade flagships" hidden>
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">New This Cabinet · May 2026</div>
+        <h2 class="band-title">Fresh <em>flagships</em> on the floor.</h2>
+        <p class="band-sub">Game-first arcade originals with rare scholar pickups for bonus shards. Pick a cabinet, run a session, climb the leaderboard.</p>
+      </div>
+      <div class="rail-controls">
+        <button class="rail-btn prev" type="button" aria-label="Scroll left" data-rail="newCabinetRail">‹</button>
+        <button class="rail-btn next" type="button" aria-label="Scroll right" data-rail="newCabinetRail">›</button>
+      </div>
+    </div>
+    <div class="rail" id="newCabinetRail" role="list"></div>
   </section>
 
   <section class="band path-band" id="launch-paths" aria-label="Launch paths">
@@ -11198,6 +11260,79 @@ boot();
     band.hidden = false;
   }
 
+  // ---- New Cabinet rail (recent flagships, May 2026) ----
+  // Drawn from games.json by ID so it stays in sync as we add games.
+  // Order matters — newest first.
+  var NEW_FLAGSHIPS = [
+    "rumor-whack",
+    "citadel",
+    "step-pyramid",
+    "chronohop",
+    "cascade",
+    "chronoblocks",
+    "source-snake",
+    "stellar-drift",
+    "brickoria"
+  ];
+
+  function renderNewCabinet() {
+    var band = document.getElementById("newCabinet");
+    var rail = document.getElementById("newCabinetRail");
+    if (!band || !rail) return;
+    if (!GAMES || !GAMES.length) { band.hidden = true; return; }
+    var lookup = {};
+    GAMES.forEach(function (g) { lookup[g.id] = g; });
+    var picks = NEW_FLAGSHIPS
+      .map(function (id) { return lookup[id]; })
+      .filter(Boolean);
+    if (!picks.length) { band.hidden = true; return; }
+    var profile = window.MrMacsProfile ? window.MrMacsProfile.get() : { perGameStats: {} };
+    var perGame = (profile && profile.perGameStats) || {};
+    var safe = function (v) { return String(v || "").replace(/[<>&"]/g, function (c) {
+      return c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;";
+    }); };
+    rail.innerHTML = picks.map(function (g, i) {
+      var stats = perGame[g.id];
+      var statBadge = "";
+      if (stats && stats.bestScore && stats.bestScore > 0) {
+        statBadge = '<span class="cc-best">🏆 ' + stats.bestScore.toLocaleString() + '</span>';
+      } else if (stats && stats.plays) {
+        statBadge = '<span class="cc-best cc-plays">🎲 ' + stats.plays + '×</span>';
+      } else {
+        statBadge = '<span class="cc-best cc-fresh">🆕 New</span>';
+      }
+      // Pick a glyph based on the game's first non-Arcade category
+      var cats = g.categories || [];
+      var glyph = "🎮";
+      var c = (cats[1] || cats[0] || "").toLowerCase();
+      if (c.indexOf("brick") >= 0)        glyph = "🧱";
+      else if (c.indexOf("aster") >= 0)   glyph = "🚀";
+      else if (c.indexOf("snake") >= 0)   glyph = "🐍";
+      else if (c.indexOf("tetri") >= 0)   glyph = "🟦";
+      else if (c.indexOf("bubble") >= 0)  glyph = "🫧";
+      else if (c.indexOf("frogg") >= 0 || c.indexOf("hopper") >= 0) glyph = "🐸";
+      else if (c.indexOf("q*bert") >= 0 || c.indexOf("isometric") >= 0 || c.indexOf("pyramid") >= 0) glyph = "🔺";
+      else if (c.indexOf("match-3") >= 0 || c.indexOf("bejeweled") >= 0) glyph = "💎";
+      else if (c.indexOf("whac") >= 0)    glyph = "🔨";
+      return '<button class="continue-card new-cabinet-card" type="button" data-id="' + safe(g.id) +
+        '" data-file="' + safe(g.file) + '" role="listitem" style="--card-i:' + i + '">' +
+        '<span class="cc-kicker">' + glyph + ' ' + safe(((g.categories || [])[1]) || "Arcade") + '</span>' +
+        '<span class="cc-title">' + safe(g.title) + '</span>' +
+        '<span class="cc-sub">' + safe(g.subtitle || "").slice(0, 110) + '</span>' +
+        '<span class="cc-meta">' + statBadge + '<span class="cc-arrow">→</span></span>' +
+      '</button>';
+    }).join("");
+    Array.prototype.forEach.call(rail.querySelectorAll(".continue-card"), function (card) {
+      card.addEventListener("click", function () {
+        var id = card.dataset.id;
+        var match = (GAMES || []).find(function (g) { return g.id === id; });
+        if (match && typeof openGame === "function") openGame(match);
+        else if (card.dataset.file) location.href = card.dataset.file;
+      });
+    });
+    band.hidden = false;
+  }
+
   // ---- Random button ----
   function wireRandom() {
     var btn = document.getElementById("libraryRandom");
@@ -11652,6 +11787,7 @@ boot();
   whenGamesReady().then(function () {
     renderDaily();
     renderContinue();
+    renderNewCabinet();
     renderRecentAchievements();
     renderTestPrep();
     renderNextBestAction();
@@ -11662,6 +11798,7 @@ boot();
     // Keep the continue rail + achievements strip in sync with profile updates
     if (window.MrMacsProfile) {
       window.MrMacsProfile.on("profile:update", renderContinue);
+      window.MrMacsProfile.on("profile:update", renderNewCabinet);
       window.MrMacsProfile.on("profile:update", renderNextBestAction);
       window.MrMacsProfile.on("profile:update", renderDailyPlan);
       window.MrMacsProfile.on("achievement:unlock", renderRecentAchievements);
