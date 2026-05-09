@@ -4625,6 +4625,89 @@ body {
   .pd-weekly-bar-fill { transition: none; }
 }
 
+/* Progress-over-time chart — 8-week SVG bar chart with accuracy line */
+.pd-progress-chart {
+  margin-top: 8px;
+  padding: 12px 12px 8px;
+  background: rgba(13, 17, 27, .55);
+  border: 1px solid var(--line, rgba(255,255,255,.08));
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.pd-progress-chart svg {
+  display: block;
+  width: 100%;
+  height: 140px;
+  font-family: "JetBrains Mono", monospace;
+}
+.pd-progress-chart .ppc-bar {
+  fill: rgba(122, 240, 255, .35);
+  stroke: rgba(122, 240, 255, .65);
+  stroke-width: 1;
+  transition: fill .2s, stroke .2s;
+}
+.pd-progress-chart .ppc-bar.is-current {
+  fill: rgba(245, 196, 81, .55);
+  stroke: rgba(245, 196, 81, .85);
+}
+.pd-progress-chart .ppc-bar:hover {
+  fill: rgba(122, 240, 255, .65);
+}
+.pd-progress-chart .ppc-acc-line {
+  fill: none;
+  stroke: rgba(105, 240, 170, .85);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pd-progress-chart .ppc-acc-dot {
+  fill: rgba(105, 240, 170, 1);
+  stroke: rgba(13, 17, 27, .82);
+  stroke-width: 1.4;
+}
+.pd-progress-chart .ppc-axis {
+  fill: var(--muted, #9aa3bb);
+  font-size: 8.5px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.pd-progress-chart .ppc-grid {
+  stroke: rgba(255, 255, 255, .04);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+.pd-progress-chart .ppc-empty {
+  text-align: center;
+  padding: 28px 12px 32px;
+  color: var(--muted, #9aa3bb);
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-size: 14px;
+}
+.pd-progress-legend {
+  display: flex; gap: 14px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.pd-progress-legend-item {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted, #9aa3bb);
+}
+.pd-progress-swatch {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+}
+.pd-progress-swatch-q { background: rgba(122, 240, 255, .55); border: 1px solid rgba(122, 240, 255, .85); }
+.pd-progress-swatch-a { background: rgba(105, 240, 170, .85); }
+@media (prefers-reduced-motion: reduce) {
+  .pd-progress-chart .ppc-bar { transition: none; }
+}
+
 /* Streak calendar — 21-day rolling grid */
 .pd-streak-cal {
   display: grid;
@@ -6802,6 +6885,18 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <span class="pd-section-meta" id="pdStreakCalMeta">Last 21 days · gold = played</span>
         </header>
         <div class="pd-streak-cal" id="pdStreakCal" aria-label="Daily activity, last 21 days"></div>
+      </section>
+
+      <section class="pd-section pd-section-progress">
+        <header class="pd-section-head">
+          <h3>Progress over time</h3>
+          <span class="pd-section-meta" id="pdProgressMeta">Last 8 weeks</span>
+        </header>
+        <div class="pd-progress-chart" id="pdProgressChart" aria-label="Weekly questions answered + accuracy chart"></div>
+        <div class="pd-progress-legend">
+          <span class="pd-progress-legend-item"><span class="pd-progress-swatch pd-progress-swatch-q"></span> questions answered</span>
+          <span class="pd-progress-legend-item"><span class="pd-progress-swatch pd-progress-swatch-a"></span> accuracy %</span>
+        </div>
       </section>
 
       <section class="pd-section pd-section-achievements">
@@ -9506,6 +9601,125 @@ boot();
           return dd >= cutoff;
         }).length;
         meta.textContent = playedCount + " of last 21 days · current streak " + (profile.streak.current || 0);
+      }
+    }
+
+    // ---- Progress over time chart (last 8 weeks) ----
+    var progressChart = document.getElementById("pdProgressChart");
+    if (progressChart) {
+      var msPerDay = 24 * 3600 * 1000;
+      var msPerWeek = 7 * msPerDay;
+      // Build 8 weekly buckets — each week starts on Sunday (0) for
+      // consistency with browser locale-friendly week display.
+      var weekBuckets = [];
+      var todayMid = new Date();
+      todayMid.setHours(0, 0, 0, 0);
+      // Find this Sunday
+      var thisSunday = new Date(todayMid);
+      thisSunday.setDate(todayMid.getDate() - todayMid.getDay());
+      for (var w = 7; w >= 0; w--) {
+        var weekStart = new Date(thisSunday);
+        weekStart.setDate(thisSunday.getDate() - (w * 7));
+        var weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekStart.getDate() + 6);
+        weekBuckets.push({
+          start: weekStart,
+          end: weekEnd,
+          isCurrent: w === 0,
+          questions: 0,
+          correct: 0,
+          shards: 0,
+          days: 0
+        });
+      }
+      // Aggregate dailyAnswers + dailyShards + playDays into buckets
+      var bucketForDate = function (key) {
+        var dd = new Date(key + "T00:00:00").getTime();
+        for (var i = 0; i < weekBuckets.length; i++) {
+          var b = weekBuckets[i];
+          if (dd >= b.start.getTime() && dd <= b.end.getTime() + msPerDay - 1) return b;
+        }
+        return null;
+      };
+      Object.keys(profile.dailyAnswers || {}).forEach(function (k) {
+        var b = bucketForDate(k);
+        if (!b) return;
+        b.questions += (profile.dailyAnswers[k].total || 0);
+        b.correct += (profile.dailyAnswers[k].correct || 0);
+      });
+      Object.keys(profile.dailyShards || {}).forEach(function (k) {
+        var b = bucketForDate(k);
+        if (!b) return;
+        b.shards += (profile.dailyShards[k] || 0);
+      });
+      (profile.playDays || []).forEach(function (k) {
+        var b = bucketForDate(k);
+        if (!b) return;
+        b.days += 1;
+      });
+      // Compute accuracies
+      weekBuckets.forEach(function (b) {
+        b.accuracy = b.questions > 0 ? Math.round((b.correct / b.questions) * 100) : null;
+      });
+      // Render
+      var maxQ = Math.max.apply(null, weekBuckets.map(function (b) { return b.questions; })).valueOf();
+      if (maxQ < 1) maxQ = 1;
+      var totalQuestions = weekBuckets.reduce(function (s, b) { return s + b.questions; }, 0);
+      if (totalQuestions === 0) {
+        progressChart.innerHTML = '<div class="ppc-empty">Play a few games to start tracking your progress over time.</div>';
+      } else {
+        var W = 320; var H = 140;
+        var pad = { left: 26, right: 8, top: 12, bottom: 22 };
+        var chartW = W - pad.left - pad.right;
+        var chartH = H - pad.top - pad.bottom;
+        var barWidth = (chartW / weekBuckets.length) * 0.66;
+        var barGap = (chartW / weekBuckets.length) * 0.34;
+        // Build bars
+        var bars = weekBuckets.map(function (b, i) {
+          var x = pad.left + i * (barWidth + barGap) + barGap / 2;
+          var h = (b.questions / maxQ) * chartH;
+          var y = pad.top + (chartH - h);
+          var monthDay = (b.start.getMonth() + 1) + "/" + b.start.getDate();
+          var titleText = "Week of " + monthDay + " — " + b.questions + " questions" +
+            (b.accuracy !== null ? ", " + b.accuracy + "% correct" : "") +
+            ", " + b.shards + " shards";
+          return '<rect class="ppc-bar' + (b.isCurrent ? ' is-current' : '') + '" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) +
+            '" width="' + barWidth.toFixed(1) + '" height="' + Math.max(0, h).toFixed(1) +
+            '" rx="2"><title>' + titleText + '</title></rect>';
+        }).join("");
+        // Build accuracy line (only across buckets with data)
+        var accLinePoints = [];
+        var accDots = [];
+        weekBuckets.forEach(function (b, i) {
+          if (b.accuracy === null) return;
+          var x = pad.left + i * (barWidth + barGap) + barGap / 2 + barWidth / 2;
+          var y = pad.top + (chartH - (b.accuracy / 100) * chartH);
+          accLinePoints.push(x.toFixed(1) + "," + y.toFixed(1));
+          accDots.push('<circle class="ppc-acc-dot" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="3"/>');
+        });
+        var accLine = accLinePoints.length >= 2
+          ? '<polyline class="ppc-acc-line" points="' + accLinePoints.join(" ") + '"/>'
+          : "";
+        // Y-axis labels
+        var yLabels = '<text class="ppc-axis" x="' + (pad.left - 6) + '" y="' + (pad.top + 4) + '" text-anchor="end">' + maxQ + '</text>' +
+          '<text class="ppc-axis" x="' + (pad.left - 6) + '" y="' + (pad.top + chartH) + '" text-anchor="end">0</text>';
+        // X-axis labels (every 2 weeks for clarity)
+        var xLabels = weekBuckets.map(function (b, i) {
+          if (i % 2 !== 0 && !b.isCurrent) return "";
+          var x = pad.left + i * (barWidth + barGap) + barGap / 2 + barWidth / 2;
+          var label = (b.start.getMonth() + 1) + "/" + b.start.getDate();
+          return '<text class="ppc-axis" x="' + x.toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle">' + label + '</text>';
+        }).join("");
+        // Faint horizontal grid line at midpoint
+        var midY = pad.top + chartH / 2;
+        var grid = '<line class="ppc-grid" x1="' + pad.left + '" y1="' + midY.toFixed(1) +
+          '" x2="' + (pad.left + chartW) + '" y2="' + midY.toFixed(1) + '"/>';
+        progressChart.innerHTML =
+          '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="Weekly progress">' +
+            grid + bars + accLine + accDots.join("") + yLabels + xLabels +
+          '</svg>';
+        var meta = document.getElementById("pdProgressMeta");
+        if (meta) meta.textContent = "Last 8 weeks · " + totalQuestions.toLocaleString() + " questions answered";
       }
     }
 
