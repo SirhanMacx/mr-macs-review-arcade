@@ -942,7 +942,12 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="9.5" rx="1.6"/><path d="M7.5 10.5 V8 C7.5 5.5 9.5 3.5 12 3.5 C14.5 3.5 16.5 5.5 16.5 8 V10.5"/></svg>') center / contain no-repeat;
           mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="9.5" rx="1.6"/><path d="M7.5 10.5 V8 C7.5 5.5 9.5 3.5 12 3.5 C14.5 3.5 16.5 5.5 16.5 8 V10.5"/></svg>') center / contain no-repeat;
 }
-.cmd-icon { font-size: 28px; line-height: 1; }
+.cmd-icon { font-size: 28px; line-height: 1; display: inline-flex; }
+.cmd-btn.attack  .cmd-icon { color: var(--cyan); }
+.cmd-btn.special .cmd-icon { color: var(--gold); }
+.cmd-btn.defend  .cmd-icon { color: var(--green); }
+.cmd-btn.item    .cmd-icon { color: var(--rose); }
+.cmd-btn:disabled .cmd-icon { color: var(--muted); }
 .cmd-name { font-size: 13px; font-weight: 800; letter-spacing: -.01em; }
 .cmd-sub  { font-size: 10px; color: var(--muted); text-align: center; }
 
@@ -1089,6 +1094,11 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
 }
 .touch-btn:active { transform: scale(.95); }
 .touch-btn:disabled { opacity: .36; cursor: not-allowed; transform: none; }
+#tAttack  .ic { color: var(--cyan); }
+#tSpecial .ic { color: var(--gold); }
+#tDefend  .ic { color: var(--green); }
+#tItem    .ic { color: var(--rose); }
+.touch-btn:disabled .ic { color: var(--muted); }
 
 /* ── ROUND BREATHER ── */
 #roundBreather { overflow: clip; }
@@ -1098,13 +1108,14 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
   text-align: center;
 }
 .breather-badge {
-  display: inline-block;
+  display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 20px; border-radius: 999px;
   font-family: 'Fraunces', serif;
   font-size: 14px; font-weight: 900; letter-spacing: .10em;
   text-transform: uppercase;
   border: 1px solid rgba(255,255,255,.22);
 }
+.breather-badge .ic { width: 16px; height: 16px; vertical-align: -.18em; }
 .breather-badge.win  { background: rgba(105,240,170,.12); border-color: rgba(105,240,170,.42); color: var(--green); }
 .breather-badge.lose { background: rgba(255,123,204,.10); border-color: rgba(255,123,204,.38); color: var(--rose); }
 .breather-inner h2 { margin: 0; font-family: 'Fraunces', serif; font-size: 24px; letter-spacing: -.02em; }
