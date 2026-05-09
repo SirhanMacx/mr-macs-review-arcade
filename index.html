@@ -9552,6 +9552,18 @@ boot();
           var perCorrectAward = strongUnits.length * 5;
           var totalAward = completionAward + perCorrectAward;
           P.addShards(totalAward, "diagnostic");
+          // Perfect run — fire a big celebration burst from the topbar
+          // profile pill on top of the standard wallet:change cascade.
+          if (strongUnits.length === results.length && results.length >= 5 && window.MrMacsCelebration) {
+            var pill = document.getElementById("profilePill");
+            if (pill) {
+              window.MrMacsCelebration.burstFromElement(pill, {
+                count: 36,
+                palette: ["#69f0aa", "#7af0ff", "#f5c451", "#ff7cc8"],
+                life: 1.5
+              });
+            }
+          }
         }
       } catch (e) {}
 
