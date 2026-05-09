@@ -2,3 +2,74 @@
 select option, select optgroup { color: #07111f; background: #f8fbff; }
 .source-lock-pill{display:inline-flex;align-items:center;gap:7px;margin:0 0 10px;padding:6px 9px;border:1px solid rgba(114,245,179,.42);border-radius:999px;background:rgba(114,245,179,.10);color:#caffdf;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.04em}
 .source-lock-pill.warn{border-color:rgba(255,97,120,.56);background:rgba(255,97,120,.12);color:#ffd5dc}
+.source-lock-pill .ic{width:14px;height:14px}
+
+/* ── 20260509 polish layer ─────────────────────────────────────────── */
+/* Typography ladder: Fraunces (display) · Inter (body) · JetBrains Mono (numerals) */
+.brand strong, .hero h1, .result-card h1, .work h2 {
+  font-family: 'Fraunces', ui-serif, Georgia, serif;
+  font-weight: 900; letter-spacing: -0.01em;
+}
+.scoreboard strong, .metric strong, #clock, #score, #streak, #answered, #topStats span {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "lnum" 1;
+}
+#topStats span { letter-spacing: 0.02em; }
+
+/* Monoline icon sizing for empty/loading states */
+.ic { width: 1em; height: 1em; vertical-align: -0.15em; flex-shrink: 0; }
+
+/* Editorial empty / loading / error card */
+.empty-state {
+  display: grid; gap: 10px; place-items: center; text-align: center;
+  padding: 28px 22px; min-height: 180px;
+  border: 1px dashed rgba(255,255,255,.18); border-radius: 10px;
+  background: rgba(255,255,255,.03); color: var(--soft);
+}
+.empty-state .empty-icon {
+  width: 48px; height: 48px; display: grid; place-items: center;
+  border: 1px solid color-mix(in srgb,var(--accent) 55%,white);
+  border-radius: 12px;
+  background: rgba(255,255,255,.06); color: var(--accent);
+}
+.empty-state .empty-icon .ic { width: 26px; height: 26px; }
+.empty-state .empty-title {
+  font-family: 'Fraunces', ui-serif, Georgia, serif;
+  font-size: 22px; font-weight: 800; color: var(--ink); letter-spacing: -0.01em;
+}
+.empty-state .empty-sub {
+  max-width: 460px; color: var(--muted);
+  font-size: 14px; line-height: 1.45;
+}
+.empty-state.error { border-color: rgba(255,97,120,.38); }
+.empty-state.error .empty-icon { color: #ff8c9c; border-color: rgba(255,140,156,.55); }
+
+/* Hover lift + focus rings */
+.btn { transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease, background .14s ease; display:inline-flex; align-items:center; justify-content:center; }
+.btn:hover { transform: translateY(-1px); border-color: color-mix(in srgb,var(--accent) 55%,white); }
+.btn:active { transform: translateY(0); }
+.btn.ghost:hover { background: rgba(255,255,255,.12); }
+.choice { transition: transform .14s ease, border-color .14s ease, background .14s ease; }
+.choice:hover { transform: translateY(-1px); border-color: color-mix(in srgb,var(--accent) 50%,white); background: rgba(255,255,255,.10); }
+:focus-visible { outline: 2px solid color-mix(in srgb,var(--accent) 80%,white); outline-offset: 2px; border-radius: 8px; }
+select:focus, input:focus { border-color: color-mix(in srgb,var(--accent) 65%,white); box-shadow: 0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent); outline: none; }
+
+/* Ambient pulse on PRIMARY CTAs only */
+@keyframes ss-ambient-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb,var(--accent) 35%,transparent), 0 12px 30px rgba(0,0,0,.34); }
+  50%      { box-shadow: 0 0 0 6px color-mix(in srgb,var(--accent) 0%,transparent), 0 14px 36px rgba(0,0,0,.40); }
+}
+.btn.primary { animation: ss-ambient-pulse 2.6s ease-in-out infinite; }
+.btn.primary:hover { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .choice { transition: none; }
+  .btn:hover, .choice:hover { transform: none; }
+  .btn.primary { animation: none; }
+}
+
+/* Touch-coarse: ensure ≥44px tap targets on every interactive element */
+@media (pointer: coarse) {
+  .btn, .choice, select, input[type="text"], #answerInput { min-height: 48px; }
+}
+

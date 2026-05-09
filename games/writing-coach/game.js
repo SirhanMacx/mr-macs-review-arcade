@@ -81,6 +81,12 @@ function show(id) {
   scrollTo({ top: 0, behavior: "auto" });
 }
 
+function emptyCard(iconName, title, sub) {
+  const icon = (typeof window !== "undefined" && window.MrMacsIcons && window.MrMacsIcons.has(iconName))
+    ? window.MrMacsIcons.svg(iconName) : "";
+  return '<div class="empty-card">' + icon + '<strong>' + M.esc(title) + '</strong><span>' + M.esc(sub) + '</span></div>';
+}
+
 function fillTasks() {
   const course = $("#courseSelect").value;
   const tasks = TASKS[course] || TASKS["Grade 10 Global History II"];
@@ -308,5 +314,5 @@ async function boot() {
 
 boot().catch((error) => {
   console.error(error);
-  $("#taskMetrics").innerHTML = '<div class="metric"><strong>Error</strong><span>Refresh to reload writing bank.</span></div>';
+  $("#taskMetrics").innerHTML = emptyCard("warning", "Could not load writing bank", "Refresh the page to try again.");
 });

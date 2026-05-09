@@ -3,9 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#06080f">
 <link rel="icon" href="data:,">
 <title>Source Sprint - Mr. Mac's Review Arcade</title>
-<link rel="stylesheet" href="styles.css?v=20260502-perfect-pass">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="styles.css?v=20260509-polish">
 </head>
 <body style="--accent:#62e9ff">
 <div class="bg" aria-hidden="true"></div>
@@ -51,13 +55,13 @@
       <div class="work-head">
         <div>
           <span id="questionMeta">Question</span>
-          <h2 id="prompt">Loading...</h2>
+          <h2 id="prompt">Loading…</h2>
         </div>
         <button class="btn ghost" id="skipBtn" type="button">Skip</button>
       </div>
       <div id="stimulus"></div>
       <div id="answerArea"></div>
-      <div class="feedback" id="feedback"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
     </section>
   </section>
 
@@ -75,8 +79,9 @@
   </section>
 </main>
 <script src="../../assets/arcade-analytics.js"></script>
-<script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
-<script type="module" src="game.js?v=20260502-perfect-pass"></script>
+<script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+<script src="../../assets/source-bank.js?v=20260509-polish"></script>
+<script type="module" src="game.js?v=20260509-polish"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
 </html>

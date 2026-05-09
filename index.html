@@ -4539,6 +4539,28 @@ body {
   transition: transform .2s;
 }
 .continue-card:hover .cc-meta .cc-arrow { transform: translateX(4px); }
+.continue-card .cc-meta { gap: 10px; }
+.continue-card .cc-meta .cc-when { color: var(--muted, #9aa3bb); }
+.continue-card .cc-meta .cc-best {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-left: auto;
+  padding: 3px 9px;
+  background: rgba(245, 196, 81, .12);
+  border: 1px solid rgba(245, 196, 81, .35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
+}
+.continue-card .cc-meta .cc-best.cc-plays {
+  background: rgba(122, 240, 255, .10);
+  border-color: rgba(122, 240, 255, .30);
+  color: #7af0ff;
+}
+.continue-card .cc-meta .cc-best .ic { width: 11px; height: 11px; vertical-align: 0; }
+.continue-card .cc-meta .cc-arrow { color: var(--paper); }
 
 /* Library random button + library-meta wrapper */
 .library-meta {
@@ -7658,6 +7680,8 @@ boot();
       band.hidden = true;
       return;
     }
+    var profile = window.MrMacsProfile.get();
+    var perGame = (profile && profile.perGameStats) || {};
     rail.innerHTML = recent.map(function (entry) {
       var when = "";
       if (entry.ts) {
@@ -7673,11 +7697,22 @@ boot();
       var safe = function (v) { return String(v || "").replace(/[<>&"]/g, function (c) {
         return c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === "&" ? "&amp;" : "&quot;";
       }); };
+      var stats = perGame[entry.id];
+      var bestStr = "";
+      if (stats && stats.bestScore && stats.bestScore > 0) {
+        bestStr = '<span class="cc-best" title="Personal best">' +
+          ((window.MrMacsIcons && window.MrMacsIcons.svg("trophy")) || "") +
+          ' ' + stats.bestScore.toLocaleString() + '</span>';
+      } else if (stats && stats.plays && stats.plays > 1) {
+        bestStr = '<span class="cc-best cc-plays" title="Times played">' +
+          ((window.MrMacsIcons && window.MrMacsIcons.svg("shuffle")) || "") +
+          ' ' + stats.plays + '×</span>';
+      }
       return '<button class="continue-card" type="button" data-id="' + safe(entry.id) +
         '" data-file="' + safe(entry.file) + '" role="listitem">' +
         '<span class="cc-kicker">' + safe(entry.course || "Mr. Mac’s Arcade") + '</span>' +
         '<span class="cc-title">' + safe(entry.title) + '</span>' +
-        '<span class="cc-meta"><span>' + when + '</span><span class="cc-arrow">→</span></span>' +
+        '<span class="cc-meta"><span class="cc-when">' + when + '</span>' + bestStr + '<span class="cc-arrow">→</span></span>' +
       '</button>';
     }).join("");
     Array.prototype.forEach.call(rail.querySelectorAll(".continue-card"), function (card) {

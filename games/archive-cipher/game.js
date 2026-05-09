@@ -788,7 +788,7 @@
       await loadBank();
     } catch (error) {
       console.error(error);
-      els.libraryCount.textContent = "Library failed to load";
+      els.libraryCount.innerHTML = emptyCard("warning", "Library failed to load", "Reload the page or check the data file.");
       setMessage("Could not load the review bank. Reload the page or check the data file.", "bad");
     }
   }
