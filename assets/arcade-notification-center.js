@@ -366,26 +366,29 @@
       ".mnc-list::-webkit-scrollbar-track{background:transparent;}",
       ".mnc-list::-webkit-scrollbar-thumb{background:rgba(196,156,68,0.3);border-radius:2px;}",
 
-      /* Notification item */
+      /* Notification item — May 10 2026 legibility fix:
+         - cursor:pointer (was default — looked non-interactive)
+         - bumped read-state opacity 0.65 → 0.92
+         - touch min-height 56px tap target */
       ".mnc-item{",
         "display:flex;align-items:flex-start;gap:10px;",
-        "padding:10px 14px;",
-        "border-bottom:1px solid rgba(255,255,255,0.05);",
+        "padding:12px 14px;",
+        "min-height:56px;",
+        "border-bottom:1px solid rgba(255,255,255,0.06);",
         "border-left:3px solid transparent;",
         "transition:background 130ms ease;",
-        "cursor:default;",
+        "cursor:pointer;",
+        "-webkit-tap-highlight-color:transparent;",
       "}",
       ".mnc-item:last-child{border-bottom:none;}",
       /* Unread state: gold border + tint */
       ".mnc-item.is-unread{",
         "border-left-color:#c4943a;",
-        "background:rgba(196,156,68,0.07);",
+        "background:rgba(196,156,68,0.10);",
       "}",
-      /* Read state: muted */
-      ".mnc-item:not(.is-unread){opacity:0.65;}",
-      "@media (hover:hover){",
-        ".mnc-item:hover{background:rgba(196,156,68,0.1);opacity:1;}",
-      "}",
+      /* Read state: still legible (was 0.65 — hard to read on dark bg) */
+      ".mnc-item:not(.is-unread){opacity:0.92;}",
+      ".mnc-item:hover,.mnc-item:active{background:rgba(196,156,68,0.16);opacity:1;}",
 
       /* Item icon */
       ".mnc-item-icon{",
@@ -394,21 +397,23 @@
         "margin-top:1px;",
       "}",
 
-      /* Item body */
+      /* Item body — let text wrap so descriptions are actually readable
+         (May 10 2026 fix; was nowrap+ellipsis truncating content). */
       ".mnc-item-body{flex:1 1 0;min-width:0;}",
       ".mnc-item-title{",
         "display:block;",
-        "font-size:13px;font-weight:600;",
-        "color:#f0e6c8;",
-        "white-space:nowrap;overflow:hidden;text-overflow:ellipsis;",
+        "font-size:14px;font-weight:700;",
+        "color:#f5ecd0;",
         "line-height:1.3;",
+        "word-break:break-word;",
       "}",
       ".mnc-item-desc{",
         "display:block;",
-        "font-size:11px;",
-        "color:rgba(240,230,200,0.55);",
-        "margin-top:2px;",
-        "white-space:nowrap;overflow:hidden;text-overflow:ellipsis;",
+        "font-size:12px;",
+        "color:rgba(245,236,208,0.85);",
+        "margin-top:3px;",
+        "line-height:1.4;",
+        "word-break:break-word;",
       "}",
       ".mnc-item-action{",
         "display:inline-block;",
@@ -636,6 +641,34 @@
           bus.emit("view-all", notifications.slice());
           closePanel();
         });
+      }
+
+      // Wire whole-item click: mark read + fire item.action.onClick if present.
+      // Inner buttons (.mnc-mark-read, .mnc-item-action, .mnc-view-all) all
+      // use stopPropagation so they don't double-trigger this handler.
+      // (May 10 2026 — items showed cursor:pointer but had no click target.)
+      var itemEls = panel.querySelectorAll(".mnc-item");
+      for (var li = 0; li < itemEls.length; li++) {
+        (function (itemEl) {
+          itemEl.addEventListener("click", function () {
+            var id = Number(itemEl.getAttribute("data-id"));
+            var found = null;
+            for (var m = 0; m < notifications.length; m++) {
+              if (notifications[m].id === id) { found = notifications[m]; break; }
+            }
+            if (found) {
+              if (!found.read) {
+                found.read = true;
+                bus.emit("read", found);
+                renderPanel();
+                renderBadge();
+              }
+              if (found.action && typeof found.action.onClick === "function") {
+                try { found.action.onClick({}, found); } catch (e) {}
+              }
+            }
+          });
+        })(itemEls[li]);
       }
     }
 

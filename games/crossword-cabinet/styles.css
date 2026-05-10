@@ -586,31 +586,33 @@ kbd {
   min-width: 18px;
 }
 
-/* Mobile keyboard — height 60px, z=25, bottom anchored */
+/* Mobile keyboard — proper 3-row QWERTY (May 10 2026 fix) */
 .mini-kbd {
   position: absolute;
   bottom: 0;
   left: 0; right: 0;
   z-index: 25;
-  height: 60px;
-  background: rgba(8, 10, 16, .92);
+  background: rgba(8, 10, 16, .94);
   border-top: 1px solid var(--line);
   display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 8px;
+  flex-direction: column;
   gap: 4px;
-  flex-wrap: wrap;
+  padding: 6px 6px;
   /* safe area so keyboard clears home bar on iPhone */
   padding-bottom: max(6px, env(safe-area-inset-bottom, 6px));
 }
+.mini-kbd .kbd-row {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
 .mini-kbd .key {
-  flex: 1 1 28px;
-  min-width: 28px;
+  flex: 1 1 0;
+  min-width: 0;
   max-width: 38px;
-  height: 36px;
+  height: 38px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   background: rgba(255, 230, 180, .06);
   border: 1px solid var(--line);
@@ -619,9 +621,12 @@ kbd {
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .mini-kbd .key:hover { background: rgba(255, 230, 180, .12); }
-.mini-kbd .key.wide { flex: 1.5 1 50px; }
+.mini-kbd .key:active { background: rgba(245, 196, 81, 0.22); transform: scale(0.94); }
+.mini-kbd .key.wide { flex: 1.5 1 0; max-width: 56px; font-size: 11px; }
 
 /* Modal screens — shared
    z-index ladder: scanline=5, popup-overlay=50, HUD=30, wave=25, powerup=26
@@ -1032,10 +1037,10 @@ kbd {
   .stat-value { font-size: 14px; }
   .stat-label { font-size: 8px; }
   .wave-ribbon { top: 114px; }
-  /* play-stage must clear HUD (~114px) and keyboard (60px) */
-  .play-stage { top: 160px; bottom: 64px; }
+  /* play-stage must clear HUD (~114px) and keyboard (3 QWERTY rows ≈ 142px). */
+  .play-stage { top: 160px; bottom: 150px; }
   .powerup-tray { top: 160px; right: 8px; }
-  .mini-kbd { display: flex; height: 60px; }
+  .mini-kbd { display: flex; }
   .grid-frame { max-width: min(45vh, 400px); padding: 6px; }
   .cell { font-size: 14px; }
   /* clue panel: horizontal row layout within vertical stack */
@@ -1076,11 +1081,24 @@ kbd {
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .mini-kbd {
     padding-bottom: max(6px, env(safe-area-inset-bottom, 6px));
-    height: calc(60px + env(safe-area-inset-bottom, 0px));
   }
   @media (max-width: 720px) {
-    .play-stage { bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+    .play-stage { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
   }
+}
+
+/* Landscape phones: short viewport — keyboard rows compress to 30px */
+@media (max-height: 480px) and (orientation: landscape) {
+  .mini-kbd {
+    padding: 3px 6px;
+    padding-bottom: max(3px, env(safe-area-inset-bottom, 3px));
+    gap: 3px;
+  }
+  .mini-kbd .kbd-row { gap: 3px; }
+  .mini-kbd .key { height: 30px; font-size: 11px; max-width: 32px; }
+  .mini-kbd .key.wide { max-width: 44px; font-size: 9px; }
+  .play-stage { bottom: 110px !important; top: 112px !important; }
+  .wave-ribbon { top: 76px !important; }
 }
 
 /* Reduced motion: disable non-essential animations */

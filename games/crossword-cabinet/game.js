@@ -888,15 +888,23 @@
   }
 
   function renderMiniKbd() {
+    // Wrap each row in its own flex container so they stack as proper
+    // QWERTY rows on mobile (was 28 keys in flat flex-wrap → ugly wrapping
+    // and overflow off-screen). May 10 2026.
     var rows = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
     var html = "";
     for (var r = 0; r < rows.length; r++) {
+      html += '<div class="kbd-row">';
       for (var i = 0; i < rows[r].length; i++) {
         html += '<button class="key" type="button" data-k="' + rows[r].charAt(i) + '">' + rows[r].charAt(i) + '</button>';
       }
+      // Action keys joined to the bottom row
+      if (r === rows.length - 1) {
+        html += '<button class="key wide" type="button" data-k="BACKSPACE">DEL</button>';
+        html += '<button class="key wide" type="button" data-k="TAB">TAB</button>';
+      }
+      html += '</div>';
     }
-    html += '<button class="key wide" type="button" data-k="BACKSPACE">DEL</button>';
-    html += '<button class="key wide" type="button" data-k="TAB">TAB</button>';
     dom.miniKbd.innerHTML = html;
     var btns = dom.miniKbd.querySelectorAll(".key");
     btns.forEach(function (b) {
