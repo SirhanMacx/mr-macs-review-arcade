@@ -1983,13 +1983,22 @@
   function resize() {
     dpr = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
     var rect = canvas.getBoundingClientRect();
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
-    var sx = rect.width / LOGICAL_W;
-    var sy = rect.height / LOGICAL_H;
-    scale = Math.min(sx, sy);
+    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+
+    // Smart play-area scaling (May 10 2026): old min(sx,sy) left ~54% of
+    // canvas painted on phones. Now: scale BOARD to 94% of available area
+    // minus chrome (HUD top + powerup tray bottom).
+    var w = window.innerWidth;
+    var chromeTop = w <= 1100 ? 200 : 170;
+    var chromeBottom = w <= 1100 ? 70 : 0;
+    var availW = Math.max(1, rect.width);
+    var availH = Math.max(120, rect.height - chromeTop - chromeBottom);
+    // Board uses LOGICAL minus padding — approximate 600x600 logical
+    var BOARD_LOGICAL = 600;
+    scale = Math.min(availW * 0.94 / BOARD_LOGICAL, availH * 0.94 / BOARD_LOGICAL);
     offsetX = (rect.width - LOGICAL_W * scale) / 2;
-    offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    offsetY = chromeTop + (availH - LOGICAL_H * scale) / 2;
   }
 
   // -- Hub integration -------------------------------------------------------

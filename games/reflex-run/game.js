@@ -2156,13 +2156,26 @@
   function resize() {
     dpr = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
     var rect = canvas.getBoundingClientRect();
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
+    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+
+    // Reflex Run is a vertical-perspective lane runner — the world scrolls
+    // toward the camera with a vanishing point at LOGICAL_W/2. On portrait
+    // phones we want the world to fill the screen vertically; horizontal
+    // clipping is fine because the player runs in a centered 3-lane strip.
+    // (May 10 2026 — was 40% canvas fill on phones with old min math.)
     var sx = rect.width / LOGICAL_W;
     var sy = rect.height / LOGICAL_H;
-    scale = Math.min(sx, sy);
-    offsetX = (rect.width - LOGICAL_W * scale) / 2;
-    offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    if (sy > sx * 1.2) {
+      // Tall portrait: fit by height, accept horizontal clipping
+      scale = sy;
+      offsetX = (rect.width - LOGICAL_W * scale) / 2;
+      offsetY = 0;
+    } else {
+      scale = Math.min(sx, sy);
+      offsetX = (rect.width - LOGICAL_W * scale) / 2;
+      offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    }
   }
 
   // -- Hub integration -------------------------------------------------------
