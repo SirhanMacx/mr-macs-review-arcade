@@ -488,6 +488,9 @@
   }
 
   function startRun() {
+    if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); }
+    const _recapEl = document.getElementById("endRecap");
+    if (_recapEl) _recapEl.innerHTML = "";
     state.mode = "running";
     state.levelIndex = Number(els.levelFilter.value || 0);
     state.score = 0;
@@ -850,6 +853,10 @@
     state.best = Math.max(state.best, state.score);
     localStorage.setItem(`${STORAGE_KEY}:best`, String(state.best));
     renderEnd(won);
+    if (window.MrMacsEndRecap) {
+      MrMacsEndRecap.stopTracking();
+      MrMacsEndRecap.render(document.getElementById("endRecap"));
+    }
     showOnly("end");
     window.MrMacsAnalytics?.track("game_complete", {
       gameId: "archive-quest",
@@ -1268,4 +1275,12 @@
   }
 
   init();
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();

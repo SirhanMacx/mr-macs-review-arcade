@@ -148,6 +148,14 @@
         <div class="setup-kicker"><span class="kicker-pause-glyph" aria-hidden="true">&#10074;&#10074;</span> Paused</div>
         <h2>Cabinet Held</h2>
         <p class="setup-sub">Resume the duel or start over.</p>
+                <div class="pause-progress" id="pauseProgress" hidden>
+          <div class="pause-progress-icon">🏆</div>
+          <div class="pause-progress-text">
+            <div class="pause-progress-title" id="pauseProgressTitle">—</div>
+            <div class="pause-progress-meta" id="pauseProgressMeta">—</div>
+          </div>
+          <div class="pause-progress-bar"><div class="pause-progress-fill" id="pauseProgressFill" style="width:0%"></div></div>
+        </div>
         <div class="setup-actions">
           <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
           <button class="btn glass-pill" id="restartBtn" type="button">Restart Run</button>
@@ -176,8 +184,12 @@
   <script src="../../assets/arcade-celebration.js?v=20260509-celebration"></script>
   <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
   <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
+  <script src="../../assets/arcade-end-recap.js?v=20260510-recap"></script>
   <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
   <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
+  <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
   <script src="game.js?v=20260510-chesscabinet"></script>
 </body>
 </html>

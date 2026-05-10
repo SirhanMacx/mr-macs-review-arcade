@@ -862,6 +862,7 @@
   }
 
   function startGame(snap) {
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); } } catch (e) {}
     initState();
     if (snap) {
       // resume not supported across rounds for simplicity — but keep score/round
@@ -940,6 +941,7 @@
     if (dom.endTitle) dom.endTitle.textContent = gameOver ? "Boggle Beat — Game Over" : "Boggle Beat — Hunt Complete";
     if (dom.endKicker) dom.endKicker.textContent = gameOver ? "Below threshold" : "Run Complete";
     renderEndGrid();
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.stopTracking(); MrMacsEndRecap.render(document.getElementById("endRecap")); } } catch (e) {}
     if (dom.endScreen) dom.endScreen.classList.add("show");
   }
   function renderEndGrid() {
@@ -2028,6 +2030,7 @@
       prevPhase = phase;
       phase = "paused";
       if (dom.pauseScreen) dom.pauseScreen.classList.add("show");
+    renderPauseProgress();
       duckMusic();
     } else if (phase === "paused") {
       phase = prevPhase || "playing";
@@ -2231,6 +2234,34 @@
       if (document.hidden) saveSnapshot();
     });
     window.addEventListener("beforeunload", function () { saveSnapshot(); });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("boggle-beat");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "boggle-beat", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   if (document.readyState === "loading") {
@@ -2238,4 +2269,66 @@
   } else {
     boot();
   }
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      MrMacsHelpOverlay.register("boggle-beat", {
+        title: "How to Play Boggle Beat",
+        goal: "Drag adjacent letter tiles to forge real words on a 5×5 grid within 90 seconds — score above 1,000 per round to keep the table open.",
+        controls: [
+          { key: "Click-drag  or  touch-drag", action: "Chain adjacent tiles to build a word" },
+          { key: "Release", action: "Submit word" },
+          { key: "Esc / P", action: "Pause" }
+        ],
+        tips: [
+          "Tiles connect in any direction — up, down, sideways, or diagonal.",
+          "History, science, civics, and geography terms earn a curated vocabulary bonus on top of the base word score.",
+          "Longer words score exponentially more — aim for 5+ letter words when possible.",
+          "You must stay above 1,000 points per round; three rounds total.",
+          "Locking a gilt Scholar Tile into any valid word triggers the review prompt."
+        ],
+        scholar: "One Scholar Tile with a gilt rim appears each round. Chain it into any valid word to trigger a paired review prompt worth bonus shards — the clock pauses while you answer."
+      });
+      var setupActions = document.querySelector("#setupScreen .setup-actions");
+      if (setupActions) MrMacsHelpOverlay.mountButton(setupActions, "boggle-beat");
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "boggle-beat";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

@@ -2136,6 +2136,7 @@
       ].join("");
     }
     if (dom.retryHint) dom.retryHint.textContent = "Shards earned: " + state.shardsAwarded + " (max " + SHARDS_CAP + " per run)";
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.stopTracking(); MrMacsEndRecap.render(document.getElementById("endRecap")); } } catch (e) {}
     showScreen("end");
     stopMusic();
   }
@@ -2346,6 +2347,7 @@
       phase = "paused";
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = "playing";
       showScreen(null);
@@ -2382,6 +2384,34 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("reflex-run");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "reflex-run", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -2391,6 +2421,7 @@
   }
 
   function newRun() {
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); } } catch (e) {}
     lastBonusLifeDistance = 0;
     lastMilestoneAnnounced = 0;
     initState({});
@@ -2518,4 +2549,67 @@
   window.addEventListener("pagehide", function () {
     if (state && phase === "playing") saveSnapshot();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      MrMacsHelpOverlay.register("reflex-run", {
+        title: "How to Play Reflex Run",
+        goal: "Sprint through three neon lanes, clearing obstacles and collecting power-ups — the road only gets faster.",
+        controls: [
+          { key: "← / →  or  A / D", action: "Swap lanes" },
+          { key: "Space  or  Up / W", action: "Jump over low pipes" },
+          { key: "Down / S", action: "Slide under high beams" },
+          { key: "Esc / P", action: "Pause" }
+        ],
+        tips: [
+          "Time your lane swap early — obstacles arrive faster at higher speeds.",
+          "Magnets pull nearby shards toward you without a lane change — grab them first.",
+          "Shield absorbs one obstacle hit; score multipliers stack with base lane bonuses.",
+          "Hover power-up briefly lifts you above low pipes without a jump keystroke.",
+          "Scholar gates appear at random intervals — you can dash right through one at full speed."
+        ],
+        scholar: "Dashing through a Scholar Gate pauses the run and opens an optional review prompt worth +1500 points and 12 bonus shards. The road resumes where you left off."
+      });
+      var setupActions = document.querySelector("#setupScreen .setup-actions");
+      if (setupActions) MrMacsHelpOverlay.mountButton(setupActions, "reflex-run");
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "reflex-run";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

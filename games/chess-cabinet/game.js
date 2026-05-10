@@ -1436,6 +1436,7 @@
       prevPhase = phase;
       phase = "paused";
       showScreen("pause");
+      renderPauseProgress();
       pauseMusic();
     }
   }
@@ -2330,6 +2331,57 @@
     updateHud();
     showScreen("setup");
     rafHandle = window.requestAnimationFrame(tick);
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("chess-cabinet");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "chess-cabinet", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      window.MrMacsHelpOverlay.register("chess-cabinet", {
+        title: "How to Play Chess Cabinet",
+        goal: "Checkmate the AI king using standard chess rules — castling, en passant, and promotion are all in play.",
+        controls: [
+          { key: "Click / Tap piece",  action: "Select your piece (legal moves highlight)" },
+          { key: "Click / Tap square", action: "Move selected piece to that square" },
+          { key: "Esc / P",            action: "Pause" }
+        ],
+        tips: [
+          "Control the center early — pieces on e4/d4/e5/d5 have the most mobility.",
+          "Castle before move 10 to tuck your king behind a pawn shield.",
+          "A pawn reaching the back rank auto-promotes to a queen."
+        ],
+        scholar: "Certain positions trigger a Scholar challenge pop-up — answer the review question correctly to earn bonus shards and a hint for your next move."
+      });
+      var _helpSetupActions = document.querySelector("#setupScreen .setup-actions");
+      if (_helpSetupActions) window.MrMacsHelpOverlay.mountButton(_helpSetupActions, "chess-cabinet");
+    }
+  } catch (e) {}
   }
 
   if (document.readyState === "loading") {
@@ -2337,4 +2389,41 @@
   } else {
     boot();
   }
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "chess-cabinet";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

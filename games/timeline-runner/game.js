@@ -860,6 +860,9 @@
   ];
 
   function startRun(opts = {}) {
+    if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); }
+    const _recapEl = document.getElementById("endRecap");
+    if (_recapEl) _recapEl.innerHTML = "";
     if (!state.filtered.length) applyFilters();
     if (!opts.silent) audio.startRun();
     resetRun();
@@ -924,8 +927,10 @@
     const km = state.distance;
     if (km > state.bestDistance) state.bestDistance = km;
     persistState();
+    if (window.MrMacsEndRecap) MrMacsEndRecap.stopTracking();
     setTimeout(() => {
       renderEndScreen();
+      if (window.MrMacsEndRecap) MrMacsEndRecap.render(document.getElementById("endRecap"));
       els.endScreen.classList.add("show");
     }, 900);
     window.MrMacsAnalytics?.track("game_complete", {
@@ -3092,4 +3097,12 @@
   }
 
   init();
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();

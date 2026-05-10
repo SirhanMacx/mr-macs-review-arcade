@@ -1302,6 +1302,9 @@ function updateHud() {
 
 // ─── Start / finish ────────────────────────────────────────────────────────
 function startGame() {
+  if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); }
+  const _recapEl = document.getElementById("endRecap");
+  if (_recapEl) _recapEl.innerHTML = "";
   // Read from native selects (kept in sync by the dossier UI controller in index.html)
   state.theater    = els.theater.value || "korea";
   state.difficulty = els.difficulty.value || "regents";
@@ -1423,6 +1426,10 @@ function finish(won=true) {
   state.touch   = { left:false, right:false, fire:false };
   stopUfoSiren();
   document.body.classList.remove("playing");
+  if (window.MrMacsEndRecap) {
+    MrMacsEndRecap.stopTracking();
+    MrMacsEndRecap.render(document.getElementById("endRecap"));
+  }
   els.results.classList.remove("hidden");
   const accuracy = state.answered ? Math.round(state.correct/state.answered*100) : 0;
   const acc2     = state.shotsFired ? Math.round((state.missionStats.shotsHit||state.kills)/Math.max(1,state.shotsFired)*100) : 0;
@@ -2217,6 +2224,8 @@ document.addEventListener("keydown", ev=>{
   if (ev.key==="Escape" && state.running && !state.briefing) {
     state.paused = !state.paused;
     els.pause.textContent = state.paused ? "Resume" : "Pause";
+    if (state.paused) renderPauseProgress();
+    else { var po=document.getElementById("pauseProgress"); if(po) po.hidden=true; }
   }
 });
 document.addEventListener("keyup", ev=>{
@@ -2271,6 +2280,8 @@ els.pause.addEventListener("click", ()=>{
   if (!state.running||state.briefing) return;
   state.paused = !state.paused;
   els.pause.textContent = state.paused?"Resume":"Pause";
+  if (state.paused) renderPauseProgress();
+  else { var po=document.getElementById("pauseProgress"); if(po) po.hidden=true; }
 });
 els.quit.addEventListener("click", ()=>finish(false));
 // Sync the mute button (icon + aria) with the current muted state.
@@ -2426,3 +2437,64 @@ function _cwiRenderLeaderboardPanel() {
 }
 try { _cwiRenderResumeCard(); } catch (e) {}
 try { _cwiRenderLeaderboardPanel(); } catch (e) {}
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "cold-war-invaders";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}
+
+// ── Difficulty selector ────────────────────────────────────────────────────
+try {
+  if (window.MrMacsDifficulty) {
+    MrMacsDifficulty.register("cold-war-invaders");
+    var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+    if (_diffSetupCard) {
+      var _diffHost = document.createElement("div");
+      _diffHost.className = "difficulty-host";
+      _diffHost.style.cssText = "margin: 12px 0 6px;";
+      var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+      if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+      else _diffSetupCard.appendChild(_diffHost);
+      MrMacsDifficulty.mountSelector(_diffHost, "cold-war-invaders", { compact: false });
+    }
+  }
+} catch (e) {}
+
+// ── Sound toggle live label ────────────────────────────────────────────────
+try {
+  var _soundBtn = document.getElementById("soundBtn");
+  if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+    var _snd = MrMacsProfile.getSettings().sound;
+    _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+  }
+} catch (e) {}
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}

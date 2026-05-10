@@ -2252,6 +2252,7 @@
       ].join("");
     }
     if (dom.retryHint) dom.retryHint.textContent = "Shards earned: " + state.shardsAwarded + " (max " + SHARDS_CAP + " per run)";
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.stopTracking(); MrMacsEndRecap.render(document.getElementById("endRecap")); } } catch (e) {}
     showScreen("end");
     stopMusic();
     var dur = runStartMs ? (Date.now() - runStartMs) : 0;
@@ -2456,6 +2457,7 @@
       phase = "paused";
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = prevPhase || "playing";
       if (phase === "paused") phase = "playing";
@@ -2497,6 +2499,34 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("defender-drift");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "defender-drift", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -2507,6 +2537,7 @@
   }
 
   function newRun() {
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); } } catch (e) {}
     clearPendingTimeouts();
     resetTransientInput();
     activeQuestion = null;
@@ -2644,4 +2675,68 @@
   window.addEventListener("pagehide", function () {
     if (state && phase === "playing") saveSnapshot();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      MrMacsHelpOverlay.register("defender-drift", {
+        title: "How to Play Defender Drift",
+        goal: "Patrol the scrolling editorial horizon, shoot Landers to stop scholar abductions, and catch falling scholars before Mutants are born.",
+        controls: [
+          { key: "↑ / W  or  ↓ / S", action: "Move ship up / down" },
+          { key: "← / A  or  → / D", action: "Move ship left / right" },
+          { key: "Space", action: "Fire" },
+          { key: "B  or  Smart Bomb btn", action: "Smart bomb (clears screen)" },
+          { key: "Esc / P", action: "Pause" }
+        ],
+        tips: [
+          "Shoot a Lander mid-abduction — the scholar then falls and you must fly under them to catch.",
+          "Lost scholars mutate into Mutants that attack your ship; keep the population alive.",
+          "The mini-radar shows the full scrolling world — watch it to spot Lander swarms off-screen.",
+          "Smart bombs are limited — save them for mutant swarms, not lone Landers.",
+          "Rescued scholars pause the action and trigger a review prompt for +1500 and 12 shards."
+        ],
+        scholar: "Rescue a scholar mid-fall by flying under them. Once safe, they decode a review question worth +1500 points and 12 bonus shards before returning to the ground."
+      });
+      var setupActions = document.querySelector("#setupScreen .setup-actions");
+      if (setupActions) MrMacsHelpOverlay.mountButton(setupActions, "defender-drift");
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "defender-drift";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

@@ -2361,6 +2361,7 @@
       pauseMusic();
       saveSnapshot();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = "playing";
       showScreen(null);
@@ -2397,6 +2398,34 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("snake-pit");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "snake-pit", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -2552,4 +2581,69 @@
   window.addEventListener("pagehide", function () {
     if (state && phase === "playing") saveSnapshot();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      MrMacsHelpOverlay.register("snake-pit", {
+        title: "How to Play Snake Pit",
+        goal: "Grow your luminous serpent by devouring energy orbs without crashing into another snake's body.",
+        controls: [
+          { key: "↑ / W", action: "Turn up" },
+          { key: "↓ / S", action: "Turn down" },
+          { key: "← / A", action: "Turn left" },
+          { key: "→ / D", action: "Turn right" },
+          { key: "Hold Boost (Shift / B)", action: "Surge ahead (costs one segment)" },
+          { key: "Esc / P", action: "Pause" }
+        ],
+        tips: [
+          "Crashing into your own body ends the run — give yourself room when turning near your tail.",
+          "Boost costs one segment per half-second — use it to escape tight spots, not to chase orbs.",
+          "Phase power-up lets you briefly pass through bodies; save it for desperate moments.",
+          "2x Mass doubles your length instantly — great for score, but makes maneuvering harder.",
+          "Magnet pulls orbs toward your head, reducing risky dives into crowded areas."
+        ],
+        scholar: "Scholar orbs shimmer gold in the pit. Eating one pauses the action and opens an optional review prompt worth +1500 points and 12 bonus shards."
+      });
+      var setupActions = document.querySelector("#setupScreen .setup-actions");
+      if (setupActions) MrMacsHelpOverlay.mountButton(setupActions, "snake-pit");
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "snake-pit";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

@@ -13,6 +13,16 @@
   <main class="game-shell">
     <canvas id="gameCanvas" aria-label="Cold War Invaders arcade game"></canvas>
 
+    <!-- Achievement progress overlay (shown when paused) -->
+    <div class="pause-progress" id="pauseProgress" hidden>
+      <div class="pause-progress-icon">🏆</div>
+      <div class="pause-progress-text">
+        <div class="pause-progress-title" id="pauseProgressTitle">—</div>
+        <div class="pause-progress-meta" id="pauseProgressMeta">—</div>
+      </div>
+      <div class="pause-progress-bar"><div class="pause-progress-fill" id="pauseProgressFill" style="width:0%"></div></div>
+    </div>
+
     <!-- Mini-map glass disc -->
     <canvas id="minimap" aria-hidden="true" width="78" height="78"></canvas>
 
@@ -250,6 +260,7 @@
         <div id="bestWaveBanner"></div>
         <div class="mission-metrics" id="resultMetrics"></div>
         <p id="coachText"></p>
+        <div id="endRecap"></div>
         <div class="actions">
           <button class="btn primary" id="againBtn" type="button">Continue Mission</button>
           <a class="btn ghost" href="../../index.html">Abort</a>
@@ -266,9 +277,42 @@
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
   <script src="../../assets/arcade-perf.js?v=20260507-phase5"></script>
   <script src="../../assets/arcade-tour.js?v=20260507-phase3"></script>
+  <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
+  <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
   <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
   <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
   <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-end-recap.js?v=20260510-recap"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "cold-war-invaders";
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Cold War Invaders",
+      goal: "Defend the satellite perimeter. Shoot down Soviet formations, intercept incoming crises, and charge your Intel Burst by answering Cold War review questions correctly.",
+      controls: [
+        { key: "A / ← and D / →", action: "Move your satellite cannon left or right" },
+        { key: "Space",            action: "Fire laser at the nearest formation" },
+        { key: "E / X",            action: "Trigger Intel Burst when meter reaches 100%" },
+        { key: "M",                action: "Toggle sound on or off" },
+        { key: "Esc",              action: "Pause or resume the mission" }
+      ],
+      tips: [
+        "Shoot from the edges — center clusters move faster and drop bombs more often.",
+        "Collect floating Intel tokens between waves to fill your Containment Burst meter faster.",
+        "Answer the between-wave dossier question correctly to clear the nearest enemy row entirely.",
+        "Higher-row enemies award more points — focus fire up-screen when the count is low.",
+        "In Crisis difficulty, formations split when hit from the sides — aim straight up."
+      ],
+      scholar: "Intel pickups dropped by special agents appear blue and flashing. Collect them to boost your Containment Burst charge toward a full-screen clear."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setupScreen .actions");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script type="module" src="game.js?v=20260509-polish"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 

@@ -2134,6 +2134,7 @@
       phase = "paused";
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = "playing";
       showScreen(null);
@@ -2179,6 +2180,58 @@
         s.addEventListener("click", function () { activatePowerup(idx); });
       })(i);
     }
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("solitaire-hall");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "solitaire-hall", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      window.MrMacsHelpOverlay.register("solitaire-hall", {
+        title: "How to Play Solitaire Hall",
+        goal: "Move all 52 cards onto the four foundation piles in suit order (Ace → King) to win the Vegas draw-3 game.",
+        controls: [
+          { key: "Click stock pile",   action: "Deal 3 cards from the deck" },
+          { key: "Drag / Drop",        action: "Move a card or run to a tableau column or foundation" },
+          { key: "Touch drag",         action: "Same as mouse drag on touchscreens" },
+          { key: "Esc / P",            action: "Pause" }
+        ],
+        tips: [
+          "Only Kings (or runs starting with a King) can fill an empty tableau column.",
+          "Uncover face-down tableau cards as fast as possible — they're your hidden resources.",
+          "Power-ups drop occasionally on foundation moves: Undo, Reveal, Skip-Time, and 2× Score."
+        ],
+        scholar: "Scholar cards have a golden back. Playing one to a foundation triggers a review challenge — answer correctly for a shard bonus."
+      });
+      var _helpSetupActions = document.querySelector("#setupScreen .setup-actions");
+      if (_helpSetupActions) window.MrMacsHelpOverlay.mountButton(_helpSetupActions, "solitaire-hall");
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -2464,4 +2517,41 @@
   window.addEventListener("pagehide", function () {
     if (state && phase === "playing") saveSnapshot();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "solitaire-hall";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

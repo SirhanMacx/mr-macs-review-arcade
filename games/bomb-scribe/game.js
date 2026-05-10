@@ -2135,6 +2135,7 @@
       phase = "paused";
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = "playing";
       showScreen(null);
@@ -2201,6 +2202,57 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("bomb-scribe");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "bomb-scribe", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      window.MrMacsHelpOverlay.register("bomb-scribe", {
+        title: "How to Play Bomb Scribe",
+        goal: "Clear every map by bombing all soft walls and enemies, reach the exit, and answer scholar challenges along the way.",
+        controls: [
+          { key: "↑ ↓ ← →  /  WASD", action: "Move your character" },
+          { key: "Space / X",         action: "Drop a bomb" },
+          { key: "Esc / P",           action: "Pause" }
+        ],
+        tips: [
+          "Bombs explode in a cross pattern — step out of the blast radius before the 3-second fuse triggers.",
+          "Bomb-Up power-ups let you carry and place more bombs simultaneously.",
+          "The exit tile is hidden under a soft wall — blow up every block to uncover it."
+        ],
+        scholar: "One soft wall per map hides a Scholar Wall (glowing). Destroy it to trigger a review challenge — answer correctly to clear nearby walls and earn bonus shards."
+      });
+      var _helpSetupActions = document.querySelector("#setupScreen .setup-actions");
+      if (_helpSetupActions) window.MrMacsHelpOverlay.mountButton(_helpSetupActions, "bomb-scribe");
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -2344,4 +2396,41 @@
   window.addEventListener("pagehide", function () {
     if (state && phase === "playing") saveSnapshot();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "bomb-scribe";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

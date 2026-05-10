@@ -1391,6 +1391,7 @@
       ].join("");
     }
     if (dom.retryHint) dom.retryHint.textContent = "Shards earned: " + state.shardsAwarded + " (max " + SHARDS_CAP + " per run)" + (state.hardModeReached ? " · Hard mode reached" : "");
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.stopTracking(); MrMacsEndRecap.render(document.getElementById("endRecap")); } } catch (e) {}
     showScreen("end");
     stopMusic();
     // Record duration via profile recordPlay
@@ -1643,6 +1644,7 @@
       phase = "paused";
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = prevPhase || "playing-watch";
       prevPhase = null;
@@ -1680,6 +1682,34 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("echo-hall");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "echo-hall", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -1689,6 +1719,7 @@
   }
 
   function newRun() {
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); } } catch (e) {}
     initState({});
     state.startedAt = Date.now();
     showScreen(null);
@@ -1834,4 +1865,68 @@
   window.addEventListener("pagehide", function () {
     if (state && (phase === "playing-watch" || phase === "playing-repeat" || phase === "playing-roundover")) saveSnapshot();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      MrMacsHelpOverlay.register("echo-hall", {
+        title: "How to Play Echo Hall",
+        goal: "Watch the archive ring light up a sequence of discipline pads, then repeat it exactly — sequences grow by one each round.",
+        controls: [
+          { key: "A / S / K / L", action: "Tap pads 1-4 (normal mode)" },
+          { key: "A / S / D / J / K / L", action: "Tap pads 1-6 (hard mode)" },
+          { key: "Click / Tap pad", action: "Activate pad on screen" },
+          { key: "1 / 2 / 3", action: "Use power-up" },
+          { key: "Esc / P", action: "Pause or unpause" }
+        ],
+        tips: [
+          "Every fifth round the sequence plays backwards — listen carefully before touching anything.",
+          "Reach round 8 to unlock hard mode, which adds two more pads and may shuffle colors.",
+          "Use the Slow Echo power-up when the sequence gets long to buy thinking time.",
+          "Each pad has a unique tone; training your ear helps more than memorizing colors.",
+          "A wrong tap costs a life — wait for the full sequence to finish before repeating."
+        ],
+        scholar: "Once per few rounds a Scholar Echo interrupts the sequence. Correctly tap the bonus prompt pad pattern to earn shards; the normal round resumes immediately after. Skip any time with no penalty."
+      });
+      var _helpContainer = document.querySelector("#setupScreen .setup-actions");
+      if (_helpContainer) MrMacsHelpOverlay.mountButton(_helpContainer, "echo-hall");
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "echo-hall";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

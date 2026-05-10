@@ -1747,6 +1747,7 @@
     state.paused = true;
     state.pauseStartedAt = performance.now();
     pauseScreen.classList.add("show");
+    renderPauseProgress();
     try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck(0.25, 250); } catch (e) {}
   }
   function resumeGame() {
@@ -1902,6 +1903,58 @@
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) save();
     });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("archive-tycoon");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "archive-tycoon", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      window.MrMacsHelpOverlay.register("archive-tycoon", {
+        title: "How to Play Archive Tycoon",
+        goal: "Click to earn quills, hire producers, buy upgrades, and publish your archive volume to prestige for a permanent bonus.",
+        controls: [
+          { key: "Click quill icon", action: "Earn quills manually" },
+          { key: "Click producer",   action: "Buy a producer to earn quills automatically" },
+          { key: "Click upgrade",    action: "Purchase a click or production multiplier" },
+          { key: "Esc / P",          action: "Pause" }
+        ],
+        tips: [
+          "Buy producers in bulk — each new unit raises the cost, so balance click upgrades with auto-production.",
+          "Click Frenzy power-up (10× click for 30 s) is worth saving for when you're close to a big upgrade threshold.",
+          "Publishing your archive resets production but grants +1% permanent global bonus — prestige as often as you can."
+        ],
+        scholar: "Scholar challenges appear periodically as production milestones. Answer the review question correctly to earn a large quill bonus and a brief production boost."
+      });
+      var _helpSetupActions = document.querySelector("#setupScreen .setup-actions");
+      if (_helpSetupActions) window.MrMacsHelpOverlay.mountButton(_helpSetupActions, "archive-tycoon");
+    }
+  } catch (e) {}
   }
 
   function handleKeydown(e) {
@@ -1984,4 +2037,41 @@
   } else {
     boot();
   }
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "archive-tycoon";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

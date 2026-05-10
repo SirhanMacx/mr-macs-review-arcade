@@ -1782,6 +1782,7 @@
     }
     if (dom.retryHint) dom.retryHint.textContent = "Shards earned: " + state.shardsAwarded + " (max " + SHARDS_CAP + " per run)";
     showScreen("end");
+    try { var el = document.getElementById("endRecap"); if (el && window.MrMacsEndRecap) { MrMacsEndRecap.render(el); MrMacsEndRecap.stopTracking(); } } catch (e) {}
     stopMusic();
   }
 
@@ -1992,6 +1993,7 @@
       phase = "paused";
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = "playing";
       showScreen(null);
@@ -2028,6 +2030,55 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+
+    try {
+      if (window.MrMacsHelpOverlay) {
+        window.MrMacsHelpOverlay.register("chronohop", {
+          title: "How to Play Chronohop",
+          goal: "Hop your character from the start row to the five lily pads at the top, dodging cars and riding logs to fill every pad before time runs out.",
+          controls: [
+            { key: "Arrow Keys / WASD", action: "Hop in direction" },
+            { key: "Esc / P", action: "Pause" }
+          ],
+          tips: [
+            "Ride logs across the river — if you stand still on water you sink immediately.",
+            "Each forward hop earns 10 points; filling all 5 lily pads is worth 500 — don't waste hops going backward.",
+            "One lily pad per level shimmers gold; landing on it opens a scholar prompt for +1000 and a power-up."
+          ],
+          scholar: "Once per level a gold lily pad shimmers — hop onto it to open an optional review prompt worth +1000 score and a power-up pickup."
+        });
+        var setupActions = document.querySelector("#setupScreen .setup-actions");
+        if (setupActions) window.MrMacsHelpOverlay.mountButton(setupActions, "chronohop");
+      }
+    } catch (e) {}
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("chronohop");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "chronohop", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -2037,6 +2088,7 @@
   }
 
   function newRun() {
+    try { window.MrMacsEndRecap && MrMacsEndRecap.reset(); MrMacsEndRecap && MrMacsEndRecap.startTracking(); } catch (e) {}
     initState({});
     showScreen(null);
     phase = "playing";
@@ -2189,4 +2241,41 @@
   window.addEventListener("pagehide", function () {
     if (state && phase === "playing") saveSnapshot();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "chronohop";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

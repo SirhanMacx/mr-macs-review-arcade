@@ -96,6 +96,7 @@
         <h2 id="endTitle">Archive secured</h2>
         <div class="end-grid" id="endGrid"></div>
         <div class="study-targets" id="studyTargets"></div>
+        <div id="endRecap"></div>
         <div class="actions">
           <button class="btn" id="setupBtn" type="button">Change Course</button>
           <button class="btn primary" id="againBtn" type="button">Run Again</button>
@@ -107,7 +108,39 @@
   <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
   <script src="../../assets/arcade-analytics.js?v=20260429-platform2"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
+  <script src="../../assets/arcade-end-recap.js?v=20260510-recap"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "archive-quest";
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Archive Quest",
+      goal: "Run, jump, and dash through three sourcebound platforming levels. Reach review gates and answer correctly to unlock powers and progress through the archive.",
+      controls: [
+        { key: "← / →",         action: "Run left or right" },
+        { key: "Z / Up / Jump",  action: "Jump (press again mid-air for double jump)" },
+        { key: "Shift / Dash",   action: "Dash forward through thin walls" },
+        { key: "Touch dock",     action: "Left / Right / Jump / Dash buttons on mobile" },
+        { key: "Pause button",   action: "Pause or resume the quest" }
+      ],
+      tips: [
+        "Your double-jump recharges on landing — time the second press at the peak of the first.",
+        "Dash through orange-tinted walls to find hidden evidence caches.",
+        "Review gates glow gold when a question is ready — answering correctly powers up your runner.",
+        "Enemies patrol platforms in a fixed pattern; memorize their route and dash past safely.",
+        "Collecting all evidence in a level unlocks a bonus score multiplier on the quest-complete screen."
+      ],
+      scholar: "Gold-glowing review gates are archive access points. Answer the question correctly to unlock a power-up for the remainder of the level."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setupScreen .actions");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script src="game.js?v=20260509-polish"></script>
-<script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
+  <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
+  <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
 </body>
 </html>

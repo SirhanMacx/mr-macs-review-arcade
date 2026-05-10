@@ -1636,6 +1636,7 @@
       ].join("");
     }
     if (dom.retryHint) dom.retryHint.textContent = "Shards earned: " + state.shardsAwarded + " (max " + SHARDS_CAP + " per run)";
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.stopTracking(); MrMacsEndRecap.render(document.getElementById("endRecap")); } } catch (e) {}
     showScreen("end");
     stopMusic();
   }
@@ -1866,6 +1867,7 @@
       pauseMusic();
       stopHum();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = "playing";
       showScreen(null);
@@ -1910,6 +1912,34 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("tron-trails");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "tron-trails", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -1920,6 +1950,7 @@
   }
 
   function newRun() {
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); } } catch (e) {}
     lastBonusLifeThreshold = 0;
     initState({});
     showScreen(null);
@@ -2064,4 +2095,70 @@
     if (state && phase === "playing") saveSnapshot();
     stopHum();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      MrMacsHelpOverlay.register("tron-trails", {
+        title: "How to Play Tron Trails",
+        goal: "Pilot your light cycle on a 60×60 grid, box in AI opponents to score kills, and survive without crashing into any trail or wall.",
+        controls: [
+          { key: "↑ / W", action: "Turn up" },
+          { key: "↓ / S", action: "Turn down" },
+          { key: "← / A", action: "Turn left" },
+          { key: "→ / D", action: "Turn right" },
+          { key: "1 / 2 / 3", action: "Activate power-up" },
+          { key: "Touch D-pad", action: "Turn on mobile" },
+          { key: "Esc / P", action: "Pause or unpause" }
+        ],
+        tips: [
+          "Every cell you pass becomes a permanent neon wall — plan your path before committing.",
+          "Corner AI bots into small areas by cutting off their escape routes early.",
+          "Speed power-up lets you outrun a bot but makes sharp turns harder — use it in open space.",
+          "Shield absorbs one collision — save it for desperate recoveries, not offense.",
+          "Wall Smash destroys one trail cell in front of you, creating an emergency escape."
+        ],
+        scholar: "Once per round a gold Scholar Gate opens at a random grid position. Steer your cycle through it to open an optional review prompt and earn bonus shards. The grid is paused while the prompt is open. Skip any time with no penalty."
+      });
+      var _helpContainer = document.querySelector("#setupScreen .setup-actions");
+      if (_helpContainer) MrMacsHelpOverlay.mountButton(_helpContainer, "tron-trails");
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "tron-trails";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

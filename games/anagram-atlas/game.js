@@ -2171,6 +2171,7 @@
   // -- Lifecycle / phases ----------------------------------------------------
   function startGame(opts) {
     opts = opts || {};
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); } } catch (e) {}
     initState(opts);
     phase = "playing";
     if (dom.setupScreen) dom.setupScreen.classList.remove("show");
@@ -2189,6 +2190,7 @@
     if (phase === "playing") {
       phase = "paused";
       if (dom.pauseScreen) dom.pauseScreen.classList.add("show");
+    renderPauseProgress();
       duckMusic();
     } else if (phase === "paused") {
       phase = "playing";
@@ -2232,6 +2234,7 @@
         }
       } catch (e) {}
     }
+    try { if (window.MrMacsEndRecap) { MrMacsEndRecap.stopTracking(); MrMacsEndRecap.render(document.getElementById("endRecap")); } } catch (e) {}
     dom.endScreen.classList.add("show");
   }
 
@@ -2465,6 +2468,34 @@
       if (document.hidden) saveSnapshot();
     });
     window.addEventListener("beforeunload", function () { saveSnapshot(); });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("anagram-atlas");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "anagram-atlas", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   if (document.readyState === "loading") {
@@ -2472,4 +2503,69 @@
   } else {
     boot();
   }
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      MrMacsHelpOverlay.register("anagram-atlas", {
+        title: "How to Play Anagram Atlas",
+        goal: "Rearrange scrambled letter tiles into the correct history, science, geography, civics, or art term before the timer runs out.",
+        controls: [
+          { key: "Click / Tap tile", action: "Place letter into next answer slot" },
+          { key: "A–Z keys", action: "Type letter directly" },
+          { key: "Backspace", action: "Remove last placed letter" },
+          { key: "Enter", action: "Submit answer" },
+          { key: "1–5", action: "Use power-up" },
+          { key: "Esc / P", action: "Pause or unpause" }
+        ],
+        tips: [
+          "Use Shuffle to re-scramble the rack if you're stuck — it costs no points.",
+          "Hints reveal one correct letter per use but deduct 50 points each.",
+          "Build a streak to unlock score multipliers — three correct in a row activates x2.",
+          "Longer terms give more base points; go for them when the timer is generous.",
+          "Skip only as a last resort — it resets your streak to zero."
+        ],
+        scholar: "Scholar Terms appear with a gilt rim. Unscramble them correctly to immediately open a paired review prompt — answer correctly for a bonus shard reward on top of the term score. Skip any time with no penalty."
+      });
+      var _helpContainer = document.querySelector("#setupScreen .setup-actions");
+      if (_helpContainer) MrMacsHelpOverlay.mountButton(_helpContainer, "anagram-atlas");
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "anagram-atlas";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

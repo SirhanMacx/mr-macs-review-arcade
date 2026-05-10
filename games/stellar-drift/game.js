@@ -1718,6 +1718,7 @@
       ].join("");
     }
     showScreen("end");
+    try { var el = document.getElementById("endRecap"); if (el && window.MrMacsEndRecap) { MrMacsEndRecap.render(el); MrMacsEndRecap.stopTracking(); } } catch (e) {}
   }
 
   function addShards(n, source) {
@@ -1855,6 +1856,7 @@
       thrustOff();
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = "playing";
       showScreen(null);
@@ -1892,6 +1894,58 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+
+    try {
+      if (window.MrMacsHelpOverlay) {
+        window.MrMacsHelpOverlay.register("stellar-drift", {
+          title: "How to Play Stellar Drift",
+          goal: "Pilot the Archive Cruiser through endless asteroid fields, survive every wave, and intercept the Misconception Mothership every five waves.",
+          controls: [
+            { key: "W / ↑", action: "Thrust forward" },
+            { key: "A / D", action: "Rotate left / right" },
+            { key: "Space", action: "Fire" },
+            { key: "Shift", action: "Hyperspace jump" },
+            { key: "Esc / P", action: "Pause" }
+          ],
+          tips: [
+            "Large asteroids split into two medium, medium into two small — clear small ones quickly before the field swarms.",
+            "Hyperspace jumps have an 8-second cooldown and can land you anywhere, including inside an asteroid — use it as a last resort.",
+            "Watch for gold intel asteroids; fragmenting one opens an optional review challenge for +500 shards and a power-up."
+          ],
+          scholar: "Gold intel asteroids carry a review intercept — fragment one, answer correctly, and earn bonus shards plus a triple-shot or shield power-up."
+        });
+        var setupActions = document.querySelector("#setupScreen .setup-actions");
+        if (setupActions) window.MrMacsHelpOverlay.mountButton(setupActions, "stellar-drift");
+      }
+    } catch (e) {}
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("stellar-drift");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "stellar-drift", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -1902,6 +1956,7 @@
   }
 
   function newRun() {
+    try { window.MrMacsEndRecap && MrMacsEndRecap.reset(); MrMacsEndRecap && MrMacsEndRecap.startTracking(); } catch (e) {}
     initState({ wave: 1, score: 0, lives: 3 });
     startWave(1);
     updateHud();
@@ -2002,4 +2057,41 @@
     if (state && phase === "playing") saveSnapshot();
     thrustOff();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "stellar-drift";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

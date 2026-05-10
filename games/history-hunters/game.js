@@ -3473,4 +3473,12 @@
     console.error(error);
     els.questText.textContent = "The archive failed to load. Refresh the page and try again.";
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();

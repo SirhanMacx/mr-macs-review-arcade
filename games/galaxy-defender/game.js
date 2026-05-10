@@ -2229,6 +2229,7 @@
       phase = "paused";
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = prevPhase || "playing";
       if (phase === "paused") phase = "playing";
@@ -2266,6 +2267,34 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("galaxy-defender");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "galaxy-defender", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -2400,4 +2429,68 @@
   window.addEventListener("pagehide", function () {
     if (state && phase === "playing") saveSnapshot();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      MrMacsHelpOverlay.register("galaxy-defender", {
+        title: "How to Play Galaxy Defender",
+        goal: "Shoot down misinformation invader formations before they reach the bottom — survive five waves per stage to face the Misinfo Mothership.",
+        controls: [
+          { key: "← / A", action: "Move defender left" },
+          { key: "→ / D", action: "Move defender right" },
+          { key: "Space", action: "Fire laser" },
+          { key: "Touch left / right", action: "Move on mobile" },
+          { key: "Esc / P", action: "Pause or unpause" }
+        ],
+        tips: [
+          "Invaders swoop down in Bezier arcs before locking to the grid — shoot them mid-dive for bonus points.",
+          "Dive attackers fire back; sidestep rather than staying stationary.",
+          "The Misinfo Mothership appears every fifth stage — it takes multiple hits.",
+          "Shoot formation leaders to scatter their group and slow the descent.",
+          "Shield barriers absorb shots from both sides — use them strategically."
+        ],
+        scholar: "A gold-rimmed Scholar Invader with a rotating sigil appears rarely. Destroy it to trigger an optional review prompt worth +1500 points and 12 shards. Skip any time with no penalty."
+      });
+      var _helpContainer = document.querySelector("#setupScreen .setup-actions");
+      if (_helpContainer) MrMacsHelpOverlay.mountButton(_helpContainer, "galaxy-defender");
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "galaxy-defender";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

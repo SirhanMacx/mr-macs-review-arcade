@@ -207,6 +207,7 @@
           <button class="btn primary brass-btn" id="saveInitialsBtn" type="button">Save Score</button>
         </div>
         <div class="study-targets" id="studyTargets"></div>
+        <div id="endRecap"></div>
         <div class="setup-actions">
           <button class="btn glass-pill" id="setupBtn" type="button">Change Course</button>
           <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
@@ -221,9 +222,41 @@
   <script src="../../assets/source-bank.js?v=20260502-source-safety"></script>
   <script src="../../assets/arcade-perf.js?v=20260508-perf-lite"></script>
   <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
   <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
   <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-end-recap.js?v=20260510-recap"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "chrono-pinball";
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Chrono Pinball",
+      goal: "Launch the archive ball, hit the five era lock targets, and clear review lock missions to activate Multiball and eventually reach Wizard Mode.",
+      controls: [
+        { key: "Z / Left Arrow",     action: "Left flipper" },
+        { key: "/ / Right Arrow",    action: "Right flipper" },
+        { key: "Space / Down Arrow", action: "Pull and release the plunger to launch" },
+        { key: "T",                  action: "Tilt warning — use sparingly" },
+        { key: "P",                  action: "Pause the table" }
+      ],
+      tips: [
+        "Light all five era targets in order (REN → IND → WWI → CLD → DIG) to start Wizard Mode.",
+        "Review lock missions pause the ball and award a score multiplier on correct answers.",
+        "Hold the left flipper to guide the ball up the left orbit for a spinner bonus.",
+        "Bumpers at the top of the playfield add quick score — aim short plunges up the center.",
+        "Tilt penalty cancels the current ball — only nudge the table when absolutely necessary."
+      ],
+      scholar: "Gold era lock targets on the upper playfield arm review lock missions. Hit all three in sequence to earn a score multiplier for a correct answer."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setupScreen .setup-actions");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script src="game.js?v=20260509-polish"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>

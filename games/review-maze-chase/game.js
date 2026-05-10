@@ -933,6 +933,9 @@
 
   // ─── Start / end ──────────────────────────────────────────────────────────────
   function startRun() {
+    if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); }
+    const _recapEl = document.getElementById("endRecap");
+    if (_recapEl) _recapEl.innerHTML = "";
     // Resume AudioContext on user gesture
     if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
     if (!audioCtx) getAudio();
@@ -1017,6 +1020,10 @@
     els.coach.textContent = accuracy >= 80
       ? "Strong run. Raise speed or switch to a harder course set."
       : "Replay one set and read each explanation before pushing speed.";
+    if (window.MrMacsEndRecap) {
+      MrMacsEndRecap.stopTracking();
+      MrMacsEndRecap.render(document.getElementById("endRecap"));
+    }
     show(els.result);
     window.MrMacsAnalytics?.track("game_complete", {
       gameId: "review-maze-chase", title: "Review Maze Chase",

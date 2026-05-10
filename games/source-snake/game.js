@@ -622,6 +622,7 @@
       dom.retryHint.textContent = "";
     }
     showScreen("end");
+    try { var el = document.getElementById("endRecap"); if (el && window.MrMacsEndRecap) { MrMacsEndRecap.render(el); MrMacsEndRecap.stopTracking(); } } catch (e) {}
     stopMusic();
   }
 
@@ -1603,6 +1604,7 @@
       phase = "paused";
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = "playing";
       showScreen(null);
@@ -1640,6 +1642,57 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+
+    try {
+      if (window.MrMacsHelpOverlay) {
+        window.MrMacsHelpOverlay.register("source-snake", {
+          title: "How to Play Source Snake",
+          goal: "Steer your research thread through the archive grid, eating gold primary sources while dodging red rumor scraps — survive as long as possible.",
+          controls: [
+            { key: "Arrow Keys / WASD", action: "Steer the snake" },
+            { key: "Space / P", action: "Pause" },
+            { key: "R", action: "Use retry token" },
+            { key: "Esc", action: "Menu" }
+          ],
+          tips: [
+            "Red rumor scraps still grow your snake — avoid them to keep your thread manageable at high speeds.",
+            "Speed increases with length; use Slow power-ups when the pace gets uncontrollable.",
+            "Retry tokens save you from a single wall or self-collision — they build up every 1000 score, max 3."
+          ],
+          scholar: "Rare purple scholar pellets pause the game and open a review modal — answer correctly for +500 score and a power-up cascade."
+        });
+        var setupActions = document.querySelector("#setupScreen .setup-actions");
+        if (setupActions) window.MrMacsHelpOverlay.mountButton(setupActions, "source-snake");
+      }
+    } catch (e) {}
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("source-snake");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "source-snake", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -1649,6 +1702,7 @@
   }
 
   function newRun() {
+    try { window.MrMacsEndRecap && MrMacsEndRecap.reset(); MrMacsEndRecap && MrMacsEndRecap.startTracking(); } catch (e) {}
     initState({});
     showScreen(null);
     phase = "playing";
@@ -1735,4 +1789,41 @@
   window.addEventListener("pagehide", function () {
     if (state && phase === "playing") saveSnapshot();
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "source-snake";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

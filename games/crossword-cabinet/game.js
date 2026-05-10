@@ -2046,6 +2046,7 @@
       pauseTimer();
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = "playing";
       resumeTimer();
@@ -2178,6 +2179,59 @@
     var best = readBest();
     if (dom.hudBest) dom.hudBest.textContent = best || "--";
     showScreen("setup");
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("crossword-cabinet");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "crossword-cabinet", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      window.MrMacsHelpOverlay.register("crossword-cabinet", {
+        title: "How to Play Crossword Cabinet",
+        goal: "Fill every white square with the correct letter to complete the history and civics crossword.",
+        controls: [
+          { key: "Click / Tap", action: "Select a cell (click again to toggle direction)" },
+          { key: "A – Z",       action: "Type a letter into the selected cell" },
+          { key: "Backspace",   action: "Erase the current cell" },
+          { key: "Tab",         action: "Jump to the next clue" },
+          { key: "Arrow keys",  action: "Move the cursor one cell" }
+        ],
+        tips: [
+          "Click a filled clue number in the Across/Down list to jump straight to that word.",
+          "Scholar clues are marked with a star — answer them correctly for a shard bonus.",
+          "Work the shorter words first to seed letters that unlock the longer answers."
+        ],
+        scholar: "One clue per puzzle is a Scholar clue (marked ★). Type the correct answer to earn bonus shards and a review note."
+      });
+      var _helpSetupActions = document.querySelector("#setupScreen .setup-actions");
+      if (_helpSetupActions) window.MrMacsHelpOverlay.mountButton(_helpSetupActions, "crossword-cabinet");
+    }
+  } catch (e) {}
   }
 
   if (document.readyState === "loading") {
@@ -2185,4 +2239,41 @@
   } else {
     boot();
   }
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "crossword-cabinet";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

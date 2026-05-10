@@ -1679,6 +1679,7 @@
     }
     if (dom.retryHint) dom.retryHint.textContent = "Shards earned: " + state.shardsAwarded + " (max " + SHARDS_CAP + " per run)";
     showScreen("end");
+    try { var el = document.getElementById("endRecap"); if (el && window.MrMacsEndRecap) { MrMacsEndRecap.render(el); MrMacsEndRecap.stopTracking(); } } catch (e) {}
     stopMusic();
   }
 
@@ -1889,6 +1890,7 @@
       phase = "paused";
       pauseMusic();
       showScreen("pause");
+      renderPauseProgress();
     } else if (phase === "paused") {
       phase = "playing";
       showScreen(null);
@@ -1925,6 +1927,34 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+  
+  
+  // ── Difficulty selector ────────────────────────────────────────
+  try {
+    if (window.MrMacsDifficulty) {
+      MrMacsDifficulty.register("rumor-whack");
+      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
+      if (_diffSetupCard) {
+        var _diffHost = document.createElement("div");
+        _diffHost.className = "difficulty-host";
+        _diffHost.style.cssText = "margin: 12px 0 6px;";
+        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
+        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
+        else _diffSetupCard.appendChild(_diffHost);
+        MrMacsDifficulty.mountSelector(_diffHost, "rumor-whack", { compact: false });
+      }
+    }
+  } catch (e) {}
+
+
+  // ── Sound toggle live label ────────────────────────────────
+  try {
+    var _soundBtn = document.getElementById("soundBtn");
+    if (_soundBtn && window.MrMacsProfile && window.MrMacsProfile.getSettings) {
+      var _snd = MrMacsProfile.getSettings().sound;
+      _soundBtn.textContent = (_snd === "off") ? "Sound Off" : "Sound On";
+    }
+  } catch (e) {}
   }
 
   function exitToArcade() {
@@ -1936,6 +1966,7 @@
   var runStartTs = 0;
 
   function newRun() {
+    try { window.MrMacsEndRecap && MrMacsEndRecap.reset(); MrMacsEndRecap && MrMacsEndRecap.startTracking(); } catch (e) {}
     lastBonusLifeThreshold = 0;
     initState({});
     showScreen(null);
@@ -2065,4 +2096,66 @@
       try { recordPlayWithProfile(Date.now() - runStartTs); } catch (e) {}
     }
   });
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  // ── Help overlay ───────────────────────────────────────────────────────────
+  try {
+    if (window.MrMacsHelpOverlay) {
+      MrMacsHelpOverlay.register("rumor-whack", {
+        title: "How to Play Rumor Whack",
+        goal: "Whack misinformation podiums before they disappear and avoid hitting verified fact podiums during 60-second rounds.",
+        controls: [
+          { key: "Click / Tap", action: "Whack a podium" },
+          { key: "1 / 2 / 3", action: "Use power-up in that slot" },
+          { key: "Esc / P", action: "Pause or unpause" }
+        ],
+        tips: [
+          "Cracked, steaming podiums are RUMORS — whack them fast for points.",
+          "Laurel-wreathed podiums are FACTS — let them stand or lose a life.",
+          "Build a combo by whacking multiple rumors in quick succession.",
+          "Power-ups appear on the grid — whack them to collect before they vanish.",
+          "Later rounds speed up pop timers, so prioritize the highest-value targets."
+        ],
+        scholar: "A rainbow-spinning Scholar Podium appears occasionally. Whack it to pause the round and answer an optional review question — a correct answer earns a fat shard bonus. Skip any time with no penalty."
+      });
+      var _helpContainer = document.querySelector("#setupScreen .setup-actions");
+      if (_helpContainer) MrMacsHelpOverlay.mountButton(_helpContainer, "rumor-whack");
+    }
+  } catch (e) {}
+
+  })();
+
+
+function renderPauseProgress() {
+  try {
+    if (!window.MrMacsProfile || !MrMacsProfile.listAchievements) return;
+    var ach = MrMacsProfile.listAchievements();
+    var GAME_ID_LOCAL = "rumor-whack";
+    var candidates = ach.filter(function(a) {
+      if (a.unlocked) return false;
+      return a.id.indexOf(GAME_ID_LOCAL) !== -1 || a.id.indexOf("cross-") === 0;
+    });
+    if (!candidates.length) return;
+    var pick = candidates[0];
+    var el = document.getElementById("pauseProgress");
+    var title = document.getElementById("pauseProgressTitle");
+    var meta = document.getElementById("pauseProgressMeta");
+    var fill = document.getElementById("pauseProgressFill");
+    if (!el || !title || !meta || !fill) return;
+    title.textContent = pick.def.title || pick.id;
+    meta.textContent = pick.def.desc || "";
+    var pct = 0;
+    if (window.MrMacsProfile.computeAchievementProgress) {
+      var p = MrMacsProfile.computeAchievementProgress(pick.def, MrMacsProfile.get());
+      if (p && p.target) pct = Math.min(100, (p.current / p.target) * 100);
+    }
+    fill.style.width = pct + "%";
+    el.hidden = false;
+  } catch (e) {}
+}

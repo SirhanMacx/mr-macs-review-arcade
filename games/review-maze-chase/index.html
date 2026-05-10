@@ -111,6 +111,7 @@
         <h2 id="resultTitle">Archive cleared</h2>
         <div class="metrics" id="resultMetrics" aria-live="polite"></div>
         <div class="feedback show-text" id="coach" role="status"></div>
+        <div id="endRecap"></div>
         <div class="actions">
           <button class="btn ghost" id="setupBtn" type="button" aria-label="Change course and settings">Change Course</button>
           <button class="btn primary" id="againBtn" type="button" aria-label="Play again with same settings">Play Again</button>
@@ -193,6 +194,34 @@
   <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
   <script src="../../assets/source-bank.js?v=20260504-maze"></script>
   <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-end-recap.js?v=20260510-recap"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "review-maze-chase";
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Review Maze Chase",
+      goal: "Clear all evidence pellets from the maze while dodging the archive chasers. Collect source scrolls and answer review gates correctly to turn the chasers vulnerable.",
+      controls: [
+        { key: "← ↑ ↓ →",    action: "Move through the maze corridors" },
+        { key: "Touch d-pad",  action: "On-screen arrow buttons on mobile" }
+      ],
+      tips: [
+        "Large source scrolls in the corners trigger a review gate — a correct answer makes chasers vulnerable for several seconds.",
+        "Vulnerable chasers can be eaten for bonus points — the first scores 200, doubling each time.",
+        "Clear pellets from the outer ring first to create escape routes when chasers cluster.",
+        "Study difficulty slows the game — great for reviewing questions while still playing.",
+        "After a correct answer, the vulnerability window is short: plan your chase route before the gate closes."
+      ],
+      scholar: "Large glowing source scrolls appear in the four corners of the maze. Collecting one opens a review gate; answer correctly to turn chasers vulnerable and earn bonus points."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setup .actions");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script src="game.js?v=20260509-icons"></script>
 </body>
 </html>

@@ -2977,4 +2977,12 @@
     if (els.startBtn) { els.startBtn.disabled = true; els.startBtn.textContent = "Library Error"; }
   });
 
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();

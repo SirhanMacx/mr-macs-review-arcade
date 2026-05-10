@@ -3580,6 +3580,12 @@ input.field {
 .library-head {
   padding-top: 4px;
 }
+/* ── Quick-filter chips (above lane tabs) ── */
+.quick-filter-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px var(--gutter, 32px); }
+.qfc-chip { padding: 6px 12px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12); border-radius: 999px; color: var(--paper, #fff); font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.qfc-chip:hover, .qfc-chip:focus-visible { background: rgba(245,196,81,.12); border-color: rgba(245,196,81,.40); transform: translateY(-1px); }
+.qfc-chip[aria-pressed="true"] { background: rgba(245,196,81,.22); border-color: #f5c451; color: #f5c451; }
+@media (prefers-reduced-motion: reduce) { .qfc-chip { transition: none; } .qfc-chip:hover { transform: none; } }
 .lane-tabs {
   padding: 10px;
   border: 1px solid rgba(122,240,255,.18);
@@ -5064,6 +5070,98 @@ input[type="search"]::-webkit-search-cancel-button:hover { opacity: 1; backgroun
   .pd-streak-cell { transition: none; }
   .pd-streak-cell:hover { transform: none; }
 }
+
+/* ── 12-week streak calendar (84-cell override) ── */
+.pd-streak-cal-12w {
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.pd-streak-cal-12w .pd-streak-cell {
+  font-size: 8.5px;
+  border-radius: 4px;
+}
+
+/* ── Profile drawer: switcher in head ── */
+.pd-head-profile-switcher {
+  display: flex; align-items: center; gap: 6px;
+  margin-left: auto; margin-right: 8px;
+}
+.pd-profile-switcher-select {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: var(--paper);
+  max-width: 130px;
+  cursor: pointer;
+}
+.pd-profile-add-btn {
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(122,240,255,.10);
+  border: 1px solid rgba(122,240,255,.25);
+  border-radius: 50%;
+  font-size: 16px; line-height: 1;
+  color: var(--cyan);
+  cursor: pointer;
+  transition: background .18s, transform .18s;
+}
+.pd-profile-add-btn:hover { background: rgba(122,240,255,.20); transform: scale(1.12); }
+
+/* ── Backup & Share section ── */
+.pd-backup-row {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 6px;
+}
+.btn.glass-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  color: var(--paper);
+  cursor: pointer;
+  transition: background .18s, border-color .18s, transform .18s;
+}
+.btn.glass-pill:hover { background: rgba(245,196,81,.10); border-color: rgba(245,196,81,.40); transform: translateY(-1px); }
+
+/* ── 12-week heatmap (new section) ── */
+.pd-heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  margin-top: 8px;
+}
+.pd-heatmap-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  cursor: default;
+  transition: transform .15s;
+  position: relative;
+}
+.pd-heatmap-cell:hover { transform: scale(1.15); z-index: 2; }
+.pd-heatmap-0 { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); }
+.pd-heatmap-1 { background: rgba(245,196,81,.22); border: 1px solid rgba(245,196,81,.25); }
+.pd-heatmap-2 { background: rgba(245,196,81,.50); border: 1px solid rgba(245,196,81,.55); }
+.pd-heatmap-3 { background: rgba(245,196,81,.85); border: 1px solid rgba(245,196,81,.80); }
+.pd-heatmap-today { box-shadow: 0 0 0 2px rgba(122,240,255,.75); }
+.pd-heatmap-legend {
+  display: flex; align-items: center; gap: 4px;
+  margin-top: 6px;
+  font-size: 11px; color: var(--muted);
+}
+.pd-heatmap-legend-cell {
+  width: 12px; height: 12px; border-radius: 2px; display: inline-block;
+}
+.pd-heatmap-legend-label { margin: 0 2px; }
+.pd-heatmap-legend-label-more { margin-left: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .pd-heatmap-cell { transition: none; }
+  .pd-heatmap-cell:hover { transform: none; }
+}
+
 .pd-ach {
   position: relative;
   display: flex; align-items: center; gap: 10px;
@@ -7789,6 +7887,10 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   <div class="pd-panel" role="dialog" aria-modal="true" aria-labelledby="pdTitle">
     <div class="pd-head">
       <h2 class="pd-title" id="pdTitle">Trainer</h2>
+      <div class="pd-head-profile-switcher">
+        <select class="pd-profile-switcher-select" id="pdProfileSwitcherSelect" aria-label="Switch profile"></select>
+        <button class="pd-profile-add-btn" id="pdProfileAddBtn" type="button" aria-label="Add new profile" title="Add new profile">＋</button>
+      </div>
       <button class="pd-close" id="pdClose" type="button" aria-label="Close">✕</button>
     </div>
     <div class="pd-body">
@@ -7876,9 +7978,9 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       <section class="pd-section pd-section-streakcal">
         <header class="pd-section-head">
           <h3>Streak Calendar</h3>
-          <span class="pd-section-meta" id="pdStreakCalMeta">Last 21 days · gold = played</span>
+          <span class="pd-section-meta" id="pdStreakCalMeta">Last 84 days (12 weeks) · gold = played</span>
         </header>
-        <div class="pd-streak-cal" id="pdStreakCal" aria-label="Daily activity, last 21 days"></div>
+        <div class="pd-streak-cal pd-streak-cal-12w" id="pdStreakCal" aria-label="Daily activity, last 84 days"></div>
       </section>
 
       <section class="pd-section pd-section-progress">
@@ -7994,6 +8096,33 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <button class="pd-danger-btn" id="pdReset" type="button">Reset profile</button>
           <small>Wipes name, shards, achievements, and settings on this device. No undo.</small>
           <button class="pd-replay-btn" id="pdReplayTour" type="button">Replay hub tour</button>
+        </div>
+      </section>
+
+      <section class="pd-section pd-section-backup">
+        <header class="pd-section-head">
+          <h3>Backup &amp; Share</h3>
+          <span class="pd-section-meta">Share your progress or restore from a code</span>
+        </header>
+        <div class="pd-backup-row">
+          <button class="btn glass-pill" id="pdExportCode" type="button">📤 Share Progress</button>
+          <button class="btn glass-pill" id="pdImportCode" type="button">📥 Restore</button>
+        </div>
+      </section>
+
+      <section class="pd-section pd-section-heatmap">
+        <header class="pd-section-head">
+          <h3>12-Week Activity</h3>
+          <span class="pd-section-meta" id="pdHeatmapMeta">Color = questions answered per day</span>
+        </header>
+        <div class="pd-heatmap-grid" id="pdHeatmapGrid" aria-label="12-week activity heatmap"></div>
+        <div class="pd-heatmap-legend">
+          <span class="pd-heatmap-legend-cell pd-heatmap-0"></span>
+          <span class="pd-heatmap-legend-cell pd-heatmap-1"></span>
+          <span class="pd-heatmap-legend-cell pd-heatmap-2"></span>
+          <span class="pd-heatmap-legend-cell pd-heatmap-3"></span>
+          <span class="pd-heatmap-legend-label">Less</span>
+          <span class="pd-heatmap-legend-label pd-heatmap-legend-label-more">More</span>
         </div>
       </section>
     </div>
@@ -8513,6 +8642,12 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         </button>
       </div>
     </div>
+    <div class="quick-filter-chips" role="toolbar" aria-label="Quick filters">
+      <button class="qfc-chip" data-quick-filter="unplayed" aria-pressed="false">🆕 Unplayed</button>
+      <button class="qfc-chip" data-quick-filter="scholar" aria-pressed="false">🏆 Scholar Prompts</button>
+      <button class="qfc-chip" data-quick-filter="mobile" aria-pressed="false">📱 Mobile Friendly</button>
+      <button class="qfc-chip" data-quick-filter="quick" aria-pressed="false">⏱ Quick Play</button>
+    </div>
     <div class="lane-tabs reveal" id="laneTabs" aria-label="Library shortcuts"></div>
     <div class="topic-chips reveal" id="topicChips" aria-label="Quick topic filters" hidden></div>
     <section class="filters reveal" aria-label="Game filters">
@@ -8639,6 +8774,20 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-news-ticker.js?v=20260509-news-ticker"></script>
 <script src="assets/arcade-leaderboard-globe.js?v=20260509-globe"></script>
 <script src="assets/arcade-deeplinks.js?v=20260509-deeplinks"></script>
+<script src="assets/arcade-resume-chip.js?v=20260510-resume"></script>
+<script src="assets/arcade-quick-launcher.js?v=20260510-launcher"></script>
+<script src="assets/arcade-session-timer.js?v=20260510-timer"></script>
+<script src="assets/arcade-streak-indicator.js?v=20260510-streak"></script>
+<script src="assets/arcade-notification-center.js?v=20260510-notif"></script>
+<script src="assets/arcade-import-export.js?v=20260510-impexp"></script>
+<script src="assets/arcade-search-helpers.js?v=20260510-search"></script>
+<script src="assets/arcade-pedagogy-callout.js?v=20260510-ped"></script>
+<script src="assets/arcade-skeleton-loader.js?v=20260510-skel"></script>
+<script src="assets/arcade-week-summary.js?v=20260510-week"></script>
+<script src="assets/arcade-mascot-dialog.js?v=20260510-mascotdlg"></script>
+<script src="assets/arcade-print-mode.js?v=20260510-print"></script>
+<script src="assets/arcade-heatmap.js?v=20260510-heatmap"></script>
+<script src="assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
@@ -9045,12 +9194,33 @@ function priority(game) {
 }
 function filteredGames() {
   const query = state.query.trim().toLowerCase();
+  // Quick-filter helper (uses MrMacsSearchHelpers if available, else built-in fallbacks)
+  const qf = state.quickFilter || null;
+  const profile = (window.MrMacsProfile && window.MrMacsProfile.get) ? window.MrMacsProfile.get() : null;
   return GAMES.filter((game) => {
     if (!laneMatches(game)) return false;
     if (state.course !== "All Courses" && game.course !== state.course) return false;
     if (!subjectMatches(game, state.subject)) return false;
     if (state.type !== "All Game Types" && displayGameType(game) !== state.type) return false;
     if (query && !searchable(game).includes(query)) return false;
+    // Quick-filter — delegate to MrMacsSearchHelpers.filters if present, else built-in logic
+    if (qf) {
+      if (window.MrMacsSearchHelpers && window.MrMacsSearchHelpers.filters && typeof window.MrMacsSearchHelpers.filters[qf] === "function") {
+        try { if (!window.MrMacsSearchHelpers.filters[qf](game, profile)) return false; } catch (e) {}
+      } else {
+        // Built-in fallbacks
+        if (qf === "unplayed") {
+          var played = profile && profile.history && profile.history.find(function(h) { return h.id === game.id; });
+          if (played) return false;
+        } else if (qf === "scholar") {
+          if (!(game.tags && game.tags.includes("scholar"))) return false;
+        } else if (qf === "mobile") {
+          if (!(game.tags && game.tags.includes("mobile"))) return false;
+        } else if (qf === "quick") {
+          if (!isQuickPlay(game)) return false;
+        }
+      }
+    }
     return true;
   }).sort((a, b) => {
     if (state.sort === "title") return a.title.localeCompare(b.title, undefined, { numeric: true });
@@ -9093,6 +9263,36 @@ function renderLaneTabs() {
     });
   });
 }
+
+// ============== Quick-filter chip wiring ==============
+(function () {
+  function wireQfChips() {
+    document.querySelectorAll(".qfc-chip").forEach(function (chip) {
+      if (chip.dataset.qfWired) return;
+      chip.dataset.qfWired = "1";
+      chip.addEventListener("click", function () {
+        var filterKey = chip.dataset.quickFilter;
+        var pressed = chip.getAttribute("aria-pressed") === "true";
+        document.querySelectorAll(".qfc-chip").forEach(function (c) {
+          c.setAttribute("aria-pressed", "false");
+        });
+        if (!pressed) {
+          chip.setAttribute("aria-pressed", "true");
+          if (typeof state !== "undefined" && state) state.quickFilter = filterKey;
+        } else {
+          if (typeof state !== "undefined" && state) state.quickFilter = null;
+        }
+        if (typeof render === "function") render();
+      });
+    });
+  }
+  // Wire now (chips may be in DOM immediately) and also after DOMContentLoaded
+  if (document.readyState !== "loading") {
+    wireQfChips();
+  } else {
+    document.addEventListener("DOMContentLoaded", wireQfChips);
+  }
+})();
 
 // ============== Status pills + marquee ==============
 function renderMetrics() {
@@ -9270,6 +9470,40 @@ function renderFeatured() {
     }
     if (games[0]) openGame(games[0]);
   };
+
+  // Hero CTA label rotation based on profile state
+  (function () {
+    var heroCta = document.getElementById("launchFeatured");
+    if (!heroCta) return;
+    var span = heroCta.querySelector("span:first-child");
+    if (!span) return;
+    try {
+      var profile = (window.MrMacsProfile && window.MrMacsProfile.get) ? window.MrMacsProfile.get() : null;
+      // Priority 1 — active session resume
+      if (profile && profile.activeSession && profile.activeSession.gameId) {
+        span.textContent = "🎮 Resume your run →";
+        heroCta.title = "Resume " + (profile.activeSession.gameId || "your last game");
+        return;
+      }
+      // Priority 2 — today's daily challenge not yet claimed
+      var todayKey2 = (function () {
+        var d = new Date();
+        return d.getFullYear() + "-" +
+          String(d.getMonth() + 1).padStart(2, "0") + "-" +
+          String(d.getDate()).padStart(2, "0");
+      })();
+      var dailyClaimed = profile && profile.dailyGoalsClaimed &&
+        profile.dailyGoalsClaimed[todayKey2];
+      if (!dailyClaimed) {
+        span.textContent = "📰 Today's Challenge (+60 💎) →";
+        heroCta.title = "Claim today's daily challenge for 60 shards";
+        return;
+      }
+    } catch (e) {}
+    // Fallback — quick play
+    span.textContent = "🎲 Quick Play →";
+    heroCta.title = "Launch a random game";
+  })();
 }
 
 function buttonCard(game, fallback, className) {
@@ -11076,7 +11310,7 @@ boot();
       }
     }
 
-    // Streak calendar — last 21 days as a 3×7 grid
+    // Streak calendar — last 84 days as a 12×7 grid
     var streakCal = document.getElementById("pdStreakCal");
     if (streakCal) {
       var playSet = {};
@@ -11086,7 +11320,7 @@ boot();
         String(todayDate.getMonth() + 1).padStart(2, "0") + "-" +
         String(todayDate.getDate()).padStart(2, "0");
       var cells = [];
-      for (var d = 20; d >= 0; d--) {
+      for (var d = 83; d >= 0; d--) {
         var date = new Date(todayDate);
         date.setDate(todayDate.getDate() - d);
         var dayKey = date.getFullYear() + "-" +
@@ -11109,14 +11343,55 @@ boot();
       var meta = document.getElementById("pdStreakCalMeta");
       if (meta) {
         var playedCount = (profile.playDays || []).filter(function (d) {
-          // Only count last 21 days
+          // Only count last 84 days
           var dd = new Date(d + "T00:00:00");
           var cutoff = new Date(todayDate);
-          cutoff.setDate(todayDate.getDate() - 20);
+          cutoff.setDate(todayDate.getDate() - 83);
           return dd >= cutoff;
         }).length;
-        meta.textContent = playedCount + " of last 21 days · current streak " + (profile.streak.current || 0);
+        meta.textContent = playedCount + " of last 84 days (12 weeks) · current streak " + (profile.streak.current || 0);
       }
+    }
+
+    // 12-week heatmap (play count per day)
+    var heatmapGrid = document.getElementById("pdHeatmapGrid");
+    if (heatmapGrid) {
+      var heatPlaySet = {};
+      // Build counts from dailyAnswers if available, else binary from playDays
+      if (profile.dailyAnswers) {
+        Object.keys(profile.dailyAnswers).forEach(function (k) {
+          heatPlaySet[k] = (profile.dailyAnswers[k] || {}).total || 0;
+        });
+      } else {
+        (profile.playDays || []).forEach(function (d) { heatPlaySet[d] = 1; });
+      }
+      var heatTodayDate = new Date();
+      var heatTodayKey = heatTodayDate.getFullYear() + "-" +
+        String(heatTodayDate.getMonth() + 1).padStart(2, "0") + "-" +
+        String(heatTodayDate.getDate()).padStart(2, "0");
+      var allCounts = Object.values(heatPlaySet).filter(function (v) { return v > 0; });
+      var maxCount = allCounts.length ? Math.max.apply(null, allCounts) : 1;
+      var heatCells = [];
+      for (var hd = 83; hd >= 0; hd--) {
+        var hDate = new Date(heatTodayDate);
+        hDate.setDate(heatTodayDate.getDate() - hd);
+        var hKey = hDate.getFullYear() + "-" +
+          String(hDate.getMonth() + 1).padStart(2, "0") + "-" +
+          String(hDate.getDate()).padStart(2, "0");
+        var count = heatPlaySet[hKey] || 0;
+        var level = count === 0 ? 0 : count < maxCount * 0.25 ? 1 : count < maxCount * 0.55 ? 2 : 3;
+        var isHeatToday = hKey === heatTodayKey;
+        var hClasses = ["pd-heatmap-cell", "pd-heatmap-" + level];
+        if (isHeatToday) hClasses.push("pd-heatmap-today");
+        var hTooltip = hDate.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" }) +
+          (count ? " · " + count + " answers" : " · no activity");
+        heatCells.push(
+          '<div class="' + hClasses.join(" ") +
+          '" title="' + hTooltip.replace(/"/g, "&quot;") + '" aria-label="' +
+          hTooltip.replace(/"/g, "&quot;") + '"></div>'
+        );
+      }
+      heatmapGrid.innerHTML = heatCells.join("");
     }
 
     // ---- Progress over time chart (last 8 weeks) ----
@@ -11597,6 +11872,83 @@ boot();
       reader.readAsText(file);
     });
   }
+
+  // ---- Profile switcher select in drawer head ----
+  (function () {
+    var sel = document.getElementById("pdProfileSwitcherSelect");
+    var addBtn = document.getElementById("pdProfileAddBtn");
+    function refreshSwitcherSelect() {
+      if (!sel || !window.MrMacsProfile) return;
+      var profiles = [];
+      try { profiles = window.MrMacsProfile.listProfiles ? window.MrMacsProfile.listProfiles() : []; } catch (e) {}
+      var activeId = "";
+      try { activeId = window.MrMacsProfile.activeId ? window.MrMacsProfile.activeId() : ""; } catch (e) {}
+      if (!profiles.length) {
+        sel.innerHTML = '<option value="">1 profile</option>';
+        return;
+      }
+      sel.innerHTML = profiles.map(function (p) {
+        var label = p.name || ("Profile " + (p.id || ""));
+        return '<option value="' + String(p.id || "").replace(/"/g, "&quot;") + '"' +
+          (p.id === activeId ? " selected" : "") + '>' +
+          label.replace(/[<>&]/g, function (c) { return c === "<" ? "&lt;" : c === ">" ? "&gt;" : "&amp;"; }) +
+          '</option>';
+      }).join("");
+    }
+    refreshSwitcherSelect();
+    if (sel) {
+      sel.addEventListener("change", function () {
+        var targetId = sel.value;
+        if (!targetId || !window.MrMacsProfile) return;
+        try {
+          if (typeof window.MrMacsProfile.switchProfile === "function") {
+            window.MrMacsProfile.switchProfile(targetId);
+          }
+        } catch (e) {}
+      });
+    }
+    if (addBtn) {
+      addBtn.addEventListener("click", function () {
+        var rosterBtn = document.getElementById("pdRosterPill");
+        if (rosterBtn) rosterBtn.click();
+      });
+    }
+    if (window.MrMacsProfile) {
+      window.MrMacsProfile.on("profile:create", refreshSwitcherSelect);
+      window.MrMacsProfile.on("profile:switch", refreshSwitcherSelect);
+    }
+  })();
+
+  // ---- Backup & Share (MrMacsImportExport modal integration) ----
+  (function () {
+    var exportCodeBtn = document.getElementById("pdExportCode");
+    var importCodeBtn = document.getElementById("pdImportCode");
+    if (exportCodeBtn) {
+      exportCodeBtn.addEventListener("click", function () {
+        try {
+          if (window.MrMacsImportExport && typeof window.MrMacsImportExport.showExportModal === "function") {
+            window.MrMacsImportExport.showExportModal();
+          } else {
+            // Fallback: trigger legacy export if no modal available
+            var legacy = document.getElementById("pdExport");
+            if (legacy) legacy.click();
+          }
+        } catch (e) {}
+      });
+    }
+    if (importCodeBtn) {
+      importCodeBtn.addEventListener("click", function () {
+        try {
+          if (window.MrMacsImportExport && typeof window.MrMacsImportExport.showImportModal === "function") {
+            window.MrMacsImportExport.showImportModal();
+          } else {
+            var legacy = document.getElementById("pdImport");
+            if (legacy) legacy.click();
+          }
+        } catch (e) {}
+      });
+    }
+  })();
 
   // ---- Print weekly report ----
   // Builds a one-page printable report from the active profile and
@@ -12771,6 +13123,81 @@ boot();
           var target = document.getElementById("library");
           if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
         });
+      }
+    } catch (e) {}
+
+    // ── Round-4 module wiring (May 10 2026) ────────────────────────
+    // New companion modules: resume chip, quick launcher, session timer,
+    // streak indicator, notification center, search helpers, mascot dialog,
+    // activity feed, trophy showcase, week summary, and skeleton loader.
+    // All blocks are independently try/caught — one missing module never
+    // blocks the rest.
+
+    // Resume chip (floating bottom-right)
+    try { if (window.MrMacsResumeChip) MrMacsResumeChip.mount(document.body); } catch (e) {}
+
+    // Quick launcher (Cmd+K)
+    try { if (window.MrMacsQuickLauncher) MrMacsQuickLauncher.bindGlobalShortcut(); } catch (e) {}
+
+    // Session timer
+    try { if (window.MrMacsSessionTimer) MrMacsSessionTimer.start(); } catch (e) {}
+
+    // Streak indicator (hot streak detection)
+    try { if (window.MrMacsStreakIndicator) MrMacsStreakIndicator.start(); } catch (e) {}
+
+    // Notification bell (mount in topbar)
+    try {
+      var topbarRight = document.querySelector(".topbar .topbar-right") || document.querySelector(".topbar");
+      if (topbarRight && window.MrMacsNotificationCenter) MrMacsNotificationCenter.mountBell(topbarRight);
+    } catch (e) {}
+
+    // Mascot dialog
+    try { if (window.MrMacsMascotDialog) MrMacsMascotDialog.start(); } catch (e) {}
+
+    // Did-you-mean on search input
+    try {
+      if (window.MrMacsSearchHelpers && window.MrMacsSearchHelpers.mountDidYouMean) {
+        var _search = document.getElementById("search");
+        if (_search && _search.parentElement) {
+          var _vocab = MrMacsSearchHelpers.buildVocabulary(window.GAMES || []);
+          MrMacsSearchHelpers.mountDidYouMean(_search, _search.parentElement, _vocab);
+        }
+      }
+    } catch (e) {}
+
+    // Trophy showcase mount (in profile drawer or hub band)
+    try {
+      if (window.MrMacsTrophyShowcase) {
+        var trophyHost = document.getElementById("quickInsightsTrophy") || document.getElementById("achStripRail");
+        // Already mounted as part of Quick Insights — no-op if already done
+        void trophyHost;
+      }
+    } catch (e) {}
+
+    // Activity feed mount
+    try {
+      if (window.MrMacsActivityFeed) {
+        var feedHost = document.getElementById("quickInsightsFeed");
+        if (feedHost && !feedHost.dataset.mounted) {
+          MrMacsActivityFeed.mount(feedHost);
+          feedHost.dataset.mounted = "1";
+        }
+      }
+    } catch (e) {}
+
+    // Week summary check + show banner
+    try {
+      if (window.MrMacsWeekSummary && MrMacsWeekSummary.shouldShow()) {
+        var weekHost = document.querySelector(".hero") || document.body;
+        MrMacsWeekSummary.showBanner(weekHost);
+      }
+    } catch (e) {}
+
+    // Skeleton placeholders for Library grid (shown until games render)
+    try {
+      if (window.MrMacsSkeleton) {
+        var _grid = document.getElementById("grid");
+        if (_grid && !_grid.children.length) MrMacsSkeleton.cards(_grid, 8);
       }
     } catch (e) {}
   });

@@ -563,6 +563,9 @@
   ];
 
   function startGame() {
+    if (window.MrMacsEndRecap) { MrMacsEndRecap.reset(); MrMacsEndRecap.startTracking(); }
+    const _recapEl = document.getElementById("endRecap");
+    if (_recapEl) _recapEl.innerHTML = "";
     audio.ensure();
     resetGameState();
     state.mode = "playing"; state.running = true;
@@ -1363,6 +1366,11 @@
       els.studyTargets.innerHTML = `<strong>Study targets from this run</strong>${items}`;
     } else {
       els.studyTargets.innerHTML = "<strong>No missed missions — excellent recall!</strong>";
+    }
+
+    if (window.MrMacsEndRecap) {
+      MrMacsEndRecap.stopTracking();
+      MrMacsEndRecap.render(document.getElementById("endRecap"));
     }
 
     window.MrMacsAnalytics?.track("game_complete", {
@@ -2939,4 +2947,12 @@
   }
 
   init();
-})();
+
+  try {
+    if (window.MrMacsA11yQuickToggle) {
+      var hudControls = document.querySelector(".hud-controls") || document.querySelector(".top-hud");
+      if (hudControls) MrMacsA11yQuickToggle.mount(hudControls);
+    }
+  } catch (e) {}
+
+  })();

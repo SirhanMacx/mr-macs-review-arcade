@@ -133,6 +133,7 @@
           <div class="shop-heading">Coin Shop</div>
           <div class="shop-grid" id="shopGrid"></div>
         </div>
+        <div id="endRecap"></div>
         <div class="setup-actions">
           <button class="btn" id="setupBtn" type="button">Change Course</button>
           <button class="btn btn--run" id="againBtn" type="button">Run Again</button>
@@ -158,10 +159,42 @@
   <script src="../../assets/source-bank.js?v=20260502-prompt-quality"></script>
   <script src="../../assets/arcade-perf.js?v=20260508-perf"></script>
   <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
   <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
   <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
   <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-end-recap.js?v=20260510-recap"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "timeline-runner";
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Timeline Runner",
+      goal: "Sprint through the living archive. Dodge corrupted sources, collect evidence, and answer review prompts by steering your runner through the correct answer gate.",
+      controls: [
+        { key: "← / →",          action: "Switch lanes left or right" },
+        { key: "↑ / Space",       action: "Jump over a hazard" },
+        { key: "↓",               action: "Slide under a low obstacle" },
+        { key: "Touch dock",      action: "Left / Jump / Slide / Right buttons on mobile" },
+        { key: "⏸ button",        action: "Pause or resume the run" }
+      ],
+      tips: [
+        "Answer gates appear ahead of hazards — pick your lane early to avoid last-second collisions.",
+        "Evidence pickups (glowing scrolls) increase your multiplier, stacking up to 4×.",
+        "Wrong-gate collisions cost a heart and reset your current streak.",
+        "Exam Sprint mode runs a denser gate sequence — ideal for pre-test review.",
+        "Coin Shop upgrades persist across runs; invest in the extra-heart upgrade first."
+      ],
+      scholar: "Glowing gold evidence scrolls are rare archive fragments. Collect them without missing a gate to bank a streak bonus on the run-complete screen."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setupScreen .setup-actions");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script src="game.js?v=20260509-icons-polish"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
