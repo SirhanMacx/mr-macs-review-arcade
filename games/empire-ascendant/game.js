@@ -1079,7 +1079,13 @@
   function isPlayable(q){
     if(!q||!q.answer||(!(q.prompt||q.stem))) return false;
     if(SourceBank&&!SourceBank.playableSharedPrompt(q)) return false;
-    if(SourceBank&&SourceBank.sourceBased(q)) return SourceBank.usableRegentsQuestion(q)&&hasStimulusData(q);
+    if(SourceBank&&SourceBank.sourceBased(q)){
+      if(!hasStimulusData(q)) return false;
+      // Bug fix: add trust/course-match verification so quarantined or mismatched
+      // source questions never enter the pool, not just a raw field-presence check.
+      if(SourceBank.verifiedSourceQuestion&&!SourceBank.verifiedSourceQuestion(q)) return false;
+      return SourceBank.usableRegentsQuestion(q);
+    }
     if(needsStimulus(q)&&!hasStimulusData(q)) return false;
     return true;
   }
@@ -1154,8 +1160,13 @@
   }
 
   function renderStimulus(q){
-    const imgs=SourceBank?SourceBank.stimulusImages(q):(Array.isArray(q?.stimulusImages)?q.stimulusImages:[]);
-    const text=q?.stimulusText||q?.stimulus||"";
+    // Bug fix: route through sourceLock trust pipeline so quarantined/course-mismatched
+    // sources are blocked. Raw stimulusImages() bypasses those checks entirely.
+    const lock = SourceBank && SourceBank.sourceLock
+      ? SourceBank.sourceLock(q)
+      : { ok: !!(q?.stimulusImages && q.stimulusImages.length), images: q?.stimulusImages || [] };
+    const imgs = lock.ok ? lock.images : [];
+    const text = q?.stimulusText||q?.stimulus||"";
     if(!imgs.length&&!text){ els.stimulusBox.classList.remove("show"); return; }
     const imgHtml=imgs.slice(0,2).map((img,i)=>`<img src="${esc(img.src||img)}" alt="${esc(img.label||"Stimulus "+(i+1))}">`).join("");
     const txtHtml=text?`<div class="stimulus-text">${esc(cleanText(text))}</div>`:"";

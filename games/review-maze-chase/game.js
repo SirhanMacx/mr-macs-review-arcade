@@ -3,7 +3,7 @@
 
   // ─── Constants ──────────────────────────────────────────────────────────────
   const $ = (id) => document.getElementById(id);
-  const SourceBank = window.MrMacsSourceBank || {};
+  const SourceBank = window.MrMacsSourceBank || null;
   const COLS = 21;
   const ROWS = 17;
   const CELL = 32;
@@ -619,12 +619,18 @@
     els.questionMeta.textContent = [q.course, q.set || q.day, sourceFor(q)].filter(Boolean).join(" · ");
     els.questionPrompt.textContent = promptFor(q);
     const imgsQ = stimulusFor(q);
-    els.stimulus.innerHTML = imgsQ.map(img => {
-      const lbl = SourceBank.displayStimulusLabel
-        ? SourceBank.displayStimulusLabel(q, img)
-        : (img.label || "Source");
-      return `<figure><img src="${escapeHtml(img.src)}" alt="${escapeHtml(lbl)}"><figcaption>${escapeHtml(lbl)}</figcaption></figure>`;
-    }).join("");
+    if (!imgsQ.length) {
+      els.stimulus.innerHTML = "";
+      els.stimulus.classList.remove("show");
+    } else {
+      els.stimulus.innerHTML = imgsQ.map(img => {
+        const lbl = SourceBank?.displayStimulusLabel
+          ? SourceBank.displayStimulusLabel(q, img)
+          : (img.label || "Source");
+        return `<figure><img src="${escapeHtml(img.src)}" alt="${escapeHtml(lbl)}"><figcaption>${escapeHtml(lbl)}</figcaption></figure>`;
+      }).join("");
+      els.stimulus.classList.add("show");
+    }
     els.choices.innerHTML = choices.map((choice, i) => {
       const gate = gateAssets[i % gateAssets.length];
       return `<button class="choice" type="button" data-index="${i}"><img src="${gate}" alt=""><span>${escapeHtml(choice.text)}</span></button>`;
@@ -1824,12 +1830,28 @@
     applyFilters();
   }
 
-  function playableQuestion(q) {
+  // Shared source-prompt detector — mirrors the reference games
+  const sourcePromptRe = /(\bthis\s+(excerpt|passage|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\b(shown|pictured|illustrated|accompanying)\b|\b(above|below)\s+(document|source|passage|excerpt|map|cartoon|chart|graph|image|photograph|photo|poster|timeline|painting|newspaper|headline)\b|\bthe\s+(excerpt|letter|cartoon|map|chart|graph|image|photograph|photo|poster|source|timeline|painting|newspaper|headline)\b|\baccording\s+to\s+(the|this)\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|author|letter|speech|timeline|newspaper|table)\b|\bbased\s+on\s+(this|the)\s+(passage|excerpt|source|document|map|cartoon|chart|graph|image|photograph|photo|poster|article|letter|speech|timeline|newspaper|table)\b)/i;
+
+  function promptNeedsStimulus(q) { return sourcePromptRe.test(String(q?.prompt || q?.stem || "")); }
+
+  function hasReliableStimulus(q) {
     if (!q) return false;
-    if (SourceBank.playableSharedPrompt && !SourceBank.playableSharedPrompt(q)) return false;
-    if (SourceBank.sourceBased && SourceBank.sourceBased(q) && SourceBank.sourceLock && !SourceBank.sourceLock(q).ok) return false;
-    if (q.type === "mcq") return Array.isArray(q.choices) && q.choices.length >= 3;
-    return Boolean(q.answer && (q.prompt || q.stem));
+    if (q.stimulus || q.stimulusText || q.stimulusHtml) return true;
+    return stimulusFor(q).length > 0;
+  }
+
+  function playableQuestion(q) {
+    if (!q || !q.answer || !(q.prompt || q.stem)) return false;
+    if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
+    if (SourceBank && SourceBank.sourceBased(q)) {
+      if (!hasReliableStimulus(q)) return false;
+      if (q.type === "mcq") return SourceBank.usableRegentsQuestion(q);
+      return true;
+    }
+    if (q.type !== "mcq") return true;
+    if (hasReliableStimulus(q)) return true;
+    return !promptNeedsStimulus(q);
   }
   function populateSets() {
     const course = els.courseFilter.value || "All Courses";
@@ -1849,7 +1871,7 @@
     if (!state.filtered.length) state.filtered = state.bank.slice();
     state.queue = shuffle(state.filtered);
     const stimulus = state.filtered.filter(q =>
-      (SourceBank.stimulusImages ? SourceBank.stimulusImages(q) : q.stimulusImages || []).length
+      (SourceBank?.stimulusImages ? SourceBank.stimulusImages(q) : q.stimulusImages || []).length
     ).length;
     els.metrics.innerHTML = [
       `${number(state.filtered.length)} prompts loaded`,
@@ -1861,10 +1883,10 @@
     if (!state.queue.length) state.queue = shuffle(state.filtered);
     return state.queue.pop() || state.filtered[Math.floor(Math.random() * state.filtered.length)];
   }
-  function promptFor(q)   { return SourceBank.displayPrompt  ? SourceBank.displayPrompt(q)  : clean(q.prompt || q.stem); }
-  function answerFor(q)   { return SourceBank.answerText     ? SourceBank.answerText(q)     : clean(q.answer); }
-  function sourceFor(q)   { return SourceBank.displaySource  ? SourceBank.displaySource(q)  : clean(q.source || q.category || q.set || ""); }
-  function stimulusFor(q) { return SourceBank.stimulusImages ? SourceBank.stimulusImages(q) : (q.stimulusImages || []).filter(i => i && i.src); }
+  function promptFor(q)   { return SourceBank?.displayPrompt  ? SourceBank.displayPrompt(q)  : clean(q.prompt || q.stem); }
+  function answerFor(q)   { return SourceBank?.answerText     ? SourceBank.answerText(q)     : clean(q.answer); }
+  function sourceFor(q)   { return SourceBank?.displaySource  ? SourceBank.displaySource(q)  : clean(q.source || q.category || q.set || ""); }
+  function stimulusFor(q) { return SourceBank?.stimulusImages ? SourceBank.stimulusImages(q) : (q.stimulusImages || []).filter(i => i && i.src); }
   function choicesFor(q) {
     if (q.type === "mcq" && Array.isArray(q.choices)) {
       const correct = answerFor(q);

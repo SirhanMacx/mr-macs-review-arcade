@@ -906,6 +906,9 @@
     if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
     if (SourceBank && SourceBank.sourceBased(q)) {
       if (!stimulusImagesFor(q).length && !sourceTextFor(q)) return false;
+      // Bug fix: add trust/course-match check so quarantined or mismatched
+      // source questions never enter the pool.
+      if (SourceBank.verifiedSourceQuestion && stimulusImagesFor(q).length && !SourceBank.verifiedSourceQuestion(q)) return false;
       if (q.type === "mcq") return SourceBank.usableRegentsQuestion(q);
       return true;
     }
@@ -1189,7 +1192,12 @@
   }
 
   function renderSource(q) {
-    const images = stimulusImagesFor(q);
+    // Bug fix: use sourceLock trust pipeline so quarantined/course-mismatched
+    // images are blocked. Raw stimulusImagesFor() bypasses those checks.
+    const lock = SourceBank && SourceBank.sourceLock
+      ? SourceBank.sourceLock(q)
+      : { ok: !!(q.stimulusImages && q.stimulusImages.length), images: q.stimulusImages || [] };
+    const images = lock.ok ? lock.images : [];
     const text = sourceTextFor(q);
     if (!images.length && !text) {
       els.sourcePanel.hidden = true;

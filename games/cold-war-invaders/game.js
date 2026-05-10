@@ -384,16 +384,27 @@ function isPlayableQuestion(q) {
   if (SourceBank&&!SourceBank.playableSharedPrompt(q)) return false;
   if (sourceBasedQuestion(q)) {
     if (!hasRenderableSource(q)) return false;
-    if (SourceBank&&q.type==="mcq"&&!SourceBank.usableRegentsQuestion(q)) return false;
+    // Bug fix: removed q.type==="mcq" guard — quarantined/untrusted source-based
+    // questions of any type must be blocked from the pool, not just MCQ-typed ones.
+    if (SourceBank&&!SourceBank.usableRegentsQuestion(q)) return false;
   }
   return true;
 }
 function normalizeQuestion(q) {
   if (!q) return null;
-  const sourceImages = stimulusImagesFor(q).map(im=>({src:resolveSrc(im.src),label:clean((SourceBank&&SourceBank.displayStimulusLabel(q,im))||im.label||"Source stimulus")})).filter(im=>im.src);
+  // Bug fix: use sourceLock() trust pipeline instead of stimulusImagesFor() directly.
+  // stimulusImagesFor() returns raw images without quarantine/course-path/trust checks,
+  // causing quarantined or mismatched documents to appear as stimulus mid-game.
+  // sourceLock() returns images:[] when ok===false, guaranteeing only verified images reach the UI.
+  const lock        = SourceBank ? SourceBank.sourceLock(q)
+                    : { ok: stimulusImagesFor(q).length > 0, images: stimulusImagesFor(q) };
+  const rawImages   = lock.ok ? lock.images : [];
+  const sourceImages = rawImages.map(im=>({src:resolveSrc(im.src),label:clean((SourceBank&&SourceBank.displayStimulusLabel(q,im))||im.label||"Source stimulus")})).filter(im=>im.src);
   const sourceText   = stimulusTextFor(q);
   const sourceLabel  = displaySourceLabel(q);
   const sourceBased  = sourceBasedQuestion(q);
+  // If source-based but lock failed (quarantined / untrusted), drop the question entirely.
+  if (sourceBased&&!lock.ok) return null;
   if (sourceBased&&!sourceImages.length&&!sourceText) return null;
   if (Array.isArray(q.choices)&&q.choices.length>=4) {
     const choices = q.choices.slice(0,4).map(c=>({text:clean(c.text),correct:String(c.label)===String(q.correct)}));
@@ -983,9 +994,13 @@ function collide() {
 // ─── Briefing / Questions ─────────────────────────────────────────────────
 function renderQuestionSource(q) {
   if (!els.questionSource) return;
+  // Bug fix: reset all img src attributes before rebuilding to prevent state leak where
+  // a previous question's image lingers if the browser has already decoded it into memory.
+  els.questionSource.querySelectorAll("img").forEach(img => { img.removeAttribute("src"); img.src = ""; });
+  els.questionSource.innerHTML = "";
   const images = q?.sourceImages||[];
   const text   = q?.sourceText||"";
-  if (!images.length&&!text) { els.questionSource.classList.add("hidden"); els.questionSource.innerHTML=""; return; }
+  if (!images.length&&!text) { els.questionSource.classList.add("hidden"); return; }
   const heading   = q.sourceBased ? "Intel source" : "Reference";
   const imageHtml = images.slice(0,2).map((img,i)=>`<a class="intel-source-thumb" href="${esc(img.src)}" target="_blank" rel="noopener"><img src="${esc(img.src)}" alt="${esc(img.label||`Source ${i+1}`)}"><span>${esc(img.label||`Source ${i+1}`)}</span></a>`).join("");
   const textHtml  = text ? `<p>${esc(text)}</p>` : "";

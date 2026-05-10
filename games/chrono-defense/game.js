@@ -529,6 +529,9 @@
     if (SourceBank&&!SourceBank.playableSharedPrompt(q)) return false;
     if (SourceBank&&SourceBank.sourceBased(q)) {
       if (!stimulusImages(q).length) return false;
+      // Bug fix: also require trust verification so quarantined/mismatched
+      // sources never enter the pool, regardless of question type.
+      if (SourceBank.verifiedSourceQuestion && !SourceBank.verifiedSourceQuestion(q)) return false;
       if (q.type==="mcq") return SourceBank.usableRegentsQuestion(q);
       return true;
     }
@@ -1096,10 +1099,14 @@
     els.questionMeta.textContent = [q.course, q.set, displaySource(q)].filter(Boolean).join(" / ");
     els.questionPrompt.textContent = displayPrompt(q);
     els.questionStreak.textContent = `${state.streak} streak`;
-    const imgs = stimulusImages(q);
-    if (imgs.length) {
+    // Bug fix: use sourceLock trust pipeline so only verified, course-matched images
+    // reach the DOM. Raw stimulusImages() bypasses quarantine/course-path checks.
+    const lock = SourceBank && SourceBank.sourceLock
+      ? SourceBank.sourceLock(q)
+      : { ok: !!(q.stimulusImages && q.stimulusImages.length), images: q.stimulusImages || [] };
+    if (lock.ok && lock.images.length) {
       els.stimulusStrip.classList.add("show");
-      els.stimulusStrip.innerHTML = imgs.slice(0,2).map(im => `<img src="${esc(im.src)}" alt="${esc(im.label||"")}">`).join("");
+      els.stimulusStrip.innerHTML = lock.images.slice(0,2).map(im => `<img src="${esc(im.src)}" alt="${esc(im.label||"")}">`).join("");
     }
     if (q.type === "mcq" && q.choices?.length) {
       els.typedForm.style.display = "none";

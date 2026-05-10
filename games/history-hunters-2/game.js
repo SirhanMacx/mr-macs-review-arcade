@@ -1598,6 +1598,9 @@
     if (SourceBank && !SourceBank.playableSharedPrompt(q)) return false;
     if (SourceBank && SourceBank.sourceBased(q)) {
       if (!hasReliableStimulus(q)) return false;
+      // Bug fix: add trust/course-match check so quarantined or mismatched
+      // source questions never enter the pool.
+      if (SourceBank.verifiedSourceQuestion && stimulusImagesFor(q).length && !SourceBank.verifiedSourceQuestion(q)) return false;
       if (q.type === "mcq") return SourceBank.usableRegentsQuestion(q);
       return true;
     }
@@ -1667,8 +1670,13 @@
   }
 
   function renderQuestStimulus(q) {
+    // Bug fix: use sourceLock trust pipeline so quarantined/course-mismatched
+    // images are blocked. Raw stimulusImagesFor() bypasses those checks.
+    const lock = SourceBank && SourceBank.sourceLock
+      ? SourceBank.sourceLock(q)
+      : { ok: !!(q.stimulusImages && q.stimulusImages.length), images: q.stimulusImages || [] };
+    const images = lock.ok ? lock.images : [];
     const sourceText = sourceTextFor(q);
-    const images = stimulusImagesFor(q);
     if (!sourceText && !images.length) {
       els.questSource.hidden = true;
       els.questSource.innerHTML = "";
