@@ -1718,3 +1718,122 @@ body::after {
 
 /* ─── Select option color fix ─────────────────────── */
 select option, select optgroup { color: #07111f; background: #f8fbff; }
+
+/* ===========================================================================
+   Mobile + tablet rebuild — May 10 2026
+   User report: "regents rally 64 does not work on mobile"
+   Root causes (multiple compounding):
+   1. #raceCanvas had min-height:650px desktop — when the desktop calc()
+      overflowed a phone in landscape (390px tall), the canvas pushed the
+      whole layout off-screen and touch buttons fell beyond the fold.
+   2. #characterScreen had min-height:calc(100vh - 92px) AND grid was 2-col
+      with a minmax(620px, 1.28fr) right rail, forcing horizontal overflow
+      on phones until the 980px breakpoint kicked in.
+   3. Hero-panel min-height:650px (desktop) made the driver-select feel
+      empty/unreachable on small phones; tablet rule lowered to 420px but
+      wasn't shrunk enough on phones.
+   4. Touch-controls at bottom:88px/92px collided with race-meter at
+      bottom:6px (desktop) when the screen was short — gas/brake covered.
+   5. Question-card review modal could obscure the entire touch-controls
+      strip on small phones.
+   =========================================================================== */
+
+/* All-mobile-and-tablet baseline (any device that is touch OR <= 1024px) */
+@media (hover: none), (max-width: 1024px) {
+  /* Use dynamic viewport units to handle iOS Safari URL-bar collapse */
+  .race-screen.active { min-height: 100dvh; }
+  #raceCanvas {
+    height: 100dvh;
+    min-height: 0;             /* drop the 650px desktop floor */
+  }
+  /* Single-column character screen — was 2-col with 620px right rail */
+  #characterScreen {
+    grid-template-columns: 1fr !important;
+    min-height: auto;
+  }
+  /* Tighter hero-panel so the driver carousel + Choose button fit */
+  .hero-panel { min-height: auto; padding: 22px; }
+  /* Touch controls always visible on touch devices */
+  .touch-controls { display: grid; }
+  .control-hint { display: none; }
+}
+
+/* Phone-portrait specific (<=640px) — tighten chrome so the canvas isn't
+   buried under HUD + race-actions + race-meter + touch-controls */
+@media (max-width: 640px) {
+  /* Canvas: leave room for top HUD (~120px) + touch+meter (~180px) below */
+  #raceCanvas {
+    height: calc(100dvh - 0px);  /* full dvh; race-screen owns the chrome */
+    min-height: 0;
+  }
+  .hud {
+    /* Compact 2x2 grid sits at very top */
+    top: max(8px, env(safe-area-inset-top, 8px));
+  }
+  /* Pin race-actions BELOW the HUD so they don't overlap on rotated phones */
+  .race-actions { top: 124px; bottom: auto; right: 8px; z-index: 5; }
+  /* Touch-controls always above race-meter */
+  .touch-controls {
+    bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    z-index: 6;
+  }
+  /* Race meter pinned to true bottom with safe-area */
+  .race-meter {
+    bottom: max(6px, env(safe-area-inset-bottom, 6px));
+    z-index: 5;
+  }
+  /* Question card never blocks touch-controls — slide up only as far as
+     the touch-controls top edge */
+  .question-card.is-active,
+  .question-card:not(.hidden) {
+    top: auto !important;
+    right: 6px !important;
+    bottom: calc(180px + env(safe-area-inset-bottom, 0px)) !important;
+    left: 6px !important;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  /* Topbar safer brand link — make hit area generous */
+  .topbar .brand { padding: 10px 12px; }
+  /* Driver/track grids: 2 columns on phones (was 1) so cards aren't huge */
+  .character-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .track-grid     { grid-template-columns: 1fr; }
+  /* Mode pills wrap cleanly */
+  .mode-pills { flex-wrap: wrap; gap: 6px; }
+  .mode-pill { padding: 8px 12px; font-size: 12px; min-height: 38px; }
+  /* Choose-driver button is the primary CTA — make it always reachable */
+  .choose-driver { font-size: 15px; padding: 12px 18px; min-height: 48px; }
+}
+
+/* Phone-landscape (short viewport) — race UI must not exceed dvh */
+@media (max-height: 480px) and (orientation: landscape) {
+  .race-screen.active { min-height: 100dvh; }
+  #raceCanvas { height: 100dvh; min-height: 0; }
+  .hud {
+    top: max(4px, env(safe-area-inset-top, 4px));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .hud-cell { padding: 4px 8px; }
+  .hud-val { font-size: 14px; }
+  .race-meter { bottom: 4px; padding: 4px; }
+  .speedo-gauge { width: 80px; height: 56px; }
+  .speedo-svg { width: 80px; height: 56px; }
+  .touch-controls {
+    bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+  .touch-btn { min-height: 40px; font-size: 11px; }
+  .touch-btn.item { grid-column: auto; grid-row: auto; }
+  .race-actions { top: 4px; right: 4px; gap: 4px; }
+  .race-actions .mini-btn { padding: 4px 8px; font-size: 11px; }
+  .question-card.is-active,
+  .question-card:not(.hidden) {
+    top: 4px !important;
+    right: 4px !important;
+    bottom: 78px !important;
+    left: auto !important;
+    width: min(360px, 50vw);
+  }
+}
+
