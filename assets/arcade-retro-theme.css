@@ -88,9 +88,10 @@
   display: none !important;
 }
 
-/* Hide topbar nav links that point to streamline-hidden sections.
-   They look interactive but click does nothing because target is
-   display:none. Cleaner to remove the links entirely. */
+/* Strip redundant topbar nav links. After streamlining + dead-anchor
+   repointing, FOUR topbar links all jumped to #library: Practice Exams,
+   Jeopardy, Games, Library. Keep only "Library"; the others are clutter.
+   "Play" is preserved (jumps to launch-paths). */
 .topbar nav a[href="#practice"],
 .topbar nav a[href="#jeopardy"],
 .topbar nav a[href="#arcade-menu"],
@@ -98,6 +99,60 @@
 .topbar a[href="#jeopardy"],
 .topbar a[href="#arcade-menu"] {
   display: none !important;
+}
+/* After repointing, these 3 nav links go to #library — keep just one */
+.topbar nav .nav-link:nth-of-type(2):not(:last-child),
+.topbar nav .nav-link:nth-of-type(3):not(:last-child),
+.topbar nav .nav-link:nth-of-type(4):not(:last-child) {
+  /* Conservative: don't hide via :nth — the topbar order may differ.
+     We keep this rule disabled, the explicit hrefs above handle it. */
+}
+
+/* ===========================================================================
+   POLISH ROUND 2 (May 10 2026 — user: "polish ui again on main landing page")
+   1. Compact game cards: 318×334 → ~310×260 on mobile (less vertical scroll)
+   2. 2-column grid on mobile (was 1-col flex) — halves library length
+   3. Tighter card-art: thumb h 160 → 110, less padding
+   =========================================================================== */
+@media (max-width: 600px) {
+  /* 2-column compact grid on mobile */
+  #grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+  /* Compact card */
+  .game-card {
+    min-height: 0 !important;
+    border-radius: 8px !important;
+  }
+  .game-card .gc-art {
+    height: 100px !important;
+    min-height: 100px !important;
+  }
+  .game-card .gc-thumb {
+    height: 100px !important;
+    object-fit: cover;
+  }
+  .game-card .gc-body,
+  .game-card .gc-foot {
+    padding: 8px 10px !important;
+  }
+  .game-card .gc-title {
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+  }
+  .game-card .gc-kicker,
+  .game-card .gc-subtitle,
+  .game-card .gc-meta,
+  .game-card .gc-tags {
+    display: none !important;     /* compact: no kicker/meta/tags on mobile cards */
+  }
+  .game-card .gc-cta,
+  .game-card button {
+    font-size: 9px !important;
+    padding: 4px 8px !important;
+  }
 }
 
 /* The launch-row "Practice Exams" + "Jeopardy Boards" action cards
