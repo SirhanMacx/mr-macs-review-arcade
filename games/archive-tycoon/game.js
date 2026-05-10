@@ -1738,6 +1738,15 @@
     state.lastSave = performance.now();
     refreshAll();
 
+    // Restart RAF if boot() already burned through its initial tick (which
+    // exits early when state.running is still false at page-load time, before
+    // the player clicks "Start"). Without this, the canvas stays black after
+    // Start and nothing animates. (May 10 2026 fix.)
+    if (!rafId) {
+      state.lastTick = 0;
+      rafId = requestAnimationFrame(tick);
+    }
+
     // Start music
     try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.start("archive-dusk"); } catch (e) {}
   }
