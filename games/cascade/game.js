@@ -1602,36 +1602,48 @@
     ctx.restore();
   }
 
+  // Hex parser that handles BOTH #RGB shorthand (4 chars) and #RRGGBB (7).
+  // Was: parseInt(c.slice(5,7), 16) returned NaN on shorthand → eventually
+  // produced "rgb(255,21,NaN)" and 137 console errors per render frame.
+  // (May 10 2026 fix.)
+  function parseHex(c) {
+    if (c.length === 4) {
+      // Expand #RGB → #RRGGBB
+      var rh = c.charAt(1), gh = c.charAt(2), bh = c.charAt(3);
+      return [parseInt(rh + rh, 16), parseInt(gh + gh, 16), parseInt(bh + bh, 16)];
+    }
+    return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)];
+  }
+  function safeRGB(r, g, bl) {
+    // Defensively coerce NaN / out-of-range to gray fallback.
+    if (!isFinite(r) || !isFinite(g) || !isFinite(bl)) return "rgb(200,200,200)";
+    r = Math.round(Math.max(0, Math.min(255, r)));
+    g = Math.round(Math.max(0, Math.min(255, g)));
+    bl = Math.round(Math.max(0, Math.min(255, bl)));
+    return "rgb(" + r + "," + g + "," + bl + ")";
+  }
   function lerpColor(a, b, t) {
     function parse(c) {
-      if (c.indexOf("#") === 0) {
-        return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)];
-      }
+      if (c.indexOf("#") === 0) return parseHex(c);
       var m = /rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/.exec(c);
       if (m) return [+m[1], +m[2], +m[3]];
       return [200, 200, 200];
     }
     var aa = parse(a), bb = parse(b);
-    var r = Math.round(aa[0] + (bb[0] - aa[0]) * t);
-    var g = Math.round(aa[1] + (bb[1] - aa[1]) * t);
-    var bl = Math.round(aa[2] + (bb[2] - aa[2]) * t);
-    return "rgb(" + r + "," + g + "," + bl + ")";
+    return safeRGB(aa[0] + (bb[0] - aa[0]) * t,
+                   aa[1] + (bb[1] - aa[1]) * t,
+                   aa[2] + (bb[2] - aa[2]) * t);
   }
   function applyBrightness(color, b) {
     var r, g, bl;
     if (color.indexOf("#") === 0) {
-      r = parseInt(color.slice(1, 3), 16);
-      g = parseInt(color.slice(3, 5), 16);
-      bl = parseInt(color.slice(5, 7), 16);
+      var h = parseHex(color); r = h[0]; g = h[1]; bl = h[2];
     } else {
       var m = /rgb\((\d+),(\d+),(\d+)\)/.exec(color.replace(/\s/g, ""));
       if (!m) return color;
       r = +m[1]; g = +m[2]; bl = +m[3];
     }
-    r = Math.round(Math.max(0, Math.min(255, r * b)));
-    g = Math.round(Math.max(0, Math.min(255, g * b)));
-    bl = Math.round(Math.max(0, Math.min(255, bl * b)));
-    return "rgb(" + r + "," + g + "," + bl + ")";
+    return safeRGB(r * b, g * b, bl * b);
   }
 
   // -- Main render -----------------------------------------------------------
