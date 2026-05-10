@@ -387,7 +387,10 @@ kbd {
     left: 12px;
     right: 12px;
     top: auto;
-    bottom: 14px;
+    /* Pinned ABOVE the touch-controls D-pad so they don't overlap.
+       Touch-controls bottom: 14px (height ~118px with 2 rows of 56px)
+       → powerup tray sits at bottom: 14 + 118 + 8 = 140px. */
+    bottom: 140px;
     transform: none;
     justify-content: center;
     flex-wrap: wrap;
