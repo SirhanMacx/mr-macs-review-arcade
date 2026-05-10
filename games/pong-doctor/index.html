@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04060f">
+  <title>Pong Doctor &mdash; Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="styles.css?v=20260509-pongdoctor">
+</head>
+<body>
+  <main class="pong-shell" id="app">
+    <canvas id="pongCanvas" aria-label="Pong Doctor &mdash; play physics-modifier pong against five AI tiers, decode scholar balls for bonus shards"></canvas>
+
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <!-- HUD: top strip -->
+    <section class="top-hud" aria-label="Pong Doctor status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong class="brand-title"><span class="brand-prefix">Pong</span><em class="brand-suffix">Doctor</em></strong>
+          <span class="brand-sub" id="brandSub">Duel &middot; Modify &middot; Decode</span>
+        </div>
+      </div>
+      <div class="hud-stats" aria-label="Game statistics">
+        <div class="stat-cell">
+          <strong id="hudScore" class="stat-value mono" role="status" aria-live="polite" aria-label="Score">0</strong>
+          <span class="stat-label">score</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudLives" class="stat-value mono" role="status" aria-live="polite" aria-label="Lives">3</strong>
+          <span class="stat-label">lives</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudMatches" class="stat-value mono" role="status" aria-live="polite" aria-label="Matches won">0</strong>
+          <span class="stat-label">matches</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudDuel" class="stat-value mono" role="status" aria-live="polite" aria-label="Match score">0&ndash;0</strong>
+          <span class="stat-label">duel</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudRallies" class="stat-value mono" role="status" aria-live="polite" aria-label="Rally count">0</strong>
+          <span class="stat-label">rally</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudBest" class="stat-value mono" role="status" aria-live="polite" aria-label="Best">0</strong>
+          <span class="stat-label">best</span>
+        </div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
+        <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
+      </div>
+    </section>
+
+    <!-- Goal ribbon -->
+    <section class="wave-ribbon" id="waveRibbon" aria-label="Stage status">
+      <span class="wave-kicker">Stage</span>
+      <strong class="wave-name" id="goalName">Standard &middot; Easy</strong>
+      <span class="wave-meta" id="goalMeta">First to 11 &middot; Best of 3</span>
+    </section>
+
+    <!-- Power-up dock -->
+    <section class="powerup-dock" id="powerupDock" aria-label="Power-up inventory">
+      <div class="powerup-slot" data-slot="0" role="button" tabindex="0" aria-label="Power-up slot 1 (key 1)">
+        <span class="slot-key">1</span>
+        <span class="slot-glyph"></span>
+        <span class="slot-label"></span>
+      </div>
+      <div class="powerup-slot" data-slot="1" role="button" tabindex="0" aria-label="Power-up slot 2 (key 2)">
+        <span class="slot-key">2</span>
+        <span class="slot-glyph"></span>
+        <span class="slot-label"></span>
+      </div>
+      <div class="powerup-slot" data-slot="2" role="button" tabindex="0" aria-label="Power-up slot 3 (key 3)">
+        <span class="slot-key">3</span>
+        <span class="slot-glyph"></span>
+        <span class="slot-label"></span>
+      </div>
+    </section>
+
+    <!-- Setup / title screen -->
+    <section class="setup-screen show" id="setupScreen" aria-label="Pong Doctor &mdash; game setup" aria-modal="true">
+      <div class="setup-card">
+        <div class="marquee-art" aria-hidden="true">
+          <div class="marquee-glow"></div>
+          <div class="marquee-spark spark-a" data-arcade-heavy></div>
+          <div class="marquee-spark spark-b" data-arcade-heavy></div>
+          <div class="marquee-spark spark-c" data-arcade-heavy></div>
+          <div class="marquee-inner-border"></div>
+        </div>
+
+        <div class="setup-kicker">Editorial Duel</div>
+        <h1><span class="title-prefix">Pong</span><em class="title-suffix">Doctor</em></h1>
+
+        <div class="ship-badges-row" aria-label="Difficulty tier preview">
+          <span class="ship-badge badge-easy" title="Easy AI">EASY</span>
+          <span class="ship-badge badge-normal" title="Normal AI">NORMAL</span>
+          <span class="ship-badge badge-hard" title="Hard AI">HARD</span>
+          <span class="ship-badge badge-expert" title="Expert AI">EXPERT</span>
+          <span class="ship-badge badge-nightmare" title="Nightmare AI">NIGHTMARE</span>
+          <span class="ship-campaign-label">5 AI tiers &middot; rotating physics</span>
+        </div>
+
+        <p class="setup-sub">Pong with <em>seven physics modifiers</em>: standard, curveball spin, power shot, multiball, wide paddles, shrink paddles, and block fields. Climb five AI tiers from Easy to Nightmare. Every fifth rally a <em>scholar ball</em> appears glowing gold &mdash; win that point for an optional review and a fat shard bonus. First to 11 wins a match. Best of three matches takes the round. Three match losses ends the run.</p>
+
+        <div class="setup-grid">
+          <label>
+            <span>Starting Tier</span>
+            <select id="tierFilter" aria-label="Select starting AI tier">
+              <option value="easy" selected>Easy &mdash; gentle warm-up</option>
+              <option value="normal">Normal &mdash; balanced duel</option>
+              <option value="hard">Hard &mdash; sharp reactions</option>
+              <option value="expert">Expert &mdash; near-perfect tracking</option>
+              <option value="nightmare">Nightmare &mdash; precognitive</option>
+            </select>
+          </label>
+          <label>
+            <span>Starting Modifier</span>
+            <select id="modFilter" aria-label="Select starting physics modifier">
+              <option value="standard" selected>Standard &mdash; classic pong</option>
+              <option value="curveball">Curveball &mdash; spin from paddle angle</option>
+              <option value="power">Power Shot &mdash; 3rd hit speeds 1.5x</option>
+              <option value="multiball">Multiball &mdash; two balls</option>
+              <option value="wide">Wide Paddles</option>
+              <option value="shrink">Shrink Paddles</option>
+              <option value="blocks">Block Field &mdash; 3 destructible blocks</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="resume-card" id="resumeCard" hidden></div>
+        <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
+
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="soundBtn" type="button" aria-label="Toggle sound">Sound On</button>
+          <button class="btn glass-pill" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">Fullscreen</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button" aria-label="Start the game">
+            <span class="btn-coin" aria-hidden="true">&#9678;</span> Insert Coin &middot; Start Pong Doctor
+          </button>
+        </div>
+
+        <p class="key-hints" aria-label="Keyboard controls">
+          <kbd>&uarr;</kbd>/<kbd>&darr;</kbd> or <kbd>W</kbd>/<kbd>S</kbd> &mdash; move paddle &nbsp;&middot;&nbsp; <kbd>Mouse</kbd> &mdash; track pointer &nbsp;&middot;&nbsp; <kbd>Space</kbd> &mdash; serve / launch &nbsp;&middot;&nbsp; <kbd>1</kbd>&ndash;<kbd>3</kbd> &mdash; power-ups &nbsp;&middot;&nbsp; <kbd>Esc</kbd>/<kbd>P</kbd> &mdash; pause
+        </p>
+      </div>
+    </section>
+
+    <!-- Scholar review modal -->
+    <section class="question-screen" id="questionScreen" aria-label="Scholar &mdash; review question" aria-modal="true">
+      <div class="question-card glass-card">
+        <div class="question-header">
+          <div class="question-meta" id="questionMeta">Scholar Ball</div>
+          <button class="question-close glass-pill" id="questionCloseBtn" type="button" aria-label="Skip and return to duel">Skip</button>
+        </div>
+        <h2 id="questionPrompt">Loading prompt&hellip;</h2>
+        <div class="choice-grid" id="choiceGrid" role="group" aria-label="Answer choices"></div>
+        <p class="explanation" id="explanation" role="status"></p>
+      </div>
+    </section>
+
+    <!-- Pause screen -->
+    <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker"><span class="kicker-pause-glyph" aria-hidden="true">&#10074;&#10074;</span> Paused</div>
+        <h2>Duel on Hold</h2>
+        <p class="setup-sub">Resume the rally or restart the run.</p>
+        <div class="setup-actions">
+          <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
+          <button class="btn glass-pill" id="restartBtn" type="button">Restart</button>
+          <button class="btn glass-pill" id="pauseExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- End / game over screen -->
+    <section class="end-screen" id="endScreen" aria-label="Game summary" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="endKicker">Run Ended</div>
+        <h2 id="endTitle">Pong Doctor &middot; Run complete</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <p class="setup-sub" id="retryHint" style="margin-top:8px"></p>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="setupBtn" type="button">Setup</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-celebration.js?v=20260509-celebration"></script>
+  <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
+  <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="game.js?v=20260509-pongdoctor"></script>
+</body>
+</html>

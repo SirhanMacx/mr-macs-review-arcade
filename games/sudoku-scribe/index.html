@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0a05">
+  <title>Sudoku Scribe &mdash; Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="styles.css?v=20260509-sudokuscribe">
+</head>
+<body>
+  <main class="scribe-shell" id="app">
+    <canvas id="scribeCanvas" aria-label="Sudoku Scribe &mdash; solve curated 9 by 9 puzzles across four difficulties"></canvas>
+
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <!-- HUD: top strip -->
+    <section class="top-hud" aria-label="Sudoku Scribe status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong class="brand-title"><span class="brand-prefix">Sudoku</span><em class="brand-suffix">Scribe</em></strong>
+          <span class="brand-sub" id="brandSub">Fill &middot; Verify &middot; Decode</span>
+        </div>
+      </div>
+      <div class="hud-stats" aria-label="Game statistics">
+        <div class="stat-cell">
+          <strong id="hudScore" class="stat-value mono" role="status" aria-live="polite" aria-label="Score">0</strong>
+          <span class="stat-label">score</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudLives" class="stat-value mono" role="status" aria-live="polite" aria-label="Lives">3</strong>
+          <span class="stat-label">lives</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudPuzzle" class="stat-value mono" role="status" aria-live="polite" aria-label="Puzzle">1</strong>
+          <span class="stat-label">puzzle</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudTime" class="stat-value mono" role="status" aria-live="polite" aria-label="Time">0:00</strong>
+          <span class="stat-label">time</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudHints" class="stat-value mono" role="status" aria-live="polite" aria-label="Hints remaining">3</strong>
+          <span class="stat-label">hints</span>
+        </div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="pencilBtn" type="button" aria-label="Toggle pencil-mark mode">Pencil</button>
+        <button class="hud-btn glass-pill" id="hintBtn" type="button" aria-label="Use a hint">Hint</button>
+        <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
+        <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
+      </div>
+    </section>
+
+    <!-- Goal ribbon -->
+    <section class="wave-ribbon" id="waveRibbon" aria-label="Puzzle status">
+      <span class="wave-kicker">Goal</span>
+      <strong class="wave-name" id="goalName">0/81 cells filled</strong>
+      <span class="wave-meta" id="goalMeta">Easy &middot; Hints 3 left</span>
+    </section>
+
+    <!-- Power-up tray -->
+    <section class="powerup-tray" id="powerupTray" aria-label="Power-up inventory">
+      <button class="pu-slot" id="puSlot1" type="button" aria-label="Power-up slot 1" data-slot="1"><span class="pu-glyph">&middot;</span><span class="pu-key">1</span></button>
+      <button class="pu-slot" id="puSlot2" type="button" aria-label="Power-up slot 2" data-slot="2"><span class="pu-glyph">&middot;</span><span class="pu-key">2</span></button>
+      <button class="pu-slot" id="puSlot3" type="button" aria-label="Power-up slot 3" data-slot="3"><span class="pu-glyph">&middot;</span><span class="pu-key">3</span></button>
+      <button class="pu-slot" id="puSlot4" type="button" aria-label="Power-up slot 4" data-slot="4"><span class="pu-glyph">&middot;</span><span class="pu-key">4</span></button>
+      <button class="pu-slot" id="puSlot5" type="button" aria-label="Power-up slot 5" data-slot="5"><span class="pu-glyph">&middot;</span><span class="pu-key">5</span></button>
+    </section>
+
+    <!-- Number pad -->
+    <section class="numpad" id="numpad" aria-label="Number entry">
+      <button class="np-btn" type="button" data-num="1" aria-label="Enter 1">1</button>
+      <button class="np-btn" type="button" data-num="2" aria-label="Enter 2">2</button>
+      <button class="np-btn" type="button" data-num="3" aria-label="Enter 3">3</button>
+      <button class="np-btn" type="button" data-num="4" aria-label="Enter 4">4</button>
+      <button class="np-btn" type="button" data-num="5" aria-label="Enter 5">5</button>
+      <button class="np-btn" type="button" data-num="6" aria-label="Enter 6">6</button>
+      <button class="np-btn" type="button" data-num="7" aria-label="Enter 7">7</button>
+      <button class="np-btn" type="button" data-num="8" aria-label="Enter 8">8</button>
+      <button class="np-btn" type="button" data-num="9" aria-label="Enter 9">9</button>
+      <button class="np-btn np-erase" type="button" data-num="0" aria-label="Erase cell">&#9003;</button>
+    </section>
+
+    <!-- Combo callouts overlay -->
+    <section class="popup-overlay" id="popupOverlay" aria-hidden="true"></section>
+
+    <!-- Setup / title screen -->
+    <section class="setup-screen show" id="setupScreen" aria-label="Sudoku Scribe &mdash; game setup" aria-modal="true">
+      <div class="setup-card">
+        <div class="marquee-art" aria-hidden="true">
+          <div class="marquee-glow"></div>
+          <div class="marquee-spark spark-a" data-arcade-heavy></div>
+          <div class="marquee-spark spark-b" data-arcade-heavy></div>
+          <div class="marquee-spark spark-c" data-arcade-heavy></div>
+          <div class="marquee-inner-border"></div>
+        </div>
+
+        <div class="setup-kicker">Sudoku 9&times;9 &middot; Editorial Puzzle</div>
+        <h1><span class="title-prefix">Sudoku</span><em class="title-suffix">Scribe</em></h1>
+
+        <div class="ship-badges-row" aria-label="Difficulty palette">
+          <span class="ship-badge badge-emerald" title="Easy">EASY</span>
+          <span class="ship-badge badge-cyan" title="Medium">MED</span>
+          <span class="ship-badge badge-bronze" title="Hard">HARD</span>
+          <span class="ship-badge badge-rose" title="Expert">EXP</span>
+          <span class="ship-badge badge-violet" title="Scholar Cell">SCHOLAR</span>
+          <span class="ship-campaign-label">30+ Hand-Crafted Puzzles per Difficulty</span>
+        </div>
+
+        <p class="setup-sub">You are the librarian-scribe of the Great Archive. Solve <em>9&times;9 sudoku grids</em> across four difficulties, click cells and tap <em>1&ndash;9</em> to fill, hold or right-click for <em>pencil marks</em>. Mind the <em>red conflict glow</em>. A handful of <em>scholar cells</em> shimmer gold &mdash; fill them correctly and decode an optional review for bonus shards.</p>
+
+        <div class="setup-grid">
+          <label>
+            <span>Difficulty</span>
+            <select id="difficultySelect" aria-label="Select difficulty">
+              <option value="easy" selected>Easy &middot; 5 min target</option>
+              <option value="medium">Medium &middot; 8 min target</option>
+              <option value="hard">Hard &middot; 12 min target</option>
+              <option value="expert">Expert &middot; 18 min target</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="resume-card" id="resumeCard" hidden></div>
+        <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
+
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="soundBtn" type="button" aria-label="Toggle sound">Sound On</button>
+          <button class="btn glass-pill" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">Fullscreen</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button" aria-label="Start the game">
+            <span class="btn-coin" aria-hidden="true">&#9678;</span> Insert Coin &middot; Start Sudoku Scribe
+          </button>
+        </div>
+
+        <p class="key-hints" aria-label="Keyboard controls">
+          <kbd>&uarr;</kbd>/<kbd>&darr;</kbd>/<kbd>&larr;</kbd>/<kbd>&rarr;</kbd> move &middot;&nbsp;
+          <kbd>1</kbd>&ndash;<kbd>9</kbd> fill &middot;&nbsp;
+          <kbd>0</kbd>/<kbd>Del</kbd> erase &middot;&nbsp;
+          <kbd>Shift</kbd>+digit pencil &middot;&nbsp;
+          <kbd>H</kbd> hint &middot;&nbsp;
+          <kbd>1</kbd>&ndash;<kbd>5</kbd> use power-up &middot;&nbsp;
+          <kbd>Esc</kbd>/<kbd>P</kbd> pause
+        </p>
+      </div>
+    </section>
+
+    <!-- Scholar review modal -->
+    <section class="question-screen" id="questionScreen" aria-label="Scholar cell &mdash; review question" aria-modal="true">
+      <div class="question-card glass-card">
+        <div class="question-header">
+          <div class="question-meta" id="questionMeta">Scholar Cell</div>
+          <button class="question-close glass-pill" id="questionCloseBtn" type="button" aria-label="Skip and return to game">Skip</button>
+        </div>
+        <h2 id="questionPrompt">Loading prompt&hellip;</h2>
+        <div class="choice-grid" id="choiceGrid" role="group" aria-label="Answer choices"></div>
+        <p class="explanation" id="explanation" role="status"></p>
+      </div>
+    </section>
+
+    <!-- Pause screen -->
+    <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker"><span class="kicker-pause-glyph" aria-hidden="true">&#10074;&#10074;</span> Paused</div>
+        <h2>Archive Held</h2>
+        <p class="setup-sub">Resume the puzzle or restart the run.</p>
+        <div class="setup-actions">
+          <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
+          <button class="btn glass-pill" id="restartBtn" type="button">Restart Run</button>
+          <button class="btn glass-pill" id="pauseExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- End / game over screen -->
+    <section class="end-screen" id="endScreen" aria-label="Game summary" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="endKicker">Run Ended</div>
+        <h2 id="endTitle">Sudoku Scribe &middot; Run complete</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <p class="setup-sub" id="retryHint" style="margin-top:8px"></p>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="setupBtn" type="button">Setup</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-celebration.js?v=20260509-celebration"></script>
+  <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
+  <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="game.js?v=20260509-sudokuscribe"></script>
+</body>
+</html>

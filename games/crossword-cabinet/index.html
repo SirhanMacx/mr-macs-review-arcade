@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0c12">
+  <title>Crossword Cabinet &mdash; Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@500;700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="styles.css?v=20260509-crosswordcabinet">
+</head>
+<body>
+  <main class="cabinet-shell" id="app">
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <!-- HUD: top strip -->
+    <section class="top-hud" aria-label="Crossword Cabinet status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong class="brand-title"><span class="brand-prefix">Crossword</span><em class="brand-suffix">Cabinet</em></strong>
+          <span class="brand-sub" id="brandSub">Across &middot; Down &middot; Decode</span>
+        </div>
+      </div>
+      <div class="hud-stats" aria-label="Game statistics">
+        <div class="stat-cell">
+          <strong id="hudScore" class="stat-value mono" role="status" aria-live="polite" aria-label="Score">0</strong>
+          <span class="stat-label">score</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudLives" class="stat-value mono" role="status" aria-live="polite" aria-label="Lives">3</strong>
+          <span class="stat-label">lives</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudPuzzle" class="stat-value mono" role="status" aria-live="polite" aria-label="Puzzle">1</strong>
+          <span class="stat-label">puzzle</span>
+        </div>
+        <div class="stat-cell" id="hudTimerCell">
+          <strong id="hudTimer" class="stat-value mono" role="status" aria-live="polite" aria-label="Timer">5:00</strong>
+          <span class="stat-label">time</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudFilled" class="stat-value mono" role="status" aria-live="polite" aria-label="Cells filled">0/0</strong>
+          <span class="stat-label">filled</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudBest" class="stat-value mono" role="status" aria-live="polite" aria-label="Personal best">&mdash;</strong>
+          <span class="stat-label">best</span>
+        </div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="hintBtn" type="button" aria-label="Hint &mdash; reveal a single letter">Hint <span class="round-cost mono" id="hintCost">5</span></button>
+        <button class="hud-btn glass-pill" id="revealBtn" type="button" aria-label="Reveal &mdash; expose one full clue">Reveal <span class="round-cost mono" id="revealCost">2</span></button>
+        <button class="hud-btn glass-pill" id="checkBtn" type="button" aria-label="Check current cell">Check</button>
+        <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
+        <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
+      </div>
+    </section>
+
+    <!-- Goal ribbon -->
+    <section class="wave-ribbon" id="waveRibbon" aria-label="Puzzle status">
+      <span class="wave-kicker">Puzzle</span>
+      <strong class="wave-name" id="goalName">Loading&hellip;</strong>
+      <span class="wave-meta" id="goalMeta">Across 0/0 &middot; Down 0/0</span>
+    </section>
+
+    <!-- Power-up tray -->
+    <section class="powerup-tray" id="powerupTray" aria-label="Power-up inventory">
+      <button class="pu-slot empty" id="puSlot1" type="button" aria-label="Power-up slot 1" data-slot="1"><span class="pu-glyph">&middot;</span><span class="pu-key">1</span></button>
+      <button class="pu-slot empty" id="puSlot2" type="button" aria-label="Power-up slot 2" data-slot="2"><span class="pu-glyph">&middot;</span><span class="pu-key">2</span></button>
+      <button class="pu-slot empty" id="puSlot3" type="button" aria-label="Power-up slot 3" data-slot="3"><span class="pu-glyph">&middot;</span><span class="pu-key">3</span></button>
+    </section>
+
+    <!-- Combo callouts overlay -->
+    <section class="popup-overlay" id="popupOverlay" aria-hidden="true"></section>
+
+    <!-- Main play stage: grid + clue panel -->
+    <section class="play-stage" id="playStage" aria-label="Crossword grid and clue list">
+      <div class="grid-wrap">
+        <div class="grid-frame">
+          <div class="grid-board" id="gridBoard" role="grid" aria-label="Crossword grid"></div>
+        </div>
+        <div class="active-clue-bar" id="activeClueBar" role="status" aria-live="polite">
+          <span class="active-clue-tag mono" id="activeClueTag">1A</span>
+          <span class="active-clue-text" id="activeClueText">Click a cell to start.</span>
+        </div>
+      </div>
+
+      <aside class="clue-panel" aria-label="Clue list">
+        <div class="clue-column">
+          <h3 class="clue-heading">Across</h3>
+          <ol class="clue-list" id="acrossList"></ol>
+        </div>
+        <div class="clue-column">
+          <h3 class="clue-heading">Down</h3>
+          <ol class="clue-list" id="downList"></ol>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Mobile keyboard -->
+    <section class="mini-kbd" id="miniKbd" aria-label="On-screen keyboard"></section>
+
+    <!-- Setup / title screen -->
+    <section class="setup-screen show" id="setupScreen" aria-label="Crossword Cabinet &mdash; game setup" aria-modal="true">
+      <div class="setup-card">
+        <div class="marquee-art" aria-hidden="true">
+          <div class="marquee-glow"></div>
+          <div class="marquee-spark spark-a" data-arcade-heavy></div>
+          <div class="marquee-spark spark-b" data-arcade-heavy></div>
+          <div class="marquee-spark spark-c" data-arcade-heavy></div>
+          <div class="marquee-inner-border"></div>
+        </div>
+
+        <div class="setup-kicker">Daily Crossword</div>
+        <h1><span class="title-prefix">Crossword</span><em class="title-suffix">Cabinet</em></h1>
+
+        <div class="ship-badges-row" aria-label="Theme palette">
+          <span class="ship-badge badge-bronze">CIVICS</span>
+          <span class="ship-badge badge-cyan">SCIENCE</span>
+          <span class="ship-badge badge-emerald">GLOBAL</span>
+          <span class="ship-badge badge-violet">U.S.</span>
+          <span class="ship-badge badge-rose">ECON</span>
+          <span class="ship-badge badge-gold">SCHOLAR</span>
+          <span class="ship-campaign-label">10 puzzles &middot; 12&times;12 grids &middot; Across &amp; Down</span>
+        </div>
+
+        <p class="setup-sub">Click a square to start typing &mdash; letters fill the active clue. Tap the clue list or use <em>Tab</em> to jump between clue starts. <em>Backspace</em> deletes. Each clue counts as solved when its letters all match. Watch for the gold-rim <em>scholar clue</em> &mdash; solving it without a hint pops up an optional review prompt for bonus <em>shards</em>. Three lost puzzles ends the run; perfect a puzzle for a fat time bonus and a power-up.</p>
+
+        <div class="resume-card" id="resumeCard" hidden></div>
+        <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
+
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="soundBtn" type="button" aria-label="Toggle sound">Sound On</button>
+          <button class="btn glass-pill" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">Fullscreen</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button" aria-label="Start the game">
+            <span class="btn-coin" aria-hidden="true">&#9678;</span> Insert Coin &middot; Start Crossword Cabinet
+          </button>
+        </div>
+
+        <p class="key-hints" aria-label="Keyboard controls">
+          <kbd>Click</kbd> select cell &middot;&nbsp;
+          <kbd>A</kbd>&ndash;<kbd>Z</kbd> type letter &middot;&nbsp;
+          <kbd>&larr;</kbd>&nbsp;<kbd>&rarr;</kbd>&nbsp;<kbd>&uarr;</kbd>&nbsp;<kbd>&darr;</kbd> move &middot;&nbsp;
+          <kbd>Tab</kbd> next clue &middot;&nbsp;
+          <kbd>Backspace</kbd> delete &middot;&nbsp;
+          <kbd>H</kbd> hint &middot;&nbsp;
+          <kbd>R</kbd> reveal clue &middot;&nbsp;
+          <kbd>1</kbd>&ndash;<kbd>3</kbd> use power-up &middot;&nbsp;
+          <kbd>P</kbd> pause
+        </p>
+      </div>
+    </section>
+
+    <!-- Scholar review modal -->
+    <section class="question-screen" id="questionScreen" aria-label="Scholar clue &mdash; review question" aria-modal="true">
+      <div class="question-card glass-card">
+        <div class="question-header">
+          <div class="question-meta" id="questionMeta">Scholar Clue</div>
+          <button class="question-close glass-pill" id="questionCloseBtn" type="button" aria-label="Skip and return to game">Skip</button>
+        </div>
+        <h2 id="questionPrompt">Loading prompt&hellip;</h2>
+        <div class="choice-grid" id="choiceGrid" role="group" aria-label="Answer choices"></div>
+        <p class="explanation" id="explanation" role="status"></p>
+      </div>
+    </section>
+
+    <!-- Pause screen -->
+    <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker"><span class="kicker-pause-glyph" aria-hidden="true">&#10074;&#10074;</span> Paused</div>
+        <h2>Cabinet Held</h2>
+        <p class="setup-sub">Resume the puzzle or start over.</p>
+        <div class="setup-actions">
+          <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
+          <button class="btn glass-pill" id="restartBtn" type="button">Restart Run</button>
+          <button class="btn glass-pill" id="pauseExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Puzzle clear screen -->
+    <section class="clear-screen" id="clearScreen" aria-label="Puzzle complete" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="clearKicker">Puzzle Solved</div>
+        <h2 id="clearTitle">Filled the cabinet!</h2>
+        <div class="end-grid" id="clearGrid"></div>
+        <p class="setup-sub" id="clearTip" style="margin-top:8px"></p>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="clearExitBtn" type="button">Exit</button>
+          <button class="btn primary brass-btn" id="nextPuzzleBtn" type="button">Next Puzzle</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- End / game over screen -->
+    <section class="end-screen" id="endScreen" aria-label="Game summary" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="endKicker">Run Ended</div>
+        <h2 id="endTitle">Crossword Cabinet &middot; Run complete</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <p class="setup-sub" id="retryHint" style="margin-top:8px"></p>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="setupBtn" type="button">Setup</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-celebration.js?v=20260509-celebration"></script>
+  <script src="../../assets/arcade-toast.js?v=20260509-toast"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
+  <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
+  <script src="game.js?v=20260509-crosswordcabinet"></script>
+</body>
+</html>
