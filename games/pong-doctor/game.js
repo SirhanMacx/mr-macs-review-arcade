@@ -121,7 +121,7 @@
   // -- Canvas/state ----------------------------------------------------------
   var canvas, ctx;
   var dpr = 1;
-  var scale = 1, offsetX = 0, offsetY = 0;
+  var scale = 1, scaleX = 1, scaleY = 1, offsetX = 0, offsetY = 0;
 
   var phase = "setup"; // setup | serving | playing | question | paused | ended | matchEnd | roundEnd
   var prevPhase = null;
@@ -1211,7 +1211,9 @@
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, W, H);
     ctx.translate(offsetX * dpr, offsetY * dpr);
-    ctx.scale(scale * dpr, scale * dpr);
+    // Non-uniform scale (May 10 2026): scaleX fits width, scaleY stretches
+    // vertically to fill the play area on portrait phones.
+    ctx.scale(scaleX * dpr, scaleY * dpr);
     ctx.translate(state.shake.x, state.shake.y);
 
     drawBackground();
@@ -1636,13 +1638,28 @@
   function resize() {
     dpr = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
     var rect = canvas.getBoundingClientRect();
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
+    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+
+    // Smart pong-court fit (May 10 2026 — user: 'pong doctor is broken').
+    // OLD min(sx,sy) on 390x844 phone gave scale=0.542 → court 390x325 with
+    // ~520px of dead vertical space; tiny strip of court in the middle of
+    // the screen. Now use non-uniform scale: fit width AND stretch height
+    // to ~94% of available play area minus chrome. Paddles (at logical
+    // x=10 and x=720-30) stay visible because we don't clip horizontally.
+    var w = window.innerWidth;
     var sx = rect.width / LOGICAL_W;
-    var sy = rect.height / LOGICAL_H;
-    scale = Math.min(sx, sy);
-    offsetX = (rect.width - LOGICAL_W * scale) / 2;
-    offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    var chromeTop = w <= 1100 ? 200 : 170;
+    var chromeBottom = w <= 1100 ? 90 : 0;
+    var availH = Math.max(120, rect.height - chromeTop - chromeBottom);
+    scaleX = sx;
+    scaleY = availH * 0.94 / LOGICAL_H;
+    // Cap distortion so paddles + ball don't look absurdly stretched
+    if (scaleY > scaleX * 1.8) scaleY = scaleX * 1.8;
+    if (scaleY < scaleX) scaleY = scaleX;  // never shrink below uniform
+    scale = scaleX;  // legacy (some hit-tests still use single scale)
+    offsetX = (rect.width - LOGICAL_W * scaleX) / 2;
+    offsetY = chromeTop + (availH - LOGICAL_H * scaleY) / 2;
   }
 
   // -- Hub integration -------------------------------------------------------
@@ -1807,8 +1824,9 @@
 
   function canvasToLogical(cx, cy) {
     var rect = canvas.getBoundingClientRect();
-    var px = (cx - rect.left - offsetX) / scale - state.shake.x;
-    var py = (cy - rect.top - offsetY) / scale - state.shake.y;
+    // Non-uniform inverse: divide x by scaleX, y by scaleY.
+    var px = (cx - rect.left - offsetX) / scaleX - state.shake.x;
+    var py = (cy - rect.top - offsetY) / scaleY - state.shake.y;
     return { x: px, y: py };
   }
 
