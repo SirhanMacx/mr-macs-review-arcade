@@ -16,7 +16,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260510-buttons-clean">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260510-library-default-expanded">
 <style>
 :root {
   color-scheme: dark;
@@ -8803,7 +8803,10 @@ async function loadGamesManifest() {
 }
 
 // ============== State + utilities ==============
-const state = { query: "", lane: "all", course: "All Courses", subject: "All Subjects", type: "All Game Types", sort: "priority", libraryExpanded: false };
+// libraryExpanded defaults to TRUE — streamlined hub puts the library
+// front-and-center so all 219 games show without an extra click.
+// Was false → only 6 games rendered until user clicked "Show All 219".
+const state = { query: "", lane: "all", course: "All Courses", subject: "All Subjects", type: "All Game Types", sort: "priority", libraryExpanded: true };
 const grid = document.getElementById("grid");
 const player = document.getElementById("player");
 const frame = document.getElementById("gameFrame");
