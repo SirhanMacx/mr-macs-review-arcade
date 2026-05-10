@@ -1,6 +1,11 @@
 (function () {
   "use strict";
 
+  // Idempotency guard — re-loading the script after both globals are set is a no-op.
+  // (Previously this script overwrote MrMacsProgress + MrMacsAnalytics on every load.)
+  var __root = (typeof window !== "undefined") ? window : {};
+  if (__root.MrMacsProgress && __root.MrMacsAnalytics) return;
+
   var PREFIX = "mr-macs-review-arcade-v1";
   var LOCAL_KEY = PREFIX + ":local-traffic";
   var PUBLIC_CACHE_KEY = PREFIX + ":public-traffic-cache";

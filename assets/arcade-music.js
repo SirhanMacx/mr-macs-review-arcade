@@ -45,6 +45,10 @@
 (function () {
   "use strict";
 
+  // Idempotency guard — re-loading the script after MrMacsArcadeMusic is set is a no-op.
+  var __root = (typeof window !== "undefined") ? window : {};
+  if (__root.MrMacsArcadeMusic) return;
+
   // ============== Theme registry ==============
 
   // Each theme is keyed by a string id. Notes are MIDI; bpm sets tempo.

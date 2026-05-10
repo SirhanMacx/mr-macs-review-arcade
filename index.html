@@ -5915,6 +5915,24 @@ body {
   border-color: rgba(122, 240, 255, .45);
   box-shadow: none;
 }
+.daily-cta-payout {
+  display: inline-flex; align-items: center;
+  margin: 0 8px 0 4px;
+  padding: 2px 8px;
+  background: rgba(245, 196, 81, .16);
+  border: 1px solid rgba(245, 196, 81, .42);
+  border-radius: 999px;
+  color: #f5c451;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
+}
+.daily-cta.is-done .daily-cta-payout {
+  /* Once played, the +60 chip becomes a soft check-mark instead. */
+  background: rgba(122, 240, 255, .14);
+  border-color: rgba(122, 240, 255, .35);
+  color: #7af0ff;
+}
 .daily-status {
   font-family: "JetBrains Mono", monospace;
   font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
@@ -7641,23 +7659,23 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   <div class="welcome-card">
     <button class="welcome-skip" id="welcomeSkip" type="button" aria-label="Skip setup">Skip</button>
     <div class="welcome-eyebrow" id="welcomeEyebrow">Welcome, hunter</div>
-    <h2 class="welcome-title">Set up your <em>trainer</em>.</h2>
-    <p class="welcome-sub">Your name + avatar travel with you across every game. Progress, shards, and achievements stay on this device — nothing is sent off your browser.</p>
+    <h2 class="welcome-title">Pick a <em>trainer</em> (or jump in).</h2>
+    <p class="welcome-sub">Your trainer name travels with you across every game. Skip these — you can fill them in any time from your profile drawer. Progress, shards, and achievements stay on this device.</p>
     <label class="welcome-field">
-      <span>Trainer name</span>
+      <span>Trainer name <small style="opacity:.6">(optional)</small></span>
       <input type="text" id="welcomeName" maxlength="24" placeholder="e.g. Avi, Ms. Chen, JoanDarcFan42" autocomplete="off" spellcheck="false">
     </label>
     <label class="welcome-field">
-      <span>Your course (so we know what to drill first)</span>
+      <span>Your course <small style="opacity:.6">(optional — we'll suggest games)</small></span>
       <select id="welcomeCourse" aria-label="Enrolled course">
-        <option value="">— Pick your course —</option>
+        <option value="">— Pick later —</option>
       </select>
     </label>
     <div class="welcome-field">
-      <span>Pick an avatar</span>
+      <span>Pick an avatar <small style="opacity:.6">(optional)</small></span>
       <div class="welcome-avatars" id="welcomeAvatars" role="radiogroup" aria-label="Avatar selection"></div>
     </div>
-    <button class="welcome-cta" id="welcomeContinue" type="button" disabled>
+    <button class="welcome-cta" id="welcomeContinue" type="button">
       <span>Enter the Arcade</span>
       <span class="arrow" aria-hidden="true">→</span>
     </button>
@@ -8105,6 +8123,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       <div class="daily-actions">
         <button class="daily-cta" id="dailyPlay" type="button">
           <span>Take the Challenge</span>
+          <span class="daily-cta-payout" aria-label="60 shard payout">+60 💎</span>
           <span class="arrow" aria-hidden="true">→</span>
         </button>
         <span class="daily-status" id="dailyStatus"></span>
@@ -8122,6 +8141,21 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       <button class="ach-strip-more" id="achStripMore" type="button" aria-label="See all achievements">See all<span aria-hidden="true">→</span></button>
     </div>
     <div class="ach-strip-rail" id="achStripRail" role="list"></div>
+  </section>
+
+  <!-- Launch Paths — moved BEFORE Smart Study Tools so new players see
+       the three primary entry paths (games / practice exams / Jeopardy)
+       before being offered diagnostic + mastery tools.
+       See docs/USER-EXPERIENCE-WALKTHROUGH-2026-05-09.md Recommendation #2. -->
+  <section class="band path-band path-band-primary" id="launch-paths" aria-label="Launch paths">
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Start Here</div>
+        <h2 class="band-title">Choose your <em>path</em>.</h2>
+        <p class="band-sub">Games, practice exams, and Jeopardy boards.</p>
+      </div>
+    </div>
+    <div class="path-grid reveal-stagger" id="pathCards"></div>
   </section>
 
   <!-- Phase 7: Smart Content Routing -->
@@ -8198,15 +8232,15 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     <div class="whats-new-card reveal">
       <div class="whats-new-copy">
         <span class="band-eyebrow">New This Month · May 2026</span>
-        <h2 class="band-title">Nine fresh <em>flagships</em> shipped to the arcade.</h2>
-        <p class="band-sub">Brick breakers, snake grids, asteroid belts, hopscotch grids, and rumor-whackers — all built around primary-source review pickups. Pick a cabinet and run a session.</p>
+        <h2 class="band-title">25 fresh <em>flagships</em> on the floor.</h2>
+        <p class="band-sub">Brick breakers, snakes, asteroids, frogs, pinball, chess, sudoku, anagrams, light cycles, plinko — every classic arcade genre, all built around primary-source review pickups. Pick a cabinet and run a session.</p>
         <button class="action primary whats-new-cta" id="whatsNewCta" type="button">
-          <span>Browse all 9 cabinets</span>
+          <span>Browse all 25 cabinets</span>
           <span class="arrow" aria-hidden="true">→</span>
         </button>
       </div>
       <div class="whats-new-stat" aria-hidden="true">
-        <strong>9</strong>
+        <strong>25</strong>
         <span>brand-new arcade originals</span>
       </div>
     </div>
@@ -8227,16 +8261,8 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     <div class="rail" id="newCabinetRail" role="list"></div>
   </section>
 
-  <section class="band path-band" id="launch-paths" aria-label="Launch paths">
-    <div class="band-head reveal">
-      <div>
-        <div class="band-eyebrow">Start Here</div>
-        <h2 class="band-title">Choose your <em>path</em>.</h2>
-        <p class="band-sub">Games, practice exams, and Jeopardy boards.</p>
-      </div>
-    </div>
-    <div class="path-grid reveal-stagger" id="pathCards"></div>
-  </section>
+  <!-- Launch Paths band moved up (now sits above Smart Study Tools).
+       Original location preserved as anchor for any deep-link to #launch-paths. -->
 
   <section class="band mastery-band utility-band" id="mastery" aria-label="Mastery path">
     <div class="band-head reveal">
@@ -8348,22 +8374,9 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   <!-- Round 3 Drop callout — second editorial banner, highlights the
        May 9 2026 16-cabinet sweep. Mirrors the .whats-new-band pattern
        but with a teal/violet accent and a separate id so they stack. -->
-  <section class="band round3-callout-band" id="round3Callout" aria-label="Round 3 mega drop">
-    <div class="round3-callout-card reveal">
-      <div class="round3-callout-copy">
-        <span class="band-eyebrow">Round 3 · Mega Drop · May 2026</span>
-        <h2 class="band-title">Round 3 — Mega Drop · 16 New <em>Cabinets</em>.</h2>
-        <p class="band-sub">Snake Pit, Chess Cabinet, Pinball Empire, and 13 more — every classic genre, all editorial.</p>
-        <button class="action primary round3-callout-cta" id="round3CalloutCta" type="button">
-          <span>Browse all 16 →</span>
-        </button>
-      </div>
-      <div class="round3-callout-stat" aria-hidden="true">
-        <strong>16</strong>
-        <span>brand-new round 3 cabinets</span>
-      </div>
-    </div>
-  </section>
+  <!-- Round 3 callout removed (was redundant with #whatsNewCallout above; the
+       single banner now covers all 25 May 2026 flagships). See
+       docs/USER-EXPERIENCE-WALKTHROUGH-2026-05-09.md Recommendation #1. -->
 
   <!-- Quick Insights band — three side-by-side panels that mount via the
        round-3 modules. Defensive: each panel is a stable host id so the
@@ -8408,6 +8421,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       <select class="field" id="typeFilter"></select>
       <select class="field" id="sortFilter">
         <option value="priority">Sort: Featured</option>
+        <option value="newest">Sort: Newest</option>
         <option value="course">Sort: Course</option>
         <option value="title">Sort: Title</option>
         <option value="type">Sort: Game Type</option>
@@ -8498,9 +8512,16 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-icons.js?v=20260509-icons"></script>
 <script src="assets/arcade-toast.js?v=20260509-toast"></script>
 <script src="assets/arcade-celebration.js?v=20260509-celebration"></script>
-<script src="assets/arcade-progress-extras.js?v=20260509-progress-extras"></script>
-<script src="assets/arcade-leaderboards.js?v=20260509-leaderboards"></script>
-<script src="assets/arcade-sessions.js?v=20260509-sessions"></script>
+<!-- IMPORTANT load-order rule (see docs/MODULE-DEPENDENCY-2026-05-09.md):
+     arcade-leaderboards.js + arcade-sessions.js MUST load BEFORE
+     arcade-progress-extras.js. Progress-extras tries to grab all three
+     namespaces (Leaderboards + Sessions + ProgressExtras). The dedicated
+     modules use single-key idempotency guards, so if progress-extras
+     loads first, the dedicated rich-API modules bail and the hub gets
+     stuck on the slim 5-method stub (breaking e.g. globe.personalBest). -->
+<script src="assets/arcade-leaderboards.js?v=20260510-leaderboards"></script>
+<script src="assets/arcade-sessions.js?v=20260510-sessions"></script>
+<script src="assets/arcade-progress-extras.js?v=20260510-progress-extras"></script>
 <script src="assets/arcade-cram-mode.js?v=20260509-cram"></script>
 <script src="assets/arcade-onboarding-flow.js?v=20260509-onboarding"></script>
 <script src="assets/arcade-quick-stats-panel.js?v=20260509-quickstats"></script>
@@ -8933,6 +8954,17 @@ function filteredGames() {
     if (state.sort === "title") return a.title.localeCompare(b.title, undefined, { numeric: true });
     if (state.sort === "type") return (displayGameType(a) + a.course + a.title).localeCompare(displayGameType(b) + b.course + b.title, undefined, { numeric: true });
     if (state.sort === "course") return (a.course + a.originalFile).localeCompare(b.course + b.originalFile, undefined, { numeric: true });
+    if (state.sort === "newest") {
+      // Newest-first uses the position in NEW_FLAGSHIP_IDS (newest at index 0).
+      // Anything not in that list sorts to the back, then by title for stability.
+      const newIdx = (typeof NEW_FLAGSHIP_IDS !== "undefined") ? NEW_FLAGSHIP_IDS : [];
+      const ai = newIdx.indexOf(a.id);
+      const bi = newIdx.indexOf(b.id);
+      const aRank = ai === -1 ? Number.MAX_SAFE_INTEGER : ai;
+      const bRank = bi === -1 ? Number.MAX_SAFE_INTEGER : bi;
+      if (aRank !== bRank) return aRank - bRank;
+      return a.title.localeCompare(b.title, undefined, { numeric: true });
+    }
     return priority(a) - priority(b) || (a.course + a.originalFile).localeCompare(b.course + b.originalFile, undefined, { numeric: true });
   });
 }
@@ -10416,11 +10448,10 @@ boot();
     setTimeout(openWelcome, 320);
   }
   if (welcomeName) {
-    welcomeName.addEventListener("input", function () {
-      welcomeContinue.disabled = welcomeName.value.trim().length < 1;
-    });
+    // Name field is now optional (UX walkthrough rec #3) — CTA always enabled.
+    // Pressing Enter from the name field fires the CTA.
     welcomeName.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" && !welcomeContinue.disabled) welcomeContinue.click();
+      if (e.key === "Enter" && welcomeContinue) welcomeContinue.click();
     });
   }
   // First-run hub tour — fires after welcome closes (or on a 2nd visit if
@@ -10465,9 +10496,11 @@ boot();
 
   if (welcomeContinue) {
     welcomeContinue.addEventListener("click", function () {
-      var name = (welcomeName.value || "").trim();
-      if (!name) return;
-      P.setAvatar(welcomeAvatar, "emoji");
+      // Name is now optional (UX walkthrough rec #3). If blank, default to
+      // "Player" — student can rename any time from the profile drawer.
+      var name = (welcomeName.value || "").trim() || "Player";
+      // Avatar may also be blank if no chip clicked — keep the default 🎓.
+      if (welcomeAvatar) P.setAvatar(welcomeAvatar, "emoji");
       // Save course choice (may be empty — that's fine; student can
       // pick later from the drawer). Save course BEFORE setName so the
       // profile:create event carries the course value.
