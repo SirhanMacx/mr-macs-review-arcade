@@ -1919,13 +1919,38 @@
   function resize() {
     dpr = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
     var rect = canvas.getBoundingClientRect();
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
-    var sx = rect.width / LOGICAL_W;
-    var sy = rect.height / LOGICAL_H;
-    scale = Math.min(sx, sy);
-    offsetX = (rect.width - LOGICAL_W * scale) / 2;
-    offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+
+    // Smart play-area scaling (May 10 2026): the tile field uses ~532×400
+    // logical px (28 cells wide × 16 tall, with TILE_W=38, TILE_H=50). The
+    // OLD code fit the full 720×720 LOGICAL viewport to canvas, leaving the
+    // tile field at ~71% of LOGICAL_W and ~55% of LOGICAL_H — small on phones.
+    // Now: compute available play area minus reserved chrome and scale the
+    // TILE FIELD to fill 92% of it. Translate so the tile field center
+    // lands at the play-area center.
+    var TILE_FIELD_W = 532;
+    var TILE_FIELD_H = 400;
+    var w = window.innerWidth;
+    var chromeTop, chromeBottom;
+    if (w <= 1100) {
+      chromeTop = 200;        // wrapped HUD + ribbon on mobile
+      chromeBottom = 80;      // powerup tray
+    } else {
+      chromeTop = 170;
+      chromeBottom = 0;
+    }
+    var availW = Math.max(1, rect.width);
+    var availH = Math.max(120, rect.height - chromeTop - chromeBottom);
+    scale = Math.min(availW * 0.94 / TILE_FIELD_W, availH * 0.92 / TILE_FIELD_H);
+
+    // Tile field center in LOGICAL coords = (LOGICAL_W/2, 130 + (LOGICAL_H - 130 - 80)/2)
+    var fieldCxL = LOGICAL_W / 2;
+    var fieldCyL = 130 + (LOGICAL_H - 130 - 80) / 2;
+    var targetCx = rect.width / 2;
+    var targetCy = chromeTop + availH / 2;
+    offsetX = targetCx - fieldCxL * scale;
+    offsetY = targetCy - fieldCyL * scale;
   }
 
   // -- Hub integration -------------------------------------------------------

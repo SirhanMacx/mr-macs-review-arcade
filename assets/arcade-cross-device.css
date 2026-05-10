@@ -171,6 +171,32 @@ canvas[height] {
   overscroll-behavior: contain;
 }
 
+/* ----- 9b. Wave-ribbon mobile compaction (May 10 2026 audit) -----
+   On mobile, the in-game wave-ribbon ("Round" / goal name / meta) wraps
+   to multi-line and collides with the word-readout / next chrome element
+   below it. Plinko, Boggle, Citadel etc. all hit this. Force single-line
+   ellipsis and hide the verbose meta on small phones. */
+@media (max-width: 540px) {
+  .wave-ribbon {
+    max-width: calc(100vw - 24px);
+    flex-wrap: nowrap !important;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 4px 12px;
+  }
+  .wave-ribbon .wave-name,
+  .wave-ribbon .wave-kicker,
+  .wave-ribbon .wave-meta {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  .wave-ribbon .wave-meta {
+    display: none;
+  }
+}
+
 /* ----- 10. Setup-card "Back to Arcade" overlap fix (May 10 2026) ----- */
 /* The .setup-back-link in every game is position:absolute top:16px left:16px
    with a 12%-opacity yellow background. The setup-kicker text below it
