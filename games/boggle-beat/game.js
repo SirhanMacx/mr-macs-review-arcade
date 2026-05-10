@@ -1606,8 +1606,9 @@
 
     var availW = Math.max(1, rect.width);
     var availH = Math.max(120, rect.height - chromeTop - chromeBottom);
-    // Fit the GRID (not the LOGICAL viewport) into 92% of available area
-    var maxGridPx = Math.min(availW, availH) * 0.92;
+    // Fit the GRID into 96% of available area (was 92%). May 10 2026 —
+    // canvas now uses the full viewport on iPhone so we can grow the grid.
+    var maxGridPx = Math.min(availW, availH) * 0.96;
     scale = maxGridPx / GRID_W;
 
     // GRID center in logical coords

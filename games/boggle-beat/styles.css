@@ -102,11 +102,19 @@ kbd {
   touch-action: none;
   cursor: pointer;
 }
-/* On mobile, reserve bottom strip for powerup tray */
+/* On mobile, canvas fills full viewport — the powerup tray now floats
+   over the canvas (semi-transparent backdrop) so the play area uses
+   every pixel. User report May 10 2026: "boggle still not full screen
+   on iPhone". */
 @media (max-width: 720px) {
   #boggleCanvas {
-    bottom: 56px;
-    height: calc(100% - 56px);
+    bottom: 0;
+    height: 100%;
+  }
+  .powerup-tray {
+    background: rgba(2, 4, 12, 0.65) !important;
+    backdrop-filter: blur(8px) saturate(1.2);
+    -webkit-backdrop-filter: blur(8px) saturate(1.2);
   }
 }
 
