@@ -81,7 +81,11 @@ function renderQuestion() {
   $("#sessionTitle").textContent = M.courseProfile(state.course).short + " Source Lab";
   $("#questionMeta").innerHTML = [q.course, q.set, M.SKILL_LABELS[q.skill] || q.skill].filter(Boolean).map((value) => '<span class="pill">' + M.esc(value) + '</span>').join("");
   const lock = sourceLock(q);
-  $("#sourceImage").src = lock.images[0]?.src || q.images?.[0]?.src || "";
+  // Trust pipeline only: never fall back to q.images directly. If the
+  // source-lock REJECTED a question's images, falling back to the raw
+  // q.images shipped a possibly-mismatched document next to the prompt
+  // (May 10 2026 — user reported this on US 11 source-lab Q5).
+  $("#sourceImage").src = (lock.ok && lock.images[0]) ? lock.images[0].src : "";
   $("#sourceLine").dataset.sourceIdentity = lock.identity || "";
   $("#sourceLine").innerHTML = '<span class="source-lock-pill ' + (lock.ok ? "ok" : "warn") + '">' + M.esc(lock.label) + (lock.reason ? " · " + M.esc(lock.reason) : "") + '</span><span>' + M.esc(q.source || q.topic || "Released source stimulus") + '</span>';
   $("#prompt").textContent = q.prompt;

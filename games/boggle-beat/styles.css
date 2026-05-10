@@ -990,9 +990,29 @@ kbd {
   .stat-label { font-size: 8px; }
   .brand-title { font-size: 17px; }
   .brand-sub { display: none; }
-  .wave-ribbon { top: 100px; font-size: 11px; }
-  /* Word readout shifts down past HUD on mobile */
-  .word-readout { top: 148px; }
+  /* Wave-ribbon on mobile: single-line truncation. Was wrapping to 94px tall
+     and colliding with word-readout below. May 10 2026. */
+  .wave-ribbon {
+    top: 100px;
+    font-size: 11px;
+    max-width: 92vw;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 4px 12px;
+  }
+  .wave-ribbon .wave-name { font-size: 13px; }
+  .wave-ribbon .wave-name,
+  .wave-ribbon .wave-meta {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  /* Hide the verbose meta on small phones — keep round name + kicker only */
+  .wave-ribbon .wave-meta { display: none; }
+  /* Word readout shifts down past wave-ribbon on mobile */
+  .word-readout { top: 138px; }
 }
 
 @media (max-width: 540px) {

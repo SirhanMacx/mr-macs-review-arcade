@@ -1740,11 +1740,27 @@ select option, select optgroup { color: #07111f; background: #f8fbff; }
 
 /* All-mobile-and-tablet baseline (any device that is touch OR <= 1024px) */
 @media (hover: none), (max-width: 1024px) {
-  /* Use dynamic viewport units to handle iOS Safari URL-bar collapse */
-  .race-screen.active { min-height: 100dvh; }
+  /* Race-screen: use a flex column so the canvas fills the remaining space
+     below the topbar. The earlier 100dvh canvas overflowed past the bottom
+     of the viewport because .shell already takes ~193px for topbar above
+     the race-screen. May 10 2026 fix. */
+  .shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    padding: 8px 0 0;
+  }
+  .race-screen.active {
+    min-height: 0;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
   #raceCanvas {
-    height: 100dvh;
-    min-height: 0;             /* drop the 650px desktop floor */
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
   }
   /* Single-column character screen — was 2-col with 620px right rail */
   #characterScreen {

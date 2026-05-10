@@ -8940,8 +8940,24 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+// Games whose thumbnail is .svg (not .webp). Most game-thumbnails are
+// converted to webp; the recent flagships keep their hand-built svg art
+// because the source files are vector, not photographic. Without this
+// allow-list the hub fires 404s for these on every render.
+const SVG_THUMB_IDS = new Set([
+  "anagram-atlas", "archive-tycoon", "atlas-2048", "boggle-beat", "bomb-scribe",
+  "brickoria", "cascade", "centiquill", "chess-cabinet", "chronoblocks",
+  "chronohop", "citadel", "crossword-cabinet", "cube-crash", "defender-drift",
+  "echo-hall", "galaxy-defender", "knights-quest", "mahjong-mosaic",
+  "memory-palace", "plinko-lab", "pong-doctor", "reflex-run", "rumor-whack",
+  "snake-pit", "sokoban-scribe", "solitaire-hall", "source-snake",
+  "stellar-drift", "step-pyramid", "sudoku-scribe", "tower-climb",
+  "tron-trails", "word-bridge"
+]);
 function thumbnailFor(game) {
-  return game ? "assets/game-thumbnails/" + encodeURIComponent(game.id) + ".webp" : "";
+  if (!game) return "";
+  var ext = SVG_THUMB_IDS.has(game.id) ? ".svg" : ".webp";
+  return "assets/game-thumbnails/" + encodeURIComponent(game.id) + ext;
 }
 function cssUrlForAttr(path) {
   return "url(&quot;" + escapeHtml(path).replaceAll("(", "%28").replaceAll(")", "%29") + "&quot;)";
@@ -12223,7 +12239,11 @@ boot();
     if (!band) return;
     if (!GAMES || !GAMES.length) return;
     var today = todayUTC();
-    var enrolled = (P && P.getCourse) ? P.getCourse() : "";
+    // Use window.MrMacsProfile directly; the local `P` alias from another
+    // function scope isn't visible here. Was throwing ReferenceError and
+    // killing the daily-challenge rail (May 10 2026).
+    var Pscope = window.MrMacsProfile;
+    var enrolled = (Pscope && Pscope.getCourse) ? Pscope.getCourse() : "";
     var pick = dailyPick(GAMES, hashSeed(today), enrolled);
     if (!pick) return;
     var dateEl = document.getElementById("dailyDate");

@@ -2278,9 +2278,21 @@
     canvas.height = Math.floor(rect.height * dpr);
     var sx = rect.width / LOGICAL_W;
     var sy = rect.height / LOGICAL_H;
-    scale = Math.min(sx, sy);
-    offsetX = (rect.width - LOGICAL_W * scale) / 2;
-    offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    // Smart fit (May 10 2026): on tall narrow viewports (portrait phones) the
+    // old min(sx,sy) picked sx and left ~half the canvas height empty.
+    // Defender is a horizontal scroller — the world is much wider than the
+    // viewport anyway and the player is anchored at PLAYER_SCREEN_X, so
+    // clipping a chunk of LOGICAL_W on each side is fine. Use the height
+    // scale on tall viewports so the world fills the screen vertically.
+    if (sy > sx * 1.35) {
+      scale = sy;
+      offsetX = (rect.width - LOGICAL_W * scale) / 2;
+      offsetY = 0;
+    } else {
+      scale = Math.min(sx, sy);
+      offsetX = (rect.width - LOGICAL_W * scale) / 2;
+      offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    }
   }
 
   // -- Hub integration -------------------------------------------------------
