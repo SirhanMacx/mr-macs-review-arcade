@@ -1,0 +1,184 @@
+/* ===========================================================================
+   arcade-cross-device.css — May 10 2026
+   Cross-surface polish for all 78+ flagship games.
+   Loaded by every game index.html. Designed to be the LAST stylesheet
+   so its safe-area rules win over per-game positioning.
+
+   Targets:
+   - iPhone notch / Dynamic Island (env(safe-area-inset-top))
+   - iPad portrait + landscape, including split-view (~728px / ~1024px)
+   - Mobile landscape (HUD compaction)
+   - Smartboard / classroom display (>= 1900px) — text-size boost
+   - Touch devices generally — tap-target floor
+   - One-window navigation safety (no scroll bleed-through)
+   =========================================================================== */
+
+/* ----- 1. Root viewport hardening (one-window, no scroll bleed) ----- */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+html, body {
+  /* Browsers are inconsistent — overscroll-behavior on both prevents
+     scroll-chaining when a game's modal overflows. */
+  overscroll-behavior: none;
+}
+
+/* ----- 2. Safe-area-inset for top fixed/absolute chrome ----- */
+/* Applies to the canonical top bar in every game. We support all the
+   common class names used across the 78 flagships. The padding-top floor
+   is whatever the game already had (12-18px); env() adds the notch on top. */
+.top-hud,
+.topbar,
+.hud-strip,
+.game-topbar {
+  /* Push the bar below the iOS notch / Dynamic Island */
+  padding-top: max(12px, env(safe-area-inset-top, 12px)) !important;
+  padding-left:  max(12px, env(safe-area-inset-left,  12px)) !important;
+  padding-right: max(12px, env(safe-area-inset-right, 12px)) !important;
+}
+
+/* Bottom-pinned chrome (touch controls, drop buttons) — push above home indicator */
+.touch-controls,
+.tc-controls,
+.bottom-tray,
+.action-bar.bottom {
+  padding-bottom: max(8px, env(safe-area-inset-bottom, 8px)) !important;
+}
+
+/* ----- 3. Back-link safe-area for games that have a hub-return chip ----- */
+.back-link.global,
+.arcade-back-link {
+  position: fixed;
+  top: max(10px, calc(env(safe-area-inset-top, 0px) + 10px));
+  left: max(10px, calc(env(safe-area-inset-left, 0px) + 10px));
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(2, 4, 12, 0.85);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font: 600 12.5px 'Inter', system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: transform 0.18s ease, background 0.18s ease;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.back-link.global:hover,
+.arcade-back-link:hover {
+  background: rgba(245, 196, 81, 0.18);
+  transform: translateY(-1px);
+}
+
+/* ----- 4. Tap-target floor (44×44px per WCAG 2.5.5) ----- */
+@media (pointer: coarse) {
+  button,
+  .btn,
+  .hud-btn,
+  .mini-btn,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  /* Compact pill exceptions: keep their visual size but raise hit-area
+     via padding rather than min-height (so layout doesn't break). */
+  .glass-pill,
+  .ship-badge,
+  .stat-cell {
+    /* These are display elements, not interactive — exempt. */
+    min-height: revert;
+    min-width: revert;
+  }
+}
+
+/* ----- 5. iPad portrait (~768-1024px) — relax compact mobile layouts ----- */
+@media (min-width: 768px) and (max-width: 1100px) and (pointer: coarse) {
+  .top-hud,
+  .topbar {
+    /* On iPad the HUD has plenty of room — undo the wrapping that
+       triggers below 540px in many games. */
+    flex-wrap: nowrap;
+  }
+  .stat-cell {
+    min-width: 72px;
+  }
+}
+
+/* ----- 6. Smartboard / classroom display (>= 1900px) — readable from back row ----- */
+@media (min-width: 1900px) {
+  .top-hud .stat-value,
+  .topbar .stat-value {
+    font-size: 22px;
+  }
+  .top-hud .stat-label,
+  .topbar .stat-label {
+    font-size: 11px;
+  }
+  .brand-title {
+    font-size: 26px;
+  }
+  /* Question modals / setup cards — boost legible body text */
+  .setup-card p,
+  .question-card p,
+  .explanation {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .question-card h2,
+  .setup-card h1 {
+    font-size: clamp(38px, 3vw, 56px);
+  }
+}
+
+/* ----- 7. Mobile landscape (short viewports) — HUD compaction ----- */
+@media (max-height: 480px) and (orientation: landscape) {
+  .top-hud,
+  .topbar {
+    padding-top: max(4px, env(safe-area-inset-top, 4px)) !important;
+    padding-bottom: 4px;
+  }
+  .stat-cell {
+    padding: 2px 8px;
+    min-width: 48px;
+  }
+  .stat-value { font-size: 13px; }
+  .stat-label { font-size: 8px; }
+  .brand-text .brand-sub { display: none; }
+  .wave-ribbon { padding: 4px 12px; }
+}
+
+/* ----- 8. Game canvases — guard against scroll bleed-through on iOS ----- */
+canvas {
+  touch-action: manipulation;
+}
+canvas[width],
+canvas[height] {
+  /* Native arrow keys / spacebar shouldn't scroll the body on focus. */
+  outline: none;
+}
+
+/* ----- 9. Modal / dialog containment — keep scroll inside the modal ----- */
+[role="dialog"],
+.modal,
+.question-screen,
+.pause-screen,
+.end-screen,
+.setup-screen {
+  overscroll-behavior: contain;
+}
+
+/* ----- 10. Reduced-motion respect (cross-game safety net) ----- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

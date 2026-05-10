@@ -15,6 +15,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev">
 <style>
 :root {
   color-scheme: dark;
@@ -8718,7 +8719,13 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   </div>
 </footer>
 
-<section class="player" id="player" role="dialog" aria-modal="true" aria-labelledby="playerTitle" aria-describedby="playerMeta" aria-hidden="true" tabindex="-1">
+<!--
+  Legacy iframe-modal player overlay — DISABLED May 10 2026.
+  Games now navigate directly (one-window pattern). Section is kept
+  hidden so legacy DOM lookups (getElementById) don't crash, but it
+  never renders. See openGame() below.
+-->
+<section class="player" id="player" role="dialog" aria-modal="false" aria-labelledby="playerTitle" aria-describedby="playerMeta" aria-hidden="true" hidden style="display:none !important;">
   <div class="playerbar">
     <div class="player-titleblock">
       <span class="player-badge">Now Playing</span>
@@ -8732,12 +8739,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     </div>
   </div>
   <div class="framewrap">
-    <div class="loader" role="status" aria-live="polite">
-      <span class="loader-mark">MM</span>
-      <strong>Loading Cabinet</strong>
-      <span>Preparing controls, progress, and arcade frame</span>
-    </div>
-    <iframe id="gameFrame" title="Review game player" loading="eager" allow="fullscreen"></iframe>
+    <iframe id="gameFrame" title="Review game player (disabled)" loading="lazy"></iframe>
   </div>
 </section>
 
@@ -10174,9 +10176,13 @@ function playerFocusables() {
   return Array.from(player.querySelectorAll("button, [href], iframe, [tabindex]:not([tabindex='-1'])"))
     .filter((element) => !element.disabled && element.offsetParent !== null);
 }
+// ============== One-window navigation ==============
+// User feedback May 10 2026: games used to open in an iframe modal (player
+// overlay), creating "a window over a window" with scroll bleed-through.
+// We now navigate directly to the game URL — the game IS the page. Each game
+// has its own back-link to return to the hub.
 function openGame(game) {
   if (!game) return;
-  lastPlayerFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   currentGame = game;
   window.MrMacsAnalytics?.track("game_launch", {
     gameId: game.id,
@@ -10185,76 +10191,27 @@ function openGame(game) {
     gameType: game.gameType,
     displayGameType: displayGameType(game)
   }, { counter: "game-launches", once: false });
-  renderProgressReport();
-  renderSmartMenu();
-  document.getElementById("playerTitle").textContent = game.title;
-  const heavyMobile = isMobileHeavyGame(game);
-  document.getElementById("playerMeta").textContent = game.course + " · " + displayGameType(game) + " · " + (game.day || game.grade) + (heavyMobile ? " · mobile speed tip" : "");
-  document.getElementById("openBtn").textContent = heavyMobile ? "Open Faster Tab" : "Open Tab";
-  clearTimeout(frameLoadTimer);
-  player.classList.toggle("mobile-lite", isMobilePerfMode());
-  player.classList.toggle("mobile-heavy", heavyMobile);
-  player.classList.remove("slow-load");
-  player.classList.add("show", "loading");
-  player.setAttribute("aria-hidden", "false");
-  frame.title = game.title + " game";
-  frame.src = "about:blank";
-  const targetUrl = launchUrl(game.file);
-  requestAnimationFrame(() => {
-    frame.src = targetUrl;
-    frameLoadTimer = setTimeout(() => {
-      if (player.classList.contains("loading")) player.classList.add("slow-load");
-    }, isMobilePerfMode() ? 5500 : 8000);
-  });
-  document.getElementById("closeBtn").focus({ preventScroll: true });
+  // Persist hub state so the back-link can restore filters/scroll on return.
+  try {
+    sessionStorage.setItem("mrmacs:hub-return", JSON.stringify({
+      scrollY: window.scrollY,
+      state: state,
+      ts: Date.now()
+    }));
+  } catch (e) { /* storage disabled is fine */ }
+  // Modifier-click / middle-click → background tab.
+  // Otherwise → full-page navigation in same tab. One window. Always.
+  window.location.href = launchUrl(game.file);
 }
 function closeGame() {
-  clearTimeout(frameLoadTimer);
-  player.classList.remove("show", "loading", "mobile-lite", "mobile-heavy", "slow-load");
-  player.setAttribute("aria-hidden", "true");
-  document.getElementById("openBtn").textContent = "Open Tab";
-  frame.title = "Review game player";
-  frame.src = "about:blank";
-  currentGame = null;
-  const restoreTarget = lastPlayerFocus?.isConnected ? lastPlayerFocus : null;
-  lastPlayerFocus = null;
-  restoreTarget?.focus({ preventScroll: true });
+  // Retained for any legacy callers; navigation back to hub is handled by
+  // each game's own back-link or the browser back button.
+  if (typeof history !== "undefined" && history.length > 1) {
+    history.back();
+  } else {
+    window.location.href = "index.html";
+  }
 }
-frame.addEventListener("load", () => {
-  if (frame.getAttribute("src") !== "about:blank") {
-    clearTimeout(frameLoadTimer);
-    player.classList.remove("loading", "slow-load");
-  }
-});
-document.getElementById("closeBtn").addEventListener("click", closeGame);
-document.getElementById("openBtn").addEventListener("click", () => {
-  if (currentGame) window.open(launchUrl(currentGame.file), "_blank", "noopener");
-});
-document.getElementById("fullscreenBtn").addEventListener("click", async () => {
-  const target = document.querySelector(".framewrap");
-  if (!document.fullscreenElement) await target.requestFullscreen?.();
-  else await document.exitFullscreen?.();
-});
-document.addEventListener("keydown", (event) => {
-  if (!player.classList.contains("show")) return;
-  if (event.key === "Escape") {
-    event.preventDefault();
-    closeGame();
-    return;
-  }
-  if (event.key !== "Tab") return;
-  const focusables = playerFocusables();
-  if (!focusables.length) return;
-  const first = focusables[0];
-  const last = focusables[focusables.length - 1];
-  if (event.shiftKey && document.activeElement === first) {
-    event.preventDefault();
-    last.focus();
-  } else if (!event.shiftKey && document.activeElement === last) {
-    event.preventDefault();
-    first.focus();
-  }
-});
 
 // ============== Canvas FX ==============
 function initFx() {
@@ -10394,6 +10351,28 @@ async function boot() {
     render();
     settleHashTarget();
     initReveal();
+    // Restore hub state if we just returned from a game (one-window nav).
+    // Keeps the user's filters + scroll position on round-trip. Stale state
+    // (>30 min) is ignored.
+    try {
+      var savedRaw = sessionStorage.getItem("mrmacs:hub-return");
+      if (savedRaw) {
+        var saved = JSON.parse(savedRaw);
+        if (saved && (Date.now() - (saved.ts || 0)) < 30 * 60 * 1000) {
+          if (saved.state && typeof saved.state === "object") {
+            Object.keys(saved.state).forEach(function (k) {
+              if (k in state) state[k] = saved.state[k];
+            });
+            render();
+          }
+          if (typeof saved.scrollY === "number") {
+            // Defer to next frame so the rendered grid has its final height.
+            requestAnimationFrame(function () { window.scrollTo(0, saved.scrollY); });
+          }
+        }
+        sessionStorage.removeItem("mrmacs:hub-return");
+      }
+    } catch (e) { /* storage disabled — silently skip */ }
     // Wire the topbar "Enter Arcade" button. For a brand-new player
     // (no plays in this browser) we point them at #newCabinet so they
     // see the May 2026 sweep. Returning players keep the default
