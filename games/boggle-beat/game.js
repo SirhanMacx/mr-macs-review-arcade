@@ -1568,13 +1568,57 @@
   function resizeCanvas() {
     var rect = canvas.getBoundingClientRect();
     dpr = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
-    var sx = rect.width / LOGICAL_W;
-    var sy = rect.height / LOGICAL_H;
-    scale = Math.min(sx, sy);
-    offsetX = (rect.width - LOGICAL_W * scale) / 2;
-    offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+
+    // ---- Smart play-area scaling (May 10 2026) ----
+    // Previously: scale = min(rect.width/720, rect.height/720). On wide
+    // screens this made the grid hug the LOGICAL viewport (480×512 logical
+    // → small render). On portrait, vertical overscan wasted space.
+    //
+    // Now: compute the actual visible play area (canvas size minus the
+    // chrome zones that the CSS layout reserves for HUD / wave-ribbon /
+    // word-readout / powerup-tray) and scale the GRID itself to fill 92%
+    // of the smaller available dimension. Then translate so the GRID
+    // CENTER lands at the play-area center. Background banner + popups
+    // ride along on the same offset/scale and naturally land where they
+    // visually belong.
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var chromeTop, chromeBottom;
+    var isLandscapePhone = h < 480 && w >= 600;
+    if (isLandscapePhone) {
+      // Short viewport (landscape phone): HUD compacts, no wrap, no ribbon.
+      // Available vertical space is precious — minimize chrome reservation.
+      chromeTop = 80;
+      chromeBottom = 4;
+    } else if (w <= 1100) {
+      // Mobile + tablet portrait: HUD wraps to 2 rows (~80px), wave-ribbon
+      // (~30px), word-readout (~52px) → ~190-200px total. Powerup-tray at
+      // bottom strip (~56px).
+      chromeTop = 200;
+      chromeBottom = 60;
+    } else {
+      // Desktop / wide: single-row HUD + ribbon + readout
+      chromeTop = 170;
+      chromeBottom = 0;
+    }
+
+    var availW = Math.max(1, rect.width);
+    var availH = Math.max(120, rect.height - chromeTop - chromeBottom);
+    // Fit the GRID (not the LOGICAL viewport) into 92% of available area
+    var maxGridPx = Math.min(availW, availH) * 0.92;
+    scale = maxGridPx / GRID_W;
+
+    // GRID center in logical coords
+    var gridCxL = LOGICAL_W / 2;            // GRID is centered in LOGICAL_W
+    var gridCyL = GRID_TOP + GRID_H / 2;
+    // Target GRID center in canvas pixels
+    var targetCx = rect.width / 2;
+    var targetCy = chromeTop + availH / 2;
+    // Solve: targetC = offset + gridCL * scale  →  offset = targetC - gridCL * scale
+    offsetX = targetCx - gridCxL * scale;
+    offsetY = targetCy - gridCyL * scale;
   }
   function drawBackground() {
     var w = canvas.width, h = canvas.height;
