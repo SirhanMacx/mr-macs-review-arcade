@@ -120,9 +120,13 @@
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 10px !important;
+    overflow: hidden !important;  /* prevent horizontal scroll if cards overflow */
   }
-  /* Compact card */
+  /* Compact card. min-width: 0 is the classic Grid gotcha — without it,
+     1fr columns get sized to the card's intrinsic content (318px) and
+     the grid overflows horizontally. */
   .game-card {
+    min-width: 0 !important;
     min-height: 0 !important;
     border-radius: 8px !important;
   }
