@@ -61,6 +61,16 @@
 #launch-paths { margin-top: 12px; }
 #library { margin-top: 24px; }
 
+/* Kill the news ticker + scroll-progress bar (May 10 2026 — "get rid of
+   the scroller"). Both are floating chrome that adds noise above the
+   simplified hub. */
+#newsTicker,
+.news-ticker,
+.scroll-progress,
+#scrollProgress {
+  display: none !important;
+}
+
 /* ----- 1. Hide design-rationale copy across the hub -----
    The user explicitly called out: "remove explanations about flagships
    and design etc etc". We hide the longer paragraph descriptions on the
