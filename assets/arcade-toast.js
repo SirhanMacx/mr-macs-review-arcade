@@ -326,13 +326,13 @@
         if (!e || !e.detail) return;
         var delta = e.detail.delta;
         if (typeof delta !== "number" || delta <= 0) return;
-        var src = (e.detail.source || "").replace(/[-_]/g, " ");
+        // Ambient mode (May 10 2026): no source label, faster fade.
+        // Shards are background reinforcement, not foreground announcement.
         push({
           icon: "diamond",
-          title: "+" + delta + " shards",
-          sub: src ? src : "earned",
+          title: "+" + delta + " SHARDS",
           tone: "shards",
-          ms: 2800
+          ms: 1400
         });
       });
       P.on("achievement:unlock", function (e) {

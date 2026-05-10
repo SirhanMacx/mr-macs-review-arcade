@@ -71,6 +71,91 @@
   display: none !important;
 }
 
+/* ===========================================================================
+   SHARDS NOTIFICATION — make it ambient, not in-your-face (May 10 2026)
+   User: "shards notifications are too intrusive and lack the retro arcade
+   feel. should be way less in my face as a player/student. more of a
+   background process."
+
+   Default toast was 220px-min, centered top on mobile, 2.8s lifetime,
+   serif italic title, glow + actions. Now: tiny pixel pill in the corner,
+   one-liner, no actions, faster auto-fade — 8-bit "+25 SHARDS" beep. */
+.arcade-toast[data-tone="shards"] {
+  min-width: 0 !important;
+  max-width: 220px !important;
+  padding: 5px 10px !important;
+  border-radius: 999px !important;
+  border-width: 1px !important;
+  border-left-width: 1px !important;
+  background: rgba(8, 11, 20, 0.92) !important;
+  border-color: rgba(122, 240, 255, 0.45) !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4),
+              0 0 8px rgba(122, 240, 255, 0.18) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  backdrop-filter: blur(6px) !important;
+  transform: translateX(180%) !important;
+  transition: transform .25s ease, opacity .25s ease !important;
+}
+.arcade-toast[data-tone="shards"].is-in {
+  transform: translateX(0) !important;
+}
+.arcade-toast[data-tone="shards"].is-out {
+  transform: translateX(180%) !important;
+}
+.arcade-toast[data-tone="shards"] .at-icon {
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: #7af0ff !important;
+  flex-shrink: 0;
+}
+.arcade-toast[data-tone="shards"] .at-icon .ic,
+.arcade-toast[data-tone="shards"] .at-icon svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+.arcade-toast[data-tone="shards"] .at-text {
+  flex: 0 1 auto !important;
+}
+.arcade-toast[data-tone="shards"] .at-title {
+  font-family: "Press Start 2P", "VT323", monospace !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 9px !important;
+  letter-spacing: 0 !important;
+  color: #7af0ff !important;
+  text-shadow: 0 0 6px rgba(122, 240, 255, 0.5);
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+}
+.arcade-toast[data-tone="shards"] .at-count {
+  background: transparent !important;
+  padding: 0 !important;
+}
+/* Ambient mode: no description, no close, no action button */
+.arcade-toast[data-tone="shards"] .at-sub,
+.arcade-toast[data-tone="shards"] .at-close,
+.arcade-toast[data-tone="shards"] .at-actions,
+.arcade-toast[data-tone="shards"] .at-action {
+  display: none !important;
+}
+
+/* On mobile, the toast container sits center-top by default which is
+   exactly where shards toasts blocked gameplay. Push it to the corner
+   so it's truly ambient. */
+@media (max-width: 600px) {
+  .arcade-toast-container {
+    left: auto !important;
+    right: 12px !important;
+    top: max(72px, env(safe-area-inset-top, 72px)) !important;
+    transform: none !important;
+    align-items: flex-end !important;
+    max-width: 220px !important;
+  }
+}
+
 /* ----- 1. Hide design-rationale copy across the hub -----
    The user explicitly called out: "remove explanations about flagships
    and design etc etc". We hide the longer paragraph descriptions on the
