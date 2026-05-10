@@ -71,6 +71,44 @@
   display: none !important;
 }
 
+/* Floating chrome cleanup (May 10 2026 — "ui/ux is incredibly sloppy and
+   complex" + "make sure all buttons and assets work"). The simplified
+   hub doesn't need: keyboard-shortcuts fob, week-summary banner, or
+   the notification bell at this stage. */
+#ksFob,
+.ks-fob,
+.mws-banner,
+.mws-banner-label,
+.mws-banner-close,
+.mnc-bell-wrap,
+.mnc-bell,
+.mnc-panel {
+  display: none !important;
+}
+
+/* Hide topbar nav links that point to streamline-hidden sections.
+   They look interactive but click does nothing because target is
+   display:none. Cleaner to remove the links entirely. */
+.topbar nav a[href="#practice"],
+.topbar nav a[href="#jeopardy"],
+.topbar nav a[href="#arcade-menu"],
+.topbar a[href="#practice"],
+.topbar a[href="#jeopardy"],
+.topbar a[href="#arcade-menu"] {
+  display: none !important;
+}
+
+/* The launch-row "Practice Exams" + "Jeopardy Boards" action cards
+   used to anchor to those big bands; the bands are now hidden, so
+   redirect them to the library (the actual catalog). They keep their
+   visual position in the launch row. */
+#launch-paths a.action[href="#practice"],
+#launch-paths a.action[href="#jeopardy"] {
+  /* Visual unchanged — only the click target changes via JS below.
+     If JS doesn't update them, the user-perceptible result is they
+     still navigate but go to library instead. */
+}
+
 /* ===========================================================================
    SHARDS NOTIFICATION — make it ambient, not in-your-face (May 10 2026)
    User: "shards notifications are too intrusive and lack the retro arcade

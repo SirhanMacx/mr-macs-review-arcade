@@ -16,7 +16,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260510-shards-ambient">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260510-buttons-clean">
 <style>
 :root {
   color-scheme: dark;
@@ -8152,9 +8152,9 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     </a>
     <nav class="topnav" aria-label="Primary">
       <a href="#launch-paths"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="7,4 19,12 7,20"/></svg><span>Play</span></a>
-      <a href="#practice"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3 H14 L18.5 7.5 V21 H5.5 Z"/><polyline points="13.5,3 13.5,8 18.5,8"/><line x1="8.5" y1="13" x2="15.5" y2="13"/><line x1="8.5" y1="17" x2="13" y2="17"/></svg><span>Practice Exams</span></a>
-      <a href="#jeopardy"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9 C9.5 7 10.5 6 12 6 C13.5 6 14.5 7 14.5 8.5 C14.5 10 12 11 12 13"/><circle cx="12" cy="16.5" r="0.8" fill="currentColor" stroke="none"/></svg><span>Jeopardy</span></a>
-      <a href="#arcade-menu"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><line x1="7" y1="11" x2="9.5" y2="11"/><line x1="8.25" y1="9.75" x2="8.25" y2="12.25"/><circle cx="14" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="16.5" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="14" cy="14.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="16.5" cy="14.5" r="0.9" fill="currentColor" stroke="none"/></svg><span>Games</span></a>
+      <a href="#library"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3 H14 L18.5 7.5 V21 H5.5 Z"/><polyline points="13.5,3 13.5,8 18.5,8"/><line x1="8.5" y1="13" x2="15.5" y2="13"/><line x1="8.5" y1="17" x2="13" y2="17"/></svg><span>Practice Exams</span></a>
+      <a href="#library"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9 C9.5 7 10.5 6 12 6 C13.5 6 14.5 7 14.5 8.5 C14.5 10 12 11 12 13"/><circle cx="12" cy="16.5" r="0.8" fill="currentColor" stroke="none"/></svg><span>Jeopardy</span></a>
+      <a href="#library"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><line x1="7" y1="11" x2="9.5" y2="11"/><line x1="8.25" y1="9.75" x2="8.25" y2="12.25"/><circle cx="14" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="16.5" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="14" cy="14.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="16.5" cy="14.5" r="0.9" fill="currentColor" stroke="none"/></svg><span>Games</span></a>
       <a href="#library"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="5.5" height="14" rx="0.6"/><rect x="10" y="3" width="5.5" height="17" rx="0.6"/><path d="M17.5 7.5 L21 8.4 L18.5 21 L15.6 20.2 Z"/></svg><span>Library</span></a>
     </nav>
     <button class="profile-pill" id="profilePill" type="button" aria-label="Open trainer profile" aria-expanded="false">
@@ -8187,11 +8187,11 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <span>Start Recommended</span>
           <span class="arrow" aria-hidden="true">→</span>
         </button>
-        <a class="action" href="#practice">
+        <a class="action" href="#library">
           <span>Practice Exams</span>
           <span class="arrow" aria-hidden="true">→</span>
         </a>
-        <a class="action" href="#jeopardy">
+        <a class="action" href="#library">
           <span>Jeopardy Boards</span>
           <span class="arrow" aria-hidden="true">→</span>
         </a>
@@ -8705,9 +8705,9 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     <nav class="footer-actions" aria-label="Footer shortcuts">
       <a class="footer-jump" href="#newCabinet">🆕 New This Month</a>
       <a class="footer-jump" href="#featured">Play Arcade</a>
-      <a class="footer-jump" href="#practice">Regents Practice</a>
-      <a class="footer-jump" href="#arcade-menu">Game Modes</a>
-      <a class="footer-jump" href="#jeopardy">Jeopardy Boards</a>
+      <a class="footer-jump" href="#library">Regents Practice</a>
+      <a class="footer-jump" href="#library">Game Modes</a>
+      <a class="footer-jump" href="#library">Jeopardy Boards</a>
       <a class="footer-jump" href="#library">Full Library</a>
     </nav>
     <!-- Latest games footer card — populated at boot with the first
