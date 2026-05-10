@@ -817,6 +817,28 @@ kbd {
   color: var(--gold);
 }
 
+/* Focus-visible ring on interactive elements */
+.hud-btn:focus-visible,
+.powerup-slot:focus-visible,
+.btn:focus-visible,
+.choice-btn:focus-visible,
+.producer-card:focus-visible,
+.upgrade-card:focus-visible,
+.question-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* Tier requirement hint in producer card */
+.producer-tier-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: .04em;
+  margin-top: 1px;
+  white-space: nowrap;
+}
+.producer-card[data-optimal="true"] .producer-tier-hint {
+  color: var(--gold);
+}
+
 /* Mobile/responsive */
 @media (max-width: 880px) {
   .upgrade-panel, .producer-panel {
@@ -829,22 +851,113 @@ kbd {
   .brand-title { font-size: 18px; }
   .brand-sub { font-size: 9px; }
 }
+
 @media (max-width: 700px) {
   .upgrade-panel { display: none; }
+
+  /* Producer panel: horizontal scrolling strip at bottom */
   .producer-panel {
+    position: absolute;
     top: auto;
-    bottom: 14px;
-    left: 14px;
-    right: 14px;
-    width: auto;
-    max-height: 38vh;
-    bottom: 86px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 44vw;
+    border-radius: 14px 14px 0 0;
+    padding: 10px 12px 12px;
+    /* Horizontal layout so the click button above stays visible */
   }
+  .producer-list {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 8px;
+    padding-right: 0;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+  .producer-card {
+    min-width: 140px;
+    flex-shrink: 0;
+    grid-template-columns: 28px 1fr;
+    grid-template-rows: auto auto;
+  }
+  .producer-buy {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Power-up tray: bottom-left row so it doesn't block the HUD brand */
   .powerup-tray {
-    bottom: auto;
-    top: 84px;
-    right: 14px;
-    flex-direction: column;
+    bottom: 44vw; /* float above the producer strip */
+    top: auto;
+    right: auto;
+    left: 14px;
+    flex-direction: row;
   }
-  .powerup-slot { width: 44px; height: 44px; }
+  .powerup-slot { width: 46px; height: 46px; }
+
+  /* Canvas sizing: use full width minus nothing (rails hidden) */
+  #tycoonCanvas {
+    border-radius: 12px;
+  }
+
+  /* HUD: wrap stats below brand row */
+  .top-hud {
+    flex-wrap: wrap;
+    padding: 6px 10px;
+    gap: 6px;
+  }
+  .hud-controls { order: 2; margin-left: auto; }
+  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; flex-wrap: wrap; }
+  .brand-sub { display: none; }
+  .stat-cell { min-width: 52px; padding: 3px 6px; }
+  .stat-value { font-size: 14px; }
+  .brand-title { font-size: 17px; }
+}
+
+@media (max-width: 480px) {
+  /* Choice grid single column on very small phones */
+  .choice-grid { grid-template-columns: 1fr; }
+  /* Setup card tighter */
+  .setup-card { padding: 18px 14px; }
+  .setup-card h1 { font-size: 28px; }
+}
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
 }

@@ -758,15 +758,51 @@ kbd {
 .explanation.is-correct { color: var(--emerald); }
 .explanation.is-wrong { color: var(--danger); }
 
+@media (max-width: 720px) {
+  /* Era progression display: era ribbon must not push HUD stats off-screen.
+     On mobile the tray is already repositioned to bottom by the 720px rule above;
+     ribbon stays near top but we need to keep it below the full HUD. */
+  .wave-ribbon { top: 110px; font-size: 11px; gap: 6px; padding: 4px 12px; max-width: calc(100vw - 120px); }
+  .wave-name { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+  .wave-meta { display: none; } /* hide meta text when tray takes bottom row */
+}
+
 @media (max-width: 540px) {
   .choice-grid { grid-template-columns: 1fr; }
   .setup-card h1 { font-size: 32px; }
+  /* Ship badges row: prevent overflow */
+  .ship-badges-row { overflow-x: hidden; row-gap: 4px; }
+  /* Power-up key shortcut hints: hide kbd labels in the key-hints paragraph on very
+     small screens where the ZXCVB shortcuts would wrap chaotically */
+  .key-hints { font-size: 10px; letter-spacing: .02em; }
+  .key-hints kbd { padding: 1px 4px; }
+  /* HUD */
   .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
+  .brand { flex: 0 0 auto; }
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
-  .stat-cell { min-width: 52px; padding: 3px 8px; }
-  .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 110px; }
+  .hud-controls { margin-left: auto; }
+  .stat-cell { min-width: 44px; padding: 3px 6px; }
+  .stat-value { font-size: 14px; }
+  /* Wave ribbon drops below wrapped HUD */
+  .wave-ribbon { top: 148px; }
 }
+
+/* Tile label overflow fix: era name on tile uses canvas text — the font size is
+   already computed as max(9, floor(ts*0.10)) in JS. For the CSS-side popup overlay
+   (popup-text) that can overflow in 5x5 mode, constrain max-width. */
+.popup-text {
+  max-width: min(320px, 80vw);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Smash cursor hint: show a crosshair when smash is armed on the canvas */
+#atlasCanvas.smash-armed { cursor: crosshair; }
+
+/* Prevent body/html scroll fighting touch on iOS */
+html { touch-action: none; }
+body { touch-action: none; }
 
 /* End screen grid */
 .end-grid {
@@ -831,3 +867,151 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+/* ── How to Play modal ─────────────────────────────────────────────────────── */
+.help-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  background: rgba(0,0,0,.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+.help-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.help-card {
+  background: #13101e;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 28px 32px;
+  max-width: 540px;
+  width: calc(100% - 32px);
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 48px rgba(0,0,0,.7);
+  position: relative;
+}
+.help-card h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  color: #f0d080;
+  margin: 0 0 16px;
+}
+.help-card h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin: 18px 0 6px;
+}
+.help-card p {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: rgba(255,255,255,.82);
+  line-height: 1.55;
+  margin: 0 0 8px;
+}
+.help-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 8px;
+}
+.help-card th {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: rgba(255,255,255,.45);
+  text-align: left;
+  padding: 4px 8px 4px 0;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.help-card td {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: rgba(255,255,255,.8);
+  padding: 5px 8px 5px 0;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.help-card td:first-child { white-space: nowrap; }
+.help-card kbd {
+  display: inline-block;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #f0d080;
+  line-height: 1.6;
+}
+.help-card .scholar-note {
+  background: rgba(240,208,128,.08);
+  border-left: 3px solid #f0d080;
+  border-radius: 0 6px 6px 0;
+  padding: 8px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: rgba(255,255,255,.8);
+  margin-top: 12px;
+}
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.5);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color .15s, background .15s;
+}
+.modal-close:hover { color: #fff; background: rgba(255,255,255,.08); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

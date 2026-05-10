@@ -796,13 +796,19 @@
   // ─── Canvas sizing (square 720x720, scaled for viewport) ─────────────────
   function sizeCanvas() {
     // Account for HUD top, side rails, powerup tray
-    const hudH = 70;
-    const railL = window.innerWidth > 700 ? 280 + 28 : 0;
-    const railR = window.innerWidth > 880 ? 300 + 28 : window.innerWidth > 700 ? 240 + 28 : 0;
-    const padBottom = 96;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
 
-    const availW = Math.max(280, window.innerWidth - railL - railR - 32);
-    const availH = Math.max(280, window.innerHeight - hudH - padBottom);
+    const hudH = 70;
+    // On mobile (≤700px) rails are hidden; producer strip sits at bottom (~44vw height)
+    // On medium (≤880px) upgrade panel hidden but producer rail still on right
+    const railL = vw > 700 ? 280 + 28 : 0;
+    const railR = vw > 880 ? 300 + 28 : vw > 700 ? 240 + 28 : 0;
+    // padBottom: desktop = powerup tray; mobile = producer strip (44vw) + powerup slot row (~54px)
+    const padBottom = vw <= 700 ? Math.round(vh * 0.44) + 54 : 96;
+
+    const availW = Math.max(240, vw - railL - railR - 32);
+    const availH = Math.max(240, vh - hudH - padBottom);
     const size = Math.min(CANVAS_SIZE, availW, availH);
     const dpr = Math.min(2, window.devicePixelRatio || 1);
 
@@ -1200,17 +1206,29 @@
       const cost = producerCost(p);
       const owned = state.producers[p.id];
       const rate = producerUnitProduction(p);
+
+      // Find the next tier upgrade for this producer (not yet bought)
+      const nextTierUpgrade = PRODUCER_UPGRADES.find(u =>
+        u.producerId === p.id && !state.upgradesBought[u.id]
+      );
+      const tierHint = nextTierUpgrade
+        ? `Tier ${nextTierUpgrade.tier} @ ${owned >= nextTierUpgrade.requiresOwned
+            ? fmtNum(nextTierUpgrade.cost)
+            : `×${nextTierUpgrade.requiresOwned} req`}`
+        : (owned > 0 ? "All tiers unlocked" : "");
+
       const card = document.createElement("button");
       card.className = "producer-card";
       card.type = "button";
       card.dataset.affordable = canAfford(cost) || state.luckyCoinActive ? "true" : "false";
       if (optimalId === p.id) card.dataset.optimal = "true";
-      card.title = `${p.name} · +${fmtNum(rate)}/s each`;
+      card.title = `${p.name} · +${fmtNum(rate)}/s each · Key ${i + 1}`;
       card.innerHTML = `
         <div class="producer-icon">${p.glyph}</div>
         <div class="producer-meta">
           <span class="producer-name">${p.name}</span>
           <span class="producer-rate">+${fmtNum(rate)}/s · ${i + 1}</span>
+          ${tierHint ? `<span class="producer-tier-hint">${tierHint}</span>` : ""}
         </div>
         <div class="producer-buy">
           <span class="producer-cost">${state.luckyCoinActive ? "FREE" : fmtNum(cost)}</span>
@@ -1850,6 +1868,8 @@
   // ─── Event wiring ────────────────────────────────────────────────────────
   function wireEvents() {
     canvas.addEventListener("click", handleCanvasClick);
+    // touchstart for immediate tap response (deduped via _lastTouchAt so click doesn't double-fire)
+    canvas.addEventListener("touchstart", handleCanvasTouch, { passive: false });
     canvas.addEventListener("touchend", handleCanvasTouch, { passive: false });
 
     startBtn.addEventListener("click", startGame);

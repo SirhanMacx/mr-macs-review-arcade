@@ -176,9 +176,11 @@ kbd {
 
 .hud-stats {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex: 1 1 auto;
   justify-content: center;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 .stat-cell {
   display: flex;
@@ -214,11 +216,12 @@ kbd {
   .stat-cell.is-danger .stat-value { animation: none; }
 }
 
-.hud-controls { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.hud-controls { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; flex-shrink: 0; }
 .hud-btn {
   font-size: 12px;
   font-weight: 600;
   padding: 7px 12px;
+  min-height: 36px;
   border-radius: 6px;
   border: 1px solid var(--line);
   background: rgba(8, 4, 2, .6);
@@ -226,6 +229,7 @@ kbd {
   letter-spacing: .04em;
   text-transform: uppercase;
   transition: background .2s, border-color .2s, color .2s;
+  touch-action: manipulation;
 }
 .hud-btn:hover { background: rgba(255, 200, 140, .08); border-color: rgba(255, 200, 140, .25); color: var(--text); }
 .hud-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
@@ -349,10 +353,12 @@ kbd {
   display: none;
   align-items: center;
   justify-content: center;
+  /* Prevent the D-pad from covering the power-up tray on the left */
+  max-width: calc(100vw - 80px);
 }
 .tc-btn {
   position: relative;
-  min-width: 48px; min-height: 48px;
+  min-width: 52px; min-height: 52px;
   margin: 3px;
   border-radius: 10px;
   border: 1px solid var(--gold);
@@ -364,23 +370,29 @@ kbd {
   letter-spacing: .05em;
   box-shadow: 0 0 12px rgba(245, 176, 74, .18);
   transition: background .15s, transform .12s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .tc-btn:active { background: rgba(245, 176, 74, .22); transform: translateY(1px); }
-.tc-bomb { border-color: var(--lava); color: var(--lava); box-shadow: 0 0 12px rgba(255, 80, 40, .3); }
+.tc-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.tc-bomb { border-color: var(--lava); color: var(--lava); box-shadow: 0 0 12px rgba(255, 80, 40, .3); font-size: 22px; }
 .tc-bomb:active { background: rgba(255, 80, 40, .22); }
+.tc-reset { font-size: 13px; opacity: .75; }
 @media (max-width: 720px) {
   .touch-controls {
     display: grid;
-    grid-template-columns: 48px 48px 48px;
-    grid-template-rows: 48px 48px 48px;
+    /* 5-button cross: up, left, down, right + bomb; reset tucked small at top-right */
+    grid-template-columns: 52px 52px 52px;
+    grid-template-rows: 52px 52px 52px;
     gap: 4px;
   }
   .tc-up    { grid-column: 2; grid-row: 1; }
   .tc-left  { grid-column: 1; grid-row: 2; }
   .tc-down  { grid-column: 2; grid-row: 2; }
   .tc-right { grid-column: 3; grid-row: 2; }
-  .tc-bomb  { grid-column: 1; grid-row: 3; }
-  .tc-reset { grid-column: 3; grid-row: 3; }
+  .tc-bomb  { grid-column: 2; grid-row: 3; }
+  /* Reset moved to top-right corner of the grid (not blocking cross center) */
+  .tc-reset { grid-column: 3; grid-row: 1; min-width: 36px; min-height: 36px; font-size: 11px; align-self: start; justify-self: end; }
 }
 
 /* Combo callout overlay */
@@ -745,9 +757,24 @@ kbd {
   .setup-card h1 { font-size: 32px; }
   .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
+  .hud-controls { order: 2; }
   .stat-cell { min-width: 50px; padding: 3px 6px; }
   .stat-value { font-size: 14px; }
-  .wave-ribbon { top: 110px; }
+  /* 2-row HUD (brand row + stats row) is ~90px; ribbon clears below it */
+  .wave-ribbon { top: 96px; font-size: 11px; padding: 4px 12px; }
+  .wave-name { font-size: 13px; }
+}
+
+@media (max-width: 720px) {
+  /* Power-up tray on mobile moves to bottom-left; D-pad is bottom-right.
+     Ensure they don't collide by capping the tray width and keeping it left. */
+  .powerup-tray {
+    /* Already set to bottom-left via the 720px rule above; just reinforce */
+    max-width: 72px;
+    overflow: hidden;
+  }
+  /* When touch controls are visible, keep wave ribbon from sitting under HUD */
+  .wave-ribbon { max-width: 70vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 }
 
 /* End screen grid */
@@ -813,3 +840,38 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

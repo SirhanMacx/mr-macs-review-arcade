@@ -1102,6 +1102,9 @@
     if (c.matched) return;
     if (c.revealed) return;
     if (state.flippedQueue.length >= 2) return;
+    // Block clicks on peek-visible (visually face-up) cards that aren't
+    // actually revealed — prevents phantom double-flip during peek window.
+    if (state.activePeek && !c.revealed) return;
     // flip
     c.revealed = true;
     c.targetFlip = 1;
@@ -1836,15 +1839,19 @@
       if (state.activePeek && state.time >= state.activePeek.until) {
         state.activePeek = null;
       }
-      // Animate flip values
+      // Animate flip values — snap immediately under reduced-motion
       for (var i = 0; i < state.cards.length; i++) {
         var c = state.cards[i];
         var target = c.targetFlip;
         if (state.activePeek && !c.matched) target = 1; // force face-up during peek
         if (c.matched) target = 1;
-        // Smooth
-        if (c.flipT < target) c.flipT = Math.min(target, c.flipT + dt * 5.5);
-        else if (c.flipT > target) c.flipT = Math.max(target, c.flipT - dt * 5.5);
+        if (reducedMotion) {
+          c.flipT = target; // instant snap — no animation
+        } else {
+          // Smooth lerp
+          if (c.flipT < target) c.flipT = Math.min(target, c.flipT + dt * 5.5);
+          else if (c.flipT > target) c.flipT = Math.max(target, c.flipT - dt * 5.5);
+        }
       }
       // Periodic save
       if (state.time % 5 < dt) saveSnapshot();

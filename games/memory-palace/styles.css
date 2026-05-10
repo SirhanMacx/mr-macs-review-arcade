@@ -338,7 +338,8 @@ kbd {
   .powerup-tray {
     left: 8px;
     top: auto;
-    bottom: 14px;
+    /* Sufficient bottom clearance — safe area for devices with bottom bars */
+    bottom: max(14px, env(safe-area-inset-bottom, 14px));
     transform: none;
     flex-direction: row;
     padding: 6px 8px;
@@ -396,7 +397,7 @@ kbd {
 }
 
 /* Modal screens — shared */
-.setup-screen, .pause-screen, .end-screen, .question-screen {
+.setup-screen, .pause-screen, .end-screen {
   position: absolute;
   inset: 0;
   z-index: 80;
@@ -404,8 +405,23 @@ kbd {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  overflow-y: auto;
   background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(14, 16, 24, .9) 0%, rgba(8, 10, 16, .96) 80%);
   backdrop-filter: blur(6px);
+}
+
+/* Scholar question modal sits above all other overlays (9500+) */
+.question-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 9500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(14, 16, 24, .92) 0%, rgba(8, 10, 16, .97) 80%);
+  backdrop-filter: blur(8px);
 }
 .setup-screen.show, .pause-screen.show, .end-screen.show, .question-screen.show {
   display: flex;
@@ -429,6 +445,9 @@ kbd {
   box-shadow: var(--shadow-deep);
   position: relative;
   overflow: hidden;
+  /* Allow card to scroll on very small screens */
+  max-height: 90dvh;
+  overflow-y: auto;
 }
 .setup-card.compact { max-width: 480px; padding: 24px 28px; }
 
@@ -656,6 +675,8 @@ kbd {
   background: var(--panel-strong);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-deep);
+  max-height: 88dvh;
+  overflow-y: auto;
 }
 .question-header {
   display: flex;
@@ -746,12 +767,22 @@ kbd {
 @media (max-width: 540px) {
   .choice-grid { grid-template-columns: 1fr; }
   .setup-card h1 { font-size: 32px; }
+  .setup-card { padding: 20px 18px 24px; }
   .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
-  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
-  .stat-cell { min-width: 52px; padding: 3px 8px; }
-  .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 110px; }
-  .difficulty-row { grid-template-columns: 1fr; }
+  .hud-controls { order: 2; }
+  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; overflow-x: auto; }
+  .stat-cell { min-width: 48px; padding: 3px 6px; flex-shrink: 0; }
+  .stat-value { font-size: 14px; }
+  .stat-label { font-size: 8px; }
+  .wave-ribbon { top: 118px; max-width: calc(100vw - 24px); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .wave-name { font-size: 14px; }
+  .wave-meta { display: none; }
+  /* Difficulty picker: stack vertically and give each button room to breathe */
+  .difficulty-row { grid-template-columns: 1fr; gap: 8px; }
+  .diff-btn { padding: 10px 12px; }
+  .diff-name { font-size: 16px; }
+  .diff-meta { font-size: 9px; }
+  .key-hints { font-size: 10px; overflow-wrap: break-word; }
 }
 
 /* End screen grid */
@@ -817,3 +848,38 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

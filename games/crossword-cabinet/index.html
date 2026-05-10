@@ -52,8 +52,8 @@
         </div>
       </div>
       <div class="hud-controls">
-        <button class="hud-btn glass-pill" id="hintBtn" type="button" aria-label="Hint &mdash; reveal a single letter">Hint <span class="round-cost mono" id="hintCost">5</span></button>
-        <button class="hud-btn glass-pill" id="revealBtn" type="button" aria-label="Reveal &mdash; expose one full clue">Reveal <span class="round-cost mono" id="revealCost">2</span></button>
+        <button class="hud-btn glass-pill" id="hintBtn" type="button" aria-label="Hint — reveal a single letter (5 remaining)">Hint <span class="round-cost mono" id="hintCost" title="hints remaining">5</span></button>
+        <button class="hud-btn glass-pill" id="revealBtn" type="button" aria-label="Reveal — expose one full clue (2 remaining)">Reveal <span class="round-cost mono" id="revealCost" title="reveals remaining">2</span></button>
         <button class="hud-btn glass-pill" id="checkBtn" type="button" aria-label="Check current cell">Check</button>
         <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
         <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
@@ -107,6 +107,9 @@
     <!-- Setup / title screen -->
     <section class="setup-screen show" id="setupScreen" aria-label="Crossword Cabinet &mdash; game setup" aria-modal="true">
       <div class="setup-card">
+        <a class="setup-back-link" href="../../index.html" aria-label="Back to arcade hub">
+          ← Back to Arcade
+        </a>
         <div class="marquee-art" aria-hidden="true">
           <div class="marquee-glow"></div>
           <div class="marquee-spark spark-a" data-arcade-heavy></div>

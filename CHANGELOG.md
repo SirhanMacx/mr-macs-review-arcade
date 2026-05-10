@@ -5,6 +5,54 @@ All notable changes to Mr. Mac's Review Arcade are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versions are date-based (YYYY-MM-DD) since the arcade ships continuously to GitHub Pages.
 
+## [v3.1] — 2026-05-10
+
+### Fixed
+- **Module dependency Finding A** (CRITICAL): script-tag order in index.html
+  swapped so `arcade-leaderboards.js` + `arcade-sessions.js` load BEFORE
+  `arcade-progress-extras.js`. Previously progress-extras grabbed all 3
+  namespaces and the dedicated rich-API modules silently bailed,
+  leaving the hub stuck on a slim 5-method stub. The leaderboard globe's
+  `personalBest()` overlay was silently broken — now works.
+- **Module dependency Finding B**: idempotency guards added to
+  `arcade-analytics.js` + `arcade-music.js` (prevents accidental
+  global-overwrite on duplicate script load).
+- 24 of 32 round-3 bug-fix agents landed substantive fixes across
+  game files (race-condition guards, save/resume completeness, modal
+  flow, music duck/restore, particle pool caps).
+- Typo bug sweep: 6 broken hub-API calls fixed across 4 older
+  single-file games (`MrMacsAnalytics.track` → `MrMacsProgress.recordEvent`,
+  `MrMacsToasts.show` → `MrMacsToast.push`).
+- UI/overlay polish across all 35 flagships: modal z-index hierarchy,
+  mobile HUD overflow, power-up tray placement, touch-control vs canvas,
+  reduced-motion respect.
+- Toast / achievement pop-ups no longer block clicks on hub UI behind
+  them (pointer-events fix on container, faster auto-dismiss, capped
+  visible at 3, top-right positioning offset below topbar).
+
+### Changed
+- **UX rec #1** (HIGH): collapsed redundant "9 new flagships" + "16 new
+  cabinets" callouts into a single "25 fresh flagships" banner.
+- **UX rec #2** (MED): moved Launch Paths band ABOVE Smart Study Tools
+  so new players see paths before tools.
+- **UX rec #3** (MED): softened welcome dialog. Name / avatar / course
+  all explicitly optional. CTA always active. Defaults to "Player" if blank.
+- **UX rec #5** (MED): renamed "lives" HUD label in 4 non-traditional
+  games — Archive Tycoon → "runs left", Plinko Lab → "tries", Atlas 2048
+  → "boards", Citadel → "tries".
+- **UX rec #6** (MED): "+60 💎" payout chip on Daily Challenge CTA.
+- **UX rec #9** (LOW): "Newest" sort option added to library.
+
+### Added
+- `assets/arcade-end-recap.js` — shared module to render "Unlocked This
+  Run" achievement recap on game end screens.
+- `assets/arcade-game-helpers.js` — shared "Exit Arcade" button + sound
+  toggle auto-mounter.
+- `assets/arcade-help-overlay.js` — shared "How to Play" reference
+  overlay (different from arcade-tutorial.js which is step-by-step).
+
+---
+
 ## [2026-05-09] — May 2026 Sweep
 
 A 16-parallel-agent sweep that shipped 9+ new arcade flagships, new cross-arcade

@@ -1827,9 +1827,9 @@
         var y = go.oy + r * go.tilePx;
         var isLight = ((f + r) & 1) === 0;
         var fill = isLight ? "#e8d59a" : "#5a3a1c";
-        // Scholar square: gold tint
+        // Scholar square: gold tint — use brighter dark-square color for mobile contrast
         if (idx === state.scholarSq) {
-          fill = isLight ? "#f5c451" : "#a36e21";
+          fill = isLight ? "#f5c451" : "#c4861c";
         }
         // Last move highlight
         if (state.lastMove && (state.lastMove.from === idx || state.lastMove.to === idx)) {
@@ -1843,18 +1843,18 @@
         ctx.lineWidth = 1;
         ctx.strokeRect(x + 0.5, y + 0.5, go.tilePx - 1, go.tilePx - 1);
 
-        // Scholar ring overlay
+        // Scholar ring overlay — boosted opacity + blur for mobile dark schemes
         if (idx === state.scholarSq) {
           ctx.save();
-          ctx.strokeStyle = "rgba(245, 196, 81, .85)";
+          ctx.strokeStyle = "rgba(245, 196, 81, 1)";
           ctx.lineWidth = 3;
-          ctx.shadowColor = "rgba(245, 196, 81, .9)";
-          ctx.shadowBlur = 14;
+          ctx.shadowColor = "rgba(245, 196, 81, 1)";
+          ctx.shadowBlur = 20;
           ctx.strokeRect(x + 4, y + 4, go.tilePx - 8, go.tilePx - 8);
           ctx.restore();
-          // Tiny "S"
+          // Tiny "S" — higher contrast
           ctx.save();
-          ctx.fillStyle = "rgba(20, 16, 8, .35)";
+          ctx.fillStyle = "rgba(255, 248, 200, .85)";
           ctx.font = "bold 10px 'JetBrains Mono', monospace";
           ctx.textAlign = "right";
           ctx.textBaseline = "bottom";
@@ -2013,7 +2013,8 @@
     // Right panel: captured pieces by player
     var go = boardOrigin();
     var rx = go.ox + 8 * go.tilePx + 18;
-    if (rx > LOGICAL_W - 60) return;  // not enough room — skip
+    // Need at least 80 logical px for the panel to be readable
+    if (rx > LOGICAL_W - 80) return;  // not enough room — skip
     ctx.save();
     ctx.font = "11px 'JetBrains Mono', monospace";
     ctx.fillStyle = "rgba(184, 167, 128, .8)";

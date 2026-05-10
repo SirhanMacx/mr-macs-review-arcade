@@ -253,7 +253,10 @@ kbd {
   transform: translateX(-50%);
   z-index: 25;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+  justify-content: center;
+  max-width: 92vw;
   pointer-events: none;
 }
 .powerup-chip {
@@ -269,9 +272,14 @@ kbd {
   text-transform: uppercase;
   box-shadow: 0 0 18px rgba(212,160,23,.32);
   animation: chipPulse 1.6s ease-in-out infinite;
+  white-space: nowrap;
+  max-width: min(180px, 44vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .powerup-chip-icon {
   font-size: 14px;
+  flex-shrink: 0;
 }
 @keyframes chipPulse {
   0%, 100% { box-shadow: 0 0 18px rgba(212,160,23,.32); }
@@ -285,13 +293,15 @@ kbd {
 .setup-screen, .pause-screen, .end-screen, .bonus-screen, .question-screen {
   position: absolute;
   inset: 0;
-  z-index: 80;
+  z-index: 100;
   display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
   background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(20,12,38,.85) 0%, rgba(8,5,18,.96) 80%);
   backdrop-filter: blur(6px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .setup-screen.show, .pause-screen.show, .end-screen.show, .bonus-screen.show, .question-screen.show {
   display: flex;
@@ -575,11 +585,18 @@ kbd {
 @media (max-width: 540px) {
   .choice-grid { grid-template-columns: 1fr; }
   .setup-card h1 { font-size: 32px; }
+  .setup-card { padding: 20px 16px 24px; }
+  .setup-card.compact { padding: 16px; }
   .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
-  .stat-cell { min-width: 52px; padding: 3px 8px; }
-  .stat-value { font-size: 15px; }
-  .era-ribbon { top: 110px; }
+  .stat-cell { min-width: 48px; padding: 3px 6px; }
+  .stat-value { font-size: 14px; }
+  .era-ribbon { top: 110px; max-width: 92vw; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .brand-sub { display: none; }
+  .setup-actions { flex-direction: column; }
+  .btn { width: 100%; text-align: center; }
+  .powerup-tray { bottom: 8px; }
+  .end-grid { grid-template-columns: 1fr; }
 }
 
 /* End screen grid */
@@ -645,3 +662,38 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--era-accent); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--era-accent); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

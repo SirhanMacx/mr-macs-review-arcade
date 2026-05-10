@@ -2929,6 +2929,8 @@
         return;
       }
       if (k === "Escape" || k === "Esc") {
+        var hm = document.getElementById("helpModal");
+        if (hm && hm.classList.contains("show")) { closeHelp(); e.preventDefault(); return; }
         if (phase === "playing" || phase === "paused") togglePause();
         else if (phase === "question") skipQuestion();
         e.preventDefault();
@@ -3054,6 +3056,53 @@
   }
 
   // -- UI bindings -----------------------------------------------------------
+  // ── How to Play modal ───────────────────────────────────────────────────────
+  function openHelp() {
+    var modal = document.getElementById("helpModal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "helpModal";
+      modal.className = "modal-overlay help-overlay";
+      modal.innerHTML = [
+        '<div class="modal-card help-card">',
+        '  <button class="modal-close" aria-label="Close how to play">×</button>',
+        '  <h2>How to Play &mdash; Knight’s Quest</h2>',
+        '  <h3>Goal</h3>',
+        '  <p>Climb <strong>5 floors</strong> of procedural rooms. Defeat every enemy to unlock the stairs. On Floor 5, topple the <strong>Misconception Lord</strong> boss to win the run.</p>',
+        '  <h3>Controls</h3>',
+        '  <table><thead><tr><th>Key</th><th>Action</th></tr></thead><tbody>',
+        '  <tr><td><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / Arrows</td><td>Move your knight</td></tr>',
+        '  <tr><td><kbd>Space</kbd></td><td>Attack (slash)</td></tr>',
+        '  <tr><td><kbd>Shift</kbd></td><td>Block incoming damage</td></tr>',
+        '  <tr><td><kbd>Esc</kbd> / <kbd>P</kbd></td><td>Pause / unpause</td></tr>',
+        '  </tbody></table>',
+        '  <h3>HP &amp; Lives</h3>',
+        '  <p>You start with <strong>3 lives</strong> and <strong>3 HP</strong>. Losing all HP costs a life; HP resets. You gain <strong>+1 max HP</strong> each floor cleared. When all lives are gone the run ends.</p>',
+        '  <h3>Enemy Roster</h3>',
+        '  <table><thead><tr><th>Enemy</th><th>HP</th><th>Behaviour</th></tr></thead><tbody>',
+        '  <tr><td>Goblin</td><td>1</td><td>Melee rush</td></tr>',
+        '  <tr><td>Skeleton</td><td>2</td><td>Ranged bone throw</td></tr>',
+        '  <tr><td>Slime</td><td>1</td><td>Splits into two on death</td></tr>',
+        '  <tr><td>Wraith</td><td>3</td><td>Phases through walls</td></tr>',
+        '  <tr><td>Boss</td><td>High</td><td>Misconception Lord, Floor 5 only</td></tr>',
+        '  </tbody></table>',
+        '  <h3>Chests &amp; Potions</h3>',
+        '  <p>Find <strong>keys</strong> in rooms to unlock chests. Chests drop potions (+HP) and relics (passive bonuses).</p>',
+        '  <div class="scholar-note">&#127979; <strong>Scholar Relic</strong> &mdash; a gold-rimmed relic in a chest triggers an optional review question. Answer correctly to earn a <strong>legendary upgrade</strong> (+1500 pts, 12 shards). Skip any time with no penalty.</div>',
+        '</div>'
+      ].join("\n");
+      document.body.appendChild(modal);
+      modal.addEventListener("click", function (e) { if (e.target === modal) closeHelp(); });
+      var closeBtn = modal.querySelector(".modal-close");
+      if (closeBtn) closeBtn.addEventListener("click", closeHelp);
+    }
+    modal.classList.add("show");
+  }
+  function closeHelp() {
+    var modal = document.getElementById("helpModal");
+    if (modal) modal.classList.remove("show");
+  }
+
   function bindUi() {
     dom.startBtn.addEventListener("click", function () { clearSnapshot(); newRun(); });
     dom.resumeBtn.addEventListener("click", togglePause);
@@ -3082,6 +3131,8 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+    var helpBtn = document.getElementById("helpBtn");
+    if (helpBtn) helpBtn.addEventListener("click", openHelp);
   }
   function exitToArcade() {
     stopMusic();

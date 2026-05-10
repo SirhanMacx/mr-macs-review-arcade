@@ -1247,6 +1247,10 @@
       scoreMultiplierStages: 0
     };
     initState(carry);
+    // Clear any lingering selection / hint highlight from the previous stage
+    state.selectedId = null;
+    state.hintHighlight = null;
+    state.shakeTile = null;
     phase = "playing";
     updateHud();
     updatePowerupSlots();
@@ -1282,6 +1286,10 @@
         inventory: state.inventory.slice()
       };
       initState(carry);
+      // Clear stale highlight/selection state from the failed stage
+      state.selectedId = null;
+      state.hintHighlight = null;
+      state.shakeTile = null;
       phase = "playing";
       updateHud();
       updatePowerupSlots();
@@ -1508,13 +1516,14 @@
 
     // Selected ring
     if (state.selectedId === t.id) {
+      ctx.save();
       ctx.strokeStyle = "#5de0f0";
       ctx.lineWidth = 3;
       ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
       ctx.shadowColor = "#5de0f0";
       ctx.shadowBlur = 10;
       ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
-      ctx.shadowBlur = 0;
+      ctx.restore();
     }
 
     // Scholar gold rim
@@ -1655,12 +1664,17 @@
     // Already drawn per-tile, but a trailing hint of "ready to pair"
     // Add ambient shimmer around the selected tile
     var t = tileById(state.selectedId);
-    if (!t) return;
+    if (!t || t.matched) {
+      // Stale selection — clear it defensively
+      state.selectedId = null;
+      return;
+    }
     var b = tileBox(t);
     ctx.save();
     ctx.globalAlpha = (Math.sin(state.time * 5) * 0.5 + 0.5) * 0.5;
     ctx.strokeStyle = "#5de0f0";
     ctx.lineWidth = 1;
+    ctx.shadowBlur = 0;
     ctx.strokeRect(b.x - 4, b.y - 4, b.w + 8, b.h + 8);
     ctx.restore();
   }
@@ -2095,7 +2109,15 @@
       });
     });
   }
-  // Find the topmost (highest layer) free tile under a click point
+  // Find the topmost (highest layer, then highest draw order within layer) tile under a click.
+  // Within a layer, tiles drawn later (lower hy, then lower hx per the sort in drawTiles)
+  // visually appear on top due to the layer-offset bevel. We pick the tile with the greatest
+  // layer; within ties, the one with the largest visual Z (lowest hy, then lowest hx = drawn
+  // on top in the sorted pass — but bevel offset means a tile at a HIGHER layer index is always
+  // strictly on top of any tile in a lower layer index, and within the same layer the bevel
+  // only shifts x/y by LAYER_OFFSET so it's negligible for click disambiguation).
+  // Practical fix: prefer highest layer; within same layer prefer highest hx (drawn later in
+  // the x-sorted pass, so its bevel overwrites lower hx visually).
   function canvasToTile(clientX, clientY) {
     if (!state) return null;
     var rect = canvas.getBoundingClientRect();
@@ -2103,14 +2125,16 @@
     var ly = (clientY - rect.top - offsetY) / scale;
     var best = null;
     var bestLayer = -1;
+    var bestHx = -Infinity;
     for (var i = 0; i < state.tiles.length; i++) {
       var t = state.tiles[i];
       if (t.matched) continue;
       var b = tileBox(t);
       if (lx >= b.x && lx < b.x + b.w && ly >= b.y && ly < b.y + b.h) {
-        if (t.layer > bestLayer) {
+        if (t.layer > bestLayer || (t.layer === bestLayer && t.hx > bestHx)) {
           best = t;
           bestLayer = t.layer;
+          bestHx = t.hx;
         }
       }
     }

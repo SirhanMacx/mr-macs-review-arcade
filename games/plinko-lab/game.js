@@ -691,7 +691,8 @@
     state.roundScore += earned;
     sfx.slotLand(idx);
     var slotBounds = getSlotBounds(idx);
-    pushPopup("+" + earned, slotBounds.cx, SLOT_TOP_Y - 10, "is-score");
+    // Raise score popup so it clears bottom touch controls on mobile
+    pushPopup("+" + earned, slotBounds.cx, SLOT_TOP_Y - 24, "is-score");
     burstAt(ball.x, ball.y, isJackpot ? "#f5c451" : (isScholar ? "#a991ff" : "#5de0f0"), isJackpot ? 24 : 12);
     if (isJackpot) {
       sfx.jackpot();
@@ -1187,10 +1188,14 @@
     if (state.ballsRemaining <= 0) return;
     var x = state.aimerX;
     var y = DROP_ZONE_Y;
+    // Auto-aim pending: switch colour to magenta as a visible hint
+    var hasAutoAim = state.pendingPowerups && state.pendingPowerups.indexOf("autoAim") !== -1;
+    var aimColor = hasAutoAim ? "#f04bd0" : "#5de0f0";
+    var aimGlow  = hasAutoAim ? "rgba(240,75,208,0.55)" : "rgba(93,224,240,0.55)";
     ctx.save();
     // Aim line — vertical guide
     if (!reducedMotion) {
-      ctx.strokeStyle = "rgba(93,224,240,0.18)";
+      ctx.strokeStyle = hasAutoAim ? "rgba(240,75,208,0.22)" : "rgba(93,224,240,0.18)";
       ctx.setLineDash([4, 6]);
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -1203,11 +1208,11 @@
     ctx.fillStyle = "rgba(8,14,28,0.85)";
     roundRect(ctx, x - AIMER_W / 2, y - AIMER_H / 2, AIMER_W, AIMER_H, 8);
     ctx.fill();
-    ctx.strokeStyle = "#5de0f0";
-    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = aimColor;
+    ctx.lineWidth = hasAutoAim ? 2 : 1.5;
     if (!reducedMotion) {
-      ctx.shadowColor = "#5de0f0";
-      ctx.shadowBlur = 10;
+      ctx.shadowColor = aimColor;
+      ctx.shadowBlur = hasAutoAim ? 14 : 10;
     }
     roundRect(ctx, x - AIMER_W / 2, y - AIMER_H / 2, AIMER_W, AIMER_H, 8);
     ctx.stroke();
@@ -1217,12 +1222,13 @@
     ctx.beginPath();
     ctx.arc(x, y, 3, 0, Math.PI * 2);
     ctx.fill();
-    // Tiny chevrons
-    ctx.fillStyle = "#5de0f0";
+    // Label: show AUTO-AIM when pending, otherwise DROP
+    var label = hasAutoAim ? "AUTO" : "DROP";
+    ctx.fillStyle = aimColor;
     ctx.font = "bold 10px JetBrains Mono, monospace";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText("DROP", x, y + 0);
+    ctx.fillText(label, x, y);
     ctx.restore();
   }
 
@@ -1753,6 +1759,7 @@
       if (e.touches && e.touches.length === 1) {
         var rect = canvas.getBoundingClientRect();
         var lx = (e.touches[0].clientX - rect.left - offsetX) / scale;
+        // Snap on first touch so the aimer jumps to finger immediately
         state.aimerX = lx;
         clampAimer();
         touchActive = true;
@@ -1763,7 +1770,9 @@
       if (e.touches && e.touches.length === 1) {
         var rect = canvas.getBoundingClientRect();
         var lx = (e.touches[0].clientX - rect.left - offsetX) / scale;
-        state.aimerX = lx;
+        // Lerp toward finger position at 60% per frame to damp jitter on cheap touchscreens.
+        // This keeps the feel responsive while preventing micro-oscillations.
+        state.aimerX = state.aimerX + (lx - state.aimerX) * 0.6;
         clampAimer();
       }
     }, { passive: true });

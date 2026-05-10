@@ -251,7 +251,16 @@ kbd {
 }
 .wave-ribbon.is-scholar {
   border-color: var(--gold);
-  box-shadow: 0 0 22px rgba(245,196,81,.35);
+  /* stronger glow so scholar state is obvious on dark theme */
+  box-shadow: 0 0 28px rgba(245,196,81,.55), 0 0 8px rgba(245,196,81,.9) inset;
+  animation: scholarPulse 2s ease-in-out infinite;
+}
+@keyframes scholarPulse {
+  0%, 100% { box-shadow: 0 0 22px rgba(245,196,81,.45), 0 0 6px rgba(245,196,81,.7) inset; }
+  50%       { box-shadow: 0 0 38px rgba(245,196,81,.75), 0 0 12px rgba(245,196,81,.95) inset; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wave-ribbon.is-scholar { animation: none; box-shadow: 0 0 22px rgba(245,196,81,.55); }
 }
 .wave-kicker {
   color: var(--muted);
@@ -277,7 +286,7 @@ kbd {
 /* Round controls */
 .round-controls {
   position: absolute;
-  bottom: 18px;
+  bottom: max(18px, env(safe-area-inset-bottom, 18px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 26;
@@ -285,6 +294,10 @@ kbd {
   gap: 8px;
   align-items: center;
   pointer-events: auto;
+  /* prevent overflow on narrow screens */
+  max-width: 96vw;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .round-controls.show { display: flex; }
 .round-btn {
@@ -301,6 +314,8 @@ kbd {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  /* minimum touch target */
+  min-height: 44px;
 }
 .round-btn:hover {
   background: rgba(93,224,240,.12);
@@ -313,6 +328,19 @@ kbd {
   font-size: 10px;
   color: var(--rose);
   letter-spacing: 0;
+}
+/* Submit is the primary action — make it prominent */
+#submitBtn {
+  background: linear-gradient(180deg, rgba(93,224,240,.22) 0%, rgba(93,224,240,.10) 100%);
+  border-color: var(--cyan);
+  color: var(--text);
+  font-size: 13px;
+  padding: 10px 20px;
+  box-shadow: 0 0 12px rgba(93,224,240,.25);
+}
+#submitBtn:hover {
+  background: linear-gradient(180deg, rgba(93,224,240,.35) 0%, rgba(93,224,240,.18) 100%);
+  box-shadow: 0 0 20px rgba(93,224,240,.45);
 }
 
 /* Powerup tray */
@@ -772,11 +800,19 @@ kbd {
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
   .stat-cell { min-width: 50px; padding: 3px 8px; }
   .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 110px; }
-  .powerup-tray { top: auto; bottom: 64px; right: 8px; }
-  .powerup-slot { min-width: 110px; padding: 4px 8px 4px 6px; }
-  .round-controls { bottom: 8px; }
-  .round-btn { font-size: 11px; padding: 7px 10px; }
+  /* HUD wraps on mobile — push ribbon down to clear both rows */
+  .wave-ribbon { top: 116px; max-width: 92vw; }
+  /* Powerup tray moves to left side so round-controls row at bottom stays clear */
+  .powerup-tray { top: 116px; right: auto; left: 4px; }
+  .powerup-slot { min-width: 100px; min-height: 40px; padding: 4px 8px 4px 6px; }
+  /* Round controls: safe-area bottom + a bit of buffer */
+  .round-controls {
+    bottom: max(8px, env(safe-area-inset-bottom, 8px));
+    gap: 6px;
+  }
+  .round-btn { font-size: 11px; padding: 8px 10px; min-height: 44px; }
+  /* submit stays larger even on mobile */
+  #submitBtn { font-size: 12px; padding: 8px 16px; }
 }
 
 /* End screen grid */
@@ -843,3 +879,38 @@ kbd {
 .lb-rank { color: var(--gold); width: 30px; }
 .lb-name { color: var(--chrome); flex: 1 1 auto; padding: 0 6px; }
 .lb-score { color: var(--text); font-weight: 800; }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

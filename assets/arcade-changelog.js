@@ -504,6 +504,24 @@
   // ─── Built-in entries (self-contained) ──────────────────────────────
   register([
     {
+      date: "2026-05-10",
+      version: "v3.1",
+      headline: "Polish sweep — UI/overlay fixes + audit-report follow-through",
+      items: [
+        { kind: "fix", text: "Module dependency Finding A: leaderboards + sessions modules now win their namespaces (globe.personalBest() works again)" },
+        { kind: "fix", text: "24 round-3 games got runtime bug fixes (modal flow, save/resume, particle caps, race-condition guards)" },
+        { kind: "fix", text: "6 typo bugs swept across 4 older games (MrMacsAnalytics.track / MrMacsToasts.show)" },
+        { kind: "fix", text: "Achievement pop-ups no longer block hub UI behind them" },
+        { kind: "fix", text: "Modal z-index hierarchy + mobile HUD overflow across all 35 flagships" },
+        { kind: "new", text: "Collapsed two May-2026 callouts into single 25-cabinet banner" },
+        { kind: "new", text: "Welcome dialog softened — all fields optional, CTA always active" },
+        { kind: "new", text: "+60 💎 payout chip on Daily Challenge CTA" },
+        { kind: "new", text: "Newest sort option added to library" },
+        { kind: "new", text: "End-of-run achievement recap module (arcade-end-recap.js)" },
+        { kind: "new", text: "Exit Arcade button + How to Play overlay shared helpers" }
+      ]
+    },
+    {
       date: "2026-05-09",
       version: "v3.0",
       headline: "Round-3 Mega Sweep — 16 new flagships + 16 polish modules",

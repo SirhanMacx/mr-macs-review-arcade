@@ -187,11 +187,13 @@
     canvas.style.cssText = [
       "position:fixed",
       "inset:0",
-      "z-index:9700",
-      "pointer-events:none",
+      "z-index:9700",         // Fix #3/6: celebration canvas stays ABOVE toast layer (9000-9499) and modal layer (9500+); decorative only
+      "pointer-events:none",  // Fix #6: unconditional — particles never intercept clicks
       "width:100%",
       "height:100%"
     ].join(";");
+    // Belt-and-suspenders: force pointer-events off even if cssText is later mutated
+    canvas.style.pointerEvents = "none";
     canvas.setAttribute("aria-hidden", "true");
     document.body.appendChild(canvas);
     ctx = canvas.getContext("2d");

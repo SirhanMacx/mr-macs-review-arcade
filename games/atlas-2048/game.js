@@ -845,6 +845,8 @@
   function armPuSmash() {
     if (state.pu.smash <= 0) return;
     smashArmed = !smashArmed;
+    // Update canvas cursor so the user sees the crosshair "pick a tile" hint
+    if (canvas) canvas.classList.toggle("smash-armed", smashArmed);
     if (smashArmed) {
       pushPopup("TAP A TILE TO SMASH", LOGICAL_W / 2, BOARD_PAD_TOP - 12, "is-bonus");
     } else {
@@ -860,6 +862,7 @@
     state.grid[row][col] = null;
     state.pu.smash--;
     smashArmed = false;
+    if (canvas) canvas.classList.remove("smash-armed");
     sfx.powerupUse();
     spawnEmber(boardCenterX(col), boardCenterY(row), 16, "#f5c451");
     pushPopup("SMASHED " + eraForValue(t.value).name.toUpperCase(), LOGICAL_W / 2, BOARD_PAD_TOP - 12, "is-warn");
@@ -1056,7 +1059,8 @@
       for (var c = 0; c < state.gridSize; c++) {
         var t = state.grid[r][c];
         if (!t) continue;
-        t.animT += 1 / 60; // approximate; real dt fed in updateTiles
+        // animT is incremented properly in updateTiles(dt) — do NOT also add 1/60 here
+        // to avoid double-increment causing animation stacking at high frame rates.
         var era = eraForValue(t.value);
         var x = bl + TILE_GAP + c * (ts + TILE_GAP);
         var y = bt + TILE_GAP + r * (ts + TILE_GAP);
@@ -1105,12 +1109,20 @@
       ctx.shadowBlur = 0;
     }
 
-    // Era name (small, top)
+    // Era name (small, top) — clipped to tile width so long names don't overflow
     ctx.fillStyle = era.text;
-    ctx.font = "700 " + Math.max(9, Math.floor(ts * 0.10)) + "px 'JetBrains Mono', monospace";
+    var eraFontSize = Math.max(9, Math.floor(ts * 0.10));
+    ctx.font = "700 " + eraFontSize + "px 'JetBrains Mono', monospace";
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
-    ctx.fillText(era.name.toUpperCase(), x + ts / 2, y + 6);
+    // Measure and truncate if wider than tile (with 4px side padding each side)
+    var eraLabel = era.name.toUpperCase();
+    var maxLabelW = ts - 8;
+    while (eraLabel.length > 3 && ctx.measureText(eraLabel).width > maxLabelW) {
+      eraLabel = eraLabel.slice(0, -1);
+    }
+    if (eraLabel.length < era.name.length) eraLabel = eraLabel.trimRight();
+    ctx.fillText(eraLabel, x + ts / 2, y + 6);
 
     // Glyph (centered, mid)
     ctx.font = "900 " + Math.floor(ts * 0.40) + "px 'Fraunces', serif";
@@ -1397,6 +1409,8 @@
         return;
       }
       if (k === "Escape" || k === "Esc") {
+        var hm = document.getElementById("helpModal");
+        if (hm && hm.classList.contains("show")) { closeHelp(); e.preventDefault(); return; }
         if (phase === "playing" || phase === "paused") togglePause();
         else if (phase === "question") skipQuestion();
         e.preventDefault();
@@ -1459,9 +1473,15 @@
   function bindTouchControls() {
     function bindDir(btn, dir) {
       if (!btn) return;
-      var fire = function (e) { if (e) e.preventDefault(); tryMove(dir); };
+      var fire = function (e) {
+        if (e) e.preventDefault();
+        tryMove(dir);
+      };
       btn.addEventListener("click", fire);
+      // Must be non-passive so preventDefault() suppresses scroll on touch devices
       btn.addEventListener("touchstart", fire, { passive: false });
+      // touchend fires after touchstart; prevent ghost click that would fire twice
+      btn.addEventListener("touchend", function (e) { if (e) e.preventDefault(); }, { passive: false });
     }
     bindDir(dom.tcLeft, "left");
     bindDir(dom.tcRight, "right");
@@ -1484,6 +1504,61 @@
   }
 
   // -- UI bindings -----------------------------------------------------------
+  // ── How to Play modal ───────────────────────────────────────────────────────
+  function openHelp() {
+    var modal = document.getElementById("helpModal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "helpModal";
+      modal.className = "modal-overlay help-overlay";
+      modal.innerHTML = [
+        '<div class="modal-card help-card">',
+        '  <button class="modal-close" aria-label="Close how to play">×</button>',
+        '  <h2>How to Play &mdash; Atlas 2048</h2>',
+        '  <h3>Goal</h3>',
+        '  <p>Slide era tiles so equal tiles collide and <strong>merge</strong> into the next era. Reach <strong>2048 (Information Age)</strong> to ascend, then push toward the <strong>Singularity</strong> and beyond. You lose a board when no moves remain; three boards per run.</p>',
+        '  <h3>Controls</h3>',
+        '  <table><thead><tr><th>Key</th><th>Action</th></tr></thead><tbody>',
+        '  <tr><td><kbd>W</kbd>/<kbd>A</kbd>/<kbd>S</kbd>/<kbd>D</kbd> or Arrows</td><td>Slide all tiles in that direction</td></tr>',
+        '  <tr><td><kbd>Z</kbd></td><td>Undo last move</td></tr>',
+        '  <tr><td><kbd>X</kbd></td><td>Smash one tile off the board</td></tr>',
+        '  <tr><td><kbd>C</kbd></td><td>2× score for next 10 merges</td></tr>',
+        '  <tr><td><kbd>V</kbd></td><td>Hint &mdash; highlights the best slide direction</td></tr>',
+        '  <tr><td><kbd>B</kbd></td><td>Spawn a tile of value 4 next turn</td></tr>',
+        '  <tr><td><kbd>Esc</kbd> / <kbd>P</kbd></td><td>Pause / unpause</td></tr>',
+        '  </tbody></table>',
+        '  <h3>Boards (Lives)</h3>',
+        '  <p>You have <strong>3 boards</strong>. When no valid slide exists, that board ends and a fresh grid begins. Reaching <strong>100 000 points</strong> upgrades your grid to <strong>5×5</strong>.</p>',
+        '  <h3>Era Tier System</h3>',
+        '  <table><thead><tr><th>Tile value</th><th>Era</th></tr></thead><tbody>',
+        '  <tr><td>2</td><td>Stone Age</td></tr>',
+        '  <tr><td>4</td><td>Bronze Age</td></tr>',
+        '  <tr><td>8</td><td>Iron Age</td></tr>',
+        '  <tr><td>16</td><td>Classical</td></tr>',
+        '  <tr><td>32</td><td>Medieval</td></tr>',
+        '  <tr><td>64</td><td>Renaissance</td></tr>',
+        '  <tr><td>128</td><td>Enlightenment</td></tr>',
+        '  <tr><td>256</td><td>Industrial</td></tr>',
+        '  <tr><td>512</td><td>Modern</td></tr>',
+        '  <tr><td>1024</td><td>Atomic</td></tr>',
+        '  <tr><td>2048</td><td>Information Age &#9733;</td></tr>',
+        '  <tr><td>4096+</td><td>Singularity &amp; beyond</td></tr>',
+        '  </tbody></table>',
+        '  <div class="scholar-note">&#127979; <strong>Scholar Tile</strong> &mdash; rare gold-rimmed tile. Merge a scholar tile with another tile to trigger an optional review question. Correct answers earn <strong>+1500 pts</strong> and 12 shards. Skip any time with no penalty.</div>',
+        '</div>'
+      ].join("\n");
+      document.body.appendChild(modal);
+      modal.addEventListener("click", function (e) { if (e.target === modal) closeHelp(); });
+      var closeBtn = modal.querySelector(".modal-close");
+      if (closeBtn) closeBtn.addEventListener("click", closeHelp);
+    }
+    modal.classList.add("show");
+  }
+  function closeHelp() {
+    var modal = document.getElementById("helpModal");
+    if (modal) modal.classList.remove("show");
+  }
+
   function bindUi() {
     dom.startBtn.addEventListener("click", function () { clearSnapshot(); newRun(); });
     dom.resumeBtn.addEventListener("click", togglePause);
@@ -1512,6 +1587,8 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+    var helpBtn = document.getElementById("helpBtn");
+    if (helpBtn) helpBtn.addEventListener("click", openHelp);
     // Powerup buttons
     if (dom.puUndo) dom.puUndo.addEventListener("click", usePuUndo);
     if (dom.puSmash) dom.puSmash.addEventListener("click", armPuSmash);

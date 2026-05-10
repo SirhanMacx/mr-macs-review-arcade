@@ -649,5 +649,495 @@ body[data-keyboard-mode="true"] .kbd-next-hint::after {
 }
 
 /* ============================================================================
+   § POLISH LAYER — Hover states, micro-interactions, visual premium feel
+   Added 2026-05-10. Strictly additive — does not override any rule above.
+   All motion gated by @media (prefers-reduced-motion: reduce) + class mirrors.
+   ============================================================================ */
+
+
+/* ── P1 · Universal interactive feedback ────────────────────────────────── */
+/* Subtle scale + snap-back spring for every clickable element. */
+button:not(:disabled),
+a:not(.disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+  transition:
+    transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 180ms ease;
+}
+button:not(:disabled):hover,
+a:not(.disabled):hover,
+[role="button"]:not([aria-disabled="true"]):hover {
+  transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button:not(:disabled),
+  a:not(.disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    transition: none !important;
+  }
+  button:not(:disabled):hover,
+  a:not(.disabled):hover,
+  [role="button"]:not([aria-disabled="true"]):hover {
+    transform: none !important;
+  }
+}
+body.arcade-reduced-motion button:not(:disabled),
+body[data-motion="reduce"] button:not(:disabled),
+body.arcade-reduced-motion a:not(.disabled),
+body[data-motion="reduce"] a:not(.disabled),
+body.arcade-reduced-motion [role="button"]:not([aria-disabled="true"]),
+body[data-motion="reduce"] [role="button"]:not([aria-disabled="true"]) {
+  transition: none !important;
+}
+body.arcade-reduced-motion button:not(:disabled):hover,
+body[data-motion="reduce"] button:not(:disabled):hover,
+body.arcade-reduced-motion a:not(.disabled):hover,
+body[data-motion="reduce"] a:not(.disabled):hover,
+body.arcade-reduced-motion [role="button"]:not([aria-disabled="true"]):hover,
+body[data-motion="reduce"] [role="button"]:not([aria-disabled="true"]):hover {
+  transform: none !important;
+}
+
+
+/* ── P2 · Card hover lift ────────────────────────────────────────────────── */
+/* translateY lift + faint shadow bloom on every card-like surface. */
+.continue-card,
+.new-cabinet-card,
+.pd-shop-card,
+.topic-chip,
+.lane-tab,
+.nav-link,
+.game-card,
+.topic-pill {
+  transition:
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 200ms ease;
+  will-change: transform;
+}
+.continue-card:hover,
+.new-cabinet-card:hover,
+.pd-shop-card:hover,
+.topic-chip:hover,
+.lane-tab:hover,
+.nav-link:hover,
+.game-card:hover,
+.topic-pill:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .continue-card,
+  .new-cabinet-card,
+  .pd-shop-card,
+  .topic-chip,
+  .lane-tab,
+  .nav-link,
+  .game-card,
+  .topic-pill {
+    transition: none !important;
+    will-change: auto !important;
+  }
+  .continue-card:hover,
+  .new-cabinet-card:hover,
+  .pd-shop-card:hover,
+  .topic-chip:hover,
+  .lane-tab:hover,
+  .nav-link:hover,
+  .game-card:hover,
+  .topic-pill:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+body.arcade-reduced-motion .continue-card,
+body[data-motion="reduce"] .continue-card,
+body.arcade-reduced-motion .new-cabinet-card,
+body[data-motion="reduce"] .new-cabinet-card,
+body.arcade-reduced-motion .pd-shop-card,
+body[data-motion="reduce"] .pd-shop-card,
+body.arcade-reduced-motion .topic-chip,
+body[data-motion="reduce"] .topic-chip,
+body.arcade-reduced-motion .lane-tab,
+body[data-motion="reduce"] .lane-tab,
+body.arcade-reduced-motion .nav-link,
+body[data-motion="reduce"] .nav-link,
+body.arcade-reduced-motion .game-card,
+body[data-motion="reduce"] .game-card,
+body.arcade-reduced-motion .topic-pill,
+body[data-motion="reduce"] .topic-pill {
+  transition: none !important;
+}
+body.arcade-reduced-motion .continue-card:hover,
+body[data-motion="reduce"] .continue-card:hover,
+body.arcade-reduced-motion .new-cabinet-card:hover,
+body[data-motion="reduce"] .new-cabinet-card:hover,
+body.arcade-reduced-motion .pd-shop-card:hover,
+body[data-motion="reduce"] .pd-shop-card:hover,
+body.arcade-reduced-motion .topic-chip:hover,
+body[data-motion="reduce"] .topic-chip:hover,
+body.arcade-reduced-motion .lane-tab:hover,
+body[data-motion="reduce"] .lane-tab:hover,
+body.arcade-reduced-motion .nav-link:hover,
+body[data-motion="reduce"] .nav-link:hover,
+body.arcade-reduced-motion .game-card:hover,
+body[data-motion="reduce"] .game-card:hover,
+body.arcade-reduced-motion .topic-pill:hover,
+body[data-motion="reduce"] .topic-pill:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+
+/* ── P3 · Filter pill active state — gold fill ───────────────────────────── */
+/* Active/selected lane tabs and topic chips swap to solid gold background. */
+.lane-tab.active,
+.lane-tab[aria-selected="true"],
+.lane-tab[aria-pressed="true"],
+.topic-chip.active,
+.topic-chip[aria-selected="true"],
+.topic-chip[aria-pressed="true"],
+.topic-pill.active,
+.topic-pill[aria-selected="true"],
+.topic-pill[aria-pressed="true"] {
+  background-color: #f5c451;
+  color: #14100a;
+  border-color: #f5c451;
+  font-weight: 700;
+}
+/* Hover inside an already-active pill — darken slightly */
+.lane-tab.active:hover,
+.lane-tab[aria-selected="true"]:hover,
+.topic-chip.active:hover,
+.topic-chip[aria-selected="true"]:hover,
+.topic-pill.active:hover,
+.topic-pill[aria-selected="true"]:hover {
+  background-color: #e0b03a;
+  border-color: #e0b03a;
+}
+
+
+/* ── P4 · Loading skeleton shimmer ──────────────────────────────────────── */
+/* Apply .is-loading to any placeholder element while data is fetching.      */
+.is-loading {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+}
+.is-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.10) 40%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.10) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: arcade-skeleton-shimmer 1.5s linear infinite;
+}
+@keyframes arcade-skeleton-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-loading::after {
+    animation: none !important;
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+body.arcade-reduced-motion .is-loading::after,
+body[data-motion="reduce"] .is-loading::after {
+  animation: none !important;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+
+/* ── P5 · Toast slide-in animation polish ───────────────────────────────── */
+/* More elegant easing, subtle 10px slide distance. */
+/* Assumes toasts are shown via a class like .arcade-toast / .toast          */
+/* and an .is-visible toggle. Overrides any prior toast animation.           */
+@keyframes arcade-toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes arcade-toast-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+}
+
+.toast.is-visible,
+.arcade-toast.is-visible {
+  animation: arcade-toast-slide-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.toast.is-hiding,
+.arcade-toast.is-hiding {
+  animation: arcade-toast-slide-out 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Stagger: second toast slightly delayed so they don't pile on at once */
+.toast:nth-child(2),
+.arcade-toast:nth-child(2) {
+  animation-delay: 60ms;
+}
+.toast:nth-child(3),
+.arcade-toast:nth-child(3) {
+  animation-delay: 120ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast.is-visible,
+  .arcade-toast.is-visible,
+  .toast.is-hiding,
+  .arcade-toast.is-hiding {
+    animation: none !important;
+    opacity: 1;
+  }
+}
+body.arcade-reduced-motion .toast,
+body[data-motion="reduce"] .toast,
+body.arcade-reduced-motion .arcade-toast,
+body[data-motion="reduce"] .arcade-toast {
+  animation: none !important;
+}
+
+
+/* ── P6 · Modal backdrop blur ────────────────────────────────────────────── */
+/* Editorial-glass effect. Solid rgba fallback for unsupported browsers.     */
+.modal-overlay,
+[class*="modal-overlay"],
+.arcade-modal-backdrop,
+.overlay-backdrop {
+  background-color: rgba(11, 13, 18, 0.72);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+}
+/* Fallback: @supports negation for backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .modal-overlay,
+  [class*="modal-overlay"],
+  .arcade-modal-backdrop,
+  .overlay-backdrop {
+    background-color: rgba(11, 13, 18, 0.90);
+  }
+}
+/* In high-contrast mode, kill blur and use solid — don't fight system colors */
+@media (prefers-contrast: more) {
+  .modal-overlay,
+  [class*="modal-overlay"],
+  .arcade-modal-backdrop,
+  .overlay-backdrop {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(0, 0, 0, 0.92) !important;
+  }
+}
+
+
+/* ── P7 · Custom scrollbar styling (desktop / fine-pointer only) ─────────── */
+@media (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.20);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(245, 196, 81, 0.40);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: background-color 160ms ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(245, 196, 81, 0.70);
+    background-clip: padding-box;
+  }
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(245, 196, 81, 0.40) rgba(0, 0, 0, 0.20);
+  }
+}
+
+
+/* ── P8 · Text selection styling ─────────────────────────────────────────── */
+::selection {
+  background: rgba(245, 196, 81, 0.45);
+  color: #fff;
+}
+::-moz-selection {
+  background: rgba(245, 196, 81, 0.45);
+  color: #fff;
+}
+
+
+/* ── P9 · Focus-within card glow ring (keyboard nav) ────────────────────── */
+/* When any child of a card receives keyboard focus, the card glows. */
+.continue-card:focus-within,
+.new-cabinet-card:focus-within,
+.pd-shop-card:focus-within,
+.game-card:focus-within,
+.topic-chip:focus-within,
+.topic-pill:focus-within,
+.lane-tab:focus-within {
+  outline: 2px solid rgba(122, 240, 255, 0.55);
+  outline-offset: 3px;
+  box-shadow:
+    0 0 0 4px rgba(122, 240, 255, 0.18),
+    0 8px 24px rgba(0, 0, 0, 0.30);
+}
+/* Suppress the glow when a mouse user just clicked inside (not keyboard) */
+.continue-card:focus-within:not(:has(*:focus-visible)),
+.new-cabinet-card:focus-within:not(:has(*:focus-visible)),
+.pd-shop-card:focus-within:not(:has(*:focus-visible)),
+.game-card:focus-within:not(:has(*:focus-visible)),
+.topic-chip:focus-within:not(:has(*:focus-visible)),
+.topic-pill:focus-within:not(:has(*:focus-visible)),
+.lane-tab:focus-within:not(:has(*:focus-visible)) {
+  outline: none;
+  box-shadow: none;
+}
+
+
+/* ── P10 · Smooth scroll-behavior ───────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+/* Reduced-motion override — already covered by § Reduced motion above,
+   but repeat here so this section is self-documenting. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+body.arcade-reduced-motion,
+body[data-motion="reduce"] {
+  scroll-behavior: auto !important;
+}
+
+
+/* ── P11 · Prefers-color-scheme light-mode basic override ───────────────── */
+/* Arcade is dark-first; this ensures it remains legible in light environments
+   if the page ever lacks an explicit dark background. High-contrast mode is
+   preserved by the § Forced colors and § High contrast sections above. */
+@media (prefers-color-scheme: light) {
+  :root {
+    --a11y-bg-fallback: #f4f5f7;
+    --a11y-text-strong: #0f1014;
+    --a11y-text-default: #1a1d24;
+    --a11y-text-muted: #4a5168;
+    --a11y-text-large: #3a3f52;
+  }
+  /* Only applies if the page hasn't set its own background (defensive).
+     Games that explicitly set body { background: #0b0d12 } will override this. */
+  body:not([style*="background"]):not([class*="dark"]) {
+    background-color: var(--a11y-bg-fallback);
+    color: var(--a11y-text-default);
+  }
+  /* Ensure skip-link still has readable contrast */
+  .arcade-skip-link,
+  .skip-nav {
+    background: #c8941e;
+    color: #fff;
+  }
+}
+
+
+/* ── P12 · Print styles polish ───────────────────────────────────────────── */
+/* Tightens existing print rules: hide animations/modals/toasts/canvas,
+   force black-on-white, keep layout clean. Extends the § Print styles above. */
+@media print {
+  /* Kill all animations and transitions unconditionally */
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Additional print-hide targets beyond the existing list */
+  .modal-overlay,
+  .arcade-modal-backdrop,
+  .overlay-backdrop,
+  [class*="modal-overlay"],
+  .toast,
+  .arcade-toast,
+  .is-loading::after,
+  ::-webkit-scrollbar,
+  .arcade-skip-link,
+  .skip-nav,
+  [data-arcade-vestibular],
+  .parallax,
+  .auto-scroll {
+    display: none !important;
+  }
+
+  /* Ensure skeleton placeholders show empty, not invisible */
+  .is-loading {
+    background: #eee !important;
+    color: #000 !important;
+  }
+  .is-loading::after {
+    display: none !important;
+  }
+
+  /* Backdrop blur fallback — not needed on paper */
+  .modal-overlay,
+  .arcade-modal-backdrop {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Selection styling irrelevant on paper */
+  ::selection,
+  ::-moz-selection {
+    background: transparent;
+    color: #000;
+  }
+
+  /* Cards: remove decorative lift shadows, let borders define them */
+  .continue-card,
+  .new-cabinet-card,
+  .pd-shop-card,
+  .game-card,
+  .topic-chip,
+  .topic-pill,
+  .lane-tab {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+}
+
+
+/* ============================================================================
    END — Mr. Mac's Arcade Accessibility Layer
    ============================================================================ */

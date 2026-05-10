@@ -278,7 +278,8 @@ kbd {
 }
 .tc-btn {
   position: relative;
-  min-width: 64px; min-height: 60px;
+  /* 64×64 minimum for comfortable touch targets */
+  min-width: 64px; min-height: 64px;
   border-radius: 12px;
   border: 1px solid var(--cyan);
   background: rgba(4,8,18,.7);
@@ -289,10 +290,11 @@ kbd {
   letter-spacing: .05em;
   box-shadow: 0 0 12px rgba(93,224,240,.18);
   transition: background .15s, transform .12s;
+  line-height: 1;
 }
 .tc-btn:active { background: rgba(93,224,240,.18); transform: translateY(1px); }
 .tc-drop {
-  min-width: 110px;
+  min-width: 120px;
   font-size: 18px;
   font-weight: 900;
   color: var(--gold);
@@ -303,6 +305,12 @@ kbd {
 @media (max-width: 720px) {
   .touch-controls {
     display: flex;
+    /* Respect iOS home-bar / Android nav bar */
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    /* Semi-transparent so slot row is still partially readable behind the bar */
+    background: rgba(4,6,15,0.55);
+    border-radius: 14px 14px 0 0;
+    padding: 6px 12px;
   }
 }
 
@@ -670,8 +678,37 @@ kbd {
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
   .stat-cell { min-width: 52px; padding: 3px 8px; }
   .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 110px; }
+  /* Wave ribbon must clear two-row HUD on narrow screens */
+  .wave-ribbon { top: 116px; }
 }
+
+/* Ensure modals scroll on short viewports */
+.setup-screen, .pause-screen, .end-screen, .question-screen {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Score multiplier flash — visible popup variant for 2× multiplier callouts */
+.popup-text.is-multiplier {
+  color: var(--gold);
+  font-size: 34px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.8), 0 0 22px rgba(245,196,81,.75);
+  animation: popupFlash 1.3s var(--ease) forwards;
+}
+@keyframes popupFlash {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(.5); }
+  12%  { opacity: 1; transform: translate(-50%, -58%) scale(1.25); }
+  60%  { opacity: 1; transform: translate(-50%, -80%) scale(1.05); }
+  100% { opacity: 0; transform: translate(-50%, -130%) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .popup-text.is-multiplier { animation-duration: .35s; }
+}
+
+/* Drop indicator: dampen touch sensitivity cue — visual only (logic in JS).
+   Give the aimer pill a slightly thicker hit-area via padding so fat-finger
+   taps are less likely to mis-register adjacent to the pill edges. */
+#plinkoCanvas { touch-action: none; }
 
 /* End screen grid */
 .end-grid {
@@ -736,3 +773,38 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

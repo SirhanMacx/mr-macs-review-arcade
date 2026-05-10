@@ -977,7 +977,6 @@
   function applyPowerup(pu) {
     var meta = POWERUP_META[pu.type];
     sfx.powerupPickup();
-    sfx.powerupUse();
     var sx = projectLaneZ(pu.lane, Math.max(0, pu.z)).x;
     var sy = zToScreenY(Math.max(0, pu.z)) - 16;
     pushPopup(meta.label, sx, sy, "is-bonus");

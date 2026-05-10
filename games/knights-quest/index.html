@@ -82,6 +82,9 @@
     <!-- Setup / title screen -->
     <section class="setup-screen show" id="setupScreen" aria-label="Knight's Quest &mdash; game setup" aria-modal="true">
       <div class="setup-card">
+        <a class="setup-back-link" href="../../index.html" aria-label="Back to arcade hub">
+          ← Back to Arcade
+        </a>
         <div class="marquee-art" aria-hidden="true">
           <div class="marquee-glow"></div>
           <div class="marquee-spark spark-a" data-arcade-heavy></div>
@@ -112,6 +115,10 @@
         <div class="setup-actions">
           <button class="btn glass-pill" id="soundBtn" type="button" aria-label="Toggle sound">Sound On</button>
           <button class="btn glass-pill" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">Fullscreen</button>
+          <button class="btn glass-pill help-btn" id="helpBtn" type="button" aria-label="How to play">
+            <span aria-hidden="true">❓</span>
+            <span>How to Play</span>
+          </button>
           <button class="btn primary brass-btn" id="startBtn" type="button" aria-label="Start the game">
             <span class="btn-coin" aria-hidden="true">&#9678;</span> Insert Coin &middot; Begin Quest
           </button>

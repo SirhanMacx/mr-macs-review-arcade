@@ -95,6 +95,12 @@ kbd {
   display: block;
   touch-action: none;
   cursor: pointer;
+  /* z-index below HUD panels but above background; arrows are drawn on canvas */
+  z-index: 2;
+}
+/* When a targetable powerup is armed, switch to crosshair so it's obvious on touch/desktop */
+body.armed-powerup #cubeCanvas {
+  cursor: crosshair;
 }
 
 /* Subtle scanline overlay */
@@ -269,6 +275,9 @@ kbd {
   background: rgba(4,8,18,.7);
   border: 1px solid var(--line);
   backdrop-filter: blur(6px);
+  /* keep tray above safe-area on modern phones */
+  padding-bottom: max(8px, env(safe-area-inset-bottom, 8px));
+  bottom: max(14px, env(safe-area-inset-bottom, 14px));
 }
 .pu-slot {
   position: relative;
@@ -282,6 +291,8 @@ kbd {
   background: rgba(255,255,255,.04);
   color: var(--text);
   min-width: 56px;
+  /* minimum touch target 44×44 per accessibility guidelines */
+  min-height: 44px;
   transition: background .15s, border-color .15s, transform .12s;
 }
 .pu-slot:hover {
@@ -661,10 +672,15 @@ kbd {
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
   .stat-cell { min-width: 48px; padding: 3px 6px; }
   .stat-value { font-size: 14px; }
-  .wave-ribbon { top: 110px; }
-  .powerup-tray { padding: 6px 8px; gap: 4px; }
-  .pu-slot { min-width: 44px; padding: 6px 6px; }
+  /* HUD wraps to 2 rows on mobile — push ribbon down to clear both rows */
+  .wave-ribbon { top: 116px; max-width: 92vw; }
+  .powerup-tray { padding: 6px 8px; gap: 4px; flex-wrap: wrap; max-width: 96vw; }
+  .pu-slot { min-width: 44px; min-height: 44px; padding: 6px 6px; }
   .pu-glyph { font-size: 18px; }
+}
+/* Extra narrow screens — stack powerup tray above bottom arrows */
+@media (max-width: 400px) {
+  .powerup-tray { bottom: max(56px, calc(env(safe-area-inset-bottom, 0px) + 56px)); }
 }
 
 /* End / round screen grid */
@@ -730,3 +746,38 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

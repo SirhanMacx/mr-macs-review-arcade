@@ -703,20 +703,66 @@ kbd {
 .explanation.is-correct { color: var(--emerald); }
 .explanation.is-wrong { color: var(--danger); }
 
+/* ---- Auto-finish button: highlight when game is auto-finishable ---- */
+#autoCompleteBtn.is-ready {
+  background: rgba(77,212,155,.18);
+  border-color: var(--emerald);
+  color: var(--emerald);
+  box-shadow: 0 0 12px rgba(77,212,155,.32);
+  animation: autoFinishPulse 1.4s ease-in-out infinite alternate;
+}
+@keyframes autoFinishPulse {
+  from { box-shadow: 0 0 8px rgba(77,212,155,.22); }
+  to   { box-shadow: 0 0 18px rgba(77,212,155,.55); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #autoCompleteBtn.is-ready { animation: none; }
+}
+
+/* ---- Foundation slot: show suit watermark after first card placed ---- */
+.foundation-suit-label {
+  position: absolute;
+  /* rendered via canvas; no additional CSS needed here */
+}
+
+/* ---- Focus visible ring on all interactive elements ---- */
+.powerup-slot:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.question-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
 @media (max-width: 640px) {
   .choice-grid { grid-template-columns: 1fr; }
   .setup-card h1 { font-size: 32px; }
-  .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
+  .top-hud { flex-wrap: wrap; gap: 6px; padding: 8px 10px; }
+  /* Brand shrinks so it doesn't force the stats row down */
+  .brand-title { font-size: 17px; }
+  .brand-sub { display: none; }
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
-  .stat-cell { min-width: 50px; padding: 3px 6px; }
+  .stat-cell { min-width: 48px; padding: 3px 6px; }
   .stat-value { font-size: 14px; }
-  .wave-ribbon { top: 132px; }
+  /* Wave ribbon: sits below the two-row HUD (~brand row ~56px + stats row ~44px) */
+  .wave-ribbon { top: 112px; font-size: 11px; padding: 4px 12px; }
+  .wave-name { font-size: 13px; }
+  .wave-meta { font-size: 10px; display: none; }
+  /* Power-up tray: move to left side so it doesn't crowd the activation hint */
   .powerup-tray {
-    right: 10px;
+    left: 10px;
+    right: auto;
     bottom: 10px;
   }
   .powerup-slot { width: 52px; height: 52px; }
   .powerup-slot .pu-icon { font-size: 22px; }
+  /* Activation hint: avoid overlapping power-up tray */
+  .activation-hint {
+    bottom: 10px;
+    left: calc(52px * 3 + 10px + 24px + 8px * 2); /* clear 3 slots */
+    transform: none;
+    right: 10px;
+    text-align: center;
+  }
+  /* HUD controls: smaller pills */
+  .hud-btn { font-size: 11px; padding: 5px 9px; }
+  /* Setup card padding tighter on small screens */
+  .setup-card { padding: 20px 16px 22px; }
 }
 
 /* End screen grid */
@@ -782,3 +828,38 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

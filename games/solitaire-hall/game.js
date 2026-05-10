@@ -1557,6 +1557,22 @@
       var s = slots[i];
       drawEmptyPile(s);
     }
+    // Foundation suit watermarks — always draw behind cards so player can see target suit
+    for (var f = 0; f < state.foundations.length; f++) {
+      var fp = state.foundations[f];
+      var topF = fp.cards.length > 0 ? fp.cards[0] : null;
+      if (!topF) continue; // no suit established yet; generic 'A' already drawn in drawEmptyPile
+      var sc = SUIT_COLOR[topF.suit];
+      ctx.save();
+      ctx.globalAlpha = 0.09;
+      ctx.fillStyle = sc.base;
+      roundedRectPath(fp.x, fp.y, CARD_W, CARD_H, CARD_R);
+      ctx.fill();
+      // Suit glyph watermark centered
+      ctx.globalAlpha = 0.13;
+      drawSuitGlyph(topF.suit, fp.x + CARD_W / 2 - 20, fp.y + CARD_H / 2 - 20, 40);
+      ctx.restore();
+    }
   }
 
   function drawEmptyPile(pile) {
@@ -1918,6 +1934,14 @@
       var fcards = 0;
       for (var i = 0; i < state.foundations.length; i++) fcards += state.foundations[i].cards.length;
       dom.goalMeta.textContent = "Foundations " + fcards + "/52 · Stock cycles " + state.stockCycles + " · Undos " + state.undosUsed + "/" + UNDO_MAX_PER_GAME;
+    }
+    // Auto-finish button: show ready state when conditions are met
+    if (dom.autoCompleteBtn) {
+      var canAF = phase === "playing" && isAutoFinishable();
+      dom.autoCompleteBtn.classList.toggle("is-ready", canAF);
+      dom.autoCompleteBtn.title = canAF
+        ? "All cards face-up — click to auto-complete!"
+        : "Auto-Finish (available when stock/waste empty and all tableau cards are face-up)";
     }
   }
 

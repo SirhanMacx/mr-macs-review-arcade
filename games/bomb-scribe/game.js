@@ -1069,8 +1069,10 @@
   }
 
   function onMapClear() {
-    if (phase === "mapClear") return;
+    if (phase === "mapClear" || phase === "question" || phase === "dying") return;
     phase = "mapClear";
+    // Ensure any lingering overlay is dismissed before transition
+    showScreen(null);
     sfx.exit_open();
     addShake(6, 0.5);
     var timeBonus = Math.max(0, Math.floor(state.timeLeft) * 100);
@@ -1361,15 +1363,20 @@
 
   function drawExitTile(px, py, s) {
     var pulse = 0.5 + 0.5 * Math.sin(state.time * 5);
+    // Tone down glow when player stands on the exit so they remain visible
+    var playerOnExit = state.player && state.player.gx === Math.floor((px - state.boardOrigin.ox) / state.boardOrigin.tilePx) &&
+                       state.player.gy === Math.floor((py - state.boardOrigin.oy) / state.boardOrigin.tilePx);
+    var glowAlpha = playerOnExit ? 0.35 : (0.6 + 0.3 * pulse);
     var grad = ctx.createRadialGradient(px + s / 2, py + s / 2, 2, px + s / 2, py + s / 2, s * 0.7);
-    grad.addColorStop(0, "rgba(77, 212, 155, " + (0.6 + 0.3 * pulse) + ")");
+    grad.addColorStop(0, "rgba(77, 212, 155, " + glowAlpha + ")");
     grad.addColorStop(1, "rgba(20, 80, 60, 0.0)");
     ctx.fillStyle = "#0c2a18";
     ctx.fillRect(px, py, s, s);
     ctx.fillStyle = grad;
     ctx.fillRect(px, py, s, s);
-    // Spiral / portal mark
-    ctx.strokeStyle = "rgba(170, 240, 200, " + (0.8 + 0.2 * pulse) + ")";
+    // Spiral / portal mark (dimmed when player is on tile)
+    var strokeAlpha = playerOnExit ? 0.45 : (0.8 + 0.2 * pulse);
+    ctx.strokeStyle = "rgba(170, 240, 200, " + strokeAlpha + ")";
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.arc(px + s / 2, py + s / 2, s * 0.3, 0, Math.PI * 2);

@@ -229,6 +229,7 @@
     dom.hudBest = $("hudBest");
     dom.pressureName = $("pressureName");
     dom.pressureMeta = $("pressureMeta");
+    dom.waveRibbon = $("waveRibbon");
     dom.popupOverlay = $("popupOverlay");
     dom.setupScreen = $("setupScreen");
     dom.questionScreen = $("questionScreen");
@@ -1718,13 +1719,19 @@
     if (dom.hudPops) dom.hudPops.textContent = formatNumber(state.popsTotal);
     if (dom.hudCombo) dom.hudCombo.textContent = "x" + state.combo.toFixed(1);
     if (dom.hudBest) dom.hudBest.textContent = formatNumber(Math.max(state.best || 0, state.score));
+
+    var remain = Math.max(0, PRESSURE_TICK - state.shotsSinceLastPop);
     if (dom.pressureName) {
       if (state.slowTime > 0) {
         dom.pressureName.textContent = "Slow time · " + state.slowTime.toFixed(1) + "s";
       } else {
-        var remain = Math.max(0, PRESSURE_TICK - state.shotsSinceLastPop);
         dom.pressureName.textContent = remain + " shots until drop";
       }
+    }
+    // Pressure warning state on ribbon
+    if (dom.waveRibbon) {
+      if (remain <= 1 && state.slowTime <= 0) dom.waveRibbon.classList.add("is-warning");
+      else dom.waveRibbon.classList.remove("is-warning");
     }
     if (dom.pressureMeta) {
       var bits = [];
@@ -1732,6 +1739,12 @@
       bits.push("Combo x" + state.combo.toFixed(1));
       bits.push("Rows " + state.lifetimeRows);
       dom.pressureMeta.textContent = bits.join(" · ");
+    }
+    // Powerup cursor hint on canvas
+    if (canvas && state.current && state.current.powerup) {
+      canvas.dataset.powerup = state.current.powerup;
+    } else if (canvas) {
+      delete canvas.dataset.powerup;
     }
   }
   function formatNumber(n) {

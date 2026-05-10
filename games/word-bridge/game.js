@@ -34,9 +34,9 @@
   var CHAIN_TOP = 200;          // current word being built
   var CHAIN_HEIGHT = 80;
   var HISTORY_TOP = 100;        // recent step (compressed pill)
-  var KEY_TOP = 360;
+  var KEY_TOP = 360;            // QWERTY keyboard rows start here; 3 rows × 40px = ends at ~480
   var TOP_BAR_TOP = 64;
-  var BOTTOM_BAR_TOP = 470;
+  var BOTTOM_BAR_TOP = 500;    // pushed below keyboard bottom (~480) to avoid visual collision
 
   // -- 4-letter word dictionary ---------------------------------------------
   // Curated history/science/civics terms; each is a real English word
@@ -1450,6 +1450,7 @@
     r.stepsTaken += 1;
     r.currentDirty = false;
     r.activeSlot = 0;
+    r.revealedHintLetterIdx = -1;   // clear hint highlight after each committed step
     sfx.word_submit_valid();
     burstAt(LOGICAL_W / 2, CHAIN_TOP + CHAIN_HEIGHT / 2, "#5de0f0", 14);
     pushPopup("+VALID", LOGICAL_W / 2, CHAIN_TOP - 12, "is-cyan");
@@ -1985,6 +1986,7 @@
         emerald: emerald,
         active: hi,
         hint: hint,
+        hintTime: opts.hintTime,
         changed: changed,
         dim: dim
       });
@@ -2047,12 +2049,15 @@
       ctx.strokeRect(x, y, w, h);
       ctx.restore();
     }
-    // Hint flash
+    // Hint highlight — steady glow (not frame-rate-dependent flash) using time-based sine
     if (opts.hint) {
+      var hintAlpha = opts.hintTime != null
+        ? (0.65 + 0.35 * Math.sin(opts.hintTime * 3.5))
+        : 0.85;
       ctx.save();
-      ctx.shadowColor = "rgba(245,196,81,0.85)";
+      ctx.shadowColor = "rgba(245,196,81," + hintAlpha.toFixed(2) + ")";
       ctx.shadowBlur = 18;
-      ctx.strokeStyle = "#f5c451";
+      ctx.strokeStyle = "rgba(245,196,81," + hintAlpha.toFixed(2) + ")";
       ctx.lineWidth = 2.5;
       ctx.strokeRect(x, y, w, h);
       ctx.restore();
@@ -2157,6 +2162,7 @@
     drawWordRow(r.current.join(""), CHAIN_TOP, {
       activeSlot: r.activeSlot,
       hintIdx: r.revealedHintLetterIdx,
+      hintTime: state.time,
       changedSlots: changedSlots,
       label: "— BUILD CHAIN — Enter to submit"
     });

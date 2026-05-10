@@ -686,15 +686,35 @@ kbd {
   .choice-grid { grid-template-columns: 1fr; }
   .setup-grid { grid-template-columns: 1fr; }
   .setup-card h1 { font-size: 32px; }
+  /* Prevent ship-badges-row from overflowing setup-card on narrow screens */
+  .ship-badges-row { overflow-x: hidden; row-gap: 4px; }
+  /* HUD wrapping: brand shrinks, stats take second row, controls stay right */
   .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
+  .brand { flex: 0 0 auto; }
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
-  .stat-cell { min-width: 52px; padding: 3px 8px; }
-  .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 110px; }
-  .powerup-dock { bottom: 10px; right: 10px; gap: 6px; }
+  .hud-controls { margin-left: auto; }
+  .stat-cell { min-width: 44px; padding: 3px 6px; }
+  .stat-value { font-size: 14px; }
+  /* Wave ribbon drops below the wrapped two-row HUD (~88px brand row + 48px stats row) */
+  .wave-ribbon { top: 148px; font-size: 11px; gap: 6px; padding: 4px 12px; }
+  .wave-name { font-size: 14px; }
+  /* Powerup dock: bottom safe-area + narrower slots */
+  .powerup-dock {
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    right: calc(10px + env(safe-area-inset-right, 0px));
+    gap: 5px;
+  }
   .powerup-slot { width: 50px; height: 50px; }
   .slot-glyph { font-size: 18px; }
 }
+
+/* Multiball: clamp balls inside the court via canvas — CSS-side only needs the
+   canvas overflow hidden (already on .pong-shell). No additional rule needed.
+   Curveball spin indicator is rendered on canvas — no CSS target. */
+
+/* Prevent body scroll fighting canvas touch on iOS */
+html { touch-action: none; }
+body { touch-action: none; }
 
 /* End screen grid */
 .end-grid {
@@ -759,3 +779,38 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--cyan); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

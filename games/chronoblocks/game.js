@@ -996,9 +996,10 @@
     // Faded transition between previous and current era during eraFade
     var eraColor = era.bg;
     if (state.eraFade.life > 0) {
-      // pseudo-fade: just overlay a semi-transparent flash
+      // pseudo-fade: just overlay a semi-transparent flash (kept subtle to avoid strobing)
       var t = state.eraFade.life / state.eraFade.totalLife;
-      ctx.fillStyle = "rgba(255,255,255," + (t * 0.18).toFixed(3) + ")";
+      var flashAlpha = reducedMotion ? 0 : t * 0.09;
+      ctx.fillStyle = "rgba(255,255,255," + flashAlpha.toFixed(3) + ")";
       ctx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
     }
     // Background layers

@@ -284,7 +284,8 @@ kbd {
 }
 .tc-btn {
   position: relative;
-  min-width: 56px; min-height: 56px;
+  /* 64×64 minimum for reliable touch targets */
+  min-width: 64px; min-height: 64px;
   margin: 4px;
   border-radius: 12px;
   border: 1px solid var(--girder);
@@ -296,13 +297,17 @@ kbd {
   letter-spacing: .05em;
   box-shadow: 0 0 12px rgba(217,111,47,.18);
   transition: background .15s, transform .12s;
+  line-height: 1;
 }
 .tc-btn.tc-jump {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: .12em;
   border-color: var(--gold);
   color: var(--gold);
-  box-shadow: 0 0 12px rgba(245,196,81,.22);
+  box-shadow: 0 0 14px rgba(245,196,81,.30);
+  /* JUMP button is visually distinct and taller for prominence */
+  min-height: 64px;
+  background: rgba(30,20,2,.75);
 }
 .tc-btn.tc-up, .tc-btn.tc-down {
   border-color: var(--ladder-cool);
@@ -310,21 +315,25 @@ kbd {
   box-shadow: 0 0 12px rgba(93,184,224,.18);
 }
 .tc-btn:active { background: rgba(217,111,47,.18); transform: translateY(1px); }
+.tc-btn.tc-jump:active { background: rgba(245,196,81,.18); transform: translateY(1px); }
 @media (max-width: 720px) {
   .touch-controls {
     display: grid;
-    grid-template-columns: 56px 56px 56px;
-    grid-template-rows: 56px 56px;
+    grid-template-columns: 64px 64px 64px;
+    grid-template-rows: 64px 64px;
     gap: 6px;
-    max-width: 220px;
+    /* Keep grid right-side; JUMP (top-right) is thumb-reachable */
+    max-width: 210px;
     margin: 0 auto;
     right: 14px;
     left: auto;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
   }
   .tc-left  { grid-column: 1; grid-row: 2; }
   .tc-down  { grid-column: 2; grid-row: 2; }
   .tc-right { grid-column: 3; grid-row: 2; }
   .tc-up    { grid-column: 2; grid-row: 1; }
+  /* JUMP goes top-right — most natural thumb position */
   .tc-jump  { grid-column: 3; grid-row: 1; }
 }
 
@@ -695,7 +704,41 @@ kbd {
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
   .stat-cell { min-width: 52px; padding: 3px 8px; }
   .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 110px; }
+  /* Wave ribbon clears two-row HUD on narrow screens */
+  .wave-ribbon { top: 116px; }
+  /* On narrow screens shorten wave-meta text so it doesn't overflow
+     into the HUD controls — the JS already truncates to ~30 chars
+     but CSS also clips via ellipsis as a safety net. */
+  .wave-meta {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* Ensure modals scroll on short viewports (landscape phones) */
+.setup-screen, .pause-screen, .end-screen, .question-screen {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hammer power-up timer shown in wave-meta can be long; keep it readable.
+   On very narrow screens the wave-meta is already capped above; on wider
+   screens we just ensure it never wraps by keeping nowrap on the wave-ribbon. */
+.wave-ribbon { white-space: nowrap; }
+
+/* Tome drop animation — ensure the tome popup text always renders above
+   the barrel layer (z-index 40 already set on .popup-overlay; reinforce). */
+.popup-overlay { isolation: isolate; }
+
+/* Spotlight: the radial beam extends r*4.5 = ~162px from the centre point.
+   On small viewports the HUD strip (z-index 30) sits on top, which is correct;
+   no z-index change needed. We add a CSS guard so the magnate spotlight
+   glow never creates a white-out on screens < 400px wide by reducing opacity. */
+@media (max-width: 400px) {
+  /* Scanline overlay toned down so the spotlight glow stays readable */
+  .scanline-overlay { opacity: .4; }
 }
 
 /* End screen grid */
@@ -761,3 +804,38 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

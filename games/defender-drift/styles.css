@@ -102,6 +102,13 @@ kbd {
   touch-action: none;
   cursor: pointer;
 }
+/* On mobile with touch controls visible, shrink canvas to leave room for control strip */
+@media (max-width: 720px) {
+  #defenderCanvas {
+    bottom: 78px; /* approximate touch-controls bar height */
+    height: calc(100% - 78px);
+  }
+}
 
 /* Subtle scanline overlay */
 .scanline-overlay {
@@ -124,11 +131,13 @@ kbd {
   .scanline-overlay { display: none; }
 }
 
-/* Top HUD */
+/* Top HUD — z-index 8800 keeps it above canvas (0) + scanline (5) + ribbon (25)
+   but below modals (9000+). The mini-radar is drawn on-canvas at the top of the
+   logical canvas, so the HUD sits on top without covering gameplay. */
 .top-hud {
   position: absolute;
   top: 0; left: 0; right: 0;
-  z-index: 30;
+  z-index: 8800;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -269,28 +278,32 @@ kbd {
   margin-left: 4px;
 }
 
-/* Touch controls — patrol layout: thrust + climb/dive + fire + bomb */
+/* Touch controls — separate flexbox row below canvas; never overlaps canvas */
 .touch-controls {
+  /* Positioned in normal flow on mobile via defender-shell flex column */
   position: absolute;
-  bottom: 14px;
+  bottom: 0;
   left: 0; right: 0;
   z-index: 28;
   display: none;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 0 14px;
-  gap: 8px;
+  padding: 6px 10px env(safe-area-inset-bottom, 6px);
+  gap: 6px;
+  background: rgba(2,4,12,.75);
+  border-top: 1px solid var(--line);
 }
 .tc-btn {
   position: relative;
-  min-width: 56px; min-height: 56px;
+  min-width: 52px; min-height: 52px;
   border-radius: 12px;
   border: 1px solid var(--cyan);
   background: rgba(4,8,18,.7);
   color: var(--cyan);
   font-family: 'JetBrains Mono', monospace;
   font-weight: 800;
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: .05em;
   box-shadow: 0 0 12px rgba(93,224,240,.18);
   transition: background .15s, transform .12s;
@@ -299,8 +312,8 @@ kbd {
   border-color: var(--magenta);
   color: var(--magenta);
   box-shadow: 0 0 14px rgba(240,114,212,.28);
-  min-width: 70px; min-height: 70px;
-  font-size: 24px;
+  min-width: 64px; min-height: 64px;
+  font-size: 22px;
 }
 .tc-btn.tc-bomb {
   border-color: var(--gold);
@@ -311,7 +324,7 @@ kbd {
 .tc-btn.tc-fire:active { background: rgba(240,114,212,.18); }
 .tc-btn.tc-bomb:active { background: rgba(245,196,81,.18); }
 @media (max-width: 720px) {
-  .touch-controls { display: flex; flex-wrap: wrap; }
+  .touch-controls { display: flex; }
 }
 
 /* Combo callout overlay */
@@ -366,16 +379,30 @@ kbd {
 }
 
 /* Modal screens — shared */
-.setup-screen, .pause-screen, .end-screen, .question-screen {
+/* z-index hierarchy: setup/pause/end = 9000, question = 9500 */
+.setup-screen, .pause-screen, .end-screen {
   position: absolute;
   inset: 0;
-  z-index: 80;
+  z-index: 9000;
   display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
   background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(6,12,28,.9) 0%, rgba(2,4,12,.96) 80%);
   backdrop-filter: blur(6px);
+  overflow-y: auto;
+}
+.question-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 9500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(6,12,28,.9) 0%, rgba(2,4,12,.96) 80%);
+  backdrop-filter: blur(6px);
+  overflow-y: auto;
 }
 .setup-screen.show, .pause-screen.show, .end-screen.show, .question-screen.show {
   display: flex;
@@ -392,13 +419,14 @@ kbd {
 .setup-card {
   width: 100%;
   max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
   padding: 28px 32px 32px;
   border-radius: 18px;
   background: var(--panel-strong);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-deep);
   position: relative;
-  overflow: hidden;
 }
 .setup-card.compact { max-width: 480px; padding: 24px 28px; }
 
@@ -580,6 +608,8 @@ kbd {
 .question-card {
   width: 100%;
   max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
   padding: 24px 28px;
   border-radius: 18px;
   background: var(--panel-strong);
@@ -672,14 +702,37 @@ kbd {
 .explanation.is-correct { color: var(--emerald); }
 .explanation.is-wrong { color: var(--danger); }
 
+/* Brand subhead: clamp long text so it never wraps HUD */
+.brand-sub {
+  max-width: 60ch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Setup-sub long text protection */
+.setup-sub { max-width: 60ch; }
+
+@media (max-width: 720px) {
+  /* HUD: wrap stats onto second row to avoid overflow */
+  .top-hud { flex-wrap: wrap; gap: 6px; padding: 8px 10px; }
+  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; flex-wrap: wrap; }
+  .stat-cell { min-width: 46px; padding: 3px 6px; }
+  .stat-value { font-size: 13px; }
+  .stat-label { font-size: 8px; }
+  .brand-title { font-size: 17px; }
+  .brand-sub { display: none; } /* hide on very narrow to save space */
+  .wave-ribbon { top: 100px; font-size: 11px; max-width: 92vw; }
+}
+
 @media (max-width: 540px) {
   .choice-grid { grid-template-columns: 1fr; }
-  .setup-card h1 { font-size: 32px; }
-  .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
-  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
-  .stat-cell { min-width: 50px; padding: 3px 6px; }
-  .stat-value { font-size: 14px; }
-  .wave-ribbon { top: 110px; }
+  .setup-card h1 { font-size: 30px; }
+  .setup-card h2 { font-size: 22px; }
+  .setup-card { padding: 18px 16px 22px; }
+  .setup-actions { flex-wrap: wrap; }
+  .btn { width: 100%; justify-content: center; }
+  .end-grid { grid-template-columns: 1fr; }
 }
 
 /* End screen grid */
@@ -709,16 +762,18 @@ kbd {
   color: var(--gold);
 }
 
-/* Resume / leaderboard panels */
+/* Resume / leaderboard panels — always above canvas, below modal content */
 .resume-card, .leaderboard-panel {
   position: relative;
-  z-index: 2;
+  z-index: 5;
   margin: 12px 0 0;
   padding: 12px 14px;
   border-radius: 10px;
   background: rgba(255,255,255,.04);
   border: 1px solid var(--line);
   font-size: 13px;
+  max-height: 30vh;
+  overflow-y: auto;
 }
 .resume-card-title, .leaderboard-title {
   font-size: 11px;
@@ -733,7 +788,7 @@ kbd {
   margin-bottom: 8px;
   font-size: 12px;
 }
-.resume-actions { display: flex; gap: 8px; }
+.resume-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .leaderboard-row {
   display: flex;
   justify-content: space-between;
@@ -745,3 +800,48 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+/* End-screen: ensure action buttons always visible */
+#endScreen .setup-actions {
+  position: sticky;
+  bottom: 0;
+  background: var(--panel-strong);
+  padding-top: 10px;
+  padding-bottom: 4px;
+  z-index: 2;
+}
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

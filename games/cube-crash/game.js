@@ -22,7 +22,7 @@
   var BOARD_W = GRID_N * TILE + (GRID_N + 1) * GAP;     // ~528
   var BOARD_X = (LOGICAL_W - BOARD_W) / 2;              // centered
   var BOARD_Y = 110;                                    // below ribbon
-  var ARROW_SIZE = 36;                  // hit-area for row/column arrows
+  var ARROW_SIZE = 44;                  // hit-area for row/column arrows (≥44 for mobile tap targets)
 
   // Round / pacing
   var ROUND_BASE_GOAL = 25;             // tiles to clear in round 1
@@ -793,6 +793,9 @@
     // Targetable powerups need an arming step.
     if (pu === "hammer" || pu === "colorbomb") {
       armedPowerup = (armedPowerup === pu) ? null : pu;
+      // Reflect armed state on <body> so CSS can switch cursor on canvas for touch clarity
+      if (armedPowerup) document.body.classList.add("armed-powerup");
+      else document.body.classList.remove("armed-powerup");
       sfx.powerupUse();
       updatePowerupTrayUi();
       return true;
@@ -835,6 +838,7 @@
     if (!t || t.clearing) return;
     state.powerups.hammer -= 1;
     armedPowerup = null;
+    document.body.classList.remove("armed-powerup");
     sfx.powerupUse();
     var p = tileXY(r, c);
     burstAt(p.x + TILE / 2, p.y + TILE / 2, "#fff", t.scholar);
@@ -866,6 +870,7 @@
     var color = pivotTile.colorIdx;
     state.powerups.colorbomb -= 1;
     armedPowerup = null;
+    document.body.classList.remove("armed-powerup");
     sfx.powerupUse();
     var hits = [];
     for (var rr = 0; rr < GRID_N; rr++) {

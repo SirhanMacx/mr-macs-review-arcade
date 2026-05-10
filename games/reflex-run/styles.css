@@ -65,7 +65,7 @@ body {
 }
 button, select { font: inherit; }
 button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
-button:disabled { cursor: wait; opacity: .55; }
+button:disabled { cursor: not-allowed; opacity: .55; }
 
 .mono {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
@@ -242,11 +242,16 @@ kbd {
   gap: 10px;
   padding: 6px 16px;
   border-radius: 999px;
-  background: rgba(4,8,18,.7);
+  background: rgba(4,8,18,.82);
   border: 1px solid var(--line);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   font-size: 12px;
   pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: calc(100vw - 28px);
+  text-overflow: ellipsis;
   transition: border-color .6s var(--ease), color .6s var(--ease);
 }
 .wave-kicker {
@@ -299,14 +304,20 @@ kbd {
 @media (max-width: 720px) {
   .touch-controls {
     display: grid;
-    grid-template-columns: 60px 60px 60px;
-    grid-template-rows: 60px 60px;
-    gap: 6px;
-    max-width: 200px;
-    margin: 0 auto;
-    right: 14px;
+    grid-template-columns: 56px 56px 56px;
+    grid-template-rows: 56px 56px;
+    gap: 5px;
+    max-width: 188px;
+    margin: 0;
+    right: 10px;
     left: auto;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    /* Keep d-pad from overlapping the road vanishing-point center */
+    /* At 375px wide the right-anchored 188px pad stays within 375-188-10 = 177px from left */
+    /* Vanishing point is always at 50% of canvas scale — center is safe */
+    opacity: 0.82;
   }
+  .tc-btn { min-width: 56px; min-height: 56px; }
   .tc-up    { grid-column: 2; grid-row: 1; }
   .tc-left  { grid-column: 1; grid-row: 2; }
   .tc-down  { grid-column: 2; grid-row: 2; }
@@ -683,7 +694,7 @@ kbd {
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
   .stat-cell { min-width: 52px; padding: 3px 8px; }
   .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 110px; }
+  .wave-ribbon { top: 118px; }
 }
 
 /* End screen grid */
@@ -749,3 +760,38 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

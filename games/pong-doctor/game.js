@@ -480,11 +480,18 @@
     state.balls.push(b1);
     if (state.mod === "multiball") {
       var dir2 = direction * (Math.random() < 0.5 ? 1 : -1);
+      // Clamp spawn y so second ball always starts inside court
+      var courtMid = (COURT_TOP + COURT_BOTTOM) / 2;
+      var b2Y = clamp(
+        courtMid + (Math.random() < 0.5 ? -50 : 50),
+        COURT_TOP + BALL_R + 6,
+        COURT_BOTTOM - BALL_R - 6
+      );
       var b2 = makeBall({
         x: NET_X,
-        y: (COURT_TOP + COURT_BOTTOM) / 2 + (Math.random() < 0.5 ? -40 : 40),
+        y: b2Y,
         vx: dir2 * BALL_SPEED_INIT * 0.92,
-        vy: (Math.random() - 0.5) * 240,
+        vy: (Math.random() - 0.5) * 220,
         speed: BALL_SPEED_INIT * 0.92,
         tag: "second"
       });
@@ -705,11 +712,15 @@
     if (state.mod === "curveball" && b.spin !== 0) {
       // Curve adjusts vy over time scaled by curveDir (reverse-curve flips)
       b.vy += b.spin * b.curveDir * dt * 200;
+      // Clamp vy to prevent unbounded spin flicker at high speeds
+      b.vy = clamp(b.vy, -b.speed * 0.92, b.speed * 0.92);
     }
     if (b.isTrick) {
       // Trick shot — chaotic curves
       b.spin += (Math.random() - 0.5) * 0.6 * dt;
+      b.spin = clamp(b.spin, -BALL_SPIN_MAX * 1.8, BALL_SPIN_MAX * 1.8);
       b.vy += b.spin * b.curveDir * dt * 280;
+      b.vy = clamp(b.vy, -b.speed * 0.92, b.speed * 0.92);
     }
     // Move
     b.x += b.vx * dt;
@@ -1747,6 +1758,7 @@
 
   // -- Input -----------------------------------------------------------------
   var input = { keyUp: false, keyDown: false, mouseY: null };
+  var lastInputWasTouch = false; // suppress synthetic mouse events after touch
 
   function bindInput() {
     document.addEventListener("keydown", function (e) {
@@ -1802,15 +1814,19 @@
 
   function bindCanvasMouse() {
     canvas.addEventListener("mousemove", function (e) {
+      // Ignore synthetic mouse events fired right after touch on mobile
+      if (lastInputWasTouch) return;
       if (!state) return;
       var p = canvasToLogical(e.clientX, e.clientY);
       input.mouseY = clamp(p.y, COURT_TOP + 4, COURT_BOTTOM - 4);
     });
     canvas.addEventListener("mouseleave", function () {
-      input.mouseY = null;
+      // On touch devices this fires on tap-outside; only null if not in touch mode
+      if (!lastInputWasTouch) input.mouseY = null;
     });
     canvas.addEventListener("touchstart", function (e) {
       if (!state) return;
+      lastInputWasTouch = true;
       if (e.touches && e.touches.length === 1) {
         var t = e.touches[0];
         var p = canvasToLogical(t.clientX, t.clientY);
@@ -1822,6 +1838,7 @@
     }, { passive: false });
     canvas.addEventListener("touchmove", function (e) {
       if (!state) return;
+      lastInputWasTouch = true;
       if (e.touches && e.touches.length === 1) {
         var t = e.touches[0];
         var p = canvasToLogical(t.clientX, t.clientY);
@@ -1830,7 +1847,9 @@
       }
     }, { passive: false });
     canvas.addEventListener("touchend", function () {
-      // keep last position; do not null it
+      // Keep last position; clear touch flag after brief delay so real mouse
+      // users on desktop aren't permanently locked out.
+      setTimeout(function () { lastInputWasTouch = false; }, 500);
     });
   }
 

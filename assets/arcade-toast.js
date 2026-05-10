@@ -42,9 +42,12 @@
   var container = null;
   var initialized = false;
   var idSeq = 0;
-  var MAX_VISIBLE = 4;
+  var MAX_VISIBLE = 3;              // Fix #4: cap at 3 visible toasts (was 4)
   var DEDUP_WINDOW_MS = 2000;
   var DEDUP_THRESHOLD = 3;
+  var DEFAULT_MS = 3500;            // Fix #4: default auto-dismiss ms (was 3200 / 4500)
+  var ACHIEVEMENT_MS = 6500;        // Fix #4: achievement toasts get longer display
+  var MAX_ACHIEVEMENT_VISIBLE = 1;  // Fix #4: at most 1 achievement toast at a time
   var prefersReduced = false;
 
   // ─── Web Audio (lazy, per-tone pings) ────────────────────────────────
@@ -110,12 +113,20 @@
     if (document.getElementById("arcade-toast-styles")) return;
     var css = '\
 .arcade-toast-container {\
-  position: fixed; z-index: 9000;\
-  right: clamp(14px, 2vw, 28px); bottom: clamp(14px, 2vh, 28px);\
+  position: fixed;\
+  z-index: 9000;\
+  right: 16px; top: 80px;\
   display: flex; flex-direction: column; align-items: flex-end;\
   gap: 10px;\
   pointer-events: none;\
-  max-width: min(360px, calc(100vw - 28px));\
+  max-width: 380px;\
+}\
+@media (max-width: 600px) {\
+  .arcade-toast-container {\
+    right: auto; top: 64px;\
+    left: 50%; transform: translateX(-50%);\
+    align-items: center;\
+  }\
 }\
 .arcade-toast {\
   pointer-events: auto;\
@@ -265,8 +276,13 @@
 .arcade-toast.is-sticky { cursor: default; }\
 \
 @media (prefers-reduced-motion: reduce) {\
-  .arcade-toast { transition: opacity .2s ease; transform: none; }\
-  .arcade-toast.is-in, .arcade-toast.is-out { transform: none; }\
+  .arcade-toast { transition: opacity .15s ease; transform: none !important; }\
+  .arcade-toast.is-in { opacity: 1; }\
+  .arcade-toast.is-out { opacity: 0; }\
+  .arcade-toast-container { transform: none !important; }\
+}\
+@media (prefers-reduced-motion: reduce) and (max-width: 600px) {\
+  .arcade-toast-container { left: 50%; transform: translateX(-50%) !important; }\
 }\
 @media print { .arcade-toast-container { display: none !important; } }\
 ';
@@ -326,8 +342,8 @@
           icon: def.icon || "trophy",
           title: def.title || "Achievement unlocked",
           sub: (def.tier || "").toUpperCase() + " · " + (def.desc || ""),
-          tone: "achievement",
-          ms: 4800
+          tone: "achievement"
+          // ms intentionally omitted — push() applies ACHIEVEMENT_MS automatically
         });
       });
       P.on("streak:advance", function (e) {
@@ -500,7 +516,13 @@
     }
 
     var id = ++idSeq;
-    var ms = typeof opts.ms === "number" ? opts.ms : 3200;
+    // Fix #4: achievement tone gets its own longer duration; everything else uses DEFAULT_MS
+    var defaultMs = (tone === "achievement") ? ACHIEVEMENT_MS : DEFAULT_MS;
+    var ms = typeof opts.ms === "number" ? opts.ms : defaultMs;
+    // Fix #7: reduced-motion users get instant fade — halve timer so toasts clear faster
+    if (prefersReduced && !opts.sticky) {
+      ms = Math.min(ms, 2000);
+    }
     var sticky = !!opts.sticky;
     var el = buildToast(opts, id);
 
@@ -564,6 +586,19 @@
   }
 
   function enforceCap() {
+    // Fix #4: achievement tone — at most MAX_ACHIEVEMENT_VISIBLE visible at once.
+    // Dismiss older achievement toasts before applying the global cap.
+    var achCount = 0;
+    for (var a = stack.length - 1; a >= 0; a--) {
+      var ae = stack[a];
+      if (ae._dismissed) continue;
+      if (ae.opts.tone === "achievement") {
+        achCount++;
+        if (achCount > MAX_ACHIEVEMENT_VISIBLE && !ae.opts.sticky) {
+          ae.dismiss();
+        }
+      }
+    }
     if (stack.length <= MAX_VISIBLE) return;
     // Prefer to drop the oldest non-sticky first
     for (var i = 0; i < stack.length && stack.length > MAX_VISIBLE; i++) {
@@ -599,8 +634,8 @@
       icon: (def && def.icon) || "trophy",
       title: (def && def.title) || "Achievement unlocked",
       sub: ((def && def.tier) || "").toUpperCase() + " · " + ((def && def.desc) || ""),
-      tone: "achievement",
-      ms: 4800
+      tone: "achievement"
+      // ms intentionally omitted — push() will apply ACHIEVEMENT_MS automatically
     });
   }
 

@@ -201,8 +201,21 @@ textarea:focus-visible {
 }
 
 /* ============== Topbar ============== */
+/* FIX-1: z-index hierarchy — topbar must beat toast layer (9000-9499)
+   and be visible above all hub content.
+   Stack:
+     bg canvas / scanlines : z-index -5 to -2
+     hub cards / rails     : z-index 0-500 (local stacking contexts)
+     player modal          : z-index 100
+     topbar                : z-index 800
+     skip-link             : z-index 999 (already)
+     routing / drawer      : z-index 8500-8800
+     welcome overlay       : z-index 9000
+     toast layer           : z-index 9000-9499 (offset top:80px)
+     celebration canvas    : z-index 9700+ pointer-events:none
+     scroll progress       : z-index 9800 (already)                  */
 .topbar {
-  position: sticky; top: 0; z-index: 50;
+  position: sticky; top: 0; z-index: 800;
   border-bottom: 1px solid var(--line);
   background:
     linear-gradient(180deg, rgba(8,3,16,.88), rgba(3,2,10,.64)),
@@ -1048,11 +1061,23 @@ textarea:focus-visible {
   content: ""; width: 6px; height: 6px; border-radius: 50%;
   background: var(--gold); box-shadow: 0 0 10px var(--gold);
 }
+/* FIX-6: lane-tabs — scroll-x with hidden scrollbar on tablet/mobile;
+   wrap only on desktop where space exists.                               */
 .lane-tabs {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   margin: -10px 0 18px;
+}
+@media (max-width: 900px) {
+  .lane-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .lane-tabs::-webkit-scrollbar { display: none; }
+  .lane-tab { flex: 0 0 auto; }
 }
 .lane-tab {
   min-height: 38px;
@@ -1146,7 +1171,8 @@ textarea:focus-visible {
   opacity: .8;
   transition: width .3s var(--ease-out);
 }
-.game-card:hover { transform: translateY(-3px); border-color: var(--line-3); box-shadow: var(--shadow-2); }
+/* FIX-4: library card — lift on hover with smooth transition */
+.game-card:hover { transform: translateY(-5px); border-color: color-mix(in oklab, var(--accent, #7af0ff) 55%, white 10%); box-shadow: var(--shadow-2), 0 0 28px color-mix(in oklab, var(--accent, #7af0ff) 16%, transparent); }
 .game-card:hover::before { width: 5px; }
 .gc-art {
   position: relative;
@@ -2506,7 +2532,9 @@ select.field {
 
 @media (max-width: 760px) {
   .topbar {
-    position: relative;
+    /* FIX-9: keep sticky on mobile — position:relative broke scrolling header */
+    position: sticky;
+    top: 0;
   }
   .topbar-inner {
     grid-template-columns: minmax(0, 1fr) auto;
@@ -3610,6 +3638,37 @@ body {
 
 .footer {
   margin-bottom: 0;
+}
+
+/* FIX-10: search input — ensure native type=search cancel button is visible
+   and styled to match the arcade dark theme.                            */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--muted, #8d97b0);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='currentColor' d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E") center / 18px no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='currentColor' d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E") center / 18px no-repeat;
+  cursor: pointer;
+  opacity: .6;
+  transition: opacity .2s;
+}
+input[type="search"]::-webkit-search-cancel-button:hover { opacity: 1; background: var(--paper, #f6f4ee); }
+
+/* FIX-8: < 480px — drop gutter from var(--gutter, 32px) to 16px so
+   band content doesn't hug the edges on very small phones.             */
+@media (max-width: 480px) {
+  .quick-insights-band { padding-left: 16px; padding-right: 16px; }
+  .daily-card,
+  .daily-plan-card,
+  .testprep-card,
+  .nba-pill,
+  .whats-new-card,
+  .round3-callout-card {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 @media (max-width: 760px) {
@@ -5339,10 +5398,12 @@ body {
 }
 
 /* Toast for achievement unlocks */
+/* FIX-2: toast top offset — push below topbar (≈70-80px) so it never
+   obscures the profile pill, which lives inside the topbar at z-800.   */
 .ach-toast {
   position: fixed;
-  top: 20px; right: 20px;
-  z-index: 9500;
+  top: 80px; right: 20px;
+  z-index: 9200;
   display: flex; align-items: center; gap: 12px;
   padding: 12px 16px;
   max-width: 360px;
@@ -5385,7 +5446,8 @@ body {
   margin-top: 2px;
 }
 @media (max-width: 600px) {
-  .ach-toast { left: 12px; right: 12px; max-width: none; top: 12px; }
+  /* FIX-2b: on mobile topbar is taller (two rows) — offset toast further */
+  .ach-toast { left: 12px; right: 12px; max-width: none; top: 96px; }
 }
 
 /* ============================================================================
@@ -5832,16 +5894,34 @@ body {
   background:
     radial-gradient(120% 100% at 100% 0%, rgba(245, 196, 81, .12), transparent 60%),
     linear-gradient(180deg, rgba(13, 17, 27, .82), rgba(8, 11, 20, .92));
-  border: 1px solid rgba(245, 196, 81, .35);
+  /* FIX-3: subtle gold glow on default state + scale on hover */
+  border: 1px solid rgba(245, 196, 81, .42);
   border-radius: 18px;
   -webkit-backdrop-filter: blur(12px) saturate(1.2);
   backdrop-filter: blur(12px) saturate(1.2);
   box-shadow:
     0 1px 0 rgba(255,255,255,.06) inset,
     0 24px 60px rgba(0,0,0,.45),
-    0 0 60px rgba(245, 196, 81, .08);
+    0 0 28px rgba(245, 196, 81, .14);
   position: relative;
   overflow: hidden;
+  transition: transform .28s cubic-bezier(.2,.7,.2,1), border-color .28s, box-shadow .28s;
+}
+.daily-card:hover {
+  transform: translateY(-3px) scale(1.005);
+  border-color: rgba(245, 196, 81, .68);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 28px 70px rgba(0,0,0,.52),
+    0 0 48px rgba(245, 196, 81, .26);
+}
+@media (hover: none) {
+  /* Touch devices: skip the hover scale to avoid sticky transformed state */
+  .daily-card:hover { transform: none; border-color: rgba(245, 196, 81, .42); box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 24px 60px rgba(0,0,0,.45), 0 0 28px rgba(245, 196, 81, .14); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .daily-card { transition: none; }
+  .daily-card:hover { transform: none; }
 }
 .daily-card::before {
   content: "";
@@ -6311,6 +6391,15 @@ body {
   border-color: rgba(255, 216, 132, .85);
   box-shadow: 0 0 14px rgba(245, 196, 81, .42);
 }
+/* FIX-5: NEW-flagship card — persistent gold border + eye-catching gold glow on hover */
+.game-card:has(.badge.is-new) {
+  border-color: rgba(245, 196, 81, .38);
+  box-shadow: var(--shadow-1), 0 0 18px rgba(245, 196, 81, .12);
+}
+.game-card:has(.badge.is-new):hover {
+  border-color: rgba(245, 196, 81, .72);
+  box-shadow: var(--shadow-2), 0 0 40px rgba(245, 196, 81, .30);
+}
 
 /* Library random button + library-meta wrapper */
 .library-meta {
@@ -6346,11 +6435,23 @@ body {
 .library-random:active .lr-icon { transform: rotate(180deg) scale(1.05); transition: transform .35s; }
 
 /* Topic chips */
+/* FIX-7: topic chips — scroll-x on narrow screens so they don't wrap */
 .topic-chips {
   display: flex; flex-wrap: wrap; gap: 8px;
   margin: 8px 0 14px;
 }
 .topic-chips[hidden] { display: none; }
+@media (max-width: 640px) {
+  .topic-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .topic-chips::-webkit-scrollbar { display: none; }
+  .topic-chips .topic-chip { flex: 0 0 auto; }
+}
 .topic-chips .topic-chip {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 7px 13px;
@@ -8415,7 +8516,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     <div class="lane-tabs reveal" id="laneTabs" aria-label="Library shortcuts"></div>
     <div class="topic-chips reveal" id="topicChips" aria-label="Quick topic filters" hidden></div>
     <section class="filters reveal" aria-label="Game filters">
-      <input class="field search" id="search" type="search" autocomplete="off" placeholder="Search civil rights · imperialism · cold war · memory…">
+      <input class="field search" id="search" type="search" autocomplete="off" placeholder="Search civil rights · imperialism · cold war · memory…" aria-label="Search games">
       <select class="field" id="courseFilter"></select>
       <select class="field" id="subjectFilter"></select>
       <select class="field" id="typeFilter"></select>
@@ -8562,8 +8663,8 @@ let lastPlayerFocus = null;
 // (rounds 1, 1.5, 2) and the existing premium classics so new players
 // always land on something fresh.
 const FEATURED_GAME_IDS = [
-  // Newest first — round 3 mega drop (sprinkle 10 across the head of the carousel)
-  "snake-pit", "chess-cabinet", "pinball-empire", "defender-drift",
+  // Newest first — round 3 mega drop (sprinkle across the head of the carousel)
+  "snake-pit", "chess-cabinet", "defender-drift",
   "boggle-beat", "memory-palace", "knights-quest", "crossword-cabinet",
   "pong-doctor", "atlas-2048",
   // Round 2
@@ -8594,8 +8695,9 @@ const PREMIUM_ARCADE_IDS = new Set([
   "galaxy-defender", "echo-hall", "sokoban-scribe", "centiquill", "anagram-atlas",
   // ── Round 2 sweep
   "tron-trails", "plinko-lab", "tower-climb", "mahjong-mosaic", "reflex-run",
-  // ── Round 3 mega drop (May 9 2026) — 16 cabinets covering every classic genre
-  "snake-pit", "pinball-empire", "defender-drift", "boggle-beat",
+  // ── Round 3 mega drop (May 9 2026) — 15 cabinets covering classic genres
+  // (pinball-empire removed May 10 — overlapped with existing chrono-pinball)
+  "snake-pit", "defender-drift", "boggle-beat",
   "sudoku-scribe", "memory-palace", "knights-quest", "crossword-cabinet",
   "pong-doctor", "atlas-2048", "bomb-scribe", "chess-cabinet",
   "solitaire-hall", "archive-tycoon", "cube-crash", "word-bridge"
@@ -9340,8 +9442,8 @@ function cumulativeJeopardyPicks() {
 // hid the May 2026 sweep behind hard-coded old-classics arrays.
 // Order matters: newest first so they surface on the front page.
 const NEW_FLAGSHIP_IDS = [
-  // Round-3 mega drop (May 9 2026) — 16 cabinets
-  "snake-pit", "pinball-empire", "defender-drift", "boggle-beat",
+  // Round-3 mega drop (May 9 2026) — 15 cabinets (pinball-empire removed: overlapped chrono-pinball)
+  "snake-pit", "defender-drift", "boggle-beat",
   "sudoku-scribe", "memory-palace", "knights-quest", "crossword-cabinet",
   "pong-doctor", "atlas-2048", "bomb-scribe", "chess-cabinet",
   "solitaire-hall", "archive-tycoon", "cube-crash", "word-bridge",
@@ -9366,7 +9468,7 @@ function smartMenuGames(laneId) {
   // recommended / popular / arcade so a fresh player lands on something
   // brand new even before any progress signal exists.
   const round3Picks = pickGames([
-    "snake-pit", "chess-cabinet", "pinball-empire", "memory-palace",
+    "snake-pit", "chess-cabinet", "memory-palace",
     "boggle-beat", "knights-quest", "crossword-cabinet", "defender-drift",
     "pong-doctor", "atlas-2048"
   ]);
@@ -10199,7 +10301,7 @@ async function boot() {
       }
     });
   } catch (error) {
-    console.error(error);
+    if (window.MrMacsDebug) console.error(error);
     document.getElementById("countLabel").textContent = "Games failed to load";
     grid.innerHTML = (
       '<div class="empty" role="alert">' +
@@ -10213,6 +10315,23 @@ async function boot() {
 }
 
 boot();
+
+// FIX-11: Delegated handler for all data-rail rail-btn prev/next buttons.
+// The original renderCourseTiles() only wires the first .rail-btn in the DOM
+// (querySelector) — this handles continueRail, newCabinetRail, and any others.
+(function () {
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest(".rail-btn[data-rail]");
+    if (!btn) return;
+    var railId = btn.dataset.rail;
+    var rail = document.getElementById(railId);
+    if (!rail) return;
+    var isPrev = btn.classList.contains("prev");
+    var card = rail.querySelector("[class*='card']");
+    var step = card ? card.offsetWidth + 14 : 280;
+    rail.scrollBy({ left: isPrev ? -step * 2 : step * 2, behavior: "smooth" });
+  });
+})();
 
 // ============================================================================
 // PHASE 1 — Player Identity & Cross-Game Loop
@@ -11946,8 +12065,8 @@ boot();
   // Drawn from games.json by ID so it stays in sync as we add games.
   // Order matters — newest first.
   var NEW_FLAGSHIPS = [
-    // Round 3 mega drop (May 9 2026) — 16 cabinets, every classic genre
-    "snake-pit", "pinball-empire", "defender-drift", "boggle-beat",
+    // Round 3 mega drop (May 9 2026) — 15 cabinets (pinball-empire removed: chrono-pinball overlap)
+    "snake-pit", "defender-drift", "boggle-beat",
     "sudoku-scribe", "memory-palace", "knights-quest", "crossword-cabinet",
     "pong-doctor", "atlas-2048", "bomb-scribe", "chess-cabinet",
     "solitaire-hall", "archive-tycoon", "cube-crash", "word-bridge",
@@ -12203,6 +12322,9 @@ boot();
         '</span>' +
       '</div>';
     }).join("");
+    // FIX-12: "See all" button visible only when there are 4+ unlocks
+    var moreBtn = document.getElementById("achStripMore");
+    if (moreBtn) moreBtn.hidden = (unlocked.length < 4);
     band.hidden = false;
   }
 

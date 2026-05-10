@@ -140,6 +140,7 @@ kbd {
   padding: 10px 16px;
   background: linear-gradient(180deg, rgba(8, 10, 16, .92) 0%, rgba(8, 10, 16, .7) 60%, transparent 100%);
   pointer-events: auto;
+  flex-wrap: wrap;
 }
 
 .brand {
@@ -179,6 +180,7 @@ kbd {
   gap: 8px;
   flex: 1 1 auto;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .stat-cell {
   display: flex;
@@ -188,13 +190,14 @@ kbd {
   border-radius: 8px;
   background: rgba(8, 10, 16, .55);
   border: 1px solid var(--line);
-  min-width: 60px;
+  min-width: 54px;
 }
 .stat-value {
   font-size: 17px;
   font-weight: 800;
   color: var(--text);
   line-height: 1;
+  white-space: nowrap;
 }
 .stat-label {
   font-size: 9px;
@@ -202,6 +205,7 @@ kbd {
   letter-spacing: .12em;
   text-transform: uppercase;
   margin-top: 2px;
+  white-space: nowrap;
 }
 .stat-cell.is-warning .stat-value { color: var(--gold); }
 .stat-cell.is-danger .stat-value { color: var(--danger); animation: timerPulse .35s ease-in-out infinite alternate; }
@@ -240,8 +244,18 @@ kbd {
   padding: 1px 5px;
   border-radius: 4px;
 }
-.hud-btn.is-spent { color: var(--muted); }
-.hud-btn.is-spent .round-cost { color: var(--muted); background: rgba(255, 230, 180, .04); }
+.hud-btn.is-spent { color: var(--muted); cursor: not-allowed; }
+.hud-btn.is-spent .round-cost {
+  color: var(--muted);
+  background: rgba(255, 230, 180, .04);
+  /* strike-through count label when depleted */
+  text-decoration: line-through;
+}
+/* Zero remaining — make the count badge stand out as a warning */
+.round-cost[data-count="0"] {
+  color: var(--danger);
+  background: rgba(240, 72, 96, .12);
+}
 
 .glass-pill { border-radius: 999px; }
 
@@ -263,6 +277,11 @@ kbd {
   font-size: 12px;
   pointer-events: none;
   transition: border-color .6s var(--ease), color .6s var(--ease);
+  /* prevent overflow on narrow screens, keep clear of powerup tray */
+  max-width: calc(100vw - 200px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .wave-kicker {
   color: var(--muted);
@@ -463,8 +482,8 @@ kbd {
 .active-clue-bar {
   margin-top: 10px;
   padding: 8px 14px;
-  background: rgba(8, 10, 16, .7);
-  border: 1px solid var(--line);
+  background: rgba(8, 10, 16, .82);
+  border: 1px solid rgba(245, 196, 81, .28);   /* gold-tinted so it reads clearly */
   border-radius: 999px;
   display: flex;
   gap: 10px;
@@ -473,6 +492,13 @@ kbd {
   width: 100%;
   font-size: 13px;
   flex-shrink: 0;
+  /* prevent text overflow on narrow screens */
+  overflow: hidden;
+}
+.active-clue-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .active-clue-tag {
   color: var(--gold);
@@ -500,14 +526,20 @@ kbd {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 12px;
+  /* outer container clips to rounded corners */
   overflow: hidden;
   box-shadow: var(--shadow-panel);
+  /* ensure the panel itself doesn't collapse */
+  min-height: 0;
 }
 .clue-column {
   flex: 1 1 50%;
   display: flex;
   flex-direction: column;
   min-width: 0;
+  min-height: 0;
+  /* each column scrolls independently */
+  overflow: hidden;
 }
 .clue-heading {
   font-family: 'Fraunces', serif;
@@ -526,8 +558,11 @@ kbd {
   margin: 0;
   padding: 0;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   font-size: 12px;
   line-height: 1.4;
+  flex: 1 1 0;   /* fill remaining column height so scrollbar kicks in */
+  min-height: 0;
 }
 .clue-list li {
   padding: 5px 8px;
@@ -551,14 +586,14 @@ kbd {
   min-width: 18px;
 }
 
-/* Mobile keyboard */
+/* Mobile keyboard — height 60px, z=25, bottom anchored */
 .mini-kbd {
   position: absolute;
   bottom: 0;
   left: 0; right: 0;
   z-index: 25;
-  height: 56px;
-  background: rgba(8, 10, 16, .85);
+  height: 60px;
+  background: rgba(8, 10, 16, .92);
   border-top: 1px solid var(--line);
   display: none;
   align-items: center;
@@ -566,6 +601,8 @@ kbd {
   padding: 6px 8px;
   gap: 4px;
   flex-wrap: wrap;
+  /* safe area so keyboard clears home bar on iPhone */
+  padding-bottom: max(6px, env(safe-area-inset-bottom, 6px));
 }
 .mini-kbd .key {
   flex: 1 1 28px;
@@ -586,8 +623,10 @@ kbd {
 .mini-kbd .key:hover { background: rgba(255, 230, 180, .12); }
 .mini-kbd .key.wide { flex: 1.5 1 50px; }
 
-/* Modal screens — shared */
-.setup-screen, .pause-screen, .end-screen, .question-screen, .clear-screen {
+/* Modal screens — shared
+   z-index ladder: scanline=5, popup-overlay=50, HUD=30, wave=25, powerup=26
+   question-screen=90 sits above popup overlay (50) and base modals (80)      */
+.setup-screen, .pause-screen, .end-screen, .clear-screen {
   position: absolute;
   inset: 0;
   z-index: 80;
@@ -597,6 +636,22 @@ kbd {
   padding: 20px;
   background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(14, 16, 24, .9) 0%, rgba(8, 10, 16, .96) 80%);
   backdrop-filter: blur(6px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+/* Scholar question modal — above popup overlay */
+.question-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 90;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(14, 16, 24, .9) 0%, rgba(8, 10, 16, .96) 80%);
+  backdrop-filter: blur(6px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .setup-screen.show, .pause-screen.show, .end-screen.show, .question-screen.show, .clear-screen.show {
   display: flex;
@@ -620,6 +675,10 @@ kbd {
   box-shadow: var(--shadow-deep);
   position: relative;
   overflow: hidden;
+  /* Scroll card contents on short screens */
+  max-height: 90dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .setup-card.compact { max-width: 480px; padding: 24px 28px; }
 
@@ -954,31 +1013,118 @@ kbd {
 
 /* Layout breakpoints */
 @media (max-width: 980px) {
+  /* Vertical stack: grid on top, clue list below */
   .play-stage { flex-direction: column; padding: 12px 12px 6px; }
-  .clue-panel { width: 100%; max-height: 32vh; }
+  .clue-panel {
+    width: 100%;
+    max-height: 28vh;
+    flex-direction: row;       /* keep Across/Down side-by-side in the panel */
+  }
   .grid-frame { max-width: min(50vh, 480px); }
   .powerup-tray { top: 110px; }
 }
 @media (max-width: 720px) {
   .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
-  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
-  .stat-cell { min-width: 50px; padding: 3px 8px; }
+  /* Stats go full-width on second row */
+  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; flex-wrap: wrap; gap: 5px; }
+  .hud-controls { flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
+  .stat-cell { min-width: 46px; padding: 3px 7px; }
   .stat-value { font-size: 14px; }
-  .wave-ribbon { top: 110px; }
-  .play-stage { top: 156px; bottom: 110px; }
-  .powerup-tray { top: 156px; right: 8px; }
-  .mini-kbd { display: flex; }
-  .grid-frame { max-width: min(48vh, 420px); padding: 6px; }
+  .stat-label { font-size: 8px; }
+  .wave-ribbon { top: 114px; }
+  /* play-stage must clear HUD (~114px) and keyboard (60px) */
+  .play-stage { top: 160px; bottom: 64px; }
+  .powerup-tray { top: 160px; right: 8px; }
+  .mini-kbd { display: flex; height: 60px; }
+  .grid-frame { max-width: min(45vh, 400px); padding: 6px; }
   .cell { font-size: 14px; }
-  .clue-panel { font-size: 11px; max-height: 22vh; padding: 8px; }
+  /* clue panel: horizontal row layout within vertical stack */
+  .clue-panel { max-height: 20vh; padding: 8px; gap: 8px; }
   .clue-list { font-size: 11px; }
+  .clue-heading { font-size: 13px; }
+  /* active clue bar wraps on narrow screens */
+  .active-clue-bar { border-radius: 10px; }
 }
 @media (max-width: 540px) {
   .choice-grid { grid-template-columns: 1fr; }
   .setup-card h1 { font-size: 30px; }
   .setup-card { padding: 20px 18px 22px; }
   .key-hints { font-size: 11px; }
-  .grid-frame { max-width: min(46vh, 380px); }
+  .grid-frame { max-width: min(44vh, 360px); }
   .cell { font-size: 12px; }
   .cell .num { font-size: 7px; }
+  /* reveal/hint cost labels: keep visible */
+  .hud-btn .round-cost { font-size: 9px; padding: 1px 4px; }
+  /* clue panel smaller */
+  .clue-panel { max-height: 18vh; }
+  .clue-list { font-size: 10px; }
+  /* question card */
+  .question-card { padding: 18px 16px; }
+  .question-card h2 { font-size: 18px; }
+  /* end grid single col */
+  .end-grid { grid-template-columns: 1fr; }
+  .btn { padding: 10px 14px; font-size: 13px; }
+}
+@media (max-width: 380px) {
+  .setup-actions { flex-direction: column; }
+  .btn { width: 100%; }
+  /* Hint/Reveal labels must not get cut off — truncate gracefully */
+  .hud-btn { padding: 5px 8px; font-size: 11px; }
+}
+
+/* iOS safe-area for keyboard */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mini-kbd {
+    padding-bottom: max(6px, env(safe-area-inset-bottom, 6px));
+    height: calc(60px + env(safe-area-inset-bottom, 0px));
+  }
+  @media (max-width: 720px) {
+    .play-stage { bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+  }
+}
+
+/* Reduced motion: disable non-essential animations */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-spark,
+  .stat-cell.is-danger .stat-value { animation: none; }
+  .setup-screen.show, .pause-screen.show, .end-screen.show,
+  .question-screen.show, .clear-screen.show { animation: none; }
+  .scanline-overlay { display: none; }
+  .cell.wrong-flash { animation: none; background: var(--cell-face); }
+  .popup { animation-duration: 0.3s; }
+}
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
 }

@@ -1041,10 +1041,10 @@
       var r = parseInt(rc[0], 10), c = parseInt(rc[1], 10);
       var x = b.ox + c * b.cellPx;
       var y = b.oy + r * b.cellPx;
-      // Gold shimmer rim
-      var pulse = (Math.sin(state.time * 3) + 1) * 0.5;
-      ctx.strokeStyle = "rgba(245, 196, 81, " + (0.55 + pulse * 0.35) + ")";
-      ctx.lineWidth = 2.5;
+      // Gold shimmer rim — min lineWidth 3 so it remains visible on small mobile cells
+      var pulse = reducedMotion ? 0.5 : (Math.sin(state.time * 3) + 1) * 0.5;
+      ctx.strokeStyle = "rgba(245, 196, 81, " + (0.65 + pulse * 0.35) + ")";
+      ctx.lineWidth = Math.max(3, b.cellPx * 0.05);
       ctx.strokeRect(x + 2, y + 2, b.cellPx - 4, b.cellPx - 4);
       // "?" mark in corner
       if (state.grid[r][c] === 0) {
@@ -1139,9 +1139,15 @@
     var y = b.oy + p.r * b.cellPx;
     var t = Math.max(0, 1 - (p.age || 0) / 1.6);
     if (t <= 0) return;
+    // Clip to cell bounds so the border never bleeds into adjacent cells
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x, y, b.cellPx, b.cellPx);
+    ctx.clip();
     ctx.strokeStyle = "rgba(169, 145, 255, " + (0.55 + t * 0.45) + ")";
-    ctx.lineWidth = 4;
-    ctx.strokeRect(x + 2, y + 2, b.cellPx - 4, b.cellPx - 4);
+    ctx.lineWidth = 3;
+    ctx.strokeRect(x + 2.5, y + 2.5, b.cellPx - 5, b.cellPx - 5);
+    ctx.restore();
   }
 
   function drawSameHighlight() {
@@ -1167,9 +1173,15 @@
       var r = parseInt(rc[0], 10), c = parseInt(rc[1], 10);
       var x = b.ox + c * b.cellPx;
       var y = b.oy + r * b.cellPx;
+      // Clip to cell so the pulsing border never bleeds into neighbours
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(x, y, b.cellPx, b.cellPx);
+      ctx.clip();
       ctx.strokeStyle = "rgba(240, 72, 96, " + (0.6 + alpha * 0.4) + ")";
-      ctx.lineWidth = 4;
-      ctx.strokeRect(x + 1, y + 1, b.cellPx - 2, b.cellPx - 2);
+      ctx.lineWidth = 3;
+      ctx.strokeRect(x + 2, y + 2, b.cellPx - 4, b.cellPx - 4);
+      ctx.restore();
     }
   }
 
@@ -1270,7 +1282,11 @@
       var cell = dom.hudLives.parentElement;
       if (cell) cell.classList.toggle("is-danger", state.lives <= 1);
     }
-    if (dom.pencilBtn) dom.pencilBtn.classList.toggle("is-active", !!state.pencilMode);
+    if (dom.pencilBtn) {
+      dom.pencilBtn.classList.toggle("is-active", !!state.pencilMode);
+      dom.pencilBtn.textContent = state.pencilMode ? "Pencil ON" : "Pencil";
+      dom.pencilBtn.setAttribute("aria-label", state.pencilMode ? "Pencil-mark mode active — click to disable" : "Toggle pencil-mark mode");
+    }
   }
 
   function countFilled() {

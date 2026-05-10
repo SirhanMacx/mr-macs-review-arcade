@@ -785,6 +785,9 @@
         b.vy += GRAVITY * bdt;
         b.y += b.vy * bdt;
         b.x += b.vx * bdt * 0.5;
+        // Prevent barrels from drifting off-canvas during fall
+        if (b.x < WALL_LEFT - 16) { b.x = WALL_LEFT - 16; b.vx = Math.abs(b.vx); }
+        if (b.x > WALL_RIGHT + 16) { b.x = WALL_RIGHT + 16; b.vx = -Math.abs(b.vx); }
         // Land on next-lower floor
         if (b.floor > 0) {
           var fyNext = floorYAtX(b.floor - 1, b.x) - 8;
@@ -1638,13 +1641,14 @@
     sp.pulse += 0.04;
     var r = sp.r + Math.sin(sp.pulse) * 3;
     ctx.save();
-    // Beam
+    // Beam — reduce outer alpha so it doesn't obscure the top girder/ladders
     var bg = ctx.createRadialGradient(sp.x, sp.y, 0, sp.x, sp.y, r * 4.5);
-    bg.addColorStop(0, "rgba(245,196,81,0.5)");
-    bg.addColorStop(0.5, "rgba(245,196,81,0.18)");
+    bg.addColorStop(0, "rgba(245,196,81,0.42)");
+    bg.addColorStop(0.4, "rgba(245,196,81,0.14)");
     bg.addColorStop(1, "rgba(245,196,81,0)");
     ctx.fillStyle = bg;
-    ctx.fillRect(sp.x - r * 4.5, sp.y - r * 4.5, r * 9, r * 9);
+    // Clip beam rect to stay within canvas so it can't spill above floor 0
+    ctx.fillRect(Math.max(0, sp.x - r * 4.5), Math.max(0, sp.y - r * 4.5), r * 9, r * 9);
     // Disc
     ctx.fillStyle = "#f5c451";
     ctx.beginPath();

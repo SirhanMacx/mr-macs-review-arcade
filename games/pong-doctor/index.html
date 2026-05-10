@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
-  <link rel="stylesheet" href="styles.css?v=20260509-pongdoctor">
+  <link rel="stylesheet" href="styles.css?v=20260510-pongdoctor-ui">
 </head>
 <body>
   <main class="pong-shell" id="app">
@@ -88,6 +88,9 @@
     <!-- Setup / title screen -->
     <section class="setup-screen show" id="setupScreen" aria-label="Pong Doctor &mdash; game setup" aria-modal="true">
       <div class="setup-card">
+        <a class="setup-back-link" href="../../index.html" aria-label="Back to arcade hub">
+          ← Back to Arcade
+        </a>
         <div class="marquee-art" aria-hidden="true">
           <div class="marquee-glow"></div>
           <div class="marquee-spark spark-a" data-arcade-heavy></div>
@@ -201,6 +204,6 @@
   <script src="../../assets/arcade-progress-extras.js?v=20260509-progress"></script>
   <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
   <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
-  <script src="game.js?v=20260509-pongdoctor"></script>
+  <script src="game.js?v=20260510-pongdoctor-ui"></script>
 </body>
 </html>

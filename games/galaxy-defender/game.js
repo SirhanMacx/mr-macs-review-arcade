@@ -1977,6 +1977,34 @@
     }
     if (dom.retryHint) dom.retryHint.textContent = "Shards earned: " + state.shardsAwarded + " (max " + SHARDS_CAP + " per run)";
     showScreen("end");
+    try {
+      if (window.MrMacsProfile && window.MrMacsProfile.listAchievements) {
+        var _ach = window.MrMacsProfile.listAchievements();
+        var _startSet = {};
+        (state.achievementsAtRunStart || []).forEach(function (id) { _startSet[id] = true; });
+        var _newly = _ach.filter(function (a) { return a.unlocked && !_startSet[a.id]; });
+        if (_newly.length > 0) {
+          var _recapEl = document.getElementById("endRecap");
+          if (!_recapEl) {
+            _recapEl = document.createElement("div");
+            _recapEl.id = "endRecap";
+            _recapEl.className = "end-recap";
+            var _endGrid = document.getElementById("endGrid");
+            if (_endGrid && _endGrid.parentNode) { _endGrid.parentNode.insertBefore(_recapEl, _endGrid); }
+          }
+          _recapEl.innerHTML = '<h3 class="end-recap-title">🏆 Unlocked This Run</h3>' +
+            '<ul class="end-recap-list">' +
+            _newly.slice(0, 5).map(function (a) {
+              return '<li class="end-recap-item" data-tier="' + ((a.def && a.def.tier) || "bronze") + '">' +
+                '<span class="end-recap-icon">' + ((a.def && a.def.icon) || "🏆") + '</span>' +
+                '<span class="end-recap-name">' + ((a.def && a.def.title) || a.id) + '</span>' +
+                '</li>';
+            }).join('') +
+            '</ul>';
+          _recapEl.hidden = false;
+        }
+      }
+    } catch (e) {}
     stopMusic();
     var dur = runStartMs ? (Date.now() - runStartMs) : 0;
     recordPlayWithProfile(dur);
@@ -2249,7 +2277,13 @@
   function newRun() {
     lastBonusLifeThreshold = 0;
     runStartMs = Date.now();
+    var _achAtStart = [];
+    try {
+      var _p = window.MrMacsProfile && window.MrMacsProfile.get();
+      _achAtStart = _p && _p.achievements ? Object.keys(_p.achievements) : [];
+    } catch (e) {}
     initState({});
+    state.achievementsAtRunStart = _achAtStart;
     showScreen(null);
     phase = "playing";
     startMusic();

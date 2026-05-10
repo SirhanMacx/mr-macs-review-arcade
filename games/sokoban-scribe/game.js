@@ -2143,6 +2143,8 @@
         return;
       }
       if (k === "Escape" || k === "Esc") {
+        var hm = document.getElementById("helpModal");
+        if (hm && hm.classList.contains("show")) { closeHelp(); e.preventDefault(); return; }
         if (phase === "playing" || phase === "paused") togglePause();
         else if (phase === "question") skipQuestion();
         e.preventDefault();
@@ -2281,6 +2283,62 @@
   }
 
   // -- UI bindings -----------------------------------------------------------
+  // ── How to Play modal ───────────────────────────────────────────────────────
+  function openHelp() {
+    var modal = document.getElementById("helpModal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "helpModal";
+      modal.className = "modal-overlay help-overlay";
+      modal.innerHTML = [
+        '<div class="modal-card help-card">',
+        '  <button class="modal-close" aria-label="Close how to play">×</button>',
+        '  <h2>How to Play &mdash; Sokoban Scribe</h2>',
+        '  <h3>Goal</h3>',
+        '  <p>You are the librarian-scribe of the Great Archive. Push every <strong>parchment scroll</strong> onto a <strong>gold goal-shelf</strong>. Clear all 30 hand-crafted levels to unlock <strong>endless mode</strong>.</p>',
+        '  <h3>Controls</h3>',
+        '  <table><thead><tr><th>Key</th><th>Action</th></tr></thead><tbody>',
+        '  <tr><td><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / Arrows</td><td>Move the scribe (pushes adjacent scroll)</td></tr>',
+        '  <tr><td><kbd>U</kbd></td><td>Undo last move (up to 50/level)</td></tr>',
+        '  <tr><td><kbd>R</kbd></td><td>Reset current level</td></tr>',
+        '  <tr><td><kbd>1</kbd> &ndash; <kbd>5</kbd></td><td>Use power-up in that slot</td></tr>',
+        '  <tr><td><kbd>Esc</kbd> / <kbd>P</kbd></td><td>Pause / unpause</td></tr>',
+        '  </tbody></table>',
+        '  <h3>Tile Types</h3>',
+        '  <table><thead><tr><th>Tile</th><th>Behaviour</th></tr></thead><tbody>',
+        '  <tr><td>Floor</td><td>Normal walkable ground</td></tr>',
+        '  <tr><td>Wall</td><td>Impassable — scrolls and scribe cannot enter</td></tr>',
+        '  <tr><td>Scroll</td><td>Push it onto a goal-shelf to score</td></tr>',
+        '  <tr><td>Goal-shelf (gold)</td><td>Target destination for scrolls</td></tr>',
+        '  <tr><td>Trap (red)</td><td>Stepping on it costs a life</td></tr>',
+        '  <tr><td>Ice</td><td>Scribe and scrolls slide until hitting a wall</td></tr>',
+        '  <tr><td>Arrow</td><td>One-way passage — movement only in arrow direction</td></tr>',
+        '  <tr><td>Pressure plate</td><td>Activates when a scroll rests on it</td></tr>',
+        '  <tr><td>Scholar scroll (gold "?")</td><td>Deliver to any goal-shelf to trigger optional review</td></tr>',
+        '  </tbody></table>',
+        '  <h3>Power-ups</h3>',
+        '  <table><thead><tr><th>Power-up</th><th>Effect</th></tr></thead><tbody>',
+        '  <tr><td>Mega Undo</td><td>+25 extra undos for this level</td></tr>',
+        '  <tr><td>Wall Smash</td><td>Remove one wall tile</td></tr>',
+        '  <tr><td>Speed Boots</td><td>Move two tiles per key press for 20 moves</td></tr>',
+        '  <tr><td>Trap Shield</td><td>Immune to traps for 15 moves</td></tr>',
+        '  <tr><td>Hint</td><td>BFS highlights the best next push</td></tr>',
+        '  </tbody></table>',
+        '  <div class="scholar-note">&#127979; <strong>Scholar Scroll</strong> &mdash; gold-shimmer scroll. Push it onto any goal-shelf to trigger an optional review question. Correct answers earn bonus shards. Skip any time with no penalty.</div>',
+        '</div>'
+      ].join("\n");
+      document.body.appendChild(modal);
+      modal.addEventListener("click", function (e) { if (e.target === modal) closeHelp(); });
+      var closeBtn = modal.querySelector(".modal-close");
+      if (closeBtn) closeBtn.addEventListener("click", closeHelp);
+    }
+    modal.classList.add("show");
+  }
+  function closeHelp() {
+    var modal = document.getElementById("helpModal");
+    if (modal) modal.classList.remove("show");
+  }
+
   function bindUi() {
     dom.startBtn.addEventListener("click", function () { clearSnapshot(); newRun(); });
     dom.resumeBtn.addEventListener("click", togglePause);
@@ -2311,6 +2369,8 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+    var helpBtn = document.getElementById("helpBtn");
+    if (helpBtn) helpBtn.addEventListener("click", openHelp);
   }
 
   function exitToArcade() {

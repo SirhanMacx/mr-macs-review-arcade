@@ -98,6 +98,7 @@ kbd {
   display: block;
   touch-action: none;
   cursor: pointer;
+  object-fit: contain;
 }
 
 /* Subtle scanline overlay */
@@ -254,6 +255,10 @@ kbd {
   font-size: 16px;
   color: var(--emerald);
   transition: color .6s var(--ease), text-shadow .6s var(--ease);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45vw;
 }
 .wave-meta {
   font-family: 'JetBrains Mono', monospace;
@@ -266,6 +271,7 @@ kbd {
 .touch-controls {
   position: absolute;
   bottom: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
   left: 0; right: 0;
   z-index: 28;
   display: none;
@@ -299,6 +305,7 @@ kbd {
     margin: 0 auto;
     right: 14px;
     left: auto;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   .tc-ul { grid-column: 1; grid-row: 1; }
   .tc-ur { grid-column: 2; grid-row: 1; }
@@ -354,11 +361,11 @@ kbd {
   100% { opacity: 0; transform: translate(-50%, -100%) scale(1); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .popup-text { animation-duration: .35s; }
+  .popup-text { animation: none; opacity: 0; }
 }
 
 /* Modal screens — shared */
-.setup-screen, .pause-screen, .end-screen, .question-screen {
+.setup-screen, .pause-screen, .end-screen {
   position: absolute;
   inset: 0;
   z-index: 80;
@@ -368,6 +375,20 @@ kbd {
   padding: 20px;
   background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(6,12,28,.9) 0%, rgba(2,4,12,.96) 80%);
   backdrop-filter: blur(6px);
+  overflow-y: auto;
+}
+/* Scholar question sits above other modals */
+.question-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 90;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(6,12,28,.92) 0%, rgba(2,4,12,.97) 80%);
+  backdrop-filter: blur(8px);
+  overflow-y: auto;
 }
 .setup-screen.show, .pause-screen.show, .end-screen.show, .question-screen.show {
   display: flex;
@@ -666,10 +687,13 @@ kbd {
   .choice-grid { grid-template-columns: 1fr; }
   .setup-card h1 { font-size: 32px; }
   .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
-  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
+  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; flex-wrap: wrap; }
   .stat-cell { min-width: 52px; padding: 3px 8px; }
   .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 110px; }
+  .wave-ribbon { top: 116px; max-width: calc(100vw - 24px); }
+  .wave-name { max-width: 38vw; }
+  .setup-actions { flex-wrap: wrap; }
+  .end-screen .setup-actions { flex-wrap: wrap; justify-content: center; }
 }
 
 /* End screen grid */
@@ -735,3 +759,76 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}
+
+/* Achievement recap — end-of-run */
+.end-recap {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(245, 196, 81, 0.09), rgba(245, 196, 81, 0.04));
+  border: 1px solid rgba(245, 196, 81, 0.3);
+  border-radius: 12px;
+  text-align: left;
+}
+.end-recap-title {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5c451;
+  font-family: "Fraunces", serif;
+}
+.end-recap-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.end-recap-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid rgba(180, 180, 180, 0.4);
+  border-radius: 8px;
+  font-size: 13px;
+}
+.end-recap-item[data-tier="bronze"] { border-left-color: #cd7f32; }
+.end-recap-item[data-tier="silver"] { border-left-color: #c0c0c0; }
+.end-recap-item[data-tier="gold"] { border-left-color: #f5c451; }
+.end-recap-item[data-tier="legendary"] { border-left-color: #ff7cc8; box-shadow: 0 0 12px rgba(255, 124, 200, 0.2); }
+.end-recap-icon { font-size: 18px; }
+.end-recap-name { font-weight: 600; color: var(--paper, #fff); }
+@media (prefers-reduced-motion: reduce) {
+  .end-recap-item { box-shadow: none !important; }
+}

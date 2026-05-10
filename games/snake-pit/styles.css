@@ -267,16 +267,25 @@ kbd {
 }
 
 /* Touch joystick + boost — only on small screens */
+/* Anchored at bottom with pointer-events only on the hit areas, so the translucent
+   tray background doesn't block canvas clicks. The canvas z-index is 0 and the
+   controls sit at z-index 28, but pointer-events:none on the container means only
+   the actual stick/button elements capture input. */
 .touch-controls {
   position: absolute;
-  bottom: 14px;
+  bottom: 0;
   left: 0; right: 0;
   z-index: 28;
   display: none;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 22px;
+  align-items: flex-end;
+  padding: 0 22px 14px;
+  /* translucent strip so the play area above is still visible */
+  background: linear-gradient(0deg, rgba(2,4,12,.72) 0%, transparent 100%);
+  pointer-events: none; /* tray bg passthrough — only children capture */
 }
+/* re-enable pointer events on the interactive children */
+.tc-stick, .tc-boost { pointer-events: auto; }
 .tc-stick {
   position: relative;
   width: 130px; height: 130px;
@@ -385,16 +394,31 @@ kbd {
 }
 
 /* Modal screens — shared */
-.setup-screen, .pause-screen, .end-screen, .question-screen {
+/* z-index hierarchy: setup/end/pause at 8000, question (scholar) at 9500 */
+.setup-screen, .pause-screen, .end-screen {
   position: absolute;
   inset: 0;
-  z-index: 80;
+  z-index: 8000;
   display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
   background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(6,12,28,.9) 0%, rgba(2,4,12,.96) 80%);
   backdrop-filter: blur(6px);
+}
+/* pause sits above setup/end but below scholar question */
+.pause-screen { z-index: 8200; }
+/* scholar question always on top (below toasts at 9999) */
+.question-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 9500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(6,12,28,.92) 0%, rgba(2,4,12,.97) 80%);
+  backdrop-filter: blur(8px);
 }
 .setup-screen.show, .pause-screen.show, .end-screen.show, .question-screen.show {
   display: flex;
@@ -411,13 +435,16 @@ kbd {
 .setup-card {
   width: 100%;
   max-width: 640px;
+  /* prevent card overflow on small screens */
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 28px 32px 32px;
   border-radius: 18px;
   background: var(--panel-strong);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-deep);
   position: relative;
-  overflow: hidden;
 }
 .setup-card.compact { max-width: 480px; padding: 24px 28px; }
 
@@ -542,8 +569,9 @@ kbd {
   z-index: 2;
   color: var(--muted);
   margin: 0 0 18px;
-  line-height: 1.55;
+  line-height: 1.5;
   font-size: 14px;
+  max-width: 60ch;
 }
 .setup-sub em { color: var(--gold); font-style: italic; }
 
@@ -693,13 +721,34 @@ kbd {
   .choice-grid { grid-template-columns: 1fr; }
   .setup-card h1 { font-size: 32px; }
   .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
-  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
+  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; flex-wrap: wrap; }
   .stat-cell { min-width: 52px; padding: 3px 8px; }
   .stat-value { font-size: 15px; }
   .wave-ribbon { top: 110px; }
   .tc-stick { width: 100px; height: 100px; }
   .tc-stick-knob { width: 40px; height: 40px; margin: -20px 0 0 -20px; }
   .tc-boost { width: 80px; height: 80px; font-size: 13px; }
+}
+
+/* < 480px — extra-small phones */
+@media (max-width: 479px) {
+  /* HUD: shrink stats further so they don't wrap awkwardly */
+  .stat-cell { min-width: 44px; padding: 2px 5px; }
+  .stat-value { font-size: 13px; }
+  .stat-label { font-size: 8px; }
+  /* Brand title compacts */
+  .brand-title { font-size: 17px; }
+  /* Setup card padding tighter */
+  .setup-card { padding: 18px 16px 20px; }
+  .setup-card h1 { font-size: 28px; }
+  /* Setup action buttons wrap cleanly */
+  .setup-actions { flex-wrap: wrap; }
+  /* Key hints smaller */
+  .key-hints { font-size: 11px; }
+  /* Touch controls smaller */
+  .tc-stick { width: 88px; height: 88px; }
+  .tc-stick-knob { width: 34px; height: 34px; margin: -17px 0 0 -17px; }
+  .tc-boost { width: 70px; height: 70px; font-size: 12px; }
 }
 
 /* End screen grid */
@@ -765,3 +814,76 @@ kbd {
 .leaderboard-row .lb-rank { color: var(--gold); font-weight: 800; min-width: 24px; }
 .leaderboard-row .lb-name { flex: 1; padding: 0 8px; color: var(--text); }
 .leaderboard-row .lb-score { color: var(--gold); }
+
+/* Achievement recap — end-of-run */
+.end-recap {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(245, 196, 81, 0.09), rgba(245, 196, 81, 0.04));
+  border: 1px solid rgba(245, 196, 81, 0.3);
+  border-radius: 12px;
+  text-align: left;
+}
+.end-recap-title {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5c451;
+  font-family: "Fraunces", serif;
+}
+.end-recap-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.end-recap-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid rgba(180, 180, 180, 0.4);
+  border-radius: 8px;
+  font-size: 13px;
+}
+.end-recap-item[data-tier="bronze"] { border-left-color: #cd7f32; }
+.end-recap-item[data-tier="silver"] { border-left-color: #c0c0c0; }
+.end-recap-item[data-tier="gold"] { border-left-color: #f5c451; }
+.end-recap-item[data-tier="legendary"] { border-left-color: #ff7cc8; box-shadow: 0 0 12px rgba(255, 124, 200, 0.2); }
+.end-recap-icon { font-size: 18px; }
+.end-recap-name { font-weight: 600; color: var(--paper, #fff); }
+@media (prefers-reduced-motion: reduce) {
+  .end-recap-item { box-shadow: none !important; }
+}
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

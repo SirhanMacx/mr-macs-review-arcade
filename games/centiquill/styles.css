@@ -97,6 +97,7 @@ kbd {
   display: block;
   touch-action: none;
   cursor: crosshair;
+  object-fit: contain;
 }
 
 /* Scanlines */
@@ -322,13 +323,13 @@ kbd {
   line-height: 1;
 }
 
-/* Touch controls — only show on coarse pointer */
+/* Touch controls — only show on coarse pointer; above canvas, below HUD */
 .touch-controls {
   position: absolute;
   bottom: 14px;
   left: 14px;
   right: 14px;
-  z-index: 14;
+  z-index: 19;
   display: none;
   pointer-events: none;
 }
@@ -406,21 +407,35 @@ kbd {
   }
 }
 
-/* Setup / pause / end / question screens — shared modal pattern */
+/* Setup / pause / end screens — above HUD (z-index 20) and powerup tray (16) */
 .setup-screen,
-.question-screen,
 .pause-screen,
 .end-screen {
   position: absolute;
   inset: 0;
-  z-index: 30;
+  z-index: 80;
   display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: rgba(4,6,15,.78);
+  background: rgba(4,6,15,.88);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  overflow-y: auto;
+}
+/* Scholar question modal — highest stacking context */
+.question-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 9500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(4,6,15,.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow-y: auto;
 }
 .setup-screen.show,
 .question-screen.show,
@@ -433,10 +448,15 @@ kbd {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+@media (prefers-reduced-motion: reduce) {
+  .setup-screen.show, .pause-screen.show, .end-screen.show, .question-screen.show { animation: none; }
+}
 
 .setup-card {
   position: relative;
   max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
   width: 100%;
   padding: 36px 32px 28px;
   background:
@@ -519,8 +539,9 @@ kbd {
   font-size: .92rem;
   color: var(--muted);
   line-height: 1.6;
-  max-width: 56ch;
+  max-width: 60ch;
   margin: 0 auto 18px;
+  overflow-wrap: break-word;
 }
 .setup-sub em { color: var(--text); font-style: italic; }
 
@@ -706,6 +727,8 @@ kbd {
 /* Question modal */
 .question-card {
   max-width: 620px;
+  max-height: 90vh;
+  overflow-y: auto;
   width: 100%;
   padding: 26px 24px 22px;
   background:
@@ -813,3 +836,78 @@ kbd {
 /* Hide HUD when modal is shown to prevent fly-through clicks */
 .setup-screen.show ~ .top-hud,
 .end-screen.show ~ .top-hud { /* not selectable; left intentionally for compatibility */ }
+
+/* ---- Centiquill specific ---- */
+/* Player-zone divider line — rendered by JS on canvas but CSS backup indicator */
+.player-zone-hint {
+  position: absolute;
+  left: 0; right: 0;
+  /* Positioned at bottom 6 rows out of typical 20-row grid = 30% from bottom */
+  bottom: 30%;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(245,196,81,.55) 0px,
+    rgba(245,196,81,.55) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  pointer-events: none;
+  z-index: 8;
+}
+@media (prefers-reduced-motion: reduce) {
+  .player-zone-hint { background: rgba(245,196,81,.4); }
+}
+/* Letter-glyph segment readability */
+.seg-glyph {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  text-shadow:
+    0 1px 4px rgba(0,0,0,.95),
+    0 0 8px rgba(0,0,0,.8);
+  /* Minimum legible size even on tiny canvas */
+  font-size: clamp(10px, 1.6vw, 18px);
+}
+/* Powerup tray — ensure it clears touch-controls on coarse-pointer devices */
+@media (pointer: coarse) {
+  .powerup-tray {
+    top: auto;
+    bottom: 230px; /* clear touch-controls (fire btn is ~30px from bottom + 84px tall) */
+    right: 8px;
+  }
+}
+
+
+/* ── Back to Arcade link (UX walkthrough rec #10) ─────────────────────── */
+.setup-back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  border-radius: 999px;
+  color: #f5c451;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.setup-back-link:hover, .setup-back-link:focus-visible {
+  background: rgba(245, 196, 81, 0.22);
+  transform: translateX(-2px);
+  outline: 2px solid #f5c451;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .setup-back-link { transition: none; }
+  .setup-back-link:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .setup-back-link { top: 8px; left: 8px; padding: 4px 10px; font-size: 11px; }
+}

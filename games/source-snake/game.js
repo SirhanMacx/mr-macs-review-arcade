@@ -1251,7 +1251,14 @@
     if (!state) return;
     if (dom.hudScore) dom.hudScore.textContent = formatNumber(state.score);
     if (dom.hudLength) dom.hudLength.textContent = state.snake.length || state.maxLength;
-    if (dom.hudRetry) dom.hudRetry.textContent = state.retries;
+    if (dom.hudRetry) {
+      dom.hudRetry.textContent = state.retries;
+      var retryCell = dom.hudRetry.closest ? dom.hudRetry.closest(".stat-cell") : null;
+      if (retryCell) {
+        if (state.retries > 0) retryCell.classList.add("is-retry");
+        else retryCell.classList.remove("is-retry");
+      }
+    }
     if (dom.hudBest) dom.hudBest.textContent = formatNumber(Math.max(state.best || 0, state.score));
     if (dom.waveMeta) dom.waveMeta.textContent = "Pace · " + Math.round(state.stepInterval) + " ms";
     if (dom.waveName) {
