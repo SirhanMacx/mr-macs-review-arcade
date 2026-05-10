@@ -1468,10 +1468,13 @@
       ctx.beginPath();
       ctx.moveTo(-r * 0.78, 0); ctx.lineTo(r * 0.78, 0);
       ctx.stroke();
-      // Meridian curves
+      // Meridian curves. The mc=-1 iteration produced a negative ellipse
+      // radius (r*0.22 - r*0.28 = -r*0.06) which fired hundreds of
+      // IndexSizeError exceptions in the browser console. Wrap in Math.abs
+      // so the inner meridian renders at a small positive radius. (May 10 2026)
       for (var mc = -1; mc <= 1; mc++) {
         ctx.beginPath();
-        ctx.ellipse(0, 0, r * 0.22 + mc * r * 0.28, r * 0.78, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, Math.abs(r * 0.22 + mc * r * 0.28), r * 0.78, 0, 0, Math.PI * 2);
         ctx.stroke();
       }
     }
