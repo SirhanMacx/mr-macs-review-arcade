@@ -1478,11 +1478,16 @@
       }
       state.bonusQuestionsLeft--;
       if (state.bonusQuestionsLeft > 0) {
+        // Important: openBonusQuestion sets activeQuestion = pickQuestion()
+        // for the NEXT question. Falling through to "activeQuestion = null"
+        // below would wipe Q2 immediately, breaking subsequent clicks.
+        // (Bug found via user report May 10 2026: "wont let you select
+        // answers past first question".)
         openBonusQuestion();
-      } else {
-        showScreen(null);
-        startNextLevel();
+        return;
       }
+      showScreen(null);
+      startNextLevel();
     }
     activeQuestion = null;
   }
