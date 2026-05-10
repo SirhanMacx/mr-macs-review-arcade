@@ -728,21 +728,20 @@
       var sj = Math.floor(rng() * (s + 1));
       var tmp = typeIds[s]; typeIds[s] = typeIds[sj]; typeIds[sj] = tmp;
     }
-    // Pick ceil(SCHOLAR_COUNT / 2) types to flag — that gives ~5 scholar tiles
-    var pairsToMark = Math.max(1, Math.ceil(SCHOLAR_COUNT / 2));
+    // Mark exactly one tile per chosen typeId. With 4 instances per type, ANY
+    // pair-match involving that type will include the scholar (a.scholar ||
+    // b.scholar) — guaranteeing the review prompt fires once per scholar type.
     var tilesMarkedSoFar = 0;
-    for (var ti = 0; ti < pairsToMark && ti < typeIds.length; ti++) {
+    for (var ti = 0; ti < typeIds.length && tilesMarkedSoFar < SCHOLAR_COUNT; ti++) {
       var ids = byType[typeIds[ti]];
-      // Pick 2 of the 4 instances to flag (so a single match yields a scholar prompt)
-      // Shuffle ids
+      if (!ids || !ids.length) continue;
+      // Shuffle ids and flag a single instance
       for (var x = ids.length - 1; x > 0; x--) {
         var xj = Math.floor(rng() * (x + 1));
         var t2 = ids[x]; ids[x] = ids[xj]; ids[xj] = t2;
       }
       tiles[ids[0]].scholar = true;
-      tiles[ids[1]].scholar = true;
-      tilesMarkedSoFar += 2;
-      if (tilesMarkedSoFar >= SCHOLAR_COUNT) break;
+      tilesMarkedSoFar++;
     }
   }
 
@@ -867,7 +866,24 @@
       endReason: ""
     };
     state.boardOrigin = computeBoardOrigin();
+    // Guarantee at least one legal move at deal — re-shuffle in place until OK.
+    // (Bag is identical, so just permute typeIds across unmatched tiles.)
+    var attempts = 0;
+    while (attempts < 8 && !hasAnyValidMoveSafe()) {
+      var unmatched = state.tiles.filter(function (t) { return !t.matched; });
+      var typeIds = unmatched.map(function (t) { return t.typeId; });
+      for (var j = typeIds.length - 1; j > 0; j--) {
+        var k = Math.floor(Math.random() * (j + 1));
+        var tmp = typeIds[j]; typeIds[j] = typeIds[k]; typeIds[k] = tmp;
+      }
+      for (var u = 0; u < unmatched.length; u++) unmatched[u].typeId = typeIds[u];
+      attempts++;
+    }
     return state;
+  }
+  function hasAnyValidMoveSafe() {
+    if (!state || !state.tiles) return true;
+    return findValidPair() !== null;
   }
 
   // Compute where to draw board (centered horizontally, below HUD)
@@ -970,8 +986,8 @@
     // Suit-specific tone
     var suit = suitOf(a.typeId);
     sfx.tile_match(suit);
-    // Scholar logic
-    if (a.scholar && b.scholar) {
+    // Scholar logic — fire when either matched tile is a scholar
+    if (a.scholar || b.scholar) {
       // shared review prompt
       openScholarQuestion(a, b);
     }
@@ -1286,7 +1302,7 @@
   function showEndScreen() {
     if (phase !== "ended") return;
     var shardsToAdd = Math.min(SHARDS_CAP - state.shardsAwarded, Math.floor(state.score / SCORE_TO_SHARDS_RATIO));
-    if (shardsToAdd > 0) addShards(shardsToAdd, GAME_ID + "-run-complete");
+    if (shardsToAdd > 0) addShards(shardsToAdd, GAME_ID + ":run-complete");
     submitLeaderboard();
     if (dom.endKicker) dom.endKicker.textContent = state.lives <= 0 ? "Mosaic Defeated You" : "Run Ended";
     if (dom.endTitle) dom.endTitle.textContent = "Mahjong Mosaic · Run complete";
@@ -1365,6 +1381,7 @@
   }
   function shakeTile(tile) {
     if (!tile) return;
+    if (reducedMotion) return;
     state.shakeTile = { id: tile.id, age: 0 };
   }
 
@@ -1838,7 +1855,7 @@
   function closeQuestion(wasCorrect) {
     if (wasCorrect) {
       state.score += SCHOLAR_BONUS;
-      addShards(SCHOLAR_SHARDS, GAME_ID + "-scholar-correct");
+      addShards(SCHOLAR_SHARDS, GAME_ID + ":scholar-correct");
       try {
         if (window.MrMacsCelebration && !reducedMotion) {
           window.MrMacsCelebration.burst({ count: 28, palette: ["#f5c451", "#5de0f0", "#a991ff"] });
@@ -1904,7 +1921,7 @@
     state.shardsAwarded += capped;
     try {
       if (window.MrMacsProfile && window.MrMacsProfile.addShards) {
-        window.MrMacsProfile.addShards(capped, source || (GAME_ID + "-default"));
+        window.MrMacsProfile.addShards(capped, source || (GAME_ID + ":default"));
       }
     } catch (e) {}
   }
@@ -2024,14 +2041,20 @@
         }
       }
       if (phase === "paused" && (k === "p" || k === "P" || k === " ")) {
+        if (e.repeat) return;
         togglePause();
         e.preventDefault();
         return;
       }
       if (k === "Escape" || k === "Esc") {
-        if (phase === "playing" || phase === "paused") togglePause();
-        else if (phase === "question") skipQuestion();
-        e.preventDefault();
+        if (e.repeat) return;
+        if (phase === "playing" || phase === "paused") {
+          togglePause();
+          e.preventDefault();
+        } else if (phase === "question") {
+          skipQuestion();
+          e.preventDefault();
+        }
       }
     });
     bindCanvasInput();

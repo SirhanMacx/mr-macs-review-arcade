@@ -397,6 +397,13 @@
       if (inBounds(stairs.x, stairs.y) && tiles[stairs.y][stairs.x] === T_FLOOR) {
         tiles[stairs.y][stairs.x] = T_STAIRS;
       }
+      // Connectivity guarantee: flood-fill from spawn; if stairs unreachable, force corridor
+      if (!floodReachable(tiles, spawn, stairs)) {
+        carveCorridor(tiles, rooms[0], lastRoom);
+        if (inBounds(stairs.x, stairs.y) && tiles[stairs.y][stairs.x] !== T_WALL) {
+          tiles[stairs.y][stairs.x] = T_STAIRS;
+        }
+      }
     }
 
     return {
@@ -406,6 +413,29 @@
       stairs: stairs,
       isBoss: isBossFloor
     };
+  }
+
+  function floodReachable(tiles, from, to) {
+    if (!from || !to) return true;
+    if (!inBounds(from.x, from.y) || !inBounds(to.x, to.y)) return false;
+    var seen = [];
+    for (var y = 0; y < GRID; y++) { seen.push(new Array(GRID)); }
+    var stack = [{ x: from.x, y: from.y }];
+    seen[from.y][from.x] = true;
+    while (stack.length) {
+      var n = stack.pop();
+      if (n.x === to.x && n.y === to.y) return true;
+      var dirs = [[1,0],[-1,0],[0,1],[0,-1]];
+      for (var i = 0; i < 4; i++) {
+        var nx = n.x + dirs[i][0], ny = n.y + dirs[i][1];
+        if (!inBounds(nx, ny) || seen[ny][nx]) continue;
+        var t = tiles[ny][nx];
+        if (t === T_WALL || t === T_DOOR_LOCKED) continue;
+        seen[ny][nx] = true;
+        stack.push({ x: nx, y: ny });
+      }
+    }
+    return false;
   }
 
   function carveRoom(tiles, x, y, w, h) {
@@ -547,10 +577,11 @@
   function overlapsLoot(pos) {
     // Avoid placing on spawn point
     if (state.player && state.player.tx === pos.x && state.player.ty === pos.y) return true;
-    // Avoid stacked loot
-    var lists = [state.relics, state.chests, state.keys, state.potions];
+    // Avoid stacked loot (include powerups)
+    var lists = [state.relics, state.chests, state.keys, state.potions, state.powerups];
     for (var i = 0; i < lists.length; i++) {
       var L = lists[i];
+      if (!L) continue;
       for (var j = 0; j < L.length; j++) {
         if (L[j].tx === pos.x && L[j].ty === pos.y) return true;
       }
@@ -752,6 +783,9 @@
       life: 2.5,
       rot: 0
     };
+  }
+  function trimList(list, max) {
+    if (list && list.length > max) list.splice(0, list.length - max);
   }
 
   // -- State init ------------------------------------------------------------
@@ -1129,12 +1163,18 @@
     }
   }
   function damageBoss(boss, atk) {
+    if (boss.dying) return;
     boss.hp -= atk;
     boss.hurtT = 0.18;
     spawnEmber(boss.px, boss.py - 8, 10, "#ff7042");
     addShake(2, 0.12);
-    // Phase transitions
+    // Phase transitions — guard against killing-blow double-trigger
     var prev = boss.phase;
+    if (boss.hp <= 0) {
+      // killing blow: skip phase transition bookkeeping, go straight to death
+      killBoss(boss);
+      return;
+    }
     if (boss.hp <= 5) boss.phase = 3;
     else if (boss.hp <= 10) boss.phase = 2;
     else boss.phase = 1;
@@ -1142,12 +1182,13 @@
       addScore(SCORE_BOSS_PHASE);
       pushPopup("PHASE " + boss.phase, boss.px, boss.py - 30, "is-magnate");
       sfx.bossPhase();
+      // Reset all attack-pattern state so leftover charge/summon timers don't carry over
       boss.attackPattern = "wander";
       boss.attackCdT = 1.2;
+      boss.chargeDir = null;
+      boss.chargeT = 0;
+      boss.stunT = 0;
       addShake(5, 0.4);
-    }
-    if (boss.hp <= 0) {
-      killBoss(boss);
     }
   }
 
@@ -1325,6 +1366,12 @@
     setTimeout(advanceFloor, 1400);
   }
   function advanceFloor() {
+    if (phase === "ended") return;
+    if (phase === "paused") {
+      // Defer until resume so we don't re-init the floor under a paused modal
+      setTimeout(advanceFloor, 200);
+      return;
+    }
     var nextIdx = state.floorIndex + 1;
     if (nextIdx >= FLOORS_PER_RUN) {
       onRunComplete();
@@ -1411,6 +1458,14 @@
       }
       e.animT += dt;
       if (e.hurtT > 0) e.hurtT = Math.max(0, e.hurtT - dt);
+      // Wraith phase toggling — runs even when stunned so phase always times out
+      if (e.type === "wraith") {
+        e.phaseT -= dt;
+        if (e.phaseT <= 0) {
+          e.phasing = !e.phasing;
+          e.phaseT = e.phasing ? WRAITH_PHASE_MS_ON / 1000 : WRAITH_PHASE_MS_OFF / 1000;
+        }
+      }
       if (e.stunT > 0) {
         e.stunT = Math.max(0, e.stunT - dt);
         continue;
@@ -1422,14 +1477,6 @@
           e.hp -= 1;
           spawnEmber(e.px, e.py, 4, "#7be07b");
           if (e.hp <= 0) { killEnemy(e); continue; }
-        }
-      }
-      // Wraith phase toggling
-      if (e.type === "wraith") {
-        e.phaseT -= dt;
-        if (e.phaseT <= 0) {
-          e.phasing = !e.phasing;
-          e.phaseT = e.phasing ? WRAITH_PHASE_MS_ON / 1000 : WRAITH_PHASE_MS_OFF / 1000;
         }
       }
       // Skeleton ranged
@@ -1541,6 +1588,8 @@
 
   // -- Bones (skeleton projectiles) update ----------------------------------
   function updateBones(dt) {
+    // Hard cap so a boss spam-summon can't pile up projectiles indefinitely
+    trimList(state.bones, 80);
     for (var i = state.bones.length - 1; i >= 0; i--) {
       var b = state.bones[i];
       b.life -= dt;
@@ -1979,6 +2028,8 @@
         r: 1 + Math.random() * 2
       });
     }
+    // Cap embers to prevent runaway accumulation during boss blasts
+    trimList(state.embers, 240);
   }
   function updateEmbers(dt) {
     for (var i = state.embers.length - 1; i >= 0; i--) {
@@ -1992,6 +2043,8 @@
     }
   }
   function pushPopup(text, x, y, klass) {
+    // Cap state.popups so it can't grow unbounded across long runs
+    if (state.popups.length > 60) state.popups.splice(0, state.popups.length - 60);
     state.popups.push({ text: text, x: x, y: y, klass: klass || "", life: 1.1 });
     if (dom.popupOverlay) {
       var d = document.createElement("div");
@@ -2840,6 +2893,11 @@
   }
 
   // -- Input -----------------------------------------------------------------
+  function clearInputKeys() {
+    keys.left = keys.right = keys.up = keys.down = false;
+    keys.attackQueued = false;
+    keys.blockHeld = false;
+  }
   function bindInput() {
     document.addEventListener("keydown", function (e) {
       var k = e.key;
@@ -2884,6 +2942,12 @@
       else if (k === "s" || k === "S" || k === "ArrowDown") keys.down = false;
       else if (k === "Shift") keys.blockHeld = false;
     });
+    // If the tab loses focus or the page becomes hidden, clear held keys so
+    // the player isn't stuck moving when they return.
+    window.addEventListener("blur", clearInputKeys);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) clearInputKeys();
+    });
     bindTouch();
     bindTouchControls();
   }
@@ -2920,11 +2984,21 @@
   function bindTouchControls() {
     function bindHold(btn, key) {
       if (!btn) return;
-      var down = function (e) { if (e) e.preventDefault(); keys[key] = true; };
-      var up = function (e) { if (e) e.preventDefault(); keys[key] = false; };
+      var down = function (e) { if (e && e.cancelable) e.preventDefault(); keys[key] = true; };
+      var up = function (e) { if (e && e.cancelable) e.preventDefault(); keys[key] = false; };
       btn.addEventListener("touchstart", down, { passive: false });
       btn.addEventListener("touchend", up, { passive: false });
       btn.addEventListener("touchcancel", up, { passive: false });
+      // Releasing outside the button (drag-off) — also clear the held key.
+      btn.addEventListener("touchmove", function (e) {
+        if (!e.touches || e.touches.length === 0) { keys[key] = false; return; }
+        var t = e.touches[0];
+        var rect = btn.getBoundingClientRect();
+        if (t.clientX < rect.left || t.clientX > rect.right ||
+            t.clientY < rect.top  || t.clientY > rect.bottom) {
+          keys[key] = false;
+        }
+      }, { passive: true });
       btn.addEventListener("mousedown", down);
       btn.addEventListener("mouseup", up);
       btn.addEventListener("mouseleave", up);
@@ -2934,9 +3008,24 @@
     bindHold(dom.tcUp, "up");
     bindHold(dom.tcDown, "down");
     if (dom.tcAttack) {
+      var atkTouchActive = false;
       var atk = function (e) { if (e) e.preventDefault(); keys.attackQueued = true; };
-      dom.tcAttack.addEventListener("click", atk);
-      dom.tcAttack.addEventListener("touchstart", atk, { passive: false });
+      dom.tcAttack.addEventListener("touchstart", function (e) {
+        atkTouchActive = true;
+        atk(e);
+      }, { passive: false });
+      dom.tcAttack.addEventListener("touchend", function (e) {
+        if (e) e.preventDefault();
+        // Reset shortly so a stale click event from the same gesture is ignored
+        setTimeout(function () { atkTouchActive = false; }, 350);
+      }, { passive: false });
+      dom.tcAttack.addEventListener("touchcancel", function () { atkTouchActive = false; }, { passive: false });
+      // Use a click handler too so non-touch (mouse) presses still work — but
+      // skip it if a touch already handled this gesture (avoids double-fire).
+      dom.tcAttack.addEventListener("click", function (e) {
+        if (atkTouchActive) return;
+        atk(e);
+      });
     }
     if (dom.tcBlock) {
       var blockDown = function (e) { if (e) e.preventDefault(); keys.blockHeld = true; };

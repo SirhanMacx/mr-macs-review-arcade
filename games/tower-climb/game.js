@@ -123,6 +123,11 @@
 
   var activeQuestion = null;
   var pendingScholarTome = null;
+  // Run token guards setTimeout callbacks (death/stage clear) against stale runs.
+  var runToken = 0;
+  // Pending timer ids so we can clear stage/death timeouts on phase changes.
+  var pendingDeathTimer = null;
+  var pendingStageTimer = null;
 
   // -- SFX (Web Audio) -------------------------------------------------------
   var sfxCtx = null;
@@ -409,6 +414,8 @@
       springsT: 0,                 // duration
       hammerT: 0,                  // duration of hammer (5s window)
       slowT: 0,                    // duration of slow time
+      // brief post-hit / post-respawn invulnerability so a single frame can't burn 2 lives
+      invulnT: 0,
       // jump tracking for scoring (barrel hop bonuses)
       jumpedOver: []               // ids of barrels we've cleared on this jump
     };
@@ -585,6 +592,7 @@
     if (p.springsT > 0) p.springsT = Math.max(0, p.springsT - dt);
     if (p.hammerT > 0) p.hammerT = Math.max(0, p.hammerT - dt);
     if (p.slowT > 0) p.slowT = Math.max(0, p.slowT - dt);
+    if (p.invulnT > 0) p.invulnT = Math.max(0, p.invulnT - dt);
 
     // Ladder logic
     if (p.onLadder) {
@@ -810,23 +818,25 @@
       // Random ladder descent (35%) when within 8 px of a ladder x with matching floorIndex (= b.floor - 1)
       // i.e., a ladder going DOWN from current floor must be: ladder where floorIndex+1 == b.floor
       // Let's check ladders at the floor below.
-      var consideredLadder = false;
+      var tookLadder = false;
       for (var L = 0; L < state.ladders.length; L++) {
         var lad = state.ladders[L];
-        if (lad.floorIndex === b.floor - 1) {
-          if (Math.abs(b.x - lad.x) <= 4 && !consideredLadder) {
-            consideredLadder = true;
-            if (Math.random() < 0.32) {
-              b.onLadder = lad;
-              b.x = lad.x;
-              continue;
-            }
+        if (lad.floorIndex === b.floor - 1 && Math.abs(b.x - lad.x) <= 4) {
+          if (Math.random() < 0.32) {
+            b.onLadder = lad;
+            b.x = lad.x;
+            // Place barrel just below the floor surface so it can descend the ladder.
+            b.y = floorYAtX(b.floor, b.x) + 4;
+            b.falling = false;
+            b.onGround = false;
+            tookLadder = true;
           }
+          break; // only consider one matching ladder per frame
         }
       }
+      if (tookLadder) continue;
 
       // Check if rolled off the end
-      var ends = floorEnds(b.floor);
       if (b.x >= WALL_RIGHT - 8 && desiredSign > 0) {
         // Falls off right side onto floor below
         b.falling = true;
@@ -961,8 +971,11 @@
       }
       // Lethal contact (when on the same horizontal level as player)
       if (distSq < hitR2) {
+        // brief invulnerability after helmet save / respawn — prevents double-life loss in same frame
+        if (p.invulnT > 0) continue;
         if (p.helmetActive) {
           p.helmetActive = false;
+          p.invulnT = 0.9; // ~0.9s grace so a clustered second barrel can't insta-kill
           b.smashed = true; b.smashedT = 0;
           spawnEmber(b.x, b.y, 12, "#f5c451");
           pushPopup("HELMET", p.x, p.y - 32, "is-bonus");

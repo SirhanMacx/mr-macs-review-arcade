@@ -27,6 +27,9 @@
   // Time per puzzle (seconds)
   var PUZZLE_TIME = 300;
 
+  // Mistake limit — once per cell, hitting this count fails the puzzle.
+  var MISTAKE_LIMIT = 3;
+
   // Scholar clue rewards
   var SCHOLAR_BONUS = 1500;
   var SCHOLAR_SHARDS = 12;
@@ -645,6 +648,29 @@
 
   var activeQuestion = null;
 
+  // Pending timeouts so we can cancel on puzzle reload / unload (memory leak fix)
+  var pendingTimeouts = [];
+  function scheduleTimeout(fn, ms) {
+    var h = setTimeout(function () {
+      // remove from pending list
+      var i = pendingTimeouts.indexOf(h);
+      if (i >= 0) pendingTimeouts.splice(i, 1);
+      try { fn(); } catch (e) {}
+    }, ms);
+    pendingTimeouts.push(h);
+    return h;
+  }
+  function clearPendingTimeouts() {
+    for (var i = 0; i < pendingTimeouts.length; i++) {
+      try { clearTimeout(pendingTimeouts[i]); } catch (e) {}
+    }
+    pendingTimeouts = [];
+  }
+
+  // Re-entry guard for hint to prevent double-charge on rapid clicks
+  var hintInFlight = false;
+  var revealInFlight = false;
+
   // -- Puzzle compilation: grid string + clues map -> structured puzzle ----
   // Input template:
   //   { id, title, kicker,
@@ -669,13 +695,26 @@
       letters.push(row);
     }
 
-    // Build cells.
+    // Build cells. Treat isolated letters (no horizontal AND no vertical
+    // neighbour) as black so they can't trap the cursor on an unreachable cell.
     var cells = [];
     for (i = 0; i < GRID_SIZE; i++) {
       var rr = [];
       for (j = 0; j < GRID_SIZE; j++) {
-        if (letters[i][j] == null) rr.push(null);
-        else rr.push({ r: i, c: j, letter: letters[i][j], num: 0, scholar: false });
+        if (letters[i][j] == null) {
+          rr.push(null);
+        } else {
+          var hasLeft  = j > 0 && letters[i][j - 1] != null;
+          var hasRight = j + 1 < GRID_SIZE && letters[i][j + 1] != null;
+          var hasUp    = i > 0 && letters[i - 1][j] != null;
+          var hasDown  = i + 1 < GRID_SIZE && letters[i + 1][j] != null;
+          if (!hasLeft && !hasRight && !hasUp && !hasDown) {
+            // unreachable single-letter island → drop
+            rr.push(null);
+          } else {
+            rr.push({ r: i, c: j, letter: letters[i][j], num: 0, scholar: false });
+          }
+        }
       }
       cells.push(rr);
     }
@@ -882,12 +921,15 @@
   function selectCell(r, c, allowToggleDir) {
     var puz = state.puzzle;
     if (!puz.cells[r] || !puz.cells[r][c]) return;
+    // Reject cells that aren't part of any clue (defensive — compile pass
+    // already drops island cells, but keep this guard for malformed boards).
+    if (!findClueAt(r, c, "A") && !findClueAt(r, c, "D")) return;
     // If clicking same cell, toggle direction
     if (allowToggleDir && state.cursor && state.cursor.r === r && state.cursor.c === c) {
-      state.cursor.dir = state.cursor.dir === "A" ? "D" : "A";
-      // If no clue exists in that direction at this cell, swap back.
-      if (!findClueAt(r, c, state.cursor.dir)) {
-        state.cursor.dir = state.cursor.dir === "A" ? "D" : "A";
+      var flipped = state.cursor.dir === "A" ? "D" : "A";
+      // Only flip if a clue exists in the other direction at this cell.
+      if (findClueAt(r, c, flipped)) {
+        state.cursor.dir = flipped;
       }
     } else {
       var preferred = state.cursor ? state.cursor.dir : "A";
@@ -963,20 +1005,24 @@
     }
   }
 
-  function focusClue(num, dir) {
+  // toStart=true forces the cursor to the clue's first cell instead of the
+  // first empty cell — used by Tab so the user always lands at the start.
+  function focusClue(num, dir, toStart) {
     var clue = (dir === "A" ? state.puzzle.across : state.puzzle.down).filter(function (w) {
       return w.num === num;
     })[0];
     if (!clue) return;
     state.cursor = { r: clue.r, c: clue.c, dir: dir };
-    // Move cursor to first empty letter in the clue if any
-    for (var k = 0; k < clue.length; k++) {
-      var rr = dir === "D" ? clue.r + k : clue.r;
-      var cc = dir === "A" ? clue.c + k : clue.c;
-      if (!state.userGrid[rr][cc]) {
-        state.cursor.r = rr;
-        state.cursor.c = cc;
-        break;
+    if (!toStart) {
+      // Move cursor to first empty letter in the clue if any
+      for (var k = 0; k < clue.length; k++) {
+        var rr = dir === "D" ? clue.r + k : clue.r;
+        var cc = dir === "A" ? clue.c + k : clue.c;
+        if (!state.userGrid[rr][cc]) {
+          state.cursor.r = rr;
+          state.cursor.c = cc;
+          break;
+        }
       }
     }
     refreshHighlights();
@@ -1001,27 +1047,35 @@
     state.userGrid[r][c] = letter;
     var letterEl = cellEls[r][c].querySelector(".ltr");
     if (letterEl) letterEl.textContent = letter;
-    cellEls[r][c].classList.remove("correct", "wrong-flash");
+    var cellEl = cellEls[r][c];
+    cellEl.classList.remove("correct", "wrong-flash");
 
     if (letter === solution) {
       sfx.letter_correct();
-      cellEls[r][c].classList.add("correct");
-      // If cell newly correct (was wrong before or empty)
-      if (prev !== solution) {
-        // no extra penalty
-      }
+      cellEl.classList.add("correct");
       // Check if any clue completed
       checkCluesAfterEdit(r, c);
     } else {
       sfx.letter_wrong();
-      cellEls[r][c].classList.add("wrong-flash");
-      // Track mistake (only count as a fresh mistake if this slot wasn't
-      // already wrong with the same letter)
-      if (prev !== letter) {
+      cellEl.classList.add("wrong-flash");
+      // Track mistake — count once per cell per puzzle, not per wrong letter.
+      if (!state.cellMistakeCounted[r][c]) {
         state.mistakes++;
+        state.cellMistakeCounted[r][c] = true;
+        // Optional 3-mistake-limit handling (lose a life if exceeded).
+        if (typeof MISTAKE_LIMIT === "number" && state.mistakes >= MISTAKE_LIMIT) {
+          // Defer to puzzle-complete flow with a fail.
+          scheduleTimeout(function () { onPuzzleComplete(false); }, 700);
+        }
       }
-      setTimeout(function () {
-        if (cellEls[r] && cellEls[r][c]) cellEls[r][c].classList.remove("wrong-flash");
+      // Capture (r,c) by closure, but use cellEls[r][c] resolution at fire
+      // time so we still target the correct DOM node even if the grid
+      // re-rendered (we'll bail if it has).
+      var rr = r, cc = c;
+      scheduleTimeout(function () {
+        if (cellEls[rr] && cellEls[rr][cc] && cellEls[rr][cc] === cellEl) {
+          cellEl.classList.remove("wrong-flash");
+        }
       }, 600);
     }
     advanceCursor(1);
@@ -1037,18 +1091,19 @@
       state.userGrid[r][c] = null;
       var letterEl = cellEls[r][c].querySelector(".ltr");
       if (letterEl) letterEl.textContent = "";
-      cellEls[r][c].classList.remove("correct", "wrong-flash");
+      if (cellEls[r][c]) cellEls[r][c].classList.remove("correct", "wrong-flash");
     } else {
       advanceCursor(-1);
       var rr = state.cursor.r, cc = state.cursor.c;
-      if (state.userGrid[rr][cc] && !state.revealedCells[rr][cc]) {
+      if (state.userGrid[rr] && state.userGrid[rr][cc] && !state.revealedCells[rr][cc]) {
         state.userGrid[rr][cc] = null;
-        var le = cellEls[rr][cc].querySelector(".ltr");
+        var le = cellEls[rr][cc] && cellEls[rr][cc].querySelector(".ltr");
         if (le) le.textContent = "";
-        cellEls[rr][cc].classList.remove("correct", "wrong-flash");
+        if (cellEls[rr][cc]) cellEls[rr][cc].classList.remove("correct", "wrong-flash");
       }
     }
     updateHud();
+    saveSnapshot();
   }
 
   function advanceCursor(delta) {
@@ -1072,6 +1127,7 @@
   function jumpToNextClue() {
     if (phase !== "playing") return;
     var puz = state.puzzle;
+    if (!puz || (puz.across.length === 0 && puz.down.length === 0)) return;
     var allClues = puz.across.map(function (w) { return { w: w, dir: "A" }; })
                   .concat(puz.down.map(function (w) { return { w: w, dir: "D" }; }));
     var current = getActiveClue();
@@ -1081,15 +1137,18 @@
       if (current && allClues[i].w === current && allClues[i].dir === curDir) { idx = i; break; }
     }
     var nextIdx = (idx + 1) % allClues.length;
-    // Skip already-solved clues if any unsolved exist
+    // Skip already-solved clues; if all are solved, fall through to the
+    // first wrap-around so we still advance.
     var attempts = 0;
-    while (attempts < allClues.length && state.solvedClues[allClues[nextIdx].dir + "_" + allClues[nextIdx].w.num]) {
+    while (attempts < allClues.length &&
+           state.solvedClues[allClues[nextIdx].dir + "_" + allClues[nextIdx].w.num]) {
       nextIdx = (nextIdx + 1) % allClues.length;
       attempts++;
     }
     var nextClue = allClues[nextIdx].w;
     var nextDir = allClues[nextIdx].dir;
-    focusClue(nextClue.num, nextDir);
+    // Tab always lands at the clue's start cell.
+    focusClue(nextClue.num, nextDir, true);
   }
 
   function arrowMove(dir) {
@@ -1147,11 +1206,26 @@
     var li = listToUse.querySelector('li[data-num="' + clue.num + '"][data-dir="' + dir + '"]');
     if (li) li.classList.add("solved");
 
-    // Scholar logic: if clue is scholar AND not revealed AND no hint used on it
-    if (clue.scholar && !state.revealedClueKeys[key] && !state.hintedClueKeys[key]) {
-      sfx.scholar_solved();
-      // Trigger optional review modal
-      setTimeout(function () { openScholarQuestion(clue); }, 380);
+    // Scholar logic: trigger only if NO cell in this clue received a hint
+    // or reveal (covers intersecting-clue assistance, which the prior
+    // implementation missed).
+    if (clue.scholar) {
+      var assisted = !!state.revealedClueKeys[key] || !!state.hintedClueKeys[key];
+      if (!assisted) {
+        for (var k = 0; k < clue.length; k++) {
+          var rr = dir === "D" ? clue.r + k : clue.r;
+          var cc = dir === "A" ? clue.c + k : clue.c;
+          if (state.hintedCells[rr][cc] || state.revealedCells[rr][cc]) {
+            assisted = true;
+            break;
+          }
+        }
+      }
+      if (!assisted) {
+        sfx.scholar_solved();
+        // Trigger optional review modal (cancellable)
+        scheduleTimeout(function () { openScholarQuestion(clue); }, 380);
+      }
     }
     updateGoalRibbon();
   }
@@ -1171,6 +1245,8 @@
   // -- Hint / Reveal ---------------------------------------------------------
   function useHint() {
     if (phase !== "playing") return;
+    // Re-entry guard so rapid clicks (button + key) can't double-charge.
+    if (hintInFlight) return;
     if (state.hintsUsed >= HINT_MAX) {
       pushPopup("No hints left", null, null, "is-rose");
       return;
@@ -1193,24 +1269,39 @@
       pushPopup("Clue is solved", null, null, "is-emerald");
       return;
     }
-    state.hintsUsed++;
-    state.hintCost += HINT_COST;
-    var key = state.cursor.dir + "_" + clue.num;
-    state.hintedClueKeys[key] = true;
-    state.userGrid[target.r][target.c] = target.l;
-    var letterEl = cellEls[target.r][target.c].querySelector(".ltr");
-    if (letterEl) letterEl.textContent = target.l;
-    cellEls[target.r][target.c].classList.add("correct");
-    sfx.hint();
-    pushPopup("HINT -" + HINT_COST, null, null, "is-cyan");
-    updateHud();
-    refreshHighlights();
-    checkCluesAfterEdit(target.r, target.c);
-    saveSnapshot();
+    hintInFlight = true;
+    try {
+      state.hintsUsed++;
+      state.hintCost += HINT_COST;
+      var key = state.cursor.dir + "_" + clue.num;
+      state.hintedClueKeys[key] = true;
+      // Mark the target cell as "had hint" so scholar detection knows the
+      // intersecting clue at this cell got assistance too.
+      state.hintedCells[target.r][target.c] = true;
+      state.userGrid[target.r][target.c] = target.l;
+      // Hint cells are correct; clear any wrong-flash and stale mistake-count.
+      state.cellMistakeCounted[target.r][target.c] = true;
+      var letterEl = cellEls[target.r][target.c].querySelector(".ltr");
+      if (letterEl) letterEl.textContent = target.l;
+      var hCell = cellEls[target.r][target.c];
+      if (hCell) {
+        hCell.classList.remove("wrong-flash");
+        hCell.classList.add("correct");
+      }
+      sfx.hint();
+      pushPopup("HINT -" + HINT_COST, null, null, "is-cyan");
+      updateHud();
+      refreshHighlights();
+      checkCluesAfterEdit(target.r, target.c);
+      saveSnapshot();
+    } finally {
+      hintInFlight = false;
+    }
   }
 
   function useReveal() {
     if (phase !== "playing") return;
+    if (revealInFlight) return;
     if (state.revealsUsed >= REVEAL_MAX) {
       pushPopup("No reveals left", null, null, "is-rose");
       return;
@@ -1220,35 +1311,48 @@
       pushPopup("Pick a clue first", null, null, "is-rose");
       return;
     }
-    state.revealsUsed++;
-    state.revealCost += REVEAL_COST;
-    var key = state.cursor.dir + "_" + clue.num;
-    state.revealedClueKeys[key] = true;
-    for (var k = 0; k < clue.length; k++) {
-      var rr = state.cursor.dir === "D" ? clue.r + k : clue.r;
-      var cc = state.cursor.dir === "A" ? clue.c + k : clue.c;
-      var sol = state.puzzle.cells[rr][cc].letter;
-      state.userGrid[rr][cc] = sol;
-      state.revealedCells[rr][cc] = true;
-      var letterEl = cellEls[rr][cc].querySelector(".ltr");
-      if (letterEl) letterEl.textContent = sol;
-      cellEls[rr][cc].classList.add("revealed");
+    revealInFlight = true;
+    try {
+      state.revealsUsed++;
+      state.revealCost += REVEAL_COST;
+      var key = state.cursor.dir + "_" + clue.num;
+      state.revealedClueKeys[key] = true;
+      for (var k = 0; k < clue.length; k++) {
+        var rr = state.cursor.dir === "D" ? clue.r + k : clue.r;
+        var cc = state.cursor.dir === "A" ? clue.c + k : clue.c;
+        var sol = state.puzzle.cells[rr][cc].letter;
+        state.userGrid[rr][cc] = sol;
+        state.revealedCells[rr][cc] = true;
+        // Reveal does NOT add mistakes — mark counted so any prior wrong
+        // letter doesn't recount and so scholar detection sees assistance.
+        state.cellMistakeCounted[rr][cc] = true;
+        state.hintedCells[rr][cc] = true;
+        var letterEl = cellEls[rr][cc].querySelector(".ltr");
+        if (letterEl) letterEl.textContent = sol;
+        var rCell = cellEls[rr][cc];
+        if (rCell) {
+          rCell.classList.remove("wrong-flash", "correct");
+          rCell.classList.add("revealed");
+        }
+      }
+      sfx.reveal();
+      pushPopup("REVEAL -" + REVEAL_COST, null, null, "is-violet");
+      state.solvedClues[key] = true;
+      var listToUse = state.cursor.dir === "A" ? dom.acrossList : dom.downList;
+      var li = listToUse.querySelector('li[data-num="' + clue.num + '"][data-dir="' + state.cursor.dir + '"]');
+      if (li) li.classList.add("solved");
+      // Check intersecting clues that may now be solved
+      for (var k2 = 0; k2 < clue.length; k2++) {
+        var rr2 = state.cursor.dir === "D" ? clue.r + k2 : clue.r;
+        var cc2 = state.cursor.dir === "A" ? clue.c + k2 : clue.c;
+        checkCluesAfterEdit(rr2, cc2);
+      }
+      updateHud();
+      refreshHighlights();
+      saveSnapshot();
+    } finally {
+      revealInFlight = false;
     }
-    sfx.reveal();
-    pushPopup("REVEAL -" + REVEAL_COST, null, null, "is-violet");
-    state.solvedClues[key] = true;
-    var listToUse = state.cursor.dir === "A" ? dom.acrossList : dom.downList;
-    var li = listToUse.querySelector('li[data-num="' + clue.num + '"][data-dir="' + state.cursor.dir + '"]');
-    if (li) li.classList.add("solved");
-    // Check intersecting clues that may now be solved
-    for (var k2 = 0; k2 < clue.length; k2++) {
-      var rr2 = state.cursor.dir === "D" ? clue.r + k2 : clue.r;
-      var cc2 = state.cursor.dir === "A" ? clue.c + k2 : clue.c;
-      checkCluesAfterEdit(rr2, cc2);
-    }
-    updateHud();
-    refreshHighlights();
-    saveSnapshot();
   }
 
   // -- Check current cell ----------------------------------------------------
@@ -1262,14 +1366,18 @@
       return;
     }
     var s = state.puzzle.cells[r][c].letter;
+    var cEl = cellEls[r][c];
     if (u === s) {
-      cellEls[r][c].classList.add("correct");
+      if (cEl) cEl.classList.add("correct");
       pushPopup("OK", null, null, "is-emerald");
     } else {
-      cellEls[r][c].classList.add("wrong-flash");
+      if (cEl) cEl.classList.add("wrong-flash");
       sfx.letter_wrong();
-      setTimeout(function () {
-        if (cellEls[r] && cellEls[r][c]) cellEls[r][c].classList.remove("wrong-flash");
+      var rr = r, cc = c;
+      scheduleTimeout(function () {
+        if (cellEls[rr] && cellEls[rr][cc] && cellEls[rr][cc] === cEl) {
+          cEl.classList.remove("wrong-flash");
+        }
       }, 600);
     }
   }

@@ -154,8 +154,8 @@
 
   /* -- Toast helper -------------------------------------------------------- */
   function toast(msg, kind) {
-    if (root.MrMacsToast && typeof root.MrMacsToast.show === "function") {
-      try { root.MrMacsToast.show(msg, kind || "info"); return; } catch (e) {}
+    if (root.MrMacsToast && typeof root.MrMacsToast.push === "function") {
+      try { root.MrMacsToast.push({ title: msg, tone: kind || "info", ms: 2400 }); return; } catch (e) {}
     }
     // No toast lib — silent fallback (the UI message is still visible inline).
   }

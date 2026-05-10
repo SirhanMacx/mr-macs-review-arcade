@@ -1299,11 +1299,11 @@
 
   // Refresh powerup tray once a second
   setInterval(function () { if (state) renderPowerupTray(); }, 1000);
-  // ── Toast (uses MrMacsToasts when available) ─────────────────────────────
+  // ── Toast (uses MrMacsToast when available) ──────────────────────────────
   function toast(msg, kind) {
     try {
-      if (window.MrMacsToasts && window.MrMacsToasts.show) {
-        window.MrMacsToasts.show({ title: msg, kind: kind || "info", duration: 1800 });
+      if (window.MrMacsToast && window.MrMacsToast.push) {
+        window.MrMacsToast.push({ title: msg, tone: kind || "info", ms: 1800 });
         return;
       }
     } catch (e) {}

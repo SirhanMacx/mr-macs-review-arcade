@@ -304,13 +304,16 @@
   var Z_HORIZON = 80; // meters of visible road ahead
 
   function zToScreenY(z) {
-    var t = clamp01(z / Z_HORIZON);
+    var Zh = Z_HORIZON > 0.001 ? Z_HORIZON : 0.001;
+    var t = clamp01(z / Zh);
     return ROAD_NEAR_Y + (ROAD_HORIZON_Y - ROAD_NEAR_Y) * t;
   }
   function zToScale(z) {
     // Perspective scale: 1.0 at near, ~0.13 at horizon
-    var t = clamp01(z / Z_HORIZON);
-    var nearH = ROAD_NEAR_HALF_W, farH = ROAD_FAR_HALF_W;
+    var Zh = Z_HORIZON > 0.001 ? Z_HORIZON : 0.001;
+    var t = clamp01(z / Zh);
+    var nearH = ROAD_NEAR_HALF_W > 0.001 ? ROAD_NEAR_HALF_W : 0.001;
+    var farH = ROAD_FAR_HALF_W;
     var halfW = nearH + (farH - nearH) * t;
     return halfW / nearH; // 1.0 near, ~0.13 far
   }
@@ -408,6 +411,8 @@
       nextCoinAt: 8,                        // first coin near
       nextPowerupAt: 70,                    // first powerup ~70m in
       nextGateAt: 220,                      // first scholar gate ~220m in
+      _lastOpenLane: null,                  // remember the dodge lane of the last 2-lane wall
+      _lastObstacleD: null,                 // distance at last obstacle spawn
       // active timers (s)
       magnetT: 0,
       boostT: 0,
@@ -508,13 +513,16 @@
   // -- Spawn loop ------------------------------------------------------------
   function maybeSpawn() {
     var d = state.distance;
-    // Obstacle gap shrinks as speed rises
+    // Obstacle gap shrinks as speed rises (denominator-safe)
     var spd = currentSpeed();
-    var spdT = clamp01((spd - SPEED_START) / (SPEED_MAX - SPEED_START));
+    var spdRange = (SPEED_MAX - SPEED_START);
+    var spdT = spdRange > 0.001 ? clamp01((spd - SPEED_START) / spdRange) : 0;
     var gap = OBSTACLE_BASE_GAP - (OBSTACLE_BASE_GAP - OBSTACLE_MIN_GAP) * spdT;
+    // Hard floor so consecutive obstacle sets are always reachable
+    if (gap < OBSTACLE_MIN_GAP) gap = OBSTACLE_MIN_GAP;
     if (d >= state.nextObstacleAt) {
       spawnObstacleSet();
-      state.nextObstacleAt = d + gap * (0.85 + Math.random() * 0.5);
+      state.nextObstacleAt = d + gap * (0.95 + Math.random() * 0.5);
     }
     if (d >= state.nextCoinAt) {
       spawnCoinPattern();
@@ -528,6 +536,12 @@
       spawnScholarGate();
       state.nextGateAt = d + 240 + Math.random() * 160;    // ~240-400m between gates
     }
+    // Hard caps so unbounded growth is impossible (defensive)
+    if (state.obstacles.length > 80) state.obstacles.length = 80;
+    if (state.coins.length > 200)    state.coins.length = 200;
+    if (state.powerups.length > 30)  state.powerups.length = 30;
+    if (state.gates.length > 8)      state.gates.length = 8;
+    if (state.particles.length > 600) state.particles.length = 600;
   }
 
   function spawnObstacleSet() {
@@ -541,18 +555,38 @@
     var lane = Math.floor(Math.random() * LANE_COUNT);
     var z = Z_HORIZON + 4;
     if (type === "wall") {
-      // 35% chance of double-wall (2 of 3 lanes)
+      // 35% chance of double-wall (2 of 3 lanes — must always leave one open)
       if (Math.random() < 0.4) {
         var lanes = pickTwoLanes();
+        // Track open lane: the one not in `lanes`
+        var openLane = -1;
+        for (var ol = 0; ol < LANE_COUNT; ol++) {
+          if (lanes.indexOf(ol) < 0) { openLane = ol; break; }
+        }
+        // If the previous obstacle set forces a different open lane, skip this set
+        // to avoid an impossible trap.
+        if (state._lastOpenLane != null && openLane !== state._lastOpenLane &&
+            state._lastObstacleD != null && (state.distance - state._lastObstacleD) < 14) {
+          // Replace with a single-lane wall in the previous open lane
+          state.obstacles.push(makeObstacle({ type: "wall", lane: state._lastOpenLane === 0 ? 1 : 0, z: z }));
+          state._lastOpenLane = null;
+          state._lastObstacleD = state.distance;
+          return;
+        }
         for (var i = 0; i < lanes.length; i++) {
           state.obstacles.push(makeObstacle({ type: "wall", lane: lanes[i], z: z }));
         }
+        state._lastOpenLane = openLane;
+        state._lastObstacleD = state.distance;
         return;
       }
       state.obstacles.push(makeObstacle({ type: "wall", lane: lane, z: z }));
+      state._lastOpenLane = null;
+      state._lastObstacleD = state.distance;
       return;
     }
     // pipe / beam / spinner: usually single lane, occasionally on multiple
+    // Cap multi-lane to 2 lanes (never all 3) to keep patterns dodgeable
     if (Math.random() < 0.25) {
       // multi-lane: same type across 2 lanes
       var lanes2 = pickTwoLanes();
@@ -562,12 +596,17 @@
     } else {
       state.obstacles.push(makeObstacle({ type: type, lane: lane, z: z, spinPhase: Math.random() * Math.PI * 2, spinSpeed: 1.3 + Math.random() * 0.8 }));
     }
+    state._lastOpenLane = null;
+    state._lastObstacleD = state.distance;
   }
   function pickTwoLanes() {
+    // Returns 2 distinct lane indices in [0..LANE_COUNT-1]
     var all = [0, 1, 2];
-    var i1 = Math.floor(Math.random() * 3);
+    var i1 = Math.floor(Math.random() * all.length);
     var pickA = all.splice(i1, 1)[0];
-    var pickB = all[Math.floor(Math.random() * all.length)];
+    var i2 = Math.floor(Math.random() * all.length);
+    var pickB = all[i2];
+    if (pickB === pickA) pickB = all[(i2 + 1) % all.length];
     return [pickA, pickB];
   }
   function spawnCoinPattern() {
@@ -645,28 +684,35 @@
     var p = state.player;
     if (p.dying) return;
 
+    // Track previous hover state to detect when hover ends
+    var hadHover = !!p._hadHover;
+
     // Lane-change tween
     if (p.laneT > 0 && p.laneT < 1) {
-      p.laneT += dt / p.laneDuration;
+      p.laneT += dt / Math.max(0.001, p.laneDuration);
       if (p.laneT >= 1) {
         p.laneT = 1;
         p.lane = p.laneTo;
+        p.laneFrom = p.laneTo;
       }
     }
     // Jump arc
     if (p.jumping) {
-      p.jumpT += dt / p.jumpDuration;
+      p.jumpT += dt / Math.max(0.001, p.jumpDuration);
       if (p.jumpT >= 1) {
-        p.jumpT = 0;
         p.jumping = false;
+        p.jumpT = 0;
         p.yOff = 0;
       } else {
         p.yOff = -Math.sin(p.jumpT * Math.PI) * JUMP_HEIGHT;
       }
+    } else if (state.hoverT <= 0) {
+      // Not jumping and no hover: ensure on ground
+      p.yOff = 0;
     }
     // Slide
     if (p.sliding) {
-      p.slideT += dt / p.slideDuration;
+      p.slideT += dt / Math.max(0.001, p.slideDuration);
       if (p.slideT >= 1) {
         p.slideT = 0;
         p.sliding = false;
@@ -677,6 +723,13 @@
       p.yOff = -JUMP_HEIGHT * 1.4 - 8;
       // Slight bob so it reads as flight
       if (!reducedMotion) p.yOff += Math.sin(state.time * 4) * 4;
+      p._hadHover = true;
+    } else if (hadHover) {
+      // Hover just ended — drop player to ground and grant brief i-frames
+      // so they don't crash mid-air on a freshly-spawned obstacle.
+      p._hadHover = false;
+      if (!p.jumping) p.yOff = 0;
+      p.iframes = Math.max(p.iframes, 0.6);
     }
 
     // Animation tick
@@ -710,6 +763,7 @@
   // -- Movement input → actions ---------------------------------------------
   function moveLane(dir) {
     if (phase !== "playing") return;
+    if (!state || !state.player) return;
     var p = state.player;
     if (p.dying) return;
     // Mid-jump cannot change lane
@@ -728,6 +782,7 @@
   }
   function jump() {
     if (phase !== "playing") return;
+    if (!state || !state.player) return;
     var p = state.player;
     if (p.dying) return;
     if (p.jumping) return;
@@ -739,6 +794,7 @@
   }
   function slide() {
     if (phase !== "playing") return;
+    if (!state || !state.player) return;
     var p = state.player;
     if (p.dying) return;
     if (p.sliding) return;
@@ -757,9 +813,14 @@
   // Get player's current lane-x in world units (interpolated during lane change)
   function playerWorldX() {
     var p = state.player;
-    var fromX = laneToWorldX(p.laneFrom);
-    var toX = laneToWorldX(p.laneTo);
-    var t = (p.laneT > 0) ? easeOutCubic(p.laneT) : 0;
+    // Clamp from/to to valid lane indices in case of stale state
+    var fromIdx = clamp(p.laneFrom, 0, LANE_COUNT - 1);
+    var toIdx = clamp(p.laneTo, 0, LANE_COUNT - 1);
+    var fromX = laneToWorldX(fromIdx);
+    var toX = laneToWorldX(toIdx);
+    // Clamp tween progress so easing never overshoots edges
+    var rawT = (p.laneT > 0) ? clamp01(p.laneT) : 0;
+    var t = rawT > 0 ? easeOutCubic(rawT) : 0;
     return fromX + (toX - fromX) * t;
   }
   function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
@@ -930,15 +991,27 @@
 
   function onObstacleHit(ob) {
     if (state.shieldOn) {
-      // shield absorbs the hit
-      state.shieldOn = false;
+      // shield absorbs the hit — set iframes FIRST so simultaneous obstacles
+      // in the same z-window are also no-op'd this frame.
       state.player.iframes = 1.2;
+      state.shieldOn = false;
       ob._dead = true;
       ob.hit = true;
+      // Also clear any other obstacles already overlapping the player
+      // (e.g. the second slab of a 2-lane wall) so the absorb feels clean.
+      for (var s = 0; s < state.obstacles.length; s++) {
+        var so = state.obstacles[s];
+        if (!so._dead && so.z < 1.0 && so.z > -1.5) so._dead = true;
+      }
       addShake(6, 0.35);
       pushPopup("SHIELD!", playerScreenX(), playerScreenY() - 30, "is-bonus");
       sfx.powerupUse();
       burstAt(playerScreenX(), playerScreenY(), "#5de0f0", 22);
+      try {
+        if (window.MrMacsToast && window.MrMacsToast.push) {
+          window.MrMacsToast.push({ title: "Shield absorbed!", tone: "shards", ms: 1400 });
+        }
+      } catch (e) {}
       return;
     }
     // Take a life

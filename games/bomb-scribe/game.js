@@ -521,8 +521,9 @@
     var t = tileAt(gx, gy);
     if (t === T_SOLID) return true;
     if (enemy.type === E_GHOST) {
-      // Ghost phases through soft + scholar walls
-      if (t === T_SOFT || t === T_SCHOLAR) return false;
+      // Ghost phases through soft walls only (NOT scholar walls — scholars block
+      // even ghosts so the review prompt is not bypassed by phase-through)
+      if (t === T_SOFT) return false;
     }
     if (t === T_SOFT) return true;
     if (t === T_SCHOLAR) return true;

@@ -2074,14 +2074,14 @@
         if (state.currentAlly && state.currentAlly.isRare) window.MrMacsProfile.unlock("hh-rare");
       } catch (e) {}
     }
-    if (window.MrMacsAnalytics && typeof window.MrMacsAnalytics.track === "function") {
-      window.MrMacsAnalytics.track("game_complete", {
+    if (window.MrMacsProgress && typeof window.MrMacsProgress.recordEvent === "function") {
+      window.MrMacsProgress.recordEvent("game_complete", {
         gameId: "history-hunters",
         title: "History Hunters",
         score: state.stats.shards,
         allies: state.stats.roster.length,
         course: els.courseFilter.value
-      }, { counter: "game-completions" });
+      });
     }
     setTimeout(closeEncounter, 1700);
   }

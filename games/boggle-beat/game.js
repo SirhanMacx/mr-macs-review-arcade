@@ -829,6 +829,7 @@
       roundStartTime: ROUND_TIMER,
       roundWords: [],      // words found this round
       foundAllWords: new Set(), // ALL words found across rounds (for repeat check)
+      scholarWordTags: {}, // word -> true if discovered via scholar tile
       roundScore: 0,
       longestThisRound: 0,
       // Round results
@@ -970,29 +971,32 @@
   }
   function isAdjacent(a, b) {
     if (!a || !b) return false;
+    if (a === b) return false;
     var dr = Math.abs(a.row - b.row);
     var dc = Math.abs(a.col - b.col);
-    return (dr <= 1 && dc <= 1 && (dr + dc > 0));
+    // Strict 8-direction: at most one row/col step, and not the same tile.
+    if (dr > 1 || dc > 1) return false;
+    return (dr + dc) > 0;
   }
   function tryAppendTile(id) {
     if (!state || phase !== "playing") return false;
     if (state.timeoutTriggered) return false;
+    if (typeof id !== "number" || id < 0 || id >= GRID_SIZE * GRID_SIZE) return false;
     var tile = tileById(id);
     if (!tile) return false;
     if (state.selectedIds.indexOf(id) >= 0) {
-      // If this is the second-to-last (the previous tile), allow backtracking
+      // Allow backtracking only to the immediately-previous tile (n-2 in selection).
       if (state.selectedIds.length >= 2 && state.selectedIds[state.selectedIds.length - 2] === id) {
-        // Pop the last
         state.selectedIds.pop();
         state.currentWord = readSelectionWord();
         updateWordReadout(true);
         return true;
       }
-      return false; // can't reuse a tile in same word
+      return false; // a tile cannot be used twice in the same word
     }
     if (state.selectedIds.length === 0) {
       state.selectedIds.push(id);
-      state.currentWord = tile.letter;
+      state.currentWord = (tile.letter || "").toUpperCase();
       sfx.tile_select();
       updateWordReadout(true);
       return true;
@@ -1026,9 +1030,14 @@
 
   // -- Submit logic ----------------------------------------------------------
   function submitWord() {
-    if (phase !== "playing" || state.timeoutTriggered) return;
-    var word = state.currentWord;
-    if (!word || word.length < MIN_WORD_LEN) {
+    if (phase !== "playing" || !state || state.timeoutTriggered) return;
+    var word = (state.currentWord || "").toUpperCase();
+    // Empty word — silent no-op (e.g. Enter pressed with no selection).
+    if (!word.length) {
+      clearSelection();
+      return;
+    }
+    if (word.length < MIN_WORD_LEN) {
       // Too short — gentle fail
       sfx.word_invalid();
       flashSelectedTiles("#d04848", 0.4);
@@ -1081,6 +1090,8 @@
     saveSnapshot();
     if (scholarHit) {
       state.pendingScholarKeyword = word;
+      state.scholarWordTags = state.scholarWordTags || {};
+      state.scholarWordTags[word] = true;
       sfx.scholar_word();
       // Clear selection visual but trigger scholar after short delay
       clearSelection();
@@ -1109,6 +1120,7 @@
   }
   function renderFoundList() {
     if (!dom.foundList) return;
+    var tags = (state && state.scholarWordTags) || {};
     var html = "";
     // Sort newest first
     var copy = state.roundWords.slice().reverse();
@@ -1116,8 +1128,8 @@
       var w = copy[i];
       var themed = isThemedWord(w);
       var pts = (w.length * w.length * 10) + (themed ? 50 : 0);
-      var cls = themed ? "is-history" : "";
-      html += '<li class="' + cls + '"><span>' + w + '</span><span class="found-pts mono">' + pts + '</span></li>';
+      var cls = tags[w] ? "is-scholar" : (themed ? "is-history" : "");
+      html += '<li class="' + cls + '"><span>' + escapeHtml(w) + '</span><span class="found-pts mono">' + pts + '</span></li>';
     }
     dom.foundList.innerHTML = html;
     if (dom.foundCount) dom.foundCount.textContent = String(state.roundWords.length);
@@ -1134,7 +1146,7 @@
   }
   function usePowerup(idxOrType) {
     if (phase !== "playing") return;
-    if (state.timeoutTriggered) return;
+    if (!state || state.timeoutTriggered) return;
     var idx = -1;
     if (typeof idxOrType === "number") idx = idxOrType;
     else {
@@ -1142,10 +1154,15 @@
     }
     if (idx < 0 || idx >= state.powerups.length) return;
     var p = state.powerups[idx];
+    // For reveal/autofind we may need to refund if there's nothing to do.
+    var consumed = true;
     state.powerups.splice(idx, 1);
-    sfx.powerup_use();
     if (p.type === "reveal") {
-      revealRandomWord();
+      if (!revealRandomWord()) {
+        // Refund — no word was found to highlight.
+        state.powerups.splice(idx, 0, p);
+        consumed = false;
+      }
     } else if (p.type === "time") {
       state.roundTime = Math.min(state.roundStartTime + 30, state.roundTime + 20);
       pushPopup("+20s", LOGICAL_W / 2, 320, "is-cyan");
@@ -1156,51 +1173,55 @@
       state.x2WordsLeft = 5;
       pushPopup("x2 NEXT 5", LOGICAL_W / 2, 320, "is-tetris");
     } else if (p.type === "autofind") {
-      autoFindStarters();
+      if (!autoFindStarters()) {
+        state.powerups.splice(idx, 0, p);
+        consumed = false;
+      }
     }
+    if (consumed) sfx.powerup_use();
     renderPowerupTray();
     updateHud();
     updateRibbon();
   }
   function reshuffleGrid() {
-    // Re-roll all letters but preserve scholar tile position (or move it)
-    var oldScholarId = -1;
-    for (var r = 0; r < GRID_SIZE; r++) {
-      for (var c = 0; c < GRID_SIZE; c++) {
-        if (state.grid[r][c].scholar) oldScholarId = state.grid[r][c].id;
-      }
-    }
+    // Re-roll all letters; generateGrid places a fresh scholar tile.
     state.grid = generateGrid();
     clearSelection();
   }
   function revealRandomWord() {
     // Find a 4+ letter word using BFS through the grid via valid dictionary words.
+    // Returns true if a word was highlighted, false otherwise (so the powerup can be refunded).
     var found = findOneWord(4, 7);
     if (!found) {
       // Fallback to 3+
       found = findOneWord(3, 6);
     }
-    if (found) {
+    if (found && found.ids && found.ids.length) {
       state.revealHighlight = { ids: found.ids, life: 3.5, totalLife: 3.5 };
       pushPopup("REVEAL: " + found.word, LOGICAL_W / 2, 320, "is-cyan");
-    } else {
-      pushPopup("NO WORDS FOUND", LOGICAL_W / 2, 320, "is-warn");
+      return true;
     }
+    pushPopup("NO WORDS FOUND", LOGICAL_W / 2, 320, "is-warn");
+    return false;
   }
   function autoFindStarters() {
     // Submit all 3-letter words from the grid that are valid AND not yet found.
+    // Returns true if anything was submitted (so the powerup is consumed), false to refund.
     var subs = findAllWords(3, 3, 8);
     var submitted = 0;
     for (var i = 0; i < subs.length && submitted < 8; i++) {
       var entry = subs[i];
-      if (state.foundAllWords.has(entry.word)) continue;
+      if (!entry || !entry.word) continue;
+      var w = entry.word.toUpperCase();
+      if (!isValidWord(w)) continue;            // belt-and-suspenders: never submit invalid
+      if (state.foundAllWords.has(w)) continue; // skip repeats (case-normalized)
       // Score it directly without redoing selection
-      state.foundAllWords.add(entry.word);
-      state.roundWords.push(entry.word);
+      state.foundAllWords.add(w);
+      state.roundWords.push(w);
       state.wordsCounted += 1;
-      if (entry.word.length > state.longestThisRound) state.longestThisRound = entry.word.length;
-      var themed = isThemedWord(entry.word);
-      var pts = (entry.word.length * entry.word.length * 10) + (themed ? 50 : 0);
+      if (w.length > state.longestThisRound) state.longestThisRound = w.length;
+      var themed = isThemedWord(w);
+      var pts = (w.length * w.length * 10) + (themed ? 50 : 0);
       state.score += pts;
       state.roundScore += pts;
       submitted++;
@@ -1210,9 +1231,10 @@
       sfx.word_submit();
       renderFoundList();
       updateHud();
-    } else {
-      pushPopup("NO 3-LETTER STARTERS", LOGICAL_W / 2, 320, "is-warn");
+      return true;
     }
+    pushPopup("NO 3-LETTER STARTERS", LOGICAL_W / 2, 320, "is-warn");
+    return false;
   }
   // Grid search — finds one word in [minLen..maxLen]
   function findOneWord(minLen, maxLen) {
@@ -1824,8 +1846,11 @@
     if (!state) return;
     var dt = lastFrame ? Math.min(0.05, (ts - lastFrame) / 1000) : 0.016;
     lastFrame = ts;
-    state.time += dt;
-    if (phase === "playing" && !state.timeoutTriggered) {
+    // Freeze world clock while paused, in scholar question, or in setup/end modal —
+    // this stops the round timer, particles, reveal highlight, flash, and shake.
+    var worldActive = (phase === "playing" && !state.timeoutTriggered);
+    if (worldActive) {
+      state.time += dt;
       state.roundTime -= dt;
       // Time-low warning ping
       if (state.roundTime <= 5 && Math.floor(state.roundTime) !== state.lastTimeWarn) {
@@ -1837,39 +1862,43 @@
         endRound();
       }
     }
-    // Particles
-    if (state.particles && state.particles.length) {
-      var alive = [];
-      for (var i = 0; i < state.particles.length; i++) {
-        var p = state.particles[i];
-        p.life -= dt;
-        if (p.life <= 0) continue;
-        p.vy += p.gravity * dt;
-        p.x += p.vx * dt;
-        p.y += p.vy * dt;
-        alive.push(p);
+    if (worldActive) {
+      // Particles
+      if (state.particles && state.particles.length) {
+        var alive = [];
+        for (var i = 0; i < state.particles.length; i++) {
+          var p = state.particles[i];
+          p.life -= dt;
+          if (p.life <= 0) continue;
+          p.vy += p.gravity * dt;
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          alive.push(p);
+        }
+        state.particles = alive;
       }
-      state.particles = alive;
-    }
-    // Reveal highlight decay
-    if (state.revealHighlight && state.revealHighlight.life > 0) {
-      state.revealHighlight.life -= dt;
-      if (state.revealHighlight.life <= 0) state.revealHighlight = null;
-    }
-    // Flash tiles decay
-    if (state.flashTiles && state.flashTiles.life > 0) {
-      state.flashTiles.life -= dt;
-      if (state.flashTiles.life <= 0) state.flashTiles = null;
-    }
-    // Shake decay
-    if (state.shake.life > 0) {
-      state.shake.life -= dt;
-      if (state.shake.life <= 0) {
-        state.shake.x = 0; state.shake.y = 0; state.shake.intensity = 0; state.shake.life = 0;
-      } else {
-        var amp = state.shake.intensity * (state.shake.life / state.shake.totalLife);
-        state.shake.x = (Math.random() - 0.5) * 2 * amp;
-        state.shake.y = (Math.random() - 0.5) * 2 * amp;
+      // Reveal highlight decay
+      if (state.revealHighlight && state.revealHighlight.life > 0) {
+        state.revealHighlight.life -= dt;
+        if (state.revealHighlight.life <= 0) state.revealHighlight = null;
+      }
+      // Flash tiles decay
+      if (state.flashTiles && state.flashTiles.life > 0) {
+        state.flashTiles.life -= dt;
+        if (state.flashTiles.life <= 0) state.flashTiles = null;
+      }
+      // Shake decay
+      if (state.shake.life > 0) {
+        state.shake.life -= dt;
+        if (state.shake.life <= 0) {
+          state.shake.x = 0; state.shake.y = 0; state.shake.intensity = 0; state.shake.life = 0;
+        } else if (!reducedMotion) {
+          var amp = state.shake.intensity * (state.shake.life / state.shake.totalLife);
+          state.shake.x = (Math.random() - 0.5) * 2 * amp;
+          state.shake.y = (Math.random() - 0.5) * 2 * amp;
+        } else {
+          state.shake.x = 0; state.shake.y = 0;
+        }
       }
     }
     // HUD
@@ -2078,20 +2107,33 @@
 
     // Keyboard
     document.addEventListener("keydown", function (e) {
-      if (phase === "question") return;
+      // Scholar modal: allow Esc to close, swallow other keys to keep game shortcuts inert.
+      if (phase === "question") {
+        if (e.key === "Escape") {
+          skipScholar();
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        return;
+      }
       if (e.key === "Enter") {
-        if (phase === "playing" && state.selectedIds.length > 0) {
+        if (phase === "playing" && state && state.selectedIds.length > 0) {
           submitWord();
-          e.preventDefault();
         }
+        // Always preventDefault while in-game so Enter doesn't activate focused buttons.
+        if (phase === "playing" || phase === "paused") e.preventDefault();
       } else if (e.key === "Escape") {
-        if (phase === "playing" && state.selectedIds.length > 0) {
+        if (phase === "playing" && state && state.selectedIds.length > 0) {
           clearSelection();
+        } else if (phase === "paused") {
+          togglePause();
+        }
+        if (phase === "playing" || phase === "paused") e.preventDefault();
+      } else if (e.key === "p" || e.key === "P") {
+        if (phase === "playing" || phase === "paused") {
+          togglePause();
           e.preventDefault();
         }
-      } else if (e.key === "p" || e.key === "P") {
-        togglePause();
-        e.preventDefault();
       } else if (phase === "playing" && /^[1-5]$/.test(e.key)) {
         var n = parseInt(e.key, 10);
         var type = POWERUP_TYPES[n - 1];

@@ -589,13 +589,13 @@
       setMessage("Cipher decoded. Explanation unlocked.", "good");
       audio.win();
       burst(36, "#67f0a8");
-      if (window.MrMacsAnalytics && typeof window.MrMacsAnalytics.track === "function") {
-        window.MrMacsAnalytics.track("game_complete", {
+      if (window.MrMacsProgress && typeof window.MrMacsProgress.recordEvent === "function") {
+        window.MrMacsProgress.recordEvent("game_complete", {
           gameId: "archive-cipher",
           title: "Archive Cipher",
           term: state.target.answer,
           attempts: state.guesses.length
-        }, { counter: "game-completions", once: false });
+        });
       }
     } else {
       state.stats.streak = 0;

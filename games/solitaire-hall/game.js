@@ -621,6 +621,8 @@
         if (dropped && dropped.scholar) {
           sfx.scholarToFoundation();
           dropped.scholar = false; // consumed; only triggers once
+          hist.scholarConsumed = true; // tag so undo can restore it
+          hist.scholarCard = dropped;
           // Trigger scholar review immediately so autoFinish/playing both pause
           triggerScholarReview(dropped, dstPile);
         } else {
@@ -675,6 +677,8 @@
       });
       sfx.stockCycle();
       pushPopupAtBoard("STOCK CYCLE -100", "is-warn");
+      // Recycling counts as a move (parity with stock draw)
+      state.moveCount++;
       repositionAll(false);
       return;
     }
@@ -720,6 +724,7 @@
       }
       state.score -= hist.scoreDelta;
       state.stockCycles = Math.max(0, state.stockCycles - 1);
+      state.moveCount = Math.max(0, state.moveCount - 1);
       sfx.undo();
       repositionAll(false);
       state.undosUsed++;
@@ -750,6 +755,10 @@
     // If src was tableau and history.didFlip was true, flip its current top back face-down
     if (hist.didFlip && srcPile.type === PT_TABLEAU && srcPile.cards.length > 0) {
       srcPile.cards[srcPile.cards.length - 1].faceUp = false;
+    }
+    // Restore scholar marker if this move had consumed one (allows re-trigger)
+    if (hist.scholarConsumed && hist.scholarCard) {
+      hist.scholarCard.scholar = true;
     }
     // Re-attach moving to src at original start position (which is end since we just popped)
     for (var k = 0; k < moving.length; k++) {
@@ -1214,6 +1223,9 @@
     showScreen(null);
     resumeMusic();
     phase = (prevPhase === "autoFinish") ? "autoFinish" : "playing";
+    // Win check was deferred while phase was "question"; perform it now that
+    // the scholar card has fully landed on its foundation.
+    if (isWin()) { onWin(); return; }
     if (phase === "autoFinish") {
       setTimeout(autoFinishStep, reducedMotion ? 50 : 140);
     }

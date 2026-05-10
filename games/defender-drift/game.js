@@ -139,9 +139,29 @@
   var touchFireHeld = false;
   var touchBombArmed = false;
 
+  // Track pending setTimeouts that mutate game state, so we can cancel on restart/exit.
+  var pendingTimeouts = [];
+  function scheduleTimeout(fn, ms) {
+    var h = setTimeout(function () {
+      // remove self from list before running
+      var idx = pendingTimeouts.indexOf(h);
+      if (idx >= 0) pendingTimeouts.splice(idx, 1);
+      try { fn(); } catch (e) {}
+    }, ms);
+    pendingTimeouts.push(h);
+    return h;
+  }
+  function clearPendingTimeouts() {
+    for (var i = 0; i < pendingTimeouts.length; i++) {
+      try { clearTimeout(pendingTimeouts[i]); } catch (e) {}
+    }
+    pendingTimeouts.length = 0;
+  }
+
   // -- Math/world helpers ----------------------------------------------------
   function wrap(x) {
     // wrap world x-coordinate into [0, WORLD_W)
+    if (!isFinite(x)) return 0;
     var m = x % WORLD_W;
     if (m < 0) m += WORLD_W;
     return m;
@@ -396,8 +416,12 @@
   }
 
   function smartBomb() {
-    if (state.smartBombs <= 0) return;
+    // Only legal during active play — prevents touch/keys from spending bombs
+    // while modals are open or during dying/stageClear/setup/ended.
+    if (phase !== "playing") return;
+    if (!state || state.smartBombs <= 0) return;
     state.smartBombs--;
+    if (state.smartBombs < 0) state.smartBombs = 0;   // defensive: never negative
     sfx.smart_bomb();
     addShake(12, 0.6);
     var killed = 0;
@@ -446,9 +470,11 @@
   function playerWorldX() { return state.player.worldX; }
 
   // -- State init ------------------------------------------------------------
+  var nextRunId = 1;
   function initState(opts) {
     opts = opts || {};
     state = {
+      _runId: opts.runId || nextRunId++,
       stage: opts.stage || 1,
       maxStage: opts.maxStage || (opts.stage || 1),
       score: opts.score || 0,
@@ -838,9 +864,11 @@
   }
 
   function rescueScholar(s) {
+    if (!s || s.state === "rescued" || s.state === "lost") return;
     if (state.questionedScholarIds[s.id]) {
       // already triggered earlier — just mark as rescued silently
       s.state = "rescued";
+      s.carrier = null;
       sfx.scholar_grab();
       pushPopupAtWorld("RESCUED", s.worldX, s.y - 18, "is-bonus");
       state.scholarsRescued++;
@@ -849,6 +877,7 @@
     state.scholarsRescued++;
     state.questionedScholarIds[s.id] = true;
     s.state = "rescued";
+    s.carrier = null;
     sfx.scholar_grab();
     pushPopupAtWorld("SCHOLAR RESCUED", s.worldX, s.y - 18, "is-bonus");
     try {
@@ -856,24 +885,30 @@
         window.MrMacsCelebration.burst({ count: 18, palette: ["#f5c451", "#5de0f0", "#a991ff"] });
       }
     } catch (er) {}
-    openScholarQuestion();
+    // Guard: only open the modal if we aren't already showing one (e.g., back-to-back catches).
+    if (phase !== "question" && !activeQuestion) openScholarQuestion();
   }
 
-  function loseScholar(s) {
-    if (s.state === "lost") return;
+  function loseScholar(s, opts) {
+    if (!s || s.state === "lost") return;
     s.state = "lost";
+    s.carrier = null;
     state.scholarsLost++;
     state.score = Math.max(0, state.score - SCHOLAR_LOST_PENALTY);
     sfx.scholar_lost();
     addShake(6, 0.3);
     pushPopupAtScreen("SCHOLAR LOST -" + SCHOLAR_LOST_PENALTY, LOGICAL_W / 2, 90, "is-warn");
-    // Spawn a Mutant from where the scholar was abducted (Defender canon)
-    var m = spawnEnemy("mutant", s.worldX, RADAR_H + 40);
-    if (m) {
-      m.mode = "chasing";
-      m.vx = (Math.random() < 0.5 ? -1 : 1) * 80;
+    // Spawn a Mutant from where the scholar was abducted (Defender canon).
+    // Skip the spawn when the lander itself is transmuting into a mutant — otherwise we'd get two.
+    var skipMutantSpawn = !!(opts && opts.skipMutantSpawn);
+    if (!skipMutantSpawn) {
+      var m = spawnEnemy("mutant", s.worldX, RADAR_H + 40);
+      if (m) {
+        m.mode = "chasing";
+        m.vx = (Math.random() < 0.5 ? -1 : 1) * 80;
+      }
+      sfx.mutant_birth();
     }
-    sfx.mutant_birth();
   }
 
   function updateEnemies(dt) {
@@ -919,12 +954,16 @@
       if (e.y < SKY_TOP) {
         var sch = e.carriedScholar;
         e.carriedScholar = null;
-        loseScholar(sch);
+        // Pass skipMutantSpawn — the lander itself transmutes, so don't double-spawn.
+        loseScholar(sch, { skipMutantSpawn: true });
         // The lander itself transmutes into a mutant
         e.type = "mutant";
         var meta = ENEMY_TYPES.mutant;
         e.hp = meta.hp; e.maxHp = meta.hp; e.w = meta.w; e.h = meta.h; e.score = meta.score;
         e.mode = "chasing";
+        e.y = SKY_TOP + 4;            // nudge below ceiling so transmuted mutant is visible
+        e.vy = 0;
+        sfx.mutant_birth();           // still announce the transmute
       }
       return;
     }
@@ -1161,10 +1200,17 @@
     burstAtWorld(p.worldX, p.y, "#f5c451", 8);
     if (state.lives <= 0) {
       phase = "dying";
-      setTimeout(function () { gameOver(); }, 1100);
+      var runIdGo = state ? state._runId : 0;
+      scheduleTimeout(function () {
+        if (!state || state._runId !== runIdGo) return;
+        gameOver();
+      }, 1100);
     } else {
       phase = "dying";
-      setTimeout(function () {
+      var runIdResp = state ? state._runId : 0;
+      scheduleTimeout(function () {
+        if (!state || state._runId !== runIdResp) return;
+        if (phase !== "dying") return;
         respawnPlayer();
         phase = "playing";
       }, PLAYER_RESPAWN_DELAY_MS);
@@ -1213,9 +1259,13 @@
     } catch (e) {}
     phase = "stageClear";
     saveSnapshot();
-    setTimeout(function () {
+    var runIdSc = state._runId;
+    scheduleTimeout(function () {
+      if (!state || state._runId !== runIdSc) return;
+      if (phase !== "stageClear") return;
       var nextStage = state.stage + 1;
       var carry = {
+        runId: state._runId,             // preserve run id across stages
         stage: nextStage,
         maxStage: Math.max(state.maxStage, nextStage),
         score: state.score,
@@ -1384,18 +1434,11 @@
     var pcx = playerWorldX();
     for (var i = 0; i < state.stars.length; i++) {
       var s = state.stars[i];
-      // Parallax: stars near 0 don't scroll; full parallax = full scroll.
-      // Distance from player times parallax
-      var dx = worldDelta(s.worldX, pcx) * (1 - s.parallax);
-      // Where on screen
-      var sx = wrap(s.worldX - pcx * s.parallax + WORLD_W) % WORLD_W;
-      // Convert to viewport coord centered on player
+      // Parallax: stars at parallax=0 don't scroll; parallax=1 = full scroll.
+      // Convert world position to viewport coord, accounting for parallax-scaled camera.
       var rel = worldDelta(pcx * s.parallax, s.worldX);
       var screenX = PLAYER_SCREEN_X + rel;
-      // Wrap into viewport
-      while (screenX < -8) screenX += WORLD_W;
-      while (screenX > LOGICAL_W + 8) screenX -= WORLD_W;
-      if (screenX < -2 || screenX > LOGICAL_W + 2) continue;
+      if (!isFinite(screenX) || screenX < -2 || screenX > LOGICAL_W + 2) continue;
       var tw = reducedMotion ? 1 : (0.6 + 0.4 * Math.abs(Math.sin(s.twinkle)));
       ctx.fillStyle = "rgba(255,255,255," + (s.a * tw) + ")";
       ctx.fillRect(screenX - s.r / 2, s.y - s.r / 2, s.r, s.r);
@@ -2123,11 +2166,15 @@
       sfx.scholar_wrong();
     }
     state.questionsAnsweredTotal++;
-    setTimeout(function () { closeQuestion(correct); }, 1100);
+    var runIdQ = state ? state._runId : 0;
+    scheduleTimeout(function () {
+      if (!state || state._runId !== runIdQ) return;
+      closeQuestion(correct);
+    }, 1100);
   }
 
   function closeQuestion(wasCorrect) {
-    if (wasCorrect) {
+    if (wasCorrect && state) {
       state.score += 1500;
       addShards(12, "defender-drift-scholar-correct");
       try {
@@ -2138,21 +2185,30 @@
       pushPopupAtScreen("+1500 SCHOLAR", LOGICAL_W / 2, 100, "is-bonus");
     }
     activeQuestion = null;
-    phase = prevPhase || "playing";
-    if (phase === "question") phase = "playing";
+    if (phase !== "question") {
+      // Phase already changed (e.g., player ran out of lives during the modal) — don't override.
+      showScreen(null);
+      updateHud();
+      return;
+    }
+    phase = (prevPhase && prevPhase !== "question") ? prevPhase : "playing";
     prevPhase = null;
     showScreen(null);
-    resumeMusic();
+    if (phase === "playing") resumeMusic();
     updateHud();
   }
 
   function skipQuestion() {
     activeQuestion = null;
-    phase = prevPhase || "playing";
-    if (phase === "question") phase = "playing";
+    if (phase !== "question") {
+      showScreen(null);
+      updateHud();
+      return;
+    }
+    phase = (prevPhase && prevPhase !== "question") ? prevPhase : "playing";
     prevPhase = null;
     showScreen(null);
-    resumeMusic();
+    if (phase === "playing") resumeMusic();
     updateHud();
   }
 
@@ -2171,7 +2227,11 @@
     var prevBest = readBest();
     if (state.score > prevBest) writeBest(state.score);
     saveSnapshot();
-    setTimeout(showEndScreen, 700);
+    var runIdEnd = state ? state._runId : 0;
+    scheduleTimeout(function () {
+      if (!state || state._runId !== runIdEnd) return;
+      showEndScreen();
+    }, 700);
   }
 
   function showEndScreen() {
@@ -2413,6 +2473,10 @@
     dom.exitBtn.addEventListener("click", exitToArcade);
     dom.pauseBtn.addEventListener("click", togglePause);
     dom.setupBtn.addEventListener("click", function () {
+      clearPendingTimeouts();
+      resetTransientInput();
+      activeQuestion = null;
+      prevPhase = null;
       clearSnapshot();
       phase = "setup";
       stopMusic();
@@ -2436,12 +2500,17 @@
   }
 
   function exitToArcade() {
+    clearPendingTimeouts();
     stopMusic();
     saveSnapshot();
     window.location.href = "../../index.html";
   }
 
   function newRun() {
+    clearPendingTimeouts();
+    resetTransientInput();
+    activeQuestion = null;
+    prevPhase = null;
     lastBonusLifeThreshold = 0;
     runStartMs = Date.now();
     initState({});
@@ -2454,6 +2523,10 @@
   }
 
   function resumeRun(snap) {
+    clearPendingTimeouts();
+    resetTransientInput();
+    activeQuestion = null;
+    prevPhase = null;
     var s = snap.state || {};
     lastBonusLifeThreshold = Math.floor((s.score || 0) / BONUS_LIFE_THRESHOLD) * BONUS_LIFE_THRESHOLD;
     runStartMs = Date.now();
@@ -2472,6 +2545,14 @@
     startMusic();
     updateHud();
     recordPlayWithProfile(0);
+  }
+
+  // Clear any held keys so a new run doesn't start with phantom thrust/fire.
+  function resetTransientInput() {
+    keys.left = keys.right = keys.up = keys.down = keys.fire = keys.bomb = false;
+    touchFireHeld = false;
+    touchBombArmed = false;
+    lastShotMs = 0;
   }
 
   function renderSetupExtras() {

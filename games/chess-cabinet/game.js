@@ -78,6 +78,9 @@
   // ==========================================================================
   var WHITE = "w";
   var BLACK = "b";
+  // Promotion piece choices (for the player; AI auto-queens)
+  var PROMO_PIECES_WHITE = ["Q", "R", "B", "N"];
+  var PROMO_PIECES_BLACK = ["q", "r", "b", "n"];
 
   // Piece-square tables (mid-game, white perspective). Black mirrors via 63-i.
   var PST = {
@@ -287,9 +290,12 @@
           out.push({ from: i, to: to, piece: p, captured: target, flag: "" });
         }
       } else if (!target && pos.ep === to) {
-        // En passant
+        // En passant: only valid if the adjacent square holds an opposing pawn
         var capIdx = idxOf(nf, r);
-        out.push({ from: i, to: to, piece: p, captured: b[capIdx], flag: "ep", capIdx: capIdx });
+        var capPiece = b[capIdx];
+        if (capPiece && pieceType(capPiece) === "P" && pieceColor(capPiece) !== side) {
+          out.push({ from: i, to: to, piece: p, captured: capPiece, flag: "ep", capIdx: capIdx });
+        }
       }
     });
   }
@@ -346,8 +352,11 @@
       if (!t) out.push({ from: i, to: to, piece: p, captured: "", flag: "" });
       else if (pieceColor(t) !== side) out.push({ from: i, to: to, piece: p, captured: t, flag: "" });
     }
-    // Castling
-    if (side === WHITE && i === idxOf(4, 7)) {
+    // Castling — king must not be in check, and must not pass through or land
+    // on an attacked square (king's start, transit, and destination are all
+    // checked). Also requires the king and rook not to have moved (rights flags),
+    // an unobstructed path, and a rook of the correct color in the corner.
+    if (side === WHITE && i === idxOf(4, 7) && b[i] === "K") {
       // Kingside (white): King e1 -> g1, rook h1 -> f1
       if (pos.wK && !b[idxOf(5,7)] && !b[idxOf(6,7)] && b[idxOf(7,7)] === "R") {
         if (!isSquareAttacked(pos, idxOf(4,7), BLACK) &&
@@ -356,7 +365,7 @@
           out.push({ from: i, to: idxOf(6,7), piece: p, captured: "", flag: "castleK" });
         }
       }
-      // Queenside: King e1 -> c1, rook a1 -> d1
+      // Queenside: King e1 -> c1, rook a1 -> d1 (b1 must be empty too — d1, c1, b1)
       if (pos.wQ && !b[idxOf(1,7)] && !b[idxOf(2,7)] && !b[idxOf(3,7)] && b[idxOf(0,7)] === "R") {
         if (!isSquareAttacked(pos, idxOf(4,7), BLACK) &&
             !isSquareAttacked(pos, idxOf(3,7), BLACK) &&
@@ -364,7 +373,7 @@
           out.push({ from: i, to: idxOf(2,7), piece: p, captured: "", flag: "castleQ" });
         }
       }
-    } else if (side === BLACK && i === idxOf(4, 0)) {
+    } else if (side === BLACK && i === idxOf(4, 0) && b[i] === "k") {
       if (pos.bK && !b[idxOf(5,0)] && !b[idxOf(6,0)] && b[idxOf(7,0)] === "r") {
         if (!isSquareAttacked(pos, idxOf(4,0), WHITE) &&
             !isSquareAttacked(pos, idxOf(5,0), WHITE) &&
@@ -1013,24 +1022,42 @@
   }
 
   function bindCanvasInput() {
+    // Track recent touch so we can suppress the synthetic click that follows
+    // touchend (which would otherwise fire handleSquareClick twice — once for
+    // the tap on a piece, then again for the "tap target" tap).
+    var lastTouchAt = 0;
     canvas.addEventListener("click", function (e) {
       if (phase !== "playing") return;
+      // Suppress click that's the synthetic tail of a touchend within ~600ms
+      if (Date.now() - lastTouchAt < 600) return;
       var sq = canvasToSquare(e.clientX, e.clientY);
       if (sq < 0) return;
       handleSquareClick(sq);
     });
+    canvas.addEventListener("touchstart", function (e) {
+      // Marking touchstart prevents most browsers from generating the click
+      lastTouchAt = Date.now();
+    }, { passive: true });
     canvas.addEventListener("touchend", function (e) {
-      if (phase !== "playing") return;
+      lastTouchAt = Date.now();
+      if (phase !== "playing") {
+        e.preventDefault();
+        return;
+      }
       var t = e.changedTouches && e.changedTouches[0];
       if (!t) return;
       var sq = canvasToSquare(t.clientX, t.clientY);
-      if (sq < 0) return;
-      handleSquareClick(sq);
+      if (sq < 0) {
+        e.preventDefault();
+        return;
+      }
       e.preventDefault();
+      handleSquareClick(sq);
     }, { passive: false });
     [dom.puSlot1, dom.puSlot2, dom.puSlot3].forEach(function (slot) {
       if (!slot) return;
-      slot.addEventListener("click", function () {
+      slot.addEventListener("click", function (e) {
+        e.preventDefault();
         var slotN = parseInt(slot.getAttribute("data-slot"), 10) || 1;
         usePowerup(slotN);
       });
@@ -1094,6 +1121,20 @@
 
   // Player moves are full chess moves; trigger captures, scoring, AI reply.
   function playerMove(m) {
+    // If this is a promotion move, prompt the player to choose Q/R/B/N
+    // before applying it (instead of silently auto-queening).
+    if (m.flag === "promo" && pieceColor(m.piece) === WHITE && !m._promoPicked) {
+      promptPromotion(function (chosen) {
+        // Build a fresh promotion move with the chosen piece
+        var picked = {
+          from: m.from, to: m.to, piece: m.piece,
+          captured: m.captured || "", flag: "promo",
+          promote: chosen, _promoPicked: true
+        };
+        playerMove(picked);
+      });
+      return;
+    }
     var preMove = {
       ep: state.pos.ep,
       wK: state.pos.wK, wQ: state.pos.wQ, bK: state.pos.bK, bQ: state.pos.bQ,
@@ -1153,12 +1194,30 @@
 
     // AI replies after a short delay
     phase = "aiThinking";
-    setTimeout(aiReply, 250);
+    if (dom.goalMeta) dom.goalMeta.textContent = "AI thinking…";
+    scheduleAiReply();
+  }
+
+  // Schedule AI reply, chunking heavy work via setTimeout so the UI doesn't
+  // freeze on Expert (depth-4) searches. We yield to the browser before the
+  // search runs so the "AI thinking…" indicator paints.
+  function scheduleAiReply() {
+    setTimeout(function () {
+      if (!state || phase !== "aiThinking") return;
+      // Yield once more so the UI repaints before the heavy compute lands.
+      setTimeout(aiReply, state.tier === "expert" ? 30 : 0);
+    }, 200);
   }
 
   function aiReply() {
     if (!state || phase !== "aiThinking") return;
-    var m = aiSelectMove(state.pos, state.tier, state.pos.moveLog);
+    var m;
+    try {
+      m = aiSelectMove(state.pos, state.tier, state.pos.moveLog);
+    } catch (e) {
+      m = null;
+    }
+    if (!state || phase !== "aiThinking") return;
     if (!m) {
       // No moves: checkmate or stalemate
       checkMatchEnd(false);
@@ -1360,10 +1419,19 @@
 
   function togglePause() {
     if (phase === "paused") {
-      phase = prevPhase || "playing";
+      var resume = prevPhase || "playing";
+      phase = resume;
       prevPhase = null;
       showScreen(null);
       resumeMusic();
+      // If we were paused mid-AI-think, re-arm the reply timer; otherwise the
+      // AI would never move on resume (the original setTimeout already fired
+      // and bailed out because phase !== "aiThinking").
+      if (resume === "aiThinking") {
+        scheduleAiReply();
+      }
+      drawAll();
+      updateHud();
     } else if (phase === "playing" || phase === "aiThinking") {
       prevPhase = phase;
       phase = "paused";
@@ -1412,17 +1480,33 @@
       pushPopup("+UNDO", LOGICAL_W / 2, 200, "is-emerald");
       sfx.powerup_use();
     } else if (pu.id === "hint") {
-      // Show suggested player move via AI search
+      // Show suggested player move via AI search. Only suggest when it's
+      // actually white's turn so we never show an illegal move.
       state.hintCount = Math.min(3, state.hintCount + 1);
-      var moves = generateMoves(state.pos, WHITE);
-      if (moves.length > 0) {
-        var sideMul = 1;
-        var root = { move: null };
-        search(state.pos, 2, -Infinity, Infinity, sideMul, true, root);
-        if (root.move) {
-          state.hintMove = { from: root.move.from, to: root.move.to };
-          pushPopup("HINT", LOGICAL_W / 2, 200, "is-bonus");
-          sfx.hint();
+      if (state.pos.turn !== WHITE) {
+        pushPopup("WAIT TURN", LOGICAL_W / 2, 200, "is-warn");
+      } else {
+        var whiteMoves = generateMoves(state.pos, WHITE);
+        if (whiteMoves.length > 0) {
+          var sideMul = 1;
+          var root = { move: null };
+          search(state.pos, 2, -Infinity, Infinity, sideMul, true, root);
+          // Validate: the search's chosen move must still be in the legal set
+          var chosen = root.move;
+          var valid = false;
+          if (chosen) {
+            for (var hi = 0; hi < whiteMoves.length; hi++) {
+              if (whiteMoves[hi].from === chosen.from && whiteMoves[hi].to === chosen.to) {
+                valid = true; break;
+              }
+            }
+          }
+          if (!valid) chosen = whiteMoves[0];
+          if (chosen) {
+            state.hintMove = { from: chosen.from, to: chosen.to };
+            pushPopup("HINT", LOGICAL_W / 2, 200, "is-bonus");
+            sfx.hint();
+          }
         }
       }
     } else if (pu.id === "clock") {
@@ -1560,6 +1644,63 @@
     return String(s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
+  }
+
+  // ==========================================================================
+  //  Promotion picker — lightweight overlay (no extra HTML required)
+  // ==========================================================================
+  var promoOverlay = null;
+  function promptPromotion(onPick) {
+    closePromotion();
+    var overlay = document.createElement("div");
+    overlay.className = "popup-overlay";
+    overlay.style.cssText = "position:absolute;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;background:rgba(8,6,2,.78);backdrop-filter:blur(4px);pointer-events:auto;";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-label", "Choose promotion piece");
+    overlay.setAttribute("aria-modal", "true");
+    var card = document.createElement("div");
+    card.style.cssText = "background:rgba(14,10,4,.96);border:1px solid rgba(255,230,180,.14);border-radius:14px;padding:20px 24px;box-shadow:0 32px 96px rgba(0,0,0,.72);max-width:360px;text-align:center;";
+    var title = document.createElement("h3");
+    title.textContent = "Promote pawn";
+    title.style.cssText = "font-family:'Fraunces',serif;font-style:italic;font-weight:800;font-size:20px;margin:0 0 12px;color:#f6efde;";
+    var sub = document.createElement("p");
+    sub.textContent = "Choose a piece to promote to.";
+    sub.style.cssText = "color:#b8a780;font-size:13px;margin:0 0 14px;";
+    var row = document.createElement("div");
+    row.style.cssText = "display:flex;gap:8px;justify-content:center;";
+    var pieces = PROMO_PIECES_WHITE;
+    var labels = { Q: "Queen", R: "Rook", B: "Bishop", N: "Knight" };
+    pieces.forEach(function (pc) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = GLYPHS[pc] + " " + labels[pc];
+      b.setAttribute("aria-label", "Promote to " + labels[pc]);
+      b.style.cssText = "padding:10px 14px;border-radius:8px;border:1px solid rgba(255,230,180,.25);background:rgba(255,230,180,.06);color:#f6efde;font-size:14px;cursor:pointer;font-family:inherit;";
+      b.addEventListener("click", function (e) {
+        e.preventDefault();
+        closePromotion();
+        try { if (typeof onPick === "function") onPick(pc); } catch (err) {}
+      });
+      row.appendChild(b);
+    });
+    card.appendChild(title);
+    card.appendChild(sub);
+    card.appendChild(row);
+    overlay.appendChild(card);
+    var shell = document.querySelector(".cabinet-shell") || document.body;
+    shell.appendChild(overlay);
+    promoOverlay = overlay;
+    // Auto-focus first button so keyboard users can press Enter
+    setTimeout(function () {
+      var b0 = row.querySelector("button");
+      if (b0 && b0.focus) try { b0.focus(); } catch (e) {}
+    }, 30);
+  }
+  function closePromotion() {
+    if (promoOverlay && promoOverlay.parentNode) {
+      promoOverlay.parentNode.removeChild(promoOverlay);
+    }
+    promoOverlay = null;
   }
 
   // ==========================================================================

@@ -1689,8 +1689,8 @@
   }
 
   function trackHunterCompletion(mode, score, accuracy, weakTopics = []) {
-    if (!window.MrMacsAnalytics || typeof window.MrMacsAnalytics.track !== "function") return;
-    window.MrMacsAnalytics.track("game_complete", {
+    if (!window.MrMacsProgress || typeof window.MrMacsProgress.recordEvent !== "function") return;
+    window.MrMacsProgress.recordEvent("game_complete", {
       gameId: "history-hunters",
       title: "History Hunters 2: Atlas Quest",
       course: state.stats.course || "All Courses",
@@ -1700,7 +1700,7 @@
       accuracy,
       questions: mode === "Review Contract" ? 1 : 0,
       weakTopics
-    }, { counter: "game-completions" });
+    });
   }
 
   function submitQuest(raw) {
@@ -1757,13 +1757,13 @@
       foe = normalizeAlly(makeAlly(nextQuestion()));
     }
     if (!foe || foe.id === hero.id) foe = normalizeAlly(makeDifferentAlly(hero));
-    if (window.MrMacsAnalytics && typeof window.MrMacsAnalytics.track === "function") {
-      window.MrMacsAnalytics.track("game_play", {
+    if (window.MrMacsProgress && typeof window.MrMacsProgress.recordEvent === "function") {
+      window.MrMacsProgress.recordEvent("game_play", {
         gameId: "history-hunters",
         title: "History Hunters 2: Atlas Quest",
         course: state.stats.course || "All Courses",
         gameType: "Open-World RPG"
-      }, { counter: "game-plays", onceKey: "game-play:history-hunters:" + location.pathname });
+      });
     }
     state.mode = "battle";
     els.game.classList.add("in-battle");
@@ -4223,8 +4223,8 @@
     let foe = normalizeAlly(enemy || makeAlly(nextQuestion()));
     for (let i = 0; foe && foe.id === hero.id && i < 6; i += 1) foe = normalizeAlly(makeAlly(nextQuestion()));
     if (!foe || foe.id === hero.id) foe = normalizeAlly(makeDifferentAlly(hero));
-    if (window.MrMacsAnalytics && typeof window.MrMacsAnalytics.track === "function") {
-      window.MrMacsAnalytics.track("game_play", { gameId: "history-hunters", title: "History Hunters 2: Atlas Quest", course: state.stats.course || "All Courses", gameType: "Open-World RPG" }, { counter: "game-plays", onceKey: "game-play:history-hunters:" + location.pathname });
+    if (window.MrMacsProgress && typeof window.MrMacsProgress.recordEvent === "function") {
+      window.MrMacsProgress.recordEvent("game_play", { gameId: "history-hunters", title: "History Hunters 2: Atlas Quest", course: state.stats.course || "All Courses", gameType: "Open-World RPG" });
     }
     state.mode = "battle";
     els.game.classList.add("in-battle");

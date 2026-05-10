@@ -146,9 +146,34 @@
 
   var state = null;
   var reducedMotion = false;
-  try { reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  try {
+    var _rmm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reducedMotion = _rmm.matches;
+    var _rmListener = function () { try { reducedMotion = _rmm.matches; } catch (e) {} };
+    if (_rmm.addEventListener) _rmm.addEventListener("change", _rmListener);
+    else if (_rmm.addListener) _rmm.addListener(_rmListener);
+  } catch (e) {}
 
   var soundOn = true;
+
+  // Tracked timeouts so we can cancel on restart/exit (prevents stale callbacks)
+  var pendingTimeouts = [];
+  function trackTimeout(fn, ms) {
+    var id = setTimeout(function () {
+      // self-remove on fire
+      var idx = pendingTimeouts.indexOf(id);
+      if (idx !== -1) pendingTimeouts.splice(idx, 1);
+      try { fn(); } catch (e) {}
+    }, ms);
+    pendingTimeouts.push(id);
+    return id;
+  }
+  function clearAllTimeouts() {
+    for (var i = 0; i < pendingTimeouts.length; i++) {
+      try { clearTimeout(pendingTimeouts[i]); } catch (e) {}
+    }
+    pendingTimeouts.length = 0;
+  }
 
   // Mouse / input
   var mouseX = VIEW_W / 2, mouseY = VIEW_H / 2;
@@ -569,7 +594,13 @@
 
   function moveSnake(s, dt) {
     if (s.dead) return;
-    var spd = s.boosting ? BASE_SPEED * BOOST_SPEED_MULT : BASE_SPEED;
+    // NaN/finite guard — recover gracefully if positions or heading went bad
+    if (!isFinite(s.x) || !isFinite(s.y)) { s.x = ARENA_W / 2; s.y = ARENA_H / 2; }
+    if (!isFinite(s.heading)) s.heading = 0;
+    if (!isFinite(s.desiredHeading)) s.desiredHeading = s.heading;
+    // Stunned snakes move at reduced speed (so burst actually has effect)
+    var stunFactor = (s.burstStunT > 0) ? 0.45 : 1;
+    var spd = (s.boosting ? BASE_SPEED * BOOST_SPEED_MULT : BASE_SPEED) * stunFactor;
     s.speed = spd;
     var nx = s.x + Math.cos(s.heading) * spd * dt;
     var ny = s.y + Math.sin(s.heading) * spd * dt;
@@ -602,9 +633,10 @@
             if (s.segments.length > 0) {
               var tail = s.segments[s.segments.length - 1];
               if (Math.random() < 0.55) {
+                var dropPt = clampWorld(tail.x + rand(-6, 6), tail.y + rand(-6, 6));
                 state.orbs.push(makeOrb({
-                  x: tail.x + rand(-6, 6),
-                  y: tail.y + rand(-6, 6),
+                  x: dropPt.x,
+                  y: dropPt.y,
                   r: ORB_RADIUS - 1,
                   pts: 25,
                   hue: 200
@@ -613,8 +645,7 @@
             }
           } else {
             // out of mass — stop boosting
-            s.boosting = false;
-            if (s.isPlayer) sfx.boost_end();
+            setBoost(s, false);
             break;
           }
         }
@@ -648,8 +679,10 @@
       while (s.segments.length > s.targetLen) {
         s.segments.pop();
       }
-      // pendingGrowth folds in over time so growth is smooth
-      if (s.pendingGrowth > 0) {
+      // pendingGrowth folds in over time so growth is smooth.
+      // While boosting (without reserve), pause growth so boost actually shrinks.
+      var boostShrinking = s.boosting && s.boostReserveT <= 0;
+      if (s.pendingGrowth > 0 && !boostShrinking) {
         // grow one segment per frame chunk to avoid jitter
         var maxGrowThisFrame = Math.min(s.pendingGrowth, 3);
         s.targetLen = Math.min(MAX_LEN, s.targetLen + maxGrowThisFrame);
@@ -657,9 +690,12 @@
       }
     }
 
-    // Power-up timers
-    if (s.phaseT > 0) { s.phaseT -= dt; if (s.phaseT < 0) s.phaseT = 0; }
+    // Power-up timers (phase persists until consumed by collision; only magnet/stun decay)
     if (s.magnetT > 0) { s.magnetT -= dt; if (s.magnetT < 0) s.magnetT = 0; }
+    if (s.burstStunT > 0) {
+      // player-driven decay also happens in updatePlayerInput; this catches AI/dying frames
+      // (No-op here for player to avoid double-decrement; player branch handles it.)
+    }
   }
 
   function growSnake(s, n) {
@@ -668,12 +704,14 @@
   }
 
   // -- Orb collection --------------------------------------------------------
-  function tryEatOrbs(s) {
+  var MAGNET_RADIUS = 90; // px — magnet pull-in radius (also drawn in head ring)
+  function tryEatOrbs(s, dt) {
     if (s.dead) return;
+    if (typeof dt !== "number" || !isFinite(dt) || dt < 0) dt = 0.016;
     var headR = SEG_RADIUS + 2;
-    // Magnet: pull orbs near (within 90px) toward head
+    // Magnet: pull orbs within MAGNET_RADIUS toward head (frame-rate independent)
     var magnetActive = s.magnetT > 0;
-    var magnetR2 = 90 * 90;
+    var magnetR2 = MAGNET_RADIUS * MAGNET_RADIUS;
     for (var i = state.orbs.length - 1; i >= 0; i--) {
       var o = state.orbs[i];
       var d2 = dist2(s.x, s.y, o.x, o.y);
@@ -682,9 +720,11 @@
         var dxM = s.x - o.x, dyM = s.y - o.y;
         var dM = Math.sqrt(d2);
         if (dM > 1) {
-          var pull = 220 * (1 - dM / 90);
-          o.x += (dxM / dM) * pull * 0.016;
-          o.y += (dyM / dM) * pull * 0.016;
+          var pull = 220 * (1 - dM / MAGNET_RADIUS);
+          if (pull > 0) {
+            o.x += (dxM / dM) * pull * dt;
+            o.y += (dyM / dM) * pull * dt;
+          }
         }
       }
       var rr = (headR + o.r);
@@ -830,7 +870,7 @@
       // Check head-vs-segments (skip head segment of other to avoid double-jeopardy at perfect head-on)
       // Head-on: both die.
       var oHeadR = SEG_RADIUS;
-      // If heads collide tightly → both die
+      // If heads collide tightly → both die (no credit to either; it's mutual)
       if (dist2(headX, headY, o.x, o.y) < (headR + oHeadR - 2) * (headR + oHeadR - 2)) {
         if (phased) {
           s.phaseT = 0;
@@ -838,8 +878,8 @@
           burstAt(headX, headY, "#5de0f0", 18);
           return false;
         }
-        // both die
-        killSnake(o, s);
+        // both die — pass null killer for both so neither gets credit
+        killSnake(o, null);
         killSnake(s, null);
         return true;
       }
@@ -867,15 +907,16 @@
     if (s.dead) return;
     s.dead = true;
     s.deadT = 0;
-    // Scatter orbs along body
+    // Scatter orbs along body (clamped inside arena so leftover orbs never spawn out of bounds)
     var seg = s.segments;
     var stride = 1;  // every segment makes a leftover orb
     for (var i = 0; i < seg.length; i += stride) {
       var sg = seg[i];
       if (i === 0 || Math.random() < 0.65) {
+        var pt = clampWorld(sg.x + rand(-4, 4), sg.y + rand(-4, 4));
         state.orbs.push(makeOrb({
-          x: sg.x + rand(-4, 4),
-          y: sg.y + rand(-4, 4),
+          x: pt.x,
+          y: pt.y,
           r: ORB_DEAD_RADIUS,
           isDead: true,
           pts: ORB_DEAD_VALUE_PTS,
@@ -929,10 +970,14 @@
     sfx.life_lost();
     if (state.lives <= 0) {
       phase = "dying";
-      setTimeout(function () { gameOver(); }, GAMEOVER_DELAY_MS);
+      trackTimeout(function () {
+        if (phase !== "dying") return; // canceled by restart/exit
+        gameOver();
+      }, GAMEOVER_DELAY_MS);
     } else {
       phase = "dying";
-      setTimeout(function () {
+      trackTimeout(function () {
+        if (phase !== "dying") return; // canceled by restart/exit
         respawnPlayer();
         phase = "playing";
       }, DEATH_DELAY_MS);
@@ -942,6 +987,13 @@
   function respawnPlayer() {
     state.player = makePlayerSnake();
     state.player.phaseT = 1.6; // brief invuln on respawn
+    // Snap camera to player so respawn doesn't leave them off-screen
+    state.camX = state.player.x - VIEW_W / 2;
+    state.camY = state.player.y - VIEW_H / 2;
+    if (state.camX < 0) state.camX = 0;
+    if (state.camY < 0) state.camY = 0;
+    if (state.camX > ARENA_W - VIEW_W) state.camX = ARENA_W - VIEW_W;
+    if (state.camY > ARENA_H - VIEW_H) state.camY = ARENA_H - VIEW_H;
   }
 
   // -- Update AI snakes ------------------------------------------------------
@@ -983,7 +1035,7 @@
       runAi(ai, dt);
       turnSnake(ai, dt);
       moveSnake(ai, dt);
-      tryEatOrbs(ai);
+      tryEatOrbs(ai, dt);
       if (checkSnakeCollisions(ai)) continue;
     }
     // Cull fully-faded dead AIs (their slots will be replaced via respawn queue)
@@ -1604,7 +1656,7 @@
       ctx.strokeStyle = "#a991ff";
       ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.arc(hx, hy, 90 + Math.sin(state.time * 5) * 4, 0, Math.PI * 2);
+      ctx.arc(hx, hy, MAGNET_RADIUS + Math.sin(state.time * 5) * 4, 0, Math.PI * 2);
       ctx.stroke();
       ctx.restore();
     }
@@ -1886,7 +1938,11 @@
       sfx.scholar_wrong();
     }
     state.questionsAnsweredTotal++;
-    setTimeout(function () { closeQuestion(correct); }, 1100);
+    trackTimeout(function () {
+      // Skip if user already navigated away (e.g., restart/exit while modal open)
+      if (phase !== "question" || activeQuestion == null) return;
+      closeQuestion(correct);
+    }, 1100);
   }
 
   function closeQuestion(wasCorrect) {
@@ -1898,19 +1954,22 @@
           window.MrMacsCelebration.burst({ count: 28, palette: ["#f5c451", "#5de0f0", "#a991ff"] });
         }
       } catch (e) {}
-      // shower 12 dead orbs near player
+      // shower 12 dead orbs near player (clamped to arena)
       var p = state.player;
-      for (var n = 0; n < 12; n++) {
-        var ang = rand(0, Math.PI * 2);
-        var dist = rand(60, 180);
-        state.orbs.push(makeOrb({
-          x: p.x + Math.cos(ang) * dist,
-          y: p.y + Math.sin(ang) * dist,
-          isDead: true,
-          r: ORB_DEAD_RADIUS,
-          pts: 75,
-          growth: 1
-        }));
+      if (p) {
+        for (var n = 0; n < 12; n++) {
+          var ang = rand(0, Math.PI * 2);
+          var dist = rand(60, 180);
+          var pt = clampWorld(p.x + Math.cos(ang) * dist, p.y + Math.sin(ang) * dist);
+          state.orbs.push(makeOrb({
+            x: pt.x,
+            y: pt.y,
+            isDead: true,
+            r: ORB_DEAD_RADIUS,
+            pts: 75,
+            growth: 1
+          }));
+        }
       }
       pushPopupScreen("+1500 SCHOLAR", VIEW_W / 2, 100, "is-bonus");
     }
@@ -1948,7 +2007,7 @@
     var prevBest = readBest();
     if (state.score > prevBest) writeBest(state.score);
     saveSnapshot();
-    setTimeout(showEndScreen, 700);
+    trackTimeout(showEndScreen, 700);
   }
 
   function showEndScreen() {
@@ -2408,7 +2467,7 @@
           // stunned: still move forward but no turn
           moveSnake(p, dt);
         }
-        tryEatOrbs(p);
+        tryEatOrbs(p, dt);
         tryPickupPowerup(p);
         checkSnakeCollisions(p);
       }

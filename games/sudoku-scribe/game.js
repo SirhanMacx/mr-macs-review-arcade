@@ -234,6 +234,39 @@
     return bt() ? g : null;
   }
 
+  // Verify a 9x9 grid is a complete and valid sudoku solution
+  function isValidSolution(g) {
+    if (!g || g.length !== 9) return false;
+    for (var i = 0; i < 9; i++) {
+      var rowSeen = {}, colSeen = {};
+      for (var j = 0; j < 9; j++) {
+        var rv = g[i][j], cv = g[j][i];
+        if (!rv || rv < 1 || rv > 9 || rowSeen[rv]) return false;
+        if (!cv || cv < 1 || cv > 9 || colSeen[cv]) return false;
+        rowSeen[rv] = true; colSeen[cv] = true;
+      }
+    }
+    for (var br = 0; br < 3; br++) for (var bc = 0; bc < 3; bc++) {
+      var seen = {};
+      for (var rr = br * 3; rr < br * 3 + 3; rr++) {
+        for (var cc = bc * 3; cc < bc * 3 + 3; cc++) {
+          var v = g[rr][cc];
+          if (seen[v]) return false;
+          seen[v] = true;
+        }
+      }
+    }
+    return true;
+  }
+
+  // Verify every nonzero cell in givens matches the solution
+  function solutionMatchesGivens(sol, givens) {
+    for (var r = 0; r < 9; r++) for (var c = 0; c < 9; c++) {
+      if (givens[r][c] && givens[r][c] !== sol[r][c]) return false;
+    }
+    return true;
+  }
+
   // Find all conflicts: returns set of "r,c" cells in conflict
   function findConflicts(g) {
     var bad = {};
@@ -495,9 +528,10 @@
     var bankIndex = opts.bankIndex != null ? opts.bankIndex : (puzzleNum - 1);
     var entry = pickPuzzleForDifficulty(difficulty, bankIndex);
     var givens = parsePuzzleString(entry.puzzle);
-    // Verify embedded solution; fall back to live-solve if needed.
+    // Verify embedded solution; fall back to live-solve if invalid or
+    // inconsistent with givens.
     var solGrid = parsePuzzleString(entry.solution);
-    if (gridToString(solGrid).indexOf("0") >= 0) {
+    if (!isValidSolution(solGrid) || !solutionMatchesGivens(solGrid, givens)) {
       var solved = solve(givens);
       if (solved) solGrid = solved;
     }
@@ -584,37 +618,36 @@
     if (prev !== 0) state.erasuresThisPuzzle++;
     state.grid[r][c] = v;
     state.pencils[r][c] = []; // clear pencil marks on cell
+    // Once user changes a previously hint-revealed cell, drop the hint flag
+    if (state.revealedHints[r + "," + c]) delete state.revealedHints[r + "," + c];
     refreshConflicts();
     state.idleTimer = 0;
     state.idleWarning = false;
     var key = r + "," + c;
     var conflict = !!state.conflicts[key];
-    if (conflict) {
+    var solV = state.solution[r] ? state.solution[r][c] : 0;
+    var solutionMatch = (solV && v === solV);
+    if (conflict || !solutionMatch) {
+      // Either an explicit conflict OR a value that doesn't match the unique
+      // solution. Both are wrong — flag as conflict so the player sees it.
       sfx.fill_conflict();
       addShake(2, 0.18);
       pushPopup("CONFLICT", cellPx(r, c).cx, cellPx(r, c).cy - 18, "is-warn");
+      // Mark so visual conflict tint applies even when no row/col/box clash.
+      if (!conflict) state.conflicts[key] = true;
     } else {
-      // Correct placement?
-      var solV = state.solution[r][c];
-      if (solV && v === solV) {
-        sfx.fill_correct();
-        state.cellsFilledCorrect++;
-        // Scholar trigger
-        if (state.scholars[key] && !state.scholarSolved[key]) {
-          state.scholarSolved[key] = true;
-          openScholarQuestion(r, c);
-        }
-        // Power-up drop on every 7th correct cell
-        if (state.cellsFilledCorrect % 7 === 0 && state.inventory.length < 5) {
-          dropPowerup();
-        }
-      } else {
-        // Plausible but not solution-correct (rare in solved puzzles, but possible
-        // if user places a digit that doesn't conflict in current state but
-        // disagrees with the unique solution). Treat as soft fill.
-        sfx.fill_correct();
+      sfx.fill_correct();
+      state.cellsFilledCorrect++;
+      // Scholar trigger
+      if (state.scholars[key] && !state.scholarSolved[key]) {
+        state.scholarSolved[key] = true;
+        openScholarQuestion(r, c);
       }
-      pushPopup("+" + (conflict ? 0 : 50), cellPx(r, c).cx, cellPx(r, c).cy - 18, "is-bonus");
+      // Power-up drop on every 7th correct cell
+      if (state.cellsFilledCorrect % 7 === 0 && state.inventory.length < 5) {
+        dropPowerup();
+      }
+      pushPopup("+50", cellPx(r, c).cx, cellPx(r, c).cy - 18, "is-bonus");
       state.score += 50 * state.currentScoreMult;
     }
     if (allCellsCorrect()) {
@@ -627,8 +660,13 @@
     if (state.grid[r][c] !== 0) state.erasuresThisPuzzle++;
     state.grid[r][c] = 0;
     state.pencils[r][c] = [];
+    // Erasing a hint-revealed value also clears the revealed flag — otherwise
+    // the next hint roll could land on the same cell again.
+    var key = r + "," + c;
+    if (state.revealedHints[key]) delete state.revealedHints[key];
     refreshConflicts();
     state.idleTimer = 0;
+    state.idleWarning = false;
     sfx.cell_select();
   }
 
@@ -665,16 +703,28 @@
       pushPopup("NO HINTS", LOGICAL_W / 2, 200, "is-warn");
       return false;
     }
+    // Pool: cells that are EMPTY in the user grid, NOT given, with a known
+    // solution value, and not already revealed by a prior hint.
     var pool = [];
     for (var r = 0; r < 9; r++) for (var c = 0; c < 9; c++) {
-      if (state.grid[r][c] === 0) pool.push([r, c]);
+      if (state.grid[r][c] !== 0) continue;
+      if (isGiven(r, c)) continue;
+      var key = r + "," + c;
+      if (state.revealedHints[key]) continue;
+      var sv = state.solution[r] ? state.solution[r][c] : 0;
+      if (!sv) continue;
+      pool.push([r, c]);
     }
-    if (!pool.length) return false;
-    // Prefer cell user has selected if empty
+    if (!pool.length) {
+      pushPopup("NO HINT TARGET", LOGICAL_W / 2, 200, "is-warn");
+      return false;
+    }
+    // Prefer cell user has selected if empty / not given / not already a hint
     var pick;
     if (state.selected) {
       var sr = state.selected.r, sc = state.selected.c;
-      if (!isGiven(sr, sc) && state.grid[sr][sc] === 0) pick = [sr, sc];
+      var skey = sr + "," + sc;
+      if (!isGiven(sr, sc) && state.grid[sr][sc] === 0 && !state.revealedHints[skey]) pick = [sr, sc];
     }
     if (!pick) pick = pool[Math.floor(Math.random() * pool.length)];
     var pr = pick[0], pc = pick[1];
@@ -694,6 +744,7 @@
     }
     state.cellsFilledCorrect++;
     state.idleTimer = 0;
+    state.idleWarning = false;
     if (allCellsCorrect()) onPuzzleClear();
     return true;
   }
@@ -1628,14 +1679,16 @@
       if (phase !== "playing") return;
       var pos = pickFromClient(e.clientX, e.clientY);
       if (!pos) return;
+      // Only handle primary button; let contextmenu handler deal with right-click
+      if (e.button != null && e.button !== 0) return;
       state.selected = pos;
       sfx.cell_select();
       state.idleTimer = 0;
+      state.idleWarning = false;
       holdStart = performance.now();
-      // Start a hold timer to enable pencil mode for this cell on long-press
+      // Long-press TOGGLES pencil mode (matching the right-click contextmenu)
       holdTimer = setTimeout(function () {
-        // toggle pencil mode briefly
-        state.pencilMode = true;
+        state.pencilMode = !state.pencilMode;
         updateHud();
       }, 450);
     });
@@ -1667,9 +1720,11 @@
           state.selected = pos;
           sfx.cell_select();
           state.idleTimer = 0;
+          state.idleWarning = false;
         }
         touchHold = setTimeout(function () {
-          state.pencilMode = true;
+          // Long-press TOGGLES pencil mode for symmetry with right-click/long-press mouse.
+          state.pencilMode = !state.pencilMode;
           updateHud();
         }, 450);
       }

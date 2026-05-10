@@ -54,6 +54,13 @@
   var MULTIBALL_BALLS = 3;
   var MULTIBALL_DURATION = 60.0;       // multiball ends naturally after all but 1 ball drains
 
+  // Bumper / tunnel safety
+  var BUMPER_MAX_OUT = 900;            // hard ceiling on bumper output speed (no runaway)
+  var BUMPER_COOLDOWN = 0.06;          // seconds — same bumper can't fire again until elapsed
+  var DROP_TARGET_RESPAWN_MS = 5000;   // 5s — was 1.6s (too fast)
+  var SLINGSHOT_MIN_KICK = 460;        // floor speed after slingshot reflection
+  var SUBSTEPS = 6;                    // physics sub-steps per frame (was 4 — tunneled at high speed)
+
   // Empire progression
   var EMPIRES = [
     { name: "Sumer",       theme: "#a96e3d" },
@@ -359,7 +366,10 @@
     bottomWall: LOGICAL_H - 30,
     plungerLane: LOGICAL_W - 70,        // x position of plunger chute centerline
     plungerLaneWidth: 36,                // chute width
-    drainGap: { x1: 270, x2: 450 },      // gap between flippers at the bottom
+    // Drain only triggers in the narrow window BETWEEN the resting flipper tips
+    // (left tip ~354, right tip ~366). 270/450 was the pivot range and far too wide,
+    // letting balls escape past the flipper outer edges.
+    drainGap: { x1: 340, x2: 380 },
     drainY: LOGICAL_H - 30,
     flipperPivotY: LOGICAL_H - 90,
     leftFlipperPivotX: 270,
@@ -369,9 +379,9 @@
   // 3 pop bumpers in top zone (form a triangle)
   function bumperLayout() {
     return [
-      { x: LOGICAL_W * 0.30, y: 200, r: 26, lit: 0 },
-      { x: LOGICAL_W * 0.50, y: 160, r: 26, lit: 0 },
-      { x: LOGICAL_W * 0.70, y: 200, r: 26, lit: 0 }
+      { x: LOGICAL_W * 0.30, y: 200, r: 26, lit: 0, cooldown: 0 },
+      { x: LOGICAL_W * 0.50, y: 160, r: 26, lit: 0, cooldown: 0 },
+      { x: LOGICAL_W * 0.70, y: 200, r: 26, lit: 0, cooldown: 0 }
     ];
   }
 
@@ -558,20 +568,21 @@
     ballOnPlunger.y = TABLE.bottomWall - BALL_RADIUS - 4 - pl.charge * 24;
     ballOnPlunger.vx = 0;
     ballOnPlunger.vy = 0;
-    if (keyState.plunger || pl.charging) {
+    if (keyState.plunger) {
       pl.charging = true;
       pl.charge = Math.min(1.0, pl.charge + dt / PLUNGER_MAX_CHARGE);
-    } else {
+    } else if (pl.charging) {
       // released — fire if was charged
+      pl.charging = false;
       if (pl.charge > 0.05) {
         var v = PLUNGER_MIN_VEL + (PLUNGER_MAX_VEL - PLUNGER_MIN_VEL) * pl.charge;
         ballOnPlunger.vy = -v;
         ballOnPlunger.onPlunger = false;
         // ball stays inChute until it exits the top of the chute
-        pl.charge = 0;
         pl.releaseAnim = 1;
         sfx.plunger();
       }
+      pl.charge = 0;
     }
   }
 
@@ -775,15 +786,23 @@
         var d = Math.sqrt(dx * dx + dy * dy);
         if (d < 0.001) { d = 0.001; dx = 1; dy = 0; }
         var nx = dx / d, ny = dy / d;
-        // separate
+        // Always separate — even during cooldown — to avoid getting wedged
         ball.x = b.x + nx * minD;
         ball.y = b.y + ny * minD;
-        // strong outward kick
+        if (b.cooldown > 0) {
+          // soft reflect during cooldown so ball doesn't tunnel through
+          var rv = reflect(ball.vx, ball.vy, nx, ny);
+          ball.vx = rv.x * 0.7;
+          ball.vy = rv.y * 0.7;
+          continue;
+        }
+        // strong outward kick — capped to prevent runaway acceleration in the bumper triangle
         var inSp = len(ball.vx, ball.vy);
-        var outSp = Math.max(inSp * BUMPER_BOUNCE, 480);
+        var outSp = Math.min(BUMPER_MAX_OUT, Math.max(inSp * BUMPER_BOUNCE, 480));
         ball.vx = nx * outSp;
         ball.vy = ny * outSp;
         b.lit = 0.4; // light up briefly
+        b.cooldown = BUMPER_COOLDOWN;
         addScore(BUMPER_POINTS, "bumper");
         state.bumperHits++;
         bumpCombo();
@@ -1243,8 +1262,11 @@
   // -- Bumper "lit" decay --------------------------------------------------
   function updateLitDecay(dt) {
     for (var i = 0; i < state.bumpers.length; i++) {
-      if (state.bumpers[i].lit > 0) state.bumpers[i].lit -= dt * 1.4;
-      if (state.bumpers[i].lit < 0) state.bumpers[i].lit = 0;
+      var b = state.bumpers[i];
+      if (b.lit > 0) b.lit -= dt * 1.4;
+      if (b.lit < 0) b.lit = 0;
+      if (b.cooldown > 0) b.cooldown -= dt;
+      if (b.cooldown < 0) b.cooldown = 0;
     }
     for (var j = 0; j < state.slingshots.length; j++) {
       if (state.slingshots[j].flashT > 0) state.slingshots[j].flashT -= dt * 2;

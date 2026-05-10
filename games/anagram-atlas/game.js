@@ -1068,8 +1068,8 @@
     }
     // Multiplier boost: only on correct
     var earnedScore = computeScore(r, perfect);
-    state.score += earnedScore - r.hintScoreCost; // hint cost already accounted? No — handle here
-    // (hintScoreCost was computed at hint time but we don't subtract until correct/skipped resolve)
+    // hintScoreCost was already deducted in useHint(); don't double-subtract here.
+    state.score += Math.max(0, earnedScore);
     state.streak += 1;
     state.maxStreak = Math.max(state.maxStreak, state.streak);
     state.correctTotal += 1;
@@ -1086,7 +1086,7 @@
     }
     sfx.submitCorrect();
     burstAt(LOGICAL_W / 2, SLOTS_TOP + TILE_H / 2, "#f5c451", 26);
-    pushPopup("+" + Math.max(0, earnedScore - r.hintScoreCost), LOGICAL_W / 2, SLOTS_TOP - 20, "is-score");
+    pushPopup("+" + Math.max(0, earnedScore), LOGICAL_W / 2, SLOTS_TOP - 20, "is-score");
     if (state.streak >= 3) pushPopup("STREAK x" + state.streak, LOGICAL_W / 2, SLOTS_TOP - 56, "is-bonus");
     recordAnswerHook(true);
     saveSnapshot();
@@ -1157,34 +1157,46 @@
         return;
       }
     }
-    // Find a rack tile with that letter
+    // Find a rack tile with that letter; if none, also consider tiles
+    // that were placed in OTHER (non-revealed) slots — return them first.
+    var found = null;
     for (var k = 0; k < r.tiles.length; k++) {
       var t = r.tiles[k];
-      if (t.slotIndex < 0 && t.letter === letter) {
-        // Place it specifically into slotIdx (overriding the next-empty rule)
-        var n = r.tiles.length;
-        var totalRackW = n * TILE_W + (n - 1) * TILE_GAP;
-        var slotsStartX = (LOGICAL_W - totalRackW) / 2;
-        t.fromX = t.x; t.fromY = t.y;
-        t.toX = slotsStartX + slotIdx * (TILE_W + TILE_GAP);
-        t.toY = SLOTS_TOP;
-        t.animT = 0.0001;
-        t.slotIndex = slotIdx;
-        r.slotsFilled[slotIdx] = t.id;
-        r.slotsRevealed[slotIdx] = true;
-        r.hintsUsed += 1;
-        r.hintScoreCost += HINT_COST;
-        state.score = Math.max(0, state.score - HINT_COST);
-        sfx.hint();
-        updateHud();
-        updateRibbon();
-        // Try auto-submit if all filled
-        var allFilled = true;
-        for (var j = 0; j < r.slotsFilled.length; j++) if (r.slotsFilled[j] == null) { allFilled = false; break; }
-        if (allFilled) tryAutoSubmit();
-        return;
+      if (t.slotIndex < 0 && t.letter === letter) { found = t; break; }
+    }
+    if (!found) {
+      for (var k2 = 0; k2 < r.tiles.length; k2++) {
+        var t2 = r.tiles[k2];
+        if (t2.slotIndex >= 0 && t2.slotIndex !== slotIdx
+            && !r.slotsRevealed[t2.slotIndex] && t2.letter === letter) {
+          // Pull this tile out of its current (wrong) slot, then use it.
+          returnTileFromSlot(t2.slotIndex);
+          found = t2;
+          break;
+        }
       }
     }
+    if (!found) return; // truly no tile available (shouldn't happen for valid scrambles)
+    var n = r.tiles.length;
+    var totalRackW = n * TILE_W + (n - 1) * TILE_GAP;
+    var slotsStartX = (LOGICAL_W - totalRackW) / 2;
+    found.fromX = found.x; found.fromY = found.y;
+    found.toX = slotsStartX + slotIdx * (TILE_W + TILE_GAP);
+    found.toY = SLOTS_TOP;
+    found.animT = 0.0001;
+    found.slotIndex = slotIdx;
+    r.slotsFilled[slotIdx] = found.id;
+    r.slotsRevealed[slotIdx] = true;
+    r.hintsUsed += 1;
+    r.hintScoreCost += HINT_COST;
+    state.score = Math.max(0, state.score - HINT_COST);
+    sfx.hint();
+    updateHud();
+    updateRibbon();
+    // Try auto-submit if all filled
+    var allFilled = true;
+    for (var j = 0; j < r.slotsFilled.length; j++) if (r.slotsFilled[j] == null) { allFilled = false; break; }
+    if (allFilled) tryAutoSubmit();
   }
   function useShuffle(noCost) {
     var r = state.currentRound;

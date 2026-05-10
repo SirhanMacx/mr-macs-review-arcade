@@ -743,16 +743,17 @@
     sfx.shoot();
     if (p.twinT > 0) {
       // twin cannon: two parallel bullets
-      state.bullets.push({ x: p.x - 10, y: p.y - 12, vy: -PLAYER_BULLET_SPEED });
-      state.bullets.push({ x: p.x + 10, y: p.y - 12, vy: -PLAYER_BULLET_SPEED });
+      state.bullets.push({ x: p.x - 10, y: p.y - 12, prevY: p.y - 12, vy: -PLAYER_BULLET_SPEED });
+      state.bullets.push({ x: p.x + 10, y: p.y - 12, prevY: p.y - 12, vy: -PLAYER_BULLET_SPEED });
     } else {
-      state.bullets.push({ x: p.x, y: p.y - 14, vy: -PLAYER_BULLET_SPEED });
+      state.bullets.push({ x: p.x, y: p.y - 14, prevY: p.y - 14, vy: -PLAYER_BULLET_SPEED });
     }
   }
 
   function updateBullets(dt) {
     for (var i = state.bullets.length - 1; i >= 0; i--) {
       var b = state.bullets[i];
+      b.prevY = b.y;
       b.y += b.vy * dt;
       if (b.y < -20) { state.bullets.splice(i, 1); continue; }
       // Collide with enemies and boss
@@ -762,11 +763,19 @@
   }
 
   function checkBulletHit(b) {
+    // Swept-segment AABB test — bullet moves vertically at high speed,
+    // so we test the line from (b.x, b.prevY) to (b.x, b.y) against each enemy bbox.
+    // This eliminates tunneling at high relative speeds (player-bullet 700 + diving enemy).
+    var by1 = (typeof b.prevY === "number") ? b.prevY : b.y;
+    var by2 = b.y;
+    var ymin = Math.min(by1, by2);
+    var ymax = Math.max(by1, by2);
     // Enemies
     for (var i = 0; i < state.enemies.length; i++) {
       var e = state.enemies[i];
       if (e.mode === "dead") continue;
-      if (Math.abs(b.x - e.x) < e.w / 2 && Math.abs(b.y - e.y) < e.h / 2) {
+      if (!isFinite(e.x) || !isFinite(e.y)) continue;
+      if (Math.abs(b.x - e.x) < e.w / 2 && (ymax >= e.y - e.h / 2) && (ymin <= e.y + e.h / 2)) {
         damageEnemy(e, 1);
         return true;
       }
@@ -774,7 +783,9 @@
     // Boss
     if (state.bossActive && state.boss && state.boss.hp > 0) {
       var bo = state.boss;
-      if (Math.abs(b.x - bo.x) < bo.w / 2 && Math.abs(b.y - bo.y) < bo.h / 2) {
+      if (isFinite(bo.x) && isFinite(bo.y) &&
+          Math.abs(b.x - bo.x) < bo.w / 2 &&
+          (ymax >= bo.y - bo.h / 2) && (ymin <= bo.y + bo.h / 2)) {
         damageBoss(b);
         return true;
       }
@@ -868,10 +879,13 @@
       }
       if (e.hitFlashT > 0) e.hitFlashT = Math.max(0, e.hitFlashT - dt);
       if (e.mode === "entering") {
-        e.pathT += dt / e.path.duration;
+        // Guard against zero-duration paths producing NaN.
+        var dur = (e.path && e.path.duration > 0) ? e.path.duration : 1;
+        e.pathT += dt / dur;
         if (e.pathT >= 1) {
           e.pathT = 1;
-          // snap to formation slot
+          // snap to formation slot — eliminate the bezier-end → pulse jump
+          // by overriding the path endpoint to the current pulsed slot pos.
           var slot = formationSlot(e.row, e.col);
           e.x = slot.x + pulseOffset(t);
           e.y = slot.y;
@@ -879,9 +893,18 @@
           e.mode = "formation";
         } else {
           var pos = bezier(e.path.p0, e.path.p1, e.path.p2, e.path.p3, e.pathT);
-          e.x = pos.x;
-          e.y = pos.y;
-          e.angle = bezierAngle(e.path.p0, e.path.p1, e.path.p2, e.path.p3, e.pathT) - Math.PI / 2;
+          if (!isFinite(pos.x) || !isFinite(pos.y)) {
+            // fall back to slot to avoid NaN propagation
+            var slotF = formationSlot(e.row, e.col);
+            e.x = slotF.x + pulseOffset(t);
+            e.y = slotF.y;
+            e.mode = "formation";
+            e.angle = 0;
+          } else {
+            e.x = pos.x;
+            e.y = pos.y;
+            e.angle = bezierAngle(e.path.p0, e.path.p1, e.path.p2, e.path.p3, e.pathT) - Math.PI / 2;
+          }
         }
       } else if (e.mode === "formation") {
         // sit at slot, pulse left/right with formation
@@ -898,7 +921,8 @@
           fireEnemyBullet(e);
         }
       } else if (e.mode === "diving") {
-        e.pathT += dt / e.path.duration;
+        var dDur = (e.path && e.path.duration > 0) ? e.path.duration : 1;
+        e.pathT += dt / dDur;
         if (e.pathT >= 1) {
           e.pathT = 1;
           e.x = e.path.p3.x;
@@ -918,16 +942,26 @@
           }
         } else {
           var pos2 = bezier(e.path.p0, e.path.p1, e.path.p2, e.path.p3, e.pathT);
-          e.x = pos2.x;
-          e.y = pos2.y;
-          e.angle = bezierAngle(e.path.p0, e.path.p1, e.path.p2, e.path.p3, e.pathT) - Math.PI / 2;
-          // Diving fire (more often)
-          var dmeta = ENEMY_TYPES[e.type];
-          if (dmeta && Math.random() < dmeta.fireChance * 3 && !state.player.dying) {
-            fireEnemyBullet(e);
+          if (!isFinite(pos2.x) || !isFinite(pos2.y)) {
+            // bail to formation on NaN
+            var slotD = formationSlot(e.row, e.col);
+            e.x = slotD.x + pulseOffset(t);
+            e.y = slotD.y;
+            e.mode = "formation";
+            e.angle = 0;
+            e.diveCooldown = 4 + Math.random() * 4;
+          } else {
+            e.x = pos2.x;
+            e.y = pos2.y;
+            e.angle = bezierAngle(e.path.p0, e.path.p1, e.path.p2, e.path.p3, e.pathT) - Math.PI / 2;
+            // Diving fire (more often)
+            var dmeta = ENEMY_TYPES[e.type];
+            if (dmeta && Math.random() < dmeta.fireChance * 3 && !state.player.dying) {
+              fireEnemyBullet(e);
+            }
+            // Collision with player while diving
+            checkEnemyPlayerCollision(e);
           }
-          // Collision with player while diving
-          checkEnemyPlayerCollision(e);
         }
       }
     }

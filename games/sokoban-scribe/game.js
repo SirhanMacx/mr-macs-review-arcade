@@ -824,7 +824,11 @@
       scrolls: b.scrolls.map(function (s) { return { x: s.x, y: s.y, scholar: s.scholar }; }),
       buttons: b.buttons.map(function (bt) { return { x: bt.x, y: bt.y, pressed: bt.pressed }; }),
       moves: state.moves,
-      lives: state.lives
+      lives: state.lives,
+      scrollsShelved: state.scrollsShelved,
+      scrollsShelvedThisLevel: state.scrollsShelvedThisLevel,
+      trapShieldArmed: state.trapShieldArmed,
+      speedBootsLeft: state.speedBootsLeft
     };
   }
   function applyUndoSnapshot(snap) {
@@ -836,6 +840,10 @@
     b.buttons = snap.buttons.map(function (bt) { return { x: bt.x, y: bt.y, pressed: bt.pressed }; });
     state.moves = snap.moves;
     state.lives = snap.lives;
+    if (snap.scrollsShelved != null) state.scrollsShelved = snap.scrollsShelved;
+    if (snap.scrollsShelvedThisLevel != null) state.scrollsShelvedThisLevel = snap.scrollsShelvedThisLevel;
+    if (snap.trapShieldArmed != null) state.trapShieldArmed = snap.trapShieldArmed;
+    if (snap.speedBootsLeft != null) state.speedBootsLeft = snap.speedBootsLeft;
   }
 
   // Try a move in `dir`; returns true if move was applied.
@@ -874,19 +882,42 @@
       // Move scroll, possibly slide on ice
       sc.x = bx;
       sc.y = by;
-      // Slide while landing on ice
-      while (tileAt(b, sc.x + hd.dx, sc.y + hd.dy) === T_ICE
-            && !scrollAt(b, sc.x + hd.dx, sc.y + hd.dy)) {
-        sc.x += hd.dx;
-        sc.y += hd.dy;
+      // Arrow tile redirects pushed scroll: if scroll lands on an arrow, change slide direction
+      var pushDir = { dx: hd.dx, dy: hd.dy };
+      var arrAtScroll = arrowDirOf(tileAt(b, sc.x, sc.y));
+      if (arrAtScroll && DIRS[arrAtScroll]) {
+        pushDir = { dx: DIRS[arrAtScroll].dx, dy: DIRS[arrAtScroll].dy };
+        // attempt one redirected slide step if next cell is open
+        var arx = sc.x + pushDir.dx, ary = sc.y + pushDir.dy;
+        var art = tileAt(b, arx, ary);
+        if (art !== T_WALL && !scrollAt(b, arx, ary) && art !== T_TRAP) {
+          sc.x = arx; sc.y = ary;
+        }
       }
-      // After ice slide, check if next is wall or scroll → stop here
-      // If next is trap → scroll falls into trap... we treat scrolls as halting on ice into solid; never enter trap.
+      // Slide while CURRENTLY on ice; stop on wall/scroll/trap or board edge
+      var slideGuard = 0;
+      while (tileAt(b, sc.x, sc.y) === T_ICE && slideGuard < 40) {
+        slideGuard++;
+        var nbx = sc.x + pushDir.dx;
+        var nby = sc.y + pushDir.dy;
+        if (!inBounds(b, nbx, nby)) break;
+        var nbt = tileAt(b, nbx, nby);
+        if (nbt === T_WALL) break;
+        if (scrollAt(b, nbx, nby)) break;
+        if (nbt === T_TRAP) break;
+        sc.x = nbx;
+        sc.y = nby;
+        // Arrow on ice can redirect mid-slide
+        var midArr = arrowDirOf(tileAt(b, sc.x, sc.y));
+        if (midArr && DIRS[midArr]) {
+          pushDir = { dx: DIRS[midArr].dx, dy: DIRS[midArr].dy };
+        }
+      }
       // Move player
       p.x = nx;
       p.y = ny;
       sfx.push();
-      // pressed button update
+      // pressed button update (after scroll has settled)
       updateButtons();
       // Goal-fill check
       if (tileAt(b, sc.x, sc.y) === T_GOAL) {
@@ -1040,8 +1071,10 @@
     applyUndoSnapshot(snap);
     state.undosLeft--;
     state.usedAnyUndo = true;
+    state.hintCell = null;
     sfx.undo();
     updateHud();
+    updatePowerupSlots();
   }
   function tryReset() {
     if (phase !== "playing" && phase !== "paused") return;

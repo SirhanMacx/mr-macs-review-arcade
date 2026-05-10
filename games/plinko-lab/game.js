@@ -562,14 +562,15 @@
       for (var s = 0; s < steps; s++) {
         b.x += b.vx * stepDt;
         b.y += b.vy * stepDt;
-        // Walls (left/right of field)
+        // Walls (left/right of field) — only flip vx when moving INTO the wall
+        // to prevent perpetual edge-clipping when a ball settles against a rail.
         if (b.x - b.r < FIELD_LEFT) {
           b.x = FIELD_LEFT + b.r;
-          b.vx = -b.vx * RESTITUTION_WALL;
+          if (b.vx < 0) b.vx = -b.vx * RESTITUTION_WALL;
           burstAt(b.x, b.y, "#5de0f0", 3);
         } else if (b.x + b.r > FIELD_RIGHT) {
           b.x = FIELD_RIGHT - b.r;
-          b.vx = -b.vx * RESTITUTION_WALL;
+          if (b.vx > 0) b.vx = -b.vx * RESTITUTION_WALL;
           burstAt(b.x, b.y, "#5de0f0", 3);
         }
         // Pegs — broad-phase: only check pegs whose y is near ball.y
@@ -664,7 +665,11 @@
     // Auto-end round if all balls done and no balls remaining and we're playing
     if (phase === "playing" && state.ballsRemaining <= 0 && !anyAlive && !state._roundEnding) {
       state._roundEnding = true;
-      setTimeout(function () { onRoundEnd(); }, 500);
+      setTimeout(function () {
+        // Guard: skip if user has exited / restarted in the meantime.
+        if (phase !== "playing") return;
+        onRoundEnd();
+      }, 500);
     }
   }
 
@@ -724,8 +729,12 @@
             window.MrMacsCelebration.burst({ count: 22, palette: ["#a991ff", "#5de0f0", "#f5c451"] });
           }
         } catch (e) {}
-        // Slight delay so the slot land can render first
-        setTimeout(function () { openScholarQuestion(idx); }, 250);
+        // Slight delay so the slot land can render first.
+        // Guard: skip if game has ended/exited or already in another modal.
+        setTimeout(function () {
+          if (phase === "ended" || phase === "setup" || phase === "question") return;
+          openScholarQuestion(idx);
+        }, 250);
       }
     }
     checkBonusLife();
@@ -787,6 +796,8 @@
     phase = "roundEnd";
     saveSnapshot();
     setTimeout(function () {
+      // Guard: skip if user exited or restarted during the round-end pause.
+      if (phase !== "roundEnd") return;
       // Start next round, preserve power-ups and stats
       var carry = {
         score: state.score,
@@ -819,9 +830,15 @@
   }
 
   // -- Particles + popups ----------------------------------------------------
+  var PARTICLE_CAP = 600;
   function burstAt(x, y, color, count) {
     if (reducedMotion) return;
+    if (!state || !state.particles) return;
     count = count || 10;
+    // Memory-leak guard: cap total particles in flight.
+    var room = PARTICLE_CAP - state.particles.length;
+    if (room <= 0) return;
+    if (count > room) count = room;
     for (var i = 0; i < count; i++) {
       var ang = Math.random() * Math.PI * 2;
       var spd = 60 + Math.random() * 120;

@@ -1509,6 +1509,9 @@
     prevPhase = phase;
     phase = "question";
     pauseMusic();
+    // Silence the cycle hum while the review modal is open — physics is paused,
+    // so the engine sound shouldn't keep humming over the prompt.
+    stopHum();
     showScreen("question");
     saveSnapshot();
   }
@@ -1578,6 +1581,7 @@
     prevPhase = null;
     showScreen(null);
     resumeMusic();
+    if (phase === "playing") startHum();
     // schedule next gate later in this round
     state._gateSpawnT = 8 + Math.random() * 8;
     updateHud();
@@ -1590,6 +1594,7 @@
     prevPhase = null;
     showScreen(null);
     resumeMusic();
+    if (phase === "playing") startHum();
     state._gateSpawnT = 8 + Math.random() * 8;
     updateHud();
   }
@@ -1686,11 +1691,24 @@
     if (!state || phase === "setup" || phase === "ended") return;
     try {
       if (window.MrMacsSessions && window.MrMacsSessions.save) {
+        // Persist the fields needed to faithfully restore a run on resume.
+        // Inventory is shallow-cloned to avoid storing live references.
+        var invCopy = [];
+        for (var ii = 0; ii < state.inventory.length; ii++) {
+          invCopy.push({ type: state.inventory[ii].type });
+        }
         window.MrMacsSessions.save(GAME_ID, {
           score: state.score,
           round: state.round,
           kills: state.kills,
           cells: state.cellsPainted,
+          shardsAwarded: state.shardsAwarded,
+          questionsAnsweredCorrect: state.questionsAnsweredCorrect,
+          questionsAnsweredTotal: state.questionsAnsweredTotal,
+          gatesPassed: state.gatesPassed,
+          maxKillStreak: state.maxKillStreak,
+          inventory: invCopy,
+          shieldActive: !!state.activePowerups.shieldActive,
           ts: Date.now()
         });
       }
@@ -1874,6 +1892,12 @@
     });
     dom.againBtn.addEventListener("click", function () { clearSnapshot(); newRun(); });
     dom.questionCloseBtn.addEventListener("click", skipQuestion);
+    // Backdrop click on question modal also skips (matches Esc behavior).
+    if (dom.questionScreen) {
+      dom.questionScreen.addEventListener("click", function (e) {
+        if (phase === "question" && e.target === dom.questionScreen) skipQuestion();
+      });
+    }
     dom.soundBtn.addEventListener("click", function () {
       soundOn = !soundOn;
       dom.soundBtn.textContent = soundOn ? "Sound On" : "Sound Off";
@@ -1909,11 +1933,26 @@
   function resumeRun(snap) {
     var s = snap.state || {};
     lastBonusLifeThreshold = Math.floor((s.score || 0) / BONUS_LIFE_THRESHOLD) * BONUS_LIFE_THRESHOLD;
+    // Sanitize inventory so corrupted saves don't poison the run
+    var inv = [];
+    if (Array.isArray(s.inventory)) {
+      for (var ii = 0; ii < s.inventory.length && inv.length < INVENTORY_CAP; ii++) {
+        var it = s.inventory[ii];
+        if (it && POWERUP_META[it.type]) inv.push({ type: it.type });
+      }
+    }
     initState({
       score: s.score || 0,
       round: s.round || 1,
       kills: s.kills || 0,
       cellsPainted: s.cells || 0,
+      shardsAwarded: s.shardsAwarded || 0,
+      questionsAnsweredCorrect: s.questionsAnsweredCorrect || 0,
+      questionsAnsweredTotal: s.questionsAnsweredTotal || 0,
+      gatesPassed: s.gatesPassed || 0,
+      maxKillStreak: s.maxKillStreak || 0,
+      inventory: inv,
+      shieldActive: !!s.shieldActive,
       best: readBest()
     });
     showScreen(null);
@@ -1973,6 +2012,10 @@
     lastFrame = ts;
     if (state) {
       if (phase === "playing") {
+        // Defer the first auto-save by one full interval rather than firing
+        // immediately on the first playing frame (lastSnapshotTs starts at 0
+        // and ts is a high DOMHighResTimeStamp on first frame).
+        if (lastSnapshotTs === 0) lastSnapshotTs = ts;
         if (ts - lastSnapshotTs > 10000) {
           saveSnapshot();
           lastSnapshotTs = ts;

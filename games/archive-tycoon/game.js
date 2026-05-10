@@ -18,6 +18,8 @@
   const CANVAS_SIZE = 720;
   const PRESTIGE_THRESHOLD = 1_000_000_000; // 1B knowledge to publish
   const COST_GROWTH = 1.15;
+  const MAX_PRODUCER_OWNED = 9999; // hard cap to prevent Infinity cost overflow
+  const KNOWLEDGE_HARD_CAP = 1e15; // numeric stability — below MAX_SAFE_INTEGER (~9e15)
   const SCHOLAR_INTERVAL_MS = 240_000; // ~4 minutes
   const SCHOLAR_INTERVAL_JITTER = 60_000;
   const SCHOLAR_BOOST_DURATION_MS = 300_000; // 5 minutes
@@ -27,6 +29,12 @@
   const SAVE_KEY = "mr-macs-archive-tycoon-save-v1";
   const STARTING_LIVES = 3;
   const POWERUP_DROP_CHANCE_PER_TICK = 0.0008; // each 100ms tick
+  const SHARDS_CAP = 200; // per-session cap (matches sibling games)
+  const OFFLINE_RATE = 0.25; // 25% of online production
+  const OFFLINE_CAP_HOURS = 4; // 4-hour offline cap (was 8h * 50%)
+  const SKIP_TIME_FLOOR = 60; // skip-time grants at least 60s of click-equivalent
+  const REDUCED_MOTION = (typeof window !== "undefined" && window.matchMedia)
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false;
 
   const PRODUCERS = [
     { id: "apprentice", name: "Apprentice", short: "App", baseRate: 1,    baseCost: 25,        glyph: "Ap" },
@@ -483,6 +491,17 @@
     totalPublished: 0,
     correctScholarAnswers: 0,
     powerupsUsed: 0,
+    shardsAwarded: 0,
+
+    // Mouse/canvas positioning continued
+    canvasLogicalSize: CANVAS_SIZE,
+
+    // UI refresh throttle
+    _lastUiRefresh: 0,
+
+    // Pause bookkeeping (so timed boosts / scholar timer don't expire while paused)
+    pauseStartedAt: 0,
+    currentScholarQ: null,
 
     // Time
     lastTick: 0,
@@ -516,8 +535,12 @@
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
   function producerCost(p) {
-    const owned = state.producers[p.id];
-    return Math.ceil(p.baseCost * Math.pow(COST_GROWTH, owned));
+    const owned = Math.min(state.producers[p.id] || 0, MAX_PRODUCER_OWNED);
+    // Guard against Infinity for very large `owned` (Math.pow overflows ~1750 for 1.15^n)
+    if (owned >= MAX_PRODUCER_OWNED) return Number.POSITIVE_INFINITY;
+    const cost = p.baseCost * Math.pow(COST_GROWTH, owned);
+    if (!isFinite(cost) || cost > Number.MAX_SAFE_INTEGER) return Number.POSITIVE_INFINITY;
+    return Math.ceil(cost);
   }
 
   function producerCount(id) { return state.producers[id] || 0; }
@@ -540,10 +563,12 @@
     GLOBAL_UPGRADES.forEach(u => {
       if (u.kind === "global-mult" && state.upgradesBought[u.id]) mult *= 2;
     });
-    // Volumes: +1% per published volume
+    // Volumes: +1% per published volume (only applied here — not double-applied to click power)
     mult *= (1 + state.volumes * 0.01);
-    // Active boosts (timed)
+    // Active boosts (timed) — filter expired inline so production doesn't read stale boosts
+    const now = (typeof performance !== "undefined") ? performance.now() : Date.now();
     Object.values(state.boosts).forEach(b => {
+      if (b.expiresAt && now > b.expiresAt) return;
       if (b.kind === "global") mult *= b.multiplier;
     });
     return mult;
@@ -554,14 +579,17 @@
     GLOBAL_UPGRADES.forEach(u => {
       if (u.kind === "click-mult" && state.upgradesBought[u.id]) mult *= 2;
     });
+    const now = (typeof performance !== "undefined") ? performance.now() : Date.now();
     Object.values(state.boosts).forEach(b => {
+      if (b.expiresAt && now > b.expiresAt) return;
       if (b.kind === "click") mult *= b.multiplier;
     });
     return mult;
   }
 
   function clickPower() {
-    return Math.max(1, Math.floor(clickMultiplier())) * (1 + state.volumes * 0.01);
+    // Volumes bonus is applied via globalMultiplier on production; click power gets only its own mult.
+    return Math.max(1, Math.floor(clickMultiplier()));
   }
 
   function totalProductionPerSecond() {
@@ -723,14 +751,17 @@
     state.milestonesHit = snap.milestonesHit || {};
     state.sessionStart = +snap.sessionStart || Date.now();
 
-    // Offline production credit (cap at 8h, 50% rate)
+    // Offline production credit (4h cap, 25% rate; clamp negatives, isFinite)
     if (snap.savedAt) {
-      const offlineSec = Math.min((Date.now() - snap.savedAt) / 1000, 8 * 3600);
-      const offlineGain = totalProductionPerSecond() * offlineSec * 0.5;
-      if (offlineGain > 0) {
-        state.knowledge += offlineGain;
-        state.totalEarned += offlineGain;
-        showCallout(`Welcome back · +${fmtNum(offlineGain)} idle`);
+      const elapsedSec = Math.max(0, (Date.now() - snap.savedAt) / 1000);
+      const offlineSec = Math.min(elapsedSec, OFFLINE_CAP_HOURS * 3600);
+      const baseRate = totalProductionPerSecond();
+      const offlineGain = (isFinite(baseRate) && baseRate > 0)
+        ? baseRate * offlineSec * OFFLINE_RATE
+        : 0;
+      const granted = addKnowledge(offlineGain);
+      if (granted > 0) {
+        showCallout(`Welcome back · +${fmtNum(granted)} idle`);
       }
     }
     return true;
@@ -743,8 +774,23 @@
   // ─── Profile / shards integration ────────────────────────────────────────
   function awardShards(n, reason) {
     try {
-      window.MrMacsProfile?.addShards(n, reason);
+      const remaining = SHARDS_CAP - (state.shardsAwarded || 0);
+      const capped = Math.max(0, Math.min(n | 0, remaining));
+      if (capped <= 0) return;
+      state.shardsAwarded = (state.shardsAwarded || 0) + capped;
+      window.MrMacsProfile?.addShards(capped, reason);
     } catch (e) { /* ignore */ }
+  }
+
+  // Clamp knowledge to numerical safe range to avoid Infinity / precision loss
+  function addKnowledge(amount) {
+    if (!isFinite(amount) || isNaN(amount) || amount <= 0) return 0;
+    const headroom = KNOWLEDGE_HARD_CAP - state.knowledge;
+    if (headroom <= 0) return 0;
+    const granted = Math.min(amount, headroom);
+    state.knowledge += granted;
+    state.totalEarned = Math.min(KNOWLEDGE_HARD_CAP * 1000, state.totalEarned + granted);
+    return granted;
   }
 
   // ─── Canvas sizing (square 720x720, scaled for viewport) ─────────────────
@@ -781,7 +827,10 @@
   }
 
   function handleCanvasClick(e) {
-    if (!state.running || state.paused) return;
+    if (!state.running || state.paused || state.scholarActive) return;
+    // Suppress synthetic click that fires ~300ms after touchend
+    if (performance.now() - _lastTouchAt < 600) return;
+    e.preventDefault();
     const rect = canvas.getBoundingClientRect();
     state.canvasRect = rect;
     const x = (e.clientX - rect.left);
@@ -790,11 +839,16 @@
     doScribbleClick(x, y);
   }
 
+  // Touch handler: dedupe via this flag so the synthetic mouse `click` after
+  // touchstart doesn't double-fire. Used for both touchstart (fast tap) and
+  // touchend (cancellation guard).
+  let _lastTouchAt = 0;
   function handleCanvasTouch(e) {
-    if (!state.running || state.paused) return;
-    const t = e.changedTouches[0];
+    if (!state.running || state.paused || state.scholarActive) return;
+    const t = (e.changedTouches && e.changedTouches[0]) || (e.touches && e.touches[0]);
     if (!t) return;
     e.preventDefault();
+    _lastTouchAt = performance.now();
     const rect = canvas.getBoundingClientRect();
     state.canvasRect = rect;
     const x = (t.clientX - rect.left);
@@ -805,29 +859,27 @@
 
   function doScribbleClick(x, y) {
     const power = clickPower();
-    state.knowledge += power;
-    state.totalEarned += power;
+    // Critical click (1% chance) = 10x
+    const isCrit = Math.random() < 0.01;
+    const total = isCrit ? power * 10 : power;
+    const granted = addKnowledge(total);
     state.totalClicks++;
     state.clicks++;
 
-    // Critical click (1% chance) = 10x
-    const isCrit = Math.random() < 0.01;
     if (isCrit) {
-      state.knowledge += power * 9;
-      state.totalEarned += power * 9;
       audio.clickCritical();
-      spawnFloatNum((isCrit ? "+" + fmtNum(power * 10) : "+" + fmtNum(power)), x, y, true);
+      spawnFloatNum("+" + fmtNum(granted), x, y, true);
     } else {
       audio.click();
-      spawnFloatNum("+" + fmtNum(power), x, y, false);
+      spawnFloatNum("+" + fmtNum(granted), x, y, false);
     }
 
     // Click pulse
     state.clickPulses.push({ x, y, t0: performance.now() });
     if (state.clickPulses.length > 24) state.clickPulses.shift();
 
-    // Spawn knowledge orbs trail
-    spawnKnowledgeOrbs(x, y, isCrit ? 8 : 3);
+    // Spawn knowledge orbs trail (skip when reduced motion)
+    if (!REDUCED_MOTION) spawnKnowledgeOrbs(x, y, isCrit ? 8 : 3);
 
     checkMilestones();
     refreshHUD();
@@ -865,18 +917,20 @@
   function buyProducer(producerId) {
     const p = PRODUCERS.find(p => p.id === producerId);
     if (!p) return;
+    if ((state.producers[producerId] || 0) >= MAX_PRODUCER_OWNED) return;
     const cost = producerCost(p);
     if (state.luckyCoinActive) {
-      // Free purchase
+      // Free purchase — also count this as the powerup actually used
       state.producers[producerId]++;
       state.luckyCoinActive = false;
       state.totalProducerPurchases++;
+      state.powerupsUsed++;
       audio.purchase();
       showCallout(`Lucky! ${p.name} free`);
       refreshAll();
       return;
     }
-    if (!canAfford(cost)) return;
+    if (!isFinite(cost) || !canAfford(cost)) return;
     state.knowledge -= cost;
     state.producers[producerId]++;
     state.totalProducerPurchases++;
@@ -892,6 +946,7 @@
       state.upgradesBought[u.id] = true;
       state.luckyCoinActive = false;
       state.totalUpgrades++;
+      state.powerupsUsed++;
       audio.upgrade();
       showCallout(`Lucky! ${u.name} free`);
       refreshAll();
@@ -1056,36 +1111,55 @@
     const id = state.powerupInventory[slotIdx];
     if (!id) return;
     const p = POWERUPS[id];
+
+    // Lucky coin: don't allow stacking — refuse activation if one is already active
+    if (p.effect === "next-free" && state.luckyCoinActive) {
+      showCallout("Lucky coin already active");
+      return;
+    }
+
     state.powerupInventory[slotIdx] = null;
-    state.powerupsUsed++;
     audio.powerupUse();
 
+    // Fixed-key per kind so the same powerup type can't stack with itself.
+    // Re-activating refreshes the duration but does not multiply the bonus.
     if (p.effect === "click-mult") {
-      state.boosts["pu-click-" + Date.now()] = {
+      const key = "pu-click-frenzy";
+      state.boosts[key] = {
         kind: "click",
         multiplier: p.multiplier,
         label: `${p.glyph} ${p.name}`,
         expiresAt: performance.now() + p.durationMs
       };
+      state.powerupsUsed++;
     } else if (p.effect === "global-mult") {
-      state.boosts["pu-global-" + Date.now()] = {
+      const key = "pu-global-mega";
+      state.boosts[key] = {
         kind: "global",
         multiplier: p.multiplier,
         label: `${p.glyph} ${p.name}`,
         expiresAt: performance.now() + p.durationMs
       };
+      state.powerupsUsed++;
     } else if (p.effect === "next-free") {
+      // Defer powerupsUsed increment until coin is actually consumed in buyProducer/buyUpgrade
       state.luckyCoinActive = true;
       showCallout(`${p.glyph} Next purchase free`);
     } else if (p.effect === "skip-time") {
-      const gain = totalProductionPerSecond() * 3600;
-      state.knowledge += gain;
-      state.totalEarned += gain;
-      showCallout(`${p.glyph} +${fmtNum(gain)} skipped`, 1800);
+      // Floor: at least SKIP_TIME_FLOOR seconds of click-equivalent so the powerup
+      // is never wasted at very low production rates.
+      const baseRate = totalProductionPerSecond();
+      const productionGain = (isFinite(baseRate) && baseRate > 0) ? baseRate * 3600 : 0;
+      const floorGain = clickPower() * SKIP_TIME_FLOOR;
+      const totalGain = Math.max(productionGain, floorGain);
+      const granted = addKnowledge(totalGain);
+      showCallout(`${p.glyph} +${fmtNum(granted)} skipped`, 1800);
       checkMilestones();
+      state.powerupsUsed++;
     } else if (p.effect === "show-optimal") {
       state.insightActive = true;
       state.insightExpiresAt = performance.now() + p.durationMs;
+      state.powerupsUsed++;
     }
     refreshAll();
   }
@@ -1554,8 +1628,12 @@
   const TICK_MS = 100;
 
   function tick(now) {
+    // Stop the loop entirely on game over (prevents memory leak)
+    if (state.gameOver || !state.running) {
+      rafId = 0;
+      return;
+    }
     rafId = requestAnimationFrame(tick);
-    if (!state.running) return;
 
     if (!state.lastTick) state.lastTick = now;
     const dt = Math.min(0.1, (now - state.lastTick) / 1000); // cap at 100ms
@@ -1564,13 +1642,14 @@
     if (!state.paused) {
       // Production tick
       tickAccum += dt * 1000;
+      // Bound accum so a hidden tab returning doesn't replay hours of ticks at once
+      if (tickAccum > 5000) tickAccum = 5000;
       while (tickAccum >= TICK_MS) {
         tickAccum -= TICK_MS;
         const gain = totalProductionPerSecond() * (TICK_MS / 1000);
         if (gain > 0) {
-          state.knowledge += gain;
-          state.totalEarned += gain;
-          checkMilestones();
+          const granted = addKnowledge(gain);
+          if (granted > 0) checkMilestones();
         }
         maybeDropPowerup();
         maybeTriggerScholar(now);
@@ -1646,14 +1725,34 @@
   }
 
   function pauseGame() {
-    if (!state.running || state.gameOver) return;
+    if (!state.running || state.gameOver || state.paused) return;
     state.paused = true;
+    state.pauseStartedAt = performance.now();
     pauseScreen.classList.add("show");
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.duck(0.25, 250); } catch (e) {}
   }
   function resumeGame() {
+    if (!state.paused) {
+      pauseScreen.classList.remove("show");
+      return;
+    }
+    // Offset timed deadlines by the paused duration so boosts/scholar timer don't expire while paused
+    const pausedFor = performance.now() - (state.pauseStartedAt || performance.now());
+    if (pausedFor > 0) {
+      Object.values(state.boosts).forEach(b => {
+        if (b.expiresAt) b.expiresAt += pausedFor;
+      });
+      if (state.insightExpiresAt) state.insightExpiresAt += pausedFor;
+      if (state.nextScholarAt) state.nextScholarAt += pausedFor;
+    }
     state.paused = false;
+    state.pauseStartedAt = 0;
     pauseScreen.classList.remove("show");
     state.lastTick = 0;
+    tickAccum = 0;
+    try { window.MrMacsArcadeMusic && window.MrMacsArcadeMusic.restore(250); } catch (e) {}
+    // Resume RAF if it was stopped (defensive — pause itself doesn't stop RAF)
+    if (!rafId && !state.gameOver && state.running) rafId = requestAnimationFrame(tick);
   }
   function restartGame() {
     // Wipe save and reset to fresh

@@ -649,7 +649,30 @@
 
   var state = null;
   var reducedMotion = false;
-  try { reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  var reducedMotionMQL = null;
+  try {
+    reducedMotionMQL = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reducedMotion = reducedMotionMQL.matches;
+    var rmListener = function (e) { reducedMotion = !!e.matches; };
+    if (reducedMotionMQL.addEventListener) reducedMotionMQL.addEventListener("change", rmListener);
+    else if (reducedMotionMQL.addListener) reducedMotionMQL.addListener(rmListener);
+  } catch (e) {}
+
+  // Pending timeout handles (so we can cancel on phase changes)
+  var pendingTimers = {
+    scholarOpen: 0,
+    stageClear: 0,
+    questionClose: 0
+  };
+  function clearPendingTimer(key) {
+    if (pendingTimers[key]) {
+      clearTimeout(pendingTimers[key]);
+      pendingTimers[key] = 0;
+    }
+  }
+  function clearAllPendingTimers() {
+    for (var k in pendingTimers) clearPendingTimer(k);
+  }
 
   // Active question (scholar review)
   var activeQuestion = null;
@@ -737,26 +760,37 @@
       else if (phase === "playing") startMusic();
     });
     if (dom.fullscreenBtn) dom.fullscreenBtn.addEventListener("click", toggleFullscreen);
-    if (dom.pauseBtn) dom.pauseBtn.addEventListener("click", function () {
+    if (dom.pauseBtn) dom.pauseBtn.addEventListener("click", function (e) {
+      if (e && e.preventDefault) e.preventDefault();
       if (phase === "playing" || phase === "paused") togglePause();
     });
     if (dom.exitBtn) dom.exitBtn.addEventListener("click", exitToHub);
     if (dom.resumeBtn) dom.resumeBtn.addEventListener("click", togglePause);
     if (dom.restartBtn) dom.restartBtn.addEventListener("click", function () {
+      clearAllPendingTimers();
       clearSnapshot();
       hideAllScreens();
       showScreen("setup");
       phase = "setup";
       stopMusic();
+      refreshSetupUI();
     });
     if (dom.pauseExitBtn) dom.pauseExitBtn.addEventListener("click", exitToHub);
     if (dom.setupBtn) dom.setupBtn.addEventListener("click", function () {
+      clearAllPendingTimers();
       hideAllScreens();
       showScreen("setup");
       phase = "setup";
+      refreshSetupUI();
     });
-    if (dom.againBtn) dom.againBtn.addEventListener("click", startRun);
-    if (dom.questionCloseBtn) dom.questionCloseBtn.addEventListener("click", skipQuestion);
+    if (dom.againBtn) dom.againBtn.addEventListener("click", function () {
+      clearAllPendingTimers();
+      startRun();
+    });
+    if (dom.questionCloseBtn) dom.questionCloseBtn.addEventListener("click", function (e) {
+      if (e && e.preventDefault) e.preventDefault();
+      skipQuestion();
+    });
 
     // Difficulty buttons
     if (dom.diffButtons) {
@@ -808,15 +842,15 @@
 
   function refreshSetupUI() {
     var best = readBest();
-    if (dom.hudBest) dom.hudBest.textContent = best > 0 ? best : "—";
+    if (dom.hudBest) dom.hudBest.textContent = best > 0 ? formatScore(best) : "—";
     var snap = loadSnapshot();
     if (snap && dom.resumeCard) {
       dom.resumeCard.hidden = false;
       dom.resumeCard.innerHTML =
         '<div class="resume-card-title">Last run</div>' +
-        '<div class="resume-card-meta">Stage ' + snap.stage + ' &middot; Score ' + snap.score + ' &middot; ' + (snap.pairsMatched || 0) + ' pairs</div>' +
-        '<div class="resume-actions"><button class="btn glass-pill" id="resumeRunBtn">Resume</button>' +
-        '<button class="btn glass-pill" id="discardRunBtn">Discard</button></div>';
+        '<div class="resume-card-meta">Stage ' + escapeHtml(String(snap.stage || 1)) + ' &middot; Score ' + escapeHtml(String(snap.score || 0)) + ' &middot; ' + escapeHtml(String(snap.pairsMatched || 0)) + ' pairs</div>' +
+        '<div class="resume-actions"><button class="btn glass-pill" id="resumeRunBtn" type="button">Resume</button>' +
+        '<button class="btn glass-pill" id="discardRunBtn" type="button">Discard</button></div>';
       var rB = $("resumeRunBtn");
       var dB = $("discardRunBtn");
       if (rB) rB.addEventListener("click", function () {
@@ -827,10 +861,17 @@
         clearSnapshot();
         if (dom.resumeCard) dom.resumeCard.hidden = true;
       });
+    } else if (dom.resumeCard) {
+      dom.resumeCard.hidden = true;
+      dom.resumeCard.innerHTML = "";
     }
     // Leaderboard panel
     try {
-      if (window.MrMacsLeaderboards && window.MrMacsLeaderboards.top) {
+      if (dom.leaderboardPanel) {
+        dom.leaderboardPanel.hidden = true;
+        dom.leaderboardPanel.innerHTML = "";
+      }
+      if (window.MrMacsLeaderboards && window.MrMacsLeaderboards.top && dom.leaderboardPanel) {
         var rows = window.MrMacsLeaderboards.top(GAME_ID, 5) || [];
         if (rows.length) {
           dom.leaderboardPanel.hidden = false;
@@ -840,7 +881,7 @@
             html += '<div class="leaderboard-row">' +
               '<span class="lb-rank">#' + (i + 1) + '</span>' +
               '<span class="lb-name">' + escapeHtml(r.name || "Player") + '</span>' +
-              '<span class="lb-score">' + r.score + '</span>' +
+              '<span class="lb-score">' + escapeHtml(String(r.score || 0)) + '</span>' +
               '</div>';
           }
           dom.leaderboardPanel.innerHTML = html;
@@ -983,8 +1024,11 @@
   }
 
   // -- Input -----------------------------------------------------------------
+  var lastTouchEndTs = 0;
   function bindInput() {
     document.addEventListener("keydown", function (e) {
+      // Ignore browser shortcut combos so Cmd+P (print) etc. still work
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
       var k = e.key;
       if (phase === "playing") {
         if (k === "1") { usePowerup(1); e.preventDefault(); return; }
@@ -998,6 +1042,7 @@
         }
       }
       if (phase === "paused" && (k === "p" || k === "P" || k === " ")) {
+        if (e.repeat) return;
         togglePause();
         e.preventDefault();
         return;
@@ -1009,24 +1054,28 @@
       }
     });
     canvas.addEventListener("click", function (e) {
+      // Suppress synthetic click after touchend (mobile ghost tap)
+      if (Date.now() - lastTouchEndTs < 500) return;
       if (phase !== "playing") return;
       var c = canvasToCard(e.clientX, e.clientY);
       if (!c) return;
       onCardClick(c);
     });
     canvas.addEventListener("touchend", function (e) {
+      lastTouchEndTs = Date.now();
       if (phase !== "playing") return;
       var t = e.changedTouches && e.changedTouches[0];
       if (!t) return;
       var c = canvasToCard(t.clientX, t.clientY);
       if (c) {
-        onCardClick(c);
         e.preventDefault();
+        onCardClick(c);
       }
-    });
+    }, { passive: false });
     [dom.puSlot1, dom.puSlot2, dom.puSlot3].forEach(function (slot) {
       if (!slot) return;
-      slot.addEventListener("click", function () {
+      slot.addEventListener("click", function (e) {
+        e.preventDefault();
         var slotN = parseInt(slot.getAttribute("data-slot"), 10) || 1;
         usePowerup(slotN);
       });
@@ -1046,7 +1095,10 @@
   }
 
   function onCardClick(c) {
+    if (!state) return;
     if (state.lockInput) return;
+    if (state.pendingFlipBack) return;
+    if (state.pendingScholarMatch) return;
     if (c.matched) return;
     if (c.revealed) return;
     if (state.flippedQueue.length >= 2) return;
@@ -1085,22 +1137,35 @@
     state.flippedQueue = [];
     state.wrongStreak = 0;
     var mult = state.scoreMultActive ? 2 : 1;
-    var gain = (BASE_MATCH_SCORE + state.timeRemaining * TIME_BONUS_FACTOR) * mult;
+    var gain = Math.floor((BASE_MATCH_SCORE + Math.max(0, state.timeRemaining) * TIME_BONUS_FACTOR) * mult);
     state.score += gain;
     sfx.card_match();
     pushPopup("+" + gain, (a.x + b.x) / 2 + a.w / 2, (a.y + b.y) / 2 + a.h / 2, "is-score");
-    // If scholar pair matched, defer to scholar review
-    if (a.scholar && b.scholar) {
+    var isScholarPair = a.scholar && b.scholar;
+    // Reserve scholar slot immediately so the stage-clear timer waits for review
+    if (isScholarPair) {
+      state.pendingScholarMatch = { a: a.id, b: b.id };
       // small visual delay so the players see the match
-      setTimeout(function () {
-        if (phase !== "playing") return;
-        openScholarQuestion(a, b);
+      var aId = a.id, bId = b.id;
+      clearPendingTimer("scholarOpen");
+      pendingTimers.scholarOpen = setTimeout(function () {
+        pendingTimers.scholarOpen = 0;
+        if (phase !== "playing") {
+          // If we never opened the question, clear the reservation so other paths can proceed
+          if (state) state.pendingScholarMatch = null;
+          return;
+        }
+        var ca = cardById(aId), cb = cardById(bId);
+        if (ca && cb) openScholarQuestion(ca, cb);
+        else if (state) state.pendingScholarMatch = null;
       }, SCHOLAR_FLIP_DELAY_MS);
     }
-    // Check stage clear
-    if (allMatched()) {
+    // Check stage clear (skip if scholar review pending — onStageClear will be triggered after)
+    if (allMatched() && !isScholarPair) {
       // small delay for visual celebration
-      setTimeout(function () {
+      clearPendingTimer("stageClear");
+      pendingTimers.stageClear = setTimeout(function () {
+        pendingTimers.stageClear = 0;
         if (phase === "playing" && !state.pendingScholarMatch) onStageClear();
       }, 350);
     }
@@ -1134,7 +1199,9 @@
 
   function onStageClear() {
     if (phase !== "playing") return;
-    var bonus = Math.floor(state.timeRemaining * STAGE_CLEAR_TIME_BONUS);
+    if (state.pendingScholarMatch) return; // wait for scholar review
+    clearAllPendingTimers();
+    var bonus = Math.floor(Math.max(0, state.timeRemaining) * STAGE_CLEAR_TIME_BONUS);
     state.score += bonus;
     sfx.stage_clear();
     pushPopup("STAGE CLEAR  +" + bonus, LOGICAL_W / 2, 220, "is-legend");
@@ -1160,6 +1227,12 @@
   }
 
   function onLifeLost(reason) {
+    if (!state) return;
+    clearAllPendingTimers();
+    state.pendingFlipBack = null;
+    state.pendingScholarMatch = null;
+    state.flippedQueue = [];
+    state.lockInput = false;
     state.lives--;
     sfx.life_lost();
     pushPopup("LIFE LOST", LOGICAL_W / 2, 200, "is-warn");
@@ -1177,6 +1250,7 @@
 
   function onRunComplete(victory) {
     phase = "ended";
+    clearAllPendingTimers();
     stopMusic();
     sfx.gameOver();
     var prevBest = readBest();
@@ -1218,16 +1292,23 @@
 
   function usePowerup(slot) {
     if (phase !== "playing") return;
+    if (!state) return;
     var idx = slot - 1;
     if (idx < 0 || idx >= state.inventory.length) return;
     var type = state.inventory[idx];
+    // For powerups that can't be applied right now, refuse without consuming
+    if ((type === "shuffle_mismatch" || type === "reveal_pair") &&
+        (state.pendingFlipBack || state.pendingScholarMatch)) {
+      return;
+    }
     state.inventory.splice(idx, 1);
     sfx.powerup_use();
     if (type === "peek") {
       state.activePeek = { until: state.time + 2.0 };
       pushPopup("PEEK", LOGICAL_W / 2, 200, "is-cyan");
     } else if (type === "plus30s") {
-      state.timeRemaining += 30;
+      var maxTime = (GRID_CONFIGS[state.currentGrid] && GRID_CONFIGS[state.currentGrid].time + 60) || 300;
+      state.timeRemaining = Math.min(state.timeRemaining + 30, maxTime);
       pushPopup("+30s", LOGICAL_W / 2, 200, "is-emerald");
     } else if (type === "shuffle_mismatch") {
       shuffleMismatchedViewed();
@@ -1244,34 +1325,59 @@
   }
 
   function shuffleMismatchedViewed() {
-    // Re-shuffle face IDs among cards that have been "viewed" (revealed at least
-    // once) but are not currently matched. We track this implicitly: we mark
-    // all cards that have been temporarily revealed via a 'seen' flag updated
-    // when they're flipped. Here we just shuffle face IDs across cards that
-    // are currently NOT matched and NOT in the flippedQueue.
+    // Re-shuffle face IDs among unmatched cards that aren't currently being
+    // evaluated (in flippedQueue) or mid-flip-back. Skip matched cards, skip
+    // pending flip-back cards, skip the current flippedQueue selections.
+    var skipIds = {};
+    if (state.flippedQueue) {
+      for (var f = 0; f < state.flippedQueue.length; f++) skipIds[state.flippedQueue[f]] = true;
+    }
+    if (state.pendingFlipBack) {
+      skipIds[state.pendingFlipBack.a] = true;
+      skipIds[state.pendingFlipBack.b] = true;
+    }
+    if (state.pendingScholarMatch) {
+      skipIds[state.pendingScholarMatch.a] = true;
+      skipIds[state.pendingScholarMatch.b] = true;
+    }
     var pool = [];
     for (var i = 0; i < state.cards.length; i++) {
       var c = state.cards[i];
-      if (c.matched) continue;
-      if (state.flippedQueue.indexOf(c.id) >= 0) continue;
+      if (c.matched) continue;          // never shuffle matched cards
+      if (skipIds[c.id]) continue;      // never shuffle currently-flipped cards
       pool.push(c);
     }
+    if (pool.length < 2) return;        // nothing meaningful to shuffle
     var ids = pool.map(function (c) { return c.faceId; });
-    shuffle(ids);
+    var scholars = pool.map(function (c) { return c.scholar; });
+    // Pair faceId with scholar flag so we don't desync
+    var pairs = ids.map(function (fid, idx) { return { fid: fid, scholar: scholars[idx] }; });
+    shuffle(pairs);
     for (var k = 0; k < pool.length; k++) {
-      pool[k].faceId = ids[k];
+      pool[k].faceId = pairs[k].fid;
+      pool[k].scholar = pairs[k].scholar;
       pool[k].revealed = false;
       pool[k].targetFlip = 0;
     }
   }
 
   function revealKnownPair() {
-    // Find any two unmatched cards that share a faceId; flip them face-up
-    // briefly. They count as a "known pair" hint.
+    // Find any two UNMATCHED cards that share a faceId; flip them face-up
+    // briefly. Skip matched pairs (would waste the power-up) and skip cards
+    // already in flippedQueue or pendingFlipBack.
+    if (state.pendingFlipBack || state.pendingScholarMatch) {
+      // Don't stomp another pending flip-back/scholar reservation
+      return;
+    }
+    var skipIds = {};
+    if (state.flippedQueue) {
+      for (var f = 0; f < state.flippedQueue.length; f++) skipIds[state.flippedQueue[f]] = true;
+    }
     var byFace = {};
     for (var i = 0; i < state.cards.length; i++) {
       var c = state.cards[i];
-      if (c.matched) continue;
+      if (c.matched) continue;          // never pick already-matched
+      if (skipIds[c.id]) continue;
       if (!byFace[c.faceId]) byFace[c.faceId] = [];
       byFace[c.faceId].push(c);
     }
@@ -1406,6 +1512,8 @@
       phase = "playing";
       hideAllScreens();
       resumeMusic();
+      // Reset frame timer so the first dt after resume isn't a huge spike
+      lastFrame = 0;
     }
   }
 
@@ -1440,12 +1548,18 @@
 
   function openScholarQuestion(a, b) {
     activeQuestion = pickQuestion();
+    if (!activeQuestion) {
+      // No question bank available — clear reservation and finish stage if needed
+      if (state) state.pendingScholarMatch = null;
+      if (state && allMatched()) onStageClear();
+      return;
+    }
     state.pendingScholarMatch = { a: a.id, b: b.id };
     sfx.scholar_match();
     if (dom.questionMeta) dom.questionMeta.textContent = "Scholar Pair · Optional · +" + SCHOLAR_BONUS + " + " + SCHOLAR_SHARDS + " shards";
     if (dom.questionCloseBtn) dom.questionCloseBtn.textContent = "Skip";
     renderQuestion();
-    prevPhase = phase;
+    prevPhase = (phase === "question") ? (prevPhase || "playing") : phase;
     phase = "question";
     pauseMusic();
     showScreen("question");
@@ -1496,11 +1610,17 @@
       sfx.scholar_wrong();
     }
     state.questionsAnsweredTotal++;
-    setTimeout(function () { closeQuestion(correct); }, 1100);
+    clearPendingTimer("questionClose");
+    pendingTimers.questionClose = setTimeout(function () {
+      pendingTimers.questionClose = 0;
+      closeQuestion(correct);
+    }, 1100);
   }
 
   function closeQuestion(wasCorrect) {
-    if (wasCorrect) {
+    clearPendingTimer("questionClose");
+    if (phase !== "question") return; // already closed (e.g. via skip / Esc)
+    if (wasCorrect && state) {
       state.score += SCHOLAR_BONUS;
       addShards(SCHOLAR_SHARDS, GAME_ID + "-scholar-correct");
       try {
@@ -1511,18 +1631,20 @@
       pushPopup("+" + SCHOLAR_BONUS + " SCHOLAR", LOGICAL_W / 2, 80, "is-bonus");
     }
     activeQuestion = null;
-    state.pendingScholarMatch = null;
+    if (state) state.pendingScholarMatch = null;
     phase = prevPhase || "playing";
     prevPhase = null;
     showScreen(null);
     resumeMusic();
     updateHud();
-    if (allMatched()) onStageClear();
+    if (state && allMatched()) onStageClear();
   }
 
   function skipQuestion() {
+    clearPendingTimer("questionClose");
+    if (phase !== "question") return;
     activeQuestion = null;
-    state.pendingScholarMatch = null;
+    if (state) state.pendingScholarMatch = null;
     phase = prevPhase || "playing";
     prevPhase = null;
     showScreen(null);
@@ -1682,14 +1804,22 @@
 
   function tick(dt) {
     if (phase === "playing") {
+      if (!state) return;
       state.time += dt;
       state.timeRemaining -= dt;
-      if (state.timeRemaining <= 10 && state.lastTimerWarnAt < state.time - 1.0) {
+      if (state.timeRemaining <= 10 && state.timeRemaining > 0 && state.lastTimerWarnAt < state.time - 1.0) {
         sfx.time_low_warn();
         state.lastTimerWarnAt = state.time;
       }
       if (state.timeRemaining <= 0) {
         state.timeRemaining = 0;
+        // Cancel any pending mid-flip / scholar / stage-clear timers so they don't
+        // fire after the stage has been reset by onLifeLost.
+        clearAllPendingTimers();
+        state.pendingFlipBack = null;
+        state.pendingScholarMatch = null;
+        state.flippedQueue = [];
+        state.lockInput = false;
         onLifeLost("Time expired");
         return;
       }

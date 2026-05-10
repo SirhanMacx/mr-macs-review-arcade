@@ -542,8 +542,30 @@
     var p = state.piece;
     var def = PIECES[p.key];
     var newRot = ((p.rot + dir) % def.rotations.length + def.rotations.length) % def.rotations.length;
-    // Try center, then SRS-lite kicks: +1 col, -1 col, +1 row up.
-    var kicks = [[0, 0], [1, 0], [-1, 0], [0, -1], [2, 0], [-2, 0]];
+    // SRS-lite kicks: prefer center, then 1-col on either side, 2-col on either side
+    // (I-piece needs the 2-col kicks at right-wall), then a single up-nudge.
+    // We test alternating directions so neither wall is favored.
+    var kicks;
+    if (p.key === "I") {
+      // I-piece needs farther kicks, especially against the right wall.
+      kicks = [
+        [0, 0],
+        [-1, 0], [1, 0],
+        [-2, 0], [2, 0],
+        [0, -1],
+        [-1, -1], [1, -1],
+        [-2, -1], [2, -1]
+      ];
+    } else {
+      kicks = [
+        [0, 0],
+        [-1, 0], [1, 0],
+        [0, -1],
+        [-1, -1], [1, -1],
+        [0, -2],
+        [-2, 0], [2, 0]
+      ];
+    }
     for (var i = 0; i < kicks.length; i++) {
       var dc = kicks[i][0];
       var dr = kicks[i][1];
@@ -572,14 +594,19 @@
   function hardDrop() {
     if (!state.piece) return;
     var p = state.piece;
+    if (typeof p.col !== "number" || typeof p.row !== "number" ||
+        isNaN(p.col) || isNaN(p.row)) return;
     var dropped = 0;
-    while (!collides(p, p.col, p.row + 1, p.rot)) {
+    var safety = ROWS + 4;
+    while (safety-- > 0 && !collides(p, p.col, p.row + 1, p.rot)) {
       p.row += 1;
       dropped++;
     }
     state.score += dropped * SCORE_HARD_PER_CELL;
     sfx.hardDrop();
     addShake(4, 0.25);
+    // Reset gravity counter so next piece doesn't inherit any bank.
+    state.gravityAccum = 0;
     lockPiece();
   }
 
@@ -725,18 +752,25 @@
 
   function finalizeClearAnim() {
     if (!state.clearAnim) return;
-    var rows = state.clearAnim.rows.slice().sort(function (a, b) { return a - b; });
-    // Remove rows top-down by collapsing.
-    for (var i = 0; i < rows.length; i++) {
-      var r = rows[i];
-      // Shift everything above r down by 1
-      for (var rr = r; rr > 0; rr--) {
-        state.grid[rr] = state.grid[rr - 1];
-      }
-      var newTop = new Array(COLS);
-      for (var c = 0; c < COLS; c++) newTop[c] = null;
-      state.grid[0] = newTop;
+    // Build a fresh grid by skipping every cleared row and prepending empty
+    // rows on top. This handles non-contiguous cleared rows (e.g. lines 12 and
+    // 16 cleared simultaneously) correctly without the earlier index drift.
+    var clearedSet = {};
+    for (var ci = 0; ci < state.clearAnim.rows.length; ci++) {
+      clearedSet[state.clearAnim.rows[ci]] = true;
     }
+    var kept = [];
+    for (var rr = 0; rr < ROWS; rr++) {
+      if (!clearedSet[rr]) kept.push(state.grid[rr]);
+    }
+    var emptyTop = [];
+    var clearedCount = state.clearAnim.rows.length;
+    for (var et = 0; et < clearedCount; et++) {
+      var blank = new Array(COLS);
+      for (var bc = 0; bc < COLS; bc++) blank[bc] = null;
+      emptyTop.push(blank);
+    }
+    state.grid = emptyTop.concat(kept);
     state.clearAnim = null;
 
     // If a scholar prompt is pending, open it (paused gameplay).
@@ -773,7 +807,6 @@
   // -- Hold piece -----------------------------------------------------------
   function holdSwap() {
     if (state.holdUsed || !state.piece) return;
-    state.holdUsed = true;
     var keyToHold = state.piece.key;
     var prior = state.hold;
     if (prior) {
@@ -810,9 +843,13 @@
       }
     }
     state.hold = keyToHold;
+    // Lock the hold for this lifecycle of the new active piece.
+    state.holdUsed = true;
     state.lockTimer = 0;
     state.lockResets = 0;
     state.lockArmed = false;
+    state.gravityAccum = 0;
+    state.softDropDistance = 0;
     sfx.rotate();
   }
 
@@ -1058,9 +1095,14 @@
   function drawGhost() {
     if (!state.piece) return;
     var p = state.piece;
-    // Compute ghost row by dropping in place.
+    // Guard against NaN positions or invalid pieces during state transitions.
+    if (typeof p.col !== "number" || typeof p.row !== "number" ||
+        isNaN(p.col) || isNaN(p.row) || !PIECES[p.key]) return;
+    // Compute ghost row by dropping in place. Bound the loop so a corrupted
+    // piece can never create an infinite loop.
     var gr = p.row;
-    while (!collides(p, p.col, gr + 1, p.rot)) gr++;
+    var safety = ROWS + 4;
+    while (safety-- > 0 && !collides(p, p.col, gr + 1, p.rot)) gr++;
     if (gr === p.row) return;
     ctx.save();
     ctx.translate(state.shake.x, state.shake.y);
