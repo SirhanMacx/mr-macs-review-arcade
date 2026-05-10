@@ -17,6 +17,50 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
 
+/* ===========================================================================
+   STREAMLINED HUB — May 10 2026 (per user "ui/ux is incredibly sloppy
+   and complex. needs to be simplified and streamlined")
+   The hub had 9+ stacked bands. Collapse to 3 functional sections:
+     1. Hero (#top)
+     2. Launch row (#launch-paths) — Today's Challenge / Practice / Jeopardy
+     3. Library (#library) — search + filters + game grid
+   Plus topbar above and footer below. Everything else hidden.
+   =========================================================================== */
+#nbaBand,
+#fortuneBand,
+#dailyPlanBand,
+#testprepBand,
+#daily,                  /* Daily Challenge — user explicitly killed */
+#achievementsStrip,
+#routing,                /* Smart Study Tools tiles */
+#continue,
+#whatsNewCallout,
+#newCabinet,             /* May 2026 flagship rail */
+#mastery,
+#progress,
+#arcade-menu,            /* Smart Menu */
+#practice,               /* big band — launch-paths button still works */
+#featured,
+#jeopardy,               /* big band — launch-paths button still works */
+#quickplay,
+#courses,
+#quickInsights {
+  display: none !important;
+}
+
+/* Trim the hero to a single CTA — drop any subtitle paragraph that may
+   still be in the hero block. */
+#top .hero-eyebrow,
+#top .tagline,
+#top .hero-sub,
+#top p {
+  display: none;
+}
+
+/* Tighten spacing now that we've removed sections. */
+#launch-paths { margin-top: 12px; }
+#library { margin-top: 24px; }
+
 /* ----- 1. Hide design-rationale copy across the hub -----
    The user explicitly called out: "remove explanations about flagships
    and design etc etc". We hide the longer paragraph descriptions on the
