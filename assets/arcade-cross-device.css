@@ -171,7 +171,49 @@ canvas[height] {
   overscroll-behavior: contain;
 }
 
-/* ----- 10. Reduced-motion respect (cross-game safety net) ----- */
+/* ----- 10. Setup-card "Back to Arcade" overlap fix (May 10 2026) ----- */
+/* The .setup-back-link in every game is position:absolute top:16px left:16px
+   with a 12%-opacity yellow background. The setup-kicker text below it
+   ("Match-3 Bejeweled", "Plinko/Pachinko", etc.) starts at the card's top
+   padding (~28px) and bleeds visibly through the translucent button.
+   Fix: bump button opacity + z-index, AND push card content down when a
+   back-link is present. */
+.setup-back-link {
+  background: rgba(8, 12, 22, 0.92) !important;
+  border-color: rgba(245, 196, 81, 0.55) !important;
+  color: #f5c451 !important;
+  z-index: 10 !important;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  /* Slight bump to keep it visually distinct from card chrome */
+  font-weight: 700;
+}
+.setup-card:has(> .setup-back-link) {
+  padding-top: 60px !important;
+}
+@media (max-width: 480px) {
+  .setup-card:has(> .setup-back-link) {
+    padding-top: 52px !important;
+  }
+}
+/* Fallback for browsers without :has() support — push kicker down via
+   adjacent-sibling chain (works for the canonical setup-card layout:
+   back-link → marquee-art → kicker). */
+.setup-back-link ~ .setup-kicker,
+.setup-back-link ~ .marquee-art ~ .setup-kicker,
+.setup-back-link + .marquee-art + .setup-kicker {
+  margin-top: 8px;
+}
+
+/* Topbar back-link (used in boss-rush, regents-gauntlet, etc.) — make sure
+   inline-styled translucent background never lets text bleed through. */
+.topbar .back-link,
+.shell .back-link {
+  background: rgba(8, 12, 22, 0.85) !important;
+  z-index: 50;
+}
+
+/* ----- 11. Reduced-motion respect (cross-game safety net) ----- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
