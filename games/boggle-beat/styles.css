@@ -1056,3 +1056,75 @@ kbd {
 .pause-progress-bar { width: 80px; height: 6px; background: rgba(0,0,0,.3); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
 .pause-progress-fill { height: 100%; background: #f5c451; transition: width 240ms ease; }
 @media (prefers-reduced-motion: reduce) { .pause-progress-fill { transition: none; } }
+
+/* ===========================================================================
+   Layout fix — May 10 2026
+   User report: "boggle game is also broken UI experience"
+   Root cause: at tablet portrait widths (721-1100px) the .found-panel
+   (left rail, 168px wide, top:110px) and .powerup-tray (right rail) sat
+   on top of the canvas grid. The 5×5 grid is rendered inside a 720×720
+   logical viewport scaled to min(width/720, height/720) of the canvas;
+   on a 768px-wide tablet that puts the grid's left edge at ~128px, where
+   the found-panel (right edge 186px) overlaps it. Same on the right with
+   the powerup-tray.
+
+   Also: .word-readout at top:110px collided with the same y as the rails.
+
+   Fix: extend the existing mobile-mode rules (panel hide, tray-bottom,
+   readout shift) up to 1100px so tablet portrait gets the same clean
+   single-column layout as phones. Found words remain accessible via the
+   pause screen on small surfaces.
+   =========================================================================== */
+@media (min-width: 721px) and (max-width: 1100px) {
+  /* Hide left-rail found list on tablet portrait — it overlaps the grid */
+  .found-panel { display: none; }
+  /* Move powerup tray to bottom strip (matches phone behavior) */
+  .powerup-tray {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px 10px env(safe-area-inset-bottom, 6px);
+    background: rgba(2, 4, 12, 0.82);
+    border-top: 1px solid var(--line);
+  }
+  /* Reserve bottom strip for the tray so the canvas doesn't paint behind it */
+  #boggleCanvas {
+    bottom: 56px;
+    height: calc(100% - 56px);
+  }
+  /* Round controls sit above the tray on tablet too */
+  .round-controls { bottom: 62px; }
+  /* Keep word readout below the wave-ribbon, well clear of the grid */
+  .word-readout { top: 132px; max-width: 70vw; }
+  /* Wave ribbon: nudge to make room for top-hud which can wrap to 2 rows */
+  .wave-ribbon { top: 70px; }
+}
+
+/* iPad landscape (1024×768) and small laptops — keep rails but ensure
+   the canvas doesn't render the grid under the found-panel. Shrink the
+   canvas's effective horizontal area by clipping its left/right via
+   shell padding, so the grid centers in the visible play strip. */
+@media (min-width: 1101px) and (max-width: 1280px) {
+  .boggle-shell {
+    /* No structural change — found-panel left:18px width:168px fits and
+       grid centers on full canvas. But ensure z-index + opacity so any
+       painted-behind region is at least visually obvious. */
+  }
+  .found-panel {
+    background: rgba(2, 4, 12, 0.92);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+  }
+  .powerup-tray {
+    background: rgba(2, 4, 12, 0.92);
+    padding: 4px;
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+  }
+}
+
