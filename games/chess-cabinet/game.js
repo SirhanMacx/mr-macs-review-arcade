@@ -2219,13 +2219,38 @@
   function resize() {
     dpr = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
     var rect = canvas.getBoundingClientRect();
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
-    var sx = rect.width / LOGICAL_W;
-    var sy = rect.height / LOGICAL_H;
-    scale = Math.min(sx, sy);
-    offsetX = (rect.width - LOGICAL_W * scale) / 2;
-    offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+
+    // Smart play-area scaling (May 10 2026): old min(sx,sy) left ~70% of
+    // the canvas painted but the BOARD itself only filled ~24% on phones
+    // (LOGICAL_W=720 with BOARD_SIZE≈520 is 72% of LOGICAL → on a 390×844
+    // viewport scale=0.542 → board renders at 282×282 = 8.6% of viewport).
+    // Now: fit the BOARD (8 tiles × TILE_PX) to 94% of the min available
+    // dimension after reserving chrome zones, and translate so it centers
+    // in the play area.
+    var w = window.innerWidth;
+    var chromeTop, chromeBottom;
+    if (w <= 1100) {
+      chromeTop = 180;     // wrapped HUD on mobile/tablet portrait
+      chromeBottom = 90;   // captured-pieces tray
+    } else {
+      chromeTop = 130;
+      chromeBottom = 0;
+    }
+    var availW = Math.max(1, rect.width);
+    var availH = Math.max(120, rect.height - chromeTop - chromeBottom);
+    var BOARD_PX = 8 * TILE_PX;
+    scale = Math.min(availW * 0.94 / BOARD_PX, availH * 0.94 / BOARD_PX);
+
+    var boardCxL = LOGICAL_W / 2;
+    // Board top-left in LOGICAL = ((LOGICAL_W - BOARD_PX)/2, BOARD_PADDING_TOP)
+    // → board center y = BOARD_PADDING_TOP + BOARD_PX/2
+    var boardCyL = BOARD_PADDING_TOP + BOARD_PX / 2;
+    var targetCx = rect.width / 2;
+    var targetCy = chromeTop + availH / 2;
+    offsetX = targetCx - boardCxL * scale;
+    offsetY = targetCy - boardCyL * scale;
   }
 
   // ==========================================================================
