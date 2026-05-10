@@ -102,13 +102,8 @@ kbd {
   touch-action: none;
   cursor: pointer;
 }
-/* On mobile with touch controls visible, shrink canvas to leave room for control strip */
-@media (max-width: 720px) {
-  #defenderCanvas {
-    bottom: 78px; /* approximate touch-controls bar height */
-    height: calc(100% - 78px);
-  }
-}
+/* Touch controls now overlay the canvas via corner clusters, so the canvas
+   fills the full viewport on mobile (May 10 2026 ergonomic redesign). */
 
 /* Subtle scanline overlay */
 .scanline-overlay {
@@ -278,53 +273,143 @@ kbd {
   margin-left: 4px;
 }
 
-/* Touch controls — separate flexbox row below canvas; never overlaps canvas */
+/* ─── Touch controls — ergonomic corner clusters (May 10 2026 redesign) ────
+   User feedback: "controls on defender drift also stink. need to be more
+   ergonomic." Was a cramped flat 6-button row across the bottom that forced
+   awkward thumb stretches.
+
+   Now: bottom-left D-pad cross (left/right/up/down) for the left thumb,
+   bottom-right action cluster (FIRE big, BOMB smaller) for the right thumb.
+   Buttons are bigger (64-88px), use safe-area insets, and overlay the canvas
+   so the play area is no longer truncated. */
 .touch-controls {
-  /* Positioned in normal flow on mobile via defender-shell flex column */
   position: absolute;
-  bottom: 0;
-  left: 0; right: 0;
+  inset: 0;
   z-index: 28;
   display: none;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 10px env(safe-area-inset-bottom, 6px);
-  gap: 6px;
-  background: rgba(2,4,12,.75);
-  border-top: 1px solid var(--line);
+  pointer-events: none;  /* let canvas receive events except where buttons are */
 }
 .tc-btn {
-  position: relative;
-  min-width: 52px; min-height: 52px;
-  border-radius: 12px;
-  border: 1px solid var(--cyan);
-  background: rgba(4,8,18,.7);
+  position: absolute;
+  pointer-events: auto;
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(93, 224, 240, 0.55);
+  background: rgba(4, 8, 18, 0.78);
   color: var(--cyan);
   font-family: 'JetBrains Mono', monospace;
   font-weight: 800;
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: .05em;
-  box-shadow: 0 0 12px rgba(93,224,240,.18);
-  transition: background .15s, transform .12s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 12px rgba(93, 224, 240, 0.22);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: none;
+  transition: background .12s, transform .08s, box-shadow .12s;
 }
+.tc-btn:active {
+  background: rgba(93, 224, 240, 0.22);
+  transform: scale(0.92);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 18px rgba(93, 224, 240, 0.5);
+}
+
+/* D-pad cluster — bottom-left, 3×3 cross arrangement.
+   Anchor: bottom + left + safe-area. Each button is 60px.
+   Layout (3 cols × 3 rows of 60px each, gap 4px):
+     . UP .
+     L . R
+     . DN .
+   Center column starts at 20+60+4 = 84 from left.
+   Bottom row at 20 from bottom.
+   Middle row at 20+60+4 = 84 from bottom.
+   Top row at 20+2*60+2*4 = 148 from bottom. */
+.tc-btn.tc-up {
+  left: calc(20px + 60px + 4px + env(safe-area-inset-left, 0px));
+  bottom: calc(148px + env(safe-area-inset-bottom, 0px));
+}
+.tc-btn.tc-left {
+  left: calc(20px + env(safe-area-inset-left, 0px));
+  bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+}
+.tc-btn.tc-right {
+  left: calc(20px + 2 * (60px + 4px) + env(safe-area-inset-left, 0px));
+  bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+}
+.tc-btn.tc-down {
+  left: calc(20px + 60px + 4px + env(safe-area-inset-left, 0px));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Action cluster — bottom-right.
+   FIRE: 88px primary action, anchored at the very corner.
+   BOMB: 56px, sits above-left of FIRE. */
 .tc-btn.tc-fire {
-  border-color: var(--magenta);
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border-color: rgba(240, 114, 212, 0.7);
   color: var(--magenta);
-  box-shadow: 0 0 14px rgba(240,114,212,.28);
-  min-width: 64px; min-height: 64px;
-  font-size: 22px;
+  font-size: 28px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 22px rgba(240, 114, 212, 0.4);
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+}
+.tc-btn.tc-fire:active {
+  background: rgba(240, 114, 212, 0.28);
+  transform: scale(0.92);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 30px rgba(240, 114, 212, 0.7);
 }
 .tc-btn.tc-bomb {
-  border-color: var(--gold);
+  width: 56px;
+  height: 56px;
+  border-color: rgba(245, 196, 81, 0.7);
   color: var(--gold);
-  box-shadow: 0 0 14px rgba(245,196,81,.28);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 14px rgba(245, 196, 81, 0.35);
+  /* Position above-left of fire button: right edge at fire-right + 8px gap */
+  right: calc(20px + 88px + 8px + env(safe-area-inset-right, 0px));
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px));
 }
-.tc-btn:active { background: rgba(93,224,240,.18); transform: translateY(1px); }
-.tc-btn.tc-fire:active { background: rgba(240,114,212,.18); }
-.tc-btn.tc-bomb:active { background: rgba(245,196,81,.18); }
-@media (max-width: 720px) {
-  .touch-controls { display: flex; }
+.tc-btn.tc-bomb:active {
+  background: rgba(245, 196, 81, 0.22);
+  transform: scale(0.9);
+}
+
+@media (max-width: 1024px), (hover: none) {
+  .touch-controls { display: block; }
+}
+
+/* Compact further on small phones (≤380px wide) so D-pad fits */
+@media (max-width: 380px) {
+  .tc-btn { width: 52px; height: 52px; font-size: 18px; }
+  .tc-btn.tc-up    { left: calc(14px + 52px + 4px + env(safe-area-inset-left, 0px));
+                     bottom: calc(130px + env(safe-area-inset-bottom, 0px)); }
+  .tc-btn.tc-left  { left: calc(14px + env(safe-area-inset-left, 0px));
+                     bottom: calc(74px + env(safe-area-inset-bottom, 0px)); }
+  .tc-btn.tc-right { left: calc(14px + 2 * (52px + 4px) + env(safe-area-inset-left, 0px));
+                     bottom: calc(74px + env(safe-area-inset-bottom, 0px)); }
+  .tc-btn.tc-down  { left: calc(14px + 52px + 4px + env(safe-area-inset-left, 0px));
+                     bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
+  .tc-btn.tc-fire  { width: 76px; height: 76px; font-size: 24px;
+                     right: calc(14px + env(safe-area-inset-right, 0px));
+                     bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
+  .tc-btn.tc-bomb  { width: 48px; height: 48px;
+                     right: calc(14px + 76px + 6px + env(safe-area-inset-right, 0px));
+                     bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* Landscape phones (short viewport): tighten vertical D-pad */
+@media (max-height: 480px) and (orientation: landscape) {
+  .tc-btn { width: 52px; height: 52px; font-size: 18px; }
+  .tc-btn.tc-up    { bottom: calc(126px + env(safe-area-inset-bottom, 0px)); }
+  .tc-btn.tc-left  { bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
+  .tc-btn.tc-right { bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
+  .tc-btn.tc-down  { bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+  .tc-btn.tc-fire  { width: 72px; height: 72px;
+                     bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+  .tc-btn.tc-bomb  { bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* Combo callout overlay */
