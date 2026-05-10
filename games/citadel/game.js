@@ -2424,13 +2424,19 @@
   function resize() {
     dpr = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
     var rect = canvas.getBoundingClientRect();
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
-    var sx = rect.width / LOGICAL_W;
-    var sy = rect.height / LOGICAL_H;
-    scale = Math.min(sx, sy);
+    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+
+    // Smart play-area scaling (May 10 2026): scale BOARD (BOARD_PX wide) to
+    // 96% of available width minus chrome. Was 51% canvas fill.
+    var w = window.innerWidth;
+    var chromeTop = w <= 1100 ? 200 : 170;
+    var chromeBottom = w <= 1100 ? 70 : 0;
+    var availW = Math.max(1, rect.width);
+    var availH = Math.max(120, rect.height - chromeTop - chromeBottom);
+    scale = Math.min(availW * 0.96 / BOARD_PX, availH * 0.94 / BOARD_PX);
     offsetX = (rect.width - LOGICAL_W * scale) / 2;
-    offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    offsetY = chromeTop + (availH - LOGICAL_H * scale) / 2;
   }
 
   // -- Hub integration -------------------------------------------------------
