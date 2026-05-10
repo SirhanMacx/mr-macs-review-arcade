@@ -123,13 +123,20 @@
     overflow: hidden !important;  /* prevent horizontal scroll if cards overflow */
   }
   /* Compact card. Force max-width so flex doesn't honor intrinsic content
-     width (318px from thumb). May 10 2026 r2c iteration. */
+     width (318px from thumb). Force fixed height (180) so grid auto-rows
+     can't reverse-engineer 334px from any single tall card. r2e May 10 2026 */
   .game-card {
     min-width: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
     min-height: 0 !important;
+    height: 180px !important;
+    overflow: hidden !important;
     border-radius: 8px !important;
+  }
+  .game-card .gc-body {
+    min-height: 0 !important;
+    flex: 0 0 auto !important;
   }
   /* Card thumb img must shrink with the card, not push it open */
   .game-card .gc-thumb,
