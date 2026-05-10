@@ -2171,11 +2171,16 @@
     var rect = canvas.getBoundingClientRect();
     canvas.width = Math.floor(rect.width * dpr);
     canvas.height = Math.floor(rect.height * dpr);
-    var sx = rect.width / LOGICAL_W;
-    var sy = rect.height / LOGICAL_H;
-    scale = Math.min(sx, sy);
+    // Smart play-area scaling (May 10 2026): scale pyramid to 94% of play area.
+    var w = window.innerWidth;
+    var chromeTop = w <= 1100 ? 180 : 150;
+    var chromeBottom = w <= 1100 ? 60 : 0;
+    var availW = Math.max(1, rect.width);
+    var availH = Math.max(120, rect.height - chromeTop - chromeBottom);
+    var PYRAMID_LOGICAL = 660;
+    scale = Math.min(availW * 0.95 / PYRAMID_LOGICAL, availH * 0.94 / PYRAMID_LOGICAL);
     offsetX = (rect.width - LOGICAL_W * scale) / 2;
-    offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    offsetY = chromeTop + (availH - LOGICAL_H * scale) / 2;
   }
 
   // -- Hub integration -------------------------------------------------------
