@@ -755,6 +755,7 @@
       moveBudget: 200,
       undoStack: [],
       undosLeft: UNDO_CAP,
+      usedAnyUndo: false,
       bestMoves: bestMoves,
       // power-ups
       inventory: opts.inventory || [],
@@ -1038,6 +1039,7 @@
     if (!snap) return;
     applyUndoSnapshot(snap);
     state.undosLeft--;
+    state.usedAnyUndo = true;
     sfx.undo();
     updateHud();
   }
@@ -1252,6 +1254,12 @@
   // -- Level clear + scoring -------------------------------------------------
   function onLevelClear() {
     if (phase === "levelClear") return;
+    if (state.level >= 10) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("sokoban-scribe", "sokoban-l10"); } catch (e) {}
+    }
+    if (!state.usedAnyUndo) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("sokoban-scribe", "sokoban-no-undo"); } catch (e) {}
+    }
     sfx.level_clear();
     addShake(6, 0.5);
     var par = parMovesForLevel(state.level);

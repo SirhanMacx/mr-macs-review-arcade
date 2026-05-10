@@ -1055,6 +1055,17 @@
     var pct = Math.max(0, Math.min(1, r.timeRemaining / r.timerInitial));
     var perfect = (r.hintsUsed === 0 && pct >= 0.6);
     r.perfect = perfect;
+    if (r.term && r.term.word && r.term.word.length >= 12) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("anagram-atlas", "anagram-perfect"); } catch (e) {}
+    }
+    if (r.hintsUsed === 0) {
+      state.consecutiveCorrectNoHint = (state.consecutiveCorrectNoHint || 0) + 1;
+      if (state.consecutiveCorrectNoHint >= 10) {
+        try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("anagram-atlas", "anagram-no-hint"); } catch (e) {}
+      }
+    } else {
+      state.consecutiveCorrectNoHint = 0;
+    }
     // Multiplier boost: only on correct
     var earnedScore = computeScore(r, perfect);
     state.score += earnedScore - r.hintScoreCost; // hint cost already accounted? No — handle here
@@ -1086,6 +1097,7 @@
   }
   function onWrong() {
     state.streak = 0;
+    state.consecutiveCorrectNoHint = 0;
     state.lives -= 1;
     state.wrongTotal += 1;
     breakMultiplier();

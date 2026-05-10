@@ -662,11 +662,15 @@
       }
       if (isTetris) {
         state.tetrisFlash = 1;
+        try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("chronoblocks", "chronoblocks-tetris"); } catch (e) {}
         try {
           if (window.MrMacsCelebration && !reducedMotion) {
             window.MrMacsCelebration.burst({ count: 32, palette: ["#5de0f0", "#e8b84b", "#a991ff"] });
           }
         } catch (e) {}
+      }
+      if (state.lines >= 100) {
+        try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("chronoblocks", "chronoblocks-100-lines"); } catch (e) {}
       }
       // Back-to-back stays true only on consecutive tetrises; any non-tetris clear resets it.
       state.backToBack = isTetris;

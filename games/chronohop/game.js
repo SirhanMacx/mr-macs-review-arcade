@@ -434,6 +434,7 @@
     } else if (p.type === "shield") {
       state.player.shieldT = Math.max(state.player.shieldT, 999); // until consumed
       state.shieldActive = true;
+      state.usedShieldThisLevel = true;
     } else if (p.type === "slow") {
       state.player.slowT = 10.0;
     } else if (p.type === "time") {
@@ -463,6 +464,7 @@
       popups: [],
       shake: { x: 0, y: 0, intensity: 0, life: 0, totalLife: 0 },
       shieldActive: false,
+      usedShieldThisLevel: false,
       // stats
       goalsTotal: opts.goalsTotal || 0,
       maxRowReached: ROW_BOTTOM_SAFE,
@@ -678,6 +680,10 @@
   }
 
   function onLevelClear() {
+    try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("chronohop", "chronohop-pads"); } catch (e) {}
+    if (!state.usedShieldThisLevel) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("chronohop", "chronohop-no-shield"); } catch (e) {}
+    }
     sfx.levelClear();
     addShake(6, 0.5);
     pushPopup("5/5 GOALS!", LOGICAL_W / 2, LOGICAL_H / 2 - 30, "is-tetris");

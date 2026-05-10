@@ -768,6 +768,7 @@
   }
 
   function pageFlip() {
+    try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("centiquill", "centiquill-page-flip"); } catch (e) {}
     sfx.page_flip();
     addShake(14, 0.55);
     var bonus = 0;
@@ -1065,6 +1066,9 @@
   // -- Stage / level clear ---------------------------------------------------
   function onLevelClear() {
     if (phase === "levelClear") return;
+    if (state.level >= 5) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("centiquill", "centiquill-stage-5"); } catch (e) {}
+    }
     sfx.level_clear();
     addShake(6, 0.5);
     var bonus = 1000 + state.level * 500 + state.lives * 800;

@@ -640,6 +640,10 @@
     // Remove this disc from the list
     var idx = state.discs.indexOf(disc);
     if (idx >= 0) state.discs.splice(idx, 1);
+    state.discsUsedThisLevel = (state.discsUsedThisLevel || 0) + 1;
+    if (state.discsUsedThisLevel >= 2) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("step-pyramid", "step-pyramid-disc-double"); } catch (e) {}
+    }
     // Schedule respawn
     state.discCooldownT = DISC_RESPAWN_BASE - state.level;
     sfx.discGrab();
@@ -1069,6 +1073,7 @@
       if (e.type === "coily" && e.falling && !e._luredCounted) {
         e._luredCounted = true;
         state.coilyLured++;
+        try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("step-pyramid", "step-pyramid-lured"); } catch (e2) {}
         sfx.coilyLured();
         var earned = 500 * state.level;
         state.score += earned;
@@ -1107,6 +1112,7 @@
   // -- Level clear -----------------------------------------------------------
   function onLevelClear() {
     if (phase === "levelClear") return;
+    try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("step-pyramid", "step-pyramid-clear"); } catch (e) {}
     sfx.levelClear();
     addShake(6, 0.5);
     var bonus = state.cubes.length * 100 * state.level + state.lives * 1000;

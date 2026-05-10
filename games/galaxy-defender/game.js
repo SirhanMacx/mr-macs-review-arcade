@@ -500,6 +500,7 @@
     else if (p.type === "rapid")  { state.player.rapidT = POWERUP_DURATION; }
     else if (p.type === "shield") {
       state.player.shieldActive = true;
+      state.shieldUsedThisStage = true;
     } else if (p.type === "mult") {
       state.player.multCount = 5;
     } else if (p.type === "smart") {
@@ -581,6 +582,7 @@
       questionsAnsweredTotal: opts.questionsAnsweredTotal || 0,
       best: opts.best || readBest(),
       scholarSpawnedThisStage: false,
+      shieldUsedThisStage: false,
       endReason: ""
     };
     // Start first wave
@@ -1085,6 +1087,7 @@
     } catch (e) {}
     state.bossActive = false;
     state.boss = null;
+    try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("galaxy-defender", "galaxy-mothership"); } catch (e) {}
     // Treat boss kill as stage clear
     setTimeout(function () { onStageClear(); }, 900);
   }
@@ -1110,6 +1113,9 @@
 
   function onStageClear() {
     if (phase === "stageClear") return;
+    if (state.stage >= 5 && !state.shieldUsedThisStage) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("galaxy-defender", "galaxy-no-shield"); } catch (e) {}
+    }
     sfx.level_clear();
     addShake(6, 0.5);
     var bonus = 1000 * state.stage + state.lives * 500;

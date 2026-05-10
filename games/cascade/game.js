@@ -808,9 +808,29 @@
 
     // Determine if any popped bubble was the scholar. Save flag for after ripple completes.
     var scholarPopped = false;
+    var rainbowInCluster = false;
     for (var i = 0; i < cluster.length; i++) {
       var b = getCell(cluster[i].r, cluster[i].c);
       if (b && b.scholar) scholarPopped = true;
+      if (b && (b.colorIdx === -1 || b.powerup === "rainbow")) rainbowInCluster = true;
+    }
+    if (rainbowInCluster) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("cascade", "cascade-rainbow"); } catch (e) {}
+    }
+    // Final-row pressure: any bubble within ~1 bubble height of death line at time of pop
+    var atPressure = false;
+    for (var pr = 0; pr < state.grid.length && !atPressure; pr++) {
+      var prow = state.grid[pr];
+      if (!prow) continue;
+      for (var pc = 0; pc < prow.length; pc++) {
+        if (prow[pc]) {
+          var pp = cellCenter(pr, pc);
+          if (pp.y + BUBBLE_R > DEATH_LINE_Y - BUBBLE_D) { atPressure = true; break; }
+        }
+      }
+    }
+    if (atPressure) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("cascade", "cascade-pressure-zero"); } catch (e) {}
     }
     // Remove bubbles from the grid immediately (visual handled by particles).
     for (var k = 0; k < cluster.length; k++) {

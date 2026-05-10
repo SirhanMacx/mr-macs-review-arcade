@@ -739,6 +739,7 @@
 
     if (br.isBoss) {
       state.bossBricksRemaining--;
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("brickoria", "brickoria-boss"); } catch (e) {}
       spawnCallout(cx, cy - 30, "BOSS DOWN!", era.bossPalette[0] || era.accent, 1.6);
       // Big celebration on boss shatter
       try {
@@ -942,6 +943,7 @@
   function onLevelClear() {
     phase = "levelend";
     saveSnapshot();
+    try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("brickoria", "brickoria-clear"); } catch (e) {}
     // Brief "Era cleared" flash via toast
     var era = ERAS[(state.level - 1) % ERAS.length];
     toast(era.name + " cleared!", "trophy");

@@ -691,6 +691,7 @@
       hitPause(HITPAUSE_FRAMES);
     } else if (state.cascadeLevel >= 4) {
       pushPopupAtBoard("MEGA CASCADE!", "is-legend");
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("citadel", "citadel-cascade"); } catch (e) {}
       hitPause(HITPAUSE_FRAMES);
     }
 
@@ -1150,6 +1151,7 @@
       if (grp.length >= 5) {
         taken[akey] = true;
         out.push({ r: anchor.r, c: anchor.c, special: SPEC_CODEX, type: grp.type });
+        try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("citadel", "citadel-codex"); } catch (e) {}
       } else if (grp.length === 4) {
         taken[akey] = true;
         // Spec: 4-match in line → Striker that clears row OR column based on match orientation.

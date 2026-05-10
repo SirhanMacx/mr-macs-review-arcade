@@ -755,10 +755,16 @@
   }
 
   function onRoundComplete() {
+    if (state.isReverseRound) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("echo-hall", "echo-reverse-clear"); } catch (e) {}
+    }
     sfx.roundComplete();
     state.sequencesCleared++;
     state.perfectStreak++;
     state.bestRound = Math.max(state.bestRound, state.round);
+    if (state.round >= HARD_MODE_ROUND) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("echo-hall", "echo-hard-mode"); } catch (e) {}
+    }
     // Score
     var multBonus = (state.flags.multBonusRounds > 0) ? 2 : 1;
     var earned = Math.round(100 * state.sequence.length * state.multiplier * multBonus);

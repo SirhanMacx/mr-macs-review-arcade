@@ -571,6 +571,9 @@
       // letting a verified fact stand → +50 (reward for restraint)
       state.score += FACT_LET_LIVE_PTS;
       state.factsSpared++;
+      if (state.factsSpared >= 25) {
+        try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("rumor-whack", "rumor-fact-spare"); } catch (e) {}
+      }
       var c = cellCenter(pop.row, pop.col);
       pushCallout("+50 SPARED", c.x, c.y - 30, "is-good");
       burstAt(c.x, c.y, "#6dc18f", 6);
@@ -624,6 +627,9 @@
       state.combo++;
       state.missStreak = 0;
       if (state.combo > state.maxCombo) state.maxCombo = state.combo;
+      if (state.combo >= 50) {
+        try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("rumor-whack", "rumor-50-streak"); } catch (e) {}
+      }
       pushCallout("+" + pts, center.x, center.y - 30, "is-score-good");
       burstAt(center.x, center.y, "#d8483a", 14);
       addShake(2.5, 0.10);

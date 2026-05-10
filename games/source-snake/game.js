@@ -270,7 +270,8 @@
       bounce: 0,              // 0..1 head bounce on direction change
       eatScale: 0,            // 0..1 head bite scale
       headEyesBlink: 0,
-      best: opts.best || readBest()
+      best: opts.best || readBest(),
+      usedPowerup: false
     };
     spawnPellet();
   }
@@ -441,6 +442,12 @@
     sfx.step();
 
     state.maxLength = Math.max(state.maxLength, state.snake.length);
+    if (state.snake.length >= 50) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("source-snake", "snake-tail-50"); } catch (e) {}
+    }
+    if (state.snake.length >= 30 && !state.usedPowerup) {
+      try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("source-snake", "snake-no-power"); } catch (e) {}
+    }
     recomputeStepInterval();
     updateHud();
   }
@@ -499,6 +506,7 @@
   }
 
   function handlePowerupEaten(p) {
+    state.usedPowerup = true;
     sfx.powerup();
     var px = p.c * CELL + CELL / 2;
     var py = p.r * CELL + CELL / 2;

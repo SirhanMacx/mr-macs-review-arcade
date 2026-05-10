@@ -331,7 +331,9 @@
       fireCooldown: 0,
       questionsAnsweredCorrect: 0,
       questionsAnsweredTotal: 0,
-      intelHit: 0
+      intelHit: 0,
+      usedHyperspace: false,
+      noHyperWavesCleared: 0
     };
     state.ship.invincibleUntil = state.time + RESPAWN_INVINCIBILITY;
   }
@@ -763,6 +765,7 @@
             addScore(5000);
             pushCallout("MOTHERSHIP DESTROYED · +5000", bs.x, bs.y - 60, "#f0d068", 1.7);
             state.boss = null;
+            try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("stellar-drift", "stellar-mothership"); } catch (e) {}
             sfx.bossDie();
             try { if (window.MrMacsCelebration && !reducedMotion) window.MrMacsCelebration.burst({ count: 60, palette: ["#f07bb8", "#a991ff", "#5de0f0", "#f0d068"] }); } catch (e) {}
             scheduleNextWave();
@@ -850,6 +853,15 @@
       addScore(bonus);
       pushCallout("WAVE CLEAR · +" + bonus, LOGICAL_W / 2, LOGICAL_H / 2 - 40, "#5de0f0", 1.6);
       try { if (window.MrMacsCelebration && !reducedMotion) window.MrMacsCelebration.burst({ count: 26, palette: ["#5de0f0", "#a991ff", "#52e8a0"] }); } catch (e) {}
+      if (!state.usedHyperspace) {
+        state.noHyperWavesCleared++;
+        if (state.noHyperWavesCleared >= 5) {
+          try { window.MrMacsProfile && window.MrMacsProfile.unlockGameAchievement && window.MrMacsProfile.unlockGameAchievement("stellar-drift", "stellar-no-hyperspace"); } catch (e) {}
+        }
+      } else {
+        state.noHyperWavesCleared = 0;
+        state.usedHyperspace = false;
+      }
       scheduleNextWave();
     }
 
@@ -893,6 +905,7 @@
 
   function doHyperspace() {
     var s = state.ship;
+    state.usedHyperspace = true;
     sfx.hyperspace();
     spawnSpark(s.x, s.y, "#a991ff", 16);
     s.x = 60 + Math.random() * (LOGICAL_W - 120);
