@@ -8,6 +8,21 @@
   var EVENT_LOG_KEY = PREFIX + ":event-log";
   var API = "https://countapi.mileshilliard.com/api/v1";
 
+  // sessionStorage throws on every access in iOS Safari Private Mode and in
+  // some embedded WebViews. Mirror the localStorage try/catch pattern used
+  // in arcade-profile.js so a private-mode tab doesn't crash analytics.
+  var safeSession = {
+    get: function (k) {
+      try { return sessionStorage.getItem(k); } catch (e) { return null; }
+    },
+    set: function (k, v) {
+      try { sessionStorage.setItem(k, v); return true; } catch (e) { return false; }
+    },
+    remove: function (k) {
+      try { sessionStorage.removeItem(k); } catch (e) {}
+    }
+  };
+
   // Privacy: never persist or transmit these keys. They are stripped before
   // detail payloads enter the local event log or any global counter.
   var PII_KEYS = [
@@ -121,10 +136,10 @@
   }
 
   function sessionId() {
-    var id = sessionStorage.getItem(SESSION_KEY);
+    var id = safeSession.get(SESSION_KEY);
     if (!id) {
       id = Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 9);
-      sessionStorage.setItem(SESSION_KEY, id);
+      safeSession.set(SESSION_KEY, id);
     }
     return id;
   }
@@ -561,8 +576,8 @@
   function hitGlobal(name, onceKeyValue) {
     if (onceKeyValue) {
       var onceKey = PREFIX + ":hit:" + slug(onceKeyValue);
-      if (sessionStorage.getItem(onceKey)) return Promise.resolve(null);
-      sessionStorage.setItem(onceKey, "1");
+      if (safeSession.get(onceKey)) return Promise.resolve(null);
+      safeSession.set(onceKey, "1");
     }
     return requestCounter("hit", name).catch(function () { return null; });
   }

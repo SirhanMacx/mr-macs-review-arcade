@@ -101,7 +101,38 @@
   var ROSTER_KEY = "mr-macs-arcade-roster-v1";    // roster: { activeId, profiles: { [id]: profile } }
   var DEFAULT_PROFILE_ID = "p_default";
   var CURRENT_VERSION = 3;
-  var EVENT_TARGET = (typeof window !== "undefined" && window) ? new EventTarget() : null;
+  // Lightweight custom event bus. Replaces `new EventTarget()`, which throws at
+  // module load on Safari iOS <= 13 and Safari macOS <= 13 (Mojave / Catalina),
+  // crashing every dependent module. The bus mirrors the shape of CustomEvent
+  // dispatch so existing listeners keep receiving { type, detail } objects.
+  // Snapshot listeners on emit so handlers may add/remove during iteration.
+  var EVENT_TARGET = (typeof window !== "undefined" && window) ? (function () {
+    var listeners = {};
+    return {
+      __listeners: listeners,
+      on: function (ev, handler) {
+        if (!listeners[ev]) listeners[ev] = new Set();
+        listeners[ev].add(handler);
+      },
+      off: function (ev, handler) {
+        if (listeners[ev]) listeners[ev]["delete"](handler);
+      },
+      emit: function (ev, detail) {
+        if (!listeners[ev]) return;
+        var copy;
+        try { copy = Array.from(listeners[ev]); }
+        catch (eArr) {
+          copy = [];
+          listeners[ev].forEach(function (h) { copy.push(h); });
+        }
+        var payload = { type: ev, detail: detail };
+        for (var i = 0; i < copy.length; i++) {
+          try { copy[i](payload); } catch (eHandler) { /* swallow listener errors */ }
+        }
+      },
+      eventNames: function () { return Object.keys(listeners).sort(); }
+    };
+  })() : null;
 
   // Track which event names we've ever seen via on/once for eventNames() debug helper
   var KNOWN_EVENTS = {
@@ -640,7 +671,7 @@
     if (!EVENT_TARGET) return;
     KNOWN_EVENTS[name] = true;
     try {
-      EVENT_TARGET.dispatchEvent(new CustomEvent(name, { detail: detail || {} }));
+      EVENT_TARGET.emit(name, detail || {});
     } catch (e) {}
   }
 
@@ -1709,7 +1740,7 @@
     on: function (name, handler) {
       if (!EVENT_TARGET || typeof handler !== "function") return;
       KNOWN_EVENTS[name] = true;
-      EVENT_TARGET.addEventListener(name, handler);
+      EVENT_TARGET.on(name, handler);
     },
     /**
      * Unsubscribe a handler previously registered via on() or once().
@@ -1719,7 +1750,7 @@
      */
     off: function (name, handler) {
       if (!EVENT_TARGET || typeof handler !== "function") return;
-      EVENT_TARGET.removeEventListener(name, handler);
+      EVENT_TARGET.off(name, handler);
     },
     /**
      * Subscribe to a single emission. Auto-unsubscribes after firing.
@@ -1732,12 +1763,12 @@
       if (!EVENT_TARGET || typeof handler !== "function") return function () {};
       KNOWN_EVENTS[name] = true;
       var wrapped = function (ev) {
-        try { EVENT_TARGET.removeEventListener(name, wrapped); } catch (e) {}
+        try { EVENT_TARGET.off(name, wrapped); } catch (e) {}
         try { handler(ev); } catch (e2) {}
       };
-      EVENT_TARGET.addEventListener(name, wrapped);
+      EVENT_TARGET.on(name, wrapped);
       return function () {
-        try { EVENT_TARGET.removeEventListener(name, wrapped); } catch (e) {}
+        try { EVENT_TARGET.off(name, wrapped); } catch (e) {}
       };
     },
     /**

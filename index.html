@@ -6158,6 +6158,131 @@ body {
   }
 }
 
+/* Quick Insights band — three side-by-side panels (Stats · Recommender ·
+   Leaderboard Globe) shown above the Library. Mounts via the round-3
+   modules; defensive empty state when modules haven't loaded. */
+.quick-insights-band { padding: 24px var(--gutter, 32px); }
+.quick-insights-band[hidden] { display: none; }
+.quick-insights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+.quick-insights-panel {
+  min-height: 160px;
+  border: 1px solid var(--line, rgba(255,255,255,.10));
+  border-radius: 18px;
+  padding: 14px 16px;
+  background: rgba(13, 17, 27, .52);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+@media (max-width: 900px) {
+  .quick-insights-grid { grid-template-columns: 1fr; }
+}
+
+/* "Round 3 Drop" callout band — sits below the existing whats-new
+   callout. Styled the same family but with a teal/violet accent so it
+   reads as a separate sweep moment. */
+.round3-callout-band[hidden] { display: none; }
+.round3-callout-band {
+  margin: clamp(12px, 2vw, 20px) 0 4px 0;
+}
+.round3-callout-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: clamp(20px, 4vw, 36px);
+  padding: clamp(22px, 3.4vw, 36px) clamp(22px, 3.6vw, 40px);
+  border: 1px solid rgba(122, 240, 255, .42);
+  border-radius: 22px;
+  background:
+    radial-gradient(80% 120% at 0% 0%, rgba(122, 240, 255, .14), transparent 60%),
+    radial-gradient(80% 120% at 100% 100%, rgba(168, 122, 255, .14), transparent 60%),
+    linear-gradient(135deg, rgba(13, 17, 27, .92), rgba(8, 11, 22, .96));
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.05) inset,
+    0 30px 80px rgba(0,0,0,.55),
+    0 0 32px rgba(122, 240, 255, .12);
+  position: relative;
+  overflow: hidden;
+}
+.round3-callout-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(122, 240, 255, .55), rgba(168, 122, 255, .55), rgba(255, 123, 204, .35), rgba(122, 240, 255, .55));
+  background-size: 300% 100%;
+  animation: round3Sweep 14s linear infinite;
+  height: 2px;
+  bottom: auto;
+}
+@keyframes round3Sweep {
+  0% { background-position: 0% 0; }
+  100% { background-position: 300% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .round3-callout-card::before { animation: none; }
+}
+.round3-callout-copy { display: grid; gap: 10px; }
+.round3-callout-copy .band-eyebrow { color: #7af0ff; }
+.round3-callout-copy .band-title { margin: 0; }
+.round3-callout-copy .band-sub  { margin: 0; max-width: 56ch; color: var(--paper-2, #e2e6ee); }
+.round3-callout-cta {
+  margin-top: 8px;
+  align-self: start;
+  border-color: rgba(122, 240, 255, .55);
+  background: linear-gradient(180deg, rgba(122, 240, 255, .22), rgba(168, 122, 255, .14));
+}
+.round3-callout-cta:hover {
+  border-color: rgba(122, 240, 255, .8);
+  box-shadow: 0 8px 20px rgba(0,0,0,.32), 0 0 22px rgba(122, 240, 255, .26);
+}
+.round3-callout-stat {
+  text-align: center;
+  display: grid;
+  gap: 4px;
+  padding: 14px 22px;
+  border-left: 1px solid rgba(255,255,255,.08);
+  min-width: 160px;
+}
+.round3-callout-stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 72px);
+  line-height: 1;
+  background: linear-gradient(135deg, #7af0ff, #a87aff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 24px rgba(122, 240, 255, .35);
+}
+.round3-callout-stat span {
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted, #8d97b0);
+  font-weight: 600;
+}
+@media (max-width: 720px) {
+  .round3-callout-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .round3-callout-stat {
+    border-left: 0;
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 12px 0 0 0;
+  }
+}
+
+/* News ticker host — sits at the top of <body> when arcade-news-ticker
+   mounts. Empty state has zero height so layout doesn't jump if the
+   module fails to load. */
+#newsTicker:empty { display: none; }
+
 /* "New" badge for cards in the library that match NEW_FLAGSHIP_IDS.
    Lives inside .gc-stripe (top-left of card art). */
 .game-card .badge.is-new {
@@ -8220,6 +8345,45 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     <div class="rail reveal-stagger" id="courseTiles"></div>
   </section>
 
+  <!-- Round 3 Drop callout — second editorial banner, highlights the
+       May 9 2026 16-cabinet sweep. Mirrors the .whats-new-band pattern
+       but with a teal/violet accent and a separate id so they stack. -->
+  <section class="band round3-callout-band" id="round3Callout" aria-label="Round 3 mega drop">
+    <div class="round3-callout-card reveal">
+      <div class="round3-callout-copy">
+        <span class="band-eyebrow">Round 3 · Mega Drop · May 2026</span>
+        <h2 class="band-title">Round 3 — Mega Drop · 16 New <em>Cabinets</em>.</h2>
+        <p class="band-sub">Snake Pit, Chess Cabinet, Pinball Empire, and 13 more — every classic genre, all editorial.</p>
+        <button class="action primary round3-callout-cta" id="round3CalloutCta" type="button">
+          <span>Browse all 16 →</span>
+        </button>
+      </div>
+      <div class="round3-callout-stat" aria-hidden="true">
+        <strong>16</strong>
+        <span>brand-new round 3 cabinets</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Insights band — three side-by-side panels that mount via the
+       round-3 modules. Defensive: each panel is a stable host id so the
+       modules can mount idempotently; if a module fails to load the panel
+       just stays empty (no layout breakage). -->
+  <section class="band quick-insights-band" id="quickInsights" aria-label="Quick insights">
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Your Arcade</div>
+        <h2 class="band-title">Quick <em>insights</em>.</h2>
+        <p class="band-sub">A glance at your stats, a smart recommendation, and where players are competing right now.</p>
+      </div>
+    </div>
+    <div class="quick-insights-grid">
+      <div class="quick-insights-panel" id="quickInsightsStats" data-panel="stats"></div>
+      <div class="quick-insights-panel" id="quickInsightsRecommender" data-panel="recommender"></div>
+      <div class="quick-insights-panel" id="quickInsightsGlobe" data-panel="globe"></div>
+    </div>
+  </section>
+
   <section class="band library-band" id="library" aria-label="Game library">
     <div class="band-head library-head reveal">
       <div>
@@ -8343,6 +8507,16 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-recommender.js?v=20260509-recommender"></script>
 <script src="assets/arcade-keyboard-remap.js?v=20260509-keyboard"></script>
 <script src="assets/arcade-dev-tools.js?v=20260509-devtools"></script>
+<script src="assets/arcade-mascot.js?v=20260509-mascot"></script>
+<script src="assets/arcade-replay.js?v=20260509-replay"></script>
+<script src="assets/arcade-classroom.js?v=20260509-classroom"></script>
+<script src="assets/arcade-tutorial.js?v=20260509-tutorial"></script>
+<script src="assets/arcade-difficulty.js?v=20260509-difficulty"></script>
+<script src="assets/arcade-screenshot.js?v=20260509-screenshot"></script>
+<script src="assets/arcade-changelog.js?v=20260509-changelog"></script>
+<script src="assets/arcade-news-ticker.js?v=20260509-news-ticker"></script>
+<script src="assets/arcade-leaderboard-globe.js?v=20260509-globe"></script>
+<script src="assets/arcade-deeplinks.js?v=20260509-deeplinks"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
@@ -8367,7 +8541,11 @@ let lastPlayerFocus = null;
 // (rounds 1, 1.5, 2) and the existing premium classics so new players
 // always land on something fresh.
 const FEATURED_GAME_IDS = [
-  // Newest first — round 2
+  // Newest first — round 3 mega drop (sprinkle 10 across the head of the carousel)
+  "snake-pit", "chess-cabinet", "pinball-empire", "defender-drift",
+  "boggle-beat", "memory-palace", "knights-quest", "crossword-cabinet",
+  "pong-doctor", "atlas-2048",
+  // Round 2
   "mahjong-mosaic", "reflex-run", "tower-climb", "plinko-lab", "tron-trails",
   // Round 1.5
   "galaxy-defender", "echo-hall", "anagram-atlas", "centiquill",
@@ -8377,6 +8555,9 @@ const FEATURED_GAME_IDS = [
   "history-hunters", "archive-quest", "cold-war-invaders",
   // Round 1 continued
   "brickoria", "stellar-drift", "cascade",
+  // Round 3 tail (the rest)
+  "sudoku-scribe", "bomb-scribe", "solitaire-hall", "archive-tycoon",
+  "cube-crash", "word-bridge",
   // Practice exams
   "regents-practice-exam", "ap-practice-exam"
 ];
@@ -8391,7 +8572,12 @@ const PREMIUM_ARCADE_IDS = new Set([
   // ── Round 1.5 sweep
   "galaxy-defender", "echo-hall", "sokoban-scribe", "centiquill", "anagram-atlas",
   // ── Round 2 sweep
-  "tron-trails", "plinko-lab", "tower-climb", "mahjong-mosaic", "reflex-run"
+  "tron-trails", "plinko-lab", "tower-climb", "mahjong-mosaic", "reflex-run",
+  // ── Round 3 mega drop (May 9 2026) — 16 cabinets covering every classic genre
+  "snake-pit", "pinball-empire", "defender-drift", "boggle-beat",
+  "sudoku-scribe", "memory-palace", "knights-quest", "crossword-cabinet",
+  "pong-doctor", "atlas-2048", "bomb-scribe", "chess-cabinet",
+  "solitaire-hall", "archive-tycoon", "cube-crash", "word-bridge"
 ]);
 const REBUILD_QUEUE_IDS = new Set(["regents-rally-source-circuit", "review-maze-chase", "boss-rush-arena", "empire-ascendant"]);
 const PRACTICE_TOOL_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "mastery-path", "source-lab", "writing-coach", "source-audit", "source-sprint", "regents-gauntlet"]);
@@ -9122,6 +9308,11 @@ function cumulativeJeopardyPicks() {
 // hid the May 2026 sweep behind hard-coded old-classics arrays.
 // Order matters: newest first so they surface on the front page.
 const NEW_FLAGSHIP_IDS = [
+  // Round-3 mega drop (May 9 2026) — 16 cabinets
+  "snake-pit", "pinball-empire", "defender-drift", "boggle-beat",
+  "sudoku-scribe", "memory-palace", "knights-quest", "crossword-cabinet",
+  "pong-doctor", "atlas-2048", "bomb-scribe", "chess-cabinet",
+  "solitaire-hall", "archive-tycoon", "cube-crash", "word-bridge",
   // Round-2 flagships (May 2026 second sweep)
   "mahjong-mosaic", "reflex-run", "tower-climb", "plinko-lab", "tron-trails",
   // Round-1 May 2026 flagships
@@ -9139,29 +9330,36 @@ function smartMenuGames(laneId) {
   // generic "recommended" / "popular" lanes for fresh players whose
   // progress signal is empty.
   const newPicks = pickGames(NEW_FLAGSHIP_IDS);
+  // Round-3 picks (May 9 2026 mega drop) — surface a few up front in
+  // recommended / popular / arcade so a fresh player lands on something
+  // brand new even before any progress signal exists.
+  const round3Picks = pickGames([
+    "snake-pit", "chess-cabinet", "pinball-empire", "memory-palace",
+    "boggle-beat", "knights-quest", "crossword-cabinet", "defender-drift",
+    "pong-doctor", "atlas-2048"
+  ]);
   if (laneId === "recommended") {
     // Seed with the player's recommendation + recents, then surface 3
-    // brand-new flagships (so a fresh player sees something new), then
-    // fall back to popular / featured / mastery tools.
-    return uniqueGames(recommended.concat(recents, newPicks.slice(0, 3), popular, featured, pickGames(["mastery-path", "source-lab"]))).slice(0, 6);
+    // round-3 cabinets so a fresh player sees something new, then 3
+    // earlier flagships, then fall back to popular / featured / tools.
+    return uniqueGames(recommended.concat(recents, round3Picks.slice(0, 3), newPicks.slice(0, 3), popular, featured, pickGames(["mastery-path", "source-lab"]))).slice(0, 8);
   }
   if (laneId === "continue") {
-    return uniqueGames(recents.concat(recommended, popular, newPicks.slice(0, 3), featured)).slice(0, 6);
+    return uniqueGames(recents.concat(recommended, popular, round3Picks.slice(0, 2), newPicks.slice(0, 3), featured)).slice(0, 6);
   }
   if (laneId === "popular") {
-    // Mix local-popular + new flagships + classic premium picks. New
-    // flagships go BEFORE the classics so they get visible carousel
-    // slots before the slice cap.
-    return uniqueGames(popular.concat(newPicks.slice(0, 3), pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam", "ap-practice-exam", "source-sprint"]))).slice(0, 6);
+    // Mix local-popular + round-3 cabinets + earlier flagships + classic
+    // premium picks. Round-3 goes first so it gets visible carousel slots.
+    return uniqueGames(popular.concat(round3Picks.slice(0, 4), newPicks.slice(0, 3), pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "regents-practice-exam", "ap-practice-exam", "source-sprint"]))).slice(0, 8);
   }
   if (laneId === "exams") {
     return pickGames(["regents-practice-exam", "ap-practice-exam", "writing-coach", "source-lab", "source-sprint", "regents-gauntlet"]);
   }
   if (laneId === "arcade") {
-    // "Review Games" lane — was old classics only. Now leads with the
-    // 9 new flagships (May 2026) and chases with the legacy premium
-    // arcade games. Slice 8 so the rail shows two visible rows.
-    return uniqueGames(newPicks.concat(pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite", "chrono-pinball"]))).slice(0, 8);
+    // "Review Games" lane — leads with the round-3 mega drop, then
+    // earlier flagships, then legacy premium arcade games. Slice 12 so
+    // the rail shows three visible rows.
+    return uniqueGames(round3Picks.slice(0, 6).concat(newPicks, pickGames(["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "chrono-defense-infinite", "chrono-pinball"]))).slice(0, 12);
   }
   if (laneId === "quick") {
     return pickGames(["source-sprint", "archive-cipher", "lightning-review", "vocab-vault"]);
@@ -11715,6 +11913,11 @@ boot();
   // Drawn from games.json by ID so it stays in sync as we add games.
   // Order matters — newest first.
   var NEW_FLAGSHIPS = [
+    // Round 3 mega drop (May 9 2026) — 16 cabinets, every classic genre
+    "snake-pit", "pinball-empire", "defender-drift", "boggle-beat",
+    "sudoku-scribe", "memory-palace", "knights-quest", "crossword-cabinet",
+    "pong-doctor", "atlas-2048", "bomb-scribe", "chess-cabinet",
+    "solitaire-hall", "archive-tycoon", "cube-crash", "word-bridge",
     // Round 2 sweep (May 9 2026)
     "mahjong-mosaic", "reflex-run", "tower-climb", "plinko-lab", "tron-trails",
     // Round 1.5 sweep
@@ -12326,6 +12529,95 @@ boot();
         renderDailyPlan();
       });
     }
+
+    // ── Round-3 module wiring (May 9 2026) ─────────────────────────
+    // Each block is independently try/caught so one missing module
+    // never blocks the others. Modules are self-mounting + idempotent
+    // so calling .mount() twice is safe.
+
+    // Mount mascot — pinned helper character on body
+    try {
+      if (window.MrMacsMascot && typeof window.MrMacsMascot.mount === "function") {
+        window.MrMacsMascot.mount(document.body);
+      }
+    } catch (e) {}
+
+    // Mount news ticker — top of page, above the hero
+    try {
+      if (window.MrMacsNewsTicker && typeof window.MrMacsNewsTicker.mount === "function") {
+        var tickerHost = document.getElementById("newsTicker");
+        if (!tickerHost) {
+          tickerHost = document.createElement("div");
+          tickerHost.id = "newsTicker";
+          var hero = document.querySelector(".hero") || document.body;
+          hero.insertBefore(tickerHost, hero.firstChild);
+        }
+        window.MrMacsNewsTicker.mount(tickerHost, { position: "top" });
+      }
+    } catch (e) {}
+
+    // Show changelog if there are unseen entries
+    try {
+      if (window.MrMacsChangelog && typeof window.MrMacsChangelog.checkAndShowOnLoad === "function") {
+        window.MrMacsChangelog.checkAndShowOnLoad();
+      }
+    } catch (e) {}
+
+    // Apply deeplink routing (e.g. ?game=snake-pit autoplays it)
+    try {
+      if (window.MrMacsDeeplinks && typeof window.MrMacsDeeplinks.applyFromUrl === "function") {
+        window.MrMacsDeeplinks.applyFromUrl();
+      }
+    } catch (e) {}
+
+    // Mount Quick Insights panels (stats · recommender · leaderboard globe)
+    try {
+      if (window.MrMacsQuickStats && typeof window.MrMacsQuickStats.mount === "function") {
+        var statsHost = document.getElementById("quickInsightsStats");
+        if (statsHost) window.MrMacsQuickStats.mount(statsHost);
+      }
+    } catch (e) {}
+    try {
+      if (window.MrMacsRecommender && typeof window.MrMacsRecommender.mount === "function") {
+        var recHost = document.getElementById("quickInsightsRecommender");
+        if (recHost) window.MrMacsRecommender.mount(recHost);
+      }
+    } catch (e) {}
+    try {
+      if (window.MrMacsLeaderboardGlobe && typeof window.MrMacsLeaderboardGlobe.mount === "function") {
+        var globeHost = document.getElementById("quickInsightsGlobe");
+        if (globeHost) window.MrMacsLeaderboardGlobe.mount(globeHost);
+      }
+    } catch (e) {}
+
+    // Wire the Round 3 callout CTA: smooth-scroll to the Library and
+    // pre-set the lane to "Play" + sort=priority so the round-3 games
+    // surface near the top. Defensive — works even if state/syncFilters
+    // are missing.
+    try {
+      var r3Cta = document.getElementById("round3CalloutCta");
+      if (r3Cta && !r3Cta.dataset.wired) {
+        r3Cta.dataset.wired = "1";
+        r3Cta.addEventListener("click", function () {
+          try {
+            if (typeof state !== "undefined" && state) {
+              state.lane = "play";
+              state.course = "All Courses";
+              state.subject = "All Subjects";
+              state.type = "All Game Types";
+              state.query = "";
+              state.libraryExpanded = true;
+              var search = document.getElementById("search");
+              if (search) search.value = "";
+              if (typeof syncFilters === "function") syncFilters();
+              if (typeof render === "function") render();
+            }
+          } catch (err) {}
+          var target = document.getElementById("library");
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    } catch (e) {}
   });
 })();
 
