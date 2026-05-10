@@ -157,8 +157,28 @@
   .game-card .gc-kicker,
   .game-card .gc-subtitle,
   .game-card .gc-meta,
-  .game-card .gc-tags {
-    display: none !important;     /* compact: no kicker/meta/tags on mobile cards */
+  .game-card .gc-tags,
+  /* The unclassed description <p> inside .gc-body — compact mode hides it */
+  .game-card .gc-body p,
+  /* Card-bottom stats line — keep just the Play button */
+  .game-card .card-bottom .micro {
+    display: none !important;
+  }
+  .game-card .gc-body {
+    padding: 6px 8px !important;
+  }
+  .game-card .gc-body h3 {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+  }
+  .game-card .card-bottom {
+    padding: 4px 8px !important;
+    justify-content: center !important;
+  }
+  .game-card .card-bottom .play {
+    font-size: 9px !important;
+    padding: 3px 8px !important;
   }
   .game-card .gc-cta,
   .game-card button {
