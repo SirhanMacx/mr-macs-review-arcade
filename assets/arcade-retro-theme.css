@@ -122,13 +122,21 @@
     gap: 10px !important;
     overflow: hidden !important;  /* prevent horizontal scroll if cards overflow */
   }
-  /* Compact card. min-width: 0 is the classic Grid gotcha — without it,
-     1fr columns get sized to the card's intrinsic content (318px) and
-     the grid overflows horizontally. */
+  /* Compact card. Force max-width so flex doesn't honor intrinsic content
+     width (318px from thumb). May 10 2026 r2c iteration. */
   .game-card {
     min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
     min-height: 0 !important;
     border-radius: 8px !important;
+  }
+  /* Card thumb img must shrink with the card, not push it open */
+  .game-card .gc-thumb,
+  .game-card img {
+    max-width: 100% !important;
+    width: 100% !important;
+    object-fit: cover;
   }
   .game-card .gc-art {
     height: 100px !important;
