@@ -1,0 +1,188 @@
+/* ===========================================================================
+   arcade-retro-theme.css — May 10 2026
+   80s/90s arcade pixel skin. Loaded LAST so its overrides win.
+
+   Strategy:
+   - Display titles + brand → "Press Start 2P" (8-bit blocky)
+   - Stats numerics + counters → "VT323" (CRT-mono, more readable than P-S-2P)
+   - Body / explanatory text → keep readable (Rajdhani / system) but hide
+     the long design-rationale paragraphs the user called out
+   - Subtle CRT scanline overlay across the whole platform
+   - Arcade glow + hard pixel edges on key UI
+
+   Fonts pulled via @import so individual games don't need their <link>
+   tags updated. Browsers render these with crisp-edges to keep the pixel
+   feel intact at any scale.
+   =========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
+/* ----- 1. Hide design-rationale copy across the hub -----
+   The user explicitly called out: "remove explanations about flagships
+   and design etc etc". We hide the longer paragraph descriptions on the
+   hub bands but keep their titles + actionable links. */
+.band-sub,
+.setup-sub,
+.welcome-sub,
+.welcome-disclaimer,
+.kicker + p {
+  display: none !important;
+}
+
+/* But keep short functional helper text in setup cards (the kbd rows
+   showing keyboard controls) — they're usability info, not rationale. */
+.key-hints,
+.setup-card .key-hints {
+  display: block !important;
+}
+
+/* ----- 2. Pixel typography overrides ----- */
+:root {
+  --font-pixel: "Press Start 2P", "Bungee", Impact, ui-monospace, monospace;
+  --font-crt:   "VT323", ui-monospace, "JetBrains Mono", monospace;
+}
+
+/* All major headlines → pixel. We keep them at modest sizes since
+   Press Start 2P is wide and chunky. */
+h1, h2, h3,
+.brand-title,
+.brand strong,
+.title-prefix, .title-suffix,
+.hero-title,
+.band-title,
+.setup-card h1,
+.setup-card h2,
+.setup-kicker,
+.kicker,
+.band-eyebrow,
+.hero-eyebrow,
+.wave-kicker,
+.stat-label,
+.hud-eyebrow {
+  font-family: var(--font-pixel) !important;
+  letter-spacing: 0 !important;
+  font-style: normal !important;
+}
+
+/* Pixel fonts wrap badly — let them break and keep them at sane sizes */
+.brand-title { font-size: 12px !important; line-height: 1.2 !important; }
+.band-title  { font-size: 18px !important; line-height: 1.3 !important; }
+h1, .hero-title, .setup-card h1 { font-size: clamp(20px, 5.2vw, 32px) !important; line-height: 1.25 !important; }
+h2, .setup-card h2 { font-size: clamp(14px, 4vw, 22px) !important; line-height: 1.3 !important; }
+.setup-kicker, .band-eyebrow, .kicker { font-size: 9px !important; line-height: 1.3 !important; }
+.stat-label, .hud-eyebrow, .wave-kicker { font-size: 7px !important; line-height: 1.3 !important; letter-spacing: 0.04em !important; }
+
+/* All stat numbers + counters → CRT mono (much more readable than P-S-2P) */
+.stat-value,
+.hud-val,
+.hud-val.hud-mono,
+.mono,
+.score-value,
+.timer-val,
+.end-cell-value,
+[data-counter] {
+  font-family: var(--font-crt) !important;
+  letter-spacing: 0 !important;
+}
+.stat-value { font-size: 20px !important; line-height: 1 !important; }
+.hud-val    { font-size: 22px !important; line-height: 1 !important; }
+.end-cell-value { font-size: 28px !important; line-height: 1 !important; }
+
+/* Body text + long paragraphs stay legible (system / Rajdhani) but
+   loose pixel-arcade letter spacing for theme consistency */
+body, p, li, .resume-card-meta, .pause-progress-meta {
+  font-family: "Rajdhani", "Inter", system-ui, sans-serif;
+}
+
+/* Buttons get a chunky pixel-arcade treatment */
+.btn,
+button.btn,
+.action,
+.hud-btn,
+.tc-btn,
+.round-btn,
+.touch-btn,
+.choice,
+.choice-btn {
+  font-family: var(--font-pixel) !important;
+  letter-spacing: 0 !important;
+  text-transform: uppercase;
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+}
+/* Larger primary buttons get a slight bump */
+.btn.primary,
+button.btn.primary,
+.action.primary {
+  font-size: 11px !important;
+}
+
+/* Inputs / selects: keep them readable */
+input, select, textarea {
+  font-family: var(--font-crt) !important;
+  font-size: 16px !important;
+}
+
+/* ----- 3. Hard-edged pixel rendering for SVG icons ----- */
+.brand-mark,
+.stat-cell,
+.hud-cell {
+  image-rendering: pixelated;
+}
+
+/* ----- 4. CRT scanline overlay platform-wide -----
+   Subtle 1px-stripe overlay simulating CRT phosphor lines. Rendered as
+   a fixed pseudo-element so it's always on top of the page but doesn't
+   interfere with input. Disabled under prefers-reduced-motion. */
+@media (prefers-reduced-motion: no-preference) {
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.022) 0,
+      rgba(255, 255, 255, 0.022) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+  }
+}
+
+/* ----- 5. Arcade neon-glow on key interactive surfaces ----- */
+.btn.primary:hover,
+.action.primary:hover {
+  text-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
+}
+
+/* ----- 6. Arcade marquee chip border style (used on cards) ----- */
+.game-card,
+.mode-button,
+.smart-card,
+.quick-card,
+.focus-card,
+.character-card,
+.racer-card {
+  /* Sharp pixel-style corners + chunkier border */
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 4px !important;
+}
+
+/* ----- 7. Topbar brand-mark crispness ----- */
+.brand-mark {
+  font-family: var(--font-pixel) !important;
+  font-size: 10px !important;
+  letter-spacing: 0 !important;
+}
+
+/* ----- 8. Footer + small text legibility cap (keep readable) ----- */
+.footer,
+.footer p,
+.footer span {
+  font-family: "Rajdhani", system-ui, sans-serif;
+}
