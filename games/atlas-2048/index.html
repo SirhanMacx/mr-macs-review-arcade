@@ -219,7 +219,40 @@
   <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
   <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
+  <script>
+  // Register Atlas 2048 with the help-overlay system so the "How to Play"
+  // button mounts on the setup screen.
+  (function () {
+    "use strict";
+    var GAME_ID = "atlas-2048";
+    if (!window.MrMacsHelpOverlay) return;
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Atlas 2048",
+      goal: "Slide era tiles to merge equal eras into the next one. Climb from Stone Age through Information Age to 2048 — push beyond to the Singularity. Merge gilt-rim Scholar Tiles to spark review prompts worth +1500 and 12 shards.",
+      controls: [
+        { key: "↑ ↓ ← →",     action: "Slide tiles in any of 4 directions" },
+        { key: "W A S D",     action: "Same as arrows" },
+        { key: "Swipe",       action: "On touch — drag the board in any direction" },
+        { key: "1 – 5",       action: "Trigger power-ups (Undo, Smash, 2× Score, Hint, Spawn 4)" },
+        { key: "P / Esc",     action: "Pause or resume" }
+      ],
+      tips: [
+        "Pick a corner — keep your highest tile pinned there, build the next-highest beside it.",
+        "Save Smash for when you're stuck against a pair you can't merge.",
+        "Scholar tiles have a gold rim. Merge a pair to fire a review challenge worth 1,500 points.",
+        "Slow down — every swipe spawns a new tile. Tight boards punish reflex play.",
+        "100,000 score unlocks the 5×5 grid in your next run."
+      ],
+      scholar: "Two scholar tiles in the same row or column merge into a paired review prompt. Answer correctly for +1500 and 12 shards."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setupScreen .setup-actions");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script src="game.js?v=20260510-atlas2048-ui"></script>
 </body>
 </html>
