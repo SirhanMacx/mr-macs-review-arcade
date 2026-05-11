@@ -12,9 +12,9 @@
 
    Course labels: window.DIAG_BANK_COURSE_LABELS = { courseId: humanLabel }
 
-   Built: 2026-05-11T01:14:49.227Z
-   Courses: 16
-   Total questions: 1937
+   Built: 2026-05-11T20:50:27.414Z
+   Courses: 17
+   Total questions: 2010
    ============================================================================ */
 (function (w) {
   "use strict";
@@ -23,6 +23,7 @@
   "ap-human-geography": "AP Human Geography",
   "ap-macroeconomics": "AP Macroeconomics",
   "ap-microeconomics": "AP Microeconomics",
+  "ap-psychology": "AP Psychology",
   "ap-us-government": "AP US Government & Politics",
   "ap-us-history": "AP US History (APUSH)",
   "ap-world-history": "AP World History: Modern",
@@ -4147,6 +4148,884 @@
       "correctText": "Between the two countries' opportunity costs",
       "topic": "Terms of Trade",
       "course": "ap-microeconomics"
+    }
+  ],
+  "ap-psychology": [
+    {
+      "prompt": "A correlation coefficient of -0.85 indicates:",
+      "choices": [
+        "A weak positive relationship",
+        "A strong negative relationship",
+        "No relationship",
+        "A cause-and-effect relationship"
+      ],
+      "correctText": "A strong negative relationship",
+      "topic": "Unit 0: Correlation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A researcher randomly assigns participants to two groups. This procedure primarily helps to:",
+      "choices": [
+        "Increase the sample size",
+        "Reduce confounding variables between groups",
+        "Ensure the study is double-blind",
+        "Eliminate the need for a control group"
+      ],
+      "correctText": "Reduce confounding variables between groups",
+      "topic": "Unit 0: Random Assignment",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which ethical principle requires that participants be told the true nature of a study after it ends?",
+      "choices": [
+        "Confidentiality",
+        "Informed consent",
+        "Debriefing",
+        "Anonymity"
+      ],
+      "correctText": "Debriefing",
+      "topic": "Unit 0: Research Ethics",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which research method establishes cause-and-effect by manipulating an independent variable while controlling for confounds?",
+      "choices": [
+        "Naturalistic observation",
+        "Correlational study",
+        "Experiment",
+        "Case study"
+      ],
+      "correctText": "Experiment",
+      "topic": "Unit 0: Science of Psychology — Research Methods",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The all-or-none principle states that a neuron will:",
+      "choices": [
+        "Fire at varying strengths depending on input",
+        "Fire only when threshold is crossed, always at the same intensity",
+        "Fire only in response to inhibitory signals",
+        "Never fire if any inhibitory input is present"
+      ],
+      "correctText": "Fire only when threshold is crossed, always at the same intensity",
+      "topic": "Unit 1: Action Potential",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The fight-or-flight response is primarily controlled by which branch of the autonomic nervous system?",
+      "choices": [
+        "Parasympathetic",
+        "Somatic",
+        "Sympathetic",
+        "Central"
+      ],
+      "correctText": "Sympathetic",
+      "topic": "Unit 1: Autonomic Nervous System",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which neurotransmitter is most associated with the brain's reward pathway and is implicated in addiction?",
+      "choices": [
+        "Serotonin",
+        "Dopamine",
+        "GABA",
+        "Acetylcholine"
+      ],
+      "correctText": "Dopamine",
+      "topic": "Unit 1: Biological Bases — Neurotransmitters",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Damage to which brain structure most directly impairs the formation of new long-term memories?",
+      "choices": [
+        "Amygdala",
+        "Hippocampus",
+        "Cerebellum",
+        "Hypothalamus"
+      ],
+      "correctText": "Hippocampus",
+      "topic": "Unit 1: Brain — Hippocampus",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Broca's area, located in the frontal lobe, is primarily involved in:",
+      "choices": [
+        "Language comprehension",
+        "Speech production",
+        "Visual processing",
+        "Emotional regulation"
+      ],
+      "correctText": "Speech production",
+      "topic": "Unit 1: Broca's Area",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The endocrine system communicates via:",
+      "choices": [
+        "Neurotransmitters released into synapses",
+        "Hormones released into the bloodstream",
+        "Electrical impulses through nerves",
+        "Reflex arcs in the spinal cord"
+      ],
+      "correctText": "Hormones released into the bloodstream",
+      "topic": "Unit 1: Endocrine System",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Phineas Gage's personality change after his accident provided early evidence for the function of which brain region?",
+      "choices": [
+        "Occipital lobe",
+        "Temporal lobe",
+        "Frontal lobe",
+        "Parietal lobe"
+      ],
+      "correctText": "Frontal lobe",
+      "topic": "Unit 1: Frontal Lobe",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which lobe of the brain is most responsible for processing visual information?",
+      "choices": [
+        "Frontal",
+        "Temporal",
+        "Occipital",
+        "Parietal"
+      ],
+      "correctText": "Occipital",
+      "topic": "Unit 1: Occipital Lobe",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "REM sleep is characterized by:",
+      "choices": [
+        "Deep relaxation and slow brain waves",
+        "Vivid dreaming and rapid eye movement",
+        "The first stage of falling asleep",
+        "Sleepwalking and night terrors"
+      ],
+      "correctText": "Vivid dreaming and rapid eye movement",
+      "topic": "Unit 1: REM Sleep",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which neurotransmitter is most associated with mood regulation and is the target of SSRI antidepressants?",
+      "choices": [
+        "Dopamine",
+        "Serotonin",
+        "Glutamate",
+        "Norepinephrine"
+      ],
+      "correctText": "Serotonin",
+      "topic": "Unit 1: Serotonin",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Identical twins raised apart who show similar IQ scores provide evidence for which influence on intelligence?",
+      "choices": [
+        "Environment only",
+        "Heredity",
+        "Nutrition",
+        "Schooling quality"
+      ],
+      "correctText": "Heredity",
+      "topic": "Unit 1: Twin Studies",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Estimating the frequency of an event based on how easily examples come to mind is the:",
+      "choices": [
+        "Availability heuristic",
+        "Representativeness heuristic",
+        "Anchoring effect",
+        "Functional fixedness"
+      ],
+      "correctText": "Availability heuristic",
+      "topic": "Unit 2: Availability Heuristic",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Albert Bandura's Bobo doll experiment demonstrated:",
+      "choices": [
+        "Classical conditioning in humans",
+        "Observational learning of aggression",
+        "The placebo effect",
+        "Latent learning"
+      ],
+      "correctText": "Observational learning of aggression",
+      "topic": "Unit 2: Bandura — Observational Learning",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Memorizing a phone number by grouping digits is an example of:",
+      "choices": [
+        "Chunking",
+        "Encoding failure",
+        "The serial position effect",
+        "State-dependent memory"
+      ],
+      "correctText": "Chunking",
+      "topic": "Unit 2: Chunking",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which psychologist's experiments with dogs and bells established classical conditioning?",
+      "choices": [
+        "B.F. Skinner",
+        "Ivan Pavlov",
+        "John Watson",
+        "Edward Thorndike"
+      ],
+      "correctText": "Ivan Pavlov",
+      "topic": "Unit 2: Classical Conditioning — Pavlov",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which thinking error involves searching only for information that confirms what you already believe?",
+      "choices": [
+        "Availability heuristic",
+        "Representativeness heuristic",
+        "Confirmation bias",
+        "Hindsight bias"
+      ],
+      "correctText": "Confirmation bias",
+      "topic": "Unit 2: Cognitive Biases",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Solving a problem suddenly without conscious step-by-step reasoning is called:",
+      "choices": [
+        "Algorithm",
+        "Trial and error",
+        "Insight learning",
+        "Mental set"
+      ],
+      "correctText": "Insight learning",
+      "topic": "Unit 2: Insight",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Linguistic relativity (the Whorfian hypothesis) suggests that:",
+      "choices": [
+        "All humans share identical language structures",
+        "Language is innate and learned without exposure",
+        "The language we speak influences how we think",
+        "Animals can be taught full human language"
+      ],
+      "correctText": "The language we speak influences how we think",
+      "topic": "Unit 2: Linguistic Relativity",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The misinformation effect, demonstrated by Elizabeth Loftus, shows that:",
+      "choices": [
+        "Eyewitness memory can be altered by leading questions",
+        "We never forget childhood memories",
+        "Memory is perfectly stored like a recording",
+        "Repressed memories are always accurate"
+      ],
+      "correctText": "Eyewitness memory can be altered by leading questions",
+      "topic": "Unit 2: Loftus — Misinformation Effect",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "George Miller's research showed that short-term memory capacity is approximately:",
+      "choices": [
+        "3 ± 1 items",
+        "7 ± 2 items",
+        "15 ± 5 items",
+        "25 ± 5 items"
+      ],
+      "correctText": "7 ± 2 items",
+      "topic": "Unit 2: Miller's Magic Number",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A child stops touching a hot stove after burning themselves once. This is an example of:",
+      "choices": [
+        "Classical conditioning",
+        "Observational learning",
+        "Operant conditioning via positive punishment",
+        "Insight learning"
+      ],
+      "correctText": "Operant conditioning via positive punishment",
+      "topic": "Unit 2: Operant Conditioning — Punishment",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Procedural memory is best illustrated by:",
+      "choices": [
+        "Recalling your address",
+        "Remembering historical dates",
+        "Riding a bicycle",
+        "Recognizing a familiar face"
+      ],
+      "correctText": "Riding a bicycle",
+      "topic": "Unit 2: Procedural Memory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Reinforcement schedules that produce the highest, most consistent rate of responding are:",
+      "choices": [
+        "Fixed ratio",
+        "Variable ratio",
+        "Fixed interval",
+        "Variable interval"
+      ],
+      "correctText": "Variable ratio",
+      "topic": "Unit 2: Reinforcement Schedules",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The tip-of-the-tongue phenomenon is an example of:",
+      "choices": [
+        "Encoding failure",
+        "Retrieval failure",
+        "Storage decay",
+        "Source amnesia"
+      ],
+      "correctText": "Retrieval failure",
+      "topic": "Unit 2: Retrieval Failure",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Information held in short-term memory typically lasts how long without rehearsal?",
+      "choices": [
+        "Less than 1 second",
+        "About 20-30 seconds",
+        "Several minutes",
+        "Several hours"
+      ],
+      "correctText": "About 20-30 seconds",
+      "topic": "Unit 2: Short-Term Memory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "In Pavlov's experiment, the meat powder is the:",
+      "choices": [
+        "Conditioned stimulus",
+        "Unconditioned stimulus",
+        "Conditioned response",
+        "Neutral stimulus"
+      ],
+      "correctText": "Unconditioned stimulus",
+      "topic": "Unit 2: UCS",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Erikson identified the primary developmental task of adolescence as:",
+      "choices": [
+        "Trust vs. mistrust",
+        "Identity vs. role confusion",
+        "Industry vs. inferiority",
+        "Intimacy vs. isolation"
+      ],
+      "correctText": "Identity vs. role confusion",
+      "topic": "Unit 3: Erikson — Adolescence",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Gestalt psychologists emphasized that:",
+      "choices": [
+        "Behavior can only be measured through reflexes",
+        "The whole is greater than the sum of the parts",
+        "All learning requires reinforcement",
+        "Mental processes can never be studied scientifically"
+      ],
+      "correctText": "The whole is greater than the sum of the parts",
+      "topic": "Unit 3: Gestalt",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Harry Harlow's monkey experiments demonstrated that infants attach most strongly to caregivers who provide:",
+      "choices": [
+        "Food",
+        "Comfort and contact",
+        "Loud verbal interaction",
+        "Bright visual stimulation"
+      ],
+      "correctText": "Comfort and contact",
+      "topic": "Unit 3: Harlow — Attachment",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Kohlberg's preconventional level of moral reasoning is primarily based on:",
+      "choices": [
+        "Abstract ethical principles",
+        "Avoiding punishment and gaining rewards",
+        "Social approval and law-and-order",
+        "Universal human rights"
+      ],
+      "correctText": "Avoiding punishment and gaining rewards",
+      "topic": "Unit 3: Kohlberg",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The McGurk effect demonstrates that:",
+      "choices": [
+        "Vision and hearing are processed independently",
+        "Visual cues influence what we hear",
+        "All perception is innate",
+        "Color blindness affects depth perception"
+      ],
+      "correctText": "Visual cues influence what we hear",
+      "topic": "Unit 3: McGurk Effect",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "An authoritative parenting style is characterized by:",
+      "choices": [
+        "High demands, low responsiveness",
+        "Low demands, high responsiveness",
+        "High demands AND high responsiveness",
+        "Low demands AND low responsiveness"
+      ],
+      "correctText": "High demands AND high responsiveness",
+      "topic": "Unit 3: Parenting Styles",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The phenomenon by which familiar objects appear the same size regardless of viewing distance is called:",
+      "choices": [
+        "Color constancy",
+        "Size constancy",
+        "Shape constancy",
+        "Brightness constancy"
+      ],
+      "correctText": "Size constancy",
+      "topic": "Unit 3: Perceptual Constancy",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Piaget's stage in which children develop object permanence is:",
+      "choices": [
+        "Preoperational",
+        "Concrete operational",
+        "Sensorimotor",
+        "Formal operational"
+      ],
+      "correctText": "Sensorimotor",
+      "topic": "Unit 3: Piaget — Sensorimotor",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "An IQ test's reliability refers to:",
+      "choices": [
+        "Whether it measures what it claims to measure",
+        "How consistent its scores are across administrations",
+        "Whether the test is fair across cultures",
+        "How quickly the test can be administered"
+      ],
+      "correctText": "How consistent its scores are across administrations",
+      "topic": "Unit 3: Reliability vs Validity",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Spearman's 'g' refers to:",
+      "choices": [
+        "General intelligence underlying all mental abilities",
+        "Genetic intelligence inherited from parents",
+        "Group-administered intelligence tests",
+        "Gardner's multiple intelligences"
+      ],
+      "correctText": "General intelligence underlying all mental abilities",
+      "topic": "Unit 3: Spearman's g",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Top-down processing relies primarily on:",
+      "choices": [
+        "Bottom-up sensory features",
+        "Past experience and expectations",
+        "Random sampling of the environment",
+        "The activity of single neurons"
+      ],
+      "correctText": "Past experience and expectations",
+      "topic": "Unit 3: Top-Down Processing",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Color blindness most commonly results from a problem with:",
+      "choices": [
+        "Rods in the retina",
+        "Cones in the retina",
+        "The optic nerve",
+        "The visual cortex"
+      ],
+      "correctText": "Cones in the retina",
+      "topic": "Unit 3: Vision — Cones",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which sensory threshold is the smallest difference between two stimuli that can be detected 50% of the time?",
+      "choices": [
+        "Absolute threshold",
+        "Just-noticeable difference (Weber's law)",
+        "Sensory adaptation",
+        "Signal detection threshold"
+      ],
+      "correctText": "Just-noticeable difference (Weber's law)",
+      "topic": "Unit 3: Weber's Law",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The Big Five personality model includes which trait?",
+      "choices": [
+        "Intelligence",
+        "Conscientiousness",
+        "Locus of control",
+        "Self-actualization"
+      ],
+      "correctText": "Conscientiousness",
+      "topic": "Unit 4: Big Five",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Drive-reduction theory explains motivation as the body's attempt to:",
+      "choices": [
+        "Seek pleasure regardless of need",
+        "Restore physiological homeostasis",
+        "Imitate observed behavior",
+        "Fulfill self-actualization"
+      ],
+      "correctText": "Restore physiological homeostasis",
+      "topic": "Unit 4: Drive-Reduction",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Freud's defense mechanism in which unacceptable impulses are pushed out of conscious awareness is called:",
+      "choices": [
+        "Projection",
+        "Displacement",
+        "Repression",
+        "Rationalization"
+      ],
+      "correctText": "Repression",
+      "topic": "Unit 4: Freud — Repression",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The James-Lange theory of emotion proposes that:",
+      "choices": [
+        "We feel emotion first, then the body responds",
+        "Body response and emotion happen simultaneously",
+        "We notice the body's response and then experience the emotion",
+        "Emotion is purely cognitive interpretation"
+      ],
+      "correctText": "We notice the body's response and then experience the emotion",
+      "topic": "Unit 4: James-Lange Theory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "An individual with a strong internal locus of control most likely believes that:",
+      "choices": [
+        "Luck and fate determine their outcomes",
+        "Their own effort determines their outcomes",
+        "Powerful others control most events",
+        "Outcomes cannot be predicted"
+      ],
+      "correctText": "Their own effort determines their outcomes",
+      "topic": "Unit 4: Locus of Control",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Maslow's hierarchy of needs places which need at the top?",
+      "choices": [
+        "Safety",
+        "Belonging",
+        "Esteem",
+        "Self-actualization"
+      ],
+      "correctText": "Self-actualization",
+      "topic": "Unit 4: Maslow — Self-Actualization",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Carl Rogers's person-centered therapy emphasizes:",
+      "choices": [
+        "Interpreting unconscious conflicts",
+        "Unconditional positive regard",
+        "Modifying observable behavior with reinforcement",
+        "Identifying irrational thoughts"
+      ],
+      "correctText": "Unconditional positive regard",
+      "topic": "Unit 4: Rogers",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Bandura's concept of self-efficacy refers to:",
+      "choices": [
+        "One's belief in one's own ability to succeed",
+        "The unconscious mind's influence on behavior",
+        "Identification with a same-sex parent",
+        "Movement through psychosexual stages"
+      ],
+      "correctText": "One's belief in one's own ability to succeed",
+      "topic": "Unit 4: Self-Efficacy",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Selye's general adaptation syndrome stages are:",
+      "choices": [
+        "Denial, anger, bargaining",
+        "Alarm, resistance, exhaustion",
+        "Sensorimotor, preoperational, formal",
+        "Trust, autonomy, initiative"
+      ],
+      "correctText": "Alarm, resistance, exhaustion",
+      "topic": "Unit 4: Stress — GAS",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The two-factor theory of emotion (Schachter-Singer) requires:",
+      "choices": [
+        "Only physiological arousal",
+        "Only cognitive labeling",
+        "Both physiological arousal AND cognitive labeling",
+        "Only external situational cues"
+      ],
+      "correctText": "Both physiological arousal AND cognitive labeling",
+      "topic": "Unit 4: Two-Factor Theory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Antipsychotic medications primarily target which neurotransmitter system?",
+      "choices": [
+        "Serotonin",
+        "Dopamine",
+        "GABA",
+        "Acetylcholine"
+      ],
+      "correctText": "Dopamine",
+      "topic": "Unit 5: Antipsychotics",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A panic attack is most associated with which class of disorder?",
+      "choices": [
+        "Mood",
+        "Anxiety",
+        "Psychotic",
+        "Personality"
+      ],
+      "correctText": "Anxiety",
+      "topic": "Unit 5: Anxiety Disorders",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Bipolar disorder is characterized by:",
+      "choices": [
+        "Persistent depressed mood only",
+        "Alternating episodes of mania and depression",
+        "Loss of contact with reality",
+        "Multiple distinct personality states"
+      ],
+      "correctText": "Alternating episodes of mania and depression",
+      "topic": "Unit 5: Bipolar Disorder",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Cognitive therapy for depression (Aaron Beck) primarily focuses on:",
+      "choices": [
+        "Unconscious childhood conflicts",
+        "Maladaptive thoughts and cognitive distortions",
+        "Modifying behavior through reinforcement",
+        "Increasing self-actualization"
+      ],
+      "correctText": "Maladaptive thoughts and cognitive distortions",
+      "topic": "Unit 5: Cognitive Therapy",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The DSM-5 is primarily used to:",
+      "choices": [
+        "Measure intelligence",
+        "Diagnose psychological disorders",
+        "Conduct experiments",
+        "Train therapists"
+      ],
+      "correctText": "Diagnose psychological disorders",
+      "topic": "Unit 5: DSM-5",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Persistent, intrusive thoughts paired with repetitive behaviors aimed at reducing anxiety characterize:",
+      "choices": [
+        "Schizophrenia",
+        "Obsessive-compulsive disorder",
+        "PTSD",
+        "Bipolar disorder"
+      ],
+      "correctText": "Obsessive-compulsive disorder",
+      "topic": "Unit 5: OCD",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Hallucinations and delusions are positive symptoms most associated with:",
+      "choices": [
+        "Major depressive disorder",
+        "Schizophrenia",
+        "Generalized anxiety disorder",
+        "Obsessive-compulsive disorder"
+      ],
+      "correctText": "Schizophrenia",
+      "topic": "Unit 5: Schizophrenia",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "SSRIs increase the availability of:",
+      "choices": [
+        "Dopamine",
+        "Serotonin",
+        "Norepinephrine",
+        "Acetylcholine"
+      ],
+      "correctText": "Serotonin",
+      "topic": "Unit 5: SSRIs",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Systematic desensitization is a behavior therapy primarily used to treat:",
+      "choices": [
+        "Schizophrenia",
+        "Phobias",
+        "Bipolar disorder",
+        "Personality disorders"
+      ],
+      "correctText": "Phobias",
+      "topic": "Unit 5: Systematic Desensitization",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Solomon Asch's conformity studies showed that participants conformed to incorrect group answers about:",
+      "choices": [
+        "75% of the time on every trial",
+        "Roughly one third of trials on average",
+        "Never, when the answer was obvious",
+        "Only when the group was very small"
+      ],
+      "correctText": "Roughly one third of trials on average",
+      "topic": "Unit 6: Asch — Conformity",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The bystander effect is best explained by:",
+      "choices": [
+        "Increased empathy in groups",
+        "Diffusion of responsibility",
+        "Stronger conformity in emergencies",
+        "Group polarization"
+      ],
+      "correctText": "Diffusion of responsibility",
+      "topic": "Unit 6: Bystander Effect",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Cognitive dissonance theory predicts that people change their attitudes to:",
+      "choices": [
+        "Match those of authority figures",
+        "Reduce inconsistency with their behavior",
+        "Conform to the majority opinion",
+        "Avoid all forms of mental effort"
+      ],
+      "correctText": "Reduce inconsistency with their behavior",
+      "topic": "Unit 6: Cognitive Dissonance",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The fundamental attribution error involves:",
+      "choices": [
+        "Overestimating situational factors in others' behavior",
+        "Overestimating dispositional (personality) factors in others' behavior",
+        "Always blaming oneself for negative events",
+        "Refusing to make any judgments about behavior"
+      ],
+      "correctText": "Overestimating dispositional (personality) factors in others' behavior",
+      "topic": "Unit 6: Fundamental Attribution Error",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Group polarization typically results in:",
+      "choices": [
+        "The majority adopting the minority view",
+        "Group decisions that are more extreme than initial individual opinions",
+        "Reduced commitment after group discussion",
+        "Decreased agreement between group members"
+      ],
+      "correctText": "Group decisions that are more extreme than initial individual opinions",
+      "topic": "Unit 6: Group Polarization",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Groupthink is most likely when:",
+      "choices": [
+        "Group members have diverse opinions and challenge each other openly",
+        "A group is highly cohesive and isolated from outside perspectives",
+        "A group includes outside consultants and devil's advocates",
+        "Members are anonymous and don't know each other"
+      ],
+      "correctText": "A group is highly cohesive and isolated from outside perspectives",
+      "topic": "Unit 6: Groupthink",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "In-group bias is the tendency to:",
+      "choices": [
+        "Favor members of one's own group over outsiders",
+        "Trust strangers more than friends",
+        "Conform only to authority figures",
+        "Reject all group memberships"
+      ],
+      "correctText": "Favor members of one's own group over outsiders",
+      "topic": "Unit 6: In-Group Bias",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Stanley Milgram's obedience study found that approximately what percentage of participants delivered the maximum shock?",
+      "choices": [
+        "Roughly 10%",
+        "Roughly 30%",
+        "Roughly 65%",
+        "Roughly 95%"
+      ],
+      "correctText": "Roughly 65%",
+      "topic": "Unit 6: Milgram — Obedience",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Robert Cialdini's principles of social influence include:",
+      "choices": [
+        "Repression and projection",
+        "Reciprocity and scarcity",
+        "Equilibration and accommodation",
+        "Trust and autonomy"
+      ],
+      "correctText": "Reciprocity and scarcity",
+      "topic": "Unit 6: Social Influence",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Stereotype threat refers to:",
+      "choices": [
+        "The threat of being attacked due to one's identity",
+        "Underperformance caused by awareness of a negative stereotype about one's group",
+        "An increase in performance when stereotyped positively",
+        "Loss of cultural identity through assimilation"
+      ],
+      "correctText": "Underperformance caused by awareness of a negative stereotype about one's group",
+      "topic": "Unit 6: Stereotype Threat",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Zimbardo's Stanford Prison Experiment is often cited as evidence for:",
+      "choices": [
+        "The power of social roles and situations to shape behavior",
+        "Innate criminal personality traits",
+        "The therapeutic value of role-play",
+        "The reliability of self-report measures"
+      ],
+      "correctText": "The power of social roles and situations to shape behavior",
+      "topic": "Unit 6: Zimbardo",
+      "course": "ap-psychology"
     }
   ],
   "ap-us-government": [
