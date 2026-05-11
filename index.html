@@ -76,7 +76,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-cabinet-mode-v3">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-hub-restructure">
 <style>
 :root {
   color-scheme: dark;
@@ -8006,32 +8006,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 
 </style>
 </head>
-<body class="cabinet-mode">
-<!-- ═══════════════════════════════════════════════════════════════════
-     CABINET MODE — early init (May 11 2026). Jon: "i literally want it
-     to be like turning on a gaming cabinet from 1989."
-     Suppresses every auto-popup (onboarding, tour, mascot, updates pill,
-     welcome dialog) BEFORE the modules check their storage flags, so
-     nothing flashes on first load. The cabinet-frame DOM is injected
-     near the end of <body> and Section 43 of arcade-retro-theme.css
-     hides all the web-app cruft so featured-10 fills the screen.
-     ═══════════════════════════════════════════════════════════════════ -->
-<script>
-(function(){
-  try {
-    // Onboarding flow (arcade-onboarding-flow.js storage key)
-    localStorage.setItem("mr-macs-arcade-onboarding-v1", "done");
-    // Hub tour (arcade-tour.js completed-list storage key)
-    var ts = JSON.parse(localStorage.getItem("mr-macs-tour-completed") || "[]");
-    if (!ts.includes("hub")) { ts.push("hub"); localStorage.setItem("mr-macs-tour-completed", JSON.stringify(ts)); }
-    // What's New / updates pill (changelog dismissed flag — multiple key variants)
-    localStorage.setItem("mr-macs-arcade-whatsnew-dismissed", "1");
-    localStorage.setItem("mr-macs-changelog-pill-dismissed", "1");
-    // Mascot welcome dialog (one-shot)
-    localStorage.setItem("mr-macs-mascot-welcomed", "1");
-  } catch (e) {}
-})();
-</script>
+<body>
 <a class="skip-link" href="#launch-paths">Skip to launch paths</a>
 
 <!-- ═══════════════════════════════════════════════════════════════
@@ -16005,163 +15980,6 @@ boot();
         });
     });
   }
-</script>
-
-<!-- ═══════════════════════════════════════════════════════════════════
-     CABINET FRAME — DOM injector (May 11 2026)
-     Injects the static top marquee + bottom control panel that wrap the
-     hub. Buttons on the bottom panel open the legacy library + profile
-     dialogs as modal overlays so the hub stays single-screen.
-     ═══════════════════════════════════════════════════════════════════ -->
-<script>
-(function(){
-  if (!document.body.classList.contains("cabinet-mode")) return;
-  // Bail if already injected (HMR / re-eval safety)
-  if (document.querySelector(".mac-cab-top")) return;
-
-  // --- Top marquee --------------------------------------------------------
-  var top = document.createElement("div");
-  top.className = "mac-cab-top";
-  top.setAttribute("role", "presentation");
-  top.innerHTML =
-    '<span class="mac-cab-top-bulb" aria-hidden="true"></span>' +
-    '<span class="mac-cab-top-bulb b2" aria-hidden="true"></span>' +
-    '<span class="mac-cab-top-title">MR. MAC\'S REVIEW ARCADE</span>' +
-    '<span class="mac-cab-top-bulb b3" aria-hidden="true"></span>' +
-    '<span class="mac-cab-top-bulb b4" aria-hidden="true"></span>';
-  document.body.appendChild(top);
-
-  // --- Bottom control panel ----------------------------------------------
-  var bot = document.createElement("div");
-  bot.className = "mac-cab-bottom";
-  bot.setAttribute("role", "toolbar");
-  bot.setAttribute("aria-label", "Arcade controls");
-  bot.innerHTML =
-    '<div class="mac-cab-joystick" aria-hidden="true">' +
-      '<div class="mac-cab-joystick-base"></div>' +
-      '<div class="mac-cab-joystick-shaft"></div>' +
-      '<div class="mac-cab-joystick-ball"></div>' +
-    '</div>' +
-    '<div class="mac-cab-buttons">' +
-      '<button type="button" class="mac-cab-btn red" data-cab-action="more" aria-label="More games">A</button>' +
-      '<button type="button" class="mac-cab-btn yellow" data-cab-action="profile" aria-label="Profile">B</button>' +
-      '<button type="button" class="mac-cab-btn blue" data-cab-action="leaderboards" aria-label="High scores">C</button>' +
-      '<button type="button" class="mac-cab-btn green" data-cab-action="teacher" aria-label="Teacher tools">D</button>' +
-    '</div>' +
-    '<div class="mac-cab-status" aria-hidden="true">' +
-      '<span class="mac-cab-status-line">1P · CREDITS 99</span>' +
-      '<span class="mac-cab-status-line dim">v6.13 · MR.MAC</span>' +
-    '</div>';
-  document.body.appendChild(bot);
-
-  // --- Modal host (for control-panel button popups) ----------------------
-  var host = document.createElement("div");
-  host.className = "mac-cab-modal-host";
-  host.setAttribute("role", "dialog");
-  host.setAttribute("aria-modal", "true");
-  host.style.display = "none";
-  document.body.appendChild(host);
-
-  function openModal(title, html){
-    host.innerHTML =
-      '<div class="mac-cab-modal-card">' +
-        '<h2>' + title + '</h2>' +
-        '<div class="mac-cab-modal-body">' + html + '</div>' +
-        '<button type="button" class="mac-cab-modal-close">CLOSE</button>' +
-      '</div>';
-    host.classList.add("is-open");
-    host.style.display = "flex";
-    try { if (window.MrMacsSFX && window.MrMacsSFX.click) window.MrMacsSFX.click(); } catch(e){}
-    host.querySelector(".mac-cab-modal-close").addEventListener("click", closeModal);
-    host.addEventListener("click", function(e){ if (e.target === host) closeModal(); });
-  }
-  function closeModal(){
-    host.classList.remove("is-open");
-    host.style.display = "none";
-    try { if (window.MrMacsSFX && window.MrMacsSFX.back) window.MrMacsSFX.back(); } catch(e){}
-  }
-
-  function buildMoreGamesList(){
-    // Pull every non-featured game from window.GAMES if available.
-    var FEATURED = ["step-pyramid","sokoban-scribe","mahjong-mosaic","chess-cabinet","bomb-scribe","sudoku-scribe","snake-pit","brickoria","atlas-2048","stellar-drift"];
-    var all = (window.GAMES || []).filter(function(g){ return g && g.id && FEATURED.indexOf(g.id) === -1; });
-    if (!all.length) {
-      return '<p style="text-align:center;font-size:18px;line-height:1.5;">Loading library...</p>' +
-             '<p style="text-align:center;font-size:14px;color:#8aa7ab;">If this stays empty, the games metadata didn\'t load. Try refreshing.</p>';
-    }
-    var rows = all.map(function(g){
-      var safeName = (g.name || g.title || g.id).toString().replace(/[<>]/g, "");
-      return '<a class="mac-cab-more-item" href="games/' + g.id + '/index.html" ' +
-             'style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin:4px 0;background:#0a1228;border:2px solid #2a4a55;border-radius:3px;color:#5de0f0;text-decoration:none;font-family:VT323,monospace;font-size:18px;letter-spacing:0.04em;">' +
-             '<span>' + safeName + '</span>' +
-             '<span style="color:#f5c451;font-family:\'Press Start 2P\',monospace;font-size:9px;">▶ PLAY</span>' +
-             '</a>';
-    }).join("");
-    return '<div style="max-height:60vh;overflow-y:auto;padding:0 4px;">' + rows + '</div>';
-  }
-
-  function handleAction(action){
-    try { if (window.MrMacsSFX && window.MrMacsSFX.select) window.MrMacsSFX.select(); } catch(e){}
-    if (action === "more") {
-      openModal("MORE GAMES", buildMoreGamesList());
-    } else if (action === "profile") {
-      var p = (window.MrMacsProfile && window.MrMacsProfile.get) ? window.MrMacsProfile.get() : null;
-      var name = (p && p.name) || "Player 1";
-      var course = (p && p.course) || "Cross-Curricular";
-      var html =
-        '<div style="font-size:20px;line-height:1.6;">' +
-        '<div><strong style="color:#f5c451;">NAME:</strong> ' + name + '</div>' +
-        '<div><strong style="color:#f5c451;">COURSE:</strong> ' + course + '</div>' +
-        '<div><strong style="color:#f5c451;">SHARDS:</strong> ' + ((p && p.shards) || 0) + '</div>' +
-        '<div><strong style="color:#f5c451;">STREAK:</strong> ' + ((p && p.streak) || 0) + ' days</div>' +
-        '</div>' +
-        '<p style="margin-top:18px;font-size:14px;color:#8aa7ab;text-align:center;">' +
-        'Profile lives entirely in this browser. Nothing leaves your device.</p>';
-      openModal("PLAYER PROFILE", html);
-    } else if (action === "leaderboards") {
-      window.location.hash = "#/leaderboards";
-      var lb = (window.MrMacsLeaderboards && window.MrMacsLeaderboards.getTop) ? window.MrMacsLeaderboards.getTop("daily", 10) : [];
-      var rows = (lb && lb.length) ? lb.map(function(e, i){
-        return '<div style="display:flex;justify-content:space-between;padding:6px 12px;font-size:18px;font-family:VT323,monospace;border-bottom:1px solid #2a4a55;">' +
-               '<span style="color:#f5c451;">' + String(i+1).padStart(2,"0") + '</span>' +
-               '<span style="color:#5de0f0;flex:1;padding:0 12px;">' + ((e.name || e.initials || "???").toString().slice(0,12)) + '</span>' +
-               '<span style="color:#d4e7eb;">' + (e.score || 0) + '</span>' +
-               '</div>';
-      }).join("") : '<p style="text-align:center;font-size:18px;color:#8aa7ab;">No scores yet today. Play a game to lead the board.</p>';
-      openModal("HIGH SCORES — TODAY", rows);
-    } else if (action === "teacher") {
-      window.location.href = "teacher/index.html";
-    }
-  }
-
-  bot.addEventListener("click", function(e){
-    var btn = e.target.closest("[data-cab-action]");
-    if (btn) handleAction(btn.getAttribute("data-cab-action"));
-  });
-
-  // Hover/focus SFX on cards (when featured-10 renders)
-  function wireCardSFX(){
-    var cards = document.querySelectorAll("body.cabinet-mode .featured-10 .game-card.f10-card");
-    cards.forEach(function(c){
-      c.addEventListener("mouseenter", function(){ try { if (window.MrMacsSFX && window.MrMacsSFX.blip) window.MrMacsSFX.blip(); } catch(e){} });
-      c.addEventListener("click", function(){ try { if (window.MrMacsSFX && window.MrMacsSFX.select) window.MrMacsSFX.select(); } catch(e){} });
-    });
-  }
-  // Wait for featured-10 to render (it's populated by renderFeatured10 in this page)
-  if (document.querySelector(".featured-10 .f10-card")) wireCardSFX();
-  else {
-    var watchdog = 0;
-    var iv = setInterval(function(){
-      if (document.querySelector(".featured-10 .f10-card")) { wireCardSFX(); clearInterval(iv); }
-      if (++watchdog > 30) clearInterval(iv);
-    }, 200);
-  }
-
-  // ESC closes modal
-  document.addEventListener("keydown", function(e){
-    if (e.key === "Escape" && host.classList.contains("is-open")) closeModal();
-  });
-})();
 </script>
 </body>
 </html>
