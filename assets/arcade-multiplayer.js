@@ -434,9 +434,20 @@
             '<p class="mmp-hint">Players join by entering this code on the same arcade hub.</p>' +
             '<div class="mmp-label">Players in room</div>' +
             '<div class="mmp-roster" id="mmpHostRoster"></div>' +
+            '<button class="mmp-btn" id="mmpHostSaveClass" type="button" style="background:linear-gradient(135deg,#ffd060,#f5c451);color:#14100a;">📋 Save as Class</button>' +
             '<button class="mmp-btn is-secondary" id="mmpHostClose" type="button">End Room</button>';
           renderRoster(r, document.getElementById("mmpHostRoster"));
           r.onPlayersChange(function () { renderRoster(r, document.getElementById("mmpHostRoster")); });
+          document.getElementById("mmpHostSaveClass").addEventListener("click", function () {
+            var name = window.prompt("Save this roster as a class. What's the class name? (e.g. 'Period 3 · AP Psych')");
+            if (!name) return;
+            var ok = saveRoomAsClass(r, name);
+            if (ok) {
+              alert("Saved \"" + name + "\" — " + r.players.length + " players. View saved classes in /teacher dashboard.");
+            } else {
+              alert("Save failed. localStorage may be full or disabled.");
+            }
+          });
           document.getElementById("mmpHostClose").addEventListener("click", function () {
             r.leave();
             _modalOpenRoom = null;
@@ -552,6 +563,66 @@
     init();
   }
 
+  // ── Class roster persistence ─────────────────────────────────────────
+  // Saves a snapshot of the current room's players (with their final
+  // scores) as a "class" in localStorage. Teachers can use this to
+  // remember their period 3 vs period 7 rosters without any backend.
+  //
+  // Storage shape:
+  //   key: arcade.mp.classes
+  //   value: { [className]: { savedAt, code, players: [{initials, score}] } }
+  function saveRoomAsClass(room, className) {
+    if (!room || !room.players || !className) return false;
+    var name = String(className).trim().slice(0, 60);
+    if (!name) return false;
+    try {
+      var raw = localStorage.getItem("arcade.mp.classes") || "{}";
+      var classes = JSON.parse(raw);
+      classes[name] = {
+        savedAt: Date.now(),
+        code: room.code,
+        players: room.players.map(function (p) {
+          return { initials: p.initials, score: p.score || 0, isHost: !!p.isHost };
+        })
+      };
+      // Keep most-recent 20 classes
+      var keys = Object.keys(classes).sort(function (a, b) {
+        return (classes[b].savedAt || 0) - (classes[a].savedAt || 0);
+      });
+      if (keys.length > 20) {
+        keys.slice(20).forEach(function (k) { delete classes[k]; });
+      }
+      localStorage.setItem("arcade.mp.classes", JSON.stringify(classes));
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function listClasses() {
+    try {
+      var raw = localStorage.getItem("arcade.mp.classes") || "{}";
+      var c = JSON.parse(raw);
+      return Object.keys(c).map(function (name) {
+        return { name: name, savedAt: c[name].savedAt, code: c[name].code, playerCount: (c[name].players || []).length };
+      }).sort(function (a, b) { return b.savedAt - a.savedAt; });
+    } catch (e) { return []; }
+  }
+
+  function getClass(name) {
+    try {
+      var raw = localStorage.getItem("arcade.mp.classes") || "{}";
+      return JSON.parse(raw)[name] || null;
+    } catch (e) { return null; }
+  }
+
+  function deleteClass(name) {
+    try {
+      var raw = localStorage.getItem("arcade.mp.classes") || "{}";
+      var c = JSON.parse(raw);
+      if (c[name]) { delete c[name]; localStorage.setItem("arcade.mp.classes", JSON.stringify(c)); return true; }
+    } catch (e) {}
+    return false;
+  }
+
   root.MrMacsMultiplayer = {
     available: available,
     host: host,
@@ -559,6 +630,11 @@
     codeFromHash: codeFromHash,
     openLobbyModal: openLobbyModal,
     closeLobbyModal: closeLobbyModal,
-    sanitizeInitials: sanitizeInitials
+    sanitizeInitials: sanitizeInitials,
+    // Class roster persistence (local — no backend)
+    saveRoomAsClass: saveRoomAsClass,
+    listClasses: listClasses,
+    getClass: getClass,
+    deleteClass: deleteClass
   };
 })(typeof window !== "undefined" ? window : globalThis);

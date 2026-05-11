@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
   <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-  <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260511-batch-efghk">
+  <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260511-batch-final">
   <style>
     :root { --course-accent: #5dd4a0; }
     body {
@@ -128,6 +128,47 @@
       .course-unit-card { transition: none; }
       .course-unit-card:hover { transform: none; }
     }
+  
+    .quiz-gauntlet-cta {
+      position: relative;
+      display: flex; align-items: center; gap: 16px;
+      margin: 20px 0 28px;
+      padding: 18px 24px;
+      background: linear-gradient(135deg, #f5c451 0%, #ffd884 50%, #ff8a38 100%);
+      color: #14100a;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 12px 32px rgba(245, 196, 81, 0.40), 0 4px 0 rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.5);
+      transition: transform 160ms, box-shadow 160ms;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .quiz-gauntlet-cta:hover, .quiz-gauntlet-cta:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 42px rgba(245, 196, 81, 0.55), 0 6px 0 rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.6);
+      outline: none;
+    }
+    .quiz-gauntlet-cta .qg-icon { font-size: 36px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
+    .quiz-gauntlet-cta .qg-text { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .quiz-gauntlet-cta .qg-text strong {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px; letter-spacing: 0.10em; line-height: 1;
+    }
+    .quiz-gauntlet-cta .qg-text small {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px; opacity: 0.78; line-height: 1.3;
+    }
+    .quiz-gauntlet-cta .qg-pulse {
+      position: absolute; right: 18px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #ff3858; box-shadow: 0 0 12px rgba(255, 56, 88, 0.8);
+      animation: qgPulse 1.4s ease-in-out infinite;
+    }
+    @keyframes qgPulse { 50% { opacity: 0.45; transform: scale(0.85); } }
+    @media (prefers-reduced-motion: reduce) {
+      .quiz-gauntlet-cta .qg-pulse { animation: none; }
+    }
+
   </style>
 </head>
 <body data-game-page="1">
@@ -143,6 +184,17 @@
     <div class="course-kicker">AP Macro + Micro</div>
     <h1>AP Economics</h1>
     <p class="course-descr">AP Macro and Micro Jeopardy boards spanning supply/demand, market structures, fiscal + monetary policy, GDP, and international trade.</p>
+        <a class="quiz-gauntlet-cta" data-quiz-gauntlet-start
+       data-course="ap-macroeconomics" data-course-label="AP Economics"
+       data-rounds="15" data-game-id="ap-macroeconomics-gauntlet" role="button" tabindex="0"
+       href="#">
+      <span class="qg-icon" aria-hidden="true">▶</span>
+      <span class="qg-text">
+        <strong>START GAUNTLET</strong>
+        <small>15 random questions · score + leaderboard · +shards</small>
+      </span>
+      <span class="qg-pulse" aria-hidden="true"></span>
+    </a>
     <div class="course-grid">
         <a class="course-unit-card" href="01%20-%20Foundations%20of%20Economics%20Jeopardy%20Review.html">
           <span class="course-unit-kicker">Unit 1</span>
@@ -188,5 +240,7 @@
   </main>
 <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
 <script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
+<script src="../../assets/shared-question-bank.js?v=20260511-bank-v2-appsych"></script>
+<script src="../../assets/arcade-quiz-gauntlet.js?v=20260511-gauntlet-v1" defer></script>
 </body>
 </html>

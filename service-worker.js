@@ -1,4 +1,4 @@
-const CACHE_NAME = "mr-macs-arcade-v16-2026-05-11-batch-efghk";
+const CACHE_NAME = "mr-macs-arcade-v17-2026-05-11-deferred-batches";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -47,6 +47,7 @@ const CACHE_FILES = [
   "./assets/arcade-quick-launcher.js",
   "./assets/arcade-quick-stats-panel.js",
   "./assets/arcade-recommender.js",
+  "./assets/arcade-quiz-gauntlet.js",
   "./assets/arcade-review-mix.js",
   "./assets/arcade-replay.js",
   "./assets/arcade-resume-chip.js",

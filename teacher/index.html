@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teacher Dashboard — Mr. Mac's Review Arcade</title>
+<meta name="description" content="Teacher tools for Mr. Mac's Review Arcade — see class progress, weak-topic heatmap, run live multiplayer rooms, generate Friday Practice worksheets.">
+<link rel="canonical" href="https://sirhanmacx.github.io/mr-macs-review-arcade/teacher/">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700;1,900&family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/arcade-retro-theme.css?v=20260511-batch-final">
+<style>
+  body {
+    margin: 0;
+    background: radial-gradient(ellipse at top, rgba(15,20,40,.85) 0%, rgba(4,6,15,1) 70%) #04060f;
+    color: #d8dceb;
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    padding: max(28px, env(safe-area-inset-top, 28px)) 20px 60px;
+  }
+  .teacher-shell {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .td-back {
+    display: inline-block; color: rgba(255,255,255,.7); text-decoration: none;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .12em;
+    text-transform: uppercase; padding: 6px 14px;
+    border: 1px solid rgba(245,196,81,.30); border-radius: 8px;
+  }
+  .td-back:hover { background: rgba(245,196,81,.18); color: #f5c451; }
+  .td-header { margin: 28px 0 8px; }
+  .td-kicker {
+    display: inline-block; padding: 4px 12px;
+    border: 1px solid #5de0f0; border-radius: 6px;
+    color: #5de0f0; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 800; letter-spacing: .18em;
+    text-transform: uppercase;
+    box-shadow: 0 0 14px rgba(93, 224, 240, 0.32);
+  }
+  .td-title {
+    margin: 14px 0 8px;
+    font-family: 'Fraunces', Georgia, serif; font-style: italic;
+    font-size: clamp(36px, 6vw, 52px); font-weight: 900; color: #f0f5ff;
+    letter-spacing: -.02em;
+  }
+  .td-descr {
+    max-width: 64ch; margin: 0 0 36px;
+    color: rgba(216, 220, 235, .82); line-height: 1.55; font-size: 15px;
+  }
+  .td-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .td-card {
+    padding: 20px 22px;
+    background: rgba(8, 12, 24, 0.78);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 12px;
+    transition: border-color 200ms, transform 160ms;
+  }
+  .td-card:hover { transform: translateY(-2px); border-color: rgba(93, 224, 240, 0.45); }
+  .td-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .td-card-icon { font-size: 28px; line-height: 1; }
+  .td-card-title { font-family: 'Fraunces', serif; font-style: italic; font-size: 19px; color: #f0f5ff; margin: 0; }
+  .td-card-body { font-size: 13.5px; line-height: 1.55; color: rgba(216, 220, 235, .80); margin: 0 0 14px; }
+  .td-card-action {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 14px; background: linear-gradient(135deg, #5de0f0, #3aa7c2);
+    color: #04060f; border: 0; border-radius: 8px;
+    font: 800 12.5px/1 'Inter', sans-serif;
+    cursor: pointer; text-decoration: none;
+    transition: transform 150ms, box-shadow 150ms;
+  }
+  .td-card-action:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(93, 224, 240, 0.32); }
+  .td-card-action.is-gold {
+    background: linear-gradient(135deg, #ffd060, #f5c451);
+    color: #14100a;
+  }
+
+  /* Dashboard data panels */
+  .td-stats-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px; margin: 0 0 18px;
+  }
+  .td-stat {
+    padding: 14px;
+    background: rgba(8, 12, 24, 0.55);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 10px;
+  }
+  .td-stat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px; font-weight: 800;
+    color: #ffd060;
+    text-shadow: 0 0 10px rgba(255, 208, 96, 0.40);
+    line-height: 1;
+  }
+  .td-stat-label {
+    margin-top: 5px; font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: rgba(216, 220, 235, .55);
+  }
+
+  .td-section { margin-top: 36px; }
+  .td-section-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 13px; color: #ffd060;
+    letter-spacing: .12em;
+    text-shadow: 0 0 8px rgba(255, 208, 96, 0.40);
+    margin: 0 0 14px;
+  }
+  .td-empty {
+    padding: 18px;
+    background: rgba(8, 12, 24, 0.55);
+    border: 1px dashed rgba(255, 255, 255, .15);
+    border-radius: 10px;
+    color: rgba(216, 220, 235, .65);
+    font-style: italic;
+    text-align: center;
+  }
+  .td-bar-row {
+    display: grid; grid-template-columns: 200px 1fr 60px;
+    gap: 12px; align-items: center;
+    padding: 6px 0;
+    font-size: 13px;
+  }
+  .td-bar-row .td-bar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(216, 220, 235, .82);
+  }
+  .td-bar-row .td-bar {
+    height: 10px;
+    background: rgba(255, 255, 255, .04);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .td-bar-row .td-bar > i {
+    display: block; height: 100%;
+    background: linear-gradient(90deg, #5de0f0, #ffd060);
+  }
+  .td-bar-row .td-bar-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #5de0f0;
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+<main class="teacher-shell">
+  <a class="td-back" href="../index.html">← Back to Arcade</a>
+
+  <div class="td-header">
+    <span class="td-kicker">For Teachers</span>
+    <h1 class="td-title">Teacher Dashboard</h1>
+    <p class="td-descr">A privacy-first view of how your students (and you) have been using the arcade. Everything is stored locally — no servers, no analytics pipelines, no student IDs. Each browser keeps its own snapshot.</p>
+  </div>
+
+  <!-- LIVE STATS (loaded from local profile) -->
+  <section class="td-section">
+    <h2 class="td-section-title">📊 Local Activity</h2>
+    <div class="td-stats-grid">
+      <div class="td-stat">
+        <div class="td-stat-num" id="statGamesPlayed">—</div>
+        <div class="td-stat-label">Games Played</div>
+      </div>
+      <div class="td-stat">
+        <div class="td-stat-num" id="statQuestions">—</div>
+        <div class="td-stat-label">Questions Answered</div>
+      </div>
+      <div class="td-stat">
+        <div class="td-stat-num" id="statAccuracy">—</div>
+        <div class="td-stat-label">Local Accuracy</div>
+      </div>
+      <div class="td-stat">
+        <div class="td-stat-num" id="statStreak">—</div>
+        <div class="td-stat-label">Daily Streak</div>
+      </div>
+      <div class="td-stat">
+        <div class="td-stat-num" id="statShards">—</div>
+        <div class="td-stat-label">Shards Earned</div>
+      </div>
+      <div class="td-stat">
+        <div class="td-stat-num" id="statWrongQueue">—</div>
+        <div class="td-stat-label">Wrong-Answer Queue</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHER TOOLS -->
+  <section class="td-section">
+    <h2 class="td-section-title">🛠️ Teacher Tools</h2>
+    <div class="td-grid">
+      <div class="td-card">
+        <div class="td-card-head">
+          <span class="td-card-icon">📄</span>
+          <h3 class="td-card-title">Friday Practice</h3>
+        </div>
+        <p class="td-card-body">Generate a printable worksheet from this device's recent wrong-answer queue. Two-column layout, answer key at the bottom with "fold here" warning. Save as PDF or print direct.</p>
+        <button class="td-card-action is-gold" id="btnFriday">📄 Generate Worksheet</button>
+      </div>
+
+      <div class="td-card">
+        <div class="td-card-head">
+          <span class="td-card-icon">🎮</span>
+          <h3 class="td-card-title">Live Multiplayer Room</h3>
+        </div>
+        <p class="td-card-body">Host a real-time room. Project on your board, share the 6-letter code with the class, watch all student answers stream in. Up to 40 players. No accounts, no logins.</p>
+        <button class="td-card-action" id="btnMultiplayer">🎮 Open Multiplayer Lobby</button>
+      </div>
+
+      <div class="td-card">
+        <div class="td-card-head">
+          <span class="td-card-icon">📚</span>
+          <h3 class="td-card-title">Standards Alignment Guide</h3>
+        </div>
+        <p class="td-card-body">Map each game to NY Regents and AP CED units. Use this to assign specific reviews aligned to your week's standard.</p>
+        <a class="td-card-action" href="../index.html#library">Browse Game Library →</a>
+      </div>
+
+      <div class="td-card">
+        <div class="td-card-head">
+          <span class="td-card-icon">🏆</span>
+          <h3 class="td-card-title">Reset Local Data</h3>
+        </div>
+        <p class="td-card-body">Clears this browser's profile, leaderboards, and progress. Useful if a different student sits down. Other browsers are unaffected.</p>
+        <button class="td-card-action" id="btnReset" style="background: linear-gradient(135deg, #ff8a38, #ff3858); color: #fff;">⚠️ Reset This Browser</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAVED CLASSES (from multiplayer rooms) -->
+  <section class="td-section">
+    <h2 class="td-section-title">📋 Saved Classes</h2>
+    <div id="savedClasses">
+      <div class="td-empty">No classes saved yet. Host a multiplayer room with your students, then click "📋 Save as Class" in the lobby to remember the roster.</div>
+    </div>
+  </section>
+
+  <!-- WEAK TOPIC HEATMAP -->
+  <section class="td-section">
+    <h2 class="td-section-title">🔥 Weak Topics (per local profile)</h2>
+    <div id="weakTopicsList">
+      <div class="td-empty">No data yet. Play a few games and miss some questions — this panel shows what topics need the most retrieval practice.</div>
+    </div>
+  </section>
+
+  <!-- COURSE COVERAGE -->
+  <section class="td-section">
+    <h2 class="td-section-title">📖 Course Coverage</h2>
+    <div id="courseCoverage">
+      <div class="td-empty">Loading bank data…</div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="td-section">
+    <h2 class="td-section-title">ℹ️ Privacy &amp; How It Works</h2>
+    <div class="td-card">
+      <p class="td-card-body">All data shown here lives on this device only. Mr. Mac's Review Arcade is a static site served from GitHub Pages — there is no backend, no analytics, no student-identifying transmission. Each browser keeps its own profile in <code>localStorage</code>. When you click "Reset This Browser", that profile is cleared and the device starts fresh.</p>
+      <p class="td-card-body">For roster-style class management or per-student dashboards, see the deferred features documented in the latest changelog. They require a teacher to either (a) maintain a shared device that travels with the class, or (b) configure Google Classroom OAuth — instructions for the latter are in <code>docs/teacher-google-classroom-setup.md</code>.</p>
+    </div>
+  </section>
+
+  <footer class="td-section" style="text-align:center;color:rgba(216,220,235,.5);font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.10em;text-transform:uppercase;padding-top:30px;border-top:1px solid rgba(255,255,255,.06);">
+    Mr. Mac's Review Arcade · Teacher Dashboard · <span id="versionStamp">v6.12</span>
+  </footer>
+</main>
+
+<script src="../assets/arcade-profile.js?v=20260507-phase1"></script>
+<script src="../assets/arcade-leaderboards.js?v=20260511-filter-admin"></script>
+<script src="../assets/arcade-friday-practice.js?v=20260511-friday-v1"></script>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
+<script src="../assets/arcade-multiplayer.js?v=20260511-multiplayer-v4-classroom" defer></script>
+<script src="../assets/shared-question-bank.js?v=20260511-bank-v2-appsych"></script>
+<script>
+(function () {
+  "use strict";
+
+  function $(id) { return document.getElementById(id); }
+
+  // ── Stats from profile ────────────────────────────────────────────
+  function refreshStats() {
+    var p = (window.MrMacsProfile && window.MrMacsProfile.get) ? window.MrMacsProfile.get() : null;
+    if (!p) return;
+    // Total games played from history
+    var hist = p.history || [];
+    var gamesPlayed = hist.length;
+    var topics = p.topicStats || {};
+    // Aggregate accuracy
+    var totalQ = 0, correctQ = 0;
+    Object.keys(topics).forEach(function (course) {
+      Object.keys(topics[course]).forEach(function (set) {
+        var b = topics[course][set];
+        totalQ += b.total || 0;
+        correctQ += b.correct || 0;
+      });
+    });
+    $("statGamesPlayed").textContent = gamesPlayed.toLocaleString();
+    $("statQuestions").textContent = totalQ.toLocaleString();
+    $("statAccuracy").textContent = totalQ ? (Math.round((correctQ / totalQ) * 100) + "%") : "—";
+    $("statStreak").textContent = (p.streak || 0) + " 🔥";
+    $("statShards").textContent = (p.shards || 0).toLocaleString();
+    $("statWrongQueue").textContent = (p.wrongAnswers || []).length;
+  }
+
+  // ── Weak topics heatmap ────────────────────────────────────────────
+  function renderWeakTopics() {
+    var container = $("weakTopicsList");
+    var p = (window.MrMacsProfile && window.MrMacsProfile.get) ? window.MrMacsProfile.get() : null;
+    if (!p || !p.topicStats) return;
+    var weak = [];
+    Object.keys(p.topicStats).forEach(function (course) {
+      Object.keys(p.topicStats[course]).forEach(function (set) {
+        var b = p.topicStats[course][set];
+        if ((b.total || 0) < 3) return; // need at least 3 answers
+        var acc = b.correct / b.total;
+        weak.push({ course: course, set: set, total: b.total, acc: acc });
+      });
+    });
+    weak.sort(function (a, b) { return a.acc - b.acc; });
+    var top = weak.slice(0, 10);
+    if (!top.length) {
+      container.innerHTML = '<div class="td-empty">Need more answer data. Play 3+ questions in any topic and weak topics surface here.</div>';
+      return;
+    }
+    container.innerHTML = top.map(function (w) {
+      var pct = Math.round(w.acc * 100);
+      return '<div class="td-bar-row">' +
+                '<div class="td-bar-label">' + escHtml(w.course) + ' · ' + escHtml(w.set) + '</div>' +
+                '<div class="td-bar"><i style="width:' + pct + '%"></i></div>' +
+                '<div class="td-bar-pct">' + pct + '%</div>' +
+              '</div>';
+    }).join("");
+  }
+
+  // ── Saved classes ──────────────────────────────────────────────────
+  function renderSavedClasses() {
+    var container = $("savedClasses");
+    if (!container) return;
+    if (!window.MrMacsMultiplayer || !window.MrMacsMultiplayer.listClasses) {
+      return; // multiplayer module not yet loaded — retry below via setTimeout
+    }
+    var classes = window.MrMacsMultiplayer.listClasses();
+    if (!classes.length) {
+      // Leave the empty state (already in markup)
+      return;
+    }
+    container.innerHTML = classes.map(function (c) {
+      var when = new Date(c.savedAt).toLocaleString();
+      return '<div class="td-card" style="margin-bottom: 10px; padding: 14px 18px;">' +
+              '<div style="display:flex;justify-content:space-between;align-items:center;gap:14px;">' +
+                '<div>' +
+                  '<strong style="font-family:Fraunces,serif;font-style:italic;font-size:17px;color:#f0f5ff;">' + escHtml(c.name) + '</strong>' +
+                  '<div style="font-family:JetBrains Mono,monospace;font-size:11px;color:rgba(216,220,235,.55);margin-top:3px;">' +
+                    c.playerCount + ' players · code ' + escHtml(c.code || '—') + ' · saved ' + escHtml(when) +
+                  '</div>' +
+                '</div>' +
+                '<div style="display:flex;gap:6px;">' +
+                  '<button class="td-card-action" data-class-view="' + escHtml(c.name) + '" style="padding:6px 12px;font-size:11px;">View</button>' +
+                  '<button class="td-card-action" data-class-delete="' + escHtml(c.name) + '" style="padding:6px 12px;font-size:11px;background:linear-gradient(135deg,#ff8a38,#ff3858);color:#fff;">Delete</button>' +
+                '</div>' +
+              '</div>' +
+             '</div>';
+    }).join("");
+    // Wire buttons
+    container.querySelectorAll("[data-class-view]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var c = window.MrMacsMultiplayer.getClass(b.dataset.classView);
+        if (!c) return;
+        var msg = c.name + "\n\n" + (c.players || []).map(function (p, i) {
+          return (i + 1) + ". " + p.initials + " — " + p.score + (p.isHost ? " (host)" : "");
+        }).join("\n");
+        alert(msg);
+      });
+    });
+    container.querySelectorAll("[data-class-delete]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (!confirm("Delete saved class \"" + b.dataset.classDelete + "\"?")) return;
+        window.MrMacsMultiplayer.deleteClass(b.dataset.classDelete);
+        renderSavedClasses();
+      });
+    });
+  }
+
+  // ── Course coverage (from shared bank) ─────────────────────────────
+  function renderCourseCoverage() {
+    var container = $("courseCoverage");
+    var bank = window.DIAG_BANK_BY_COURSE || {};
+    if (!Object.keys(bank).length) {
+      container.innerHTML = '<div class="td-empty">Shared bank still loading…</div>';
+      return;
+    }
+    var labels = window.DIAG_BANK_COURSE_LABELS || {};
+    var rows = Object.entries(bank).map(function (entry) {
+      var key = entry[0];
+      var qs = entry[1];
+      return { key: key, label: labels[key] || key, count: qs.length };
+    }).sort(function (a, b) { return b.count - a.count; });
+    var max = Math.max.apply(null, rows.map(function (r) { return r.count; })) || 1;
+    container.innerHTML = rows.map(function (r) {
+      var pct = Math.round((r.count / max) * 100);
+      return '<div class="td-bar-row">' +
+                '<div class="td-bar-label">' + escHtml(r.label) + '</div>' +
+                '<div class="td-bar"><i style="width:' + pct + '%"></i></div>' +
+                '<div class="td-bar-pct">' + r.count + '</div>' +
+              '</div>';
+    }).join("");
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  // ── Action buttons ─────────────────────────────────────────────────
+  $("btnFriday").addEventListener("click", function () {
+    if (window.MrMacsFridayPractice && window.MrMacsFridayPractice.print) {
+      window.MrMacsFridayPractice.print({ count: 20, format: "worksheet" });
+    } else {
+      alert("Friday Practice module not loaded.");
+    }
+  });
+  $("btnMultiplayer").addEventListener("click", function () {
+    if (window.MrMacsMultiplayer && window.MrMacsMultiplayer.openLobbyModal) {
+      window.MrMacsMultiplayer.openLobbyModal();
+    } else {
+      alert("Multiplayer module not loaded. Refresh the page if it just finished initializing.");
+    }
+  });
+  $("btnReset").addEventListener("click", function () {
+    if (!confirm("This will clear this browser's profile, leaderboards, and progress. Other browsers are unaffected. Continue?")) return;
+    try {
+      // Clear arcade-related keys
+      var keys = [];
+      for (var i = 0; i < localStorage.length; i++) keys.push(localStorage.key(i));
+      keys.forEach(function (k) {
+        if (/^mr-macs-arcade|^arcade\./.test(k)) localStorage.removeItem(k);
+      });
+      sessionStorage.clear();
+    } catch (e) {}
+    alert("Reset complete. Returning to arcade home.");
+    location.href = "../index.html";
+  });
+
+  // ── Boot ───────────────────────────────────────────────────────────
+  function boot() {
+    refreshStats();
+    renderWeakTopics();
+    renderCourseCoverage();
+    renderSavedClasses();
+    if (window.MrMacsProfile && typeof window.MrMacsProfile.on === "function") {
+      window.MrMacsProfile.on("profile:update", function () { refreshStats(); renderWeakTopics(); });
+    }
+    // Retry bank coverage + classes after a delay (modules load via defer)
+    setTimeout(function () { renderCourseCoverage(); renderSavedClasses(); }, 1500);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+</body>
+</html>
