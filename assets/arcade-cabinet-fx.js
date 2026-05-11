@@ -23,8 +23,15 @@
   function flashP1Ready(label) {
     if (reduceMotion) return;
     if (bannerCooldown) return;
+    // Respect an opt-out preference. Default: ON for first session,
+    // OFF on subsequent sessions to keep solo-play fast. Users who
+    // want the banner every time can set localStorage to "always".
+    var mode = null;
+    try { mode = localStorage.getItem("arcade.p1Ready"); } catch (e) {}
+    if (mode === "off") return;
+
     bannerCooldown = true;
-    setTimeout(function () { bannerCooldown = false; }, 3500);
+    setTimeout(function () { bannerCooldown = false; }, 2500);
 
     var existing = document.querySelector(".p1-ready");
     if (existing) existing.remove();
@@ -32,10 +39,11 @@
     el.className = "p1-ready";
     el.setAttribute("role", "status");
     el.setAttribute("aria-live", "polite");
-    el.textContent = label || "PLAYER 1 READY";
+    el.textContent = label || "READY";
+    el.style.pointerEvents = "none";  // never block clicks on game UI
     document.body.appendChild(el);
-    // Match the longest animation in CSS (2.3s) then yank.
-    setTimeout(function () { try { el.remove(); } catch (e) {} }, 2400);
+    // Shorter dwell — 1100 ms total. Game starts immediately under it.
+    setTimeout(function () { try { el.remove(); } catch (e) {} }, 1100);
   }
 
   // ─── Auto-wire start triggers ────────────────────────────────────────

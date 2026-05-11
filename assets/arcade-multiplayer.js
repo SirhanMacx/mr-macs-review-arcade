@@ -275,10 +275,11 @@
   function injectStyles() {
     if (!document.head || document.getElementById(STYLE_ID)) return;
     var css =
-      ".mmp-fab{position:fixed;right:14px;bottom:60px;z-index:60;padding:10px 14px;background:linear-gradient(135deg,#5de0f0,#3aa7c2);color:#04060f;font:800 12px/1 'Inter',sans-serif;letter-spacing:.05em;border:1px solid rgba(93,224,240,.7);border-radius:999px;box-shadow:0 8px 22px rgba(93,224,240,.32);cursor:pointer;display:inline-flex;align-items:center;gap:8px;}\n" +
-      ".mmp-fab:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(93,224,240,.45);}\n" +
-      ".mmp-fab .mmp-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff3858;box-shadow:0 0 6px rgba(255,56,88,.9);animation:mmpDot 1.2s ease-in-out infinite;}\n" +
-      "@keyframes mmpDot{50%{opacity:0.4;}}\n" +
+      /* Multiplayer link — small, quiet, topnav-level. Solo play is primary. */
+      ".mmp-nav-link{appearance:none;background:transparent;border:1px solid rgba(93,224,240,.20);color:rgba(216,220,235,.75);padding:6px 10px;border-radius:6px;font:600 12px/1 'Inter',sans-serif;letter-spacing:.02em;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:color 150ms,border-color 150ms,background 150ms;}\n" +
+      ".mmp-nav-link:hover,.mmp-nav-link:focus-visible{color:#5de0f0;border-color:rgba(93,224,240,.5);background:rgba(93,224,240,.08);outline:none;}\n" +
+      ".mmp-nav-link .mmp-icon{font-size:13px;line-height:1;opacity:.85;}\n" +
+      "@media (max-width:720px){.mmp-nav-link .mmp-label{display:none;}}\n" +
       ".mmp-modal-bg{position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);display:grid;place-items:center;padding:20px;}\n" +
       ".mmp-modal{width:min(420px,100%);background:linear-gradient(180deg,#11151f,#06070d);color:#f0f3fa;border:1px solid rgba(93,224,240,.32);border-radius:14px;padding:22px;box-shadow:0 32px 80px rgba(0,0,0,.7);}\n" +
       ".mmp-modal h2{margin:0 0 4px;font:900 22px/1.1 'Fraunces',serif;font-style:italic;}\n" +
@@ -309,18 +310,29 @@
 
   function mountHubButton() {
     if (!document.body) return;
-    // Skip on game pages (game-marquee already mounted; multiplayer is hub-level)
+    // Skip on game pages (multiplayer entry-point is hub-only)
     if (document.body.hasAttribute("data-game-page")) return;
-    if (document.getElementById("mmpFab")) return;
+    if (document.getElementById("mmpNavLink")) return;
     injectStyles();
-    var btn = document.createElement("button");
-    btn.id = "mmpFab";
-    btn.className = "mmp-fab";
-    btn.type = "button";
-    btn.innerHTML = '<span class="mmp-dot"></span><span>🎮 Multiplayer</span>';
-    btn.setAttribute("aria-label", "Open multiplayer lobby");
-    btn.addEventListener("click", openLobbyModal);
-    document.body.appendChild(btn);
+    // Mount as a quiet topnav link next to SFX toggle. Solo play is the
+    // primary mode — multiplayer is one feature among many, not the
+    // showcase. (Jon: "this should be a solo forward review app first.")
+    var topnav = document.querySelector(".topbar .topnav") || document.querySelector(".topnav");
+    if (!topnav) return;
+    var link = document.createElement("button");
+    link.id = "mmpNavLink";
+    link.className = "mmp-nav-link";
+    link.type = "button";
+    link.innerHTML = '<span class="mmp-icon" aria-hidden="true">🎮</span><span class="mmp-label">Multiplayer</span>';
+    link.setAttribute("aria-label", "Open multiplayer lobby — optional feature");
+    link.addEventListener("click", openLobbyModal);
+    // Insert before profile pill if present (otherwise append)
+    var sfxToggle = topnav.querySelector("#sfxToggle");
+    if (sfxToggle && sfxToggle.parentNode === topnav) {
+      topnav.insertBefore(link, sfxToggle);
+    } else {
+      topnav.appendChild(link);
+    }
   }
 
   var _modalOpenRoom = null;
