@@ -2,7 +2,7 @@
    Atlas 2048 — Sliding merge puzzle · Mr. Mac's Review Arcade
    Vanilla JS · Canvas · Era tiles (Stone Age → Singularity → Omega)
    4x4 grid (5x5 unlock at score 100k) · 3 lives per run · 5 power-ups
-   Scholar tile (1 per game lifetime) merges to spawn optional review prompt.
+   Scholar tiles recur every 6-14 merges; each merge opens an optional review prompt.
    Game first; review optional.
    =========================================================================== */
 (function () {
@@ -28,10 +28,14 @@
   var GRID_UNLOCK_SCORE = 100000;
   var SHARDS_CAP = 200;
 
-  // Scholar tile drop — once per "game lifetime" (across all 3 lives in a run).
-  // We pick a target merge count between 12 and 26; spawn at that merge.
-  var SCHOLAR_MERGE_MIN = 6;            // was 12 — Jon: more review opportunities
-  var SCHOLAR_MERGE_MAX = 14;           // was 26
+  // Scholar tile drop — RECURRING throughout the game.
+  // Initial scholar appears at SCHOLAR_FIRST_MERGE_*; subsequent scholars
+  // re-arm at SCHOLAR_MERGE_* merges after the previous one resolves.
+  // This gives 4-8 review opportunities per ~70-merge game, vs. the old 1.
+  var SCHOLAR_FIRST_MERGE_MIN = 4;      // first scholar appears early to teach the mechanic
+  var SCHOLAR_FIRST_MERGE_MAX = 8;
+  var SCHOLAR_MERGE_MIN = 6;            // each subsequent scholar
+  var SCHOLAR_MERGE_MAX = 12;
 
   // Powerup default counts at run start
   var POWERUP_INIT = {
@@ -615,6 +619,12 @@
       state.history = [];
       state.mergesThisLife = 0;
       // Keep totalMerges so scholar spawn target remains coherent across lives.
+      // If a scholar tile was on the board (now wiped), re-arm so the next life
+      // can still spawn one — otherwise players who die holding a scholar lose
+      // all review opportunities for the rest of the run.
+      if (state.scholarSpawned) {
+        rearmScholar();
+      }
       // Two starting tiles per fresh life.
       spawnTile({ value: 2 });
       spawnTile({ value: 2 });
@@ -683,7 +693,7 @@
       // Scholar lifetime
       totalMerges: opts.totalMerges || 0,
       mergesThisLife: opts.mergesThisLife || 0,
-      scholarTargetMerges: opts.scholarTargetMerges || (SCHOLAR_MERGE_MIN + Math.floor(Math.random() * (SCHOLAR_MERGE_MAX - SCHOLAR_MERGE_MIN + 1))),
+      scholarTargetMerges: opts.scholarTargetMerges || (SCHOLAR_FIRST_MERGE_MIN + Math.floor(Math.random() * (SCHOLAR_FIRST_MERGE_MAX - SCHOLAR_FIRST_MERGE_MIN + 1))),
       scholarSpawned: !!opts.scholarSpawned,
       // Stats
       shardsAwarded: opts.shardsAwarded || 0,
@@ -1781,6 +1791,15 @@
     setTimeout(function () { closeQuestion(correct); }, 1100);
   }
 
+  function rearmScholar() {
+    // Re-arm so another scholar tile will spawn in 6-12 more merges.
+    // This keeps the review opportunities flowing throughout a game.
+    state.scholarSpawned = false;
+    state.scholarTargetMerges = state.totalMerges +
+      SCHOLAR_MERGE_MIN +
+      Math.floor(Math.random() * (SCHOLAR_MERGE_MAX - SCHOLAR_MERGE_MIN + 1));
+  }
+
   function closeQuestion(wasCorrect) {
     if (wasCorrect) {
       state.score += SCORE_SCHOLAR_CORRECT;
@@ -1792,6 +1811,7 @@
       } catch (e) {}
       pushPopup("+" + SCORE_SCHOLAR_CORRECT + " SCHOLAR", LOGICAL_W / 2, 90, "is-bonus");
     }
+    rearmScholar();
     activeQuestion = null;
     pendingScholarMerge = null;
     phase = prevPhase || "playing";
@@ -1803,6 +1823,7 @@
   }
 
   function skipQuestion() {
+    rearmScholar();
     activeQuestion = null;
     pendingScholarMerge = null;
     phase = prevPhase || "playing";

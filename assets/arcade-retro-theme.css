@@ -2189,3 +2189,41 @@ body:not([data-game-page]) #attractCarousel { display: none !important; }
 @media (max-width: 540px) {
   .std-chip { font-size: 7.5px; padding: 2px 5px; top: 8px; right: 8px; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   40. GAME-PAGE TOAST SUPPRESSION — May 11 2026
+   On hub pages, achievement/SR toasts at top-right are fine (no UI
+   collision). On game pages they sit on top of the HUD (lives, score,
+   era) at the top, on the powerup tray at the bottom, or on the canvas
+   in the middle — there is literally no safe position during gameplay
+   on a portrait phone. Jon flagged this on atlas-2048: "banner of items
+   sort of on the board and in the way."
+
+   Solution: hide the toast container entirely on game pages. The
+   achievements still persist to the profile via window.MrMacsProfile,
+   so players see them when they return to the hub. No data is lost,
+   only the in-game blocking visual.
+
+   We allow critical "error" tone toasts to still appear (e.g. if a
+   game-level integration error fires) since those signal something
+   the player must know about.
+   ═══════════════════════════════════════════════════════════════════════ */
+body[data-game-page] .arcade-toast-container {
+  pointer-events: none !important;
+}
+body[data-game-page] .arcade-toast {
+  display: none !important;
+}
+body[data-game-page] .arcade-toast[data-tone="error"],
+body[data-game-page] .arcade-toast[data-tone="warn"] {
+  display: flex !important;
+  /* Bottom-corner anchor so even error toasts don't block the HUD or board. */
+  position: fixed !important;
+  bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+  right: 12px !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  max-width: 260px !important;
+  z-index: 9500 !important;
+}
