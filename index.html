@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#06080f">
 <meta name="description" content="Mr. Mac's Review Arcade — full Regents practice, quick-play warmups, AP review, and social studies review games. 180+ games.">
+<link rel="manifest" href="manifest.json">
 <link rel="icon" href="data:,">
 <title>Mr. Mac's Review Arcade</title>
 <script>
@@ -15079,6 +15080,28 @@ boot();
     });
   });
 })();
+</script>
+
+<script>
+  // PWA: register the service worker (cache-first for assets, network-first
+  // for HTML/JSON). Path is relative so the same registration works for
+  // local dev, GitHub Pages subpath (/mr-macs-review-arcade/), and any
+  // future custom domain. Failures silently degrade — arcade still works.
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("./service-worker.js", { scope: "./" })
+        .then(function (reg) {
+          if (window.console && console.info) {
+            console.info("[arcade] service worker registered:", reg.scope);
+          }
+        })
+        .catch(function (err) {
+          if (window.console && console.warn) {
+            console.warn("[arcade] service worker registration failed:", err);
+          }
+        });
+    });
+  }
 </script>
 </body>
 </html>
