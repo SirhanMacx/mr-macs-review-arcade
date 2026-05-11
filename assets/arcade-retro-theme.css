@@ -1188,6 +1188,26 @@ body[data-game-page] {
   .game-marquee::before,
   .game-marquee::after { animation: none; }
 }
+@media (max-width: 540px) {
+  /* Slimmer per-game marquee on mobile portrait — was 41px (two-line
+     wrap), now single-line ~16px. Frees the canvas real estate that
+     was being squeezed AND eliminates the awkward wrap. */
+  .game-marquee {
+    padding: 3px 8px 2px;
+    font-size: 6px;
+    gap: 5px;
+    letter-spacing: 0.10em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .game-marquee > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .game-marquee::before,
+  .game-marquee::after { height: 1px; background-size: 14px 100%; }
+}
 
 /* ═══════════════════════════════════════════════════════════════════════
    23. CABINET SIDE-BEZEL on the entire page body
@@ -1441,8 +1461,11 @@ body::before {
   .cabinet-status-ribbon .csr-player { animation: none; }
 }
 @media (max-width: 520px) {
-  .cabinet-status-ribbon { font-size: 7px; gap: 12px; padding: 4px 8px 5px; }
-  .cabinet-status-ribbon .csr-version { display: none; }
+  /* Hide the cabinet status ribbon on mobile portrait — it was overlapping
+     the bottom of the canvas AND the touch-control row by 30-60 px,
+     making it impossible to see the player/D-pad. Desktop still shows
+     the full decorative ribbon. */
+  .cabinet-status-ribbon { display: none; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
