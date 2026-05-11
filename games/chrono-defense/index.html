@@ -157,6 +157,38 @@
 <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
 <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
+<script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+<script>
+(function () {
+  "use strict";
+  var GAME_ID = "chrono-defense";
+  if (!window.MrMacsHelpOverlay) return;
+  window.MrMacsHelpOverlay.register(GAME_ID, {
+    title: "How to Play — Chrono Defense",
+    goal: "Tower-defense across eras. Defend the timeline against waves of misinformation. Build towers, answer review questions correctly to power them up, slow time, or fire source-strikes. 30 waves per era. Each correct answer fuels the Review Reactor.",
+    controls: [
+      { key: "Click stage",  action: "Place a tower on the buildable hex (after selecting one)" },
+      { key: "Click tower",  action: "Upgrade it / view its stats" },
+      { key: "1 / 2 / 3",    action: "Quick-select tower types" },
+      { key: "Click choice", action: "Answer the current question in the Reactor" },
+      { key: "Type answer",  action: "Some prompts accept free-text — press Enter to submit" },
+      { key: "Library",      action: "Open the source library to research between waves" }
+    ],
+    tips: [
+      "Don't build everywhere. Bottleneck the lane, stack towers at choke points.",
+      "Correct answers power up your nearest tower temporarily — chain them for sustained boost.",
+      "Streak counter doubles bonuses. Don't risk an obvious wrong answer when you're hot.",
+      "Watch the Wave progress bar — boss enemies always appear at wave 10, 20, 30.",
+      "Library button (top-right) pauses the wave and lets you research the source. Use it on tough source questions."
+    ],
+    scholar: "Every wave's review questions feed the Reactor. Correct = tower boost / time slow / source strike. Wrong = no penalty, but no boost either. Streak threshold of 5 unlocks a 'Source Strike' that one-shots the toughest enemy on screen."
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    var hud = document.querySelector(".topbar .hud");
+    if (hud) window.MrMacsHelpOverlay.mountButton(hud, GAME_ID, { label: "?" });
+  });
+})();
+</script>
 <script src="game.js?v=20260509-polish"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
