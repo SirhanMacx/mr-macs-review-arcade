@@ -5249,6 +5249,43 @@ input[type="search"]::-webkit-search-cancel-button:hover { opacity: 1; backgroun
 @media (max-width: 480px) {
   .pd-settings-grid { grid-template-columns: 1fr; }
 }
+/* Friday Practice section in profile drawer */
+.pd-friday-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 480px) {
+  .pd-friday-grid { grid-template-columns: 1fr; }
+}
+.pd-friday-btn {
+  grid-column: 1 / -1;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #b58a2a, #f5c451);
+  color: #1a1408;
+  border: 1px solid rgba(245, 196, 81, .65);
+  border-radius: 10px;
+  font: 800 13px/1 "Inter", sans-serif;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 150ms, box-shadow 150ms;
+  box-shadow: 0 8px 20px rgba(181, 138, 42, .35);
+}
+.pd-friday-btn:hover, .pd-friday-btn:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(181, 138, 42, .45);
+  outline: none;
+}
+.pd-friday-btn span:first-child { font-size: 16px; }
+.pd-friday-hint {
+  grid-column: 1 / -1;
+  margin: 0;
+  font: 500 11.5px/1.4 "Inter", sans-serif;
+  color: var(--muted, #9aa3bb);
+  font-style: italic;
+  text-align: center;
+}
 .pd-setting {
   display: flex; flex-direction: column; gap: 6px;
   padding: 10px 12px;
@@ -8087,6 +8124,40 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         </div>
       </section>
 
+      <!-- Friday Practice — exports the player's recent wrong-answer
+           queue as a printable / save-as-PDF worksheet. Teacher
+           superpower: hand it to the student as Friday homework. -->
+      <section class="pd-section pd-section-friday">
+        <header class="pd-section-head">
+          <h3>Friday Practice</h3>
+          <span class="pd-section-meta" id="pdFridayMeta">Turn your wrong-answer queue into a printable worksheet.</span>
+        </header>
+        <div class="pd-friday-grid">
+          <label class="pd-setting">
+            <span>Question count</span>
+            <select id="fridayCount">
+              <option value="10">10 questions</option>
+              <option value="20" selected>20 questions</option>
+              <option value="30">30 questions</option>
+              <option value="40">40 questions</option>
+            </select>
+          </label>
+          <label class="pd-setting">
+            <span>Format</span>
+            <select id="fridayFormat">
+              <option value="worksheet" selected>Worksheet (with answer key)</option>
+              <option value="student">Student copy only</option>
+              <option value="key">Answer key only</option>
+            </select>
+          </label>
+          <button class="pd-friday-btn" id="fridayPrintBtn" type="button">
+            <span>📄</span>
+            <span>Print Friday Practice</span>
+          </button>
+          <p class="pd-friday-hint" id="pdFridayHint">Opens a print-ready page. Save as PDF or print directly.</p>
+        </div>
+      </section>
+
       <section class="pd-section pd-section-settings">
         <header class="pd-section-head">
           <h3>Settings</h3>
@@ -8848,6 +8919,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
      loads first, the dedicated rich-API modules bail and the hub gets
      stuck on the slim 5-method stub (breaking e.g. globe.personalBest). -->
 <script src="assets/arcade-leaderboards.js?v=20260511-filter-admin"></script>
+<script src="assets/arcade-friday-practice.js?v=20260511-friday-v1"></script>
 <script src="assets/arcade-sessions.js?v=20260510-sessions"></script>
 <script src="assets/arcade-progress-extras.js?v=20260511-no-clobber"></script>
 <script src="assets/arcade-cram-mode.js?v=20260509-cram"></script>
