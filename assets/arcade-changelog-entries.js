@@ -15,6 +15,19 @@
     window.MrMacsChangelog.register([
       {
         date: "2026-05-11",
+        version: "v6.10",
+        headline: "Deep audit shipped — pedagogical loop closed, SEO landed, AP Psych unblocked",
+        items: [
+          { kind: "new", text: "PEDAGOGICAL LOOP CLOSED: spaced-repetition wired into 10 flagship games. Every wrong answer now resurfaces in future plays at scientifically-paced intervals (1, 3, 7, 14 days). Master a card 5 times → it retires. Affects: snake-pit, brickoria, atlas-2048, cube-crash, cascade, chronoblocks, sokoban-scribe, sudoku-scribe, mahjong-mosaic, knights-quest." },
+          { kind: "new", text: "DRILL YOUR MISSES card surfaces on the hub whenever you have due cards. Click to jump straight into Snake Pit for targeted retrieval practice. Auto-hides when queue is empty; live-updates as cards retire." },
+          { kind: "new", text: "AP PSYCHOLOGY bank: +73 questions across all 6 CED units (Pavlov to Zimbardo, action potentials to social influence). Unblocks 7 existing Jeopardy boards + makes AP Psych students first-class citizens of the arcade. Bank total: 1937 → 2010 questions across 17 courses." },
+          { kind: "new", text: "SEO production-ready: canonical URL, Open Graph + Twitter Cards (rich previews on iMessage/Slack), JSON-LD EducationalOrganization + WebApplication schema, real multi-size favicon, sitemap.xml (79 URLs), robots.txt." },
+          { kind: "perf", text: "True offline PWA: service worker precache expanded from 19 → 55 assets. Every feature works without network after first load. Includes Friday Practice, Multiplayer, recommender, mastery engine, all 36 other modules." },
+          { kind: "fix", text: "Code hygiene: deleted 1,956 lines of orphan code (4 JS files with zero HTML references). Added aria-labels to previously unlabeled inputs (welcome name, music volume, SFX volume, hide-locked-achievements checkbox)." }
+        ]
+      },
+      {
+        date: "2026-05-11",
         version: "v6.9",
         headline: "Teacher superpowers — Daily Leaderboard + Friday Practice + Live Multiplayer",
         items: [
