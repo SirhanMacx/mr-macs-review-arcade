@@ -216,7 +216,40 @@
   <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
   <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "sudoku-scribe";
+    if (!window.MrMacsHelpOverlay) return;
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Sudoku Scribe",
+      goal: "Solve 9×9 sudoku grids across four difficulty tiers. Click a cell and tap 1–9 to fill it; hold or right-click for pencil marks. Mind the red conflict glow. Gold scholar cells trigger optional review prompts for bonus shards.",
+      controls: [
+        { key: "Click / Tap",  action: "Select a cell" },
+        { key: "↑ ↓ ← →",      action: "Move selection one cell" },
+        { key: "1 – 9",        action: "Fill the selected cell with a digit" },
+        { key: "0 / Backspace", action: "Clear the selected cell" },
+        { key: "Shift + 1-9",  action: "Toggle a pencil mark (right-click also works)" },
+        { key: "U",            action: "Undo the last fill" },
+        { key: "P / Esc",      action: "Pause or resume" }
+      ],
+      tips: [
+        "Start with the 'naked singles' — cells where only one digit can go.",
+        "Pencil marks are your friend. Mark every possibility in the trouble cells, then look for pairs.",
+        "Red glow = conflict. Don't ignore it — sudoku grids have exactly one solution.",
+        "Scholar cells have a gold rim. Fill them correctly to fire a paired review prompt.",
+        "Each difficulty tier shrinks the starting clues — Casual ~36, Nightmare ~20."
+      ],
+      scholar: "Gold-rim scholar cells fire a paired review prompt when filled correctly. Right answer = +1500 score + 12 shards."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setupScreen .setup-actions");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script src="game.js?v=20260510-sudoku-scribe-resize"></script>
 </body>
 </html>

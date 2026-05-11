@@ -193,7 +193,39 @@
   <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
   <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "knights-quest";
+    if (!window.MrMacsHelpOverlay) return;
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Knight's Quest",
+      goal: "Plunge into a five-floor dungeon of procedural rooms. Slash goblins, dodge skeletons, split slimes, phase past wraiths. Loot chests with keys, drink potions, grab relics for passive bonuses. Floor 5: face the Misconception Lord. Three lives.",
+      controls: [
+        { key: "W A S D",      action: "Move the knight in 4 directions" },
+        { key: "↑ ↓ ← →",      action: "Same as WASD" },
+        { key: "Space",        action: "Slash — strike the tile in front of you" },
+        { key: "Shift",        action: "Block (timed) — reduces incoming damage" },
+        { key: "E",            action: "Interact — open chest, drink potion, use door" },
+        { key: "P / Esc",      action: "Pause or resume" }
+      ],
+      tips: [
+        "Goblins close range; skeletons fire from afar — close the gap fast.",
+        "Slimes split when slashed. Save your last hit for cornered halves.",
+        "Wraiths phase through walls. Don't run — bait them onto a tile and slash.",
+        "Keys are precious. Skip the chest if you're below half health and need to reach the door.",
+        "Gold-rim scholar relics fire an optional review. Correct answer = legendary tier bonuses (+1500 score, 12 shards)."
+      ],
+      scholar: "Scholar relics shimmer gold on the floor. Pick one up to fire a paired review prompt. Right answer = legendary-tier relic + bonus shards."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setupScreen .setup-actions");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script src="game.js?v=20260509-knightsquest"></script>
 </body>
 </html>

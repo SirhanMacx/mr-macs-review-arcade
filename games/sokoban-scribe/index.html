@@ -201,7 +201,38 @@
   <script src="../../assets/arcade-tour.js?v=20260508-tour"></script>
   <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "sokoban-scribe";
+    if (!window.MrMacsHelpOverlay) return;
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Sokoban Scribe",
+      goal: "You are the librarian-scribe of the Great Archive. Push parchment scrolls onto gold goal-shelves across 30 hand-crafted levels, then endless mode. Watch for trap-tiles, ice slides, one-way arrows, and pressure plates. Gold-rim scholar scrolls trigger optional review prompts for bonus shards.",
+      controls: [
+        { key: "↑ ↓ ← →",     action: "Push the scribe — direction nudges adjacent scroll" },
+        { key: "W A S D",     action: "Same as arrows" },
+        { key: "U",           action: "Undo the last move" },
+        { key: "R",           action: "Restart the current level from scratch" },
+        { key: "P / Esc",     action: "Pause or resume" }
+      ],
+      tips: [
+        "Plan a route before pushing — scrolls can only be pushed, never pulled.",
+        "A scroll pushed against a wall corner is permanently stuck; restart with R.",
+        "Ice tiles slide both the scribe AND the scroll until something stops them.",
+        "Use U liberally — there's no penalty for undoing a move.",
+        "Scholar scrolls have a gold rim. Land one on a shelf to fire a paired review prompt."
+      ],
+      scholar: "Scholar scrolls fire an optional review prompt when delivered. Right answer = bonus shards + level continues; wrong answer = no penalty."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setupScreen .setup-actions");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script src="game.js?v=20260510-sokoban-scribe-resize"></script>
 </body>
 </html>
