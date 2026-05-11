@@ -8920,6 +8920,11 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
      stuck on the slim 5-method stub (breaking e.g. globe.personalBest). -->
 <script src="assets/arcade-leaderboards.js?v=20260511-filter-admin"></script>
 <script src="assets/arcade-friday-practice.js?v=20260511-friday-v1"></script>
+<!-- PeerJS — free public WebRTC signaling server. ~12 KB gzipped.
+     Powers arcade-multiplayer.js room/peer creation. Loaded async +
+     defer so it doesn't block initial paint. -->
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
+<script src="assets/arcade-multiplayer.js?v=20260511-multiplayer-v1" defer></script>
 <script src="assets/arcade-sessions.js?v=20260510-sessions"></script>
 <script src="assets/arcade-progress-extras.js?v=20260511-no-clobber"></script>
 <script src="assets/arcade-cram-mode.js?v=20260509-cram"></script>
