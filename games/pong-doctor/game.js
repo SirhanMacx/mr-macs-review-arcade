@@ -1366,7 +1366,7 @@
         var col = b.isScholar ? "#f5c451" : (b.isTrick ? "#f07060" : "#5de0f0");
         ctx.fillStyle = hexA(col, alpha);
         ctx.beginPath();
-        ctx.arc(pt.x, pt.y, b.r * (0.4 + pt.life * 0.6), 0, Math.PI * 2);
+        ctx.arc(pt.x, pt.y, Math.max(0.1, b.r * (0.4 + Math.max(0, pt.life) * 0.6)), 0, Math.PI * 2);
         ctx.fill();
       }
     }
