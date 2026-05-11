@@ -6071,6 +6071,20 @@ input[type="search"]::-webkit-search-cancel-button:hover { opacity: 1; backgroun
   display: flex; align-items: center; gap: 12px;
   flex-shrink: 0;
 }
+/* Today's top scores panel inside the daily-band */
+.daily-leaderboard {
+  grid-column: 1 / -1;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(245, 196, 81, .15);
+}
+.daily-leaderboard:empty { display: none; }
+.daily-lb-empty {
+  padding: 8px 10px;
+  font: 600 12.5px/1.4 "Inter", sans-serif;
+  color: rgba(216, 220, 235, .65);
+  font-style: italic;
+}
 .daily-cta {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 12px 18px;
@@ -8432,6 +8446,9 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         </button>
         <span class="daily-status" id="dailyStatus"></span>
       </div>
+      <!-- Today's top scores leaderboard. Populated by renderDailyLeaderboard()
+           every time the band renders. Hidden when no scores yet. -->
+      <div class="daily-leaderboard" id="dailyLeaderboard" aria-live="polite"></div>
     </div>
   </section>
 
@@ -8830,9 +8847,9 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
      modules use single-key idempotency guards, so if progress-extras
      loads first, the dedicated rich-API modules bail and the hub gets
      stuck on the slim 5-method stub (breaking e.g. globe.personalBest). -->
-<script src="assets/arcade-leaderboards.js?v=20260510-leaderboards"></script>
+<script src="assets/arcade-leaderboards.js?v=20260511-filter-admin"></script>
 <script src="assets/arcade-sessions.js?v=20260510-sessions"></script>
-<script src="assets/arcade-progress-extras.js?v=20260510-progress-extras"></script>
+<script src="assets/arcade-progress-extras.js?v=20260511-no-clobber"></script>
 <script src="assets/arcade-cram-mode.js?v=20260509-cram"></script>
 <script src="assets/arcade-onboarding-flow.js?v=20260509-onboarding"></script>
 <script src="assets/arcade-quick-stats-panel.js?v=20260509-quickstats"></script>
@@ -12542,6 +12559,31 @@ boot();
     var dailyCard = band.querySelector(".daily-card");
     if (dailyCard) dailyCard.classList.toggle("is-done", completed);
     band.hidden = false;
+
+    // Render Today's top scores leaderboard for this challenge's game
+    renderDailyLeaderboard(pick);
+  }
+
+  // ── Today's Top Scores ─────────────────────────────────────────────
+  // Renders top-5 scoreboard for the daily challenge game directly into
+  // the daily-band. Hidden when no scores yet to avoid an empty band.
+  // Admin mode (?admin=mrmac-arcade-admin-2026 in URL) surfaces a delete
+  // button on each row via MrMacsLeaderboards.renderGameLeaderboard.
+  function renderDailyLeaderboard(pick) {
+    var slot = document.getElementById("dailyLeaderboard");
+    if (!slot || !pick) return;
+    if (!window.MrMacsLeaderboards || !window.MrMacsLeaderboards.renderGameLeaderboard) {
+      slot.innerHTML = "";
+      return;
+    }
+    var rows = window.MrMacsLeaderboards.top(pick.id, 5);
+    if (!rows || rows.length === 0) {
+      slot.innerHTML = '<div class="daily-lb-empty">Be the first to post a score on today\'s challenge.</div>';
+      return;
+    }
+    window.MrMacsLeaderboards.renderGameLeaderboard(pick.id, slot, function () {
+      return "Today's Top Scores · " + (pick.title || "");
+    });
   }
 
   // ---- Continue rail ----

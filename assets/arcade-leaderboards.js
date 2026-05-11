@@ -92,6 +92,112 @@
   var STYLE_ID     = "arcade-leaderboards-styles";
 
   // ── Storage ──────────────────────────────────────────────────────
+  // ── Content filter — protects shared leaderboards from inappropriate
+  //    names. Pattern: normalize the candidate (strip non-alpha, fold
+  //    leet-speak digits to letters, lowercase), then test against a
+  //    curated word-stem blocklist. If any stem matches as a substring,
+  //    the name is rejected. We're strict by design: false positives are
+  //    fine (the player gets "PLAYER") but false negatives are bad
+  //    (an inappropriate name reaches teachers + students).
+  //
+  //    The list is intentionally compact: just stems, no plurals or
+  //    variants needed (substring match handles those). Teachers can
+  //    extend at runtime via MrMacsLeaderboards.addBlockedTerm("xxx").
+  var BLOCKED_STEMS = [
+    // sexual / explicit
+    "fuck","fck","fuk","shit","sht","piss","cunt","cnt","dick","cock","cok",
+    "pussy","pusy","penis","vagina","boob","tit","tts","anal","anus","ass",
+    "arse","sex","porn","prn","cum","jizz","slut","whore","hoe","bitch",
+    "btch","bastrd","bastard","blowjob","handjob","jerk","wank","masturb",
+    // slurs (race / orientation / disability / religious)
+    "nigg","ngr","fag","fgt","retard","retrd","rtrd","spic","chink","kike",
+    "wetback","trann","tranny","gook","jap","beaner","cracker","honky",
+    "dyke","queer","homo",
+    // violence / extremist
+    "kill","hitler","heil","nazi","isis","kkk","lynch","rape","rpe","jihad",
+    // common substitutions
+    "azz","azs","arsh","biotch","b1tch","b!tch"
+  ];
+  // Leet-fold map. Digits + symbols → likely letter.
+  var LEET_MAP = { "0":"o","1":"i","!":"i","|":"i","3":"e","4":"a","@":"a","5":"s","$":"s","7":"t","+":"t","8":"b","9":"g" };
+  function normalizeForFilter(s) {
+    if (!s) return "";
+    var out = "";
+    var lower = String(s).toLowerCase();
+    for (var i = 0; i < lower.length; i++) {
+      var ch = lower[i];
+      if (LEET_MAP[ch]) { out += LEET_MAP[ch]; continue; }
+      if (ch >= "a" && ch <= "z") out += ch;
+    }
+    return out;
+  }
+  function isBlockedName(s) {
+    var norm = normalizeForFilter(s);
+    if (!norm) return false;
+    for (var i = 0; i < BLOCKED_STEMS.length; i++) {
+      if (norm.indexOf(BLOCKED_STEMS[i]) !== -1) return true;
+    }
+    return false;
+  }
+  function sanitizeDisplayName(s) {
+    var trimmed = String(s || "").trim().slice(0, 24);
+    if (!trimmed) return "PLAYER";
+    if (isBlockedName(trimmed)) return "PLAYER";
+    return trimmed;
+  }
+  function addBlockedTerm(stem) {
+    var norm = normalizeForFilter(stem);
+    if (!norm) return false;
+    if (BLOCKED_STEMS.indexOf(norm) !== -1) return false;
+    BLOCKED_STEMS.push(norm);
+    // Persist custom adds so teachers' extensions survive reloads
+    try {
+      var raw = localStorage.getItem("arcade.lb.customBlocklist") || "[]";
+      var custom = JSON.parse(raw);
+      if (custom.indexOf(norm) === -1) custom.push(norm);
+      localStorage.setItem("arcade.lb.customBlocklist", JSON.stringify(custom));
+    } catch (e) {}
+    return true;
+  }
+  // Load any persisted custom blocklist extensions on init
+  try {
+    var savedRaw = localStorage.getItem("arcade.lb.customBlocklist");
+    if (savedRaw) {
+      var savedCustom = JSON.parse(savedRaw);
+      if (Array.isArray(savedCustom)) {
+        for (var bi = 0; bi < savedCustom.length; bi++) {
+          if (BLOCKED_STEMS.indexOf(savedCustom[bi]) === -1) {
+            BLOCKED_STEMS.push(savedCustom[bi]);
+          }
+        }
+      }
+    }
+  } catch (e) {}
+
+  // ── Admin mode — visible iff URL param matches token, OR a previous
+  //    visit set the admin flag in sessionStorage. Admin sees a delete
+  //    button on every leaderboard row. The token is intentionally
+  //    embedded in client code — this is a teacher-tool privacy model,
+  //    not bank-grade auth. Change the token here when needed.
+  var ADMIN_TOKEN = "mrmac-arcade-admin-2026";
+  function isAdmin() {
+    try {
+      if (sessionStorage.getItem("arcade.lb.admin") === "1") return true;
+    } catch (e) {}
+    try {
+      var params = new URLSearchParams(location.search);
+      var t = params.get("admin");
+      if (t && t === ADMIN_TOKEN) {
+        try { sessionStorage.setItem("arcade.lb.admin", "1"); } catch (e) {}
+        return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+  function adminLogout() {
+    try { sessionStorage.removeItem("arcade.lb.admin"); } catch (e) {}
+  }
+
   function readStore() {
     try {
       var raw = root.localStorage && root.localStorage.getItem(STORAGE_KEY);
@@ -282,7 +388,12 @@
     var profileId = activeProfileId();
     if (!profileId) return null;
 
-    var name   = (displayName ? String(displayName).slice(0, 24) : "") || activeProfileName() || "Trainer";
+    var rawName = (displayName ? String(displayName) : "") || activeProfileName() || "Trainer";
+    // Sanitize against content-filter blocklist + leet-speak normalization.
+    // If the name is judged inappropriate, replace with "PLAYER" so the
+    // score still posts (denying credit to the player creates worse UX
+    // than silently scrubbing the name). Limit to 24 chars after sanitize.
+    var name = sanitizeDisplayName(rawName);
     var avatar = activeProfileAvatar();
 
     var list = readEntries(id);
@@ -411,6 +522,24 @@
     }
   }
 
+  // ── deleteEntry() — admin-only surgical removal of a single row.
+  //    Identifies by profileId + ts (timestamp), which together are
+  //    unique within a gameId's list. Returns true on success.
+  function deleteEntry(gameId, profileId, ts) {
+    if (!isAdmin()) return false;
+    var id = safeGameId(gameId);
+    if (!id) return false;
+    var list = readEntries(id);
+    var before = list.length;
+    var filtered = list.filter(function (e) {
+      return !(e.profileId === profileId && e.ts === ts);
+    });
+    if (filtered.length === before) return false;
+    writeEntries(id, filtered);
+    emit("deleteEntry", { gameId: id, profileId: profileId, ts: ts });
+    return true;
+  }
+
   function resetAll(opts) {
     if (!opts || opts.confirm !== true) return false;
     writeStore({});
@@ -438,7 +567,10 @@
         ".mml-score{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;color:#f0f3fa;}\n" +
         ".mml-when{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#7d869b;font-variant-numeric:tabular-nums;}\n" +
         ".mml-empty{padding:10px 12px;color:#9aa3bb;font-size:12.5px;font-style:italic;}\n" +
-        ".mml-head{font-family:'Fraunces',serif;font-style:italic;font-size:14px;color:#f5f7fb;margin:0 0 8px 0;}\n";
+        ".mml-head{font-family:'Fraunces',serif;font-style:italic;font-size:14px;color:#f5f7fb;margin:0 0 8px 0;}\n" +
+        ".mml-admin-flag{display:inline-block;margin-left:8px;padding:2px 6px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;font-weight:700;color:#ff8a8a;background:rgba(255,56,88,.12);border:1px solid rgba(255,56,88,.5);border-radius:3px;vertical-align:middle;font-style:normal;}\n" +
+        ".mml-admin-del{appearance:none;border:1px solid rgba(255,56,88,.55);background:rgba(255,56,88,.10);color:#ff9aa8;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;width:24px;height:24px;line-height:1;border-radius:5px;cursor:pointer;display:inline-grid;place-items:center;transition:background 120ms,transform 120ms;}\n" +
+        ".mml-admin-del:hover,.mml-admin-del:focus-visible{background:rgba(255,56,88,.28);outline:none;transform:scale(1.08);}\n";
       var style = document.createElement("style");
       style.id = STYLE_ID;
       style.appendChild(document.createTextNode(css));
@@ -474,13 +606,21 @@
     return Math.floor(d / 365) + "y ago";
   }
 
-  function rowHtml(row, idx, activeId) {
+  function rowHtml(row, idx, activeId, gameIdForDelete) {
     var isSelf = activeId && row.profileId === activeId;
     var rankClass = "mml-rank";
     if (idx === 0) rankClass += " is-1";
     else if (idx === 1) rankClass += " is-2";
     else if (idx === 2) rankClass += " is-3";
     var rowClass = "mml-row" + (isSelf ? " is-self" : "");
+    var adminBtn = "";
+    if (gameIdForDelete && isAdmin()) {
+      adminBtn = '<button type="button" class="mml-admin-del" ' +
+                  'data-game-id="' + escHtml(gameIdForDelete) + '" ' +
+                  'data-profile-id="' + escHtml(row.profileId || "") + '" ' +
+                  'data-ts="' + Number(row.ts || 0) + '" ' +
+                  'aria-label="Delete this entry (admin)" title="Delete entry">×</button>';
+    }
     return '<li class="' + rowClass + '" role="listitem">' +
              '<span class="' + rankClass + '" aria-label="Rank ' + (idx + 1) + '">#' + (idx + 1) + '</span>' +
              '<span class="mml-avatar" aria-hidden="true">' + escHtml(row.avatar || "🎓") + '</span>' +
@@ -489,6 +629,7 @@
              '</span>' +
              '<span class="mml-score">' + Number(row.score || 0).toLocaleString() + '</span>' +
              '<span class="mml-when">' + escHtml(relTime(row.ts)) + '</span>' +
+             adminBtn +
            '</li>';
   }
 
@@ -574,13 +715,31 @@
 
       var html =
         '<section class="mml-board" aria-label="' + escHtml(title) + ' leaderboard">' +
-          '<h3 class="mml-head">' + escHtml(title) + '</h3>' +
+          '<h3 class="mml-head">' + escHtml(title) +
+          (isAdmin() ? ' <span class="mml-admin-flag" title="Admin mode — delete buttons enabled">ADMIN</span>' : '') +
+          '</h3>' +
           '<ol class="mml-list" role="list">';
       for (var i = 0; i < rows.length; i++) {
-        html += rowHtml(rows[i], i, pid);
+        html += rowHtml(rows[i], i, pid, id);
       }
       html += '</ol></section>';
       containerEl.innerHTML = html;
+
+      // Wire admin delete clicks if any rendered
+      if (isAdmin()) {
+        var delBtns = containerEl.querySelectorAll(".mml-admin-del");
+        for (var d = 0; d < delBtns.length; d++) {
+          delBtns[d].addEventListener("click", function (e) {
+            e.preventDefault(); e.stopPropagation();
+            var btn = e.currentTarget;
+            var ok = deleteEntry(btn.dataset.gameId, btn.dataset.profileId, Number(btn.dataset.ts));
+            if (ok) {
+              // Re-render the board so the row vanishes immediately
+              renderGameLeaderboard(btn.dataset.gameId, containerEl, resolve);
+            }
+          });
+        }
+      }
     } catch (e) {}
   }
 
@@ -611,6 +770,13 @@
     resetAll:                resetAll,
     clearAll:                function () { return resetAll({ confirm: true }); },
     on:                      on,
-    off:                     off
+    off:                     off,
+    // Content-filter + admin (new)
+    deleteEntry:             deleteEntry,
+    isAdmin:                 isAdmin,
+    adminLogout:             adminLogout,
+    isBlockedName:           isBlockedName,
+    sanitizeDisplayName:     sanitizeDisplayName,
+    addBlockedTerm:          addBlockedTerm
   };
 })(typeof window !== "undefined" ? window : this);

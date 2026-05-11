@@ -943,15 +943,29 @@
   }
 
   // ── Public API ───────────────────────────────────────────────────
-  root.MrMacsLeaderboards = {
-    submit: lbSubmit,
-    top: lbTop,
-    best: lbBest,
-    clearAll: lbClearAll,
-    // Hub helper, not strictly part of the contract but handy:
-    topScoresForPlayer: topScoresForPlayer,
-    renderDrawerTopScores: renderDrawerTopScores
-  };
+  // IMPORTANT: only assign MrMacsLeaderboards if the canonical
+  // arcade-leaderboards.js hasn't already populated it. The canonical
+  // module is far richer (admin mode, content filter, deleteEntry, etc.).
+  // Previously this file's slim 6-method stub was unconditionally
+  // overwriting the canonical module — which silently stripped the
+  // delete/filter/admin APIs from the platform.
+  if (!root.MrMacsLeaderboards) {
+    root.MrMacsLeaderboards = {
+      submit: lbSubmit,
+      top: lbTop,
+      best: lbBest,
+      clearAll: lbClearAll,
+      // Hub helper, not strictly part of the contract but handy:
+      topScoresForPlayer: topScoresForPlayer,
+      renderDrawerTopScores: renderDrawerTopScores
+    };
+  } else {
+    // Canonical module already loaded — augment with the hub helper
+    // (which only this file defines) but DO NOT touch the rest.
+    if (typeof root.MrMacsLeaderboards.topScoresForPlayer !== "function") {
+      root.MrMacsLeaderboards.topScoresForPlayer = topScoresForPlayer;
+    }
+  }
 
   root.MrMacsSessions = {
     save: ssSave,
