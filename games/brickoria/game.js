@@ -40,50 +40,290 @@
     extend: 30, multi: 0, slow: 15, laser: 10, life: 0
   };
 
+  // 18 eras = full Regents-style global/US arc, ending at a Boss Stage.
+  // Each era owns: accent (primary highlight), two-stop background gradient,
+  // palette (≥3 brick colors), bossPalette (gold boss bricks), and questionSet
+  // (string hint that pickQuestion uses to bias INLINE_BANK selection).
   var ERAS = [
-    { name: "Renaissance",        accent: "#d4a017", bgA: "#3a2110", bgB: "#0d0612", palette: ["#d4a017", "#e8b84b", "#a86a1c"], bossPalette: ["#f5d97a", "#d4a017"] },
-    { name: "Age of Exploration", accent: "#4a8cd9", bgA: "#0d2540", bgB: "#0a1426", palette: ["#4a8cd9", "#6fa8e0", "#cdb88a"], bossPalette: ["#ffe6a8", "#e0b56a"] },
-    { name: "Industrial",         accent: "#a08060", bgA: "#2a2018", bgB: "#0e0a08", palette: ["#7a7a7a", "#a08060", "#c8922a"], bossPalette: ["#e8b84b", "#a87a30"] },
-    { name: "World War I",        accent: "#7a8a4f", bgA: "#1c2210", bgB: "#0a0c08", palette: ["#7a8a4f", "#a09464", "#5a6a3a"], bossPalette: ["#d4c060", "#8a8030"] },
-    { name: "Cold War",           accent: "#d04848", bgA: "#280f1a", bgB: "#0c0a18", palette: ["#d04848", "#4a6dc7", "#e8b84b"], bossPalette: ["#ffd060", "#d09020"] },
-    { name: "Civil Rights",       accent: "#a991ff", bgA: "#1c1240", bgB: "#0c0820", palette: ["#a991ff", "#7c5fdb", "#e8b84b"], bossPalette: ["#ffd060", "#a991ff"] },
-    { name: "Space Age",          accent: "#5de0f0", bgA: "#0a1c3a", bgB: "#040818", palette: ["#5de0f0", "#3a8ed4", "#d0d8ff"], bossPalette: ["#ffe690", "#5de0f0"] },
-    { name: "Boss Stage",         accent: "#e8b84b", bgA: "#3a1820", bgB: "#0a0612", palette: ["#d04848", "#5de0f0", "#a991ff", "#7a8a4f", "#d4a017"], bossPalette: ["#fff0a0", "#e8b84b"] }
+    { name: "Ancient Civilizations", questionSet: "Ancient",       accent: "#e0b070", bgA: "#3a2a14", bgB: "#0e0a04", palette: ["#c89248", "#a06030", "#e0b070"], bossPalette: ["#ffe0a0", "#c89248"] },
+    { name: "Classical Era",         questionSet: "Classical",     accent: "#e8d488", bgA: "#1f1a10", bgB: "#080604", palette: ["#cdb88a", "#9a7e44", "#e8d488"], bossPalette: ["#fff5b0", "#cdb88a"] },
+    { name: "Medieval World",        questionSet: "Medieval",      accent: "#9c2c3d", bgA: "#2a0e16", bgB: "#0a0508", palette: ["#7c5040", "#9c2c3d", "#c89248"], bossPalette: ["#ffd060", "#9c2c3d"] },
+    { name: "Renaissance",           questionSet: "Renaissance",   accent: "#d4a017", bgA: "#3a2110", bgB: "#0d0612", palette: ["#d4a017", "#e8b84b", "#a86a1c"], bossPalette: ["#f5d97a", "#d4a017"] },
+    { name: "Reformation",           questionSet: "Reformation",   accent: "#c83838", bgA: "#1e1410", bgB: "#08060a", palette: ["#3a2e20", "#c83838", "#a89878"], bossPalette: ["#f0c060", "#c83838"] },
+    { name: "Age of Exploration",    questionSet: "Exploration",   accent: "#4a8cd9", bgA: "#0d2540", bgB: "#0a1426", palette: ["#4a8cd9", "#6fa8e0", "#cdb88a"], bossPalette: ["#ffe6a8", "#e0b56a"] },
+    { name: "Absolutism",            questionSet: "Absolutism",    accent: "#e8b84b", bgA: "#1a1830", bgB: "#06080f", palette: ["#7a3a8a", "#e8b84b", "#4a6dc7"], bossPalette: ["#fff0a0", "#e8b84b"] },
+    { name: "Enlightenment",         questionSet: "Enlightenment", accent: "#7fb7d4", bgA: "#102030", bgB: "#040810", palette: ["#7fb7d4", "#cdb88a", "#a09464"], bossPalette: ["#ffe6a8", "#7fb7d4"] },
+    { name: "Atlantic Revolutions",  questionSet: "Revolutions",   accent: "#3a6dc7", bgA: "#101a30", bgB: "#04060e", palette: ["#c83838", "#d8d8e0", "#3a6dc7"], bossPalette: ["#ffe690", "#3a6dc7"] },
+    { name: "Industrial Revolution", questionSet: "Industrial",    accent: "#a08060", bgA: "#2a2018", bgB: "#0e0a08", palette: ["#7a7a7a", "#a08060", "#c8922a"], bossPalette: ["#e8b84b", "#a87a30"] },
+    { name: "Imperialism",           questionSet: "Imperialism",   accent: "#9a7e44", bgA: "#221810", bgB: "#08060a", palette: ["#9a7e44", "#7a3030", "#5a6a3a"], bossPalette: ["#e8b84b", "#9a7e44"] },
+    { name: "World War I",           questionSet: "WWI",           accent: "#7a8a4f", bgA: "#1c2210", bgB: "#0a0c08", palette: ["#7a8a4f", "#a09464", "#5a6a3a"], bossPalette: ["#d4c060", "#8a8030"] },
+    { name: "Russian Revolution",    questionSet: "RussianRev",    accent: "#c83838", bgA: "#1c0e10", bgB: "#08040a", palette: ["#c83838", "#e8b84b", "#7c5040"], bossPalette: ["#ffd060", "#c83838"] },
+    { name: "Interwar & Depression", questionSet: "Interwar",      accent: "#b09060", bgA: "#1a1410", bgB: "#06040a", palette: ["#3a3a3a", "#b09060", "#7c5040"], bossPalette: ["#e8b84b", "#b09060"] },
+    { name: "World War II",          questionSet: "WWII",          accent: "#5a6a3a", bgA: "#161c14", bgB: "#04080a", palette: ["#5a6a3a", "#3a3a3a", "#a09464"], bossPalette: ["#d4c060", "#5a6a3a"] },
+    { name: "Cold War",              questionSet: "Cold War",      accent: "#d04848", bgA: "#280f1a", bgB: "#0c0a18", palette: ["#d04848", "#4a6dc7", "#e8b84b"], bossPalette: ["#ffd060", "#d09020"] },
+    { name: "Civil Rights",          questionSet: "Civil Rights",  accent: "#a991ff", bgA: "#1c1240", bgB: "#0c0820", palette: ["#a991ff", "#7c5fdb", "#e8b84b"], bossPalette: ["#ffd060", "#a991ff"] },
+    { name: "Space Age",             questionSet: "Space Age",     accent: "#5de0f0", bgA: "#0a1c3a", bgB: "#040818", palette: ["#5de0f0", "#3a8ed4", "#d0d8ff"], bossPalette: ["#ffe690", "#5de0f0"] },
+    { name: "Globalization",         questionSet: "Globalization", accent: "#5de0a0", bgA: "#0a2a26", bgB: "#04140e", palette: ["#5de0a0", "#5de0f0", "#e8b84b"], bossPalette: ["#fff5a0", "#5de0a0"] },
+    { name: "Boss Stage",            questionSet: "Boss",          accent: "#e8b84b", bgA: "#3a1820", bgB: "#0a0612", palette: ["#d04848", "#5de0f0", "#a991ff", "#7a8a4f", "#d4a017"], bossPalette: ["#fff0a0", "#e8b84b"] }
   ];
-  // ── Inline review bank (used when DIAG_BANK_BY_COURSE is unavailable) ────
+  // ── Inline review bank ────────────────────────────────────────────────────
+  // ~210 questions across 19 era sets + Boss general pool. pickQuestion()
+  // filters by `set` matching the current era's questionSet; if the era has
+  // <3 questions we fall back to the whole pool. A session-scoped
+  // `shownIds` tracker prevents the same question from showing twice in a run.
   var INLINE_BANK = [
+    // ── Ancient Civilizations ───────────────────────────────────────────────
+    { prompt: "Civilization first developed between the Tigris and Euphrates rivers in:", choices: ["Mesopotamia", "Egypt", "Persia", "India"], correctText: "Mesopotamia", set: "Ancient" },
+    { prompt: "Hammurabi is best known for:", choices: ["An early written code of laws", "Founding the Persian Empire", "Building the Great Pyramid", "Inventing the alphabet"], correctText: "An early written code of laws", set: "Ancient" },
+    { prompt: "Ancient Egyptian society depended most heavily on:", choices: ["Annual flooding of the Nile River", "Monsoon winds across the Sahara", "Mediterranean naval trade", "Mountain springs in the south"], correctText: "Annual flooding of the Nile River", set: "Ancient" },
+    { prompt: "The Indus Valley civilization is noted for:", choices: ["Planned cities with grid streets and drainage", "Monumental ziggurats", "Hieroglyphic writing on stone", "Iron weapons and chariots"], correctText: "Planned cities with grid streets and drainage", set: "Ancient" },
+    { prompt: "Cuneiform was a writing system developed by:", choices: ["The Sumerians", "The Phoenicians", "The Egyptians", "The Hebrews"], correctText: "The Sumerians", set: "Ancient" },
+    { prompt: "Ancient Egyptian pyramids primarily served as:", choices: ["Royal tombs", "Marketplaces", "Astronomical observatories", "Fortresses"], correctText: "Royal tombs", set: "Ancient" },
+    { prompt: "The Phoenicians are most known for spreading:", choices: ["An early alphabet across the Mediterranean", "Iron weapons across Asia", "Buddhism across India", "Democratic government"], correctText: "An early alphabet across the Mediterranean", set: "Ancient" },
+    { prompt: "Polytheism is the belief in:", choices: ["Many gods", "One supreme creator", "Reincarnation only", "No god"], correctText: "Many gods", set: "Ancient" },
+    { prompt: "The earliest civilizations all developed near:", choices: ["River valleys", "Ocean coasts", "Mountain passes", "Desert oases"], correctText: "River valleys", set: "Ancient" },
+    { prompt: "Hieroglyphics were used by ancient:", choices: ["Egyptians", "Greeks", "Persians", "Chinese"], correctText: "Egyptians", set: "Ancient" },
+    { prompt: "The Zhou dynasty's idea that rulers governed by divine approval was the:", choices: ["Mandate of Heaven", "Pax Romana", "Code of Hammurabi", "Edict of Milan"], correctText: "Mandate of Heaven", set: "Ancient" },
+
+    // ── Classical Era (Greece, Rome, China, India) ─────────────────────────
+    { prompt: "Direct democracy was first practiced in:", choices: ["Athens", "Sparta", "Rome", "Persia"], correctText: "Athens", set: "Classical" },
+    { prompt: "The Roman Republic was eventually replaced by:", choices: ["The Roman Empire", "The Byzantine Empire", "The Holy Roman Empire", "The Persian Empire"], correctText: "The Roman Empire", set: "Classical" },
+    { prompt: "Pax Romana refers to:", choices: ["About 200 years of relative Roman peace and stability", "A treaty ending the Punic Wars", "Roman religious tolerance", "A code of Roman law"], correctText: "About 200 years of relative Roman peace and stability", set: "Classical" },
+    { prompt: "Greek philosophy emphasized:", choices: ["Reason and questioning to understand the world", "Strict religious obedience", "Tribal loyalty above all", "Memorization of sacred texts"], correctText: "Reason and questioning to understand the world", set: "Classical" },
+    { prompt: "Plato's most famous student, who tutored Alexander the Great, was:", choices: ["Aristotle", "Socrates", "Pythagoras", "Herodotus"], correctText: "Aristotle", set: "Classical" },
+    { prompt: "Buddhism originated in:", choices: ["India", "China", "Persia", "Japan"], correctText: "India", set: "Classical" },
+    { prompt: "The Silk Road primarily connected:", choices: ["China and the Mediterranean world", "Egypt and West Africa", "India and Britain", "Persia and the Americas"], correctText: "China and the Mediterranean world", set: "Classical" },
+    { prompt: "Confucianism in classical China emphasized:", choices: ["Hierarchical relationships and respect for elders", "Equality of all citizens", "Rejection of family ties", "Military expansion"], correctText: "Hierarchical relationships and respect for elders", set: "Classical" },
+    { prompt: "The Han dynasty is often compared to which contemporary Western empire?", choices: ["Rome", "Greece", "Persia", "Carthage"], correctText: "Rome", set: "Classical" },
+    { prompt: "Roman law's lasting influence is most visible in:", choices: ["Modern Western legal codes", "Religious texts of Buddhism", "Chinese imperial bureaucracy", "Aztec governance"], correctText: "Modern Western legal codes", set: "Classical" },
+    { prompt: "Alexander the Great's conquests helped spread:", choices: ["Greek (Hellenistic) culture across Asia and Egypt", "Roman law to Britain", "Christianity to Persia", "Islam across North Africa"], correctText: "Greek (Hellenistic) culture across Asia and Egypt", set: "Classical" },
+
+    // ── Medieval World ──────────────────────────────────────────────────────
+    { prompt: "Feudalism in medieval Europe was based on:", choices: ["Land exchanged for service and loyalty", "Tax revenue from cities", "Trade guild ownership", "Slave plantations"], correctText: "Land exchanged for service and loyalty", set: "Medieval" },
+    { prompt: "The Byzantine Empire's capital was:", choices: ["Constantinople", "Rome", "Athens", "Damascus"], correctText: "Constantinople", set: "Medieval" },
+    { prompt: "The Islamic Golden Age is associated with advances in:", choices: ["Mathematics, medicine, and astronomy", "Steam-powered machinery", "Atomic theory", "Industrial textiles"], correctText: "Mathematics, medicine, and astronomy", set: "Medieval" },
+    { prompt: "The Crusades were primarily fought over:", choices: ["Control of the Holy Land", "European trade routes to China", "Slavery in West Africa", "Hindu temples in India"], correctText: "Control of the Holy Land", set: "Medieval" },
+    { prompt: "The Black Death killed roughly what fraction of Europe's population in the 1300s?", choices: ["About one-third", "About one-tenth", "About one-half", "About two-thirds"], correctText: "About one-third", set: "Medieval" },
+    { prompt: "The Magna Carta (1215) is significant because it:", choices: ["Limited the power of the English king", "Created Parliament from scratch", "Outlawed feudalism", "Ended the Hundred Years' War"], correctText: "Limited the power of the English king", set: "Medieval" },
+    { prompt: "Manorialism organized medieval life around:", choices: ["Self-sufficient agricultural estates", "Coastal trading ports", "Tax-collecting kings only", "Cathedral schools"], correctText: "Self-sufficient agricultural estates", set: "Medieval" },
+    { prompt: "Mansa Musa, ruler of Mali, is famous for:", choices: ["His pilgrimage to Mecca and vast gold wealth", "Defeating the Romans", "Conquering Persia", "Founding the Mongol Empire"], correctText: "His pilgrimage to Mecca and vast gold wealth", set: "Medieval" },
+    { prompt: "The Mongol Empire under Genghis Khan was the largest:", choices: ["Contiguous land empire in history", "Naval empire in history", "Theocracy in history", "City-state in history"], correctText: "Contiguous land empire in history", set: "Medieval" },
+    { prompt: "The Tang and Song dynasties of China saw advances in:", choices: ["Gunpowder, printing, and the compass", "Steam locomotives", "Telephones and radio", "Antibiotics and X-rays"], correctText: "Gunpowder, printing, and the compass", set: "Medieval" },
+    { prompt: "The Great Schism of 1054 split Christianity into:", choices: ["Roman Catholic and Eastern Orthodox", "Catholic and Protestant", "Sunni and Shia", "Anglican and Methodist"], correctText: "Roman Catholic and Eastern Orthodox", set: "Medieval" },
+
+    // ── Renaissance ─────────────────────────────────────────────────────────
     { prompt: "Which Italian city was the financial heart of the early Renaissance?", choices: ["Florence", "Naples", "Milan", "Rome"], correctText: "Florence", set: "Renaissance" },
     { prompt: "Movable-type printing in Europe was popularized by:", choices: ["Johannes Gutenberg", "Leonardo da Vinci", "Marco Polo", "Erasmus"], correctText: "Johannes Gutenberg", set: "Renaissance" },
+    { prompt: "Humanism placed new emphasis on:", choices: ["Human potential and classical learning", "Strict religious obedience", "Feudal land tenure", "Mongol military tactics"], correctText: "Human potential and classical learning", set: "Renaissance" },
+    { prompt: "Leonardo da Vinci is best known as a:", choices: ["Painter, inventor, and scientist", "Holy Roman Emperor", "Conquistador", "Reformation theologian"], correctText: "Painter, inventor, and scientist", set: "Renaissance" },
+    { prompt: "The Medici family of Florence were chiefly:", choices: ["Bankers and patrons of the arts", "Catholic missionaries", "Ottoman generals", "English monarchs"], correctText: "Bankers and patrons of the arts", set: "Renaissance" },
+    { prompt: "Niccolò Machiavelli's The Prince is a guide to:", choices: ["Acquiring and keeping political power", "Painting techniques", "Naval navigation", "Christian theology"], correctText: "Acquiring and keeping political power", set: "Renaissance" },
+    { prompt: "Michelangelo painted the ceiling of the:", choices: ["Sistine Chapel", "Notre Dame Cathedral", "Hagia Sophia", "Pantheon"], correctText: "Sistine Chapel", set: "Renaissance" },
+    { prompt: "The Northern Renaissance differed from the Italian by focusing more on:", choices: ["Religious reform and everyday life", "Pagan Greek mythology", "Military conquest of Asia", "Industrial machinery"], correctText: "Religious reform and everyday life", set: "Renaissance" },
+    { prompt: "Vernacular literature means writing in:", choices: ["The everyday language of the people", "Latin only", "Hieroglyphics", "Computer code"], correctText: "The everyday language of the people", set: "Renaissance" },
+    { prompt: "The printing press contributed most directly to:", choices: ["Spreading new ideas to wider audiences", "Ending feudal warfare", "Inventing the steam engine", "Discovering the Americas"], correctText: "Spreading new ideas to wider audiences", set: "Renaissance" },
+
+    // ── Reformation ────────────────────────────────────────────────────────
     { prompt: "The Protestant Reformation began with:", choices: ["Luther's 95 Theses", "The Council of Trent", "Henry VIII's annulment", "Calvin's Institutes"], correctText: "Luther's 95 Theses", set: "Reformation" },
+    { prompt: "Martin Luther primarily objected to:", choices: ["The sale of indulgences by the Catholic Church", "The Latin Bible existing at all", "Trade with the New World", "Italian Renaissance art"], correctText: "The sale of indulgences by the Catholic Church", set: "Reformation" },
+    { prompt: "The Church of England was founded by:", choices: ["Henry VIII", "John Calvin", "Charles V", "Pope Leo X"], correctText: "Henry VIII", set: "Reformation" },
+    { prompt: "John Calvin is associated with the doctrine of:", choices: ["Predestination", "Indulgences", "Papal infallibility", "Transubstantiation"], correctText: "Predestination", set: "Reformation" },
+    { prompt: "The Catholic Counter-Reformation's reforming council was the:", choices: ["Council of Trent", "Council of Nicaea", "Council of Constance", "Diet of Worms"], correctText: "Council of Trent", set: "Reformation" },
+    { prompt: "The Peace of Augsburg (1555) allowed:", choices: ["Each German prince to choose his territory's religion", "Free worship in all Catholic lands", "Calvinism only", "Universal religious freedom worldwide"], correctText: "Each German prince to choose his territory's religion", set: "Reformation" },
+    { prompt: "The Thirty Years' War (1618–1648) was largely a conflict over:", choices: ["Religion and political power in central Europe", "Trade routes to India", "Control of the Americas", "Naval supremacy in the Pacific"], correctText: "Religion and political power in central Europe", set: "Reformation" },
+    { prompt: "The Reformation contributed to the rise of:", choices: ["Religious pluralism and individual conscience", "A unified Christian Europe", "Mongol rule in Asia", "Roman imperial restoration"], correctText: "Religious pluralism and individual conscience", set: "Reformation" },
+    { prompt: "The printing press impact on the Reformation:", choices: ["Spread reform ideas rapidly across Europe", "Eliminated the Latin Mass", "Was banned everywhere", "Was unrelated to the Reformation"], correctText: "Spread reform ideas rapidly across Europe", set: "Reformation" },
+    { prompt: "The Edict of Nantes (1598) granted toleration to:", choices: ["French Protestants (Huguenots)", "All non-Christians", "Slaves in the colonies", "Catholic priests only"], correctText: "French Protestants (Huguenots)", set: "Reformation" },
+
+    // ── Age of Exploration ─────────────────────────────────────────────────
     { prompt: "The Columbian Exchange refers to:", choices: ["Transfer of plants, animals, diseases between hemispheres", "A 1492 trade treaty between Spain and Portugal", "Slave trade routes from Africa", "Tax policy in the colonies"], correctText: "Transfer of plants, animals, diseases between hemispheres", set: "Exploration" },
     { prompt: "Which technology most enabled European long-distance voyages?", choices: ["The astrolabe and caravel", "The compound microscope", "The cotton gin", "The seed drill"], correctText: "The astrolabe and caravel", set: "Exploration" },
     { prompt: "Encomienda was a Spanish colonial system that:", choices: ["Forced indigenous labor on Spanish landholders' estates", "Established free trade between colonies", "Banned the import of African slaves", "Created Catholic missionary schools"], correctText: "Forced indigenous labor on Spanish landholders' estates", set: "Exploration" },
+    { prompt: "Vasco da Gama was the first European to reach India by:", choices: ["Sailing around the Cape of Good Hope", "Marching across Persia", "Crossing the Pacific", "Tunneling through the Alps"], correctText: "Sailing around the Cape of Good Hope", set: "Exploration" },
+    { prompt: "The Treaty of Tordesillas (1494) divided new lands between:", choices: ["Spain and Portugal", "England and France", "Spain and the Ottomans", "Portugal and Holland"], correctText: "Spain and Portugal", set: "Exploration" },
+    { prompt: "The triangular trade involved:", choices: ["Goods, enslaved Africans, and raw materials moving between three regions", "A British-Indian-Chinese tea exchange only", "Wheat trade among Mediterranean ports", "Pacific furs and silver only"], correctText: "Goods, enslaved Africans, and raw materials moving between three regions", set: "Exploration" },
+    { prompt: "Mercantilism held that a nation grew rich by:", choices: ["Exporting more than it imported and stockpiling gold", "Sharing technology with rivals", "Reducing all tariffs", "Avoiding overseas colonies"], correctText: "Exporting more than it imported and stockpiling gold", set: "Exploration" },
+    { prompt: "Hernán Cortés conquered which empire?", choices: ["The Aztec Empire", "The Inca Empire", "The Mughal Empire", "The Roman Empire"], correctText: "The Aztec Empire", set: "Exploration" },
+    { prompt: "European diseases like smallpox affected the Americas because:", choices: ["Indigenous peoples had no immunity", "They were carried by Native traders only", "They originated in the Andes", "They mostly affected Europeans"], correctText: "Indigenous peoples had no immunity", set: "Exploration" },
+    { prompt: "The Middle Passage refers to:", choices: ["The forced transatlantic voyage of enslaved Africans", "A monsoon route to India", "The march of the conquistadors", "A Pacific shipping lane"], correctText: "The forced transatlantic voyage of enslaved Africans", set: "Exploration" },
+    { prompt: "Magellan's expedition is credited with the first:", choices: ["Circumnavigation of the globe", "Crossing of the Atlantic", "Landing in the Caribbean", "Mapping of the Indian Ocean"], correctText: "Circumnavigation of the globe", set: "Exploration" },
+
+    // ── Absolutism ─────────────────────────────────────────────────────────
+    { prompt: "Absolutism is best defined as:", choices: ["A ruler's complete and unchecked authority", "Power shared between a king and parliament", "Government by elected councils", "Rule by religious leaders only"], correctText: "A ruler's complete and unchecked authority", set: "Absolutism" },
+    { prompt: "Louis XIV's famous statement 'L'état, c'est moi' means:", choices: ["I am the state", "The state is sacred", "Long live France", "All power to the people"], correctText: "I am the state", set: "Absolutism" },
+    { prompt: "The palace at Versailles was built to:", choices: ["Display royal power and control the nobility", "Serve as a public museum", "House the French army", "Be a working farm"], correctText: "Display royal power and control the nobility", set: "Absolutism" },
+    { prompt: "Peter the Great of Russia is known for:", choices: ["Westernizing Russia", "Defeating Napoleon", "Founding the Romanov dynasty", "Granting a democratic constitution"], correctText: "Westernizing Russia", set: "Absolutism" },
+    { prompt: "The divine right of kings claimed that:", choices: ["Monarchs derived authority from God", "Kings had to obey the Pope", "Citizens chose the king", "Nobles ruled jointly"], correctText: "Monarchs derived authority from God", set: "Absolutism" },
+    { prompt: "The English Civil War (1642–1649) ended with:", choices: ["The execution of Charles I", "A French invasion", "Restoration of the Holy Roman Empire", "Spanish occupation"], correctText: "The execution of Charles I", set: "Absolutism" },
+    { prompt: "The Glorious Revolution (1688) established:", choices: ["A constitutional monarchy in England", "Catholic rule in Britain", "Absolute monarchy in France", "American independence"], correctText: "A constitutional monarchy in England", set: "Absolutism" },
+    { prompt: "The English Bill of Rights (1689) most directly limited the:", choices: ["Power of the monarch over Parliament", "Freedom of the press", "Right to trial by jury", "Right to bear arms in the colonies"], correctText: "Power of the monarch over Parliament", set: "Absolutism" },
+    { prompt: "Frederick the Great ruled which kingdom?", choices: ["Prussia", "France", "Spain", "Sweden"], correctText: "Prussia", set: "Absolutism" },
+    { prompt: "Cardinal Richelieu strengthened the French monarchy by:", choices: ["Weakening the nobility and Protestant Huguenots", "Granting religious freedom to all", "Restoring feudal lords", "Inviting Spanish rule"], correctText: "Weakening the nobility and Protestant Huguenots", set: "Absolutism" },
+
+    // ── Enlightenment ──────────────────────────────────────────────────────
+    { prompt: "The Enlightenment emphasized:", choices: ["Reason, natural rights, and questioning tradition", "Strict obedience to monarchs", "Religious mysticism", "Feudal hierarchy"], correctText: "Reason, natural rights, and questioning tradition", set: "Enlightenment" },
+    { prompt: "John Locke argued that government:", choices: ["Derives its power from the consent of the governed", "Is divinely chosen", "Should be hereditary", "Should be run by priests"], correctText: "Derives its power from the consent of the governed", set: "Enlightenment" },
+    { prompt: "Montesquieu proposed:", choices: ["Separation of powers among branches of government", "Absolute monarchy", "Communism", "Direct democracy for all"], correctText: "Separation of powers among branches of government", set: "Enlightenment" },
+    { prompt: "Voltaire is most associated with defending:", choices: ["Freedom of speech and religion", "The divine right of kings", "Slavery", "Feudal privileges"], correctText: "Freedom of speech and religion", set: "Enlightenment" },
+    { prompt: "Rousseau's Social Contract argued legitimate government rests on:", choices: ["The general will of the people", "A pact with the Pope", "Conquest", "Inherited wealth"], correctText: "The general will of the people", set: "Enlightenment" },
+    { prompt: "Adam Smith's Wealth of Nations (1776) advocated:", choices: ["Free markets and limited government interference", "Centrally planned economies", "Feudal tithes", "Mercantilist tariffs"], correctText: "Free markets and limited government interference", set: "Enlightenment" },
+    { prompt: "The Scientific Revolution preceded the Enlightenment by encouraging:", choices: ["Systematic observation and reasoning", "Memorization of ancient texts only", "Astrology as proof", "Rejection of all classical learning"], correctText: "Systematic observation and reasoning", set: "Enlightenment" },
+    { prompt: "Enlightened despots were monarchs who:", choices: ["Adopted some Enlightenment reforms while keeping power", "Gave up all authority", "Founded democratic republics", "Persecuted scientists"], correctText: "Adopted some Enlightenment reforms while keeping power", set: "Enlightenment" },
+    { prompt: "Mary Wollstonecraft argued for:", choices: ["Equal education for women", "Restoration of monarchy", "Abolition of marriage", "Pacifism only"], correctText: "Equal education for women", set: "Enlightenment" },
+    { prompt: "Enlightenment ideas most directly influenced:", choices: ["The American and French Revolutions", "The Roman Empire", "Feudal Japan", "The Black Death"], correctText: "The American and French Revolutions", set: "Enlightenment" },
+
+    // ── Atlantic Revolutions ───────────────────────────────────────────────
+    { prompt: "Which document begins 'We hold these truths to be self-evident'?", choices: ["Declaration of Independence", "Constitution", "Bill of Rights", "Federalist No. 10"], correctText: "Declaration of Independence", set: "Revolutions" },
+    { prompt: "The American Revolution was triggered in part by:", choices: ["British taxation without representation", "French invasion of the colonies", "Civil war in Britain", "A Spanish embargo"], correctText: "British taxation without representation", set: "Revolutions" },
+    { prompt: "The French Revolution began in:", choices: ["1789", "1492", "1776", "1815"], correctText: "1789", set: "Revolutions" },
+    { prompt: "The Declaration of the Rights of Man (1789) proclaimed:", choices: ["Liberty, equality, and natural rights", "Restoration of feudalism", "Universal monarchy", "Slavery as natural"], correctText: "Liberty, equality, and natural rights", set: "Revolutions" },
+    { prompt: "The Reign of Terror in France was led most prominently by:", choices: ["Maximilien Robespierre", "Napoleon Bonaparte", "Louis XVI", "Cardinal Richelieu"], correctText: "Maximilien Robespierre", set: "Revolutions" },
+    { prompt: "Napoleon's Civil Code did all of the following EXCEPT:", choices: ["Restore feudal privileges of the nobility", "Confirm equality before the law", "Protect private property", "Establish uniform civil laws"], correctText: "Restore feudal privileges of the nobility", set: "Revolutions" },
+    { prompt: "The Haitian Revolution (1791–1804) was led by:", choices: ["Toussaint L'Ouverture", "Simón Bolívar", "Napoleon Bonaparte", "George Washington"], correctText: "Toussaint L'Ouverture", set: "Revolutions" },
+    { prompt: "Simón Bolívar is known for liberating:", choices: ["Much of South America from Spanish rule", "Haiti from France", "Mexico from the Aztecs", "Brazil from Portugal"], correctText: "Much of South America from Spanish rule", set: "Revolutions" },
+    { prompt: "The Congress of Vienna (1815) tried to restore:", choices: ["Pre-Napoleonic monarchies and balance of power", "Roman imperial rule", "Feudal serfdom in France", "Democratic republics across Europe"], correctText: "Pre-Napoleonic monarchies and balance of power", set: "Revolutions" },
+    { prompt: "Checks and balances divides power among:", choices: ["Three branches of government", "Federal and state", "Senate and House", "Citizens and government"], correctText: "Three branches of government", set: "Revolutions" },
+    { prompt: "The U.S. Bill of Rights primarily protects:", choices: ["Individual rights against government", "States from each other", "The military", "Corporate interests"], correctText: "Individual rights against government", set: "Revolutions" },
+
+    // ── Industrial Revolution ──────────────────────────────────────────────
     { prompt: "The Industrial Revolution began in:", choices: ["Britain", "France", "Germany", "United States"], correctText: "Britain", set: "Industrial" },
     { prompt: "Which invention most powered early factories?", choices: ["The steam engine", "The electric motor", "The internal combustion engine", "The assembly line"], correctText: "The steam engine", set: "Industrial" },
     { prompt: "Urbanization in the 1800s was primarily driven by:", choices: ["Factory employment", "Religious revivals", "Voting-rights expansion", "Naval warfare"], correctText: "Factory employment", set: "Industrial" },
+    { prompt: "James Watt is associated with improving:", choices: ["The steam engine", "The cotton gin", "The dynamite formula", "The telephone"], correctText: "The steam engine", set: "Industrial" },
+    { prompt: "The enclosure movement in Britain led to:", choices: ["Displacement of rural farmers to cities", "Restoration of feudalism", "Loss of British colonies", "Decline of the textile industry"], correctText: "Displacement of rural farmers to cities", set: "Industrial" },
+    { prompt: "Karl Marx and Friedrich Engels argued that:", choices: ["Workers should overthrow capitalist owners", "Monarchy was the ideal government", "Free markets always benefit workers", "Industry should be banned"], correctText: "Workers should overthrow capitalist owners", set: "Industrial" },
+    { prompt: "Laissez-faire economics calls for:", choices: ["Minimal government interference in markets", "Government control of industry", "High tariffs always", "Banning international trade"], correctText: "Minimal government interference in markets", set: "Industrial" },
+    { prompt: "Labor unions formed in the 1800s primarily to:", choices: ["Negotiate wages, hours, and safe conditions", "Replace governments", "Block immigration only", "Promote slavery"], correctText: "Negotiate wages, hours, and safe conditions", set: "Industrial" },
+    { prompt: "The Bessemer process revolutionized:", choices: ["Steel production", "Electricity generation", "Cotton picking", "Airplane design"], correctText: "Steel production", set: "Industrial" },
+    { prompt: "Child labor in early factories was eventually limited by:", choices: ["Government reform laws", "Voluntary factory closures", "Religious decrees alone", "Refusal of children to work"], correctText: "Government reform laws", set: "Industrial" },
+    { prompt: "The telegraph's most direct effect was:", choices: ["Faster long-distance communication", "Cheaper food", "Easier ocean travel", "Cleaner cities"], correctText: "Faster long-distance communication", set: "Industrial" },
+
+    // ── Imperialism ────────────────────────────────────────────────────────
+    { prompt: "European imperialism in the late 1800s was driven largely by:", choices: ["Demand for raw materials and new markets", "Religious pilgrimage only", "Population decline", "Lack of European technology"], correctText: "Demand for raw materials and new markets", set: "Imperialism" },
+    { prompt: "The Berlin Conference (1884–85) carved up:", choices: ["Africa among European powers", "China among European powers", "The Americas", "The Middle East after WWI"], correctText: "Africa among European powers", set: "Imperialism" },
+    { prompt: "The Sepoy Mutiny (1857) was a revolt against:", choices: ["British rule in India", "French rule in Vietnam", "Dutch rule in Indonesia", "Portuguese rule in Africa"], correctText: "British rule in India", set: "Imperialism" },
+    { prompt: "The 'White Man's Burden' idea was used to:", choices: ["Justify imperial rule as a civilizing mission", "Limit European expansion", "Free colonies peacefully", "Promote socialism"], correctText: "Justify imperial rule as a civilizing mission", set: "Imperialism" },
+    { prompt: "China's defeat in the Opium Wars led to:", choices: ["Unequal treaties favoring European powers", "Restoration of the Han dynasty", "Communist takeover", "End of European trade"], correctText: "Unequal treaties favoring European powers", set: "Imperialism" },
+    { prompt: "The Boxer Rebellion (1900) was directed against:", choices: ["Foreign influence in China", "The Qing emperor", "Mongol invasion", "Japanese feudal lords"], correctText: "Foreign influence in China", set: "Imperialism" },
+    { prompt: "Japan's response to Western pressure was the:", choices: ["Meiji Restoration and rapid modernization", "Permanent isolation", "Conversion to Christianity", "Adoption of Mongol law"], correctText: "Meiji Restoration and rapid modernization", set: "Imperialism" },
+    { prompt: "Social Darwinism was misused to justify:", choices: ["Imperialism and racial hierarchies", "Universal suffrage", "Religious tolerance", "Free public education"], correctText: "Imperialism and racial hierarchies", set: "Imperialism" },
+    { prompt: "The Suez Canal (opened 1869) was important because it:", choices: ["Shortened the route between Europe and Asia", "Connected the Atlantic and Pacific", "Drained the Mediterranean", "Powered British factories"], correctText: "Shortened the route between Europe and Asia", set: "Imperialism" },
+    { prompt: "Indirect rule was a colonial strategy that:", choices: ["Used local rulers to administer European policy", "Forbade local government", "Banned trade with Europe", "Granted independence immediately"], correctText: "Used local rulers to administer European policy", set: "Imperialism" },
+
+    // ── World War I ────────────────────────────────────────────────────────
     { prompt: "An immediate cause of World War I was:", choices: ["Assassination of Archduke Franz Ferdinand", "Treaty of Versailles", "German unification", "Russian Revolution"], correctText: "Assassination of Archduke Franz Ferdinand", set: "WWI" },
     { prompt: "Trench warfare on the Western Front was characterized by:", choices: ["Stalemate and high casualties", "Rapid cavalry advances", "Aerial bombing of cities", "Naval blockade only"], correctText: "Stalemate and high casualties", set: "WWI" },
     { prompt: "The Treaty of Versailles (1919) blamed the war primarily on:", choices: ["Germany", "Russia", "Austria-Hungary", "Ottoman Empire"], correctText: "Germany", set: "WWI" },
     { prompt: "The League of Nations was weakened because:", choices: ["The U.S. did not join", "It had its own army", "It lacked a charter", "Britain refused to sign"], correctText: "The U.S. did not join", set: "WWI" },
+    { prompt: "The 'MAIN' causes of WWI stand for:", choices: ["Militarism, Alliances, Imperialism, Nationalism", "Money, Arms, Industry, News", "Movement, Africa, India, Navy", "Mongols, Asia, Italy, Norway"], correctText: "Militarism, Alliances, Imperialism, Nationalism", set: "WWI" },
+    { prompt: "The Schlieffen Plan was Germany's strategy to:", choices: ["Quickly defeat France before turning east", "Invade Britain by sea", "Hold the Eastern Front only", "Stay neutral"], correctText: "Quickly defeat France before turning east", set: "WWI" },
+    { prompt: "Total war during WWI meant that:", choices: ["Entire economies were mobilized for war", "Only soldiers were affected", "Civilians were guaranteed safety", "Wars were fought only at sea"], correctText: "Entire economies were mobilized for war", set: "WWI" },
+    { prompt: "Wilson's Fourteen Points called for:", choices: ["A League of Nations and self-determination", "Annexing Mexico", "Banning unions", "Restoring the Tsar"], correctText: "A League of Nations and self-determination", set: "WWI" },
+    { prompt: "The collapse of which empires followed WWI?", choices: ["Ottoman, Austro-Hungarian, German, Russian", "British and French", "Roman and Byzantine", "Spanish and Portuguese"], correctText: "Ottoman, Austro-Hungarian, German, Russian", set: "WWI" },
+    { prompt: "Reparations imposed on Germany by Versailles helped lead to:", choices: ["German economic crisis and resentment in the 1920s–30s", "Rapid German prosperity", "U.S. isolationism only", "British communism"], correctText: "German economic crisis and resentment in the 1920s–30s", set: "WWI" },
+
+    // ── Russian Revolution ─────────────────────────────────────────────────
+    { prompt: "The Russian Revolution of 1917 overthrew:", choices: ["Tsar Nicholas II", "Joseph Stalin", "Vladimir Lenin", "Peter the Great"], correctText: "Tsar Nicholas II", set: "RussianRev" },
+    { prompt: "The Bolsheviks were led by:", choices: ["Vladimir Lenin", "Tsar Nicholas II", "Leon Trotsky alone", "Mikhail Gorbachev"], correctText: "Vladimir Lenin", set: "RussianRev" },
+    { prompt: "Russia withdrew from WWI through the:", choices: ["Treaty of Brest-Litovsk", "Treaty of Versailles", "Munich Pact", "Yalta Conference"], correctText: "Treaty of Brest-Litovsk", set: "RussianRev" },
+    { prompt: "The Russian Civil War (1918–1921) pitted:", choices: ["Reds (Bolsheviks) against Whites (anti-Bolsheviks)", "France against Germany", "Russia against Japan", "Tsar against Kaiser"], correctText: "Reds (Bolsheviks) against Whites (anti-Bolsheviks)", set: "RussianRev" },
+    { prompt: "Lenin's New Economic Policy (NEP) allowed:", choices: ["Some private trade and small business", "Full free-market capitalism", "Restoration of the Tsar", "Religious freedom only"], correctText: "Some private trade and small business", set: "RussianRev" },
+    { prompt: "Stalin's Five-Year Plans focused on:", choices: ["Rapid industrialization", "Free elections", "Religious revival", "Demilitarization"], correctText: "Rapid industrialization", set: "RussianRev" },
+    { prompt: "Stalin's collectivization of agriculture caused:", choices: ["Mass famine and millions of deaths", "An era of plenty", "Rapid privatization of land", "A peasant restoration"], correctText: "Mass famine and millions of deaths", set: "RussianRev" },
+    { prompt: "The Great Purges under Stalin targeted:", choices: ["Perceived political enemies inside the USSR", "Foreign tourists only", "Russian Orthodox clergy only", "American spies only"], correctText: "Perceived political enemies inside the USSR", set: "RussianRev" },
+    { prompt: "Communism, as established in the USSR, called for:", choices: ["State ownership of the means of production", "Hereditary monarchy", "Free private markets", "Religious rule"], correctText: "State ownership of the means of production", set: "RussianRev" },
+    { prompt: "The Comintern's purpose was to:", choices: ["Spread communist revolution worldwide", "Coordinate WWI alliances", "Limit Bolshevik power", "Replace the League of Nations"], correctText: "Spread communist revolution worldwide", set: "RussianRev" },
+
+    // ── Interwar & Great Depression ────────────────────────────────────────
+    { prompt: "The New Deal (1930s) was a response to:", choices: ["The Great Depression", "World War I", "The Dust Bowl alone", "The Cold War"], correctText: "The Great Depression", set: "Interwar" },
+    { prompt: "The 1929 stock market crash directly contributed to:", choices: ["The Great Depression in the U.S. and globally", "WWI's outbreak", "The fall of Rome", "The Russian Revolution"], correctText: "The Great Depression in the U.S. and globally", set: "Interwar" },
+    { prompt: "Fascism in Italy was led by:", choices: ["Benito Mussolini", "Adolf Hitler", "Francisco Franco", "Joseph Stalin"], correctText: "Benito Mussolini", set: "Interwar" },
+    { prompt: "Hitler became chancellor of Germany in:", choices: ["1933", "1919", "1945", "1923"], correctText: "1933", set: "Interwar" },
+    { prompt: "The Weimar Republic suffered from:", choices: ["Hyperinflation and political instability", "Stable democracy throughout", "Permanent monarchy", "British military occupation"], correctText: "Hyperinflation and political instability", set: "Interwar" },
+    { prompt: "Appeasement is the policy of:", choices: ["Giving in to demands to avoid war", "Building large armies", "Declaring neutrality", "Forcing rivals into alliances"], correctText: "Giving in to demands to avoid war", set: "Interwar" },
+    { prompt: "The Munich Agreement (1938) allowed Germany to:", choices: ["Annex the Sudetenland from Czechoslovakia", "Annex Poland", "Build a navy", "Rejoin the League of Nations"], correctText: "Annex the Sudetenland from Czechoslovakia", set: "Interwar" },
+    { prompt: "Franklin D. Roosevelt's response to the Great Depression was:", choices: ["A series of relief, recovery, and reform programs", "Strict laissez-faire", "Joining the USSR economically", "Banning all banking"], correctText: "A series of relief, recovery, and reform programs", set: "Interwar" },
+    { prompt: "The Roaring Twenties in the U.S. were characterized by:", choices: ["Economic boom and cultural change", "Severe poverty everywhere", "Civil war", "Foreign invasion"], correctText: "Economic boom and cultural change", set: "Interwar" },
+    { prompt: "Prohibition in the U.S. banned:", choices: ["The sale of alcoholic beverages", "All firearms", "Tobacco", "Women's employment"], correctText: "The sale of alcoholic beverages", set: "Interwar" },
+
+    // ── World War II ───────────────────────────────────────────────────────
+    { prompt: "Pearl Harbor (Dec 7, 1941) led directly to:", choices: ["U.S. entry into World War II", "End of WWII", "The Marshall Plan", "Founding of the UN"], correctText: "U.S. entry into World War II", set: "WWII" },
+    { prompt: "The Holocaust was the systematic murder of:", choices: ["Six million European Jews and others", "Soviet POWs only", "German political prisoners", "Polish civilians only"], correctText: "Six million European Jews and others", set: "WWII" },
+    { prompt: "World War II in Europe began with Germany's invasion of:", choices: ["Poland in 1939", "France in 1940", "Russia in 1941", "Britain in 1939"], correctText: "Poland in 1939", set: "WWII" },
+    { prompt: "The D-Day invasion (June 6, 1944) landed Allied troops in:", choices: ["Normandy, France", "Sicily, Italy", "Okinawa, Japan", "Anzio, Spain"], correctText: "Normandy, France", set: "WWII" },
+    { prompt: "The atomic bombs were dropped on:", choices: ["Hiroshima and Nagasaki", "Tokyo and Osaka", "Berlin and Munich", "Hanoi and Saigon"], correctText: "Hiroshima and Nagasaki", set: "WWII" },
+    { prompt: "The Battle of Stalingrad (1942–43) was a turning point on the:", choices: ["Eastern Front", "Western Front", "Pacific Front", "African Front"], correctText: "Eastern Front", set: "WWII" },
+    { prompt: "The Nuremberg Trials prosecuted:", choices: ["Nazi war criminals", "Japanese prime ministers", "Soviet generals", "Italian admirals"], correctText: "Nazi war criminals", set: "WWII" },
+    { prompt: "Internment of Japanese Americans during WWII was authorized by:", choices: ["Executive Order 9066", "The Lend-Lease Act", "The Marshall Plan", "The 14th Amendment"], correctText: "Executive Order 9066", set: "WWII" },
+    { prompt: "The Manhattan Project produced the:", choices: ["First atomic bombs", "First jet aircraft", "First radar systems", "First space rockets"], correctText: "First atomic bombs", set: "WWII" },
+    { prompt: "The United Nations was founded in:", choices: ["1945", "1919", "1939", "1956"], correctText: "1945", set: "WWII" },
+    { prompt: "V-E Day refers to:", choices: ["Victory in Europe, May 8, 1945", "Victory over Japan, Sept 2, 1945", "U.S. entry into the war", "The Munich Agreement"], correctText: "Victory in Europe, May 8, 1945", set: "WWII" },
+
+    // ── Cold War ───────────────────────────────────────────────────────────
     { prompt: "The Cold War was a struggle primarily between:", choices: ["U.S. and Soviet Union", "U.S. and China", "Britain and France", "Germany and Russia"], correctText: "U.S. and Soviet Union", set: "Cold War" },
     { prompt: "The Marshall Plan (1948) provided:", choices: ["Economic aid to rebuild Western Europe", "Military aid to South Korea", "Nuclear technology to NATO allies", "Loans to Latin America"], correctText: "Economic aid to rebuild Western Europe", set: "Cold War" },
     { prompt: "The doctrine of containment aimed to:", choices: ["Stop the spread of communism", "Roll back Soviet borders", "Promote free trade in Asia", "End nuclear weapons"], correctText: "Stop the spread of communism", set: "Cold War" },
     { prompt: "The Cuban Missile Crisis (1962) ended when:", choices: ["The Soviet Union withdrew missiles from Cuba", "Cuba renounced communism", "The U.S. invaded Cuba", "Khrushchev was removed from power"], correctText: "The Soviet Union withdrew missiles from Cuba", set: "Cold War" },
+    { prompt: "NATO was founded in 1949 to:", choices: ["Defend Western Europe against Soviet aggression", "Promote free trade in Asia", "Replace the United Nations", "End nuclear weapons globally"], correctText: "Defend Western Europe against Soviet aggression", set: "Cold War" },
+    { prompt: "The Warsaw Pact was:", choices: ["The Soviet-led military alliance of Eastern Europe", "A trade agreement with NATO", "A nuclear test ban treaty", "A failed Polish revolt"], correctText: "The Soviet-led military alliance of Eastern Europe", set: "Cold War" },
+    { prompt: "The Korean War (1950–53) ended in:", choices: ["A stalemate and divided Korea", "A North Korean victory", "A complete South Korean victory", "Reunification under one government"], correctText: "A stalemate and divided Korea", set: "Cold War" },
+    { prompt: "The Vietnam War was, broadly, a Cold War conflict over:", choices: ["Communist vs. anti-communist control of Vietnam", "Buddhist religious differences only", "Oil reserves only", "Independence from France only"], correctText: "Communist vs. anti-communist control of Vietnam", set: "Cold War" },
+    { prompt: "The Berlin Wall (1961–1989):", choices: ["Divided East and West Berlin", "Encircled all of Germany", "Was built by the Allies in 1945", "Separated NATO from Britain"], correctText: "Divided East and West Berlin", set: "Cold War" },
+    { prompt: "Mikhail Gorbachev introduced glasnost and perestroika to:", choices: ["Reform the Soviet system through openness and restructuring", "Strengthen the Iron Curtain", "Invade Afghanistan", "Reject communism entirely overnight"], correctText: "Reform the Soviet system through openness and restructuring", set: "Cold War" },
+    { prompt: "The Soviet Union officially dissolved in:", choices: ["1991", "1945", "1989", "2001"], correctText: "1991", set: "Cold War" },
+    { prompt: "The U.S.–Soviet arms race produced massive stockpiles of:", choices: ["Nuclear weapons", "Cavalry horses", "Naval frigates only", "Steam locomotives"], correctText: "Nuclear weapons", set: "Cold War" },
+
+    // ── Civil Rights ───────────────────────────────────────────────────────
     { prompt: "Brown v. Board of Education (1954) ruled:", choices: ["Segregated public schools were unconstitutional", "Affirmative action was required", "Busing was illegal", "Voting tests were banned"], correctText: "Segregated public schools were unconstitutional", set: "Civil Rights" },
     { prompt: "The Montgomery Bus Boycott was sparked by:", choices: ["Rosa Parks' arrest", "The March on Washington", "The Voting Rights Act", "Plessy v. Ferguson"], correctText: "Rosa Parks' arrest", set: "Civil Rights" },
     { prompt: "The Civil Rights Act of 1964:", choices: ["Banned discrimination in public accommodations", "Created the EPA", "Established Medicare", "Ended the Vietnam War"], correctText: "Banned discrimination in public accommodations", set: "Civil Rights" },
     { prompt: "Martin Luther King Jr.'s 'I Have a Dream' speech was delivered at:", choices: ["The 1963 March on Washington", "Birmingham Jail", "Selma, Alabama", "The Lincoln Memorial in 1968"], correctText: "The 1963 March on Washington", set: "Civil Rights" },
     { prompt: "The Voting Rights Act of 1965 outlawed:", choices: ["Literacy tests used to disenfranchise voters", "Poll taxes in federal elections", "Gerrymandering", "Voter ID requirements"], correctText: "Literacy tests used to disenfranchise voters", set: "Civil Rights" },
+    { prompt: "The Selma to Montgomery marches (1965) helped pass:", choices: ["The Voting Rights Act", "The Civil Rights Act of 1964", "The 19th Amendment", "The Marshall Plan"], correctText: "The Voting Rights Act", set: "Civil Rights" },
+    { prompt: "Plessy v. Ferguson (1896) established:", choices: ["'Separate but equal' segregation as legal", "Equal pay for equal work", "Voting rights for women", "Federal control of schools"], correctText: "'Separate but equal' segregation as legal", set: "Civil Rights" },
+    { prompt: "The Black Power movement emphasized:", choices: ["Racial pride and self-determination", "Strict pacifism only", "Total separation from politics", "Returning to slavery"], correctText: "Racial pride and self-determination", set: "Civil Rights" },
+    { prompt: "Title IX (1972) prohibited discrimination on the basis of sex in:", choices: ["Federally funded education programs", "Private businesses only", "Military service only", "Foreign trade"], correctText: "Federally funded education programs", set: "Civil Rights" },
+    { prompt: "Cesar Chavez organized:", choices: ["Migrant farm workers in California", "Auto workers in Detroit", "Coal miners in West Virginia", "Subway workers in New York"], correctText: "Migrant farm workers in California", set: "Civil Rights" },
+    { prompt: "The 24th Amendment (1964) banned:", choices: ["The poll tax in federal elections", "Literacy tests entirely", "School segregation", "Gender discrimination"], correctText: "The poll tax in federal elections", set: "Civil Rights" },
+
+    // ── Space Age ──────────────────────────────────────────────────────────
     { prompt: "Sputnik (1957) launched by the USSR triggered:", choices: ["The U.S. space race and NASA's founding", "The end of the Cold War", "The first moon landing", "The Cuban Missile Crisis"], correctText: "The U.S. space race and NASA's founding", set: "Space Age" },
     { prompt: "The first human on the moon was:", choices: ["Neil Armstrong", "Yuri Gagarin", "Buzz Aldrin", "John Glenn"], correctText: "Neil Armstrong", set: "Space Age" },
     { prompt: "NASA was created in:", choices: ["1958", "1945", "1969", "1981"], correctText: "1958", set: "Space Age" },
-    { prompt: "Which document begins 'We hold these truths to be self-evident'?", choices: ["Declaration of Independence", "Constitution", "Bill of Rights", "Federalist No. 10"], correctText: "Declaration of Independence", set: "Founding" },
-    { prompt: "Checks and balances divides power among:", choices: ["Three branches of government", "Federal and state", "Senate and House", "Citizens and government"], correctText: "Three branches of government", set: "Founding" },
-    { prompt: "The 13th Amendment (1865):", choices: ["Abolished slavery", "Granted voting rights to women", "Created income tax", "Gave Black men the vote"], correctText: "Abolished slavery", set: "Reconstruction" },
-    { prompt: "The 19th Amendment (1920):", choices: ["Granted women the right to vote", "Repealed Prohibition", "Lowered the voting age", "Established direct election of senators"], correctText: "Granted women the right to vote", set: "Reform" },
-    { prompt: "The New Deal (1930s) was a response to:", choices: ["The Great Depression", "World War I", "The Dust Bowl alone", "The Cold War"], correctText: "The Great Depression", set: "Depression" },
-    { prompt: "Pearl Harbor (Dec 7, 1941) led directly to:", choices: ["U.S. entry into World War II", "End of WWII", "The Marshall Plan", "Founding of the UN"], correctText: "U.S. entry into World War II", set: "WWII" },
-    { prompt: "The Holocaust was the systematic murder of:", choices: ["Six million European Jews and others", "Soviet POWs only", "German political prisoners", "Polish civilians only"], correctText: "Six million European Jews and others", set: "WWII" }
+    { prompt: "Yuri Gagarin's 1961 flight made him the first person to:", choices: ["Orbit the Earth", "Land on the Moon", "Walk in space", "Fly an airplane"], correctText: "Orbit the Earth", set: "Space Age" },
+    { prompt: "The Apollo 11 mission landed on the Moon in:", choices: ["1969", "1957", "1981", "1989"], correctText: "1969", set: "Space Age" },
+    { prompt: "The Space Shuttle program was operated by:", choices: ["NASA", "ESA", "Roscosmos", "JAXA"], correctText: "NASA", set: "Space Age" },
+    { prompt: "The Hubble Space Telescope, launched in 1990, has provided:", choices: ["Detailed deep-space images", "Mars landings", "Lunar samples", "GPS service"], correctText: "Detailed deep-space images", set: "Space Age" },
+    { prompt: "The Cold War's space race ended symbolically with:", choices: ["The Apollo-Soyuz docking and later cooperation", "A Soviet moon landing", "China's first satellite", "A NATO summit"], correctText: "The Apollo-Soyuz docking and later cooperation", set: "Space Age" },
+    { prompt: "Satellites have most directly transformed:", choices: ["Communications and navigation", "Steel production", "Agriculture-only output", "Fossil-fuel mining"], correctText: "Communications and navigation", set: "Space Age" },
+    { prompt: "The International Space Station is a partnership of:", choices: ["Multiple nations led by NASA and Roscosmos", "The U.S. alone", "China and Russia only", "ESA only"], correctText: "Multiple nations led by NASA and Roscosmos", set: "Space Age" },
+
+    // ── Globalization ──────────────────────────────────────────────────────
+    { prompt: "Globalization refers to:", choices: ["Increasing integration of economies, cultures, and information", "The end of all trade", "A medieval economic system", "A 1990 peace treaty"], correctText: "Increasing integration of economies, cultures, and information", set: "Globalization" },
+    { prompt: "The World Trade Organization (WTO) primarily:", choices: ["Regulates international trade disputes", "Provides military aid", "Issues passports", "Sets exchange rates"], correctText: "Regulates international trade disputes", set: "Globalization" },
+    { prompt: "NAFTA (1994) created a free-trade zone among:", choices: ["U.S., Canada, and Mexico", "U.S., U.K., and Ireland", "EU member states", "Asian Tigers"], correctText: "U.S., Canada, and Mexico", set: "Globalization" },
+    { prompt: "The Euro became the common currency of much of the:", choices: ["European Union", "African Union", "ASEAN", "BRICS"], correctText: "European Union", set: "Globalization" },
+    { prompt: "The Internet has most directly affected globalization by:", choices: ["Enabling instant communication and digital commerce", "Eliminating all factories", "Restoring feudalism", "Ending air travel"], correctText: "Enabling instant communication and digital commerce", set: "Globalization" },
+    { prompt: "Outsourcing in the global economy refers to:", choices: ["Companies moving work to lower-cost countries", "Banning imports", "Hiring only domestic workers", "Mandatory retirement at 50"], correctText: "Companies moving work to lower-cost countries", set: "Globalization" },
+    { prompt: "Climate change is considered a global challenge because:", choices: ["Greenhouse gases affect the entire atmosphere", "Only one country emits emissions", "It is purely a local weather issue", "It only impacts polar regions"], correctText: "Greenhouse gases affect the entire atmosphere", set: "Globalization" },
+    { prompt: "The 2008 financial crisis began with:", choices: ["A U.S. housing and banking collapse", "The fall of the Berlin Wall", "A European war", "An oil-only shock"], correctText: "A U.S. housing and banking collapse", set: "Globalization" },
+    { prompt: "Multinational corporations are companies that:", choices: ["Operate in many countries", "Are owned by the United Nations", "Trade only between two cities", "Were banned after WWII"], correctText: "Operate in many countries", set: "Globalization" },
+    { prompt: "The September 11, 2001 attacks were carried out by:", choices: ["Al-Qaeda terrorists", "The Soviet Union", "North Korea", "China"], correctText: "Al-Qaeda terrorists", set: "Globalization" },
+    { prompt: "The Arab Spring (2010–2012) involved:", choices: ["Pro-democracy protests across North Africa and the Middle East", "A medieval crusade", "Mongol invasions", "A return to monarchy"], correctText: "Pro-democracy protests across North Africa and the Middle East", set: "Globalization" },
+
+    // ── Boss / General Review ──────────────────────────────────────────────
+    { prompt: "The 13th Amendment (1865):", choices: ["Abolished slavery", "Granted voting rights to women", "Created income tax", "Gave Black men the vote"], correctText: "Abolished slavery", set: "Boss" },
+    { prompt: "The 19th Amendment (1920):", choices: ["Granted women the right to vote", "Repealed Prohibition", "Lowered the voting age", "Established direct election of senators"], correctText: "Granted women the right to vote", set: "Boss" },
+    { prompt: "Genocide is best defined as:", choices: ["The deliberate destruction of a national, ethnic, or religious group", "Any large war", "A failed revolution", "A peaceful protest"], correctText: "The deliberate destruction of a national, ethnic, or religious group", set: "Boss" },
+    { prompt: "Nationalism is the belief that:", choices: ["A people sharing a culture or history should have their own state", "All states should merge into one", "Religion should rule government", "Borders should never change"], correctText: "A people sharing a culture or history should have their own state", set: "Boss" },
+    { prompt: "Genocide in Rwanda (1994) primarily targeted:", choices: ["The Tutsi minority", "Hindu Tamils", "European settlers", "Russian Orthodox priests"], correctText: "The Tutsi minority", set: "Boss" },
+    { prompt: "Apartheid in South Africa was:", choices: ["A legal system of racial segregation", "An economic stimulus program", "A peace treaty with Britain", "A religious revival"], correctText: "A legal system of racial segregation", set: "Boss" },
+    { prompt: "Nelson Mandela became president of South Africa in:", choices: ["1994", "1948", "1980", "2002"], correctText: "1994", set: "Boss" },
+    { prompt: "Gandhi's nonviolent independence movement targeted:", choices: ["British rule in India", "Spanish rule in Latin America", "French rule in Algeria", "Dutch rule in Indonesia"], correctText: "British rule in India", set: "Boss" },
+    { prompt: "The partition of 1947 created:", choices: ["India and Pakistan as separate states", "East and West Germany", "North and South Korea", "Israel and Jordan"], correctText: "India and Pakistan as separate states", set: "Boss" },
+    { prompt: "Mao Zedong's Cultural Revolution sought to:", choices: ["Reassert communist ideology, persecuting many citizens", "Restore the emperor", "Privatize agriculture", "Convert China to Buddhism"], correctText: "Reassert communist ideology, persecuting many citizens", set: "Boss" },
+    { prompt: "The fall of the Berlin Wall in 1989 symbolized:", choices: ["The end of the Cold War divide in Europe", "The start of WWII", "The unification of Korea", "The end of the European Union"], correctText: "The end of the Cold War divide in Europe", set: "Boss" },
+    { prompt: "The Universal Declaration of Human Rights was adopted by:", choices: ["The United Nations in 1948", "The League of Nations in 1919", "NATO in 1949", "The Warsaw Pact"], correctText: "The United Nations in 1948", set: "Boss" }
   ];
   // ── State ────────────────────────────────────────────────────────────────
   var canvas, ctx;
@@ -257,6 +497,9 @@
   // ── State init ───────────────────────────────────────────────────────────
   function initState(opts) {
     opts = opts || {};
+    // Reset the no-repeat tracker on a fresh game so each run gets a clean
+    // slate of questions to draw from.
+    shownPrompts = Object.create(null);
     state = {
       level: opts.level || 1,
       score: opts.score || 0,
@@ -1326,8 +1569,13 @@
     else if (name === "end") dom.endScreen.classList.add("show");
   }
   // ── Question modal ───────────────────────────────────────────────────────
+  // Session-scoped tracker of which inline-bank prompts we've already shown,
+  // so the same question doesn't appear twice in a single run. Resets on
+  // new-game in startGame().
+  var shownPrompts = Object.create(null);
+
   function pickQuestion(setHint) {
-    // Try DIAG_BANK_BY_COURSE if available
+    // Try DIAG_BANK_BY_COURSE if available (external bank loaded by host page)
     try {
       var bank = window.DIAG_BANK_BY_COURSE;
       if (bank && typeof bank === "object") {
@@ -1337,19 +1585,36 @@
         }
         if (pool.length) {
           var q = pool[Math.floor(Math.random() * pool.length)];
-          // Normalize to our shape
           var norm = normalizeBankQuestion(q);
           if (norm) return norm;
         }
       }
     } catch (e) {}
-    // Inline fallback
-    var matching = INLINE_BANK;
-    if (setHint) {
-      var filt = INLINE_BANK.filter(function (q) { return q.set === setHint; });
-      if (filt.length >= 3) matching = filt;
+
+    // Inline bank — prefer era-matching questions, fall back to whole pool.
+    // Skip prompts we've already shown this session unless we've burned through
+    // the entire pool.
+    var eraMatches = setHint
+      ? INLINE_BANK.filter(function (q) { return q.set === setHint; })
+      : [];
+    var basePool = (eraMatches.length >= 3) ? eraMatches : INLINE_BANK;
+
+    // Filter out previously-shown prompts
+    var freshPool = basePool.filter(function (q) { return !shownPrompts[q.prompt]; });
+
+    // If era pool exhausted but global has fresh ones, expand
+    if (!freshPool.length && basePool !== INLINE_BANK) {
+      freshPool = INLINE_BANK.filter(function (q) { return !shownPrompts[q.prompt]; });
     }
-    return matching[Math.floor(Math.random() * matching.length)];
+    // If absolutely everything has been shown, reset and start over (still pick fresh)
+    if (!freshPool.length) {
+      shownPrompts = Object.create(null);
+      freshPool = basePool.length ? basePool : INLINE_BANK;
+    }
+
+    var picked = freshPool[Math.floor(Math.random() * freshPool.length)];
+    if (picked) shownPrompts[picked.prompt] = true;
+    return picked;
   }
 
   function normalizeBankQuestion(q) {
@@ -1370,11 +1635,17 @@
   var activeQuestion = null;
   var activeQuestionMode = null; // "boss" | "bonus"
 
+  function currentEraSetHint() {
+    if (!state) return null;
+    var era = ERAS[(state.level - 1) % ERAS.length];
+    return era && era.questionSet ? era.questionSet : null;
+  }
+
   function openBossQuestion() {
     if (state.bossUsedThisLevel || state.bossBricksRemaining === 0) return;
     state.bossUsedThisLevel = true;
     activeQuestionMode = "boss";
-    activeQuestion = pickQuestion();
+    activeQuestion = pickQuestion(currentEraSetHint());
     if (dom.questionMeta) dom.questionMeta.textContent = "Boss Brick Challenge · Correct = shatter all gold";
     if (dom.questionCloseBtn) dom.questionCloseBtn.textContent = "Skip";
     renderQuestion();
@@ -1386,7 +1657,7 @@
 
   function openBonusQuestion() {
     activeQuestionMode = "bonus";
-    activeQuestion = pickQuestion();
+    activeQuestion = pickQuestion(currentEraSetHint());
     if (dom.questionMeta) {
       var n = 4 - state.bonusQuestionsLeft;
       dom.questionMeta.textContent = "Bonus Round · Question " + n + " of 3";
