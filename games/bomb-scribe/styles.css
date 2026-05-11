@@ -85,12 +85,13 @@ kbd {
   color: var(--chrome);
 }
 
-/* Shell + canvas */
+/* Shell + canvas — subtract the ~16px arcade marquee so bottom controls stay on-screen */
 .scribe-shell {
   position: relative;
   width: 100vw;
-  height: 100dvh;
-  max-height: 100dvh;
+  /* Marquee strip above us is ~16px tall on mobile; account for it */
+  height: calc(100dvh - 16px);
+  max-height: calc(100dvh - 16px);
   overflow: hidden;
   isolation: isolate;
   background:
@@ -335,20 +336,21 @@ kbd {
   .powerup-tray {
     left: 8px;
     top: auto;
-    bottom: 14px;
+    bottom: max(8px, env(safe-area-inset-bottom, 8px));
     transform: none;
     flex-direction: row;
-    padding: 6px 8px;
+    padding: 4px 6px;
+    gap: 4px;
   }
-  .pu-slot { width: 42px; height: 42px; }
-  .pu-glyph { font-size: 18px; }
+  .pu-slot { width: 36px; height: 36px; }
+  .pu-glyph { font-size: 16px; }
 }
 
 /* Touch D-pad */
 .touch-controls {
   position: absolute;
-  bottom: 14px;
-  right: 14px;
+  bottom: max(8px, env(safe-area-inset-bottom, 8px));
+  right: 8px;
   z-index: 28;
   display: none;
   align-items: center;
@@ -755,14 +757,21 @@ kbd {
 @media (max-width: 540px) {
   .choice-grid { grid-template-columns: 1fr; }
   .setup-card h1 { font-size: 32px; }
-  .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
-  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
-  .hud-controls { order: 2; }
-  .stat-cell { min-width: 50px; padding: 3px 6px; }
-  .stat-value { font-size: 14px; }
-  /* 2-row HUD (brand row + stats row) is ~90px; ribbon clears below it */
-  .wave-ribbon { top: 96px; font-size: 11px; padding: 4px 12px; }
-  .wave-name { font-size: 13px; }
+  /* Compact HUD: brand + stats + controls on one row when possible, tight padding */
+  .top-hud { flex-wrap: wrap; gap: 6px; padding: 6px 8px; }
+  .brand { gap: 6px; }
+  .brand-title { font-size: 15px; }
+  .brand-sub { display: none; }
+  .brand-core { width: 8px; height: 8px; }
+  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; gap: 4px; }
+  .hud-controls { order: 2; gap: 4px; }
+  .hud-btn { padding: 5px 8px; min-height: 30px; font-size: 11px; }
+  .stat-cell { min-width: 38px; padding: 2px 4px; }
+  .stat-value { font-size: 13px; }
+  .stat-label { font-size: 8px; letter-spacing: .08em; }
+  /* HUD wraps to ~95-105px tall on iPhone; ribbon clears below it */
+  .wave-ribbon { top: 105px; font-size: 11px; padding: 3px 10px; }
+  .wave-name { font-size: 12px; }
 }
 
 @media (max-width: 720px) {

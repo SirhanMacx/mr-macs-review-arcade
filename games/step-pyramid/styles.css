@@ -252,13 +252,13 @@ kbd {
 .wave-name {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: 16px;
+  font-size: 11px;
   color: var(--emerald);
   transition: color .6s var(--ease), text-shadow .6s var(--ease);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 45vw;
+  max-width: 60vw;
 }
 .wave-meta {
   font-family: 'JetBrains Mono', monospace;
@@ -690,8 +690,9 @@ kbd {
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; flex-wrap: wrap; }
   .stat-cell { min-width: 52px; padding: 3px 8px; }
   .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 116px; max-width: calc(100vw - 24px); }
-  .wave-name { max-width: 38vw; }
+  .wave-ribbon { top: 120px; max-width: calc(100vw - 16px); padding: 5px 12px; gap: 8px; }
+  .wave-name { max-width: 55vw; font-size: 10px; }
+  .wave-meta { font-size: 10px; }
   .setup-actions { flex-wrap: wrap; }
   .end-screen .setup-actions { flex-wrap: wrap; justify-content: center; }
 }

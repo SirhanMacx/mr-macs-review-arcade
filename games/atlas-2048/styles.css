@@ -452,6 +452,13 @@ kbd {
 @media (prefers-reduced-motion: reduce) {
   .popup-text { animation-duration: .35s; }
 }
+/* Mobile: shrink mid-game banner popups so they don't crowd the board. */
+@media (max-width: 540px) {
+  .popup-text             { font-size: 18px; }
+  .popup-text.is-tetris   { font-size: 22px; }
+  .popup-text.is-legend   { font-size: 18px; }
+  .popup-text.is-score    { font-size: 14px; }
+}
 
 /* Modal screens — shared */
 .setup-screen, .pause-screen, .end-screen, .question-screen {

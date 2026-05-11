@@ -771,7 +771,7 @@
         if (state.pickups[pii].gx === c.x && state.pickups[pii].gy === c.y) { pIdx = pii; break; }
       }
       if (pIdx >= 0) {
-        burstAt(tilePxCenter(c.x, c.y).x, tilePxCenter(c.x, c.y).y, "#a991ff", 8);
+        burstAt(tilePxCenter(c.x, c.y).x, tilePxCenter(c.x, c.y).y, "#a991ff", 6);
         state.pickups.splice(pIdx, 1);
       }
       // Hit player
@@ -788,7 +788,7 @@
             state.enemies.splice(ei, 1);
             state.enemiesDefeated++;
             sfx.enemy_die();
-            burstAt(tilePxCenter(c.x, c.y).x, tilePxCenter(c.x, c.y).y, "#f04860", 18);
+            burstAt(tilePxCenter(c.x, c.y).x, tilePxCenter(c.x, c.y).y, "#f04860", 10);
             var bonus = en.type === E_BOSS ? 1500 : (en.type === E_HUNTER || en.type === E_GHOST ? 250 : 100);
             state.score += bonus;
             pushPopup("+" + bonus, tilePxCenter(c.x, c.y).x, tilePxCenter(c.x, c.y).y - 16, "is-bonus");
@@ -797,7 +797,7 @@
               sfx.exit_open();
             }
           } else {
-            burstAt(tilePxCenter(c.x, c.y).x, tilePxCenter(c.x, c.y).y, "#f5b04a", 10);
+            burstAt(tilePxCenter(c.x, c.y).x, tilePxCenter(c.x, c.y).y, "#f5b04a", 6);
             en.invuln = 0.4;
           }
         }
@@ -809,7 +809,7 @@
       var wasScholar = cell.type === T_SCHOLAR;
       state.board.tiles[cell.y][cell.x] = T_FLOOR;
       sfx.wall_break();
-      burstAt(tilePxCenter(cell.x, cell.y).x, tilePxCenter(cell.x, cell.y).y, "#a96e3d", 14);
+      burstAt(tilePxCenter(cell.x, cell.y).x, tilePxCenter(cell.x, cell.y).y, "#a96e3d", 8);
       // If this cell is the exit, reveal it
       if (state.board.exitPos && state.board.exitPos.x === cell.x && state.board.exitPos.y === cell.y) {
         state.exitRevealed = true;
@@ -861,7 +861,7 @@
     }
     state.score += 200;
     pushPopup(label, tilePxCenter(pk.gx, pk.gy).x, tilePxCenter(pk.gx, pk.gy).y - 16, "is-bonus");
-    burstAt(tilePxCenter(pk.gx, pk.gy).x, tilePxCenter(pk.gx, pk.gy).y, "#a991ff", 12);
+    burstAt(tilePxCenter(pk.gx, pk.gy).x, tilePxCenter(pk.gx, pk.gy).y, "#a991ff", 7);
     // Remove pickup from list
     var idx = state.pickups.indexOf(pk);
     if (idx >= 0) state.pickups.splice(idx, 1);
@@ -918,7 +918,7 @@
           }
           if (slot) {
             state.enemies.push({ type: E_MINION, gx: slot.x, gy: slot.y, x: slot.x + 0.5, y: slot.y + 0.5, hp: 1, dir: "left", moveCd: 0 });
-            burstAt(tilePxCenter(slot.x, slot.y).x, tilePxCenter(slot.x, slot.y).y, "#d04848", 12);
+            burstAt(tilePxCenter(slot.x, slot.y).x, tilePxCenter(slot.x, slot.y).y, "#d04848", 7);
           }
           e.summonCd = 5.0;
         }
@@ -1025,14 +1025,14 @@
       state.player.invuln = 1.5;
       sfx.power_up_grab();
       pushPopup("SHIELD!", tilePxCenter(state.player.gx, state.player.gy).x, tilePxCenter(state.player.gx, state.player.gy).y - 18, "is-bonus");
-      burstAt(tilePxCenter(state.player.gx, state.player.gy).x, tilePxCenter(state.player.gx, state.player.gy).y, "#5de0f0", 18);
+      burstAt(tilePxCenter(state.player.gx, state.player.gy).x, tilePxCenter(state.player.gx, state.player.gy).y, "#5de0f0", 10);
       addShake(4, 0.2);
       updateHud();
       return;
     }
     sfx.life_lost();
     addShake(10, 0.5);
-    burstAt(tilePxCenter(state.player.gx, state.player.gy).x, tilePxCenter(state.player.gx, state.player.gy).y, "#f04860", 24);
+    burstAt(tilePxCenter(state.player.gx, state.player.gy).x, tilePxCenter(state.player.gx, state.player.gy).y, "#f04860", 14);
     state.lives--;
     if (state.lives <= 0) {
       phase = "dying";

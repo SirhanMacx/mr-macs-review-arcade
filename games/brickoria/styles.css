@@ -70,12 +70,15 @@ kbd {
   color: var(--chrome);
 }
 
-/* Shell + canvas */
+/* Shell + canvas
+   Note: page-marquee strip is relative-positioned ABOVE this shell (~22px mobile,
+   ~28px desktop). Subtracting it keeps the canvas bottom inside the viewport so
+   the paddle/lives row isn't clipped off-screen. */
 .brickoria-shell {
   position: relative;
   width: 100vw;
-  height: 100dvh;
-  max-height: 100dvh;
+  height: calc(100dvh - 28px);
+  max-height: calc(100dvh - 28px);
   overflow: hidden;
   isolation: isolate;
   background:
@@ -83,6 +86,12 @@ kbd {
     radial-gradient(ellipse 100% 80% at 50% 100%, var(--cabinet-dark) 0%, var(--void) 80%),
     var(--void);
   transition: background .8s var(--ease);
+}
+@media (max-width: 540px) {
+  .brickoria-shell {
+    height: calc(100dvh - 18px);
+    max-height: calc(100dvh - 18px);
+  }
 }
 
 #brickCanvas {
@@ -320,13 +329,16 @@ kbd {
 .setup-card {
   width: 100%;
   max-width: 640px;
+  /* prevent card overflow on short viewports — scroll within card */
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 28px 32px 32px;
   border-radius: 18px;
   background: var(--panel-strong);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-deep);
   position: relative;
-  overflow: hidden;
 }
 .setup-card.compact { max-width: 480px; padding: 24px 28px; }
 
@@ -584,19 +596,32 @@ kbd {
 
 @media (max-width: 540px) {
   .choice-grid { grid-template-columns: 1fr; }
-  .setup-card h1 { font-size: 32px; }
-  .setup-card { padding: 20px 16px 24px; }
+  .setup-card h1 { font-size: 30px; }
+  .setup-card { padding: 18px 14px 20px; max-height: 88vh; }
   .setup-card.compact { padding: 16px; }
-  .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
-  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
-  .stat-cell { min-width: 48px; padding: 3px 6px; }
+  .top-hud { flex-wrap: wrap; gap: 6px; padding: 7px 8px; }
+  .brand { flex: 0 1 auto; min-width: 0; max-width: 50%; }
+  .brand-title { font-size: 16px; }
+  .hud-controls { order: 2; flex: 0 0 auto; gap: 4px; }
+  .hud-btn { padding: 7px 9px; font-size: 11px; min-height: 36px; }
+  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; gap: 4px; flex-wrap: nowrap; }
+  .stat-cell { min-width: 0; padding: 3px 6px; flex: 1 1 0; }
   .stat-value { font-size: 14px; }
-  .era-ribbon { top: 110px; max-width: 92vw; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .stat-label { font-size: 8px; letter-spacing: .08em; }
+  .era-ribbon { top: 96px; max-width: calc(100vw - 24px); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 11px; padding: 5px 12px; }
+  .era-name { font-size: 14px; }
+  .era-meta { font-size: 10px; }
   .brand-sub { display: none; }
-  .setup-actions { flex-direction: column; }
-  .btn { width: 100%; text-align: center; }
+  /* Setup buttons: keep horizontally aligned to save vertical space */
+  .setup-actions { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .setup-actions .btn { flex: 1 1 calc(50% - 4px); min-width: 0; }
+  .setup-actions .btn.primary { flex-basis: 100%; }
   .powerup-tray { bottom: 8px; }
   .end-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 380px) {
+  .brand-title { font-size: 14px; }
+  .hud-btn { padding: 6px 7px; font-size: 10px; }
 }
 
 /* End screen grid */

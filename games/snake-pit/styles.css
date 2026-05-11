@@ -80,18 +80,27 @@ kbd {
   color: var(--chrome);
 }
 
-/* Shell + canvas */
+/* Shell + canvas
+   Note: page-marquee strip is relative-positioned ABOVE this shell (~22px mobile,
+   ~28px desktop). Subtracting it keeps the canvas bottom inside the viewport so
+   the joystick/boost row isn't clipped off-screen. */
 .snakepit-shell {
   position: relative;
   width: 100vw;
-  height: 100dvh;
-  max-height: 100dvh;
+  height: calc(100dvh - 28px);
+  max-height: calc(100dvh - 28px);
   overflow: hidden;
   isolation: isolate;
   background:
     radial-gradient(ellipse 100% 70% at 50% 30%, var(--cabinet-mid) 0%, transparent 70%),
     radial-gradient(ellipse 100% 80% at 50% 100%, var(--cabinet-dark) 0%, var(--void) 80%),
     var(--void);
+}
+@media (max-width: 540px) {
+  .snakepit-shell {
+    height: calc(100dvh - 18px);
+    max-height: calc(100dvh - 18px);
+  }
 }
 
 #snakepitCanvas {
@@ -245,12 +254,16 @@ kbd {
   font-size: 12px;
   pointer-events: none;
   transition: border-color .6s var(--ease), color .6s var(--ease);
+  max-width: calc(100vw - 32px);
+  white-space: nowrap;
+  overflow: hidden;
 }
 .wave-kicker {
   color: var(--muted);
   letter-spacing: .12em;
   text-transform: uppercase;
   font-size: 10px;
+  flex: 0 0 auto;
 }
 .wave-name {
   font-family: 'Fraunces', serif;
@@ -258,12 +271,17 @@ kbd {
   font-size: 16px;
   color: var(--cyan);
   transition: color .6s var(--ease), text-shadow .6s var(--ease);
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 .wave-meta {
   font-family: 'JetBrains Mono', monospace;
   color: var(--muted);
   font-size: 11px;
   margin-left: 4px;
+  flex: 0 0 auto;
 }
 
 /* Touch joystick + boost — only on small screens */
@@ -721,10 +739,15 @@ kbd {
   .choice-grid { grid-template-columns: 1fr; }
   .setup-card h1 { font-size: 32px; }
   .top-hud { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
-  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; flex-wrap: wrap; }
-  .stat-cell { min-width: 52px; padding: 3px 8px; }
-  .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 110px; }
+  .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; flex-wrap: nowrap; gap: 4px; }
+  .stat-cell { min-width: 0; padding: 3px 6px; flex: 1 1 0; }
+  .stat-value { font-size: 14px; }
+  .stat-label { font-size: 8px; letter-spacing: .08em; }
+  /* Hide "best" lifetime stat during mobile play — visible on end-screen recap */
+  .stat-cell:has(#hudBest) { display: none; }
+  .wave-ribbon { top: 96px; font-size: 11px; padding: 5px 12px; }
+  .wave-name { font-size: 14px; }
+  .wave-meta { font-size: 10px; }
   .tc-stick { width: 100px; height: 100px; }
   .tc-stick-knob { width: 40px; height: 40px; margin: -20px 0 0 -20px; }
   .tc-boost { width: 80px; height: 80px; font-size: 13px; }
@@ -1017,9 +1040,9 @@ kbd {
 
 @media (max-width: 720px) {
   .hud-leader {
-    top: 92px;
+    top: 132px;
     min-width: 0;
-    max-width: 160px;
+    max-width: 140px;
     padding: 6px 8px 5px;
   }
   .hud-leader .lb-row { font-size: 10px; padding: 2px 0; }

@@ -12,9 +12,9 @@
 
    Course labels: window.DIAG_BANK_COURSE_LABELS = { courseId: humanLabel }
 
-   Built: 2026-05-11T20:50:27.414Z
+   Built: 2026-05-11T23:06:02.069Z
    Courses: 17
-   Total questions: 2010
+   Total questions: 2706
    ============================================================================ */
 (function (w) {
   "use strict";
@@ -4212,6 +4212,66 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Depolarization of a neuron's membrane refers to:",
+      "choices": [
+        "The neuron returning to its resting potential",
+        "Hyperpolarization beyond -70 mV",
+        "The membrane potential moving toward zero or positive",
+        "Complete loss of axonal function"
+      ],
+      "correctText": "The membrane potential moving toward zero or positive",
+      "topic": "Unit 1: Action Potential — Depolarization",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Adoption studies are useful because they help researchers separate:",
+      "choices": [
+        "Sensation and perception",
+        "Genetic and environmental influences",
+        "Reliability and validity",
+        "Conscious and unconscious motives"
+      ],
+      "correctText": "Genetic and environmental influences",
+      "topic": "Unit 1: Adoption Studies",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The adrenal glands release which hormones during stress?",
+      "choices": [
+        "Thyroxine and melatonin",
+        "Insulin and glucagon",
+        "Epinephrine and cortisol",
+        "Oxytocin and prolactin"
+      ],
+      "correctText": "Epinephrine and cortisol",
+      "topic": "Unit 1: Adrenal Glands",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The amygdala is most associated with processing which emotion?",
+      "choices": [
+        "Fear",
+        "Calm contentment",
+        "Disgust at unrelated stimuli",
+        "Joy"
+      ],
+      "correctText": "Fear",
+      "topic": "Unit 1: Amygdala",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Association areas of the cortex are best described as:",
+      "choices": [
+        "Regions that integrate sensory and motor information for higher mental processes",
+        "Areas dedicated solely to one sensory modality",
+        "Regions that store all autobiographical memories",
+        "Brain structures inactive during waking states"
+      ],
+      "correctText": "Regions that integrate sensory and motor information for higher mental processes",
+      "topic": "Unit 1: Association Cortex",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "The fight-or-flight response is primarily controlled by which branch of the autonomic nervous system?",
       "choices": [
         "Parasympathetic",
@@ -4260,6 +4320,78 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Damage to the cerebellum would most likely impair:",
+      "choices": [
+        "Hunger regulation",
+        "Long-term memory formation",
+        "Language comprehension",
+        "Balance and coordinated movement"
+      ],
+      "correctText": "Balance and coordinated movement",
+      "topic": "Unit 1: Cerebellum",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Circadian rhythms refer to:",
+      "choices": [
+        "Sleep cycles within a single night",
+        "Rapid eye movements within REM sleep",
+        "Annual hormonal changes",
+        "The body's roughly 24-hour biological cycles"
+      ],
+      "correctText": "The body's roughly 24-hour biological cycles",
+      "topic": "Unit 1: Circadian Rhythms",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The corpus callosum is the:",
+      "choices": [
+        "Cluster of nuclei in the brainstem",
+        "Bundle of axons connecting the two cerebral hemispheres",
+        "Layer of cells at the back of the eye",
+        "Folded outer surface of the cerebrum"
+      ],
+      "correctText": "Bundle of axons connecting the two cerebral hemispheres",
+      "topic": "Unit 1: Corpus Callosum",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Depressant drugs such as alcohol primarily affect the body by:",
+      "choices": [
+        "Mimicking endorphins exclusively",
+        "Slowing neural activity and bodily functions",
+        "Producing perceptual distortions only",
+        "Speeding up neural activity"
+      ],
+      "correctText": "Slowing neural activity and bodily functions",
+      "topic": "Unit 1: Depressants",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Agonist drugs work by:",
+      "choices": [
+        "Destroying neurons in the brain",
+        "Mimicking or enhancing the effects of a neurotransmitter",
+        "Blocking neurotransmitter receptors",
+        "Triggering only inhibitory potentials"
+      ],
+      "correctText": "Mimicking or enhancing the effects of a neurotransmitter",
+      "topic": "Unit 1: Drugs — Agonists",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Antagonist drugs work by:",
+      "choices": [
+        "Causing reuptake to slow down",
+        "Blocking neurotransmitter activity at receptors",
+        "Mimicking endorphin action",
+        "Increasing neurotransmitter release into the synapse"
+      ],
+      "correctText": "Blocking neurotransmitter activity at receptors",
+      "topic": "Unit 1: Drugs — Antagonists",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "The endocrine system communicates via:",
       "choices": [
         "Neurotransmitters released into synapses",
@@ -4269,6 +4401,30 @@
       ],
       "correctText": "Hormones released into the bloodstream",
       "topic": "Unit 1: Endocrine System",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Excitatory postsynaptic potentials (EPSPs) increase the likelihood that a neuron will:",
+      "choices": [
+        "Stop producing neurotransmitters",
+        "Release myelin proteins",
+        "Reach threshold and fire an action potential",
+        "Hyperpolarize and become less likely to fire"
+      ],
+      "correctText": "Reach threshold and fire an action potential",
+      "topic": "Unit 1: EPSPs",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Evolutionary psychologists explain behaviors largely in terms of:",
+      "choices": [
+        "How they aided survival and reproduction in ancestral environments",
+        "Cultural diffusion",
+        "Conditioning histories",
+        "Unconscious sexual conflicts"
+      ],
+      "correctText": "How they aided survival and reproduction in ancestral environments",
+      "topic": "Unit 1: Evolutionary Psychology",
       "course": "ap-psychology"
     },
     {
@@ -4284,6 +4440,234 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Hallucinogens such as LSD primarily:",
+      "choices": [
+        "Distort perception and evoke sensory images without sensory input",
+        "Mimic acetylcholine at muscle junctions",
+        "Block all pain signals",
+        "Slow neural activity and induce sleep"
+      ],
+      "correctText": "Distort perception and evoke sensory images without sensory input",
+      "topic": "Unit 1: Hallucinogens",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Heritability estimates apply to:",
+      "choices": [
+        "Only physical traits, never behavior",
+        "An individual's personal trait inheritance",
+        "Trait variation within populations, not individuals",
+        "Traits unrelated to environmental influence"
+      ],
+      "correctText": "Trait variation within populations, not individuals",
+      "topic": "Unit 1: Heritability",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Patient H.M., who had his hippocampus removed, lost the ability to:",
+      "choices": [
+        "Form new long-term memories",
+        "Recognize his parents",
+        "Speak fluently",
+        "Recall childhood events"
+      ],
+      "correctText": "Form new long-term memories",
+      "topic": "Unit 1: Hippocampus — Patient HM",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Damage to the hypothalamus would most likely disrupt:",
+      "choices": [
+        "Visual depth perception",
+        "Hunger, thirst, and body temperature regulation",
+        "Long-term memory storage",
+        "Voluntary motor planning"
+      ],
+      "correctText": "Hunger, thirst, and body temperature regulation",
+      "topic": "Unit 1: Hypothalamus",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Compared to fraternal twins, identical twins typically show:",
+      "choices": [
+        "Identical IQ scores in every case",
+        "Greater behavioral differences",
+        "Higher correlations on heritable traits",
+        "Lower correlations on physical traits"
+      ],
+      "correctText": "Higher correlations on heritable traits",
+      "topic": "Unit 1: Identical vs Fraternal Twins",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Insomnia is characterized by:",
+      "choices": [
+        "Acting out dreams physically",
+        "Sudden uncontrollable sleep attacks during the day",
+        "Stopped breathing during sleep",
+        "Persistent difficulty falling or staying asleep"
+      ],
+      "correctText": "Persistent difficulty falling or staying asleep",
+      "topic": "Unit 1: Insomnia",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Hemispheric lateralization research often shows that the left hemisphere is specialized for:",
+      "choices": [
+        "Spatial reasoning only",
+        "Language and analytical processing",
+        "Long-term memory storage",
+        "Emotional expression only"
+      ],
+      "correctText": "Language and analytical processing",
+      "topic": "Unit 1: Lateralization",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The medulla is critical for:",
+      "choices": [
+        "Conscious thought",
+        "Heartbeat and breathing",
+        "Visual perception",
+        "Hearing"
+      ],
+      "correctText": "Heartbeat and breathing",
+      "topic": "Unit 1: Medulla",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The motor cortex is located in which lobe?",
+      "choices": [
+        "Occipital",
+        "Temporal",
+        "Frontal",
+        "Parietal"
+      ],
+      "correctText": "Frontal",
+      "topic": "Unit 1: Motor Cortex",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The myelin sheath's primary function is to:",
+      "choices": [
+        "Store neurotransmitters before release",
+        "Speed up neural transmission",
+        "Maintain ion balance during action potentials",
+        "Detect changes in temperature"
+      ],
+      "correctText": "Speed up neural transmission",
+      "topic": "Unit 1: Myelin",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Narcolepsy is characterized by:",
+      "choices": [
+        "Sleepwalking and night terrors",
+        "Acting out dreams",
+        "Sudden attacks of overwhelming sleepiness, often into REM directly",
+        "Frequent nighttime awakenings"
+      ],
+      "correctText": "Sudden attacks of overwhelming sleepiness, often into REM directly",
+      "topic": "Unit 1: Narcolepsy",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Neuroplasticity refers to the brain's ability to:",
+      "choices": [
+        "Resist any damage from injury",
+        "Generate new neurons at a rapid rate in adults",
+        "Reorganize itself by forming new neural connections",
+        "Maintain a fixed structure across the lifespan"
+      ],
+      "correctText": "Reorganize itself by forming new neural connections",
+      "topic": "Unit 1: Neuroplasticity",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which neurotransmitter is most associated with muscle contraction at the neuromuscular junction?",
+      "choices": [
+        "GABA",
+        "Acetylcholine",
+        "Serotonin",
+        "Dopamine"
+      ],
+      "correctText": "Acetylcholine",
+      "topic": "Unit 1: Neurotransmitters — Acetylcholine",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Low levels of acetylcholine in the brain have been linked to which disorder?",
+      "choices": [
+        "Parkinson's disease",
+        "Alzheimer's disease",
+        "Bipolar disorder",
+        "Schizophrenia"
+      ],
+      "correctText": "Alzheimer's disease",
+      "topic": "Unit 1: Neurotransmitters — Acetylcholine & Alzheimer's",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Parkinson's disease is most directly linked to a deficiency of which neurotransmitter?",
+      "choices": [
+        "Glutamate",
+        "Endorphins",
+        "Serotonin",
+        "Dopamine"
+      ],
+      "correctText": "Dopamine",
+      "topic": "Unit 1: Neurotransmitters — Dopamine & Parkinson's",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Endorphins are most directly involved in:",
+      "choices": [
+        "Coordinating voluntary movement",
+        "Triggering the startle reflex",
+        "Reducing pain and producing pleasurable feelings",
+        "Regulating circadian rhythms"
+      ],
+      "correctText": "Reducing pain and producing pleasurable feelings",
+      "topic": "Unit 1: Neurotransmitters — Endorphins",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "GABA functions primarily as which type of neurotransmitter in the central nervous system?",
+      "choices": [
+        "A hormone released by the pituitary",
+        "The brain's main inhibitory neurotransmitter",
+        "A modulator of the autonomic nervous system only",
+        "The brain's main excitatory neurotransmitter"
+      ],
+      "correctText": "The brain's main inhibitory neurotransmitter",
+      "topic": "Unit 1: Neurotransmitters — GABA",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which neurotransmitter is the brain's primary excitatory neurotransmitter, critical to learning and memory?",
+      "choices": [
+        "Endorphins",
+        "GABA",
+        "Serotonin",
+        "Glutamate"
+      ],
+      "correctText": "Glutamate",
+      "topic": "Unit 1: Neurotransmitters — Glutamate",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Norepinephrine is most directly associated with:",
+      "choices": [
+        "Slow-wave sleep",
+        "Arousal and alertness",
+        "Color perception",
+        "Long-term memory consolidation only"
+      ],
+      "correctText": "Arousal and alertness",
+      "topic": "Unit 1: Neurotransmitters — Norepinephrine",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Which lobe of the brain is most responsible for processing visual information?",
       "choices": [
         "Frontal",
@@ -4293,6 +4677,114 @@
       ],
       "correctText": "Occipital",
       "topic": "Unit 1: Occipital Lobe",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Opioids such as heroin act primarily by:",
+      "choices": [
+        "Blocking dopamine at all reward sites",
+        "Mimicking the brain's endorphins to reduce pain",
+        "Triggering REM rebound",
+        "Activating the sympathetic nervous system"
+      ],
+      "correctText": "Mimicking the brain's endorphins to reduce pain",
+      "topic": "Unit 1: Opioids",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The parasympathetic nervous system is primarily responsible for:",
+      "choices": [
+        "Calming the body and conserving energy",
+        "Voluntary motor movement",
+        "Triggering fight-or-flight responses",
+        "Conducting reflex arcs in the spinal cord"
+      ],
+      "correctText": "Calming the body and conserving energy",
+      "topic": "Unit 1: Parasympathetic Nervous System",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The peripheral nervous system is composed of the somatic and ____ nervous systems.",
+      "choices": [
+        "Parasympathetic",
+        "Sympathetic",
+        "Central",
+        "Autonomic"
+      ],
+      "correctText": "Autonomic",
+      "topic": "Unit 1: Peripheral Nervous System",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Melatonin, which helps regulate sleep, is secreted by the:",
+      "choices": [
+        "Pineal gland",
+        "Adrenal gland",
+        "Thyroid gland",
+        "Pancreas"
+      ],
+      "correctText": "Pineal gland",
+      "topic": "Unit 1: Pineal Gland — Melatonin",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which gland is considered the 'master gland' of the endocrine system?",
+      "choices": [
+        "Adrenal",
+        "Pituitary",
+        "Thyroid",
+        "Pineal"
+      ],
+      "correctText": "Pituitary",
+      "topic": "Unit 1: Pituitary",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The pons is most directly involved in:",
+      "choices": [
+        "Visual processing",
+        "Fine motor coordination only",
+        "Sleep and arousal",
+        "Hormonal regulation"
+      ],
+      "correctText": "Sleep and arousal",
+      "topic": "Unit 1: Pons",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A simple reflex arc, such as withdrawing your hand from a hot stove, is mediated primarily by the:",
+      "choices": [
+        "Frontal cortex",
+        "Cerebellum",
+        "Spinal cord",
+        "Pituitary gland"
+      ],
+      "correctText": "Spinal cord",
+      "topic": "Unit 1: Reflex Arc",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The refractory period is best defined as:",
+      "choices": [
+        "Sustained inhibition lasting hours",
+        "The brief time after firing when a neuron cannot fire again",
+        "The period before the action potential reaches threshold",
+        "The period of myelin regrowth"
+      ],
+      "correctText": "The brief time after firing when a neuron cannot fire again",
+      "topic": "Unit 1: Refractory Period",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Sleep paralysis during REM sleep functions to:",
+      "choices": [
+        "Conserve energy by lowering heart rate",
+        "Prevent the body from acting out dreams",
+        "Reset the circadian clock",
+        "Block all sensory input from the environment"
+      ],
+      "correctText": "Prevent the body from acting out dreams",
+      "topic": "Unit 1: REM Paralysis",
       "course": "ap-psychology"
     },
     {
@@ -4308,6 +4800,30 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Resting potential of a typical neuron is approximately:",
+      "choices": [
+        "0 mV",
+        "-30 mV",
+        "+40 mV",
+        "-70 mV"
+      ],
+      "correctText": "-70 mV",
+      "topic": "Unit 1: Resting Potential",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The reticular formation is most associated with:",
+      "choices": [
+        "Arousal and consciousness",
+        "Voluntary movement",
+        "Hunger and thirst",
+        "Long-term memory"
+      ],
+      "correctText": "Arousal and consciousness",
+      "topic": "Unit 1: Reticular Formation",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Which neurotransmitter is most associated with mood regulation and is the target of SSRI antidepressants?",
       "choices": [
         "Dopamine",
@@ -4320,6 +4836,138 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Sleep apnea is best defined as:",
+      "choices": [
+        "Sleepwalking episodes",
+        "Persistent inability to fall asleep",
+        "Vivid recurring nightmares",
+        "Repeated cessations of breathing during sleep"
+      ],
+      "correctText": "Repeated cessations of breathing during sleep",
+      "topic": "Unit 1: Sleep Apnea",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "During which sleep stage is brain activity most similar to wakefulness?",
+      "choices": [
+        "REM",
+        "NREM Stage 2",
+        "NREM Stage 1",
+        "NREM Stage 3"
+      ],
+      "correctText": "REM",
+      "topic": "Unit 1: Sleep Stages — REM",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Sleep spindles and K-complexes are characteristic of:",
+      "choices": [
+        "REM sleep",
+        "NREM Stage 3",
+        "NREM Stage 2",
+        "Pre-sleep wakefulness"
+      ],
+      "correctText": "NREM Stage 2",
+      "topic": "Unit 1: Sleep Stages — Stage 2",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Deep slow-wave sleep with delta waves occurs in:",
+      "choices": [
+        "Pre-sleep wakefulness",
+        "NREM Stage 1",
+        "NREM Stage 3",
+        "REM sleep"
+      ],
+      "correctText": "NREM Stage 3",
+      "topic": "Unit 1: Sleep Stages — Stage 3",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The somatic nervous system controls:",
+      "choices": [
+        "Smooth muscle of internal organs",
+        "Voluntary skeletal muscle movement",
+        "Heart rate and digestion",
+        "Hormone secretion"
+      ],
+      "correctText": "Voluntary skeletal muscle movement",
+      "topic": "Unit 1: Somatic Nervous System",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The somatosensory cortex is located in which lobe?",
+      "choices": [
+        "Temporal",
+        "Parietal",
+        "Frontal",
+        "Occipital"
+      ],
+      "correctText": "Parietal",
+      "topic": "Unit 1: Somatosensory Cortex",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Split-brain patients have had which structure surgically severed?",
+      "choices": [
+        "Thalamus",
+        "Corpus callosum",
+        "Reticular formation",
+        "Hippocampus"
+      ],
+      "correctText": "Corpus callosum",
+      "topic": "Unit 1: Split Brain",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Stimulant drugs such as cocaine and amphetamines primarily:",
+      "choices": [
+        "Mimic acetylcholine",
+        "Produce dream-like hallucinations as their main effect",
+        "Increase neural activity and arousal",
+        "Slow neural activity"
+      ],
+      "correctText": "Increase neural activity and arousal",
+      "topic": "Unit 1: Stimulants",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The space between two neurons where neurotransmitters are released is called the:",
+      "choices": [
+        "Axon hillock",
+        "Myelin sheath",
+        "Synapse",
+        "Node of Ranvier"
+      ],
+      "correctText": "Synapse",
+      "topic": "Unit 1: Synapse",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The temporal lobes are primarily involved in:",
+      "choices": [
+        "Motor planning",
+        "Auditory processing",
+        "Touch sensation",
+        "Visual processing"
+      ],
+      "correctText": "Auditory processing",
+      "topic": "Unit 1: Temporal Lobe",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Which structure relays sensory information (except smell) to the appropriate cortical areas?",
+      "choices": [
+        "Hippocampus",
+        "Hypothalamus",
+        "Cerebellum",
+        "Thalamus"
+      ],
+      "correctText": "Thalamus",
+      "topic": "Unit 1: Thalamus",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Identical twins raised apart who show similar IQ scores provide evidence for which influence on intelligence?",
       "choices": [
         "Environment only",
@@ -4329,6 +4977,42 @@
       ],
       "correctText": "Heredity",
       "topic": "Unit 1: Twin Studies",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Wernicke's area is primarily involved in:",
+      "choices": [
+        "Language comprehension",
+        "Speech production",
+        "Pain perception",
+        "Visual processing"
+      ],
+      "correctText": "Language comprehension",
+      "topic": "Unit 1: Wernicke's Area",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Absolute threshold is defined as the minimum stimulus needed to detect a stimulus:",
+      "choices": [
+        "Once across a lifetime",
+        "50% of the time",
+        "Only after sensory adaptation",
+        "100% of the time"
+      ],
+      "correctText": "50% of the time",
+      "topic": "Unit 2: Absolute Threshold",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "An algorithm guarantees:",
+      "choices": [
+        "A solution if one exists, by methodically following a procedure",
+        "A quick mental shortcut",
+        "Insight without planning",
+        "An emotional reaction"
+      ],
+      "correctText": "A solution if one exists, by methodically following a procedure",
+      "topic": "Unit 2: Algorithm",
       "course": "ap-psychology"
     },
     {
@@ -4356,6 +5040,42 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "The blind spot in vision corresponds to:",
+      "choices": [
+        "Damage to the visual cortex",
+        "The fovea where cones are densest",
+        "The optic disc where the optic nerve exits the retina",
+        "The lens of the eye"
+      ],
+      "correctText": "The optic disc where the optic nerve exits the retina",
+      "topic": "Unit 2: Blind Spot",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Bottom-up processing primarily begins with:",
+      "choices": [
+        "Mental sets",
+        "Expectations and prior knowledge",
+        "Sensory features detected by receptors",
+        "Schemas constructed in the cortex"
+      ],
+      "correctText": "Sensory features detected by receptors",
+      "topic": "Unit 2: Bottom-Up Processing",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Change blindness illustrates that:",
+      "choices": [
+        "We always notice meaningful changes in our environment",
+        "Color afterimages are caused by retinal damage",
+        "Perception is fully bottom-up",
+        "We often fail to detect large changes in a visual scene when our attention is elsewhere"
+      ],
+      "correctText": "We often fail to detect large changes in a visual scene when our attention is elsewhere",
+      "topic": "Unit 2: Change Blindness",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Memorizing a phone number by grouping digits is an example of:",
       "choices": [
         "Chunking",
@@ -4365,6 +5085,18 @@
       ],
       "correctText": "Chunking",
       "topic": "Unit 2: Chunking",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "In classical conditioning, acquisition is best described as:",
+      "choices": [
+        "Refusal of the organism to learn",
+        "The initial learning of the stimulus-response association",
+        "The reappearance of a previously extinguished response",
+        "The generalization of the response to similar stimuli"
+      ],
+      "correctText": "The initial learning of the stimulus-response association",
+      "topic": "Unit 2: Classical Conditioning — Acquisition",
       "course": "ap-psychology"
     },
     {
@@ -4380,6 +5112,18 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "The cochlea is involved in:",
+      "choices": [
+        "Transducing sound waves into neural impulses",
+        "Touch sensation",
+        "Balance and orientation",
+        "Processing visual depth"
+      ],
+      "correctText": "Transducing sound waves into neural impulses",
+      "topic": "Unit 2: Cochlea",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Which thinking error involves searching only for information that confirms what you already believe?",
       "choices": [
         "Availability heuristic",
@@ -4392,6 +5136,198 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Conduction deafness usually involves damage to:",
+      "choices": [
+        "The auditory cortex",
+        "The optic chiasm",
+        "Hair cells in the cochlea",
+        "The eardrum or middle-ear bones"
+      ],
+      "correctText": "The eardrum or middle-ear bones",
+      "topic": "Unit 2: Conduction Deafness",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Binocular cues for depth perception include:",
+      "choices": [
+        "Retinal disparity",
+        "Interposition",
+        "Texture gradient",
+        "Linear perspective"
+      ],
+      "correctText": "Retinal disparity",
+      "topic": "Unit 2: Depth — Binocular Cues",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Monocular cues for depth perception include:",
+      "choices": [
+        "Retinal disparity",
+        "Both retinal disparity and convergence",
+        "Convergence",
+        "Linear perspective"
+      ],
+      "correctText": "Linear perspective",
+      "topic": "Unit 2: Depth — Monocular Cues",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Stimulus discrimination is the ability to:",
+      "choices": [
+        "Respond differently to similar but distinct stimuli",
+        "Generalize across all similar stimuli",
+        "Acquire a response through observation",
+        "Repress a conditioned response"
+      ],
+      "correctText": "Respond differently to similar but distinct stimuli",
+      "topic": "Unit 2: Discrimination",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The forgetting curve, described by Ebbinghaus, shows that:",
+      "choices": [
+        "Memory loss is rapid initially and then levels off",
+        "Forgetting is a linear, gradual decline",
+        "Memories are forgotten only after sleep",
+        "All forgetting reflects retrieval failure"
+      ],
+      "correctText": "Memory loss is rapid initially and then levels off",
+      "topic": "Unit 2: Ebbinghaus Forgetting Curve",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Echoic memory refers to:",
+      "choices": [
+        "Brief visual sensory memory",
+        "Long-term episodic memory",
+        "Long-term procedural memory",
+        "Brief auditory sensory memory"
+      ],
+      "correctText": "Brief auditory sensory memory",
+      "topic": "Unit 2: Echoic Memory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Episodic memory stores:",
+      "choices": [
+        "Word meanings and facts",
+        "Brief sensory impressions",
+        "Motor skills",
+        "Personal experiences and events"
+      ],
+      "correctText": "Personal experiences and events",
+      "topic": "Unit 2: Episodic Memory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Flashbulb memories are:",
+      "choices": [
+        "Procedural memories with strong feelings",
+        "Brief images held in iconic memory",
+        "Memories formed under hypnosis",
+        "Vivid recollections of emotionally charged events"
+      ],
+      "correctText": "Vivid recollections of emotionally charged events",
+      "topic": "Unit 2: Flashbulb Memories",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Cones are concentrated in the:",
+      "choices": [
+        "Fovea",
+        "Lateral geniculate nucleus",
+        "Optic disc",
+        "Periphery of the retina"
+      ],
+      "correctText": "Fovea",
+      "topic": "Unit 2: Fovea",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The framing effect demonstrates that:",
+      "choices": [
+        "People rarely change their minds",
+        "How information is presented influences judgments and decisions",
+        "Algorithms always outperform heuristics",
+        "Insight cannot be measured experimentally"
+      ],
+      "correctText": "How information is presented influences judgments and decisions",
+      "topic": "Unit 2: Framing",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Frequency theory best explains our perception of:",
+      "choices": [
+        "Color",
+        "Loudness only",
+        "High-pitched sounds only",
+        "Low-pitched sounds"
+      ],
+      "correctText": "Low-pitched sounds",
+      "topic": "Unit 2: Frequency Theory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Taste aversion learning, demonstrated by Garcia, shows that:",
+      "choices": [
+        "Reinforcement must follow within seconds",
+        "Some stimulus-response pairings are biologically prepared",
+        "All stimuli can be associated equally easily",
+        "Classical conditioning requires conscious awareness"
+      ],
+      "correctText": "Some stimulus-response pairings are biologically prepared",
+      "topic": "Unit 2: Garcia — Taste Aversion",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Gate-control theory of pain proposes that:",
+      "choices": [
+        "Endorphins are the only mechanism of pain modulation",
+        "Pain originates entirely in the brain",
+        "Tissue damage produces an identical pain in everyone",
+        "The spinal cord contains a neural 'gate' that blocks or allows pain signals"
+      ],
+      "correctText": "The spinal cord contains a neural 'gate' that blocks or allows pain signals",
+      "topic": "Unit 2: Gate-Control Theory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Stimulus generalization occurs when:",
+      "choices": [
+        "A response is triggered by stimuli similar to the conditioned stimulus",
+        "An organism learns to respond only to one specific stimulus",
+        "Extinction is rapid and complete",
+        "Reinforcement is removed entirely"
+      ],
+      "correctText": "A response is triggered by stimuli similar to the conditioned stimulus",
+      "topic": "Unit 2: Generalization",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Closure, proximity, and similarity are examples of:",
+      "choices": [
+        "Bottom-up processing rules",
+        "Color constancies",
+        "Gestalt grouping principles",
+        "Depth cues"
+      ],
+      "correctText": "Gestalt grouping principles",
+      "topic": "Unit 2: Gestalt Principles",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Iconic memory refers to:",
+      "choices": [
+        "Long-term semantic memory",
+        "Brief auditory sensory memory",
+        "Brief visual sensory memory",
+        "Procedural skill memory"
+      ],
+      "correctText": "Brief visual sensory memory",
+      "topic": "Unit 2: Iconic Memory",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Solving a problem suddenly without conscious step-by-step reasoning is called:",
       "choices": [
         "Algorithm",
@@ -4401,6 +5337,30 @@
       ],
       "correctText": "Insight learning",
       "topic": "Unit 2: Insight",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Kinesthesis is best defined as the sense of:",
+      "choices": [
+        "Body part position and movement",
+        "Temperature on the skin",
+        "Balance from the inner ear",
+        "Smell from the olfactory bulb"
+      ],
+      "correctText": "Body part position and movement",
+      "topic": "Unit 2: Kinesthesis",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Latent learning, demonstrated by Tolman's rats, shows that:",
+      "choices": [
+        "Operant conditioning cannot occur in mazes",
+        "Learning can occur without immediate reinforcement and be expressed later",
+        "Cognitive maps do not exist",
+        "Learning always requires immediate reinforcement"
+      ],
+      "correctText": "Learning can occur without immediate reinforcement and be expressed later",
+      "topic": "Unit 2: Latent Learning",
       "course": "ap-psychology"
     },
     {
@@ -4428,6 +5388,18 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "The three stages of memory in the Atkinson-Shiffrin model are:",
+      "choices": [
+        "Sensory, short-term, long-term",
+        "Iconic, semantic, procedural",
+        "Encoding, retrieval, decay",
+        "Implicit, explicit, working"
+      ],
+      "correctText": "Sensory, short-term, long-term",
+      "topic": "Unit 2: Memory Model",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "George Miller's research showed that short-term memory capacity is approximately:",
       "choices": [
         "3 ± 1 items",
@@ -4440,6 +5412,54 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Mnemonics such as the method of loci primarily improve:",
+      "choices": [
+        "Sensory memory capacity",
+        "Procedural learning",
+        "Encoding through organized retrieval cues",
+        "The neural speed of action potentials"
+      ],
+      "correctText": "Encoding through organized retrieval cues",
+      "topic": "Unit 2: Mnemonics",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Mood-congruent memory is the tendency to:",
+      "choices": [
+        "Recall experiences consistent with current mood",
+        "Remember dreams more accurately",
+        "Forget unpleasant memories permanently",
+        "Always recall happy memories first"
+      ],
+      "correctText": "Recall experiences consistent with current mood",
+      "topic": "Unit 2: Mood-Congruent Memory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Negative punishment (omission training) involves:",
+      "choices": [
+        "Adding an aversive stimulus to decrease behavior",
+        "Adding a pleasant stimulus to increase behavior",
+        "Removing an aversive stimulus to increase behavior",
+        "Removing a pleasant stimulus to decrease behavior"
+      ],
+      "correctText": "Removing a pleasant stimulus to decrease behavior",
+      "topic": "Unit 2: Negative Punishment",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Negative reinforcement involves:",
+      "choices": [
+        "Removing an unpleasant stimulus to increase a behavior",
+        "Adding a pleasant stimulus",
+        "Ignoring a behavior to decrease it",
+        "Adding something unpleasant to decrease a behavior"
+      ],
+      "correctText": "Removing an unpleasant stimulus to increase a behavior",
+      "topic": "Unit 2: Negative Reinforcement",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "A child stops touching a hot stove after burning themselves once. This is an example of:",
       "choices": [
         "Classical conditioning",
@@ -4449,6 +5469,114 @@
       ],
       "correctText": "Operant conditioning via positive punishment",
       "topic": "Unit 2: Operant Conditioning — Punishment",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The opponent-process theory of color vision proposes that color is processed in:",
+      "choices": [
+        "A single pathway with no opponent channels",
+        "Opposing pairs (red-green, blue-yellow, black-white)",
+        "Three independent cone types only",
+        "Cones in the periphery"
+      ],
+      "correctText": "Opposing pairs (red-green, blue-yellow, black-white)",
+      "topic": "Unit 2: Opponent-Process Theory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Perceptual set refers to:",
+      "choices": [
+        "A failure to perceive any motion",
+        "An aftereffect from prolonged exposure",
+        "The arrangement of receptors in the retina",
+        "A predisposition to perceive one thing rather than another"
+      ],
+      "correctText": "A predisposition to perceive one thing rather than another",
+      "topic": "Unit 2: Perceptual Set",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The phi phenomenon is an example of:",
+      "choices": [
+        "Apparent motion from rapidly flashing lights",
+        "Failure of size constancy",
+        "Sensory adaptation",
+        "Color afterimage"
+      ],
+      "correctText": "Apparent motion from rapidly flashing lights",
+      "topic": "Unit 2: Phi Phenomenon",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The retina contains two types of photoreceptors:",
+      "choices": [
+        "Pacinian and Meissner's corpuscles",
+        "Hammers and anvils",
+        "Cilia and stereocilia",
+        "Rods and cones"
+      ],
+      "correctText": "Rods and cones",
+      "topic": "Unit 2: Photoreceptors",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Place theory best explains our perception of:",
+      "choices": [
+        "Loudness only",
+        "High-pitched sounds",
+        "Low-pitched sounds only",
+        "Sound localization only"
+      ],
+      "correctText": "High-pitched sounds",
+      "topic": "Unit 2: Place Theory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Positive punishment involves:",
+      "choices": [
+        "Adding an aversive stimulus to decrease behavior",
+        "Removing a pleasant stimulus to decrease behavior",
+        "Adding a pleasant stimulus to increase behavior",
+        "Removing an aversive stimulus to increase behavior"
+      ],
+      "correctText": "Adding an aversive stimulus to decrease behavior",
+      "topic": "Unit 2: Positive Punishment",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Positive reinforcement involves:",
+      "choices": [
+        "Removing something unpleasant to increase a behavior",
+        "Adding something unpleasant to decrease a behavior",
+        "Adding something pleasant to increase a behavior",
+        "Removing something pleasant to decrease a behavior"
+      ],
+      "correctText": "Adding something pleasant to increase a behavior",
+      "topic": "Unit 2: Positive Reinforcement",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A primary reinforcer is:",
+      "choices": [
+        "A learned reinforcer such as money or grades",
+        "A stimulus paired with a UCS",
+        "Any stimulus paired with punishment",
+        "An innately satisfying stimulus such as food or water"
+      ],
+      "correctText": "An innately satisfying stimulus such as food or water",
+      "topic": "Unit 2: Primary Reinforcer",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Proactive interference occurs when:",
+      "choices": [
+        "Recall is enhanced by mood matching",
+        "Material is never encoded",
+        "Older memories disrupt recall of newer ones",
+        "Newer memories disrupt recall of older ones"
+      ],
+      "correctText": "Older memories disrupt recall of newer ones",
+      "topic": "Unit 2: Proactive Interference",
       "course": "ap-psychology"
     },
     {
@@ -4476,6 +5604,18 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "The representativeness heuristic involves judging the likelihood of events by:",
+      "choices": [
+        "Hindsight reconstruction",
+        "Anchoring on a starting number",
+        "How easily examples come to mind",
+        "How well they match a prototype"
+      ],
+      "correctText": "How well they match a prototype",
+      "topic": "Unit 2: Representativeness Heuristic",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "The tip-of-the-tongue phenomenon is an example of:",
       "choices": [
         "Encoding failure",
@@ -4485,6 +5625,138 @@
       ],
       "correctText": "Retrieval failure",
       "topic": "Unit 2: Retrieval Failure",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Retroactive interference occurs when:",
+      "choices": [
+        "Newer learning disrupts recall of older learning",
+        "Older learning disrupts recall of newer learning",
+        "An unconditioned response disrupts a conditioned response",
+        "Sensory memory replaces short-term memory"
+      ],
+      "correctText": "Newer learning disrupts recall of older learning",
+      "topic": "Unit 2: Retroactive Interference",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Rods are specialized for:",
+      "choices": [
+        "Detecting motion only",
+        "Color vision in bright light",
+        "Black-and-white vision in low light",
+        "Detecting fine detail"
+      ],
+      "correctText": "Black-and-white vision in low light",
+      "topic": "Unit 2: Rods",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A fixed-interval schedule reinforces a response:",
+      "choices": [
+        "After a set amount of time has passed",
+        "After a varying number of responses",
+        "After a varying amount of time",
+        "After a fixed number of responses"
+      ],
+      "correctText": "After a set amount of time has passed",
+      "topic": "Unit 2: Schedules — Fixed Interval",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A fixed-ratio schedule reinforces a response:",
+      "choices": [
+        "After a fixed number of responses",
+        "After a variable amount of time",
+        "After a varying number of responses",
+        "After a fixed amount of time"
+      ],
+      "correctText": "After a fixed number of responses",
+      "topic": "Unit 2: Schedules — Fixed Ratio",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A variable-interval schedule reinforces a response:",
+      "choices": [
+        "After a set amount of time",
+        "After a set number of responses",
+        "After unpredictable amounts of time",
+        "After a varying number of responses"
+      ],
+      "correctText": "After unpredictable amounts of time",
+      "topic": "Unit 2: Schedules — Variable Interval",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Semantic memory stores:",
+      "choices": [
+        "Personal life events",
+        "Motor skills",
+        "Brief sensory impressions",
+        "General knowledge and facts"
+      ],
+      "correctText": "General knowledge and facts",
+      "topic": "Unit 2: Semantic Memory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The conversion of physical energy into neural impulses is called:",
+      "choices": [
+        "Transduction",
+        "Perception",
+        "Sensation",
+        "Adaptation"
+      ],
+      "correctText": "Transduction",
+      "topic": "Unit 2: Sensation — Transduction",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Sensorineural deafness usually involves damage to:",
+      "choices": [
+        "The eardrum",
+        "The pinna",
+        "The middle ear bones",
+        "Hair cells in the cochlea or auditory nerve"
+      ],
+      "correctText": "Hair cells in the cochlea or auditory nerve",
+      "topic": "Unit 2: Sensorineural Deafness",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Sensory adaptation explains why:",
+      "choices": [
+        "We perceive subliminal stimuli more accurately",
+        "We become more sensitive to all stimuli over time",
+        "We can't be hypnotized after repeated trials",
+        "We stop noticing a constant stimulus after prolonged exposure"
+      ],
+      "correctText": "We stop noticing a constant stimulus after prolonged exposure",
+      "topic": "Unit 2: Sensory Adaptation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The serial position effect predicts better recall for:",
+      "choices": [
+        "Items presented in random order only",
+        "Only items in the middle of a list",
+        "Items at the beginning and end of a list",
+        "Items presented visually only"
+      ],
+      "correctText": "Items at the beginning and end of a list",
+      "topic": "Unit 2: Serial Position Effect",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Shaping is best defined as:",
+      "choices": [
+        "Punishing all incorrect responses",
+        "Reinforcing successive approximations toward a desired behavior",
+        "Allowing an animal to learn entirely by observation",
+        "Pairing a CS with a UCS"
+      ],
+      "correctText": "Reinforcing successive approximations toward a desired behavior",
+      "topic": "Unit 2: Shaping",
       "course": "ap-psychology"
     },
     {
@@ -4500,6 +5772,54 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Signal detection theory states that detecting a stimulus depends on:",
+      "choices": [
+        "The absolute threshold being identical for everyone",
+        "Stimulus intensity alone",
+        "Adaptation rather than expectation",
+        "Both stimulus intensity and observer factors like fatigue and expectations"
+      ],
+      "correctText": "Both stimulus intensity and observer factors like fatigue and expectations",
+      "topic": "Unit 2: Signal Detection Theory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Spontaneous recovery in classical conditioning refers to:",
+      "choices": [
+        "Learning a new behavior without reinforcement",
+        "Forgetting an unconditioned stimulus",
+        "Acquiring a response through observation",
+        "The reappearance of an extinguished conditioned response after a rest"
+      ],
+      "correctText": "The reappearance of an extinguished conditioned response after a rest",
+      "topic": "Unit 2: Spontaneous Recovery",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A token economy is an application of:",
+      "choices": [
+        "Psychodynamic therapy",
+        "Observational learning",
+        "Operant conditioning principles",
+        "Classical conditioning principles"
+      ],
+      "correctText": "Operant conditioning principles",
+      "topic": "Unit 2: Token Economy",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The trichromatic theory of color vision proposes:",
+      "choices": [
+        "That color is processed only in the lateral geniculate",
+        "Three types of cones tuned to red, green, and blue light",
+        "Two opposing color channels in the retina",
+        "That all color vision is mediated by rods"
+      ],
+      "correctText": "Three types of cones tuned to red, green, and blue light",
+      "topic": "Unit 2: Trichromatic Theory",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "In Pavlov's experiment, the meat powder is the:",
       "choices": [
         "Conditioned stimulus",
@@ -4509,6 +5829,234 @@
       ],
       "correctText": "Unconditioned stimulus",
       "topic": "Unit 2: UCS",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The vestibular sense provides information about:",
+      "choices": [
+        "Pain in internal organs",
+        "The position of muscles and joints",
+        "Taste of bitter foods",
+        "Body position and balance"
+      ],
+      "correctText": "Body position and balance",
+      "topic": "Unit 2: Vestibular Sense",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Accommodation in vision refers to:",
+      "choices": [
+        "The pupil constricting in bright light",
+        "The lens changing shape to focus on near or far objects",
+        "The retina forming a new image after eye movement",
+        "Adapting to darkness"
+      ],
+      "correctText": "The lens changing shape to focus on near or far objects",
+      "topic": "Unit 2: Visual Accommodation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "In Watson and Rayner's Little Albert study, the unconditioned stimulus was:",
+      "choices": [
+        "Fear of the rat",
+        "The loud noise",
+        "Albert's startle response",
+        "The white rat"
+      ],
+      "correctText": "The loud noise",
+      "topic": "Unit 2: Watson — Little Albert",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Weber's law states that the just-noticeable difference is:",
+      "choices": [
+        "Greatest at low intensities only",
+        "A constant proportion of the original stimulus",
+        "A fixed amount regardless of stimulus size",
+        "Always larger for visual stimuli than auditory"
+      ],
+      "correctText": "A constant proportion of the original stimulus",
+      "topic": "Unit 2: Weber's Law",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Working memory, as conceptualized by Baddeley, includes:",
+      "choices": [
+        "Only one undifferentiated short-term store",
+        "Procedural memory exclusively",
+        "A phonological loop and visuospatial sketchpad coordinated by a central executive",
+        "Long-term semantic storage"
+      ],
+      "correctText": "A phonological loop and visuospatial sketchpad coordinated by a central executive",
+      "topic": "Unit 2: Working Memory",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Accommodation in Piaget's theory means:",
+      "choices": [
+        "Reinforcing prior beliefs",
+        "Modifying existing schemas to incorporate new information",
+        "Refusing to consider new information",
+        "Fitting new information into existing schemas"
+      ],
+      "correctText": "Modifying existing schemas to incorporate new information",
+      "topic": "Unit 3: Accommodation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Mary Ainsworth's Strange Situation primarily assesses:",
+      "choices": [
+        "Temperament",
+        "Intelligence",
+        "Attachment style",
+        "Cognitive stage"
+      ],
+      "correctText": "Attachment style",
+      "topic": "Unit 3: Ainsworth — Strange Situation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Assimilation in Piaget's theory means:",
+      "choices": [
+        "Following parental rules",
+        "Imitating peers",
+        "Adjusting schemas to incorporate new information",
+        "Fitting new information into existing schemas"
+      ],
+      "correctText": "Fitting new information into existing schemas",
+      "topic": "Unit 3: Assimilation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Diana Baumrind's authoritarian parenting style is characterized by:",
+      "choices": [
+        "High demands and low responsiveness",
+        "High demands and high responsiveness",
+        "Low demands and high responsiveness",
+        "Low demands and low responsiveness"
+      ],
+      "correctText": "High demands and low responsiveness",
+      "topic": "Unit 3: Authoritarian Parenting",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Babbling typically begins around:",
+      "choices": [
+        "12 months of age",
+        "4 months of age",
+        "Birth",
+        "24 months of age"
+      ],
+      "correctText": "4 months of age",
+      "topic": "Unit 3: Babbling",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Cohort effects refer to:",
+      "choices": [
+        "Differences between age groups caused by their unique historical context",
+        "Universal developmental milestones",
+        "Genetic differences across families",
+        "Effects of random assignment"
+      ],
+      "correctText": "Differences between age groups caused by their unique historical context",
+      "topic": "Unit 3: Cohort Effects",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Conservation, the understanding that quantity remains the same despite changes in shape, develops in:",
+      "choices": [
+        "The preoperational stage",
+        "The formal operational stage",
+        "The concrete operational stage",
+        "The sensorimotor stage"
+      ],
+      "correctText": "The concrete operational stage",
+      "topic": "Unit 3: Conservation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The critical period hypothesis for language proposes that:",
+      "choices": [
+        "Language is independent of brain development",
+        "Language can never be acquired after age 5",
+        "Language is most easily acquired in early childhood",
+        "Adults learn languages more easily than children"
+      ],
+      "correctText": "Language is most easily acquired in early childhood",
+      "topic": "Unit 3: Critical Period — Language",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A cross-sectional study compares:",
+      "choices": [
+        "Two cultures at one time only",
+        "The same group across years",
+        "Different age groups at the same point in time",
+        "Identical twins to each other"
+      ],
+      "correctText": "Different age groups at the same point in time",
+      "topic": "Unit 3: Cross-Sectional Study",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Crystallized intelligence:",
+      "choices": [
+        "Is fixed at birth",
+        "Refers to problem-solving speed and novel reasoning, declining with age",
+        "Is measured only by reaction time",
+        "Reflects accumulated knowledge and tends to remain stable or grow with age"
+      ],
+      "correctText": "Reflects accumulated knowledge and tends to remain stable or grow with age",
+      "topic": "Unit 3: Crystallized Intelligence",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Dementia symptoms most commonly include:",
+      "choices": [
+        "Anxiety attacks under stress",
+        "Sudden onset of hallucinations only",
+        "Hyperactive impulsive behavior in childhood",
+        "Progressive cognitive decline affecting memory and reasoning"
+      ],
+      "correctText": "Progressive cognitive decline affecting memory and reasoning",
+      "topic": "Unit 3: Dementia",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Carol Dweck's research on mindset distinguishes between:",
+      "choices": [
+        "Internal vs. external locus of control",
+        "A fixed mindset and a growth mindset",
+        "Authoritarian and authoritative parenting",
+        "Convergent and divergent thinking"
+      ],
+      "correctText": "A fixed mindset and a growth mindset",
+      "topic": "Unit 3: Dweck — Mindset",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Egocentrism in Piaget's theory refers to:",
+      "choices": [
+        "Difficulty taking another's perspective",
+        "Self-esteem in adolescence",
+        "Identity confusion",
+        "Excessive selfishness"
+      ],
+      "correctText": "Difficulty taking another's perspective",
+      "topic": "Unit 3: Egocentrism",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Adolescent egocentrism, as described by David Elkind, includes the:",
+      "choices": [
+        "Imaginary audience and personal fable",
+        "Foreclosure status",
+        "Zone of proximal development",
+        "Care orientation in morality"
+      ],
+      "correctText": "Imaginary audience and personal fable",
+      "topic": "Unit 3: Elkind — Adolescent Egocentrism",
       "course": "ap-psychology"
     },
     {
@@ -4524,6 +6072,162 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Erikson's autonomy vs. shame and doubt stage occurs in:",
+      "choices": [
+        "Infancy",
+        "Middle adulthood",
+        "Toddlerhood",
+        "Adolescence"
+      ],
+      "correctText": "Toddlerhood",
+      "topic": "Unit 3: Erikson — Autonomy",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Erikson's generativity vs. stagnation stage occurs in:",
+      "choices": [
+        "Late adulthood",
+        "Young adulthood",
+        "Adolescence",
+        "Middle adulthood"
+      ],
+      "correctText": "Middle adulthood",
+      "topic": "Unit 3: Erikson — Generativity",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Erikson's industry vs. inferiority stage occurs in:",
+      "choices": [
+        "Elementary school years",
+        "Old age",
+        "Adolescence",
+        "Toddlerhood"
+      ],
+      "correctText": "Elementary school years",
+      "topic": "Unit 3: Erikson — Industry",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Erikson's initiative vs. guilt stage occurs in:",
+      "choices": [
+        "Young adulthood",
+        "Toddlerhood",
+        "Adolescence",
+        "Preschool years"
+      ],
+      "correctText": "Preschool years",
+      "topic": "Unit 3: Erikson — Initiative",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Erikson's integrity vs. despair stage occurs in:",
+      "choices": [
+        "Late adulthood",
+        "Young adulthood",
+        "Adolescence",
+        "Middle adulthood"
+      ],
+      "correctText": "Late adulthood",
+      "topic": "Unit 3: Erikson — Integrity",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Erik Erikson would describe a 70-year-old reflecting positively on their life as exhibiting:",
+      "choices": [
+        "Integrity",
+        "Despair",
+        "Identity confusion",
+        "Stagnation"
+      ],
+      "correctText": "Integrity",
+      "topic": "Unit 3: Erikson — Integrity (Application)",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Erikson's intimacy vs. isolation stage occurs in:",
+      "choices": [
+        "Young adulthood",
+        "Middle adulthood",
+        "Late adulthood",
+        "Adolescence"
+      ],
+      "correctText": "Young adulthood",
+      "topic": "Unit 3: Erikson — Intimacy",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Erikson's trust vs. mistrust stage occurs during:",
+      "choices": [
+        "Adolescence",
+        "Toddlerhood",
+        "Late adulthood",
+        "Infancy"
+      ],
+      "correctText": "Infancy",
+      "topic": "Unit 3: Erikson — Trust",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Fetal alcohol syndrome is caused by:",
+      "choices": [
+        "Maternal stress alone",
+        "A genetic abnormality on chromosome 21",
+        "Infections during the third trimester only",
+        "Prenatal exposure to alcohol"
+      ],
+      "correctText": "Prenatal exposure to alcohol",
+      "topic": "Unit 3: Fetal Alcohol Syndrome",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Fluid intelligence:",
+      "choices": [
+        "Is measured only by vocabulary tests",
+        "Reflects accumulated knowledge stable with age",
+        "Involves problem solving in novel situations and tends to decline with age",
+        "Is purely cultural"
+      ],
+      "correctText": "Involves problem solving in novel situations and tends to decline with age",
+      "topic": "Unit 3: Fluid Intelligence",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The Flynn effect refers to:",
+      "choices": [
+        "Decline in fluid intelligence with age",
+        "Genetic basis of intelligence",
+        "The rise in average IQ scores across generations",
+        "Cultural bias in intelligence tests"
+      ],
+      "correctText": "The rise in average IQ scores across generations",
+      "topic": "Unit 3: Flynn Effect",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Abstract reasoning and hypothetical thinking characterize Piaget's:",
+      "choices": [
+        "Concrete operational stage",
+        "Preoperational stage",
+        "Formal operational stage",
+        "Sensorimotor stage"
+      ],
+      "correctText": "Formal operational stage",
+      "topic": "Unit 3: Formal Operational",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Howard Gardner proposed:",
+      "choices": [
+        "A single general intelligence factor 'g'",
+        "Multiple distinct intelligences (e.g., linguistic, spatial, musical)",
+        "Two types: fluid and crystallized only",
+        "An emotional intelligence model"
+      ],
+      "correctText": "Multiple distinct intelligences (e.g., linguistic, spatial, musical)",
+      "topic": "Unit 3: Gardner — Multiple Intelligences",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Gestalt psychologists emphasized that:",
       "choices": [
         "Behavior can only be measured through reflexes",
@@ -4533,6 +6237,18 @@
       ],
       "correctText": "The whole is greater than the sum of the parts",
       "topic": "Unit 3: Gestalt",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Carol Gilligan critiqued Kohlberg's theory by emphasizing:",
+      "choices": [
+        "The role of operant conditioning",
+        "A care orientation in moral reasoning often seen in women",
+        "Genetic determinants of morality",
+        "The non-existence of moral stages"
+      ],
+      "correctText": "A care orientation in moral reasoning often seen in women",
+      "topic": "Unit 3: Gilligan — Care Ethics",
       "course": "ap-psychology"
     },
     {
@@ -4548,6 +6264,54 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Imprinting, demonstrated by Konrad Lorenz, occurs:",
+      "choices": [
+        "In humans during adolescence",
+        "During a critical period in some species",
+        "Only after extensive reinforcement",
+        "Across the entire lifespan equally"
+      ],
+      "correctText": "During a critical period in some species",
+      "topic": "Unit 3: Imprinting — Lorenz",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Insecure-avoidant attachment is characterized by:",
+      "choices": [
+        "A complete inability to explore",
+        "Strong distress and resistance to soothing",
+        "Indifference to the caregiver upon reunion",
+        "Confused, disorganized reactions"
+      ],
+      "correctText": "Indifference to the caregiver upon reunion",
+      "topic": "Unit 3: Insecure-Avoidant",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Insecure-resistant (anxious-ambivalent) attachment is characterized by:",
+      "choices": [
+        "Indifference to the caregiver",
+        "Aggressive rejection of the caregiver",
+        "Easy soothing and exploration",
+        "Clinging and difficulty being soothed"
+      ],
+      "correctText": "Clinging and difficulty being soothed",
+      "topic": "Unit 3: Insecure-Resistant",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Intellectual disability is typically diagnosed when an individual's IQ score is:",
+      "choices": [
+        "About 70 or below, with adaptive deficits",
+        "Between 70 and 85, regardless of adaptive function",
+        "Below 50 only",
+        "Below 100"
+      ],
+      "correctText": "About 70 or below, with adaptive deficits",
+      "topic": "Unit 3: Intellectual Disability",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Kohlberg's preconventional level of moral reasoning is primarily based on:",
       "choices": [
         "Abstract ethical principles",
@@ -4560,6 +6324,66 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Kohlberg's conventional level of moral reasoning emphasizes:",
+      "choices": [
+        "Social approval and maintaining laws",
+        "Avoiding punishment",
+        "Personal pleasure",
+        "Abstract universal principles"
+      ],
+      "correctText": "Social approval and maintaining laws",
+      "topic": "Unit 3: Kohlberg — Conventional",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Kohlberg's postconventional level of moral reasoning involves:",
+      "choices": [
+        "Gaining rewards from others",
+        "Avoidance of punishment only",
+        "Strict adherence to authority",
+        "Abstract ethical principles that may override laws"
+      ],
+      "correctText": "Abstract ethical principles that may override laws",
+      "topic": "Unit 3: Kohlberg — Postconventional",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A longitudinal study follows:",
+      "choices": [
+        "Different age groups simultaneously",
+        "Twins separated at birth",
+        "The same individuals over time",
+        "A single participant intensively in a clinical setting"
+      ],
+      "correctText": "The same individuals over time",
+      "topic": "Unit 3: Longitudinal Study",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "James Marcia's identity statuses include:",
+      "choices": [
+        "Sensorimotor, preoperational, concrete, formal",
+        "Trust, autonomy, initiative, industry",
+        "Diffusion, foreclosure, moratorium, achievement",
+        "Oral, anal, phallic, genital"
+      ],
+      "correctText": "Diffusion, foreclosure, moratorium, achievement",
+      "topic": "Unit 3: Marcia — Identity Statuses",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Maturation refers to:",
+      "choices": [
+        "Cognitive changes from formal schooling",
+        "Cultural learning of norms",
+        "Learned changes from environment alone",
+        "Biological growth processes that enable orderly changes in behavior"
+      ],
+      "correctText": "Biological growth processes that enable orderly changes in behavior",
+      "topic": "Unit 3: Maturation",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "The McGurk effect demonstrates that:",
       "choices": [
         "Vision and hearing are processed independently",
@@ -4569,6 +6393,30 @@
       ],
       "correctText": "Visual cues influence what we hear",
       "topic": "Unit 3: McGurk Effect",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Menopause typically occurs:",
+      "choices": [
+        "Only after pregnancy",
+        "In late adulthood after age 75",
+        "In midlife, marking the end of menstruation",
+        "During adolescence"
+      ],
+      "correctText": "In midlife, marking the end of menstruation",
+      "topic": "Unit 3: Menopause",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The Moro (startle) reflex appears when:",
+      "choices": [
+        "A newborn loses support and feels falling",
+        "An infant's foot is stroked",
+        "An infant's cheek is touched",
+        "An infant is held upright"
+      ],
+      "correctText": "A newborn loses support and feels falling",
+      "topic": "Unit 3: Moro Reflex",
       "course": "ap-psychology"
     },
     {
@@ -4596,6 +6444,30 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Permissive parenting is characterized by:",
+      "choices": [
+        "Low demands and high responsiveness",
+        "High demands and high responsiveness",
+        "Low demands and low responsiveness",
+        "High demands and low responsiveness"
+      ],
+      "correctText": "Low demands and high responsiveness",
+      "topic": "Unit 3: Permissive Parenting",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "In Piaget's preoperational stage, children typically show:",
+      "choices": [
+        "Egocentrism and lack of conservation",
+        "Object permanence for the first time",
+        "Abstract logical reasoning",
+        "Mastery of conservation tasks"
+      ],
+      "correctText": "Egocentrism and lack of conservation",
+      "topic": "Unit 3: Piaget — Preoperational",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Piaget's stage in which children develop object permanence is:",
       "choices": [
         "Preoperational",
@@ -4605,6 +6477,42 @@
       ],
       "correctText": "Sensorimotor",
       "topic": "Unit 3: Piaget — Sensorimotor",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The order of prenatal stages is:",
+      "choices": [
+        "Embryonic, germinal, fetal",
+        "Germinal, embryonic, fetal",
+        "Embryonic, fetal, germinal",
+        "Fetal, embryonic, germinal"
+      ],
+      "correctText": "Germinal, embryonic, fetal",
+      "topic": "Unit 3: Prenatal Stages",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The rooting reflex helps newborns:",
+      "choices": [
+        "Step rhythmically when held upright",
+        "Startle in response to a loud sound",
+        "Turn the head toward a touch on the cheek to find a nipple",
+        "Grasp objects placed in their palm"
+      ],
+      "correctText": "Turn the head toward a touch on the cheek to find a nipple",
+      "topic": "Unit 3: Reflexes — Rooting",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A test that consistently produces similar scores for the same person across administrations has high:",
+      "choices": [
+        "Standardization",
+        "Validity",
+        "Predictive value",
+        "Reliability"
+      ],
+      "correctText": "Reliability",
+      "topic": "Unit 3: Reliability",
       "course": "ap-psychology"
     },
     {
@@ -4620,6 +6528,42 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Scaffolding in Vygotsky's theory refers to:",
+      "choices": [
+        "Permanent structures in language",
+        "A type of operant conditioning",
+        "Temporary support that is gradually withdrawn as learners gain skill",
+        "Maslow's lower needs"
+      ],
+      "correctText": "Temporary support that is gradually withdrawn as learners gain skill",
+      "topic": "Unit 3: Scaffolding",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "In the Strange Situation, securely attached infants typically:",
+      "choices": [
+        "Cling and resist soothing upon reunion",
+        "Use the caregiver as a safe base and are easily soothed upon reunion",
+        "Show no preference for the caregiver",
+        "Avoid the caregiver consistently"
+      ],
+      "correctText": "Use the caregiver as a safe base and are easily soothed upon reunion",
+      "topic": "Unit 3: Secure Attachment",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A securely attached infant in Ainsworth's research typically explores when the caregiver is present and:",
+      "choices": [
+        "Shows angry resistance upon return",
+        "Is indifferent when the caregiver leaves",
+        "Shows distress when the caregiver leaves and seeks comfort upon return",
+        "Avoids the caregiver upon return"
+      ],
+      "correctText": "Shows distress when the caregiver leaves and seeks comfort upon return",
+      "topic": "Unit 3: Secure Attachment (Application)",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Spearman's 'g' refers to:",
       "choices": [
         "General intelligence underlying all mental abilities",
@@ -4629,6 +6573,90 @@
       ],
       "correctText": "General intelligence underlying all mental abilities",
       "topic": "Unit 3: Spearman's g",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Standardization in intelligence testing refers to:",
+      "choices": [
+        "Eliminating reliability concerns",
+        "Defining meaningful scores by comparing them to a pretested group",
+        "Ensuring tests are translated into many languages",
+        "Using only multiple-choice items"
+      ],
+      "correctText": "Defining meaningful scores by comparing them to a pretested group",
+      "topic": "Unit 3: Standardization",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Stanford-Binet IQ was originally calculated as:",
+      "choices": [
+        "Z-score on a normalized distribution",
+        "Chronological age divided by mental age",
+        "Percentile rank among same-age peers only",
+        "Mental age divided by chronological age times 100"
+      ],
+      "correctText": "Mental age divided by chronological age times 100",
+      "topic": "Unit 3: Stanford-Binet IQ",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Robert Sternberg's triarchic theory of intelligence proposes:",
+      "choices": [
+        "Linguistic, spatial, and musical intelligences",
+        "Analytical, creative, and practical intelligences",
+        "Verbal, performance, and emotional intelligences",
+        "Fluid, crystallized, and social intelligences"
+      ],
+      "correctText": "Analytical, creative, and practical intelligences",
+      "topic": "Unit 3: Sternberg — Triarchic",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A telegraphic speech sample like 'want cookie' typically appears around:",
+      "choices": [
+        "2 years of age",
+        "10 years of age",
+        "6 months of age",
+        "5 years of age"
+      ],
+      "correctText": "2 years of age",
+      "topic": "Unit 3: Telegraphic Speech (Age)",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Temperament refers to:",
+      "choices": [
+        "Cognitive stage in Piaget's theory",
+        "Parenting style of the primary caregiver",
+        "An infant's biologically based emotional and behavioral style",
+        "Sensory threshold for novel stimuli"
+      ],
+      "correctText": "An infant's biologically based emotional and behavioral style",
+      "topic": "Unit 3: Temperament",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Teratogens are:",
+      "choices": [
+        "Genetic mutations that aid survival",
+        "Hormones that protect fetal development",
+        "Reflexes present at birth",
+        "Agents that cause prenatal harm such as alcohol or certain viruses"
+      ],
+      "correctText": "Agents that cause prenatal harm such as alcohol or certain viruses",
+      "topic": "Unit 3: Teratogens",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Theory of mind refers to the understanding that:",
+      "choices": [
+        "Others have beliefs, desires, and intentions that can differ from one's own",
+        "Objects continue to exist when out of sight",
+        "Quantity remains the same despite shape change",
+        "All humans share identical thoughts"
+      ],
+      "correctText": "Others have beliefs, desires, and intentions that can differ from one's own",
+      "topic": "Unit 3: Theory of Mind",
       "course": "ap-psychology"
     },
     {
@@ -4644,6 +6672,30 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Uninvolved (neglectful) parenting is characterized by:",
+      "choices": [
+        "Low demands and low responsiveness",
+        "High demands and low responsiveness",
+        "Low demands and high responsiveness",
+        "High demands and high responsiveness"
+      ],
+      "correctText": "Low demands and low responsiveness",
+      "topic": "Unit 3: Uninvolved Parenting",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A test that accurately measures the construct it claims to measure has high:",
+      "choices": [
+        "Reliability",
+        "Norm referencing",
+        "Standardization",
+        "Validity"
+      ],
+      "correctText": "Validity",
+      "topic": "Unit 3: Validity",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Color blindness most commonly results from a problem with:",
       "choices": [
         "Rods in the retina",
@@ -4653,6 +6705,54 @@
       ],
       "correctText": "Cones in the retina",
       "topic": "Unit 3: Vision — Cones",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Visual cliff experiments by Gibson and Walk showed that infants:",
+      "choices": [
+        "Develop depth perception by about the age they crawl",
+        "Have no preference for any visual stimulus",
+        "Are born with full depth perception in their first hours",
+        "Never develop depth perception until age 3"
+      ],
+      "correctText": "Develop depth perception by about the age they crawl",
+      "topic": "Unit 3: Visual Cliff",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Private speech (children talking aloud to themselves) is, according to Vygotsky:",
+      "choices": [
+        "An effect of operant conditioning",
+        "A symptom of language delay",
+        "A sign of egocentrism that has no function",
+        "A tool for self-guidance that eventually becomes inner speech"
+      ],
+      "correctText": "A tool for self-guidance that eventually becomes inner speech",
+      "topic": "Unit 3: Vygotsky — Private Speech",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Vygotsky's zone of proximal development is:",
+      "choices": [
+        "A stage of moral reasoning",
+        "The range of tasks a learner can do with help but not yet alone",
+        "A sleep stage",
+        "A test of language ability"
+      ],
+      "correctText": "The range of tasks a learner can do with help but not yet alone",
+      "topic": "Unit 3: Vygotsky — ZPD",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The Wechsler Adult Intelligence Scale (WAIS) is best known for:",
+      "choices": [
+        "Providing both verbal and performance intelligence scores",
+        "Measuring only verbal ability",
+        "Being used exclusively with children",
+        "Assessing only attention and memory"
+      ],
+      "correctText": "Providing both verbal and performance intelligence scores",
+      "topic": "Unit 3: WAIS",
       "course": "ap-psychology"
     },
     {
@@ -4668,6 +6768,66 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Actor-observer bias refers to attributing:",
+      "choices": [
+        "Behavior to chance",
+        "All behavior to situations",
+        "All behavior to dispositions",
+        "Our own behavior to situations and others' behavior to dispositions"
+      ],
+      "correctText": "Our own behavior to situations and others' behavior to dispositions",
+      "topic": "Unit 4: Actor-Observer Bias",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Alfred Adler emphasized which motivating force in personality?",
+      "choices": [
+        "The Oedipus complex",
+        "The drive to overcome feelings of inferiority",
+        "Self-actualization through peak experiences",
+        "Reciprocal determinism"
+      ],
+      "correctText": "The drive to overcome feelings of inferiority",
+      "topic": "Unit 4: Adler — Inferiority",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Gordon Allport classified traits as:",
+      "choices": [
+        "Eros, philia, and agape",
+        "Cardinal, central, and secondary",
+        "Oral, anal, and phallic",
+        "Conscious, preconscious, and unconscious"
+      ],
+      "correctText": "Cardinal, central, and secondary",
+      "topic": "Unit 4: Allport — Traits",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "In Solomon Asch's line-judgment study, conformity decreased significantly when:",
+      "choices": [
+        "Participants performed in private",
+        "Group size grew to twelve confederates",
+        "A single confederate dissented from the group",
+        "Both single dissent and private responses, but particularly dissent"
+      ],
+      "correctText": "A single confederate dissented from the group",
+      "topic": "Unit 4: Asch — Dissent Effect",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Albert Bandura's concept of reciprocal determinism states that behavior, environment, and personal factors:",
+      "choices": [
+        "Are independent of one another",
+        "Are determined entirely by reinforcement",
+        "Mutually influence each other",
+        "Are determined entirely by genetics"
+      ],
+      "correctText": "Mutually influence each other",
+      "topic": "Unit 4: Bandura — Reciprocal Determinism",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "The Big Five personality model includes which trait?",
       "choices": [
         "Intelligence",
@@ -4677,6 +6837,174 @@
       ],
       "correctText": "Conscientiousness",
       "topic": "Unit 4: Big Five",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The 'C' in OCEAN refers to:",
+      "choices": [
+        "Conformity",
+        "Conscientiousness",
+        "Carefulness",
+        "Conservatism"
+      ],
+      "correctText": "Conscientiousness",
+      "topic": "Unit 4: Big Five — Conscientiousness",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The 'N' in OCEAN refers to:",
+      "choices": [
+        "Narcissism",
+        "Neuroticism",
+        "Negativity",
+        "Naturalness"
+      ],
+      "correctText": "Neuroticism",
+      "topic": "Unit 4: Big Five — Neuroticism",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The Big Five trait dimensions are commonly remembered with the acronym:",
+      "choices": [
+        "ZPD",
+        "DSMV",
+        "OCEAN",
+        "GAS"
+      ],
+      "correctText": "OCEAN",
+      "topic": "Unit 4: Big Five — OCEAN",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The 'O' in the Big Five OCEAN refers to:",
+      "choices": [
+        "Obsessiveness",
+        "Obedience",
+        "Openness to experience",
+        "Optimism"
+      ],
+      "correctText": "Openness to experience",
+      "topic": "Unit 4: Big Five — Openness",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The Cannon-Bard theory of emotion proposes that:",
+      "choices": [
+        "Cognitive labeling is the sole cause of emotion",
+        "Bodily response causes the emotion",
+        "Emotion is a learned response",
+        "Physiological response and emotional experience occur simultaneously"
+      ],
+      "correctText": "Physiological response and emotional experience occur simultaneously",
+      "topic": "Unit 4: Cannon-Bard",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The central route to persuasion involves:",
+      "choices": [
+        "Focusing on superficial cues like attractiveness",
+        "Triggering fear without information",
+        "Focusing on logic, evidence, and content of arguments",
+        "Heuristic processing only"
+      ],
+      "correctText": "Focusing on logic, evidence, and content of arguments",
+      "topic": "Unit 4: Central Route Persuasion",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The Freudian defense mechanism of displacement involves:",
+      "choices": [
+        "Acting opposite to actual feelings",
+        "Forgetting impulses entirely",
+        "Returning to childlike behavior",
+        "Redirecting impulses toward a safer target"
+      ],
+      "correctText": "Redirecting impulses toward a safer target",
+      "topic": "Unit 4: Defense — Displacement",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The Freudian defense mechanism of projection involves:",
+      "choices": [
+        "Returning to an earlier developmental stage",
+        "Pushing impulses out of consciousness",
+        "Attributing one's own unacceptable impulses to others",
+        "Channeling impulses into socially acceptable activities"
+      ],
+      "correctText": "Attributing one's own unacceptable impulses to others",
+      "topic": "Unit 4: Defense — Projection",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Rationalization as a defense mechanism involves:",
+      "choices": [
+        "Acting opposite to feelings",
+        "Channeling impulses creatively",
+        "Creating justifications to make unacceptable behavior appear logical",
+        "Forgetting traumatic memories"
+      ],
+      "correctText": "Creating justifications to make unacceptable behavior appear logical",
+      "topic": "Unit 4: Defense — Rationalization",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Reaction formation involves:",
+      "choices": [
+        "Forgetting memories entirely",
+        "Returning to earlier developmental behavior",
+        "Attributing impulses to others",
+        "Expressing the opposite of one's true feelings"
+      ],
+      "correctText": "Expressing the opposite of one's true feelings",
+      "topic": "Unit 4: Defense — Reaction Formation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Regression as a defense mechanism involves:",
+      "choices": [
+        "Forgetting traumatic events",
+        "Reverting to behavior characteristic of an earlier stage",
+        "Expressing the opposite of feelings",
+        "Attributing impulses to others"
+      ],
+      "correctText": "Reverting to behavior characteristic of an earlier stage",
+      "topic": "Unit 4: Defense — Regression",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Sublimation, as a defense mechanism, involves:",
+      "choices": [
+        "Channeling impulses into socially acceptable activities",
+        "Reverting to childlike behavior",
+        "Pushing memories out of consciousness",
+        "Attributing impulses to others"
+      ],
+      "correctText": "Channeling impulses into socially acceptable activities",
+      "topic": "Unit 4: Defense — Sublimation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Deindividuation describes loss of self-awareness and self-restraint that can occur:",
+      "choices": [
+        "During solitary self-reflection",
+        "In group situations that foster anonymity and arousal",
+        "Only in formal authority hierarchies",
+        "In one-on-one conversations"
+      ],
+      "correctText": "In group situations that foster anonymity and arousal",
+      "topic": "Unit 4: Deindividuation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Door-in-the-face technique works by:",
+      "choices": [
+        "Starting with a small request",
+        "Establishing authority first",
+        "Asking for a large request first, then a smaller real request",
+        "Offering a reciprocal favor"
+      ],
+      "correctText": "Asking for a large request first, then a smaller real request",
+      "topic": "Unit 4: Door-in-the-Face",
       "course": "ap-psychology"
     },
     {
@@ -4692,6 +7020,90 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Freud's ego operates on the:",
+      "choices": [
+        "Moral principle",
+        "Conformity principle",
+        "Reality principle",
+        "Pleasure principle"
+      ],
+      "correctText": "Reality principle",
+      "topic": "Unit 4: Ego — Reality Principle",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Paul Ekman's research on facial expressions suggests that:",
+      "choices": [
+        "Basic emotional expressions are recognized across cultures",
+        "Facial expressions are entirely learned",
+        "All cultures use identical gestures",
+        "Emotion does not appear on the face"
+      ],
+      "correctText": "Basic emotional expressions are recognized across cultures",
+      "topic": "Unit 4: Ekman — Universal Emotions",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Extrinsic motivation refers to:",
+      "choices": [
+        "Behavior driven by unconscious conflict",
+        "Engaging in an activity for external rewards or to avoid punishment",
+        "Engaging in an activity for its own sake",
+        "Behavior controlled by classical conditioning"
+      ],
+      "correctText": "Engaging in an activity for external rewards or to avoid punishment",
+      "topic": "Unit 4: Extrinsic Motivation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Hans Eysenck originally proposed which two major personality dimensions?",
+      "choices": [
+        "Extraversion-introversion and emotional stability-neuroticism",
+        "Conscientiousness and openness",
+        "Locus of control and self-efficacy",
+        "Anal and oral fixations"
+      ],
+      "correctText": "Extraversion-introversion and emotional stability-neuroticism",
+      "topic": "Unit 4: Eysenck — Dimensions",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Festinger's cognitive dissonance theory predicts that people are motivated to:",
+      "choices": [
+        "Comply with all authority figures",
+        "Reduce inconsistency between attitudes and behavior",
+        "Conform to majority opinions",
+        "Avoid behaviors that match attitudes"
+      ],
+      "correctText": "Reduce inconsistency between attitudes and behavior",
+      "topic": "Unit 4: Festinger — Dissonance",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Foot-in-the-door technique works by:",
+      "choices": [
+        "Offering a free sample then withdrawing it",
+        "First obtaining a small commitment, then a larger one",
+        "Inducing fear before persuasion",
+        "Asking for a very large request first"
+      ],
+      "correctText": "First obtaining a small commitment, then a larger one",
+      "topic": "Unit 4: Foot-in-the-Door",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Freud's structure of the mind includes:",
+      "choices": [
+        "Sensorimotor, preoperational, concrete",
+        "Alarm, resistance, exhaustion",
+        "Big Five trait dimensions",
+        "Id, ego, and superego"
+      ],
+      "correctText": "Id, ego, and superego",
+      "topic": "Unit 4: Freud — Mind Structure",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Freud's defense mechanism in which unacceptable impulses are pushed out of conscious awareness is called:",
       "choices": [
         "Projection",
@@ -4701,6 +7113,66 @@
       ],
       "correctText": "Repression",
       "topic": "Unit 4: Freud — Repression",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The frustration-aggression hypothesis states that:",
+      "choices": [
+        "Aggression always reduces frustration permanently",
+        "Frustration creates anger that can lead to aggression",
+        "Frustration only causes withdrawal, not aggression",
+        "Aggression is learned only through punishment"
+      ],
+      "correctText": "Frustration creates anger that can lead to aggression",
+      "topic": "Unit 4: Frustration-Aggression",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Karen Horney challenged Freud's theory by emphasizing:",
+      "choices": [
+        "Biological drives only",
+        "Cultural and social factors and basic anxiety",
+        "Behavior-only explanations",
+        "Pure cognitive analysis"
+      ],
+      "correctText": "Cultural and social factors and basic anxiety",
+      "topic": "Unit 4: Horney — Basic Anxiety",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Freud believed the id operates on the:",
+      "choices": [
+        "Conformity principle",
+        "Reality principle",
+        "Moral principle",
+        "Pleasure principle"
+      ],
+      "correctText": "Pleasure principle",
+      "topic": "Unit 4: Id — Pleasure Principle",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Informational social influence leads to conformity because people:",
+      "choices": [
+        "Wish to maintain self-esteem",
+        "Believe the group has accurate information",
+        "Want to be liked by the group",
+        "Feel pressured to obey authority"
+      ],
+      "correctText": "Believe the group has accurate information",
+      "topic": "Unit 4: Informational Social Influence",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Intrinsic motivation refers to:",
+      "choices": [
+        "Engaging in an activity for its own sake",
+        "Engaging in an activity for external rewards",
+        "Maintaining homeostasis",
+        "Avoiding punishment"
+      ],
+      "correctText": "Engaging in an activity for its own sake",
+      "topic": "Unit 4: Intrinsic Motivation",
       "course": "ap-psychology"
     },
     {
@@ -4716,6 +7188,66 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Irving Janis coined which term to describe faulty group decision-making by cohesive groups?",
+      "choices": [
+        "Groupthink",
+        "Conformity drift",
+        "Social loafing",
+        "Group polarization"
+      ],
+      "correctText": "Groupthink",
+      "topic": "Unit 4: Janis — Groupthink",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Carl Jung's concept of the collective unconscious includes:",
+      "choices": [
+        "Schemas formed in childhood",
+        "Individual repressed memories only",
+        "Archetypes shared across humanity",
+        "Operant conditioning histories"
+      ],
+      "correctText": "Archetypes shared across humanity",
+      "topic": "Unit 4: Jung — Collective Unconscious",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The just-world hypothesis is the belief that:",
+      "choices": [
+        "People generally get what they deserve",
+        "Punishment never works",
+        "Random events have no causes",
+        "All groups are inherently equal"
+      ],
+      "correctText": "People generally get what they deserve",
+      "topic": "Unit 4: Just-World Hypothesis",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Latané and Darley's research on the bystander effect identified two key processes:",
+      "choices": [
+        "Compliance and obedience",
+        "Self-serving bias and just-world thinking",
+        "Cognitive dissonance and rationalization",
+        "Noticing the event and assuming responsibility"
+      ],
+      "correctText": "Noticing the event and assuming responsibility",
+      "topic": "Unit 4: Latané & Darley",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Lazarus's cognitive-mediational theory of emotion emphasizes:",
+      "choices": [
+        "Cognitive appraisal of a situation precedes emotion",
+        "Emotion is independent of cognition",
+        "Emotion is reduced to reflexes",
+        "Body response alone determines emotion"
+      ],
+      "correctText": "Cognitive appraisal of a situation precedes emotion",
+      "topic": "Unit 4: Lazarus — Appraisal",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "An individual with a strong internal locus of control most likely believes that:",
       "choices": [
         "Luck and fate determine their outcomes",
@@ -4725,6 +7257,18 @@
       ],
       "correctText": "Their own effort determines their outcomes",
       "topic": "Unit 4: Locus of Control",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Maslow's hierarchy of needs places physiological needs:",
+      "choices": [
+        "Above safety needs",
+        "At the top",
+        "Outside the hierarchy",
+        "At the bottom (most basic)"
+      ],
+      "correctText": "At the bottom (most basic)",
+      "topic": "Unit 4: Maslow — Hierarchy Base",
       "course": "ap-psychology"
     },
     {
@@ -4740,6 +7284,126 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "The mere exposure effect is the tendency to:",
+      "choices": [
+        "Forget repeatedly seen stimuli",
+        "Comply with familiar authority",
+        "Develop aversions to familiar stimuli",
+        "Like stimuli more after repeated exposure"
+      ],
+      "correctText": "Like stimuli more after repeated exposure",
+      "topic": "Unit 4: Mere Exposure",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Milgram's obedience study indicated that obedience was lowered when:",
+      "choices": [
+        "There was no other 'teacher' present",
+        "The 'learner' was unseen",
+        "Participants wore a uniform",
+        "The experimenter was not physically present"
+      ],
+      "correctText": "The experimenter was not physically present",
+      "topic": "Unit 4: Milgram — Reduced Obedience",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The MMPI is best classified as a:",
+      "choices": [
+        "Projective test",
+        "Behavioral checklist filled out by parents",
+        "Self-report objective personality inventory",
+        "Performance-based intelligence test"
+      ],
+      "correctText": "Self-report objective personality inventory",
+      "topic": "Unit 4: MMPI",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Normative social influence leads to conformity because people:",
+      "choices": [
+        "Want to be liked and accepted by a group",
+        "Have internalized authority figures",
+        "Believe the group is correct",
+        "Want to avoid unconscious conflict"
+      ],
+      "correctText": "Want to be liked and accepted by a group",
+      "topic": "Unit 4: Normative Social Influence",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Out-group homogeneity bias is the tendency to:",
+      "choices": [
+        "Reject all group memberships",
+        "See out-group members as more similar to one another than they are",
+        "Conform only to one's own group",
+        "Treat in-group members all the same"
+      ],
+      "correctText": "See out-group members as more similar to one another than they are",
+      "topic": "Unit 4: Out-Group Homogeneity",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The peripheral route to persuasion relies on:",
+      "choices": [
+        "Superficial cues such as attractiveness or status of source",
+        "Detailed argumentation and evidence",
+        "Cognitive load reduction",
+        "Long-term memory traces"
+      ],
+      "correctText": "Superficial cues such as attractiveness or status of source",
+      "topic": "Unit 4: Peripheral Route Persuasion",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Prosocial behavior is best defined as:",
+      "choices": [
+        "Aggressive behavior against an out-group",
+        "Behavior aimed at self-promotion",
+        "Behavior conforming to a majority",
+        "Behavior intended to benefit another person"
+      ],
+      "correctText": "Behavior intended to benefit another person",
+      "topic": "Unit 4: Prosocial Behavior",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Mere proximity tends to increase attraction because of:",
+      "choices": [
+        "Operant conditioning",
+        "Reciprocal altruism",
+        "The mere exposure effect",
+        "Cognitive dissonance"
+      ],
+      "correctText": "The mere exposure effect",
+      "topic": "Unit 4: Proximity & Attraction",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Realistic conflict theory proposes that prejudice grows from:",
+      "choices": [
+        "Cognitive overload",
+        "Identification with a same-sex parent",
+        "Competition over scarce resources",
+        "Random misunderstandings"
+      ],
+      "correctText": "Competition over scarce resources",
+      "topic": "Unit 4: Realistic Conflict",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Reciprocity in attraction refers to:",
+      "choices": [
+        "Liking those who like us",
+        "Following authority figures' choices",
+        "Mirroring body language only",
+        "Being attracted to opposites"
+      ],
+      "correctText": "Liking those who like us",
+      "topic": "Unit 4: Reciprocity (Attraction)",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Carl Rogers's person-centered therapy emphasizes:",
       "choices": [
         "Interpreting unconscious conflicts",
@@ -4749,6 +7413,54 @@
       ],
       "correctText": "Unconditional positive regard",
       "topic": "Unit 4: Rogers",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Rogers's idea of the self-concept includes:",
+      "choices": [
+        "The ideal self and the real self",
+        "Trait clusters",
+        "Id, ego, and superego",
+        "Conscious and unconscious motives only"
+      ],
+      "correctText": "The ideal self and the real self",
+      "topic": "Unit 4: Rogers — Self-Concept",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Rogers's concept of unconditional positive regard means:",
+      "choices": [
+        "Detached professional analysis",
+        "Strict moral evaluation",
+        "Acceptance regardless of behavior",
+        "Praise contingent on good behavior"
+      ],
+      "correctText": "Acceptance regardless of behavior",
+      "topic": "Unit 4: Rogers — UPR",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The Rorschach Inkblot Test is best classified as a:",
+      "choices": [
+        "Neuroimaging assessment",
+        "Projective test",
+        "Intelligence test",
+        "Objective self-report measure"
+      ],
+      "correctText": "Projective test",
+      "topic": "Unit 4: Rorschach",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Julian Rotter's internal locus of control is associated with the belief that:",
+      "choices": [
+        "Authority figures determine outcomes",
+        "One's own effort determines outcomes",
+        "Luck or fate determines outcomes",
+        "Outcomes are random"
+      ],
+      "correctText": "One's own effort determines outcomes",
+      "topic": "Unit 4: Rotter — Locus of Control",
       "course": "ap-psychology"
     },
     {
@@ -4764,6 +7476,66 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "The self-serving bias is the tendency to:",
+      "choices": [
+        "Always trust others' attributions",
+        "Attribute successes to external causes only",
+        "See the world as fundamentally fair",
+        "Attribute successes to internal causes and failures to external causes"
+      ],
+      "correctText": "Attribute successes to internal causes and failures to external causes",
+      "topic": "Unit 4: Self-Serving Bias",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Social facilitation predicts that the presence of others:",
+      "choices": [
+        "Has no effect on performance",
+        "Always impairs performance",
+        "Improves only complex new tasks",
+        "Improves performance on easy or well-learned tasks"
+      ],
+      "correctText": "Improves performance on easy or well-learned tasks",
+      "topic": "Unit 4: Social Facilitation",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Social loafing is the tendency for people to:",
+      "choices": [
+        "Exert less effort in a group than alone",
+        "Refuse to join group projects",
+        "Work harder in groups than alone",
+        "Conform to leaders only"
+      ],
+      "correctText": "Exert less effort in a group than alone",
+      "topic": "Unit 4: Social Loafing",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Stereotype threat, identified by Claude Steele, can lead to:",
+      "choices": [
+        "Cognitive dissonance reduction",
+        "Underperformance when individuals fear confirming a negative stereotype",
+        "Better performance when stereotyped negatively",
+        "Conformity to authority figures"
+      ],
+      "correctText": "Underperformance when individuals fear confirming a negative stereotype",
+      "topic": "Unit 4: Steele — Stereotype Threat",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Robert Sternberg's triangular theory of love consists of:",
+      "choices": [
+        "Liking, loving, attaching",
+        "Eros, philia, agape",
+        "Intimacy, passion, and commitment",
+        "Trust, autonomy, intimacy"
+      ],
+      "correctText": "Intimacy, passion, and commitment",
+      "topic": "Unit 4: Sternberg — Love",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Selye's general adaptation syndrome stages are:",
       "choices": [
         "Denial, anger, bargaining",
@@ -4773,6 +7545,42 @@
       ],
       "correctText": "Alarm, resistance, exhaustion",
       "topic": "Unit 4: Stress — GAS",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Lymphocyte count tends to decrease under chronic stress, suggesting that:",
+      "choices": [
+        "Stress only affects the heart",
+        "Stress always enhances immunity",
+        "Stress can suppress immune function",
+        "Lymphocytes are unrelated to health"
+      ],
+      "correctText": "Stress can suppress immune function",
+      "topic": "Unit 4: Stress & Immune Function",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Freud's superego operates on the:",
+      "choices": [
+        "Identification principle",
+        "Moral principle",
+        "Reality principle",
+        "Pleasure principle"
+      ],
+      "correctText": "Moral principle",
+      "topic": "Unit 4: Superego — Moral Principle",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The Thematic Apperception Test (TAT) asks examinees to:",
+      "choices": [
+        "Solve arithmetic problems",
+        "Answer true/false items",
+        "Identify ink-blot images",
+        "Tell stories about ambiguous pictures"
+      ],
+      "correctText": "Tell stories about ambiguous pictures",
+      "topic": "Unit 4: TAT",
       "course": "ap-psychology"
     },
     {
@@ -4788,6 +7596,66 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Yerkes-Dodson law states that performance peaks at:",
+      "choices": [
+        "Very high arousal levels",
+        "Moderate levels of arousal",
+        "Zero arousal",
+        "Very low arousal levels"
+      ],
+      "correctText": "Moderate levels of arousal",
+      "topic": "Unit 4: Yerkes-Dodson",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Active listening, a Rogerian technique, involves:",
+      "choices": [
+        "Interpreting unconscious conflicts",
+        "Challenging irrational beliefs",
+        "Reinforcing target behaviors",
+        "Reflecting and paraphrasing the client's statements"
+      ],
+      "correctText": "Reflecting and paraphrasing the client's statements",
+      "topic": "Unit 5: Active Listening",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "ADHD is characterized by:",
+      "choices": [
+        "Hallucinations and delusions",
+        "Compulsive rituals",
+        "Persistent inattention and/or hyperactivity-impulsivity",
+        "Loss of identity"
+      ],
+      "correctText": "Persistent inattention and/or hyperactivity-impulsivity",
+      "topic": "Unit 5: ADHD",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Agoraphobia is the fear of:",
+      "choices": [
+        "Being in places where escape might be difficult",
+        "Spiders specifically",
+        "Open social judgment only",
+        "Heights specifically"
+      ],
+      "correctText": "Being in places where escape might be difficult",
+      "topic": "Unit 5: Agoraphobia",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Anorexia nervosa is characterized primarily by:",
+      "choices": [
+        "Inflated mood and inflated self-esteem",
+        "Episodes of binge eating followed by compensatory behaviors",
+        "Restriction of food intake and intense fear of gaining weight",
+        "Repetitive rituals to reduce anxiety"
+      ],
+      "correctText": "Restriction of food intake and intense fear of gaining weight",
+      "topic": "Unit 5: Anorexia",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Antipsychotic medications primarily target which neurotransmitter system?",
       "choices": [
         "Serotonin",
@@ -4797,6 +7665,18 @@
       ],
       "correctText": "Dopamine",
       "topic": "Unit 5: Antipsychotics",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Antisocial personality disorder is characterized by:",
+      "choices": [
+        "Grandiosity and need for admiration",
+        "A pattern of disregard for the rights of others, often without remorse",
+        "Intense fear of abandonment and unstable relationships",
+        "Persistent worry"
+      ],
+      "correctText": "A pattern of disregard for the rights of others, often without remorse",
+      "topic": "Unit 5: Antisocial PD",
       "course": "ap-psychology"
     },
     {
@@ -4812,6 +7692,78 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Atypical antipsychotics differ from typical antipsychotics in that they:",
+      "choices": [
+        "Are administered only by injection",
+        "Treat depression more effectively than antipsychosis",
+        "Are entirely free of side effects",
+        "Affect serotonin as well as dopamine and have different side-effect profiles"
+      ],
+      "correctText": "Affect serotonin as well as dopamine and have different side-effect profiles",
+      "topic": "Unit 5: Atypical Antipsychotics",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Autism spectrum disorder is characterized by:",
+      "choices": [
+        "Bipolar mood episodes",
+        "Sudden onset hallucinations",
+        "Severe memory loss with age",
+        "Persistent deficits in social communication and restricted, repetitive behaviors"
+      ],
+      "correctText": "Persistent deficits in social communication and restricted, repetitive behaviors",
+      "topic": "Unit 5: Autism",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "In aversive conditioning, an unwanted behavior is paired with:",
+      "choices": [
+        "A pleasant stimulus to reinforce it",
+        "An unpleasant stimulus to reduce the behavior",
+        "Verbal interpretation",
+        "A neutral stimulus to extinguish it"
+      ],
+      "correctText": "An unpleasant stimulus to reduce the behavior",
+      "topic": "Unit 5: Aversive Conditioning",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Aaron Beck's cognitive triad describes negative views of:",
+      "choices": [
+        "The self, the world, and the future",
+        "Mother, father, and self",
+        "Past, present, and others",
+        "The id, ego, and superego"
+      ],
+      "correctText": "The self, the world, and the future",
+      "topic": "Unit 5: Beck — Cognitive Triad",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Benzodiazepines are most commonly prescribed for:",
+      "choices": [
+        "Anxiety and acute panic",
+        "Schizophrenia",
+        "OCD as first-line therapy",
+        "Mania in bipolar disorder"
+      ],
+      "correctText": "Anxiety and acute panic",
+      "topic": "Unit 5: Benzodiazepines",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The biopsychosocial model of disorders explains psychopathology as:",
+      "choices": [
+        "Solely biological in origin",
+        "Solely environmental in origin",
+        "A product of biological, psychological, and sociocultural influences",
+        "Primarily spiritual"
+      ],
+      "correctText": "A product of biological, psychological, and sociocultural influences",
+      "topic": "Unit 5: Biopsychosocial Model",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Bipolar disorder is characterized by:",
       "choices": [
         "Persistent depressed mood only",
@@ -4821,6 +7773,66 @@
       ],
       "correctText": "Alternating episodes of mania and depression",
       "topic": "Unit 5: Bipolar Disorder",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Bipolar I disorder is distinguished from bipolar II by:",
+      "choices": [
+        "Absence of any depressive episodes",
+        "Only hypomanic episodes",
+        "At least one full manic episode",
+        "Rapid cycling alone"
+      ],
+      "correctText": "At least one full manic episode",
+      "topic": "Unit 5: Bipolar I vs II",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Borderline personality disorder is characterized by:",
+      "choices": [
+        "Instability in relationships, self-image, and emotions",
+        "Persistent low mood for two years",
+        "Disregard for others without remorse",
+        "Hallucinations and delusions"
+      ],
+      "correctText": "Instability in relationships, self-image, and emotions",
+      "topic": "Unit 5: Borderline PD",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Bulimia nervosa is characterized by:",
+      "choices": [
+        "Auditory hallucinations and delusions",
+        "Severe weight restriction without binge eating",
+        "Persistent low mood and loss of energy",
+        "Binge eating followed by compensatory behaviors such as purging"
+      ],
+      "correctText": "Binge eating followed by compensatory behaviors such as purging",
+      "topic": "Unit 5: Bulimia",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Cognitive-behavioral therapy (CBT) typically combines:",
+      "choices": [
+        "Drug therapy alone",
+        "Cognitive restructuring and behavioral techniques",
+        "Hypnosis and projective testing",
+        "Free association and dream analysis"
+      ],
+      "correctText": "Cognitive restructuring and behavioral techniques",
+      "topic": "Unit 5: CBT",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Carl Rogers's client-centered therapy emphasizes:",
+      "choices": [
+        "Confrontation of irrational beliefs",
+        "Empathy, genuineness, and unconditional positive regard",
+        "Interpretation of dreams",
+        "Token reinforcement of behavior"
+      ],
+      "correctText": "Empathy, genuineness, and unconditional positive regard",
+      "topic": "Unit 5: Client-Centered Therapy",
       "course": "ap-psychology"
     },
     {
@@ -4836,6 +7848,66 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "Comorbidity refers to:",
+      "choices": [
+        "The co-occurrence of two or more disorders in the same individual",
+        "A symptom of dementia",
+        "A misdiagnosed disorder",
+        "A side effect of medication"
+      ],
+      "correctText": "The co-occurrence of two or more disorders in the same individual",
+      "topic": "Unit 5: Comorbidity",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Delusions of grandeur involve:",
+      "choices": [
+        "Disorganized speech only",
+        "Loss of contact with reality is absent",
+        "False beliefs of inflated importance, power, or identity",
+        "False beliefs that others are plotting harm"
+      ],
+      "correctText": "False beliefs of inflated importance, power, or identity",
+      "topic": "Unit 5: Delusions — Grandeur",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Delusions of persecution involve:",
+      "choices": [
+        "False beliefs that others intend to harm one",
+        "False beliefs of inflated power",
+        "Beliefs about being controlled",
+        "Beliefs that thoughts are being broadcast"
+      ],
+      "correctText": "False beliefs that others intend to harm one",
+      "topic": "Unit 5: Delusions — Persecution",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Dissociative identity disorder (DID) is characterized by:",
+      "choices": [
+        "The presence of two or more distinct identity states",
+        "Difficulty controlling worry",
+        "Persistent low mood",
+        "Hallucinations and delusions"
+      ],
+      "correctText": "The presence of two or more distinct identity states",
+      "topic": "Unit 5: DID",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The dopamine hypothesis of schizophrenia proposes:",
+      "choices": [
+        "Serotonin alone causes the disorder",
+        "GABA imbalance is the sole cause",
+        "Deficient dopamine causes negative symptoms",
+        "Excess dopamine activity contributes to positive symptoms"
+      ],
+      "correctText": "Excess dopamine activity contributes to positive symptoms",
+      "topic": "Unit 5: Dopamine Hypothesis",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "The DSM-5 is primarily used to:",
       "choices": [
         "Measure intelligence",
@@ -4845,6 +7917,162 @@
       ],
       "correctText": "Diagnose psychological disorders",
       "topic": "Unit 5: DSM-5",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Persistent depressive disorder (dysthymia) is best described as:",
+      "choices": [
+        "Mania alternating with depression",
+        "Loss of contact with reality",
+        "A brief episode of extreme sadness",
+        "A chronic, low-grade depressed mood lasting two years or more"
+      ],
+      "correctText": "A chronic, low-grade depressed mood lasting two years or more",
+      "topic": "Unit 5: Dysthymia",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "ECT (electroconvulsive therapy) is most often used to treat:",
+      "choices": [
+        "OCD as first-line therapy",
+        "Mild anxiety",
+        "Phobias",
+        "Severe depression that has not responded to other treatments"
+      ],
+      "correctText": "Severe depression that has not responded to other treatments",
+      "topic": "Unit 5: ECT",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Albert Ellis's rational emotive behavior therapy (REBT) emphasizes:",
+      "choices": [
+        "Free association",
+        "Systematic desensitization to phobias",
+        "Disputing irrational beliefs that cause emotional distress",
+        "Token economies"
+      ],
+      "correctText": "Disputing irrational beliefs that cause emotional distress",
+      "topic": "Unit 5: Ellis — REBT",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Exposure therapies treat anxiety disorders by:",
+      "choices": [
+        "Modifying thoughts only",
+        "Reinforcing avoidance",
+        "Confronting feared stimuli to reduce conditioned fear",
+        "Eliminating unconscious conflicts"
+      ],
+      "correctText": "Confronting feared stimuli to reduce conditioned fear",
+      "topic": "Unit 5: Exposure Therapy",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Hans Eysenck's early challenge to psychotherapy claimed that:",
+      "choices": [
+        "Improvement rates in therapy were no better than spontaneous remission",
+        "Behavior therapy was the only effective approach",
+        "Therapy was clearly more effective than no treatment",
+        "All therapies had identical outcomes"
+      ],
+      "correctText": "Improvement rates in therapy were no better than spontaneous remission",
+      "topic": "Unit 5: Eysenck — Therapy Challenge",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Family therapy primarily treats the family as:",
+      "choices": [
+        "A collection of strangers",
+        "A genetic unit only",
+        "A system of interrelated members rather than individuals in isolation",
+        "A passive backdrop"
+      ],
+      "correctText": "A system of interrelated members rather than individuals in isolation",
+      "topic": "Unit 5: Family Therapy",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Free association, a technique used by Freud, requires the client to:",
+      "choices": [
+        "Confront feared stimuli",
+        "Practice mindful meditation",
+        "Say whatever comes to mind without censorship",
+        "Memorize a list of trigger words"
+      ],
+      "correctText": "Say whatever comes to mind without censorship",
+      "topic": "Unit 5: Free Association",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Generalized anxiety disorder (GAD) is characterized by:",
+      "choices": [
+        "Reliving past traumatic events",
+        "Fear of a specific object or situation",
+        "Sudden discrete panic attacks",
+        "Persistent, uncontrollable worry without a specific trigger"
+      ],
+      "correctText": "Persistent, uncontrollable worry without a specific trigger",
+      "topic": "Unit 5: GAD",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Group therapy offers a unique benefit by:",
+      "choices": [
+        "Eliminating the need for trained therapists",
+        "Allowing clients to receive support and feedback from peers with similar issues",
+        "Removing all confidentiality",
+        "Always being more effective than individual therapy"
+      ],
+      "correctText": "Allowing clients to receive support and feedback from peers with similar issues",
+      "topic": "Unit 5: Group Therapy",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Lithium is most commonly used to treat:",
+      "choices": [
+        "OCD",
+        "PTSD",
+        "Schizophrenia",
+        "Bipolar disorder"
+      ],
+      "correctText": "Bipolar disorder",
+      "topic": "Unit 5: Lithium",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Major depressive disorder requires symptoms persisting for at least:",
+      "choices": [
+        "Two days",
+        "Two weeks",
+        "One year",
+        "Six months"
+      ],
+      "correctText": "Two weeks",
+      "topic": "Unit 5: MDD Duration",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "The medical model views psychological disorders as:",
+      "choices": [
+        "Illnesses with biological causes that can be diagnosed and treated",
+        "Purely social labels with no biological basis",
+        "Entirely conscious choices",
+        "Failures of moral character"
+      ],
+      "correctText": "Illnesses with biological causes that can be diagnosed and treated",
+      "topic": "Unit 5: Medical Model",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Narcissistic personality disorder is characterized by:",
+      "choices": [
+        "Identity confusion in adolescence",
+        "Repetitive obsessions and compulsions",
+        "Grandiosity, need for admiration, and lack of empathy",
+        "Intense fear of social judgment"
+      ],
+      "correctText": "Grandiosity, need for admiration, and lack of empathy",
+      "topic": "Unit 5: Narcissistic PD",
       "course": "ap-psychology"
     },
     {
@@ -4860,6 +8088,66 @@
       "course": "ap-psychology"
     },
     {
+      "prompt": "OCD in the DSM-5 is classified under:",
+      "choices": [
+        "Anxiety disorders",
+        "Obsessive-compulsive and related disorders",
+        "Personality disorders",
+        "Depressive disorders"
+      ],
+      "correctText": "Obsessive-compulsive and related disorders",
+      "topic": "Unit 5: OCD — DSM-5",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A panic disorder diagnosis requires:",
+      "choices": [
+        "Manic episodes alternating with depression",
+        "Recurrent unexpected panic attacks followed by worry about future attacks",
+        "Obsessive thoughts and compulsions",
+        "Persistent fear of one specific situation"
+      ],
+      "correctText": "Recurrent unexpected panic attacks followed by worry about future attacks",
+      "topic": "Unit 5: Panic Disorder",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Psychosurgery, such as the historical lobotomy, was used to:",
+      "choices": [
+        "Implant pacemakers in the heart",
+        "Treat ADHD by stimulating the cerebellum",
+        "Remove the amygdala for autism",
+        "Sever connections in the frontal lobes to alter behavior"
+      ],
+      "correctText": "Sever connections in the frontal lobes to alter behavior",
+      "topic": "Unit 5: Psychosurgery",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "PTSD (post-traumatic stress disorder) is now classified in the DSM-5 under:",
+      "choices": [
+        "Anxiety disorders",
+        "Schizophrenia spectrum",
+        "Mood disorders",
+        "Trauma- and stressor-related disorders"
+      ],
+      "correctText": "Trauma- and stressor-related disorders",
+      "topic": "Unit 5: PTSD — DSM-5",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Seasonal affective disorder is most often treated with:",
+      "choices": [
+        "Aversive conditioning",
+        "Electroconvulsive therapy",
+        "Light therapy",
+        "Antipsychotic medication"
+      ],
+      "correctText": "Light therapy",
+      "topic": "Unit 5: SAD",
+      "course": "ap-psychology"
+    },
+    {
       "prompt": "Hallucinations and delusions are positive symptoms most associated with:",
       "choices": [
         "Major depressive disorder",
@@ -4869,6 +8157,54 @@
       ],
       "correctText": "Schizophrenia",
       "topic": "Unit 5: Schizophrenia",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Negative symptoms of schizophrenia include:",
+      "choices": [
+        "Mania and grandiosity",
+        "Hallucinations and delusions",
+        "Persistent worry without specific cause",
+        "Flat affect and avolition"
+      ],
+      "correctText": "Flat affect and avolition",
+      "topic": "Unit 5: Schizophrenia — Negative Symptoms",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Schizophrenia diagnosis requires symptoms for at least:",
+      "choices": [
+        "Two weeks",
+        "Two years",
+        "Two days",
+        "Six months"
+      ],
+      "correctText": "Six months",
+      "topic": "Unit 5: Schizophrenia Duration",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Social anxiety disorder is characterized by:",
+      "choices": [
+        "Intense fear of being judged or embarrassed in social situations",
+        "Persistent low mood",
+        "Loss of contact with reality",
+        "Recurrent intrusive thoughts and rituals"
+      ],
+      "correctText": "Intense fear of being judged or embarrassed in social situations",
+      "topic": "Unit 5: Social Anxiety",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "A specific phobia is best defined as:",
+      "choices": [
+        "An intense, irrational fear of a specific object or situation",
+        "Inability to remember personal information",
+        "Persistent low mood",
+        "Disorganized speech and hallucinations"
+      ],
+      "correctText": "An intense, irrational fear of a specific object or situation",
+      "topic": "Unit 5: Specific Phobia",
       "course": "ap-psychology"
     },
     {
@@ -4893,6 +8229,30 @@
       ],
       "correctText": "Phobias",
       "topic": "Unit 5: Systematic Desensitization",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Transcranial magnetic stimulation (TMS) involves:",
+      "choices": [
+        "Applying magnetic pulses to stimulate or inhibit cortical activity",
+        "Open brain surgery",
+        "Implanted electrodes for chronic stimulation",
+        "Whole-body electrical seizures"
+      ],
+      "correctText": "Applying magnetic pulses to stimulate or inhibit cortical activity",
+      "topic": "Unit 5: TMS",
+      "course": "ap-psychology"
+    },
+    {
+      "prompt": "Transference in psychoanalysis refers to:",
+      "choices": [
+        "Modifying behavior with reinforcement",
+        "Identifying irrational thoughts",
+        "Redirecting feelings toward the therapist that originated with another person",
+        "Modeling new behaviors"
+      ],
+      "correctText": "Redirecting feelings toward the therapist that originated with another person",
+      "topic": "Unit 5: Transference",
       "course": "ap-psychology"
     },
     {
@@ -6112,6 +9472,1758 @@
   ],
   "ap-us-history": [
     {
+      "prompt": "The 18th Amendment, ratified in 1919, established",
+      "choices": [
+        "Women's right to vote",
+        "Direct election of senators",
+        "The federal income tax",
+        "National prohibition of the manufacture, sale, and transportation of intoxicating liquors"
+      ],
+      "correctText": "National prohibition of the manufacture, sale, and transportation of intoxicating liquors",
+      "topic": "1920s: 18th Amendment",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Immigration Act of 1924 (Johnson-Reed Act) restricted immigration by",
+      "choices": [
+        "Granting unlimited immigration from Asia",
+        "Establishing national-origin quotas that heavily favored northern and western Europeans",
+        "Repealing the Chinese Exclusion Act",
+        "Abolishing all quotas based on national origin"
+      ],
+      "correctText": "Establishing national-origin quotas that heavily favored northern and western Europeans",
+      "topic": "1920s: 1924 Immigration Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Marcus Garvey's Universal Negro Improvement Association (UNIA) in the 1920s promoted",
+      "choices": [
+        "Integration with white-led civil rights organizations such as the NAACP",
+        "Black pride, economic self-sufficiency, and a 'Back to Africa' movement",
+        "Joining the Communist Party of America",
+        "Reconciliation between Booker T. Washington and W.E.B. Du Bois"
+      ],
+      "correctText": "Black pride, economic self-sufficiency, and a 'Back to Africa' movement",
+      "topic": "1920s: Marcus Garvey",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Henry Ford's Model T (introduced 1908) is significant primarily because it",
+      "choices": [
+        "Became affordable through mass production on the moving assembly line and transformed American transportation",
+        "Was a hand-crafted luxury car for the wealthy",
+        "Was the first hybrid electric vehicle",
+        "Was banned under Prohibition for reckless driving"
+      ],
+      "correctText": "Became affordable through mass production on the moving assembly line and transformed American transportation",
+      "topic": "1920s: Model T",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Palmer Raids (1919-1920), led by Attorney General A. Mitchell Palmer, were characterized by",
+      "choices": [
+        "Mass arrests and deportations of suspected radicals, anarchists, and immigrant labor activists",
+        "A campaign to register Black voters in the Deep South",
+        "Federal investigation of corporate antitrust violations",
+        "Enforcement of the 19th Amendment"
+      ],
+      "correctText": "Mass arrests and deportations of suspected radicals, anarchists, and immigrant labor activists",
+      "topic": "1920s: Palmer Raids",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 1920 case of Sacco and Vanzetti is best understood as a symbol of",
+      "choices": [
+        "Successful labor organization in New England",
+        "Effective federal due process protections in capital cases",
+        "Postwar nativist hostility toward immigrants and political radicals",
+        "Reconciliation between immigrants and old-stock Americans"
+      ],
+      "correctText": "Postwar nativist hostility toward immigrants and political radicals",
+      "topic": "1920s: Sacco and Vanzetti",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Teapot Dome scandal of the Harding administration involved",
+      "choices": [
+        "Illegal liquor sales by the Treasury Department",
+        "Conspiracy to overthrow the Supreme Court",
+        "Securities fraud by the Federal Reserve",
+        "Bribery in the leasing of federal oil reserves to private companies"
+      ],
+      "correctText": "Bribery in the leasing of federal oil reserves to private companies",
+      "topic": "1920s: Teapot Dome",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Volstead Act (1919) implemented Prohibition by",
+      "choices": [
+        "Repealing the 16th Amendment",
+        "Establishing the Federal Reserve System",
+        "Authorizing women's suffrage",
+        "Defining 'intoxicating liquors' and establishing enforcement mechanisms for the 18th Amendment"
+      ],
+      "correctText": "Defining 'intoxicating liquors' and establishing enforcement mechanisms for the 18th Amendment",
+      "topic": "1920s: Volstead Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "'Bleeding Kansas' (1854-1859) refers to",
+      "choices": [
+        "Cherokee resistance to forced removal from Georgia",
+        "The Mexican counter-invasion of Texas",
+        "A federal massacre of Mormon settlers in Utah",
+        "Violent guerrilla warfare between pro-slavery and free-state settlers over Kansas's political future"
+      ],
+      "correctText": "Violent guerrilla warfare between pro-slavery and free-state settlers over Kansas's political future",
+      "topic": "Antebellum: Bleeding Kansas",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The discovery of gold at Sutter's Mill in 1848 had which long-term political consequence?",
+      "choices": [
+        "It triggered the immediate secession of South Carolina",
+        "It accelerated California's admission to the Union and reignited debate over slavery's expansion",
+        "It led to the Texas annexation of 1845",
+        "It caused the repeal of the Missouri Compromise in 1850"
+      ],
+      "correctText": "It accelerated California's admission to the Union and reignited debate over slavery's expansion",
+      "topic": "Antebellum: California gold rush",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Dorothea Dix's reform crusade focused primarily on",
+      "choices": [
+        "Securing the right to vote for free Black women",
+        "Establishing the first women's college in the United States",
+        "Improving the treatment of the mentally ill in asylums and prisons",
+        "Establishing the federal Bureau of Indian Affairs"
+      ],
+      "correctText": "Improving the treatment of the mentally ill in asylums and prisons",
+      "topic": "Antebellum: Dorothea Dix",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Frederick Douglass's Narrative of the Life of Frederick Douglass (1845) is best understood as",
+      "choices": [
+        "An autobiographical attack on slavery and a powerful contribution to the abolitionist movement",
+        "A defense of gradual compensated emancipation",
+        "A romantic justification of southern paternalism",
+        "An apolitical memoir of plantation life"
+      ],
+      "correctText": "An autobiographical attack on slavery and a powerful contribution to the abolitionist movement",
+      "topic": "Antebellum: Frederick Douglass",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Free-Soil Party of the late 1840s and 1850s opposed",
+      "choices": [
+        "Free public education in the West",
+        "All forms of federal taxation on land sales",
+        "The extension of slavery into the western territories",
+        "The protective tariffs of the Whig Party"
+      ],
+      "correctText": "The extension of slavery into the western territories",
+      "topic": "Antebellum: Free-Soil Party",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "In the Lincoln-Douglas debates of 1858, Stephen Douglas's 'Freeport Doctrine' held that",
+      "choices": [
+        "Slavery could be excluded from a territory by the failure of local authorities to enact slave codes",
+        "The Dred Scott decision was unconstitutional",
+        "Congress should immediately abolish slavery in all territories",
+        "Popular sovereignty applied only to states, not territories"
+      ],
+      "correctText": "Slavery could be excluded from a territory by the failure of local authorities to enact slave codes",
+      "topic": "Antebellum: Freeport Doctrine",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Harriet Tubman is best known as a 'conductor' on the",
+      "choices": [
+        "Transcontinental Railroad construction crews",
+        "Underground Railroad network that aided escaping enslaved persons",
+        "Erie Canal towboat system",
+        "American Colonization Society's Liberia migrations"
+      ],
+      "correctText": "Underground Railroad network that aided escaping enslaved persons",
+      "topic": "Antebellum: Harriet Tubman",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Horace Mann's reforms in 1830s-40s Massachusetts focused primarily on",
+      "choices": [
+        "Public education and the creation of common schools funded by taxation",
+        "Prison reform and the construction of penitentiaries",
+        "Temperance and prohibition of alcohol",
+        "Abolition of capital punishment"
+      ],
+      "correctText": "Public education and the creation of common schools funded by taxation",
+      "topic": "Antebellum: Horace Mann",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Lowell-system textile mills in early-19th-century Massachusetts most distinctly relied on labor from",
+      "choices": [
+        "Enslaved African Americans transported from southern plantations",
+        "Young, unmarried New England farm women housed in supervised boardinghouses",
+        "Recent Irish Catholic immigrants exclusively",
+        "Indentured Chinese laborers under multi-year contracts"
+      ],
+      "correctText": "Young, unmarried New England farm women housed in supervised boardinghouses",
+      "topic": "Antebellum: Lowell mills",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Mexican-American War (1846-1848) was triggered most directly by",
+      "choices": [
+        "Mexico's refusal to honor the Treaty of Guadalupe Hidalgo",
+        "A border dispute following the U.S. annexation of Texas",
+        "British naval blockades of the Gulf of Mexico",
+        "Spanish refusal to sell Florida to the United States"
+      ],
+      "correctText": "A border dispute following the U.S. annexation of Texas",
+      "topic": "Antebellum: Mexican-American War",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Republican Party founded in 1854 was united principally by its commitment to",
+      "choices": [
+        "Stopping the further expansion of slavery into western territories",
+        "Immediate abolition of slavery in every state",
+        "Defending Andrew Jackson's bank policies",
+        "Annexation of Cuba and Nicaragua"
+      ],
+      "correctText": "Stopping the further expansion of slavery into western territories",
+      "topic": "Antebellum: Republican Party founded",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Sojourner Truth's 'Ain't I a Woman?' speech (1851) is significant because it",
+      "choices": [
+        "Defended Andrew Jackson's Indian Removal policy",
+        "Connected the cause of abolition with the women's rights movement",
+        "Endorsed the Mexican-American War and Manifest Destiny",
+        "Argued for women's exclusion from public life"
+      ],
+      "correctText": "Connected the cause of abolition with the women's rights movement",
+      "topic": "Antebellum: Sojourner Truth",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 'spoils system' associated with Andrew Jackson refers to",
+      "choices": [
+        "The redistribution of southern land to free Black farmers",
+        "Federal funding for state militia salaries",
+        "The granting of western lands to railroad companies",
+        "The practice of awarding government jobs to loyal political supporters"
+      ],
+      "correctText": "The practice of awarding government jobs to loyal political supporters",
+      "topic": "Antebellum: Spoils system",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Senator Charles Sumner's 1856 caning on the Senate floor by Representative Preston Brooks was significant because it",
+      "choices": [
+        "Demonstrated how violently sectional conflict had penetrated even the U.S. Congress",
+        "Ended the political career of John C. Calhoun",
+        "Caused the Senate to expel all southern Democrats",
+        "Led directly to the secession of Massachusetts"
+      ],
+      "correctText": "Demonstrated how violently sectional conflict had penetrated even the U.S. Congress",
+      "topic": "Antebellum: Sumner caning",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Trail of Tears (1838-1839) refers to the forced relocation of which Native nation?",
+      "choices": [
+        "The Apache",
+        "The Iroquois",
+        "The Sioux",
+        "The Cherokee"
+      ],
+      "correctText": "The Cherokee",
+      "topic": "Antebellum: Trail of Tears",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The transcendentalist movement, associated with Emerson and Thoreau, emphasized",
+      "choices": [
+        "Self-reliance, individual conscience, and the divinity of nature",
+        "Strict adherence to Puritan doctrine and original sin",
+        "Pro-slavery defenses of the southern plantation system",
+        "Federal industrial planning"
+      ],
+      "correctText": "Self-reliance, individual conscience, and the divinity of nature",
+      "topic": "Antebellum: Transcendentalism",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Treaty of Guadalupe Hidalgo (1848) ended the Mexican-American War and resulted in",
+      "choices": [
+        "Mutual abolition of slavery in both countries",
+        "Mexican annexation of Texas back into the Republic of Mexico",
+        "U.S. payment of war reparations to Mexico amounting to all federal land revenues",
+        "U.S. acquisition of California, New Mexico, and other present-day Southwest territory"
+      ],
+      "correctText": "U.S. acquisition of California, New Mexico, and other present-day Southwest territory",
+      "topic": "Antebellum: Treaty of Guadalupe Hidalgo",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Whig Party emerged in the 1830s primarily in opposition to",
+      "choices": [
+        "What its members saw as the executive overreach of 'King Andrew' Jackson",
+        "The expansion of slavery into the western territories",
+        "British impressment of American sailors",
+        "The Mexican-American War"
+      ],
+      "correctText": "What its members saw as the executive overreach of 'King Andrew' Jackson",
+      "topic": "Antebellum: Whig Party",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Worcester v. Georgia (1832) ruled that",
+      "choices": [
+        "Cherokee removal was constitutional and Georgia had jurisdiction over Cherokee lands",
+        "States could ignore federal treaties with Indigenous nations",
+        "The Cherokee Nation was a 'distinct community' over which Georgia laws had no force",
+        "Federal courts had no authority in Native sovereignty cases"
+      ],
+      "correctText": "The Cherokee Nation was a 'distinct community' over which Georgia laws had no force",
+      "topic": "Antebellum: Worcester v. Georgia",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 24th Amendment (1964) prohibited",
+      "choices": [
+        "Use of poll taxes in federal elections",
+        "Discrimination on the basis of sex in employment",
+        "Federal income taxation of senators",
+        "The military draft of conscientious objectors"
+      ],
+      "correctText": "Use of poll taxes in federal elections",
+      "topic": "Civil Rights: 24th Amendment",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 1961 Freedom Rides organized by CORE were designed to",
+      "choices": [
+        "Register Black voters in the Mississippi Delta",
+        "Test compliance with Supreme Court rulings desegregating interstate bus travel and terminals",
+        "Establish freedom schools in Selma, Alabama",
+        "Recruit students for the Peace Corps"
+      ],
+      "correctText": "Test compliance with Supreme Court rulings desegregating interstate bus travel and terminals",
+      "topic": "Civil Rights: Freedom Rides",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 1960 Greensboro sit-ins at a Woolworth's lunch counter are significant because they",
+      "choices": [
+        "Helped launch a student-led wave of nonviolent direct-action protest and the founding of SNCC",
+        "Led directly to the passage of the Civil Rights Act of 1957",
+        "Ended desegregation efforts in North Carolina",
+        "Convinced the Supreme Court to reverse Plessy v. Ferguson"
+      ],
+      "correctText": "Helped launch a student-led wave of nonviolent direct-action protest and the founding of SNCC",
+      "topic": "Civil Rights: Greensboro sit-ins",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 1957 desegregation crisis at Little Rock Central High School was resolved when",
+      "choices": [
+        "Local officials peacefully integrated the school after a brief delay",
+        "The Supreme Court suspended Brown v. Board of Education in Arkansas",
+        "President Eisenhower federalized the Arkansas National Guard and sent the 101st Airborne to enforce the federal court order",
+        "Governor Orval Faubus voluntarily withdrew the state's National Guard"
+      ],
+      "correctText": "President Eisenhower federalized the Arkansas National Guard and sent the 101st Airborne to enforce the federal court order",
+      "topic": "Civil Rights: Little Rock",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 1963 March on Washington for Jobs and Freedom is best remembered for",
+      "choices": [
+        "The Selma to Montgomery voting rights march",
+        "The Watts Riots in Los Angeles",
+        "Martin Luther King Jr.'s 'I Have a Dream' speech and mobilizing pressure for civil rights legislation",
+        "President Kennedy's assassination later that year"
+      ],
+      "correctText": "Martin Luther King Jr.'s 'I Have a Dream' speech and mobilizing pressure for civil rights legislation",
+      "topic": "Civil Rights: March on Washington",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Montgomery Bus Boycott (1955-1956), triggered by Rosa Parks's arrest, is significant because it",
+      "choices": [
+        "Produced the first NAACP legal victory",
+        "Ended segregation in southern public schools immediately",
+        "Established Martin Luther King Jr. as a national civil rights leader and demonstrated the power of nonviolent direct action",
+        "Led to passage of the Voting Rights Act"
+      ],
+      "correctText": "Established Martin Luther King Jr. as a national civil rights leader and demonstrated the power of nonviolent direct action",
+      "topic": "Civil Rights: Montgomery Bus Boycott",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 1965 Selma to Montgomery marches dramatized the need for",
+      "choices": [
+        "Federal voting rights protection, helping secure passage of the Voting Rights Act of 1965",
+        "Desegregation of professional baseball",
+        "School busing in northern cities",
+        "The Civil Rights Act of 1957"
+      ],
+      "correctText": "Federal voting rights protection, helping secure passage of the Voting Rights Act of 1965",
+      "topic": "Civil Rights: Selma",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Voting Rights Act of 1965 was particularly effective because it",
+      "choices": [
+        "Granted statehood to the District of Columbia",
+        "Established federal supervision of voter registration in jurisdictions with histories of racial discrimination, including the use of literacy tests",
+        "Established the Federal Election Commission",
+        "Repealed the 15th Amendment"
+      ],
+      "correctText": "Established federal supervision of voter registration in jurisdictions with histories of racial discrimination, including the use of literacy tests",
+      "topic": "Civil Rights: Voting Rights Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 54th Massachusetts Infantry Regiment is best known as",
+      "choices": [
+        "A militia unit organized by Confederate guerrillas",
+        "One of the first official Black regiments raised in the North, made famous by its assault on Fort Wagner",
+        "An all-Native unit that fought for the Confederacy",
+        "A women's auxiliary nursing corps in the Union Army"
+      ],
+      "correctText": "One of the first official Black regiments raised in the North, made famous by its assault on Fort Wagner",
+      "topic": "Civil War: 54th Massachusetts",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Anaconda Plan was the Union's overall military strategy to",
+      "choices": [
+        "Equip enslaved Africans to fight as a separate army",
+        "Capture the Confederate capital in a single decisive battle",
+        "Negotiate an immediate end to hostilities with Confederate generals",
+        "Blockade southern ports, control the Mississippi River, and gradually squeeze the Confederacy"
+      ],
+      "correctText": "Blockade southern ports, control the Mississippi River, and gradually squeeze the Confederacy",
+      "topic": "Civil War: Anaconda Plan",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Confederate Constitution adopted in 1861 most closely resembled the U.S. Constitution but differed primarily in that it",
+      "choices": [
+        "Explicitly protected slavery and reserved more powers to the states",
+        "Outlawed slavery in any future Confederate territory",
+        "Established a parliamentary system of government",
+        "Abolished the office of president"
+      ],
+      "correctText": "Explicitly protected slavery and reserved more powers to the states",
+      "topic": "Civil War: Confederate Constitution",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Gettysburg Address (1863) reframed the meaning of the Civil War as",
+      "choices": [
+        "A defense of states' rights to nullify federal law",
+        "A campaign to acquire Confederate territory for northern industrialists",
+        "A war primarily to enforce the Fugitive Slave Act",
+        "A struggle for a 'new birth of freedom' and the survival of government 'of the people, by the people, for the people'"
+      ],
+      "correctText": "A struggle for a 'new birth of freedom' and the survival of government 'of the people, by the people, for the people'",
+      "topic": "Civil War: Gettysburg Address",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Lincoln's suspension of habeas corpus during the Civil War was justified by his administration on the grounds that",
+      "choices": [
+        "Article I authorized suspension in cases of rebellion or invasion to preserve the Union",
+        "Congress had declared martial law over the entire nation",
+        "The Bill of Rights had been repealed by the secession crisis",
+        "The Constitution required permanent suspension during peacetime as well"
+      ],
+      "correctText": "Article I authorized suspension in cases of rebellion or invasion to preserve the Union",
+      "topic": "Civil War: Habeas corpus",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Homestead Act of 1862, passed during the Civil War, was significant because it",
+      "choices": [
+        "Granted plantation lands in the South to formerly enslaved people",
+        "Distributed 160-acre tracts of public land to settlers who farmed them for five years",
+        "Established federal Indian reservations west of the Mississippi",
+        "Created the first national parks system"
+      ],
+      "correctText": "Distributed 160-acre tracts of public land to settlers who farmed them for five years",
+      "topic": "Civil War: Homestead Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Lincoln's assassination at Ford's Theatre on April 14, 1865 had which immediate political consequence?",
+      "choices": [
+        "The Confederate government was re-established under General Lee",
+        "Reconstruction ended immediately and federal troops left the South",
+        "The Reconstruction process passed to Vice President Andrew Johnson, whose lenient approach clashed with Radical Republicans",
+        "Slavery was formally abolished by congressional act for the first time"
+      ],
+      "correctText": "The Reconstruction process passed to Vice President Andrew Johnson, whose lenient approach clashed with Radical Republicans",
+      "topic": "Civil War: Lincoln assassination",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Morrill Land-Grant Act of 1862 contributed to American higher education by",
+      "choices": [
+        "Creating the federal Department of Education",
+        "Establishing the first historically Black colleges and universities",
+        "Banning religious instruction in state universities",
+        "Funding the creation of public colleges focused on agriculture and mechanical arts"
+      ],
+      "correctText": "Funding the creation of public colleges focused on agriculture and mechanical arts",
+      "topic": "Civil War: Morrill Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Sherman's March to the Sea (1864) was significant militarily because it",
+      "choices": [
+        "Persuaded Britain to recognize the Confederacy",
+        "Captured Richmond and forced an immediate surrender",
+        "Resulted in heavy Union casualties without strategic gain",
+        "Established total war by destroying southern economic and civilian infrastructure to break Confederate will"
+      ],
+      "correctText": "Established total war by destroying southern economic and civilian infrastructure to break Confederate will",
+      "topic": "Civil War: Sherman's March",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Bay of Pigs invasion (April 1961) was a covert U.S.-backed attempt to",
+      "choices": [
+        "Establish a NATO base in Cuba",
+        "Overthrow Fidel Castro's Cuban government using a CIA-trained force of Cuban exiles",
+        "Negotiate Cuban entry into the Organization of American States",
+        "Distribute humanitarian aid in Havana"
+      ],
+      "correctText": "Overthrow Fidel Castro's Cuban government using a CIA-trained force of Cuban exiles",
+      "topic": "Cold War: Bay of Pigs",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Berlin Airlift (1948-1949) was the U.S. and British response to",
+      "choices": [
+        "Soviet construction of the Berlin Wall in 1961",
+        "The fall of the Iron Curtain",
+        "A Soviet blockade of land routes into West Berlin during the early Cold War",
+        "The launch of Sputnik in 1957"
+      ],
+      "correctText": "A Soviet blockade of land routes into West Berlin during the early Cold War",
+      "topic": "Cold War: Berlin Airlift",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "George F. Kennan's 'Long Telegram' (1946) and 'X' article in Foreign Affairs (1947) outlined the strategy of",
+      "choices": [
+        "Massive retaliation against any Soviet provocation",
+        "Rollback of communism by direct military invasion",
+        "Containment of Soviet influence through long-term, patient firmness around the perimeter of Soviet power",
+        "Mutual disarmament and unilateral demilitarization"
+      ],
+      "correctText": "Containment of Soviet influence through long-term, patient firmness around the perimeter of Soviet power",
+      "topic": "Cold War: Containment",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "President Eisenhower's domestic 'dynamic conservatism' or 'modern Republicanism' included support for",
+      "choices": [
+        "Privatization of Social Security",
+        "The Interstate Highway System and expansion of existing New Deal programs while restraining new federal initiatives",
+        "Repeal of the Wagner Act",
+        "Nationalization of the steel industry"
+      ],
+      "correctText": "The Interstate Highway System and expansion of existing New Deal programs while restraining new federal initiatives",
+      "topic": "Cold War: Eisenhower domestic policy",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Kennedy's assassination in Dallas on November 22, 1963 led to the elevation of which Texan to the presidency?",
+      "choices": [
+        "Lyndon B. Johnson",
+        "Ted Cruz",
+        "Ross Perot",
+        "George H.W. Bush"
+      ],
+      "correctText": "Lyndon B. Johnson",
+      "topic": "Cold War: JFK assassination",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "John F. Kennedy's New Frontier program included all of the following EXCEPT",
+      "choices": [
+        "The Peace Corps",
+        "The desegregation of all southern public schools by executive order",
+        "A pledge to land an American on the Moon by the end of the 1960s",
+        "The Alliance for Progress in Latin America"
+      ],
+      "correctText": "The desegregation of all southern public schools by executive order",
+      "topic": "Cold War: JFK New Frontier",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Korean War (1950-1953) ended with",
+      "choices": [
+        "An armistice that maintained roughly the prewar division at the 38th parallel",
+        "A clear Communist victory and unified Korea under Kim Il-sung",
+        "Outright U.S. military victory and the overthrow of North Korea",
+        "A peace treaty signed by Truman and Mao"
+      ],
+      "correctText": "An armistice that maintained roughly the prewar division at the 38th parallel",
+      "topic": "Cold War: Korean War",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Senator Joseph McCarthy's 1950 Wheeling, West Virginia speech is best remembered as",
+      "choices": [
+        "An unsubstantiated claim that he held a list of communists working in the State Department, igniting the Second Red Scare",
+        "A defense of free speech protections during wartime",
+        "A call for desegregation of the armed forces",
+        "A repudiation of the House Un-American Activities Committee"
+      ],
+      "correctText": "An unsubstantiated claim that he held a list of communists working in the State Department, igniting the Second Red Scare",
+      "topic": "Cold War: McCarthy",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Eisenhower's farewell address (1961) famously warned the nation about the growing influence of the",
+      "choices": [
+        "'Military-industrial complex' on American political life",
+        "Federal Reserve System on monetary policy",
+        "Civil rights movement on social stability",
+        "Catholic Church on national politics"
+      ],
+      "correctText": "'Military-industrial complex' on American political life",
+      "topic": "Cold War: Military-industrial complex",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The North Atlantic Treaty Organization (NATO), formed in 1949, committed its members to",
+      "choices": [
+        "Collective self-defense in which an attack on one member would be considered an attack on all",
+        "Free trade in agricultural products",
+        "Open economic borders between Western and Eastern Europe",
+        "Unilateral nuclear disarmament"
+      ],
+      "correctText": "Collective self-defense in which an attack on one member would be considered an attack on all",
+      "topic": "Cold War: NATO",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "NSC-68 (1950) recommended that the United States respond to the Soviet threat by",
+      "choices": [
+        "Returning to interwar isolationism",
+        "Dramatically increasing defense spending and global containment commitments",
+        "Negotiating immediate disarmament with Moscow",
+        "Ending the Marshall Plan"
+      ],
+      "correctText": "Dramatically increasing defense spending and global containment commitments",
+      "topic": "Cold War: NSC-68",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The launch of Sputnik by the Soviet Union in 1957 prompted U.S. action including",
+      "choices": [
+        "The Marshall Plan and Truman Doctrine",
+        "The creation of NASA and passage of the National Defense Education Act to invest in science and math education",
+        "Establishment of the Federal Reserve System",
+        "The Nuremberg Trials"
+      ],
+      "correctText": "The creation of NASA and passage of the National Defense Education Act to invest in science and math education",
+      "topic": "Cold War: Sputnik",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "President Truman's dismissal of General Douglas MacArthur in 1951 reaffirmed the principle of",
+      "choices": [
+        "Joint chiefs of staff control over the State Department",
+        "Civilian control of the military under the U.S. Constitution",
+        "Senate authority over military strategy",
+        "Presidential immunity from impeachment"
+      ],
+      "correctText": "Civilian control of the military under the U.S. Constitution",
+      "topic": "Cold War: Truman fires MacArthur",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 1619 arrival of '20 and odd' Africans at Point Comfort, Virginia is historically significant because it",
+      "choices": [
+        "Ended indentured servitude in the Chesapeake",
+        "Established a fully developed slave code overnight",
+        "Marked the beginning of African presence in English North America",
+        "Was authorized by the Royal African Company charter"
+      ],
+      "correctText": "Marked the beginning of African presence in English North America",
+      "topic": "Colonial: 1619 Africans in Virginia",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Carolinas' Fundamental Constitutions, drafted by John Locke in 1669, attempted to establish",
+      "choices": [
+        "A democratic republic with universal male suffrage",
+        "A confederation of Native and English self-governing towns",
+        "Religious uniformity under the Anglican Church",
+        "A hierarchical society with a hereditary nobility and chattel slavery"
+      ],
+      "correctText": "A hierarchical society with a hereditary nobility and chattel slavery",
+      "topic": "Colonial: Carolinas Fundamental Constitutions",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Dominion of New England, established by James II in 1686, was opposed by colonists because it",
+      "choices": [
+        "Granted self-government to all Native communities",
+        "Mandated mandatory Quaker worship across New England",
+        "Required colonists to import only Spanish goods",
+        "Consolidated multiple colonies under royal governance and revoked their charters"
+      ],
+      "correctText": "Consolidated multiple colonies under royal governance and revoked their charters",
+      "topic": "Colonial: Dominion of New England",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "George Whitefield's preaching tours of the 1740s most directly contributed to",
+      "choices": [
+        "The unifying experience of the First Great Awakening across colonial regions",
+        "The decline of evangelical Protestantism in the colonies",
+        "A revival of Catholicism in Maryland",
+        "The founding of the Church of England in the colonies"
+      ],
+      "correctText": "The unifying experience of the First Great Awakening across colonial regions",
+      "topic": "Colonial: George Whitefield",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Glorious Revolution of 1688-89 in England most directly affected the colonies by",
+      "choices": [
+        "Establishing universal manhood suffrage in colonial assemblies",
+        "Prompting the immediate independence of New York and Massachusetts",
+        "Ending the Dominion of New England and reinforcing the principle that royal authority had limits",
+        "Granting voting rights to enslaved Africans"
+      ],
+      "correctText": "Ending the Dominion of New England and reinforcing the principle that royal authority had limits",
+      "topic": "Colonial: Glorious Revolution",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Halfway Covenant adopted by New England churches in 1662 reflected",
+      "choices": [
+        "Concern that the children of unconverted second-generation Puritans were drifting away from the church",
+        "A renewed strictness in Puritan church membership requirements",
+        "An embrace of Anglican sacraments by Massachusetts congregations",
+        "The end of the Congregational Church in New England"
+      ],
+      "correctText": "Concern that the children of unconverted second-generation Puritans were drifting away from the church",
+      "topic": "Colonial: Halfway Covenant",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The headright system used by the Virginia Company chiefly served to",
+      "choices": [
+        "Encourage migration by granting 50 acres of land per imported servant",
+        "Convert Algonquian peoples to Anglican Christianity",
+        "Replace indentured servitude with free wage labor",
+        "Distribute confiscated Spanish lands in Florida"
+      ],
+      "correctText": "Encourage migration by granting 50 acres of land per imported servant",
+      "topic": "Colonial: Headright system",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 1607 founding of Jamestown by the Virginia Company was motivated primarily by",
+      "choices": [
+        "A desire for religious purification of the Church of England",
+        "The Crown's plan to relocate convicts from English prisons",
+        "The expectation of finding gold and a Northwest Passage to Asia",
+        "An effort to establish a tobacco monopoly"
+      ],
+      "correctText": "The expectation of finding gold and a Northwest Passage to Asia",
+      "topic": "Colonial: Jamestown founding",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "King Philip's War (1675-1676) in New England is best characterized as",
+      "choices": [
+        "A purely religious war between Puritans and Quakers",
+        "A successful colonial alliance with the Iroquois against the French",
+        "A widespread Native uprising led by Wampanoag sachem Metacom that devastated frontier settlements",
+        "An early skirmish of the French and Indian Wars"
+      ],
+      "correctText": "A widespread Native uprising led by Wampanoag sachem Metacom that devastated frontier settlements",
+      "topic": "Colonial: King Philip's War",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Massachusetts Bay Colony's charter of 1629 was unique among English colonial charters because it",
+      "choices": [
+        "Prohibited slavery throughout New England",
+        "Required Catholic toleration as a condition of settlement",
+        "Granted direct rule to the Archbishop of Canterbury",
+        "Did not specify the location of company meetings, allowing self-government to develop in the colony"
+      ],
+      "correctText": "Did not specify the location of company meetings, allowing self-government to develop in the colony",
+      "topic": "Colonial: Massachusetts Bay charter",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "William Penn's 'Holy Experiment' in Pennsylvania (founded 1681) was distinguished by",
+      "choices": [
+        "A military alliance with the Iroquois against the French",
+        "A royal mandate to convert African peoples to Catholicism",
+        "Establishment of the first colonial slave code",
+        "A policy of religious toleration, peaceful Native relations, and Quaker pacifism"
+      ],
+      "correctText": "A policy of religious toleration, peaceful Native relations, and Quaker pacifism",
+      "topic": "Colonial: Pennsylvania",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Proclamation of 1763 was issued by Britain primarily to",
+      "choices": [
+        "Lower colonial taxes to encourage trade",
+        "Force French settlers out of Quebec",
+        "Limit colonial settlement west of the Appalachian Mountains to ease tensions with Native peoples",
+        "Ban the slave trade in the West Indies"
+      ],
+      "correctText": "Limit colonial settlement west of the Appalachian Mountains to ease tensions with Native peoples",
+      "topic": "Colonial: Proclamation of 1763",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Salem Witch Trials of 1692 are best understood by historians as a product of",
+      "choices": [
+        "A direct Anglican challenge to Puritan congregational government",
+        "Frontier insecurity, social tensions between rival families, and gender anxiety in a Puritan community",
+        "A planned colonial revolt against the new royal charter",
+        "Spanish Catholic infiltration of New England villages"
+      ],
+      "correctText": "Frontier insecurity, social tensions between rival families, and gender anxiety in a Puritan community",
+      "topic": "Colonial: Salem Witch Trials",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Salutary neglect, the unofficial British colonial policy before 1763, is best described as",
+      "choices": [
+        "A policy of mass deportation of dissenters to America",
+        "Strict enforcement of mercantilist laws backed by a permanent British army",
+        "A deliberate effort to develop colonial manufacturing",
+        "A pattern of lax enforcement of trade regulations that allowed colonial self-government to flourish"
+      ],
+      "correctText": "A pattern of lax enforcement of trade regulations that allowed colonial self-government to flourish",
+      "topic": "Colonial: Salutary neglect",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 1739 Stono Rebellion in South Carolina is significant primarily because it",
+      "choices": [
+        "Led to immediate emancipation of enslaved people in Charleston",
+        "Successfully ended slavery in the Lower South",
+        "Was the largest slave uprising in the British mainland colonies before the Revolution",
+        "Resulted in the colony's withdrawal from the British Empire"
+      ],
+      "correctText": "Was the largest slave uprising in the British mainland colonies before the Revolution",
+      "topic": "Colonial: Stono Rebellion",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "John Rolfe's introduction of West Indian tobacco to Virginia after 1612 most directly produced",
+      "choices": [
+        "A cash crop economy that drove demand for indentured and enslaved labor",
+        "A peaceful trade alliance with the Powhatan Confederacy",
+        "The end of the Virginia Company's royal charter",
+        "A wave of Puritan migration to the Chesapeake"
+      ],
+      "correctText": "A cash crop economy that drove demand for indentured and enslaved labor",
+      "topic": "Colonial: Tobacco economy",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Article I of the Constitution grants Congress all of the following enumerated powers EXCEPT",
+      "choices": [
+        "The power to coin money and regulate its value",
+        "The power to declare war",
+        "The power to issue presidential pardons",
+        "The power to regulate commerce among the states"
+      ],
+      "correctText": "The power to issue presidential pardons",
+      "topic": "Constitution: Article I powers",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Bill of Rights was added to the Constitution in 1791 primarily to",
+      "choices": [
+        "Establish judicial review for the Supreme Court",
+        "Expand the powers of Congress beyond the enumerated powers",
+        "Grant slavery constitutional protection",
+        "Address Anti-Federalist concerns about federal infringement on individual and state rights"
+      ],
+      "correctText": "Address Anti-Federalist concerns about federal infringement on individual and state rights",
+      "topic": "Constitution: Bill of Rights",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Great Compromise at the Constitutional Convention resolved disputes between large and small states by establishing",
+      "choices": [
+        "A bicameral Congress with proportional representation in the House and equal representation in the Senate",
+        "A unicameral legislature with two votes per state regardless of size",
+        "An electoral system based solely on landholding qualifications",
+        "A council of state governors to elect the president"
+      ],
+      "correctText": "A bicameral Congress with proportional representation in the House and equal representation in the Senate",
+      "topic": "Constitution: Great Compromise",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Virginia Plan presented at the Constitutional Convention in 1787 proposed",
+      "choices": [
+        "A bicameral national legislature with representation in both houses based on population",
+        "A unicameral legislature with equal state representation",
+        "Direct popular election of all federal officials including the president",
+        "A confederation of fully sovereign states with a weak executive"
+      ],
+      "correctText": "A bicameral national legislature with representation in both houses based on population",
+      "topic": "Constitution: Virginia Plan",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Agricultural Adjustment Act (AAA) of 1933 attempted to raise farm prices by",
+      "choices": [
+        "Distributing free land to tenant farmers",
+        "Paying farmers to reduce production of major crops and livestock",
+        "Imposing tariffs on imported agricultural goods",
+        "Nationalizing all American farms"
+      ],
+      "correctText": "Paying farmers to reduce production of major crops and livestock",
+      "topic": "Depression: AAA",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Bonus Army's march on Washington in 1932 ended when",
+      "choices": [
+        "Congress promptly paid the veterans' promised bonuses",
+        "President Hoover personally addressed the marchers and granted their demands",
+        "U.S. Army troops under General Douglas MacArthur dispersed the veterans and burned their encampment",
+        "The veterans peacefully returned home after meeting with FDR"
+      ],
+      "correctText": "U.S. Army troops under General Douglas MacArthur dispersed the veterans and burned their encampment",
+      "topic": "Depression: Bonus Army",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Civilian Conservation Corps (CCC), established in 1933, was created to",
+      "choices": [
+        "Distribute direct cash relief to unemployed urban workers",
+        "Employ young men in conservation work such as planting trees, fighting fires, and building parks",
+        "Regulate the New York Stock Exchange",
+        "Administer Social Security benefits to retirees"
+      ],
+      "correctText": "Employ young men in conservation work such as planting trees, fighting fires, and building parks",
+      "topic": "Depression: CCC",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Dust Bowl of the 1930s was caused primarily by",
+      "choices": [
+        "A natural cycle of glacial advance",
+        "A combination of severe drought, poor soil conservation, and over-plowing of the southern Plains",
+        "Federal land-redistribution policies in Oklahoma",
+        "The collapse of the cotton economy in Mississippi"
+      ],
+      "correctText": "A combination of severe drought, poor soil conservation, and over-plowing of the southern Plains",
+      "topic": "Depression: Dust Bowl",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "John Steinbeck's 'The Grapes of Wrath' (1939) captured the plight of which Depression-era group?",
+      "choices": [
+        "African American sharecroppers in the Mississippi Delta",
+        "Coal miners in West Virginia",
+        "Wall Street stockbrokers after the Crash of 1929",
+        "Migrant farm families fleeing the Dust Bowl for California"
+      ],
+      "correctText": "Migrant farm families fleeing the Dust Bowl for California",
+      "topic": "Depression: Grapes of Wrath",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Herbert Hoover's response to the early Great Depression is best characterized as",
+      "choices": [
+        "A massive program of federal direct relief to unemployed workers",
+        "Repeal of the Federal Reserve System",
+        "Nationalization of major industries",
+        "Limited federal action emphasizing 'rugged individualism' and voluntary cooperation, supplemented by the Reconstruction Finance Corporation"
+      ],
+      "correctText": "Limited federal action emphasizing 'rugged individualism' and voluntary cooperation, supplemented by the Reconstruction Finance Corporation",
+      "topic": "Depression: Hoover response",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Father Charles Coughlin, Huey Long, and Dr. Francis Townsend were significant in the mid-1930s because they",
+      "choices": [
+        "Endorsed Hoover's economic policies",
+        "Led the Bonus Army on Washington",
+        "Founded the Republican Party's modern conservative movement",
+        "Offered populist critiques and alternatives to the New Deal from various political angles"
+      ],
+      "correctText": "Offered populist critiques and alternatives to the New Deal from various political angles",
+      "topic": "Depression: New Deal critics",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Schechter Poultry Corp. v. United States (1935) is significant in New Deal history because the Supreme Court",
+      "choices": [
+        "Upheld the constitutionality of the National Industrial Recovery Act",
+        "Repealed the Social Security Act",
+        "Struck down the NIRA, ruling that Congress had unconstitutionally delegated legislative power and overreached the commerce clause",
+        "Held that the New Deal violated the 13th Amendment"
+      ],
+      "correctText": "Struck down the NIRA, ruling that Congress had unconstitutionally delegated legislative power and overreached the commerce clause",
+      "topic": "Depression: Schechter Poultry",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Smoot-Hawley Tariff (1930) deepened the Great Depression by",
+      "choices": [
+        "Lowering tariffs to promote trade with Europe",
+        "Devaluing the U.S. dollar against gold",
+        "Establishing the Federal Reserve's discount rate",
+        "Raising tariffs to record levels and provoking retaliatory tariffs that contracted world trade"
+      ],
+      "correctText": "Raising tariffs to record levels and provoking retaliatory tariffs that contracted world trade",
+      "topic": "Depression: Smoot-Hawley",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Tennessee Valley Authority (TVA) of 1933 was unique among New Deal programs because it",
+      "choices": [
+        "Operated entirely on private donations",
+        "Provided unemployment insurance only to industrial workers",
+        "Combined regional flood control, electrification, and economic development under a federal public corporation",
+        "Authorized the federal income tax for the first time"
+      ],
+      "correctText": "Combined regional flood control, electrification, and economic development under a federal public corporation",
+      "topic": "Depression: TVA",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Wagner Act (National Labor Relations Act) of 1935 transformed labor relations by",
+      "choices": [
+        "Guaranteeing workers' right to organize, bargain collectively, and engage in strikes",
+        "Banning labor unions in interstate commerce",
+        "Establishing the Social Security Administration",
+        "Repealing the Sherman Antitrust Act"
+      ],
+      "correctText": "Guaranteeing workers' right to organize, bargain collectively, and engage in strikes",
+      "topic": "Depression: Wagner Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Works Progress Administration (WPA), established in 1935, employed Americans on",
+      "choices": [
+        "Mandatory military service in peacetime",
+        "Public works projects ranging from roads and bridges to murals, plays, and oral histories",
+        "Construction of the interstate highway system",
+        "Confiscation of private property for redistribution"
+      ],
+      "correctText": "Public works projects ranging from roads and bridges to murals, plays, and oral histories",
+      "topic": "Depression: WPA",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Alien and Sedition Acts (1798), passed under John Adams, were primarily criticized for",
+      "choices": [
+        "Expanding voting rights to immigrants",
+        "Restricting freedom of speech and press and targeting political opponents",
+        "Granting the federal courts unlimited power",
+        "Authorizing the deportation of all foreign-born citizens"
+      ],
+      "correctText": "Restricting freedom of speech and press and targeting political opponents",
+      "topic": "Early Republic: Alien and Sedition Acts",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Henry Clay's American System proposed all of the following EXCEPT",
+      "choices": [
+        "A protective tariff to shield American manufacturers",
+        "Federal funding for internal improvements such as roads and canals",
+        "Re-chartering of a national bank to provide stable currency",
+        "Federal acquisition of Cuba from Spain"
+      ],
+      "correctText": "Federal acquisition of Cuba from Spain",
+      "topic": "Early Republic: American System",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Under the Articles of Confederation, all of the following were powers of Congress EXCEPT",
+      "choices": [
+        "Declaring war and making peace",
+        "Borrowing money on the credit of the United States",
+        "Levying direct taxes on citizens",
+        "Negotiating treaties with foreign powers"
+      ],
+      "correctText": "Levying direct taxes on citizens",
+      "topic": "Early Republic: Articles weaknesses",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Embargo Act of 1807 was Jefferson's attempt to",
+      "choices": [
+        "Increase tariff revenue for federal road building",
+        "Encourage southern cotton exports to Europe",
+        "Force Britain and France to respect U.S. neutrality by halting all American foreign trade",
+        "Prohibit the importation of enslaved Africans into the United States"
+      ],
+      "correctText": "Force Britain and France to respect U.S. neutrality by halting all American foreign trade",
+      "topic": "Early Republic: Embargo Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Gibbons v. Ogden (1824) strengthened the federal government by ruling that",
+      "choices": [
+        "Congress's commerce clause power extended to interstate navigation and trumped state-granted monopolies",
+        "States could independently regulate interstate commerce in shipping",
+        "The federal government had no authority over riverboat travel",
+        "Steamboat patents belonged to state governments alone"
+      ],
+      "correctText": "Congress's commerce clause power extended to interstate navigation and trumped state-granted monopolies",
+      "topic": "Early Republic: Gibbons v. Ogden",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Alexander Hamilton's financial program as Treasury Secretary included all of the following EXCEPT",
+      "choices": [
+        "Federal assumption of state Revolutionary War debts",
+        "Establishment of a national bank to stabilize credit",
+        "Imposition of protective tariffs and excise taxes to encourage manufacturing",
+        "Immediate abolition of slavery in the southern states"
+      ],
+      "correctText": "Immediate abolition of slavery in the southern states",
+      "topic": "Early Republic: Hamilton's plan",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Hartford Convention of 1814 is significant primarily because it",
+      "choices": [
+        "Marked the high point of Federalist Party power and influence",
+        "Repealed the Embargo Act and reopened trade with Britain",
+        "Established the Republican Party of Jefferson and Madison",
+        "Discredited the Federalist Party by appearing disloyal during the War of 1812"
+      ],
+      "correctText": "Discredited the Federalist Party by appearing disloyal during the War of 1812",
+      "topic": "Early Republic: Hartford Convention",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Land Ordinance of 1785 established",
+      "choices": [
+        "A federal ban on slavery in all western territories",
+        "The first national park system",
+        "The Bank of the United States",
+        "A standardized survey grid for western lands and reserved a section in each township for public education"
+      ],
+      "correctText": "A standardized survey grid for western lands and reserved a section in each township for public education",
+      "topic": "Early Republic: Land Ordinance 1785",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Lewis and Clark Expedition (1804-1806) was authorized by President Jefferson primarily to",
+      "choices": [
+        "Explore the new Louisiana Territory and find a water route to the Pacific",
+        "Negotiate a peace treaty with the Spanish in California",
+        "Establish federal forts to control the slave trade",
+        "Survey the Atlantic coast for naval bases"
+      ],
+      "correctText": "Explore the new Louisiana Territory and find a water route to the Pacific",
+      "topic": "Early Republic: Lewis and Clark",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "McCulloch v. Maryland (1819) is significant because the Supreme Court ruled that",
+      "choices": [
+        "States could tax federal institutions operating within their borders",
+        "Slavery could be banned by individual states",
+        "The Bank of the United States was unconstitutional",
+        "Congress had implied powers under the necessary and proper clause and states could not tax federal institutions"
+      ],
+      "correctText": "Congress had implied powers under the necessary and proper clause and states could not tax federal institutions",
+      "topic": "Early Republic: McCulloch v. Maryland",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 'Revolution of 1800' refers to",
+      "choices": [
+        "A failed slave uprising in Virginia led by Gabriel Prosser",
+        "The War of 1812 with Britain",
+        "The first peaceful transfer of presidential power from one party to another",
+        "The Louisiana Purchase from France"
+      ],
+      "correctText": "The first peaceful transfer of presidential power from one party to another",
+      "topic": "Early Republic: Revolution of 1800",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Washington's Farewell Address (1796) warned the new nation against",
+      "choices": [
+        "Establishing a system of public education",
+        "Forming permanent foreign alliances and the dangers of political parties",
+        "Federal protection of free trade with Britain",
+        "Maintaining a peacetime army of more than 10,000 soldiers"
+      ],
+      "correctText": "Forming permanent foreign alliances and the dangers of political parties",
+      "topic": "Early Republic: Washington's Farewell",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Whiskey Rebellion of 1794 demonstrated that under the Constitution, the federal government would",
+      "choices": [
+        "Negotiate with armed protesters rather than enforce unpopular laws",
+        "Suppress armed resistance to federal taxes using military force",
+        "Allow states to nullify federal excise taxes within their borders",
+        "Pardon all tax protesters without prosecution"
+      ],
+      "correctText": "Suppress armed resistance to federal taxes using military force",
+      "topic": "Early Republic: Whiskey Rebellion",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The election of William McKinley over William Jennings Bryan in 1896 represented",
+      "choices": [
+        "A victory for free silver, agrarianism, and labor reform",
+        "A return to Reconstruction-era civil rights enforcement",
+        "The first elected Populist presidency",
+        "The triumph of gold-standard, industrial, eastern Republican power over the Populist-Democratic alliance"
+      ],
+      "correctText": "The triumph of gold-standard, industrial, eastern Republican power over the Populist-Democratic alliance",
+      "topic": "Gilded Age: 1896 election",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Angel Island, opened in San Francisco Bay in 1910, served primarily as",
+      "choices": [
+        "An immigration processing station that often detained Asian immigrants for extended periods",
+        "A naval base protecting California from Spanish attack",
+        "The first U.S. federal penitentiary",
+        "A trans-shipment point for cotton exports to Asia"
+      ],
+      "correctText": "An immigration processing station that often detained Asian immigrants for extended periods",
+      "topic": "Gilded Age: Angel Island",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Booker T. Washington's 'Atlanta Compromise' speech (1895) urged African Americans to",
+      "choices": [
+        "Demand immediate political and social equality with whites",
+        "Form a separate Black nationalist movement",
+        "Focus on economic self-help and vocational education while temporarily accepting segregation",
+        "Migrate en masse to Liberia"
+      ],
+      "correctText": "Focus on economic self-help and vocational education while temporarily accepting segregation",
+      "topic": "Gilded Age: Booker T. Washington",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Chinese Exclusion Act of 1882 was significant because it was",
+      "choices": [
+        "The first federal law to restrict immigration based on national origin and race",
+        "A reciprocal trade agreement with the Chinese imperial government",
+        "A general suspension of all immigration to the United States",
+        "An ineffective measure quickly repealed by Congress"
+      ],
+      "correctText": "The first federal law to restrict immigration based on national origin and race",
+      "topic": "Gilded Age: Chinese Exclusion Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "W.E.B. Du Bois's response to Booker T. Washington's accommodationism was to argue that",
+      "choices": [
+        "Black Americans should reject formal education altogether",
+        "Black Americans should refuse to participate in industry",
+        "The 'Talented Tenth' of college-educated Black Americans should lead immediate political and civil rights efforts",
+        "Booker T. Washington was a federal agent"
+      ],
+      "correctText": "The 'Talented Tenth' of college-educated Black Americans should lead immediate political and civil rights efforts",
+      "topic": "Gilded Age: Du Bois",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Ellis Island, opened as a federal immigration station in 1892, primarily processed immigrants arriving from",
+      "choices": [
+        "Mexico and Central America",
+        "China and Japan via the Pacific",
+        "Southern and Eastern Europe",
+        "Sub-Saharan Africa"
+      ],
+      "correctText": "Southern and Eastern Europe",
+      "topic": "Gilded Age: Ellis Island",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Horatio Alger's 'rags to riches' novels of the late 19th century promoted the ideal that",
+      "choices": [
+        "The American government should guarantee economic equality",
+        "Labor unions were essential to fair treatment of workers",
+        "Hard work, honesty, and luck could lift any boy from poverty to middle-class respectability",
+        "Big business operated against the interests of working Americans"
+      ],
+      "correctText": "Hard work, honesty, and luck could lift any boy from poverty to middle-class respectability",
+      "topic": "Gilded Age: Horatio Alger",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Interstate Commerce Act (1887) created",
+      "choices": [
+        "The Interstate Commerce Commission, the first federal regulatory agency, to oversee railroad rates",
+        "The Federal Trade Commission to investigate unfair business practices",
+        "The Securities and Exchange Commission",
+        "The Bureau of Labor Statistics"
+      ],
+      "correctText": "The Interstate Commerce Commission, the first federal regulatory agency, to oversee railroad rates",
+      "topic": "Gilded Age: ICC",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Ida B. Wells's investigative journalism in the 1890s focused most prominently on exposing",
+      "choices": [
+        "Federal corruption inside the Treasury Department",
+        "Tammany Hall's election fraud schemes",
+        "Standard Oil's monopoly practices",
+        "The widespread use of lynching as a tool of racial terror in the post-Reconstruction South"
+      ],
+      "correctText": "The widespread use of lynching as a tool of racial terror in the post-Reconstruction South",
+      "topic": "Gilded Age: Ida B. Wells",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Jacob Riis's photojournalism in 'How the Other Half Lives' (1890) exposed",
+      "choices": [
+        "Conditions of poverty, overcrowding, and disease in New York City's tenement slums",
+        "Brutality in Cherokee removal in Georgia",
+        "Corruption inside the Republican National Committee",
+        "Working conditions in southern textile mills"
+      ],
+      "correctText": "Conditions of poverty, overcrowding, and disease in New York City's tenement slums",
+      "topic": "Gilded Age: Jacob Riis",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Pendleton Civil Service Act (1883) reformed federal hiring by",
+      "choices": [
+        "Expanding the spoils system to all federal jobs",
+        "Creating a system of merit-based examinations to fill many federal positions",
+        "Eliminating the federal civil service entirely",
+        "Granting federal jobs only to Civil War veterans"
+      ],
+      "correctText": "Creating a system of merit-based examinations to fill many federal positions",
+      "topic": "Gilded Age: Pendleton Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The political 'machines' of the Gilded Age, such as Tammany Hall in New York City under William 'Boss' Tweed, are best described as",
+      "choices": [
+        "Reform organizations promoting civil service merit examinations",
+        "Federal agencies that enforced antitrust laws",
+        "Networks of urban political organizations that traded services and patronage for immigrant votes",
+        "Settlement houses that taught English to immigrants"
+      ],
+      "correctText": "Networks of urban political organizations that traded services and patronage for immigrant votes",
+      "topic": "Gilded Age: Political machines",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Populist Party's 1892 Omaha Platform called for all of the following EXCEPT",
+      "choices": [
+        "A graduated income tax",
+        "Repeal of the 14th and 15th Amendments",
+        "Free coinage of silver at a 16-to-1 ratio with gold",
+        "Government ownership of railroads, telegraph, and telephone systems"
+      ],
+      "correctText": "Repeal of the 14th and 15th Amendments",
+      "topic": "Gilded Age: Populist platform",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Social Darwinism, popularized by thinkers like Herbert Spencer and William Graham Sumner, justified",
+      "choices": [
+        "Federal antitrust enforcement against monopolies",
+        "Universal public ownership of industry",
+        "Government regulation of railroads and grain elevators",
+        "The wealth of industrialists and the poverty of laborers as the natural result of 'survival of the fittest'"
+      ],
+      "correctText": "The wealth of industrialists and the poverty of laborers as the natural result of 'survival of the fittest'",
+      "topic": "Gilded Age: Social Darwinism",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The transcontinental railroad, completed in 1869 at Promontory Summit, was built primarily with the labor of",
+      "choices": [
+        "Newly freed African American sharecroppers",
+        "Native American workers recruited from the Great Plains",
+        "Chinese immigrants on the Central Pacific and Irish immigrants on the Union Pacific",
+        "Indentured servants from the Caribbean"
+      ],
+      "correctText": "Chinese immigrants on the Central Pacific and Irish immigrants on the Union Pacific",
+      "topic": "Gilded Age: Transcontinental railroad",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Frederick Jackson Turner's 'frontier thesis' (1893) argued that",
+      "choices": [
+        "The frontier had moved permanently west of the Pacific",
+        "Native peoples had voluntarily ceded all western lands",
+        "The federal government should immediately re-open the frontier to settlement",
+        "The American frontier experience shaped a distinctive democratic and individualistic national character"
+      ],
+      "correctText": "The American frontier experience shaped a distinctive democratic and individualistic national character",
+      "topic": "Gilded Age: Turner thesis",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Vertical integration, exemplified by Andrew Carnegie's steel empire, refers to a corporation's effort to",
+      "choices": [
+        "Eliminate competitors by buying other firms in the same industry",
+        "Pool resources with competitors to fix prices",
+        "Control every stage of production from raw materials to finished product and distribution",
+        "Diversify into unrelated industries to spread risk"
+      ],
+      "correctText": "Control every stage of production from raw materials to finished product and distribution",
+      "topic": "Gilded Age: Vertical integration",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Battle of Wounded Knee (1890) is significant primarily because it",
+      "choices": [
+        "Resulted in a successful Sioux retreat to Canada",
+        "Marked the symbolic end of armed Native resistance on the Great Plains",
+        "Was negotiated peacefully through treaty diplomacy",
+        "Established the modern reservation system for the first time"
+      ],
+      "correctText": "Marked the symbolic end of armed Native resistance on the Great Plains",
+      "topic": "Gilded Age: Wounded Knee",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Secretary of State John Hay's 'Open Door' policy (1899-1900) sought to ensure that",
+      "choices": [
+        "Britain would withdraw entirely from East Asia",
+        "Japan would gain exclusive control of Korea",
+        "All major powers maintained equal access to trade in China and respected its territorial integrity",
+        "China would adopt a Western constitution"
+      ],
+      "correctText": "All major powers maintained equal access to trade in China and respected its territorial integrity",
+      "topic": "Imperialism: Open Door Policy",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The U.S. acquisition of the Panama Canal Zone (1903) was most directly preceded by",
+      "choices": [
+        "A peaceful purchase from Colombia for $10 million",
+        "A U.S.-backed Panamanian revolt against Colombia following Colombia's rejection of the canal treaty",
+        "A failed French negotiation with the Panamanian republic",
+        "A British war with Colombia over the Caribbean"
+      ],
+      "correctText": "A U.S.-backed Panamanian revolt against Colombia following Colombia's rejection of the canal treaty",
+      "topic": "Imperialism: Panama Canal",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "U.S. annexation of the Philippines after the Spanish-American War was followed by",
+      "choices": [
+        "A peaceful transition to full Filipino self-government",
+        "A brutal Philippine-American War lasting several years and costing thousands of Filipino lives",
+        "Spanish reoccupation under the Treaty of Paris",
+        "An immediate grant of statehood to the Philippines"
+      ],
+      "correctText": "A brutal Philippine-American War lasting several years and costing thousands of Filipino lives",
+      "topic": "Imperialism: Philippine-American War",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Platt Amendment (1901) gave the United States the right to",
+      "choices": [
+        "Annex the Philippines permanently as U.S. territory",
+        "Cede the Panama Canal Zone back to Colombia",
+        "Withdraw from all Caribbean military commitments",
+        "Intervene in Cuban affairs and maintain naval bases such as Guantanamo Bay"
+      ],
+      "correctText": "Intervene in Cuban affairs and maintain naval bases such as Guantanamo Bay",
+      "topic": "Imperialism: Platt Amendment",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Theodore Roosevelt's 'big stick' diplomacy in Latin America was epitomized by his",
+      "choices": [
+        "Acquisition of Alaska from Russia",
+        "Mediation of the Russo-Japanese War in Portsmouth, New Hampshire",
+        "Negotiation of the Hay-Bunau-Varilla Treaty for the Panama Canal",
+        "Issuance of the Roosevelt Corollary to the Monroe Doctrine asserting U.S. police power in the Western Hemisphere"
+      ],
+      "correctText": "Issuance of the Roosevelt Corollary to the Monroe Doctrine asserting U.S. police power in the Western Hemisphere",
+      "topic": "Imperialism: Roosevelt Corollary",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Teller Amendment (1898) attached to the U.S. declaration of war on Spain promised that",
+      "choices": [
+        "The United States would annex Cuba immediately",
+        "Spain would retain sovereignty over the Philippines",
+        "The United States would not annex Cuba and would leave control to its own people",
+        "Puerto Rico would become a U.S. state"
+      ],
+      "correctText": "The United States would not annex Cuba and would leave control to its own people",
+      "topic": "Imperialism: Teller Amendment",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The sinking of the USS Maine in Havana Harbor in February 1898 contributed to U.S. entry into war with Spain because",
+      "choices": [
+        "Spanish officials officially claimed responsibility for the explosion",
+        "Newspapers blamed Spain and demanded retaliation, even though the cause was uncertain",
+        "Cuban revolutionaries protested the Maine's presence",
+        "The U.S. Navy formally requested a declaration of war"
+      ],
+      "correctText": "Newspapers blamed Spain and demanded retaliation, even though the cause was uncertain",
+      "topic": "Imperialism: USS Maine",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The yellow journalism of William Randolph Hearst and Joseph Pulitzer in the 1890s contributed to",
+      "choices": [
+        "The rise of muckraking magazines like McClure's",
+        "Public pressure that helped push the United States into the Spanish-American War of 1898",
+        "The election of Theodore Roosevelt in 1904",
+        "The passage of the Pendleton Act"
+      ],
+      "correctText": "Public pressure that helped push the United States into the Spanish-American War of 1898",
+      "topic": "Imperialism: Yellow journalism",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Patient Protection and Affordable Care Act (Obamacare, 2010) most fundamentally aimed to",
+      "choices": [
+        "Replace Medicare and Medicaid with a single-payer system",
+        "Expand health insurance coverage through subsidies, an individual mandate, and Medicaid expansion, and ban denial for pre-existing conditions",
+        "End all federal health programs",
+        "Establish a national maximum out-of-pocket drug price"
+      ],
+      "correctText": "Expand health insurance coverage through subsidies, an individual mandate, and Medicaid expansion, and ban denial for pre-existing conditions",
+      "topic": "Modern: ACA",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Americans with Disabilities Act (1990), signed by George H.W. Bush, prohibited",
+      "choices": [
+        "Federal restrictions on flag desecration",
+        "Workplace discrimination based on national origin",
+        "Discrimination based on disability in employment, public accommodations, transportation, and communications",
+        "Surveillance of immigrants"
+      ],
+      "correctText": "Discrimination based on disability in employment, public accommodations, transportation, and communications",
+      "topic": "Modern: ADA",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The American Indian Movement (AIM) in the late 1960s and 1970s sought to",
+      "choices": [
+        "Reclaim land, treaty rights, and political recognition for Native peoples through actions like the occupation of Alcatraz and Wounded Knee",
+        "Restore the federal Indian boarding school system",
+        "Establish a separate Lakota currency",
+        "Repeal the Indian Citizenship Act"
+      ],
+      "correctText": "Reclaim land, treaty rights, and political recognition for Native peoples through actions like the occupation of Alcatraz and Wounded Knee",
+      "topic": "Modern: AIM",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The fall of the Berlin Wall (November 1989) most directly symbolized",
+      "choices": [
+        "The reunification of Korea",
+        "The collapse of communist regimes in Eastern Europe and the end of the Cold War",
+        "The dissolution of NATO",
+        "The founding of the European Union"
+      ],
+      "correctText": "The collapse of communist regimes in Eastern Europe and the end of the Cold War",
+      "topic": "Modern: Berlin Wall falls",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Bush v. Gore (2000) is significant because the Supreme Court",
+      "choices": [
+        "Halted the Florida recount, effectively deciding the 2000 presidential election in favor of George W. Bush",
+        "Established the popular vote as the basis for selecting presidents",
+        "Mandated paper ballots in all federal elections",
+        "Upheld an unbroken history of state authority over presidential elections"
+      ],
+      "correctText": "Halted the Florida recount, effectively deciding the 2000 presidential election in favor of George W. Bush",
+      "topic": "Modern: Bush v. Gore",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Camp David Accords (1978), brokered by President Jimmy Carter, established",
+      "choices": [
+        "A nuclear non-proliferation treaty with the Soviet Union",
+        "A unified European defense pact",
+        "Diplomatic normalization with the People's Republic of China",
+        "A framework for peace between Egypt and Israel, leading to a formal peace treaty in 1979"
+      ],
+      "correctText": "A framework for peace between Egypt and Israel, leading to a formal peace treaty in 1979",
+      "topic": "Modern: Camp David Accords",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Cesar Chavez and the United Farm Workers (UFW) in the 1960s and 1970s used which strategies most prominently?",
+      "choices": [
+        "Armed resistance modeled on the Black Panther Party",
+        "Boycotts, strikes, fasts, and nonviolent direct action to win wage and labor protections for migrant farmworkers",
+        "Lobbying for federal preemption of state labor laws",
+        "Court-led desegregation of California public schools"
+      ],
+      "correctText": "Boycotts, strikes, fasts, and nonviolent direct action to win wage and labor protections for migrant farmworkers",
+      "topic": "Modern: Cesar Chavez",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Citizens United v. FEC (2010) held that",
+      "choices": [
+        "Independent political expenditures by corporations and unions are protected as free speech under the First Amendment",
+        "Corporations may not contribute money to political campaigns",
+        "The Federal Election Commission has unlimited authority over campaign donations",
+        "Only natural persons may participate in political speech"
+      ],
+      "correctText": "Independent political expenditures by corporations and unions are protected as free speech under the First Amendment",
+      "topic": "Modern: Citizens United",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Operation Desert Storm (1991), launched by a U.S.-led coalition, was a military response to",
+      "choices": [
+        "A coup in Saudi Arabia",
+        "The Iranian Revolution",
+        "Iraq's 1990 invasion of Kuwait",
+        "Soviet collapse in Central Asia"
+      ],
+      "correctText": "Iraq's 1990 invasion of Kuwait",
+      "topic": "Modern: Desert Storm",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Dodd-Frank Wall Street Reform and Consumer Protection Act (2010) was passed in response to",
+      "choices": [
+        "The 1929 stock market crash",
+        "The Enron accounting scandal of 2001",
+        "The 2008 financial crisis, increasing federal oversight of banks and creating the Consumer Financial Protection Bureau",
+        "The dot-com bust of 2000"
+      ],
+      "correctText": "The 2008 financial crisis, increasing federal oversight of banks and creating the Consumer Financial Protection Bureau",
+      "topic": "Modern: Dodd-Frank",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Earth Day was first observed in",
+      "choices": [
+        "1950, under President Truman",
+        "2015, under President Obama",
+        "1990, under President George H.W. Bush",
+        "1970, helping galvanize federal environmental legislation including the EPA and Clean Air and Water Acts"
+      ],
+      "correctText": "1970, helping galvanize federal environmental legislation including the EPA and Clean Air and Water Acts",
+      "topic": "Modern: Earth Day",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Iran Hostage Crisis (1979-1981) involved",
+      "choices": [
+        "The seizure of Tehran by the U.S. military",
+        "Iranian revolutionary students seizing the U.S. embassy and holding 52 Americans for 444 days",
+        "A failed Saudi air strike on Iranian oil fields",
+        "The Soviet invasion of Afghanistan from Iranian territory"
+      ],
+      "correctText": "Iranian revolutionary students seizing the U.S. embassy and holding 52 Americans for 444 days",
+      "topic": "Modern: Iran Hostage Crisis",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Iran-Contra Affair (1985-1987) involved",
+      "choices": [
+        "An attempt to overthrow Manuel Noriega in Panama",
+        "Direct CIA operations inside the Soviet Union",
+        "Negotiations to free hostages held in Lebanon by Hezbollah only",
+        "Reagan administration officials secretly selling arms to Iran and using profits to fund Nicaraguan Contra rebels in violation of congressional restrictions"
+      ],
+      "correctText": "Reagan administration officials secretly selling arms to Iran and using profits to fund Nicaraguan Contra rebels in violation of congressional restrictions",
+      "topic": "Modern: Iran-Contra",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The election of Barack Obama in 2008 was historically significant primarily because he was",
+      "choices": [
+        "The first African American to be elected President of the United States",
+        "The first president to be born in Hawaii",
+        "The first sitting senator to win the presidency",
+        "The first president since FDR to win four elections"
+      ],
+      "correctText": "The first African American to be elected President of the United States",
+      "topic": "Modern: Obama 2008",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The OPEC oil embargo of 1973 was triggered by",
+      "choices": [
+        "U.S. support for Israel during the Yom Kippur War",
+        "A military coup in Saudi Arabia",
+        "U.S. invasion of Iran",
+        "The end of the Bretton Woods system"
+      ],
+      "correctText": "U.S. support for Israel during the Yom Kippur War",
+      "topic": "Modern: OPEC embargo",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Strategic Defense Initiative (SDI), nicknamed 'Star Wars,' was Reagan's proposal to",
+      "choices": [
+        "Increase the production of nuclear submarines",
+        "Build a space-based missile defense system to intercept incoming Soviet ICBMs",
+        "Establish a moon base for military use",
+        "Withdraw the United States from NATO"
+      ],
+      "correctText": "Build a space-based missile defense system to intercept incoming Soviet ICBMs",
+      "topic": "Modern: SDI",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Stonewall Inn riots in New York City (June 1969) are widely seen as a galvanizing event in",
+      "choices": [
+        "The modern LGBTQ+ rights movement",
+        "The civil rights struggle of Latino workers",
+        "The anti-Vietnam War protest movement",
+        "The environmental movement"
+      ],
+      "correctText": "The modern LGBTQ+ rights movement",
+      "topic": "Modern: Stonewall",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Title IX of the Education Amendments of 1972 prohibited",
+      "choices": [
+        "Religious discrimination in federally funded schools",
+        "Disability discrimination in elementary schools",
+        "Racial segregation in higher education",
+        "Sex-based discrimination in any educational program receiving federal funding, transforming opportunities for women in athletics and academics"
+      ],
+      "correctText": "Sex-based discrimination in any educational program receiving federal funding, transforming opportunities for women in athletics and academics",
+      "topic": "Modern: Title IX",
+      "course": "ap-us-history"
+    },
+    {
       "prompt": "The Spanish casta system most clearly reflected which colonial priority?",
       "choices": [
         "Maintaining social hierarchy through racial classification and limited mobility",
@@ -7309,6 +12421,654 @@
       ],
       "correctText": "Supply-side tax cuts, deregulation, and increased defense spending",
       "topic": "Period 9: Reaganomics",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 16th Amendment, ratified in 1913, authorized",
+      "choices": [
+        "Women's suffrage",
+        "The direct election of U.S. senators",
+        "Prohibition of alcoholic beverages",
+        "The federal income tax"
+      ],
+      "correctText": "The federal income tax",
+      "topic": "Progressive: 16th Amendment",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 17th Amendment (1913) provided for",
+      "choices": [
+        "The federal income tax",
+        "National prohibition of alcohol",
+        "Direct popular election of U.S. senators rather than selection by state legislatures",
+        "Universal women's suffrage"
+      ],
+      "correctText": "Direct popular election of U.S. senators rather than selection by state legislatures",
+      "topic": "Progressive: 17th Amendment",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Clayton Antitrust Act of 1914 strengthened the Sherman Act by",
+      "choices": [
+        "Imposing protective tariffs on European manufactured goods",
+        "Repealing the Interstate Commerce Act",
+        "Outlawing specific monopolistic practices and exempting labor unions from antitrust prosecution",
+        "Establishing the Federal Reserve System"
+      ],
+      "correctText": "Outlawing specific monopolistic practices and exempting labor unions from antitrust prosecution",
+      "topic": "Progressive: Clayton Antitrust Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The election of 1912 is historically significant primarily because it featured",
+      "choices": [
+        "A successful Populist Party victory at the national level",
+        "The first election with universal women's suffrage",
+        "A four-way race between Wilson, Roosevelt, Taft, and Debs that split Republicans and elected Wilson",
+        "The first run of Eugene V. Debs as a Republican"
+      ],
+      "correctText": "A four-way race between Wilson, Roosevelt, Taft, and Debs that split Republicans and elected Wilson",
+      "topic": "Progressive: Election of 1912",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Federal Reserve Act of 1913 created",
+      "choices": [
+        "The first federal income tax",
+        "A central banking system designed to provide an elastic currency and oversight of monetary policy",
+        "The Federal Trade Commission",
+        "The Securities and Exchange Commission"
+      ],
+      "correctText": "A central banking system designed to provide an elastic currency and oversight of monetary policy",
+      "topic": "Progressive: Federal Reserve Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Hepburn Act (1906) is significant in U.S. regulatory history because it",
+      "choices": [
+        "Repealed the Interstate Commerce Act",
+        "Established the Federal Reserve System",
+        "Strengthened the ICC by granting it real authority to set maximum railroad rates",
+        "Created the National Park Service"
+      ],
+      "correctText": "Strengthened the ICC by granting it real authority to set maximum railroad rates",
+      "topic": "Progressive: Hepburn Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Ida Tarbell's 'History of the Standard Oil Company' (1904) is a classic example of",
+      "choices": [
+        "Apologetic biography of John D. Rockefeller",
+        "Muckraking investigative journalism that exposed monopolistic business practices",
+        "Federal antitrust litigation filed by the Justice Department",
+        "Pro-business propaganda funded by the National Civic Federation"
+      ],
+      "correctText": "Muckraking investigative journalism that exposed monopolistic business practices",
+      "topic": "Progressive: Ida Tarbell",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Lincoln Steffens's 'The Shame of the Cities' (1904) was a leading example of muckraking journalism that targeted",
+      "choices": [
+        "Working conditions in textile mills",
+        "Discrimination against immigrants",
+        "The Standard Oil monopoly",
+        "Urban political corruption between machine politicians and business interests"
+      ],
+      "correctText": "Urban political corruption between machine politicians and business interests",
+      "topic": "Progressive: Lincoln Steffens",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Theodore Roosevelt's conservation policies were distinctive in that they",
+      "choices": [
+        "Privatized federally owned forests",
+        "Eliminated the Bureau of Reclamation",
+        "Reserved millions of acres of public lands as national forests, parks, and wildlife refuges",
+        "Banned hunting and fishing on all federal lands"
+      ],
+      "correctText": "Reserved millions of acres of public lands as national forests, parks, and wildlife refuges",
+      "topic": "Progressive: TR conservation",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Triangle Shirtwaist Factory Fire of 1911 in New York City led most directly to",
+      "choices": [
+        "Repeal of the 19th Amendment",
+        "The founding of the Knights of Labor",
+        "Passage of the Sherman Antitrust Act",
+        "Stronger state-level workplace safety laws and reforms championed by Frances Perkins and others"
+      ],
+      "correctText": "Stronger state-level workplace safety laws and reforms championed by Frances Perkins and others",
+      "topic": "Progressive: Triangle Shirtwaist",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 14th Amendment (1868) introduced which transformative constitutional principle?",
+      "choices": [
+        "Federal prohibition of alcohol",
+        "Universal women's suffrage",
+        "Birthright citizenship and the guarantee of equal protection and due process under the laws",
+        "Recognition of state secession rights"
+      ],
+      "correctText": "Birthright citizenship and the guarantee of equal protection and due process under the laws",
+      "topic": "Reconstruction: 14th Amendment",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The 15th Amendment (1870) guaranteed that the right to vote could not be denied on the basis of",
+      "choices": [
+        "Sex or gender",
+        "Race, color, or previous condition of servitude",
+        "Religion or church membership",
+        "Property ownership or literacy"
+      ],
+      "correctText": "Race, color, or previous condition of servitude",
+      "topic": "Reconstruction: 15th Amendment",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Black Codes passed by southern legislatures in 1865-1866 attempted to",
+      "choices": [
+        "Grant full civil and political rights to freedpeople under state law",
+        "Restrict the labor mobility, civil rights, and economic options of formerly enslaved African Americans",
+        "Establish public schools open to all races in the South",
+        "Provide land redistribution to formerly enslaved families"
+      ],
+      "correctText": "Restrict the labor mobility, civil rights, and economic options of formerly enslaved African Americans",
+      "topic": "Reconstruction: Black Codes",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Hiram Revels and Blanche K. Bruce, both elected to the U.S. Senate during Reconstruction, were significant because they were",
+      "choices": [
+        "Former Confederate generals turned senators",
+        "The first African Americans to serve in the U.S. Senate",
+        "Co-authors of the 15th Amendment",
+        "Founders of the Ku Klux Klan"
+      ],
+      "correctText": "The first African Americans to serve in the U.S. Senate",
+      "topic": "Reconstruction: Black senators",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Carpetbaggers and scalawags, in Reconstruction-era usage, referred respectively to",
+      "choices": [
+        "Freelance journalists and traveling preachers",
+        "Confederate soldiers and Union deserters",
+        "Freedpeople and federal Bureau agents",
+        "Northerners who moved south after the war and white southerners who supported Reconstruction"
+      ],
+      "correctText": "Northerners who moved south after the war and white southerners who supported Reconstruction",
+      "topic": "Reconstruction: Carpetbaggers and scalawags",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Enforcement Acts (1870-1871), also known as the Ku Klux Klan Acts, were designed to",
+      "choices": [
+        "Allow southern states to disenfranchise Black voters",
+        "Pardon former Confederate officials",
+        "Establish a separate court system for the former Confederacy",
+        "Authorize federal prosecution of those who used violence to prevent Black Americans from exercising their constitutional rights"
+      ],
+      "correctText": "Authorize federal prosecution of those who used violence to prevent Black Americans from exercising their constitutional rights",
+      "topic": "Reconstruction: Enforcement Acts",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Freedmen's Bureau, established in 1865, was primarily tasked with",
+      "choices": [
+        "Supervising the reorganization of Confederate state governments",
+        "Confiscating plantation lands and redistributing them as small farms",
+        "Providing food, education, legal aid, and labor contracts to formerly enslaved people",
+        "Recruiting Black voters for the Republican Party"
+      ],
+      "correctText": "Providing food, education, legal aid, and labor contracts to formerly enslaved people",
+      "topic": "Reconstruction: Freedmen's Bureau",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Andrew Johnson's impeachment in 1868 resulted from his violation of the",
+      "choices": [
+        "Civil Rights Act of 1866",
+        "Reconstruction Amendments to the Constitution",
+        "Tenure of Office Act, which Radical Republicans had passed to prevent him from dismissing Secretary of War Edwin Stanton",
+        "Habeas Corpus Suspension Act of 1863"
+      ],
+      "correctText": "Tenure of Office Act, which Radical Republicans had passed to prevent him from dismissing Secretary of War Edwin Stanton",
+      "topic": "Reconstruction: Johnson impeachment",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Ku Klux Klan, founded in 1866, was used primarily during Reconstruction to",
+      "choices": [
+        "Provide self-defense to formerly enslaved people in the rural South",
+        "Intimidate Black voters and Republican officeholders through violence and terrorism",
+        "Lobby Congress against the Reconstruction amendments",
+        "Establish all-white labor unions"
+      ],
+      "correctText": "Intimidate Black voters and Republican officeholders through violence and terrorism",
+      "topic": "Reconstruction: KKK",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Panic of 1873 contributed to the weakening of Reconstruction by",
+      "choices": [
+        "Shifting northern public attention from civil rights toward economic recovery",
+        "Triggering an immediate Confederate uprising in the Carolinas",
+        "Forcing Congress to repeal the 14th Amendment",
+        "Causing federal troops to leave the South before 1872"
+      ],
+      "correctText": "Shifting northern public attention from civil rights toward economic recovery",
+      "topic": "Reconstruction: Panic of 1873",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Slaughterhouse Cases (1873) weakened Reconstruction by narrowly interpreting",
+      "choices": [
+        "The privileges and immunities clause of the 14th Amendment so that it offered little protection to citizens against state action",
+        "The Tenure of Office Act in favor of state legislatures",
+        "The Civil Rights Act of 1875 as unconstitutional",
+        "The Reconstruction Acts of 1867"
+      ],
+      "correctText": "The privileges and immunities clause of the 14th Amendment so that it offered little protection to citizens against state action",
+      "topic": "Reconstruction: Slaughterhouse Cases",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Abigail Adams's 1776 letter urging her husband John to 'Remember the Ladies' reflected",
+      "choices": [
+        "A demand that women be granted the vote in the new state constitutions",
+        "Loyalist objections to the Declaration of Independence",
+        "Quaker women's exclusion from the Continental Congress",
+        "A broader pattern of revolutionary-era women advocating for greater legal and political rights"
+      ],
+      "correctText": "A broader pattern of revolutionary-era women advocating for greater legal and political rights",
+      "topic": "Revolution: Abigail Adams",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Boston Massacre of March 1770 was significant chiefly because it",
+      "choices": [
+        "Led to a formal declaration of independence in Massachusetts",
+        "Resulted in the conviction and execution of all British soldiers involved",
+        "Caused Parliament to repeal the Quartering Act immediately",
+        "Was rapidly exploited by patriot propagandists like Paul Revere to inflame colonial opinion"
+      ],
+      "correctText": "Was rapidly exploited by patriot propagandists like Paul Revere to inflame colonial opinion",
+      "topic": "Revolution: Boston Massacre",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Coercive (Intolerable) Acts of 1774 were passed by Parliament in response to",
+      "choices": [
+        "The Boston Tea Party of December 1773",
+        "The Stamp Act riots of 1765",
+        "Pontiac's Rebellion in 1763",
+        "The Treaty of Paris of 1763"
+      ],
+      "correctText": "The Boston Tea Party of December 1773",
+      "topic": "Revolution: Coercive Acts",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The First Continental Congress (1774) responded to the Intolerable Acts by",
+      "choices": [
+        "Calling for a boycott of British goods and creating the Continental Association",
+        "Declaring immediate independence from Britain",
+        "Sending an army to liberate Boston by force",
+        "Petitioning King Louis XVI of France for military aid"
+      ],
+      "correctText": "Calling for a boycott of British goods and creating the Continental Association",
+      "topic": "Revolution: First Continental Congress",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The fighting at Lexington and Concord in April 1775 began when British troops attempted to",
+      "choices": [
+        "Force Massachusetts to accept Anglican worship",
+        "Collect overdue stamp tax payments",
+        "Seize a colonial weapons cache and arrest patriot leaders",
+        "Occupy the Boston Customs House"
+      ],
+      "correctText": "Seize a colonial weapons cache and arrest patriot leaders",
+      "topic": "Revolution: Lexington and Concord",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Loyalists (Tories) during the American Revolution were drawn most heavily from",
+      "choices": [
+        "Backcountry Scots-Irish farmers and Massachusetts merchants",
+        "Quaker pacifists who refused all political allegiance",
+        "Royal officeholders, Anglican clergy, recent immigrants, and certain religious and ethnic minorities seeking protection",
+        "African Americans serving in the Continental Army"
+      ],
+      "correctText": "Royal officeholders, Anglican clergy, recent immigrants, and certain religious and ethnic minorities seeking protection",
+      "topic": "Revolution: Loyalists",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The concept of 'republican motherhood' that emerged after the Revolution held that",
+      "choices": [
+        "Women should be excluded from all forms of education",
+        "Mothers should serve in the new Continental Army",
+        "Women should hold elected office at the state level",
+        "Women played a vital civic role by educating their sons in republican values"
+      ],
+      "correctText": "Women played a vital civic role by educating their sons in republican values",
+      "topic": "Revolution: Republican motherhood",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Battle of Saratoga (1777) is widely considered the turning point of the Revolution because it",
+      "choices": [
+        "Forced the immediate British evacuation of Boston",
+        "Captured King George III's nephew",
+        "Ended British naval power in the Atlantic",
+        "Persuaded France to enter the war as a U.S. ally"
+      ],
+      "correctText": "Persuaded France to enter the war as a U.S. ally",
+      "topic": "Revolution: Saratoga",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Sons of Liberty organized resistance to British policies primarily through",
+      "choices": [
+        "Crowd actions, boycotts, tarring and feathering, and intercolonial committees of correspondence",
+        "Petitions to Parliament submitted through the royal governors",
+        "Direct military assaults on British army garrisons",
+        "Peaceful negotiation conducted by Benjamin Franklin in London"
+      ],
+      "correctText": "Crowd actions, boycotts, tarring and feathering, and intercolonial committees of correspondence",
+      "topic": "Revolution: Sons of Liberty",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Sugar Act of 1764 differed from earlier Navigation Acts because it was",
+      "choices": [
+        "Primarily a revenue measure rather than a trade regulation",
+        "A repeal of the Molasses Act and a general loosening of trade rules",
+        "An attempt to ban all colonial sugar imports",
+        "A symbolic measure with no enforcement mechanism"
+      ],
+      "correctText": "Primarily a revenue measure rather than a trade regulation",
+      "topic": "Revolution: Sugar Act",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Treaty of Paris of 1783 recognized American independence and established the western boundary of the United States at",
+      "choices": [
+        "The 100th meridian",
+        "The Appalachian Mountains",
+        "The Pacific Ocean",
+        "The Mississippi River"
+      ],
+      "correctText": "The Mississippi River",
+      "topic": "Revolution: Treaty of Paris 1783",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "George Washington's selection as commander of the Continental Army in 1775 was driven primarily by",
+      "choices": [
+        "His prominent role at the Boston Tea Party",
+        "His military experience and Virginian background, which broadened the war's appeal beyond New England",
+        "His authorship of Common Sense",
+        "His prior service as colonial governor of Virginia"
+      ],
+      "correctText": "His military experience and Virginian background, which broadened the war's appeal beyond New England",
+      "topic": "Revolution: Washington as commander",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Gulf of Tonkin Resolution (1964) granted President Lyndon Johnson authority to",
+      "choices": [
+        "Take all necessary measures to repel armed attack against U.S. forces and prevent further aggression in Southeast Asia",
+        "End the draft and withdraw from Vietnam",
+        "Recognize Communist China",
+        "Negotiate a peace settlement with North Vietnam"
+      ],
+      "correctText": "Take all necessary measures to repel armed attack against U.S. forces and prevent further aggression in Southeast Asia",
+      "topic": "Vietnam: Gulf of Tonkin",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Kent State shootings (May 4, 1970) occurred when",
+      "choices": [
+        "The U.S. Air Force bombed an Ohio campus",
+        "Ohio National Guard troops fired on students protesting Nixon's invasion of Cambodia, killing four",
+        "Federal marshals enforced school desegregation in Ohio",
+        "Anti-war students attacked a ROTC ceremony"
+      ],
+      "correctText": "Ohio National Guard troops fired on students protesting Nixon's invasion of Cambodia, killing four",
+      "topic": "Vietnam: Kent State",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "My Lai (1968) refers to",
+      "choices": [
+        "A decisive U.S. battlefield victory against the Viet Cong",
+        "A South Vietnamese village granted full U.S. citizenship",
+        "A massacre of Vietnamese civilians by U.S. troops that, when publicized, intensified opposition to the Vietnam War",
+        "A peace conference outside Paris"
+      ],
+      "correctText": "A massacre of Vietnamese civilians by U.S. troops that, when publicized, intensified opposition to the Vietnam War",
+      "topic": "Vietnam: My Lai",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Pentagon Papers (1971), leaked by Daniel Ellsberg, revealed",
+      "choices": [
+        "Federal Reserve mismanagement of monetary policy",
+        "A pattern of government deception about U.S. policy and progress in the Vietnam War",
+        "Soviet espionage at the State Department",
+        "FBI surveillance of civil rights leaders"
+      ],
+      "correctText": "A pattern of government deception about U.S. policy and progress in the Vietnam War",
+      "topic": "Vietnam: Pentagon Papers",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The War Powers Resolution of 1973 attempted to",
+      "choices": [
+        "Authorize the president to declare war unilaterally",
+        "Limit the president's ability to commit U.S. armed forces to hostilities without congressional approval",
+        "Repeal the Gulf of Tonkin Resolution",
+        "Establish the Department of Defense"
+      ],
+      "correctText": "Limit the president's ability to commit U.S. armed forces to hostilities without congressional approval",
+      "topic": "Vietnam: War Powers Resolution",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Espionage Act (1917) and Sedition Act (1918) were most often used during World War I to",
+      "choices": [
+        "Prosecute war critics, socialists, and labor organizers like Eugene V. Debs",
+        "Increase voter participation among recent immigrants",
+        "Protect labor unions from corporate retaliation",
+        "Authorize the women's suffrage amendment"
+      ],
+      "correctText": "Prosecute war critics, socialists, and labor organizers like Eugene V. Debs",
+      "topic": "WWI: Espionage and Sedition Acts",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Great Migration of African Americans from the rural South to northern industrial cities began most decisively during",
+      "choices": [
+        "The end of Reconstruction in 1877",
+        "The 1920s economic boom and Harlem Renaissance only",
+        "World War I, when labor shortages and Jim Crow violence pushed and pulled migrants north",
+        "The Great Depression"
+      ],
+      "correctText": "World War I, when labor shortages and Jim Crow violence pushed and pulled migrants north",
+      "topic": "WWI: Great Migration",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The sinking of the Lusitania in 1915 by a German U-boat contributed to",
+      "choices": [
+        "Immediate U.S. entry into World War I that same year",
+        "The end of submarine warfare in the Atlantic",
+        "Anti-German sentiment in the United States that gradually pushed the country toward war",
+        "U.S. recognition of the Bolshevik government"
+      ],
+      "correctText": "Anti-German sentiment in the United States that gradually pushed the country toward war",
+      "topic": "WWI: Lusitania",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Schenck v. United States (1919) established what constitutional standard for limiting speech?",
+      "choices": [
+        "The 'clear and present danger' test for restricting expression that posed an imminent threat",
+        "Absolute immunity for political speech under the First Amendment",
+        "Federal prior restraint of all wartime publications",
+        "Permanent state authority to ban union pamphlets"
+      ],
+      "correctText": "The 'clear and present danger' test for restricting expression that posed an imminent threat",
+      "topic": "WWI: Schenck v. United States",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Zimmermann Telegram (1917) outraged Americans because it revealed Germany's proposal that",
+      "choices": [
+        "Britain accept a separate peace based on Wilson's Fourteen Points",
+        "Mexico ally with Germany against the United States in exchange for the return of Texas, New Mexico, and Arizona",
+        "Russia continue fighting on the Eastern Front",
+        "Japan invade the Philippines"
+      ],
+      "correctText": "Mexico ally with Germany against the United States in exchange for the return of Texas, New Mexico, and Arizona",
+      "topic": "WWI: Zimmermann Telegram",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "President Harry S. Truman's decision to use atomic bombs against Hiroshima and Nagasaki in August 1945 was justified primarily on the grounds that",
+      "choices": [
+        "The bombs would test new weapons technology in a peacetime setting",
+        "Stalin demanded a demonstration of Soviet power",
+        "Japan had already agreed to surrender but the bombings proceeded regardless",
+        "Their use would compel Japanese surrender and avoid massive Allied casualties from an invasion of the Japanese home islands"
+      ],
+      "correctText": "Their use would compel Japanese surrender and avoid massive Allied casualties from an invasion of the Japanese home islands",
+      "topic": "WWII: Atomic bombs",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The D-Day invasion of Normandy on June 6, 1944 was significant because it",
+      "choices": [
+        "Marked the surrender of Nazi Germany",
+        "Was the first use of atomic weapons in combat",
+        "Opened a second front in Western Europe and accelerated the liberation of France and the defeat of Germany",
+        "Ended the Holocaust by liberating Auschwitz"
+      ],
+      "correctText": "Opened a second front in Western Europe and accelerated the liberation of France and the defeat of Germany",
+      "topic": "WWII: D-Day",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Executive Order 9066, signed by FDR in 1942, authorized",
+      "choices": [
+        "The forced relocation and internment of approximately 120,000 people of Japanese ancestry, most of them U.S. citizens",
+        "Universal military conscription",
+        "The Manhattan Project to develop atomic weapons",
+        "The desegregation of the U.S. armed forces"
+      ],
+      "correctText": "The forced relocation and internment of approximately 120,000 people of Japanese ancestry, most of them U.S. citizens",
+      "topic": "WWII: Executive Order 9066",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "FDR's Lend-Lease Act of 1941 allowed the United States to",
+      "choices": [
+        "Sell surplus military gear to Japan",
+        "Loan U.S. soldiers to the British Commonwealth",
+        "Send weapons and supplies to Britain, the Soviet Union, and other Allies without immediate payment, ending strict neutrality",
+        "Provide naval escorts only to Caribbean shipping lanes"
+      ],
+      "correctText": "Send weapons and supplies to Britain, the Soviet Union, and other Allies without immediate payment, ending strict neutrality",
+      "topic": "WWII: Lend-Lease",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Battle of Midway (June 1942) is widely regarded as a turning point in the Pacific War because it",
+      "choices": [
+        "Resulted in the immediate surrender of Japan",
+        "Was the first American ground victory at Guadalcanal",
+        "Ended Japanese involvement in China",
+        "Crippled Japan's aircraft carrier force and gave the United States naval initiative in the Pacific"
+      ],
+      "correctText": "Crippled Japan's aircraft carrier force and gave the United States naval initiative in the Pacific",
+      "topic": "WWII: Midway",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Navajo Code Talkers in the Pacific Theater of World War II are best known for",
+      "choices": [
+        "Translating enemy radio broadcasts",
+        "Building the Pentagon",
+        "Negotiating Native sovereignty agreements with FDR",
+        "Transmitting tactical military communications using the Navajo language, which the Japanese were unable to decode"
+      ],
+      "correctText": "Transmitting tactical military communications using the Navajo language, which the Japanese were unable to decode",
+      "topic": "WWII: Navajo Code Talkers",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Nuremberg Trials of 1945-1946 established the legal precedent that",
+      "choices": [
+        "Wartime military service could be retroactively prosecuted as a crime",
+        "Atomic weapons could only be used in self-defense",
+        "All German citizens shared collective legal guilt",
+        "Individuals, including state officials, can be held internationally responsible for crimes against humanity, war crimes, and crimes against peace"
+      ],
+      "correctText": "Individuals, including state officials, can be held internationally responsible for crimes against humanity, war crimes, and crimes against peace",
+      "topic": "WWII: Nuremberg Trials",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Japanese attack on Pearl Harbor on December 7, 1941 had what immediate political consequence?",
+      "choices": [
+        "A divided U.S. Congress declared war by a narrow margin",
+        "The U.S. Congress declared war on Japan, and Germany and Italy then declared war on the United States, ending American neutrality",
+        "The League of Nations imposed economic sanctions on Japan",
+        "FDR resigned and Vice President Henry Wallace assumed the presidency"
+      ],
+      "correctText": "The U.S. Congress declared war on Japan, and Germany and Italy then declared war on the United States, ending American neutrality",
+      "topic": "WWII: Pearl Harbor",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "Rosie the Riveter became an iconic figure of World War II because she symbolized",
+      "choices": [
+        "The mobilization of millions of women into industrial wartime work in factories and shipyards",
+        "A celebrated movie star who entertained troops in the Pacific",
+        "Female air-combat pilots in the Royal Air Force",
+        "Pacifist resistance to the draft"
+      ],
+      "correctText": "The mobilization of millions of women into industrial wartime work in factories and shipyards",
+      "topic": "WWII: Rosie the Riveter",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Tuskegee Airmen of World War II are significant because they were",
+      "choices": [
+        "An all-Black fighter group whose distinguished combat record helped pressure postwar desegregation of the armed forces",
+        "The first integrated combat unit in the U.S. Army",
+        "A Navajo Code Talker battalion",
+        "A women's auxiliary nursing corps in the Pacific"
+      ],
+      "correctText": "An all-Black fighter group whose distinguished combat record helped pressure postwar desegregation of the armed forces",
+      "topic": "WWII: Tuskegee Airmen",
+      "course": "ap-us-history"
+    },
+    {
+      "prompt": "The Yalta Conference (February 1945) involving Roosevelt, Churchill, and Stalin",
+      "choices": [
+        "Established the United States as the sole victor in Europe",
+        "Discussed postwar Europe, the establishment of the United Nations, and Soviet entry into the war against Japan",
+        "Forced the immediate surrender of Germany",
+        "Established the Marshall Plan"
+      ],
+      "correctText": "Discussed postwar Europe, the establishment of the United Nations, and Soviet entry into the war against Japan",
+      "topic": "WWII: Yalta",
       "course": "ap-us-history"
     }
   ],
@@ -9754,6 +15514,54 @@
       "course": "global-10"
     },
     {
+      "prompt": "Britain's defeat of Mahdist forces in Sudan at Omdurman (1898) demonstrated",
+      "choices": [
+        "the limits of European military technology",
+        "the success of African resistance",
+        "the overwhelming military advantage of industrialized European armies",
+        "Ottoman military superiority"
+      ],
+      "correctText": "the overwhelming military advantage of industrialized European armies",
+      "topic": "African Resistance",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Emperor Menelik II of Ethiopia is most famous for",
+      "choices": [
+        "leading a revolt against the Ottoman Empire",
+        "defeating Italian forces at the Battle of Adwa in 1896",
+        "founding the Indian National Congress",
+        "establishing apartheid"
+      ],
+      "correctText": "defeating Italian forces at the Battle of Adwa in 1896",
+      "topic": "African Resistance",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Shaka Zulu is remembered for",
+      "choices": [
+        "leading early industrialization in Africa",
+        "writing the Communist Manifesto",
+        "founding the Indian National Congress",
+        "building a powerful Zulu Kingdom that resisted European encroachment"
+      ],
+      "correctText": "building a powerful Zulu Kingdom that resisted European encroachment",
+      "topic": "African Resistance",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Algerian War of Independence (1954-62) was fought between",
+      "choices": [
+        "Britain and the ANC",
+        "Spain and the Tupamaros",
+        "Portugal and FRELIMO",
+        "France and the FLN (National Liberation Front)"
+      ],
+      "correctText": "France and the FLN (National Liberation Front)",
+      "topic": "Algerian War",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Algerian War of Independence (1954–1962) was fought primarily against",
       "choices": [
         "British colonial authorities",
@@ -9814,6 +15622,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Apartheid in South Africa is best defined as",
+      "choices": [
+        "a free-market economic system",
+        "a legal system of strict racial segregation and white minority rule",
+        "a unified anti-imperial movement",
+        "a religious revival"
+      ],
+      "correctText": "a legal system of strict racial segregation and white minority rule",
+      "topic": "Apartheid",
+      "course": "global-10"
+    },
+    {
       "prompt": "Apartheid in South Africa was a system of",
       "choices": [
         "voluntary cultural exchange among ethnic groups",
@@ -9822,6 +15642,30 @@
         "land redistribution to indigenous peoples"
       ],
       "correctText": "rigid racial segregation enforced by law",
+      "topic": "Apartheid",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Sharpeville Massacre (1960) involved",
+      "choices": [
+        "South African police firing on Black protesters at a peaceful demonstration",
+        "a Hindu-Muslim conflict during partition",
+        "Soviet troops in Hungary",
+        "British troops in India"
+      ],
+      "correctText": "South African police firing on Black protesters at a peaceful demonstration",
+      "topic": "Apartheid",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Soweto Uprising (1976) was sparked by",
+      "choices": [
+        "a famine in South Africa",
+        "a law requiring instruction in Afrikaans",
+        "Soviet invasion",
+        "discovery of diamonds"
+      ],
+      "correctText": "a law requiring instruction in Afrikaans",
       "topic": "Apartheid",
       "course": "global-10"
     },
@@ -9847,6 +15691,30 @@
       ],
       "correctText": "Economic hardship, political instability, and national humiliation",
       "topic": "Appeal of Fascism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Munich Conference (1938) is often cited as the clearest example of",
+      "choices": [
+        "collective security",
+        "Soviet aggression",
+        "appeasement of Hitler by Britain and France",
+        "American isolationism"
+      ],
+      "correctText": "appeasement of Hitler by Britain and France",
+      "topic": "Appeasement",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Arab Spring of 2010-11 began in",
+      "choices": [
+        "Egypt",
+        "Syria",
+        "Libya",
+        "Tunisia"
+      ],
+      "correctText": "Tunisia",
+      "topic": "Arab Spring",
       "course": "global-10"
     },
     {
@@ -9922,6 +15790,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Which best describes a long-term effect of the Atlantic Revolutions (1776-1825)?",
+      "choices": [
+        "A return to feudalism in Europe",
+        "The unification of Latin America under one government",
+        "The spread of nationalism and ideas of popular sovereignty",
+        "The collapse of all European monarchies"
+      ],
+      "correctText": "The spread of nationalism and ideas of popular sovereignty",
+      "topic": "Atlantic Revolutions",
+      "course": "global-10"
+    },
+    {
       "prompt": "The atomic bombings of Japan in 1945 helped usher in the \"atomic age\" by",
       "choices": [
         "demonstrating the destructive power of nuclear weapons and shaping postwar geopolitics",
@@ -9934,6 +15814,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The atomic bombings of Hiroshima and Nagasaki (August 1945) were ordered by",
+      "choices": [
+        "FDR",
+        "Truman",
+        "Churchill",
+        "Stalin"
+      ],
+      "correctText": "Truman",
+      "topic": "Atomic Bombings",
+      "course": "global-10"
+    },
+    {
       "prompt": "Auschwitz is most accurately described as",
       "choices": [
         "the largest Nazi concentration and extermination camp complex in occupied Poland",
@@ -9943,6 +15835,18 @@
       ],
       "correctText": "the largest Nazi concentration and extermination camp complex in occupied Poland",
       "topic": "Auschwitz",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Balfour Declaration (1917) expressed British support for",
+      "choices": [
+        "the unification of Germany",
+        "Indian independence",
+        "Russian Bolshevism",
+        "a Jewish homeland in Palestine"
+      ],
+      "correctText": "a Jewish homeland in Palestine",
+      "topic": "Balfour Declaration",
       "course": "global-10"
     },
     {
@@ -9970,6 +15874,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The 1971 war that led to the creation of Bangladesh was fought between",
+      "choices": [
+        "India and China",
+        "India and Pakistan over East Pakistan",
+        "Iran and Iraq",
+        "Britain and India"
+      ],
+      "correctText": "India and Pakistan over East Pakistan",
+      "topic": "Bangladesh Independence",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Bataan Death March in 1942 involved",
       "choices": [
         "brutal Japanese treatment of American and Filipino prisoners of war in the Philippines",
@@ -9979,6 +15895,18 @@
       ],
       "correctText": "brutal Japanese treatment of American and Filipino prisoners of war in the Philippines",
       "topic": "Bataan Death March",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Battle of Britain (1940) is best described as",
+      "choices": [
+        "a German ground invasion of London",
+        "a naval battle in the Atlantic",
+        "a German bombing campaign against the United Kingdom resisted by the RAF",
+        "a Soviet siege of Berlin"
+      ],
+      "correctText": "a German bombing campaign against the United Kingdom resisted by the RAF",
+      "topic": "Battle of Britain",
       "course": "global-10"
     },
     {
@@ -10018,6 +15946,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Which event marked the major Pacific turning point against Japan in WWII?",
+      "choices": [
+        "Pearl Harbor",
+        "The Battle of Midway (1942)",
+        "The Wannsee Conference",
+        "Operation Barbarossa"
+      ],
+      "correctText": "The Battle of Midway (1942)",
+      "topic": "Battle of Midway",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Battle of the Atlantic primarily involved",
       "choices": [
         "Allied convoys defending supply lines against German U-boats",
@@ -10042,6 +15982,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Bay of Pigs invasion (1961) was",
+      "choices": [
+        "a Soviet attack on Cuba",
+        "a failed CIA-backed attempt to overthrow Castro",
+        "a Cuban invasion of Florida",
+        "a UN peacekeeping operation"
+      ],
+      "correctText": "a failed CIA-backed attempt to overthrow Castro",
+      "topic": "Bay of Pigs",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Bay of Pigs invasion of 1961 was a failed attempt to",
       "choices": [
         "overthrow Fidel Castro using Cuban exiles backed by the United States",
@@ -10051,6 +16003,18 @@
       ],
       "correctText": "overthrow Fidel Castro using Cuban exiles backed by the United States",
       "topic": "Bay of Pigs",
+      "course": "global-10"
+    },
+    {
+      "prompt": "King Leopold II's personal rule over the Congo Free State is remembered as",
+      "choices": [
+        "a model of humanitarian colonial rule",
+        "one of the most brutal exploitations in colonial history",
+        "a successful experiment in self-government",
+        "a peaceful trade partnership"
+      ],
+      "correctText": "one of the most brutal exploitations in colonial history",
+      "topic": "Belgian Congo",
       "course": "global-10"
     },
     {
@@ -10075,6 +16039,18 @@
       ],
       "correctText": "Profit motives could lead to severe human rights abuses in colonies",
       "topic": "Belgian Congo / Leopold II",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Berlin Blockade (1948-49) prompted the Western response known as",
+      "choices": [
+        "the D-Day invasion",
+        "Operation Barbarossa",
+        "the Cuban Missile Crisis",
+        "the Berlin Airlift"
+      ],
+      "correctText": "the Berlin Airlift",
+      "topic": "Berlin Airlift",
       "course": "global-10"
     },
     {
@@ -10114,6 +16090,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Berlin Wall (1961) was constructed by East Germany to",
+      "choices": [
+        "stop the flood of East Germans escaping to West Berlin",
+        "protect East Berliners from Western air attacks",
+        "celebrate the founding of the EU",
+        "host the 1972 Olympics"
+      ],
+      "correctText": "stop the flood of East Germans escaping to West Berlin",
+      "topic": "Berlin Wall",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Berlin Wall was constructed in 1961 mainly to",
       "choices": [
         "prevent East Germans from fleeing to West Berlin",
@@ -10135,6 +16123,18 @@
       ],
       "correctText": "Franklin D. Roosevelt, Winston Churchill, and Joseph Stalin",
       "topic": "Big Three",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Germany's Blitzkrieg strategy emphasized",
+      "choices": [
+        "fast coordinated attacks using tanks, planes, and infantry",
+        "long sieges and trench warfare",
+        "naval blockades only",
+        "defensive fortifications"
+      ],
+      "correctText": "fast coordinated attacks using tanks, planes, and infantry",
+      "topic": "Blitzkrieg",
       "course": "global-10"
     },
     {
@@ -10198,6 +16198,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "The breakup of Yugoslavia in the 1990s included a war in",
+      "choices": [
+        "Bosnia, where ethnic cleansing of Bosniak Muslims occurred",
+        "Mexico, between Aztec descendants",
+        "Korea, between North and South",
+        "Argentina, against Britain"
+      ],
+      "correctText": "Bosnia, where ethnic cleansing of Bosniak Muslims occurred",
+      "topic": "Bosnian War",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Boxer Rebellion (1899-1901) was directed primarily against",
+      "choices": [
+        "foreign influence and Christian missionaries in China",
+        "the Qing emperor",
+        "Japanese militarism",
+        "Russian Bolsheviks"
+      ],
+      "correctText": "foreign influence and Christian missionaries in China",
+      "topic": "Boxer Rebellion",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Boxer Rebellion of 1900 was a Chinese uprising against",
       "choices": [
         "the Qing Dynasty alone",
@@ -10222,6 +16246,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "Cecil Rhodes is best known for advancing British imperialism in",
+      "choices": [
+        "Southern Africa, including the colonies of Rhodesia",
+        "Japan and Korea",
+        "Eastern Europe",
+        "the Caribbean"
+      ],
+      "correctText": "Southern Africa, including the colonies of Rhodesia",
+      "topic": "British Imperialism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Rhodes' famous boast that he would 'paint the map red' referred to",
+      "choices": [
+        "spreading communism",
+        "blood spilled in trench warfare",
+        "extending British imperial control across Africa",
+        "expanding the Russian Empire"
+      ],
+      "correctText": "extending British imperial control across Africa",
+      "topic": "British Imperialism",
+      "course": "global-10"
+    },
+    {
       "prompt": "A direct result of the Sepoy Mutiny was that",
       "choices": [
         "India gained immediate independence",
@@ -10230,6 +16278,18 @@
         "Indian princes were given seats in Parliament"
       ],
       "correctText": "the British Crown took direct control of India from the East India Company",
+      "topic": "British Raj",
+      "course": "global-10"
+    },
+    {
+      "prompt": "After the Sepoy Mutiny, control of India was transferred from the East India Company to",
+      "choices": [
+        "direct British Crown rule (the Raj)",
+        "the Mughal Emperor",
+        "the Indian National Congress",
+        "Portugal"
+      ],
+      "correctText": "direct British Crown rule (the Raj)",
       "topic": "British Raj",
       "course": "global-10"
     },
@@ -10246,6 +16306,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "The British policy in India that destroyed local handloom weaving to favor British textiles is best described as",
+      "choices": [
+        "import substitution",
+        "deindustrialization of India",
+        "free market reform",
+        "religious tolerance"
+      ],
+      "correctText": "deindustrialization of India",
+      "topic": "British Raj",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Sepoy Mutiny of 1857 in India was sparked in part by",
+      "choices": [
+        "the discovery of gold",
+        "British support for the Mughal emperor",
+        "a British famine relief plan",
+        "rifle cartridges greased with animal fat offensive to Hindus and Muslims"
+      ],
+      "correctText": "rifle cartridges greased with animal fat offensive to Hindus and Muslims",
+      "topic": "British Raj",
+      "course": "global-10"
+    },
+    {
       "prompt": "The \"killing fields\" of Cambodia refer to",
       "choices": [
         "mass executions and deaths under the Khmer Rouge regime",
@@ -10258,6 +16342,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "Cambodia's Khmer Rouge regime under Pol Pot (1975-79) is remembered for",
+      "choices": [
+        "building a prosperous market economy",
+        "carrying out the Cambodian genocide that killed roughly a quarter of the population",
+        "implementing parliamentary democracy",
+        "leading peaceful land reform"
+      ],
+      "correctText": "carrying out the Cambodian genocide that killed roughly a quarter of the population",
+      "topic": "Cambodian Genocide",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Camp David Accords (1978) involved",
+      "choices": [
+        "an alliance between Iran and the U.S.",
+        "the end of apartheid",
+        "a peace agreement between Egypt and Israel mediated by President Carter",
+        "the Cold War summit between Reagan and Gorbachev"
+      ],
+      "correctText": "a peace agreement between Egypt and Israel mediated by President Carter",
+      "topic": "Camp David Accords",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Camp David Accords of 1978 produced a peace agreement between",
       "choices": [
         "Israel and Jordan",
@@ -10267,6 +16375,78 @@
       ],
       "correctText": "Israel and Egypt",
       "topic": "Camp David Accords",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Adam Smith's Wealth of Nations (1776) most strongly defended",
+      "choices": [
+        "socialism and worker ownership",
+        "laissez-faire capitalism and free markets",
+        "mercantilist trade policy",
+        "feudal economic relationships"
+      ],
+      "correctText": "laissez-faire capitalism and free markets",
+      "topic": "Capitalism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The 'invisible hand' described by Adam Smith refers to",
+      "choices": [
+        "divine intervention in economic affairs",
+        "government control of factory production",
+        "secret trade agreements among guilds",
+        "the self-regulating nature of free markets through supply and demand"
+      ],
+      "correctText": "the self-regulating nature of free markets through supply and demand",
+      "topic": "Capitalism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which best describes the relationship between WWI and the rise of totalitarianism?",
+      "choices": [
+        "WWI had no influence on later dictators",
+        "WWI strengthened democracies everywhere",
+        "Economic and political instability after WWI created conditions in which totalitarian movements gained power",
+        "WWI ended monarchy only in Britain"
+      ],
+      "correctText": "Economic and political instability after WWI created conditions in which totalitarian movements gained power",
+      "topic": "Causes of Totalitarianism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Kaiser Wilhelm II of Germany pursued a foreign policy known as Weltpolitik, which aimed to",
+      "choices": [
+        "make Germany a major global imperial power",
+        "maintain Bismarck's cautious alliances",
+        "withdraw Germany from European affairs",
+        "make Germany a neutral nation"
+      ],
+      "correctText": "make Germany a major global imperial power",
+      "topic": "Causes of WWI",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The immediate trigger of World War I was the assassination of",
+      "choices": [
+        "Tsar Nicholas II",
+        "Kaiser Wilhelm II",
+        "King George V",
+        "Archduke Franz Ferdinand of Austria-Hungary"
+      ],
+      "correctText": "Archduke Franz Ferdinand of Austria-Hungary",
+      "topic": "Causes of WWI",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The MAIN causes of World War I are usually identified as",
+      "choices": [
+        "Money, Authority, Influence, Negotiation",
+        "Modernization, Atomic, Industrial, National",
+        "Militarism, Alliances, Imperialism, Nationalism",
+        "Markets, Armies, Industry, Navies"
+      ],
+      "correctText": "Militarism, Alliances, Imperialism, Nationalism",
+      "topic": "Causes of WWI",
       "course": "global-10"
     },
     {
@@ -10342,6 +16522,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "In the Chinese Civil War, Mao Zedong's communists defeated the nationalist forces of",
+      "choices": [
+        "Sun Yat-sen",
+        "Chiang Kai-shek",
+        "Deng Xiaoping",
+        "Zhou Enlai"
+      ],
+      "correctText": "Chiang Kai-shek",
+      "topic": "Chinese Civil War",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Chinese Communist victory in 1949 was largely the result of",
       "choices": [
         "direct Soviet military intervention against the Nationalists",
@@ -10378,6 +16570,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Winston Churchill served as British Prime Minister during",
+      "choices": [
+        "WWI only",
+        "most of World War II",
+        "the Cold War only",
+        "the Industrial Revolution"
+      ],
+      "correctText": "most of World War II",
+      "topic": "Churchill",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Kyoto Protocol (1997) and the Paris Agreement (2015) were international efforts to address",
       "choices": [
         "nuclear proliferation",
@@ -10387,6 +16591,18 @@
       ],
       "correctText": "global climate change and greenhouse gas emissions",
       "topic": "Climate agreements",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Climate change as a global issue is most commonly addressed through international agreements such as",
+      "choices": [
+        "the Treaty of Versailles",
+        "the Marshall Plan",
+        "the Berlin Conference",
+        "the Paris Agreement (2015)"
+      ],
+      "correctText": "the Paris Agreement (2015)",
+      "topic": "Climate Change",
       "course": "global-10"
     },
     {
@@ -10450,6 +16666,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Which best contrasts the American and French Revolutions?",
+      "choices": [
+        "Both rejected the influence of Enlightenment thought",
+        "The American Revolution restored the king; the French abolished colonialism",
+        "Neither produced a written constitution",
+        "The American Revolution was anticolonial; the French Revolution overthrew the monarchy at home"
+      ],
+      "correctText": "The American Revolution was anticolonial; the French Revolution overthrew the monarchy at home",
+      "topic": "Comparative Revolutions",
+      "course": "global-10"
+    },
+    {
       "prompt": "Which conclusion is best supported by comparing the Russian Revolution of 1917 with the fall of the Qing Dynasty in 1911?",
       "choices": [
         "Long-standing social and economic problems can contribute to the collapse of empires",
@@ -10459,6 +16687,42 @@
       ],
       "correctText": "Long-standing social and economic problems can contribute to the collapse of empires",
       "topic": "Comparative Revolutions",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Klemens von Metternich is most associated with which post-Napoleonic principle?",
+      "choices": [
+        "Liberalism",
+        "Conservatism and legitimacy",
+        "Socialism",
+        "Pan-Slavism"
+      ],
+      "correctText": "Conservatism and legitimacy",
+      "topic": "Congress of Vienna",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The chief goal of the Congress of Vienna (1814-15), guided by Metternich, was to",
+      "choices": [
+        "restore a balance of power and legitimate monarchies",
+        "promote republican government across Europe",
+        "free all colonies from European rule",
+        "encourage rapid industrialization"
+      ],
+      "correctText": "restore a balance of power and legitimate monarchies",
+      "topic": "Congress of Vienna",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Cold War concept of 'containment' was most directly articulated by",
+      "choices": [
+        "Joseph Stalin",
+        "Mikhail Gorbachev",
+        "Charles de Gaulle",
+        "George Kennan in the 'Long Telegram'"
+      ],
+      "correctText": "George Kennan in the 'Long Telegram'",
+      "topic": "Containment",
       "course": "global-10"
     },
     {
@@ -10498,6 +16762,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Cuban Missile Crisis (October 1962) was triggered when",
+      "choices": [
+        "the U.S. invaded Cuba",
+        "Castro tried to invade Florida",
+        "the U.S. blockaded the Soviet Union",
+        "the Soviet Union placed nuclear missiles in Cuba"
+      ],
+      "correctText": "the Soviet Union placed nuclear missiles in Cuba",
+      "topic": "Cuban Missile Crisis",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Cuban Missile Crisis of 1962 brought the world closest to",
       "choices": [
         "a Latin American economic union",
@@ -10522,6 +16798,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "Which Cold War event most closely demonstrated the danger of nuclear escalation?",
+      "choices": [
+        "The Berlin Airlift",
+        "The Cuban Missile Crisis",
+        "The Marshall Plan",
+        "Glasnost"
+      ],
+      "correctText": "The Cuban Missile Crisis",
+      "topic": "Cuban Missile Crisis",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Fidel Castro came to power in Cuba in",
+      "choices": [
+        "1959",
+        "1947",
+        "1953",
+        "1979"
+      ],
+      "correctText": "1959",
+      "topic": "Cuban Revolution",
+      "course": "global-10"
+    },
+    {
       "prompt": "Fidel Castro came to power in Cuba in 1959 after",
       "choices": [
         "a free and fair democratic election",
@@ -10531,6 +16831,18 @@
       ],
       "correctText": "overthrowing the Batista regime through guerrilla warfare",
       "topic": "Cuban Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Mao's Cultural Revolution (1966-76) was designed to",
+      "choices": [
+        "purge perceived bourgeois and traditional elements from Chinese society",
+        "modernize the Chinese economy along capitalist lines",
+        "spread Buddhism",
+        "end one-party rule"
+      ],
+      "correctText": "purge perceived bourgeois and traditional elements from Chinese society",
+      "topic": "Cultural Revolution",
       "course": "global-10"
     },
     {
@@ -10558,6 +16870,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "D-Day (June 6, 1944) was significant because",
+      "choices": [
+        "it marked the Allied invasion of Nazi-occupied Western Europe at Normandy",
+        "it ended the Pacific war",
+        "it was a Soviet military disaster",
+        "it began the Holocaust"
+      ],
+      "correctText": "it marked the Allied invasion of Nazi-occupied Western Europe at Normandy",
+      "topic": "D-Day",
+      "course": "global-10"
+    },
+    {
       "prompt": "D-Day, June 6, 1944, refers to",
       "choices": [
         "the Allied amphibious landings on the beaches of Normandy in France",
@@ -10578,6 +16902,18 @@
         "Eritrea"
       ],
       "correctText": "Sudan",
+      "topic": "Darfur",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Darfur conflict in Sudan (starting 2003) involved",
+      "choices": [
+        "an invasion by Egypt",
+        "a religious revival in southern Sudan",
+        "government-backed Janjaweed militias attacking non-Arab populations",
+        "a colonial war with France"
+      ],
+      "correctText": "government-backed Janjaweed militias attacking non-Arab populations",
       "topic": "Darfur",
       "course": "global-10"
     },
@@ -10606,6 +16942,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Charles de Gaulle led which movement during WWII?",
+      "choices": [
+        "The Vichy government",
+        "The Italian Fascist Party",
+        "The Free French resistance to Nazi occupation",
+        "The Soviet Red Army"
+      ],
+      "correctText": "The Free French resistance to Nazi occupation",
+      "topic": "De Gaulle",
+      "course": "global-10"
+    },
+    {
       "prompt": "One major reason for decolonization in Africa and Asia after World War II was",
       "choices": [
         "the weakening of European powers and the rise of nationalist movements",
@@ -10615,6 +16963,30 @@
       ],
       "correctText": "the weakening of European powers and the rise of nationalist movements",
       "topic": "Decolonization",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Patrice Lumumba was",
+      "choices": [
+        "the founder of the ANC",
+        "the first prime minister of independent Congo, assassinated in 1961",
+        "the president of Nigeria",
+        "a Soviet diplomat"
+      ],
+      "correctText": "the first prime minister of independent Congo, assassinated in 1961",
+      "topic": "Decolonization Africa",
+      "course": "global-10"
+    },
+    {
+      "prompt": "China's economic reforms after 1978 under Deng Xiaoping included",
+      "choices": [
+        "Special Economic Zones and limited market reforms",
+        "a return to Maoist collectivization",
+        "outright abandonment of the Communist Party",
+        "alliance with the Soviet Union"
+      ],
+      "correctText": "Special Economic Zones and limited market reforms",
+      "topic": "Deng Xiaoping",
       "course": "global-10"
     },
     {
@@ -10642,6 +17014,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Detente in the 1970s referred to",
+      "choices": [
+        "increased Cold War tensions",
+        "a relaxation of tensions between the superpowers",
+        "the founding of NATO",
+        "the start of the Korean War"
+      ],
+      "correctText": "a relaxation of tensions between the superpowers",
+      "topic": "Detente",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Strategic Arms Limitation Talks (SALT) of the early 1970s were part of a broader policy known as",
       "choices": [
         "détente",
@@ -10654,6 +17038,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The French defeat at Dien Bien Phu (1954) led to",
+      "choices": [
+        "the unification of Korea",
+        "the partition of Vietnam at the 17th parallel",
+        "the founding of NATO",
+        "the fall of Berlin Wall"
+      ],
+      "correctText": "the partition of Vietnam at the 17th parallel",
+      "topic": "Dien Bien Phu",
+      "course": "global-10"
+    },
+    {
       "prompt": "The division of Germany after World War II resulted in",
       "choices": [
         "a single neutral state under United Nations supervision",
@@ -10663,6 +17059,18 @@
       ],
       "correctText": "the creation of the Federal Republic and the German Democratic Republic",
       "topic": "Division of Germany",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Domino Theory was used to justify U.S. involvement in",
+      "choices": [
+        "the unification of Germany",
+        "the Marshall Plan",
+        "the Russian Revolution",
+        "the Korean War and Vietnam War"
+      ],
+      "correctText": "the Korean War and Vietnam War",
+      "topic": "Domino Theory",
       "course": "global-10"
     },
     {
@@ -10726,6 +17134,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "President Ronald Reagan's famous 1987 Berlin speech demanded that Gorbachev",
+      "choices": [
+        "build a new wall",
+        "withdraw from Afghanistan",
+        "tear down this wall",
+        "send aid to Cuba"
+      ],
+      "correctText": "tear down this wall",
+      "topic": "End of Cold War",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Solidarity, the Polish trade union that helped end communist rule in Poland, was led by",
+      "choices": [
+        "Vaclav Havel",
+        "Nelson Mandela",
+        "Lech Walesa",
+        "Boris Yeltsin"
+      ],
+      "correctText": "Lech Walesa",
+      "topic": "End of Cold War",
+      "course": "global-10"
+    },
+    {
       "prompt": "The end of the Cold War is most directly associated with",
       "choices": [
         "the signing of the Treaty of Versailles",
@@ -10735,6 +17167,102 @@
       ],
       "correctText": "the dissolution of the Soviet Union and the collapse of Eastern bloc communism",
       "topic": "End of Cold War",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which event is widely viewed as the symbolic end of the Cold War?",
+      "choices": [
+        "The fall of the Berlin Wall and dissolution of the USSR",
+        "The Korean War armistice",
+        "The Cuban Missile Crisis",
+        "The Vietnam War"
+      ],
+      "correctText": "The fall of the Berlin Wall and dissolution of the USSR",
+      "topic": "End of Cold War",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which document marked the formal end of WWI in the Pacific?",
+      "choices": [
+        "The Japanese surrender aboard the USS Missouri (1945)",
+        "The Treaty of Versailles",
+        "The Treaty of Westphalia",
+        "The Munich Pact"
+      ],
+      "correctText": "The Japanese surrender aboard the USS Missouri (1945)",
+      "topic": "End of WWII",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which of these documents is most associated with Enlightenment ideas of natural rights?",
+      "choices": [
+        "The Magna Carta",
+        "The Treaty of Tordesillas",
+        "The U.S. Declaration of Independence",
+        "The Edict of Milan"
+      ],
+      "correctText": "The U.S. Declaration of Independence",
+      "topic": "Enlightenment Influence",
+      "course": "global-10"
+    },
+    {
+      "prompt": "John Locke's idea of natural rights argued that government's main purpose is to",
+      "choices": [
+        "maintain divine right of kings",
+        "protect life, liberty, and property",
+        "promote a single state religion",
+        "expand colonial empires"
+      ],
+      "correctText": "protect life, liberty, and property",
+      "topic": "Enlightenment Thinkers",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Rousseau's The Social Contract argued that legitimate government is founded on",
+      "choices": [
+        "divine right monarchy",
+        "military conquest",
+        "the general will of the people",
+        "inherited noble privilege"
+      ],
+      "correctText": "the general will of the people",
+      "topic": "Enlightenment Thinkers",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Thomas Hobbes's Leviathan (1651) argued that in the state of nature life would be",
+      "choices": [
+        "peaceful and cooperative",
+        "guided by reason alone",
+        "ruled by elected councils",
+        "solitary, poor, nasty, brutish, and short"
+      ],
+      "correctText": "solitary, poor, nasty, brutish, and short",
+      "topic": "Enlightenment Thinkers",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Voltaire's writings most strongly defended which idea?",
+      "choices": [
+        "Absolute monarchy",
+        "Religious tolerance and freedom of expression",
+        "Mercantilist trade restrictions",
+        "Feudal land tenure"
+      ],
+      "correctText": "Religious tolerance and freedom of expression",
+      "topic": "Enlightenment Thinkers",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which Enlightenment thinker most directly influenced the principle of separation of powers found in the U.S. and French constitutions?",
+      "choices": [
+        "Montesquieu",
+        "Hobbes",
+        "Rousseau",
+        "Voltaire"
+      ],
+      "correctText": "Montesquieu",
+      "topic": "Enlightenment Thinkers",
       "course": "global-10"
     },
     {
@@ -10762,6 +17290,42 @@
       "course": "global-10"
     },
     {
+      "prompt": "The euro became the official currency of multiple EU member states in",
+      "choices": [
+        "1999-2002",
+        "1985",
+        "2010",
+        "2016"
+      ],
+      "correctText": "1999-2002",
+      "topic": "European Union",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The European Union (EU) was established by the",
+      "choices": [
+        "Treaty of Versailles",
+        "Atlantic Charter",
+        "Camp David Accords",
+        "Maastricht Treaty (1992)"
+      ],
+      "correctText": "Maastricht Treaty (1992)",
+      "topic": "European Union",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which best describes the goal of the European Union's Maastricht Treaty?",
+      "choices": [
+        "The destruction of all European economies",
+        "The dissolution of European borders to non-Europeans only",
+        "The restoration of monarchies",
+        "Closer political, economic, and monetary integration of European states"
+      ],
+      "correctText": "Closer political, economic, and monetary integration of European states",
+      "topic": "European Union",
+      "course": "global-10"
+    },
+    {
       "prompt": "Which factor best explains why Germany's invasion of the Soviet Union failed to achieve its goals?",
       "choices": [
         "Determined Soviet resistance, vast distances, and harsh winter conditions",
@@ -10771,6 +17335,18 @@
       ],
       "correctText": "Determined Soviet resistance, vast distances, and harsh winter conditions",
       "topic": "Failure of Barbarossa",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The fall of the Berlin Wall in 1989 symbolized",
+      "choices": [
+        "the start of the Cold War",
+        "the founding of the EU",
+        "the Iranian Revolution",
+        "the collapse of communist control in Eastern Europe"
+      ],
+      "correctText": "the collapse of communist control in Eastern Europe",
+      "topic": "Fall of Berlin Wall",
       "course": "global-10"
     },
     {
@@ -10807,6 +17383,18 @@
       ],
       "correctText": "the reunification of Vietnam under communist rule",
       "topic": "Fall of Saigon",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Franklin D. Roosevelt's leadership during WWII included",
+      "choices": [
+        "the Lend-Lease program supplying the Allies and the Atlantic Charter with Churchill",
+        "leading the German invasion of Russia",
+        "founding the Nazi Party",
+        "writing The Communist Manifesto"
+      ],
+      "correctText": "the Lend-Lease program supplying the Allies and the Atlantic Charter with Churchill",
+      "topic": "FDR",
       "course": "global-10"
     },
     {
@@ -10855,6 +17443,30 @@
       ],
       "correctText": "1948",
       "topic": "Founding of Israel",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The State of Israel was established in",
+      "choices": [
+        "1948",
+        "1917",
+        "1945",
+        "1967"
+      ],
+      "correctText": "1948",
+      "topic": "Founding of Israel",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The United Nations was founded in 1945 in",
+      "choices": [
+        "Geneva",
+        "Paris",
+        "Moscow",
+        "San Francisco"
+      ],
+      "correctText": "San Francisco",
+      "topic": "Founding of the UN",
       "course": "global-10"
     },
     {
@@ -10915,6 +17527,66 @@
       ],
       "correctText": "Dien Bien Phu",
       "topic": "French Indochina War",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The convening of the Estates-General in 1789 reflected the French monarchy's need to address",
+      "choices": [
+        "religious wars in Germany",
+        "a Russian invasion of France",
+        "a severe financial crisis and tax inequality",
+        "an English colonial uprising"
+      ],
+      "correctText": "a severe financial crisis and tax inequality",
+      "topic": "French Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Declaration of the Rights of Man and of the Citizen (1789) most directly reflects ideas from",
+      "choices": [
+        "Enlightenment philosophy",
+        "medieval feudal law",
+        "Catholic canon law",
+        "Roman imperial decrees"
+      ],
+      "correctText": "Enlightenment philosophy",
+      "topic": "French Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Reign of Terror under Robespierre is best characterized by",
+      "choices": [
+        "religious revival across Europe",
+        "restoration of the Bourbon monarchy",
+        "mass executions of perceived enemies of the revolution",
+        "expansion of voting rights to women"
+      ],
+      "correctText": "mass executions of perceived enemies of the revolution",
+      "topic": "French Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Tennis Court Oath (1789) is best described as",
+      "choices": [
+        "a treaty between France and England",
+        "a royal decree by Louis XVI",
+        "a decree of the Catholic Church",
+        "a pledge by the Third Estate to write a constitution"
+      ],
+      "correctText": "a pledge by the Third Estate to write a constitution",
+      "topic": "French Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Mohandas Gandhi's strategy of satyagraha is best described as",
+      "choices": [
+        "armed guerrilla warfare",
+        "religious revival",
+        "economic boycott of Indian goods",
+        "nonviolent civil disobedience"
+      ],
+      "correctText": "nonviolent civil disobedience",
+      "topic": "Gandhi",
       "course": "global-10"
     },
     {
@@ -10990,6 +17662,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "Bismarck used which series of wars to bring about German unification?",
+      "choices": [
+        "Punic Wars",
+        "Wars against Denmark, Austria, and France",
+        "Hundred Years War",
+        "Boer Wars"
+      ],
+      "correctText": "Wars against Denmark, Austria, and France",
+      "topic": "German Unification",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Otto von Bismarck unified Germany through a policy he called",
+      "choices": [
+        "satyagraha",
+        "perestroika",
+        "manifest destiny",
+        "blood and iron"
+      ],
+      "correctText": "blood and iron",
+      "topic": "German Unification",
+      "course": "global-10"
+    },
+    {
       "prompt": "Ghana, which gained independence in 1957 under Kwame Nkrumah, was significant because it was",
       "choices": [
         "the first sub-Saharan African colony to win independence from European rule",
@@ -11014,6 +17710,54 @@
       "course": "global-10"
     },
     {
+      "prompt": "Gorbachev's perestroika referred to",
+      "choices": [
+        "the building of new gulags",
+        "restructuring of the Soviet economy and government",
+        "the Soviet space program",
+        "a religious revival"
+      ],
+      "correctText": "restructuring of the Soviet economy and government",
+      "topic": "Glasnost and Perestroika",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Mikhail Gorbachev introduced glasnost, which means",
+      "choices": [
+        "restructuring",
+        "containment",
+        "collectivization",
+        "openness"
+      ],
+      "correctText": "openness",
+      "topic": "Glasnost and Perestroika",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Globalization has been most often criticized for",
+      "choices": [
+        "reducing all human contact",
+        "ending international trade",
+        "promoting feudalism",
+        "widening income inequality and weakening local industries"
+      ],
+      "correctText": "widening income inequality and weakening local industries",
+      "topic": "Globalization",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Globalization since the late 20th century is most often associated with",
+      "choices": [
+        "interconnected economies, multinational corporations, and global supply chains",
+        "the decline of all international trade",
+        "the collapse of all democracies",
+        "a return to feudalism"
+      ],
+      "correctText": "interconnected economies, multinational corporations, and global supply chains",
+      "topic": "Globalization",
+      "course": "global-10"
+    },
+    {
       "prompt": "Which factor most directly contributed to economic globalization in the late 20th century?",
       "choices": [
         "Advances in transportation, communication, and trade liberalization",
@@ -11023,6 +17767,18 @@
       ],
       "correctText": "Advances in transportation, communication, and trade liberalization",
       "topic": "Globalization",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which Cold War leader is most credited with reforms that contributed to the Soviet collapse?",
+      "choices": [
+        "Brezhnev",
+        "Andropov",
+        "Gorbachev",
+        "Khrushchev"
+      ],
+      "correctText": "Gorbachev",
+      "topic": "Gorbachev",
       "course": "global-10"
     },
     {
@@ -11050,6 +17806,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Mao's Great Leap Forward (1958-62) resulted in",
+      "choices": [
+        "rapid industrial success and abundance",
+        "the end of communism in China",
+        "China entering the EU",
+        "widespread famine and millions of deaths"
+      ],
+      "correctText": "widespread famine and millions of deaths",
+      "topic": "Great Leap Forward",
+      "course": "global-10"
+    },
+    {
       "prompt": "Stalin's Great Purges of the 1930s involved",
       "choices": [
         "mass arrests, executions, and show trials of suspected opponents",
@@ -11071,6 +17839,42 @@
       ],
       "correctText": "mask Japanese imperial domination of much of Asia under the language of cooperation",
       "topic": "Greater East Asia Co-Prosperity Sphere",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Haiti's independence in 1804 was historically significant because it was",
+      "choices": [
+        "the first successful slave-led revolution to create an independent state",
+        "the first European republic",
+        "the last colony of Spain in the Americas",
+        "the first communist state in the world"
+      ],
+      "correctText": "the first successful slave-led revolution to create an independent state",
+      "topic": "Haitian Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Haitian Revolution most directly inspired",
+      "choices": [
+        "the unification of Germany",
+        "the Russian Revolution",
+        "the founding of the EU",
+        "later anti-slavery and independence movements in the Americas"
+      ],
+      "correctText": "later anti-slavery and independence movements in the Americas",
+      "topic": "Haitian Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Toussaint L'Ouverture is best known as the leader of",
+      "choices": [
+        "the Mexican War of Independence",
+        "the Italian unification movement",
+        "the Haitian Revolution against French rule",
+        "the Boxer Rebellion"
+      ],
+      "correctText": "the Haitian Revolution against French rule",
+      "topic": "Haitian Revolution",
       "course": "global-10"
     },
     {
@@ -11110,6 +17914,42 @@
       "course": "global-10"
     },
     {
+      "prompt": "Ho Chi Minh is best known as",
+      "choices": [
+        "the Vietnamese communist leader who led independence from France and resistance to the U.S.",
+        "the founder of the People's Republic of China",
+        "a Soviet diplomat",
+        "a Korean president"
+      ],
+      "correctText": "the Vietnamese communist leader who led independence from France and resistance to the U.S.",
+      "topic": "Ho Chi Minh",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Auschwitz-Birkenau was",
+      "choices": [
+        "a Soviet gulag",
+        "a battlefield in North Africa",
+        "a Japanese internment camp",
+        "the largest Nazi concentration and extermination camp"
+      ],
+      "correctText": "the largest Nazi concentration and extermination camp",
+      "topic": "Holocaust",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Nazi 'Final Solution' refers to",
+      "choices": [
+        "a peace treaty with Britain",
+        "the planned genocide of European Jews",
+        "a German economic plan",
+        "the German alliance with Italy"
+      ],
+      "correctText": "the planned genocide of European Jews",
+      "topic": "Holocaust",
+      "course": "global-10"
+    },
+    {
       "prompt": "In addition to Jewish victims, Nazi mass murder also targeted",
       "choices": [
         "Roma, people with disabilities, political prisoners, and Soviet prisoners of war",
@@ -11131,6 +17971,30 @@
       ],
       "correctText": "Stalin's collectivization and grain-requisition policies",
       "topic": "Holodomor",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Hong Kong was returned from British to Chinese sovereignty in",
+      "choices": [
+        "1949",
+        "1997",
+        "1971",
+        "2008"
+      ],
+      "correctText": "1997",
+      "topic": "Hong Kong",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The 'one country, two systems' arrangement was applied to",
+      "choices": [
+        "North and South Korea",
+        "East and West Germany",
+        "Hong Kong and the People's Republic of China",
+        "India and Pakistan"
+      ],
+      "correctText": "Hong Kong and the People's Republic of China",
+      "topic": "Hong Kong",
       "course": "global-10"
     },
     {
@@ -11170,6 +18034,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The 'Quit India' movement (1942) was a call by",
+      "choices": [
+        "Indian nationalists demanding the British withdraw from India",
+        "the British to leave India immediately",
+        "Pakistan demanding partition",
+        "Soviet leaders to invade India"
+      ],
+      "correctText": "Indian nationalists demanding the British withdraw from India",
+      "topic": "Indian Independence",
+      "course": "global-10"
+    },
+    {
       "prompt": "Mohandas Gandhi's Salt March of 1930 was significant because it",
       "choices": [
         "dramatized civil disobedience against the British salt monopoly in India",
@@ -11179,6 +18055,18 @@
       ],
       "correctText": "dramatized civil disobedience against the British salt monopoly in India",
       "topic": "Indian Independence Movement",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Indian National Congress, founded in 1885, originally sought",
+      "choices": [
+        "greater Indian participation in British government in India",
+        "immediate violent overthrow of British rule",
+        "an Islamic state in India",
+        "alliance with imperial Japan"
+      ],
+      "correctText": "greater Indian participation in British government in India",
+      "topic": "Indian National Congress",
       "course": "global-10"
     },
     {
@@ -11194,6 +18082,102 @@
       "course": "global-10"
     },
     {
+      "prompt": "Indira Gandhi served as",
+      "choices": [
+        "leader of Pakistan",
+        "President of Bangladesh",
+        "Prime Minister of India",
+        "Chinese premier"
+      ],
+      "correctText": "Prime Minister of India",
+      "topic": "Indira Gandhi",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Child labor in 19th-century factories was eventually reduced by",
+      "choices": [
+        "factory acts and labor reform laws",
+        "the spread of mercantilism",
+        "the return of the guild system",
+        "the abolition of capitalism"
+      ],
+      "correctText": "factory acts and labor reform laws",
+      "topic": "Industrial Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Henry Bessemer's process revolutionized",
+      "choices": [
+        "textile production",
+        "vaccine development",
+        "the mass production of steel",
+        "atomic energy"
+      ],
+      "correctText": "the mass production of steel",
+      "topic": "Industrial Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "James Watt's improved steam engine is most closely associated with",
+      "choices": [
+        "the digital age",
+        "the Enlightenment",
+        "the Renaissance",
+        "the Industrial Revolution"
+      ],
+      "correctText": "the Industrial Revolution",
+      "topic": "Industrial Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The factory system led most directly to",
+      "choices": [
+        "a decline in urban populations",
+        "the elimination of all child labor",
+        "the concentration of workers, machines, and capital in one location",
+        "the end of the cottage industry overnight"
+      ],
+      "correctText": "the concentration of workers, machines, and capital in one location",
+      "topic": "Industrial Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The spinning jenny and water frame transformed which industry first?",
+      "choices": [
+        "Textile manufacturing",
+        "Steel production",
+        "Shipbuilding",
+        "Agriculture"
+      ],
+      "correctText": "Textile manufacturing",
+      "topic": "Industrial Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Urbanization during the Industrial Revolution most often resulted in",
+      "choices": [
+        "a return to rural village life",
+        "the abolition of social class",
+        "an end to migration patterns",
+        "the growth of overcrowded, unsanitary cities"
+      ],
+      "correctText": "the growth of overcrowded, unsanitary cities",
+      "topic": "Industrial Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which best describes the economic shift caused by the Industrial Revolution?",
+      "choices": [
+        "A shift back to hunter-gatherer economies",
+        "A return to feudal manor production",
+        "An end to all global trade",
+        "A shift from agriculture to industry and manufacturing as the basis of wealth"
+      ],
+      "correctText": "A shift from agriculture to industry and manufacturing as the basis of wealth",
+      "topic": "Industrial Revolution",
+      "course": "global-10"
+    },
+    {
       "prompt": "Which factor most directly enabled European powers to dominate African and Asian peoples in the 19th century?",
       "choices": [
         "A larger population than Asia and Africa combined",
@@ -11203,6 +18187,18 @@
       ],
       "correctText": "Industrial technology, including steamships, railroads, and modern weapons",
       "topic": "Industrial Revolution and Imperialism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which best describes the immediate effect of the Industrial Revolution on women?",
+      "choices": [
+        "Many women joined the factory workforce, often in low-paid textile labor",
+        "Women were prohibited from all paid work",
+        "Women became universally enfranchised by 1850",
+        "Women returned to feudal land tenure"
+      ],
+      "correctText": "Many women joined the factory workforce, often in low-paid textile labor",
+      "topic": "Industrial Revolution Society",
       "course": "global-10"
     },
     {
@@ -11254,6 +18250,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "In Iran, the 1953 CIA-backed coup overthrew",
+      "choices": [
+        "Ayatollah Khomeini",
+        "Shah Reza Pahlavi",
+        "Mohammad Mossadegh",
+        "Saddam Hussein"
+      ],
+      "correctText": "Mohammad Mossadegh",
+      "topic": "Iran 1953 Coup",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Iran hostage crisis (1979–1981) involved",
       "choices": [
         "the seizure of the United States embassy in Tehran by Iranian revolutionaries",
@@ -11263,6 +18271,18 @@
       ],
       "correctText": "the seizure of the United States embassy in Tehran by Iranian revolutionaries",
       "topic": "Iran hostage crisis",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The 1979 Iranian Revolution established",
+      "choices": [
+        "an Islamic republic",
+        "a secular democracy",
+        "a communist regime",
+        "a constitutional monarchy"
+      ],
+      "correctText": "an Islamic republic",
+      "topic": "Iranian Revolution",
       "course": "global-10"
     },
     {
@@ -11286,6 +18306,18 @@
         "Iran's accession to NATO"
       ],
       "correctText": "the establishment of an Islamic Republic under Ayatollah Khomeini",
+      "topic": "Iranian Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Iranian Revolution of 1979 was led by",
+      "choices": [
+        "Mohammad Reza Shah",
+        "Anwar Sadat",
+        "Saddam Hussein",
+        "Ayatollah Ruhollah Khomeini"
+      ],
+      "correctText": "Ayatollah Ruhollah Khomeini",
       "topic": "Iranian Revolution",
       "course": "global-10"
     },
@@ -11314,6 +18346,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "Winston Churchill's 1946 'Iron Curtain' speech warned of",
+      "choices": [
+        "French aggression in Africa",
+        "Soviet domination of Eastern Europe",
+        "Japanese rearmament",
+        "American withdrawal from Europe"
+      ],
+      "correctText": "Soviet domination of Eastern Europe",
+      "topic": "Iron Curtain",
+      "course": "global-10"
+    },
+    {
+      "prompt": "ISIS (the Islamic State of Iraq and Syria) emerged most directly from",
+      "choices": [
+        "the collapse of the Soviet Union",
+        "the fall of the Ottoman Empire",
+        "the chaos following the 2003 Iraq War and the Syrian civil war",
+        "Indian partition"
+      ],
+      "correctText": "the chaos following the 2003 Iraq War and the Syrian civil war",
+      "topic": "ISIS",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Allied strategy of \"island-hopping\" in the Pacific involved",
       "choices": [
         "seizing key islands while bypassing heavily defended ones to move closer to Japan",
@@ -11323,6 +18379,54 @@
       ],
       "correctText": "seizing key islands while bypassing heavily defended ones to move closer to Japan",
       "topic": "Island-Hopping",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Mussolini's corporate state arranged the economy around",
+      "choices": [
+        "worker-owned cooperatives",
+        "industry groups controlled by the Fascist government to suppress class conflict",
+        "free-market exchanges",
+        "religious endowments"
+      ],
+      "correctText": "industry groups controlled by the Fascist government to suppress class conflict",
+      "topic": "Italian Fascism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Mussolini's March on Rome (1922) resulted in",
+      "choices": [
+        "Mussolini's appointment as Prime Minister and the rise of Fascism",
+        "the restoration of the Roman Republic",
+        "an alliance with Stalin",
+        "Italian colonization of Britain"
+      ],
+      "correctText": "Mussolini's appointment as Prime Minister and the rise of Fascism",
+      "topic": "Italian Fascism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which leader most embodied the use of charisma and rallies to consolidate fascist power in Italy?",
+      "choices": [
+        "Stalin",
+        "Mao",
+        "Castro",
+        "Mussolini"
+      ],
+      "correctText": "Mussolini",
+      "topic": "Italian Fascism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Giuseppe Garibaldi played a central role in",
+      "choices": [
+        "the partition of India",
+        "the Mexican Revolution",
+        "the unification of Italy",
+        "the unification of Japan"
+      ],
+      "correctText": "the unification of Italy",
+      "topic": "Italian Unification",
       "course": "global-10"
     },
     {
@@ -11347,6 +18451,18 @@
       ],
       "correctText": "rejection of international criticism of its actions in Manchuria",
       "topic": "Japan and the League",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Japan's invasion of Manchuria in 1931 demonstrated",
+      "choices": [
+        "the strength of the League of Nations",
+        "Soviet expansion in Asia",
+        "Chinese diplomatic success",
+        "the weakness of collective security and the League's inability to enforce peace"
+      ],
+      "correctText": "the weakness of collective security and the League's inability to enforce peace",
+      "topic": "Japanese Aggression",
       "course": "global-10"
     },
     {
@@ -11386,6 +18502,42 @@
       "course": "global-10"
     },
     {
+      "prompt": "Muhammad Ali Jinnah is best known as",
+      "choices": [
+        "the first Prime Minister of India",
+        "the founder of the All-India Muslim League and the first leader of Pakistan",
+        "a leader of the Boxer Rebellion",
+        "the founder of the Indian National Congress"
+      ],
+      "correctText": "the founder of the All-India Muslim League and the first leader of Pakistan",
+      "topic": "Jinnah",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Rudyard Kipling's 'The White Man's Burden' was used to justify",
+      "choices": [
+        "the end of imperialism",
+        "imperial conquest as a moral duty to 'civilize' non-Europeans",
+        "the abolition of slavery",
+        "free trade with China"
+      ],
+      "correctText": "imperial conquest as a moral duty to 'civilize' non-Europeans",
+      "topic": "Justifications for Imperialism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Jomo Kenyatta became",
+      "choices": [
+        "the leader of the African National Congress",
+        "the first prime minister and president of independent Kenya",
+        "the founder of Ghana",
+        "the president of South Africa"
+      ],
+      "correctText": "the first prime minister and president of independent Kenya",
+      "topic": "Kenyatta",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Khmer Rouge regime led by Pol Pot ruled which country from 1975 to 1979?",
       "choices": [
         "Vietnam",
@@ -11395,6 +18547,18 @@
       ],
       "correctText": "Cambodia",
       "topic": "Khmer Rouge",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Korean War (1950-53) ended with",
+      "choices": [
+        "the reunification of Korea under the South",
+        "Chinese annexation of North Korea",
+        "an armistice and continued division along roughly the 38th parallel",
+        "a Soviet withdrawal from Asia"
+      ],
+      "correctText": "an armistice and continued division along roughly the 38th parallel",
+      "topic": "Korean War",
       "course": "global-10"
     },
     {
@@ -11434,6 +18598,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Kosovo War (1998-99) ended with",
+      "choices": [
+        "a Russian invasion",
+        "a NATO bombing campaign that forced Serbian withdrawal",
+        "a Yugoslav victory",
+        "a UN trusteeship of Yugoslavia"
+      ],
+      "correctText": "a NATO bombing campaign that forced Serbian withdrawal",
+      "topic": "Kosovo",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Kristallnacht (November 1938) is best described as",
+      "choices": [
+        "a Soviet purge",
+        "a wave of organized anti-Jewish violence across Germany",
+        "the start of the French Revolution",
+        "an Italian holiday"
+      ],
+      "correctText": "a wave of organized anti-Jewish violence across Germany",
+      "topic": "Kristallnacht",
+      "course": "global-10"
+    },
+    {
       "prompt": "Kristallnacht, on the night of November 9–10, 1938, is best described as",
       "choices": [
         "a coordinated wave of attacks on Jewish homes, businesses, and synagogues across Germany and Austria",
@@ -11446,6 +18634,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Labor unions in the 19th century formed mainly to",
+      "choices": [
+        "lobby for higher tariffs on imports",
+        "negotiate collectively for better wages, hours, and conditions",
+        "support overseas imperial expansion",
+        "promote a return to agriculture"
+      ],
+      "correctText": "negotiate collectively for better wages, hours, and conditions",
+      "topic": "Labor Movements",
+      "course": "global-10"
+    },
+    {
       "prompt": "Countries in Central America were often called 'banana republics' because they",
       "choices": [
         "were ruled by indigenous monarchs",
@@ -11455,6 +18655,54 @@
       ],
       "correctText": "had economies dominated by American fruit companies",
       "topic": "Latin America / Banana Republics",
+      "course": "global-10"
+    },
+    {
+      "prompt": "A peninsulare in colonial Spanish America was a",
+      "choices": [
+        "person of mixed European and indigenous ancestry",
+        "person born in Spain holding the highest social position",
+        "person of African descent",
+        "freed indigenous laborer"
+      ],
+      "correctText": "person born in Spain holding the highest social position",
+      "topic": "Latin American Independence",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Jose de San Martin is best known for liberating",
+      "choices": [
+        "Mexico from French intervention",
+        "Brazil from Portuguese rule",
+        "Argentina, Chile, and Peru from Spanish rule",
+        "Cuba from American rule"
+      ],
+      "correctText": "Argentina, Chile, and Peru from Spanish rule",
+      "topic": "Latin American Independence",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Simon Bolivar is most accurately described as a leader of",
+      "choices": [
+        "the unification of Italy",
+        "the independence movements in Spanish South America",
+        "the Russian Revolution",
+        "the Indian National Congress"
+      ],
+      "correctText": "the independence movements in Spanish South America",
+      "topic": "Latin American Independence",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Latin American wars of independence in the early 1800s were most directly inspired by",
+      "choices": [
+        "the Industrial Revolution",
+        "the rise of fascism in Europe",
+        "the conquests of Genghis Khan",
+        "the American and French Revolutions"
+      ],
+      "correctText": "the American and French Revolutions",
+      "topic": "Latin American Independence",
       "course": "global-10"
     },
     {
@@ -11490,6 +18738,18 @@
         "promote European colonization of Africa"
       ],
       "correctText": "settle international disputes peacefully and prevent another world war",
+      "topic": "League of Nations",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The League of Nations was severely weakened from the start because",
+      "choices": [
+        "it had no permanent headquarters",
+        "it banned all member nations from trade",
+        "it required unanimous votes on minor issues only",
+        "the United States never joined"
+      ],
+      "correctText": "the United States never joined",
       "topic": "League of Nations",
       "course": "global-10"
     },
@@ -11542,6 +18802,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Long March (1934-35) is associated with",
+      "choices": [
+        "a Soviet invasion of China",
+        "the rise of Chiang Kai-shek",
+        "Mao's communists retreating to remote bases and rebuilding strength",
+        "the Boxer Rebellion"
+      ],
+      "correctText": "Mao's communists retreating to remote bases and rebuilding strength",
+      "topic": "Long March",
+      "course": "global-10"
+    },
+    {
       "prompt": "The sinking of the Lusitania in 1915 contributed to",
       "choices": [
         "the immediate Russian withdrawal from the war",
@@ -11554,6 +18826,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The mandate system established after WWI placed former Ottoman and German territories under",
+      "choices": [
+        "direct UN control",
+        "Soviet supervision",
+        "League of Nations supervision via European powers",
+        "American protectorate status"
+      ],
+      "correctText": "League of Nations supervision via European powers",
+      "topic": "Mandate System",
+      "course": "global-10"
+    },
+    {
       "prompt": "The 'mandates' established after World War I were",
       "choices": [
         "independent nations created from former Allied colonies",
@@ -11563,6 +18847,30 @@
       ],
       "correctText": "former Ottoman and German territories administered by Allied powers under the League",
       "topic": "Mandate System / Versailles",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Nelson Mandela became South Africa's first Black president in",
+      "choices": [
+        "1980",
+        "1990",
+        "1994",
+        "2000"
+      ],
+      "correctText": "1994",
+      "topic": "Mandela",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Nelson Mandela was a leader of the",
+      "choices": [
+        "Indian National Congress",
+        "Bolshevik Party",
+        "African National Congress (ANC)",
+        "Muslim League"
+      ],
+      "correctText": "African National Congress (ANC)",
+      "topic": "Mandela",
       "course": "global-10"
     },
     {
@@ -11590,6 +18898,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Marshall Plan (1948) provided",
+      "choices": [
+        "military aid to Communist insurgents",
+        "weapons to the Warsaw Pact",
+        "humanitarian aid to Japan only",
+        "economic aid to rebuild war-torn Western Europe"
+      ],
+      "correctText": "economic aid to rebuild war-torn Western Europe",
+      "topic": "Marshall Plan",
+      "course": "global-10"
+    },
+    {
       "prompt": "The primary purpose of the Marshall Plan (1948) was to",
       "choices": [
         "rearm West Germany against the Soviet Union",
@@ -11602,6 +18922,54 @@
       "course": "global-10"
     },
     {
+      "prompt": "According to Marx, history is fundamentally driven by",
+      "choices": [
+        "religious revelation",
+        "class struggle between economic groups",
+        "the actions of great kings",
+        "natural cycles of climate"
+      ],
+      "correctText": "class struggle between economic groups",
+      "topic": "Marxism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Karl Marx and Friedrich Engels published The Communist Manifesto in",
+      "choices": [
+        "1848",
+        "1776",
+        "1815",
+        "1917"
+      ],
+      "correctText": "1848",
+      "topic": "Marxism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Marx believed that capitalism would eventually be replaced by",
+      "choices": [
+        "a classless communist society",
+        "a return to feudalism",
+        "absolute monarchy",
+        "theocracy"
+      ],
+      "correctText": "a classless communist society",
+      "topic": "Marxism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Marx referred to the working class in industrial society as the",
+      "choices": [
+        "bourgeoisie",
+        "aristocracy",
+        "proletariat",
+        "kulaks"
+      ],
+      "correctText": "proletariat",
+      "topic": "Marxism",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Mau Mau uprising of the 1950s was an anticolonial revolt against",
       "choices": [
         "French rule in Algeria",
@@ -11611,6 +18979,18 @@
       ],
       "correctText": "British rule in Kenya",
       "topic": "Mau Mau uprising",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Mau Mau Uprising (1952-60) was an anticolonial movement in",
+      "choices": [
+        "Kenya",
+        "Ghana",
+        "Algeria",
+        "Egypt"
+      ],
+      "correctText": "Kenya",
+      "topic": "Mau Mau Uprising",
       "course": "global-10"
     },
     {
@@ -11634,6 +19014,18 @@
         "became a European colony"
       ],
       "correctText": "became a modern industrial and military power",
+      "topic": "Meiji Restoration",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Japan's Meiji Restoration (1868) is best described as",
+      "choices": [
+        "a return to feudal isolation",
+        "a communist uprising",
+        "rapid modernization and industrialization led by the emperor",
+        "the spread of Buddhism"
+      ],
+      "correctText": "rapid modernization and industrialization led by the emperor",
       "topic": "Meiji Restoration",
       "course": "global-10"
     },
@@ -11722,6 +19114,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "A primary motive for European imperialism in Africa was",
+      "choices": [
+        "access to raw materials such as rubber, gold, and diamonds",
+        "the spread of Buddhist teachings",
+        "a desire to end the slave trade only",
+        "the conversion of all Europeans to Islam"
+      ],
+      "correctText": "access to raw materials such as rubber, gold, and diamonds",
+      "topic": "Motives for Imperialism",
+      "course": "global-10"
+    },
+    {
       "prompt": "Rudyard Kipling's phrase 'the white man's burden' was used most often to justify imperialism by appealing to which idea?",
       "choices": [
         "The duty of 'civilized' Europeans to uplift non-European peoples",
@@ -11743,6 +19147,18 @@
       ],
       "correctText": "The need for raw materials and new markets for manufactured goods",
       "topic": "Motives for Imperialism",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Lord Mountbatten served as",
+      "choices": [
+        "the first Prime Minister of independent India",
+        "a Soviet general at Stalingrad",
+        "the founder of the United Nations",
+        "the last British Viceroy of India who oversaw partition"
+      ],
+      "correctText": "the last British Viceroy of India who oversaw partition",
+      "topic": "Mountbatten",
       "course": "global-10"
     },
     {
@@ -11770,6 +19186,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The North American Free Trade Agreement (NAFTA) connected",
+      "choices": [
+        "the United States, Brazil, and Argentina",
+        "the United States, Canada, and Mexico",
+        "Mexico, Cuba, and Venezuela",
+        "Canada, Britain, and Australia"
+      ],
+      "correctText": "the United States, Canada, and Mexico",
+      "topic": "NAFTA",
+      "course": "global-10"
+    },
+    {
       "prompt": "The North American Free Trade Agreement (NAFTA), which took effect in 1994, removed many trade barriers among",
       "choices": [
         "the United States, Canada, and Mexico",
@@ -11794,6 +19222,90 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Rape of Nanking (1937-38) refers to",
+      "choices": [
+        "a Chinese cultural festival",
+        "atrocities committed by Japanese forces against Chinese civilians",
+        "a Russian art movement",
+        "a treaty between Japan and China"
+      ],
+      "correctText": "atrocities committed by Japanese forces against Chinese civilians",
+      "topic": "Nanjing Massacre",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Napoleon's 1812 invasion of Russia ended in disaster largely because of",
+      "choices": [
+        "Ottoman counterattacks from the south",
+        "scorched-earth tactics and the harsh Russian winter",
+        "British naval bombardment of Moscow",
+        "an uprising of French peasants at home"
+      ],
+      "correctText": "scorched-earth tactics and the harsh Russian winter",
+      "topic": "Napoleon",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Napoleon's Code Napoleon is most significant because it",
+      "choices": [
+        "restored feudal privilege across Europe",
+        "established a single European currency",
+        "ended slavery in all French colonies permanently",
+        "spread Enlightenment legal principles to many countries"
+      ],
+      "correctText": "spread Enlightenment legal principles to many countries",
+      "topic": "Napoleon",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Napoleon's Continental System was designed primarily to",
+      "choices": [
+        "weaken Britain economically through a trade blockade",
+        "promote free trade with the Americas",
+        "redistribute land to peasants",
+        "unify European currencies"
+      ],
+      "correctText": "weaken Britain economically through a trade blockade",
+      "topic": "Napoleon",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Battle of Waterloo (1815) resulted in",
+      "choices": [
+        "the unification of Germany",
+        "the restoration of the Roman Empire",
+        "the conquest of India by France",
+        "the final defeat of Napoleon and his exile to St. Helena"
+      ],
+      "correctText": "the final defeat of Napoleon and his exile to St. Helena",
+      "topic": "Napoleon",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Gamal Abdel Nasser is best known as",
+      "choices": [
+        "the founder of the Iranian Revolution",
+        "a leader of Egyptian Arab nationalism who nationalized the Suez Canal",
+        "the prime minister of India",
+        "a Soviet general"
+      ],
+      "correctText": "a leader of Egyptian Arab nationalism who nationalized the Suez Canal",
+      "topic": "Nasser",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which best describes 19th-century nationalism?",
+      "choices": [
+        "A movement for global religious unity",
+        "The end of the nation-state",
+        "A belief that one's nation shares language, culture, or history and deserves political unity or independence",
+        "A return to feudalism"
+      ],
+      "correctText": "A belief that one's nation shares language, culture, or history and deserves political unity or independence",
+      "topic": "Nationalism",
+      "course": "global-10"
+    },
+    {
       "prompt": "Nationalism contributed to World War I most directly by",
       "choices": [
         "encouraging multi-ethnic empires to stay united",
@@ -11803,6 +19315,18 @@
       ],
       "correctText": "inspiring ethnic groups in the Balkans to seek independence",
       "topic": "Nationalism / WWI",
+      "course": "global-10"
+    },
+    {
+      "prompt": "NATO was founded in 1949 primarily as",
+      "choices": [
+        "a free trade zone",
+        "a Western military alliance against Soviet expansion",
+        "a religious organization",
+        "a UN food relief program"
+      ],
+      "correctText": "a Western military alliance against Soviet expansion",
+      "topic": "NATO",
       "course": "global-10"
     },
     {
@@ -11830,6 +19354,42 @@
       "course": "global-10"
     },
     {
+      "prompt": "Hitler's annexation of Austria in 1938 is known as the",
+      "choices": [
+        "Putsch",
+        "Holocaust",
+        "Blitzkrieg",
+        "Anschluss"
+      ],
+      "correctText": "Anschluss",
+      "topic": "Nazi Expansion",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Hitler outlined his ideology in",
+      "choices": [
+        "The Prince",
+        "The Communist Manifesto",
+        "Mein Kampf",
+        "The Wealth of Nations"
+      ],
+      "correctText": "Mein Kampf",
+      "topic": "Nazi Germany",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Lebensraum policy called for",
+      "choices": [
+        "expansion of German 'living space' into Eastern Europe",
+        "creation of welfare housing in cities",
+        "religious tolerance in Germany",
+        "the return of all colonies"
+      ],
+      "correctText": "expansion of German 'living space' into Eastern Europe",
+      "topic": "Nazi Ideology",
+      "course": "global-10"
+    },
+    {
       "prompt": "Which condition best describes life in Nazi-occupied Europe?",
       "choices": [
         "Harsh repression, forced labor, deportations, and resistance movements in many countries",
@@ -11842,6 +19402,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Nazi-Soviet Non-Aggression Pact (1939) shocked the world because",
+      "choices": [
+        "Stalin abolished communism",
+        "Hitler converted to Marxism",
+        "the U.S. signed the agreement",
+        "two ideological enemies, Nazi Germany and the USSR, agreed not to attack each other"
+      ],
+      "correctText": "two ideological enemies, Nazi Germany and the USSR, agreed not to attack each other",
+      "topic": "Nazi-Soviet Pact",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Nazi-Soviet Pact of August 1939 surprised the world primarily because it",
       "choices": [
         "united two ideological enemies in a nonaggression agreement that included secret plans to divide Poland",
@@ -11851,6 +19423,18 @@
       ],
       "correctText": "united two ideological enemies in a nonaggression agreement that included secret plans to divide Poland",
       "topic": "Nazi-Soviet Pact",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Jawaharlal Nehru became",
+      "choices": [
+        "the first Prime Minister of independent India",
+        "President of Pakistan",
+        "leader of South African apartheid",
+        "Soviet Premier"
+      ],
+      "correctText": "the first Prime Minister of independent India",
+      "topic": "Nehru",
       "course": "global-10"
     },
     {
@@ -11902,6 +19486,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Kwame Nkrumah is most associated with",
+      "choices": [
+        "the independence of Ghana in 1957 and Pan-Africanism",
+        "the building of the Berlin Wall",
+        "Indian independence",
+        "the Iranian Revolution"
+      ],
+      "correctText": "the independence of Ghana in 1957 and Pan-Africanism",
+      "topic": "Nkrumah",
+      "course": "global-10"
+    },
+    {
       "prompt": "Allied campaigns in North Africa in 1942–1943 were important because they",
       "choices": [
         "secured Mediterranean supply routes and opened a path to invade Italy",
@@ -11911,6 +19507,30 @@
       ],
       "correctText": "secured Mediterranean supply routes and opened a path to invade Italy",
       "topic": "North African Campaign",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Mutually Assured Destruction (MAD) refers to",
+      "choices": [
+        "the idea that nuclear war is unwinnable because both sides would be destroyed",
+        "a Soviet economic plan",
+        "a NATO trade policy",
+        "a Cold War spy program"
+      ],
+      "correctText": "the idea that nuclear war is unwinnable because both sides would be destroyed",
+      "topic": "Nuclear Arms Race",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Nuremberg Laws (1935) did all of the following EXCEPT",
+      "choices": [
+        "guarantee equal rights for all Germans",
+        "strip Jews of German citizenship",
+        "ban marriage between Jews and non-Jews",
+        "begin a process of legal persecution"
+      ],
+      "correctText": "guarantee equal rights for all Germans",
+      "topic": "Nuremberg Laws",
       "course": "global-10"
     },
     {
@@ -11926,6 +19546,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Nuremberg Trials (1945-46) are notable for establishing",
+      "choices": [
+        "the doctrine of religious tolerance",
+        "free trade in postwar Europe",
+        "the principle that individuals can be held accountable for crimes against humanity",
+        "the founding of NATO"
+      ],
+      "correctText": "the principle that individuals can be held accountable for crimes against humanity",
+      "topic": "Nuremberg Trials",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Nuremberg Trials following World War II are most associated with",
       "choices": [
         "holding leading Nazis legally accountable for war crimes and crimes against humanity",
@@ -11934,6 +19566,18 @@
         "ending colonial rule in Asia"
       ],
       "correctText": "holding leading Nazis legally accountable for war crimes and crimes against humanity",
+      "topic": "Nuremberg Trials",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which best describes the Nuremberg principle established after WWII?",
+      "choices": [
+        "Soldiers cannot be punished for any orders they follow",
+        "Only nations may be punished for war crimes",
+        "Individuals can be held criminally responsible for crimes against humanity, even under government orders",
+        "Defeated nations lose all sovereignty"
+      ],
+      "correctText": "Individuals can be held criminally responsible for crimes against humanity, even under government orders",
       "topic": "Nuremberg Trials",
       "course": "global-10"
     },
@@ -11983,6 +19627,18 @@
       ],
       "correctText": "the German invasion of the Soviet Union",
       "topic": "Operation Barbarossa",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Opium Wars (1839-1860) ended with",
+      "choices": [
+        "a Chinese victory and expulsion of foreigners",
+        "the unification of China and Japan",
+        "unequal treaties forcing China to open ports and cede Hong Kong",
+        "the founding of the People's Republic of China"
+      ],
+      "correctText": "unequal treaties forcing China to open ports and cede Hong Kong",
+      "topic": "Opium Wars",
       "course": "global-10"
     },
     {
@@ -12046,6 +19702,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Which event signaled the end of British rule in Palestine?",
+      "choices": [
+        "The 1917 Balfour Declaration",
+        "The Berlin Conference",
+        "The Camp David Accords",
+        "The 1947 UN partition plan and 1948 British withdrawal"
+      ],
+      "correctText": "The 1947 UN partition plan and 1948 British withdrawal",
+      "topic": "Palestine/Israel",
+      "course": "global-10"
+    },
+    {
       "prompt": "The construction of the Panama Canal, completed in 1914, was important to the United States because it",
       "choices": [
         "allowed faster naval and commercial movement between the Atlantic and Pacific",
@@ -12067,6 +19735,30 @@
       ],
       "correctText": "weaken the growing Indian nationalist movement",
       "topic": "Partition of Bengal",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The 1947 division of the Indian subcontinent caused",
+      "choices": [
+        "a peaceful population transfer with no violence",
+        "an immediate war with China",
+        "one of the largest mass migrations and outbreaks of communal violence in history",
+        "the spread of communism in India"
+      ],
+      "correctText": "one of the largest mass migrations and outbreaks of communal violence in history",
+      "topic": "Partition of India",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The 1947 partition of British India created",
+      "choices": [
+        "one unified Hindu state",
+        "three new states under UN trusteeship",
+        "two new independent nations, India and Pakistan",
+        "a continuation of British rule"
+      ],
+      "correctText": "two new independent nations, India and Pakistan",
+      "topic": "Partition of India",
       "course": "global-10"
     },
     {
@@ -12106,6 +19798,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Pearl Harbor (December 7, 1941) brought which nation into World War II?",
+      "choices": [
+        "The United Kingdom",
+        "The Soviet Union",
+        "France",
+        "The United States"
+      ],
+      "correctText": "The United States",
+      "topic": "Pearl Harbor",
+      "course": "global-10"
+    },
+    {
       "prompt": "Gorbachev's policy of perestroika sought to",
       "choices": [
         "restructure the Soviet economy by introducing limited market reforms",
@@ -12126,6 +19830,18 @@
         "a religious organization advocating Sunni-Shia reconciliation"
       ],
       "correctText": "the principal political voice of Palestinian nationalism",
+      "topic": "PLO",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The PLO (Palestine Liberation Organization) under Yasser Arafat sought",
+      "choices": [
+        "the unification of all Arab states under Egyptian rule",
+        "a Palestinian homeland and self-determination",
+        "the dismantling of the Arab League",
+        "the spread of communism in the Middle East"
+      ],
+      "correctText": "a Palestinian homeland and self-determination",
       "topic": "PLO",
       "course": "global-10"
     },
@@ -12190,6 +19906,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "Which post-WWII change most reduced the dominance of European powers?",
+      "choices": [
+        "A return to Habsburg rule",
+        "The rise of the U.S. and USSR as superpowers and rapid decolonization",
+        "The unification of Europe in 1945",
+        "The British conquest of India"
+      ],
+      "correctText": "The rise of the U.S. and USSR as superpowers and rapid decolonization",
+      "topic": "Postwar World",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Potsdam Conference (July 1945) decided",
+      "choices": [
+        "the founding of the EU",
+        "the colonization of Africa",
+        "the start of the French Revolution",
+        "postwar boundaries, the denazification of Germany, and demands on Japan"
+      ],
+      "correctText": "postwar boundaries, the denazification of Germany, and demands on Japan",
+      "topic": "Potsdam Conference",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Potsdam Conference in July 1945",
       "choices": [
         "addressed the postwar treatment of Germany and issued an ultimatum demanding Japan's surrender",
@@ -12211,6 +19951,18 @@
       ],
       "correctText": "1949",
       "topic": "PRC founding",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The People's Republic of China was proclaimed in",
+      "choices": [
+        "1949",
+        "1911",
+        "1937",
+        "1976"
+      ],
+      "correctText": "1949",
+      "topic": "PRC Founding",
       "course": "global-10"
     },
     {
@@ -12262,6 +20014,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "Cold War proxy wars in Angola and Nicaragua were characterized by",
+      "choices": [
+        "direct combat between U.S. and Soviet troops",
+        "UN peacekeeping operations only",
+        "Chinese invasions",
+        "indirect superpower competition through local factions"
+      ],
+      "correctText": "indirect superpower competition through local factions",
+      "topic": "Proxy Wars",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The expansion of male suffrage across 19th-century Europe was most influenced by",
+      "choices": [
+        "the spread of Buddhist political thought",
+        "Catholic Counter-Reformation",
+        "Enlightenment ideas and the growing power of the middle class",
+        "the success of feudal estates"
+      ],
+      "correctText": "Enlightenment ideas and the growing power of the middle class",
+      "topic": "Reform Movements",
+      "course": "global-10"
+    },
+    {
       "prompt": "The German remilitarization of the Rhineland in 1936 violated",
       "choices": [
         "the Treaty of Versailles and the Locarno Pact",
@@ -12307,6 +20083,18 @@
       ],
       "correctText": "widespread warfare and migration associated with the rise of the Zulu",
       "topic": "Resistance / Mfecane",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which best describes the rise of China since 1980?",
+      "choices": [
+        "Economic stagnation under strict Maoist policy",
+        "Rapid economic growth and emergence as a major world power, while remaining a one-party state",
+        "Full transition to multiparty democracy",
+        "Withdrawal from world trade"
+      ],
+      "correctText": "Rapid economic growth and emergence as a major world power, while remaining a one-party state",
+      "topic": "Rise of China",
       "course": "global-10"
     },
     {
@@ -12382,6 +20170,78 @@
       "course": "global-10"
     },
     {
+      "prompt": "Lenin's slogan 'Peace, Land, and Bread' appealed most directly to",
+      "choices": [
+        "industrial capitalists",
+        "the Russian Orthodox clergy",
+        "soldiers, peasants, and workers",
+        "the Romanov royal family"
+      ],
+      "correctText": "soldiers, peasants, and workers",
+      "topic": "Russian Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Leon Trotsky was associated with which Russian revolutionary role?",
+      "choices": [
+        "Leader of the White Army",
+        "Organizer of the Red Army during the civil war",
+        "Tsarist prime minister",
+        "Founder of the Russian Orthodox Church"
+      ],
+      "correctText": "Organizer of the Red Army during the civil war",
+      "topic": "Russian Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Bolshevik Revolution of October 1917 was led by",
+      "choices": [
+        "Lenin",
+        "Stalin",
+        "Trotsky alone",
+        "Tsar Nicholas II"
+      ],
+      "correctText": "Lenin",
+      "topic": "Russian Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Russian Revolution of October 1917 was officially called the",
+      "choices": [
+        "February Revolution",
+        "Glorious Revolution",
+        "Cultural Revolution",
+        "Bolshevik or October Revolution"
+      ],
+      "correctText": "Bolshevik or October Revolution",
+      "topic": "Russian Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Tsar Nicholas II's rule in Russia ended with",
+      "choices": [
+        "his voluntary retirement",
+        "the February 1917 Revolution and his abdication",
+        "Russian victory in WWI",
+        "his coronation as Holy Roman Emperor"
+      ],
+      "correctText": "the February 1917 Revolution and his abdication",
+      "topic": "Russian Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Japan's victory in the Russo-Japanese War (1904-05) is historically significant because it",
+      "choices": [
+        "confirmed Russian dominance in Asia",
+        "ended Japanese imperial ambitions",
+        "led directly to World War II",
+        "was the first major modern military defeat of a European power by an Asian power"
+      ],
+      "correctText": "was the first major modern military defeat of a European power by an Asian power",
+      "topic": "Russo-Japanese War",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Rwandan genocide of 1994 was characterized by",
       "choices": [
         "mass killings of Tutsi by Hutu extremists",
@@ -12391,6 +20251,30 @@
       ],
       "correctText": "mass killings of Tutsi by Hutu extremists",
       "topic": "Rwandan genocide",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Rwandan Genocide of 1994 involved mass killings primarily of",
+      "choices": [
+        "Hutu by Tutsi extremists",
+        "Christians by Muslims",
+        "Tutsi by Hutu extremists",
+        "Europeans by Africans"
+      ],
+      "correctText": "Tutsi by Hutu extremists",
+      "topic": "Rwandan Genocide",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The SALT treaties of the 1970s aimed to",
+      "choices": [
+        "expand nuclear arsenals",
+        "promote free trade",
+        "limit strategic nuclear weapons",
+        "found the UN"
+      ],
+      "correctText": "limit strategic nuclear weapons",
+      "topic": "SALT",
       "course": "global-10"
     },
     {
@@ -12415,6 +20299,54 @@
       ],
       "correctText": "It involved fighting and devastation in Europe, Asia, Africa, the Pacific, and the Atlantic",
       "topic": "Scope of WWII",
+      "course": "global-10"
+    },
+    {
+      "prompt": "By 1914, the only two African nations to maintain meaningful independence were",
+      "choices": [
+        "Ethiopia and Liberia",
+        "Egypt and Algeria",
+        "Ghana and Mali",
+        "Morocco and Tunisia"
+      ],
+      "correctText": "Ethiopia and Liberia",
+      "topic": "Scramble for Africa",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The 1884-85 Berlin Conference is best known for",
+      "choices": [
+        "ending the Atlantic slave trade",
+        "creating the League of Nations",
+        "establishing the Suez Canal",
+        "dividing Africa among European powers without African input"
+      ],
+      "correctText": "dividing Africa among European powers without African input",
+      "topic": "Scramble for Africa",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Berlin Conference excluded the participation of",
+      "choices": [
+        "European colonial powers",
+        "African leaders themselves",
+        "the Ottoman Empire",
+        "the United States"
+      ],
+      "correctText": "African leaders themselves",
+      "topic": "Scramble for Africa",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which best describes the 'second industrial revolution' (c. 1870-1914)?",
+      "choices": [
+        "A revival of cottage industry",
+        "Advances in steel, chemicals, electricity, and internal combustion",
+        "A return to water power",
+        "The collapse of European trade"
+      ],
+      "correctText": "Advances in steel, chemicals, electricity, and internal combustion",
+      "topic": "Second Industrial Revolution",
       "course": "global-10"
     },
     {
@@ -12490,6 +20422,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Six-Day War (1967) resulted in",
+      "choices": [
+        "Egyptian conquest of Israel",
+        "Soviet occupation of Iran",
+        "the founding of the PLO",
+        "Israel taking control of the West Bank, Gaza, Sinai, and Golan Heights"
+      ],
+      "correctText": "Israel taking control of the West Bank, Gaza, Sinai, and Golan Heights",
+      "topic": "Six-Day War",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Six-Day War of 1967 resulted in Israel's occupation of",
       "choices": [
         "the Sinai Peninsula, West Bank, Gaza Strip, and Golan Heights",
@@ -12499,6 +20443,30 @@
       ],
       "correctText": "the Sinai Peninsula, West Bank, Gaza Strip, and Golan Heights",
       "topic": "Six-Day War",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Compared to Adam Smith, Karl Marx argued that",
+      "choices": [
+        "capitalism inherently exploits workers and produces class conflict",
+        "free markets distribute wealth fairly",
+        "monarchy is the best government",
+        "religion drives all history"
+      ],
+      "correctText": "capitalism inherently exploits workers and produces class conflict",
+      "topic": "Smith vs Marx",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Social Darwinism applied to international relations argued that",
+      "choices": [
+        "all peoples are biologically equal",
+        "trade benefits both partners equally",
+        "stronger races and nations are naturally entitled to dominate weaker ones",
+        "all nations should be neutral"
+      ],
+      "correctText": "stronger races and nations are naturally entitled to dominate weaker ones",
+      "topic": "Social Darwinism",
       "course": "global-10"
     },
     {
@@ -12562,6 +20530,42 @@
       "course": "global-10"
     },
     {
+      "prompt": "In what year was the dissolution of the USSR formally completed under Yeltsin and Gorbachev?",
+      "choices": [
+        "1991",
+        "1989",
+        "1990",
+        "1995"
+      ],
+      "correctText": "1991",
+      "topic": "Soviet Dissolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Soviet invasion of Afghanistan (1979) led to",
+      "choices": [
+        "a quick Soviet victory and stable Afghan government",
+        "an immediate U.S. invasion",
+        "a prolonged war against the mujahideen and Soviet withdrawal in 1989",
+        "the unification of Korea"
+      ],
+      "correctText": "a prolonged war against the mujahideen and Soviet withdrawal in 1989",
+      "topic": "Soviet-Afghan War",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Franco's victory in the Spanish Civil War (1939) brought to power a regime that was",
+      "choices": [
+        "communist",
+        "liberal democratic",
+        "authoritarian and aligned with fascism",
+        "monarchist constitutional"
+      ],
+      "correctText": "authoritarian and aligned with fascism",
+      "topic": "Spanish Civil War",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Spanish Civil War (1936–1939) is significant in interwar history because it",
       "choices": [
         "showed the willingness of fascist powers to intervene militarily while democracies hesitated",
@@ -12610,6 +20614,54 @@
       "course": "global-10"
     },
     {
+      "prompt": "Kulaks in Stalin's USSR were",
+      "choices": [
+        "wealthier peasants targeted for elimination during collectivization",
+        "urban factory workers",
+        "Russian Orthodox priests",
+        "members of the Politburo"
+      ],
+      "correctText": "wealthier peasants targeted for elimination during collectivization",
+      "topic": "Stalin",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Stalin's Five-Year Plans focused on",
+      "choices": [
+        "religious revival in the Soviet Union",
+        "free-market reforms",
+        "decentralizing political power",
+        "rapid industrialization and forced collectivization of agriculture"
+      ],
+      "correctText": "rapid industrialization and forced collectivization of agriculture",
+      "topic": "Stalin",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Stalin's Great Purge (1936-38) targeted",
+      "choices": [
+        "only foreign spies",
+        "only religious leaders",
+        "agricultural reforms",
+        "perceived rivals within the Communist Party, military, and society"
+      ],
+      "correctText": "perceived rivals within the Communist Party, military, and society",
+      "topic": "Stalin",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Soviet gulag system was",
+      "choices": [
+        "a network of free public schools",
+        "a vast system of forced labor camps for political prisoners",
+        "a religious pilgrimage network",
+        "a free press organization"
+      ],
+      "correctText": "a vast system of forced labor camps for political prisoners",
+      "topic": "Stalin",
+      "course": "global-10"
+    },
+    {
       "prompt": "Joseph Stalin came to power in the Soviet Union",
       "choices": [
         "before the October Revolution",
@@ -12642,6 +20694,18 @@
         "forced Britain out of the war"
       ],
       "correctText": "destroyed a German army and began a sustained Soviet advance westward",
+      "topic": "Stalingrad",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which event marked a major turning point in WWII on the Eastern Front, halting German advances?",
+      "choices": [
+        "The Battle of Stalingrad (1942-43)",
+        "The Battle of Midway",
+        "D-Day",
+        "The Battle of Britain"
+      ],
+      "correctText": "The Battle of Stalingrad (1942-43)",
       "topic": "Stalingrad",
       "course": "global-10"
     },
@@ -12694,6 +20758,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Suez Crisis (1956) involved",
+      "choices": [
+        "Israel, Britain, and France invading Egypt after the nationalization of the Suez Canal",
+        "a Soviet invasion of Egypt",
+        "an American invasion of Sudan",
+        "a Chinese intervention in Africa"
+      ],
+      "correctText": "Israel, Britain, and France invading Egypt after the nationalization of the Suez Canal",
+      "topic": "Suez Crisis",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which 19th-century reform was most associated with the suffrage movement?",
+      "choices": [
+        "Restoring divine right of kings",
+        "Ending all public schools",
+        "Expanding the right to vote, eventually including women",
+        "Banning trade unions"
+      ],
+      "correctText": "Expanding the right to vote, eventually including women",
+      "topic": "Suffrage",
+      "course": "global-10"
+    },
+    {
       "prompt": "Sun Yat-sen is best known for",
       "choices": [
         "leading the 1911 Revolution that ended the Qing Dynasty",
@@ -12703,6 +20791,30 @@
       ],
       "correctText": "leading the 1911 Revolution that ended the Qing Dynasty",
       "topic": "Sun Yat-sen / Chinese Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Sykes-Picot Agreement (1916) secretly planned",
+      "choices": [
+        "an alliance between Russia and Germany",
+        "the division of the Ottoman Middle East between Britain and France",
+        "the partition of Africa",
+        "the creation of the United Nations"
+      ],
+      "correctText": "the division of the Ottoman Middle East between Britain and France",
+      "topic": "Sykes-Picot",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Syrian Civil War (starting 2011) developed from",
+      "choices": [
+        "an Israeli invasion",
+        "Arab Spring protests against the Assad regime",
+        "a Soviet coup",
+        "an Iranian-Saudi war"
+      ],
+      "correctText": "Arab Spring protests against the Assad regime",
+      "topic": "Syrian Civil War",
       "course": "global-10"
     },
     {
@@ -12727,6 +20839,18 @@
       ],
       "correctText": "causing massive loss of life and disrupting Qing authority",
       "topic": "Taiping Rebellion",
+      "course": "global-10"
+    },
+    {
+      "prompt": "After 1949, Taiwan was governed by",
+      "choices": [
+        "the Nationalist (Kuomintang) government under Chiang Kai-shek",
+        "the Communist Party led by Mao",
+        "a Soviet-backed regime",
+        "Japan"
+      ],
+      "correctText": "the Nationalist (Kuomintang) government under Chiang Kai-shek",
+      "topic": "Taiwan",
       "course": "global-10"
     },
     {
@@ -12790,6 +20914,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Tiananmen Square protests of 1989 ended with",
+      "choices": [
+        "a peaceful negotiated democratic transition",
+        "a violent military crackdown against pro-democracy demonstrators",
+        "the fall of the Communist Party",
+        "the unification of China and Taiwan"
+      ],
+      "correctText": "a violent military crackdown against pro-democracy demonstrators",
+      "topic": "Tiananmen Square",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Tokyo war crimes trials after World War II",
       "choices": [
         "prosecuted Japanese military and political leaders for crimes committed during the war",
@@ -12799,6 +20935,18 @@
       ],
       "correctText": "prosecuted Japanese military and political leaders for crimes committed during the war",
       "topic": "Tokyo Trials",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Total war during WWI meant that",
+      "choices": [
+        "only professional soldiers were involved",
+        "fighting was limited to colonial territories",
+        "entire societies and economies were mobilized for the war effort",
+        "warfare ended quickly with low costs"
+      ],
+      "correctText": "entire societies and economies were mobilized for the war effort",
+      "topic": "Total War",
       "course": "global-10"
     },
     {
@@ -12850,6 +20998,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Comparing Stalin, Hitler, and Mussolini, a common feature of all three was",
+      "choices": [
+        "use of propaganda, secret police, and one-party rule",
+        "respect for free elections",
+        "support for free-market capitalism",
+        "promotion of religious pluralism"
+      ],
+      "correctText": "use of propaganda, secret police, and one-party rule",
+      "topic": "Totalitarianism Comparative",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Treaty of Brest-Litovsk (1918) was significant because it",
       "choices": [
         "ended World War I for all combatants",
@@ -12862,6 +21022,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The 'War Guilt Clause' (Article 231) of the Treaty of Versailles",
+      "choices": [
+        "blamed all sides equally for the war",
+        "placed full responsibility for the war on Germany and her allies",
+        "blamed the Ottoman Empire alone",
+        "exonerated all parties"
+      ],
+      "correctText": "placed full responsibility for the war on Germany and her allies",
+      "topic": "Treaty of Versailles",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Treaty of Versailles contributed to political instability in Germany primarily because it",
       "choices": [
         "restored the Hohenzollern monarchy",
@@ -12870,6 +21042,18 @@
         "permitted Germany to rearm without limits"
       ],
       "correctText": "imposed harsh reparations and a war-guilt clause on Germany",
+      "topic": "Treaty of Versailles",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Treaty of Versailles required Germany to",
+      "choices": [
+        "annex Belgium and Poland",
+        "join the Bolshevik government",
+        "pay heavy reparations and accept territorial losses",
+        "host the League of Nations headquarters"
+      ],
+      "correctText": "pay heavy reparations and accept territorial losses",
       "topic": "Treaty of Versailles",
       "course": "global-10"
     },
@@ -12922,6 +21106,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Truman Doctrine (1947) committed the United States to",
+      "choices": [
+        "isolationism",
+        "rapid disarmament",
+        "containing the spread of communism",
+        "a return to mercantilism"
+      ],
+      "correctText": "containing the spread of communism",
+      "topic": "Truman Doctrine",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Truman Doctrine of 1947 committed the United States to a policy of",
       "choices": [
         "unconditional disarmament of former Axis powers",
@@ -12943,6 +21139,18 @@
       ],
       "correctText": "Greece and Turkey",
       "topic": "Truman Doctrine",
+      "course": "global-10"
+    },
+    {
+      "prompt": "South Africa's Truth and Reconciliation Commission (1995-2002) was led by",
+      "choices": [
+        "F.W. de Klerk",
+        "Robert Mugabe",
+        "Patrice Lumumba",
+        "Desmond Tutu"
+      ],
+      "correctText": "Desmond Tutu",
+      "topic": "Truth and Reconciliation",
       "course": "global-10"
     },
     {
@@ -13006,6 +21214,30 @@
       "course": "global-10"
     },
     {
+      "prompt": "Which international body grew out of WWII to promote peace and human rights?",
+      "choices": [
+        "The League of Nations",
+        "The Warsaw Pact",
+        "The United Nations",
+        "The European Union"
+      ],
+      "correctText": "The United Nations",
+      "topic": "United Nations",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The UN Universal Declaration of Human Rights (1948) was largely shaped by",
+      "choices": [
+        "Eleanor Roosevelt",
+        "Karl Marx",
+        "Joseph Stalin",
+        "Adolf Hitler"
+      ],
+      "correctText": "Eleanor Roosevelt",
+      "topic": "Universal Declaration of Human Rights",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Universal Declaration of Human Rights (1948) was a postwar effort to",
       "choices": [
         "establish a common standard of fundamental rights for all peoples in the wake of WWII atrocities",
@@ -13054,6 +21286,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Queen Victoria's long reign (1837-1901) is most associated with",
+      "choices": [
+        "the decline of the British Empire",
+        "the loss of all British colonies",
+        "the Russian Revolution",
+        "the height of British industrial and imperial power"
+      ],
+      "correctText": "the height of British industrial and imperial power",
+      "topic": "Victorian Era",
+      "course": "global-10"
+    },
+    {
       "prompt": "Ngo Dinh Diem, supported by the United States, served as the leader of",
       "choices": [
         "North Vietnam",
@@ -13075,6 +21319,18 @@
       ],
       "correctText": "the withdrawal of remaining United States combat forces from Vietnam",
       "topic": "Vietnam War",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Wannsee Conference (1942) is significant because there Nazi officials",
+      "choices": [
+        "coordinated plans for the systematic extermination of European Jews",
+        "surrendered to the Allies",
+        "negotiated peace with Stalin",
+        "established the United Nations"
+      ],
+      "correctText": "coordinated plans for the systematic extermination of European Jews",
+      "topic": "Wannsee Conference",
       "course": "global-10"
     },
     {
@@ -13126,6 +21382,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The Warsaw Pact (1955) was",
+      "choices": [
+        "an Atlantic free trade agreement",
+        "a UN human rights treaty",
+        "a Soviet-led military alliance of Eastern European communist states",
+        "a Catholic council"
+      ],
+      "correctText": "a Soviet-led military alliance of Eastern European communist states",
+      "topic": "Warsaw Pact",
+      "course": "global-10"
+    },
+    {
       "prompt": "The Warsaw Pact, established in 1955, was the Soviet Union's response to",
       "choices": [
         "the founding of the United Nations",
@@ -13174,6 +21442,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "Wilson's Fourteen Points (1918) called for all of the following EXCEPT",
+      "choices": [
+        "harsh punishment and dismemberment of Germany",
+        "self-determination of peoples",
+        "open diplomacy",
+        "freedom of the seas"
+      ],
+      "correctText": "harsh punishment and dismemberment of Germany",
+      "topic": "Wilson's Fourteen Points",
+      "course": "global-10"
+    },
+    {
       "prompt": "The 1939 Soviet attack on Finland (the \"Winter War\") demonstrated that",
       "choices": [
         "Stalin's USSR was willing to expand militarily in addition to negotiating with Hitler",
@@ -13198,6 +21478,18 @@
       "course": "global-10"
     },
     {
+      "prompt": "The World Trade Organization (WTO), founded in 1995, primarily",
+      "choices": [
+        "sets international human rights standards",
+        "oversees global elections",
+        "leads UN peacekeeping missions",
+        "regulates and promotes international trade among member states"
+      ],
+      "correctText": "regulates and promotes international trade among member states",
+      "topic": "WTO",
+      "course": "global-10"
+    },
+    {
       "prompt": "The World Trade Organization (WTO), established in 1995, was created primarily to",
       "choices": [
         "promote and regulate global trade among member states",
@@ -13219,6 +21511,42 @@
       ],
       "correctText": "Russia's poor performance in the war intensified discontent and contributed to revolution",
       "topic": "WWI and Russian Revolution",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Germany's pre-WWI Schlieffen Plan was designed in order to",
+      "choices": [
+        "invade Russia first through Poland",
+        "blockade British shipping with U-boats",
+        "form an alliance with the Ottoman Empire",
+        "defeat France quickly then turn east against Russia"
+      ],
+      "correctText": "defeat France quickly then turn east against Russia",
+      "topic": "WWI Military Strategy",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Which weapon was first used on a large scale in World War I?",
+      "choices": [
+        "Atomic bombs",
+        "Poison gas and machine guns",
+        "Cruise missiles",
+        "Stealth aircraft"
+      ],
+      "correctText": "Poison gas and machine guns",
+      "topic": "WWI New Weapons",
+      "course": "global-10"
+    },
+    {
+      "prompt": "Trench warfare on the Western Front led to",
+      "choices": [
+        "a costly stalemate with enormous casualties",
+        "quick mobile breakthroughs",
+        "the end of all infantry warfare",
+        "rapid Russian advances into Berlin"
+      ],
+      "correctText": "a costly stalemate with enormous casualties",
+      "topic": "WWI Trench Warfare",
       "course": "global-10"
     },
     {
@@ -13255,6 +21583,30 @@
       ],
       "correctText": "sabotaged German operations and gathered intelligence for the Allies",
       "topic": "WWII Resistance",
+      "course": "global-10"
+    },
+    {
+      "prompt": "At Yalta, the Allied leaders agreed to",
+      "choices": [
+        "restore the Romanov dynasty",
+        "let Hitler retain power in Bavaria",
+        "divide postwar Germany into occupation zones and hold free elections in liberated Europe",
+        "ban the use of atomic weapons forever"
+      ],
+      "correctText": "divide postwar Germany into occupation zones and hold free elections in liberated Europe",
+      "topic": "Yalta Conference",
+      "course": "global-10"
+    },
+    {
+      "prompt": "The Yalta Conference (February 1945) included",
+      "choices": [
+        "Hitler, Mussolini, and Hirohito",
+        "Roosevelt, Churchill, and Stalin",
+        "Truman, Attlee, and Stalin",
+        "Wilson, Clemenceau, and Lloyd George"
+      ],
+      "correctText": "Roosevelt, Churchill, and Stalin",
+      "topic": "Yalta Conference",
       "course": "global-10"
     },
     {

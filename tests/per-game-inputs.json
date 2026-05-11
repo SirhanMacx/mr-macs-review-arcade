@@ -1,0 +1,53 @@
+{
+  "_doc": "Per-game input strategies for the playable-smoke harness. type='keyboard' presses keys at the given interval (ms). type='canvas-click' simulates random clicks inside the canvas bounding box.",
+  "step-pyramid": {
+    "type": "keyboard",
+    "keys": ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " ", "Enter"],
+    "intervalMs": 240
+  },
+  "sokoban-scribe": {
+    "type": "keyboard",
+    "keys": ["ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Enter"],
+    "intervalMs": 280
+  },
+  "mahjong-mosaic": {
+    "type": "canvas-click",
+    "canvasSelector": "#mosaicCanvas",
+    "intervalMs": 380
+  },
+  "chess-cabinet": {
+    "type": "canvas-click",
+    "canvasSelector": "#cabinetCanvas",
+    "intervalMs": 420
+  },
+  "bomb-scribe": {
+    "type": "keyboard",
+    "keys": ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " ", "Enter"],
+    "intervalMs": 260
+  },
+  "sudoku-scribe": {
+    "type": "keyboard",
+    "keys": ["ArrowRight", "ArrowDown", "1", "2", "3", "ArrowLeft", "4", "5", "ArrowUp", "Enter"],
+    "intervalMs": 280
+  },
+  "snake-pit": {
+    "type": "keyboard",
+    "keys": ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft", " "],
+    "intervalMs": 180
+  },
+  "brickoria": {
+    "type": "keyboard",
+    "keys": ["ArrowLeft", "ArrowRight", " ", "ArrowLeft", "ArrowRight", " "],
+    "intervalMs": 150
+  },
+  "atlas-2048": {
+    "type": "keyboard",
+    "keys": ["ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp"],
+    "intervalMs": 320
+  },
+  "stellar-drift": {
+    "type": "keyboard",
+    "keys": ["ArrowLeft", "ArrowRight", "ArrowUp", " "],
+    "intervalMs": 160
+  }
+}

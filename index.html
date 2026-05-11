@@ -76,7 +76,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-batch-final">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-hub-restructure">
 <style>
 :root {
   color-scheme: dark;
@@ -8558,6 +8558,24 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 
 <main class="shell" id="main">
 
+  <!-- ═══════════════════════════════════════════════════════════════════
+       FEATURED 10 — flagship grid (May 11 2026 hub restructure)
+       Surface the 10 strongest games up front (6 master games + 4
+       recently-polished GOOD-tier titles). The other 68 games live
+       behind the "More Games" drawer below the library. Cards are
+       data-driven (rendered from GAMES by renderFeatured10()).
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="band featured-10-band" id="featured-10" aria-label="Featured 10 flagship games">
+    <div class="band-head reveal">
+      <div>
+        <div class="band-eyebrow">Featured 10</div>
+        <h2 class="band-title">Top <em>10 games</em>.</h2>
+        <p class="band-sub">Best of the arcade — flagship review games, polished and ready to play.</p>
+      </div>
+    </div>
+    <div class="featured-10" id="featured10Grid" role="list" aria-label="Featured 10 games"></div>
+  </section>
+
   <!-- Next Best Action band — small dynamic pill recommending the
        highest-priority action based on profile state. Hidden on first
        render; populated by renderNextBestAction(). -->
@@ -8933,47 +8951,62 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     </div>
   </section>
 
-  <section class="band library-band" id="library" aria-label="Game library">
-    <div class="band-head library-head reveal">
-      <div>
-        <div class="band-eyebrow">Review Library</div>
-        <h2 class="band-title">Every <em>mission</em>, one search.</h2>
-        <p class="band-sub">Search every game, Jeopardy board, and practice set.</p>
+  <!-- ═══════════════════════════════════════════════════════════════════
+       MORE GAMES DRAWER (May 11 2026 hub restructure)
+       The Featured 10 (above) is the front-door surface. The full
+       library lives inside this closed-by-default <details> drawer.
+       Cabinet menu folders + practice/featured/courses bands also live
+       below this drawer for power-users who expand it.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <details class="more-games-drawer" id="moreGamesDrawer">
+    <summary class="more-games-summary">
+      <span class="mgd-icon" aria-hidden="true">📂</span>
+      <span class="mgd-label">More Games (68)</span>
+      <span class="mgd-sub">— including AP/Regents/grade-level practice</span>
+      <span class="mgd-chev" aria-hidden="true">▼</span>
+    </summary>
+    <section class="band library-band" id="library" aria-label="Game library">
+      <div class="band-head library-head reveal">
+        <div>
+          <div class="band-eyebrow">Review Library</div>
+          <h2 class="band-title">Every <em>mission</em>, one search.</h2>
+          <p class="band-sub">Search every game, Jeopardy board, and practice set.</p>
+        </div>
+        <div class="library-meta">
+          <span class="count-pill" id="countLabel"></span>
+          <button class="library-random" id="libraryRandom" type="button" aria-label="Open a random game">
+            <span class="lr-icon" aria-hidden="true">🎲</span>
+            <span class="lr-text">Random</span>
+          </button>
+        </div>
       </div>
-      <div class="library-meta">
-        <span class="count-pill" id="countLabel"></span>
-        <button class="library-random" id="libraryRandom" type="button" aria-label="Open a random game">
-          <span class="lr-icon" aria-hidden="true">🎲</span>
-          <span class="lr-text">Random</span>
-        </button>
+      <div class="quick-filter-chips" role="toolbar" aria-label="Quick filters">
+        <button class="qfc-chip" data-quick-filter="unplayed" aria-pressed="false">🆕 Unplayed</button>
+        <button class="qfc-chip" data-quick-filter="scholar" aria-pressed="false">🏆 Scholar Prompts</button>
+        <button class="qfc-chip" data-quick-filter="mobile" aria-pressed="false">📱 Mobile Friendly</button>
+        <button class="qfc-chip" data-quick-filter="quick" aria-pressed="false">⏱ Quick Play</button>
       </div>
-    </div>
-    <div class="quick-filter-chips" role="toolbar" aria-label="Quick filters">
-      <button class="qfc-chip" data-quick-filter="unplayed" aria-pressed="false">🆕 Unplayed</button>
-      <button class="qfc-chip" data-quick-filter="scholar" aria-pressed="false">🏆 Scholar Prompts</button>
-      <button class="qfc-chip" data-quick-filter="mobile" aria-pressed="false">📱 Mobile Friendly</button>
-      <button class="qfc-chip" data-quick-filter="quick" aria-pressed="false">⏱ Quick Play</button>
-    </div>
-    <div class="lane-tabs reveal" id="laneTabs" aria-label="Library shortcuts"></div>
-    <div class="topic-chips reveal" id="topicChips" aria-label="Quick topic filters" hidden></div>
-    <section class="filters reveal" aria-label="Game filters">
-      <input class="field search" id="search" type="search" autocomplete="off" placeholder="Search civil rights · imperialism · cold war · memory…" aria-label="Search games">
-      <select class="field" id="courseFilter"></select>
-      <select class="field" id="subjectFilter"></select>
-      <select class="field" id="typeFilter"></select>
-      <select class="field" id="sortFilter">
-        <option value="priority">Sort: Featured</option>
-        <option value="newest">Sort: Newest</option>
-        <option value="course">Sort: Course</option>
-        <option value="title">Sort: Title</option>
-        <option value="type">Sort: Game Type</option>
-      </select>
+      <div class="lane-tabs reveal" id="laneTabs" aria-label="Library shortcuts"></div>
+      <div class="topic-chips reveal" id="topicChips" aria-label="Quick topic filters" hidden></div>
+      <section class="filters reveal" aria-label="Game filters">
+        <input class="field search" id="search" type="search" autocomplete="off" placeholder="Search civil rights · imperialism · cold war · memory…" aria-label="Search games">
+        <select class="field" id="courseFilter"></select>
+        <select class="field" id="subjectFilter"></select>
+        <select class="field" id="typeFilter"></select>
+        <select class="field" id="sortFilter">
+          <option value="priority">Sort: Featured</option>
+          <option value="newest">Sort: Newest</option>
+          <option value="course">Sort: Course</option>
+          <option value="title">Sort: Title</option>
+          <option value="type">Sort: Game Type</option>
+        </select>
+      </section>
+      <div class="library-grid" id="grid"></div>
+      <div class="library-actions" id="libraryActions" hidden>
+        <button class="action compact" id="showAllLibraryBtn" type="button">Show All Games</button>
+      </div>
     </section>
-    <div class="library-grid" id="grid"></div>
-    <div class="library-actions" id="libraryActions" hidden>
-      <button class="action compact" id="showAllLibraryBtn" type="button">Show All Games</button>
-    </div>
-  </section>
+  </details>
 
 </main>
 
@@ -9814,6 +9847,60 @@ function renderHeroConsole() {
   }).join("");
   grid.querySelectorAll(".console-launch").forEach((button) => {
     button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
+  });
+}
+
+// ============== Featured 10 grid (May 11 2026 hub restructure) ==============
+// Renders the 10 flagship games up front. Fixed list = 6 master games + 4
+// recently-polished GOOD-tier titles. Order preserved as-given. Falls back
+// gracefully if any id is missing from GAMES (skips, never crashes).
+const FEATURED_10_IDS = [
+  "step-pyramid",
+  "sokoban-scribe",
+  "mahjong-mosaic",
+  "chess-cabinet",
+  "bomb-scribe",
+  "sudoku-scribe",
+  "snake-pit",
+  "brickoria",
+  "atlas-2048",
+  "stellar-drift"
+];
+
+function renderFeatured10() {
+  const host = document.getElementById("featured10Grid");
+  if (!host) return;
+  const picks = FEATURED_10_IDS
+    .map((id) => GAMES.find((g) => g.id === id))
+    .filter(Boolean);
+  if (picks.length === 0) {
+    host.hidden = true;
+    return;
+  }
+  host.innerHTML = picks.map((game, index) => {
+    const accent = accentFor(game);
+    const art = cssUrlForAttr(thumbnailFor(game));
+    const stdChip = standardsChip(game);
+    const stdLabel = stdChip || (game.course === "All Courses" ? "Cross-Curricular" : game.course);
+    const subtitle = cardSubtitle(game) || (game.subtitle || "");
+    return '<button class="game-card f10-card" type="button" role="listitem"' +
+      ' style="--accent:' + accent + ';--card-art:' + art + ';--i:' + index + '"' +
+      ' data-id="' + escapeHtml(game.id) + '"' +
+      ' aria-label="Play ' + escapeHtml(game.title) + '">' +
+      '<span class="f10-rank">' + String(index + 1).padStart(2, '0') + '</span>' +
+      '<span class="f10-std" title="Standards alignment">' + escapeHtml(stdLabel) + '</span>' +
+      '<div class="f10-body">' +
+        '<h3 class="f10-title">' + escapeHtml(game.title) + '</h3>' +
+        '<p class="f10-sub">' + escapeHtml(subtitle) + '</p>' +
+      '</div>' +
+      '<div class="f10-foot">' +
+        '<span class="f10-meta">' + escapeHtml(displayGameType(game)) + '</span>' +
+        '<span class="f10-cta">&#9654; PLAY</span>' +
+      '</div>' +
+    '</button>';
+  }).join("");
+  host.querySelectorAll(".f10-card").forEach((button) => {
+    button.addEventListener("click", () => openGame(GAMES.find((g) => g.id === button.dataset.id)));
   });
 }
 
@@ -10992,6 +11079,7 @@ async function boot() {
     renderMasteryModes();
     renderPracticeModes();
     renderFeatured();
+    renderFeatured10();
     renderHeroConsole();
     renderProgressReport();
     renderSmartMenu();

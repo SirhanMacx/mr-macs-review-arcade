@@ -261,15 +261,20 @@ kbd {
 .wave-name {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: 16px;
+  font-size: 11px;
   color: var(--gold);
   transition: color .6s var(--ease), text-shadow .6s var(--ease);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 55vw;
 }
 .wave-meta {
   font-family: 'JetBrains Mono', monospace;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 10px;
   margin-left: 4px;
+  white-space: nowrap;
 }
 
 /* Power-up tray */
@@ -765,7 +770,9 @@ kbd {
   .hud-stats { order: 3; flex-basis: 100%; justify-content: space-around; }
   .stat-cell { min-width: 52px; padding: 3px 8px; }
   .stat-value { font-size: 15px; }
-  .wave-ribbon { top: 110px; }
+  .wave-ribbon { top: 152px; max-width: calc(100vw - 16px); padding: 5px 12px; gap: 8px; }
+  .wave-name { max-width: 52vw; font-size: 10px; }
+  .wave-meta { font-size: 9px; }
 }
 
 /* End screen grid */

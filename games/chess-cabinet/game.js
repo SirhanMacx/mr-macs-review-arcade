@@ -2359,19 +2359,16 @@
   
   
   // ── Difficulty selector ────────────────────────────────────────
+  // Chess Cabinet uses its own AI-specific tier UI (Easy/Normal/Hard/Expert
+  // mapping to AI search depth) defined in index.html. We register with the
+  // shared MrMacsDifficulty system for compatibility with arcade-wide
+  // analytics/leaderboards but do NOT mount a duplicate selector — the
+  // hardcoded .difficulty-row above is the canonical chess tier picker.
+  // (May 11 2026 polish pass: removed duplicate mountSelector which caused
+  // setup-screen overflow at 390×844 and 375×667 viewports.)
   try {
     if (window.MrMacsDifficulty) {
       MrMacsDifficulty.register("chess-cabinet");
-      var _diffSetupCard = document.querySelector("#setupScreen .setup-card");
-      if (_diffSetupCard) {
-        var _diffHost = document.createElement("div");
-        _diffHost.className = "difficulty-host";
-        _diffHost.style.cssText = "margin: 12px 0 6px;";
-        var _diffActions = _diffSetupCard.querySelector(".setup-actions");
-        if (_diffActions) _diffSetupCard.insertBefore(_diffHost, _diffActions);
-        else _diffSetupCard.appendChild(_diffHost);
-        MrMacsDifficulty.mountSelector(_diffHost, "chess-cabinet", { compact: false });
-      }
     }
   } catch (e) {}
 

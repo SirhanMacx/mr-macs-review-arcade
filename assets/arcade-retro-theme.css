@@ -2227,3 +2227,593 @@ body[data-game-page] .arcade-toast[data-tone="warn"] {
   max-width: 260px !important;
   z-index: 9500 !important;
 }
+
+/* ===========================================================================
+   41. CANONICAL ARCADE TYPOGRAPHY — May 11 2026 (v21 visual overhaul)
+   ===========================================================================
+   Jon: "i also noticed a different font in some of the games. it breaks the
+   arcade feel. should all be same arcade font."
+
+   The audit found 55 per-game styles.css files declaring non-arcade fonts:
+   Fraunces, Inter, JetBrains Mono, Rajdhani, Bungee, Cormorant. The arcade
+   identity demands ONLY two faces:
+
+     - "Press Start 2P"  →  titles, brand, marquee, headlines, h1/h2/h3
+     - "VT323"           →  HUD numerics, body, descriptive prose, mono
+
+   This section enforces that palette by overriding every per-game declaration
+   with !important. Loaded last (see <link> order in each game/index.html),
+   it wins specificity ties. The body[data-game-page] qualifier matches the
+   root <body data-game-page="1"> on every game (hub is left untouched here
+   since it has its own typography baseline earlier in this stylesheet).
+
+   We also strip excessive visual layers on mobile (Jon: "visual layering looks
+   amateur — too many fonts/effects fighting on mobile") by hiding scanlines,
+   the CRT boot sequence inside games, and dimming the marquee chase-lights.
+   =========================================================================== */
+
+/* ---- 41a. Universal body/html font baseline inside games -------------- */
+body[data-game-page],
+body[data-game-page] html,
+body[data-game-page] main,
+body[data-game-page] section,
+body[data-game-page] article,
+body[data-game-page] aside,
+body[data-game-page] header,
+body[data-game-page] footer,
+body[data-game-page] nav,
+body[data-game-page] div,
+body[data-game-page] p,
+body[data-game-page] span,
+body[data-game-page] li,
+body[data-game-page] dd,
+body[data-game-page] dt,
+body[data-game-page] td,
+body[data-game-page] th,
+body[data-game-page] label,
+body[data-game-page] button,
+body[data-game-page] input,
+body[data-game-page] select,
+body[data-game-page] textarea,
+body[data-game-page] a {
+  font-family: 'VT323', 'Press Start 2P', ui-monospace, monospace !important;
+  letter-spacing: 0 !important;
+}
+
+/* ---- 41b. Display/title surfaces → Press Start 2P --------------------- */
+body[data-game-page] h1,
+body[data-game-page] h2,
+body[data-game-page] h3,
+body[data-game-page] h4,
+body[data-game-page] .brand-title,
+body[data-game-page] .brand-prefix,
+body[data-game-page] .brand-suffix,
+body[data-game-page] .brand-text strong,
+body[data-game-page] .marquee,
+body[data-game-page] .marquee-text,
+body[data-game-page] .game-marquee,
+body[data-game-page] .game-marquee span,
+body[data-game-page] .setup-card h1,
+body[data-game-page] .setup-card h2,
+body[data-game-page] .question-card h1,
+body[data-game-page] .question-card h2,
+body[data-game-page] .help-card h1,
+body[data-game-page] .help-card h2,
+body[data-game-page] .end-card h1,
+body[data-game-page] .end-card h2,
+body[data-game-page] .wave-name,
+body[data-game-page] .popup-text,
+body[data-game-page] .crt-boot-line-1,
+body[data-game-page] .crt-boot-brand,
+body[data-game-page] [class*="display"],
+body[data-game-page] [class*="-display"],
+body[data-game-page] [class*="headline"],
+body[data-game-page] [class*="-headline"],
+body[data-game-page] [class*="title"]:not(.brand-text):not(.subtitle),
+body[data-game-page] [class*="-title"] {
+  font-family: 'Press Start 2P', ui-monospace, monospace !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* ---- 41c. Numerics / HUDs / mono / badges → VT323 --------------------- */
+body[data-game-page] .hud-stats,
+body[data-game-page] .hud-stats *,
+body[data-game-page] .stat-value,
+body[data-game-page] .stat-label,
+body[data-game-page] .stat-cell,
+body[data-game-page] .stat-cell *,
+body[data-game-page] .hud-meta,
+body[data-game-page] .hud-meta *,
+body[data-game-page] .badge-value,
+body[data-game-page] .mono,
+body[data-game-page] kbd,
+body[data-game-page] code,
+body[data-game-page] pre,
+body[data-game-page] samp,
+body[data-game-page] tt,
+body[data-game-page] [class*="numeric"],
+body[data-game-page] [class*="-numeric"],
+body[data-game-page] [class*="counter"],
+body[data-game-page] [class*="-counter"],
+body[data-game-page] [class*="score"],
+body[data-game-page] [class*="-score"],
+body[data-game-page] [class*="timer"],
+body[data-game-page] [class*="-timer"],
+body[data-game-page] [class*="hud"],
+body[data-game-page] [class*="-hud"],
+body[data-game-page] [class*="meta"]:not([class*="meter"]),
+body[data-game-page] [class*="-meta"]:not([class*="-meter"]) {
+  font-family: 'VT323', ui-monospace, monospace !important;
+  letter-spacing: 0 !important;
+}
+
+/* ---- 41d. Body / explanatory prose → VT323 ---------------------------- */
+body[data-game-page] .setup-sub,
+body[data-game-page] .setup-sub *,
+body[data-game-page] .key-hints,
+body[data-game-page] .key-hints *,
+body[data-game-page] .end-grid,
+body[data-game-page] .end-grid *,
+body[data-game-page] .end-cell,
+body[data-game-page] .end-cell *,
+body[data-game-page] .help-card p,
+body[data-game-page] .help-card h3,
+body[data-game-page] .help-card li,
+body[data-game-page] .question-text,
+body[data-game-page] .answer-text,
+body[data-game-page] .choice-text,
+body[data-game-page] .brand-sub,
+body[data-game-page] .wave-meta,
+body[data-game-page] .ribbon,
+body[data-game-page] .ribbon *,
+body[data-game-page] [class*="body"],
+body[data-game-page] [class*="-body"],
+body[data-game-page] [class*="copy"],
+body[data-game-page] [class*="-copy"],
+body[data-game-page] [class*="prose"],
+body[data-game-page] [class*="-prose"],
+body[data-game-page] [class*="text"]:not([class*="textarea"]):not([class*="text-area"]) {
+  font-family: 'VT323', ui-monospace, monospace !important;
+}
+
+/* ---- 41e. Force-kill explicit non-arcade font declarations ------------
+   These selectors target the *literal* declarations the per-game styles.css
+   files made. Most cascade is handled by 41a–41d, but a couple of games use
+   exotic class names (`.game-headline`, `.score-flash`, etc.) that we
+   pre-empt here. Combined with !important at the parent-attribute level,
+   anything inside <body data-game-page> that tried to set Fraunces/Inter/
+   Rajdhani/Bungee/Cormorant will be neutralized.
+   --------------------------------------------------------------------- */
+body[data-game-page] :where(*) {
+  /* Default fallback inside every descendant — Press Start 2P or VT323 only.
+     `:where()` keeps specificity 0 so the more specific rules above still win.
+     This catches anything we didn't enumerate. */
+  font-family: 'VT323', 'Press Start 2P', ui-monospace, monospace;
+}
+
+/* Belt-and-suspenders: any element whose inline or computed font ended up
+   as one of the banned families gets a hard reset. We use attribute-style
+   targeting via class name patterns the offending stylesheets commonly use. */
+body[data-game-page] [style*="Fraunces"],
+body[data-game-page] [style*="Inter,"],
+body[data-game-page] [style*="Inter "],
+body[data-game-page] [style*="'Inter'"],
+body[data-game-page] [style*="Rajdhani"],
+body[data-game-page] [style*="Bungee"],
+body[data-game-page] [style*="Cormorant"],
+body[data-game-page] [style*="JetBrains"] {
+  font-family: 'VT323', ui-monospace, monospace !important;
+}
+
+/* Buttons sometimes inherit Inter via per-game --font-ui custom property.
+   Clobber the variable inside game pages so anything referencing it falls
+   back into the arcade stack. */
+body[data-game-page] {
+  --font-ui: 'VT323', ui-monospace, monospace !important;
+  --font-display: 'Press Start 2P', ui-monospace, monospace !important;
+  --font-mono: 'VT323', ui-monospace, monospace !important;
+  --font-serif: 'Press Start 2P', ui-monospace, monospace !important;
+  --font-body: 'VT323', ui-monospace, monospace !important;
+}
+
+/* ---- 41f. Visual-layer strip on mobile ------------------------------- */
+@media (max-width: 600px) {
+  /* Scanlines kill contrast on phones — Jon flagged this. */
+  body[data-game-page] .scanline-overlay,
+  body[data-game-page] [data-scanline-overlay],
+  body[data-game-page] .crt-scanlines {
+    display: none !important;
+  }
+  /* Marquee chase-lights — dim and slow on phones (kept visible since it's
+     part of the arcade brand but the strobe was too aggressive). */
+  body[data-game-page] .game-marquee {
+    animation-duration: 8s !important;
+    opacity: 0.85 !important;
+    filter: saturate(0.7) brightness(0.9) !important;
+  }
+  body[data-game-page] .game-marquee::before,
+  body[data-game-page] .game-marquee::after {
+    animation-duration: 6s !important;
+    opacity: 0.6 !important;
+  }
+  /* Coin-shower / pixel-coin particle density reduction on mobile. */
+  body[data-game-page] .coin-shower .pixel-coin:nth-child(even),
+  body .coin-shower .pixel-coin:nth-child(3n),
+  body[data-game-page] [data-coin-pop]:nth-child(even) {
+    display: none !important;
+  }
+  /* Cabinet "+NN" coin-pop labels — fade faster, smaller on phone. */
+  body[data-game-page] .coin-pop-label,
+  body[data-game-page] [data-coin-pop] {
+    font-size: 0.85em !important;
+    animation-duration: 0.8s !important;
+  }
+}
+
+/* ---- 41g. CRT boot stays on hub, gone inside games ------------------- */
+/* The boot sequence is great as an attract sequence on the hub but inside a
+   game it wastes 1–2s before the player can play. Hide it. */
+body[data-game-page] .crt-boot,
+body[data-game-page] [data-crt-boot],
+body[data-game-page] .crt-boot-screen {
+  display: none !important;
+}
+
+/* ---- 41h. Letter-spacing repair ------------------------------------- */
+/* Press Start 2P at small sizes with wide letter-spacing (some games set
+   0.1em+) becomes unreadable. Tighten globally — VT323 also benefits from
+   0 letter-spacing (it's CRT-mono). */
+body[data-game-page] .stat-value,
+body[data-game-page] .hud-stats *,
+body[data-game-page] .brand-title,
+body[data-game-page] .marquee,
+body[data-game-page] .game-marquee span {
+  letter-spacing: 0.01em !important;
+}
+body[data-game-page] h1,
+body[data-game-page] h2 {
+  letter-spacing: 0.02em !important;
+}
+
+/* End Section 41 — Canonical Arcade Typography */
+
+/* ═══════════════════════════════════════════════════════════════════════
+   42. HUB RESTRUCTURE — FEATURED 10 + MORE GAMES DRAWER — May 11 2026
+   ═══════════════════════════════════════════════════════════════════════
+   Jon: "the hub is too cluttered. surface the 10 best games up front,
+   bury the rest." Featured 10 grid sits at the very top of #main with
+   bigger-than-library cards. The library + cabinet menu folders move
+   inside a closed <details> drawer so the front door is just the 10.
+
+   Card sizing:
+   - Desktop ≥ 1100px: 5-col grid, ~200×140 minimum per cell
+   - Tablet 700-1099px: 3-col grid
+   - Mobile-portrait ≤ 699px: 2-col grid
+   - Tiny phones ≤ 380px: 2-col with tighter padding
+
+   The drawer summary line is a big chunky arcade-button look so it
+   reads as a real CTA, not a quiet expander.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ---- 42a. Featured 10 band container ------------------------------- */
+.featured-10-band {
+  /* Pop the band above all others — flex order is set inline on #main,
+     but #featured-10 specifically should sit *very* early. */
+  order: 2 !important;
+  margin: clamp(8px, 1.5vh, 18px) 0 clamp(20px, 3vh, 36px);
+}
+.featured-10-band .band-head {
+  margin-bottom: clamp(10px, 1.5vh, 16px);
+}
+/* Force the featured-10 band even higher in the flex order than what
+   main#main > #featured-10 might pick up by default. */
+main#main > #featured-10 { order: 2; }
+
+/* ---- 42b. Featured 10 grid ----------------------------------------- */
+.featured-10 {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(10px, 1.4vw, 18px);
+  width: 100%;
+}
+@media (max-width: 1099px) {
+  .featured-10 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+@media (max-width: 699px) {
+  .featured-10 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+@media (max-width: 380px) {
+  .featured-10 {
+    gap: 8px;
+  }
+}
+
+/* ---- 42c. Featured 10 cards (cabinet bezel + chase-light glow) ----- */
+.featured-10 .game-card.f10-card {
+  /* Min size 200×140 desktop per spec. */
+  min-height: 168px;
+  padding: 14px 14px 12px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+  /* Chase-light glow — extra-bright accent + animated outer ring */
+  border-width: 4px !important;
+  background:
+    linear-gradient(180deg, rgba(20,26,44,0.96) 0%, rgba(6,10,22,0.98) 100%) !important;
+  box-shadow:
+    0 0 0 1px #000 inset,
+    0 5px 0 rgba(0,0,0,0.6),
+    0 0 28px color-mix(in srgb, var(--accent, #62e9ff) 38%, transparent),
+    0 0 56px color-mix(in srgb, var(--accent, #62e9ff) 15%, transparent) !important;
+  cursor: pointer;
+}
+@media (max-width: 699px) {
+  .featured-10 .game-card.f10-card {
+    min-height: 152px;
+    padding: 12px 12px 10px;
+  }
+}
+
+/* Animated chase-light marquee strip already comes from Section 14
+   (.game-card::before). Make it brighter for f10. */
+.featured-10 .game-card.f10-card::before {
+  height: 6px !important;
+  animation: f10MarqueeChase 1.8s linear infinite;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent, #62e9ff) 0,
+    var(--accent, #62e9ff) 10px,
+    rgba(0,0,0,0.55) 10px,
+    rgba(0,0,0,0.55) 14px
+  ) !important;
+}
+@keyframes f10MarqueeChase {
+  0%   { background-position: 0 0; }
+  100% { background-position: 48px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .featured-10 .game-card.f10-card::before { animation: none; }
+}
+
+.featured-10 .game-card.f10-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow:
+    0 0 0 1px #000 inset,
+    0 8px 0 rgba(0,0,0,0.7),
+    0 0 44px color-mix(in srgb, var(--accent, #62e9ff) 55%, transparent),
+    0 0 88px color-mix(in srgb, var(--accent, #62e9ff) 22%, transparent) !important;
+}
+
+/* ---- 42d. f10 card content typography ------------------------------ */
+.featured-10 .f10-rank {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: color-mix(in srgb, var(--accent, #62e9ff) 80%, white 10%);
+  background: rgba(0,0,0,0.55);
+  border: 1px solid color-mix(in srgb, var(--accent, #62e9ff) 60%, transparent);
+  padding: 4px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  z-index: 5;
+}
+.featured-10 .f10-std {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: "VT323", monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  background: rgba(0,0,0,0.6);
+  color: color-mix(in srgb, var(--accent, #62e9ff) 85%, white 8%);
+  border: 1px solid color-mix(in srgb, var(--accent, #62e9ff) 45%, transparent);
+  border-radius: 3px;
+  margin-top: 8px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.featured-10 .f10-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+.featured-10 .f10-title {
+  font-family: "Press Start 2P", monospace !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0.02em !important;
+  color: var(--accent, #62e9ff) !important;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--accent, #62e9ff) 50%, transparent);
+  margin: 0;
+  word-break: break-word;
+}
+@media (max-width: 699px) {
+  .featured-10 .f10-title {
+    font-size: 11px !important;
+  }
+}
+.featured-10 .f10-sub {
+  font-family: "VT323", monospace !important;
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.02em !important;
+  color: rgba(220, 230, 245, 0.78);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.featured-10 .f10-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-top: 1px dashed color-mix(in srgb, var(--accent, #62e9ff) 35%, transparent);
+  padding-top: 8px;
+}
+.featured-10 .f10-meta {
+  font-family: "VT323", monospace;
+  font-size: 13px;
+  color: rgba(200, 215, 235, 0.7);
+  letter-spacing: 0.04em;
+}
+.featured-10 .f10-cta {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: #08101e;
+  background: var(--accent, #62e9ff);
+  padding: 6px 9px;
+  border-radius: 3px;
+  border: 1px solid #000;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.55);
+  white-space: nowrap;
+}
+.featured-10 .game-card.f10-card:hover .f10-cta {
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--accent, #62e9ff) 80%, transparent),
+    0 2px 0 rgba(0,0,0,0.55);
+}
+
+/* ---- 42e. More Games drawer ---------------------------------------- */
+.more-games-drawer {
+  order: 200; /* Below all utility bands; library used to be order 40, this
+                 drawer takes its place but sits low so featured 10 reads
+                 first. */
+  margin: clamp(24px, 4vh, 44px) 0 clamp(20px, 3vh, 32px);
+  border: 0;
+  background: transparent;
+}
+main#main > .more-games-drawer { order: 200; }
+
+.more-games-drawer > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px clamp(16px, 2.5vw, 28px);
+  width: 100%;
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #ffd968;
+  background: linear-gradient(180deg, #1a1f30 0%, #0a0e1c 100%);
+  border: 3px solid rgba(245, 196, 81, 0.55);
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px #000 inset,
+    0 4px 0 rgba(0,0,0,0.55),
+    0 0 22px rgba(245, 196, 81, 0.18);
+  transition: transform 120ms cubic-bezier(.34, 1.4, .64, 1),
+              box-shadow 160ms, border-color 160ms;
+  user-select: none;
+}
+.more-games-drawer > summary::-webkit-details-marker { display: none; }
+.more-games-drawer > summary::marker { content: ""; }
+.more-games-drawer > summary:hover,
+.more-games-drawer > summary:focus-visible {
+  transform: translateY(-2px);
+  border-color: #ffd060;
+  box-shadow:
+    0 0 0 1px #000 inset,
+    0 6px 0 rgba(0,0,0,0.6),
+    0 0 32px rgba(245, 196, 81, 0.35);
+  outline: none;
+}
+.more-games-drawer > summary:active {
+  transform: translateY(2px);
+}
+.more-games-drawer .mgd-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+.more-games-drawer .mgd-label {
+  flex: 0 1 auto;
+  font-family: "Press Start 2P", monospace;
+  font-size: 13px;
+  color: #ffd968;
+  text-shadow: 0 0 8px rgba(245, 196, 81, 0.5);
+}
+.more-games-drawer .mgd-sub {
+  flex: 1 1 auto;
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: rgba(220, 230, 245, 0.7);
+}
+@media (max-width: 699px) {
+  .more-games-drawer .mgd-sub {
+    display: none;
+  }
+}
+.more-games-drawer .mgd-chev {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #ffd968;
+  transition: transform 200ms ease-out;
+}
+.more-games-drawer[open] .mgd-chev {
+  transform: rotate(180deg);
+}
+.more-games-drawer[open] > summary {
+  border-color: #ffd060;
+  background: linear-gradient(180deg, #20253c 0%, #0c1020 100%);
+  margin-bottom: clamp(16px, 2.4vh, 24px);
+}
+
+/* Library inside the drawer — when closed, the library is hidden by
+   <details>. When open, restore the normal band spacing. */
+.more-games-drawer .library-band {
+  margin-top: 0;
+  /* Order has no effect inside <details>; reset just in case. */
+  order: 0 !important;
+}
+
+/* ---- 42f. Hide redundant cabinet-menu folders --------------------- */
+/* The cabinet menu folders (Jeopardy / Practice / Arcade / Daily) live
+   in the hero. They've been superseded by the Featured 10 grid + More
+   Games drawer. Hide them via CSS — DOM stays intact for reversibility
+   and for any JS that still queries them. */
+.cabinet-menu {
+  display: none !important;
+}
+/* The cabinet press-start nudge ("TAP OR PRESS ENTER") + drill-misses
+   card live next to the cabinet menu; the drill-misses keeps showing
+   (it's per-student SR-queue value), the press-start nudge is hidden
+   since there's nothing left to press. */
+.cabinet-press-start {
+  display: none !important;
+}
+/* Smart menu console (Choose a game band) is also redundant with the
+   Featured 10 + library; collapse it. */
+#arcade-menu {
+  display: none !important;
+}
+
+/* ---- 42g. Reduced-motion safeguards -------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .featured-10 .game-card.f10-card,
+  .more-games-drawer > summary,
+  .more-games-drawer .mgd-chev {
+    transition: none;
+  }
+}
+
+/* End Section 42 — Hub Restructure (Featured 10 + More Games drawer) */

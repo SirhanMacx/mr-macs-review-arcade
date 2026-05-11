@@ -388,6 +388,19 @@ kbd {
   .touch-pad { display: block; }
 }
 
+/* Narrow viewports (iPhone 14 = 390px): shrink the touch clusters so the left
+   (rotate pair) and right (hyperspace + thrust + fire) clusters don't collide.
+   Default widths total: 180 + 270 = 450px > 390px viewport → overlap.
+   Compressed widths total: 142 + 220 = 362px < 390px → fits with breathing room. */
+@media (max-width: 430px) {
+  .touch-cluster { gap: 8px; }
+  .touch-btn { width: 64px; height: 64px; font-size: 24px; }
+  .touch-thrust { width: 74px; height: 74px; font-size: 28px; }
+  .touch-fire   { width: 74px; height: 74px; font-size: 22px; }
+  .touch-hyper  { width: 48px; height: 48px; font-size: 18px; }
+  .touch-btn::after { font-size: 8px; bottom: -14px; }
+}
+
 /* Modal screens — shared */
 .setup-screen, .pause-screen, .end-screen, .question-screen {
   position: absolute;

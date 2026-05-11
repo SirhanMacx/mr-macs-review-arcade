@@ -1,0 +1,66 @@
+name: playable-smoke
+
+# Real-playability smoke harness for the 10 featured Mr. Mac's Arcade games.
+# Drives ~30s of input per game, screenshots key states, asserts typography,
+# canvas fill, toast non-overlap, and zero runtime errors during gameplay.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  playable-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Playwright + chromium
+        run: |
+          npm init -y >/dev/null
+          npm install --no-save playwright@1.59.1
+          npx playwright install --with-deps chromium
+
+      - name: Start static server
+        run: |
+          python3 -m http.server 8765 >/tmp/server.log 2>&1 &
+          # Wait for port
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8765/index.html >/dev/null; then exit 0; fi
+            sleep 0.3
+          done
+          echo "Server failed to bind"; cat /tmp/server.log; exit 1
+
+      - name: Run playable smoke
+        env:
+          ARCADE_BASE: http://localhost:8765
+          ARCADE_PLAY_MS: "30000"
+        run: node tests/playable-smoke.spec.mjs
+
+      - name: Upload screenshots + report (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playable-smoke-artifacts
+          path: |
+            tests/screenshots/
+            tests/playable-smoke-report.json
+          retention-days: 14
+
+      - name: Upload report (always, for visibility)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playable-smoke-report
+          path: tests/playable-smoke-report.json
+          retention-days: 14
