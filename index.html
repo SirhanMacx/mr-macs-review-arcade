@@ -8810,10 +8810,19 @@ async function loadGamesManifest() {
 }
 
 // ============== State + utilities ==============
-// libraryExpanded defaults to TRUE — streamlined hub puts the library
-// front-and-center so all 219 games show without an extra click.
-// Was false → only 6 games rendered until user clicked "Show All 219".
-const state = { query: "", lane: "all", course: "All Courses", subject: "All Subjects", type: "All Game Types", sort: "priority", libraryExpanded: true };
+// libraryExpanded defaults to FALSE so the hub renders only a curated
+// preview (12 desktop / 6 mobile) instead of dumping all 219 game cards
+// into one wall. Filters, search, lane tabs, and the Show All button all
+// expand to the full set as soon as the visitor indicates they want it.
+// The preference is persisted to localStorage so repeat visitors who
+// click Show All stay expanded across sessions.
+function readLibraryExpanded() {
+  try { return localStorage.getItem("arcade.libraryExpanded") === "1"; } catch (e) { return false; }
+}
+function writeLibraryExpanded(v) {
+  try { localStorage.setItem("arcade.libraryExpanded", v ? "1" : "0"); } catch (e) {}
+}
+const state = { query: "", lane: "all", course: "All Courses", subject: "All Subjects", type: "All Game Types", sort: "priority", libraryExpanded: readLibraryExpanded() };
 const grid = document.getElementById("grid");
 const player = document.getElementById("player");
 const frame = document.getElementById("gameFrame");
@@ -9112,6 +9121,7 @@ function initFilters() {
   document.getElementById("jeopardySearch")?.addEventListener("input", (event) => { jeopardyState.query = event.target.value; renderJeopardyModes(); });
   document.getElementById("showAllLibraryBtn")?.addEventListener("click", () => {
     state.libraryExpanded = true;
+    writeLibraryExpanded(true);
     render();
   });
 
