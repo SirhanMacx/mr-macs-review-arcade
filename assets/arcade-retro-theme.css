@@ -27,14 +27,15 @@
    Plus topbar above and footer below. Everything else hidden.
    =========================================================================== */
 /* Hub band visibility — Jon's 1989-cabinet-style priority order:
-   VISIBLE (Tier 1 — primary three lanes):
-     #jeopardy   (push first)
-     #practice   (push second — Regents + AP)
-     #featured + #library (push third — arcade & learning games)
-   VISIBLE (Tier 2 — quiet utility): #routing, #continue, #newCabinet, #mastery, #progress
-   HIDDEN by default (Tier 3 — noisy/redundant):
-     small pills + redundant menus. JS still shows them if profile
-     state asks for them (e.g. #daily unhides when there's a challenge). */
+   VISIBLE (the only bands on the home page):
+     #launch-paths (3 CTAs)
+     #jeopardy     (push first)
+     #practice     (push second — Regents + AP)
+     #featured     (push third — arcade & learning games — top picks)
+     #library      (push third — full game grid with filters)
+     #daily        (Daily Challenge — engagement, JS-rendered when active)
+   EVERYTHING ELSE hidden. The features still exist (deep-linked from
+   profile drawer or direct buttons) but don't pollute the home page. */
 #nbaBand,
 #fortuneBand,
 #dailyPlanBand,
@@ -44,7 +45,12 @@
 #arcade-menu,
 #quickplay,
 #courses,
-#quickInsights {
+#quickInsights,
+#routing,         /* Smart Study Tools — keep, but move to profile drawer */
+#continue,        /* Continue rail — moved to profile drawer */
+#newCabinet,      /* Featured already shows new flagships */
+#mastery,         /* Profile drawer has this */
+#progress         /* Profile drawer has this */ {
   display: none !important;
 }
 
