@@ -1,18 +1,35 @@
-const CACHE_NAME = "mr-macs-arcade-v1-2026-05-10";
+const CACHE_NAME = "mr-macs-arcade-v2-2026-05-11";
+// Use relative paths so the SW works on GitHub Pages subpath
+// (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
+// any future custom domain. The SW's scope is set at register-time to
+// `./` so these resolve relative to the registration root.
 const CACHE_FILES = [
-  "/",
-  "/index.html",
-  "/games.json",
-  "/assets/arcade-profile.js",
-  "/assets/arcade-icons.js",
-  "/assets/arcade-toast.js",
-  "/assets/arcade-celebration.js",
-  "/assets/arcade-progress-extras.js",
-  "/assets/arcade-music.js",
-  "/assets/arcade-tour.js",
-  "/assets/arcade-leaderboards.js",
-  "/assets/arcade-sessions.js",
-  "/assets/arcade-a11y.css",
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./games.json",
+  // Core helper modules loaded on every game
+  "./assets/arcade-profile.js",
+  "./assets/arcade-icons.js",
+  "./assets/arcade-toast.js",
+  "./assets/arcade-celebration.js",
+  "./assets/arcade-progress-extras.js",
+  "./assets/arcade-music.js",
+  "./assets/arcade-tour.js",
+  "./assets/arcade-help-overlay.js",
+  "./assets/arcade-a11y-quicktoggle.js",
+  "./assets/arcade-difficulty.js",
+  "./assets/arcade-end-recap.js",
+  "./assets/arcade-leaderboards.js",
+  "./assets/arcade-sessions.js",
+  "./assets/arcade-changelog.js",
+  "./assets/arcade-changelog-entries.js",
+  // Shared question bank — 896KB, ~1937 questions, used by 57 games
+  "./assets/shared-question-bank.js",
+  // CSS
+  "./assets/arcade-a11y.css",
+  "./assets/arcade-cross-device.css",
+  "./assets/arcade-retro-theme.css",
   // Critical fonts
   "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap"
 ];
