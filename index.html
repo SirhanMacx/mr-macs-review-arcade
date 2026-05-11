@@ -17,7 +17,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-crt-cabinet">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-cabinet-tier2">
 <style>
 :root {
   color-scheme: dark;
@@ -7854,6 +7854,17 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <a class="skip-link" href="#launch-paths">Skip to launch paths</a>
 
 <!-- ═══════════════════════════════════════════════════════════════
+     ARCADE MARQUEE — top-of-cabinet glowing brand strip with
+     chasing dot-lights and pulsing coin slot. Always visible above
+     every page. Pure decorative; no a11y impact (role="presentation").
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="arcade-marquee" role="presentation" aria-hidden="true">
+  <span class="mm-coin"></span>
+  <span class="mm-title">MR. MAC'S <span class="mm-arc">REVIEW ARCADE</span></span>
+  <span class="mm-coin"></span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
      CRT boot sequence — full-screen overlay that simulates an arcade
      cabinet powering on in 1989. Plays once per session (gated by
      sessionStorage), then fades into the hub. Skippable with any key
@@ -8815,7 +8826,8 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-screenshot.js?v=20260509-screenshot"></script>
 <script src="assets/arcade-changelog.js?v=20260509-changelog"></script>
 <script src="assets/arcade-changelog-entries.js?v=20260511-entries-v6.7"></script>
-<script src="assets/arcade-sfx.js?v=20260511-sfx-v1"></script>
+<script src="assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+<script src="assets/arcade-cabinet-fx.js?v=20260511-cabfx-v1"></script>
 <script src="assets/arcade-news-ticker.js?v=20260509-news-ticker"></script>
 <script src="assets/arcade-leaderboard-globe.js?v=20260509-globe"></script>
 <script src="assets/arcade-deeplinks.js?v=20260509-deeplinks"></script>

@@ -1037,3 +1037,249 @@ canvas[id$="Canvas"],
 .sfx-toggle[data-state="off"] { color: rgba(216,220,235,0.42); }
 .sfx-toggle[data-state="off"] .sfx-icon::before { content: "🔇"; }
 .sfx-toggle[data-state="on"]  .sfx-icon::before { content: "🔊"; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   21. ARCADE MARQUEE HEADER — the bright lit strip at the top of a real
+   cabinet that displays the cabinet's name. Sticks above the topbar like
+   a header banner with chasing border lights and pulsing brand neon.
+   ═══════════════════════════════════════════════════════════════════════ */
+.arcade-marquee {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 10px 24px 8px;
+  background:
+    linear-gradient(180deg, #1c1f30 0%, #0a0c18 100%),
+    radial-gradient(ellipse 50% 100% at center top, rgba(255,208,96,0.10), transparent 70%);
+  border-bottom: 3px solid #000;
+  box-shadow:
+    inset 0 -1px 0 rgba(255, 208, 96, 0.35),
+    0 6px 18px rgba(0,0,0,0.55);
+  text-align: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(12px, 1.5vw, 16px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffd060;
+  text-shadow:
+    0 0 6px rgba(255, 208, 96, 0.75),
+    0 0 14px rgba(255, 208, 96, 0.45),
+    0 0 28px rgba(255, 130, 40, 0.30);
+  overflow: hidden;
+}
+/* Chasing-light border at the top of the marquee — strip of small dots
+   that chase from left to right like a 1989 cabinet marquee. */
+.arcade-marquee::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #ffd060 0,
+    #ffd060 6px,
+    #2a1808 6px,
+    #2a1808 16px
+  );
+  background-size: 22px 100%;
+  animation: marqueeChase 1.8s linear infinite;
+}
+@keyframes marqueeChase {
+  0%   { background-position: 0 0; }
+  100% { background-position: 22px 0; }
+}
+.arcade-marquee::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #5de0f0 0,
+    #5de0f0 6px,
+    #0a1424 6px,
+    #0a1424 16px
+  );
+  background-size: 22px 100%;
+  animation: marqueeChase 2.4s linear infinite reverse;
+}
+.arcade-marquee .mm-title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.arcade-marquee .mm-title .mm-arc {
+  color: #5de0f0;
+  text-shadow:
+    0 0 6px rgba(93, 224, 240, 0.85),
+    0 0 14px rgba(93, 224, 240, 0.55);
+  font-style: italic;
+}
+.arcade-marquee .mm-coin {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff5b0 0%, #ffd060 40%, #a86a18 100%);
+  box-shadow:
+    0 0 8px rgba(255, 208, 96, 0.85),
+    0 0 18px rgba(255, 130, 40, 0.55);
+  animation: coinPulse 1.2s ease-in-out infinite alternate;
+}
+@keyframes coinPulse {
+  0%   { transform: scale(1);   box-shadow: 0 0 8px rgba(255, 208, 96, 0.85), 0 0 18px rgba(255, 130, 40, 0.55); }
+  100% { transform: scale(1.18); box-shadow: 0 0 14px rgba(255, 208, 96, 1),  0 0 28px rgba(255, 130, 40, 0.85); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arcade-marquee::before,
+  .arcade-marquee::after { animation: none; }
+  .arcade-marquee .mm-coin { animation: none; }
+}
+@media (max-width: 540px) {
+  .arcade-marquee { padding: 8px 14px 6px; gap: 10px; }
+  .arcade-marquee .mm-coin { width: 9px; height: 9px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   22. GAME-PAGE TITLE MARQUEE — same idea inside each game's top edge
+   ═══════════════════════════════════════════════════════════════════════ */
+body[data-game-page] {
+  /* Padding to make room for the marquee */
+  padding-top: 0 !important;
+}
+.game-marquee {
+  position: relative;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 6px 14px 5px;
+  background: linear-gradient(180deg, #14182a 0%, #060810 100%);
+  border-bottom: 2px solid rgba(255, 208, 96, 0.45);
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(9px, 1.2vw, 11px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffd060;
+  text-shadow: 0 0 6px rgba(255, 208, 96, 0.7);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+.game-marquee::before,
+.game-marquee::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background-image: repeating-linear-gradient(90deg,
+    rgba(255,208,96,0.85) 0,
+    rgba(255,208,96,0.85) 5px,
+    rgba(0,0,0,0.55) 5px,
+    rgba(0,0,0,0.55) 12px);
+  background-size: 17px 100%;
+  animation: marqueeChase 2.0s linear infinite;
+}
+.game-marquee::before { top: 0; }
+.game-marquee::after  { bottom: 0; animation-direction: reverse; }
+@media (prefers-reduced-motion: reduce) {
+  .game-marquee::before,
+  .game-marquee::after { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   23. CABINET SIDE-BEZEL on the entire page body
+   Inset shadow along the sides simulates the wood/plastic side of an
+   arcade cabinet next to the CRT. Subtle but ties everything together.
+   ═══════════════════════════════════════════════════════════════════════ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9996;
+  box-shadow:
+    inset 8px 0 24px rgba(0, 0, 0, 0.55),
+    inset -8px 0 24px rgba(0, 0, 0, 0.55),
+    inset 0 -6px 18px rgba(0, 0, 0, 0.4);
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   24. CONTROL-HINT CHIPS — joystick + button icons in the topbar
+   ═══════════════════════════════════════════════════════════════════════ */
+.ctrl-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  margin-left: 6px;
+  background: rgba(8, 12, 24, 0.85);
+  border: 1px solid rgba(93, 224, 240, 0.32);
+  border-radius: 3px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 0.10em;
+  color: rgba(216, 220, 235, 0.72);
+}
+.ctrl-hint .ctrl-icon {
+  font-size: 12px;
+  line-height: 1;
+  color: #5de0f0;
+  text-shadow: 0 0 6px rgba(93, 224, 240, 0.7);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   25. PLAYER 1 READY banner — flashes briefly when entering a game
+   ═══════════════════════════════════════════════════════════════════════ */
+.p1-ready {
+  position: fixed;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 14px 32px;
+  background: rgba(4, 8, 18, 0.92);
+  border: 3px solid #ffd060;
+  border-radius: 4px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 18px;
+  letter-spacing: 0.20em;
+  color: #ffd060;
+  text-shadow: 0 0 12px rgba(255, 208, 96, 0.85);
+  box-shadow: 0 0 28px rgba(255, 208, 96, 0.55), 0 8px 24px rgba(0,0,0,0.6);
+  animation: p1Flash 0.5s steps(1) 4, p1Out 200ms 2.1s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes p1Flash {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes p1Out {
+  to { opacity: 0; transform: translateX(-50%) scale(0.9); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .p1-ready { animation: p1Out 200ms 1500ms ease-out forwards; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   26. HIGH SCORE pulse — applied by arcade-cabinet-fx.js when a score
+   element's numeric value increases. 350 ms quick flash.
+   ═══════════════════════════════════════════════════════════════════════ */
+.score-pulse {
+  animation: scorePulse 350ms ease-out;
+  text-shadow: 0 0 12px rgba(255, 208, 96, 0.95), 0 0 4px #fff !important;
+  color: #ffd060 !important;
+}
+@keyframes scorePulse {
+  0%   { transform: scale(1);   filter: brightness(1); }
+  40%  { transform: scale(1.18); filter: brightness(1.6); }
+  100% { transform: scale(1);    filter: brightness(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .score-pulse { animation: none; }
+}

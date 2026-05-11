@@ -1,4 +1,4 @@
-const CACHE_NAME = "mr-macs-arcade-v2-2026-05-11";
+const CACHE_NAME = "mr-macs-arcade-v3-2026-05-11-cabinet-tier2";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -24,6 +24,9 @@ const CACHE_FILES = [
   "./assets/arcade-sessions.js",
   "./assets/arcade-changelog.js",
   "./assets/arcade-changelog-entries.js",
+  // Cabinet UX layer — 8-bit SFX + flash/score-pulse FX
+  "./assets/arcade-sfx.js",
+  "./assets/arcade-cabinet-fx.js",
   // Shared question bank — 896KB, ~1937 questions, used by 57 games
   "./assets/shared-question-bank.js",
   // CSS

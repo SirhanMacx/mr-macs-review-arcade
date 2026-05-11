@@ -12,9 +12,16 @@
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
   <link rel="stylesheet" href="styles.css?v=20260509-towerclimb">
 <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260511-crt-cabinet">
+<link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260511-cabinet-tier2">
 </head>
-<body>
+<body data-game-page="1">
+<!-- Arcade cabinet marquee strip (decorative; auto-styled by arcade-retro-theme.css) -->
+<div class="game-marquee" role="presentation" aria-hidden="true">
+  <span>◀ ◀ ◀</span>
+  <span>MR. MAC'S REVIEW ARCADE · INSERT COIN</span>
+  <span>▶ ▶ ▶</span>
+</div>
+
   <main class="tower-shell" id="app">
     <canvas id="towerCanvas" aria-label="Tower Climb &mdash; Donkey Kong-style platformer, climb girders + ladders, dodge rumor barrels, defeat the Misconception Magnate"></canvas>
 
@@ -185,7 +192,8 @@
   <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
-  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v1"></script>
+  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+<script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v1"></script>
   <script src="game.js?v=20260509-towerclimb"></script>
 </body>
 </html>

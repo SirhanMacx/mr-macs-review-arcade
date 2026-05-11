@@ -12,9 +12,16 @@
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
   <link rel="stylesheet" href="styles.css?v=20260510-snakepit-combopill">
 <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260511-crt-cabinet">
+<link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260511-cabinet-tier2">
 </head>
-<body>
+<body data-game-page="1">
+<!-- Arcade cabinet marquee strip (decorative; auto-styled by arcade-retro-theme.css) -->
+<div class="game-marquee" role="presentation" aria-hidden="true">
+  <span>◀ ◀ ◀</span>
+  <span>MR. MAC'S REVIEW ARCADE · INSERT COIN</span>
+  <span>▶ ▶ ▶</span>
+</div>
+
   <main class="snakepit-shell" id="app">
     <canvas id="snakepitCanvas" aria-label="Snake Pit &mdash; slither.io battle royale, devour orbs, dodge AI snakes, decode rare scholar orbs"></canvas>
 
@@ -208,7 +215,8 @@
   <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
   <script src="../../assets/arcade-end-recap.js?v=20260510-recap"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
-  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v1"></script>
+  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+<script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v1"></script>
   <script src="game.js?v=20260510-snakepit-combopill"></script>
 </body>
 </html>

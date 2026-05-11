@@ -10,9 +10,16 @@
 <link rel="stylesheet" href="styles.css?v=20260505-prism-polish">
 <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
 <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260511-crt-cabinet">
+<link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260511-cabinet-tier2">
 </head>
-<body>
+<body data-game-page="1">
+<!-- Arcade cabinet marquee strip (decorative; auto-styled by arcade-retro-theme.css) -->
+<div class="game-marquee" role="presentation" aria-hidden="true">
+  <span>◀ ◀ ◀</span>
+  <span>MR. MAC'S REVIEW ARCADE · INSERT COIN</span>
+  <span>▶ ▶ ▶</span>
+</div>
+
 <div class="backdrop" aria-hidden="true"></div>
 <main class="shell">
   <header class="topbar">
@@ -158,7 +165,8 @@
   });
 })();
 </script>
-  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v1"></script>
+  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+<script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v1"></script>
 <script src="game.js?v=20260509-icons-polish"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
