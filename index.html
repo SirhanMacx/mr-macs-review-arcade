@@ -17,7 +17,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-cabinet-tier2">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-cabinet-tier3">
 <style>
 :root {
   color-scheme: dark;
@@ -8222,6 +8222,18 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   </div>
 </header>
 
+<!-- ═══════════════════════════════════════════════════════════════
+     ATTRACT-MODE CAROUSEL — auto-cycling featured-game strip.
+     Populated and animated by inline JS below. Mirrors the 1989
+     cabinet "attract mode" demo loop. Pauses on hover.
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="attract-carousel" id="attractCarousel" role="region" aria-label="Featured game showcase">
+  <span class="ac-label">NEXT ROUND</span>
+  <span class="ac-arrow" aria-hidden="true">▶</span>
+  <a class="ac-title" id="acTitle" href="#library">PRESS INSERT COIN</a>
+  <span class="ac-credits">CREDITS · 99</span>
+</div>
+
 <section class="hero" id="top" aria-label="Arcade overview">
   <div class="hero-inner">
     <div class="hero-copy">
@@ -8827,7 +8839,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-changelog.js?v=20260509-changelog"></script>
 <script src="assets/arcade-changelog-entries.js?v=20260511-entries-v6.7"></script>
 <script src="assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
-<script src="assets/arcade-cabinet-fx.js?v=20260511-cabfx-v1"></script>
+<script src="assets/arcade-cabinet-fx.js?v=20260511-cabfx-v2"></script>
 <script src="assets/arcade-news-ticker.js?v=20260509-news-ticker"></script>
 <script src="assets/arcade-leaderboard-globe.js?v=20260509-globe"></script>
 <script src="assets/arcade-deeplinks.js?v=20260509-deeplinks"></script>
@@ -10297,6 +10309,60 @@ function closeGame() {
   }
 }
 
+// ============== Attract-Mode Carousel ==============
+// Cycles a curated set of flagship/featured games across the marquee
+// strip above the hero. Pause-on-hover; respects reduced-motion. Reads
+// from state.games once they're loaded.
+function initAttractCarousel() {
+  var el = document.getElementById("attractCarousel");
+  var title = document.getElementById("acTitle");
+  if (!el || !title) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    title.textContent = "OPEN LIBRARY · 78 GAMES READY";
+    return;
+  }
+  // Curated rotation — flagship + crowd-pleasers + fresh course shells.
+  var POOL = [
+    { id: "snake-pit",         name: "SNAKE PIT" },
+    { id: "brickoria",         name: "BRICKORIA 20-ERA" },
+    { id: "stellar-drift",     name: "STELLAR DRIFT" },
+    { id: "source-snake",      name: "SOURCE SNAKE" },
+    { id: "word-bridge",       name: "WORD BRIDGE" },
+    { id: "chess-cabinet",     name: "CHESS CABINET" },
+    { id: "sokoban-scribe",    name: "SOKOBAN SCRIBE" },
+    { id: "mahjong-mosaic",    name: "MAHJONG MOSAIC" },
+    { id: "bomb-scribe",       name: "BOMB SCRIBE" },
+    { id: "step-pyramid",      name: "STEP PYRAMID" },
+    { id: "sudoku-scribe",     name: "SUDOKU SCRIBE" },
+    { id: "atlas-2048",        name: "ATLAS 2048" },
+    { id: "knights-quest",     name: "KNIGHT'S QUEST" },
+    { id: "galaxy-defender",   name: "GALAXY DEFENDER" },
+    { id: "boss-rush",         name: "BOSS RUSH" },
+    { id: "ap-psychology",     name: "AP PSYCHOLOGY" },
+    { id: "apush",             name: "APUSH GAUNTLET" },
+    { id: "global-9",          name: "GLOBAL 9 SPRINT" }
+  ];
+  var i = 0;
+  var paused = false;
+  el.addEventListener("mouseenter", function () { paused = true;  });
+  el.addEventListener("mouseleave", function () { paused = false; });
+
+  function tick() {
+    if (paused) return;
+    var g = POOL[i % POOL.length];
+    title.classList.add("ac-fade");
+    setTimeout(function () {
+      title.textContent = g.name;
+      title.setAttribute("href", "./games/" + g.id + "/");
+      title.classList.remove("ac-fade");
+    }, 220);
+    i++;
+  }
+  // Prime first frame immediately, then cycle every 3.6s.
+  tick();
+  setInterval(tick, 3600);
+}
+
 // ============== Canvas FX ==============
 function initFx() {
   const canvas = document.getElementById("fx");
@@ -10430,6 +10496,7 @@ async function boot() {
     renderJeopardyModes();
     renderQuickPlay();
     renderCourseTiles();
+    initAttractCarousel();
     initFx();
     initParallax();
     render();

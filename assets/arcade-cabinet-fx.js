@@ -107,11 +107,26 @@
     });
   }
 
-  // ─── HIGH SCORE pulse on score increment ────────────────────────────
+  // ─── HIGH SCORE pulse + "+NN" coin-pop on score increment ───────────
   // If the page exposes any of these element ids, we add a brief pulse
-  // class whenever their numeric text content changes upward.
+  // class whenever their numeric text content changes upward AND we
+  // float a "+NN" arcade coin-pop label rising from the score element.
   var SCORE_IDS = ["score", "scoreVal", "scoreDisplay", "playerScore", "coinScore"];
   var lastScores = {};
+
+  function spawnPop(anchor, delta) {
+    if (reduceMotion) return;
+    if (!anchor) return;
+    var rect = anchor.getBoundingClientRect();
+    if (!rect || !rect.width) return;
+    var pop = document.createElement("div");
+    pop.className = "score-pop";
+    pop.textContent = "+" + delta;
+    pop.style.left = (rect.left + rect.width / 2) + "px";
+    pop.style.top  = (rect.top - 4) + "px";
+    document.body.appendChild(pop);
+    setTimeout(function () { try { pop.remove(); } catch (e) {} }, 1100);
+  }
 
   function watchScores() {
     SCORE_IDS.forEach(function (id) {
@@ -130,16 +145,94 @@
         if (v > prev) {
           el.classList.add("score-pulse");
           setTimeout(function () { el.classList.remove("score-pulse"); }, 350);
+          var delta = v - prev;
+          if (delta > 0 && delta < 10000) spawnPop(el, delta);
         }
         lastScores[id] = v;
       });
     }, 250);
   }
 
+  // ─── GAME OVER overlay watcher ───────────────────────────────────────
+  // If the page exposes an end-screen / game-over container that becomes
+  // visible, we briefly overlay a cabinet-style GAME OVER stinger with
+  // a 9-second CONTINUE countdown. Auto-dismisses or yields to a click.
+  var END_SELECTORS = ["#endScreen", ".end-screen", ".game-over", "#gameOver", "#endRecap"];
+  var endShown = false;
+
+  function isEndVisible(el) {
+    if (!el) return false;
+    var cs = getComputedStyle(el);
+    if (cs.display === "none" || cs.visibility === "hidden") return false;
+    if (el.hasAttribute("hidden")) return false;
+    if (el.classList.contains("hidden") || el.classList.contains("is-hidden")) return false;
+    var rect = el.getBoundingClientRect();
+    return rect.height > 30;
+  }
+
+  function flashGameOver() {
+    if (reduceMotion) return;
+    if (endShown) return;
+    endShown = true;
+    setTimeout(function () { endShown = false; }, 15000);
+
+    var stinger = document.createElement("div");
+    stinger.className = "cabinet-gameover-stinger";
+    stinger.innerHTML =
+      '<div class="cgo-line cgo-headline">GAME OVER</div>' +
+      '<div class="cgo-line cgo-sub">CONTINUE? <span class="cgo-count">9</span></div>';
+    document.body.appendChild(stinger);
+    var n = 9;
+    var iv = setInterval(function () {
+      n--;
+      var c = stinger.querySelector(".cgo-count");
+      if (c) c.textContent = String(Math.max(0, n));
+      if (n <= 0) {
+        clearInterval(iv);
+        stinger.classList.add("cgo-out");
+        setTimeout(function () { try { stinger.remove(); } catch (e) {} }, 800);
+      }
+    }, 600);
+    // Click anywhere on the stinger dismisses.
+    stinger.addEventListener("click", function () {
+      clearInterval(iv);
+      stinger.classList.add("cgo-out");
+      setTimeout(function () { try { stinger.remove(); } catch (e) {} }, 320);
+    });
+  }
+
+  function watchEndState() {
+    setInterval(function () {
+      for (var i = 0; i < END_SELECTORS.length; i++) {
+        var el = document.querySelector(END_SELECTORS[i]);
+        if (el && isEndVisible(el) && !endShown) { flashGameOver(); return; }
+      }
+    }, 400);
+  }
+
+  // ─── Cabinet status ribbon (POWER · CREDITS · 1P) at bottom ─────────
+  function mountStatusRibbon() {
+    if (!document.body) return;
+    if (!document.body.hasAttribute("data-game-page")) return;
+    if (document.querySelector(".cabinet-status-ribbon")) return;
+    var ribbon = document.createElement("div");
+    ribbon.className = "cabinet-status-ribbon";
+    ribbon.setAttribute("role", "presentation");
+    ribbon.setAttribute("aria-hidden", "true");
+    ribbon.innerHTML =
+      '<span class="csr-cell csr-power"><span class="csr-dot"></span>POWER</span>' +
+      '<span class="csr-cell">CREDITS: <span class="csr-val">99</span></span>' +
+      '<span class="csr-cell csr-player">1P</span>' +
+      '<span class="csr-cell csr-version">v6.7</span>';
+    document.body.appendChild(ribbon);
+  }
+
   function init() {
     document.addEventListener("click", onClickStart, true);
     crtPowerOn();
     watchScores();
+    watchEndState();
+    mountStatusRibbon();
   }
 
   if (document.readyState === "loading") {
@@ -149,6 +242,8 @@
   }
 
   root.MrMacsCabinetFX = {
-    flashP1Ready: flashP1Ready
+    flashP1Ready: flashP1Ready,
+    flashGameOver: flashGameOver,
+    spawnPop: spawnPop
   };
 })(typeof window !== "undefined" ? window : globalThis);
