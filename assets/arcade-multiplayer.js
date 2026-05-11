@@ -39,6 +39,10 @@
   // Room-code alphabet — uppercase, no 0/O/1/I/L confusion
   var ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
   var ROOM_PREFIX = "mrmac";  // PeerID = mrmac-XXXX-YYYY to avoid collisions with public PeerJS namespace
+  // Max players per room (Jon: support full classroom — at least 30).
+  // 40 leaves headroom for two teachers + 38 students. PeerJS DataChannels
+  // scale fine to this size on modern devices.
+  var MAX_PLAYERS = 40;
 
   function makeCode() {
     var s = "";
@@ -170,6 +174,18 @@
         var msg = parseMsg(raw);
         if (!msg) return;
         if (msg.type === "joiner:hello") {
+          // Cap enforcement: kindly reject if room is full
+          if (room.players.length >= MAX_PLAYERS) {
+            try {
+              conn.send(JSON.stringify({
+                type: "host:full",
+                from: peerId,
+                payload: { capacity: MAX_PLAYERS, message: "Room is full (" + MAX_PLAYERS + " players max)." }
+              }));
+              setTimeout(function () { try { conn.close(); } catch (e) {} }, 200);
+            } catch (e) {}
+            return;
+          }
           var ini = sanitizeInitials(msg.payload && msg.payload.initials);
           // Prevent duplicate initials by appending an incrementing suffix
           var taken = new Set(room.players.map(function (p) { return p.initials; }));
@@ -297,7 +313,15 @@
       ".mmp-btn.is-secondary{background:rgba(255,255,255,.06);color:#f0f3fa;}\n" +
       ".mmp-close{position:absolute;top:14px;right:14px;background:transparent;border:0;color:rgba(255,255,255,.7);font-size:22px;cursor:pointer;line-height:1;}\n" +
       ".mmp-code{font:900 36px/1 'Press Start 2P',monospace;letter-spacing:.18em;color:#ffd060;text-shadow:0 0 14px rgba(255,208,96,.55);text-align:center;margin:14px 0;padding:14px;background:rgba(0,0,0,.5);border:2px dashed rgba(255,208,96,.5);border-radius:10px;}\n" +
-      ".mmp-roster{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;}\n" +
+      /* Roster: counter + scrollable wrap-grid that scales to 30+ chips */
+      ".mmp-roster{margin-top:10px;}\n" +
+      ".mmp-roster-counter{display:flex;align-items:baseline;gap:8px;margin:6px 0 8px;font-family:'JetBrains Mono',monospace;}\n" +
+      ".mmp-roster-counter .mmp-roster-count{font-size:20px;font-weight:800;color:#5de0f0;text-shadow:0 0 8px rgba(93,224,240,.55);}\n" +
+      ".mmp-roster-counter .mmp-roster-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(216,220,235,.55);}\n" +
+      ".mmp-roster-grid{display:flex;flex-wrap:wrap;gap:6px;max-height:200px;overflow-y:auto;padding:8px;background:rgba(0,0,0,.30);border:1px solid rgba(255,255,255,.06);border-radius:6px;}\n" +
+      ".mmp-roster-grid::-webkit-scrollbar{width:6px;}\n" +
+      ".mmp-roster-grid::-webkit-scrollbar-track{background:rgba(0,0,0,.2);border-radius:3px;}\n" +
+      ".mmp-roster-grid::-webkit-scrollbar-thumb{background:rgba(93,224,240,.35);border-radius:3px;}\n" +
       ".mmp-player{padding:5px 10px;background:rgba(93,224,240,.10);border:1px solid rgba(93,224,240,.30);border-radius:999px;font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.08em;color:#5de0f0;}\n" +
       ".mmp-player.is-host{background:rgba(255,208,96,.10);border-color:rgba(255,208,96,.35);color:#ffd060;}\n" +
       ".mmp-error{margin-top:10px;padding:8px 12px;background:rgba(255,56,88,.10);border:1px solid rgba(255,56,88,.40);border-radius:8px;color:#ff8a8a;font:600 12px/1.4 'Inter',sans-serif;}\n" +
@@ -325,7 +349,11 @@
     link.type = "button";
     link.innerHTML = '<span class="mmp-icon" aria-hidden="true">🎮</span><span class="mmp-label">Multiplayer</span>';
     link.setAttribute("aria-label", "Open multiplayer lobby — optional feature");
-    link.addEventListener("click", openLobbyModal);
+    // Wrap so the click event isn't passed as the `preset` argument.
+    // Before this wrap, the click Event became preset, rendering as
+    // "[object PointerEvent]" in the room-code input and auto-switching
+    // to the Join tab — which made the host flow unreachable.
+    link.addEventListener("click", function () { openLobbyModal(); });
     // Insert before profile pill if present (otherwise append)
     var sfxToggle = topnav.querySelector("#sfxToggle");
     if (sfxToggle && sfxToggle.parentNode === topnav) {
@@ -337,6 +365,12 @@
 
   var _modalOpenRoom = null;
   function openLobbyModal(preset) {
+    // Defense-in-depth: only treat preset as a real room code if it's a
+    // plain non-empty string. Guards against accidental Event objects
+    // (the bug that broke multiplayer when the nav-link click handler
+    // forwarded its MouseEvent as preset).
+    if (preset && typeof preset !== "string") preset = null;
+    if (preset) preset = String(preset).trim().toUpperCase();
     injectStyles();
     var existing = document.getElementById("mmpModalBg");
     if (existing) existing.remove();
@@ -447,6 +481,11 @@
             r.onMessage(function (msg) {
               if (msg.type === "host:disconnected") {
                 statusEl.innerHTML = '<div class="mmp-error">Host left the room.</div>';
+              } else if (msg.type === "host:full") {
+                var pl = msg.payload || {};
+                statusEl.innerHTML = '<div class="mmp-error">' +
+                  escHtml(pl.message || ("Room is full (" + (pl.capacity || 40) + " players max)."))
+                  + '</div>';
               }
             });
             document.getElementById("mmpJoinClose").addEventListener("click", function () {
@@ -472,12 +511,22 @@
 
   function renderRoster(room, container) {
     if (!container) return;
-    var html = room.players.map(function (p) {
+    var students = room.players.filter(function (p) { return !p.isHost; });
+    var n = students.length;
+    var cap = MAX_PLAYERS;
+    var counter = '<div class="mmp-roster-counter">' +
+                    '<span class="mmp-roster-count">' + n + ' / ' + cap + '</span>' +
+                    '<span class="mmp-roster-label">students joined</span>' +
+                  '</div>';
+    var chips = room.players.map(function (p) {
       return '<span class="mmp-player' + (p.isHost ? ' is-host' : '') + '">' +
                 (p.isHost ? '👑 ' : '') + escHtml(p.initials) +
               '</span>';
     }).join("");
-    container.innerHTML = html || '<span class="mmp-hint">Waiting for players…</span>';
+    var grid = '<div class="mmp-roster-grid">' +
+                 (chips || '<span class="mmp-hint">Waiting for players…</span>') +
+               '</div>';
+    container.innerHTML = counter + grid;
   }
   function escHtml(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
