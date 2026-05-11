@@ -8190,6 +8190,11 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
            this anchor the only way to see the panel was clicking the
            auto-toast within 9s of page load. -->
       <span class="topnav-changelog-host" id="topnavChangelogHost" aria-label="What's New"></span>
+      <!-- SFX toggle pill — 8-bit sounds on hover/click + coin drops on
+           Insert Coin. Defaults to ON, persists to localStorage. -->
+      <button class="sfx-toggle" id="sfxToggle" type="button" aria-label="Toggle sound effects" data-sfx-skip="1">
+        <span class="sfx-icon" aria-hidden="true"></span><span class="sfx-label">SFX</span>
+      </button>
     </nav>
     <button class="profile-pill" id="profilePill" type="button" aria-label="Open trainer profile" aria-expanded="false">
       <span class="pp-avatar" id="ppAvatar" aria-hidden="true">🎓</span>
@@ -8810,6 +8815,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-screenshot.js?v=20260509-screenshot"></script>
 <script src="assets/arcade-changelog.js?v=20260509-changelog"></script>
 <script src="assets/arcade-changelog-entries.js?v=20260511-entries-v6.7"></script>
+<script src="assets/arcade-sfx.js?v=20260511-sfx-v1"></script>
 <script src="assets/arcade-news-ticker.js?v=20260509-news-ticker"></script>
 <script src="assets/arcade-leaderboard-globe.js?v=20260509-globe"></script>
 <script src="assets/arcade-deeplinks.js?v=20260509-deeplinks"></script>
@@ -13125,6 +13131,32 @@ boot();
         if (typeof window.MrMacsChangelog.checkAndShowOnLoad === "function") {
           window.MrMacsChangelog.checkAndShowOnLoad();
         }
+      }
+    } catch (e) {}
+
+    // Wire SFX toggle: clicking flips on/off, updates the icon, and
+    // arms the audio context for future plays. The MrMacsSFX module
+    // handles persistence to localStorage internally.
+    try {
+      var sfxBtn = document.getElementById("sfxToggle");
+      if (sfxBtn && window.MrMacsSFX) {
+        var setState = function () {
+          var on = window.MrMacsSFX.isEnabled();
+          sfxBtn.setAttribute("data-state", on ? "on" : "off");
+          var lbl = sfxBtn.querySelector(".sfx-label");
+          if (lbl) lbl.textContent = on ? "SFX" : "MUTED";
+        };
+        setState();
+        sfxBtn.addEventListener("click", function () {
+          var next = !window.MrMacsSFX.isEnabled();
+          window.MrMacsSFX.setEnabled(next);
+          setState();
+          if (next) {
+            // Unlock audio context with a user gesture + play a confirmation blip
+            window.MrMacsSFX.ensureContext();
+            window.MrMacsSFX.play("select");
+          }
+        });
       }
     } catch (e) {}
 

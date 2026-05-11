@@ -690,3 +690,350 @@ input, select, textarea {
 @media (prefers-reduced-motion: reduce) {
   .attract-text { animation: none; opacity: 1; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   13. CHUNKY ARCADE BUTTONS — every primary button gets the 1989 treatment
+   ═══════════════════════════════════════════════════════════════════════ */
+.btn.primary,
+.action.primary,
+button.primary,
+.brass-btn,
+.action.compact {
+  font-family: "Press Start 2P", monospace !important;
+  font-size: 13px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  padding: 14px 24px !important;
+  border-radius: 4px !important;
+  background: linear-gradient(180deg, #ffd060 0%, #f5a020 100%) !important;
+  color: #2a1808 !important;
+  border: 3px solid #2a1808 !important;
+  /* Hard arcade drop shadow — looks like a physical button on a cabinet */
+  box-shadow:
+    0 4px 0 #7a4818,
+    0 5px 0 #2a1808,
+    0 8px 16px rgba(0,0,0,0.6),
+    inset 0 2px 0 rgba(255,255,255,0.4) !important;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.35);
+  transform: translateY(0);
+  transition: transform 80ms ease-out, box-shadow 80ms ease-out;
+  cursor: pointer;
+}
+.btn.primary:hover,
+.action.primary:hover,
+button.primary:hover,
+.brass-btn:hover,
+.action.compact:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 5px 0 #7a4818,
+    0 6px 0 #2a1808,
+    0 10px 22px rgba(0,0,0,0.7),
+    inset 0 2px 0 rgba(255,255,255,0.5) !important;
+}
+.btn.primary:active,
+.action.primary:active,
+button.primary:active,
+.brass-btn:active,
+.action.compact:active {
+  transform: translateY(4px) !important;
+  box-shadow:
+    0 0 0 #7a4818,
+    0 1px 0 #2a1808,
+    0 2px 8px rgba(0,0,0,0.5),
+    inset 0 2px 0 rgba(255,255,255,0.2) !important;
+}
+
+/* Secondary / glass-pill buttons — chunkier border + pixel font */
+.btn,
+.action,
+.btn.glass-pill {
+  font-family: "Press Start 2P", monospace !important;
+  font-size: 10px !important;
+  letter-spacing: 0.10em !important;
+  text-transform: uppercase !important;
+  border-width: 2px !important;
+  border-radius: 4px !important;
+  padding: 10px 16px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   14. CARTRIDGE-LABEL GAME CARDS — like ROM cartridges in a Genesis library
+   Each card gets a 2-tone pixel border, a "marquee" strip at top, and a
+   scanning beam on hover.
+   ═══════════════════════════════════════════════════════════════════════ */
+.game-card,
+.mode-button,
+.smart-card,
+.quick-card,
+.focus-card,
+.continue-card {
+  position: relative !important;
+  background: linear-gradient(180deg, #1a1f30 0%, #0a0e1c 100%) !important;
+  border: 3px solid var(--accent, #5de0f0) !important;
+  border-radius: 4px !important;
+  box-shadow:
+    0 0 0 1px #000 inset,
+    0 4px 0 rgba(0,0,0,0.55),
+    0 0 18px color-mix(in srgb, var(--accent, #5de0f0) 22%, transparent) !important;
+  overflow: hidden;
+  transition: transform 140ms cubic-bezier(.34, 1.4, .64, 1), box-shadow 140ms;
+}
+/* Cartridge "marquee" strip at top of each card */
+.game-card::before,
+.mode-button::before,
+.smart-card::before,
+.quick-card::before,
+.focus-card::before {
+  content: "";
+  position: absolute !important;
+  top: 0; left: 0; right: 0;
+  height: 4px !important;
+  width: auto !important;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent, #5de0f0) 0,
+    var(--accent, #5de0f0) 8px,
+    rgba(0,0,0,0.6) 8px,
+    rgba(0,0,0,0.6) 12px
+  ) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.7) !important;
+  z-index: 4;
+  pointer-events: none;
+}
+/* Scanning beam — a horizontal cyan line that sweeps top→bottom on hover */
+.game-card:hover::after,
+.mode-button:hover::after,
+.smart-card:hover::after,
+.continue-card:hover::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(120, 240, 255, 0.18) 49%,
+    rgba(180, 250, 255, 0.42) 50%,
+    rgba(120, 240, 255, 0.18) 51%,
+    transparent 60%,
+    transparent 100%);
+  animation: cartridgeScan 1.2s linear infinite;
+  z-index: 3;
+  mix-blend-mode: screen;
+}
+@keyframes cartridgeScan {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-card:hover::after,
+  .mode-button:hover::after,
+  .smart-card:hover::after,
+  .continue-card:hover::after { animation: none; opacity: 0; }
+}
+.game-card:hover,
+.mode-button:hover,
+.smart-card:hover,
+.quick-card:hover,
+.focus-card:hover,
+.continue-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow:
+    0 0 0 1px #000 inset,
+    0 6px 0 rgba(0,0,0,0.6),
+    0 0 28px color-mix(in srgb, var(--accent, #5de0f0) 45%, transparent) !important;
+}
+.game-card:active,
+.mode-button:active,
+.smart-card:active,
+.continue-card:active {
+  transform: translateY(2px) !important;
+}
+/* Card titles + meta — pixel font */
+.game-card h3,
+.mode-button .mb-title,
+.smart-card h3,
+.quick-card h3,
+.focus-card h3 {
+  font-family: "Press Start 2P", monospace !important;
+  font-size: 12px !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.4 !important;
+  color: var(--accent, #5de0f0) !important;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--accent, #5de0f0) 60%, transparent);
+}
+.game-card p,
+.mode-button .mb-sub,
+.smart-card p {
+  font-family: "VT323", monospace !important;
+  font-size: 16px !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.04em !important;
+}
+.game-card .micro,
+.continue-card .cc-meta {
+  font-family: "VT323", monospace !important;
+  font-size: 14px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   15. 7-SEGMENT LCD HUD NUMERICS
+   Score, lives, time displays inside every game's top-HUD get a real
+   LCD-style font with sharp digit edges, a faint "off-segment" ghost,
+   and a black inset background.
+   ═══════════════════════════════════════════════════════════════════════ */
+.stat-cell .stat-value,
+.hud-cell .hud-val,
+.hud b,
+.hud strong[id],
+#hudScore, #hudLives, #hudLength, #hudKills, #hudBest,
+#hudRound, #hudWords, #hudTimer, #hudMult, #hudLevel,
+#hudCombo, #hudHyper, #hudWave,
+#score, #lives, #wave, #insight,
+#killCount, #goldCount {
+  font-family: "VT323", "DSEG7", ui-monospace, monospace !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: #5de0f0 !important;
+  text-shadow:
+    0 0 8px rgba(93,224,240,0.55),
+    0 0 16px rgba(93,224,240,0.28) !important;
+  letter-spacing: 0.04em !important;
+  font-variant-numeric: tabular-nums;
+  padding: 2px 8px !important;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.85) 100%),
+    repeating-linear-gradient(0deg,
+      rgba(93,224,240,0.04) 0,
+      rgba(93,224,240,0.04) 1px,
+      transparent 1px,
+      transparent 2px) !important;
+  border: 1px solid rgba(93,224,240,0.30) !important;
+  border-radius: 2px !important;
+  display: inline-block;
+  min-width: 1.5em;
+  text-align: center;
+}
+.stat-cell .stat-label,
+.hud-cell .hud-eyebrow,
+.hud-cell .hud-label {
+  font-family: "Press Start 2P", monospace !important;
+  font-size: 8px !important;
+  letter-spacing: 0.16em !important;
+  color: rgba(216, 220, 235, 0.65) !important;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   16. PER-GAME CRT BEZEL FRAME
+   Every game canvas gets a faux-cabinet bezel via box-shadow. This makes
+   each game feel like it's running inside a dedicated arcade screen.
+   Subtle, doesn't impact gameplay.
+   ═══════════════════════════════════════════════════════════════════════ */
+canvas[id$="Canvas"],
+#snakeCanvas, #brickCanvas, #stellarCanvas, #bridgeCanvas,
+#solitaireCanvas, #boggleCanvas, #pongCanvas, #pongdrCanvas,
+#tronCanvas, #towerCanvas, #plinkoCanvas, #cubeCanvas,
+#defenderCanvas, #reflexCanvas, #knightCanvas, #echoCanvas,
+#galaxyCanvas, #atlasCanvas, #centiCanvas, #cascadeCanvas,
+#chronoCanvas, #chronoblocksCanvas, #chronohopCanvas, #citadelCanvas,
+#mahjongCanvas, #stepCanvas, #sokobanCanvas, #sudokuCanvas,
+#bombCanvas, #chessCanvas, #archiveCanvas, #archivetyCanvas,
+#rumorCanvas, #timeCanvas, #memCanvas, #anagramCanvas,
+#chronopinballCanvas, #reviewmazeCanvas, #pinballCanvas,
+#crosswordCanvas, #empireCanvas, #arena, #raceCanvas, #world,
+#screen {
+  box-shadow:
+    inset 0 0 0 4px rgba(0, 0, 0, 0.85),
+    inset 0 0 0 5px rgba(93, 224, 240, 0.18),
+    inset 0 0 80px rgba(0, 0, 0, 0.45),
+    0 0 0 2px rgba(120, 200, 220, 0.16),
+    0 0 18px rgba(0, 0, 0, 0.55) !important;
+  border-radius: 6px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   17. ATTRACT-CYCLE — featured tile cycles its accent every 4s like a
+   1989 arcade cabinet's attract-mode screen flipping through ROMs.
+   ═══════════════════════════════════════════════════════════════════════ */
+@keyframes attractCycle {
+  0%   { box-shadow: 0 0 0 1px #000 inset, 0 6px 0 rgba(0,0,0,0.6), 0 0 28px rgba(93,224,240,0.6) !important; border-color: #5de0f0 !important; }
+  25%  { box-shadow: 0 0 0 1px #000 inset, 0 6px 0 rgba(0,0,0,0.6), 0 0 28px rgba(255,208,96,0.6) !important; border-color: #ffd060 !important; }
+  50%  { box-shadow: 0 0 0 1px #000 inset, 0 6px 0 rgba(0,0,0,0.6), 0 0 28px rgba(169,145,255,0.6) !important; border-color: #a991ff !important; }
+  75%  { box-shadow: 0 0 0 1px #000 inset, 0 6px 0 rgba(0,0,0,0.6), 0 0 28px rgba(240,123,184,0.6) !important; border-color: #f07bb8 !important; }
+  100% { box-shadow: 0 0 0 1px #000 inset, 0 6px 0 rgba(0,0,0,0.6), 0 0 28px rgba(93,224,240,0.6) !important; border-color: #5de0f0 !important; }
+}
+.featured-band .mode-button:first-child,
+.bento .mode-button:first-child {
+  animation: attractCycle 4.8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .featured-band .mode-button:first-child,
+  .bento .mode-button:first-child { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   18. TOPBAR / HUD — pixel font + sharper contrast on hub topbar
+   ═══════════════════════════════════════════════════════════════════════ */
+.topbar .brand strong,
+.brand-title {
+  font-family: "Press Start 2P", monospace !important;
+  font-size: 12px !important;
+  letter-spacing: 0.04em !important;
+}
+.topnav a,
+.profile-pill .pp-name {
+  font-family: "Press Start 2P", monospace !important;
+  font-size: 9px !important;
+  letter-spacing: 0.10em !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   19. ARCADE CURSOR HINTS — visual feedback on focus / hover
+   ═══════════════════════════════════════════════════════════════════════ */
+.game-card:focus-visible,
+.mode-button:focus-visible,
+.smart-card:focus-visible,
+.btn:focus-visible,
+.action:focus-visible {
+  outline: 3px solid #ffd060 !important;
+  outline-offset: 4px !important;
+  box-shadow:
+    0 0 0 6px rgba(255, 208, 96, 0.18),
+    0 0 28px rgba(255, 208, 96, 0.45) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   20. SOUND-TOGGLE PILL in hub topbar — let users mute the SFX
+   ═══════════════════════════════════════════════════════════════════════ */
+.sfx-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: rgba(8, 12, 24, 0.85);
+  border: 1px solid rgba(245, 196, 81, 0.32);
+  border-radius: 4px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px !important;
+  letter-spacing: 0.10em;
+  color: rgba(216, 220, 235, 0.85);
+  cursor: pointer;
+  transition: background 120ms, border-color 120ms;
+  -webkit-tap-highlight-color: transparent;
+}
+.sfx-toggle:hover {
+  background: rgba(245, 196, 81, 0.10);
+  border-color: #f5c451;
+  color: #ffd060;
+}
+.sfx-toggle .sfx-icon {
+  font-size: 11px;
+  line-height: 1;
+}
+.sfx-toggle[data-state="off"] { color: rgba(216,220,235,0.42); }
+.sfx-toggle[data-state="off"] .sfx-icon::before { content: "🔇"; }
+.sfx-toggle[data-state="on"]  .sfx-icon::before { content: "🔊"; }
