@@ -8156,6 +8156,12 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
            to #library. Reduced to Play (launch row) + Library (game grid). -->
       <a href="#launch-paths"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="7,4 19,12 7,20"/></svg><span>Play</span></a>
       <a href="#library"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="5.5" height="14" rx="0.6"/><rect x="10" y="3" width="5.5" height="17" rx="0.6"/><path d="M17.5 7.5 L21 8.4 L18.5 21 L15.6 20.2 Z"/></svg><span>Library</span></a>
+      <!-- Persistent What's New badge — renderUpdateBadge inserts a button
+           here on DOMContentLoaded. Clicking it opens the changelog drawer
+           (which currently shows 10 entries spanning v6.6 → v2.0). Without
+           this anchor the only way to see the panel was clicking the
+           auto-toast within 9s of page load. -->
+      <span class="topnav-changelog-host" id="topnavChangelogHost" aria-label="What's New"></span>
     </nav>
     <button class="profile-pill" id="profilePill" type="button" aria-label="Open trainer profile" aria-expanded="false">
       <span class="pp-avatar" id="ppAvatar" aria-hidden="true">🎓</span>
@@ -13067,10 +13073,19 @@ boot();
       }
     } catch (e) {}
 
-    // Show changelog if there are unseen entries
+    // Mount the persistent What's New badge in the topbar nav, then auto-
+    // toast if there are unseen entries. The badge stays visible (and
+    // clickable) for the lifetime of the page; the toast self-dismisses
+    // after 9s. Both open the same drawer.
     try {
-      if (window.MrMacsChangelog && typeof window.MrMacsChangelog.checkAndShowOnLoad === "function") {
-        window.MrMacsChangelog.checkAndShowOnLoad();
+      if (window.MrMacsChangelog) {
+        var changelogHost = document.getElementById("topnavChangelogHost");
+        if (changelogHost && typeof window.MrMacsChangelog.renderUpdateBadge === "function") {
+          window.MrMacsChangelog.renderUpdateBadge(changelogHost);
+        }
+        if (typeof window.MrMacsChangelog.checkAndShowOnLoad === "function") {
+          window.MrMacsChangelog.checkAndShowOnLoad();
+        }
       }
     } catch (e) {}
 
