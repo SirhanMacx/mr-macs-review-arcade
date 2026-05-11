@@ -1113,3 +1113,58 @@ kbd {
 @media (prefers-reduced-motion: reduce) {
   .snake-pit-banner { animation: none; opacity: 1; transform: translate(-50%, -50%); }
 }
+
+/* ─── Combo pill: small corner notice, NOT a centered banner ───
+   Lives under the wave-ribbon, left side. Slides in from the left and
+   fades quickly so it never obscures the playfield. */
+.snake-pit-combo-pill {
+  position: absolute;
+  top: 100px;
+  left: max(14px, env(safe-area-inset-left, 14px));
+  z-index: 35;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 6px 12px;
+  background: rgba(4, 8, 18, 0.78);
+  border: 1.5px solid currentColor;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-12px);
+  animation: spComboPillIn 200ms cubic-bezier(.34, 1.56, .64, 1) forwards;
+}
+.snake-pit-combo-pill strong {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-shadow: 0 0 8px currentColor;
+}
+.snake-pit-combo-pill .cp-sub {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .10em;
+  color: rgba(255,255,255,.55);
+  text-transform: uppercase;
+}
+.snake-pit-combo-pill.is-out {
+  animation: spComboPillOut 380ms ease-in forwards;
+}
+@keyframes spComboPillIn {
+  0% { opacity: 0; transform: translateX(-12px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes spComboPillOut {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(-12px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .snake-pit-combo-pill { animation: none; opacity: 1; transform: none; }
+  .snake-pit-combo-pill.is-out { animation: none; opacity: 0; }
+}
+@media (max-width: 720px) {
+  .snake-pit-combo-pill { top: 84px; padding: 4px 9px; }
+  .snake-pit-combo-pill strong { font-size: 11px; }
+  .snake-pit-combo-pill .cp-sub { font-size: 8.5px; }
+}

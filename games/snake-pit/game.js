@@ -1536,15 +1536,9 @@
     if (p.comboT > 0) {
       p.comboT -= dt;
       if (p.comboT <= 0) {
-        // Combo expired
-        if (p.comboTier > 0) {
-          pushPopup({
-            text: "COMBO ENDED",
-            sub: "Final streak: " + p.comboCount,
-            color: "#9aa3bb",
-            life: 1.0
-          });
-        }
+        // Combo expired — silently reset. Player can see this in the HUD
+        // multiplier disappearing; no need for a centered banner that
+        // covers gameplay.
         p.comboCount = 0;
         p.comboTier = 0;
       }
@@ -1563,14 +1557,27 @@
     if (newTier > p.comboTier) {
       p.comboTier = newTier;
       var tierMeta = COMBO_TIERS[newTier - 1];
-      pushPopup({
-        text: tierMeta.label,
-        sub: "Orbs worth " + tierMeta.mult + "x for " + COMBO_WINDOW_S + "s",
-        color: tierMeta.color,
-        life: 1.4,
-        big: true
-      });
+      // Tier-up: brief corner pill (top-right under leaderboard), not a
+      // centered banner — players need to keep watching their snake.
+      // The HUD goal-meta also shows the multiplier persistently.
+      pushComboPill(tierMeta);
     }
+  }
+  // Flash a small corner pill announcing a new combo tier. Lives in the
+  // upper-left area so it doesn't fight the leaderboard or block the
+  // playfield. Animates in/out quickly so it never lingers.
+  function pushComboPill(tier) {
+    if (!dom.popupOverlay) return;
+    var div = document.createElement("div");
+    div.className = "snake-pit-combo-pill";
+    div.style.color = tier.color;
+    div.style.borderColor = tier.color;
+    div.style.boxShadow = "0 0 14px " + tier.color + "55";
+    div.innerHTML = '<strong>' + tier.label + '</strong>' +
+      '<span class="cp-sub">×' + tier.mult + ' for ' + COMBO_WINDOW_S + 's</span>';
+    dom.popupOverlay.appendChild(div);
+    setTimeout(function () { try { div.classList.add("is-out"); } catch (e) {} }, 900);
+    setTimeout(function () { try { div.remove(); } catch (e) {} }, 1300);
   }
   function currentComboMult() {
     var p = state.player;
