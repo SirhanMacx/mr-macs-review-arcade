@@ -1951,3 +1951,115 @@ main#main > #launch-paths { display: none !important; }
   .hero-copy { text-align: center; }
   .cabinet-menu { margin-left: auto; margin-right: auto; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   37. CABINET-MENU v2 — easier to navigate / more arcade-like
+   - Hide attract-carousel from hub (competes with folders for attention)
+   - Bigger folder tiles so they dominate the page
+   - Keyboard cursor: arrow keys move the highlight; pulsing focus ring
+   - Press-Start nudge: blinks below the folders inviting interaction
+   - Hover/focus state more visible: gold edge gets a "running lights"
+     animation matching the cabinet marquee aesthetic
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Remove the attract carousel from the home hub — students are landing
+   on a CABINET MENU, not a featured-game showcase. (#attractCarousel
+   stays in the DOM for other future surfaces.) */
+body:not([data-game-page]) #attractCarousel { display: none !important; }
+
+/* BIGGER folders — make them the unmistakable focal point. */
+.cabinet-menu {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 26px);
+  max-width: 880px;
+  margin-top: clamp(20px, 3vh, 32px);
+}
+@media (max-width: 700px) {
+  .cabinet-menu {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+.cabinet-folder {
+  min-height: clamp(150px, 22vh, 200px);
+  padding: clamp(28px, 4vw, 36px) 16px 18px;
+  gap: 10px;
+}
+.cabinet-folder .cf-icon {
+  font-size: clamp(36px, 5vw, 48px);
+}
+.cabinet-folder .cf-label {
+  font-size: clamp(13px, 1.6vw, 16px) !important;
+}
+.cabinet-folder .cf-meta {
+  font-size: clamp(9px, 1.05vw, 10px) !important;
+}
+.cabinet-folder .cf-tab {
+  top: -14px;
+  width: 60px;
+  height: 16px;
+}
+
+/* RUNNING-LIGHTS edge on hover / focus — like the marquee */
+.cabinet-folder::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 9px;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #ffd060 50%, transparent 50%) top    / 14px 2px repeat-x,
+    linear-gradient(90deg, #ffd060 50%, transparent 50%) bottom / 14px 2px repeat-x,
+    linear-gradient(0deg,  #ffd060 50%, transparent 50%) left   / 2px 14px repeat-y,
+    linear-gradient(0deg,  #ffd060 50%, transparent 50%) right  / 2px 14px repeat-y;
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.cabinet-folder:hover::after,
+.cabinet-folder:focus-visible::after,
+.cabinet-folder.is-cursor::after {
+  opacity: 0.85;
+  animation: cabinetEdgeChase 1.6s linear infinite;
+}
+@keyframes cabinetEdgeChase {
+  to { background-position:
+    14px 0, -14px 100%, 0 -14px, 100% 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cabinet-folder::after { animation: none !important; }
+}
+
+/* Keyboard cursor — the folder that has .is-cursor gets a cyan glow
+   indicating it's the keyboard-highlighted choice. Press Enter to open. */
+.cabinet-folder.is-cursor {
+  border-color: #5de0f0;
+  box-shadow:
+    0 6px 0 rgba(0, 0, 0, 0.50),
+    0 14px 32px rgba(93, 224, 240, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.55),
+    0 0 26px rgba(93, 224, 240, 0.35);
+}
+.cabinet-folder.is-cursor .cf-tab { border-color: #5de0f0; }
+
+/* PRESS START blinking nudge below the menu */
+.cabinet-press-start {
+  display: block;
+  margin: clamp(16px, 2.5vh, 28px) auto 0;
+  text-align: center;
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: rgba(255, 208, 96, 0.85);
+  text-shadow: 0 0 8px rgba(255, 208, 96, 0.55);
+  animation: cabinetBlink 1.4s steps(2, end) infinite;
+  pointer-events: none;
+}
+@keyframes cabinetBlink {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0.25; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cabinet-press-start { animation: none; opacity: 1; }
+}

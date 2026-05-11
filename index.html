@@ -17,7 +17,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-cabinet-menu-v2">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-cabinet-v3-keyboard">
 <style>
 :root {
   color-scheme: dark;
@@ -8423,6 +8423,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <span class="cf-meta">+60 shards</span>
         </button>
       </div>
+      <p class="cabinet-press-start" aria-hidden="true">▸ TAP OR PRESS ENTER ◂</p>
     </div>
     <aside class="hero-console reveal" aria-label="Featured arcade launches">
       <div class="console-bezel">
@@ -10660,6 +10661,47 @@ function initCabinetMenu() {
     const map = { jeopardy: "jeopardy", practice: "practice", featured: "arcade", library: "arcade", daily: "daily" };
     setTimeout(() => openFolder(map[hash]), 200);
   }
+
+  // ─── Keyboard navigation — feels like a real arcade joystick ───
+  // Arrow keys move the cursor between folders, Enter opens the
+  // selected folder, ESC closes any open folder. The cursor is the
+  // .is-cursor class on a single folder.
+  const folderList = Array.from(folders);
+  let cursorIdx = 0;
+  function setCursor(idx) {
+    cursorIdx = ((idx % folderList.length) + folderList.length) % folderList.length;
+    folderList.forEach((f, i) => f.classList.toggle("is-cursor", i === cursorIdx));
+    try { if (window.MrMacsSFX && window.MrMacsSFX.play) window.MrMacsSFX.play("navigate"); } catch (e) {}
+  }
+  document.addEventListener("keydown", function (e) {
+    // Only react when the user is not typing into a field
+    const tag = (document.activeElement && document.activeElement.tagName) || "";
+    if (/INPUT|TEXTAREA|SELECT/i.test(tag)) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      setCursor(cursorIdx + 1);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setCursor(cursorIdx - 1);
+    } else if (e.key === "Enter" || e.key === " ") {
+      // Only fire Enter on folder open if no folder is currently open
+      // (so Enter inside an open section doesn't bounce back)
+      const anyOpen = document.querySelector("main#main > .section-open");
+      if (!anyOpen && folderList[cursorIdx]) {
+        e.preventDefault();
+        openFolder(folderList[cursorIdx].dataset.cabinetFolder);
+      }
+    } else if (e.key === "Escape") {
+      const anyOpen = document.querySelector("main#main > .section-open");
+      if (anyOpen) {
+        try { if (window.MrMacsSFX && window.MrMacsSFX.play) window.MrMacsSFX.play("navigate"); } catch (e) {}
+        closeAll();
+        const hero = document.getElementById("top");
+        if (hero) hero.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  });
 }
 
 // ============== Canvas FX ==============
