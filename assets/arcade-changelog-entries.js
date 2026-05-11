@@ -14,6 +14,18 @@
     if (!window.MrMacsChangelog || typeof window.MrMacsChangelog.register !== "function") return;
     window.MrMacsChangelog.register([
       {
+        date: "2026-05-11",
+        version: "v6.6",
+        headline: "Platform overhaul — PWA, 20 new course pages, mobile keyboards",
+        items: [
+          { kind: "new", text: "Installable Progressive Web App — register service worker, link manifest, offline-cache for static assets and the question bank" },
+          { kind: "new", text: "20 new course landing pages — every AP, Regents, and grade-level course shell (Grade 5/6/7/8, Global 9/10, AP World/Euro/HuG/Macro/Micro/Gov/Psych/Econ/APUSH, Civics PiG, Econ, Sprint, US History) now has a polished entry surface with course-themed accent colors. 158 Jeopardy boards now discoverable." },
+          { kind: "new", text: "Anagram Atlas mobile QWERTY keyboard — 28 tappable keys, 44px targets, Backspace + Submit on the bottom row. Same proven pattern as Word Bridge." },
+          { kind: "perf", text: "Defensive shared-bank wire-up across 31 more games (57/78 total) — future-proofs games against bank integration drift" },
+          { kind: "fix", text: "Manifest start_url + icon paths fixed to relative (PWA install now resolves correctly on GitHub Pages subpath)" }
+        ]
+      },
+      {
         date: "2026-05-10",
         version: "v6.5",
         headline: "Snake Pit goes battle royale",
