@@ -49,7 +49,7 @@
   var SCORE_TO_SHARDS_RATIO = 200;
 
   // Number of scholar tiles in a stage (~5 of 144)
-  var SCHOLAR_COUNT = 5;
+  var SCHOLAR_COUNT = 8;  // was 5 — Jon: more review opportunities
 
   // -- Inline review bank (28 entries) --------------------------------------
   var INLINE_BANK = [

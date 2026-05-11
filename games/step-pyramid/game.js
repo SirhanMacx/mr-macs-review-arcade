@@ -80,9 +80,9 @@
     return Math.max(2.5, ENEMY_SPAWN_BASE - level * 0.5);
   }
 
-  // Disc spawn
-  var DISC_RESPAWN_BASE = 14.0;
-  var DISC_MAX = 2;
+  // Disc spawn (was 14.0 / max 2 — Jon: more review opportunities)
+  var DISC_RESPAWN_BASE = 9.0;
+  var DISC_MAX = 3;
 
   // -- Inline review bank (~28 entries) --------------------------------------
   var INLINE_BANK = [

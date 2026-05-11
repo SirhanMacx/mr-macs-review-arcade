@@ -20,7 +20,7 @@
   var SHARDS_CAP = 200;
   var BONUS_LIFE_THRESHOLD = 10000;
   var HINTS_PER_PUZZLE = 3;
-  var SCHOLAR_PER_PUZZLE = 3;
+  var SCHOLAR_PER_PUZZLE = 5;  // was 3 — Jon: more review opportunities
   var IDLE_WARN_AT = 60;             // 60 seconds idle warning -> 0 progress life loss
   var IDLE_LIFE_LOST_AT = 90;        // additional idle time triggers life loss
 

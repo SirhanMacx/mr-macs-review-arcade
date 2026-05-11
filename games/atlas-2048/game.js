@@ -30,8 +30,8 @@
 
   // Scholar tile drop — once per "game lifetime" (across all 3 lives in a run).
   // We pick a target merge count between 12 and 26; spawn at that merge.
-  var SCHOLAR_MERGE_MIN = 12;
-  var SCHOLAR_MERGE_MAX = 26;
+  var SCHOLAR_MERGE_MIN = 6;            // was 12 — Jon: more review opportunities
+  var SCHOLAR_MERGE_MAX = 14;           // was 26
 
   // Powerup default counts at run start
   var POWERUP_INIT = {

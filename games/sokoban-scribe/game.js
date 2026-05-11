@@ -27,7 +27,7 @@
   var UNDO_CAP = 50;
   var SHARDS_CAP = 200;
   var POWERUP_CAP = 3;
-  var SCHOLAR_INTERVAL = 3;          // ~once per 3 levels
+  var SCHOLAR_INTERVAL = 2;          // ~once per 2 levels (was 3 — Jon: more review opportunities)
   var BONUS_LIFE_THRESHOLD = 10000;
 
   // -- Tile glyph constants -------------------------------------------------

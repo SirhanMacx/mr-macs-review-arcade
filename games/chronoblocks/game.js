@@ -33,7 +33,7 @@
   var SOFT_DROP_FACTOR = 10;
   var LOCK_DELAY_MS = 500;
   var LOCK_RESET_MAX = 15;
-  var SCHOLAR_INTERVAL = 25;            // every Nth piece is golden
+  var SCHOLAR_INTERVAL = 14;            // every Nth piece is golden (was 25 — Jon: more review opportunities)
 
   var SCORE_LINES = { 1: 100, 2: 300, 3: 500, 4: 800 };
   var SCORE_SOFT_PER_CELL = 1;

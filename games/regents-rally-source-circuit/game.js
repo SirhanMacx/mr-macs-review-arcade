@@ -1846,13 +1846,13 @@ function updateRace(dt) {
         burstParticles(state.lane, state.character.accent, 22);
       }
       setToast(state.boost > 0 ? "PERFECT START" : "GO", 0.95);
-      // Phase 3 — fire first-run tour once after the very first race release
-      if (!_tourFired && window.MrMacsArcadeTour) {
-        _tourFired = true;
-        setTimeout(() => {
-          window.MrMacsArcadeTour.start(GAME_ID_TOUR, TOUR_STEPS);
-        }, 1800);
-      }
+      // First-run tour DISABLED here — it was firing 1.8 s into the
+      // user's very first race, overlaying the racing canvas with a
+      // tutorial card pointed at character-screen elements that were
+      // no longer visible. The manual "Tour" button (id="replayTourBtn")
+      // remains as opt-in. If/when re-enabled, fire it from the
+      // character-select screen mount instead, where the tour targets
+      // (#characterGrid, #chooseDriverBtn) are actually on-screen.
     }
     state.toastTime = Math.max(0, state.toastTime - dt);
     updateRivals(dt * 0.08);

@@ -31,7 +31,7 @@
   var ROUND_TIME_STEP = 3.0;            // -3s per round (floor 30)
   var ROUND_TIME_FLOOR = 30.0;
   var STARTING_LIVES = 3;
-  var SCHOLAR_PER_ROUND = 5;            // ~5 scholar tiles per round
+  var SCHOLAR_PER_ROUND = 8;            // ~8 scholar tiles per round (was 5 — Jon: more review opportunities)
   var TIME_LOW_THRESHOLD = 10.0;        // last 10s = warning
 
   // Scoring

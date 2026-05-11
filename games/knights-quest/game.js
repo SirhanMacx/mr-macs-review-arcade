@@ -64,8 +64,8 @@
   var SHARDS_CAP = 200;
   var LIVES_INIT = 3;
 
-  // Loot rates
-  var SCHOLAR_RELIC_PER_FLOOR = 1;
+  // Loot rates (Jon: more review opportunities — was 1 relic / floor)
+  var SCHOLAR_RELIC_PER_FLOOR = 2;
   var POTION_PER_FLOOR_MIN = 1;
   var POTION_PER_FLOOR_MAX = 2;
   var KEY_DROP_RATE_FROM_KILL = 0.10;

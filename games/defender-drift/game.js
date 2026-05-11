@@ -39,7 +39,7 @@
   var PLAYER_SCREEN_X = LOGICAL_W * 0.5; // anchored center; world scrolls
 
   // Scholars
-  var SCHOLARS_PER_STAGE = 8;
+  var SCHOLARS_PER_STAGE = 14;  // was 8 — Jon: more review opportunities
   var SCHOLAR_WALK_SPEED = 22;
   var SCHOLAR_W = 12;
   var SCHOLAR_H = 18;

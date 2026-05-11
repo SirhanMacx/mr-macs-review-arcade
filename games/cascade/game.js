@@ -37,7 +37,7 @@
 
   // Spawn
   var POWERUP_RATE = 0.05;      // 5% of newly generated launcher bubbles are powerups
-  var SCHOLAR_INTERVAL = 30;    // every ~30 pops, plant a scholar in the cluster
+  var SCHOLAR_INTERVAL = 18;    // every ~18 pops (was 30 — Jon: more review opportunities)
 
   // Scoring
   var SCORE_PER_POP = 10;

@@ -41,8 +41,8 @@
   var ORB_DEAD_VALUE_PTS = 75;
   var ORB_BASE_COUNT = 240;           // baseline orb count in arena
   var SCHOLAR_ORB_RADIUS = 11;
-  var SCHOLAR_ORB_INITIAL_COUNT = 1;
-  var SCHOLAR_ORB_RESPAWN_S = 22.0;   // spawn another after this many sec
+  var SCHOLAR_ORB_INITIAL_COUNT = 2;
+  var SCHOLAR_ORB_RESPAWN_S = 13.0;   // spawn another after this many sec (was 22 — Jon: more review opportunities)
 
   // AI snakes
   var AI_COUNT_MIN = 5;

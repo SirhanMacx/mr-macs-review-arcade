@@ -43,7 +43,7 @@
   function barrelSpawnInterval(stage) {
     return Math.max(0.9, BARREL_SPAWN_BASE - (stage - 1) * 0.30);
   }
-  var SCHOLAR_TOME_DROP_RATE = 0.08;      // 8% chance magnate drops tome instead of barrel
+  var SCHOLAR_TOME_DROP_RATE = 0.16;      // 16% chance (was 8% — Jon: more review opportunities)
   var POWERUP_GILT_TOME_RATE = 0.05;      // 5% chance a tome is gilt-rim ⇒ review prompt
   var POWERUP_DROP_RATE = 0.05;           // 5% chance scholar tome carries a power-up
 
