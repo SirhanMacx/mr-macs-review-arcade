@@ -76,7 +76,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-drill-misses">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-batch-efghk">
 <style>
 :root {
   color-scheme: dark;
@@ -9083,7 +9083,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-difficulty.js?v=20260509-difficulty"></script>
 <script src="assets/arcade-screenshot.js?v=20260509-screenshot"></script>
 <script src="assets/arcade-changelog.js?v=20260509-changelog"></script>
-<script src="assets/arcade-changelog-entries.js?v=20260511-entries-v6.10"></script>
+<script src="assets/arcade-changelog-entries.js?v=20260511-entries-v6.11"></script>
 <script src="assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
 <script src="assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
 <script src="assets/arcade-news-ticker.js?v=20260509-news-ticker"></script>
@@ -9543,7 +9543,11 @@ function filteredGames() {
   const profile = (window.MrMacsProfile && window.MrMacsProfile.get) ? window.MrMacsProfile.get() : null;
   return GAMES.filter((game) => {
     if (!laneMatches(game)) return false;
-    if (state.course !== "All Courses" && game.course !== state.course) return false;
+    // Cross-curricular fix: games tagged "All Courses" pass every
+    // course filter. They adapt to the player's enrolled course via
+    // the shared question bank, so the audit's "50 games hidden when
+    // student picks a specific course" bug is fixed here.
+    if (state.course !== "All Courses" && game.course !== state.course && game.course !== "All Courses") return false;
     if (!subjectMatches(game, state.subject)) return false;
     if (state.type !== "All Game Types" && displayGameType(game) !== state.type) return false;
     if (query && !searchable(game).includes(query)) return false;
@@ -9899,6 +9903,35 @@ function renderFeatured() {
   })();
 }
 
+/* Maps a game's `course` field to a short standards-alignment code.
+   Teachers love seeing standards on every card — instant trust signal
+   that the content aligns with what they're teaching. */
+function standardsChip(game) {
+  if (!game || !game.course) return "";
+  const c = String(game.course).toLowerCase();
+  // Multi-course games show the more specific tag
+  if (c.includes("ap psychology")) return "AP Psych";
+  if (c.includes("ap us history") || c.includes("apush")) return "AP USH";
+  if (c.includes("ap world")) return "AP World";
+  if (c.includes("ap european")) return "AP Euro";
+  if (c.includes("ap human")) return "AP HuG";
+  if (c.includes("ap macro")) return "AP Macro";
+  if (c.includes("ap micro")) return "AP Micro";
+  if (c.includes("ap u.s. government") || c.includes("ap us gov")) return "AP GoPo";
+  if (c.includes("ap economics")) return "AP Econ";
+  if (c.includes("grade 11 u.s.") || c.includes("us regents")) return "NYS US Regents";
+  if (c.includes("grade 10 global") || c.includes("global regents")) return "NYS Global Regents";
+  if (c.includes("grade 9 global")) return "NYS 9";
+  if (c.includes("grade 8 u.s.")) return "NYS 8";
+  if (c.includes("grade 7 u.s.")) return "NYS 7";
+  if (c.includes("grade 6")) return "NYS 6";
+  if (c.includes("grade 5")) return "NYS 5";
+  if (c.includes("civics")) return "NYS Civics";
+  if (c.includes("economics")) return "NYS Econ";
+  if (c.includes("all courses")) return "Cross-Curricular";
+  return null;
+}
+
 function buttonCard(game, fallback, className) {
   if (!game && !fallback) return "";
   const item = game || fallback;
@@ -9910,8 +9943,11 @@ function buttonCard(game, fallback, className) {
   const subtitle = game ? cardSubtitle(game) : item.subtitle;
   const kicker = game ? displayGameType(game) : item.kicker;
   const meta = game ? [game.course === "All Courses" ? "" : game.course, game.day || game.grade, game.gameType].filter(Boolean).slice(0, 2).join(" · ") : item.meta;
+  const stdChip = game ? standardsChip(game) : null;
+  const stdHtml = stdChip ? '<span class="std-chip" title="Standards alignment">' + escapeHtml(stdChip) + '</span>' : '';
   return '<button class="' + className + '" type="button" style="--accent:' + accent + ';--glyph:\'' + glyph + '\'' + art + '" data-id="' + escapeHtml(id) + '">' +
     '<span class="' + (className === "path-card" ? "path-kicker" : "focus-kicker") + '">' + escapeHtml(kicker) + '</span>' +
+    stdHtml +
     '<div><h3>' + escapeHtml(title) + '</h3><p>' + escapeHtml(subtitle) + '</p></div>' +
     '<div class="' + (className === "path-card" ? "path-foot" : "focus-foot") + '"><span>' + escapeHtml(meta || "") + '</span><span class="launch-chip">Play</span></div>' +
   '</button>';
@@ -12998,6 +13034,29 @@ boot();
       return "Today's Top Scores · " + (pick.title || "");
     });
   }
+
+  // ── Auto-submit Daily Challenge claim to the leaderboard ──────────
+  // When the player claims today's challenge, push a leaderboard entry
+  // tied to that day's pick game. Re-renders the leaderboard panel so
+  // the new score appears live without a page reload.
+  (function () {
+    if (!window.MrMacsProfile || typeof window.MrMacsProfile.on !== "function") return;
+    if (!window.MrMacsLeaderboards || !window.MrMacsLeaderboards.submit) return;
+    window.MrMacsProfile.on("daily:claim", function (payload) {
+      var gameId = payload && payload.gameId;
+      var payout = payload && payload.payout;
+      if (!gameId || !payout) return;
+      try {
+        window.MrMacsLeaderboards.submit({
+          gameId: gameId,
+          score: payout,
+          meta: { source: "daily-challenge", date: (new Date()).toISOString().slice(0,10) }
+        });
+        // Re-render the daily-band leaderboard if visible
+        if (typeof renderDaily === "function") renderDaily();
+      } catch (e) {}
+    });
+  })();
 
   // ---- Continue rail ----
   function renderContinue() {

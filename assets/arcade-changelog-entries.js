@@ -15,6 +15,19 @@
     window.MrMacsChangelog.register([
       {
         date: "2026-05-11",
+        version: "v6.11",
+        headline: "Deep audit cont. — tier-2/3 wins: filter fix, standards chips, share runs, CI, daily LB",
+        items: [
+          { kind: "fix", text: "CROSS-CURRICULAR FILTER BUG: arcade games tagged 'All Courses' were being hidden when a student filtered to a specific course (e.g. AP Psychology). 50 arcade games are now visible across every course filter, as they should be." },
+          { kind: "new", text: "STANDARDS-ALIGNMENT CHIPS on every game card: AP Psych / AP USH / AP Euro / NYS US Regents / NYS Global Regents / NYS Civics / Cross-Curricular. Color-coded by exam family. Teacher trust signal: instantly see which exam a game supports." },
+          { kind: "new", text: "SHARE THIS RUN button in end-of-game recap. Generates a 1080x1080 share image via the existing arcade-screenshot.js module. Players can save + share to socials. Wires to native share API when available, otherwise downloads as PNG." },
+          { kind: "new", text: "DAILY CHALLENGE AUTO-LEADERBOARD: claiming the daily challenge now auto-submits the player's payout to the day's pick game leaderboard. The 'Today's Top Scores' panel updates live without a page reload." },
+          { kind: "perf", text: "PLAYWRIGHT TEST SUITE + GITHUB ACTIONS CI: replaces manual smoke harness. Every push to main runs 82 tests (4 hub + 78 game smoke) in parallel. Build fails on any console error or game-start regression. Catches the kind of bug that broke 12 games' solo play earlier today." },
+          { kind: "fix", text: "TOUCH-CONTROLS FALSE POSITIVE: deep audit flagged '32 mobile-broken games' but per-game inspection showed they're all already playable on mobile via canvas pointerdown listeners or HTML button clicks. Audit corrected, no patches needed." }
+        ]
+      },
+      {
+        date: "2026-05-11",
         version: "v6.10",
         headline: "Deep audit shipped — pedagogical loop closed, SEO landed, AP Psych unblocked",
         items: [

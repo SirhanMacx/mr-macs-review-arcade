@@ -111,7 +111,28 @@
     "  .mer-recap-item:nth-child(3) { animation-delay: 0.12s; }",
     "  .mer-recap-item:nth-child(4) { animation-delay: 0.18s; }",
     "  .mer-recap-item:nth-child(5) { animation-delay: 0.24s; }",
-    "}"
+    "}",
+    /* SHARE BUTTON — wires to MrMacsScreenshot for "Share This Run" */
+    ".mer-share-btn {",
+    "  display: inline-flex; align-items: center; gap: 8px;",
+    "  margin-top: 12px;",
+    "  padding: 10px 18px;",
+    "  background: linear-gradient(135deg, #5de0f0, #3aa7c2);",
+    "  color: #04060f;",
+    "  border: 0;",
+    "  border-radius: 8px;",
+    "  font: 800 13px/1 'Inter', sans-serif;",
+    "  cursor: pointer;",
+    "  letter-spacing: 0.02em;",
+    "  transition: transform 150ms, box-shadow 150ms;",
+    "  box-shadow: 0 6px 16px rgba(93, 224, 240, 0.25);",
+    "}",
+    ".mer-share-btn:hover, .mer-share-btn:focus-visible {",
+    "  transform: translateY(-1px);",
+    "  box-shadow: 0 10px 24px rgba(93, 224, 240, 0.4);",
+    "  outline: none;",
+    "}",
+    ".mer-share-btn > span:first-child { font-size: 16px; }"
   ].join("\n");
 
   // ─── Internal state ───────────────────────────────────────────────────────────
@@ -351,6 +372,36 @@
 
       wrap.appendChild(h3);
       wrap.appendChild(ul);
+
+      // SHARE BUTTON — wired to MrMacsScreenshot.showShareModal so the
+      // player can save a 1080x1080 run-summary image. Fallback to
+      // captureAndDownload if showShareModal isn't supported. Silently
+      // hidden if screenshot module didn't load.
+      if (root.MrMacsScreenshot && (root.MrMacsScreenshot.showShareModal || root.MrMacsScreenshot.captureAndDownload)) {
+        var shareBtn = document.createElement("button");
+        shareBtn.type = "button";
+        shareBtn.className = "mer-share-btn";
+        shareBtn.innerHTML = '<span>📸</span> Share This Run';
+        shareBtn.addEventListener("click", function () {
+          var meta = (typeof opts === "object" && opts) || {};
+          try {
+            if (root.MrMacsScreenshot.showShareModal) {
+              root.MrMacsScreenshot.showShareModal({
+                gameTitle: meta.gameTitle || document.title.replace(/\s*—.*$/, "").trim(),
+                score: meta.score, accuracy: meta.accuracy, duration: meta.duration,
+                unlocks: entries
+              });
+            } else {
+              root.MrMacsScreenshot.captureAndDownload({
+                gameTitle: meta.gameTitle || document.title,
+                score: meta.score
+              });
+            }
+          } catch (e) {}
+        });
+        wrap.appendChild(shareBtn);
+      }
+
       container.appendChild(wrap);
 
       _emit("render", { count: entries.length });
