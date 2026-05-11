@@ -182,6 +182,36 @@
   <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "galaxy-defender";
+    if (!window.MrMacsHelpOverlay) return;
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Galaxy Defender",
+      goal: "Anchor the editorial archive against waves of misinformation invaders. Bezier-curved formations swoop down, lock to a top-of-screen grid, then peel off in dive attacks. Five waves per stage; every fifth stage scrambles a Misinfo Mothership. Watch for gold-rim scholar invaders for bonus shards.",
+      controls: [
+        { key: "← / A",        action: "Move ship left" },
+        { key: "→ / D",        action: "Move ship right" },
+        { key: "Space",        action: "Fire (hold for sustained fire on rapid-fire powerup)" },
+        { key: "1 – 5",        action: "Trigger power-ups (shield, multi-shot, slow-time, etc.)" },
+        { key: "P / Esc",      action: "Pause or resume" }
+      ],
+      tips: [
+        "Wait for the formation to lock before firing — diving invaders move erratically and waste your shots.",
+        "Save Space for the moment a dive begins — diving invaders cluster predictably.",
+        "Mothership stages reward sustained fire on the weak-point. Hold position and drop multi-shot.",
+        "Scholar invaders rotate a gold sigil at slower speed. Prioritize them — correct answer = +1500 score + 12 shards.",
+        "Stage 5/10/15/etc. spawn the boss. Don't waste shields on regular waves."
+      ],
+      scholar: "Gold-rim scholar invaders open a review prompt when destroyed. Correct answer = +1500 score + 12 shards + powerup cascade."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setupScreen .setup-actions");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script src="game.js?v=20260509-galaxydefender"></script>
 </body>
 </html>
