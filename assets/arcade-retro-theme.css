@@ -367,6 +367,63 @@ h2, .setup-card h2 { font-size: clamp(14px, 4vw, 22px) !important; line-height: 
 .setup-kicker, .band-eyebrow, .kicker { font-size: 9px !important; line-height: 1.3 !important; }
 .stat-label, .hud-eyebrow, .wave-kicker { font-size: 7px !important; line-height: 1.3 !important; letter-spacing: 0.04em !important; }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   READABLE QUESTION PROMPTS — Jon: "in snake pit questions not legible.
+   make sure all arcade questions can be read and answered."
+   The pixel-font h1/h2/h3 rule above destroys long question text. These
+   selectors restore readability: clean sans-serif at a real reading
+   size, high-contrast white, normal letter-spacing, no uppercase.
+   Applies to every arcade game's review-question prompt and to the
+   choice/answer text so longer answers (Jeopardy clues, full sentences)
+   remain legible.
+   ═══════════════════════════════════════════════════════════════════════ */
+#questionPrompt,
+.question-prompt,
+.question-card h2,
+#promptText,
+.quiz-prompt,
+.review-prompt,
+.scholar-prompt,
+.gate-prompt,
+.clue-prompt,
+.question-card .prompt,
+.question-card p {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-style: normal !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-size: clamp(15px, 2.8vw, 19px) !important;
+  line-height: 1.42 !important;
+  font-weight: 600 !important;
+  color: #f0f5ff !important;
+  text-shadow: none !important;
+  -webkit-text-stroke: 0 !important;
+}
+/* The answer-choice TEXT (not the letter prefix) also needs readability.
+   The letter prefix (A/B/C/D) stays pixel; the choice text uses Inter. */
+.choice-btn,
+.choice,
+button.choice,
+.answer-btn {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-size: clamp(13px, 2.2vw, 15px) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  color: #f0f5ff !important;
+}
+.choice-btn .choice-letter,
+.choice .choice-letter,
+.choice-letter {
+  font-family: var(--font-pixel) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  color: #f5c451 !important;
+  margin-right: 10px !important;
+}
+
 /* All stat numbers + counters → CRT mono (much more readable than P-S-2P) */
 .stat-value,
 .hud-val,
