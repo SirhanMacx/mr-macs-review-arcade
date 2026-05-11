@@ -238,6 +238,40 @@
   <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
   <script src="../../assets/source-bank.js?v=20260502-prompt-quality"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "empire-ascendant";
+    if (!window.MrMacsHelpOverlay) return;
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — Empire Ascendant",
+      goal: "Rise, reform, expand, survive collapse. Found an empire on a hex map, build cities, manage four resources (gold, food, production, knowledge), advance through Classical → Medieval → Industrial → Modern eras, defeat rival empires. Review-council prompts unlock major expansions.",
+      controls: [
+        { key: "Click hex",     action: "Select a tile or your unit on it" },
+        { key: "Click unit",    action: "Show available actions in the action panel" },
+        { key: "Click city",    action: "Open city panel — build queue, buildings, citizens" },
+        { key: "Enter",         action: "End turn (advance time + collect resources)" },
+        { key: "Esc",           action: "Open / close the menu, or cancel a move" },
+        { key: "M",             action: "Toggle sound" },
+        { key: "Mouse wheel",   action: "Zoom in/out on the map" }
+      ],
+      tips: [
+        "Found cities on tiles with multiple resources — gold+food+production beats one rich tile.",
+        "Don't overexpand early — every city above your stability cap drains gold per turn.",
+        "Knowledge resource unlocks the next era. Build libraries + universities before you need them.",
+        "Review-council prompts gate major decisions (declaring war, era transitions). Correct answer = bonus, wrong answer = penalty but the choice still happens.",
+        "Stability collapse triggers a Dark Age — half your gold income for 10 turns. Avoid by keeping happiness positive."
+      ],
+      scholar: "Review-council prompts surface at major decision points (war declarations, era advancement, technology choices). Right answer doubles the bonus; wrong answer halves it but the action still resolves."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var container = document.querySelector("#setupScreen .setup-actions") ||
+                      document.querySelector("#setupScreen");
+      if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
+    });
+  })();
+  </script>
   <script src="game.js?v=20260509-polish"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>
