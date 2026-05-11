@@ -26,22 +26,22 @@
      3. Library (#library) — search + filters + game grid
    Plus topbar above and footer below. Everything else hidden.
    =========================================================================== */
+/* Hub band visibility — Jon's 1989-cabinet-style priority order:
+   VISIBLE (Tier 1 — primary three lanes):
+     #jeopardy   (push first)
+     #practice   (push second — Regents + AP)
+     #featured + #library (push third — arcade & learning games)
+   VISIBLE (Tier 2 — quiet utility): #routing, #continue, #newCabinet, #mastery, #progress
+   HIDDEN by default (Tier 3 — noisy/redundant):
+     small pills + redundant menus. JS still shows them if profile
+     state asks for them (e.g. #daily unhides when there's a challenge). */
 #nbaBand,
 #fortuneBand,
 #dailyPlanBand,
 #testprepBand,
-#daily,                  /* Daily Challenge — user explicitly killed */
 #achievementsStrip,
-#routing,                /* Smart Study Tools tiles */
-#continue,
 #whatsNewCallout,
-#newCabinet,             /* May 2026 flagship rail */
-#mastery,
-#progress,
-#arcade-menu,            /* Smart Menu */
-#practice,               /* big band — launch-paths button still works */
-#featured,
-#jeopardy,               /* big band — launch-paths button still works */
+#arcade-menu,
 #quickplay,
 #courses,
 #quickInsights {

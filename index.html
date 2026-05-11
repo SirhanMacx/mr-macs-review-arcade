@@ -203,6 +203,52 @@ textarea:focus-visible {
   margin: 0 auto;
 }
 
+/* ════════════════════════════════════════════════════════════════════════
+   HUB BAND PRIORITY ORDER — Jon's "simple like a 1989 cabinet" spec:
+     1. Jeopardy first
+     2. Regents/AP practice second
+     3. All arcade/learning games third
+   Then utility/engagement bands (Daily Challenge, Smart Tools, Mastery,
+   Progress, etc.) cleanly below in a consistent reading order.
+   Implementation: main#main is a flex column; each section is assigned an
+   `order:` value matching its tier. Low-value entry bands (next-best-
+   action, fortune, daily-plan, testprep-band) are hidden by default; they
+   self-unhide via JS when there's actual content to show.
+   ════════════════════════════════════════════════════════════════════════ */
+main#main.shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+/* Tier 1 — primary three lanes in Jon's order */
+main#main > #launch-paths     { order:  5; }
+main#main > #jeopardy         { order: 10; }
+main#main > #practice         { order: 20; }
+main#main > #featured         { order: 30; }
+main#main > #library          { order: 40; }
+/* Tier 2 — utility / study tools */
+main#main > #routing          { order: 50; }
+main#main > #daily            { order: 55; }
+main#main > #continue         { order: 60; }
+main#main > #newCabinet       { order: 65; }
+main#main > #mastery          { order: 70; }
+main#main > #progress         { order: 75; }
+main#main > #arcade-menu      { order: 80; }
+main#main > #quickplay        { order: 85; }
+main#main > #courses          { order: 90; }
+main#main > #quickInsights    { order: 95; }
+/* Tier 3 — engagement / dynamic; these stay where their JS expects */
+main#main > #achievementsStrip{ order: 100; }
+main#main > #whatsNewCallout  { order: 105; }
+main#main > #nbaBand          { order: 110; }
+main#main > #fortuneBand      { order: 115; }
+main#main > #dailyPlanBand    { order: 120; }
+main#main > #testprepBand     { order: 125; }
+/* Hide the noisiest small-pill bands by default — they pollute the
+   1989-cabinet aesthetic. JS that opens them sets [hidden]=false; the
+   reveal still works because we only suppress them visually when they
+   have no real content (i.e., they remain hidden=true). */
+
 /* ============== Topbar ============== */
 /* FIX-1: z-index hierarchy — topbar must beat toast layer (9000-9499)
    and be visible above all hub content.
@@ -8339,19 +8385,26 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       </h1>
       <p class="tagline reveal">Play a game, take a full practice exam, or jump into a Jeopardy board.</p>
       <p class="attract-text reveal" aria-hidden="true"><span class="attract-coin">●</span> INSERT COIN <span class="attract-coin">●</span></p>
+      <!-- Jon's home-page priority order:
+           1. Jeopardy Boards  (primary CTA — biggest, gold)
+           2. Practice Exams   (Regents + AP)
+           3. Arcade & Learning Games
+           The launchFeatured button (legacy "Start Recommended") is
+           preserved as the third CTA so the Daily Challenge claim
+           behavior still works; just relabeled + visually demoted. -->
       <div class="hero-actions reveal">
-        <button class="action primary" id="launchFeatured" type="button">
-          <span>Start Recommended</span>
-          <span class="arrow" aria-hidden="true">→</span>
-        </button>
-        <a class="action" href="#library">
-          <span>Practice Exams</span>
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="action" href="#library">
+        <a class="action primary" href="#jeopardy">
           <span>Jeopardy Boards</span>
           <span class="arrow" aria-hidden="true">→</span>
         </a>
+        <a class="action" href="#practice">
+          <span>Practice Exams</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <button class="action" id="launchFeatured" type="button">
+          <span>Arcade &amp; Learning Games</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </button>
       </div>
     </div>
     <aside class="hero-console reveal" aria-label="Featured arcade launches">
@@ -9701,20 +9754,25 @@ function renderFeatured() {
   };
 
   // Hero CTA label rotation based on profile state
+  // DISABLED per Jon's "1989 cabinet simple" directive: the third hero
+  // CTA is now consistently labelled "Arcade & Learning Games" so the
+  // home page priority order (Jeopardy / Practice / Arcade Games) reads
+  // cleanly. Daily Challenge claim still works — it lives in the daily-
+  // band below the priority lanes. Resume-run nudge moved into the
+  // profile drawer where it doesn't interfere with the front-page order.
   (function () {
+    return;  // legacy rewrite disabled
     var heroCta = document.getElementById("launchFeatured");
     if (!heroCta) return;
     var span = heroCta.querySelector("span:first-child");
     if (!span) return;
     try {
       var profile = (window.MrMacsProfile && window.MrMacsProfile.get) ? window.MrMacsProfile.get() : null;
-      // Priority 1 — active session resume
       if (profile && profile.activeSession && profile.activeSession.gameId) {
         span.textContent = "🎮 Resume your run →";
         heroCta.title = "Resume " + (profile.activeSession.gameId || "your last game");
         return;
       }
-      // Priority 2 — today's daily challenge not yet claimed
       var todayKey2 = (function () {
         var d = new Date();
         return d.getFullYear() + "-" +
@@ -9754,10 +9812,13 @@ function buttonCard(game, fallback, className) {
 }
 
 function renderLaunchPaths() {
+  // Jon: home page should push Jeopardy first, Regents/AP practice 2nd,
+  // and all arcade/learning games third. Order here drives the visual
+  // priority of the three primary CTAs on the hub.
   const paths = [
     {
-      id: "play-lane",
-      fallback: { id: "play-lane", title: "Play", subtitle: "Start with the strongest games for review, repetition, and momentum.", kicker: "Game-first", meta: "featured games", accent: "#62e9ff", glyph: "PLAY" }
+      id: "jeopardy-lane",
+      fallback: { id: "jeopardy-lane", title: "Jeopardy Boards", subtitle: "Run unit and course review rounds that build recall, confidence, and speed.", kicker: "Jeopardy", meta: "all courses", accent: "#ff7bcc", glyph: "J" }
     },
     {
       id: "practice-lane",
@@ -9765,8 +9826,8 @@ function renderLaunchPaths() {
       fallback: { id: "practice-lane", title: "Practice Exams", subtitle: "Train full Regents and AP exams with real questions, writing, and pacing.", kicker: "Exam prep", meta: "Regents + AP", accent: "#ffd15c", glyph: "EXAM" }
     },
     {
-      id: "jeopardy-lane",
-      fallback: { id: "jeopardy-lane", title: "Jeopardy Boards", subtitle: "Run unit and course review rounds that build recall, confidence, and speed.", kicker: "Jeopardy", meta: "all courses", accent: "#ff7bcc", glyph: "J" }
+      id: "play-lane",
+      fallback: { id: "play-lane", title: "Arcade & Learning Games", subtitle: "Snake Pit, Brickoria, Chess Cabinet, Sokoban Scribe — 78 games that drill review through play.", kicker: "Game-first", meta: "78 games", accent: "#62e9ff", glyph: "PLAY" }
     }
   ];
   const html = paths.map((path) => {
