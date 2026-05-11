@@ -11041,12 +11041,30 @@ boot();
     });
   }
   // For users who already had a profile (skipped welcome on prior visit),
-  // also try to surface the hub tour exactly once.
+  // also try to surface the hub tour exactly once. Delayed past the
+  // CRT boot end (~3000 ms) so the tour overlay doesn't fire while the
+  // boot stinger is still mid-animation.
   if (P.exists() && window.MrMacsArcadeTour) {
     setTimeout(function () {
+      // Skip if the CRT boot is somehow still showing (e.g. user has
+      // a slow device); listen for its hide and fire then.
+      var boot = document.getElementById("crtBoot");
+      if (boot && getComputedStyle(boot).display !== "none") {
+        var deferUntilBoot = function () { startHubTour(); };
+        // Poll for boot dismissal up to 4 s, then start anyway.
+        var tries = 0;
+        var pollIv = setInterval(function () {
+          tries++;
+          if (getComputedStyle(boot).display === "none" || tries > 20) {
+            clearInterval(pollIv);
+            deferUntilBoot();
+          }
+        }, 200);
+        return;
+      }
       // Only fires if hasSeenTour("hub") returns false in MrMacsProfile
       startHubTour();
-    }, 1100);
+    }, 3200);
   }
 
   // ---- Profile drawer ----
