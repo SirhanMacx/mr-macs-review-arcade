@@ -218,6 +218,38 @@
   <script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "history-hunters";
+    if (!window.MrMacsHelpOverlay) return;
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — History Hunters",
+      goal: "Open-world Pokémon-style social-studies safari. Walk an era map, catch evolving 'misconception monsters' by answering review questions correctly. Build a roster, level up via field battles, complete the codex, unlock new eras.",
+      controls: [
+        { key: "W A S D",       action: "Walk in 4 directions (or arrows)" },
+        { key: "Space / Enter", action: "Interact with NPC, building, or catch attempt" },
+        { key: "C",             action: "Open Codex (catch progress, evolution tree)" },
+        { key: "B",             action: "Open Bag (items, capture orbs)" },
+        { key: "R",             action: "Open Roster (your captured monsters)" },
+        { key: "P / Esc",       action: "Pause / close any open panel" }
+      ],
+      tips: [
+        "Read the Codex before a wild encounter — it tells you which review topic powers the catch.",
+        "Streak bonuses compound. Three correct answers in a row = guaranteed capture on the next attempt.",
+        "Buildings hold side quests with rare evolution items. Worth detours.",
+        "Roster size caps at 6. Evolve before you swap out — released monsters lose XP.",
+        "Each era has a Champion battle that unlocks the next region. Stockpile capture orbs before challenging."
+      ],
+      scholar: "Wild encounters present a review question. Correct answer = capture progress + XP toward evolution. Wrong = monster flees; no penalty but you lose the catch."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var hud = document.querySelector(".hud.top-hud") || document.querySelector(".top-hud") || document.querySelector("header.hud");
+      if (hud) window.MrMacsHelpOverlay.mountButton(hud, GAME_ID, { label: "?" });
+    });
+  })();
+  </script>
   <script src="game.js?v=20260502-perfect-pass"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>

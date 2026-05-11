@@ -126,6 +126,38 @@
 <script src="../../assets/source-bank.js?v=20260502-prompt-quality"></script>
 <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
+<script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+<script>
+(function () {
+  "use strict";
+  var GAME_ID = "time-rift-survivors";
+  if (!window.MrMacsHelpOverlay) return;
+  window.MrMacsHelpOverlay.register(GAME_ID, {
+    title: "How to Play — Time Rift Survivors",
+    goal: "Vampire-Survivors-style action with social-studies questions. Move automatically, dodge enemies, level up by killing them, pick a new weapon or upgrade after each level. Survive 15-minute runs across history eras. Gold buys permanent upgrades between runs.",
+    controls: [
+      { key: "W A S D",      action: "Move (4 directions; movement is full-speed always)" },
+      { key: "↑ ↓ ← →",      action: "Same as WASD" },
+      { key: "Click",        action: "Pick a level-up choice from the upgrade panel" },
+      { key: "1 / 2 / 3",    action: "Quick-pick upgrade slot when 3 cards offered" },
+      { key: "P / Esc",      action: "Pause or resume (also pauses level-up panel)" },
+      { key: "Library",      action: "View question library + course filter mid-pause" }
+    ],
+    tips: [
+      "Movement is constant — your only control is direction. Position is everything.",
+      "Don't stack the same weapon — diverse weapon types cover different angles and enemy types.",
+      "Boss waves spawn every 5 minutes. Stockpile EXP gems before bosses for instant level-ups in the chaos.",
+      "Correct answers in mid-run review prompts grant a free upgrade pick. Wrong = nothing lost but the prompt.",
+      "Gold persists across runs. Spend it on permanent upgrades (max HP, magnet range, damage) between attempts."
+    ],
+    scholar: "Review prompts fire periodically during runs. Right answer = free upgrade pick from the next level-up; wrong answer = no penalty, prompt just closes."
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    var hud = document.querySelector(".topbar .hud");
+    if (hud) window.MrMacsHelpOverlay.mountButton(hud, GAME_ID, { label: "?" });
+  });
+})();
+</script>
 <script src="game.js?v=20260509-icons-polish"></script>
 <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
 </body>

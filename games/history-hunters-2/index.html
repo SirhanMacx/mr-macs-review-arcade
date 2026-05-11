@@ -159,6 +159,38 @@
   <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
   <script src="../../assets/source-bank.js?v=20260502-perfect-pass"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script>
+  (function () {
+    "use strict";
+    var GAME_ID = "history-hunters-2";
+    if (!window.MrMacsHelpOverlay) return;
+    window.MrMacsHelpOverlay.register(GAME_ID, {
+      title: "How to Play — History Hunters 2: Atlas Quest",
+      goal: "Sequel to History Hunters with an expanded atlas-scale map across continents and eras. Travel the world map, complete regional contests, capture and evolve a roster of misconception monsters. Each region has its own champion. Earn badges to access the final atlas contest.",
+      controls: [
+        { key: "Click region",  action: "Travel to that region on the atlas map" },
+        { key: "W A S D",       action: "Walk inside a region (or arrows)" },
+        { key: "Space / Enter", action: "Interact / accept catch challenge" },
+        { key: "C / B / R",     action: "Codex / Bag / Roster panels" },
+        { key: "Tab",           action: "Cycle between open panels" },
+        { key: "P / Esc",       action: "Pause / close panel / back to atlas" }
+      ],
+      tips: [
+        "Regions have type advantages. Bring a roster that covers multiple eras + topics.",
+        "Contest battles use review questions weighted toward the region's course. Study the topic chip before challenging.",
+        "Badges grant passive bonuses (faster captures, evolution shortcuts). Stack them in order.",
+        "The Atlas Final unlocks at 8 badges. Save a strong evolution for the title contest.",
+        "World map shortcuts: Tab cycles open panels; Esc always returns to atlas view."
+      ],
+      scholar: "Contest questions are course-tagged — answering correctly grants a catch attempt with high success rate; wrong answer concedes the contest but you keep your roster."
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var hud = document.querySelector("#topHud") || document.querySelector(".hud.top-hud") || document.querySelector(".top-hud");
+      if (hud) window.MrMacsHelpOverlay.mountButton(hud, GAME_ID, { label: "?" });
+    });
+  })();
+  </script>
   <script src="game.js?v=20260505-sequel-full-1"></script>
   <script src="../../assets/document-viewer.js?v=20260502-doc-viewer"></script>
   <script src="../../assets/arcade-perf.js?v=20260507-phase5"></script>
