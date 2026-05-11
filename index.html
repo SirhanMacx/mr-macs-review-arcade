@@ -9456,7 +9456,35 @@ function cardSubtitle(game) {
   if (game.id === "source-sprint") return "Fast source-based MCQ reps that sharpen reading, evidence, and accuracy.";
   if (game.id === "regents-gauntlet") return "Mixed Regents MCQ pressure run with explanations after every answer.";
   if (game.id === "writing-coach") return "CRQ, short essay, enduring issue, and Civic Literacy writing practice.";
-  if (isJeopardyBoard(game)) return "Course review board built for fast recall, stronger vocabulary, and exam-style concepts.";
+  if (isJeopardyBoard(game)) {
+    // Jon: jeopardy cards should have course as well as unit in description.
+    // Compose: "<course> · <unit-or-label> — fast recall, vocabulary,
+    // exam concepts." Prefers game.day if it's a clean label (no composite
+    // separators). Falls back to extracting "Unit N" from filename/title,
+    // but ignores high numbers (>=20) which are file-ordinal sentinels
+    // (e.g. "99 - Cumulative Yearlong") not real unit numbers.
+    var parts = [];
+    if (game.course && game.course !== "All Courses") parts.push(game.course);
+    var unitLabel = null;
+    if (game.day && !/·/.test(game.day)) {
+      unitLabel = game.day;
+    } else {
+      var src = [game.originalFile, game.file, game.title].filter(Boolean).join(" ");
+      var unitMatch = src.match(/\b(?:unit|u)\s*0?(\d{1,2})\b/i);
+      if (unitMatch && parseInt(unitMatch[1], 10) < 20) {
+        unitLabel = "Unit " + unitMatch[1];
+      } else {
+        var ordMatch = src.match(/^\s*0?(\d{1,2})\s*[-–]\s*/);
+        if (ordMatch && parseInt(ordMatch[1], 10) < 20) {
+          unitLabel = "Unit " + ordMatch[1];
+        }
+      }
+    }
+    if (unitLabel) parts.push(unitLabel);
+    var head = parts.join(" · ");
+    var tail = "Fast recall, vocabulary, and exam-style concepts.";
+    return head ? head + " — " + tail : tail;
+  }
   return game.subtitle || game.course || "";
 }
 function heroSubtitle(game) {
