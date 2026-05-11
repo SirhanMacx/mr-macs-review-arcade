@@ -880,3 +880,91 @@ kbd {
 .pause-progress-bar { width: 80px; height: 6px; background: rgba(0,0,0,.3); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
 .pause-progress-fill { height: 100%; background: #f5c451; transition: width 240ms ease; }
 @media (prefers-reduced-motion: reduce) { .pause-progress-fill { transition: none; } }
+
+/* ── Portrait rotation prompt ──
+   Solitaire's 7-column tableau is fundamentally landscape. On portrait
+   phones we show an overlay nudging players to rotate. Once dismissed
+   (or in landscape), it stays out of the way. */
+.rotate-prompt {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(ellipse at center, rgba(15,22,42,.96) 0%, rgba(4,6,15,.98) 80%);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+}
+.rotate-card {
+  max-width: 340px;
+  width: 100%;
+  padding: 28px 24px 22px;
+  background: rgba(8, 14, 28, 0.92);
+  border: 1.5px solid rgba(245, 196, 81, 0.36);
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 16px 48px rgba(0,0,0,.5), 0 0 32px rgba(245, 196, 81, .15);
+}
+.rotate-icon {
+  font-size: 52px;
+  line-height: 1;
+  color: #f5c451;
+  margin: 0 0 14px;
+  animation: rotateIcon 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 14px rgba(245, 196, 81, .55));
+}
+.rotate-title {
+  display: block;
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 800;
+  color: #f0f5ff;
+  margin: 0 0 10px;
+  line-height: 1.18;
+}
+.rotate-sub {
+  margin: 0 0 18px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: rgba(216, 220, 235, .82);
+}
+.rotate-bypass {
+  display: inline-block;
+  padding: 10px 18px;
+  background: rgba(245, 196, 81, .12);
+  border: 1px solid rgba(245, 196, 81, .42);
+  color: #f5c451;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 160ms, border-color 160ms, transform 80ms;
+}
+.rotate-bypass:hover, .rotate-bypass:focus-visible {
+  background: rgba(245, 196, 81, .22);
+  border-color: #f5c451;
+  outline: none;
+}
+.rotate-bypass:active { transform: scale(.96); }
+@keyframes rotateIcon {
+  0%, 100% { transform: rotate(0deg); }
+  35%      { transform: rotate(-92deg); }
+  60%      { transform: rotate(-92deg); }
+  95%      { transform: rotate(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rotate-icon { animation: none; transform: rotate(-90deg); }
+}
+/* Show only on narrow portrait viewports — wide-portrait tablets are fine */
+@media (orientation: portrait) and (max-width: 700px) {
+  .rotate-prompt { display: flex; }
+}
+/* Always hide when bypassed by user */
+.rotate-prompt.is-bypassed { display: none !important; }
