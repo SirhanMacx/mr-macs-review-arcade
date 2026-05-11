@@ -1530,3 +1530,165 @@ body::before {
   .attract-carousel .ac-credits { font-size: 7px; }
   .attract-carousel .ac-credits { display: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   31. COIN SHOWER — pixel coins drop from the top of the screen and
+   bounce/spin as the CRT boot fades. Spawned by arcade-cabinet-fx.js.
+   ═══════════════════════════════════════════════════════════════════════ */
+.coin-shower {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9994;
+  overflow: hidden;
+}
+.coin-shower .coin {
+  position: absolute;
+  top: -32px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #ffe680 0%, #ffd060 35%, #c98a18 60%, #6b4a07 100%);
+  box-shadow:
+    0 0 6px rgba(255, 208, 96, 0.85),
+    inset -2px -3px 0 rgba(0,0,0,0.30),
+    inset 2px 2px 0 rgba(255,255,255,0.50);
+  animation: coinDrop 1.6s cubic-bezier(.35,.05,.45,1.0) forwards;
+}
+.coin-shower .coin::before {
+  content: "$";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #5a3a05;
+  text-shadow: 0 1px 0 rgba(255, 230, 128, 0.6);
+}
+@keyframes coinDrop {
+  0%   { top: -32px;  transform: rotateY(0deg)   scale(0.7); opacity: 0; }
+  10%  { opacity: 1; }
+  60%  {                                                       opacity: 1; }
+  80%  { top: 86vh;  transform: rotateY(1080deg) scale(1.05); }
+  100% { top: 78vh;  transform: rotateY(1440deg) scale(1.0);  opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coin-shower { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   32. JOYSTICK + BUTTONS chips — pixel-art control hint cluster mounted
+   in the topbar on every game page by arcade-cabinet-fx.js.
+   ═══════════════════════════════════════════════════════════════════════ */
+.cabinet-controls-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  margin-left: 6px;
+  background: rgba(8, 12, 24, 0.86);
+  border: 1px solid rgba(93, 224, 240, 0.32);
+  border-radius: 4px;
+  pointer-events: none;
+  user-select: none;
+  vertical-align: middle;
+}
+.cabinet-controls-chip .ccc-stick {
+  position: relative;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff6a8a 0%, #ff3858 60%, #8a1428 100%);
+  box-shadow: 0 0 6px rgba(255, 56, 88, 0.6), inset -2px -3px 0 rgba(0,0,0,0.35);
+}
+.cabinet-controls-chip .ccc-stick::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 100%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 8px;
+  background: #11151f;
+  border-radius: 0 0 2px 2px;
+}
+.cabinet-controls-chip .ccc-btns {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+.cabinet-controls-chip .ccc-btn {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0,0,0,0.5), inset -1px -1px 0 rgba(0,0,0,0.30);
+}
+.cabinet-controls-chip .ccc-btn.cccb-a { background: #ff3858; }
+.cabinet-controls-chip .ccc-btn.cccb-b { background: #34ff7f; }
+.cabinet-controls-chip .ccc-btn.cccb-c { background: #5de0f0; }
+.cabinet-controls-chip .ccc-btn.cccb-d { background: #ffd060; }
+@media (max-width: 520px) {
+  .cabinet-controls-chip { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   33. CRT SCANLINE DIAL — small range slider in the topnav lets users
+   dial scanline intensity 0–100%. Sets --crt-scan-intensity via JS.
+   Defaults to 100%. Persists to localStorage.
+   ═══════════════════════════════════════════════════════════════════════ */
+.crt-dial {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding: 5px 9px;
+  background: rgba(8, 12, 24, 0.85);
+  border: 1px solid rgba(93, 224, 240, 0.30);
+  border-radius: 4px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: rgba(216, 220, 235, 0.78);
+  text-transform: uppercase;
+}
+.crt-dial label { color: rgba(255, 208, 96, 0.85); }
+.crt-dial input[type="range"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 64px;
+  height: 4px;
+  background: linear-gradient(90deg, #5de0f0 var(--crt-dial-pos, 100%), rgba(255,255,255,0.12) var(--crt-dial-pos, 100%));
+  border-radius: 2px;
+  outline: none;
+}
+.crt-dial input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px; height: 12px;
+  background: #ffd060;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 208, 96, 0.95);
+  cursor: pointer;
+}
+.crt-dial input[type="range"]::-moz-range-thumb {
+  width: 12px; height: 12px;
+  background: #ffd060;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 6px rgba(255, 208, 96, 0.95);
+  cursor: pointer;
+}
+.crt-dial .crt-dial-val { color: #5de0f0; min-width: 28px; text-align: right; }
+@media (max-width: 720px) {
+  .crt-dial { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   34. Scanline intensity variable hook — multiplies the scanline
+   overlay's opacity (defined in section 4 as 0.5) by var(--crt-scan-
+   intensity) so the dial bites. Default 1.0 = full 0.5 opacity scanlines.
+   ═══════════════════════════════════════════════════════════════════════ */
+:root { --crt-scan-intensity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  body::after { opacity: calc(0.5 * var(--crt-scan-intensity)); }
+}

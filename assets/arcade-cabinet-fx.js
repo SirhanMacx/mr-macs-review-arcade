@@ -227,12 +227,96 @@
     document.body.appendChild(ribbon);
   }
 
+  // ─── Joystick + buttons chip — mounted into topbar on game pages ────
+  function mountControlsChip() {
+    if (!document.body) return;
+    if (!document.body.hasAttribute("data-game-page")) return;
+    if (document.querySelector(".cabinet-controls-chip")) return;
+    var host = document.querySelector(".topbar .topnav") ||
+               document.querySelector(".topbar") ||
+               document.querySelector(".top-hud") ||
+               document.querySelector("#topHud") ||
+               document.querySelector(".hud.top-hud");
+    if (!host) return;
+    var chip = document.createElement("span");
+    chip.className = "cabinet-controls-chip";
+    chip.setAttribute("aria-hidden", "true");
+    chip.innerHTML =
+      '<span class="ccc-stick" title="Joystick"></span>' +
+      '<span class="ccc-btns">' +
+        '<span class="ccc-btn cccb-a"></span>' +
+        '<span class="ccc-btn cccb-b"></span>' +
+        '<span class="ccc-btn cccb-c"></span>' +
+        '<span class="ccc-btn cccb-d"></span>' +
+      '</span>';
+    host.appendChild(chip);
+  }
+
+  // ─── Coin shower — drops a handful of pixel coins on first paint ────
+  // Hub-only: gated by absence of data-game-page (i.e., we're at the
+  // root). Plays once per session (sessionStorage) so it doesn't replay
+  // on every visit during an active learning session.
+  function spawnCoinShower() {
+    if (reduceMotion) return;
+    if (!document.body) return;
+    if (document.body.hasAttribute("data-game-page")) return;
+    if (sessionStorage.getItem("arcade.coinShowerPlayed")) return;
+    sessionStorage.setItem("arcade.coinShowerPlayed", "1");
+
+    var shower = document.createElement("div");
+    shower.className = "coin-shower";
+    shower.setAttribute("aria-hidden", "true");
+    document.body.appendChild(shower);
+    var COIN_COUNT = 12;
+    for (var i = 0; i < COIN_COUNT; i++) {
+      var coin = document.createElement("div");
+      coin.className = "coin";
+      coin.style.left = (Math.random() * 90 + 5) + "vw";
+      coin.style.animationDelay = (i * 0.07 + Math.random() * 0.2) + "s";
+      coin.style.animationDuration = (1.4 + Math.random() * 0.6) + "s";
+      shower.appendChild(coin);
+    }
+    setTimeout(function () { try { shower.remove(); } catch (e) {} }, 2800);
+  }
+
+  // ─── CRT scanline dial — restores saved intensity from localStorage ──
+  function initScanlineDial() {
+    var v = 100;
+    try {
+      var stored = localStorage.getItem("arcade.crtScanIntensity");
+      if (stored !== null) v = parseInt(stored, 10);
+      if (!isFinite(v)) v = 100;
+    } catch (e) {}
+    document.documentElement.style.setProperty("--crt-scan-intensity", (v / 100).toFixed(3));
+    var dial = document.getElementById("crtDial");
+    if (dial) {
+      dial.value = String(v);
+      var pos = document.getElementById("crtDialPos");
+      var valLabel = document.getElementById("crtDialVal");
+      if (pos) pos.style.setProperty("--crt-dial-pos", v + "%");
+      if (valLabel) valLabel.textContent = v + "%";
+      dial.addEventListener("input", function () {
+        var nv = parseInt(dial.value, 10);
+        if (!isFinite(nv)) nv = 100;
+        document.documentElement.style.setProperty("--crt-scan-intensity", (nv / 100).toFixed(3));
+        if (pos) pos.style.setProperty("--crt-dial-pos", nv + "%");
+        if (valLabel) valLabel.textContent = nv + "%";
+        try { localStorage.setItem("arcade.crtScanIntensity", String(nv)); } catch (e) {}
+      });
+    }
+  }
+
   function init() {
     document.addEventListener("click", onClickStart, true);
     crtPowerOn();
     watchScores();
     watchEndState();
     mountStatusRibbon();
+    mountControlsChip();
+    initScanlineDial();
+    // Coin shower waits until after any CRT boot finishes (boot is up to
+    // ~2.6 s). Defer 1.4 s so it lands while the boot is fading out.
+    setTimeout(spawnCoinShower, 1400);
   }
 
   if (document.readyState === "loading") {

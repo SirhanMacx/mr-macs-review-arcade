@@ -17,7 +17,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-cabinet-tier3">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-cabinet-tier4">
 <style>
 :root {
   color-scheme: dark;
@@ -8206,6 +8206,15 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       <button class="sfx-toggle" id="sfxToggle" type="button" aria-label="Toggle sound effects" data-sfx-skip="1">
         <span class="sfx-icon" aria-hidden="true"></span><span class="sfx-label">SFX</span>
       </button>
+      <!-- CRT scanline intensity dial — lets users tune the retro look.
+           Hidden on small viewports (screen real estate). Wired by
+           arcade-cabinet-fx.js → initScanlineDial. -->
+      <span class="crt-dial" id="crtDialPos" aria-label="CRT scanline intensity">
+        <label for="crtDial">CRT</label>
+        <input type="range" id="crtDial" min="0" max="100" step="5" value="100"
+               aria-label="CRT scanline intensity">
+        <span class="crt-dial-val" id="crtDialVal">100%</span>
+      </span>
     </nav>
     <button class="profile-pill" id="profilePill" type="button" aria-label="Open trainer profile" aria-expanded="false">
       <span class="pp-avatar" id="ppAvatar" aria-hidden="true">🎓</span>
@@ -8839,7 +8848,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-changelog.js?v=20260509-changelog"></script>
 <script src="assets/arcade-changelog-entries.js?v=20260511-entries-v6.7"></script>
 <script src="assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
-<script src="assets/arcade-cabinet-fx.js?v=20260511-cabfx-v2"></script>
+<script src="assets/arcade-cabinet-fx.js?v=20260511-cabfx-v3"></script>
 <script src="assets/arcade-news-ticker.js?v=20260509-news-ticker"></script>
 <script src="assets/arcade-leaderboard-globe.js?v=20260509-globe"></script>
 <script src="assets/arcade-deeplinks.js?v=20260509-deeplinks"></script>
