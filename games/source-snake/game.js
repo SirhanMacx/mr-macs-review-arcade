@@ -1570,29 +1570,40 @@
       }
     });
 
-    // Touch swipe on canvas
+    // Touch swipe on canvas — fires the moment the swipe crosses a
+    // small threshold during touchmove (was firing only on touchend with
+    // 24px threshold, which felt sluggish — the snake had already moved
+    // past the turn point before the gesture completed).
     var touchStart = null;
+    var lastSwipeDir = null;
     canvas.addEventListener("touchstart", function (e) {
       if (e.touches && e.touches.length === 1) {
         var t = e.touches[0];
         touchStart = { x: t.clientX, y: t.clientY };
+        lastSwipeDir = null;
       }
     }, { passive: true });
-    canvas.addEventListener("touchend", function (e) {
-      if (!touchStart) return;
-      var t = (e.changedTouches && e.changedTouches[0]) || null;
-      if (!t) { touchStart = null; return; }
+    canvas.addEventListener("touchmove", function (e) {
+      if (!touchStart || !e.touches || !e.touches[0]) return;
+      var t = e.touches[0];
       var dx = t.clientX - touchStart.x;
       var dy = t.clientY - touchStart.y;
       var ax = Math.abs(dx), ay = Math.abs(dy);
-      if (ax < 24 && ay < 24) { touchStart = null; return; }
+      if (ax < 14 && ay < 14) return; // smaller dead zone (was 24)
       var setDir;
       if (ax > ay) setDir = (dx > 0) ? "right" : "left";
       else setDir = (dy > 0) ? "down" : "up";
-      if (phase === "playing" && !isOpposite(state.dir, setDir)) state.queuedDir = setDir;
-      touchStart = null;
+      if (setDir === lastSwipeDir) return; // already queued this direction
+      lastSwipeDir = setDir;
+      if (phase === "playing" && !isOpposite(state.dir, setDir)) {
+        state.queuedDir = setDir;
+        // Reset origin so the player can chain a new perpendicular swipe
+        // from this point without lifting their finger.
+        touchStart = { x: t.clientX, y: t.clientY };
+      }
     }, { passive: true });
-    canvas.addEventListener("touchcancel", function () { touchStart = null; }, { passive: true });
+    canvas.addEventListener("touchend", function () { touchStart = null; lastSwipeDir = null; }, { passive: true });
+    canvas.addEventListener("touchcancel", function () { touchStart = null; lastSwipeDir = null; }, { passive: true });
 
     // Mouse/keyboard click on the canvas could also direct, but stick with swipe + keys.
   }

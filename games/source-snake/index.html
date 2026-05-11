@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
-  <link rel="stylesheet" href="styles.css?v=20260509-source-snake">
+  <link rel="stylesheet" href="styles.css?v=20260510-snake-dpad">
 <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
 <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260510-polish-r2e">
 </head>
@@ -65,6 +65,16 @@
 
     <!-- Score popup overlay -->
     <section class="popup-overlay" id="popupOverlay" aria-hidden="true"></section>
+
+    <!-- Virtual D-pad — only visible on touch/portrait. Dispatches
+         synthetic ArrowKey events so the existing keydown handler routes
+         direction changes; no game.js changes needed. -->
+    <section class="dpad" id="snakeDpad" aria-label="Direction controls">
+      <button class="dpad-btn dpad-up" data-key="ArrowUp" type="button" aria-label="Up">▲</button>
+      <button class="dpad-btn dpad-left" data-key="ArrowLeft" type="button" aria-label="Left">◀</button>
+      <button class="dpad-btn dpad-right" data-key="ArrowRight" type="button" aria-label="Right">▶</button>
+      <button class="dpad-btn dpad-down" data-key="ArrowDown" type="button" aria-label="Down">▼</button>
+    </section>
 
     <!-- Setup / title screen -->
     <section class="setup-screen show" id="setupScreen" aria-label="Source Snake — game setup" aria-modal="true">
@@ -177,6 +187,42 @@
   <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
   <script src="../../assets/arcade-help-overlay.js"></script>
-  <script src="game.js?v=20260509-source-snake"></script>
+  <script src="game.js?v=20260510-snake-dpad"></script>
+  <script>
+  // Virtual D-pad for source-snake — fires synthetic ArrowKey events on
+  // tap (touchstart for instant response on iOS). The existing keydown
+  // listener inside game.js handles direction changes. Repeated rapid
+  // taps debounced via touchstart-only path (no click double-fire).
+  (function () {
+    "use strict";
+    var dpad = document.getElementById("snakeDpad");
+    if (!dpad) return;
+    function fire(key) {
+      var ev;
+      try { ev = new KeyboardEvent("keydown", { key: key, bubbles: true, cancelable: true }); }
+      catch (e) {
+        ev = document.createEvent("Event");
+        ev.initEvent("keydown", true, true);
+        ev.key = key;
+      }
+      document.dispatchEvent(ev);
+    }
+    dpad.addEventListener("touchstart", function (e) {
+      var t = e.target.closest(".dpad-btn");
+      if (!t) return;
+      e.preventDefault();
+      t.classList.add("is-press");
+      setTimeout(function () { t.classList.remove("is-press"); }, 120);
+      fire(t.getAttribute("data-key"));
+    }, { passive: false });
+    dpad.addEventListener("click", function (e) {
+      var t = e.target.closest(".dpad-btn");
+      if (!t) return;
+      if (e.detail === 0 && t.classList.contains("is-press")) return;
+      fire(t.getAttribute("data-key"));
+    });
+    dpad.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+  })();
+  </script>
 </body>
 </html>
