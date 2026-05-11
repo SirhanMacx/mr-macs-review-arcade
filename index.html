@@ -9658,7 +9658,19 @@ function featuredBadges(game) {
 }
 function renderHeroConsole() {
   const count = document.getElementById("heroGameCount");
-  if (count) count.textContent = GAMES.length + " games ready";
+  if (count) {
+    // Split the count so it's accurate against Jon's 3-lane structure:
+    // jeopardy boards vs arcade games. "219 games ready" misled — only
+    // 78 are actual arcade games; the rest (~151) are Jeopardy boards.
+    const isJeo = (g) => /jeopardy/i.test(g.gameType || "") || /jeopardy/i.test(g.id || "");
+    const boards = GAMES.filter(isJeo).length;
+    const games = GAMES.length - boards;
+    if (boards && games) {
+      count.textContent = games + " games · " + boards + " boards";
+    } else {
+      count.textContent = GAMES.length + " ready";
+    }
+  }
 
   const primary = GAMES.find((game) => game.id === "history-hunters") || featuredGames()[0];
   const primaryCard = document.getElementById("heroPrimaryCard");
