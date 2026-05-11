@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
-  <link rel="stylesheet" href="styles.css?v=20260510-snakepit-mobile">
+  <link rel="stylesheet" href="styles.css?v=20260510-snakepit-buildout">
 <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
 <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260510-polish-r2e">
 </head>
@@ -67,6 +67,9 @@
     <!-- Combo callouts overlay -->
     <section class="popup-overlay" id="popupOverlay" aria-hidden="true"></section>
 
+    <!-- Live top-5 leaderboard (updates ~2.5x per second in render loop) -->
+    <aside class="hud-leader" id="hudLeader" aria-label="Live pit leaderboard"></aside>
+
     <!-- Mobile virtual joystick + boost -->
     <section class="touch-controls" id="touchControls" aria-hidden="true">
       <div class="tc-stick" id="tcStick" aria-label="Steer">
@@ -95,15 +98,35 @@
 
         <div class="ship-badges-row" aria-label="Pit palette">
           <span class="ship-badge badge-emerald" title="Player serpent">YOU</span>
-          <span class="ship-badge badge-violet" title="Hostile AI">RIVAL</span>
-          <span class="ship-badge badge-cyan" title="Energy orb">ORB</span>
-          <span class="ship-badge badge-gold" title="Scholar orb">SCHOLAR</span>
-          <span class="ship-badge badge-rose" title="Power-up">POWER</span>
-          <span class="ship-badge badge-bronze" title="Body shards">SHARD</span>
-          <span class="ship-campaign-label">Continuous Arena</span>
+          <span class="ship-badge badge-violet" title="Hunter AI">HUNTER</span>
+          <span class="ship-badge badge-gold" title="Greedy AI">GREEDY</span>
+          <span class="ship-badge badge-cyan" title="Cautious AI">CAUTIOUS</span>
+          <span class="ship-badge badge-rose" title="LEVIATHAN boss snake">LEVIATHAN</span>
+          <span class="ship-badge badge-bronze" title="Scholar orb">SCHOLAR</span>
+          <span class="ship-campaign-label">Continuous Arena · 12 historic rivals</span>
         </div>
 
-        <p class="setup-sub">You are a luminous serpent in a continuous neon pit. <em>Devour energy orbs</em> to grow. <em>Crashing into another snake's body</em> ends you. Hold <em>Boost</em> to surge ahead at the cost of one segment per half-second. Five power-ups punctuate the chaos: <em>Boost Reserve</em>, <em>Phase</em>, <em>2x Mass</em>, <em>Magnet</em>, <em>Burst</em>. And once in a while a <em>scholar orb</em> shimmers gold &mdash; eat it, answer correctly, and pocket +1500 plus 12 shards.</p>
+        <p class="setup-sub">You are a luminous serpent in a continuous neon pit. Twelve named rivals — <em>Caesar</em>, <em>Cleopatra</em>, <em>Napoleon</em>, <em>Tubman</em>, <em>Mansa Musa</em>, <em>Genghis</em>, <em>Gandhi</em>, <em>Hammurabi</em>, <em>Catherine</em>, <em>Mandela</em>, <em>Tut</em>, <em>Joan</em> — hunt, hoard, or hide based on their personality. Every 90 seconds the <em>Leviathan</em> surfaces: a colossal boss snake worth +500 score, +20 shards, and a free scholar orb. Chain orb pickups for <em>x2 → x3 → FRENZY x5</em> multipliers. Seven power-ups: <em>Boost Reserve</em>, <em>Phase</em>, <em>2x Mass</em>, <em>Magnet</em>, <em>Burst</em>, <em>Shield</em> (blocks one death), <em>Supernova</em> (instantly KO nearest rival). Real-time live leaderboard tracks the top 5 longest snakes.</p>
+
+        <!-- Difficulty selector — local to snake-pit; persists to localStorage -->
+        <div class="sp-diff-row" role="radiogroup" aria-label="Difficulty">
+          <button class="btn glass-pill sp-diff-btn" data-diff="easy" type="button">
+            <span class="sp-diff-name">Reading Room</span>
+            <span class="sp-diff-meta">4 rivals · 120s boss</span>
+          </button>
+          <button class="btn glass-pill sp-diff-btn is-selected" data-diff="normal" type="button">
+            <span class="sp-diff-name">The Stacks</span>
+            <span class="sp-diff-meta">7 rivals · 90s boss</span>
+          </button>
+          <button class="btn glass-pill sp-diff-btn" data-diff="hard" type="button">
+            <span class="sp-diff-name">Archive Dive</span>
+            <span class="sp-diff-meta">10 rivals · 70s boss</span>
+          </button>
+          <button class="btn glass-pill sp-diff-btn" data-diff="nightmare" type="button">
+            <span class="sp-diff-name">Coliseum</span>
+            <span class="sp-diff-meta">13 rivals · 50s boss</span>
+          </button>
+        </div>
 
         <div class="resume-card" id="resumeCard" hidden></div>
         <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
@@ -184,6 +207,6 @@
   <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
   <script src="../../assets/shared-question-bank.js?v=20260510-bank-v1"></script>
-  <script src="game.js?v=20260509-snakepit"></script>
+  <script src="game.js?v=20260510-snakepit-buildout"></script>
 </body>
 </html>

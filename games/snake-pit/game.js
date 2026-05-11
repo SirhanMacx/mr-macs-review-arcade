@@ -111,27 +111,67 @@
     body: "#4dd49b", bodyHi: "#9ff0c8", bodyLo: "#1f8d68",
     head: "#5de0f0", headHi: "#b8f7ff", trail: "rgba(93,224,240,0.55)"
   };
+  // AI roster: each entry pairs a palette with a historic name + a default
+  // personality. The personality is overridden by the round's difficulty
+  // distribution in makeAiSnake() — but a snake's name + colors stay stable
+  // across runs so the leaderboard reads consistently.
+  // Personalities:
+  //   "hunter"  → aggressive: targets the player, lunges, boost-heavy
+  //   "greedy"  → orb-focused: ignores fights, beelines for orb clusters
+  //   "cautious" → defensive: orbits danger, big lookahead, rarely boosts
+  //   "default" → balanced (current behavior)
   var AI_PALETTES = [
-    { body: "#a991ff", bodyHi: "#dccaff", bodyLo: "#6c4fc8", head: "#a991ff", headHi: "#e2d6ff", name: "Violetta" },
-    { body: "#f07bb8", bodyHi: "#ffd5ec", bodyLo: "#a14080", head: "#f07bb8", headHi: "#ffe2f2", name: "Sangfroid" },
-    { body: "#ff8838", bodyHi: "#ffd2a3", bodyLo: "#a44d10", head: "#ff8838", headHi: "#ffe5cc", name: "Cinder" },
-    { body: "#5de0f0", bodyHi: "#bef5fb", bodyLo: "#2ba0b6", head: "#5de0f0", headHi: "#cefafd", name: "Tidal" },
-    { body: "#f5c451", bodyHi: "#ffe9a8", bodyLo: "#a8821c", head: "#f5c451", headHi: "#fff0c8", name: "Brass Knot" },
-    { body: "#d04848", bodyHi: "#ffb0b0", bodyLo: "#7a1c1c", head: "#d04848", headHi: "#ffd2d2", name: "Crimson" },
-    { body: "#9ee08c", bodyHi: "#dcf5d0", bodyLo: "#3a7029", head: "#9ee08c", headHi: "#e2f5d8", name: "Verdigris" },
-    { body: "#c8d0e0", bodyHi: "#f0f5ff", bodyLo: "#5a667c", head: "#c8d0e0", headHi: "#fafcff", name: "Steel" }
+    { body: "#a991ff", bodyHi: "#dccaff", bodyLo: "#6c4fc8", head: "#a991ff", headHi: "#e2d6ff", name: "Caesar",      personality: "hunter" },
+    { body: "#f07bb8", bodyHi: "#ffd5ec", bodyLo: "#a14080", head: "#f07bb8", headHi: "#ffe2f2", name: "Cleopatra",   personality: "greedy" },
+    { body: "#ff8838", bodyHi: "#ffd2a3", bodyLo: "#a44d10", head: "#ff8838", headHi: "#ffe5cc", name: "Napoleon",    personality: "hunter" },
+    { body: "#5de0f0", bodyHi: "#bef5fb", bodyLo: "#2ba0b6", head: "#5de0f0", headHi: "#cefafd", name: "Tubman",      personality: "cautious" },
+    { body: "#f5c451", bodyHi: "#ffe9a8", bodyLo: "#a8821c", head: "#f5c451", headHi: "#fff0c8", name: "Mansa Musa",  personality: "greedy" },
+    { body: "#d04848", bodyHi: "#ffb0b0", bodyLo: "#7a1c1c", head: "#d04848", headHi: "#ffd2d2", name: "Genghis",     personality: "hunter" },
+    { body: "#9ee08c", bodyHi: "#dcf5d0", bodyLo: "#3a7029", head: "#9ee08c", headHi: "#e2f5d8", name: "Gandhi",      personality: "cautious" },
+    { body: "#c8d0e0", bodyHi: "#f0f5ff", bodyLo: "#5a667c", head: "#c8d0e0", headHi: "#fafcff", name: "Hammurabi",   personality: "default" },
+    { body: "#e8b84b", bodyHi: "#fff0a0", bodyLo: "#a07820", head: "#e8b84b", headHi: "#fff8c4", name: "Catherine",   personality: "greedy" },
+    { body: "#7c5fdb", bodyHi: "#c8b0ff", bodyLo: "#4030a0", head: "#7c5fdb", headHi: "#dcc8ff", name: "Mandela",     personality: "cautious" },
+    { body: "#5dd4a0", bodyHi: "#a8f0d0", bodyLo: "#208058", head: "#5dd4a0", headHi: "#c8f5e0", name: "Tut",         personality: "default" },
+    { body: "#f0a060", bodyHi: "#ffd8b0", bodyLo: "#a05828", head: "#f0a060", headHi: "#ffe8c8", name: "Joan",        personality: "hunter" }
   ];
-  var AI_NAMES_BACKUP = ["Hex", "Glissade", "Marrow", "Quetzal", "Penumbra", "Gilt", "Kelpie", "Tessera"];
+  // Boss snake — appears every 90s when no boss is alive. Massive, fast,
+  // worth 500pts on kill. Visually distinct: gold + crimson palette.
+  var BOSS_PALETTE = {
+    body: "#ffd060", bodyHi: "#fff5a0", bodyLo: "#a06820",
+    head: "#ff8040", headHi: "#ffe2c8",
+    trail: "rgba(255,160,60,0.55)",
+    name: "Leviathan",
+    personality: "hunter"
+  };
+  var BOSS_INTERVAL_S = 90;        // attempt to spawn every N seconds
+  var BOSS_INITIAL_LEN = 60;        // way longer than normal snakes
+  var BOSS_SCORE_REWARD = 500;
+  var BOSS_SHARDS_REWARD = 20;
 
-  // Power-ups
-  var POWERUP_TYPES = ["boostReserve", "phase", "mass2x", "magnet", "burst"];
+  // Power-ups — expanded from 5 → 7. SHIELD prevents next death (auto-pop).
+  // SUPERNOVA kills the nearest non-boss snake (huge tactical option).
+  var POWERUP_TYPES = ["boostReserve", "phase", "mass2x", "magnet", "burst", "shield", "supernova"];
   var POWERUP_META = {
     boostReserve: { glyph: "⚡", color: "#fff8c4", glow: "#f5c451", label: "BOOST RESERVE", desc: "Free boost 4s" },
     phase:        { glyph: "⛡", color: "#a8e8ff", glow: "#5de0f0", label: "PHASE",         desc: "Next collision passes through" },
     mass2x:       { glyph: "★", color: "#ffe488", glow: "#f5c451", label: "2x MASS",        desc: "Next 10 orbs double" },
     magnet:       { glyph: "⏺", color: "#dccaff", glow: "#a991ff", label: "MAGNET",         desc: "Orbs pull in 4s" },
-    burst:        { glyph: "✸", color: "#ffd2d2", glow: "#d04848", label: "BURST",          desc: "Stuns 5 nearest snakes" }
+    burst:        { glyph: "✸", color: "#ffd2d2", glow: "#d04848", label: "BURST",          desc: "Stuns 5 nearest snakes" },
+    shield:       { glyph: "◈", color: "#bef5fb", glow: "#5de0f0", label: "SHIELD",         desc: "Auto-blocks next death" },
+    supernova:    { glyph: "✺", color: "#ffd2a3", glow: "#ff8838", label: "SUPERNOVA",      desc: "Instantly KO nearest rival" }
   };
+
+  // Combo system — chaining orb pickups within a 2.5s window builds a
+  // multiplier. Tier thresholds:
+  //   3 in window → 2x
+  //   6 in window → 3x
+  //  12 in window → 5x  (max)
+  var COMBO_WINDOW_S = 2.5;
+  var COMBO_TIERS = [
+    { hits: 3,  mult: 2, label: "STREAK x2",    color: "#5de0f0" },
+    { hits: 6,  mult: 3, label: "STREAK x3",    color: "#a991ff" },
+    { hits: 12, mult: 5, label: "FRENZY x5",    color: "#f5c451" }
+  ];
 
   // -- Canvas/state ----------------------------------------------------------
   var canvas, ctx;
@@ -155,6 +195,7 @@
   } catch (e) {}
 
   var soundOn = true;
+  var selectedDifficulty = "normal";   // overwritten in bindUi by saved pref
 
   // Tracked timeouts so we can cancel on restart/exit (prevents stale callbacks)
   var pendingTimeouts = [];
@@ -331,6 +372,10 @@
     dom.tcStick = $("tcStick");
     dom.tcStickKnob = $("tcStickKnob");
     dom.tcBoost = $("tcBoost");
+    // Build-out additions
+    dom.hudLeader = $("hudLeader");
+    dom.diffButtons = document.querySelectorAll("#setupScreen .sp-diff-btn");
+    dom.bossWarn = $("bossWarn");
   }
 
   // -- Geometry helpers ------------------------------------------------------
@@ -371,6 +416,7 @@
     }
     return {
       isPlayer: !!opts.isPlayer,
+      isBoss: !!opts.isBoss,
       name: opts.name || "Rival",
       palette: opts.palette || AI_PALETTES[0],
       heading: heading,
@@ -388,6 +434,8 @@
       burstStunT: 0,              // seconds of stun (can't turn / loses control)
       drainTimer: 0,              // timer for boost segment drain
       ai: opts.ai || null,
+      personality: opts.personality || "default", // hunter | greedy | cautious | default
+      shieldArmed: false,         // SHIELD powerup armed (auto-blocks next death)
       dead: false,
       deadT: 0,
       lastBoostState: false,
@@ -398,7 +446,11 @@
       _avoidUntil: 0,
       _intentTimer: 0,
       score: 0,
-      kills: 0
+      kills: 0,
+      // Combo (player only — AIs don't combo)
+      comboCount: 0,
+      comboT: 0,                  // time remaining before combo resets
+      comboTier: 0                // 0/1/2/3 → 1x/2x/3x/5x
     };
   }
 
@@ -435,19 +487,56 @@
       heading: rand(0, Math.PI * 2),
       len: randi(AI_INITIAL_LEN_MIN, AI_INITIAL_LEN_MAX),
       isPlayer: false,
-      name: palette.name || AI_NAMES_BACKUP[paletteIdx % AI_NAMES_BACKUP.length],
+      name: palette.name || ("Rival " + (paletteIdx + 1)),
       palette: palette,
-      ai: { kind: "default" }
+      personality: palette.personality || "default",
+      ai: { kind: palette.personality || "default" }
     });
+  }
+
+  // Spawn the periodic boss snake at the far side of the arena.
+  function makeBossSnake() {
+    var p = state ? state.player : null;
+    var sx, sy, tries = 0;
+    do {
+      sx = rand(ARENA_PAD * 4, ARENA_W - ARENA_PAD * 4);
+      sy = rand(ARENA_PAD * 4, ARENA_H - ARENA_PAD * 4);
+      tries++;
+    } while (p && dist2(sx, sy, p.x, p.y) < 700 * 700 && tries < 12);
+    return makeSnake({
+      x: sx, y: sy,
+      heading: rand(0, Math.PI * 2),
+      len: BOSS_INITIAL_LEN,
+      isPlayer: false,
+      isBoss: true,
+      name: BOSS_PALETTE.name,
+      palette: BOSS_PALETTE,
+      personality: BOSS_PALETTE.personality,
+      ai: { kind: BOSS_PALETTE.personality }
+    });
+  }
+
+  // -- Difficulty ------------------------------------------------------------
+  // Each difficulty tier picks the AI count + boss interval + AI aggression.
+  // Stored on state so the AI loop can reference live tuning.
+  var DIFFICULTIES = {
+    easy:      { label: "Reading Room",  aiCount: 4,  bossInterval: 120, boostProbMul: 0.6, lookAheadMul: 0.85 },
+    normal:    { label: "The Stacks",    aiCount: 7,  bossInterval: 90,  boostProbMul: 1.0, lookAheadMul: 1.0 },
+    hard:      { label: "Archive Dive",  aiCount: 10, bossInterval: 70,  boostProbMul: 1.3, lookAheadMul: 1.15 },
+    nightmare: { label: "Coliseum",      aiCount: 13, bossInterval: 50,  boostProbMul: 1.6, lookAheadMul: 1.30 }
+  };
+  function currentDifficulty() {
+    var d = (state && state.difficulty) || "normal";
+    return DIFFICULTIES[d] || DIFFICULTIES.normal;
   }
 
   // -- State init ------------------------------------------------------------
   function initState(opts) {
     opts = opts || {};
     var carry = !!opts.carry;
-    var aiCount = randi(AI_COUNT_MIN, AI_COUNT_MAX);
+    var difficulty = opts.difficulty || (state && state.difficulty) || "normal";
+    var diff = DIFFICULTIES[difficulty] || DIFFICULTIES.normal;
     var palettesUsed = [];
-    var ais = [];
     var newState = {
       player: makePlayerSnake(),
       ais: [],
@@ -475,10 +564,17 @@
       currentKillStreak: 0,
       maxKillStreak: opts.maxKillStreak || 0,
       respawnQueue: [], // [{ delay, palette? }]
-      endReason: ""
+      endReason: "",
+      // Build-out additions:
+      difficulty: difficulty,
+      bossTimer: diff.bossInterval * 0.6,    // first boss appears a bit before the full interval
+      bossAlive: false,
+      bossesKilled: 0,
+      leaderboard: [],                         // top-5 snakes by length, updated each frame
+      lastLeaderboardUpdate: 0
     };
     state = newState;
-    for (var i = 0; i < aiCount; i++) {
+    for (var i = 0; i < diff.aiCount; i++) {
       var ai = makeAiSnake(palettesUsed);
       state.ais.push(ai);
     }
@@ -763,12 +859,20 @@
       grow *= 2;
       s.multCount--;
     }
+    // Combo multiplier — only the player builds + uses combo
+    var comboMult = 1;
+    if (s.isPlayer) {
+      bumpCombo();
+      comboMult = currentComboMult();
+      pts = pts * comboMult;
+    }
     growSnake(s, grow);
     if (s.isPlayer) {
       state.score += pts;
       state.orbsEaten++;
       sfx.eat();
-      pushPopupWorld("+" + pts, o.x, o.y - 12, "is-score");
+      var label = comboMult > 1 ? ("+" + pts + " ×" + comboMult) : ("+" + pts);
+      pushPopupWorld(label, o.x, o.y - 12, "is-score");
       if (s.targetLen > state.maxLength) state.maxLength = s.targetLen;
     } else {
       s.score += pts;
@@ -845,7 +949,50 @@
           window.MrMacsCelebration.burst({ count: 24, palette: ["#d04848", "#ff8838", "#f5c451"] });
         }
       } catch (e2) {}
+    } else if (pu.type === "shield") {
+      // Arm a shield that auto-pops on the next fatal collision. Visual ring
+      // is drawn on the head while armed (see drawSnake / shield halo).
+      p.shieldArmed = true;
+      sfx.powerup_use();
+      pushPopupWorld("SHIELD UP", p.x, p.y - 28, "is-bonus");
+    } else if (pu.type === "supernova") {
+      // Instantly KO the closest non-boss AI snake. Massive tactical clear.
+      sfx.powerup_use();
+      var bestAi = null, bestD = 1e18;
+      for (var si = 0; si < state.ais.length; si++) {
+        var cand = state.ais[si];
+        if (cand.dead || cand.isBoss) continue;
+        var d = dist2(p.x, p.y, cand.x, cand.y);
+        if (d < bestD) { bestD = d; bestAi = cand; }
+      }
+      if (bestAi) {
+        // Big burst at the target
+        burstAt(bestAi.x, bestAi.y, "#ff8838", 28);
+        addShake(14, 0.6);
+        killSnake(bestAi, p);
+        pushPopupWorld("SUPERNOVA → " + bestAi.name, p.x, p.y - 28, "is-tetris");
+        try {
+          if (window.MrMacsCelebration && !reducedMotion) {
+            window.MrMacsCelebration.burst({ count: 36, palette: ["#ff8838", "#f5c451", "#fff0a0"] });
+          }
+        } catch (e3) {}
+      } else {
+        pushPopupWorld("NO TARGET", p.x, p.y - 28, "is-warn");
+      }
     }
+  }
+
+  // Pop the SHIELD powerup: blocks the next death entirely, with a visible
+  // explosion + brief invulnerability afterward (phase grace).
+  function popShield(s, atX, atY) {
+    if (!s.shieldArmed) return false;
+    s.shieldArmed = false;
+    s.phaseT = 1.5; // 1.5s post-shield grace so the player can disengage
+    burstAt(atX, atY, "#bef5fb", 36);
+    addShake(10, 0.4);
+    pushPopupWorld("SHIELD!", atX, atY - 28, "is-bonus");
+    try { sfx.powerup_use && sfx.powerup_use(); } catch (e) {}
+    return true;
   }
 
   // -- Collision: head into bodies ------------------------------------------
@@ -878,6 +1025,15 @@
           burstAt(headX, headY, "#5de0f0", 18);
           return false;
         }
+        // Player shield blocks a head-on too (saves the player but the other still dies)
+        if (s.isPlayer && popShield(s, headX, headY)) {
+          killSnake(o, s);
+          return false;
+        }
+        if (o.isPlayer && popShield(o, headX, headY)) {
+          killSnake(s, o);
+          return true;
+        }
         // both die — pass null killer for both so neither gets credit
         killSnake(o, null);
         killSnake(s, null);
@@ -893,6 +1049,10 @@
             phased = false;
             burstAt(headX, headY, "#5de0f0", 18);
             return false; // phase consumed; no death
+          }
+          // Shield: blocks segment-collision death too
+          if (s.isPlayer && popShield(s, headX, headY)) {
+            return false;
           }
           killSnake(s, o);
           return true;
@@ -937,6 +1097,34 @@
         state.currentKillStreak++;
         if (state.currentKillStreak > state.maxKillStreak) state.maxKillStreak = state.currentKillStreak;
         var killPts = 400 + Math.floor(s.segments.length * 5);
+        // Boss bonus
+        if (s.isBoss) {
+          killPts = BOSS_SCORE_REWARD + Math.floor(s.segments.length * 8);
+          state.bossesKilled = (state.bossesKilled || 0) + 1;
+          addShards(BOSS_SHARDS_REWARD, GAME_ID + "-boss");
+          pushPopup({
+            text: "★ LEVIATHAN SLAIN ★",
+            sub: "+" + killPts + " · +" + BOSS_SHARDS_REWARD + " shards",
+            color: "#fff0a0",
+            life: 3.0,
+            big: true
+          });
+          try {
+            if (window.MrMacsCelebration && !reducedMotion) {
+              window.MrMacsCelebration.burst({ count: 60, palette: ["#fff0a0", "#ff8040", "#f5c451", "#ffd060"] });
+            }
+          } catch (eb) {}
+          // Drop a scholar orb at boss death site as the reward
+          if (state.scholarOrbs.length < 3) {
+            state.scholarOrbs.push({
+              x: s.x, y: s.y,
+              r: SCHOLAR_ORB_RADIUS,
+              pulse: 0,
+              ttl: 90
+            });
+          }
+          addShake(18, 0.8);
+        }
         state.score += killPts;
         addShards(BONUS_SHARDS_PER_KILL, GAME_ID + "-kill");
         pushPopupWorld(s.name + " DOWN +" + killPts, s.x, s.y - 26, "is-kill");
@@ -1050,46 +1238,76 @@
   function runAi(ai, dt) {
     if (ai.burstStunT > 0) {
       ai.burstStunT -= dt;
-      // wander while stunned — random walk
       ai.desiredHeading = ai.heading + rand(-0.05, 0.05);
       ai.boosting = false;
       return;
     }
     ai._intentTimer -= dt;
+
     var p = state.player;
+    var diff = currentDifficulty();
+    var personality = ai.personality || "default";
+    var isBoss = !!ai.isBoss;
+
+    // ── Personality-driven tuning ──
+    // Hunters target the player aggressively; greedy snakes single-mindedly
+    // chase orb clusters; cautious snakes prioritize survival with extra
+    // lookahead and conservative boosting. Default keeps the original logic.
+    var lookAheadBase, threatRadius, boostMul, wanderRange, orbReach, playerLungeChance;
+    if (personality === "hunter") {
+      lookAheadBase = 70; threatRadius = 56; boostMul = 1.8;
+      wanderRange = 220; orbReach = 200 * 200; playerLungeChance = 0.10;
+    } else if (personality === "greedy") {
+      lookAheadBase = 80; threatRadius = 60; boostMul = 0.9;
+      wanderRange = 380; orbReach = 360 * 360; playerLungeChance = 0.01;
+    } else if (personality === "cautious") {
+      lookAheadBase = 130; threatRadius = 95; boostMul = 0.5;
+      wanderRange = 280; orbReach = 220 * 220; playerLungeChance = 0.02;
+    } else {
+      lookAheadBase = 90; threatRadius = 70; boostMul = 1.0;
+      wanderRange = 300; orbReach = 240 * 240; playerLungeChance = 0.04;
+    }
+    // Bosses are colossal and intense
+    if (isBoss) {
+      lookAheadBase = 110; threatRadius = 100; boostMul = 1.5;
+      orbReach = 400 * 400; playerLungeChance = 0.18;
+    }
+    // Difficulty scaling
+    lookAheadBase *= diff.lookAheadMul;
+    boostMul *= diff.boostProbMul;
+
     var nearestOrb = null, nearestOrbD = 1e9;
-    // Pick target orb within ~280 px (cheap; sample subset)
     var sampleN = Math.min(state.orbs.length, 40);
-    var step = Math.max(1, Math.floor(state.orbs.length / sampleN));
-    for (var i = 0; i < state.orbs.length; i += step) {
+    var stepO = Math.max(1, Math.floor(state.orbs.length / sampleN));
+    for (var i = 0; i < state.orbs.length; i += stepO) {
       var o = state.orbs[i];
       var d2 = dist2(ai.x, ai.y, o.x, o.y);
       if (d2 < nearestOrbD) { nearestOrbD = d2; nearestOrb = o; }
     }
-    // Scholar orb attractor (occasional)
+    // Scholar orb attractor — greedy snakes weight scholar orbs heavily
+    var scholarWeight = personality === "greedy" ? 1.8 : 1.4;
     for (var s2 = 0; s2 < state.scholarOrbs.length; s2++) {
       var so = state.scholarOrbs[s2];
       var sd = dist2(ai.x, ai.y, so.x, so.y);
-      if (sd < nearestOrbD * 1.4) { nearestOrbD = sd; nearestOrb = so; }
+      if (sd < nearestOrbD * scholarWeight) { nearestOrbD = sd; nearestOrb = so; }
     }
 
-    // Avoidance: detect snake bodies in front
-    var lookAhead = 90 + ai.speed * 0.15;
+    // ── Avoidance check ──
+    var lookAhead = lookAheadBase + ai.speed * 0.15;
     var ahx = ai.x + Math.cos(ai.heading) * lookAhead;
     var ahy = ai.y + Math.sin(ai.heading) * lookAhead;
     var avoidVec = { dx: 0, dy: 0 };
     var avoidActive = false;
+    var threatSq = threatRadius * threatRadius;
 
     function checkAgainst(other) {
       if (other === ai) return;
       if (other.dead) return;
-      // sample every Nth segment for speed
       var stepS = Math.max(1, Math.floor(other.segments.length / 10));
       for (var k = 0; k < other.segments.length; k += stepS) {
         var sg = other.segments[k];
         var dd = dist2(ahx, ahy, sg.x, sg.y);
-        var threat = 70 * 70;
-        if (dd < threat) {
+        if (dd < threatSq) {
           var dx = ai.x - sg.x;
           var dy = ai.y - sg.y;
           var dl = Math.sqrt(dist2(ai.x, ai.y, sg.x, sg.y));
@@ -1106,8 +1324,8 @@
       if (state.ais[aii] !== ai) checkAgainst(state.ais[aii]);
     }
 
-    // Wall avoidance: stay inside
-    var wallM = 80;
+    // Wall avoidance — cautious snakes pull in earlier
+    var wallM = personality === "cautious" ? 110 : 80;
     if (ai.x < wallM) { avoidVec.dx += 1; avoidActive = true; }
     if (ai.x > ARENA_W - wallM) { avoidVec.dx -= 1; avoidActive = true; }
     if (ai.y < wallM) { avoidVec.dy += 1; avoidActive = true; }
@@ -1115,7 +1333,6 @@
 
     var desired;
     if (avoidActive) {
-      // turn toward avoid vector
       var alen = Math.sqrt(avoidVec.dx * avoidVec.dx + avoidVec.dy * avoidVec.dy);
       if (alen > 0.001) {
         desired = Math.atan2(avoidVec.dy / alen, avoidVec.dx / alen);
@@ -1123,10 +1340,12 @@
         desired = ai.heading;
       }
       ai._avoidUntil = 0.5;
-    } else if (nearestOrb && nearestOrbD < 240 * 240) {
+    } else if (personality === "hunter" && p && !p.dead && dist2(ai.x, ai.y, p.x, p.y) < 500 * 500) {
+      // Hunters lock onto the player when in range
+      desired = Math.atan2(p.y - ai.y, p.x - ai.x);
+    } else if (nearestOrb && nearestOrbD < orbReach) {
       desired = Math.atan2(nearestOrb.y - ai.y, nearestOrb.x - ai.x);
     } else {
-      // wander toward random target every few seconds
       ai._wanderRefresh -= dt;
       if (!ai._wanderTarget || ai._wanderRefresh <= 0) {
         ai._wanderTarget = {
@@ -1138,12 +1357,13 @@
       desired = Math.atan2(ai._wanderTarget.y - ai.y, ai._wanderTarget.x - ai.x);
     }
 
-    // Occasionally lunge at the player if we have mass advantage and they're close
+    // Lunge at player when we have mass advantage (personality-modulated)
     if (!avoidActive && p && !p.dead) {
       var dPlayer2 = dist2(ai.x, ai.y, p.x, p.y);
-      if (ai.segments.length > p.segments.length + 8 && dPlayer2 < 360 * 360 && Math.random() < 0.04) {
+      var massAdv = ai.segments.length > p.segments.length + (isBoss ? 0 : 8);
+      var lungeRange = isBoss ? 480 * 480 : 360 * 360;
+      if (massAdv && dPlayer2 < lungeRange && Math.random() < playerLungeChance) {
         desired = Math.atan2(p.y - ai.y, p.x - ai.x);
-        // boost into the lunge
         if (Math.random() < 0.5) {
           setBoost(ai, true);
           ai._boostUntil = state.time + rand(AI_BOOST_MIN_S, AI_BOOST_MAX_S);
@@ -1153,14 +1373,14 @@
 
     ai.desiredHeading = desired;
 
-    // Boost behavior
+    // Boost behavior — scaled by personality + difficulty
     if (ai.boosting) {
       if (state.time >= ai._boostUntil || ai.segments.length <= MIN_LEN + 2) {
         setBoost(ai, false);
       }
     } else {
-      // small chance to boost forward
-      if (Math.random() < AI_BOOST_PROB && ai.segments.length > MIN_LEN + 6) {
+      var boostP = AI_BOOST_PROB * boostMul;
+      if (Math.random() < boostP && ai.segments.length > MIN_LEN + 6) {
         setBoost(ai, true);
         ai._boostUntil = state.time + rand(AI_BOOST_MIN_S, AI_BOOST_MAX_S);
       }
@@ -1224,6 +1444,22 @@
     dom.popupOverlay.appendChild(div);
     setTimeout(function () { try { div.remove(); } catch (e) {} }, 1200);
   }
+  // Big centered banner for headline events (boss spawn, boss death, frenzy)
+  function pushPopup(opts) {
+    opts = opts || {};
+    var div = document.createElement("div");
+    div.className = "snake-pit-banner" + (opts.big ? " is-big" : "");
+    var color = opts.color || "#5de0f0";
+    div.style.color = color;
+    div.style.borderColor = color;
+    div.style.boxShadow = "0 0 24px " + color + "55, inset 0 0 16px " + color + "22";
+    div.innerHTML = "<strong>" + (opts.text || "") + "</strong>" +
+      (opts.sub ? '<span class="banner-sub">' + opts.sub + "</span>" : "");
+    if (dom.popupOverlay) dom.popupOverlay.appendChild(div);
+    var life = (opts.life != null ? opts.life : 2.2) * 1000;
+    setTimeout(function () { try { div.classList.add("is-out"); } catch (e) {} }, life - 400);
+    setTimeout(function () { try { div.remove(); } catch (e) {} }, life);
+  }
   function addShake(intensity, life) {
     if (reducedMotion) return;
     state.shake.intensity = Math.max(state.shake.intensity, intensity);
@@ -1267,6 +1503,110 @@
       var need = Math.min(3, ORB_BASE_COUNT - state.orbs.length);
       for (var n = 0; n < need; n++) state.orbs.push(makeOrb());
     }
+
+    // ── Boss snake spawn ──
+    // Check whether the current boss is still alive (if any). Boss is the
+    // first AI with isBoss=true that isn't dead.
+    state.bossAlive = false;
+    for (var bi = 0; bi < state.ais.length; bi++) {
+      if (state.ais[bi].isBoss && !state.ais[bi].dead) { state.bossAlive = true; break; }
+    }
+    state.bossTimer -= dt;
+    if (!state.bossAlive && state.bossTimer <= 0) {
+      var boss = makeBossSnake();
+      state.ais.push(boss);
+      state.bossAlive = true;
+      state.bossTimer = currentDifficulty().bossInterval;
+      // Big announcement
+      pushPopup({
+        text: "⚠ LEVIATHAN SURFACES ⚠",
+        sub: "Take it down for +" + BOSS_SCORE_REWARD + " score",
+        color: "#ff8040",
+        life: 3.2,
+        big: true
+      });
+      try { sfx.crash_die && sfx.crash_die(); } catch (e) {}
+    }
+  }
+
+  // ── Combo / leaderboard ──
+  function tickCombo(dt) {
+    var p = state.player;
+    if (!p || p.dead) return;
+    if (p.comboT > 0) {
+      p.comboT -= dt;
+      if (p.comboT <= 0) {
+        // Combo expired
+        if (p.comboTier > 0) {
+          pushPopup({
+            text: "COMBO ENDED",
+            sub: "Final streak: " + p.comboCount,
+            color: "#9aa3bb",
+            life: 1.0
+          });
+        }
+        p.comboCount = 0;
+        p.comboTier = 0;
+      }
+    }
+  }
+  function bumpCombo() {
+    var p = state.player;
+    if (!p || p.dead) return;
+    p.comboCount += 1;
+    p.comboT = COMBO_WINDOW_S;
+    // Find highest tier the count qualifies for
+    var newTier = 0;
+    for (var t = 0; t < COMBO_TIERS.length; t++) {
+      if (p.comboCount >= COMBO_TIERS[t].hits) newTier = t + 1;
+    }
+    if (newTier > p.comboTier) {
+      p.comboTier = newTier;
+      var tierMeta = COMBO_TIERS[newTier - 1];
+      pushPopup({
+        text: tierMeta.label,
+        sub: "Orbs worth " + tierMeta.mult + "x for " + COMBO_WINDOW_S + "s",
+        color: tierMeta.color,
+        life: 1.4,
+        big: true
+      });
+    }
+  }
+  function currentComboMult() {
+    var p = state.player;
+    if (!p || !p.comboTier) return 1;
+    return COMBO_TIERS[p.comboTier - 1].mult;
+  }
+
+  // Build the live top-5 leaderboard sorted by segment count (length).
+  // Updated every 0.4s to avoid per-frame sort thrash; players see updates
+  // smoothly via animated HUD repaint.
+  function updateLeaderboard() {
+    if (state.time - state.lastLeaderboardUpdate < 0.4) return;
+    state.lastLeaderboardUpdate = state.time;
+    var rows = [];
+    if (state.player && !state.player.dead) {
+      rows.push({
+        name: "YOU",
+        len: state.player.segments.length,
+        color: PLAYER_COLORS.head,
+        isPlayer: true,
+        isBoss: false
+      });
+    }
+    for (var i = 0; i < state.ais.length; i++) {
+      var ai = state.ais[i];
+      if (ai.dead) continue;
+      rows.push({
+        name: ai.name,
+        len: ai.segments.length,
+        color: ai.palette.head || ai.palette.body,
+        isPlayer: false,
+        isBoss: !!ai.isBoss
+      });
+    }
+    rows.sort(function (a, b) { return b.len - a.len; });
+    state.leaderboard = rows.slice(0, 5);
   }
 
   // -- Camera ----------------------------------------------------------------
@@ -1660,6 +2000,47 @@
       ctx.stroke();
       ctx.restore();
     }
+    // Shield halo — bright cyan ring with pulsing inner glow
+    if (s.shieldArmed && !reducedMotion) {
+      ctx.save();
+      var pulse = 0.7 + 0.3 * Math.sin(state.time * 5);
+      ctx.globalAlpha = 0.85 * alpha;
+      ctx.strokeStyle = "#bef5fb";
+      ctx.lineWidth = 2.5;
+      ctx.shadowColor = "#5de0f0";
+      ctx.shadowBlur = 18 * pulse;
+      ctx.beginPath();
+      ctx.arc(hx, hy, SEG_RADIUS + 6 + pulse * 2, 0, Math.PI * 2);
+      ctx.stroke();
+      // Inner faint ring
+      ctx.globalAlpha = 0.35 * alpha;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.arc(hx, hy, SEG_RADIUS + 11, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+    // Boss crown halo — pulsing gold ring around the head + crown name
+    if (s.isBoss && !s.dead && !reducedMotion) {
+      ctx.save();
+      var bpulse = 0.6 + 0.4 * Math.sin(state.time * 3);
+      ctx.globalAlpha = 0.7 * alpha;
+      ctx.strokeStyle = "#ffd060";
+      ctx.lineWidth = 2;
+      ctx.shadowColor = "#ff8040";
+      ctx.shadowBlur = 22 * bpulse;
+      ctx.beginPath();
+      ctx.arc(hx, hy, SEG_RADIUS + 16 + bpulse * 3, 0, Math.PI * 2);
+      ctx.stroke();
+      // Outer chase ring
+      ctx.globalAlpha = 0.4 * alpha;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([6, 6]);
+      ctx.beginPath();
+      ctx.arc(hx, hy, SEG_RADIUS + 26 + bpulse * 5, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
     // 2x mass aura
     if (s.multCount > 0 && !reducedMotion) {
       ctx.save();
@@ -1824,8 +2205,11 @@
         if (p2.phaseT > 0) bits.push("Phase ready");
         if (p2.magnetT > 0) bits.push("Magnet " + p2.magnetT.toFixed(1) + "s");
         if (p2.multCount > 0) bits.push("2x x" + p2.multCount);
+        if (p2.shieldArmed) bits.push("◈ Shield");
+        if (p2.comboTier > 0) bits.push("Combo ×" + currentComboMult());
       }
       if (state.currentKillStreak >= 2) bits.push("Streak x" + state.currentKillStreak);
+      if (state.bossAlive) bits.push("⚠ Leviathan");
       if (bits.length === 0) bits.push("Powerups · 0 active");
       dom.goalMeta.textContent = bits.join(" · ");
     }
@@ -1835,6 +2219,35 @@
       cell.classList.toggle("is-boost", !!(state.player && state.player.boosting));
       cell.classList.toggle("is-warning", state.player && state.player.segments.length <= 8);
     }
+    // Real-time leaderboard
+    renderHudLeaderboard();
+  }
+
+  // Render the top-5 leaderboard panel from state.leaderboard.
+  function renderHudLeaderboard() {
+    var el = dom.hudLeader;
+    if (!el || !state || !state.leaderboard) return;
+    if (state.leaderboard.length === 0) { el.innerHTML = ""; return; }
+    var html = '<div class="lb-title">Live Pit</div><ol class="lb-list">';
+    for (var i = 0; i < state.leaderboard.length; i++) {
+      var row = state.leaderboard[i];
+      var cls = "lb-row";
+      if (row.isPlayer) cls += " is-player";
+      if (row.isBoss) cls += " is-boss";
+      html += '<li class="' + cls + '">' +
+        '<span class="lb-rank">' + (i + 1) + '</span>' +
+        '<span class="lb-dot" style="background:' + row.color + '"></span>' +
+        '<span class="lb-name">' + escapeHtml(row.name) + '</span>' +
+        '<span class="lb-len">' + row.len + '</span>' +
+      '</li>';
+    }
+    html += "</ol>";
+    el.innerHTML = html;
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
   }
 
   function formatNumber(n) {
@@ -2398,6 +2811,37 @@
         else document.exitFullscreen();
       } catch (e) {}
     });
+    // Custom difficulty selector on the setup screen — local to snake-pit.
+    // Persists selection to localStorage so it survives reloads. The Mr Mac's
+    // shared MrMacsDifficulty system below registers the game but its own
+    // selector is hidden via CSS (our buttons replace it for clarity).
+    var savedDiff = "normal";
+    try {
+      var s = localStorage.getItem("snakePit.difficulty");
+      if (s && DIFFICULTIES[s]) savedDiff = s;
+    } catch (e) {}
+    selectedDifficulty = savedDiff;
+    function syncDiffButtons() {
+      if (!dom.diffButtons) return;
+      for (var i = 0; i < dom.diffButtons.length; i++) {
+        var btn = dom.diffButtons[i];
+        btn.classList.toggle("is-selected", btn.getAttribute("data-diff") === selectedDifficulty);
+      }
+    }
+    syncDiffButtons();
+    if (dom.diffButtons) {
+      for (var bi = 0; bi < dom.diffButtons.length; bi++) {
+        (function (btn) {
+          btn.addEventListener("click", function () {
+            var d = btn.getAttribute("data-diff");
+            if (!DIFFICULTIES[d]) return;
+            selectedDifficulty = d;
+            try { localStorage.setItem("snakePit.difficulty", d); } catch (e) {}
+            syncDiffButtons();
+          });
+        })(dom.diffButtons[bi]);
+      }
+    }
   
   
   // ── Difficulty selector ────────────────────────────────────────
@@ -2440,7 +2884,7 @@
       var _p = window.MrMacsProfile && window.MrMacsProfile.get();
       _achAtStart = _p && _p.achievements ? Object.keys(_p.achievements) : [];
     } catch (e) {}
-    initState({});
+    initState({ difficulty: selectedDifficulty });
     state.achievementsAtRunStart = _achAtStart;
     showScreen(null);
     phase = "playing";
@@ -2454,7 +2898,8 @@
     initState({
       score: s.score || 0,
       kills: s.kills || 0,
-      best: readBest()
+      best: readBest(),
+      difficulty: s.difficulty || selectedDifficulty
     });
     showScreen(null);
     phase = "playing";
@@ -2551,6 +2996,10 @@
     if (state) {
       updateParticles(dt);
       updateShake(dt);
+      if (phase === "playing") {
+        tickCombo(dt);
+        updateLeaderboard();
+      }
     }
     if (state) render();
     if (phase === "playing" || phase === "dying" || phase === "paused") {
