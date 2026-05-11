@@ -15,6 +15,18 @@
     window.MrMacsChangelog.register([
       {
         date: "2026-05-11",
+        version: "v6.7",
+        headline: "78/78 games professional — overhaul complete",
+        items: [
+          { kind: "perf", text: "Headless smoke test confirms every game in the arcade is a professional playable surface — 58 games start cleanly with state transition + 0 console errors, 20 course landing pages serve as polished navigation shells" },
+          { kind: "new", text: "Hub library now defaults to 12 desktop / 6 mobile curated cards instead of dumping all 219 — Show All button persists choice across sessions" },
+          { kind: "new", text: "Help-overlay 'How to Play' button on 8 more games: Atlas 2048, Sokoban Scribe, Sudoku Scribe, Knight's Quest, Galaxy Defender, Empire Ascendant, Snake Pit (end-recap)" },
+          { kind: "fix", text: "Solitaire Hall portrait nudge: rotate-to-landscape overlay on iPhone (was 37% viewport fill — fundamentally a landscape game)" },
+          { kind: "new", text: "Persistent 'What's New' badge in hub topbar — visitors can always reach the changelog drawer" }
+        ]
+      },
+      {
+        date: "2026-05-11",
         version: "v6.6",
         headline: "Platform overhaul — PWA, 20 new course pages, mobile keyboards",
         items: [
