@@ -1778,3 +1778,176 @@ body::before {
 @media (prefers-reduced-motion: no-preference) {
   body::after { opacity: calc(0.5 * var(--crt-scan-intensity)); }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   35. CABINET-MENU FOLDER TILES — Jon: "lean in to the 89 game cabinet
+   UI, containers and folders neatly organized like an arcade menu."
+   Four big folder-shaped tiles in the hero. Each has a tab on top
+   (like a folder), a chunky pixel-bezel border, an emoji icon, a
+   pixel-font label, and a small meta line. Hover glows the border;
+   active shows the press-down state.
+   ═══════════════════════════════════════════════════════════════════════ */
+.cabinet-menu {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(10px, 1.5vw, 18px);
+  margin: clamp(24px, 4vh, 40px) 0 0;
+  max-width: 720px;
+}
+@media (max-width: 700px) {
+  .cabinet-menu {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
+  }
+}
+.cabinet-folder {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 22px 14px 14px;
+  background: linear-gradient(180deg, #14182a 0%, #060810 100%);
+  border: 2px solid rgba(245, 196, 81, 0.55);
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 130px;
+  color: #f0f5ff;
+  box-shadow:
+    0 4px 0 rgba(0, 0, 0, 0.45),
+    0 8px 20px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.55);
+  transition: transform 120ms ease-out, box-shadow 160ms, border-color 160ms;
+}
+.cabinet-folder:hover,
+.cabinet-folder:focus-visible {
+  transform: translateY(-2px);
+  border-color: #ffd060;
+  box-shadow:
+    0 6px 0 rgba(0, 0, 0, 0.50),
+    0 14px 32px rgba(245, 196, 81, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.55),
+    0 0 22px rgba(255, 208, 96, 0.30);
+  outline: none;
+}
+.cabinet-folder:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.45),
+    0 4px 10px rgba(0, 0, 0, 0.55),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.55);
+}
+/* Folder TAB — the little flap on top that says "this is a folder" */
+.cabinet-folder .cf-tab {
+  position: absolute;
+  top: -12px;
+  left: 14px;
+  width: 50px;
+  height: 14px;
+  background: linear-gradient(180deg, #1c2138 0%, #0a0d18 100%);
+  border: 2px solid rgba(245, 196, 81, 0.55);
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+  transition: border-color 160ms;
+}
+.cabinet-folder:hover .cf-tab,
+.cabinet-folder:focus-visible .cf-tab { border-color: #ffd060; }
+.cabinet-folder .cf-icon {
+  font-size: 32px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+.cabinet-folder .cf-label {
+  font-family: var(--font-pixel) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.06em !important;
+  color: #ffd060 !important;
+  text-shadow: 0 0 8px rgba(255, 208, 96, 0.45), 0 2px 0 #000 !important;
+  text-transform: uppercase !important;
+  font-style: normal !important;
+}
+.cabinet-folder .cf-meta {
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 9px !important;
+  letter-spacing: 0.10em !important;
+  text-transform: uppercase !important;
+  color: rgba(216, 220, 235, 0.55) !important;
+  font-weight: 600 !important;
+}
+.cabinet-folder.is-open {
+  border-color: #5de0f0;
+  box-shadow:
+    0 6px 0 rgba(0, 0, 0, 0.50),
+    0 14px 28px rgba(93, 224, 240, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.55),
+    0 0 20px rgba(93, 224, 240, 0.35);
+}
+.cabinet-folder.is-open .cf-tab { border-color: #5de0f0; }
+.cabinet-folder.is-open .cf-label { color: #5de0f0 !important; text-shadow: 0 0 8px rgba(93, 224, 240, 0.5) !important; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   36. HIDE ALL CONTENT BANDS BY DEFAULT — folder click reveals them.
+   This is what makes the hub feel like an arcade menu instead of an
+   endless scroll. JS adds `.section-open` to a band when its matching
+   folder is clicked. Hero (and #launch-paths, the old "Choose your
+   path" trio) stay always-visible.
+   ═══════════════════════════════════════════════════════════════════════ */
+main#main > #jeopardy,
+main#main > #practice,
+main#main > #featured,
+main#main > #library,
+main#main > #daily {
+  display: none !important;
+}
+main#main > #jeopardy.section-open,
+main#main > #practice.section-open,
+main#main > #featured.section-open,
+main#main > #library.section-open,
+main#main > #daily.section-open {
+  display: block !important;
+}
+/* Also force the previously hidden #launch-paths to stay hidden —
+   the new cabinet menu replaces it as the primary navigation. */
+main#main > #launch-paths { display: none !important; }
+
+/* Back-to-Menu link injected into each opened section */
+.back-to-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 6px 12px;
+  background: rgba(93, 224, 240, 0.10);
+  border: 1px solid rgba(93, 224, 240, 0.40);
+  border-radius: 6px;
+  color: #5de0f0;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+.back-to-menu:hover,
+.back-to-menu:focus-visible {
+  background: rgba(93, 224, 240, 0.20);
+  border-color: #5de0f0;
+  outline: none;
+}
+
+/* The hero-console aside ("Now Playing" card + 4 fast-launch tiles)
+   duplicates what the cabinet folder menu now opens. Hide it on the
+   home page for the clean 1989-cabinet look. JS that populates it can
+   keep running silently. */
+.hero-console { display: none !important; }
+/* Center the hero copy now that the right-side console is gone */
+.hero-inner { grid-template-columns: 1fr !important; max-width: 720px; margin: 0 auto; }
+.hero-copy { text-align: left; }
+@media (min-width: 880px) {
+  .hero-copy { text-align: center; }
+  .cabinet-menu { margin-left: auto; margin-right: auto; }
+}

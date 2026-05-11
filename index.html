@@ -17,7 +17,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-readable-questions">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-cabinet-menu-v2">
 <style>
 :root {
   color-scheme: dark;
@@ -8385,25 +8385,42 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
       </h1>
       <p class="tagline reveal">Play a game, take a full practice exam, or jump into a Jeopardy board.</p>
       <p class="attract-text reveal" aria-hidden="true"><span class="attract-coin">●</span> INSERT COIN <span class="attract-coin">●</span></p>
-      <!-- Jon's home-page priority order:
-           1. Jeopardy Boards  (primary CTA — biggest, gold)
-           2. Practice Exams   (Regents + AP)
-           3. Arcade & Learning Games
-           The launchFeatured button (legacy "Start Recommended") is
-           preserved as the third CTA so the Daily Challenge claim
-           behavior still works; just relabeled + visually demoted. -->
-      <div class="hero-actions reveal">
-        <a class="action primary" href="#jeopardy">
-          <span>Jeopardy Boards</span>
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="action" href="#practice">
-          <span>Practice Exams</span>
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <button class="action" id="launchFeatured" type="button">
-          <span>Arcade &amp; Learning Games</span>
-          <span class="arrow" aria-hidden="true">→</span>
+      <!-- ═══════════════════════════════════════════════════════════════
+           1989 ARCADE-CABINET MENU
+           Jon: "lean in to the 89 game cabinet UI, [use] containers
+           and folders neatly organized like an arcade menu."
+           Four big folder tiles. Click one → that section unfolds
+           below; the rest stay hidden. Each section has its own
+           "← Back to Menu" link. Hero stays clean.
+           ═══════════════════════════════════════════════════════════════ -->
+      <div class="cabinet-menu reveal" role="menu" aria-label="Main arcade menu">
+        <button class="cabinet-folder cabinet-folder-jeo" type="button"
+                data-cabinet-folder="jeopardy" role="menuitem">
+          <span class="cf-tab" aria-hidden="true"></span>
+          <span class="cf-icon" aria-hidden="true">📚</span>
+          <span class="cf-label">Jeopardy</span>
+          <span class="cf-meta">152 boards</span>
+        </button>
+        <button class="cabinet-folder cabinet-folder-prac" type="button"
+                data-cabinet-folder="practice" role="menuitem">
+          <span class="cf-tab" aria-hidden="true"></span>
+          <span class="cf-icon" aria-hidden="true">📝</span>
+          <span class="cf-label">Practice</span>
+          <span class="cf-meta">Regents · AP</span>
+        </button>
+        <button class="cabinet-folder cabinet-folder-arc" type="button"
+                data-cabinet-folder="arcade" role="menuitem">
+          <span class="cf-tab" aria-hidden="true"></span>
+          <span class="cf-icon" aria-hidden="true">🎮</span>
+          <span class="cf-label">Arcade</span>
+          <span class="cf-meta">68 games</span>
+        </button>
+        <button class="cabinet-folder cabinet-folder-daily" type="button"
+                data-cabinet-folder="daily" role="menuitem">
+          <span class="cf-tab" aria-hidden="true"></span>
+          <span class="cf-icon" aria-hidden="true">🏆</span>
+          <span class="cf-label">Daily</span>
+          <span class="cf-meta">+60 shards</span>
         </button>
       </div>
     </div>
@@ -9747,7 +9764,11 @@ function renderFeatured() {
   document.querySelectorAll(".mode-button").forEach((button) => {
     button.addEventListener("click", () => openGame(GAMES.find((game) => game.id === button.dataset.id)));
   });
-  document.getElementById("launchFeatured").onclick = () => {
+  // Legacy launchFeatured button was removed when the hero became a
+  // cabinet-folder menu. Guard against null so this no-op silently
+  // skips instead of killing the rest of the boot inline script.
+  var __launchFeatured = document.getElementById("launchFeatured");
+  if (__launchFeatured) __launchFeatured.onclick = () => {
     // If the student has an enrolled course and that course has games
     // available, prefer the highest-priority featured game from that
     // course (also matches compound courses like "G10 + G11"). Falls
@@ -10567,6 +10588,76 @@ function initAttractCarousel() {
   setInterval(tick, 3600);
 }
 
+// ============== Cabinet Menu (1989 folder-tile navigation) ==============
+// Wires each .cabinet-folder tile in the hero to its target band. Click
+// → close any currently-open folder, mark this one as open, reveal the
+// matching band, scroll to it, inject a "← Back to Menu" link. Folders
+// map to: jeopardy → #jeopardy, practice → #practice, arcade →
+// #featured + #library, daily → #daily.
+function initCabinetMenu() {
+  const folders = document.querySelectorAll(".cabinet-folder");
+  if (!folders.length) return;
+  // Map of folder key → array of section ids to reveal (in order)
+  const SECTIONS = {
+    jeopardy: ["jeopardy"],
+    practice: ["practice"],
+    arcade:   ["featured", "library"],
+    daily:    ["daily"]
+  };
+  function closeAll() {
+    folders.forEach(f => f.classList.remove("is-open"));
+    document.querySelectorAll("main#main > .section-open").forEach(s => {
+      s.classList.remove("section-open");
+      const back = s.querySelector(".back-to-menu");
+      if (back) back.remove();
+    });
+  }
+  function openFolder(key) {
+    closeAll();
+    folders.forEach(f => { if (f.dataset.cabinetFolder === key) f.classList.add("is-open"); });
+    const ids = SECTIONS[key] || [];
+    ids.forEach(id => {
+      const section = document.getElementById(id);
+      if (!section) return;
+      section.classList.add("section-open");
+      // Inject Back-to-Menu link inside the first band-head, if there is one
+      if (!section.querySelector(".back-to-menu")) {
+        const back = document.createElement("button");
+        back.type = "button";
+        back.className = "back-to-menu";
+        back.innerHTML = '<span aria-hidden="true">←</span> Back to Menu';
+        back.addEventListener("click", function () {
+          closeAll();
+          const hero = document.getElementById("top");
+          if (hero) hero.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        const head = section.querySelector(".band-head") || section.firstElementChild;
+        if (head && head.parentNode === section) {
+          section.insertBefore(back, head);
+        } else {
+          section.insertBefore(back, section.firstChild);
+        }
+      }
+    });
+    // Scroll to first opened section
+    if (ids.length) {
+      const first = document.getElementById(ids[0]);
+      if (first) {
+        setTimeout(() => first.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+      }
+    }
+  }
+  folders.forEach(f => {
+    f.addEventListener("click", function () { openFolder(f.dataset.cabinetFolder); });
+  });
+  // Allow URL hash to deep-link a folder
+  const hash = (location.hash || "").replace(/^#/, "");
+  if (hash === "jeopardy" || hash === "practice" || hash === "featured" || hash === "library" || hash === "daily") {
+    const map = { jeopardy: "jeopardy", practice: "practice", featured: "arcade", library: "arcade", daily: "daily" };
+    setTimeout(() => openFolder(map[hash]), 200);
+  }
+}
+
 // ============== Canvas FX ==============
 function initFx() {
   const canvas = document.getElementById("fx");
@@ -10701,6 +10792,7 @@ async function boot() {
     renderQuickPlay();
     renderCourseTiles();
     initAttractCarousel();
+    initCabinetMenu();
     initFx();
     initParallax();
     render();
