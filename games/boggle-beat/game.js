@@ -1587,28 +1587,37 @@
     var h = window.innerHeight;
     var chromeTop, chromeBottom;
     var isLandscapePhone = h < 480 && w >= 600;
+    var isMobilePortrait = w <= 720 && h > w;
     if (isLandscapePhone) {
       // Short viewport (landscape phone): HUD compacts, no wrap, no ribbon.
-      // Available vertical space is precious — minimize chrome reservation.
-      chromeTop = 80;
+      chromeTop = 70;
       chromeBottom = 4;
+    } else if (isMobilePortrait) {
+      // iPhone portrait — Jon: "board too small". Compress chrome reservation
+      // aggressively so the grid uses as much real estate as possible. The
+      // HUD overlays the canvas with a translucent backdrop anyway, so
+      // overlapping slightly into the chrome zone is FINE — the grid lands
+      // visually below the HUD because of where targetCy puts it.
+      chromeTop = 130;
+      chromeBottom = 30;
     } else if (w <= 1100) {
-      // Mobile + tablet portrait: HUD wraps to 2 rows (~80px), wave-ribbon
-      // (~30px), word-readout (~52px) → ~190-200px total. Powerup-tray at
-      // bottom strip (~56px).
-      chromeTop = 200;
-      chromeBottom = 60;
+      // Tablet portrait / small landscape
+      chromeTop = 170;
+      chromeBottom = 50;
     } else {
-      // Desktop / wide: single-row HUD + ribbon + readout
+      // Desktop / wide
       chromeTop = 170;
       chromeBottom = 0;
     }
 
     var availW = Math.max(1, rect.width);
     var availH = Math.max(120, rect.height - chromeTop - chromeBottom);
-    // Fit the GRID into 96% of available area (was 92%). May 10 2026 —
-    // canvas now uses the full viewport on iPhone so we can grow the grid.
-    var maxGridPx = Math.min(availW, availH) * 0.96;
+    // On iPhone portrait: prioritize WIDTH — students need big tap targets.
+    // The grid fits 100% of available width (was 96%). Tall iPhones get a
+    // proportionally-tall grid since min(availW, availH) is almost always
+    // availW on portrait phones (390x844: availW=390, availH=684 → 390 wins).
+    var fitFactor = isMobilePortrait ? 1.00 : 0.96;
+    var maxGridPx = Math.min(availW, availH) * fitFactor;
     scale = maxGridPx / GRID_W;
 
     // GRID center in logical coords
