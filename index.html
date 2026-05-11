@@ -17,7 +17,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260510-polish-r2e">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-crt-cabinet">
 <style>
 :root {
   color-scheme: dark;
@@ -7852,6 +7852,34 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 </head>
 <body>
 <a class="skip-link" href="#launch-paths">Skip to launch paths</a>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CRT boot sequence — full-screen overlay that simulates an arcade
+     cabinet powering on in 1989. Plays once per session (gated by
+     sessionStorage), then fades into the hub. Skippable with any key
+     or click. Auto-hidden under prefers-reduced-motion.
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="crt-boot" id="crtBoot" aria-hidden="true">
+  <div class="crt-boot-screen">
+    <div class="crt-boot-scan" aria-hidden="true"></div>
+    <div class="crt-boot-content">
+      <div class="crt-boot-brand">
+        <span class="crt-boot-mark">★</span>
+        <span class="crt-boot-line-1">MR. MAC'S</span>
+        <span class="crt-boot-line-2">REVIEW <em>ARCADE</em></span>
+        <span class="crt-boot-line-3">© 2026 · ALL RIGHTS RESERVED</span>
+      </div>
+      <div class="crt-boot-coin">INSERT COIN</div>
+      <div class="crt-boot-hint">Press any key</div>
+    </div>
+  </div>
+</div>
+
+<!-- CRT vignette — soft darkening at edges, simulates the curved bezel of
+     a 1989 arcade cabinet CRT. Pointer-events disabled so it never blocks
+     clicks. Disabled under prefers-reduced-motion. -->
+<div class="crt-vignette" aria-hidden="true"></div>
+
 <div class="hero-bg" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <canvas id="fx" aria-hidden="true"></canvas>
@@ -8188,6 +8216,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         <span class="ht-row ht-3"><em>ARCADE</em></span>
       </h1>
       <p class="tagline reveal">Play a game, take a full practice exam, or jump into a Jeopardy board.</p>
+      <p class="attract-text reveal" aria-hidden="true"><span class="attract-coin">●</span> INSERT COIN <span class="attract-coin">●</span></p>
       <div class="hero-actions reveal">
         <button class="action primary" id="launchFeatured" type="button">
           <span>Start Recommended</span>
@@ -15105,6 +15134,61 @@ boot();
     });
   });
 })();
+</script>
+
+<script>
+  // ═══════════════════════════════════════════════════════════════════
+  // CRT BOOT SEQUENCE — simulates an arcade cabinet powering on in 1989.
+  // Sequence: vertical scanline expands → brand text fades in → INSERT
+  // COIN blinks → fades to hub. ~2.4 seconds total. Once per session.
+  // Skippable with any key or click. Auto-skipped under reduced-motion.
+  // ═══════════════════════════════════════════════════════════════════
+  (function () {
+    "use strict";
+    var boot = document.getElementById("crtBoot");
+    if (!boot) return;
+
+    // Honor reduced-motion + once-per-session
+    var prefersReduced = false;
+    try { prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+    var alreadyBooted = false;
+    try { alreadyBooted = sessionStorage.getItem("arcade.bootedThisSession") === "1"; } catch (e) {}
+
+    if (prefersReduced || alreadyBooted) {
+      boot.style.display = "none";
+      boot.setAttribute("aria-hidden", "true");
+      return;
+    }
+
+    boot.setAttribute("aria-hidden", "false");
+    boot.classList.add("is-active");
+
+    // Drive the multi-stage animation via classes
+    setTimeout(function () { boot.classList.add("phase-scan"); }, 50);
+    setTimeout(function () { boot.classList.add("phase-brand"); }, 450);
+    setTimeout(function () { boot.classList.add("phase-coin"); }, 1300);
+
+    function endBoot() {
+      if (boot.classList.contains("is-fading")) return;
+      boot.classList.add("is-fading");
+      try { sessionStorage.setItem("arcade.bootedThisSession", "1"); } catch (e) {}
+      setTimeout(function () {
+        boot.style.display = "none";
+        boot.setAttribute("aria-hidden", "true");
+      }, 600);
+    }
+
+    // Auto-end at 2400ms or on user input
+    var autoEnd = setTimeout(endBoot, 2400);
+    function skip(e) {
+      if (e && e.type === "keydown" && (e.metaKey || e.ctrlKey || e.altKey)) return;
+      clearTimeout(autoEnd);
+      endBoot();
+    }
+    document.addEventListener("keydown", skip, { once: true });
+    boot.addEventListener("click", skip, { once: true });
+    boot.addEventListener("touchstart", skip, { once: true, passive: true });
+  })();
 </script>
 
 <script>
