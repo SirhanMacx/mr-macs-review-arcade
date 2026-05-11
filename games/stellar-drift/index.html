@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
-  <link rel="stylesheet" href="styles.css?v=20260509-stellar-drift">
+  <link rel="stylesheet" href="styles.css?v=20260510-stellar-r2">
 <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
 <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260510-polish-r2e">
 </head>
@@ -63,16 +63,18 @@
     <!-- Powerup tray (visible when active) -->
     <section class="powerup-tray" id="powerupTray" aria-label="Active power-ups"></section>
 
-    <!-- Touch controls (mobile/tablet) -->
+    <!-- Touch controls (mobile/tablet). Layout follows thumb anatomy:
+         left thumb gets the turn pair (close together), right thumb gets
+         the action cluster (thrust + fire prominently, hyperspace small). -->
     <section class="touch-pad" id="touchPad" aria-label="Touch controls" aria-hidden="true">
       <div class="touch-cluster touch-left">
-        <button class="touch-btn" id="touchRotL" type="button" aria-label="Rotate left">&larr;</button>
-        <button class="touch-btn" id="touchRotR" type="button" aria-label="Rotate right">&rarr;</button>
+        <button class="touch-btn" id="touchRotL" data-label="TURN" type="button" aria-label="Rotate left">&larr;</button>
+        <button class="touch-btn" id="touchRotR" data-label="TURN" type="button" aria-label="Rotate right">&rarr;</button>
       </div>
       <div class="touch-cluster touch-right">
-        <button class="touch-btn touch-thrust" id="touchThrust" type="button" aria-label="Thrust">&#9650;</button>
-        <button class="touch-btn touch-fire" id="touchFire" type="button" aria-label="Fire">&#9679;</button>
-        <button class="touch-btn touch-hyper" id="touchHyper" type="button" aria-label="Hyperspace">~</button>
+        <button class="touch-btn touch-hyper" id="touchHyper" data-label="JUMP" type="button" aria-label="Hyperspace">~</button>
+        <button class="touch-btn touch-thrust" id="touchThrust" data-label="THRUST" type="button" aria-label="Thrust">&#9650;</button>
+        <button class="touch-btn touch-fire" id="touchFire" data-label="FIRE" type="button" aria-label="Fire">&#9679;</button>
       </div>
     </section>
 
@@ -184,6 +186,6 @@
   <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260510-a11y"></script>
   <script src="../../assets/arcade-difficulty.js?v=20260510-diff"></script>
   <script src="../../assets/arcade-help-overlay.js"></script>
-  <script src="game.js?v=20260509-stellar-drift"></script>
+  <script src="game.js?v=20260510-stellar-r2"></script>
 </body>
 </html>

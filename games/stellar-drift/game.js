@@ -1174,14 +1174,41 @@
     ctx.setTransform(scale * dpr, 0, 0, scale * dpr,
       (offsetX + shakeX) * dpr, (offsetY + shakeY) * dpr);
 
-    // Background gradient
+    // Base space gradient — deep navy with a faint center glow
     var grad = ctx.createRadialGradient(LOGICAL_W / 2, LOGICAL_H * 0.45, 80, LOGICAL_W / 2, LOGICAL_H * 0.5, LOGICAL_W * 0.7);
     grad.addColorStop(0, "#0a1426");
     grad.addColorStop(1, "#02060f");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
 
-    // Starfield
+    // Nebula clouds — two slow-drifting tinted gradients for depth.
+    // These give the field a much more "in space" feel than a flat radial.
+    if (!reducedMotion && state) {
+      var t = state.time || 0;
+      ctx.save();
+      ctx.globalCompositeOperation = "screen";
+      // Magenta nebula, top-left drift
+      var nx1 = LOGICAL_W * (0.28 + Math.sin(t * 0.06) * 0.05);
+      var ny1 = LOGICAL_H * (0.32 + Math.cos(t * 0.05) * 0.04);
+      var neb1 = ctx.createRadialGradient(nx1, ny1, 0, nx1, ny1, LOGICAL_W * 0.42);
+      neb1.addColorStop(0, "rgba(180, 64, 140, 0.22)");
+      neb1.addColorStop(0.5, "rgba(120, 40, 100, 0.10)");
+      neb1.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = neb1;
+      ctx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
+      // Cyan nebula, bottom-right drift
+      var nx2 = LOGICAL_W * (0.72 + Math.cos(t * 0.04) * 0.04);
+      var ny2 = LOGICAL_H * (0.65 + Math.sin(t * 0.07) * 0.05);
+      var neb2 = ctx.createRadialGradient(nx2, ny2, 0, nx2, ny2, LOGICAL_W * 0.38);
+      neb2.addColorStop(0, "rgba(40, 120, 200, 0.20)");
+      neb2.addColorStop(0.5, "rgba(20, 80, 160, 0.09)");
+      neb2.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = neb2;
+      ctx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
+      ctx.restore();
+    }
+
+    // Starfield (parallax-aware drawStars uses layer depth already)
     if (state) drawStars();
     // Subtle grid
     if (!reducedMotion) drawGrid();
@@ -1319,17 +1346,24 @@
     ctx.save();
     ctx.translate(a.x, a.y);
     ctx.rotate(a.rot);
-    var color;
+    var color, fillColor;
     if (a.isIntel) {
       var pulse = 0.6 + Math.sin(a.pulse) * 0.4;
       ctx.shadowColor = "#f0d068";
       ctx.shadowBlur = 12 + 8 * pulse;
       color = "#f0d068";
-    } else if (a.size === "large") color = "#f0a060";
-    else if (a.size === "medium") color = "#d0c468";
-    else color = "#5de0f0";
-    ctx.strokeStyle = color;
-    ctx.lineWidth = a.isIntel ? 2 : 1.6;
+      fillColor = "rgba(240, 208, 104, " + (0.10 + 0.08 * pulse).toFixed(2) + ")";
+    } else if (a.size === "large") {
+      color = "#f0a060";
+      fillColor = "rgba(140, 70, 30, 0.18)";
+    } else if (a.size === "medium") {
+      color = "#d0c468";
+      fillColor = "rgba(108, 96, 30, 0.16)";
+    } else {
+      color = "#5de0f0";
+      fillColor = "rgba(20, 90, 110, 0.18)";
+    }
+    // Build polygon path
     ctx.beginPath();
     for (var i = 0; i < a.verts.length; i++) {
       var v = a.verts[i];
@@ -1339,7 +1373,30 @@
       else ctx.lineTo(px, py);
     }
     ctx.closePath();
+    // Subtle inner fill so the rocks read as solid bodies, not wireframes
+    ctx.fillStyle = fillColor;
+    ctx.fill();
+    // Outline (existing)
+    ctx.strokeStyle = color;
+    ctx.lineWidth = a.isIntel ? 2 : 1.6;
     ctx.stroke();
+    // Inner crater highlight on larger asteroids
+    if (!a.isIntel && a.size !== "small") {
+      ctx.save();
+      ctx.globalAlpha = 0.32;
+      ctx.fillStyle = color;
+      var craterCount = a.size === "large" ? 3 : 2;
+      for (var ci = 0; ci < craterCount; ci++) {
+        var ca = (Math.PI * 2 / craterCount) * ci + a.rot * 0.5;
+        var cx = Math.cos(ca) * a.r * 0.35;
+        var cy = Math.sin(ca) * a.r * 0.35;
+        var cr = a.r * (0.10 + 0.04 * ci);
+        ctx.beginPath();
+        ctx.arc(cx, cy, cr, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
     ctx.restore();
 
     if (a.isIntel) {
@@ -1481,14 +1538,20 @@
   function drawBullet(b) {
     var fade = Math.min(1, b.life / BULLET_LIFE);
     ctx.save();
-    ctx.shadowColor = "#f0f5ff";
-    ctx.shadowBlur = 6;
-    ctx.strokeStyle = "rgba(240,245,255," + fade + ")";
-    ctx.lineWidth = 2;
+    // Outer halo
+    ctx.shadowColor = "#5de0f0";
+    ctx.shadowBlur = 14;
+    ctx.fillStyle = "rgba(93,224,240," + (fade * 0.4) + ")";
     ctx.beginPath();
-    ctx.moveTo(b.x - 3, b.y);
-    ctx.lineTo(b.x + 3, b.y);
-    ctx.stroke();
+    ctx.arc(b.x, b.y, 4, 0, Math.PI * 2);
+    ctx.fill();
+    // Inner bright core
+    ctx.shadowBlur = 6;
+    ctx.shadowColor = "#f0f5ff";
+    ctx.fillStyle = "rgba(255,255,255," + fade + ")";
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, 2, 0, Math.PI * 2);
+    ctx.fill();
     ctx.restore();
   }
 

@@ -290,7 +290,10 @@ kbd {
   .powerup-chip { animation: none; }
 }
 
-/* Touch pad — visible on coarse pointers */
+/* Touch pad — visible on coarse pointers. Larger, more legible buttons,
+   positioned at thumb-natural locations: turn cluster bottom-left, action
+   cluster bottom-right. Each button is 78×78 (well above the 44px Apple
+   tap-target minimum) with a strong glow + pressed-state amplification. */
 .touch-pad {
   position: absolute;
   inset: 0;
@@ -300,20 +303,21 @@ kbd {
 }
 .touch-cluster {
   position: absolute;
-  bottom: 18px;
+  bottom: max(20px, env(safe-area-inset-bottom, 20px));
   display: flex;
-  gap: 8px;
+  gap: 10px;
   pointer-events: auto;
+  align-items: flex-end;
 }
-.touch-left  { left: 14px; }
-.touch-right { right: 14px; }
+.touch-left  { left: max(14px, env(safe-area-inset-left, 14px)); }
+.touch-right { right: max(14px, env(safe-area-inset-right, 14px)); }
 .touch-btn {
-  width: 60px; height: 60px;
+  width: 78px; height: 78px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,.18);
-  background: rgba(4,8,18,.55);
+  border: 2px solid rgba(255,255,255,.22);
+  background: radial-gradient(circle at 30% 30%, rgba(20,30,50,.85) 0%, rgba(4,8,18,.92) 70%);
   color: var(--text);
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 800;
   font-family: 'JetBrains Mono', monospace;
   display: flex;
@@ -321,14 +325,66 @@ kbd {
   justify-content: center;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
   touch-action: none;
+  box-shadow: 0 4px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.08);
+  transition: transform 80ms ease-out, background 120ms, border-color 120ms;
 }
-.touch-btn:active { background: rgba(93,224,240,.28); border-color: var(--cyan); }
-.touch-thrust { color: var(--cyan); border-color: rgba(93,224,240,.5); }
-.touch-fire   { color: var(--rose); border-color: rgba(240,123,184,.5); }
-.touch-hyper  { width: 50px; height: 50px; font-size: 18px; color: var(--violet); border-color: rgba(169,145,255,.5); }
+.touch-btn:active,
+.touch-btn.is-pressed {
+  background: radial-gradient(circle at 30% 30%, rgba(93,224,240,.55) 0%, rgba(20,40,80,.85) 80%);
+  border-color: var(--cyan);
+  transform: scale(.92);
+  box-shadow: 0 0 24px rgba(93,224,240,.5), inset 0 0 12px rgba(93,224,240,.3);
+}
+.touch-thrust {
+  color: var(--cyan);
+  border-color: rgba(93,224,240,.7);
+  width: 90px; height: 90px; font-size: 32px;
+}
+.touch-thrust:active,
+.touch-thrust.is-pressed {
+  background: radial-gradient(circle at 30% 30%, rgba(93,224,240,.6) 0%, rgba(20,40,80,.85) 80%);
+  box-shadow: 0 0 32px rgba(93,224,240,.65), inset 0 0 16px rgba(93,224,240,.45);
+}
+.touch-fire {
+  color: var(--rose);
+  border-color: rgba(240,123,184,.7);
+  width: 90px; height: 90px; font-size: 24px;
+}
+.touch-fire:active,
+.touch-fire.is-pressed {
+  background: radial-gradient(circle at 30% 30%, rgba(240,123,184,.6) 0%, rgba(80,20,50,.85) 80%);
+  border-color: var(--rose);
+  box-shadow: 0 0 32px rgba(240,123,184,.65), inset 0 0 16px rgba(240,123,184,.45);
+}
+.touch-hyper {
+  width: 56px; height: 56px;
+  font-size: 22px;
+  color: var(--violet);
+  border-color: rgba(169,145,255,.6);
+}
+.touch-hyper:active {
+  background: radial-gradient(circle at 30% 30%, rgba(169,145,255,.55) 0%, rgba(40,20,80,.85) 80%);
+  border-color: var(--violet);
+  box-shadow: 0 0 24px rgba(169,145,255,.55);
+}
+.touch-btn::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: -16px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: rgba(255,255,255,.5);
+  pointer-events: none;
+}
 
-@media (pointer: coarse), (max-width: 720px) {
+@media (hover: none) and (pointer: coarse) {
+  .touch-pad { display: block; }
+}
+@media (max-width: 720px) {
   .touch-pad { display: block; }
 }
 
