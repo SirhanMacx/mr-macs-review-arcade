@@ -2,12 +2,71 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#06080f">
-<meta name="description" content="Mr. Mac's Review Arcade — full Regents practice, quick-play warmups, AP review, and social studies review games. 180+ games.">
+<title>Mr. Mac's Review Arcade — Regents, AP & Social-Studies Review Games</title>
+<meta name="description" content="Mr. Mac's Review Arcade — 78 arcade games + 151 Jeopardy boards covering AP, NY Regents, and middle-school social studies. Free, no signup, plays offline.">
+<meta name="keywords" content="Regents review, AP review, social studies games, Jeopardy boards, AP US History, AP World History, AP Psychology, Global Regents, US Regents, middle school social studies">
+<meta name="author" content="Mr. Mac">
+<link rel="canonical" href="https://sirhanmacx.github.io/mr-macs-review-arcade/">
+<!-- Open Graph (Facebook, LinkedIn, iMessage rich previews) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mr. Mac's Review Arcade">
+<meta property="og:url" content="https://sirhanmacx.github.io/mr-macs-review-arcade/">
+<meta property="og:title" content="Mr. Mac's Review Arcade — 78 games + 151 Jeopardy boards">
+<meta property="og:description" content="Free social studies review games for AP, NY Regents, and middle school. Play 78 arcade games + run 151 Jeopardy boards. No signup, works offline.">
+<meta property="og:image" content="https://sirhanmacx.github.io/mr-macs-review-arcade/assets/arcade-lobby-16bit-v4.webp">
+<meta property="og:image:width" content="1500">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="Mr. Mac's Review Arcade — 1989-style cabinet lobby art">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mr. Mac's Review Arcade">
+<meta name="twitter:description" content="78 arcade games + 151 Jeopardy boards. AP, Regents, social studies review. Free, no signup.">
+<meta name="twitter:image" content="https://sirhanmacx.github.io/mr-macs-review-arcade/assets/arcade-lobby-16bit-v4.webp">
+<!-- PWA -->
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="data:,">
-<title>Mr. Mac's Review Arcade</title>
+<!-- Real favicons (multi-size). Falls back to inline SVG icon if asset 404s. -->
+<link rel="icon" type="image/webp" href="assets/arcade-token-mm.webp" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/arcade-token-mm.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2306080f'/%3E%3Ctext x='50%25' y='62%25' font-size='20' font-family='Press Start 2P, monospace' font-weight='800' fill='%23ffd060' text-anchor='middle'%3EMM%3C/text%3E%3C/svg%3E">
+<!-- Structured data: EducationalOrganization + WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "name": "Mr. Mac's Review Arcade",
+      "description": "Free interactive review games for AP, Regents, and middle-school social studies.",
+      "url": "https://sirhanmacx.github.io/mr-macs-review-arcade/",
+      "educationalCredentialAwarded": "Practice review for AP and Regents exams",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student"
+      }
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Mr. Mac's Review Arcade",
+      "url": "https://sirhanmacx.github.io/mr-macs-review-arcade/",
+      "applicationCategory": "EducationalApplication",
+      "applicationSubCategory": "Game",
+      "operatingSystem": "Any (browser-based PWA)",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "78 arcade review games",
+        "151 Jeopardy review boards",
+        "1937-question shared bank across 16 courses",
+        "AP and Regents practice exams",
+        "Live multiplayer rooms (40 players)",
+        "Printable wrong-answer worksheets",
+        "Offline play via Progressive Web App"
+      ]
+    }
+  ]
+}
+</script>
 <script>
 if (location.protocol === "file:" && !location.search.includes("local=1")) {
   location.replace("https://sirhanmacx.github.io/mr-macs-review-arcade/");
@@ -8001,7 +8060,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     <p class="welcome-sub">Your trainer name travels with you across every game. Skip these — you can fill them in any time from your profile drawer. Progress, shards, and achievements stay on this device.</p>
     <label class="welcome-field">
       <span>Trainer name <small style="opacity:.6">(optional)</small></span>
-      <input type="text" id="welcomeName" maxlength="24" placeholder="e.g. Avi, Ms. Chen, JoanDarcFan42" autocomplete="off" spellcheck="false">
+      <input type="text" id="welcomeName" maxlength="24" placeholder="e.g. Avi, Ms. Chen, JoanDarcFan42" autocomplete="off" spellcheck="false" aria-label="Your trainer name (optional)">
     </label>
     <label class="welcome-field">
       <span>Your course <small style="opacity:.6">(optional — we'll suggest games)</small></span>
@@ -8147,7 +8206,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <button class="pd-ach-tier-pill" type="button" data-tier="legendary" role="tab" aria-selected="false">Legendary</button>
           <span class="pd-ach-tier-spacer" aria-hidden="true"></span>
           <label class="pd-ach-toggle">
-            <input type="checkbox" id="pdAchHideLocked"> Hide locked
+            <input type="checkbox" id="pdAchHideLocked" aria-label="Hide locked achievements"> Hide locked
           </label>
         </div>
         <div class="pd-ach-grid" id="pdAchGrid" role="list" aria-label="Achievements"></div>
@@ -8219,12 +8278,12 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           </label>
           <label class="pd-setting">
             <span>Music volume</span>
-            <input type="range" id="setMusic" min="0" max="1" step="0.05">
+            <input type="range" id="setMusic" min="0" max="1" step="0.05" aria-label="Music volume">
             <output id="setMusicVal">55%</output>
           </label>
           <label class="pd-setting">
             <span>SFX volume</span>
-            <input type="range" id="setSfx" min="0" max="1" step="0.05">
+            <input type="range" id="setSfx" min="0" max="1" step="0.05" aria-label="Sound-effects volume">
             <output id="setSfxVal">75%</output>
           </label>
           <label class="pd-setting">
