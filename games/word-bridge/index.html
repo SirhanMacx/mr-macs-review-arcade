@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
-  <link rel="stylesheet" href="styles.css?v=20260509-wordbridge">
+  <link rel="stylesheet" href="styles.css?v=20260510-wb-mobilekbd">
 <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
 <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260510-polish-r2e">
 </head>
@@ -70,6 +70,46 @@
 
     <!-- Combo callouts overlay -->
     <section class="popup-overlay" id="popupOverlay" aria-hidden="true"></section>
+
+    <!-- Mobile HTML keyboard — only visible on touch/portrait. Each key
+         dispatches a KeyboardEvent so the existing keydown handler routes
+         the input. Canvas keyboard remains for desktop. -->
+    <section class="mobile-keyboard" id="mobileKeyboard" aria-label="Letter input keyboard">
+      <div class="mk-row">
+        <button class="mk-key" data-key="Q" type="button">Q</button>
+        <button class="mk-key" data-key="W" type="button">W</button>
+        <button class="mk-key" data-key="E" type="button">E</button>
+        <button class="mk-key" data-key="R" type="button">R</button>
+        <button class="mk-key" data-key="T" type="button">T</button>
+        <button class="mk-key" data-key="Y" type="button">Y</button>
+        <button class="mk-key" data-key="U" type="button">U</button>
+        <button class="mk-key" data-key="I" type="button">I</button>
+        <button class="mk-key" data-key="O" type="button">O</button>
+        <button class="mk-key" data-key="P" type="button">P</button>
+      </div>
+      <div class="mk-row">
+        <button class="mk-key" data-key="A" type="button">A</button>
+        <button class="mk-key" data-key="S" type="button">S</button>
+        <button class="mk-key" data-key="D" type="button">D</button>
+        <button class="mk-key" data-key="F" type="button">F</button>
+        <button class="mk-key" data-key="G" type="button">G</button>
+        <button class="mk-key" data-key="H" type="button">H</button>
+        <button class="mk-key" data-key="J" type="button">J</button>
+        <button class="mk-key" data-key="K" type="button">K</button>
+        <button class="mk-key" data-key="L" type="button">L</button>
+      </div>
+      <div class="mk-row">
+        <button class="mk-key mk-wide" data-key="Backspace" type="button" aria-label="Backspace">⌫</button>
+        <button class="mk-key" data-key="Z" type="button">Z</button>
+        <button class="mk-key" data-key="X" type="button">X</button>
+        <button class="mk-key" data-key="C" type="button">C</button>
+        <button class="mk-key" data-key="V" type="button">V</button>
+        <button class="mk-key" data-key="B" type="button">B</button>
+        <button class="mk-key" data-key="N" type="button">N</button>
+        <button class="mk-key" data-key="M" type="button">M</button>
+        <button class="mk-key mk-wide" data-key="Enter" type="button" aria-label="Submit">⏎</button>
+      </div>
+    </section>
 
     <!-- Round controls -->
     <section class="round-controls" id="roundControls" aria-label="Round controls">
@@ -226,6 +266,48 @@
     });
   })();
   </script>
-  <script src="game.js?v=20260509-wordbridge"></script>
+  <script src="game.js?v=20260510-wb-mobilekbd"></script>
+  <script>
+  // Wire the mobile HTML keyboard to game.js by dispatching synthetic
+  // KeyboardEvents. The existing keydown listener inside game.js routes
+  // these to typeLetter / backspaceCurrent / submitWord. We also gate
+  // visibility: keyboard shows only when actually needed (game running,
+  // touch device or narrow viewport).
+  (function () {
+    "use strict";
+    var kbd = document.getElementById("mobileKeyboard");
+    if (!kbd) return;
+    function fireKey(key) {
+      var ev;
+      try {
+        ev = new KeyboardEvent("keydown", { key: key, bubbles: true, cancelable: true });
+      } catch (e) {
+        ev = document.createEvent("Event");
+        ev.initEvent("keydown", true, true);
+        ev.key = key;
+      }
+      document.dispatchEvent(ev);
+    }
+    // Bind both touchstart and click so taps feel instant on iOS.
+    kbd.addEventListener("touchstart", function (e) {
+      var t = e.target.closest(".mk-key");
+      if (!t) return;
+      e.preventDefault();
+      t.classList.add("is-press");
+      setTimeout(function () { t.classList.remove("is-press"); }, 120);
+      fireKey(t.getAttribute("data-key"));
+    }, { passive: false });
+    kbd.addEventListener("click", function (e) {
+      var t = e.target.closest(".mk-key");
+      if (!t) return;
+      // Avoid double-fire on touch devices: touchstart already handled it.
+      // (touchstart preventDefaults the click, but some older Safaris still fire.)
+      if (e.detail === 0 && t.classList.contains("is-press")) return;
+      fireKey(t.getAttribute("data-key"));
+    });
+    // Block context menu on long-press
+    kbd.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+  })();
+  </script>
 </body>
 </html>
