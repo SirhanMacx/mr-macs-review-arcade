@@ -2063,3 +2063,93 @@ body:not([data-game-page]) #attractCarousel { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   .cabinet-press-start { animation: none; opacity: 1; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   38. DRILL YOUR MISSES — surfaces only when wrong-answer queue has
+   due cards. Sits below the cabinet menu folders, above the PRESS
+   START hint. Distinctive red/orange treatment so it reads as
+   "personal action" rather than generic navigation.
+   ═══════════════════════════════════════════════════════════════════════ */
+.drill-misses-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 880px;
+  margin: clamp(18px, 2.5vh, 28px) auto 0;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, rgba(255, 56, 88, 0.10) 0%, rgba(255, 138, 56, 0.06) 100%);
+  border: 2px solid rgba(255, 138, 56, 0.55);
+  border-radius: 10px;
+  color: #ffd884;
+  text-decoration: none;
+  box-shadow:
+    0 4px 0 rgba(0, 0, 0, 0.45),
+    0 8px 20px rgba(255, 56, 88, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  position: relative;
+  overflow: hidden;
+  transition: transform 160ms, box-shadow 160ms, border-color 160ms;
+  cursor: pointer;
+}
+.drill-misses-card[hidden] { display: none !important; }
+.drill-misses-card:hover,
+.drill-misses-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: #ff8a38;
+  box-shadow:
+    0 6px 0 rgba(0, 0, 0, 0.50),
+    0 14px 32px rgba(255, 138, 56, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 22px rgba(255, 138, 56, 0.35);
+  outline: none;
+}
+.drill-misses-card .dm-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 12% 50%, rgba(255, 138, 56, 0.18) 0%, transparent 60%);
+  animation: dmGlow 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes dmGlow {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1.0; }
+}
+.drill-misses-card .dm-icon {
+  font-size: 32px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  flex: 0 0 auto;
+}
+.drill-misses-card .dm-text {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.drill-misses-card .dm-title {
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: #ff8a38;
+  text-shadow: 0 0 8px rgba(255, 138, 56, 0.55), 0 2px 0 #000;
+}
+.drill-misses-card .dm-sub {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(255, 216, 132, 0.78);
+}
+.drill-misses-card .dm-sub #dmCount { color: #ffd060; font-weight: 800; }
+.drill-misses-card .dm-arrow {
+  font-size: 18px;
+  color: #ff8a38;
+  flex: 0 0 auto;
+  animation: dmArrow 1.2s ease-in-out infinite alternate;
+}
+@keyframes dmArrow {
+  to { transform: translateX(4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drill-misses-card .dm-glow,
+  .drill-misses-card .dm-arrow { animation: none; }
+}

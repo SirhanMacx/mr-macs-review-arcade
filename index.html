@@ -76,7 +76,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-cabinet-v3-keyboard">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-drill-misses">
 <style>
 :root {
   color-scheme: dark;
@@ -8482,6 +8482,19 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <span class="cf-meta">+60 shards</span>
         </button>
       </div>
+      <!-- Drill Misses surfaces ONLY when the student has due cards
+           in the wrong-answer queue. Auto-rendered by initDrillMisses().
+           Tile shows the live count and routes the student into Snake
+           Pit (review-mix wired) for retrieval practice. -->
+      <a class="drill-misses-card" id="drillMissesCard" href="games/snake-pit/" hidden>
+        <span class="dm-glow" aria-hidden="true"></span>
+        <span class="dm-icon" aria-hidden="true">🎯</span>
+        <span class="dm-text">
+          <strong class="dm-title">Drill Your Misses</strong>
+          <span class="dm-sub"><span id="dmCount">0</span> questions due for review</span>
+        </span>
+        <span class="dm-arrow" aria-hidden="true">▶</span>
+      </a>
       <p class="cabinet-press-start" aria-hidden="true">▸ TAP OR PRESS ENTER ◂</p>
     </div>
     <aside class="hero-console reveal" aria-label="Featured arcade launches">
@@ -10782,6 +10795,39 @@ function initCabinetMenu() {
   });
 }
 
+// ============== Drill Misses card ==============
+// Surfaces a "Drill Your Misses" entry-point below the cabinet menu
+// whenever the student has ≥1 due wrong-answer card. Routes the
+// student to Snake Pit (which has review-mix wired) for retrieval
+// practice. Re-polls every 30s so a card retired during the session
+// hides the card live.
+function initDrillMisses() {
+  const card = document.getElementById("drillMissesCard");
+  const count = document.getElementById("dmCount");
+  if (!card) return;
+  function refresh() {
+    let dueN = 0;
+    try {
+      if (window.MrMacsProfile && window.MrMacsProfile.getDueWrongAnswers) {
+        dueN = window.MrMacsProfile.getDueWrongAnswers(80).length;
+      }
+    } catch (e) {}
+    if (dueN > 0) {
+      card.hidden = false;
+      if (count) count.textContent = dueN;
+    } else {
+      card.hidden = true;
+    }
+  }
+  refresh();
+  setInterval(refresh, 30000);
+  // Also refresh on profile updates (so the card hides as questions retire)
+  if (window.MrMacsProfile && typeof window.MrMacsProfile.on === "function") {
+    window.MrMacsProfile.on("profile:update", refresh);
+    window.MrMacsProfile.on("answer:record", refresh);
+  }
+}
+
 // ============== Canvas FX ==============
 function initFx() {
   const canvas = document.getElementById("fx");
@@ -10917,6 +10963,7 @@ async function boot() {
     renderCourseTiles();
     initAttractCarousel();
     initCabinetMenu();
+    initDrillMisses();
     initFx();
     initParallax();
     render();
