@@ -10655,12 +10655,31 @@ function initCabinetMenu() {
   folders.forEach(f => {
     f.addEventListener("click", function () { openFolder(f.dataset.cabinetFolder); });
   });
-  // Allow URL hash to deep-link a folder
+  // Allow URL hash + anchor links to route through the cabinet menu.
+  // Without this, the topnav "Play" / "Library" links and the "Enter
+  // Arcade" CTA jumped to anchors that are hidden by default — dead
+  // navigation. Now any anchor pointing to a band id opens its folder.
+  const HASH_MAP = {
+    jeopardy: "jeopardy",
+    practice: "practice",
+    featured: "arcade",
+    library:  "arcade",
+    daily:    "daily",
+    "launch-paths": "arcade"
+  };
   const hash = (location.hash || "").replace(/^#/, "");
-  if (hash === "jeopardy" || hash === "practice" || hash === "featured" || hash === "library" || hash === "daily") {
-    const map = { jeopardy: "jeopardy", practice: "practice", featured: "arcade", library: "arcade", daily: "daily" };
-    setTimeout(() => openFolder(map[hash]), 200);
+  if (HASH_MAP[hash]) {
+    setTimeout(() => openFolder(HASH_MAP[hash]), 200);
   }
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    const target = (a.getAttribute("href") || "").replace(/^#/, "");
+    if (HASH_MAP[target]) {
+      a.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        openFolder(HASH_MAP[target]);
+      });
+    }
+  });
 
   // ─── Keyboard navigation — feels like a real arcade joystick ───
   // Arrow keys move the cursor between folders, Enter opens the
