@@ -1811,6 +1811,12 @@
   var pendingScholarScroll = null;
 
   function pickQuestion() {
+    // _MMRM_PATCHED_ — review-mix resurfaces wrong-answer queue
+    try {
+      var __mmrm = window.MrMacsReviewMix && window.MrMacsReviewMix.maybeDue();
+      if (__mmrm) return __mmrm;
+    } catch (e) {}
+
     try {
       var bank = window.DIAG_BANK_BY_COURSE;
       if (bank && typeof bank === "object") {
@@ -1880,6 +1886,10 @@
     var btn = e.currentTarget;
     var picked = btn.getAttribute("data-text");
     var correct = picked === activeQuestion.correctText;
+
+    // _MMRM_GRADED_ — feed result to spaced-repetition Leitner system
+
+    try { if (window.MrMacsReviewMix) window.MrMacsReviewMix.gradeIfResurfaced(activeQuestion, correct); } catch (e) {}
     var btns = dom.choiceGrid.querySelectorAll(".choice-btn");
     btns.forEach(function (b) {
       b.disabled = true;
