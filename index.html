@@ -10614,6 +10614,9 @@ function initCabinetMenu() {
   }
   function openFolder(key) {
     closeAll();
+    // Cabinet "select" beep when a folder opens — feels like a real
+    // arcade cabinet menu selection. SFX library auto-skips if muted.
+    try { if (window.MrMacsSFX && window.MrMacsSFX.play) window.MrMacsSFX.play("select"); } catch (e) {}
     folders.forEach(f => { if (f.dataset.cabinetFolder === key) f.classList.add("is-open"); });
     const ids = SECTIONS[key] || [];
     ids.forEach(id => {
@@ -10627,6 +10630,7 @@ function initCabinetMenu() {
         back.className = "back-to-menu";
         back.innerHTML = '<span aria-hidden="true">←</span> Back to Menu';
         back.addEventListener("click", function () {
+          try { if (window.MrMacsSFX && window.MrMacsSFX.play) window.MrMacsSFX.play("navigate"); } catch (e) {}
           closeAll();
           const hero = document.getElementById("top");
           if (hero) hero.scrollIntoView({ behavior: "smooth", block: "start" });
