@@ -15,6 +15,23 @@
     window.MrMacsChangelog.register([
       {
         date: "2026-05-11",
+        version: "v6.8",
+        headline: "1989 arcade cabinet feel — full UI overhaul (Tier 1–4)",
+        items: [
+          { kind: "new", text: "Procedural 8-bit SFX library: hover/click/coin/start/success/error cues synthesized via Web Audio. Auto-wires to game cards, INSERT COIN, primary buttons. SFX toggle pill in topnav persists choice." },
+          { kind: "new", text: "Top-of-cabinet marquee on every page: chasing dot-lights, neon-gold MR. MAC'S brand, pulsing coin slots. Per-game marquee strip ties hub and games together visually." },
+          { kind: "new", text: "CRT power-on sequence — 3-phase scan/brand/coin animation on first session load, sessionStorage-gated so it plays once. Skip with any key/click. Auto-disabled under prefers-reduced-motion." },
+          { kind: "new", text: "Attract-mode carousel on hub above the hero — auto-cycles 18 flagship/featured games every 3.6s with fading title swap, animated arrow, glowing border. Click jumps to that game." },
+          { kind: "new", text: "PLAYER 1 READY banner flashes when starting any game; GAME OVER stinger with 9→0 CONTINUE countdown auto-mounts when end-screens become visible; +NN coin-pop labels float up from score elements on every tick." },
+          { kind: "new", text: "Cabinet status ribbon at the bottom of every game page: POWER (pulsing green LED) · CREDITS 99 · 1P · v6.7. Joystick + 4-button cluster control-hint chip in every game topbar." },
+          { kind: "new", text: "Pixel-coin shower drops 12 spinning coins from the top of the hub on first session load — timed to land as the CRT boot fades. Session-once so it doesn't replay on every nav." },
+          { kind: "new", text: "CRT scanline intensity dial in the topnav (0–100%) — lets users tune the retro effect to taste. Persists to localStorage. Multiplies into the existing scanline overlay opacity." },
+          { kind: "new", text: "Chunky arcade buttons with triple-stacked shadows + bezel rims, cartridge-label game cards with marquee strips, 7-segment LCD HUD numerics, cabinet side-bezel inset shadows along body edges." },
+          { kind: "perf", text: "Service worker bumped to v3 cache, precaches new SFX + cabinet-fx modules. Headless Chromium smoke confirms 78/78 games pass with marquee, status ribbon, cabfx, sfx all mounted and zero JS errors." }
+        ]
+      },
+      {
+        date: "2026-05-11",
         version: "v6.7",
         headline: "78/78 games professional — overhaul complete",
         items: [
