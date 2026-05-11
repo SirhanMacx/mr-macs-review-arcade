@@ -15,6 +15,23 @@
     window.MrMacsChangelog.register([
       {
         date: "2026-05-11",
+        version: "v6.9",
+        headline: "Teacher superpowers — Daily Leaderboard + Friday Practice + Live Multiplayer",
+        items: [
+          { kind: "new", text: "Daily Challenge global leaderboard — top 5 scores per day's auto-picked challenge render directly inside the daily-band. New entries appear live; admin can surgically delete via the red × button on each row when /?admin=mrmac-arcade-admin-2026 unlocks admin mode." },
+          { kind: "new", text: "Content-filter on display names — 60-stem curated blocklist + leet-speak normalization (B1tch / 5h1t / Fück all caught). Blocked submissions post as 'PLAYER' so the score still counts; only the name gets scrubbed. Teachers can extend via MrMacsLeaderboards.addBlockedTerm('xxx')." },
+          { kind: "new", text: "Friday Practice — one-click print/PDF export of the student's wrong-answer queue. Lives in the profile drawer. Three formats: full worksheet (questions + answer key), student-copy only, or answer-key only. Generates a classroom-ready handout grouped by course with name/period/score writing lines." },
+          { kind: "new", text: "Live Multiplayer rooms — WebRTC via PeerJS. Teachers host a 6-letter coded room from the floating 🎮 button; up to 16 students join from their phones with 3-char initials (content-filtered). Bidirectional message protocol (buzz, score-sync, clue-select, game-over) is gameplay-agnostic and ready for per-game integration." },
+          { kind: "fix", text: "Mobile portrait polish: hid the cabinet status ribbon on viewports ≤ 520px (was overlapping the bottom of every game's canvas + touch controls). Slimmed the per-game marquee from 41px (two-line wrap) to 16px (single-line nowrap). Saved ~75px of canvas room on every mobile game." },
+          { kind: "fix", text: "Regents Rally kart racer unblocked. The first-run tutorial overlay was firing 1.8s into the user's very first race, pointing at the now-hidden character-select grid and covering the entire race canvas. Disabled auto-fire of the in-race tour; the manual 'Tour' button in the race HUD still works for opt-in." },
+          { kind: "new", text: "12 games got tighter review-question intervals: Snake Pit 22s→13s scholar spawn, Atlas-2048 12-26→6-14 merges, Step Pyramid 14s→9s disc respawn, Cascade 30→18 pops, Chronoblocks 25→14 pieces, Knight's Quest 1→2 relics/floor, plus six others. More review opportunities without changing any mechanics." },
+          { kind: "fix", text: "Jeopardy card descriptions now show the course AND unit (e.g., 'AP European History · Unit 1 — Fast recall, vocabulary, and exam-style concepts.') instead of the same generic line on every card. Yearlong / Cumulative / Final exam variants use the right label." },
+          { kind: "fix", text: "Hub first-run tour now waits for the CRT boot to finish (~3000ms) before firing on returning users. Was overlapping the boot animation with a tutorial card visible simultaneously." },
+          { kind: "perf", text: "Long-standing bug: arcade-progress-extras.js was unconditionally overwriting MrMacsLeaderboards with a 6-method stub, silently stripping the canonical module's full API. Now guarded — the canonical module's submit/top/deleteEntry/admin/filter surface stays intact." }
+        ]
+      },
+      {
+        date: "2026-05-11",
         version: "v6.8",
         headline: "1989 arcade cabinet feel — full UI overhaul (Tier 1–4)",
         items: [
