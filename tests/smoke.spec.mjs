@@ -214,8 +214,73 @@ for (const board of JEOPARDY_REGRESSION_BOARDS) {
   });
 }
 
-// === GAME SMOKE TESTS ===
 const gamesDir = path.resolve(REPO, "games");
+const questionReadableGames = fs.readdirSync(gamesDir)
+  .filter(slug => {
+    const indexPath = path.join(gamesDir, slug, "index.html");
+    if (!fs.existsSync(indexPath)) return false;
+    const html = fs.readFileSync(indexPath, "utf8");
+    return html.includes("questionPrompt") && html.includes("arcade-retro-theme.css");
+  })
+  .sort();
+
+test("game review question text remains readable at phone size", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const checked = [];
+
+  for (const slug of questionReadableGames) {
+    await page.goto(`${BASE}/games/${slug}/index.html`, { waitUntil: "domcontentloaded", timeout: 20000 });
+    await page.waitForTimeout(500);
+    const metrics = await page.evaluate(() => {
+      const sampleChoices = [
+        "A constitutional limit on arbitrary government power.",
+        "A source-based inference from a document or chart.",
+        "A turning point students connect to broader review evidence.",
+        "A distractor that is long enough to test wrapping."
+      ];
+      const host = document.querySelector("#questionScreen, #questionCard, .question-panel, .question-card");
+      const prompt = document.querySelector("#questionPrompt, #questionText, .question-text, .question-card h2");
+      if (!prompt) return { found: false };
+      if (host) {
+        host.hidden = false;
+        host.classList.remove("hidden");
+        host.classList.add("show", "active", "is-active");
+      }
+      prompt.textContent = "Which review idea best explains why students must connect evidence to a larger cause-and-effect pattern?";
+      const grid = document.querySelector("#choiceGrid, .choice-grid, .choices, .answer-grid");
+      if (grid && !grid.querySelector(".choice-btn, .choice, .answer-btn")) {
+        grid.innerHTML = sampleChoices.map((choice, index) =>
+          `<button class="choice-btn choice answer-btn" type="button"><span class="choice-letter">${String.fromCharCode(65 + index)}</span>${choice}</button>`
+        ).join("");
+      }
+      const choice = document.querySelector(
+        "#choiceGrid .choice-btn, .choice-grid .choice-btn, .choices .choice, .answer-grid .answer-btn, .question-card .choice-btn, .question-card .choice"
+      );
+      const promptStyle = getComputedStyle(prompt);
+      const choiceStyle = choice ? getComputedStyle(choice) : null;
+      return {
+        found: true,
+        promptFont: parseFloat(promptStyle.fontSize) || 0,
+        promptLineHeight: parseFloat(promptStyle.lineHeight) || 0,
+        choiceFont: choiceStyle ? parseFloat(choiceStyle.fontSize) || 0 : null,
+        choiceLineHeight: choiceStyle ? parseFloat(choiceStyle.lineHeight) || 0 : null
+      };
+    });
+
+    if (!metrics.found) continue;
+    checked.push({ slug, ...metrics });
+    expect(metrics.promptFont, `${slug} prompt font`).toBeGreaterThanOrEqual(19.5);
+    expect(metrics.promptLineHeight, `${slug} prompt line height`).toBeGreaterThanOrEqual(metrics.promptFont * 1.25);
+    if (metrics.choiceFont !== null) {
+      expect(metrics.choiceFont, `${slug} choice font`).toBeGreaterThanOrEqual(15.5);
+      expect(metrics.choiceLineHeight, `${slug} choice line height`).toBeGreaterThanOrEqual(metrics.choiceFont * 1.25);
+    }
+  }
+
+  expect(checked.length, "question-bearing arcade games checked").toBeGreaterThanOrEqual(8);
+});
+
+// === GAME SMOKE TESTS ===
 const games = fs.readdirSync(gamesDir)
   .filter(d => fs.existsSync(path.join(gamesDir, d, "index.html")))
   .sort();

@@ -392,8 +392,8 @@ h2, .setup-card h2 { font-size: clamp(14px, 4vw, 22px) !important; line-height: 
   font-style: normal !important;
   letter-spacing: 0 !important;
   text-transform: none !important;
-  font-size: clamp(15px, 2.8vw, 19px) !important;
-  line-height: 1.42 !important;
+  font-size: clamp(20px, 3.4vw, 28px) !important;
+  line-height: 1.36 !important;
   font-weight: 600 !important;
   color: #f0f5ff !important;
   text-shadow: none !important;
@@ -406,11 +406,11 @@ h2, .setup-card h2 { font-size: clamp(14px, 4vw, 22px) !important; line-height: 
 button.choice,
 .answer-btn {
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
-  font-size: clamp(13px, 2.2vw, 15px) !important;
+  font-size: clamp(16px, 2.6vw, 19px) !important;
   letter-spacing: 0 !important;
   text-transform: none !important;
   font-weight: 600 !important;
-  line-height: 1.35 !important;
+  line-height: 1.42 !important;
   color: #f0f5ff !important;
 }
 .choice-btn .choice-letter,
@@ -467,6 +467,67 @@ button.btn,
 button.btn.primary,
 .action.primary {
   font-size: 11px !important;
+}
+
+/* Question readability lock.
+   Keep this after the global pixel-button rules: those rules are good for
+   arcade chrome, but answer choices need real reading-size text. */
+body[data-game-page] :is(
+  #questionPrompt,
+  .question-prompt,
+  .question-card h2,
+  #promptText,
+  .quiz-prompt,
+  .review-prompt,
+  .scholar-prompt,
+  .gate-prompt,
+  .clue-prompt,
+  .question-card .prompt,
+  .question-text
+) {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-style: normal !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-size: clamp(20px, 3.4vw, 28px) !important;
+  line-height: 1.36 !important;
+  font-weight: 700 !important;
+  color: #f8fbff !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,.32) !important;
+  -webkit-text-stroke: 0 !important;
+}
+body[data-game-page] :is(
+  .question-card,
+  .question-panel,
+  #questionCard,
+  [class*="question-card"],
+  [class*="question-panel"]
+) {
+  max-width: min(760px, calc(100vw - 28px)) !important;
+  box-shadow:
+    inset 0 0 0 999px rgba(2,5,13,.16),
+    0 18px 42px rgba(0,0,0,.48),
+    0 0 24px rgba(115, 243, 255, .12) !important;
+}
+body[data-game-page] :is(
+  .question-screen .choice-btn,
+  .question-screen .choice,
+  .question-card .choice-btn,
+  .question-card .choice,
+  .question-panel .choice,
+  .question-panel .answer-btn,
+  .choice-grid .choice-btn,
+  .choices .choice
+) {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-size: clamp(16px, 2.6vw, 19px) !important;
+  line-height: 1.42 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-weight: 650 !important;
+  color: #f8fbff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,.82), 0 0 14px rgba(0,0,0,.62) !important;
+  box-shadow: inset 0 0 0 999px rgba(2,5,13,.26) !important;
 }
 
 /* Inputs / selects: keep them readable */
@@ -2900,7 +2961,7 @@ body[data-game-page] :is(
   [class*="prompt-panel"]
 ) {
   background:
-    linear-gradient(180deg, rgba(2,5,13,.16), rgba(2,5,13,.86)),
+    linear-gradient(180deg, rgba(2,5,13,.76), rgba(2,5,13,.94)),
     var(--mm-gen-question) center / cover no-repeat,
     rgba(3, 6, 15, .94) !important;
 }
@@ -2917,7 +2978,7 @@ body[data-game-page] :is(
   .answer-card
 ) {
   background:
-    linear-gradient(180deg, rgba(255,255,255,.06), rgba(2,5,13,.62)),
+    linear-gradient(180deg, rgba(2,5,13,.62), rgba(2,5,13,.88)),
     var(--mm-gen-answer) center / cover no-repeat,
     rgba(5, 9, 20, .92) !important;
   border-color: rgba(255,255,255,.18) !important;
