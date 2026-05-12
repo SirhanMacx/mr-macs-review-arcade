@@ -1,6 +1,6 @@
 # Mr. Mac's Review Arcade
 
-**199+ social-studies review games for AP, Regents, and middle-school prep — playable in the browser, no install required.**
+**219 social-studies review games and boards for AP, Regents, and middle-school prep — playable in the browser, no install required.**
 
 A student-facing arcade for grades 5-12, AP courses (Psychology, World, Euro, Human Geo, US Gov, Macro, Micro, USH), and full Regents exam simulators (Global II, U.S. History). Premium arcade flagships (History Hunters, Archive Quest, Cold War Invaders, Brickoria, Stellar Drift, Source Snake, Chronoblocks, Cascade, Chronohop, Step Pyramid, Citadel, Rumor Whack, and more) sit beside Jeopardy boards, source-reading labs, writing coaches, and full timed practice exams.
 
@@ -10,11 +10,12 @@ https://sirhanmacx.github.io/mr-macs-review-arcade
 
 ## Stats
 
-- **194 games** in the catalog (`games.json`)
+- **219 catalog entries** in `games.json`: 68 arcade games/tools and 151 Jeopardy boards
 - **65 achievements** across onboarding, streaks, per-flagship feats, cross-arcade tiers, and hidden Easter eggs
 - **7 power-up shop items** — Streak Shield, Hint Token, Time Boost, Lucky Charm (24h 2x), Fortune Refresh, Daily Double, Coin Doubler (4h 2x)
 - **Multi-profile roster** — multiple students can share a Chromebook with isolated shards, achievements, settings, course, and streaks
-- **Persistent + offline-capable** — all progress lives in `localStorage`, no backend, no logins, no PII
+- **Persistent + offline-capable** — student profiles, rosters, answers, shards, achievements, sessions, and settings live in `localStorage`; no backend, no logins, no PII
+- **Generated arcade art** — every catalog entry has original WebP thumbnail, card, and marquee art produced by `scripts/generate_arcade_assets.py`
 - **4,529-prompt** shared review library powering full-library flagships
 
 ## Tech stack
@@ -47,7 +48,7 @@ Any static-file server works. The traffic counter detects `localhost` / `127.0.0
 ├── assets/                      # Shared modules + art
 │   ├── arcade-profile.js        # Player profile + multi-profile roster + shop + achievements
 │   ├── arcade-progress-extras.js# Leaderboards, sessions, mini-HUD widgets
-│   ├── arcade-sessions.js       # (Standalone elaborate sessions module — not loaded by hub)
+│   ├── arcade-sessions.js       # Rich per-profile sessions module loaded before progress-extras
 │   ├── arcade-music.js          # Synthesized per-game music engine (16 themes)
 │   ├── arcade-celebration.js    # Particle bursts, confetti, fireworks, coin shower
 │   ├── arcade-toast.js          # Ephemeral notifications + auto-wires to profile events
@@ -59,7 +60,10 @@ Any static-file server works. The traffic counter detects `localhost` / `127.0.0
 │   ├── source-bank.js           # Source-based question detection + curated bank registry
 │   ├── document-viewer.js       # Click-to-expand zoomable source document viewer
 │   ├── arcade-a11y.css          # Shared accessibility styles
-│   └── *.webp / *.jpg / *.png   # Generated arcade hub artwork
+│   ├── game-thumbnails/         # Generated 640x360 WebP thumbnails for every game
+│   ├── game-card-art/           # Generated 768x432 WebP card backgrounds for every game
+│   ├── game-marquees/           # Generated 960x300 WebP marquees for every game
+│   └── generated-game-art-manifest.json
 ├── games/                       # 50+ game folders (each: index.html, game.js, styles.css)
 ├── data/                        # Shared question banks (regents-gauntlet, chrono-defense, ...)
 ├── scripts/                     # Build/import/validation utilities (Python + .mjs)
@@ -73,7 +77,7 @@ Any static-file server works. The traffic counter detects `localhost` / `127.0.0
 
 Every flagship game wires into the same handful of globals:
 
-- **`MrMacsProfile`** — player identity, shards wallet, achievements, settings, multi-profile roster, daily challenge, spaced-repetition wrong-answer queue, mastery thresholds. Local-only, no telemetry.
+- **`MrMacsProfile`** — player identity, shards wallet, achievements, settings, multi-profile roster, daily challenge, spaced-repetition wrong-answer queue, mastery thresholds. Local/browser-only; not sent to analytics.
 - **`MrMacsLeaderboards`** — per-game top-5 local leaderboards (decorated with profile name + avatar at submit time).
 - **`MrMacsSessions`** — auto-resume snapshots, capped at 12 most-recent across the device, 7-day TTL.
 - **`MrMacsArcadeMusic`** — Web Audio engine with 16 themes (`pinball-cabinet`, `cold-war-mission`, `td-strategic`, `empire-strategic`, `runner-synthwave`, `rift-survivors`, `duel-arena`, `boss-rush-arena`, `maze-cabinet`, `archive-dusk`, `quill-runner`, `boss-overture`, ...). `start` / `stop` / `duck` / `crossfade` / `setVolume`.
@@ -82,7 +86,7 @@ Every flagship game wires into the same handful of globals:
 - **`MrMacsIcons`** — 40+ monoline SVG icons, drop-in replacement for emoji.
 - **`MrMacsArcadeTour`** — one-time first-run tour with spotlight + step card.
 - **`MrMacsProgressExtras`** — reusable HUD widgets (mini-HUD pill, score chip, best badge, streak meter, run-summary card).
-- **`MrMacsAnalytics`** — anonymous-only counters (no names, no answers); per-game / per-course / per-day rollups.
+- **`MrMacsAnalytics`** — anonymous public traffic counters only (no names, rosters, answers, or profile data); disabled/harmless on local development.
 - **`MrMacsArcadePerf`** — lite-mode detection on Chromebooks / older iPads, idle/frame schedulers.
 - **`MrMacsMastery`** — course profiles, diagnostic builder, weakest-topic recommender.
 - **`MrMacsSourceBank`** — source-based-question detector, curated bank registry, source-lock validator.
@@ -100,13 +104,14 @@ Short version:
 2. Add the required script tags (analytics → profile → progress-extras → music → celebration → toast).
 3. Wire `recordPlay`, `addShards`, `submit` (leaderboard), `save` / `load` (sessions).
 4. Append a new entry to `games.json`.
-5. Add the id to `PREMIUM_ARCADE_IDS` and/or `FEATURED_GAME_IDS` in `index.html` if it's flagship-tier.
-6. Run `python3 scripts/validate_arcade.py`.
+5. Run `python3 scripts/generate_arcade_assets.py` so the new game gets generated art and manifest metadata.
+6. Add the id to `PREMIUM_ARCADE_IDS` and/or `FEATURED_GAME_IDS` in `index.html` if it's flagship-tier.
+7. Run `python3 scripts/validate_arcade.py`.
 7. Commit + push to `main`. GitHub Pages republishes automatically.
 
 ## License + acknowledgments
 
-- All code in this repository is private to the Mr. Mac classroom workflow.
+- Public-source classroom project, all rights reserved unless a separate license is added. The public repository is for Mr. Mac's classroom workflow and review-site deployment, not an open-content asset pack.
 - Question banks, stimulus crops, and Regents source images are derived from publicly-released NYS Regents and AP exam materials.
-- Generated arcade hub art (lobby, marquee, tokens, scanlines) is project-original.
+- Generated arcade hub art, thumbnails, card art, marquees, and cabinet assets are project-original.
 - Repo: https://github.com/SirhanMacx/mr-macs-review-arcade

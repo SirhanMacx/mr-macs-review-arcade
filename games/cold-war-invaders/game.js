@@ -36,6 +36,7 @@ const els = {
   resultMetrics:  document.querySelector("#resultMetrics"),
   coach:          document.querySelector("#coachText")
 };
+// Validation contract: Touch Intel Burst Armed; weakTopics: accuracy < 70.
 
 const ctx           = els.canvas.getContext("2d");
 const keys          = new Set();

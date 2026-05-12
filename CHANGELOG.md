@@ -5,6 +5,25 @@ All notable changes to Mr. Mac's Review Arcade are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versions are date-based (YYYY-MM-DD) since the arcade ships continuously to GitHub Pages.
 
+## [2026-05-12] — Generated Asset + Cabinet Overhaul
+
+### Added
+- Deterministic generated asset system for all 219 catalog entries.
+- `assets/game-card-art/`, `assets/game-marquees/`, `assets/cabinet/`, and `assets/generated-game-art-manifest.json`.
+- `scripts/generate_arcade_assets.py` for repeatable original WebP thumbnails, card art, marquees, and cabinet assets.
+- `docs/CODEX-DEEP-AUDIT.md`, `docs/CODEX-OVERHAUL-REPORT.md`, and `docs/ASSET-SYSTEM.md`.
+- `.github/workflows/validate.yml` for full repo validation.
+
+### Changed
+- Hub cards now use generated card art while thumbnails remain lightweight lazy-loaded images.
+- README, DESIGN, ARCADE API, and shipping guide now reflect the 219-entry catalog, generated assets, active sessions module, and accurate privacy wording.
+- Jeopardy hardening no longer creates category-prefixed clues.
+
+### Fixed
+- Filled missing WebP thumbnail coverage for all catalog entries.
+- Synced two shared-bank source records to trusted Regents source metadata.
+- Standardized select option contrast in affected games.
+
 ## [v3.1] — 2026-05-10
 
 ### Fixed

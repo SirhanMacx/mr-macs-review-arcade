@@ -423,7 +423,26 @@ if (!window.MrMacsArcadePerf.isLite()) {
 
 ## 9. Question pool guidance
 
-The arcade ships **194 games** and a 4,529-prompt shared review library.
+The arcade ships **219 catalog entries** and a shared review library. New games
+must not rely on default art.
+
+## 6. Generated assets
+
+Run:
+
+```bash
+python3 scripts/generate_arcade_assets.py
+```
+
+This creates or refreshes:
+
+- `assets/game-thumbnails/<game-id>.webp` at 640x360.
+- `assets/game-card-art/<game-id>.webp` at 768x432.
+- `assets/game-marquees/<game-id>.webp` at 960x300.
+- `assets/generated-game-art-manifest.json` with alt text and metadata.
+
+The hub expects all game cards to have generated WebP coverage. Do not commit a
+new catalog entry until the asset manifest and validator pass.
 Per-game, follow this template unless the game-type explicitly diverges:
 
 - **28 inline questions** as the in-cabinet pool (Regents Day-1 cohort

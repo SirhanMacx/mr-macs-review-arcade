@@ -1,8 +1,10 @@
 # Arcade API Reference
 
-Every shared module exposes a single `window.MrMacs*` global. All modules are
-local-only — no telemetry, no remote sync, no logins. APIs are stable contracts;
-games depend on them by name.
+Every shared module exposes a single `window.MrMacs*` global. Student profile,
+roster, answer, shard, achievement, settings, leaderboard, and session data are
+local/browser-only. The separate analytics module can increment anonymous public
+traffic counters; it never sends names, rosters, answers, or profile data.
+APIs are stable contracts; games depend on them by name.
 
 Load order (in `index.html`):
 
@@ -14,7 +16,9 @@ arcade-tour.js        → window.MrMacsArcadeTour
 arcade-icons.js       → window.MrMacsIcons
 arcade-toast.js       → window.MrMacsToast
 arcade-celebration.js → window.MrMacsCelebration
-arcade-progress-extras.js → window.MrMacsLeaderboards, window.MrMacsSessions, window.MrMacsProgressExtras
+arcade-leaderboards.js → window.MrMacsLeaderboards
+arcade-sessions.js    → window.MrMacsSessions
+arcade-progress-extras.js → window.MrMacsProgressExtras + compatibility helpers
 source-bank.js        → window.MrMacsSourceBank
 mastery-engine.js     → window.MrMacsMastery
 ```
@@ -194,10 +198,11 @@ Per-game local top-5 leaderboards. Backed by `localStorage` key
 
 ## `MrMacsSessions`
 
-Auto-resume snapshots, capped at 12 most-recent across the device, 7-day TTL.
-Defined in `arcade-progress-extras.js` (active in the hub). A standalone
-elaborate alternative exists in `assets/arcade-sessions.js` but is **not**
-loaded by `index.html` — flagship games rely on the progress-extras version.
+Auto-resume snapshots. The active hub session system is the richer
+`assets/arcade-sessions.js`, loaded before `arcade-progress-extras.js` so the
+dedicated per-profile session API owns `window.MrMacsSessions`. Progress-extras
+keeps compatibility decorators and HUD helpers without clobbering the richer
+module.
 
 | Method | Returns | Description |
 | --- | --- | --- |
@@ -207,15 +212,14 @@ loaded by `index.html` — flagship games rely on the progress-extras version.
 | `listAll(maxAgeMs?)` | `Array` | `[{ gameId, state, ts }]`, most recent first. Default max age 7 days. |
 | `decorateContinueCards(scope?)` | `void` | Adds a "Resume" pill to any `.continue-card[data-id]` whose game has a saved session. Hub helper, idempotent. |
 
-### Standalone `arcade-sessions.js` (currently unloaded)
+### Session-system decision
 
-This file defines a richer profile-aware envelope (versioned, TTL-configurable,
-quota-safe with prune-and-retry) but is **not** wired into `index.html`. If
-you need it, add `<script src="assets/arcade-sessions.js"></script>` before
-`arcade-progress-extras.js` so its `MrMacsSessions` global wins. Its public
-API: `save(gameId, snapshot, opts?)`, `load`, `clear`, `clearAllForProfile`,
-`listActive`, `decorateContinueCards`, `on`, `off`. See file header for full
-contract.
+The duplicate-session ambiguity is resolved in favor of the dedicated
+`arcade-sessions.js` module. Keep it loaded before `arcade-progress-extras.js`.
+Its public API includes `save(gameId, snapshot, opts?)`, `load`, `clear`,
+`clearAllForProfile`, `listActive`, `decorateContinueCards`, `on`, and `off`.
+Do not reintroduce session stubs in progress-extras that overwrite the rich
+module.
 
 ---
 

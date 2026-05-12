@@ -7,7 +7,7 @@
  * Gently suggests breaks after 60 min of active play.
  *
  * Usage:
- *   <script src="assets/arcade-session-timer.js"></script>
+ *   <script src="./arcade-session-timer.js"></script>
  *   window.MrMacsSessionTimer.start();
  *
  * API:

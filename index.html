@@ -9193,6 +9193,7 @@ const FEATURED_GAME_IDS = [
   // Practice exams
   "regents-practice-exam", "ap-practice-exam"
 ];
+const VALIDATION_FEATURED_CORE_IDS = ["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "regents-practice-exam", "ap-practice-exam"];
 const SOURCE_LOCKED_GAME_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "source-sprint", "source-lab", "regents-gauntlet", "source-audit", "archive-cipher"]);
 const PREMIUM_ARCADE_IDS = new Set([
   "history-hunters", "archive-quest", "cold-war-invaders",
@@ -9299,24 +9300,17 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
-// Games whose thumbnail is .svg (not .webp). Most game-thumbnails are
-// converted to webp; the recent flagships keep their hand-built svg art
-// because the source files are vector, not photographic. Without this
-// allow-list the hub fires 404s for these on every render.
-const SVG_THUMB_IDS = new Set([
-  "anagram-atlas", "archive-tycoon", "atlas-2048", "boggle-beat", "bomb-scribe",
-  "brickoria", "cascade", "centiquill", "chess-cabinet", "chronoblocks",
-  "chronohop", "citadel", "crossword-cabinet", "cube-crash", "defender-drift",
-  "echo-hall", "galaxy-defender", "knights-quest", "mahjong-mosaic",
-  "memory-palace", "plinko-lab", "pong-doctor", "reflex-run", "rumor-whack",
-  "snake-pit", "sokoban-scribe", "solitaire-hall", "source-snake",
-  "stellar-drift", "step-pyramid", "sudoku-scribe", "tower-climb",
-  "tron-trails", "word-bridge"
-]);
 function thumbnailFor(game) {
   if (!game) return "";
-  var ext = SVG_THUMB_IDS.has(game.id) ? ".svg" : ".webp";
-  return "assets/game-thumbnails/" + encodeURIComponent(game.id) + ext;
+  return "assets/game-thumbnails/" + encodeURIComponent(game.id) + ".webp";
+}
+function cardArtFor(game) {
+  if (!game) return "";
+  return "assets/game-card-art/" + encodeURIComponent(game.id) + ".webp";
+}
+function marqueeFor(game) {
+  if (!game) return "";
+  return "assets/game-marquees/" + encodeURIComponent(game.id) + ".webp";
 }
 function cssUrlForAttr(path) {
   return "url(&quot;" + escapeHtml(path).replaceAll("(", "%28").replaceAll(")", "%29") + "&quot;)";
@@ -9805,7 +9799,7 @@ function renderHeroConsole() {
   if (primary && primaryCard) {
     primaryCard.dataset.id = primary.id;
     primaryCard.style.setProperty("--accent", accentFor(primary));
-    primaryCard.style.setProperty("--screen-art", 'url("' + thumbnailFor(primary).replaceAll('"', "%22") + '")');
+    primaryCard.style.setProperty("--screen-art", 'url("' + cardArtFor(primary).replaceAll('"', "%22") + '")');
     primaryCard.innerHTML =
       '<span class="screen-kicker">' + escapeHtml(displayGameType(primary)) + '</span>' +
       '<span class="screen-title">' + escapeHtml(shortHeroTitle(primary.title)) + '</span>' +
@@ -9838,7 +9832,7 @@ function renderHeroConsole() {
   if (!grid) return;
   grid.innerHTML = slots.map((game, index) => {
     const accent = accentFor(game);
-    const art = cssUrlForAttr(thumbnailFor(game));
+    const art = cssUrlForAttr(cardArtFor(game));
     const label = ["regents-practice-exam", "ap-practice-exam"].includes(game.id) ? "Full exam" : displayGameType(game);
     return '<button class="console-launch" type="button" style="--accent:' + accent + ';--slot-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
       '<span>' + escapeHtml(label) + '</span>' +
@@ -9879,7 +9873,7 @@ function renderFeatured10() {
   }
   host.innerHTML = picks.map((game, index) => {
     const accent = accentFor(game);
-    const art = cssUrlForAttr(thumbnailFor(game));
+    const art = cssUrlForAttr(cardArtFor(game));
     const stdChip = standardsChip(game);
     const stdLabel = stdChip || (game.course === "All Courses" ? "Cross-Curricular" : game.course);
     const subtitle = cardSubtitle(game) || (game.subtitle || "");
@@ -9909,7 +9903,7 @@ function renderFeatured() {
   const games = featuredGames();
   document.getElementById("featuredModes").innerHTML = games.map((game, index) => {
     const accent = accentFor(game);
-    const art = cssUrlForAttr(thumbnailFor(game));
+    const art = cssUrlForAttr(cardArtFor(game));
     const meta = game.id === "regents-practice-exam" ? "28 MCQs + document writing" : game.id === "ap-practice-exam" ? "MCQ + FRQ score estimate" : (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " review prompts");
     const pills = featuredBadges(game).slice(0, 4).map((c) => '<span class="mb-pill">' + escapeHtml(c) + '</span>').join('');
     return '<button class="mode-button" type="button" style="--accent:' + accent + ';--card-art:' + art + ';--mode-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
@@ -10025,7 +10019,7 @@ function buttonCard(game, fallback, className) {
   const item = game || fallback;
   const accent = game ? accentFor(game) : item.accent;
   const glyph = game ? glyphFor(game) : item.glyph;
-  const art = game ? ';--card-art:' + cssUrlForAttr(thumbnailFor(game)) : "";
+  const art = game ? ';--card-art:' + cssUrlForAttr(cardArtFor(game)) : "";
   const id = game ? game.id : item.id;
   const title = game ? game.title : item.title;
   const subtitle = game ? cardSubtitle(game) : item.subtitle;
@@ -10270,7 +10264,7 @@ function smartMenuGames(laneId) {
 }
 function smartCard(game) {
   const accent = accentFor(game);
-  const art = cssUrlForAttr(thumbnailFor(game));
+  const art = cssUrlForAttr(cardArtFor(game));
   const glyph = glyphFor(game);
   const meta = [compactCourseLabel(game.course), displayGameType(game)].filter(Boolean).join(" · ");
   const trustBadge = trustBadgeFor(game);
@@ -10483,7 +10477,7 @@ function renderQuickPlay() {
     const meta = game.id === "source-sprint" ? "source questions"
       : game.id === "vocab-vault" ? "typed answers"
       : "mixed MCQs";
-    const art = cssUrlForAttr(thumbnailFor(game));
+    const art = cssUrlForAttr(cardArtFor(game));
     return '<button class="quick-card" type="button" style="--accent:' + accent + ';--card-art:' + art + ';--quick-glyph:\'' + glyph + '\';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
       '<div class="quick-top"><span class="quick-kicker">' + escapeHtml(displayGameType(game)) + '</span><span class="quick-timer">' + escapeHtml(timer) + '</span></div>' +
       '<div><h3>' + escapeHtml(game.title) + '</h3><p>' + escapeHtml(cardSubtitle(game)) + '</p></div>' +
@@ -10571,7 +10565,7 @@ function card(game) {
   const accent = accentFor(game);
   const glyph = glyphFor(game);
   const thumb = thumbnailFor(game);
-  const art = cssUrlForAttr(thumb);
+  const art = cssUrlForAttr(cardArtFor(game));
   const categoryLine = (game.categories || []).slice(0, 3).join(" · ");
   const meta = game.id === "regents-practice-exam" ? "28 MCQs + writing" : game.id === "ap-practice-exam" ? "MCQ + FRQ practice" : (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " clues") + " · " + (game.hasFinal ? "Final wager" : "Practice");
   // Mark cards for the May 2026 flagship sweep with a gold "New" pill

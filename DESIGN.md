@@ -21,10 +21,14 @@ The homepage has three primary paths:
 ## Visual System
 
 - Generated bitmap assets are first-class product assets and must be copied into `assets/`.
+- Every `games.json` entry needs generated WebP coverage: thumbnail, card art, marquee, and manifest alt text.
+- The first read should feel like a glowing 1989 cabinet: black cabinet shell, warm CRT glass, cyan interface light, gold reward states, sparse magenta/violet accents, coin-slot details, and readable marquee cards.
 - Core palette: deep black command-center base, cyan interface light, warm gold reward states, limited magenta/green accents.
 - Avoid one-note purple/blue gradients, decorative blobs, and generic AI dashboard cards.
 - Cards and controls should use tight radii, preferably 8px.
 - Typography should be dense and readable, with large type reserved for the true hero and compact type inside controls.
+- Use scanlines and boot effects at low opacity only. Motion must respect reduced motion and should never delay a student trying to launch review.
+- Generated art should suggest social-studies review: maps, documents, globes, timelines, source pages, court/civics motifs, economics graphs, psychology symbols, tokens, joysticks, and cabinet lights. Do not copy commercial arcade sprites or official source images.
 
 ## Interaction Rules
 
@@ -38,10 +42,17 @@ The homepage has three primary paths:
 
 - Keep the homepage fast on school Chromebooks and iPads.
 - Prefer shared assets for new multi-file games.
+- Keep generated thumbnails near 150 KB or less, card art near 250 KB or less, and decorative cabinet assets small enough to lazy-load without blocking first launch.
 - Avoid heavy always-on animations on mobile.
 - Use canvas effects sparingly and respect reduced-motion settings.
 - Large stimulus images are allowed when they directly support Regents/AP-style source questions.
 - Local progress reports are browser-only and student-showable; they should stay useful without collecting names or rosters.
+
+## Quality Tiers
+
+- **Premium** means a complete game loop, explanations, recordPlay/completion hooks, leaderboard when score-based, mobile controls, reduced-motion handling, and generated art.
+- **Practice** means source/exam integrity, clear approximate-score wording, accessible document expansion, and strong feedback.
+- **Prototype / rebuild** games stay out of the primary featured rail until controls, content, and shared-module integration match the premium bar.
 
 ## Expansion
 

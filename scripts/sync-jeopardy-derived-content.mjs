@@ -298,9 +298,12 @@ function syncChronoBank(clueIndex, clueIdIndex, clueAnswerIndex, finalIndex, fin
 function syncBossRush(boards) {
   const file = resolve(root, "games", "boss-rush", "index.html");
   const html = readFileSync(file, "utf8");
-  const bankPattern = /const BANKS = \[[\s\S]*?\];(?=\r?\nconst LENGTHS\s*=)/;
-  if (!bankPattern.test(html)) throw new Error("Could not locate Boss Rush BANKS data");
-  const next = html.replace(bankPattern, `const BANKS = ${JSON.stringify(boards)};`);
+  const start = html.indexOf("const BANKS = ");
+  const lengthMarker = html.indexOf("\nconst LENGTHS", start);
+  const commentMarker = html.indexOf("\n/* =====================================================================", start);
+  const end = [lengthMarker, commentMarker].filter((value) => value > start).sort((a, b) => a - b)[0];
+  if (start < 0 || !end) throw new Error("Could not locate Boss Rush BANKS data");
+  const next = html.slice(0, start) + `const BANKS = ${JSON.stringify(boards)};\n` + html.slice(end + 1);
   writeFileSync(file, next);
 }
 

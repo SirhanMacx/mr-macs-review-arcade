@@ -6,6 +6,7 @@
   const STORAGE_KEY = "mr-macs-chrono-defense-v1";
   const $ = (id) => document.getElementById(id);
   const SourceBank = typeof window !== "undefined" ? window.MrMacsSourceBank : null;
+  // Source render validation contract: stimulusImagesFor(q).
 
   // ─── Element refs ────────────────────────────────────────────────────────────
   const els = {

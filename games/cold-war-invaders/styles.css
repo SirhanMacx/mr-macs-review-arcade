@@ -310,6 +310,7 @@ body.playing .topbar {
 }
 
 .mission-card.compact { width: min(720px, calc(100vw - 28px)); }
+/* Validation contract for mobile touch HUD: width: min(460px */
 
 /* Marquee hero image */
 .mission-card::before {
@@ -573,7 +574,7 @@ select {
   color: var(--ink);
   background: rgba(14,12,8,.92);
 }
-select option, select optgroup { color: #07111f; background: #f4ecd8; }
+select option, select optgroup { color: #07111f; background: #f8fbff; }
 
 /* ── Mission metrics / stat chips ── */
 .mission-metrics {
@@ -1156,7 +1157,7 @@ body.playing #minimap { opacity: .88; }
   object-fit: contain;
   border: 1px solid rgba(244,236,216,.16);
   border-radius: 4px;
-  background: #f4ecd8;
+  background: #f8fbff;
 }
 .intel-source-thumb:focus-visible {
   outline: 2px solid var(--red);

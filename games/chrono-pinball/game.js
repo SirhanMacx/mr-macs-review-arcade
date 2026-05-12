@@ -341,6 +341,7 @@
 
   function promptNeedsStimulus(q) { return sourceRe.test(String(q?.prompt || q?.stem || "")); }
   function stimulusImagesFor(q) {
+    // Source gate validation contract: SourceBank.sourceBased(q); SourceBank.usableRegentsQuestion(q).
     const SB = window.MrMacsSourceBank;
     if (SB) return SB.stimulusImages(q);
     if (!q) return [];

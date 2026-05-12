@@ -521,7 +521,10 @@ function shouldForceContextualClue(family, value, words, clue) {
 function enrichDefinitionClue(text, answer, category, game, value, meta) {
   let clue = sentence(text);
   const words = plainWordCount(clue);
-  const context = hasAnswerLeak(contextLabel(category, game), answer) ? "" : contextLabel(category, game);
+  // Keep clues natural. Earlier hardening runs used the category as a
+  // "Category: definition" prefix, which made boards read like generated
+  // worksheets and trips the Jeopardy quality validator.
+  const context = "";
   const family = clueFamily(meta, game);
   const lower = clue.toLowerCase();
   const bareDefinition = words <= 8 && !/\b(century|war|empire|revolution|court|amendment|president|king|queen|china|europe|africa|america|asia|islam|christian|buddhist|hindu|roman|greek|egypt|world war|cold war|\d{3,4})\b/i.test(clue);

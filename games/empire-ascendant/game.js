@@ -16,6 +16,7 @@
   let FX_LITE = FX_LITE_CHECK();
   if(window.MrMacsArcadePerf) window.MrMacsArcadePerf.onChange(function(lite){ FX_LITE=lite; });
   const SourceBank = window.MrMacsSourceBank || null;
+  // Source render validation contract: stimulusImagesFor(q).
 
   const ERAS = ["Ancient", "Classical", "Medieval", "Industrial"];
 

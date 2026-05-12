@@ -1,0 +1,3312 @@
+{
+  "version": "2026-05-12-codex-overhaul",
+  "generator": "scripts/generate_arcade_assets.py",
+  "dimensions": {
+    "thumbnail": [
+      640,
+      360
+    ],
+    "cardArt": [
+      768,
+      432
+    ],
+    "marquee": [
+      960,
+      300
+    ]
+  },
+  "cabinetAssets": {
+    "arcade-marquee.webp": "assets/cabinet/arcade-marquee.webp",
+    "crt-bezel.webp": "assets/cabinet/crt-bezel.webp",
+    "coin-slot.webp": "assets/cabinet/coin-slot.webp",
+    "joystick-panel.webp": "assets/cabinet/joystick-panel.webp",
+    "scanline-overlay.svg": "assets/cabinet/scanline-overlay.svg"
+  },
+  "games": {
+    "mastery-path": {
+      "title": "Mastery Path",
+      "course": "All Courses",
+      "gameType": "Mastery Dashboard",
+      "category": "arcade",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/mastery-path.webp",
+      "cardArt": "assets/game-card-art/mastery-path.webp",
+      "marquee": "assets/game-marquees/mastery-path.webp",
+      "alt": "Original 1989 arcade cabinet art for Mastery Path, a Mastery Dashboard game."
+    },
+    "source-lab": {
+      "title": "Source Reading Lab",
+      "course": "Grade 10 Global History II + Grade 11 U.S. History",
+      "gameType": "Skill Lab",
+      "category": "source",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/source-lab.webp",
+      "cardArt": "assets/game-card-art/source-lab.webp",
+      "marquee": "assets/game-marquees/source-lab.webp",
+      "alt": "Original 1989 arcade cabinet art for Source Reading Lab, a Skill Lab game."
+    },
+    "source-audit": {
+      "title": "Source Check",
+      "course": "Grade 10 Global History II + Grade 11 U.S. History",
+      "gameType": "Skill Lab",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/source-audit.webp",
+      "cardArt": "assets/game-card-art/source-audit.webp",
+      "marquee": "assets/game-marquees/source-audit.webp",
+      "alt": "Original 1989 arcade cabinet art for Source Check, a Skill Lab game."
+    },
+    "writing-coach": {
+      "title": "Writing Coach",
+      "course": "Grade 10 Global History II + Grade 11 U.S. History",
+      "gameType": "Writing Coach",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/writing-coach.webp",
+      "cardArt": "assets/game-card-art/writing-coach.webp",
+      "marquee": "assets/game-marquees/writing-coach.webp",
+      "alt": "Original 1989 arcade cabinet art for Writing Coach, a Writing Coach game."
+    },
+    "regents-practice-exam": {
+      "title": "Regents Practice Exam",
+      "course": "Grade 10 Global History II + Grade 11 U.S. History",
+      "gameType": "Full Practice Exam",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/regents-practice-exam.webp",
+      "cardArt": "assets/game-card-art/regents-practice-exam.webp",
+      "marquee": "assets/game-marquees/regents-practice-exam.webp",
+      "alt": "Original 1989 arcade cabinet art for Regents Practice Exam, a Full Practice Exam game."
+    },
+    "ap-practice-exam": {
+      "title": "Practice AP Exam",
+      "course": "AP Courses",
+      "gameType": "Full Practice Exam",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-practice-exam.webp",
+      "cardArt": "assets/game-card-art/ap-practice-exam.webp",
+      "marquee": "assets/game-marquees/ap-practice-exam.webp",
+      "alt": "Original 1989 arcade cabinet art for Practice AP Exam, a Full Practice Exam game."
+    },
+    "regents-rally-source-circuit": {
+      "title": "Regents Rally 64",
+      "course": "All Courses",
+      "gameType": "Kart Racer",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/regents-rally-source-circuit.webp",
+      "cardArt": "assets/game-card-art/regents-rally-source-circuit.webp",
+      "marquee": "assets/game-marquees/regents-rally-source-circuit.webp",
+      "alt": "Original 1989 arcade cabinet art for Regents Rally 64, a Kart Racer game."
+    },
+    "review-maze-chase": {
+      "title": "Review Maze Chase",
+      "course": "All Courses",
+      "gameType": "Maze Chase",
+      "category": "adventure",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/review-maze-chase.webp",
+      "cardArt": "assets/game-card-art/review-maze-chase.webp",
+      "marquee": "assets/game-marquees/review-maze-chase.webp",
+      "alt": "Original 1989 arcade cabinet art for Review Maze Chase, a Maze Chase game."
+    },
+    "cold-war-invaders": {
+      "title": "Cold War Invaders",
+      "course": "Grade 8 U.S. History II + Grade 10 Global History II + Grade 11 U.S. History",
+      "gameType": "Space Invaders",
+      "category": "shooter",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/cold-war-invaders.webp",
+      "cardArt": "assets/game-card-art/cold-war-invaders.webp",
+      "marquee": "assets/game-marquees/cold-war-invaders.webp",
+      "alt": "Original 1989 arcade cabinet art for Cold War Invaders, a Space Invaders game."
+    },
+    "archive-quest": {
+      "title": "Archive Quest: Sourcebound",
+      "course": "All Courses",
+      "gameType": "Platformer",
+      "category": "source",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/archive-quest.webp",
+      "cardArt": "assets/game-card-art/archive-quest.webp",
+      "marquee": "assets/game-marquees/archive-quest.webp",
+      "alt": "Original 1989 arcade cabinet art for Archive Quest: Sourcebound, a Platformer game."
+    },
+    "lightning-review": {
+      "title": "Lightning Review",
+      "course": "All Courses",
+      "gameType": "Quick Play",
+      "category": "arcade",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/lightning-review.webp",
+      "cardArt": "assets/game-card-art/lightning-review.webp",
+      "marquee": "assets/game-marquees/lightning-review.webp",
+      "alt": "Original 1989 arcade cabinet art for Lightning Review, a Quick Play game."
+    },
+    "source-sprint": {
+      "title": "Source Sprint",
+      "course": "Grade 10 Global History II + Grade 11 U.S. History",
+      "gameType": "Regents Quick Play",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/source-sprint.webp",
+      "cardArt": "assets/game-card-art/source-sprint.webp",
+      "marquee": "assets/game-marquees/source-sprint.webp",
+      "alt": "Original 1989 arcade cabinet art for Source Sprint, a Regents Quick Play game."
+    },
+    "vocab-vault": {
+      "title": "Vocab Vault",
+      "course": "All Courses",
+      "gameType": "Typing Drill",
+      "category": "arcade",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/vocab-vault.webp",
+      "cardArt": "assets/game-card-art/vocab-vault.webp",
+      "marquee": "assets/game-marquees/vocab-vault.webp",
+      "alt": "Original 1989 arcade cabinet art for Vocab Vault, a Typing Drill game."
+    },
+    "history-hunters": {
+      "title": "History Hunters 2: Atlas Quest",
+      "course": "All Courses",
+      "gameType": "Open-World RPG",
+      "category": "adventure",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/history-hunters.webp",
+      "cardArt": "assets/game-card-art/history-hunters.webp",
+      "marquee": "assets/game-marquees/history-hunters.webp",
+      "alt": "Original 1989 arcade cabinet art for History Hunters 2: Atlas Quest, a Open-World RPG game."
+    },
+    "chrono-pinball": {
+      "title": "Chrono Pinball: Starship Review",
+      "course": "All Courses",
+      "gameType": "Pinball",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/chrono-pinball.webp",
+      "cardArt": "assets/game-card-art/chrono-pinball.webp",
+      "marquee": "assets/game-marquees/chrono-pinball.webp",
+      "alt": "Original 1989 arcade cabinet art for Chrono Pinball: Starship Review, a Pinball game."
+    },
+    "archive-tycoon": {
+      "title": "Archive Tycoon",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/archive-tycoon.webp",
+      "cardArt": "assets/game-card-art/archive-tycoon.webp",
+      "marquee": "assets/game-marquees/archive-tycoon.webp",
+      "alt": "Original 1989 arcade cabinet art for Archive Tycoon, a Arcade game."
+    },
+    "empire-ascendant": {
+      "title": "Empire Ascendant: Rise & Fall",
+      "course": "All Courses",
+      "gameType": "Strategy",
+      "category": "arcade",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/empire-ascendant.webp",
+      "cardArt": "assets/game-card-art/empire-ascendant.webp",
+      "marquee": "assets/game-marquees/empire-ascendant.webp",
+      "alt": "Original 1989 arcade cabinet art for Empire Ascendant: Rise & Fall, a Strategy game."
+    },
+    "archive-cipher": {
+      "title": "Archive Cipher",
+      "course": "All Courses",
+      "gameType": "Word Puzzle",
+      "category": "source",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/archive-cipher.webp",
+      "cardArt": "assets/game-card-art/archive-cipher.webp",
+      "marquee": "assets/game-marquees/archive-cipher.webp",
+      "alt": "Original 1989 arcade cabinet art for Archive Cipher, a Word Puzzle game."
+    },
+    "timeline-runner": {
+      "title": "Timeline Runner",
+      "course": "All Courses",
+      "gameType": "Runner",
+      "category": "runner",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/timeline-runner.webp",
+      "cardArt": "assets/game-card-art/timeline-runner.webp",
+      "marquee": "assets/game-marquees/timeline-runner.webp",
+      "alt": "Original 1989 arcade cabinet art for Timeline Runner, a Runner game."
+    },
+    "time-rift-survivors": {
+      "title": "Time Rift Survivors",
+      "course": "All Courses",
+      "gameType": "Survivors",
+      "category": "arcade",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/time-rift-survivors.webp",
+      "cardArt": "assets/game-card-art/time-rift-survivors.webp",
+      "marquee": "assets/game-marquees/time-rift-survivors.webp",
+      "alt": "Original 1989 arcade cabinet art for Time Rift Survivors, a Survivors game."
+    },
+    "regents-gauntlet": {
+      "title": "Regents Gauntlet",
+      "course": "All Courses",
+      "gameType": "Regents Gauntlet",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/regents-gauntlet.webp",
+      "cardArt": "assets/game-card-art/regents-gauntlet.webp",
+      "marquee": "assets/game-marquees/regents-gauntlet.webp",
+      "alt": "Original 1989 arcade cabinet art for Regents Gauntlet, a Regents Gauntlet game."
+    },
+    "arcade-duel": {
+      "title": "Arcade Duel",
+      "course": "All Courses",
+      "gameType": "Arcade Duel",
+      "category": "arcade",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/arcade-duel.webp",
+      "cardArt": "assets/game-card-art/arcade-duel.webp",
+      "marquee": "assets/game-marquees/arcade-duel.webp",
+      "alt": "Original 1989 arcade cabinet art for Arcade Duel, a Arcade Duel game."
+    },
+    "chrono-defense-infinite": {
+      "title": "Chrono Defense Infinite",
+      "course": "All Courses",
+      "gameType": "Tower Defense",
+      "category": "arcade",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/chrono-defense-infinite.webp",
+      "cardArt": "assets/game-card-art/chrono-defense-infinite.webp",
+      "marquee": "assets/game-marquees/chrono-defense-infinite.webp",
+      "alt": "Original 1989 arcade cabinet art for Chrono Defense Infinite, a Tower Defense game."
+    },
+    "boss-rush-arena": {
+      "title": "Boss Rush Arena",
+      "course": "All Courses",
+      "gameType": "Boss Rush",
+      "category": "arcade",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/boss-rush-arena.webp",
+      "cardArt": "assets/game-card-art/boss-rush-arena.webp",
+      "marquee": "assets/game-marquees/boss-rush-arena.webp",
+      "alt": "Original 1989 arcade cabinet art for Boss Rush Arena, a Boss Rush game."
+    },
+    "global-9-01-development-of-civilization-jeopardy-review-html": {
+      "title": "Development of Civilization",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-01-development-of-civilization-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-01-development-of-civilization-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-01-development-of-civilization-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Development of Civilization, a Unit + Cumulative game."
+    },
+    "global-9-02-belief-systems-jeopardy-review-html": {
+      "title": "Belief Systems",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-02-belief-systems-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-02-belief-systems-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-02-belief-systems-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Belief Systems, a Unit + Cumulative game."
+    },
+    "global-9-03-classical-civilizations-jeopardy-review-html": {
+      "title": "Classical Civilizations",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-03-classical-civilizations-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-03-classical-civilizations-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-03-classical-civilizations-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Classical Civilizations, a Unit + Cumulative game."
+    },
+    "global-9-04-trade-networks-jeopardy-review-html": {
+      "title": "Trade Networks",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-04-trade-networks-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-04-trade-networks-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-04-trade-networks-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Trade Networks, a Unit + Cumulative game."
+    },
+    "global-9-05-postclassical-powers-jeopardy-review-html": {
+      "title": "Postclassical Powers",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-05-postclassical-powers-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-05-postclassical-powers-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-05-postclassical-powers-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Postclassical Powers, a Unit + Cumulative game."
+    },
+    "global-9-06-social-and-cultural-conflict-jeopardy-review-html": {
+      "title": "Social and Cultural Conflict",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-06-social-and-cultural-conflict-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-06-social-and-cultural-conflict-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-06-social-and-cultural-conflict-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Social and Cultural Conflict, a Unit + Cumulative game."
+    },
+    "global-9-07-ottoman-and-ming-worlds-jeopardy-review-html": {
+      "title": "Ottoman and Ming Worlds",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-07-ottoman-and-ming-worlds-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-07-ottoman-and-ming-worlds-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-07-ottoman-and-ming-worlds-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Ottoman and Ming Worlds, a Unit + Cumulative game."
+    },
+    "global-9-08-africa-and-the-americas-before-1600-jeopardy-review-html": {
+      "title": "Africa and the Americas Before 1600",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-08-africa-and-the-americas-before-1600-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-08-africa-and-the-americas-before-1600-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-08-africa-and-the-americas-before-1600-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Africa and the Americas Before 1600, a Unit + Cumulative game."
+    },
+    "global-9-09-western-europe-and-russia-jeopardy-review-html": {
+      "title": "Western Europe and Russia",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-09-western-europe-and-russia-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-09-western-europe-and-russia-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-09-western-europe-and-russia-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Western Europe and Russia, a Unit + Cumulative game."
+    },
+    "global-9-10-interactions-and-disruptions-jeopardy-review-html": {
+      "title": "Interactions and Disruptions",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-10-interactions-and-disruptions-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-10-interactions-and-disruptions-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-10-interactions-and-disruptions-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Interactions and Disruptions, a Unit + Cumulative game."
+    },
+    "global-9-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "Grade 9 Yearlong Review",
+      "course": "Grade 9 Global History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-9-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-9-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-9-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Grade 9 Yearlong Review, a Unit + Cumulative game."
+    },
+    "global-10-units-01-world-in-1750-jeopardy-review-html": {
+      "title": "World in 1750",
+      "course": "Grade 10 Global History II",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-10-units-01-world-in-1750-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-10-units-01-world-in-1750-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-10-units-01-world-in-1750-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for World in 1750, a Unit Review game."
+    },
+    "global-10-units-02-enlightenment-and-atlantic-revolutions-jeopardy-review-html": {
+      "title": "Enlightenment and Atlantic Revolutions",
+      "course": "Grade 10 Global History II",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-10-units-02-enlightenment-and-atlantic-revolutions-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-10-units-02-enlightenment-and-atlantic-revolutions-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-10-units-02-enlightenment-and-atlantic-revolutions-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Enlightenment and Atlantic Revolutions, a Unit Review game."
+    },
+    "global-10-units-03-industrial-revolution-jeopardy-review-html": {
+      "title": "Industrial Revolution",
+      "course": "Grade 10 Global History II",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-10-units-03-industrial-revolution-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-10-units-03-industrial-revolution-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-10-units-03-industrial-revolution-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Industrial Revolution, a Unit Review game."
+    },
+    "global-10-units-04-imperialism-jeopardy-review-html": {
+      "title": "Imperialism",
+      "course": "Grade 10 Global History II",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-10-units-04-imperialism-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-10-units-04-imperialism-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-10-units-04-imperialism-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Imperialism, a Unit Review game."
+    },
+    "global-10-units-05-global-conflict-world-war-i-to-world-war-ii-jeopardy-review-html": {
+      "title": "Global Conflict: World War I to World War II",
+      "course": "Grade 10 Global History II",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-10-units-05-global-conflict-world-war-i-to-world-war-ii-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-10-units-05-global-conflict-world-war-i-to-world-war-ii-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-10-units-05-global-conflict-world-war-i-to-world-war-ii-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Global Conflict: World War I to World War II, a Unit Review game."
+    },
+    "global-10-units-06-cold-war-1945-1991-jeopardy-review-html": {
+      "title": "Cold War 1945-1991",
+      "course": "Grade 10 Global History II",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-10-units-06-cold-war-1945-1991-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-10-units-06-cold-war-1945-1991-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-10-units-06-cold-war-1945-1991-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Cold War 1945-1991, a Unit Review game."
+    },
+    "global-10-units-07-decolonization-and-nationalism-jeopardy-review-html": {
+      "title": "Decolonization and Nationalism",
+      "course": "Grade 10 Global History II",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-10-units-07-decolonization-and-nationalism-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-10-units-07-decolonization-and-nationalism-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-10-units-07-decolonization-and-nationalism-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Decolonization and Nationalism, a Unit Review game."
+    },
+    "global-10-units-08-modernization-tensions-jeopardy-review-html": {
+      "title": "Modernization Tensions",
+      "course": "Grade 10 Global History II",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-10-units-08-modernization-tensions-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-10-units-08-modernization-tensions-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-10-units-08-modernization-tensions-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Modernization Tensions, a Unit Review game."
+    },
+    "global-10-units-09-globalization-jeopardy-review-html": {
+      "title": "Globalization",
+      "course": "Grade 10 Global History II",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-10-units-09-globalization-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-10-units-09-globalization-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-10-units-09-globalization-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Globalization, a Unit Review game."
+    },
+    "global-10-units-10-human-rights-violations-jeopardy-review-html": {
+      "title": "Human Rights Violations",
+      "course": "Grade 10 Global History II",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-10-units-10-human-rights-violations-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/global-10-units-10-human-rights-violations-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/global-10-units-10-human-rights-violations-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Human Rights Violations, a Unit Review game."
+    },
+    "global-regents-sprint-day-1-geography-turning-points-review-game-html": {
+      "title": "The Map and the Moment",
+      "course": "Grade 10 Global History II",
+      "gameType": "Regents Sprint",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-regents-sprint-day-1-geography-turning-points-review-game-html.webp",
+      "cardArt": "assets/game-card-art/global-regents-sprint-day-1-geography-turning-points-review-game-html.webp",
+      "marquee": "assets/game-marquees/global-regents-sprint-day-1-geography-turning-points-review-game-html.webp",
+      "alt": "Original 1989 arcade cabinet art for The Map and the Moment, a Regents Sprint game."
+    },
+    "global-regents-sprint-day-2-economic-political-systems-review-game-html": {
+      "title": "How the World Organizes Itself",
+      "course": "Grade 10 Global History II",
+      "gameType": "Regents Sprint",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-regents-sprint-day-2-economic-political-systems-review-game-html.webp",
+      "cardArt": "assets/game-card-art/global-regents-sprint-day-2-economic-political-systems-review-game-html.webp",
+      "marquee": "assets/game-marquees/global-regents-sprint-day-2-economic-political-systems-review-game-html.webp",
+      "alt": "Original 1989 arcade cabinet art for How the World Organizes Itself, a Regents Sprint game."
+    },
+    "global-regents-sprint-day-3-conflicts-human-rights-review-game-html": {
+      "title": "Conflicts and Human Rights",
+      "course": "Grade 10 Global History II",
+      "gameType": "Regents Sprint",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-regents-sprint-day-3-conflicts-human-rights-review-game-html.webp",
+      "cardArt": "assets/game-card-art/global-regents-sprint-day-3-conflicts-human-rights-review-game-html.webp",
+      "marquee": "assets/game-marquees/global-regents-sprint-day-3-conflicts-human-rights-review-game-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Conflicts and Human Rights, a Regents Sprint game."
+    },
+    "global-regents-sprint-day-4-current-issues-names-1-42-review-game-html": {
+      "title": "Current Issues and 42 Names",
+      "course": "Grade 10 Global History II",
+      "gameType": "Regents Sprint",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-regents-sprint-day-4-current-issues-names-1-42-review-game-html.webp",
+      "cardArt": "assets/game-card-art/global-regents-sprint-day-4-current-issues-names-1-42-review-game-html.webp",
+      "marquee": "assets/game-marquees/global-regents-sprint-day-4-current-issues-names-1-42-review-game-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Current Issues and 42 Names, a Regents Sprint game."
+    },
+    "global-regents-sprint-day-5-people-power-reform-review-game-html": {
+      "title": "People, Power, and Reform",
+      "course": "Grade 10 Global History II",
+      "gameType": "Regents Sprint",
+      "category": "exam",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#b892ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/global-regents-sprint-day-5-people-power-reform-review-game-html.webp",
+      "cardArt": "assets/game-card-art/global-regents-sprint-day-5-people-power-reform-review-game-html.webp",
+      "marquee": "assets/game-marquees/global-regents-sprint-day-5-people-power-reform-review-game-html.webp",
+      "alt": "Original 1989 arcade cabinet art for People, Power, and Reform, a Regents Sprint game."
+    },
+    "us-history-units-01-colonial-foundations-jeopardy-review-html": {
+      "title": "Colonial Foundations",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-01-colonial-foundations-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-01-colonial-foundations-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-01-colonial-foundations-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Colonial Foundations, a Unit Review game."
+    },
+    "us-history-units-02-constitutional-foundations-jeopardy-review-html": {
+      "title": "Constitutional Foundations",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-02-constitutional-foundations-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-02-constitutional-foundations-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-02-constitutional-foundations-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Constitutional Foundations, a Unit Review game."
+    },
+    "us-history-units-03-expansion-and-reform-jeopardy-review-html": {
+      "title": "Expansion and Reform",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-03-expansion-and-reform-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-03-expansion-and-reform-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-03-expansion-and-reform-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Expansion and Reform, a Unit Review game."
+    },
+    "us-history-units-04-civil-war-and-reconstruction-jeopardy-review-html": {
+      "title": "Civil War and Reconstruction",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-04-civil-war-and-reconstruction-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-04-civil-war-and-reconstruction-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-04-civil-war-and-reconstruction-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Civil War and Reconstruction, a Unit Review game."
+    },
+    "us-history-units-05-industrialization-and-the-gilded-age-jeopardy-review-html": {
+      "title": "Industrialization and the Gilded Age",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-05-industrialization-and-the-gilded-age-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-05-industrialization-and-the-gilded-age-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-05-industrialization-and-the-gilded-age-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Industrialization and the Gilded Age, a Unit Review game."
+    },
+    "us-history-units-06-imperialism-progressivism-and-world-war-i-jeopardy-review-html": {
+      "title": "Imperialism, Progressivism, and World War I",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-06-imperialism-progressivism-and-world-war-i-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-06-imperialism-progressivism-and-world-war-i-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-06-imperialism-progressivism-and-world-war-i-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Imperialism, Progressivism, and World War I, a Unit Review game."
+    },
+    "us-history-units-07-prosperity-and-depression-jeopardy-review-html": {
+      "title": "Prosperity and Depression",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-07-prosperity-and-depression-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-07-prosperity-and-depression-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-07-prosperity-and-depression-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Prosperity and Depression, a Unit Review game."
+    },
+    "us-history-units-08-world-war-ii-jeopardy-review-html": {
+      "title": "World War II",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-08-world-war-ii-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-08-world-war-ii-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-08-world-war-ii-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for World War II, a Unit Review game."
+    },
+    "us-history-units-09-cold-war-jeopardy-review-html": {
+      "title": "Cold War",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-09-cold-war-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-09-cold-war-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-09-cold-war-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Cold War, a Unit Review game."
+    },
+    "us-history-units-10-civil-rights-jeopardy-review-html": {
+      "title": "Civil Rights",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-10-civil-rights-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-10-civil-rights-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-10-civil-rights-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Civil Rights, a Unit Review game."
+    },
+    "us-history-units-11-modern-era-jeopardy-review-html": {
+      "title": "Modern Era",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Unit Review",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-history-units-11-modern-era-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/us-history-units-11-modern-era-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/us-history-units-11-modern-era-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Modern Era, a Unit Review game."
+    },
+    "us-regents-sprint-day-1-colonial-constitution-supreme-court-review-game-html": {
+      "title": "Foundations of America",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Regents Sprint",
+      "category": "exam",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-regents-sprint-day-1-colonial-constitution-supreme-court-review-game-html.webp",
+      "cardArt": "assets/game-card-art/us-regents-sprint-day-1-colonial-constitution-supreme-court-review-game-html.webp",
+      "marquee": "assets/game-marquees/us-regents-sprint-day-1-colonial-constitution-supreme-court-review-game-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Foundations of America, a Regents Sprint game."
+    },
+    "us-regents-sprint-day-2-amendments-documents-laws-review-game-html": {
+      "title": "Amendments, Documents, and Laws",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Regents Sprint",
+      "category": "exam",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-regents-sprint-day-2-amendments-documents-laws-review-game-html.webp",
+      "cardArt": "assets/game-card-art/us-regents-sprint-day-2-amendments-documents-laws-review-game-html.webp",
+      "marquee": "assets/game-marquees/us-regents-sprint-day-2-amendments-documents-laws-review-game-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Amendments, Documents, and Laws, a Regents Sprint game."
+    },
+    "us-regents-sprint-day-3-foreign-policy-wars-review-game-html": {
+      "title": "Foreign Policy and Wars",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Regents Sprint",
+      "category": "exam",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-regents-sprint-day-3-foreign-policy-wars-review-game-html.webp",
+      "cardArt": "assets/game-card-art/us-regents-sprint-day-3-foreign-policy-wars-review-game-html.webp",
+      "marquee": "assets/game-marquees/us-regents-sprint-day-3-foreign-policy-wars-review-game-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Foreign Policy and Wars, a Regents Sprint game."
+    },
+    "us-regents-sprint-day-4-presidents-reformers-movements-review-game-html": {
+      "title": "Presidents, Reformers, and Movements",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Regents Sprint",
+      "category": "exam",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-regents-sprint-day-4-presidents-reformers-movements-review-game-html.webp",
+      "cardArt": "assets/game-card-art/us-regents-sprint-day-4-presidents-reformers-movements-review-game-html.webp",
+      "marquee": "assets/game-marquees/us-regents-sprint-day-4-presidents-reformers-movements-review-game-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Presidents, Reformers, and Movements, a Regents Sprint game."
+    },
+    "us-regents-sprint-day-5-modern-issues-miscellaneous-review-game-html": {
+      "title": "Modern Issues and Miscellaneous",
+      "course": "Grade 11 U.S. History",
+      "gameType": "Regents Sprint",
+      "category": "exam",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/us-regents-sprint-day-5-modern-issues-miscellaneous-review-game-html.webp",
+      "cardArt": "assets/game-card-art/us-regents-sprint-day-5-modern-issues-miscellaneous-review-game-html.webp",
+      "marquee": "assets/game-marquees/us-regents-sprint-day-5-modern-issues-miscellaneous-review-game-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Modern Issues and Miscellaneous, a Regents Sprint game."
+    },
+    "ap-psychology-01-research-methods-jeopardy-review-html": {
+      "title": "Research Methods",
+      "course": "AP Psychology",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ff7cc8",
+        "#b892ff",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-psychology-01-research-methods-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-psychology-01-research-methods-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-psychology-01-research-methods-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Research Methods, a Unit + AP Final game."
+    },
+    "ap-psychology-02-biological-bases-jeopardy-review-html": {
+      "title": "Biological Bases",
+      "course": "AP Psychology",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ff7cc8",
+        "#b892ff",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-psychology-02-biological-bases-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-psychology-02-biological-bases-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-psychology-02-biological-bases-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Biological Bases, a Unit + AP Final game."
+    },
+    "ap-psychology-03-cognition-jeopardy-review-html": {
+      "title": "Cognition",
+      "course": "AP Psychology",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ff7cc8",
+        "#b892ff",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-psychology-03-cognition-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-psychology-03-cognition-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-psychology-03-cognition-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Cognition, a Unit + AP Final game."
+    },
+    "ap-psychology-04-development-and-learning-jeopardy-review-html": {
+      "title": "Development and Learning",
+      "course": "AP Psychology",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ff7cc8",
+        "#b892ff",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-psychology-04-development-and-learning-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-psychology-04-development-and-learning-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-psychology-04-development-and-learning-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Development and Learning, a Unit + AP Final game."
+    },
+    "ap-psychology-05-social-psychology-and-personality-jeopardy-review-html": {
+      "title": "Social Psychology and Personality",
+      "course": "AP Psychology",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ff7cc8",
+        "#b892ff",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-psychology-05-social-psychology-and-personality-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-psychology-05-social-psychology-and-personality-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-psychology-05-social-psychology-and-personality-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Social Psychology and Personality, a Unit + AP Final game."
+    },
+    "ap-psychology-06-clinical-and-positive-psychology-jeopardy-review-html": {
+      "title": "Clinical and Positive Psychology",
+      "course": "AP Psychology",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ff7cc8",
+        "#b892ff",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-psychology-06-clinical-and-positive-psychology-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-psychology-06-clinical-and-positive-psychology-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-psychology-06-clinical-and-positive-psychology-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Clinical and Positive Psychology, a Unit + AP Final game."
+    },
+    "ap-psychology-99-ap-psychology-final-exam-comprehensive-review-html": {
+      "title": "AP Psychology Final Exam Review",
+      "course": "AP Psychology",
+      "gameType": "Unit + AP Final",
+      "category": "arcade",
+      "palette": [
+        "#ff7cc8",
+        "#b892ff",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-psychology-99-ap-psychology-final-exam-comprehensive-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-psychology-99-ap-psychology-final-exam-comprehensive-review-html.webp",
+      "marquee": "assets/game-marquees/ap-psychology-99-ap-psychology-final-exam-comprehensive-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for AP Psychology Final Exam Review, a Unit + AP Final game."
+    },
+    "apush-01-period-1-1491-1607-jeopardy-review-html": {
+      "title": "Period 1: 1491-1607",
+      "course": "AP United States History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/apush-01-period-1-1491-1607-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/apush-01-period-1-1491-1607-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/apush-01-period-1-1491-1607-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Period 1: 1491-1607, a Unit + AP Final game."
+    },
+    "apush-02-period-2-1607-1754-jeopardy-review-html": {
+      "title": "Period 2: 1607-1754",
+      "course": "AP United States History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/apush-02-period-2-1607-1754-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/apush-02-period-2-1607-1754-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/apush-02-period-2-1607-1754-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Period 2: 1607-1754, a Unit + AP Final game."
+    },
+    "apush-03-period-3-1754-1800-jeopardy-review-html": {
+      "title": "Period 3: 1754-1800",
+      "course": "AP United States History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/apush-03-period-3-1754-1800-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/apush-03-period-3-1754-1800-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/apush-03-period-3-1754-1800-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Period 3: 1754-1800, a Unit + AP Final game."
+    },
+    "apush-04-period-4-1800-1848-jeopardy-review-html": {
+      "title": "Period 4: 1800-1848",
+      "course": "AP United States History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/apush-04-period-4-1800-1848-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/apush-04-period-4-1800-1848-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/apush-04-period-4-1800-1848-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Period 4: 1800-1848, a Unit + AP Final game."
+    },
+    "apush-05-period-5-1844-1877-jeopardy-review-html": {
+      "title": "Period 5: 1844-1877",
+      "course": "AP United States History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/apush-05-period-5-1844-1877-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/apush-05-period-5-1844-1877-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/apush-05-period-5-1844-1877-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Period 5: 1844-1877, a Unit + AP Final game."
+    },
+    "apush-06-period-6-1865-1898-jeopardy-review-html": {
+      "title": "Period 6: 1865-1898",
+      "course": "AP United States History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/apush-06-period-6-1865-1898-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/apush-06-period-6-1865-1898-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/apush-06-period-6-1865-1898-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Period 6: 1865-1898, a Unit + AP Final game."
+    },
+    "apush-07-period-7-1890-1945-jeopardy-review-html": {
+      "title": "Period 7: 1890-1945",
+      "course": "AP United States History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/apush-07-period-7-1890-1945-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/apush-07-period-7-1890-1945-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/apush-07-period-7-1890-1945-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Period 7: 1890-1945, a Unit + AP Final game."
+    },
+    "apush-08-period-8-1945-1980-jeopardy-review-html": {
+      "title": "Period 8: 1945-1980",
+      "course": "AP United States History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/apush-08-period-8-1945-1980-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/apush-08-period-8-1945-1980-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/apush-08-period-8-1945-1980-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Period 8: 1945-1980, a Unit + AP Final game."
+    },
+    "apush-09-period-9-1980-present-jeopardy-review-html": {
+      "title": "Period 9: 1980-Present",
+      "course": "AP United States History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/apush-09-period-9-1980-present-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/apush-09-period-9-1980-present-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/apush-09-period-9-1980-present-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Period 9: 1980-Present, a Unit + AP Final game."
+    },
+    "apush-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "APUSH Final Exam Review",
+      "course": "AP United States History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#ff8e6f",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/apush-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/apush-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/apush-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for APUSH Final Exam Review, a Unit + AP Final game."
+    },
+    "ap-world-history-01-unit-1-the-global-tapestry-jeopardy-review-html": {
+      "title": "Unit 1: The Global Tapestry",
+      "course": "AP World History: Modern",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-world-history-01-unit-1-the-global-tapestry-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-world-history-01-unit-1-the-global-tapestry-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-world-history-01-unit-1-the-global-tapestry-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 1: The Global Tapestry, a Unit + AP Final game."
+    },
+    "ap-world-history-02-unit-2-networks-of-exchange-jeopardy-review-html": {
+      "title": "Unit 2: Networks of Exchange",
+      "course": "AP World History: Modern",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-world-history-02-unit-2-networks-of-exchange-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-world-history-02-unit-2-networks-of-exchange-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-world-history-02-unit-2-networks-of-exchange-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 2: Networks of Exchange, a Unit + AP Final game."
+    },
+    "ap-world-history-03-unit-3-land-based-empires-jeopardy-review-html": {
+      "title": "Unit 3: Land-Based Empires",
+      "course": "AP World History: Modern",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-world-history-03-unit-3-land-based-empires-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-world-history-03-unit-3-land-based-empires-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-world-history-03-unit-3-land-based-empires-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 3: Land-Based Empires, a Unit + AP Final game."
+    },
+    "ap-world-history-04-unit-4-transoceanic-interconnections-jeopardy-review-html": {
+      "title": "Unit 4: Transoceanic Interconnections",
+      "course": "AP World History: Modern",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-world-history-04-unit-4-transoceanic-interconnections-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-world-history-04-unit-4-transoceanic-interconnections-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-world-history-04-unit-4-transoceanic-interconnections-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 4: Transoceanic Interconnections, a Unit + AP Final game."
+    },
+    "ap-world-history-05-unit-5-revolutions-jeopardy-review-html": {
+      "title": "Unit 5: Revolutions",
+      "course": "AP World History: Modern",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-world-history-05-unit-5-revolutions-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-world-history-05-unit-5-revolutions-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-world-history-05-unit-5-revolutions-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 5: Revolutions, a Unit + AP Final game."
+    },
+    "ap-world-history-06-unit-6-consequences-of-industrialization-jeopardy-review-html": {
+      "title": "Unit 6: Consequences of Industrialization",
+      "course": "AP World History: Modern",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-world-history-06-unit-6-consequences-of-industrialization-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-world-history-06-unit-6-consequences-of-industrialization-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-world-history-06-unit-6-consequences-of-industrialization-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 6: Consequences of Industrialization, a Unit + AP Final game."
+    },
+    "ap-world-history-07-unit-7-global-conflict-jeopardy-review-html": {
+      "title": "Unit 7: Global Conflict",
+      "course": "AP World History: Modern",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-world-history-07-unit-7-global-conflict-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-world-history-07-unit-7-global-conflict-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-world-history-07-unit-7-global-conflict-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 7: Global Conflict, a Unit + AP Final game."
+    },
+    "ap-world-history-08-unit-8-cold-war-and-decolonization-jeopardy-review-html": {
+      "title": "Unit 8: Cold War and Decolonization",
+      "course": "AP World History: Modern",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-world-history-08-unit-8-cold-war-and-decolonization-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-world-history-08-unit-8-cold-war-and-decolonization-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-world-history-08-unit-8-cold-war-and-decolonization-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 8: Cold War and Decolonization, a Unit + AP Final game."
+    },
+    "ap-world-history-09-unit-9-globalization-jeopardy-review-html": {
+      "title": "Unit 9: Globalization",
+      "course": "AP World History: Modern",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-world-history-09-unit-9-globalization-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-world-history-09-unit-9-globalization-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-world-history-09-unit-9-globalization-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 9: Globalization, a Unit + AP Final game."
+    },
+    "ap-world-history-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "AP World Final Exam Review",
+      "course": "AP World History: Modern",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-world-history-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-world-history-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-world-history-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for AP World Final Exam Review, a Unit + AP Final game."
+    },
+    "ap-european-history-01-unit-1-renaissance-and-exploration-jeopardy-review-html": {
+      "title": "Unit 1: Renaissance and Exploration",
+      "course": "AP European History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#b892ff",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-european-history-01-unit-1-renaissance-and-exploration-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-european-history-01-unit-1-renaissance-and-exploration-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-european-history-01-unit-1-renaissance-and-exploration-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 1: Renaissance and Exploration, a Unit + AP Final game."
+    },
+    "ap-european-history-02-unit-2-age-of-reformation-jeopardy-review-html": {
+      "title": "Unit 2: Age of Reformation",
+      "course": "AP European History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#b892ff",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-european-history-02-unit-2-age-of-reformation-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-european-history-02-unit-2-age-of-reformation-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-european-history-02-unit-2-age-of-reformation-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 2: Age of Reformation, a Unit + AP Final game."
+    },
+    "ap-european-history-03-unit-3-absolutism-and-constitutionalism-jeopardy-review-html": {
+      "title": "Unit 3: Absolutism and Constitutionalism",
+      "course": "AP European History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#b892ff",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-european-history-03-unit-3-absolutism-and-constitutionalism-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-european-history-03-unit-3-absolutism-and-constitutionalism-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-european-history-03-unit-3-absolutism-and-constitutionalism-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 3: Absolutism and Constitutionalism, a Unit + AP Final game."
+    },
+    "ap-european-history-04-unit-4-scientific-philosophical-and-political-developments-jeopardy-review-html": {
+      "title": "Unit 4: Scientific, Philosophical, and Political Developments",
+      "course": "AP European History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#b892ff",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-european-history-04-unit-4-scientific-philosophical-and-political-developments-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-european-history-04-unit-4-scientific-philosophical-and-political-developments-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-european-history-04-unit-4-scientific-philosophical-and-political-developments-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 4: Scientific, Philosophical, and Political Developments, a Unit + AP Final game."
+    },
+    "ap-european-history-05-unit-5-conflict-crisis-and-reaction-jeopardy-review-html": {
+      "title": "Unit 5: Conflict, Crisis, and Reaction",
+      "course": "AP European History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#b892ff",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-european-history-05-unit-5-conflict-crisis-and-reaction-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-european-history-05-unit-5-conflict-crisis-and-reaction-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-european-history-05-unit-5-conflict-crisis-and-reaction-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 5: Conflict, Crisis, and Reaction, a Unit + AP Final game."
+    },
+    "ap-european-history-06-unit-6-industrialization-and-its-effects-jeopardy-review-html": {
+      "title": "Unit 6: Industrialization and Its Effects",
+      "course": "AP European History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#b892ff",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-european-history-06-unit-6-industrialization-and-its-effects-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-european-history-06-unit-6-industrialization-and-its-effects-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-european-history-06-unit-6-industrialization-and-its-effects-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 6: Industrialization and Its Effects, a Unit + AP Final game."
+    },
+    "ap-european-history-07-unit-7-19th-century-perspectives-and-political-developments-jeopardy-review-html": {
+      "title": "Unit 7: 19th-Century Perspectives and Political Developments",
+      "course": "AP European History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#b892ff",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-european-history-07-unit-7-19th-century-perspectives-and-political-developments-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-european-history-07-unit-7-19th-century-perspectives-and-political-developments-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-european-history-07-unit-7-19th-century-perspectives-and-political-developments-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 7: 19th-Century Perspectives and Political Developments, a Unit + AP Final game."
+    },
+    "ap-european-history-08-unit-8-20th-century-global-conflicts-jeopardy-review-html": {
+      "title": "Unit 8: 20th-Century Global Conflicts",
+      "course": "AP European History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#b892ff",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-european-history-08-unit-8-20th-century-global-conflicts-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-european-history-08-unit-8-20th-century-global-conflicts-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-european-history-08-unit-8-20th-century-global-conflicts-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 8: 20th-Century Global Conflicts, a Unit + AP Final game."
+    },
+    "ap-european-history-09-unit-9-cold-war-and-contemporary-europe-jeopardy-review-html": {
+      "title": "Unit 9: Cold War and Contemporary Europe",
+      "course": "AP European History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#b892ff",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-european-history-09-unit-9-cold-war-and-contemporary-europe-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-european-history-09-unit-9-cold-war-and-contemporary-europe-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-european-history-09-unit-9-cold-war-and-contemporary-europe-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 9: Cold War and Contemporary Europe, a Unit + AP Final game."
+    },
+    "ap-european-history-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "AP European History Final Exam Review",
+      "course": "AP European History",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#b892ff",
+        "#f5c451",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-european-history-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-european-history-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-european-history-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for AP European History Final Exam Review, a Unit + AP Final game."
+    },
+    "ap-human-geography-01-unit-1-thinking-geographically-jeopardy-review-html": {
+      "title": "Unit 1: Thinking Geographically",
+      "course": "AP Human Geography",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#7af0ff",
+        "#f5c451"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-human-geography-01-unit-1-thinking-geographically-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-human-geography-01-unit-1-thinking-geographically-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-human-geography-01-unit-1-thinking-geographically-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 1: Thinking Geographically, a Unit + AP Final game."
+    },
+    "ap-human-geography-02-unit-2-population-and-migration-jeopardy-review-html": {
+      "title": "Unit 2: Population and Migration",
+      "course": "AP Human Geography",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#7af0ff",
+        "#f5c451"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-human-geography-02-unit-2-population-and-migration-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-human-geography-02-unit-2-population-and-migration-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-human-geography-02-unit-2-population-and-migration-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 2: Population and Migration, a Unit + AP Final game."
+    },
+    "ap-human-geography-03-unit-3-cultural-patterns-and-processes-jeopardy-review-html": {
+      "title": "Unit 3: Cultural Patterns and Processes",
+      "course": "AP Human Geography",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#7af0ff",
+        "#f5c451"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-human-geography-03-unit-3-cultural-patterns-and-processes-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-human-geography-03-unit-3-cultural-patterns-and-processes-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-human-geography-03-unit-3-cultural-patterns-and-processes-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 3: Cultural Patterns and Processes, a Unit + AP Final game."
+    },
+    "ap-human-geography-04-unit-4-political-patterns-and-processes-jeopardy-review-html": {
+      "title": "Unit 4: Political Patterns and Processes",
+      "course": "AP Human Geography",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#7af0ff",
+        "#f5c451"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-human-geography-04-unit-4-political-patterns-and-processes-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-human-geography-04-unit-4-political-patterns-and-processes-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-human-geography-04-unit-4-political-patterns-and-processes-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 4: Political Patterns and Processes, a Unit + AP Final game."
+    },
+    "ap-human-geography-05-unit-5-agriculture-and-rural-land-use-jeopardy-review-html": {
+      "title": "Unit 5: Agriculture and Rural Land-Use",
+      "course": "AP Human Geography",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#7af0ff",
+        "#f5c451"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-human-geography-05-unit-5-agriculture-and-rural-land-use-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-human-geography-05-unit-5-agriculture-and-rural-land-use-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-human-geography-05-unit-5-agriculture-and-rural-land-use-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 5: Agriculture and Rural Land-Use, a Unit + AP Final game."
+    },
+    "ap-human-geography-06-unit-6-cities-and-urban-land-use-jeopardy-review-html": {
+      "title": "Unit 6: Cities and Urban Land-Use",
+      "course": "AP Human Geography",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#7af0ff",
+        "#f5c451"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-human-geography-06-unit-6-cities-and-urban-land-use-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-human-geography-06-unit-6-cities-and-urban-land-use-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-human-geography-06-unit-6-cities-and-urban-land-use-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 6: Cities and Urban Land-Use, a Unit + AP Final game."
+    },
+    "ap-human-geography-07-unit-7-industrial-and-economic-development-jeopardy-review-html": {
+      "title": "Unit 7: Industrial and Economic Development",
+      "course": "AP Human Geography",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#7af0ff",
+        "#f5c451"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-human-geography-07-unit-7-industrial-and-economic-development-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-human-geography-07-unit-7-industrial-and-economic-development-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-human-geography-07-unit-7-industrial-and-economic-development-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 7: Industrial and Economic Development, a Unit + AP Final game."
+    },
+    "ap-human-geography-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "AP Human Geography Final Exam Review",
+      "course": "AP Human Geography",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#69f0aa",
+        "#7af0ff",
+        "#f5c451"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-human-geography-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-human-geography-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-human-geography-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for AP Human Geography Final Exam Review, a Unit + AP Final game."
+    },
+    "ap-us-government-01-unit-1-foundations-of-american-democracy-jeopardy-review-html": {
+      "title": "Unit 1: Foundations of American Democracy",
+      "course": "AP U.S. Government and Politics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-us-government-01-unit-1-foundations-of-american-democracy-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-us-government-01-unit-1-foundations-of-american-democracy-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-us-government-01-unit-1-foundations-of-american-democracy-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 1: Foundations of American Democracy, a Unit + AP Final game."
+    },
+    "ap-us-government-02-unit-2-interactions-among-branches-jeopardy-review-html": {
+      "title": "Unit 2: Interactions Among Branches",
+      "course": "AP U.S. Government and Politics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-us-government-02-unit-2-interactions-among-branches-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-us-government-02-unit-2-interactions-among-branches-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-us-government-02-unit-2-interactions-among-branches-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 2: Interactions Among Branches, a Unit + AP Final game."
+    },
+    "ap-us-government-03-unit-3-civil-liberties-and-civil-rights-jeopardy-review-html": {
+      "title": "Unit 3: Civil Liberties and Civil Rights",
+      "course": "AP U.S. Government and Politics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-us-government-03-unit-3-civil-liberties-and-civil-rights-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-us-government-03-unit-3-civil-liberties-and-civil-rights-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-us-government-03-unit-3-civil-liberties-and-civil-rights-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 3: Civil Liberties and Civil Rights, a Unit + AP Final game."
+    },
+    "ap-us-government-04-unit-4-political-ideologies-and-beliefs-jeopardy-review-html": {
+      "title": "Unit 4: Political Ideologies and Beliefs",
+      "course": "AP U.S. Government and Politics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-us-government-04-unit-4-political-ideologies-and-beliefs-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-us-government-04-unit-4-political-ideologies-and-beliefs-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-us-government-04-unit-4-political-ideologies-and-beliefs-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 4: Political Ideologies and Beliefs, a Unit + AP Final game."
+    },
+    "ap-us-government-05-unit-5-political-participation-jeopardy-review-html": {
+      "title": "Unit 5: Political Participation",
+      "course": "AP U.S. Government and Politics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-us-government-05-unit-5-political-participation-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-us-government-05-unit-5-political-participation-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-us-government-05-unit-5-political-participation-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 5: Political Participation, a Unit + AP Final game."
+    },
+    "ap-us-government-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "AP Government Final Exam Review",
+      "course": "AP U.S. Government and Politics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-us-government-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-us-government-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-us-government-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for AP Government Final Exam Review, a Unit + AP Final game."
+    },
+    "ap-macroeconomics-01-unit-1-basic-economic-concepts-jeopardy-review-html": {
+      "title": "Unit 1: Basic Economic Concepts",
+      "course": "AP Macroeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-macroeconomics-01-unit-1-basic-economic-concepts-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-macroeconomics-01-unit-1-basic-economic-concepts-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-macroeconomics-01-unit-1-basic-economic-concepts-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 1: Basic Economic Concepts, a Unit + AP Final game."
+    },
+    "ap-macroeconomics-02-unit-2-economic-indicators-and-the-business-cycle-jeopardy-review-html": {
+      "title": "Unit 2: Economic Indicators and the Business Cycle",
+      "course": "AP Macroeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-macroeconomics-02-unit-2-economic-indicators-and-the-business-cycle-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-macroeconomics-02-unit-2-economic-indicators-and-the-business-cycle-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-macroeconomics-02-unit-2-economic-indicators-and-the-business-cycle-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 2: Economic Indicators and the Business Cycle, a Unit + AP Final game."
+    },
+    "ap-macroeconomics-03-unit-3-national-income-and-price-determination-jeopardy-review-html": {
+      "title": "Unit 3: National Income and Price Determination",
+      "course": "AP Macroeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-macroeconomics-03-unit-3-national-income-and-price-determination-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-macroeconomics-03-unit-3-national-income-and-price-determination-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-macroeconomics-03-unit-3-national-income-and-price-determination-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 3: National Income and Price Determination, a Unit + AP Final game."
+    },
+    "ap-macroeconomics-04-unit-4-financial-sector-jeopardy-review-html": {
+      "title": "Unit 4: Financial Sector",
+      "course": "AP Macroeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-macroeconomics-04-unit-4-financial-sector-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-macroeconomics-04-unit-4-financial-sector-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-macroeconomics-04-unit-4-financial-sector-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 4: Financial Sector, a Unit + AP Final game."
+    },
+    "ap-macroeconomics-05-unit-5-long-run-consequences-of-stabilization-policies-jeopardy-review-html": {
+      "title": "Unit 5: Long-Run Consequences of Stabilization Policies",
+      "course": "AP Macroeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-macroeconomics-05-unit-5-long-run-consequences-of-stabilization-policies-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-macroeconomics-05-unit-5-long-run-consequences-of-stabilization-policies-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-macroeconomics-05-unit-5-long-run-consequences-of-stabilization-policies-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 5: Long-Run Consequences of Stabilization Policies, a Unit + AP Final game."
+    },
+    "ap-macroeconomics-06-unit-6-open-economy-jeopardy-review-html": {
+      "title": "Unit 6: Open Economy",
+      "course": "AP Macroeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-macroeconomics-06-unit-6-open-economy-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-macroeconomics-06-unit-6-open-economy-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-macroeconomics-06-unit-6-open-economy-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 6: Open Economy, a Unit + AP Final game."
+    },
+    "ap-macroeconomics-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "AP Macroeconomics Final Exam Review",
+      "course": "AP Macroeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-macroeconomics-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-macroeconomics-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-macroeconomics-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for AP Macroeconomics Final Exam Review, a Unit + AP Final game."
+    },
+    "ap-microeconomics-01-unit-1-basic-economic-concepts-jeopardy-review-html": {
+      "title": "Unit 1: Basic Economic Concepts",
+      "course": "AP Microeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ffd884",
+        "#69f0aa",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-microeconomics-01-unit-1-basic-economic-concepts-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-microeconomics-01-unit-1-basic-economic-concepts-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-microeconomics-01-unit-1-basic-economic-concepts-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 1: Basic Economic Concepts, a Unit + AP Final game."
+    },
+    "ap-microeconomics-02-unit-2-supply-and-demand-jeopardy-review-html": {
+      "title": "Unit 2: Supply and Demand",
+      "course": "AP Microeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ffd884",
+        "#69f0aa",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-microeconomics-02-unit-2-supply-and-demand-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-microeconomics-02-unit-2-supply-and-demand-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-microeconomics-02-unit-2-supply-and-demand-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 2: Supply and Demand, a Unit + AP Final game."
+    },
+    "ap-microeconomics-03-unit-3-production-cost-and-perfect-competition-jeopardy-review-html": {
+      "title": "Unit 3: Production, Cost, and Perfect Competition",
+      "course": "AP Microeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ffd884",
+        "#69f0aa",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-microeconomics-03-unit-3-production-cost-and-perfect-competition-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-microeconomics-03-unit-3-production-cost-and-perfect-competition-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-microeconomics-03-unit-3-production-cost-and-perfect-competition-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 3: Production, Cost, and Perfect Competition, a Unit + AP Final game."
+    },
+    "ap-microeconomics-04-unit-4-imperfect-competition-jeopardy-review-html": {
+      "title": "Unit 4: Imperfect Competition",
+      "course": "AP Microeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ffd884",
+        "#69f0aa",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-microeconomics-04-unit-4-imperfect-competition-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-microeconomics-04-unit-4-imperfect-competition-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-microeconomics-04-unit-4-imperfect-competition-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 4: Imperfect Competition, a Unit + AP Final game."
+    },
+    "ap-microeconomics-05-unit-5-factor-markets-jeopardy-review-html": {
+      "title": "Unit 5: Factor Markets",
+      "course": "AP Microeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ffd884",
+        "#69f0aa",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-microeconomics-05-unit-5-factor-markets-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-microeconomics-05-unit-5-factor-markets-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-microeconomics-05-unit-5-factor-markets-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 5: Factor Markets, a Unit + AP Final game."
+    },
+    "ap-microeconomics-06-unit-6-market-failure-and-role-of-government-jeopardy-review-html": {
+      "title": "Unit 6: Market Failure and Role of Government",
+      "course": "AP Microeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ffd884",
+        "#69f0aa",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-microeconomics-06-unit-6-market-failure-and-role-of-government-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-microeconomics-06-unit-6-market-failure-and-role-of-government-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-microeconomics-06-unit-6-market-failure-and-role-of-government-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Unit 6: Market Failure and Role of Government, a Unit + AP Final game."
+    },
+    "ap-microeconomics-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "AP Microeconomics Final Exam Review",
+      "course": "AP Microeconomics",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#ffd884",
+        "#69f0aa",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-microeconomics-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-microeconomics-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-microeconomics-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for AP Microeconomics Final Exam Review, a Unit + AP Final game."
+    },
+    "ap-economics-combined-01-foundations-of-economics-jeopardy-review-html": {
+      "title": "Foundations of Economics",
+      "course": "AP Macro/Micro Combined",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-economics-combined-01-foundations-of-economics-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-economics-combined-01-foundations-of-economics-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-economics-combined-01-foundations-of-economics-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Foundations of Economics, a Unit + AP Final game."
+    },
+    "ap-economics-combined-02-micro-markets-jeopardy-review-html": {
+      "title": "Micro Markets",
+      "course": "AP Macro/Micro Combined",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-economics-combined-02-micro-markets-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-economics-combined-02-micro-markets-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-economics-combined-02-micro-markets-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Micro Markets, a Unit + AP Final game."
+    },
+    "ap-economics-combined-03-firms-and-market-structures-jeopardy-review-html": {
+      "title": "Firms and Market Structures",
+      "course": "AP Macro/Micro Combined",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-economics-combined-03-firms-and-market-structures-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-economics-combined-03-firms-and-market-structures-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-economics-combined-03-firms-and-market-structures-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Firms and Market Structures, a Unit + AP Final game."
+    },
+    "ap-economics-combined-04-market-failure-and-government-jeopardy-review-html": {
+      "title": "Market Failure and Government",
+      "course": "AP Macro/Micro Combined",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-economics-combined-04-market-failure-and-government-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-economics-combined-04-market-failure-and-government-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-economics-combined-04-market-failure-and-government-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Market Failure and Government, a Unit + AP Final game."
+    },
+    "ap-economics-combined-05-macro-indicators-and-ad-as-jeopardy-review-html": {
+      "title": "Macro Indicators and AD-AS",
+      "course": "AP Macro/Micro Combined",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-economics-combined-05-macro-indicators-and-ad-as-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-economics-combined-05-macro-indicators-and-ad-as-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-economics-combined-05-macro-indicators-and-ad-as-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Macro Indicators and AD-AS, a Unit + AP Final game."
+    },
+    "ap-economics-combined-06-stabilization-policy-and-money-jeopardy-review-html": {
+      "title": "Stabilization Policy and Money",
+      "course": "AP Macro/Micro Combined",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-economics-combined-06-stabilization-policy-and-money-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-economics-combined-06-stabilization-policy-and-money-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-economics-combined-06-stabilization-policy-and-money-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Stabilization Policy and Money, a Unit + AP Final game."
+    },
+    "ap-economics-combined-07-growth-and-international-economics-jeopardy-review-html": {
+      "title": "Growth and International Economics",
+      "course": "AP Macro/Micro Combined",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-economics-combined-07-growth-and-international-economics-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-economics-combined-07-growth-and-international-economics-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-economics-combined-07-growth-and-international-economics-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Growth and International Economics, a Unit + AP Final game."
+    },
+    "ap-economics-combined-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "AP Economics Combined Final Review",
+      "course": "AP Macro/Micro Combined",
+      "gameType": "Unit + AP Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/ap-economics-combined-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/ap-economics-combined-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/ap-economics-combined-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for AP Economics Combined Final Review, a Unit + AP Final game."
+    },
+    "economics-01-economic-decision-making-jeopardy-review-html": {
+      "title": "Economic Decision-Making",
+      "course": "Economics",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/economics-01-economic-decision-making-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/economics-01-economic-decision-making-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/economics-01-economic-decision-making-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Economic Decision-Making, a Unit + Final game."
+    },
+    "economics-02-markets-and-prices-jeopardy-review-html": {
+      "title": "Markets and Prices",
+      "course": "Economics",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/economics-02-markets-and-prices-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/economics-02-markets-and-prices-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/economics-02-markets-and-prices-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Markets and Prices, a Unit + Final game."
+    },
+    "economics-03-personal-finance-jeopardy-review-html": {
+      "title": "Personal Finance",
+      "course": "Economics",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/economics-03-personal-finance-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/economics-03-personal-finance-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/economics-03-personal-finance-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Personal Finance, a Unit + Final game."
+    },
+    "economics-04-macroeconomics-jeopardy-review-html": {
+      "title": "Macroeconomics",
+      "course": "Economics",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/economics-04-macroeconomics-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/economics-04-macroeconomics-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/economics-04-macroeconomics-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Macroeconomics, a Unit + Final game."
+    },
+    "economics-05-government-and-global-economy-jeopardy-review-html": {
+      "title": "Government and Global Economy",
+      "course": "Economics",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/economics-05-government-and-global-economy-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/economics-05-government-and-global-economy-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/economics-05-government-and-global-economy-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Government and Global Economy, a Unit + Final game."
+    },
+    "economics-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "Economics Final Review",
+      "course": "Economics",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#f5c451",
+        "#69f0aa",
+        "#7af0ff"
+      ],
+      "thumbnail": "assets/game-thumbnails/economics-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/economics-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/economics-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Economics Final Review, a Unit + Final game."
+    },
+    "civics-pig-01-foundations-of-government-jeopardy-review-html": {
+      "title": "Foundations of Government",
+      "course": "Civics and Participation in Government",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/civics-pig-01-foundations-of-government-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/civics-pig-01-foundations-of-government-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/civics-pig-01-foundations-of-government-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Foundations of Government, a Unit + Final game."
+    },
+    "civics-pig-02-constitutional-structure-jeopardy-review-html": {
+      "title": "Constitutional Structure",
+      "course": "Civics and Participation in Government",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/civics-pig-02-constitutional-structure-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/civics-pig-02-constitutional-structure-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/civics-pig-02-constitutional-structure-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Constitutional Structure, a Unit + Final game."
+    },
+    "civics-pig-03-rights-and-responsibilities-jeopardy-review-html": {
+      "title": "Rights and Responsibilities",
+      "course": "Civics and Participation in Government",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/civics-pig-03-rights-and-responsibilities-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/civics-pig-03-rights-and-responsibilities-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/civics-pig-03-rights-and-responsibilities-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Rights and Responsibilities, a Unit + Final game."
+    },
+    "civics-pig-04-elections-and-participation-jeopardy-review-html": {
+      "title": "Elections and Participation",
+      "course": "Civics and Participation in Government",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/civics-pig-04-elections-and-participation-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/civics-pig-04-elections-and-participation-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/civics-pig-04-elections-and-participation-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Elections and Participation, a Unit + Final game."
+    },
+    "civics-pig-05-public-policy-and-civic-action-jeopardy-review-html": {
+      "title": "Public Policy and Civic Action",
+      "course": "Civics and Participation in Government",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/civics-pig-05-public-policy-and-civic-action-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/civics-pig-05-public-policy-and-civic-action-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/civics-pig-05-public-policy-and-civic-action-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Public Policy and Civic Action, a Unit + Final game."
+    },
+    "civics-pig-99-cumulative-yearlong-jeopardy-review-html": {
+      "title": "Civics and Participation Final Review",
+      "course": "Civics and Participation in Government",
+      "gameType": "Unit + Final",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff8e6f"
+      ],
+      "thumbnail": "assets/game-thumbnails/civics-pig-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/civics-pig-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/civics-pig-99-cumulative-yearlong-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Civics and Participation Final Review, a Unit + Final game."
+    },
+    "grade-5-01-early-peoples-of-the-americas-jeopardy-review-html": {
+      "title": "Early Peoples of the Americas",
+      "course": "Grade 5 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-5-01-early-peoples-of-the-americas-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-5-01-early-peoples-of-the-americas-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-5-01-early-peoples-of-the-americas-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Early Peoples of the Americas, a Unit + Cumulative game."
+    },
+    "grade-5-02-complex-societies-and-civilizations-jeopardy-review-html": {
+      "title": "Complex Societies and Civilizations",
+      "course": "Grade 5 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-5-02-complex-societies-and-civilizations-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-5-02-complex-societies-and-civilizations-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-5-02-complex-societies-and-civilizations-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Complex Societies and Civilizations, a Unit + Cumulative game."
+    },
+    "grade-5-03-european-exploration-and-its-effects-jeopardy-review-html": {
+      "title": "European Exploration and Its Effects",
+      "course": "Grade 5 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-5-03-european-exploration-and-its-effects-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-5-03-european-exploration-and-its-effects-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-5-03-european-exploration-and-its-effects-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for European Exploration and Its Effects, a Unit + Cumulative game."
+    },
+    "grade-5-04-geography-in-the-western-hemisphere-jeopardy-review-html": {
+      "title": "Geography in the Western Hemisphere",
+      "course": "Grade 5 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-5-04-geography-in-the-western-hemisphere-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-5-04-geography-in-the-western-hemisphere-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-5-04-geography-in-the-western-hemisphere-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Geography in the Western Hemisphere, a Unit + Cumulative game."
+    },
+    "grade-5-05-comparative-cultures-jeopardy-review-html": {
+      "title": "Comparative Cultures",
+      "course": "Grade 5 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-5-05-comparative-cultures-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-5-05-comparative-cultures-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-5-05-comparative-cultures-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Comparative Cultures, a Unit + Cumulative game."
+    },
+    "grade-5-06-government-in-the-western-hemisphere-jeopardy-review-html": {
+      "title": "Government in the Western Hemisphere",
+      "course": "Grade 5 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-5-06-government-in-the-western-hemisphere-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-5-06-government-in-the-western-hemisphere-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-5-06-government-in-the-western-hemisphere-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Government in the Western Hemisphere, a Unit + Cumulative game."
+    },
+    "grade-5-07-economics-in-the-western-hemisphere-jeopardy-review-html": {
+      "title": "Economics in the Western Hemisphere",
+      "course": "Grade 5 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-5-07-economics-in-the-western-hemisphere-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-5-07-economics-in-the-western-hemisphere-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-5-07-economics-in-the-western-hemisphere-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Economics in the Western Hemisphere, a Unit + Cumulative game."
+    },
+    "grade-5-99-cumulative-yearlong-review-jeopardy-review-html": {
+      "title": "Grade 5 Yearlong Review",
+      "course": "Grade 5 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-5-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-5-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-5-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Grade 5 Yearlong Review, a Unit + Cumulative game."
+    },
+    "grade-6-01-present-day-eastern-hemisphere-geography-jeopardy-review-html": {
+      "title": "Present-Day Eastern Hemisphere Geography",
+      "course": "Grade 6 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-6-01-present-day-eastern-hemisphere-geography-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-6-01-present-day-eastern-hemisphere-geography-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-6-01-present-day-eastern-hemisphere-geography-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Present-Day Eastern Hemisphere Geography, a Unit + Cumulative game."
+    },
+    "grade-6-02-first-humans-through-the-neolithic-revolution-jeopardy-review-html": {
+      "title": "First Humans Through the Neolithic Revolution",
+      "course": "Grade 6 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-6-02-first-humans-through-the-neolithic-revolution-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-6-02-first-humans-through-the-neolithic-revolution-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-6-02-first-humans-through-the-neolithic-revolution-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for First Humans Through the Neolithic Revolution, a Unit + Cumulative game."
+    },
+    "grade-6-03-early-river-valley-civilizations-jeopardy-review-html": {
+      "title": "Early River Valley Civilizations",
+      "course": "Grade 6 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-6-03-early-river-valley-civilizations-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-6-03-early-river-valley-civilizations-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-6-03-early-river-valley-civilizations-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Early River Valley Civilizations, a Unit + Cumulative game."
+    },
+    "grade-6-04-comparative-world-religions-jeopardy-review-html": {
+      "title": "Comparative World Religions",
+      "course": "Grade 6 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-6-04-comparative-world-religions-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-6-04-comparative-world-religions-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-6-04-comparative-world-religions-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Comparative World Religions, a Unit + Cumulative game."
+    },
+    "grade-6-05-comparative-classical-civilizations-jeopardy-review-html": {
+      "title": "Comparative Classical Civilizations",
+      "course": "Grade 6 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-6-05-comparative-classical-civilizations-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-6-05-comparative-classical-civilizations-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-6-05-comparative-classical-civilizations-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Comparative Classical Civilizations, a Unit + Cumulative game."
+    },
+    "grade-6-06-mediterranean-world-jeopardy-review-html": {
+      "title": "Mediterranean World",
+      "course": "Grade 6 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-6-06-mediterranean-world-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-6-06-mediterranean-world-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-6-06-mediterranean-world-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Mediterranean World, a Unit + Cumulative game."
+    },
+    "grade-6-07-interactions-across-the-eastern-hemisphere-jeopardy-review-html": {
+      "title": "Interactions Across the Eastern Hemisphere",
+      "course": "Grade 6 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-6-07-interactions-across-the-eastern-hemisphere-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-6-07-interactions-across-the-eastern-hemisphere-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-6-07-interactions-across-the-eastern-hemisphere-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Interactions Across the Eastern Hemisphere, a Unit + Cumulative game."
+    },
+    "grade-6-99-cumulative-yearlong-review-jeopardy-review-html": {
+      "title": "Grade 6 Yearlong Review",
+      "course": "Grade 6 Social Studies",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-6-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-6-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-6-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Grade 6 Yearlong Review, a Unit + Cumulative game."
+    },
+    "grade-7-01-native-americans-jeopardy-review-html": {
+      "title": "Native Americans",
+      "course": "Grade 7 U.S. History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-7-01-native-americans-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-7-01-native-americans-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-7-01-native-americans-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Native Americans, a Unit + Cumulative game."
+    },
+    "grade-7-02-colonial-developments-jeopardy-review-html": {
+      "title": "Colonial Developments",
+      "course": "Grade 7 U.S. History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-7-02-colonial-developments-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-7-02-colonial-developments-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-7-02-colonial-developments-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Colonial Developments, a Unit + Cumulative game."
+    },
+    "grade-7-03-american-independence-jeopardy-review-html": {
+      "title": "American Independence",
+      "course": "Grade 7 U.S. History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-7-03-american-independence-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-7-03-american-independence-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-7-03-american-independence-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for American Independence, a Unit + Cumulative game."
+    },
+    "grade-7-04-historical-development-of-the-constitution-jeopardy-review-html": {
+      "title": "Historical Development of the Constitution",
+      "course": "Grade 7 U.S. History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-7-04-historical-development-of-the-constitution-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-7-04-historical-development-of-the-constitution-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-7-04-historical-development-of-the-constitution-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Historical Development of the Constitution, a Unit + Cumulative game."
+    },
+    "grade-7-05-the-constitution-in-practice-jeopardy-review-html": {
+      "title": "The Constitution in Practice",
+      "course": "Grade 7 U.S. History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-7-05-the-constitution-in-practice-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-7-05-the-constitution-in-practice-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-7-05-the-constitution-in-practice-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for The Constitution in Practice, a Unit + Cumulative game."
+    },
+    "grade-7-06-westward-expansion-jeopardy-review-html": {
+      "title": "Westward Expansion",
+      "course": "Grade 7 U.S. History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-7-06-westward-expansion-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-7-06-westward-expansion-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-7-06-westward-expansion-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Westward Expansion, a Unit + Cumulative game."
+    },
+    "grade-7-07-reform-movements-jeopardy-review-html": {
+      "title": "Reform Movements",
+      "course": "Grade 7 U.S. History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-7-07-reform-movements-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-7-07-reform-movements-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-7-07-reform-movements-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Reform Movements, a Unit + Cumulative game."
+    },
+    "grade-7-08-a-nation-divided-jeopardy-review-html": {
+      "title": "A Nation Divided",
+      "course": "Grade 7 U.S. History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-7-08-a-nation-divided-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-7-08-a-nation-divided-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-7-08-a-nation-divided-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for A Nation Divided, a Unit + Cumulative game."
+    },
+    "grade-7-99-cumulative-yearlong-review-jeopardy-review-html": {
+      "title": "Grade 7 U.S. History I Yearlong Review",
+      "course": "Grade 7 U.S. History I",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-7-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-7-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-7-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Grade 7 U.S. History I Yearlong Review, a Unit + Cumulative game."
+    },
+    "grade-8-01-reconstruction-jeopardy-review-html": {
+      "title": "Reconstruction",
+      "course": "Grade 8 U.S. History II",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-8-01-reconstruction-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-8-01-reconstruction-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-8-01-reconstruction-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Reconstruction, a Unit + Cumulative game."
+    },
+    "grade-8-02-a-changing-society-jeopardy-review-html": {
+      "title": "A Changing Society",
+      "course": "Grade 8 U.S. History II",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-8-02-a-changing-society-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-8-02-a-changing-society-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-8-02-a-changing-society-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for A Changing Society, a Unit + Cumulative game."
+    },
+    "grade-8-03-expansion-and-imperialism-jeopardy-review-html": {
+      "title": "Expansion and Imperialism",
+      "course": "Grade 8 U.S. History II",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-8-03-expansion-and-imperialism-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-8-03-expansion-and-imperialism-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-8-03-expansion-and-imperialism-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Expansion and Imperialism, a Unit + Cumulative game."
+    },
+    "grade-8-04-world-war-i-and-the-roaring-twenties-jeopardy-review-html": {
+      "title": "World War I and the Roaring Twenties",
+      "course": "Grade 8 U.S. History II",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-8-04-world-war-i-and-the-roaring-twenties-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-8-04-world-war-i-and-the-roaring-twenties-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-8-04-world-war-i-and-the-roaring-twenties-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for World War I and the Roaring Twenties, a Unit + Cumulative game."
+    },
+    "grade-8-05-great-depression-jeopardy-review-html": {
+      "title": "Great Depression",
+      "course": "Grade 8 U.S. History II",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-8-05-great-depression-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-8-05-great-depression-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-8-05-great-depression-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Great Depression, a Unit + Cumulative game."
+    },
+    "grade-8-06-world-war-ii-jeopardy-review-html": {
+      "title": "World War II",
+      "course": "Grade 8 U.S. History II",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-8-06-world-war-ii-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-8-06-world-war-ii-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-8-06-world-war-ii-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for World War II, a Unit + Cumulative game."
+    },
+    "grade-8-07-foreign-policy-jeopardy-review-html": {
+      "title": "Foreign Policy",
+      "course": "Grade 8 U.S. History II",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-8-07-foreign-policy-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-8-07-foreign-policy-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-8-07-foreign-policy-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Foreign Policy, a Unit + Cumulative game."
+    },
+    "grade-8-08-demographic-change-jeopardy-review-html": {
+      "title": "Demographic Change",
+      "course": "Grade 8 U.S. History II",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-8-08-demographic-change-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-8-08-demographic-change-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-8-08-demographic-change-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Demographic Change, a Unit + Cumulative game."
+    },
+    "grade-8-09-domestic-politics-and-reform-jeopardy-review-html": {
+      "title": "Domestic Politics and Reform",
+      "course": "Grade 8 U.S. History II",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-8-09-domestic-politics-and-reform-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-8-09-domestic-politics-and-reform-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-8-09-domestic-politics-and-reform-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Domestic Politics and Reform, a Unit + Cumulative game."
+    },
+    "grade-8-99-cumulative-yearlong-review-jeopardy-review-html": {
+      "title": "Grade 8 U.S. History II Yearlong Review",
+      "course": "Grade 8 U.S. History II",
+      "gameType": "Unit + Cumulative",
+      "category": "jeopardy",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/grade-8-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "cardArt": "assets/game-card-art/grade-8-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "marquee": "assets/game-marquees/grade-8-99-cumulative-yearlong-review-jeopardy-review-html.webp",
+      "alt": "Original 1989 arcade cabinet art for Grade 8 U.S. History II Yearlong Review, a Unit + Cumulative game."
+    },
+    "brickoria": {
+      "title": "Brickoria",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/brickoria.webp",
+      "cardArt": "assets/game-card-art/brickoria.webp",
+      "marquee": "assets/game-marquees/brickoria.webp",
+      "alt": "Original 1989 arcade cabinet art for Brickoria, a Arcade game."
+    },
+    "stellar-drift": {
+      "title": "Stellar Drift",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/stellar-drift.webp",
+      "cardArt": "assets/game-card-art/stellar-drift.webp",
+      "marquee": "assets/game-marquees/stellar-drift.webp",
+      "alt": "Original 1989 arcade cabinet art for Stellar Drift, a Arcade game."
+    },
+    "source-snake": {
+      "title": "Source Snake",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "source",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/source-snake.webp",
+      "cardArt": "assets/game-card-art/source-snake.webp",
+      "marquee": "assets/game-marquees/source-snake.webp",
+      "alt": "Original 1989 arcade cabinet art for Source Snake, a Arcade game."
+    },
+    "chronoblocks": {
+      "title": "Chronoblocks",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/chronoblocks.webp",
+      "cardArt": "assets/game-card-art/chronoblocks.webp",
+      "marquee": "assets/game-marquees/chronoblocks.webp",
+      "alt": "Original 1989 arcade cabinet art for Chronoblocks, a Arcade game."
+    },
+    "cascade": {
+      "title": "Cascade",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/cascade.webp",
+      "cardArt": "assets/game-card-art/cascade.webp",
+      "marquee": "assets/game-marquees/cascade.webp",
+      "alt": "Original 1989 arcade cabinet art for Cascade, a Arcade game."
+    },
+    "chronohop": {
+      "title": "Chronohop",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/chronohop.webp",
+      "cardArt": "assets/game-card-art/chronohop.webp",
+      "marquee": "assets/game-marquees/chronohop.webp",
+      "alt": "Original 1989 arcade cabinet art for Chronohop, a Arcade game."
+    },
+    "step-pyramid": {
+      "title": "Step Pyramid",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/step-pyramid.webp",
+      "cardArt": "assets/game-card-art/step-pyramid.webp",
+      "marquee": "assets/game-marquees/step-pyramid.webp",
+      "alt": "Original 1989 arcade cabinet art for Step Pyramid, a Arcade game."
+    },
+    "reflex-run": {
+      "title": "Reflex Run",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/reflex-run.webp",
+      "cardArt": "assets/game-card-art/reflex-run.webp",
+      "marquee": "assets/game-marquees/reflex-run.webp",
+      "alt": "Original 1989 arcade cabinet art for Reflex Run, a Arcade game."
+    },
+    "citadel": {
+      "title": "Citadel",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/citadel.webp",
+      "cardArt": "assets/game-card-art/citadel.webp",
+      "marquee": "assets/game-marquees/citadel.webp",
+      "alt": "Original 1989 arcade cabinet art for Citadel, a Arcade game."
+    },
+    "rumor-whack": {
+      "title": "Rumor Whack",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/rumor-whack.webp",
+      "cardArt": "assets/game-card-art/rumor-whack.webp",
+      "marquee": "assets/game-marquees/rumor-whack.webp",
+      "alt": "Original 1989 arcade cabinet art for Rumor Whack, a Arcade game."
+    },
+    "echo-hall": {
+      "title": "Echo Hall",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/echo-hall.webp",
+      "cardArt": "assets/game-card-art/echo-hall.webp",
+      "marquee": "assets/game-marquees/echo-hall.webp",
+      "alt": "Original 1989 arcade cabinet art for Echo Hall, a Arcade game."
+    },
+    "galaxy-defender": {
+      "title": "Galaxy Defender",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/galaxy-defender.webp",
+      "cardArt": "assets/game-card-art/galaxy-defender.webp",
+      "marquee": "assets/game-marquees/galaxy-defender.webp",
+      "alt": "Original 1989 arcade cabinet art for Galaxy Defender, a Arcade game."
+    },
+    "defender-drift": {
+      "title": "Defender Drift",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/defender-drift.webp",
+      "cardArt": "assets/game-card-art/defender-drift.webp",
+      "marquee": "assets/game-marquees/defender-drift.webp",
+      "alt": "Original 1989 arcade cabinet art for Defender Drift, a Arcade game."
+    },
+    "sokoban-scribe": {
+      "title": "Sokoban Scribe",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/sokoban-scribe.webp",
+      "cardArt": "assets/game-card-art/sokoban-scribe.webp",
+      "marquee": "assets/game-marquees/sokoban-scribe.webp",
+      "alt": "Original 1989 arcade cabinet art for Sokoban Scribe, a Arcade game."
+    },
+    "sudoku-scribe": {
+      "title": "Sudoku Scribe",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/sudoku-scribe.webp",
+      "cardArt": "assets/game-card-art/sudoku-scribe.webp",
+      "marquee": "assets/game-marquees/sudoku-scribe.webp",
+      "alt": "Original 1989 arcade cabinet art for Sudoku Scribe, a Arcade game."
+    },
+    "centiquill": {
+      "title": "Centiquill",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/centiquill.webp",
+      "cardArt": "assets/game-card-art/centiquill.webp",
+      "marquee": "assets/game-marquees/centiquill.webp",
+      "alt": "Original 1989 arcade cabinet art for Centiquill, a Arcade game."
+    },
+    "anagram-atlas": {
+      "title": "Anagram Atlas",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/anagram-atlas.webp",
+      "cardArt": "assets/game-card-art/anagram-atlas.webp",
+      "marquee": "assets/game-marquees/anagram-atlas.webp",
+      "alt": "Original 1989 arcade cabinet art for Anagram Atlas, a Arcade game."
+    },
+    "tron-trails": {
+      "title": "Tron Trails",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/tron-trails.webp",
+      "cardArt": "assets/game-card-art/tron-trails.webp",
+      "marquee": "assets/game-marquees/tron-trails.webp",
+      "alt": "Original 1989 arcade cabinet art for Tron Trails, a Arcade game."
+    },
+    "plinko-lab": {
+      "title": "Plinko Lab",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/plinko-lab.webp",
+      "cardArt": "assets/game-card-art/plinko-lab.webp",
+      "marquee": "assets/game-marquees/plinko-lab.webp",
+      "alt": "Original 1989 arcade cabinet art for Plinko Lab, a Arcade game."
+    },
+    "tower-climb": {
+      "title": "Tower Climb",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/tower-climb.webp",
+      "cardArt": "assets/game-card-art/tower-climb.webp",
+      "marquee": "assets/game-marquees/tower-climb.webp",
+      "alt": "Original 1989 arcade cabinet art for Tower Climb, a Arcade game."
+    },
+    "atlas-2048": {
+      "title": "Atlas 2048",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/atlas-2048.webp",
+      "cardArt": "assets/game-card-art/atlas-2048.webp",
+      "marquee": "assets/game-marquees/atlas-2048.webp",
+      "alt": "Original 1989 arcade cabinet art for Atlas 2048, a Arcade game."
+    },
+    "mahjong-mosaic": {
+      "title": "Mahjong Mosaic",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/mahjong-mosaic.webp",
+      "cardArt": "assets/game-card-art/mahjong-mosaic.webp",
+      "marquee": "assets/game-marquees/mahjong-mosaic.webp",
+      "alt": "Original 1989 arcade cabinet art for Mahjong Mosaic, a Arcade game."
+    },
+    "snake-pit": {
+      "title": "Snake Pit",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/snake-pit.webp",
+      "cardArt": "assets/game-card-art/snake-pit.webp",
+      "marquee": "assets/game-marquees/snake-pit.webp",
+      "alt": "Original 1989 arcade cabinet art for Snake Pit, a Arcade game."
+    },
+    "memory-palace": {
+      "title": "Memory Palace",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/memory-palace.webp",
+      "cardArt": "assets/game-card-art/memory-palace.webp",
+      "marquee": "assets/game-marquees/memory-palace.webp",
+      "alt": "Original 1989 arcade cabinet art for Memory Palace, a Arcade game."
+    },
+    "pong-doctor": {
+      "title": "Pong Doctor",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/pong-doctor.webp",
+      "cardArt": "assets/game-card-art/pong-doctor.webp",
+      "marquee": "assets/game-marquees/pong-doctor.webp",
+      "alt": "Original 1989 arcade cabinet art for Pong Doctor, a Arcade game."
+    },
+    "boggle-beat": {
+      "title": "Boggle Beat",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/boggle-beat.webp",
+      "cardArt": "assets/game-card-art/boggle-beat.webp",
+      "marquee": "assets/game-marquees/boggle-beat.webp",
+      "alt": "Original 1989 arcade cabinet art for Boggle Beat, a Arcade game."
+    },
+    "bomb-scribe": {
+      "title": "Bomb Scribe",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/bomb-scribe.webp",
+      "cardArt": "assets/game-card-art/bomb-scribe.webp",
+      "marquee": "assets/game-marquees/bomb-scribe.webp",
+      "alt": "Original 1989 arcade cabinet art for Bomb Scribe, a Arcade game."
+    },
+    "chess-cabinet": {
+      "title": "Chess Cabinet",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/chess-cabinet.webp",
+      "cardArt": "assets/game-card-art/chess-cabinet.webp",
+      "marquee": "assets/game-marquees/chess-cabinet.webp",
+      "alt": "Original 1989 arcade cabinet art for Chess Cabinet, a Arcade game."
+    },
+    "solitaire-hall": {
+      "title": "Solitaire Hall",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/solitaire-hall.webp",
+      "cardArt": "assets/game-card-art/solitaire-hall.webp",
+      "marquee": "assets/game-marquees/solitaire-hall.webp",
+      "alt": "Original 1989 arcade cabinet art for Solitaire Hall, a Arcade game."
+    },
+    "cube-crash": {
+      "title": "Cube Crash",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/cube-crash.webp",
+      "cardArt": "assets/game-card-art/cube-crash.webp",
+      "marquee": "assets/game-marquees/cube-crash.webp",
+      "alt": "Original 1989 arcade cabinet art for Cube Crash, a Arcade game."
+    },
+    "knights-quest": {
+      "title": "Knight's Quest",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/knights-quest.webp",
+      "cardArt": "assets/game-card-art/knights-quest.webp",
+      "marquee": "assets/game-marquees/knights-quest.webp",
+      "alt": "Original 1989 arcade cabinet art for Knight's Quest, a Arcade game."
+    },
+    "word-bridge": {
+      "title": "Word Bridge",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/word-bridge.webp",
+      "cardArt": "assets/game-card-art/word-bridge.webp",
+      "marquee": "assets/game-marquees/word-bridge.webp",
+      "alt": "Original 1989 arcade cabinet art for Word Bridge, a Arcade game."
+    },
+    "crossword-cabinet": {
+      "title": "Crossword Cabinet",
+      "course": "All Courses",
+      "gameType": "Arcade",
+      "category": "pinball",
+      "palette": [
+        "#7af0ff",
+        "#f5c451",
+        "#ff7cc8"
+      ],
+      "thumbnail": "assets/game-thumbnails/crossword-cabinet.webp",
+      "cardArt": "assets/game-card-art/crossword-cabinet.webp",
+      "marquee": "assets/game-marquees/crossword-cabinet.webp",
+      "alt": "Original 1989 arcade cabinet art for Crossword Cabinet, a Arcade game."
+    }
+  }
+}

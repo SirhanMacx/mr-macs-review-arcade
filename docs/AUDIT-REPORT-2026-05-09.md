@@ -5,9 +5,7 @@ the May 2026 flagship game roster. Five agents shipped new arcade flagships;
 eleven agents audited and polished existing surfaces. This document is the
 canonical record of what was touched and what changed.
 
-> **Status:** placeholder — fields marked *(orchestrator fills)* below are
-> populated by the orchestrator after every agent has reported back. Until
-> then they reflect the planned scope.
+> **Status:** superseded by `docs/CODEX-DEEP-AUDIT.md` and `docs/CODEX-OVERHAUL-REPORT.md` for the 2026-05-12 asset/cabinet pass. The May 9 notes remain historical context.
 
 ---
 
@@ -68,8 +66,8 @@ summarized below.
 
 - **Lines:** 1186
 - **Public API:** `MrMacsProfile` — 60+ methods + 13 events
-- **Audit findings:** *(orchestrator fills)*
-- **Bugs fixed:** *(orchestrator fills)*
+- **Audit findings:** See superseding Codex audit/report for the resolved 2026-05-12 status.
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:**
   - `claimDailyChallenge({ gameId, payout? })` — atomic Daily Challenge claim
     with Daily Double inventory consumption.
@@ -79,7 +77,7 @@ summarized below.
     tiers.
   - 3 new shop items: `fortuneRefresh`, `dailyDouble`, `coinDoubler`.
   - Auto-detect `"...scholar...correct..."` source markers in `addShards`.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `arcade-progress-extras.js` — *Leaderboards + sessions + HUD widgets*
 
@@ -89,33 +87,33 @@ summarized below.
   this file's plus a more elaborate version in `arcade-sessions.js` that
   isn't loaded. Documented in `ARCADE-API.md`; left in repo for future
   consideration.
-- **Bugs fixed:** *(orchestrator fills)*
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:** `topScoresForPlayer`, `renderDrawerTopScores` (hub helpers),
   `decorateContinueCards` (alias-compatible with the standalone module).
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `arcade-music.js` — *Synthesized music engine*
 
 - **Lines:** 737
 - **Public API:** `MrMacsArcadeMusic` — 16 themes, 14 methods
-- **Audit findings:** *(orchestrator fills)*
+- **Audit findings:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **Bugs fixed:** Visibility-change duck/suspend pair could leave
   `nextStepTime` in the past on resume; now realigned to `currentTime + 0.10`.
 - **APIs added:** `setMaster` / `setMasterVolume` aliases for forward
   compatibility; `tempoMod(rate)` for boss-rush speed-up; `crossfade(toThemeId, ms)`
   refactored from prior fade-out → fade-in pair.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `arcade-celebration.js` — *Particle bursts*
 
 - **Lines:** 838
 - **Public API:** `MrMacsCelebration` — 6 burst variants + 5 controls
-- **Audit findings:** *(orchestrator fills)*
-- **Bugs fixed:** *(orchestrator fills)*
+- **Audit findings:** See superseding Codex audit/report for the resolved 2026-05-12 status.
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:** `confetti`, `fireworks`, `coinShower`, `streamers`, `tierUp`,
   `fromShardPayout` (auto-routes by amount), plus `clear`, `pause`, `resume`,
   `setPalette`, `getActiveCount`.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `arcade-toast.js` — *Ephemeral notifications*
 
@@ -127,33 +125,33 @@ summarized below.
 - **Bugs fixed:** Same as above.
 - **APIs added:** `shardEarned` (alias for `shards`), `dismiss(id)`,
   `dismissAll()`, `getActiveCount()`.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `arcade-icons.js` — *Monoline SVG library*
 
 - **Lines:** 291
 - **Public API:** `MrMacsIcons` — 5 methods + REGISTRY + EMOJI_MAP
-- **Audit findings:** *(orchestrator fills)*
-- **Bugs fixed:** *(orchestrator fills)*
+- **Audit findings:** See superseding Codex audit/report for the resolved 2026-05-12 status.
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:** `expandEmojiInString(s)` for templated rendering.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `arcade-tour.js` — *First-run tour engine*
 
 - **Lines:** 213
 - **Public API:** `MrMacsArcadeTour` — `start`, `close`, `offerReplay`
-- **Audit findings:** *(orchestrator fills)*
-- **Bugs fixed:** *(orchestrator fills)*
+- **Audit findings:** See superseding Codex audit/report for the resolved 2026-05-12 status.
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:** `offerReplay(gameId, steps)` returns a click handler for
   Replay-tour buttons. `opts.force` overrides the seen check.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `arcade-a11y.css` — *Shared accessibility CSS*
 
-- **Audit findings:** *(orchestrator fills)*
-- **Bugs fixed:** *(orchestrator fills)*
+- **Audit findings:** See superseding Codex audit/report for the resolved 2026-05-12 status.
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:** N/A — pure CSS surface.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `arcade-analytics.js` — *Anonymous traffic counter*
 
@@ -161,41 +159,41 @@ summarized below.
 - **Public APIs:** `MrMacsAnalytics`, `MrMacsProgress`
 - **Audit findings:** Public counter chatter on hidden-tab re-renders was
   hammering `countapi`; fixed in 2026-05-04 quiet pass.
-- **Bugs fixed:** *(orchestrator fills)*
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:** `MrMacsProgress.clearAllLocalPractice()` for end-of-year
   reset.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `arcade-perf.js` — *Lite-mode + perf primitives*
 
 - **Lines:** 215
 - **Public API:** `MrMacsArcadePerf` — 11 methods
-- **Audit findings:** *(orchestrator fills)*
-- **Bugs fixed:** *(orchestrator fills)*
+- **Audit findings:** See superseding Codex audit/report for the resolved 2026-05-12 status.
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:** `mark`, `measure`, `clearMarks`, `withFrame`, `idleCallback`,
   `cancelIdle`, `memoryUsage`. Body classes `.arcade-lite` and
   `.arcade-reduced-motion` for CSS gating.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `mastery-engine.js` — *Mastery dashboard logic*
 
 - **Lines:** 504
 - **Public API:** `MrMacsMastery` — 22 methods + COURSES + SKILL_LABELS
-- **Audit findings:** *(orchestrator fills)*
-- **Bugs fixed:** *(orchestrator fills)*
+- **Audit findings:** See superseding Codex audit/report for the resolved 2026-05-12 status.
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:** `setThresholds(overrides)`, `thresholds()`, `getMasteryFor`,
   `getWeakestTopics`, `getRecommendation`, `masteryLabel`.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `document-viewer.js` — *Stimulus zoom viewer*
 
 - **Lines:** 203
 - **Public API:** `MrMacsDocumentViewer` — 9 methods
-- **Audit findings:** *(orchestrator fills)*
-- **Bugs fixed:** *(orchestrator fills)*
+- **Audit findings:** See superseding Codex audit/report for the resolved 2026-05-12 status.
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:** `setZoomPreset(percent)` for keyboard-shortcut wiring.
   Tab focus trap inside viewer for accessibility.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `source-bank.js` — *Source-based question detector + curated bank*
 
@@ -204,10 +202,10 @@ summarized below.
 - **Audit findings:** Source-based detector was false-positive on prompts
   containing the word "source" without an actual stimulus; tightened in
   2026-05-02 pass.
-- **Bugs fixed:** *(orchestrator fills)*
+- **Bugs fixed:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 - **APIs added:** `registerRecords`, `lookup`, `searchByTag`,
   `getAllForCourse`, `bankSize`, `isRegistered`, `stableId`, `recordTags`.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ### `index.html` — *Hub visibility + UX*
 
@@ -223,7 +221,7 @@ summarized below.
 - **APIs added:** New Cabinet rail (premium arcade horizontal scroll on
   homepage). Topbar buff indicators (Lucky Charm + Coin Doubler timers).
   Achievement progress bars on locked-tier counts.
-- **Coverage gaps:** *(orchestrator fills)*
+- **Coverage gaps:** See superseding Codex audit/report for the resolved 2026-05-12 status.
 
 ---
 
@@ -275,8 +273,8 @@ drawer instead of a binary lock state.
 
 ## Bugs found + fixed
 
-This section is the union of every audit agent's bug report.
-*(orchestrator fills with a flat list, deduplicated)*
+This section is the union of every audit agent's bug report. The 2026-05-12
+Codex audit supersedes any unresolved May 9 consolidation gaps.
 
 Confirmed fixes in this sweep:
 
@@ -336,7 +334,7 @@ Items deferred to a future sweep:
 
 - Build agents: 5 / 5 reported success.
 - Audit agents: 11 / 11 reported success.
-- Validator (`scripts/validate_arcade.py`): *(orchestrator fills)*
+- Validator (`scripts/validate_arcade.py`): See superseding Codex audit/report for the resolved 2026-05-12 status.
 - Hand-tested: All 9 new flagships verified for: open from hub, music start,
   scholar prompt loop, run-to-completion, leaderboard submit, session save +
   restore, mobile touch, reduced-motion fallback. *(orchestrator confirms)*
