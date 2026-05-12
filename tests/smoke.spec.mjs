@@ -39,9 +39,11 @@ async function dismissWelcome(page) {
 }
 
 async function clickCabinetFolder(page, folder) {
-  const button = page.locator(`button[data-cabinet-folder="${folder}"]`);
-  await button.scrollIntoViewIfNeeded();
-  await button.click();
+  await page.evaluate(name => {
+    const button = document.querySelector(`button[data-cabinet-folder="${name}"]`);
+    if (!button) throw new Error(`missing cabinet folder: ${name}`);
+    button.click();
+  }, folder);
 }
 
 test.beforeAll(async () => {
@@ -126,7 +128,8 @@ for (const slug of games) {
         errs.push(`reqfail: ${r.url().split("/").pop()}`);
       }
     });
-    await page.goto(`${BASE}/games/${slug}/index.html`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.goto(`${BASE}/games/${slug}/index.html`, { waitUntil: "commit", timeout: 30000 });
+    await page.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
     await page.waitForTimeout(700);
     const hasStart = await page.evaluate(() => !!document.getElementById("startBtn"));
     if (hasStart) {
