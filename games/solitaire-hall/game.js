@@ -2423,11 +2423,30 @@
     var rect = canvas.getBoundingClientRect();
     canvas.width = Math.floor(rect.width * dpr);
     canvas.height = Math.floor(rect.height * dpr);
+    var chromeBottom = 0;
+    [".top-hud", ".wave-ribbon"].forEach(function (selector) {
+      var el = document.querySelector(selector);
+      if (!el) return;
+      var style = window.getComputedStyle(el);
+      if (style.display === "none" || style.visibility === "hidden") return;
+      var box = el.getBoundingClientRect();
+      chromeBottom = Math.max(chromeBottom, box.bottom - rect.top);
+    });
+    var dealRowTop = Math.max(0, chromeBottom) + 16;
     var sx = rect.width / LOGICAL_W;
     var sy = rect.height / LOGICAL_H;
     scale = Math.min(sx, sy);
+    if (dealRowTop > 10) {
+      var protectedHeightScale = (rect.height - dealRowTop - 6) / (LOGICAL_H - ROW_TOP);
+      if (protectedHeightScale > 0) {
+        scale = Math.min(scale, protectedHeightScale);
+      }
+    }
     offsetX = (rect.width - LOGICAL_W * scale) / 2;
     offsetY = (rect.height - LOGICAL_H * scale) / 2;
+    if (dealRowTop > 10 && offsetY + ROW_TOP * scale < dealRowTop) {
+      offsetY = dealRowTop - ROW_TOP * scale;
+    }
   }
 
   // -- Utilities -------------------------------------------------------------

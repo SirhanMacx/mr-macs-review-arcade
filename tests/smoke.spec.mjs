@@ -367,6 +367,76 @@ test("boggle beat board fills iPhone retina canvas", async ({ browser }) => {
   }
 });
 
+test("solitaire hall deal row clears top menu in short layouts", async ({ browser }) => {
+  const viewports = [
+    { name: "phone landscape", width: 844, height: 390, dpr: 3, isMobile: true, hasTouch: true },
+    { name: "short desktop", width: 1280, height: 600, dpr: 1, isMobile: false, hasTouch: false }
+  ];
+
+  for (const viewport of viewports) {
+    const context = await browser.newContext({
+      viewport: { width: viewport.width, height: viewport.height },
+      deviceScaleFactor: viewport.dpr,
+      isMobile: viewport.isMobile,
+      hasTouch: viewport.hasTouch
+    });
+    const page = await context.newPage();
+    try {
+      await page.goto(`${BASE}/games/solitaire-hall/index.html`, { waitUntil: "commit", timeout: 15000 });
+      await page.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
+      await page.click("#startBtn");
+      await page.waitForFunction(() => !document.getElementById("setupScreen")?.classList.contains("show"), { timeout: 5000 });
+      await page.waitForTimeout(900);
+      const metrics = await page.evaluate(() => {
+        const canvas = document.getElementById("solitaireCanvas");
+        const ctx = canvas?.getContext("2d", { willReadFrequently: true });
+        const canvasRect = canvas?.getBoundingClientRect();
+        const hud = document.querySelector(".top-hud")?.getBoundingClientRect();
+        const ribbon = document.querySelector(".wave-ribbon");
+        const ribbonStyle = ribbon ? getComputedStyle(ribbon) : null;
+        const ribbonRect = ribbon && ribbonStyle?.display !== "none" ? ribbon.getBoundingClientRect() : null;
+        if (!canvas || !ctx || !canvasRect || !hud) return { found: false };
+        const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = image.data;
+        let minX = image.width;
+        let minY = image.height;
+        let maxX = -1;
+        let maxY = -1;
+        for (let y = 0; y < image.height; y += 2) {
+          for (let x = 0; x < image.width; x += 2) {
+            const i = (y * image.width + x) * 4;
+            const r = data[i];
+            const g = data[i + 1];
+            const b = data[i + 2];
+            const cardOrSlotPixel = r + g + b > 185 && (r > 60 || g > 60 || b > 60);
+            if (!cardOrSlotPixel) continue;
+            minX = Math.min(minX, x);
+            minY = Math.min(minY, y);
+            maxX = Math.max(maxX, x);
+            maxY = Math.max(maxY, y);
+          }
+        }
+        const dpr = window.devicePixelRatio || 1;
+        const topChromeCss = Math.max(hud.bottom, ribbonRect ? ribbonRect.bottom : 0) - canvasRect.top;
+        const found = maxX >= minX && maxY >= minY;
+        return {
+          found,
+          topChromeCss,
+          cardLikeTopCss: found ? minY / dpr : 0,
+          cardLikeWidthCss: found ? (maxX - minX + 1) / dpr : 0,
+          cardLikeHeightCss: found ? (maxY - minY + 1) / dpr : 0
+        };
+      });
+      expect(metrics.found, `${viewport.name} should render solitaire cards`).toBe(true);
+      expect(metrics.cardLikeTopCss, `${viewport.name} deal row should sit below top menu`).toBeGreaterThanOrEqual(metrics.topChromeCss + 4);
+      expect(metrics.cardLikeWidthCss, `${viewport.name} should preserve playable card spread`).toBeGreaterThan(300);
+      expect(metrics.cardLikeHeightCss, `${viewport.name} should preserve playable card height`).toBeGreaterThan(140);
+    } finally {
+      await context.close();
+    }
+  }
+});
+
 // === GAME SMOKE TESTS ===
 const games = fs.readdirSync(gamesDir)
   .filter(d => fs.existsSync(path.join(gamesDir, d, "index.html")))
