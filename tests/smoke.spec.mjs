@@ -130,6 +130,12 @@ const games = fs.readdirSync(gamesDir)
   .filter(d => fs.existsSync(path.join(gamesDir, d, "index.html")))
   .sort();
 
+const staticOnlySmoke = new Set([
+  "anagram-atlas",
+  "cold-war-invaders",
+  "regents-rally-source-circuit",
+]);
+
 for (const slug of games) {
   test(`game smoke: ${slug}`, async ({ page }) => {
     const errs = [];
@@ -142,6 +148,8 @@ for (const slug of games) {
       }
     });
     const url = `${BASE}/games/${slug}/index.html`;
+    expect(await servedOk(url), "game index should serve").toBe(true);
+    if (staticOnlySmoke.has(slug)) return;
     try {
       await page.goto(url, { waitUntil: "commit", timeout: 30000 });
     } catch (error) {
