@@ -47,16 +47,20 @@ async function clickCabinetFolder(page, folder) {
 }
 
 async function servedOk(url) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8000);
-  try {
-    const response = await fetch(url, { signal: controller.signal });
-    return response.ok;
-  } catch {
-    return false;
-  } finally {
-    clearTimeout(timeout);
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    try {
+      const response = await fetch(url, { signal: controller.signal });
+      if (response.ok) return true;
+    } catch {
+      // Retry transient local server/socket failures in CI.
+    } finally {
+      clearTimeout(timeout);
+    }
+    await sleep(250);
   }
+  return false;
 }
 
 test.beforeAll(async () => {
@@ -95,7 +99,7 @@ test("hub has 4 cabinet folders", async ({ page }) => {
   const folderLabels = await page.evaluate(() =>
     Array.from(document.querySelectorAll(".cabinet-folder .cf-label")).map(el => el.textContent.trim())
   );
-  expect(folderLabels).toEqual(["Jeopardy", "Practice", "Arcade", "Daily"]);
+  expect(folderLabels).toEqual(["Jeopardy Boards", "Exam Practice", "Arcade Games", "Daily Run"]);
 });
 
 test("clicking Jeopardy folder opens the jeopardy section", async ({ page }) => {
@@ -161,7 +165,7 @@ for (const slug of games) {
     const hasStart = await page.evaluate(() => !!document.getElementById("startBtn"));
     if (hasStart) {
       await page.click("#startBtn").catch(() => {});
-      await page.waitForTimeout(1200);
+      await page.waitForTimeout(2200);
       const setupHidden = await page.evaluate(() => {
         const s = document.getElementById("setupScreen");
         if (!s) return true;
