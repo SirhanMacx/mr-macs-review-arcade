@@ -499,6 +499,9 @@
 
     // First-time tutorial rotation
     function maybeRunTutorial() {
+      // Keep the lobby visually clear on load. The mascot stays clickable,
+      // but it should not cover the launch deck with automatic hints.
+      return;
       var p = getProfile();
       var shouldRun = true;
       if (p) {

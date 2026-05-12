@@ -8004,6 +8004,420 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   .scroll-progress { transition: width 0s, opacity 0s; }
 }
 
+/* ============== Design recovery: launch-deck hero ============== */
+.hero {
+  isolation: isolate;
+  min-height: calc(100vh - 72px);
+  padding-top: clamp(24px, 3.8vw, 58px);
+  background:
+    linear-gradient(90deg, rgba(2, 4, 11, .92) 0%, rgba(2, 4, 11, .74) 42%, rgba(2, 4, 11, .96) 100%),
+    linear-gradient(180deg, rgba(255, 209, 92, .12), transparent 28%, rgba(115, 243, 255, .08) 100%),
+    url("assets/cabinet/arcade-marquee.webp") center top / cover no-repeat,
+    #02040b;
+}
+.hero::before {
+  opacity: .34;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 209, 92, .22), transparent 30%),
+    radial-gradient(circle at 78% 12%, rgba(255, 76, 172, .18), transparent 26%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.045) 0 1px, transparent 1px 7px);
+  mask-image: none;
+  z-index: -2;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 44%;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent, rgba(2, 4, 11, .88)),
+    linear-gradient(90deg, rgba(255, 209, 92, .12), transparent 44%, rgba(115, 243, 255, .12));
+  z-index: -1;
+}
+.hero-inner {
+  grid-template-columns: minmax(0, .96fr) minmax(410px, .72fr);
+  align-items: stretch;
+  min-height: clamp(610px, calc(100vh - 96px), 820px);
+  gap: clamp(26px, 4.5vw, 66px);
+}
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 830px;
+}
+.eyebrow {
+  width: fit-content;
+  padding: 7px 12px;
+  border: 1px solid rgba(115, 243, 255, .38);
+  border-radius: 4px;
+  background: rgba(2, 8, 18, .58);
+  color: #73f3ff;
+  box-shadow: 0 0 24px rgba(115, 243, 255, .14);
+}
+.hero-title {
+  margin-top: 18px;
+  max-width: 720px;
+  font-size: clamp(54px, 8.2vw, 112px);
+  line-height: .86;
+  text-shadow:
+    0 3px 0 rgba(0,0,0,.92),
+    0 0 26px rgba(255, 209, 92, .22);
+}
+.hero-title .ht-1,
+.hero-title .ht-2 {
+  color: #fff8d8;
+}
+.hero-title .ht-3 em {
+  color: #ffd15c;
+  text-shadow:
+    0 3px 0 rgba(0,0,0,.88),
+    0 0 30px rgba(255, 76, 172, .28),
+    0 0 46px rgba(115, 243, 255, .18);
+}
+.tagline {
+  max-width: 680px;
+  margin-top: 22px;
+  color: #eef6ff;
+  font-size: clamp(18px, 2.15vw, 25px);
+  line-height: 1.36;
+  text-shadow: 0 2px 14px rgba(0,0,0,.76);
+}
+.attract-text,
+.cabinet-press-start {
+  display: none;
+}
+.cabinet-menu {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, 720px);
+  margin-top: clamp(24px, 3vw, 34px);
+}
+.cabinet-folder {
+  --tile-art: url("assets/game-card-art/history-hunters.webp");
+  position: relative;
+  min-height: 126px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 18px;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(3,5,13,.08), rgba(3,5,13,.50) 42%, rgba(3,5,13,.94) 100%),
+    linear-gradient(90deg, rgba(255, 209, 92, .16), transparent 48%),
+    var(--tile-art) center / cover no-repeat,
+    #050914;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 18px 36px rgba(0,0,0,.34);
+}
+.cabinet-folder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(115, 243, 255, .26), transparent 34%),
+    linear-gradient(315deg, rgba(255, 76, 172, .18), transparent 38%);
+  opacity: .52;
+  pointer-events: none;
+}
+.cabinet-folder::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 14px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--tile-accent, #73f3ff), transparent);
+  box-shadow: 0 0 20px var(--tile-accent, #73f3ff);
+}
+.cabinet-folder-jeo {
+  --tile-art: url("assets/game-card-art/ap-european-history-09-unit-9-cold-war-and-contemporary-europe-jeopardy-review-html.webp");
+  --tile-accent: #73f3ff;
+}
+.cabinet-folder-prac {
+  --tile-art: url("assets/game-card-art/regents-practice-exam.webp");
+  --tile-accent: #ffd15c;
+}
+.cabinet-folder-arc {
+  --tile-art: url("assets/game-card-art/history-hunters.webp");
+  --tile-accent: #69f0aa;
+}
+.cabinet-folder-daily {
+  --tile-art: url("assets/game-card-art/source-sprint.webp");
+  --tile-accent: #ff4cac;
+}
+.cf-tab {
+  display: none;
+}
+.cf-icon,
+.cf-label,
+.cf-meta {
+  position: relative;
+  z-index: 1;
+}
+.cf-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  min-width: 38px;
+  height: 30px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 4px;
+  background: rgba(0,0,0,.48);
+  color: var(--tile-accent, #73f3ff);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+.cf-label {
+  max-width: calc(100% - 48px);
+  color: #fff8d8;
+  font-family: var(--font-display);
+  font-size: clamp(23px, 2.25vw, 32px);
+  line-height: .98;
+  text-transform: uppercase;
+  text-shadow: 0 3px 0 rgba(0,0,0,.82);
+}
+.cf-meta {
+  color: color-mix(in srgb, var(--tile-accent, #73f3ff) 78%, white);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.cabinet-folder:hover,
+.cabinet-folder:focus-visible {
+  border-color: color-mix(in srgb, var(--tile-accent, #73f3ff) 70%, white);
+  transform: translateY(-3px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.12) inset,
+    0 22px 46px rgba(0,0,0,.44),
+    0 0 28px color-mix(in srgb, var(--tile-accent, #73f3ff) 24%, transparent);
+}
+.hero-console {
+  display: flex;
+  align-items: center;
+}
+.hero-console::before {
+  inset: 5% -5% -7%;
+  opacity: .62;
+  transform: skewY(-2deg);
+}
+.console-bezel {
+  width: 100%;
+  padding: 18px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02)),
+    url("assets/cabinet/crt-bezel.webp") center / cover no-repeat,
+    linear-gradient(180deg, rgba(5,9,20,.98), rgba(2,4,10,.98));
+}
+.hero-screen {
+  min-height: clamp(340px, 42vh, 430px);
+  border-color: rgba(115, 243, 255, .46);
+  background:
+    linear-gradient(180deg, rgba(3,5,13,.04), rgba(3,5,13,.34) 38%, rgba(3,5,13,.94) 100%),
+    var(--screen-art, url("assets/game-thumbnails/history-hunters.webp")) center / cover no-repeat,
+    #040711;
+}
+.screen-title {
+  max-width: 92%;
+}
+.screen-sub {
+  max-width: 78%;
+}
+.console-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.console-status div {
+  background:
+    linear-gradient(180deg, rgba(115, 243, 255, .09), rgba(2, 8, 18, .72)),
+    rgba(3,8,20,.70);
+}
+.drill-misses-card {
+  max-width: 720px;
+  border-radius: 8px;
+}
+
+@media (max-width: 1080px) {
+  .hero {
+    min-height: auto;
+  }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero-copy {
+    max-width: 900px;
+  }
+  .hero-console {
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding-top: 22px;
+    background:
+      linear-gradient(180deg, rgba(2,4,11,.78), rgba(2,4,11,.98) 72%),
+      url("assets/cabinet/arcade-marquee.webp") center top / auto 390px no-repeat,
+      #02040b;
+  }
+  .hero-title {
+    font-size: clamp(42px, 14vw, 58px);
+    line-height: .9;
+  }
+  .tagline {
+    font-size: 17px;
+  }
+  .cabinet-menu {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .cabinet-folder {
+    min-height: 104px;
+    padding: 16px;
+  }
+  .cf-label {
+    font-size: 25px;
+  }
+  .hero-screen {
+    min-height: 230px;
+  }
+  .console-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Landing-page cascade lock: remove the stale cabinet backdrop and keep the
+   launch choices in the first viewport on tablet/desktop widths. */
+.hero-bg {
+  display: none;
+}
+.hero {
+  min-height: calc(100svh - 128px);
+  padding-top: clamp(18px, 2.4vw, 34px);
+  padding-bottom: clamp(24px, 3vw, 44px);
+  background:
+    radial-gradient(82% 62% at 72% 24%, rgba(115, 243, 255, .16), transparent 62%),
+    radial-gradient(58% 48% at 14% 18%, rgba(255, 209, 92, .15), transparent 64%),
+    linear-gradient(135deg, rgba(255, 76, 172, .09), transparent 36%),
+    linear-gradient(180deg, #030610 0%, #07101a 46%, #02040b 100%);
+}
+.hero-inner {
+  grid-template-columns: minmax(0, .96fr) minmax(330px, .64fr) !important;
+  align-items: center;
+  min-height: calc(100svh - 196px);
+  max-width: min(1480px, calc(100% - clamp(20px, 4vw, 64px))) !important;
+  margin: 0 auto !important;
+}
+.hero-copy {
+  text-align: left;
+}
+.hero .reveal {
+  opacity: 1;
+  transform: none;
+}
+.hero-title {
+  max-width: 660px;
+  font-size: clamp(44px, 6.2vw, 88px);
+  line-height: .9;
+}
+.tagline {
+  max-width: 610px;
+  margin-top: 16px;
+}
+#top .tagline {
+  display: block !important;
+}
+.cabinet-menu {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  margin-top: 20px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.cabinet-folder {
+  min-height: 112px;
+}
+.cabinet-folder .cf-tab {
+  display: none !important;
+}
+.cabinet-folder .cf-icon {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  min-width: 38px !important;
+  height: 30px !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  font-size: 13px !important;
+  filter: none !important;
+}
+.cabinet-folder .cf-label {
+  font-family: var(--font-display) !important;
+  max-width: calc(100% - 48px) !important;
+  color: #fff8d8 !important;
+  font-size: clamp(23px, 2.25vw, 32px) !important;
+  line-height: .98 !important;
+  letter-spacing: 0 !important;
+  text-align: left !important;
+}
+.cabinet-folder .cf-meta {
+  color: color-mix(in srgb, var(--tile-accent, #73f3ff) 78%, white) !important;
+  font-size: 12px !important;
+  letter-spacing: 0 !important;
+}
+.hero-console {
+  display: flex !important;
+  min-width: 0;
+}
+.hero-screen {
+  min-height: clamp(260px, 34vh, 350px);
+}
+.console-launch {
+  min-height: 102px;
+}
+
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr !important;
+    min-height: auto;
+  }
+  .hero-console {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: auto;
+    background:
+      radial-gradient(110% 58% at 74% 0%, rgba(115, 243, 255, .16), transparent 62%),
+      radial-gradient(88% 56% at 12% 8%, rgba(255, 209, 92, .14), transparent 64%),
+      linear-gradient(180deg, #030610 0%, #07101a 48%, #02040b 100%);
+  }
+  .hero-title {
+    max-width: 100%;
+    font-size: clamp(38px, 12vw, 54px);
+  }
+  .hero-screen {
+    min-height: 218px;
+  }
+  .cabinet-menu {
+    grid-template-columns: 1fr !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -8437,14 +8851,13 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <section class="hero" id="top" aria-label="Arcade overview">
   <div class="hero-inner">
     <div class="hero-copy">
-      <div class="eyebrow reveal">Practice for your exam</div>
+      <div class="eyebrow reveal">Live review cabinet</div>
       <h1 class="hero-title reveal">
         <span class="ht-row ht-1">MR. MAC'S</span>
         <span class="ht-row ht-2">REVIEW</span>
         <span class="ht-row ht-3"><em>ARCADE</em></span>
       </h1>
-      <p class="tagline reveal">Play a game, take a full practice exam, or jump into a Jeopardy board.</p>
-      <p class="attract-text reveal" aria-hidden="true"><span class="attract-coin">●</span> INSERT COIN <span class="attract-coin">●</span></p>
+      <p class="tagline reveal">A faster launch deck for Regents, AP, and classroom review. Pick the mission type first; the arcade opens the right cabinet below.</p>
       <!-- ═══════════════════════════════════════════════════════════════
            1989 ARCADE-CABINET MENU
            Jon: "lean in to the 89 game cabinet UI, [use] containers
@@ -8457,29 +8870,29 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
         <button class="cabinet-folder cabinet-folder-jeo" type="button"
                 data-cabinet-folder="jeopardy" role="menuitem">
           <span class="cf-tab" aria-hidden="true"></span>
-          <span class="cf-icon" aria-hidden="true">📚</span>
-          <span class="cf-label">Jeopardy</span>
+          <span class="cf-icon" aria-hidden="true">01</span>
+          <span class="cf-label">Jeopardy Boards</span>
           <span class="cf-meta">152 boards</span>
         </button>
         <button class="cabinet-folder cabinet-folder-prac" type="button"
                 data-cabinet-folder="practice" role="menuitem">
           <span class="cf-tab" aria-hidden="true"></span>
-          <span class="cf-icon" aria-hidden="true">📝</span>
-          <span class="cf-label">Practice</span>
+          <span class="cf-icon" aria-hidden="true">02</span>
+          <span class="cf-label">Exam Practice</span>
           <span class="cf-meta">Regents · AP</span>
         </button>
         <button class="cabinet-folder cabinet-folder-arc" type="button"
                 data-cabinet-folder="arcade" role="menuitem">
           <span class="cf-tab" aria-hidden="true"></span>
-          <span class="cf-icon" aria-hidden="true">🎮</span>
-          <span class="cf-label">Arcade</span>
+          <span class="cf-icon" aria-hidden="true">03</span>
+          <span class="cf-label">Arcade Games</span>
           <span class="cf-meta">68 games</span>
         </button>
         <button class="cabinet-folder cabinet-folder-daily" type="button"
                 data-cabinet-folder="daily" role="menuitem">
           <span class="cf-tab" aria-hidden="true"></span>
-          <span class="cf-icon" aria-hidden="true">🏆</span>
-          <span class="cf-label">Daily</span>
+          <span class="cf-icon" aria-hidden="true">04</span>
+          <span class="cf-label">Daily Run</span>
           <span class="cf-meta">+60 shards</span>
         </button>
       </div>
@@ -8489,7 +8902,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
            Pit (review-mix wired) for retrieval practice. -->
       <a class="drill-misses-card" id="drillMissesCard" href="games/snake-pit/" hidden>
         <span class="dm-glow" aria-hidden="true"></span>
-        <span class="dm-icon" aria-hidden="true">🎯</span>
+        <span class="dm-icon" aria-hidden="true">!</span>
         <span class="dm-text">
           <strong class="dm-title">Drill Your Misses</strong>
           <span class="dm-sub"><span id="dmCount">0</span> questions due for review</span>
@@ -9110,13 +9523,13 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-recommender.js?v=20260509-recommender"></script>
 <script src="assets/arcade-keyboard-remap.js?v=20260509-keyboard"></script>
 <script src="assets/arcade-dev-tools.js?v=20260509-devtools"></script>
-<script src="assets/arcade-mascot.js?v=20260509-mascot"></script>
+<script src="assets/arcade-mascot.js?v=20260512-quiet-lobby"></script>
 <script src="assets/arcade-replay.js?v=20260509-replay"></script>
 <script src="assets/arcade-classroom.js?v=20260509-classroom"></script>
 <script src="assets/arcade-tutorial.js?v=20260509-tutorial"></script>
 <script src="assets/arcade-difficulty.js?v=20260509-difficulty"></script>
 <script src="assets/arcade-screenshot.js?v=20260509-screenshot"></script>
-<script src="assets/arcade-changelog.js?v=20260509-changelog"></script>
+<script src="assets/arcade-changelog.js?v=20260512-launch-deck"></script>
 <script src="assets/arcade-changelog-entries.js?v=20260511-entries-v6.12b"></script>
 <script src="assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
 <script src="assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
@@ -11513,9 +11926,8 @@ boot();
     if (welcomeOverlay) welcomeOverlay.hidden = true;
   }
 
-  if (!P.exists() && welcomeOverlay) {
-    setTimeout(openWelcome, 320);
-  }
+  // Do not auto-block the arcade lobby. First-time players can open this
+  // setup from the profile pill, but the launch deck should be the first view.
   if (welcomeName) {
     // Name field is now optional (UX walkthrough rec #3) — CTA always enabled.
     // Pressing Enter from the name field fires the CTA.
@@ -13828,12 +14240,7 @@ boot();
     // never blocks the others. Modules are self-mounting + idempotent
     // so calling .mount() twice is safe.
 
-    // Mount mascot — pinned helper character on body
-    try {
-      if (window.MrMacsMascot && typeof window.MrMacsMascot.mount === "function") {
-        window.MrMacsMascot.mount(document.body);
-      }
-    } catch (e) {}
+    // Keep the hub clean: no pinned mascot over the launch deck.
 
     // Mount news ticker — top of page, above the hero
     try {
@@ -13972,8 +14379,8 @@ boot();
       if (topbarRight && window.MrMacsNotificationCenter) MrMacsNotificationCenter.mountBell(topbarRight);
     } catch (e) {}
 
-    // Mascot dialog
-    try { if (window.MrMacsMascotDialog) MrMacsMascotDialog.start(); } catch (e) {}
+    // Mascot dialog stays manual; automatic first-load speech covers the
+    // launch deck and makes the lobby feel busier than it is.
 
     // Did-you-mean on search input
     try {

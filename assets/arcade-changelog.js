@@ -460,6 +460,9 @@
 
   // ─── Auto-show on load ──────────────────────────────────────────────
   function checkAndShowOnLoad() {
+    // The topbar badge is persistent; do not cover the launch deck with
+    // an automatic toast on page load.
+    return false;
     var n = unseenCount();
     if (n <= 0) return false;
     ensureStyles();
