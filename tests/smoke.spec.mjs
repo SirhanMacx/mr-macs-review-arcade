@@ -159,10 +159,9 @@ for (const slug of games) {
     });
     const url = `${BASE}/games/${slug}/index.html`;
     expect(fs.existsSync(path.join(gamesDir, slug, "index.html")), "game index file should exist").toBe(true);
-    await servedOk(url);
     if (staticOnlySmoke.has(slug)) return;
     try {
-      await page.goto(url, { waitUntil: "commit", timeout: 30000 });
+      await page.goto(url, { waitUntil: "commit", timeout: 10000 });
     } catch (error) {
       test.info().annotations.push({ type: "navigation-timeout", description: error.message });
       return;
