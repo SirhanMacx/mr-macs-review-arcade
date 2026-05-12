@@ -379,8 +379,9 @@ def finish_generated_surface(
     variant: str,
 ) -> Image.Image:
     rng = random.Random(seed)
-    img = ImageEnhance.Color(image.convert("RGB")).enhance(1.10)
-    img = ImageEnhance.Contrast(img).enhance(1.08)
+    img = ImageEnhance.Color(image.convert("RGB")).enhance(1.28)
+    img = ImageEnhance.Contrast(img).enhance(1.18)
+    img = ImageEnhance.Brightness(img).enhance(1.16)
     img = img.convert("RGBA")
     overlay = color_overlay(size, accent, secondary, 34)
     draw = ImageDraw.Draw(overlay, "RGBA")
@@ -410,6 +411,72 @@ def finish_generated_surface(
     return Image.alpha_composite(img, overlay).filter(ImageFilter.UnsharpMask(radius=1.1, percent=115, threshold=3)).convert("RGB")
 
 
+def label_generated_game_art(image: Image.Image, game: dict, size: tuple[int, int], accent: str, secondary: str, variant: str) -> Image.Image:
+    img = image.convert("RGBA")
+    draw = ImageDraw.Draw(img, "RGBA")
+    w, h = size
+    if variant == "thumbnail":
+        title_y = int(h * 0.63)
+        panel_h = int(h * 0.34)
+        title_size = max(26, int(h * 0.115))
+        meta_size = max(12, int(h * 0.042))
+    elif variant == "marquee":
+        title_y = int(h * 0.30)
+        panel_h = int(h * 0.50)
+        title_size = max(26, int(h * 0.17))
+        meta_size = max(13, int(h * 0.055))
+    else:
+        title_y = int(h * 0.60)
+        panel_h = int(h * 0.38)
+        title_size = max(34, int(h * 0.125))
+        meta_size = max(14, int(h * 0.044))
+
+    draw.rectangle((0, h - panel_h, w, h), fill=(1, 4, 11, 174))
+    draw.rectangle((0, h - panel_h, int(w * 0.018), h), fill=accent + "cc")
+    draw.line((int(w * 0.045), h - panel_h + 8, int(w * 0.42), h - panel_h + 8), fill=accent + "cc", width=max(2, w // 190))
+
+    label = (game.get("gameType") or game.get("subject") or "Arcade Review").upper()
+    meta = f"{game.get('clueCount') or 0} prompts" if game.get("clueCount") else (game.get("course") or "All Courses")
+    label_font = font(meta_size, bold=True)
+    draw.text((int(w * 0.055) + 1, h - panel_h + int(h * 0.055) + 1), label[:44], fill="#02040a", font=label_font)
+    draw.text((int(w * 0.055), h - panel_h + int(h * 0.055)), label[:44], fill=accent, font=label_font)
+
+    title_font = font(title_size, bold=True)
+    words = slug_words(str(game.get("title") or game.get("id") or "Review"), 5).upper().split()
+    lines: list[str] = []
+    current = ""
+    max_width = int(w * 0.78)
+    for word in words:
+        candidate = f"{current} {word}".strip()
+        if draw.textbbox((0, 0), candidate, font=title_font)[2] <= max_width:
+            current = candidate
+        else:
+            if current:
+                lines.append(current)
+            current = word
+    if current:
+        lines.append(current)
+    lines = lines[:2]
+    y = title_y
+    for line in lines:
+        draw.text((int(w * 0.055) + 3, y + 3), line, fill="#02040a", font=title_font)
+        draw.text((int(w * 0.055), y), line, fill=PAPER, font=title_font)
+        y += int(title_size * 1.06)
+
+    meta_y = min(h - int(h * 0.065), y + int(h * 0.025))
+    draw.text((int(w * 0.055), meta_y), str(meta).upper()[:48], fill=secondary, font=label_font)
+    draw.rounded_rectangle(
+        (int(w * 0.80), h - int(h * 0.18), int(w * 0.94), h - int(h * 0.07)),
+        radius=max(5, int(h * 0.025)),
+        fill=accent + "d8",
+        outline=(0, 0, 0, 190),
+        width=max(1, int(h * 0.006)),
+    )
+    play_font = font(max(11, int(h * 0.04)), bold=True)
+    draw.text((int(w * 0.83), h - int(h * 0.147)), "PLAY", fill="#07101e", font=play_font)
+    return img.convert("RGB")
+
+
 def render_game_art(game: dict, size: tuple[int, int], variant: str) -> Image.Image:
     seed = stable_seed(f"{game.get('id')}:{variant}:gpt-image-atlas")
     accent, secondary, _tertiary = palette_for(game)
@@ -417,7 +484,8 @@ def render_game_art(game: dict, size: tuple[int, int], variant: str) -> Image.Im
     zoom = 1.02 if variant == "marquee" else 1.12
     source = key_art_panel(category)
     image = deterministic_cover(source, size, seed, zoom)
-    return finish_generated_surface(image, size, accent, secondary, seed, variant)
+    finished = finish_generated_surface(image, size, accent, secondary, seed, variant)
+    return label_generated_game_art(finished, game, size, accent, secondary, variant)
 
 
 def save_webp(image: Image.Image, path: Path, quality: int) -> None:

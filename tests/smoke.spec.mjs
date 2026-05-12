@@ -23,9 +23,10 @@ import { spawn } from "node:child_process";
 import { setTimeout as sleep } from "node:timers/promises";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const PORT = 8190;
-const ROOT = path.dirname(new URL(import.meta.url).pathname);
+const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(ROOT, "..");
 const BASE = `http://localhost:${PORT}`;
 

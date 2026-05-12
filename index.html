@@ -76,7 +76,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260512-generated-cabinet-v5">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260512-generated-cabinet-v6">
 <style>
 :root {
   color-scheme: dark;
@@ -8472,6 +8472,103 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   }
 }
 
+/* Final cabinet-card lock. Large arcade cards render a real generated image
+   element, then the text sits on a short smoked-glass control plate. */
+.featured-10-band {
+  padding: clamp(18px, 3vw, 34px) !important;
+  border: 3px solid rgba(255, 208, 96, .34);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(1, 4, 11, .54), rgba(1, 4, 11, .92)),
+    url("assets/cabinet/main-menu-cabinet.webp") center / cover no-repeat,
+    #030711;
+  box-shadow:
+    0 0 0 2px rgba(0,0,0,.78) inset,
+    0 18px 42px rgba(0,0,0,.44),
+    0 0 42px rgba(115, 243, 255, .12);
+}
+.featured-10-band .band-head {
+  margin-bottom: clamp(12px, 1.8vw, 20px) !important;
+}
+.featured-10-band .band-sub {
+  display: none;
+}
+.featured-10 {
+  gap: clamp(12px, 1.3vw, 18px) !important;
+}
+.featured-10 .game-card.f10-card {
+  min-height: 268px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 8px !important;
+  border: 3px solid color-mix(in srgb, var(--accent, #73f3ff) 48%, #ffd060 16%) !important;
+  background:
+    linear-gradient(180deg, rgba(1,4,11,.06), rgba(1,4,11,.18) 48%, rgba(1,4,11,.96) 100%),
+    var(--card-art) center / cover no-repeat,
+    url("assets/cabinet/card-frame.webp") center / cover no-repeat,
+    #030711 !important;
+}
+.featured-10 .f10-art {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  background:
+    linear-gradient(180deg, rgba(1,4,11,.06), rgba(1,4,11,.20) 52%, rgba(1,4,11,.86)),
+    url("assets/cabinet/category-tile-arcade.webp") center / cover no-repeat;
+}
+.featured-10 .f10-art img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: brightness(1.28) contrast(1.12) saturate(1.22);
+}
+.featured-10 .f10-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.12) 48%, rgba(0,0,0,.72)),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.055) 0 1px, transparent 1px 5px);
+  pointer-events: none;
+}
+.featured-10 .f10-rank,
+.featured-10 .f10-std,
+.featured-10 .f10-body,
+.featured-10 .f10-foot {
+  position: relative;
+  z-index: 3;
+}
+.featured-10 .f10-body {
+  margin: auto 10px 0 !important;
+  padding: 9px 10px !important;
+  border-radius: 6px !important;
+  background:
+    linear-gradient(180deg, rgba(3, 7, 16, .68), rgba(3, 7, 16, .92)),
+    url("assets/cabinet/control-panel.webp") center / cover no-repeat !important;
+  backdrop-filter: blur(2px);
+}
+.featured-10 .f10-foot {
+  margin: 0 10px 10px !important;
+  padding: 8px 0 0 !important;
+}
+.library-grid .game-card {
+  background:
+    linear-gradient(180deg, rgba(1,4,11,.02), rgba(1,4,11,.18) 50%, rgba(1,4,11,.88)),
+    var(--card-art) center / cover no-repeat,
+    url("assets/cabinet/card-frame.webp") center / cover no-repeat,
+    #030711 !important;
+}
+.library-grid .game-card .gc-thumb {
+  filter: brightness(1.2) contrast(1.1) saturate(1.18) !important;
+}
+.library-grid .game-card .gc-body,
+.library-grid .game-card .card-bottom {
+  background: rgba(3, 7, 16, .76);
+  backdrop-filter: blur(2px);
+}
+
 /* Final generated-cabinet mobile lock. Keep this at the end of the inline
    cascade so the home menu cannot widen past the viewport. */
 @media (max-width: 699px) {
@@ -8569,6 +8666,15 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
     overflow-wrap: anywhere;
   }
   #top .tagline {
+    display: none !important;
+  }
+  .featured-10-band {
+    padding: 12px !important;
+  }
+  .featured-10 .game-card.f10-card {
+    min-height: 218px !important;
+  }
+  .featured-10 .f10-sub {
     display: none !important;
   }
 }
@@ -9875,6 +9981,27 @@ function cardArtFor(game) {
   if (!game) return "";
   return "assets/game-card-art/" + encodeURIComponent(game.id) + ".webp";
 }
+function cardArtFallbackFor(game) {
+  const category = game ? categoryForGameArt(game) : "arcade";
+  const byCategory = {
+    jeopardy: "assets/cabinet/category-tile-jeopardy.webp",
+    exam: "assets/cabinet/category-tile-practice.webp",
+    arcade: "assets/cabinet/category-tile-arcade.webp",
+    daily: "assets/cabinet/category-tile-daily.webp",
+    source: "assets/cabinet/game-backdrop-source-desk.webp",
+    strategy: "assets/cabinet/game-backdrop-archive.webp"
+  };
+  return byCategory[category] || byCategory.arcade;
+}
+function categoryForGameArt(game) {
+  const text = [game?.id, game?.title, game?.gameType, game?.subject, game?.file].join(" ").toLowerCase();
+  if (/jeopardy/.test(text)) return "jeopardy";
+  if (/practice|exam|regents|ap-practice/.test(text)) return "exam";
+  if (/source|cipher|document|writing/.test(text)) return "source";
+  if (/chess|citadel|empire|sokoban|mahjong|sudoku/.test(text)) return "strategy";
+  if (/daily|runner|sprint/.test(text)) return "daily";
+  return "arcade";
+}
 function marqueeFor(game) {
   if (!game) return "";
   return "assets/game-marquees/" + encodeURIComponent(game.id) + ".webp";
@@ -10366,7 +10493,7 @@ function renderHeroConsole() {
   if (primary && primaryCard) {
     primaryCard.dataset.id = primary.id;
     primaryCard.style.setProperty("--accent", accentFor(primary));
-    primaryCard.style.setProperty("--screen-art", 'url("' + cardArtFor(primary).replaceAll('"', "%22") + '")');
+    primaryCard.style.setProperty("--screen-art", 'url("' + cardArtFallbackFor(primary).replaceAll('"', "%22") + '")');
     primaryCard.innerHTML =
       '<span class="screen-kicker">' + escapeHtml(displayGameType(primary)) + '</span>' +
       '<span class="screen-title">' + escapeHtml(shortHeroTitle(primary.title)) + '</span>' +
@@ -10399,7 +10526,7 @@ function renderHeroConsole() {
   if (!grid) return;
   grid.innerHTML = slots.map((game, index) => {
     const accent = accentFor(game);
-    const art = cssUrlForAttr(cardArtFor(game));
+    const art = cssUrlForAttr(cardArtFallbackFor(game));
     const label = ["regents-practice-exam", "ap-practice-exam"].includes(game.id) ? "Full exam" : displayGameType(game);
     return '<button class="console-launch" type="button" style="--accent:' + accent + ';--slot-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
       '<span>' + escapeHtml(label) + '</span>' +
@@ -10448,6 +10575,9 @@ function renderFeatured10() {
       ' style="--accent:' + accent + ';--card-art:' + art + ';--i:' + index + '"' +
       ' data-id="' + escapeHtml(game.id) + '"' +
       ' aria-label="Play ' + escapeHtml(game.title) + '">' +
+      '<span class="f10-art" aria-hidden="true">' +
+        '<img src="' + escapeHtml(cardArtFor(game)) + '" alt="" loading="lazy" decoding="async" onerror="this.src=\'' + escapeHtml(cardArtFallbackFor(game)) + '\';this.onerror=null;">' +
+      '</span>' +
       '<span class="f10-rank">' + String(index + 1).padStart(2, '0') + '</span>' +
       '<span class="f10-std" title="Standards alignment">' + escapeHtml(stdLabel) + '</span>' +
       '<div class="f10-body">' +

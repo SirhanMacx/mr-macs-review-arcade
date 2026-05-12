@@ -29,8 +29,12 @@
   var PLAYER_INITIAL_LEN = 12;
   var AI_INITIAL_LEN_MIN = 12;
   var AI_INITIAL_LEN_MAX = 28;
-  var MAX_LEN = 180;
+  var GROWTH_METER_REFERENCE_LEN = 360;
   var MIN_LEN = 5;
+  var SNAKE_DRAW_TARGET_SEGMENTS = 260;
+  var SNAKE_COLLISION_TARGET_SEGMENTS = 240;
+  var MAX_DEATH_ORBS = 180;
+  var HUD_UPDATE_INTERVAL = 0.12;
   var BOOST_DRAIN_INTERVAL = 0.5;     // seconds per segment lost while boosting
   var KILL_BOOST_RESERVE_TIME = 4.0;  // free boost time when "Boost Reserve" pickup grabbed
 
@@ -41,8 +45,9 @@
   var ORB_DEAD_VALUE_PTS = 75;
   var ORB_BASE_COUNT = 240;           // baseline orb count in arena
   var SCHOLAR_ORB_RADIUS = 11;
-  var SCHOLAR_ORB_INITIAL_COUNT = 2;
-  var SCHOLAR_ORB_RESPAWN_S = 13.0;   // spawn another after this many sec (was 22 — Jon: more review opportunities)
+  var SCHOLAR_ORB_INITIAL_COUNT = 4;
+  var SCHOLAR_ORB_MAX_ACTIVE = 4;
+  var SCHOLAR_ORB_RESPAWN_S = 8.0;   // frequent review prompts without interrupting every orb chain
 
   // AI snakes
   var AI_COUNT_MIN = 5;
@@ -104,6 +109,45 @@
     // Civic / current
     { prompt: "The Universal Declaration of Human Rights (1948) was adopted by:", choices: ["The United Nations General Assembly", "NATO", "The European Court of Human Rights", "The League of Nations"], correctText: "The United Nations General Assembly" },
     { prompt: "Which of the following is the BEST example of a primary source for the Civil Rights movement?", choices: ["Martin Luther King Jr.'s 'Letter from Birmingham Jail' (1963)", "A 2010 high school textbook chapter on civil rights", "An encyclopedia entry on Selma", "A modern documentary film about King"], correctText: "Martin Luther King Jr.'s 'Letter from Birmingham Jail' (1963)" }
+  ];
+
+  var SNAKE_PIT_REVIEW_BANK = [
+    { prompt: "Which development most helped early river valley civilizations create surplus food?", choices: ["Irrigation and organized farming", "The printing press", "Steam-powered factories", "Joint-stock companies"], correctText: "Irrigation and organized farming" },
+    { prompt: "Hammurabi's Code is historically important because it:", choices: ["Written legal code linking laws to social order", "Created democracy in Athens", "Ended feudalism in Europe", "Established Buddhism in India"], correctText: "Written legal code linking laws to social order" },
+    { prompt: "The caste system in classical India mainly organized society by:", choices: ["Hereditary social and occupational status", "Elected political parties", "Military rank only", "Free market competition"], correctText: "Hereditary social and occupational status" },
+    { prompt: "Confucianism emphasized which value for social harmony?", choices: ["Filial piety and proper relationships", "Individual salvation through faith alone", "Permanent social revolution", "Separation of church and state"], correctText: "Filial piety and proper relationships" },
+    { prompt: "The Five Pillars of Islam include:", choices: ["Prayer, fasting, charity, pilgrimage, and profession of faith", "Caste, karma, dharma, moksha, reincarnation", "Filial piety, mandate, rites, exams, ancestor worship", "Indulgences, sacraments, predestination, tithes, pilgrimage"], correctText: "Prayer, fasting, charity, pilgrimage, and profession of faith" },
+    { prompt: "The Byzantine Empire preserved Roman and Greek traditions mainly through:", choices: ["Law codes, Orthodox Christianity, and classical learning", "Atlantic plantation agriculture", "Feudal parliaments", "Industrial capitalism"], correctText: "Law codes, Orthodox Christianity, and classical learning" },
+    { prompt: "The Crusades helped increase European interest in:", choices: ["Trade with the eastern Mediterranean and Asia", "Isolation from all foreign goods", "Abolishing monarchies", "Ending urban growth"], correctText: "Trade with the eastern Mediterranean and Asia" },
+    { prompt: "The Black Death contributed to the decline of feudalism by:", choices: ["Creating labor shortages that weakened manor obligations", "Strengthening serfdom everywhere", "Ending all trade in Europe permanently", "Uniting Europe under one emperor"], correctText: "Creating labor shortages that weakened manor obligations" },
+    { prompt: "Martin Luther's Ninety-Five Theses criticized:", choices: ["The sale of indulgences and church abuses", "The scientific method", "The Magna Carta", "The Berlin Conference"], correctText: "The sale of indulgences and church abuses" },
+    { prompt: "A major effect of the printing press was:", choices: ["Faster spread of religious, scientific, and political ideas", "Immediate end of monarchies", "Decline of literacy", "Isolation of European states"], correctText: "Faster spread of religious, scientific, and political ideas" },
+    { prompt: "Mercantilism held that colonies should:", choices: ["Provide raw materials and markets for the mother country", "Elect representatives to rule Europe", "Remain economically independent", "Avoid all trade with Europe"], correctText: "Provide raw materials and markets for the mother country" },
+    { prompt: "Enlightenment thinkers most directly influenced revolutions by arguing for:", choices: ["Natural rights, consent, and limits on government", "Absolute monarchy and divine right", "Mercantilist monopolies", "Feudal obligations"], correctText: "Natural rights, consent, and limits on government" },
+    { prompt: "The Industrial Revolution began in Britain partly because Britain had:", choices: ["Coal, capital, labor, and stable institutions", "No overseas trade", "A ban on inventions", "No agricultural changes"], correctText: "Coal, capital, labor, and stable institutions" },
+    { prompt: "Karl Marx argued that history was shaped mainly by:", choices: ["Class struggle over control of production", "Divine right monarchy", "Geographic isolation", "Individual voting behavior only"], correctText: "Class struggle over control of production" },
+    { prompt: "The Berlin Conference of 1884-85 is associated with:", choices: ["European partition of Africa", "Unification of Germany", "Creation of the United Nations", "Japanese modernization"], correctText: "European partition of Africa" },
+    { prompt: "Nationalism in the 19th century contributed to:", choices: ["Unification movements in Italy and Germany", "Permanent peace in Europe", "The end of all ethnic conflict", "The fall of industrial capitalism"], correctText: "Unification movements in Italy and Germany" },
+    { prompt: "The Schlieffen Plan was Germany's strategy to:", choices: ["Defeat France quickly before turning east toward Russia", "Blockade Japan", "Invade Britain by sea first", "Withdraw from Belgium"], correctText: "Defeat France quickly before turning east toward Russia" },
+    { prompt: "The Russian Revolution of 1917 resulted in:", choices: ["Bolshevik seizure of power and communist rule", "A stronger czarist monarchy", "Immediate democracy under NATO", "Unification with Germany"], correctText: "Bolshevik seizure of power and communist rule" },
+    { prompt: "Appeasement in the 1930s refers to:", choices: ["Granting concessions to aggressive powers to avoid war", "The Allied invasion of Normandy", "The Soviet blockade of Berlin", "U.S. containment in Korea"], correctText: "Granting concessions to aggressive powers to avoid war" },
+    { prompt: "The Cold War was primarily a conflict between:", choices: ["U.S.-led capitalism and Soviet-led communism", "Britain and France over colonies", "China and Japan over Korea", "Rome and Carthage over trade"], correctText: "U.S.-led capitalism and Soviet-led communism" },
+    { prompt: "Containment was a U.S. policy designed to:", choices: ["Stop the spread of communism", "Promote isolationism", "End NATO", "Expand Soviet influence"], correctText: "Stop the spread of communism" },
+    { prompt: "The Green Revolution increased food production through:", choices: ["High-yield seeds, fertilizers, irrigation, and technology", "Medieval crop rotation only", "Ending all global trade", "Returning to hunting and gathering"], correctText: "High-yield seeds, fertilizers, irrigation, and technology" },
+    { prompt: "The Articles of Confederation created a national government that was:", choices: ["Too weak to tax or regulate interstate commerce effectively", "A powerful monarchy", "A strong centralized federal system", "A direct democracy with no states"], correctText: "Too weak to tax or regulate interstate commerce effectively" },
+    { prompt: "The Great Compromise created:", choices: ["A bicameral Congress with House representation by population and equal Senate representation", "A national bank", "The Bill of Rights", "Judicial review"], correctText: "A bicameral Congress with House representation by population and equal Senate representation" },
+    { prompt: "The Bill of Rights was added mainly to:", choices: ["Protect individual liberties and ease Anti-Federalist concerns", "Expand presidential war powers", "End slavery immediately", "Create political parties"], correctText: "Protect individual liberties and ease Anti-Federalist concerns" },
+    { prompt: "Washington's Farewell Address warned against:", choices: ["Permanent alliances and political factionalism", "The creation of a cabinet", "Neutrality in foreign affairs", "The use of executive power"], correctText: "Permanent alliances and political factionalism" },
+    { prompt: "The Monroe Doctrine asserted that:", choices: ["European powers should not colonize or interfere in the Americas", "The U.S. would join European wars", "Slavery would expand westward", "The Supreme Court could review laws"], correctText: "European powers should not colonize or interfere in the Americas" },
+    { prompt: "Manifest Destiny was the belief that:", choices: ["The United States was destined to expand westward across North America", "States could nullify federal law", "Industrial laborers should unionize", "The U.S. should avoid expansion"], correctText: "The United States was destined to expand westward across North America" },
+    { prompt: "The Kansas-Nebraska Act intensified sectional conflict because it:", choices: ["Allowed popular sovereignty over slavery in new territories", "Ended the plantation economy", "Abolished slavery nationwide", "Created the Republican tariff"], correctText: "Allowed popular sovereignty over slavery in new territories" },
+    { prompt: "Reconstruction amendments did which of the following?", choices: ["Ended slavery, defined citizenship, and protected voting rights for Black men", "Created Social Security", "Declared war on Spain", "Established the Federal Reserve"], correctText: "Ended slavery, defined citizenship, and protected voting rights for Black men" },
+    { prompt: "The Populist movement supported:", choices: ["Farmers' economic reforms such as currency expansion and railroad regulation", "Laissez-faire monopolies", "Imperial control of Cuba", "Strict limits on voting rights"], correctText: "Farmers' economic reforms such as currency expansion and railroad regulation" },
+    { prompt: "Muckrakers contributed to Progressive reform by:", choices: ["Exposing corruption and unsafe conditions", "Defending monopolies", "Opposing all regulation", "Ending immigration"], correctText: "Exposing corruption and unsafe conditions" },
+    { prompt: "The Harlem Renaissance was:", choices: ["A flowering of African American art, music, and literature", "A military campaign in Europe", "A New Deal banking program", "A Supreme Court doctrine"], correctText: "A flowering of African American art, music, and literature" },
+    { prompt: "The Federal Reserve was created to:", choices: ["Stabilize banking and manage the money supply", "Run public schools", "Command the army", "Regulate immigration quotas"], correctText: "Stabilize banking and manage the money supply" },
+    { prompt: "The Fair Deal and Great Society are both examples of:", choices: ["Federal domestic reform programs expanding social welfare", "Isolationist foreign policy", "Gilded Age laissez-faire", "Reconstruction military occupation"], correctText: "Federal domestic reform programs expanding social welfare" },
+    { prompt: "The War Powers Resolution tried to:", choices: ["Limit presidential ability to commit troops without Congress", "Expand the Supreme Court", "End judicial review", "Create NATO"], correctText: "Limit presidential ability to commit troops without Congress" }
   ];
 
   // -- Snake colors ----------------------------------------------------------
@@ -447,6 +491,7 @@
       _intentTimer: 0,
       score: 0,
       kills: 0,
+      lastHudUpdate: 0,
       // Combo (player only — AIs don't combo)
       comboCount: 0,
       comboT: 0,                  // time remaining before combo resets
@@ -571,7 +616,8 @@
       bossAlive: false,
       bossesKilled: 0,
       leaderboard: [],                         // top-5 snakes by length, updated each frame
-      lastLeaderboardUpdate: 0
+      lastLeaderboardUpdate: 0,
+      lastHudUpdate: 0
     };
     state = newState;
     for (var i = 0; i < diff.aiCount; i++) {
@@ -579,7 +625,7 @@
       state.ais.push(ai);
     }
     seedOrbs(ORB_BASE_COUNT);
-    spawnScholarOrb();
+    for (var si = 0; si < SCHOLAR_ORB_INITIAL_COUNT; si++) spawnScholarOrb();
   }
 
   function generateBackgroundGrid() {
@@ -756,20 +802,19 @@
       var dx = s.x - head.x;
       var dy = s.y - head.y;
       var d = Math.sqrt(dx * dx + dy * dy);
-      // Insert a new head at s.x,s.y; then tighten the chain
-      s.segments.unshift({ x: s.x, y: s.y });
-      // walk backwards and re-position each segment to be SEG_SPACING from prior
-      for (var i = 1; i < s.segments.length; i++) {
-        var prev = s.segments[i - 1];
-        var seg = s.segments[i];
-        var ddx = seg.x - prev.x;
-        var ddy = seg.y - prev.y;
-        var dd = Math.sqrt(ddx * ddx + ddy * ddy);
-        if (dd > SEG_SPACING) {
-          var ratio = SEG_SPACING / dd;
-          seg.x = prev.x + ddx * ratio;
-          seg.y = prev.y + ddy * ratio;
+      if (d >= SEG_SPACING) {
+        var ux = dx / d;
+        var uy = dy / d;
+        var inserts = Math.min(6, Math.floor(d / SEG_SPACING));
+        for (var ii = inserts - 1; ii >= 0; ii--) {
+          s.segments.unshift({
+            x: s.x - ux * SEG_SPACING * ii,
+            y: s.y - uy * SEG_SPACING * ii
+          });
         }
+      } else {
+        head.x = s.x;
+        head.y = s.y;
       }
       // trim or grow tail to match targetLen
       while (s.segments.length > s.targetLen) {
@@ -781,7 +826,7 @@
       if (s.pendingGrowth > 0 && !boostShrinking) {
         // grow one segment per frame chunk to avoid jitter
         var maxGrowThisFrame = Math.min(s.pendingGrowth, 3);
-        s.targetLen = Math.min(MAX_LEN, s.targetLen + maxGrowThisFrame);
+        s.targetLen += maxGrowThisFrame;
         s.pendingGrowth -= maxGrowThisFrame;
       }
     }
@@ -797,6 +842,26 @@
   function growSnake(s, n) {
     if (!n) return;
     s.pendingGrowth += n;
+  }
+
+  function segmentStride(length, targetSegments) {
+    if (!length || length <= targetSegments) return 1;
+    return Math.max(1, Math.ceil(length / targetSegments));
+  }
+
+  function collisionStride(s) {
+    return segmentStride(s && s.segments ? s.segments.length : 0, SNAKE_COLLISION_TARGET_SEGMENTS);
+  }
+
+  function getDrawableSegments(s) {
+    var segs = s.segments || [];
+    if (segs.length <= SNAKE_DRAW_TARGET_SEGMENTS) return segs;
+    var stride = segmentStride(segs.length, SNAKE_DRAW_TARGET_SEGMENTS);
+    var out = [];
+    for (var i = 0; i < segs.length; i += stride) out.push(segs[i]);
+    var tail = segs[segs.length - 1];
+    if (out[out.length - 1] !== tail) out.push(tail);
+    return out;
   }
 
   // -- Orb collection --------------------------------------------------------
@@ -1040,7 +1105,8 @@
         return true;
       }
       // segment hit
-      for (var j = 1; j < o.segments.length; j++) {
+      var step = collisionStride(o);
+      for (var j = 1; j < o.segments.length; j += step) {
         var seg = o.segments[j];
         var rr = headR + SEG_RADIUS - 1;
         if (dist2(headX, headY, seg.x, seg.y) < rr * rr) {
@@ -1069,7 +1135,7 @@
     s.deadT = 0;
     // Scatter orbs along body (clamped inside arena so leftover orbs never spawn out of bounds)
     var seg = s.segments;
-    var stride = 1;  // every segment makes a leftover orb
+    var stride = Math.max(1, Math.ceil(seg.length / MAX_DEATH_ORBS));
     for (var i = 0; i < seg.length; i += stride) {
       var sg = seg[i];
       if (i === 0 || Math.random() < 0.65) {
@@ -1494,7 +1560,7 @@
       state.powerupSpawnTimer = POWERUP_SPAWN_BASE_S + rand(-4, 6);
     }
     state.scholarSpawnTimer -= dt;
-    if (state.scholarSpawnTimer <= 0 && state.scholarOrbs.length < 2) {
+    if (state.scholarSpawnTimer <= 0 && state.scholarOrbs.length < SCHOLAR_ORB_MAX_ACTIVE) {
       spawnScholarOrb();
       state.scholarSpawnTimer = SCHOLAR_ORB_RESPAWN_S + rand(-4, 8);
     }
@@ -1869,6 +1935,8 @@
 
   function drawSnake(s) {
     if (!s.segments || s.segments.length === 0) return;
+    var drawSegments = getDrawableSegments(s);
+    if (!drawSegments.length) return;
     var pal = s.palette;
     var alpha = s.dead ? Math.max(0, 1 - s.deadT) : 1;
     // Phase glow
@@ -1883,9 +1951,9 @@
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
       ctx.beginPath();
-      ctx.moveTo(s.segments[0].x, s.segments[0].y);
-      for (var ig = 1; ig < Math.min(8, s.segments.length); ig++) {
-        ctx.lineTo(s.segments[ig].x, s.segments[ig].y);
+      ctx.moveTo(drawSegments[0].x, drawSegments[0].y);
+      for (var ig = 1; ig < Math.min(8, drawSegments.length); ig++) {
+        ctx.lineTo(drawSegments[ig].x, drawSegments[ig].y);
       }
       ctx.stroke();
       ctx.restore();
@@ -1903,27 +1971,27 @@
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.beginPath();
-    ctx.moveTo(s.segments[0].x, s.segments[0].y);
-    for (var i = 1; i < s.segments.length; i++) {
-      ctx.lineTo(s.segments[i].x, s.segments[i].y);
+    ctx.moveTo(drawSegments[0].x, drawSegments[0].y);
+    for (var i = 1; i < drawSegments.length; i++) {
+      ctx.lineTo(drawSegments[i].x, drawSegments[i].y);
     }
     ctx.stroke();
     // inner body
     ctx.strokeStyle = pal.body || "#4dd49b";
     ctx.lineWidth = SEG_RADIUS * 1.6;
     ctx.beginPath();
-    ctx.moveTo(s.segments[0].x, s.segments[0].y);
-    for (var k = 1; k < s.segments.length; k++) {
-      ctx.lineTo(s.segments[k].x, s.segments[k].y);
+    ctx.moveTo(drawSegments[0].x, drawSegments[0].y);
+    for (var k = 1; k < drawSegments.length; k++) {
+      ctx.lineTo(drawSegments[k].x, drawSegments[k].y);
     }
     ctx.stroke();
     // highlight stripe
     ctx.strokeStyle = pal.bodyHi || "#9ff0c8";
     ctx.lineWidth = SEG_RADIUS * 0.6;
     ctx.beginPath();
-    ctx.moveTo(s.segments[0].x, s.segments[0].y);
-    for (var m = 1; m < s.segments.length; m++) {
-      ctx.lineTo(s.segments[m].x, s.segments[m].y);
+    ctx.moveTo(drawSegments[0].x, drawSegments[0].y);
+    for (var m = 1; m < drawSegments.length; m++) {
+      ctx.lineTo(drawSegments[m].x, drawSegments[m].y);
     }
     ctx.stroke();
     ctx.restore();
@@ -1934,8 +2002,8 @@
       ctx.globalAlpha = 0.55 * alpha;
       ctx.fillStyle = pal.bodyHi || "#9ff0c8";
       var bumpStep = 3;
-      for (var b = 0; b < s.segments.length; b += bumpStep) {
-        var sg = s.segments[b];
+      for (var b = 0; b < drawSegments.length; b += bumpStep) {
+        var sg = drawSegments[b];
         ctx.beginPath();
         ctx.arc(sg.x, sg.y, 1.6, 0, Math.PI * 2);
         ctx.fill();
@@ -2144,7 +2212,7 @@
     var w = 140, h = 8;
     var x0 = pad;
     var y0 = VIEW_H - pad - h;
-    var lenFrac = Math.min(1, Math.max(0, (p.segments.length - MIN_LEN) / (MAX_LEN - MIN_LEN)));
+    var lenFrac = Math.min(1, Math.max(0, (p.segments.length - MIN_LEN) / (GROWTH_METER_REFERENCE_LEN - MIN_LEN)));
     ctx.save();
     ctx.fillStyle = "rgba(4,8,18,0.6)";
     ctx.strokeStyle = "rgba(93,224,240,0.35)";
@@ -2264,6 +2332,8 @@
   // -- Scholar / review modal -----------------------------------------------
   var activeQuestion = null;
   var pendingScholarOrb = null;
+  var questionSeen = [];
+  var questionSeenSet = {};
 
   function pickQuestion() {
     // _MMRM_PATCHED_ — review-mix resurfaces wrong-answer queue
@@ -2272,25 +2342,42 @@
       if (__mmrm) return __mmrm;
     } catch (e) {}
 
+    var pool = SNAKE_PIT_REVIEW_BANK.slice();
     try {
       var bank = window.DIAG_BANK_BY_COURSE;
       if (bank && typeof bank === "object") {
-        var pool = [];
         for (var c in bank) {
           if (Array.isArray(bank[c])) pool = pool.concat(bank[c]);
         }
-        if (pool.length) {
-          var q = pool[Math.floor(Math.random() * pool.length)];
-          var norm = normalizeBankQuestion(q);
-          if (norm) return norm;
-        }
       }
     } catch (e) {}
-    return INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+    pool = pool.concat(INLINE_BANK);
+    var tries = Math.min(40, pool.length);
+    for (var i = 0; i < tries; i++) {
+      var q = pool[Math.floor(Math.random() * pool.length)];
+      var norm = normalizeBankQuestion(q);
+      if (!norm) continue;
+      var key = questionKey(norm);
+      if (!questionSeenSet[key] || questionSeen.length > Math.max(80, Math.floor(pool.length * 0.7))) {
+        markQuestionSeen(key);
+        return norm;
+      }
+    }
+    var fallback = normalizeBankQuestion(pool[Math.floor(Math.random() * pool.length)]) || INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+    markQuestionSeen(questionKey(fallback));
+    return fallback;
   }
   function normalizeBankQuestion(q) {
     if (!q) return null;
-    if (q.prompt && q.choices && q.correctText) return q;
+    if (q.prompt && q.choices && q.correctText) {
+      return {
+        prompt: q.prompt,
+        choices: q.choices.slice ? q.choices.slice(0, 4) : q.choices,
+        correctText: q.correctText,
+        topic: q.topic,
+        course: q.course
+      };
+    }
     if (q.question && q.options) {
       var ct = null;
       if (typeof q.answer === "number" && q.options[q.answer]) ct = q.options[q.answer];
@@ -2300,6 +2387,18 @@
       return { prompt: q.question, choices: q.options.slice(), correctText: ct };
     }
     return null;
+  }
+  function questionKey(q) {
+    return String(q && (q.id || q.prompt || q.correctText) || "").slice(0, 180);
+  }
+  function markQuestionSeen(key) {
+    if (!key) return;
+    questionSeen.push(key);
+    questionSeenSet[key] = true;
+    while (questionSeen.length > 160) {
+      var old = questionSeen.shift();
+      delete questionSeenSet[old];
+    }
   }
 
   function openScholarQuestion(orb) {
@@ -3019,7 +3118,8 @@
       }
     }
     if (state) render();
-    if (phase === "playing" || phase === "dying" || phase === "paused") {
+    if (state && (phase === "playing" || phase === "dying" || phase === "paused") && state.time - state.lastHudUpdate >= HUD_UPDATE_INTERVAL) {
+      state.lastHudUpdate = state.time;
       updateHud();
     }
     rafHandle = requestAnimationFrame(loop);
