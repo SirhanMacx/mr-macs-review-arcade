@@ -8309,10 +8309,11 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   padding-top: clamp(18px, 2.4vw, 34px);
   padding-bottom: clamp(24px, 3vw, 44px);
   background:
-    radial-gradient(82% 62% at 72% 24%, rgba(115, 243, 255, .16), transparent 62%),
-    radial-gradient(58% 48% at 14% 18%, rgba(255, 209, 92, .15), transparent 64%),
-    linear-gradient(135deg, rgba(255, 76, 172, .09), transparent 36%),
-    linear-gradient(180deg, #030610 0%, #07101a 46%, #02040b 100%);
+    linear-gradient(90deg, rgba(2, 4, 11, .95) 0%, rgba(2, 4, 11, .76) 44%, rgba(2, 4, 11, .92) 100%),
+    linear-gradient(180deg, rgba(255, 209, 92, .10), rgba(2, 4, 11, .32) 44%, rgba(2, 4, 11, .94) 100%),
+    url("assets/cabinet/main-menu-cabinet.webp") right center / min(58vw, 880px) auto no-repeat,
+    url("assets/cabinet/attract-mode-board.webp") center / cover no-repeat,
+    #02040b;
 }
 .hero-inner {
   grid-template-columns: minmax(0, .96fr) minmax(330px, .64fr) !important;
@@ -8348,8 +8349,18 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   margin-right: 0 !important;
 }
 .cabinet-folder {
+  --tile-art: url("assets/cabinet/category-tile-arcade.webp");
   min-height: 112px;
+  border-color: rgba(255,255,255,.24);
+  background:
+    linear-gradient(180deg, rgba(3,5,13,.02), rgba(3,5,13,.46) 44%, rgba(3,5,13,.96) 100%),
+    var(--tile-art) center / cover no-repeat,
+    #050914 !important;
 }
+.cabinet-folder-jeo { --tile-art: url("assets/cabinet/category-tile-jeopardy.webp") !important; }
+.cabinet-folder-prac { --tile-art: url("assets/cabinet/category-tile-practice.webp") !important; }
+.cabinet-folder-arc { --tile-art: url("assets/cabinet/category-tile-arcade.webp") !important; }
+.cabinet-folder-daily { --tile-art: url("assets/cabinet/category-tile-daily.webp") !important; }
 .cabinet-folder .cf-tab {
   display: none !important;
 }
@@ -8382,6 +8393,12 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   display: flex !important;
   min-width: 0;
 }
+.console-bezel {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.34)),
+    url("assets/cabinet/game-launch-console.webp") center / cover no-repeat,
+    #030712 !important;
+}
 .hero-screen {
   min-height: clamp(260px, 34vh, 350px);
 }
@@ -8400,12 +8417,48 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 }
 
 @media (max-width: 760px) {
+  .topbar {
+    overflow-x: clip;
+  }
+  .topbar-inner {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    overflow: hidden;
+  }
+  .teacher-link,
+  #enterArcadeBtn {
+    display: none !important;
+  }
+  .profile-pill {
+    grid-area: cta;
+    max-width: 112px;
+    min-width: 0;
+    padding: 8px 10px !important;
+  }
+  .profile-pill .pp-meta {
+    display: none !important;
+  }
+  .profile-pill .pp-name {
+    max-width: 66px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .topnav {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    overflow: hidden !important;
+  }
+  .topnav-changelog-host,
+  .crt-dial,
+  #mmpNavLink {
+    display: none !important;
+  }
   .hero {
     min-height: auto;
     background:
-      radial-gradient(110% 58% at 74% 0%, rgba(115, 243, 255, .16), transparent 62%),
-      radial-gradient(88% 56% at 12% 8%, rgba(255, 209, 92, .14), transparent 64%),
-      linear-gradient(180deg, #030610 0%, #07101a 48%, #02040b 100%);
+      linear-gradient(180deg, rgba(2,4,11,.66), rgba(2,4,11,.96) 70%, #02040b 100%),
+      url("assets/cabinet/main-menu-screen.webp") center top / auto 430px no-repeat,
+      url("assets/cabinet/attract-mode-board.webp") center top / cover no-repeat,
+      #02040b;
   }
   .hero-title {
     max-width: 100%;

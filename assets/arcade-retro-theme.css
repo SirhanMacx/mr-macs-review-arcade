@@ -2817,3 +2817,135 @@ main#main > .more-games-drawer { order: 200; }
 }
 
 /* End Section 42 — Hub Restructure (Featured 10 + More Games drawer) */
+
+/* ---- 43. Generated arcade OS surfaces ------------------------------- */
+:root {
+  --mm-gen-marquee: url("cabinet/arcade-marquee.webp");
+  --mm-gen-hud: url("cabinet/hud-frame.webp");
+  --mm-gen-panel: url("cabinet/in-game-panel.webp");
+  --mm-gen-modal: url("cabinet/modal-frame.webp");
+  --mm-gen-question: url("cabinet/question-panel.webp");
+  --mm-gen-answer: url("cabinet/answer-panel.webp");
+  --mm-gen-control: url("cabinet/control-panel.webp");
+  --mm-gen-backdrop: url("cabinet/game-backdrop-archive.webp");
+}
+
+body[data-game-page] {
+  background:
+    linear-gradient(180deg, rgba(2, 4, 11, .70), rgba(2, 4, 11, .94)),
+    var(--mm-gen-backdrop) center / cover fixed no-repeat,
+    #02040b !important;
+}
+
+body[data-game-page] .game-marquee,
+body[data-game-page] .marquee {
+  background:
+    linear-gradient(180deg, rgba(1,4,10,.12), rgba(1,4,10,.68)),
+    var(--mm-gen-marquee) center / cover no-repeat,
+    #070b15 !important;
+  border-bottom-color: rgba(255, 208, 96, .62) !important;
+}
+
+body[data-game-page] :is(
+  .setup-card,
+  .help-card,
+  .end-card,
+  .question-card,
+  .game-card,
+  .panel,
+  .card,
+  .quiz-card,
+  .challenge-card,
+  .screen,
+  .arena,
+  .board-wrap,
+  .game-wrap
+) {
+  background:
+    linear-gradient(180deg, rgba(2, 5, 13, .26), rgba(2, 5, 13, .86)),
+    var(--mm-gen-panel) center / cover no-repeat,
+    rgba(2, 5, 13, .92) !important;
+  border-color: rgba(115, 243, 255, .36) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.10) inset,
+    0 14px 34px rgba(0,0,0,.38),
+    0 0 24px rgba(115, 243, 255, .10) !important;
+}
+
+body[data-game-page] :is(
+  .hud,
+  .top-hud,
+  .hud-stats,
+  .scoreboard,
+  .status-bar,
+  .stats-row,
+  .game-hud,
+  [class*="-hud"]
+) {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.44)),
+    var(--mm-gen-hud) center / cover no-repeat,
+    rgba(5, 8, 18, .94) !important;
+  border-color: rgba(255, 208, 96, .42) !important;
+}
+
+body[data-game-page] :is(
+  .question-card,
+  .question-panel,
+  .prompt-card,
+  .prompt-panel,
+  [class*="question-card"],
+  [class*="question-panel"],
+  [class*="prompt-card"],
+  [class*="prompt-panel"]
+) {
+  background:
+    linear-gradient(180deg, rgba(2,5,13,.16), rgba(2,5,13,.86)),
+    var(--mm-gen-question) center / cover no-repeat,
+    rgba(3, 6, 15, .94) !important;
+}
+
+body[data-game-page] :is(
+  .answers,
+  .answer-grid,
+  .choices,
+  .choice-grid,
+  .answer-btn,
+  .choice,
+  .choice-btn,
+  .option,
+  .answer-card
+) {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(2,5,13,.62)),
+    var(--mm-gen-answer) center / cover no-repeat,
+    rgba(5, 9, 20, .92) !important;
+  border-color: rgba(255,255,255,.18) !important;
+}
+
+body[data-game-page] :is(
+  .controls,
+  .control-panel,
+  .button-row,
+  .actions,
+  .toolbar,
+  .tool-row
+) {
+  background:
+    linear-gradient(180deg, rgba(2,5,13,.12), rgba(2,5,13,.72)),
+    var(--mm-gen-control) center / cover no-repeat,
+    rgba(3, 6, 15, .88) !important;
+  border-color: rgba(255, 208, 96, .34) !important;
+}
+
+body[data-game-page] :is(
+  .modal,
+  .dialog,
+  .overlay-card,
+  [role="dialog"] > :not(.rm-backdrop)
+) {
+  background:
+    linear-gradient(180deg, rgba(2,5,13,.22), rgba(2,5,13,.90)),
+    var(--mm-gen-modal) center / cover no-repeat,
+    rgba(3, 6, 15, .96) !important;
+}

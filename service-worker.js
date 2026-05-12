@@ -1,4 +1,4 @@
-const CACHE_NAME = "mr-macs-arcade-v23-2026-05-12-launch-deck-ui";
+const CACHE_NAME = "mr-macs-arcade-v24-2026-05-12-gpt-image-atlas-os";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -67,6 +67,31 @@ const CACHE_FILES = [
   "./assets/mastery-engine.js",
   "./assets/shared-question-bank.js",
   "./assets/source-bank.js",
+  "./assets/cabinet/arcade-marquee.webp",
+  "./assets/cabinet/attract-mode-board.webp",
+  "./assets/cabinet/card-frame.webp",
+  "./assets/cabinet/category-tile-arcade.webp",
+  "./assets/cabinet/category-tile-daily.webp",
+  "./assets/cabinet/category-tile-jeopardy.webp",
+  "./assets/cabinet/category-tile-practice.webp",
+  "./assets/cabinet/coin-slot.webp",
+  "./assets/cabinet/control-panel.webp",
+  "./assets/cabinet/crt-bezel.webp",
+  "./assets/cabinet/featured-key-art-strip.webp",
+  "./assets/cabinet/game-backdrop-archive.webp",
+  "./assets/cabinet/game-backdrop-battlefield.webp",
+  "./assets/cabinet/game-backdrop-ruins.webp",
+  "./assets/cabinet/game-backdrop-source-desk.webp",
+  "./assets/cabinet/game-launch-console.webp",
+  "./assets/cabinet/hud-frame.webp",
+  "./assets/cabinet/in-game-panel.webp",
+  "./assets/cabinet/joystick-panel.webp",
+  "./assets/cabinet/main-menu-cabinet.webp",
+  "./assets/cabinet/main-menu-screen.webp",
+  "./assets/cabinet/modal-frame.webp",
+  "./assets/cabinet/question-panel.webp",
+  "./assets/cabinet/answer-panel.webp",
+  "./assets/cabinet/scanline-overlay.svg",
   // Critical fonts
   "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap"
 ];

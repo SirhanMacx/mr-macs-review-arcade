@@ -1,6 +1,13 @@
 {
-  "version": "2026-05-12-codex-overhaul",
+  "version": "2026-05-12-gpt-image-atlas-os",
   "generator": "scripts/generate_arcade_assets.py",
+  "generationMode": "gpt-image-atlas-sliced",
+  "sourceAtlases": {
+    "mainMenuCabinet": "assets/generated-source-atlases/main-menu-cabinet-atlas.png",
+    "gameKeyArt": "assets/generated-source-atlases/game-key-art-atlas.png",
+    "inGameUi": "assets/generated-source-atlases/ingame-ui-atlas.png",
+    "initialArcadeOs": "assets/generated-source-atlases/initial-arcade-os-board.png"
+  },
   "dimensions": {
     "thumbnail": [
       640,
@@ -16,10 +23,30 @@
     ]
   },
   "cabinetAssets": {
+    "main-menu-cabinet.webp": "assets/cabinet/main-menu-cabinet.webp",
+    "main-menu-screen.webp": "assets/cabinet/main-menu-screen.webp",
     "arcade-marquee.webp": "assets/cabinet/arcade-marquee.webp",
     "crt-bezel.webp": "assets/cabinet/crt-bezel.webp",
-    "coin-slot.webp": "assets/cabinet/coin-slot.webp",
     "joystick-panel.webp": "assets/cabinet/joystick-panel.webp",
+    "coin-slot.webp": "assets/cabinet/coin-slot.webp",
+    "game-launch-console.webp": "assets/cabinet/game-launch-console.webp",
+    "card-frame.webp": "assets/cabinet/card-frame.webp",
+    "category-tile-jeopardy.webp": "assets/cabinet/category-tile-jeopardy.webp",
+    "category-tile-practice.webp": "assets/cabinet/category-tile-practice.webp",
+    "category-tile-arcade.webp": "assets/cabinet/category-tile-arcade.webp",
+    "category-tile-daily.webp": "assets/cabinet/category-tile-daily.webp",
+    "hud-frame.webp": "assets/cabinet/hud-frame.webp",
+    "modal-frame.webp": "assets/cabinet/modal-frame.webp",
+    "question-panel.webp": "assets/cabinet/question-panel.webp",
+    "answer-panel.webp": "assets/cabinet/answer-panel.webp",
+    "control-panel.webp": "assets/cabinet/control-panel.webp",
+    "game-backdrop-archive.webp": "assets/cabinet/game-backdrop-archive.webp",
+    "game-backdrop-battlefield.webp": "assets/cabinet/game-backdrop-battlefield.webp",
+    "game-backdrop-source-desk.webp": "assets/cabinet/game-backdrop-source-desk.webp",
+    "game-backdrop-ruins.webp": "assets/cabinet/game-backdrop-ruins.webp",
+    "in-game-panel.webp": "assets/cabinet/in-game-panel.webp",
+    "attract-mode-board.webp": "assets/cabinet/attract-mode-board.webp",
+    "featured-key-art-strip.webp": "assets/cabinet/featured-key-art-strip.webp",
     "scanline-overlay.svg": "assets/cabinet/scanline-overlay.svg"
   },
   "games": {
@@ -132,7 +159,7 @@
       "title": "Review Maze Chase",
       "course": "All Courses",
       "gameType": "Maze Chase",
-      "category": "adventure",
+      "category": "maze",
       "palette": [
         "#7af0ff",
         "#f5c451",
@@ -207,7 +234,7 @@
       "title": "Vocab Vault",
       "course": "All Courses",
       "gameType": "Typing Drill",
-      "category": "arcade",
+      "category": "word",
       "palette": [
         "#7af0ff",
         "#f5c451",
@@ -267,7 +294,7 @@
       "title": "Empire Ascendant: Rise & Fall",
       "course": "All Courses",
       "gameType": "Strategy",
-      "category": "arcade",
+      "category": "strategy",
       "palette": [
         "#7af0ff",
         "#f5c451",
@@ -297,7 +324,7 @@
       "title": "Timeline Runner",
       "course": "All Courses",
       "gameType": "Runner",
-      "category": "runner",
+      "category": "timeline",
       "palette": [
         "#7af0ff",
         "#f5c451",
@@ -357,7 +384,7 @@
       "title": "Chrono Defense Infinite",
       "course": "All Courses",
       "gameType": "Tower Defense",
-      "category": "arcade",
+      "category": "timeline",
       "palette": [
         "#7af0ff",
         "#f5c451",
@@ -372,7 +399,7 @@
       "title": "Boss Rush Arena",
       "course": "All Courses",
       "gameType": "Boss Rush",
-      "category": "arcade",
+      "category": "boss",
       "palette": [
         "#7af0ff",
         "#f5c451",

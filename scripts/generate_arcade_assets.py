@@ -8,7 +8,7 @@ import random
 import re
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +18,11 @@ CARD_DIR = ROOT / "assets" / "game-card-art"
 MARQUEE_DIR = ROOT / "assets" / "game-marquees"
 CABINET_DIR = ROOT / "assets" / "cabinet"
 MANIFEST_PATH = ROOT / "assets" / "generated-game-art-manifest.json"
+SOURCE_ATLAS_DIR = ROOT / "assets" / "generated-source-atlases"
+MAIN_MENU_ATLAS_PATH = SOURCE_ATLAS_DIR / "main-menu-cabinet-atlas.png"
+KEY_ART_ATLAS_PATH = SOURCE_ATLAS_DIR / "game-key-art-atlas.png"
+INGAME_UI_ATLAS_PATH = SOURCE_ATLAS_DIR / "ingame-ui-atlas.png"
+INITIAL_OS_ATLAS_PATH = SOURCE_ATLAS_DIR / "initial-arcade-os-board.png"
 
 THUMB_SIZE = (640, 360)
 CARD_SIZE = (768, 432)
@@ -26,6 +31,25 @@ MARQUEE_SIZE = (960, 300)
 BASE = "#070912"
 PAPER = "#f6f4ee"
 MUTED = "#9aa3bb"
+KEY_ART_PANEL_BY_CATEGORY = {
+    "jeopardy": 0,
+    "exam": 1,
+    "source": 2,
+    "writing": 3,
+    "adventure": 4,
+    "snake": 5,
+    "shooter": 6,
+    "runner": 7,
+    "blocks": 8,
+    "pinball": 9,
+    "maze": 10,
+    "strategy": 11,
+    "word": 12,
+    "tower": 13,
+    "timeline": 14,
+    "boss": 15,
+    "arcade": 4,
+}
 PALETTES = {
     "AP Psychology": ("#ff7cc8", "#b892ff", "#7af0ff"),
     "AP United States History": ("#f5c451", "#ff8e6f", "#7af0ff"),
@@ -88,19 +112,98 @@ def category_for(game: dict) -> str:
         return "source"
     if "writing" in haystack:
         return "writing"
+    if "boss" in haystack or "gauntlet" in haystack:
+        return "boss"
     if "pinball" in haystack:
         return "pinball"
     if "invaders" in haystack or "defender" in haystack or "galaxy" in haystack:
         return "shooter"
+    if "timeline" in haystack or "chrono" in haystack:
+        return "timeline"
     if "runner" in haystack or "drift" in haystack or "rally" in haystack:
         return "runner"
     if "snake" in haystack:
         return "snake"
     if "blocks" in haystack or "2048" in haystack or "brick" in haystack or "cube" in haystack:
         return "blocks"
+    if "maze" in haystack:
+        return "maze"
+    if "chess" in haystack or "strategy" in haystack or "citadel" in haystack or "empire" in haystack:
+        return "strategy"
+    if "word" in haystack or "boggle" in haystack or "crossword" in haystack or "anagram" in haystack or "vocab" in haystack:
+        return "word"
+    if "tower" in haystack or "climb" in haystack or "pyramid" in haystack:
+        return "tower"
     if "maze" in haystack or "quest" in haystack or "hunters" in haystack:
         return "adventure"
     return "arcade"
+
+
+def load_atlas(path: Path) -> Image.Image:
+    if not path.exists():
+        raise FileNotFoundError(f"Missing generated source atlas: {path.relative_to(ROOT)}")
+    return Image.open(path).convert("RGB")
+
+
+def fit_crop(image: Image.Image, size: tuple[int, int], centering: tuple[float, float] = (0.5, 0.5)) -> Image.Image:
+    return ImageOps.fit(image, size, method=Image.Resampling.LANCZOS, centering=centering)
+
+
+def crop_rect(image: Image.Image, box: tuple[int, int, int, int], size: tuple[int, int]) -> Image.Image:
+    x0, y0, x1, y1 = box
+    w, h = image.size
+    safe = (max(0, x0), max(0, y0), min(w, x1), min(h, y1))
+    return fit_crop(image.crop(safe), size)
+
+
+def key_art_panel(category: str) -> Image.Image:
+    atlas = load_atlas(KEY_ART_ATLAS_PATH)
+    idx = KEY_ART_PANEL_BY_CATEGORY.get(category, 4)
+    cols, rows = 4, 4
+    cell_w = atlas.width // cols
+    cell_h = atlas.height // rows
+    col = idx % cols
+    row = idx // cols
+    pad_x = int(cell_w * 0.035)
+    pad_y = int(cell_h * 0.055)
+    return atlas.crop((
+        col * cell_w + pad_x,
+        row * cell_h + pad_y,
+        (col + 1) * cell_w - pad_x,
+        (row + 1) * cell_h - pad_y,
+    ))
+
+
+def deterministic_cover(image: Image.Image, size: tuple[int, int], seed: int, zoom: float = 1.0) -> Image.Image:
+    rng = random.Random(seed)
+    w, h = image.size
+    target_ratio = size[0] / size[1]
+    if w / h > target_ratio:
+        crop_h = h
+        crop_w = int(h * target_ratio / zoom)
+    else:
+        crop_w = w
+        crop_h = int(w / target_ratio / zoom)
+    crop_w = max(1, min(w, crop_w))
+    crop_h = max(1, min(h, crop_h))
+    max_x = max(0, w - crop_w)
+    max_y = max(0, h - crop_h)
+    x0 = int(max_x * rng.uniform(0.22, 0.78))
+    y0 = int(max_y * rng.uniform(0.18, 0.82))
+    return image.crop((x0, y0, x0 + crop_w, y0 + crop_h)).resize(size, Image.Resampling.LANCZOS)
+
+
+def color_overlay(size: tuple[int, int], accent: str, secondary: str, opacity: int = 44) -> Image.Image:
+    w, h = size
+    overlay = Image.new("RGBA", size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay, "RGBA")
+    a = tuple(int(accent[i : i + 2], 16) for i in (1, 3, 5))
+    b = tuple(int(secondary[i : i + 2], 16) for i in (1, 3, 5))
+    draw.rectangle((0, 0, w, h), fill=(a[0], a[1], a[2], opacity // 2))
+    draw.ellipse((-w * 0.18, -h * 0.24, w * 0.62, h * 0.82), fill=(a[0], a[1], a[2], opacity))
+    draw.ellipse((w * 0.42, h * 0.04, w * 1.15, h * 1.1), fill=(b[0], b[1], b[2], int(opacity * 0.72)))
+    draw.rectangle((0, int(h * 0.54), w, h), fill=(0, 0, 0, 80))
+    return overlay
 
 
 def gradient(size: tuple[int, int], accent: str, secondary: str, rng: random.Random) -> Image.Image:
@@ -231,7 +334,7 @@ def draw_motif(draw: ImageDraw.ImageDraw, size: tuple[int, int], category: str, 
         draw_joystick(draw, int(w * 0.23), int(h * 0.58), accent, secondary)
 
 
-def render_game_art(game: dict, size: tuple[int, int], variant: str) -> Image.Image:
+def render_game_art_legacy(game: dict, size: tuple[int, int], variant: str) -> Image.Image:
     seed = stable_seed(f"{game.get('id')}:{variant}")
     rng = random.Random(seed)
     accent, secondary, tertiary = palette_for(game)
@@ -267,25 +370,125 @@ def render_game_art(game: dict, size: tuple[int, int], variant: str) -> Image.Im
     return img.filter(ImageFilter.UnsharpMask(radius=1.2, percent=120, threshold=3)).convert("RGB")
 
 
+def finish_generated_surface(
+    image: Image.Image,
+    size: tuple[int, int],
+    accent: str,
+    secondary: str,
+    seed: int,
+    variant: str,
+) -> Image.Image:
+    rng = random.Random(seed)
+    img = ImageEnhance.Color(image.convert("RGB")).enhance(1.10)
+    img = ImageEnhance.Contrast(img).enhance(1.08)
+    img = img.convert("RGBA")
+    overlay = color_overlay(size, accent, secondary, 34)
+    draw = ImageDraw.Draw(overlay, "RGBA")
+    w, h = size
+    draw.rectangle((0, 0, w, int(h * 0.16)), fill=(1, 4, 11, 102))
+    draw.rectangle((0, int(h * 0.56), w, h), fill=(1, 4, 11, 118 if variant == "marquee" else 86))
+    draw.rounded_rectangle(
+        (max(8, int(w * 0.018)), max(8, int(h * 0.026)), w - max(8, int(w * 0.018)), h - max(8, int(h * 0.026))),
+        radius=max(6, int(min(size) * 0.026)),
+        outline=accent + "b8",
+        width=max(2, int(min(size) * 0.010)),
+    )
+    draw.rounded_rectangle(
+        (max(16, int(w * 0.034)), max(16, int(h * 0.052)), w - max(16, int(w * 0.034)), h - max(16, int(h * 0.052))),
+        radius=max(4, int(min(size) * 0.018)),
+        outline=(255, 255, 255, 42),
+        width=1,
+    )
+    for i in range(7):
+        x0 = rng.randint(-w // 8, w)
+        y0 = rng.randint(-h // 8, h)
+        x1 = x0 + rng.randint(w // 6, max(w // 5, w // 2))
+        y1 = y0 + rng.randint(12, max(18, h // 7))
+        color = accent if i % 2 == 0 else secondary
+        draw.line((x0, y0, x1, y1), fill=color + "28", width=max(1, min(size) // 120))
+    draw_scanlines(draw, size)
+    return Image.alpha_composite(img, overlay).filter(ImageFilter.UnsharpMask(radius=1.1, percent=115, threshold=3)).convert("RGB")
+
+
+def render_game_art(game: dict, size: tuple[int, int], variant: str) -> Image.Image:
+    seed = stable_seed(f"{game.get('id')}:{variant}:gpt-image-atlas")
+    accent, secondary, _tertiary = palette_for(game)
+    category = category_for(game)
+    zoom = 1.02 if variant == "marquee" else 1.12
+    source = key_art_panel(category)
+    image = deterministic_cover(source, size, seed, zoom)
+    return finish_generated_surface(image, size, accent, secondary, seed, variant)
+
+
 def save_webp(image: Image.Image, path: Path, quality: int) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     image.save(path, "WEBP", quality=quality, method=6)
 
 
+def save_generated_crop(
+    generated: dict,
+    name: str,
+    atlas: Image.Image,
+    box: tuple[int, int, int, int],
+    size: tuple[int, int],
+    quality: int = 82,
+) -> None:
+    image = crop_rect(atlas, box, size)
+    save_webp(image, CABINET_DIR / name, quality)
+    generated[name] = f"assets/cabinet/{name}"
+
+
 def render_cabinet_assets() -> dict:
     CABINET_DIR.mkdir(parents=True, exist_ok=True)
     generated = {}
-    cabinet_specs = {
-        "arcade-marquee.webp": (1200, 360, "MR. MAC'S REVIEW ARCADE"),
-        "crt-bezel.webp": (1200, 760, "SOURCE READY"),
-        "coin-slot.webp": (720, 360, "INSERT REVIEW TOKEN"),
-        "joystick-panel.webp": (1200, 420, "PRESS START"),
+    menu = load_atlas(MAIN_MENU_ATLAS_PATH)
+    ui = load_atlas(INGAME_UI_ATLAS_PATH)
+    initial = load_atlas(INITIAL_OS_ATLAS_PATH)
+    key = load_atlas(KEY_ART_ATLAS_PATH)
+
+    menu_specs = {
+        "main-menu-cabinet.webp": ((0, 0, 730, 1024), (1200, 900), 84),
+        "main-menu-screen.webp": ((70, 145, 690, 650), (1280, 720), 84),
+        "arcade-marquee.webp": ((20, 18, 710, 142), (1200, 360), 84),
+        "crt-bezel.webp": ((44, 116, 708, 704), (1200, 760), 84),
+        "joystick-panel.webp": ((0, 620, 730, 875), (1200, 420), 84),
+        "coin-slot.webp": ((56, 850, 235, 1024), (720, 360), 84),
+        "game-launch-console.webp": ((760, 552, 1515, 1010), (1200, 760), 84),
+        "card-frame.webp": ((742, 22, 1510, 145), (1200, 300), 84),
     }
-    for name, (w, h, title) in cabinet_specs.items():
-        game = {"id": name, "title": title, "course": "All Courses", "gameType": "Cabinet UI"}
-        img = render_game_art(game, (w, h), name)
-        save_webp(img, CABINET_DIR / name, 78)
+    for name, (box, size, quality) in menu_specs.items():
+        save_generated_crop(generated, name, menu, box, size, quality)
+
+    category_specs = {
+        "category-tile-jeopardy.webp": ("jeopardy", "#73f3ff", "#ffd15c"),
+        "category-tile-practice.webp": ("exam", "#ffd15c", "#73f3ff"),
+        "category-tile-arcade.webp": ("adventure", "#69f0aa", "#ff7cc8"),
+        "category-tile-daily.webp": ("runner", "#ff4cac", "#73f3ff"),
+    }
+    for name, (category, accent, secondary) in category_specs.items():
+        seed = stable_seed(f"{name}:menu-tile")
+        image = deterministic_cover(key_art_panel(category), (768, 432), seed, 1.02)
+        save_webp(finish_generated_surface(image, (768, 432), accent, secondary, seed, "menu-tile"), CABINET_DIR / name, 84)
         generated[name] = f"assets/cabinet/{name}"
+
+    ui_specs = {
+        "hud-frame.webp": ((60, 70, 705, 240), (1200, 260), 84),
+        "modal-frame.webp": ((56, 255, 740, 605), (1100, 650), 84),
+        "question-panel.webp": ((54, 616, 742, 985), (1200, 560), 84),
+        "answer-panel.webp": ((770, 56, 1058, 390), (900, 560), 84),
+        "control-panel.webp": ((770, 405, 1074, 747), (1100, 420), 84),
+        "game-backdrop-archive.webp": ((1084, 38, 1494, 235), (1280, 720), 84),
+        "game-backdrop-battlefield.webp": ((1084, 246, 1494, 444), (1280, 720), 84),
+        "game-backdrop-source-desk.webp": ((1084, 456, 1494, 654), (1280, 720), 84),
+        "game-backdrop-ruins.webp": ((1084, 668, 1494, 875), (1280, 720), 84),
+        "in-game-panel.webp": ((54, 255, 740, 985), (1200, 760), 84),
+    }
+    for name, (box, size, quality) in ui_specs.items():
+        save_generated_crop(generated, name, ui, box, size, quality)
+
+    save_generated_crop(generated, "attract-mode-board.webp", initial, (115, 85, 1418, 930), (1400, 780), 82)
+    save_generated_crop(generated, "featured-key-art-strip.webp", key, (0, 0, 1536, 1024), (1400, 520), 82)
+
     scanline = CABINET_DIR / "scanline-overlay.svg"
     scanline.write_text(
         '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8">'
@@ -301,8 +504,15 @@ def render_cabinet_assets() -> dict:
 def main() -> int:
     games = json.loads(GAMES_PATH.read_text(encoding="utf-8"))
     manifest: dict[str, object] = {
-        "version": "2026-05-12-codex-overhaul",
+        "version": "2026-05-12-gpt-image-atlas-os",
         "generator": "scripts/generate_arcade_assets.py",
+        "generationMode": "gpt-image-atlas-sliced",
+        "sourceAtlases": {
+            "mainMenuCabinet": "assets/generated-source-atlases/main-menu-cabinet-atlas.png",
+            "gameKeyArt": "assets/generated-source-atlases/game-key-art-atlas.png",
+            "inGameUi": "assets/generated-source-atlases/ingame-ui-atlas.png",
+            "initialArcadeOs": "assets/generated-source-atlases/initial-arcade-os-board.png",
+        },
         "dimensions": {
             "thumbnail": THUMB_SIZE,
             "cardArt": CARD_SIZE,
