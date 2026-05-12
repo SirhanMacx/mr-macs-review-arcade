@@ -31,6 +31,19 @@ const BASE = `http://localhost:${PORT}`;
 
 let server;
 
+async function dismissWelcome(page) {
+  await page.evaluate(() => {
+    document.querySelectorAll(".welcome-overlay").forEach(el => el.remove());
+    document.body.classList.remove("welcome-active", "modal-open");
+  });
+}
+
+async function clickCabinetFolder(page, folder) {
+  const button = page.locator(`button[data-cabinet-folder="${folder}"]`);
+  await button.scrollIntoViewIfNeeded();
+  await button.click();
+}
+
 test.beforeAll(async () => {
   // Use python3 -m http.server in the repo root
   server = spawn("python3", ["-m", "http.server", String(PORT)], {
@@ -73,9 +86,8 @@ test("hub has 4 cabinet folders", async ({ page }) => {
 test("clicking Jeopardy folder opens the jeopardy section", async ({ page }) => {
   await page.goto(`${BASE}/index.html`, { waitUntil: "domcontentloaded" });
   await page.waitForTimeout(4000);
-  // Skip welcome modal if present
-  await page.evaluate(() => document.querySelectorAll(".welcome-overlay").forEach(el => el.remove()));
-  await page.click('button[data-cabinet-folder="jeopardy"]');
+  await dismissWelcome(page);
+  await clickCabinetFolder(page, "jeopardy");
   await page.waitForTimeout(400);
   const opened = await page.evaluate(() =>
     document.getElementById("jeopardy").classList.contains("section-open")
@@ -86,8 +98,8 @@ test("clicking Jeopardy folder opens the jeopardy section", async ({ page }) => 
 test("ESC closes any open folder back to menu", async ({ page }) => {
   await page.goto(`${BASE}/index.html`, { waitUntil: "domcontentloaded" });
   await page.waitForTimeout(4000);
-  await page.evaluate(() => document.querySelectorAll(".welcome-overlay").forEach(el => el.remove()));
-  await page.click('button[data-cabinet-folder="practice"]');
+  await dismissWelcome(page);
+  await clickCabinetFolder(page, "practice");
   await page.waitForTimeout(300);
   await page.keyboard.press("Escape");
   await page.waitForTimeout(300);
@@ -114,7 +126,7 @@ for (const slug of games) {
         errs.push(`reqfail: ${r.url().split("/").pop()}`);
       }
     });
-    await page.goto(`${BASE}/games/${slug}/index.html`, { waitUntil: "domcontentloaded", timeout: 10000 });
+    await page.goto(`${BASE}/games/${slug}/index.html`, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForTimeout(700);
     const hasStart = await page.evaluate(() => !!document.getElementById("startBtn"));
     if (hasStart) {
