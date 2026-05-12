@@ -103,7 +103,9 @@ def palette_for(game: dict) -> tuple[str, str, str]:
 
 
 def category_for(game: dict) -> str:
-    haystack = " ".join(str(game.get(k, "")) for k in ("id", "title", "gameType", "collection", "subject", "file")).lower()
+    # Some catalog rows still carry broad legacy collection labels such as
+    # "chrono-pinball"; classify art from the actual game identity instead.
+    haystack = " ".join(str(game.get(k, "")) for k in ("id", "title", "gameType", "subject", "file")).lower()
     if "jeopardy" in haystack:
         return "jeopardy"
     if "practice-exam" in haystack or "regents" in haystack or "ap-practice" in haystack:
@@ -485,7 +487,9 @@ def render_game_art(game: dict, size: tuple[int, int], variant: str) -> Image.Im
     source = key_art_panel(category)
     image = deterministic_cover(source, size, seed, zoom)
     finished = finish_generated_surface(image, size, accent, secondary, seed, variant)
-    return label_generated_game_art(finished, game, size, accent, secondary, variant)
+    if variant == "marquee":
+        return label_generated_game_art(finished, game, size, accent, secondary, variant)
+    return finished
 
 
 def save_webp(image: Image.Image, path: Path, quality: int) -> None:

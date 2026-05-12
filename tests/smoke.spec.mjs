@@ -81,6 +81,10 @@ async function servedOk(url) {
   return false;
 }
 
+function localUrl(file) {
+  return `${BASE}/${file.split("/").map(encodeURIComponent).join("/")}`;
+}
+
 test.beforeAll(async () => {
   // Use python3 -m http.server in the repo root
   server = spawn("python3", ["-m", "http.server", String(PORT)], {
@@ -102,27 +106,19 @@ test.afterAll(async () => {
 });
 
 // === HUB TESTS ===
-test("hub loads with zero JS errors", async ({ page }) => {
+test("hub cabinet menu works with zero JS errors", async ({ page }) => {
   const errs = [];
   page.on("pageerror", e => errs.push(e.message));
   page.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
   await gotoHub(page);
   await page.waitForTimeout(4000);
   expect(errs).toHaveLength(0);
-});
 
-test("hub has 4 cabinet folders", async ({ page }) => {
-  await gotoHub(page);
-  await page.waitForTimeout(3000);
   const folderLabels = await page.evaluate(() =>
     Array.from(document.querySelectorAll(".cabinet-folder .cf-label")).map(el => el.textContent.trim())
   );
   expect(folderLabels).toEqual(["Jeopardy Boards", "Exam Practice", "Arcade Games", "Daily Run"]);
-});
 
-test("clicking Jeopardy folder opens the jeopardy section", async ({ page }) => {
-  await gotoHub(page);
-  await page.waitForTimeout(4000);
   await dismissWelcome(page);
   await clickCabinetFolder(page, "jeopardy");
   await page.waitForTimeout(400);
@@ -130,14 +126,7 @@ test("clicking Jeopardy folder opens the jeopardy section", async ({ page }) => 
     document.getElementById("jeopardy").classList.contains("section-open")
   );
   expect(opened).toBe(true);
-});
 
-test("ESC closes any open folder back to menu", async ({ page }) => {
-  await gotoHub(page);
-  await page.waitForTimeout(4000);
-  await dismissWelcome(page);
-  await clickCabinetFolder(page, "practice");
-  await page.waitForTimeout(300);
   await page.keyboard.press("Escape");
   await page.waitForTimeout(300);
   const closed = await page.evaluate(() =>
@@ -145,6 +134,85 @@ test("ESC closes any open folder back to menu", async ({ page }) => {
   );
   expect(closed).toBe(true);
 });
+
+const JEOPARDY_REGRESSION_BOARDS = [
+  {
+    file: "games/ap-psychology/99 - AP Psychology Final Exam Comprehensive Review.html",
+    title: "AP Psychology Final Exam Review",
+    categories: ["Research Methods", "Biological Bases", "Cognition", "Development + Learning", "Social + Mental Health"],
+    minExplanationWords: 45
+  },
+  {
+    file: "games/global-10-units/05 - Global Conflict World War I to World War II Jeopardy Review.html",
+    title: "Global Conflict: World War I to World War II",
+    categories: ["World War I Causes", "WWI + Revolution", "Interwar Crisis", "Totalitarian States", "World War II + Genocide"],
+    minExplanationWords: 45
+  },
+  {
+    file: "games/us-history-units/01 - Colonial Foundations Jeopardy Review.html",
+    title: "Colonial Foundations",
+    categories: ["Settlements + Regions", "Colonial Government", "Trade + Labor", "British Control", "Road to Revolution"],
+    minExplanationWords: 35
+  }
+];
+
+for (const board of JEOPARDY_REGRESSION_BOARDS) {
+  test(`jeopardy regression: ${board.title}`, async ({ page }) => {
+    const errs = [];
+    page.on("pageerror", e => errs.push(e.message));
+    page.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
+    await page.goto(localUrl(board.file), { waitUntil: "domcontentloaded", timeout: 20000 });
+    await page.waitForSelector("#board .tile", { timeout: 10000 });
+
+    const boardState = await page.evaluate(() => {
+      const cats = Array.from(document.querySelectorAll("#board .cat")).map(el => el.textContent.trim());
+      const tiles = Array.from(document.querySelectorAll("#board .tile")).map(el => el.textContent.trim());
+      return {
+        title: document.querySelector("h1")?.textContent.trim() || "",
+        cats,
+        tiles,
+        finalEnabled: !document.getElementById("finalBtn")?.disabled
+      };
+    });
+    expect(boardState.cats).toEqual(board.categories);
+    expect(boardState.tiles).toHaveLength(25);
+    for (const value of ["$100", "$200", "$300", "$400", "$500"]) {
+      expect(boardState.tiles.filter(text => text === value)).toHaveLength(5);
+    }
+    expect(boardState.finalEnabled).toBe(true);
+
+    const openedClue = await page.evaluate(() => {
+      const tile = Array.from(document.querySelectorAll("#board .tile"))
+        .find(el => el.textContent.trim() === "$100" && !el.disabled);
+      if (!tile) return false;
+      tile.scrollIntoView({ block: "center", inline: "center" });
+      tile.click();
+      return true;
+    });
+    expect(openedClue).toBe(true);
+    await expect(page.locator("#modal")).toHaveClass(/show/, { timeout: 7000 });
+    const startsWithWager = await page.locator("#startDaily").count();
+    if (startsWithWager) {
+      await page.click("#startDaily");
+    }
+    await page.waitForSelector("#modal.show .clue-text", { timeout: 5000 });
+    await page.click("#revealAnswer");
+    await page.waitForSelector("#answerArea.answer-box:not(.hidden)", { timeout: 5000 });
+    const answerState = await page.evaluate(() => {
+      const explanation = Array.from(document.querySelectorAll("#answerArea p")).map(el => el.textContent.trim()).join(" ");
+      const answer = document.querySelector("#answerArea p strong")?.textContent.trim() || "";
+      return {
+        answer,
+        explanation,
+        explanationWords: (explanation.match(/[A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)*/g) || []).length
+      };
+    });
+    expect(answerState.answer.length).toBeGreaterThan(2);
+    expect(answerState.explanation).not.toMatch(/A course-relevant development students must connect to evidence/i);
+    expect(answerState.explanationWords).toBeGreaterThanOrEqual(board.minExplanationWords);
+    expect(errs).toHaveLength(0);
+  });
+}
 
 // === GAME SMOKE TESTS ===
 const gamesDir = path.resolve(REPO, "games");

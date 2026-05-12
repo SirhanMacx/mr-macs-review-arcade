@@ -284,6 +284,7 @@ main#main > #launch-paths     { order:  5; }
 main#main > #jeopardy         { order: 10; }
 main#main > #practice         { order: 20; }
 main#main > #featured         { order: 30; }
+main#main > #featured-10      { order: 35; }
 main#main > #library          { order: 40; }
 /* Tier 2 — utility / study tools */
 main#main > #routing          { order: 50; }
@@ -3070,11 +3071,18 @@ input.field {
 }
 
 @media (max-width: 760px) {
+  .featured-band .bento {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
   .featured-band .mode-button:nth-child(n) {
-    min-height: 420px;
+    grid-column: 1;
+    grid-row: auto;
+    min-height: 360px;
   }
   .featured-band .mode-button:nth-child(1) {
-    min-height: 480px;
+    grid-column: 1;
+    min-height: 420px;
   }
   .featured-band .mode-button .mb-pills {
     display: flex;
@@ -8569,6 +8577,95 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   backdrop-filter: blur(2px);
 }
 
+/* Arcade mission cabinet cards: the featured game picks need to read as
+   real cabinet screens, not empty UI panels. */
+.featured-band {
+  background:
+    linear-gradient(180deg, rgba(2, 5, 12, .52), rgba(2, 5, 12, .90)),
+    url("assets/cabinet/main-menu-cabinet.webp") center / cover no-repeat,
+    #02050c !important;
+  border: 3px solid rgba(245, 196, 81, .32) !important;
+  border-radius: 10px !important;
+  box-shadow:
+    0 0 0 2px rgba(0,0,0,.74) inset,
+    0 26px 70px rgba(0,0,0,.42),
+    0 0 48px rgba(122,240,255,.12);
+}
+.featured-band .mode-button {
+  min-height: 278px;
+  padding: 0 !important;
+  grid-template-rows: auto 1fr auto;
+  border: 3px solid color-mix(in srgb, var(--accent, #73f3ff) 54%, #ffd060 10%) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(1,4,11,.04), rgba(1,4,11,.22) 48%, rgba(1,4,11,.94) 100%),
+    var(--thumb-art, var(--card-art)) center / cover no-repeat,
+    url("assets/cabinet/card-frame.webp") center / cover no-repeat,
+    #030711 !important;
+  box-shadow:
+    0 0 0 2px rgba(0,0,0,.72) inset,
+    0 16px 38px rgba(0,0,0,.36),
+    0 0 24px color-mix(in srgb, var(--accent, #73f3ff) 18%, transparent);
+}
+.featured-band .mode-button::before {
+  display: none !important;
+}
+.featured-band .mode-button::after {
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.10) 48%, rgba(0,0,0,.72)),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.06) 0 1px, transparent 1px 5px) !important;
+}
+.featured-band .mode-button .mb-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  background: var(--thumb-art, var(--card-art)) center / cover no-repeat;
+}
+.featured-band .mode-button .mb-art img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: brightness(1.34) contrast(1.14) saturate(1.26);
+}
+.featured-band .mode-button .mb-tag,
+.featured-band .mode-button .featured-rank,
+.featured-band .mode-button .mb-copy,
+.featured-band .mode-button .mb-foot {
+  position: relative;
+  z-index: 3;
+}
+.featured-band .mode-button .mb-tag {
+  margin: 18px 0 0 22px;
+  border-radius: 4px;
+  background: rgba(2, 8, 17, .72);
+  border-color: rgba(122,240,255,.34);
+}
+.featured-band .mode-button .mb-copy {
+  align-self: end;
+  margin: auto 18px 0;
+  padding: 11px 12px;
+  border: 1px solid rgba(122,240,255,.20);
+  border-radius: 6px;
+  background:
+    linear-gradient(180deg, rgba(3, 7, 16, .66), rgba(3, 7, 16, .94)),
+    url("assets/cabinet/control-panel.webp") center / cover no-repeat;
+  backdrop-filter: blur(2px);
+}
+.featured-band .mode-button .mb-title {
+  margin: 0 0 6px !important;
+  color: #fffdf2;
+  text-shadow: 0 2px 0 rgba(0,0,0,.70), 0 0 18px color-mix(in srgb, var(--accent, #73f3ff) 34%, transparent);
+}
+.featured-band .mode-button .mb-sub {
+  color: #eaf5ff;
+}
+.featured-band .mode-button .mb-foot {
+  margin: 0 18px 18px;
+  padding: 10px 0 0;
+}
+
 /* Final generated-cabinet mobile lock. Keep this at the end of the inline
    cascade so the home menu cannot widen past the viewport. */
 @media (max-width: 699px) {
@@ -8676,6 +8773,255 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   }
   .featured-10 .f10-sub {
     display: none !important;
+  }
+  .featured-band .mode-button {
+    min-height: 248px;
+  }
+  .featured-band .mode-button .mb-copy {
+    margin-inline: 12px;
+  }
+  .featured-band .mode-button .mb-foot {
+    margin-inline: 12px;
+  }
+}
+
+/* ======================================================================
+   Cabinet OS overhaul lock.
+   This final cascade pass makes the lobby read as one generated-art
+   arcade cabinet instead of a website shell with stacked cards.
+   ====================================================================== */
+.topbar {
+  background:
+    linear-gradient(180deg, rgba(2, 6, 15, .96), rgba(2, 6, 15, .82)),
+    url("assets/cabinet/arcade-marquee.webp") center / auto 120px repeat-x,
+    #020611 !important;
+}
+.topbar-inner {
+  min-height: 62px !important;
+  display: grid !important;
+  grid-template-columns: minmax(220px, auto) minmax(0, 1fr) auto auto !important;
+  gap: 12px !important;
+}
+.brand {
+  min-width: 0 !important;
+}
+.brand strong {
+  max-width: 230px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topnav {
+  justify-self: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+#enterArcadeBtn,
+.topnav-changelog-host {
+  display: none !important;
+}
+.topnav button:not(.sfx-toggle):not(#sfxToggle) {
+  display: none !important;
+}
+.teacher-link {
+  min-height: 38px !important;
+  padding: 9px 15px !important;
+  border-radius: 6px !important;
+}
+.profile-pill {
+  min-height: 38px !important;
+  max-width: 138px !important;
+  border-radius: 6px !important;
+}
+
+#top.hero {
+  min-height: calc(100svh - 64px) !important;
+  padding: clamp(18px, 2.3vw, 32px) 0 clamp(24px, 3vw, 42px) !important;
+  background:
+    linear-gradient(90deg, rgba(2, 4, 11, .96), rgba(2, 4, 11, .72) 46%, rgba(2, 4, 11, .94)),
+    linear-gradient(180deg, rgba(245, 196, 81, .10), rgba(2, 4, 11, .30) 48%, rgba(2, 4, 11, .98)),
+    url("assets/cabinet/main-menu-screen.webp") center / min(1120px, 96vw) auto no-repeat,
+    url("assets/cabinet/main-menu-cabinet.webp") center / cover no-repeat,
+    #02040b !important;
+}
+#top.hero::before {
+  opacity: .28 !important;
+}
+#top .hero-inner {
+  grid-template-columns: minmax(430px, .92fr) minmax(360px, .56fr) !important;
+  gap: clamp(18px, 3vw, 42px) !important;
+  align-items: center !important;
+  min-height: calc(100svh - 132px) !important;
+}
+#top .hero-copy {
+  min-width: 0 !important;
+  padding: clamp(20px, 2.6vw, 34px) !important;
+  border: 3px solid rgba(245, 196, 81, .34);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(1, 5, 12, .50), rgba(1, 5, 12, .90)),
+    url("assets/cabinet/main-menu-cabinet.webp") center / cover no-repeat,
+    #020611;
+  box-shadow:
+    0 0 0 2px rgba(0,0,0,.70) inset,
+    0 24px 68px rgba(0,0,0,.48),
+    0 0 42px rgba(115, 243, 255, .12);
+}
+#top .eyebrow {
+  display: inline-flex;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  background: rgba(2, 10, 20, .74);
+}
+#top .hero-title {
+  max-width: 560px !important;
+  margin: 0 0 12px !important;
+  font-size: clamp(42px, 5.4vw, 76px) !important;
+  line-height: .92 !important;
+}
+#top .tagline {
+  max-width: 620px !important;
+  margin: 0 0 18px !important;
+  color: #e9f5ff !important;
+  font-size: clamp(15px, 1.45vw, 18px) !important;
+  line-height: 1.42 !important;
+}
+#top .cabinet-menu {
+  width: 100% !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  margin-top: 0 !important;
+}
+#top .cabinet-folder {
+  min-height: 138px !important;
+  padding: 16px !important;
+  border-width: 2px !important;
+  border-radius: 7px !important;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.68) inset,
+    0 16px 34px rgba(0,0,0,.36) !important;
+}
+#top .cabinet-folder .cf-label {
+  font-size: clamp(24px, 2.4vw, 34px) !important;
+}
+#top .cabinet-folder .cf-meta {
+  color: #9ff7ff !important;
+  font-size: 11px !important;
+}
+#top .cabinet-press-start {
+  display: block !important;
+  margin: 12px 0 0 !important;
+  color: #ffd15c;
+  opacity: .86;
+}
+#top .hero-console {
+  align-self: stretch !important;
+  display: flex !important;
+  align-items: center !important;
+}
+#top .console-bezel {
+  padding: 13px !important;
+  border: 2px solid rgba(115, 243, 255, .34) !important;
+  border-radius: 8px !important;
+  transform: none !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.30)),
+    url("assets/cabinet/game-launch-console.webp") center / cover no-repeat,
+    #030712 !important;
+}
+#top .console-top {
+  margin-bottom: 9px !important;
+}
+#top .hero-screen {
+  min-height: clamp(238px, 34vh, 332px) !important;
+  border-width: 2px !important;
+}
+#top .screen-title {
+  max-width: 94% !important;
+  font-size: clamp(31px, 3.2vw, 48px) !important;
+}
+#top .screen-sub {
+  max-width: 82% !important;
+  font-size: 12px !important;
+}
+#top .console-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+#top .console-launch {
+  min-height: 88px !important;
+  padding: 12px !important;
+  border-radius: 5px !important;
+}
+#top .console-status {
+  display: none !important;
+}
+
+@media (max-width: 1040px) {
+  #top .hero-inner {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  #top .hero-console {
+    width: min(100%, 760px) !important;
+  }
+}
+
+@media (max-width: 699px) {
+  .topbar-inner {
+    min-height: 66px !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "brand profile" !important;
+    gap: 7px !important;
+  }
+  .brand strong {
+    max-width: 226px !important;
+  }
+  .profile-pill {
+    grid-area: profile;
+    width: 44px !important;
+    min-width: 44px !important;
+    max-width: 44px !important;
+  }
+  body:not([data-game-page]) .topnav,
+  .topnav {
+    display: none !important;
+  }
+  .sfx-toggle,
+  .crt-dial,
+  .teacher-link {
+    display: none !important;
+  }
+  #top.hero {
+    padding-top: 12px !important;
+    background:
+      linear-gradient(180deg, rgba(2,4,11,.78), rgba(2,4,11,.98) 68%),
+      url("assets/cabinet/main-menu-screen.webp") center top / auto 480px no-repeat,
+      url("assets/cabinet/attract-mode-board.webp") center top / cover no-repeat,
+      #02040b !important;
+  }
+  #top .hero-copy {
+    padding: 14px !important;
+  }
+  #top .hero-title {
+    font-size: clamp(32px, 10.4vw, 43px) !important;
+    max-width: 100% !important;
+  }
+  #top .tagline,
+  #top .hero-console {
+    display: none !important;
+  }
+  #top .cabinet-menu {
+    grid-template-columns: 1fr !important;
+  }
+  #top .cabinet-folder {
+    min-height: 108px !important;
   }
 }
 </style>
@@ -9846,7 +10192,7 @@ let lastPlayerFocus = null;
 // (rounds 1, 1.5, 2) and the existing premium classics so new players
 // always land on something fresh.
 const FEATURED_GAME_IDS = [
-  // Newest first — round 3 mega drop (sprinkle across the head of the carousel)
+  // Arcade games stay grouped after Jeopardy and exam/source practice.
   "snake-pit", "chess-cabinet", "defender-drift",
   "boggle-beat", "memory-palace", "knights-quest", "crossword-cabinet",
   "pong-doctor", "atlas-2048",
@@ -10006,8 +10352,15 @@ function marqueeFor(game) {
   if (!game) return "";
   return "assets/game-marquees/" + encodeURIComponent(game.id) + ".webp";
 }
+function assetHref(path) {
+  try {
+    return new URL(path, document.baseURI).href;
+  } catch (e) {
+    return path;
+  }
+}
 function cssUrlForAttr(path) {
-  return "url(&quot;" + escapeHtml(path).replaceAll("(", "%28").replaceAll(")", "%29") + "&quot;)";
+  return "url(&quot;" + escapeHtml(assetHref(path)).replaceAll("(", "%28").replaceAll(")", "%29") + "&quot;)";
 }
 function gameById(id) {
   return GAMES.find((game) => game.id === id);
@@ -10319,6 +10672,24 @@ function featuredGames() {
   return [...new Map(picks.filter(Boolean).map((game) => [game.id, game])).values()].slice(0, 5);
 }
 
+function openFullYearJeopardyReview() {
+  jeopardyState.course = JEOPARDY_ALL_COURSES;
+  jeopardyState.subject = JEOPARDY_ALL_SUBJECTS;
+  jeopardyState.query = "cumulative";
+  const course = document.getElementById("jeopardyCourseSelect");
+  const subject = document.getElementById("jeopardySubjectSelect");
+  const search = document.getElementById("jeopardySearch");
+  if (course) course.value = JEOPARDY_ALL_COURSES;
+  if (subject) subject.value = JEOPARDY_ALL_SUBJECTS;
+  if (search) search.value = jeopardyState.query;
+  renderJeopardyModes();
+  if (window.MrMacsOpenCabinetFolder) {
+    window.MrMacsOpenCabinetFolder("jeopardy");
+  } else {
+    document.getElementById("jeopardy")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
 function renderLaneTabs() {
   const container = document.getElementById("laneTabs");
   if (!container) return;
@@ -10488,18 +10859,17 @@ function renderHeroConsole() {
     }
   }
 
-  const primary = GAMES.find((game) => game.id === "history-hunters") || featuredGames()[0];
   const primaryCard = document.getElementById("heroPrimaryCard");
-  if (primary && primaryCard) {
-    primaryCard.dataset.id = primary.id;
-    primaryCard.style.setProperty("--accent", accentFor(primary));
-    primaryCard.style.setProperty("--screen-art", 'url("' + cardArtFallbackFor(primary).replaceAll('"', "%22") + '")');
+  if (primaryCard) {
+    primaryCard.dataset.id = "full-year-jeopardy";
+    primaryCard.style.setProperty("--accent", "#ffd15c");
+    primaryCard.style.setProperty("--screen-art", 'url("' + assetHref("assets/cabinet/category-tile-jeopardy.webp").replaceAll('"', "%22") + '")');
     primaryCard.innerHTML =
-      '<span class="screen-kicker">' + escapeHtml(displayGameType(primary)) + '</span>' +
-      '<span class="screen-title">' + escapeHtml(shortHeroTitle(primary.title)) + '</span>' +
-      '<span class="screen-sub">' + escapeHtml(heroSubtitle(primary)) + '</span>' +
-      '<span class="screen-cta">Play</span>';
-    primaryCard.onclick = () => openGame(primary);
+      '<span class="screen-kicker">Jeopardy Flagship</span>' +
+      '<span class="screen-title">Full-Year Course Review</span>' +
+      '<span class="screen-sub">Cumulative boards across every course and subject, before exams and arcade games.</span>' +
+      '<span class="screen-cta">Open Board</span>';
+    primaryCard.onclick = openFullYearJeopardyReview;
   }
 
   // Hero console fast-launch grid. Two practice exams stay pinned (top
@@ -10509,13 +10879,13 @@ function renderHeroConsole() {
   const slots = [
     GAMES.find((game) => game.id === "regents-practice-exam"),
     GAMES.find((game) => game.id === "ap-practice-exam"),
-    GAMES.find((game) => game.id === "rumor-whack"),
-    GAMES.find((game) => game.id === "citadel")
+    GAMES.find((game) => game.id === "source-sprint"),
+    GAMES.find((game) => game.id === "source-lab")
   ].filter(Boolean);
   // If a new flagship hasn't loaded (catalog mismatch), fall back to
   // the legacy premium arcade picks so the grid never shrinks.
   while (slots.length < 4) {
-    const fallback = ["archive-quest", "cold-war-invaders", "history-hunters"]
+    const fallback = ["source-audit", "writing-coach", "regents-gauntlet", "archive-quest"]
       .map((id) => GAMES.find((g) => g.id === id))
       .filter(Boolean)
       .find((g) => !slots.some((s) => s.id === g.id));
@@ -10527,7 +10897,7 @@ function renderHeroConsole() {
   grid.innerHTML = slots.map((game, index) => {
     const accent = accentFor(game);
     const art = cssUrlForAttr(cardArtFallbackFor(game));
-    const label = ["regents-practice-exam", "ap-practice-exam"].includes(game.id) ? "Full exam" : displayGameType(game);
+    const label = ["regents-practice-exam", "ap-practice-exam"].includes(game.id) ? "Full exam" : /source/i.test(game.id + " " + game.title + " " + game.gameType) ? "Source practice" : displayGameType(game);
     return '<button class="console-launch" type="button" style="--accent:' + accent + ';--slot-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
       '<span>' + escapeHtml(label) + '</span>' +
       '<strong>' + escapeHtml(shortHeroTitle(game.title)) + '</strong>' +
@@ -10601,12 +10971,14 @@ function renderFeatured() {
   document.getElementById("featuredModes").innerHTML = games.map((game, index) => {
     const accent = accentFor(game);
     const art = cssUrlForAttr(cardArtFor(game));
+    const thumb = thumbnailFor(game);
     const meta = game.id === "regents-practice-exam" ? "28 MCQs + document writing" : game.id === "ap-practice-exam" ? "MCQ + FRQ score estimate" : (game.clueCount || 0) + (isRegentsLike(game) ? " MCQs" : " review prompts");
     const pills = featuredBadges(game).slice(0, 4).map((c) => '<span class="mb-pill">' + escapeHtml(c) + '</span>').join('');
-    return '<button class="mode-button" type="button" style="--accent:' + accent + ';--card-art:' + art + ';--mode-art:' + art + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
+    return '<button class="mode-button" type="button" style="--accent:' + accent + ';--card-art:' + art + ';--mode-art:' + art + ';--thumb-art:' + cssUrlForAttr(thumb) + ';--i:' + index + '" data-id="' + escapeHtml(game.id) + '">' +
+      '<span class="mb-art" aria-hidden="true"><img src="' + escapeHtml(thumb) + '" alt="" loading="lazy" decoding="async" onerror="this.src=\'' + escapeHtml(cardArtFor(game)) + '\';this.onerror=null;"></span>' +
       '<span class="featured-rank">0' + (index + 1) + '</span>' +
       '<span class="mb-tag">' + escapeHtml(displayGameType(game)) + '</span>' +
-      '<div>' +
+      '<div class="mb-copy">' +
         '<h3 class="mb-title">' + escapeHtml(game.title) + '</h3>' +
         '<p class="mb-sub">' + escapeHtml(cardSubtitle(game)) + '</p>' +
         '<div class="mb-pills">' + pills + '</div>' +
@@ -11539,6 +11911,7 @@ function initCabinetMenu() {
       }
     }
   }
+  window.MrMacsOpenCabinetFolder = openFolder;
   folders.forEach(f => {
     f.addEventListener("click", function () { openFolder(f.dataset.cabinetFolder); });
   });

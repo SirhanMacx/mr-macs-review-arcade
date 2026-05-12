@@ -31,6 +31,8 @@
   var AI_INITIAL_LEN_MAX = 28;
   var GROWTH_METER_REFERENCE_LEN = 360;
   var MIN_LEN = 5;
+  var TRAIL_POINT_MIN_DIST = 2.4;
+  var TRAIL_POINT_MAX_KEEP = 18000;
   var SNAKE_DRAW_TARGET_SEGMENTS = 260;
   var SNAKE_COLLISION_TARGET_SEGMENTS = 240;
   var MAX_DEATH_ORBS = 180;
@@ -467,6 +469,7 @@
       desiredHeading: heading,
       x: x, y: y,
       segments: seg,
+      trail: seg.map(function (point) { return { x: point.x, y: point.y }; }),
       targetLen: len,             // smooth growth via interpolation
       pendingGrowth: 0,           // segment count waiting to be appended
       speed: BASE_SPEED,
@@ -734,6 +737,87 @@
     s.heading = angWrap(s.heading + diff);
   }
 
+  function ensureSnakeTrail(s) {
+    if (!Array.isArray(s.trail) || s.trail.length === 0) {
+      s.trail = (s.segments && s.segments.length ? s.segments : [{ x: s.x, y: s.y }])
+        .map(function (point) { return { x: point.x, y: point.y }; });
+    }
+    if (!s.trail.length) s.trail.push({ x: s.x, y: s.y });
+  }
+
+  function trimTrailToDistance(trail, maxDistance) {
+    if (!trail.length) return;
+    var travelled = 0;
+    for (var i = 1; i < trail.length; i++) {
+      var prev = trail[i - 1];
+      var curr = trail[i];
+      var dx = curr.x - prev.x;
+      var dy = curr.y - prev.y;
+      var d = Math.sqrt(dx * dx + dy * dy);
+      if (travelled + d >= maxDistance) {
+        var remain = Math.max(0, maxDistance - travelled);
+        var t = d > 0 ? remain / d : 0;
+        trail[i] = {
+          x: prev.x + dx * t,
+          y: prev.y + dy * t
+        };
+        trail.length = i + 1;
+        return;
+      }
+      travelled += d;
+    }
+  }
+
+  function resampleTrailSegments(trail, targetLen) {
+    var out = [];
+    if (!trail.length || targetLen <= 0) return out;
+    var nextDistance = 0;
+    var travelled = 0;
+    var maxPoints = Math.max(MIN_LEN, Math.floor(targetLen));
+    out.push({ x: trail[0].x, y: trail[0].y });
+    nextDistance += SEG_SPACING;
+    for (var i = 1; i < trail.length && out.length < maxPoints; i++) {
+      var prev = trail[i - 1];
+      var curr = trail[i];
+      var dx = curr.x - prev.x;
+      var dy = curr.y - prev.y;
+      var d = Math.sqrt(dx * dx + dy * dy);
+      if (d <= 0.0001) continue;
+      while (travelled + d >= nextDistance && out.length < maxPoints) {
+        var t = (nextDistance - travelled) / d;
+        out.push({
+          x: prev.x + dx * t,
+          y: prev.y + dy * t
+        });
+        nextDistance += SEG_SPACING;
+      }
+      travelled += d;
+    }
+    while (out.length < maxPoints) {
+      var tail = trail[trail.length - 1] || trail[0];
+      out.push({ x: tail.x, y: tail.y });
+    }
+    return out;
+  }
+
+  function updateSnakeTrail(s) {
+    ensureSnakeTrail(s);
+    var head = s.trail[0];
+    var dx = s.x - head.x;
+    var dy = s.y - head.y;
+    var d = Math.sqrt(dx * dx + dy * dy);
+    if (d >= TRAIL_POINT_MIN_DIST) {
+      s.trail.unshift({ x: s.x, y: s.y });
+    } else {
+      head.x = s.x;
+      head.y = s.y;
+    }
+    if (s.trail.length > TRAIL_POINT_MAX_KEEP) s.trail.length = TRAIL_POINT_MAX_KEEP;
+    var desiredLen = Math.max(MIN_LEN, Math.floor(s.targetLen || MIN_LEN));
+    trimTrailToDistance(s.trail, Math.max(SEG_SPACING, (desiredLen - 1) * SEG_SPACING));
+    s.segments = resampleTrailSegments(s.trail, desiredLen);
+  }
+
   function moveSnake(s, dt) {
     if (s.dead) return;
     // NaN/finite guard — recover gracefully if positions or heading went bad
@@ -769,11 +853,10 @@
         while (s.drainTimer >= BOOST_DRAIN_INTERVAL) {
           s.drainTimer -= BOOST_DRAIN_INTERVAL;
           if (s.segments.length > MIN_LEN + 1) {
-            s.segments.pop();
+            var tail = s.segments[s.segments.length - 1];
             s.targetLen = Math.max(MIN_LEN, s.targetLen - 1);
             // drop a tiny orb where the dropped tail was
-            if (s.segments.length > 0) {
-              var tail = s.segments[s.segments.length - 1];
+            if (tail) {
               if (Math.random() < 0.55) {
                 var dropPt = clampWorld(tail.x + rand(-6, 6), tail.y + rand(-6, 6));
                 state.orbs.push(makeOrb({
@@ -794,42 +877,15 @@
       }
     }
 
-    // Update segment chain (each segment trails the prior at SEG_SPACING)
-    if (s.segments.length === 0) {
-      s.segments.push({ x: s.x, y: s.y });
-    } else {
-      var head = s.segments[0];
-      var dx = s.x - head.x;
-      var dy = s.y - head.y;
-      var d = Math.sqrt(dx * dx + dy * dy);
-      if (d >= SEG_SPACING) {
-        var ux = dx / d;
-        var uy = dy / d;
-        var inserts = Math.min(6, Math.floor(d / SEG_SPACING));
-        for (var ii = inserts - 1; ii >= 0; ii--) {
-          s.segments.unshift({
-            x: s.x - ux * SEG_SPACING * ii,
-            y: s.y - uy * SEG_SPACING * ii
-          });
-        }
-      } else {
-        head.x = s.x;
-        head.y = s.y;
-      }
-      // trim or grow tail to match targetLen
-      while (s.segments.length > s.targetLen) {
-        s.segments.pop();
-      }
-      // pendingGrowth folds in over time so growth is smooth.
-      // While boosting (without reserve), pause growth so boost actually shrinks.
-      var boostShrinking = s.boosting && s.boostReserveT <= 0;
-      if (s.pendingGrowth > 0 && !boostShrinking) {
-        // grow one segment per frame chunk to avoid jitter
-        var maxGrowThisFrame = Math.min(s.pendingGrowth, 3);
-        s.targetLen += maxGrowThisFrame;
-        s.pendingGrowth -= maxGrowThisFrame;
-      }
+    // pendingGrowth folds in over time so growth is smooth.
+    // While boosting (without reserve), pause growth so boost actually shrinks.
+    var boostShrinking = s.boosting && s.boostReserveT <= 0;
+    if (s.pendingGrowth > 0 && !boostShrinking) {
+      var maxGrowThisFrame = Math.min(s.pendingGrowth, 3);
+      s.targetLen += maxGrowThisFrame;
+      s.pendingGrowth -= maxGrowThisFrame;
     }
+    updateSnakeTrail(s);
 
     // Power-up timers (phase persists until consumed by collision; only magnet/stun decay)
     if (s.magnetT > 0) { s.magnetT -= dt; if (s.magnetT < 0) s.magnetT = 0; }
@@ -855,6 +911,7 @@
 
   function getDrawableSegments(s) {
     var segs = s.segments || [];
+    if (!segs.length) return [];
     if (segs.length <= SNAKE_DRAW_TARGET_SEGMENTS) return segs;
     var stride = segmentStride(segs.length, SNAKE_DRAW_TARGET_SEGMENTS);
     var out = [];
@@ -1297,6 +1354,7 @@
       if (state.ais[d].dead && state.ais[d].deadT >= 1) {
         // hold the slot until respawn fills it; just clear segments to free memory
         if (state.ais[d].segments.length > 0) state.ais[d].segments = [];
+        if (state.ais[d].trail && state.ais[d].trail.length > 0) state.ais[d].trail = [];
       }
     }
   }
