@@ -76,7 +76,7 @@ if (location.protocol === "file:" && !location.search.includes("local=1")) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
-<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260511-hub-restructure">
+<link rel="stylesheet" href="assets/arcade-retro-theme.css?v=20260512-generated-cabinet-v5">
 <style>
 :root {
   color-scheme: dark;
@@ -8469,6 +8469,107 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
   }
   .cabinet-menu {
     grid-template-columns: 1fr !important;
+  }
+}
+
+/* Final generated-cabinet mobile lock. Keep this at the end of the inline
+   cascade so the home menu cannot widen past the viewport. */
+@media (max-width: 699px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .shell,
+  .hero-inner {
+    width: calc(100% - 24px) !important;
+    max-width: calc(100% - 24px) !important;
+    min-width: 0 !important;
+  }
+  .topbar-inner {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "brand profile"
+      "nav nav" !important;
+    gap: 8px !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .brand {
+    grid-area: brand;
+    min-width: 0;
+  }
+  .brand strong {
+    max-width: 238px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .profile-pill {
+    grid-area: profile;
+    width: 48px !important;
+    min-width: 48px !important;
+    max-width: 48px !important;
+    padding: 7px !important;
+    overflow: hidden;
+  }
+  .profile-pill .pp-text,
+  .profile-pill .pp-buffs {
+    display: none !important;
+  }
+  .topnav {
+    grid-area: nav;
+    justify-self: stretch !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    overflow: hidden !important;
+  }
+  .topnav a {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+  }
+  .topnav-changelog-host,
+  .crt-dial,
+  .sfx-toggle {
+    display: none !important;
+  }
+  #top.hero {
+    min-height: auto !important;
+    padding: 18px 0 20px !important;
+  }
+  #top .hero-inner {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 18px !important;
+    min-height: auto !important;
+  }
+  #top .hero-copy,
+  #top .hero-console,
+  #top .console-bezel {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: hidden;
+  }
+  #top .hero-title {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+  }
+  #top .hero-title .ht-row {
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  #top .tagline {
+    display: none !important;
   }
 }
 </style>

@@ -1,4 +1,4 @@
-const CACHE_NAME = "mr-macs-arcade-v24-2026-05-12-gpt-image-atlas-os";
+const CACHE_NAME = "mr-macs-arcade-v28-2026-05-12-generated-cabinet-v5";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
