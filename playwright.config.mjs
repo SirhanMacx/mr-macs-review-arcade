@@ -7,8 +7,8 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
   testMatch: /(^|\/)smoke\.spec\.mjs$/,
-  fullyParallel: true,
-  workers: 4,
+  fullyParallel: false,
+  workers: 1,
   timeout: 25_000,
   expect: { timeout: 5_000 },
   reporter: process.env.CI ? "github" : "list",
