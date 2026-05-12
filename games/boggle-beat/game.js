@@ -1631,7 +1631,8 @@
     offsetY = targetCy - gridCyL * scale;
   }
   function drawBackground() {
-    var w = canvas.width, h = canvas.height;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var w = canvas.width / dpr, h = canvas.height / dpr;
     var grad = ctx.createRadialGradient(w * 0.5, h * 0.4, 0, w * 0.5, h * 0.5, Math.max(w, h) * 0.7);
     grad.addColorStop(0, "#0e1a30");
     grad.addColorStop(0.6, "#08101e");

@@ -224,19 +224,36 @@ const questionReadableGames = fs.readdirSync(gamesDir)
   })
   .sort();
 
+const questionReadableRuntimeGames = [
+  "archive-quest",
+  "atlas-2048",
+  "boggle-beat",
+  "chronoblocks",
+  "cube-crash",
+  "review-maze-chase",
+  "snake-pit",
+  "word-bridge"
+].filter(slug => questionReadableGames.includes(slug));
+
+test("shared game question typography contract covers all question games", async () => {
+  const themeCss = fs.readFileSync(path.join(REPO, "assets", "arcade-retro-theme.css"), "utf8");
+  expect(themeCss).toContain("Question readability lock");
+  expect(themeCss).toMatch(/#questionPrompt[\s\S]{0,1200}font-size:\s*clamp\(20px,\s*3\.4vw,\s*28px\)/);
+  expect(themeCss).toMatch(/\.question-card\s+\.choice-btn[\s\S]{0,1600}font-size:\s*clamp\(16px,\s*2\.6vw,\s*19px\)/);
+
+  for (const slug of questionReadableGames) {
+    const html = fs.readFileSync(path.join(gamesDir, slug, "index.html"), "utf8");
+    expect(html, `${slug} should use the readable shared game theme`).toContain("arcade-retro-theme.css?v=20260512-question-readability");
+  }
+});
+
 test("game review question text remains readable at phone size", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   const checked = [];
 
-  for (const slug of questionReadableGames) {
+  for (const slug of questionReadableRuntimeGames) {
     const url = `${BASE}/games/${slug}/index.html`;
-    try {
-      await page.goto(url, { waitUntil: "commit", timeout: 10000 });
-    } catch (error) {
-      expect(await servedOk(url), `${slug} should still be served when browser navigation is slow`).toBe(true);
-      test.info().annotations.push({ type: "readability-navigation-timeout", description: `${slug}: ${error.message}` });
-      continue;
-    }
+    await page.goto(url, { waitUntil: "commit", timeout: 15000 });
     await page.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
     await page.waitForTimeout(500);
     const metrics = await page.evaluate(() => {
@@ -285,7 +302,69 @@ test("game review question text remains readable at phone size", async ({ page }
     }
   }
 
-  expect(checked.length, "question-bearing arcade games checked").toBeGreaterThanOrEqual(8);
+  expect(checked.length, "question-bearing arcade games checked").toBeGreaterThanOrEqual(questionReadableRuntimeGames.length);
+});
+
+test("boggle beat board fills iPhone retina canvas", async ({ browser }) => {
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true
+  });
+  const page = await context.newPage();
+  try {
+    await page.goto(`${BASE}/games/boggle-beat/index.html`, { waitUntil: "commit", timeout: 15000 });
+    await page.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
+    await page.click("#startBtn");
+    await page.waitForFunction(() => !document.getElementById("setupScreen")?.classList.contains("show"), { timeout: 5000 });
+    await page.waitForTimeout(1000);
+    const metrics = await page.evaluate(() => {
+      const canvas = document.getElementById("boggleCanvas");
+      const ctx = canvas?.getContext("2d", { willReadFrequently: true });
+      if (!canvas || !ctx) return { found: false };
+      const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = image.data;
+      let minX = image.width;
+      let minY = image.height;
+      let maxX = -1;
+      let maxY = -1;
+      for (let y = 0; y < image.height; y += 2) {
+        for (let x = 0; x < image.width; x += 2) {
+          const i = (y * image.width + x) * 4;
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
+          const parchmentOrGold = r > 125 && g > 90 && b > 35 && r + g + b > 295 && r > b * 1.12;
+          if (!parchmentOrGold) continue;
+          minX = Math.min(minX, x);
+          minY = Math.min(minY, y);
+          maxX = Math.max(maxX, x);
+          maxY = Math.max(maxY, y);
+        }
+      }
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      const found = maxX >= minX && maxY >= minY;
+      return {
+        found,
+        canvasCssWidth: rect.width,
+        canvasCssHeight: rect.height,
+        brightWidthCss: found ? (maxX - minX + 1) / dpr : 0,
+        brightHeightCss: found ? (maxY - minY + 1) / dpr : 0,
+        brightLeftCss: found ? minX / dpr : 0,
+        brightTopCss: found ? minY / dpr : 0,
+        brightCenterCss: found ? ((minX + maxX + 1) / 2) / dpr : 0
+      };
+    });
+    expect(metrics.found, "Boggle board pixels should be visible").toBe(true);
+    expect(metrics.brightWidthCss, "Boggle board should not render as a tiny retina-scaled board").toBeGreaterThanOrEqual(320);
+    expect(metrics.brightHeightCss, "Boggle board should be large enough to touch on iPhone").toBeGreaterThanOrEqual(320);
+    expect(Math.abs(metrics.brightCenterCss - metrics.canvasCssWidth / 2), "Boggle board should stay centered").toBeLessThanOrEqual(40);
+    expect(metrics.brightTopCss, "Boggle board should not be pinned to the top edge").toBeGreaterThanOrEqual(150);
+  } finally {
+    await context.close();
+  }
 });
 
 // === GAME SMOKE TESTS ===
