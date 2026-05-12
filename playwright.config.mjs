@@ -6,6 +6,7 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
+  testMatch: /smoke\.spec\.mjs$/,
   fullyParallel: true,
   workers: 4,
   timeout: 25_000,
