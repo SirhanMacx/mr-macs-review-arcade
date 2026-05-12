@@ -41,6 +41,21 @@ async function dismissWelcome(page) {
   });
 }
 
+async function gotoHub(page) {
+  let lastError;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      await page.goto(`${BASE}/index.html`, { waitUntil: "commit", timeout: 20000 });
+      await page.waitForLoadState("domcontentloaded", { timeout: 15000 }).catch(() => {});
+      return;
+    } catch (error) {
+      lastError = error;
+      await page.waitForTimeout(500);
+    }
+  }
+  throw lastError;
+}
+
 async function clickCabinetFolder(page, folder) {
   await page.evaluate(name => {
     const button = document.querySelector(`button[data-cabinet-folder="${name}"]`);
@@ -91,15 +106,13 @@ test("hub loads with zero JS errors", async ({ page }) => {
   const errs = [];
   page.on("pageerror", e => errs.push(e.message));
   page.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
-  await page.goto(`${BASE}/index.html`, { waitUntil: "commit" });
-  await page.waitForLoadState("domcontentloaded", { timeout: 15000 }).catch(() => {});
+  await gotoHub(page);
   await page.waitForTimeout(4000);
   expect(errs).toHaveLength(0);
 });
 
 test("hub has 4 cabinet folders", async ({ page }) => {
-  await page.goto(`${BASE}/index.html`, { waitUntil: "commit" });
-  await page.waitForLoadState("domcontentloaded", { timeout: 15000 }).catch(() => {});
+  await gotoHub(page);
   await page.waitForTimeout(3000);
   const folderLabels = await page.evaluate(() =>
     Array.from(document.querySelectorAll(".cabinet-folder .cf-label")).map(el => el.textContent.trim())
@@ -108,8 +121,7 @@ test("hub has 4 cabinet folders", async ({ page }) => {
 });
 
 test("clicking Jeopardy folder opens the jeopardy section", async ({ page }) => {
-  await page.goto(`${BASE}/index.html`, { waitUntil: "commit" });
-  await page.waitForLoadState("domcontentloaded", { timeout: 15000 }).catch(() => {});
+  await gotoHub(page);
   await page.waitForTimeout(4000);
   await dismissWelcome(page);
   await clickCabinetFolder(page, "jeopardy");
@@ -121,8 +133,7 @@ test("clicking Jeopardy folder opens the jeopardy section", async ({ page }) => 
 });
 
 test("ESC closes any open folder back to menu", async ({ page }) => {
-  await page.goto(`${BASE}/index.html`, { waitUntil: "commit" });
-  await page.waitForLoadState("domcontentloaded", { timeout: 15000 }).catch(() => {});
+  await gotoHub(page);
   await page.waitForTimeout(4000);
   await dismissWelcome(page);
   await clickCabinetFolder(page, "practice");
