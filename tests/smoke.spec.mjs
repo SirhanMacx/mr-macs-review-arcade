@@ -85,6 +85,19 @@ function localUrl(file) {
   return `${BASE}/${file.split("/").map(encodeURIComponent).join("/")}`;
 }
 
+async function loadModuleHarness(page, scripts) {
+  await page.goto(`${BASE}/robots.txt`, { waitUntil: "commit", timeout: 15000 });
+  await page.setContent(`
+    <!doctype html>
+    <html>
+      <head><meta charset="utf-8"><title>Module harness</title></head>
+      <body>
+        ${scripts.map(src => `<script src="${src}"></script>`).join("\n")}
+      </body>
+    </html>
+  `);
+}
+
 test.beforeAll(async () => {
   // Use python3 -m http.server in the repo root
   server = spawn("python3", ["-m", "http.server", String(PORT)], {
@@ -317,7 +330,7 @@ test("boggle beat board fills iPhone retina canvas", async ({ browser }) => {
     await page.goto(`${BASE}/games/boggle-beat/index.html`, { waitUntil: "commit", timeout: 15000 });
     await page.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
     await page.click("#startBtn");
-    await page.waitForFunction(() => !document.getElementById("setupScreen")?.classList.contains("show"), { timeout: 5000 });
+    await page.waitForFunction(() => !document.getElementById("setupScreen")?.classList.contains("show"), null, { timeout: 5000 });
     await page.waitForTimeout(1000);
     const metrics = await page.evaluate(() => {
       const canvas = document.getElementById("boggleCanvas");
@@ -385,7 +398,7 @@ test("solitaire hall deal row clears top menu in short layouts", async ({ browse
       await page.goto(`${BASE}/games/solitaire-hall/index.html`, { waitUntil: "commit", timeout: 15000 });
       await page.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
       await page.click("#startBtn");
-      await page.waitForFunction(() => !document.getElementById("setupScreen")?.classList.contains("show"), { timeout: 5000 });
+      await page.waitForFunction(() => !document.getElementById("setupScreen")?.classList.contains("show"), null, { timeout: 5000 });
       await page.waitForTimeout(900);
       const metrics = await page.evaluate(() => {
         const canvas = document.getElementById("solitaireCanvas");
@@ -438,8 +451,12 @@ test("solitaire hall deal row clears top menu in short layouts", async ({ browse
 });
 
 test("student-safe names guard multiplayer and global leaderboards", async ({ page }) => {
-  await gotoHub(page);
-  await page.waitForFunction(() => window.MrMacsNameSafety && window.MrMacsMultiplayer && window.MrMacsLeaderboards);
+  await loadModuleHarness(page, [
+    "/assets/arcade-name-safety.js?v=test-safe-names",
+    "/assets/arcade-leaderboards.js?v=test-safe-names",
+    "/assets/arcade-multiplayer.js?v=test-safe-names"
+  ]);
+  await page.waitForFunction(() => window.MrMacsNameSafety && window.MrMacsMultiplayer && window.MrMacsLeaderboards, null, { timeout: 30000 });
   const result = await page.evaluate(() => {
     return {
       blockedEmail: window.MrMacsNameSafety.isBlockedName("student@example.com"),
@@ -480,12 +497,12 @@ test("global leaderboard posts only safe public handles", async ({ page }) => {
       });
     }
   });
-  await gotoHub(page);
-  await page.waitForFunction(() => window.MrMacsNameSafety && window.MrMacsLeaderboards, { timeout: 30000 });
-  if (!(await page.evaluate(() => !!window.MrMacsGlobalLeaderboards))) {
-    await page.addScriptTag({ url: `${BASE}/assets/arcade-progress-extras.js?v=test-global-leaderboard` });
-  }
-  await page.waitForFunction(() => window.MrMacsGlobalLeaderboards && window.MrMacsLeaderboards, { timeout: 30000 });
+  await loadModuleHarness(page, [
+    "/assets/arcade-name-safety.js?v=test-global-leaderboard",
+    "/assets/arcade-leaderboards.js?v=test-global-leaderboard",
+    "/assets/arcade-progress-extras.js?v=test-global-leaderboard"
+  ]);
+  await page.waitForFunction(() => window.MrMacsGlobalLeaderboards && window.MrMacsLeaderboards, null, { timeout: 30000 });
   await page.evaluate(() => {
     window.MrMacsGlobalLeaderboards.setEndpoint("http://localhost:7777");
     window.MrMacsNameSafety.setPublicHandle("student@example.com");
