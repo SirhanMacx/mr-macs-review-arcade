@@ -1,4 +1,4 @@
-const CACHE_NAME = "mr-macs-arcade-v29-2026-05-12-cabinet-cards-snakepit";
+const CACHE_NAME = "mr-macs-arcade-v30-2026-05-13-global-leaderboard-multiplayer";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -35,6 +35,7 @@ const CACHE_FILES = [
   "./assets/arcade-mascot-dialog.js",
   "./assets/arcade-mascot.js",
   "./assets/arcade-multiplayer.js",
+  "./assets/arcade-name-safety.js",
   "./assets/arcade-music.js",
   "./assets/arcade-news-ticker.js",
   "./assets/arcade-notification-center.js",

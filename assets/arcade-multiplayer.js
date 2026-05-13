@@ -43,6 +43,7 @@
   // 40 leaves headroom for two teachers + 38 students. PeerJS DataChannels
   // scale fine to this size on modern devices.
   var MAX_PLAYERS = 40;
+  var ACTIVE_ROOM_KEY = "arcade.mp.activeRoom.v1";
 
   function makeCode() {
     var s = "";
@@ -70,13 +71,59 @@
   }
 
   function sanitizeInitials(s) {
+    if (root.MrMacsNameSafety && typeof root.MrMacsNameSafety.sanitizeInitials === "function") {
+      return root.MrMacsNameSafety.sanitizeInitials(s, "PLR");
+    }
     var raw = String(s || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 3);
     if (raw.length < 1) raw = "PLR";
-    // Use the leaderboards content filter if present
-    if (root.MrMacsLeaderboards && root.MrMacsLeaderboards.isBlockedName) {
-      if (root.MrMacsLeaderboards.isBlockedName(raw)) return "PLR";
-    }
+    if (root.MrMacsLeaderboards && root.MrMacsLeaderboards.isBlockedName && root.MrMacsLeaderboards.isBlockedName(raw)) return "PLR";
     return raw;
+  }
+
+  function safeSessionGet(key) {
+    try { return sessionStorage.getItem(key); } catch (e) { return null; }
+  }
+
+  function safeSessionSet(key, value) {
+    try { sessionStorage.setItem(key, value); return true; } catch (e) { return false; }
+  }
+
+  function safeSessionRemove(key) {
+    try { sessionStorage.removeItem(key); } catch (e) {}
+  }
+
+  function rememberActiveRoom(room) {
+    if (!room || !room.code || !room.role || !room.self) return false;
+    return safeSessionSet(ACTIVE_ROOM_KEY, JSON.stringify({
+      code: room.code,
+      role: room.role,
+      initials: sanitizeInitials(room.self.initials),
+      savedAt: Date.now()
+    }));
+  }
+
+  function activeDescriptor() {
+    try {
+      var raw = safeSessionGet(ACTIVE_ROOM_KEY);
+      var desc = raw ? JSON.parse(raw) : null;
+      if (!desc || !desc.code || !desc.role) return null;
+      if (Date.now() - Number(desc.savedAt || 0) > 4 * 60 * 60 * 1000) {
+        safeSessionRemove(ACTIVE_ROOM_KEY);
+        return null;
+      }
+      return {
+        code: String(desc.code).toUpperCase(),
+        role: desc.role === "host" ? "host" : "joiner",
+        initials: sanitizeInitials(desc.initials || (desc.role === "host" ? "HST" : "PLR"))
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function clearActiveRoom(code) {
+    var desc = activeDescriptor();
+    if (!code || (desc && desc.code === code)) safeSessionRemove(ACTIVE_ROOM_KEY);
   }
 
   // ─── Room class ──────────────────────────────────────────────────────
@@ -112,6 +159,26 @@
     }
   };
 
+  Room.prototype.updateScore = function (score, meta) {
+    var n = Number(score);
+    if (!isFinite(n)) return false;
+    n = Math.round(n);
+    for (var i = 0; i < this.players.length; i++) {
+      if (this.players[i].id === this.self.id) {
+        this.players[i].score = Math.max(Number(this.players[i].score || 0), n);
+        break;
+      }
+    }
+    if (this.role === "host") {
+      this._firePlayers();
+      this.send("host:playerScoreSync", { players: serializablePlayers(this) });
+      this.send("host:announceState", { players: serializablePlayers(this) });
+    } else {
+      this.send("joiner:score", { score: n, meta: meta || {} });
+    }
+    return true;
+  };
+
   Room.prototype.send = function (type, payload, toId) {
     var msg = { type: type, from: this.self.id, payload: payload || null };
     var data = JSON.stringify(msg);
@@ -142,6 +209,7 @@
       }
     } catch (e) {}
     try { if (this._peer) this._peer.destroy(); } catch (e) {}
+    clearActiveRoom(this.code);
   };
 
   // ─── host() ───────────────────────────────────────────────────────────
@@ -159,6 +227,7 @@
     room.players.push({ id: peerId, initials: initials, score: 0, isHost: true });
 
     peer.on("open", function () {
+      rememberActiveRoom(room);
       if (typeof opts.onReady === "function") opts.onReady(room);
     });
     peer.on("error", function (err) {
@@ -203,6 +272,18 @@
           room.players = room.players.filter(function (p) { return p.id !== conn.peer; });
           room._firePlayers();
           room.send("host:announceState", { players: serializablePlayers(room) });
+        } else if (msg.type === "joiner:score") {
+          var score = Number(msg.payload && msg.payload.score);
+          if (isFinite(score)) {
+            for (var pi = 0; pi < room.players.length; pi++) {
+              if (room.players[pi].id === conn.peer) {
+                room.players[pi].score = Math.max(Number(room.players[pi].score || 0), Math.round(score));
+                break;
+              }
+            }
+            room._firePlayers();
+            room.send("host:playerScoreSync", { players: serializablePlayers(room) });
+          }
         } else {
           // Bubble up
           room._fireMessage(msg, conn.peer);
@@ -247,6 +328,7 @@
       conn.on("open", function () {
         // Announce ourselves
         try { conn.send(JSON.stringify({ type: "joiner:hello", from: myId, payload: { initials: myInitials } })); } catch (e) {}
+        rememberActiveRoom(room);
         if (typeof opts.onReady === "function") opts.onReady(room);
       });
       conn.on("data", function (raw) {
@@ -255,6 +337,10 @@
         if (msg.type === "host:announceState") {
           var pl = (msg.payload && msg.payload.players) || [];
           room.players = pl.map(function (p) { return { id: p.id, initials: p.initials, score: p.score, isHost: !!p.isHost }; });
+          room._firePlayers();
+        } else if (msg.type === "host:playerScoreSync") {
+          var sync = (msg.payload && msg.payload.players) || [];
+          room.players = sync.map(function (p) { return { id: p.id, initials: p.initials, score: p.score, isHost: !!p.isHost }; });
           room._firePlayers();
         } else {
           room._fireMessage(msg, hostId);
@@ -325,7 +411,14 @@
       ".mmp-player{padding:5px 10px;background:rgba(93,224,240,.10);border:1px solid rgba(93,224,240,.30);border-radius:999px;font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.08em;color:#5de0f0;}\n" +
       ".mmp-player.is-host{background:rgba(255,208,96,.10);border-color:rgba(255,208,96,.35);color:#ffd060;}\n" +
       ".mmp-error{margin-top:10px;padding:8px 12px;background:rgba(255,56,88,.10);border:1px solid rgba(255,56,88,.40);border-radius:8px;color:#ff8a8a;font:600 12px/1.4 'Inter',sans-serif;}\n" +
-      ".mmp-hint{font:500 11.5px/1.5 'Inter',sans-serif;color:rgba(216,220,235,.55);font-style:italic;margin-top:6px;}";
+      ".mmp-hint{font:500 11.5px/1.5 'Inter',sans-serif;color:rgba(216,220,235,.55);font-style:italic;margin-top:6px;}\n" +
+      ".mmp-game-strip{position:fixed;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:8000;display:flex;align-items:center;gap:9px;max-width:calc(100vw - 20px);padding:8px 10px;background:rgba(4,6,15,.88);border:1px solid rgba(93,224,240,.42);border-radius:9px;box-shadow:0 10px 28px rgba(0,0,0,.45);color:#f0f5ff;font:700 11px/1.2 'Inter',sans-serif;backdrop-filter:blur(6px);}\n" +
+      ".mmp-game-strip strong{font-family:'JetBrains Mono',monospace;color:#7af0ff;letter-spacing:.08em;}\n" +
+      ".mmp-game-strip em{font-style:normal;color:rgba(240,245,255,.72);}\n" +
+      ".mmp-game-strip button{appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#f0f5ff;border-radius:6px;padding:5px 7px;font:800 10px/1 'Inter',sans-serif;cursor:pointer;}\n" +
+      ".mmp-game-strip.is-error{border-color:rgba(255,56,88,.5);}\n" +
+      ".mmp-game-dot{width:8px;height:8px;border-radius:999px;background:#7af0ff;box-shadow:0 0 10px rgba(122,240,255,.8);flex:0 0 auto;}\n" +
+      "@media(max-width:560px){.mmp-game-strip{font-size:10px;padding:7px 8px;}.mmp-game-strip button{padding:5px 6px;}}";
     var style = document.createElement("style");
     style.id = STYLE_ID;
     style.appendChild(document.createTextNode(css));
@@ -387,7 +480,7 @@
           '<button class="mmp-tab" id="mmpTabJoin" role="tab">Join a Room</button>' +
         '</div>' +
         '<div class="mmp-pane is-active" id="mmpPaneHost">' +
-          '<p class="mmp-hint">Open a room and share the code with your students. Up to 16 players.</p>' +
+          '<p class="mmp-hint">Open a room and share the code with your students. Up to 40 players.</p>' +
           '<button class="mmp-btn" id="mmpHostStart" type="button">Start Hosting</button>' +
           '<div id="mmpHostStatus"></div>' +
         '</div>' +
@@ -530,8 +623,10 @@
                     '<span class="mmp-roster-label">students joined</span>' +
                   '</div>';
     var chips = room.players.map(function (p) {
+      var score = Number(p.score || 0);
       return '<span class="mmp-player' + (p.isHost ? ' is-host' : '') + '">' +
                 (p.isHost ? '👑 ' : '') + escHtml(p.initials) +
+                (score > 0 ? ' · ' + score.toLocaleString() : '') +
               '</span>';
     }).join("");
     var grid = '<div class="mmp-roster-grid">' +
@@ -539,6 +634,83 @@
                '</div>';
     container.innerHTML = counter + grid;
   }
+
+  var _gameRoom = null;
+  function restoreActiveRoom(opts) {
+    opts = opts || {};
+    var desc = activeDescriptor();
+    if (!desc) return null;
+    try {
+      if (desc.role === "host") {
+        return host({
+          code: desc.code,
+          initials: desc.initials || "HST",
+          onReady: function (room) {
+            _gameRoom = room;
+            rememberActiveRoom(room);
+            if (typeof opts.onReady === "function") opts.onReady(room);
+          },
+          onError: opts.onError
+        });
+      }
+      return join(desc.code, desc.initials || "PLR", {
+        onReady: function (room) {
+          _gameRoom = room;
+          rememberActiveRoom(room);
+          if (typeof opts.onReady === "function") opts.onReady(room);
+        },
+        onError: opts.onError
+      });
+    } catch (e) {
+      if (typeof opts.onError === "function") opts.onError({ err: e, friendly: e.message || "Could not restore room." });
+      return null;
+    }
+  }
+
+  function mountGameRoomStrip() {
+    if (!document.body || !document.body.hasAttribute("data-game-page")) return;
+    var desc = activeDescriptor();
+    if (!desc || document.getElementById("mmpGameStrip")) return;
+    injectStyles();
+    var strip = document.createElement("div");
+    strip.id = "mmpGameStrip";
+    strip.className = "mmp-game-strip";
+    strip.setAttribute("role", "status");
+    strip.innerHTML =
+      '<span class="mmp-game-dot" aria-hidden="true"></span>' +
+      '<span><strong>Room ' + escHtml(desc.code) + '</strong><em id="mmpGameStripStatus"> reconnecting...</em></span>' +
+      '<button type="button" id="mmpGameStripLeave">Leave</button>';
+    document.body.appendChild(strip);
+    var status = document.getElementById("mmpGameStripStatus");
+    var leave = document.getElementById("mmpGameStripLeave");
+    var restored = restoreActiveRoom({
+      onReady: function (room) {
+        _gameRoom = room;
+        if (status) status.textContent = " score sync on";
+        room.onPlayersChange(function (players) {
+          var students = players.filter(function (p) { return !p.isHost; }).length;
+          if (status) status.textContent = " " + students + "/" + MAX_PLAYERS + " students";
+        });
+      },
+      onError: function (error) {
+        if (status) status.textContent = " " + ((error && error.friendly) || "room unavailable");
+        strip.classList.add("is-error");
+      }
+    });
+    if (leave) {
+      leave.addEventListener("click", function () {
+        try { if (_gameRoom) _gameRoom.leave(); else if (restored) restored.leave(); } catch (e) {}
+        clearActiveRoom(desc.code);
+        strip.remove();
+      });
+    }
+    root.addEventListener("mrmacs:score-submit", function (event) {
+      var detail = event && event.detail;
+      if (!_gameRoom || !detail) return;
+      _gameRoom.updateScore(detail.score, detail.meta || {});
+    });
+  }
+
   function escHtml(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
@@ -550,6 +722,7 @@
 
   function init() {
     mountHubButton();
+    mountGameRoomStrip();
     // Auto-open join modal if URL hash carries a room code
     var preset = codeFromHash();
     if (preset) {
@@ -631,6 +804,11 @@
     openLobbyModal: openLobbyModal,
     closeLobbyModal: closeLobbyModal,
     sanitizeInitials: sanitizeInitials,
+    activeDescriptor: activeDescriptor,
+    rememberActiveRoom: rememberActiveRoom,
+    clearActiveRoom: clearActiveRoom,
+    restoreActiveRoom: restoreActiveRoom,
+    mountGameRoomStrip: mountGameRoomStrip,
     // Class roster persistence (local — no backend)
     saveRoomAsClass: saveRoomAsClass,
     listClasses: listClasses,

@@ -66,6 +66,7 @@
   var SS_MAX_AGE_MS = 7 * 24 * 3600 * 1000;
 
   var doc = (typeof document !== "undefined") ? document : null;
+  var scriptSrc = (doc && doc.currentScript && doc.currentScript.src) ? doc.currentScript.src : "";
 
   // ── Storage helpers ──────────────────────────────────────────────
   function readStore(key) {
@@ -143,13 +144,14 @@
 
   // ── Profile decoration ───────────────────────────────────────────
   function currentName() {
+    var Safety = ensureNameSafety();
     try {
       if (root.MrMacsProfile && typeof root.MrMacsProfile.getName === "function") {
         var n = root.MrMacsProfile.getName();
-        if (n) return String(n).slice(0, 24);
+        if (n) return Safety.sanitizeDisplayName(n, "PLAYER");
       }
     } catch (e) {}
-    return "Trainer";
+    return "PLAYER";
   }
 
   function currentAvatar() {
@@ -185,6 +187,130 @@
       }
     } catch (e) {}
     return { current: 0, best: 0 };
+  }
+
+  function ensureNameSafety() {
+    if (root.MrMacsNameSafety) return root.MrMacsNameSafety;
+    var blocked = [
+      "fuck","fck","fuk","shit","sht","piss","cunt","cnt","dick","cock","cok",
+      "pussy","pusy","penis","vagina","boob","tit","tts","anal","anus","ass",
+      "arse","sex","porn","prn","cum","jizz","slut","whore","hoe","bitch",
+      "btch","bastrd","bastard","blowjob","handjob","jerk","wank","masturb",
+      "nigg","ngr","fag","fgt","retard","retrd","rtrd","spic","chink","kike",
+      "wetback","trann","tranny","gook","jap","beaner","cracker","honky",
+      "dyke","queer","homo","kill","hitler","heil","nazi","isis","kkk",
+      "lynch","rape","rpe","jihad","azz","azs","biotch","b1tch","b!tch"
+    ];
+    var leet = { "0":"o","1":"i","!":"i","|":"i","3":"e","4":"a","@":"a","5":"s","$":"s","7":"t","+":"t","8":"b","9":"g" };
+    function norm(value) {
+      var input = String(value == null ? "" : value).toLowerCase();
+      var out = "";
+      for (var i = 0; i < input.length; i++) {
+        var ch = input[i];
+        if (leet[ch]) out += leet[ch];
+        else if (ch >= "a" && ch <= "z") out += ch;
+      }
+      return out;
+    }
+    function pii(value) {
+      var s = String(value == null ? "" : value).trim();
+      return /@/.test(s) ||
+        /(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/.test(s) ||
+        /\b\d{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?\b/.test(s) ||
+        /\b(?:19|20)\d{2}\b/.test(s) ||
+        /\b(?:snap|tiktok|insta|discord|gmail|email|phone|address)\b/i.test(s);
+    }
+    function blockedName(value) {
+      var n = norm(value);
+      if (!n) return false;
+      for (var i = 0; i < blocked.length; i++) {
+        if (n.indexOf(blocked[i]) !== -1) return true;
+      }
+      return pii(value);
+    }
+    function hash(value) {
+      var h = 2166136261;
+      var s = String(value == null ? "" : value);
+      for (var i = 0; i < s.length; i++) {
+        h ^= s.charCodeAt(i);
+        h = Math.imul(h, 16777619) >>> 0;
+      }
+      return h >>> 0;
+    }
+    function profileSeed() {
+      try {
+        if (root.MrMacsProfile && root.MrMacsProfile.get) {
+          var p = root.MrMacsProfile.get();
+          if (p && p.id) return "profile:" + p.id;
+        }
+      } catch (e) {}
+      try {
+        var sid = root.localStorage && root.localStorage.getItem("arcade.nameSafety.seed");
+        if (!sid) {
+          sid = Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
+          root.localStorage.setItem("arcade.nameSafety.seed", sid);
+        }
+        return "browser:" + sid;
+      } catch (e) {}
+      return "session:" + Math.random();
+    }
+    function sanitizeDisplayName(value, fallback) {
+      if (blockedName(value)) return fallback || "PLAYER";
+      var clean = String(value == null ? "" : value).replace(/[^\w .'-]/g, "").replace(/\s+/g, " ").trim().slice(0, 24);
+      return (!clean || blockedName(clean)) ? (fallback || "PLAYER") : clean;
+    }
+    function sanitizeInitials(value, fallback) {
+      var clean = String(value == null ? "" : value).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 3);
+      return (!clean || blockedName(clean)) ? (fallback || "PLR") : clean;
+    }
+    function sanitizeHandle(value, fallback) {
+      if (blockedName(value)) return fallback || "PLAYER-000";
+      var clean = String(value == null ? "" : value).toUpperCase().replace(/[^A-Z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-+|-+$/g, "").slice(0, 14);
+      return (clean.length < 3 || !/\d/.test(clean) || blockedName(clean)) ? (fallback || "PLAYER-000") : clean;
+    }
+    function generatedHandle(seed) {
+      var words = ["NOVA","PIXEL","QUEST","ATLAS","ORBIT","LASER","TURBO","VOLT","COMET","NEON","VECTOR","ARCADE"];
+      var h = hash(seed || profileSeed());
+      return sanitizeHandle(words[h % words.length] + "-" + String((h % 900) + 100), "PLAYER-000");
+    }
+    function publicHandle() {
+      try {
+        var raw = root.localStorage && root.localStorage.getItem("arcade.globalLeaderboard.publicHandle.v1");
+        if (raw) return sanitizeHandle(raw, "");
+        var made = generatedHandle(profileSeed());
+        root.localStorage.setItem("arcade.globalLeaderboard.publicHandle.v1", made);
+        return made;
+      } catch (e) {
+        return generatedHandle(profileSeed());
+      }
+    }
+    function publicClientId() {
+      return "c" + hash(profileSeed() + ":public-leaderboard").toString(36);
+    }
+    root.MrMacsNameSafety = {
+      normalizeForFilter: norm,
+      isBlockedName: blockedName,
+      sanitizeDisplayName: sanitizeDisplayName,
+      sanitizeInitials: sanitizeInitials,
+      sanitizeHandle: sanitizeHandle,
+      generatedHandle: generatedHandle,
+      publicHandle: publicHandle,
+      publicClientId: publicClientId,
+      setPublicHandle: function (handle) {
+        var clean = sanitizeHandle(handle, "");
+        if (!clean) return "";
+        try { root.localStorage.setItem("arcade.globalLeaderboard.publicHandle.v1", clean); } catch (e) {}
+        return clean;
+      },
+      addBlockedTerm: function (term) {
+        var clean = norm(term);
+        if (!clean || blocked.indexOf(clean) !== -1) return false;
+        blocked.push(clean);
+        return true;
+      },
+      hasPiiShape: pii
+    };
+    return root.MrMacsNameSafety;
   }
 
   // ── Feature 1: Leaderboards ──────────────────────────────────────
@@ -929,11 +1055,390 @@
     } catch (e) { return null; }
   }
 
+  // ── Feature 4: Optional global leaderboard bridge ─────────────────
+  // Static GitHub Pages cannot store cross-device high scores by itself.
+  // This bridge is endpoint-driven: when a teacher sets a vetted HTTPS
+  // endpoint, scores post there; otherwise they are queued locally and all
+  // existing local leaderboards keep working offline.
+  function installGlobalLeaderboards() {
+    var Safety = ensureNameSafety();
+    var CONFIG_KEY = "arcade.globalLeaderboard.config.v1";
+    var QUEUE_KEY = "arcade.globalLeaderboard.queue.v1";
+    var CACHE_KEY = "arcade.globalLeaderboard.cache.v1";
+    var STYLE_ID = "arcade-global-leaderboard-styles";
+    var QUEUE_LIMIT = 40;
+    var CACHE_TTL = 5 * 60 * 1000;
+
+    function readJson(key, fallback) {
+      try {
+        var raw = root.localStorage && root.localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function writeJson(key, value) {
+      try {
+        if (!root.localStorage) return false;
+        root.localStorage.setItem(key, JSON.stringify(value));
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function endpointFromConfig() {
+      var fromGlobal = "";
+      try { fromGlobal = String(root.MR_MACS_GLOBAL_LEADERBOARD_ENDPOINT || ""); } catch (e) {}
+      var cfg = readJson(CONFIG_KEY, {});
+      var raw = fromGlobal || (cfg && cfg.endpoint) || "";
+      var endpoint = String(raw || "").trim().replace(/\/+$/, "");
+      if (!/^https:\/\//i.test(endpoint) && !/^http:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?/i.test(endpoint)) return "";
+      return endpoint;
+    }
+
+    function setEndpoint(endpoint) {
+      var clean = String(endpoint || "").trim().replace(/\/+$/, "");
+      if (clean && !/^https:\/\//i.test(clean) && !/^http:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?/i.test(clean)) return false;
+      writeJson(CONFIG_KEY, { endpoint: clean, updatedAt: Date.now() });
+      if (clean) flushQueue();
+      return true;
+    }
+
+    function scoresUrl(gameId, limit) {
+      var base = endpointFromConfig();
+      if (!base) return "";
+      var q = "?gameId=" + encodeURIComponent(safeGameId(gameId)) +
+        "&limit=" + encodeURIComponent(Math.max(1, Math.min(25, Number(limit) || 10)));
+      return (/\/scores$/i.test(base) ? base : base + "/scores") + q;
+    }
+
+    function submitUrl() {
+      var base = endpointFromConfig();
+      if (!base) return "";
+      return /\/scores$/i.test(base) ? base : base + "/scores";
+    }
+
+    function safeMeta(meta) {
+      var allowed = ["course","mode","accuracy","durationMs","rounds","wave","level","source","date","gameType"];
+      var out = {};
+      if (!meta || typeof meta !== "object") return out;
+      allowed.forEach(function (key) {
+        var value = meta[key];
+        if (value == null) return;
+        if (typeof value === "number" && isFinite(value)) out[key] = value;
+        else if (typeof value === "boolean") out[key] = value;
+        else if (typeof value === "string") out[key] = Safety.sanitizeDisplayName(value, "").slice(0, 40);
+      });
+      return out;
+    }
+
+    function normalizeScorePayload(arg1, arg2, arg3) {
+      var gameId, score, meta;
+      if (arg1 && typeof arg1 === "object" && !Array.isArray(arg1)) {
+        gameId = arg1.gameId;
+        score = arg1.score;
+        meta = arg1.meta;
+      } else {
+        gameId = arg1;
+        score = arg2;
+        meta = arg3;
+      }
+      var id = safeGameId(gameId);
+      var n = Number(score);
+      if (!id || !isFinite(n)) return null;
+      return {
+        gameId: id,
+        score: Math.round(n),
+        displayName: Safety.publicHandle(),
+        clientId: Safety.publicClientId(),
+        meta: safeMeta(meta),
+        submittedAt: Date.now()
+      };
+    }
+
+    function readQueue() {
+      var q = readJson(QUEUE_KEY, []);
+      return Array.isArray(q) ? q : [];
+    }
+
+    function writeQueue(q) {
+      writeJson(QUEUE_KEY, (Array.isArray(q) ? q : []).slice(-QUEUE_LIMIT));
+    }
+
+    function queueEntry(entry) {
+      var q = readQueue();
+      q.push(entry);
+      writeQueue(q);
+      return q.length;
+    }
+
+    function cacheKey(gameId) {
+      return safeGameId(gameId) || "unknown";
+    }
+
+    function sanitizeRows(rows) {
+      if (!Array.isArray(rows)) return [];
+      return rows.map(function (row) {
+        return {
+          rank: Number(row.rank) || 0,
+          displayName: Safety.sanitizeHandle(row.displayName || row.name, "PLAYER-000"),
+          score: Math.round(Number(row.score) || 0),
+          ts: Number(row.ts || row.submittedAt || 0) || 0,
+          gameId: safeGameId(row.gameId || "")
+        };
+      }).filter(function (row) {
+        return row.displayName && isFinite(row.score);
+      }).slice(0, 25);
+    }
+
+    function readCache(gameId) {
+      var cache = readJson(CACHE_KEY, {});
+      var hit = cache[cacheKey(gameId)];
+      if (!hit || !Array.isArray(hit.rows)) return [];
+      return hit.rows;
+    }
+
+    function writeCache(gameId, rows) {
+      var cache = readJson(CACHE_KEY, {});
+      cache[cacheKey(gameId)] = { ts: Date.now(), rows: sanitizeRows(rows) };
+      writeJson(CACHE_KEY, cache);
+    }
+
+    function cacheFresh(gameId) {
+      var cache = readJson(CACHE_KEY, {});
+      var hit = cache[cacheKey(gameId)];
+      return !!(hit && hit.ts && Date.now() - hit.ts < CACHE_TTL);
+    }
+
+    function fallbackRows(gameId, limit) {
+      var rows = [];
+      try {
+        if (root.MrMacsLeaderboards && root.MrMacsLeaderboards.top) {
+          rows = root.MrMacsLeaderboards.top(gameId, limit || 10) || [];
+        }
+      } catch (e) { rows = []; }
+      return rows.map(function (row, idx) {
+        return {
+          rank: idx + 1,
+          displayName: Safety.sanitizeHandle(row.displayName || row.name || Safety.publicHandle(), Safety.publicHandle()),
+          score: Math.round(Number(row.score) || 0),
+          ts: Number(row.ts || 0) || 0,
+          gameId: safeGameId(gameId)
+        };
+      });
+    }
+
+    function postEntry(entry) {
+      var url = submitUrl();
+      if (!url || !root.fetch) {
+        queueEntry(entry);
+        return Promise.resolve({ ok: false, queued: true, reason: "no-endpoint" });
+      }
+      return root.fetch(url, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-store",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(entry)
+      }).then(function (response) {
+        if (!response.ok) throw new Error("global leaderboard " + response.status);
+        return response.json();
+      }).then(function (payload) {
+        if (payload && Array.isArray(payload.top)) writeCache(entry.gameId, payload.top);
+        return { ok: true, payload: payload };
+      }).catch(function () {
+        queueEntry(entry);
+        return { ok: false, queued: true, reason: "network" };
+      });
+    }
+
+    function submit(arg1, arg2, arg3) {
+      var entry = normalizeScorePayload(arg1, arg2, arg3);
+      if (!entry) return Promise.resolve({ ok: false, reason: "invalid" });
+      return postEntry(entry);
+    }
+
+    function flushQueue() {
+      var q = readQueue();
+      var url = submitUrl();
+      if (!q.length || !url || !root.fetch) return Promise.resolve({ ok: false, remaining: q.length });
+      var remaining = [];
+      var chain = Promise.resolve();
+      q.forEach(function (entry) {
+        chain = chain.then(function () {
+          return root.fetch(url, {
+            method: "POST",
+            mode: "cors",
+            cache: "no-store",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(entry)
+          }).then(function (response) {
+            if (!response.ok) throw new Error("global leaderboard " + response.status);
+            return response.json();
+          }).then(function (payload) {
+            if (payload && Array.isArray(payload.top)) writeCache(entry.gameId, payload.top);
+          }).catch(function () {
+            remaining.push(entry);
+          });
+        });
+      });
+      return chain.then(function () {
+        writeQueue(remaining);
+        return { ok: remaining.length === 0, remaining: remaining.length };
+      });
+    }
+
+    function top(gameId, limit) {
+      var id = safeGameId(gameId);
+      if (!id) return Promise.resolve([]);
+      var url = scoresUrl(id, limit || 10);
+      if (!url || !root.fetch) return Promise.resolve(readCache(id).concat(fallbackRows(id, limit)).slice(0, limit || 10));
+      if (cacheFresh(id)) return Promise.resolve(readCache(id).slice(0, limit || 10));
+      return root.fetch(url, { cache: "no-store", mode: "cors" })
+        .then(function (response) {
+          if (!response.ok) throw new Error("global leaderboard " + response.status);
+          return response.json();
+        })
+        .then(function (payload) {
+          var rows = sanitizeRows((payload && (payload.rows || payload.top)) || []);
+          writeCache(id, rows);
+          return rows.slice(0, limit || 10);
+        })
+        .catch(function () {
+          var cached = readCache(id);
+          return (cached.length ? cached : fallbackRows(id, limit)).slice(0, limit || 10);
+        });
+    }
+
+    function injectGlobalStyles() {
+      if (!doc || !doc.head || doc.getElementById(STYLE_ID)) return;
+      var css =
+        ".mglb-board{margin-top:10px;color:inherit;font-family:inherit;}\n" +
+        ".mglb-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px;font-family:'Fraunces',serif;font-style:italic;font-size:14px;color:#f5f7fb;}\n" +
+        ".mglb-status{font:700 9px/1 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#7af0ff;}\n" +
+        ".mglb-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;}\n" +
+        ".mglb-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:7px 10px;border:1px solid rgba(122,240,255,.12);background:rgba(0,0,0,.22);border-radius:8px;}\n" +
+        ".mglb-rank{font:800 12px/1 'JetBrains Mono',monospace;color:#ffd060;min-width:28px;}\n" +
+        ".mglb-name{font:800 12px/1.15 'JetBrains Mono',monospace;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#f0f5ff;}\n" +
+        ".mglb-score{font:800 12px/1 'JetBrains Mono',monospace;color:#7af0ff;font-variant-numeric:tabular-nums;}\n" +
+        ".mglb-empty{padding:10px 12px;border:1px dashed rgba(122,240,255,.22);border-radius:8px;color:rgba(216,220,235,.72);font:600 12px/1.4 'Inter',sans-serif;}\n";
+      var style = doc.createElement("style");
+      style.id = STYLE_ID;
+      style.appendChild(doc.createTextNode(css));
+      doc.head.appendChild(style);
+    }
+
+    function renderGlobalLeaderboard(gameId, container, titleResolver) {
+      var target = resolveContainer(container);
+      if (!target) return Promise.resolve([]);
+      injectGlobalStyles();
+      var id = safeGameId(gameId);
+      var title = (typeof titleResolver === "function") ? titleResolver(id) : "Global Leaderboard";
+      target.innerHTML = '<section class="mglb-board"><h3 class="mglb-head"><span>' + escapeHtml(title || "Global Leaderboard") + '</span><span class="mglb-status">loading</span></h3><div class="mglb-empty">Checking global scores...</div></section>';
+      return top(id, 5).then(function (rows) {
+        var connected = !!endpointFromConfig();
+        var status = connected ? "global" : "local queue";
+        if (!rows.length) {
+          target.innerHTML = '<section class="mglb-board"><h3 class="mglb-head"><span>' + escapeHtml(title || "Global Leaderboard") + '</span><span class="mglb-status">' + status + '</span></h3><div class="mglb-empty">' +
+            (connected ? "No global scores yet." : "Global endpoint is not configured yet. Scores stay local and queue safely.") +
+            '</div></section>';
+          return rows;
+        }
+        var html = '<section class="mglb-board"><h3 class="mglb-head"><span>' + escapeHtml(title || "Global Leaderboard") + '</span><span class="mglb-status">' + status + '</span></h3><ol class="mglb-list">';
+        rows.slice(0, 5).forEach(function (row, idx) {
+          html += '<li class="mglb-row"><span class="mglb-rank">#' + (idx + 1) + '</span><span class="mglb-name">' +
+            escapeHtml(row.displayName || "PLAYER-000") + '</span><span class="mglb-score">' + formatNumber(row.score) + '</span></li>';
+        });
+        html += '</ol></section>';
+        target.innerHTML = html;
+        return rows;
+      });
+    }
+
+    function dispatchScore(detail) {
+      try {
+        if (root.dispatchEvent && root.CustomEvent) {
+          root.dispatchEvent(new root.CustomEvent("mrmacs:score-submit", { detail: detail }));
+        }
+      } catch (e) {}
+    }
+
+    function installSubmitHook() {
+      var L = root.MrMacsLeaderboards;
+      if (!L || typeof L.submit !== "function" || L.__mrMacsGlobalHook) return false;
+      var original = L.submit;
+      L.submit = function () {
+        var payload = normalizeScorePayload(arguments[0], arguments[1], arguments[2]);
+        var result = original.apply(this, arguments);
+        if (payload) {
+          dispatchScore({ gameId: payload.gameId, score: payload.score, meta: payload.meta, result: result || null });
+          submit(payload);
+        }
+        return result;
+      };
+      L.__mrMacsGlobalHook = true;
+      return true;
+    }
+
+    root.MrMacsGlobalLeaderboards = root.MrMacsGlobalLeaderboards || {
+      configured: function () { return !!endpointFromConfig(); },
+      endpoint: endpointFromConfig,
+      setEndpoint: setEndpoint,
+      submit: submit,
+      top: top,
+      flushQueue: flushQueue,
+      queueSize: function () { return readQueue().length; },
+      publicHandle: function () { return Safety.publicHandle(); },
+      setPublicHandle: function (handle) { return Safety.setPublicHandle(handle); },
+      renderGlobalLeaderboard: renderGlobalLeaderboard,
+      installSubmitHook: installSubmitHook
+    };
+    root.MrMacsGlobalLeaderboards.installSubmitHook();
+    return root.MrMacsGlobalLeaderboards;
+  }
+
+  function bootstrapActiveMultiplayerRoom() {
+    if (!doc || !doc.body || !doc.body.hasAttribute("data-game-page")) return;
+    if (root.MrMacsMultiplayer) {
+      try { root.MrMacsMultiplayer.mountGameRoomStrip(); } catch (e) {}
+      return;
+    }
+    var active = null;
+    try { active = sessionStorage.getItem("arcade.mp.activeRoom.v1"); } catch (e) { active = null; }
+    if (!active) return;
+    var base = scriptSrc ? scriptSrc.replace(/arcade-progress-extras\.js(?:\?.*)?$/i, "") : "../../assets/";
+    var peerSrc = "https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js";
+    function loadScript(src, done) {
+      var existing = Array.prototype.slice.call(doc.scripts || []).some(function (s) {
+        return s && s.src && s.src.indexOf(src.replace(/\?.*$/, "")) !== -1;
+      });
+      if (existing) { done(); return; }
+      var script = doc.createElement("script");
+      script.src = src;
+      script.defer = true;
+      script.onload = done;
+      script.onerror = function () {};
+      (doc.head || doc.documentElement).appendChild(script);
+    }
+    loadScript(peerSrc, function () {
+      loadScript(base + "arcade-multiplayer.js?v=20260513-room-score-sync", function () {
+        try {
+          if (root.MrMacsMultiplayer && root.MrMacsMultiplayer.mountGameRoomStrip) {
+            root.MrMacsMultiplayer.mountGameRoomStrip();
+          }
+        } catch (e) {}
+      });
+    });
+  }
+
   // ── Init ─────────────────────────────────────────────────────────
   function initialize() {
     if (doc && doc.head) injectStyles();
     // Prune session entries on first run so listAll/load are clean.
     try { ssReadAll(); } catch (e) {}
+    try { bootstrapActiveMultiplayerRoom(); } catch (e) {}
   }
 
   if (doc && doc.readyState === "loading") {
@@ -966,6 +1471,8 @@
       root.MrMacsLeaderboards.topScoresForPlayer = topScoresForPlayer;
     }
   }
+
+  installGlobalLeaderboards();
 
   root.MrMacsSessions = {
     save: ssSave,

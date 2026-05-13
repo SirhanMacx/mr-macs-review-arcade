@@ -10107,6 +10107,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-icons.js?v=20260509-icons"></script>
 <script src="assets/arcade-toast.js?v=20260510-toast-ambient"></script>
 <script src="assets/arcade-celebration.js?v=20260509-celebration"></script>
+<script src="assets/arcade-name-safety.js?v=20260513-safe-names"></script>
 <!-- IMPORTANT load-order rule (see docs/MODULE-DEPENDENCY-2026-05-09.md):
      arcade-leaderboards.js + arcade-sessions.js MUST load BEFORE
      arcade-progress-extras.js. Progress-extras tries to grab all three
@@ -10114,15 +10115,15 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
      modules use single-key idempotency guards, so if progress-extras
      loads first, the dedicated rich-API modules bail and the hub gets
      stuck on the slim 5-method stub (breaking e.g. globe.personalBest). -->
-<script src="assets/arcade-leaderboards.js?v=20260511-filter-admin"></script>
+<script src="assets/arcade-leaderboards.js?v=20260513-safe-names"></script>
 <script src="assets/arcade-friday-practice.js?v=20260511-friday-v1"></script>
 <!-- PeerJS — free public WebRTC signaling server. ~12 KB gzipped.
      Powers arcade-multiplayer.js room/peer creation. Loaded async +
      defer so it doesn't block initial paint. -->
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
-<script src="assets/arcade-multiplayer.js?v=20260511-multiplayer-v4-classroom" defer></script>
+<script src="assets/arcade-multiplayer.js?v=20260513-room-score-sync" defer></script>
 <script src="assets/arcade-sessions.js?v=20260510-sessions"></script>
-<script src="assets/arcade-progress-extras.js?v=20260511-no-clobber"></script>
+<script src="assets/arcade-progress-extras.js?v=20260513-global-leaderboard"></script>
 <script src="assets/arcade-cram-mode.js?v=20260509-cram"></script>
 <script src="assets/arcade-onboarding-flow.js?v=20260509-onboarding"></script>
 <script src="assets/arcade-quick-stats-panel.js?v=20260509-quickstats"></script>
@@ -14177,14 +14178,22 @@ boot();
       slot.innerHTML = "";
       return;
     }
+    slot.innerHTML = '<div id="dailyLocalLeaderboard"></div><div id="dailyGlobalLeaderboard"></div>';
+    var localSlot = document.getElementById("dailyLocalLeaderboard");
+    var globalSlot = document.getElementById("dailyGlobalLeaderboard");
     var rows = window.MrMacsLeaderboards.top(pick.id, 5);
     if (!rows || rows.length === 0) {
-      slot.innerHTML = '<div class="daily-lb-empty">Be the first to post a score on today\'s challenge.</div>';
-      return;
+      if (localSlot) localSlot.innerHTML = '<div class="daily-lb-empty">Be the first to post a local score on today\'s challenge.</div>';
+    } else {
+      window.MrMacsLeaderboards.renderGameLeaderboard(pick.id, localSlot || slot, function () {
+        return "Today's Local Scores · " + (pick.title || "");
+      });
     }
-    window.MrMacsLeaderboards.renderGameLeaderboard(pick.id, slot, function () {
-      return "Today's Top Scores · " + (pick.title || "");
-    });
+    if (window.MrMacsGlobalLeaderboards && window.MrMacsGlobalLeaderboards.renderGlobalLeaderboard && globalSlot) {
+      window.MrMacsGlobalLeaderboards.renderGlobalLeaderboard(pick.id, globalSlot, function () {
+        return "Today's Global Board · " + (pick.title || "");
+      });
+    }
   }
 
   // ── Auto-submit Daily Challenge claim to the leaderboard ──────────

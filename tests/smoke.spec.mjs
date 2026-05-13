@@ -437,6 +437,115 @@ test("solitaire hall deal row clears top menu in short layouts", async ({ browse
   }
 });
 
+test("student-safe names guard multiplayer and global leaderboards", async ({ page }) => {
+  await gotoHub(page);
+  await page.waitForFunction(() => window.MrMacsNameSafety && window.MrMacsMultiplayer && window.MrMacsLeaderboards);
+  const result = await page.evaluate(() => {
+    return {
+      blockedEmail: window.MrMacsNameSafety.isBlockedName("student@example.com"),
+      blockedLeet: window.MrMacsNameSafety.isBlockedName("sh1t"),
+      safeHandle: window.MrMacsNameSafety.sanitizeHandle("student@example.com", "PLAYER-000"),
+      safeInitials: window.MrMacsMultiplayer.sanitizeInitials("fuk"),
+      localDisplay: window.MrMacsLeaderboards.sanitizeDisplayName("bad@example.com")
+    };
+  });
+  expect(result.blockedEmail).toBe(true);
+  expect(result.blockedLeet).toBe(true);
+  expect(result.safeHandle).toBe("PLAYER-000");
+  expect(result.safeInitials).toBe("PLR");
+  expect(result.localDisplay).toBe("PLAYER");
+});
+
+test("global leaderboard posts only safe public handles", async ({ page }) => {
+  let posted = null;
+  await page.route("http://localhost:7777/scores", async route => {
+    if (route.request().method() === "POST") {
+      posted = JSON.parse(route.request().postData() || "{}");
+      await route.fulfill({
+        status: 200,
+        headers: {
+          "access-control-allow-origin": "*",
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({ ok: true, top: [{ displayName: posted.displayName, score: posted.score, gameId: posted.gameId, ts: Date.now(), rank: 1 }] })
+      });
+    } else {
+      await route.fulfill({
+        status: 200,
+        headers: {
+          "access-control-allow-origin": "*",
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({ rows: [] })
+      });
+    }
+  });
+  await gotoHub(page);
+  await page.waitForFunction(() => window.MrMacsGlobalLeaderboards && window.MrMacsLeaderboards);
+  await page.evaluate(() => {
+    window.MrMacsGlobalLeaderboards.setEndpoint("http://localhost:7777");
+    window.MrMacsNameSafety.setPublicHandle("student@example.com");
+    window.MrMacsLeaderboards.submit({
+      gameId: "snake-pit",
+      score: 12345,
+      displayName: "student@example.com",
+      meta: { course: "AP Psychology", studentName: "Should Not Leave Browser", accuracy: 0.9 }
+    });
+  });
+  await expect.poll(() => posted, { timeout: 5000 }).not.toBeNull();
+  expect(posted.displayName).toMatch(/^[A-Z0-9-]{3,14}$/);
+  expect(posted.displayName).not.toContain("@");
+  expect(posted.meta.course).toBe("AP Psychology");
+  expect(posted.meta.accuracy).toBe(0.9);
+  expect(posted.meta.studentName).toBeUndefined();
+});
+
+test("active multiplayer room restores score strip on game pages", async ({ browser }) => {
+  const context = await browser.newContext();
+  await context.addInitScript(() => {
+    sessionStorage.setItem("arcade.mp.activeRoom.v1", JSON.stringify({
+      code: "ABC-DEF",
+      role: "joiner",
+      initials: "ABC",
+      savedAt: Date.now()
+    }));
+  });
+  const page = await context.newPage();
+  await page.route("https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js", async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: `
+        window.Peer = function(id) {
+          this.id = id;
+          this.on = function(event, cb) {
+            if (event === "open") setTimeout(function(){ cb(id); }, 0);
+          };
+          this.connect = function() {
+            return {
+              open: true,
+              on: function(event, cb) { if (event === "open") setTimeout(cb, 0); },
+              send: function(){},
+              close: function(){}
+            };
+          };
+          this.destroy = function(){};
+        };
+      `
+    });
+  });
+  try {
+    await page.goto(`${BASE}/games/snake-pit/index.html`, { waitUntil: "commit", timeout: 15000 });
+    await page.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
+    await page.waitForSelector("#mmpGameStrip", { timeout: 8000 });
+    const text = await page.locator("#mmpGameStrip").innerText();
+    expect(text).toContain("Room ABC-DEF");
+    expect(text).toMatch(/score sync|students|room unavailable/i);
+  } finally {
+    await context.close();
+  }
+});
+
 // === GAME SMOKE TESTS ===
 const games = fs.readdirSync(gamesDir)
   .filter(d => fs.existsSync(path.join(gamesDir, d, "index.html")))

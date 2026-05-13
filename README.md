@@ -14,7 +14,8 @@ https://sirhanmacx.github.io/mr-macs-review-arcade
 - **65 achievements** across onboarding, streaks, per-flagship feats, cross-arcade tiers, and hidden Easter eggs
 - **7 power-up shop items** — Streak Shield, Hint Token, Time Boost, Lucky Charm (24h 2x), Fortune Refresh, Daily Double, Coin Doubler (4h 2x)
 - **Multi-profile roster** — multiple students can share a Chromebook with isolated shards, achievements, settings, course, and streaks
-- **Persistent + offline-capable** — student profiles, rosters, answers, shards, achievements, sessions, and settings live in `localStorage`; no backend, no logins, no PII
+- **Persistent + offline-capable** — student profiles, rosters, answers, shards, achievements, sessions, and settings live in `localStorage`; no backend, no logins, no PII by default
+- **Optional global leaderboards** — teachers can configure a vetted HTTPS endpoint; public arcade handles are filtered client-side and server-side before any score is stored
 - **Generated arcade art** — every catalog entry has original WebP thumbnail, card, and marquee art produced by `scripts/generate_arcade_assets.py`
 - **4,529-prompt** shared review library powering full-library flagships
 

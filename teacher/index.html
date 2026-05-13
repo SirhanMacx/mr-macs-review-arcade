@@ -216,6 +216,22 @@
 
       <div class="td-card">
         <div class="td-card-head">
+          <span class="td-card-icon">🏆</span>
+          <h3 class="td-card-title">Global Leaderboard</h3>
+        </div>
+        <p class="td-card-body">Use public arcade handles only. Real student names, emails, phone numbers, slurs, and profanity are scrubbed before any score can appear.</p>
+        <label class="td-card-body" style="display:block;margin:0 0 8px;">Public handle
+          <input id="globalHandleInput" maxlength="14" style="width:100%;margin-top:5px;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.25);color:#fff;font-family:'JetBrains Mono',monospace;text-transform:uppercase;">
+        </label>
+        <label class="td-card-body" style="display:block;margin:0 0 8px;">Leaderboard endpoint
+          <input id="globalEndpointInput" placeholder="https://..." style="width:100%;margin-top:5px;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.25);color:#fff;">
+        </label>
+        <button class="td-card-action" id="btnGlobalLeaderboard">Save Leaderboard Settings</button>
+        <p class="td-card-body" id="globalLeaderboardStatus" style="margin-top:8px;color:rgba(216,220,235,.7);"></p>
+      </div>
+
+      <div class="td-card">
+        <div class="td-card-head">
           <span class="td-card-icon">📚</span>
           <h3 class="td-card-title">Standards Alignment Guide</h3>
         </div>
@@ -273,10 +289,12 @@
 </main>
 
 <script src="../assets/arcade-profile.js?v=20260507-phase1"></script>
-<script src="../assets/arcade-leaderboards.js?v=20260511-filter-admin"></script>
+<script src="../assets/arcade-name-safety.js?v=20260513-safe-names"></script>
+<script src="../assets/arcade-leaderboards.js?v=20260513-safe-names"></script>
 <script src="../assets/arcade-friday-practice.js?v=20260511-friday-v1"></script>
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
-<script src="../assets/arcade-multiplayer.js?v=20260511-multiplayer-v4-classroom" defer></script>
+<script src="../assets/arcade-multiplayer.js?v=20260513-room-score-sync" defer></script>
+<script src="../assets/arcade-progress-extras.js?v=20260513-global-leaderboard"></script>
 <script src="../assets/shared-question-bank.js?v=20260511-bank-v2-appsych"></script>
 <script>
 (function () {
@@ -417,6 +435,25 @@
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
+  function refreshGlobalLeaderboardSettings() {
+    var glb = window.MrMacsGlobalLeaderboards;
+    var safety = window.MrMacsNameSafety;
+    var handleInput = $("globalHandleInput");
+    var endpointInput = $("globalEndpointInput");
+    var status = $("globalLeaderboardStatus");
+    if (!handleInput || !endpointInput || !status) return;
+    if (glb && glb.publicHandle) handleInput.value = glb.publicHandle();
+    if (glb && glb.endpoint) endpointInput.value = glb.endpoint() || "";
+    var queue = glb && glb.queueSize ? glb.queueSize() : 0;
+    var connected = glb && glb.configured && glb.configured();
+    status.textContent = connected
+      ? "Global board is configured. Queued scores: " + queue + "."
+      : "Global board is in safe local mode. Queued scores: " + queue + ".";
+    if (safety && safety.isBlockedName && safety.isBlockedName(handleInput.value)) {
+      handleInput.value = glb.publicHandle();
+    }
+  }
+
   // ── Action buttons ─────────────────────────────────────────────────
   $("btnFriday").addEventListener("click", function () {
     if (window.MrMacsFridayPractice && window.MrMacsFridayPractice.print) {
@@ -431,6 +468,27 @@
     } else {
       alert("Multiplayer module not loaded. Refresh the page if it just finished initializing.");
     }
+  });
+  $("btnGlobalLeaderboard").addEventListener("click", function () {
+    var glb = window.MrMacsGlobalLeaderboards;
+    if (!glb) {
+      alert("Global leaderboard module not loaded yet. Refresh the page if it just finished initializing.");
+      return;
+    }
+    var handle = $("globalHandleInput").value;
+    var savedHandle = glb.setPublicHandle(handle);
+    if (!savedHandle) {
+      alert("That public handle was blocked. Use letters, numbers, and one short arcade-style handle.");
+      refreshGlobalLeaderboardSettings();
+      return;
+    }
+    var endpoint = $("globalEndpointInput").value;
+    if (!glb.setEndpoint(endpoint)) {
+      alert("Use a secure https:// endpoint, or leave the endpoint blank for local-only mode.");
+      refreshGlobalLeaderboardSettings();
+      return;
+    }
+    glb.flushQueue().then(refreshGlobalLeaderboardSettings);
   });
   $("btnReset").addEventListener("click", function () {
     if (!confirm("This will clear this browser's profile, leaderboards, and progress. Other browsers are unaffected. Continue?")) return;
@@ -453,11 +511,12 @@
     renderWeakTopics();
     renderCourseCoverage();
     renderSavedClasses();
+    refreshGlobalLeaderboardSettings();
     if (window.MrMacsProfile && typeof window.MrMacsProfile.on === "function") {
       window.MrMacsProfile.on("profile:update", function () { refreshStats(); renderWeakTopics(); });
     }
     // Retry bank coverage + classes after a delay (modules load via defer)
-    setTimeout(function () { renderCourseCoverage(); renderSavedClasses(); }, 1500);
+    setTimeout(function () { renderCourseCoverage(); renderSavedClasses(); refreshGlobalLeaderboardSettings(); }, 1500);
   }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", boot);

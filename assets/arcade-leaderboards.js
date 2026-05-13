@@ -132,6 +132,9 @@
     return out;
   }
   function isBlockedName(s) {
+    if (root.MrMacsNameSafety && typeof root.MrMacsNameSafety.isBlockedName === "function") {
+      return root.MrMacsNameSafety.isBlockedName(s);
+    }
     var norm = normalizeForFilter(s);
     if (!norm) return false;
     for (var i = 0; i < BLOCKED_STEMS.length; i++) {
@@ -140,12 +143,18 @@
     return false;
   }
   function sanitizeDisplayName(s) {
+    if (root.MrMacsNameSafety && typeof root.MrMacsNameSafety.sanitizeDisplayName === "function") {
+      return root.MrMacsNameSafety.sanitizeDisplayName(s, "PLAYER");
+    }
     var trimmed = String(s || "").trim().slice(0, 24);
     if (!trimmed) return "PLAYER";
     if (isBlockedName(trimmed)) return "PLAYER";
     return trimmed;
   }
   function addBlockedTerm(stem) {
+    if (root.MrMacsNameSafety && typeof root.MrMacsNameSafety.addBlockedTerm === "function") {
+      return root.MrMacsNameSafety.addBlockedTerm(stem);
+    }
     var norm = normalizeForFilter(stem);
     if (!norm) return false;
     if (BLOCKED_STEMS.indexOf(norm) !== -1) return false;
