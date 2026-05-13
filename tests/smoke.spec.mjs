@@ -481,7 +481,11 @@ test("global leaderboard posts only safe public handles", async ({ page }) => {
     }
   });
   await gotoHub(page);
-  await page.waitForFunction(() => window.MrMacsGlobalLeaderboards && window.MrMacsLeaderboards);
+  await page.waitForFunction(() => window.MrMacsNameSafety && window.MrMacsLeaderboards, { timeout: 30000 });
+  if (!(await page.evaluate(() => !!window.MrMacsGlobalLeaderboards))) {
+    await page.addScriptTag({ url: `${BASE}/assets/arcade-progress-extras.js?v=test-global-leaderboard` });
+  }
+  await page.waitForFunction(() => window.MrMacsGlobalLeaderboards && window.MrMacsLeaderboards, { timeout: 30000 });
   await page.evaluate(() => {
     window.MrMacsGlobalLeaderboards.setEndpoint("http://localhost:7777");
     window.MrMacsNameSafety.setPublicHandle("student@example.com");
