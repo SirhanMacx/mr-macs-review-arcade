@@ -506,14 +506,6 @@ test("global leaderboard posts only safe public handles", async ({ page }) => {
 
 test("active multiplayer room restores score strip on game pages", async ({ browser }) => {
   const context = await browser.newContext();
-  await context.addInitScript(() => {
-    sessionStorage.setItem("arcade.mp.activeRoom.v1", JSON.stringify({
-      code: "ABC-DEF",
-      role: "joiner",
-      initials: "ABC",
-      savedAt: Date.now()
-    }));
-  });
   const page = await context.newPage();
   await page.route("https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js", async route => {
     await route.fulfill({
@@ -539,8 +531,24 @@ test("active multiplayer room restores score strip on game pages", async ({ brow
     });
   });
   try {
-    await page.goto(`${BASE}/games/snake-pit/index.html`, { waitUntil: "commit", timeout: 15000 });
-    await page.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
+    await page.goto(`${BASE}/robots.txt`, { waitUntil: "commit", timeout: 15000 });
+    await page.evaluate(() => {
+      sessionStorage.setItem("arcade.mp.activeRoom.v1", JSON.stringify({
+        code: "ABC-DEF",
+        role: "joiner",
+        initials: "ABC",
+        savedAt: Date.now()
+      }));
+    });
+    await page.setContent(`
+      <!doctype html>
+      <html>
+        <head><meta charset="utf-8"><title>Game strip harness</title></head>
+        <body data-game-page="1">
+          <script src="/assets/arcade-progress-extras.js?v=test-room-strip"></script>
+        </body>
+      </html>
+    `);
     await page.waitForSelector("#mmpGameStrip", { timeout: 8000 });
     const text = await page.locator("#mmpGameStrip").innerText();
     expect(text).toContain("Room ABC-DEF");
