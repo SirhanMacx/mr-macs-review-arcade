@@ -318,6 +318,80 @@ test("game review question text remains readable at phone size", async ({ page }
   expect(checked.length, "question-bearing arcade games checked").toBeGreaterThanOrEqual(questionReadableRuntimeGames.length);
 });
 
+test("shared accessibility menu floats above setup overlays on arcade games", async ({ browser }) => {
+  const slugs = ["mahjong-mosaic", "snake-pit", "solitaire-hall", "boggle-beat", "atlas-2048"];
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true
+  });
+  const page = await context.newPage();
+  const errors = [];
+  page.on("pageerror", e => errors.push(e.message));
+  page.on("console", m => { if (m.type() === "error") errors.push(m.text()); });
+
+  try {
+    for (const slug of slugs) {
+      await page.goto(`${BASE}/games/${slug}/index.html`, { waitUntil: "commit", timeout: 15000 });
+      await page.waitForLoadState("domcontentloaded", { timeout: 10000 }).catch(() => {});
+      await page.waitForSelector(".maqt-btn", { timeout: 10000 });
+      const before = await page.evaluate(() => {
+        const btn = document.querySelector(".maqt-btn");
+        const dock = document.getElementById("maqt-dock");
+        if (!btn || !dock) return { found: false };
+        const rect = btn.getBoundingClientRect();
+        const target = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        return {
+          found: true,
+          topElementIsButton: target === btn,
+          dockPosition: getComputedStyle(dock).position,
+          dockZ: Number.parseInt(getComputedStyle(dock).zIndex, 10),
+          btnTop: rect.top,
+          btnRightGap: window.innerWidth - rect.right
+        };
+      });
+      expect(before.found, `${slug} should mount the shared accessibility trigger`).toBe(true);
+      expect(before.topElementIsButton, `${slug} setup overlay should not intercept the accessibility trigger`).toBe(true);
+      expect(before.dockPosition, `${slug} trigger should live in the viewport dock`).toBe("fixed");
+      expect(before.dockZ, `${slug} trigger should sit above game/setup chrome`).toBeGreaterThanOrEqual(100000);
+      expect(before.btnTop, `${slug} trigger should remain within the viewport`).toBeGreaterThanOrEqual(0);
+      expect(before.btnRightGap, `${slug} trigger should respect the right edge`).toBeGreaterThanOrEqual(0);
+
+      await page.click(".maqt-btn", { timeout: 5000 });
+      await expect(page.locator(".maqt-modal")).toBeVisible({ timeout: 5000 });
+      const modal = await page.evaluate(() => {
+        const dialog = document.querySelector(".maqt-modal");
+        const backdrop = document.querySelector(".maqt-backdrop");
+        const rect = dialog?.getBoundingClientRect();
+        return {
+          found: Boolean(dialog && backdrop && rect),
+          modalZ: dialog ? Number.parseInt(getComputedStyle(dialog).zIndex, 10) : 0,
+          backdropZ: backdrop ? Number.parseInt(getComputedStyle(backdrop).zIndex, 10) : 0,
+          inViewport: rect ? rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth : false,
+          expanded: document.querySelector(".maqt-btn")?.getAttribute("aria-expanded")
+        };
+      });
+      expect(modal.found, `${slug} should open the shared accessibility dialog`).toBe(true);
+      expect(modal.modalZ, `${slug} dialog should sit above the backdrop`).toBeGreaterThan(modal.backdropZ);
+      expect(modal.inViewport, `${slug} dialog should fit on a phone viewport`).toBe(true);
+      expect(modal.expanded, `${slug} trigger should expose expanded state`).toBe("true");
+
+      await page.getByRole("button", { name: "Reduce" }).click();
+      await expect.poll(() => page.evaluate(() => document.body.classList.contains("arcade-reduced-motion")), {
+        message: `${slug} reduce-motion toggle should apply immediately`
+      }).toBe(true);
+      await page.keyboard.press("Escape");
+      await expect(page.locator(".maqt-modal")).toHaveCount(0);
+      await expect.poll(() => page.evaluate(() => document.querySelector(".maqt-btn")?.getAttribute("aria-expanded"))).toBe("false");
+    }
+  } finally {
+    await context.close();
+  }
+
+  expect(errors).toHaveLength(0);
+});
+
 test("boggle beat board fills iPhone retina canvas", async ({ browser }) => {
   const context = await browser.newContext({
     viewport: { width: 390, height: 844 },

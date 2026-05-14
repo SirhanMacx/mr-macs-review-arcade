@@ -3,7 +3,7 @@
  * --------------------------------------------------------
  * API:  MrMacsA11yQuickToggle.mount(container, opts) -> { unmount }
  *
- * Adds a small "⚙ A11y" button to any HUD container.
+ * Adds a small accessibility button to a viewport-level dock.
  * Clicking it opens a compact modal with four accessibility toggles:
  *   • Motion   — Auto | Reduce
  *   • Contrast — Normal | High
@@ -20,10 +20,10 @@
  *   body.cb-tritanope           (colorblind === "tritanopia")
  *
  * Self-contained CSS, all prefixed "maqt-".
- * z-index 9500 (above gameplay).
- * Idempotent guard: only one instance per container.
+ * z-index 100000+ (above setup/gameplay overlays).
+ * Idempotent guard: only one global dock/trigger per page.
  *
- * @version 20260510-a11y
+ * @version 20260514-a11y-menu
  */
 (function () {
   "use strict";
@@ -38,89 +38,122 @@
     style.id = "maqt-styles";
     style.textContent = [
       /* ── Trigger button ── */
+      ".maqt-dock{",
+      "  position:fixed!important;",
+      "  top:max(6px,calc(env(safe-area-inset-top,0px) + 6px))!important;",
+      "  right:max(10px,calc(env(safe-area-inset-right,0px) + 10px))!important;",
+      "  z-index:100000!important;",
+      "  display:flex!important;",
+      "  align-items:center!important;",
+      "  justify-content:center!important;",
+      "  pointer-events:none!important;",
+      "}",
       ".maqt-btn{",
       "  all:unset;",
-      "  display:inline-flex;align-items:center;gap:4px;",
-      "  padding:3px 8px;border-radius:6px;",
-      "  background:rgba(255,255,255,0.12);",
-      "  border:1px solid rgba(255,255,255,0.22);",
-      "  color:#fff;font-size:11px;font-family:inherit;",
-      "  cursor:pointer;white-space:nowrap;",
-      "  transition:background .15s;",
+      "  box-sizing:border-box!important;",
+      "  display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;",
+      "  min-width:44px!important;min-height:38px!important;",
+      "  padding:7px 10px!important;border-radius:8px!important;",
+      "  background:linear-gradient(180deg,rgba(255,208,96,0.22),rgba(8,12,22,0.94))!important;",
+      "  border:1px solid rgba(255,216,132,0.72)!important;",
+      "  color:#fff6cf!important;font-size:13px!important;line-height:1!important;font-family:inherit!important;",
+      "  cursor:pointer!important;white-space:nowrap!important;",
+      "  transition:background .15s,transform .15s,box-shadow .15s!important;",
       "  -webkit-user-select:none;user-select:none;",
+      "  pointer-events:auto!important;",
+      "  box-shadow:0 5px 14px rgba(0,0,0,0.48),0 0 14px rgba(255,208,96,0.18)!important;",
       "}",
-      ".maqt-btn:hover{background:rgba(255,255,255,0.22);}",
-      ".maqt-btn:focus-visible{outline:2px solid #7df;outline-offset:2px;}",
+      ".maqt-btn:hover{background:linear-gradient(180deg,rgba(255,224,122,0.32),rgba(8,12,22,0.98))!important;transform:translateY(-1px)!important;}",
+      ".maqt-btn[aria-expanded='true']{border-color:#7df!important;box-shadow:0 0 0 3px rgba(125,221,255,.24),0 7px 18px rgba(0,0,0,.5)!important;}",
+      ".maqt-btn:focus-visible{outline:3px solid #7df!important;outline-offset:3px!important;}",
 
       /* ── Backdrop ── */
       ".maqt-backdrop{",
-      "  position:fixed;inset:0;",
-      "  background:rgba(0,0,0,0.55);",
-      "  z-index:9499;",
-      "  animation:maqt-fade-in .12s ease both;",
+      "  position:fixed!important;inset:0!important;",
+      "  background:rgba(0,0,0,0.64)!important;",
+      "  z-index:100001!important;",
+      "  animation:maqt-fade-in .12s ease both!important;",
+      "  pointer-events:auto!important;",
       "}",
 
       /* ── Modal ── */
       ".maqt-modal{",
-      "  position:fixed;",
-      "  top:50%;left:50%;",
-      "  transform:translate(-50%,-50%);",
-      "  z-index:9500;",
-      "  background:#1a1a2e;",
-      "  border:1px solid rgba(255,255,255,0.18);",
-      "  border-radius:12px;",
-      "  padding:20px 22px 18px;",
-      "  min-width:270px;max-width:320px;width:calc(100vw - 32px);",
-      "  box-shadow:0 8px 32px rgba(0,0,0,0.7);",
-      "  color:#e8e8f0;font-family:inherit;",
-      "  animation:maqt-slide-in .14s ease both;",
+      "  position:fixed!important;",
+      "  top:50%!important;left:50%!important;",
+      "  transform:translate(-50%,-50%)!important;",
+      "  z-index:100002!important;",
+      "  box-sizing:border-box!important;",
+      "  background:linear-gradient(180deg,#20213a 0%,#101324 100%)!important;",
+      "  border:2px solid rgba(255,216,132,0.54)!important;",
+      "  border-radius:10px!important;",
+      "  padding:18px 18px 16px!important;",
+      "  min-width:min(360px,calc(100vw - 28px))!important;",
+      "  max-width:min(440px,calc(100vw - 28px))!important;width:min(440px,calc(100vw - 28px))!important;",
+      "  max-height:calc(100dvh - 32px)!important;overflow:auto!important;",
+      "  box-shadow:0 18px 54px rgba(0,0,0,0.78),0 0 32px rgba(125,221,255,.16)!important;",
+      "  color:#f3f6ff!important;font-family:inherit!important;",
+      "  animation:maqt-slide-in .14s ease both!important;",
+      "  pointer-events:auto!important;",
+      "  -webkit-overflow-scrolling:touch!important;",
       "}",
 
       /* ── Modal header ── */
       ".maqt-header{",
-      "  display:flex;align-items:center;justify-content:space-between;",
-      "  margin-bottom:14px;",
+      "  display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;",
+      "  margin-bottom:14px!important;",
       "}",
       ".maqt-title{",
-      "  font-size:13px;font-weight:700;letter-spacing:.04em;",
-      "  text-transform:uppercase;color:#aab;",
+      "  font-size:18px!important;font-weight:700!important;letter-spacing:.02em!important;",
+      "  text-transform:uppercase!important;color:#fff6cf!important;",
       "}",
       ".maqt-close{",
-      "  all:unset;cursor:pointer;",
-      "  font-size:18px;line-height:1;color:#889;",
-      "  padding:2px 5px;border-radius:4px;",
-      "  transition:color .12s;",
+      "  all:unset;box-sizing:border-box!important;cursor:pointer!important;",
+      "  min-width:38px!important;min-height:38px!important;",
+      "  display:inline-flex!important;align-items:center!important;justify-content:center!important;",
+      "  font-size:24px!important;line-height:1!important;color:#f4e7aa!important;",
+      "  padding:0!important;border-radius:8px!important;border:1px solid rgba(255,216,132,.38)!important;",
+      "  transition:color .12s,background .12s!important;",
       "}",
-      ".maqt-close:hover{color:#eef;}",
-      ".maqt-close:focus-visible{outline:2px solid #7df;outline-offset:2px;}",
+      ".maqt-close:hover{color:#fff!important;background:rgba(255,255,255,.12)!important;}",
+      ".maqt-close:focus-visible{outline:3px solid #7df!important;outline-offset:2px!important;}",
 
       /* ── Rows ── */
       ".maqt-row{",
-      "  display:flex;align-items:center;",
-      "  justify-content:space-between;",
-      "  padding:7px 0;",
-      "  border-bottom:1px solid rgba(255,255,255,0.07);",
+      "  display:grid!important;grid-template-columns:minmax(88px,0.65fr) minmax(0,1fr)!important;align-items:center!important;",
+      "  gap:10px!important;",
+      "  padding:9px 0!important;",
+      "  border-bottom:1px solid rgba(255,255,255,0.10)!important;",
       "}",
-      ".maqt-row:last-child{border-bottom:none;}",
-      ".maqt-label{font-size:12px;color:#c8c8d8;min-width:70px;}",
+      ".maqt-row:last-child{border-bottom:none!important;}",
+      ".maqt-label{font-size:16px!important;line-height:1.1!important;color:#d9e6ff!important;min-width:0!important;}",
 
       /* ── Pill toggle strip ── */
-      ".maqt-pills{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;}",
+      ".maqt-pills{display:flex!important;gap:6px!important;flex-wrap:wrap!important;justify-content:flex-end!important;}",
       ".maqt-pill{",
-      "  all:unset;cursor:pointer;",
-      "  font-size:11px;padding:3px 9px;border-radius:20px;",
-      "  border:1px solid rgba(255,255,255,0.18);",
-      "  color:#9a9ab8;",
-      "  transition:background .12s,color .12s,border-color .12s;",
+      "  all:unset;box-sizing:border-box!important;cursor:pointer!important;",
+      "  display:inline-flex!important;align-items:center!important;justify-content:center!important;",
+      "  min-height:36px!important;min-width:52px!important;",
+      "  font-size:15px!important;line-height:1!important;padding:8px 10px!important;border-radius:999px!important;",
+      "  border:1px solid rgba(255,255,255,0.24)!important;",
+      "  color:#c3c9e2!important;background:rgba(255,255,255,0.045)!important;",
+      "  transition:background .12s,color .12s,border-color .12s!important;",
       "  -webkit-user-select:none;user-select:none;",
       "}",
-      ".maqt-pill:hover{background:rgba(255,255,255,0.1);color:#dde;}",
+      ".maqt-pill:hover{background:rgba(255,255,255,0.12)!important;color:#fff!important;}",
       ".maqt-pill[aria-pressed='true']{",
-      "  background:rgba(125,220,255,0.2);",
-      "  border-color:rgba(125,220,255,0.6);",
-      "  color:#7df;font-weight:600;",
+      "  background:rgba(125,220,255,0.22)!important;",
+      "  border-color:rgba(125,220,255,0.74)!important;",
+      "  color:#9ff2ff!important;font-weight:700!important;",
       "}",
-      ".maqt-pill:focus-visible{outline:2px solid #7df;outline-offset:2px;}",
+      ".maqt-pill:focus-visible{outline:3px solid #7df!important;outline-offset:2px!important;}",
+      "@media (max-width:420px){",
+      "  .maqt-dock{top:max(4px,calc(env(safe-area-inset-top,0px) + 4px))!important;right:max(6px,calc(env(safe-area-inset-right,0px) + 6px))!important;}",
+      "  .maqt-btn{min-height:36px!important;padding:6px 8px!important;font-size:12px!important;}",
+      "  .maqt-modal{padding:16px 14px 14px!important;}",
+      "  .maqt-row{grid-template-columns:1fr!important;align-items:start!important;gap:7px!important;}",
+      "  .maqt-pills{justify-content:flex-start!important;}",
+      "  .maqt-pill{min-width:58px!important;}",
+      "}",
 
       /* ── Animations ── */
       "@keyframes maqt-fade-in{from{opacity:0}to{opacity:1}}",
@@ -128,6 +161,13 @@
     ].join("\n");
     document.head.appendChild(style);
   })();
+
+  var DEFAULT_SETTINGS = {
+    motion: "auto",
+    contrast: "normal",
+    fontFamily: "default",
+    colorblind: "off"
+  };
 
   // ── Body-class helper ───────────────────────────────────────────────────────
   function applyToBody(settings) {
@@ -151,12 +191,13 @@
 
   // ── Read current settings (safe, no throws) ────────────────────────────────
   function readSettings() {
+    var settings = {};
     try {
       if (window.MrMacsProfile && typeof window.MrMacsProfile.getSettings === "function") {
-        return window.MrMacsProfile.getSettings() || {};
+        settings = window.MrMacsProfile.getSettings() || {};
       }
     } catch (e) {}
-    return {};
+    return Object.assign({}, DEFAULT_SETTINGS, settings);
   }
 
   // ── Persist + apply (safe) ─────────────────────────────────────────────────
@@ -176,8 +217,9 @@
   }
 
   // ── Build modal DOM ────────────────────────────────────────────────────────
-  function buildModal(onClose) {
+  function buildModal(onClose, returnFocusEl) {
     var settings = readSettings();
+    var closed = false;
 
     var backdrop = document.createElement("div");
     backdrop.className = "maqt-backdrop";
@@ -185,6 +227,7 @@
 
     var modal = document.createElement("div");
     modal.className = "maqt-modal";
+    modal.id = "maqt-dialog";
     modal.setAttribute("role", "dialog");
     modal.setAttribute("aria-modal", "true");
     modal.setAttribute("aria-label", "Accessibility settings");
@@ -274,19 +317,39 @@
 
     // Close handlers
     function close() {
+      if (closed) return;
+      closed = true;
+      document.removeEventListener("keydown", onKeyDown, true);
       if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
       if (modal.parentNode) modal.parentNode.removeChild(modal);
+      if (returnFocusEl && document.contains(returnFocusEl)) {
+        try { returnFocusEl.focus(); } catch (e) {}
+      }
       if (onClose) onClose();
     }
 
-    closeBtn.addEventListener("click", close);
-    backdrop.addEventListener("click", close);
+    function stopBubble(e) {
+      e.stopPropagation();
+    }
+
+    closeBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      close();
+    });
+    backdrop.addEventListener("pointerdown", stopBubble);
+    backdrop.addEventListener("touchstart", stopBubble, { passive: true });
+    backdrop.addEventListener("click", function (e) {
+      e.stopPropagation();
+      close();
+    });
+    modal.addEventListener("pointerdown", stopBubble);
+    modal.addEventListener("touchstart", stopBubble, { passive: true });
+    modal.addEventListener("click", stopBubble);
 
     function onKeyDown(e) {
       if (e.key === "Escape") {
         e.stopPropagation();
         close();
-        document.removeEventListener("keydown", onKeyDown, true);
       }
     }
     document.addEventListener("keydown", onKeyDown, true);
@@ -330,7 +393,7 @@
       if (!container) return { unmount: function () {} };
 
       // Idempotency: only one button per container
-      if (container.querySelector(".maqt-btn")) return { unmount: function () {} };
+      if (document.querySelector(".maqt-btn")) return { unmount: function () {} };
 
       // Apply current profile settings to body immediately on mount
       try {
@@ -342,30 +405,59 @@
       btn.type = "button";
       btn.className = "maqt-btn";
       btn.setAttribute("aria-label", "Open accessibility settings");
+      btn.setAttribute("aria-controls", "maqt-dialog");
+      btn.setAttribute("aria-expanded", "false");
       btn.title = "Accessibility settings";
       // Use plain text so no font dependency
-      btn.textContent = "⚙ A11y"; // ⚙ A11y
+      btn.textContent = "Access";
 
       var currentModal = null;
 
+      function getDock() {
+        var dock = document.getElementById("maqt-dock");
+        if (dock) return dock;
+        dock = document.createElement("div");
+        dock.id = "maqt-dock";
+        dock.className = "maqt-dock";
+        dock.setAttribute("aria-label", "Accessibility tools");
+        document.body.appendChild(dock);
+        return dock;
+      }
+
+      function openModal() {
+        currentModal = buildModal(function () {
+          currentModal = null;
+          btn.setAttribute("aria-expanded", "false");
+        }, btn);
+        btn.setAttribute("aria-expanded", "true");
+      }
+
+      btn.addEventListener("pointerdown", function (e) {
+        e.stopPropagation();
+      });
+      btn.addEventListener("touchstart", function (e) {
+        e.stopPropagation();
+      }, { passive: true });
       btn.addEventListener("click", function (e) {
         e.stopPropagation();
         if (currentModal) {
           currentModal.close();
           currentModal = null;
+          btn.setAttribute("aria-expanded", "false");
           return;
         }
-        currentModal = buildModal(function () {
-          currentModal = null;
-        });
+        openModal();
       });
 
-      container.appendChild(btn);
+      getDock().appendChild(btn);
 
       return {
         unmount: function () {
           if (currentModal) { currentModal.close(); currentModal = null; }
+          btn.setAttribute("aria-expanded", "false");
           if (btn.parentNode) btn.parentNode.removeChild(btn);
+          var dock = document.getElementById("maqt-dock");
+          if (dock && !dock.children.length && dock.parentNode) dock.parentNode.removeChild(dock);
         }
       };
     },
