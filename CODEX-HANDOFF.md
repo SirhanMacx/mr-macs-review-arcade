@@ -98,54 +98,56 @@ node scripts/validate-jeopardy-boards.mjs | head -1
 
 These have `COURSE_PALETTE` entries already staged in `index.html` and the build pipeline ready. Build each as its own course spec + boards.
 
-### NY Regents math + science (high-priority — Jon's students need these)
+### NY Regents math + science — ✅ SHIPPED Wave 4a (commit `0207d7b`, May 16 2026)
 
-1. **`living-environment`** (NY HS Bio Regents) — 8 units + Cumulative
-   - Unit 01: Similarities and Differences Among Living Things
-   - Unit 02: The Cell
-   - Unit 03: Genetics and Heredity
-   - Unit 04: Reproduction and Development
-   - Unit 05: Evolution and Biodiversity
-   - Unit 06: Ecology
-   - Unit 07: Human Impact on the Environment
-   - Unit 08: Homeostasis and Body Systems
+All 7 NY Regents courses landed in [Wave 4a commit `0207d7b`](https://github.com/SirhanMacx/mr-macs-review-arcade/commit/0207d7b):
 
-2. **`earth-science`** (NY HS) — 10 units + Cumulative
-   - Measurement/Models, Earth in Space, Energy in Earth System, Insolation/Seasons, Weather, Climate, Water Cycle/Hydrology, Erosion/Deposition, Plate Tectonics/Earthquakes/Volcanoes, Geologic History
+- ✅ **`living-environment`** (9 boards) — Cells, Genetics, Evolution, Ecology, Human Body Systems
+- ✅ **`earth-science`** (11 boards) — Astronomy, Weather, Climate, Geology, Geologic History
+- ✅ **`chemistry-regents`** (11 boards) — Atomic Concepts → Nuclear Chemistry
+- ✅ **`physics-regents`** (11 boards) — Mechanics → Modern Physics
+- ✅ **`algebra-1`** (9 boards) — NY Common Core
+- ✅ **`geometry`** (9 boards) — NY Common Core
+- ✅ **`algebra-2`** (9 boards) — NY Common Core
 
-3. **`chemistry-regents`** (NY HS Chem Regents) — 10 units + Cumulative
-   - Atomic Concepts, Periodic Table, Bonding, Behavior of Matter, Solutions, Kinetics/Equilibrium, Acids/Bases/Salts, Redox/Electrochem, Organic, Nuclear
-
-4. **`physics-regents`** (NY HS Physics Regents) — 10 units + Cumulative
-   - Mechanics-Motion, Mechanics-Forces, Energy, Momentum/Impulse, Circular Motion/Gravity, Electric Fields, Circuits, Magnetism/EM Induction, Waves/Sound, Optics/Modern Physics
-
-5. **`algebra-1`** (NY Common Core) — 8 units + Cumulative
-6. **`geometry`** (NY Common Core) — 8 units + Cumulative
-7. **`algebra-2`** (NY Common Core) — 8 units + Cumulative
+Do NOT rebuild these — they're already in `games.json` and the hub. Run the rebuild/harden scripts across them as part of platform polish, but don't overwrite.
 
 ### Missing APs
 
-8. **`ap-calculus-ab`** — 8 units + Cumulative (Limits → Apps of Integration)
-9. **`ap-calculus-bc`** — 10 units + Cumulative (AB + parametric/polar/vectors + series)
-10. **`ap-statistics`** — 9 units + Cumulative
-11. **`ap-english-language`** — 9 units + Cumulative
-12. **`ap-english-literature`** — 9 units + Cumulative
-13. **`ap-environmental-science`** — 9 units + Cumulative
-14. **`ap-physics-1`** — 8 units + Cumulative
-15. **`ap-physics-2`** — 7 units + Cumulative
-16. **`ap-physics-c-mechanics`** — 7 units + Cumulative (calculus-based)
-17. **`ap-physics-c-em`** — 7 units + Cumulative (calculus-based)
-18. **`ap-computer-science-a`** — 10 units + Cumulative (Java focus)
-19. **`ap-comparative-government`** — 5 units + Cumulative
-20. **`ap-art-history`** — 10 content-area boards + Cumulative
-21. **`ap-latin`** — 9 units + Cumulative (Vergil Aeneid + Caesar Gallic Wars)
-22. **`ap-german-language`** — 6 themes + Cumulative
+1. **`ap-calculus-ab`** — 8 units + Cumulative (Limits → Apps of Integration)
+2. **`ap-calculus-bc`** — 10 units + Cumulative (AB + parametric/polar/vectors + series)
+3. **`ap-statistics`** — 9 units + Cumulative
+4. **`ap-english-language`** — 9 units + Cumulative
+5. **`ap-english-literature`** — 9 units + Cumulative
+6. **`ap-environmental-science`** — 9 units + Cumulative
+7. **`ap-physics-1`** — 8 units + Cumulative
+8. **`ap-physics-2`** — 7 units + Cumulative
+9. **`ap-physics-c-mechanics`** — 7 units + Cumulative (calculus-based)
+10. **`ap-physics-c-em`** — 7 units + Cumulative (calculus-based)
+11. **`ap-computer-science-a`** — 10 units + Cumulative (Java focus)
+12. **`ap-comparative-government`** — 5 units + Cumulative
+13. **`ap-art-history`** — 10 content-area boards + Cumulative
+14. **`ap-latin`** — 9 units + Cumulative (Vergil Aeneid + Caesar Gallic Wars)
+15. **`ap-german-language`** — 6 themes + Cumulative
 
 ### Missing MS / HS subjects
 
-23. **`grade-6-ela`**, **`grade-7-ela`**, **`grade-8-ela`** (NY ELA, 7 units each + Cumulative)
-24. **`grade-7-math`**, **`grade-8-math`** (NY Common Core, 6 units each + Cumulative)
-25. **`grade-6-science`**, **`grade-7-science`**, **`grade-8-science`** (NGSS-based)
+16. **`grade-6-ela`**, **`grade-7-ela`**, **`grade-8-ela`** (NY ELA, 7 units each + Cumulative)
+17. **`grade-7-math`**, **`grade-8-math`** (NY Common Core, 6 units each + Cumulative)
+18. **`grade-6-science`**, **`grade-7-science`**, **`grade-8-science`** (NGSS-based)
+
+### Workflow shortcut: `scripts/expand-compact-spec.py`
+
+For each course you build, you can write a compact Python spec (much easier than hand-writing JSON) and expand it:
+
+```bash
+# 1. Write /tmp/spec_<slug>.py with a SPEC = {...} dict
+# 2. python3 scripts/expand-compact-spec.py /tmp/spec_<slug>.py
+#    → writes /tmp/build-<slug>.json
+# 3. node scripts/build-course.mjs /tmp/build-<slug>.json
+```
+
+The Python expander uses helpers `C()` (category), `Q()` (clue), `F()` (final) and avoids JSON escaping issues for multi-line explanations. See `/tmp/spec_ap_calculus_ab.py` (if still around) for an example template.
 
 Reference: `index.html` lines ~9332-9410 (`COURSE_PALETTE`) lists every expected `courseLabel` + accent/glyph. Use exact `courseLabel` strings when writing spec JSONs so the hub auto-surfaces them in the rail.
 
@@ -181,6 +183,8 @@ Reference: `index.html` lines ~9332-9410 (`COURSE_PALETTE`) lists every expected
 - **Existing social-studies course directories** (the gold-standard reference): `global-10-units`, `global-9`, `us-history-units`, `apush`, `ap-psychology`, `ap-world-history`, `ap-european-history`, `ap-human-geography`, `ap-us-government`, `ap-macroeconomics`, `ap-microeconomics`, `ap-economics-combined`, `civics-pig`, `economics`, `grade-5`, `grade-6`, `grade-7`, `grade-8` — these are Jon's hand-built originals. Polish only via the existing harden/rebuild/fix scripts; never overwrite by hand.
 
 - **The 16 courses already built in HEAD `df9940d`**: `ap-biology`, `ap-chemistry`, `ap-computer-science-principles`, `ap-french-language`, `ap-music-theory`, `ap-spanish-language`, `ap-spanish-literature`, `precalculus`, `grade-5-ela`, `grade-5-math`, `grade-5-science`, `grade-6-math`, `grade-9-ela`, `grade-10-ela`, `grade-11-ela`, `grade-12-ela` — leave their directories untouched. The rebuild/harden scripts can run across them as a group, that's fine.
+
+- **The 7 NY Regents courses built in HEAD `0207d7b` (Wave 4a)**: `living-environment`, `earth-science`, `chemistry-regents`, `physics-regents`, `algebra-1`, `geometry`, `algebra-2` — same treatment. Polish via rebuild/harden, do not rewrite.
 
 - DO NOT modify Jon's emails, hostnames, or personal info anywhere.
 
