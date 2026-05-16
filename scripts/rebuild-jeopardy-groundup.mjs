@@ -118,6 +118,246 @@ const CATEGORY_BLUEPRINTS = {
   },
   "grade-7": {
     "04": ["Articles Problems", "Convention Plans", "Constitutional Principles", "Ratification Debate", "Three Branches"]
+  },
+  // Wave 4 courses (May 16 2026) — extracted from each per-course HTML's
+  // actual category names so rebuild preserves the human-authored taxonomy
+  // instead of substituting fallback names.
+  "ap-biology": {
+    "01": ["Water + Hydrogen Bonding", "Macromolecules", "Protein Structure", "Enzymes + Catalysis", "Nucleic Acids + Directionality"],
+    "02": ["Organelles + Endosymbiosis", "Membrane Structure", "Membrane Transport", "Cell Size + Surface Area", "Compartmentalization + Origins"],
+    "03": ["Thermodynamics + ATP", "Photosynthesis Light Reactions", "Calvin Cycle + Carbon Fixation", "Glycolysis + Krebs Cycle", "Fermentation + Anaerobic Metabolism"],
+    "04": ["Signal Reception", "Signal Transduction", "Cell Cycle", "Apoptosis + Checkpoints", "Cell-Cell Communication"],
+    "05": ["Meiosis Mechanics", "Mendelian Genetics", "Non-Mendelian Patterns", "Linkage + Recombination", "Inheritance Statistics"],
+    "06": ["DNA Replication", "Transcription + mRNA Processing", "Translation + Genetic Code", "Gene Regulation", "Biotechnology + Mutations"],
+    "07": ["Darwin + Evidence", "Hardy-Weinberg Equilibrium", "Selection Modes", "Speciation", "Origin of Life + Macroevolution"],
+    "08": ["Population Ecology", "Community Interactions", "Ecosystem Energy + Productivity", "Biogeochemical Cycles", "Behavior + Climate Impact"],
+    "99": ["Cross-Unit Molecules", "Cross-Unit Mechanisms", "Cross-Unit Experiments", "Cross-Unit Quantitative Reasoning", "Cross-Unit Big Pictures"]
+  },
+  "ap-chemistry": {
+    "01": ["Mass Spectrometry", "Electron Configuration", "Periodic Trends", "Coulomb's Law", "PES Spectra"],
+    "02": ["Bond Types", "Lewis Structures", "VSEPR Geometry", "Hybridization", "Bond Energy + Length"],
+    "03": ["IMFs", "Gas Laws", "States of Matter", "Solutions", "Separations"],
+    "04": ["Reaction Types", "Stoichiometry", "Solution Chem", "Redox + Oxidation Numbers", "Gravimetric Lab"],
+    "05": ["Rate Laws", "Mechanisms", "Activation Energy", "Catalysis", "Arrhenius Equation"],
+    "06": ["Enthalpy", "Hess's Law", "Entropy", "Gibbs Free Energy", "Calorimetry"],
+    "07": ["Kc + Kp", "ICE Tables", "Le Chatelier's Principle", "Solubility (Ksp)", "Acid-Base Equilibria"],
+    "08": ["pH + pOH", "Strong vs Weak", "Buffers", "Titration Curves", "Polyprotic Acids"],
+    "09": ["Gibbs and K", "Cell EMF", "Standard Potentials", "Nernst Equation", "Electrolysis"],
+    "99": ["Big Idea 1 + 2 (Atoms + Bonds)", "Big Idea 3 (IMFs + Properties)", "Big Idea 4 + 5 (Reactions + Kinetics)", "Big Idea 6 (Thermo + Equilibrium)", "Big Idea 7 + 8 + 9 (pH + Electrochem)"]
+  },
+  "ap-computer-science-principles": {
+    "01": ["Program Design", "Code Documentation", "Computational Artifacts", "Iteration in Practice", "Modular Procedures"],
+    "02": ["Binary Encoding", "Lossless Compression", "Data Aggregation", "Data Visualization", "Privacy + Ethics"],
+    "03": ["Variables and Types", "Iteration", "Algorithm Efficiency", "Logic and Selection", "Simulation Modeling"],
+    "04": ["The Internet", "Packet Switching", "Distributed Computing", "Cybersecurity Threats", "Network Hardware"],
+    "05": ["Digital Divide", "Computing Ethics", "Beneficial Effects", "Harmful Effects", "Citizenship and Law"],
+    "99": ["Big Idea 1 Recall", "Big Idea 2 Recall", "Big Idea 3 Recall", "Big Idea 4 Recall", "Big Idea 5 Recall"]
+  },
+  "ap-french-language": {
+    "01": ["La Famille", "La Communauté", "Passé Composé vs. Imparfait", "Pronoun Placement", "Francophone Identity"],
+    "02": ["Identité Personnelle", "Héros et Modèles", "Multiculturalisme", "Subjonctif", "Vocabulary of Identity"],
+    "03": ["Arts Visuels", "Littérature Française", "Musique et Cinéma", "Mode et Gastronomie", "Le Conditionnel"],
+    "04": ["La Technologie", "Innovation Francophone", "Santé et Médecine", "Environnement", "Le Futur"],
+    "05": ["Éducation", "Travail et Carrière", "Loisirs et Sports", "Voyages et Tourisme", "L'Impératif"],
+    "06": ["Environnement Global", "Droits Humains", "Paix et Conflit", "Politique Mondiale", "Subjunctive in Adverbial Clauses"],
+    "99": ["All Six Themes", "Grammar Cumulative", "AP Exam Strategy", "Francophone Geography", "AP French Vocabulary Power"]
+  },
+  "ap-music-theory": {
+    "01": ["Pitch and Notation", "Rhythm and Meter", "Major Scales", "Key Signatures", "Intervals"],
+    "02": ["Minor Scales", "Triads", "Inversions and Bass", "Key Signatures and Modes", "Building Triads"],
+    "03": ["Triad Inversions", "Soprano-Bass Counterpoint", "Chord Function", "Figured Bass", "Voice Leading Fundamentals"],
+    "04": ["Cadences", "Phrase Structure", "Voice Leading Rules", "Chord Progression", "Soprano-Bass Framework"],
+    "05": ["Chord Progression Patterns", "Pre-Dominant Function", "6/4 Chord Categories", "Voice Leading Errors", "Harmonic Rhythm"],
+    "06": ["Non-Chord Tones", "Embellishments", "Motivic Development", "Melodic Devices", "Counterpoint"],
+    "07": ["Secondary Dominants", "Modulation", "Cadences with Modulation", "Chromatic Harmony", "Voice Leading in Chromatic Harmony"],
+    "08": ["Modal Scales", "Form Basics", "Sonata Form", "Larger Forms", "Modal and Form Hybrid"],
+    "99": ["Fundamentals", "Harmony", "Voice Leading", "Form and Mode", "Composers and Works"]
+  },
+  "ap-spanish-language": {
+    "01": ["La Familia", "Comunidad y Sociedad", "Ser vs. Estar", "Identity Vocabulary", "Por vs. Para"],
+    "02": ["Identidad Personal", "Multiculturalismo", "Héroes y Modelos", "Subjunctive Triggers", "Gender and LGBTQ+"],
+    "03": ["Arte Hispano", "Literatura Hispana", "Música Hispana", "Arquitectura y Moda", "Preterite vs. Imperfect"],
+    "04": ["La Tecnología", "Innovación Hispana", "Salud y Medicina", "Medio Ambiente", "Future Tense and Conditional"],
+    "05": ["Educación", "Trabajo y Carrera", "Ocio y Deportes", "Comida y Tradiciones", "Commands"],
+    "06": ["Medio Ambiente Global", "Derechos Humanos", "Paz y Conflicto", "Hispanic Politics", "Subjunctive in Adverbial Clauses"],
+    "99": ["All Six Themes", "Grammar Cumulative", "AP Exam Strategy", "Hispanic Geography", "AP Spanish Vocabulary Power"]
+  },
+  "ap-spanish-literature": {
+    "01": ["Cortés y la Conquista", "Cabeza de Vaca y Naufragios", "Bolívar y la Independencia", "Genre and Voice", "Aida del Río Tema"],
+    "02": ["Sor Juana Inés de la Cruz", "Emilia Pardo Bazán", "Nancy Morejón", "Gender as Construct", "Literary Analysis"],
+    "03": ["Romance Medieval", "Quevedo y el Barroco", "Borges y El Sur", "Time and Space", "Other Required Texts"],
+    "04": ["Lazarillo de Tormes", "Fuenteovejuna", "La Casa de Bernarda Alba", "La Siesta del Martes", "Interpersonal Themes"],
+    "05": ["Bécquer y el Romanticismo", "Darío y el Modernismo", "Unamuno y San Manuel Bueno", "Allende, Borges, Quiroga", "Duality Themes"],
+    "06": ["Cervantes y Don Quijote", "Neruda y Walking Around", "Cortázar y La Noche Boca Arriba", "Quiroga y El Hijo", "Literary Form"],
+    "99": ["Required Authors", "Required Works", "Literary Devices", "Periods and Movements", "Exam Strategy"]
+  },
+  "algebra-1": {
+    "01": ["Equation Structure", "Solving Steps", "Inequality Reasoning", "Context Modeling", "Regents Responses"],
+    "02": ["Slope and Intercepts", "Linear Forms", "Graph Features", "Representations", "Comparison Skills"],
+    "03": ["Solution Meanings", "Solving Methods", "Linear System Graphs", "Modeling Constraints", "Inequality Systems"],
+    "04": ["Exponent Laws", "Scientific Notation", "Radicals", "Rational Exponents", "Magnitude Reasoning"],
+    "05": ["Polynomial Vocabulary", "Operations", "Factoring Patterns", "Quadratic Connections", "Regents Structure"],
+    "06": ["Quadratic Foundations", "Turning Points", "Key Ideas", "Power + Change", "Quadratic Functions Practice"],
+    "07": ["Exponential Structure", "Percent Change", "Graphs", "Sequences", "Linear Comparison"],
+    "08": ["Data Displays", "Center and Spread", "Association", "Regression", "Regents Claims"],
+    "99": ["Algebraic Fluency", "Function Reasoning", "Multiple Representations", "Modeling Transfer", "Regents Error Analysis"]
+  },
+  "algebra-2": {
+    "01": ["Function Vocabulary", "Transformations", "Parent Functions", "Composition", "Graph Features"],
+    "02": ["Polynomial Features", "Zeros and Factors", "Operations", "Graph Analysis", "Solving Structure"],
+    "03": ["Rational Expressions", "Asymptotes and Holes", "Radical Expressions", "Solving and Checking", "Function Behavior"],
+    "04": ["Exponential Foundations", "Turning Points", "Key Ideas", "Power + Change", "Exponential and Practice"],
+    "05": ["Unit Circle", "Trig Functions", "Graphs", "Equations", "Models"],
+    "06": ["Sequence Foundations", "Turning Points", "Key Ideas", "Power + Change", "Sequences and Series Practice"],
+    "07": ["Probability Rules", "Counting", "Distributions", "Study Design", "Inference Ideas"],
+    "08": ["Model Selection", "Technology Output", "Parameters", "Reasonableness", "Constructed Response"],
+    "99": ["Advanced Functions", "Algebraic Structure", "Trig and Sequences", "Statistics and Probability", "Regents Model Defense"]
+  },
+  "earth-science": {
+    "01": ["ESRT Navigation", "Measurement Precision", "Graphs and Variables", "Earth System Models", "Regents Calculations"],
+    "02": ["Celestial Motion", "Moon and Sun Patterns", "Solar System Evidence", "Stars and Galaxies", "Reference Table Space Data"],
+    "03": ["Heat Transfer", "Atmosphere Energy", "Interior Energy", "Water and Energy", "Energy Balance Evidence"],
+    "04": ["Insolation Angles", "Seasonal Geometry", "Latitude Patterns", "Surface Response", "Graph Reading"],
+    "05": ["Air Masses", "Fronts and Storms", "Station Models", "Moisture and Clouds", "Forecast Maps"],
+    "06": ["Climate Controls", "Climate Data", "Regional Patterns", "Climate Change Evidence", "Human and Natural Drivers"],
+    "07": ["Cycle Processes", "Groundwater", "Stream Systems", "Flood and Runoff Factors", "Ocean and Ice Reservoirs"],
+    "08": ["Weathering", "Erosional Agents", "Transport and Sorting", "Landform Evidence", "Topographic Maps"],
+    "09": ["Plate Boundaries", "Earthquake Evidence", "Volcano Patterns", "Tectonic Evidence", "Hazards and Risk"],
+    "10": ["Relative Dating", "Absolute Dating", "Fossil Evidence", "Time Scale", "New York Geology"],
+    "99": ["Reference Table Mastery", "Space and Seasons", "Weather and Climate", "Surface Processes", "Tectonics and Time"]
+  },
+  "geometry": {
+    "01": ["Rigid Motions", "Coordinate Rules", "Dilation", "Symmetry", "Congruence Link"],
+    "02": ["Proof Language", "Triangle Congruence", "Triangle Parts", "Parallel Lines", "Quadrilateral Proofs"],
+    "03": ["Similarity Foundations", "Turning Points", "Key Ideas", "Power + Change", "Similarity Practice"],
+    "04": ["Right Triangle Foundations", "Turning Points", "Key Ideas", "Right Triangles and Practice", "Course Connections"],
+    "05": ["Circle Parts", "Angles and Arcs", "Segments", "Equations", "Measures"],
+    "06": ["Distance and Midpoint", "Slope Reasoning", "Coordinate Proofs", "Lines and Equations", "Locus and Constructions"],
+    "07": ["Area", "Surface Area", "Volume", "Similarity in Measurement", "Cross Sections"],
+    "08": ["Model Assumptions", "Constructions", "Real World Diagrams", "Optimization", "Written Justification"],
+    "99": ["Transformations and Proof", "Similarity and Trig", "Circles and Coordinates", "Measurement Transfer", "Regents Explanation"]
+  },
+  "precalculus": {
+    "01": ["Domain and Range", "Function Transformations", "Composition of Functions", "Inverse Functions", "Even, Odd, and Symmetry"],
+    "02": ["Polynomial Zeros", "Rational Function Asymptotes", "Polynomial Long Division", "Complex Roots", "Intermediate Value Theorem"],
+    "03": ["Exponential Laws", "Logarithm Laws", "Exponential Equations", "Graphs of Exp and Log", "Applications: Growth and Decay"],
+    "04": ["Unit Circle Basics", "Sin and Cos Graphs", "Inverse Trig", "Transformations of Trig", "Right Triangle Trig"],
+    "05": ["Pythagorean Identities", "Sum and Difference", "Double Angle", "Solving Trig Equations", "Trig Identity Proofs"],
+    "06": ["Vector Basics", "Vector Operations", "Parametric Equations", "Motion and Direction", "Polar to Cartesian"],
+    "07": ["Parabolas", "Ellipses", "Hyperbolas", "Polar Curves", "Polar Coordinates"],
+    "08": ["Sequences", "Summation and Series", "Limits Introduction", "End Behavior", "One-Sided and Continuity"],
+    "99": ["Functions and Polynomials", "Trigonometry", "Vectors, Polar, Conics", "Exp Log Series", "Limits and PreCalc Synthesis"]
+  },
+  "grade-5-ela": {
+    "01": ["Story Mountain", "Round vs Flat Characters", "Setting + Mood", "Conflict Types", "Problem + Solution"],
+    "02": ["Theme vs Topic", "First vs Third Person", "Similes + Metaphors", "Symbolism", "Author's Word Choice"],
+    "03": ["Main Idea Strategies", "Text Features", "Compare and Contrast Structure", "Cause and Effect Patterns", "Text Structures"],
+    "04": ["Author's Purpose", "Fact vs Opinion", "Citing Evidence", "Argument and Claim", "Synthesizing Sources"],
+    "05": ["Strong Hooks", "Topic Sentences", "Transitions", "Cited Evidence", "Conclusion Moves"],
+    "06": ["Subject-Verb Agreement", "Apostrophes", "Prefixes and Roots", "Synonyms and Antonyms", "Context Clues"],
+    "99": ["Story Elements Mix", "Author's Craft", "Reading Info Mix", "Writing Mix", "Language Mix"]
+  },
+  "grade-5-math": {
+    "01": ["Place Value Patterns", "Decimal Reading", "Powers of 10", "Decimal Computation", "Rounding Decimals"],
+    "02": ["Long Division", "Long Multiplication", "Estimation Strategies", "Order of Operations", "Word Problems"],
+    "03": ["Fraction Models", "Adding Fractions", "Multiplying Fractions", "Dividing Fractions", "Mixed Number Strategy"],
+    "04": ["Volume Formulas", "Customary Measurement", "Metric Measurement", "Time and Money", "Conversions"],
+    "05": ["Coordinate Plotting", "Numerical Patterns", "Plotting Graphs", "Real-World Graphs", "Geometry Review"],
+    "99": ["Place Value Mix", "Multiply and Divide", "Fractions Cumulative", "Measurement Mix", "Coordinate Synthesis"]
+  },
+  "grade-5-science": {
+    "01": ["Food Chain Roles", "Plants Make Food", "Ecosystem Cycles", "Living Connections", "Energy from the Sun"],
+    "02": ["Water Cycle", "Weather + Climate", "Earth's Spheres", "Fresh + Salt Water", "Human Impact"],
+    "03": ["Earth-Moon-Sun", "Gravity + Force", "Stars + Brightness", "Day + Night", "Solar System"],
+    "04": ["States of Matter", "Particle Model", "Mixtures + Solutions", "Chemical Changes", "Properties of Matter"],
+    "05": ["Gravity Pulls Down", "Forces in Action", "Motion Patterns", "Simple Machines", "Energy of Motion"],
+    "99": ["Ecosystems Recap", "Matter Recap", "Space Recap", "Forces Recap", "NGSS Skills"]
+  },
+  "grade-6-math": {
+    "01": ["Equivalent Ratios", "Unit Rates", "Ratio Tables", "Tape Diagrams", "Coordinate Plots"],
+    "02": ["Percent Strategies", "Finding Percent of a Number", "Percent Word Problems", "Percent Models", "Percent Increase"],
+    "03": ["Decimal Operations", "Fraction Operations", "Mixed Numbers", "GCF and LCM", "Real-World Mix"],
+    "04": ["Integer Operations", "Number Line", "Ordering Numbers", "Coordinate Plane", "Word Problems"],
+    "05": ["One-Step Equations", "Algebraic Expressions", "Properties", "Inequalities", "Equation Word Problems"],
+    "06": ["Area of Polygons", "Surface Area and Volume", "Statistics", "Data Display", "Statistical Questions"],
+    "99": ["Ratios and Rates", "Number System", "Expressions & Equations", "Geometry", "Statistics"]
+  },
+  "grade-9-ela": {
+    "01": ["Plot Structures in R&J", "Setting as Theme", "Foil Characters", "Symbolism in The Raven", "The Odyssey Basics"],
+    "02": ["Theme Statements", "Point of View", "Author's Craft", "Figurative Language", "Allegory and Allusion"],
+    "03": ["Main Idea and Details", "Claim Types", "Logos Pathos Ethos", "Source Credibility", "Argument Structure"],
+    "04": ["Tone Words", "Author's Purpose", "Rhetorical Devices", "Speech Analysis", "Author's Stance"],
+    "05": ["Thesis Construction", "Counterclaim Concession", "Evidence Integration", "Transitions and Cohesion", "Common Argument Errors"],
+    "06": ["Hook Strategies", "Sensory Detail", "Narrative Structure", "Explanatory Style", "Style and Voice"],
+    "07": ["Comma Rules", "Modifier Placement", "Latin and Greek Roots", "Figurative Language", "Vocabulary in Context"],
+    "99": ["Texts and Authors", "Literary Devices", "Argument and Rhetoric", "Writing Craft", "Conventions and Vocabulary"]
+  },
+  "grade-10-ela": {
+    "01": ["Plot in Julius Caesar", "Setting as Theme", "Characterization", "Symbolism", "Foil Characters"],
+    "02": ["Theme Statements", "Sonnet Form", "Point of View", "Figurative Language", "Author's Craft"],
+    "03": ["Main Idea and Details", "Claim Types", "Logos Pathos Ethos", "Source Credibility", "Argument Structure"],
+    "04": ["Tone Vocabulary", "Author's Purpose", "Rhetorical Devices", "Speech Analysis", "Author's Stance"],
+    "05": ["Thesis Construction", "Counterclaim and Concession", "Evidence Integration", "Transitions and Cohesion", "Logical Fallacies"],
+    "06": ["Hook Strategies", "Sensory Detail", "Narrative Structure", "Explanatory Style", "Style and Voice"],
+    "07": ["Comma Rules", "Modifier Placement", "Latin and Greek Roots", "Figurative Language", "Vocabulary in Context"],
+    "99": ["Texts and Authors", "Literary Devices", "Argument and Rhetoric", "Writing Craft", "Conventions and Vocabulary"]
+  },
+  "grade-11-ela": {
+    "01": ["Plot in Gatsby", "Setting as Theme", "Characterization", "Symbolism", "Foil Characters"],
+    "02": ["Theme Statements", "Point of View", "Author's Craft", "Figurative Language", "Sound and Rhythm"],
+    "03": ["Main Idea and Details", "Claim Types", "Foundational U.S. Texts", "Logos Pathos Ethos", "Argument Structure"],
+    "04": ["Tone Vocabulary", "Author's Purpose", "Rhetorical Devices", "Speech Analysis", "Author's Stance"],
+    "05": ["Thesis Construction", "Counterclaim and Concession", "Evidence Integration", "Transitions and Cohesion", "Logical Fallacies"],
+    "06": ["Hook Strategies", "Sensory Detail", "Narrative Structure", "Explanatory Style", "Style and Voice"],
+    "07": ["Comma Rules", "Modifier Placement", "Latin and Greek Roots", "Figurative Language", "Vocabulary in Context"],
+    "99": ["Texts and Authors", "Literary Devices", "Argument and Rhetoric", "Writing Craft", "Foundational U.S. Texts"]
+  },
+  "grade-12-ela": {
+    "01": ["Plot in Hamlet", "Setting as Theme", "Characterization", "Symbolism", "Foil Characters"],
+    "02": ["Theme Statements", "Sonnet and Verse Form", "Point of View", "Figurative Language", "Sound and Rhythm"],
+    "03": ["Main Idea and Details", "Claim Types", "Logos Pathos Ethos", "Source Credibility", "Argument Structure"],
+    "04": ["Tone Vocabulary", "Author's Purpose", "Rhetorical Devices", "Speech Analysis", "Author's Stance"],
+    "05": ["Thesis Construction", "Counterclaim and Concession", "Evidence Integration", "Transitions and Cohesion", "Logical Fallacies"],
+    "06": ["Hook Strategies", "Sensory Detail", "Narrative Structure", "Explanatory Style", "Style and Voice"],
+    "07": ["Comma Rules", "Modifier Placement", "Latin and Greek Roots", "Figurative Language", "Vocabulary in Context"],
+    "99": ["Texts and Authors", "Literary Devices", "Argument and Rhetoric", "Writing Craft", "Form and Verse"]
+  },
+  "living-environment": {
+    "01": ["Classification Evidence", "Life Functions", "Molecules of Life", "Lab Tools and Microscopes", "Regents Comparisons"],
+    "02": ["Cell Boundaries", "Organelles", "Cell Theory and Scale", "Transport and Balance", "Specialized Structures"],
+    "03": ["DNA and Chromosomes", "Mendelian Inheritance", "Trait Expression", "Mutation and Technology", "Pedigrees and Probability"],
+    "04": ["Cell Division", "Human Reproduction", "Development", "Reproductive Strategies", "Regents Risk Factors"],
+    "05": ["Natural Selection", "Evidence for Evolution", "Population Change", "Diversity Patterns", "Exam Misconceptions"],
+    "06": ["Ecosystem Roles", "Energy Flow", "Population Ecology", "Cycles of Matter", "Stability and Change"],
+    "07": ["Pollution Sources", "Resource Use", "Climate and Carbon", "Biodiversity Threats", "Solutions and Tradeoffs"],
+    "08": ["Feedback Loops", "Transport Systems", "Defense and Disease", "Coordination Systems", "Nutrition and Gas Exchange"],
+    "99": ["Cells to Systems", "Genes to Traits", "Evolution Evidence", "Ecology Transfer", "Regents Lab Reasoning"]
+  },
+  "chemistry-regents": {
+    "01": ["Subatomic Structure", "Mass and Isotopes", "Electron Arrangement", "Reference Table Skills", "Atomic Models"],
+    "02": ["Table Organization", "Periodic Trends", "Families", "Valence Patterns", "Regents Predictions"],
+    "03": ["Bond Types", "Lewis Structures", "Molecular Shape", "Intermolecular Forces", "Properties from Bonds"],
+    "04": ["States and Phase Change", "Particle Motion", "Gas Laws", "Heat and Changes", "Matter Classification"],
+    "05": ["Solution Vocabulary", "Concentration", "Solubility Factors", "Electrolytes", "Colligative Properties"],
+    "06": ["Reaction Rates", "Energy Diagrams", "Rate Factors", "Equilibrium Systems", "Le Chatelier Shifts"],
+    "07": ["Acid Base Definitions", "pH and Indicators", "Neutralization", "Strength and Concentration", "Reference Table M"],
+    "08": ["Redox Foundations", "Turning Points", "Key Ideas", "Power + Change", "Redox and Practice"],
+    "09": ["Hydrocarbons", "Functional Groups", "Naming Patterns", "Organic Reactions", "Polymers and Fuels"],
+    "10": ["Radiation Types", "Nuclear Stability", "Half Life", "Fission and Fusion", "Uses and Risks"],
+    "99": ["Atomic and Periodic Patterns", "Bonding and Matter", "Quantitative Chemistry", "Reaction Systems", "Organic and Nuclear Transfer"]
+  },
+  "physics-regents": {
+    "01": ["Motion Variables", "Graph Meanings", "Kinematics Equations", "Two-Dimensional Motion", "Regents Measurement"],
+    "02": ["Force Basics", "Newton Laws", "Free Body Diagrams", "Friction and Surfaces", "Force Problems"],
+    "03": ["Work and Power", "Energy Types", "Conservation", "Energy Graphs", "Regents Applications"],
+    "04": ["Momentum Basics", "Collisions", "Conservation Reasoning", "Graphs and Data", "Safety Applications"],
+    "05": ["Circular Variables", "Gravity", "Vertical Circles", "Planetary Motion", "Regents Traps"],
+    "06": ["Charge Basics", "Coulomb Force", "Field Models", "Potential Difference", "Static Electricity"],
+    "07": ["Circuit Quantities", "Ohm Law Skills", "Series Circuits", "Parallel Circuits", "Circuit Analysis"],
+    "08": ["Magnetic Fields", "Forces on Charges", "Forces on Wires", "Induction", "Generators and Transformers"],
+    "09": ["Wave Basics", "Wave Types", "Wave Behaviors", "Sound", "Wave Diagrams"],
+    "10": ["Light Behavior", "Mirrors and Lenses", "Image Formation", "Quantum Ideas", "Atomic and Nuclear Physics"],
+    "99": ["Motion and Forces", "Energy and Momentum", "Fields and Circuits", "Magnetism and Waves", "Optics and Modern Review"]
   }
 };
 

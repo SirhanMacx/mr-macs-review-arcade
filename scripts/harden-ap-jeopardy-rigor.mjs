@@ -15,7 +15,18 @@ const AP_DIRS = [
   "ap-psychology",
   "ap-macroeconomics",
   "ap-microeconomics",
-  "ap-economics-combined"
+  "ap-economics-combined",
+  // Wave 4 (May 16 2026) — new AP per-course HTMLs landed in df9940d.
+  // Each needs a matching FINAL_POOLS, COURSE_BY_DIR, and
+  // shortDisciplineForDir mapping below or hardening will substitute
+  // wrong-domain content (e.g. AP World History finals into AP Biology).
+  "ap-biology",
+  "ap-chemistry",
+  "ap-computer-science-principles",
+  "ap-french-language",
+  "ap-music-theory",
+  "ap-spanish-language",
+  "ap-spanish-literature"
 ];
 
 const EXPECTED_SKILLS = new Map([
@@ -34,7 +45,14 @@ const COURSE_BY_DIR = {
   "ap-psychology": "AP Psychology",
   "ap-macroeconomics": "AP Macroeconomics",
   "ap-microeconomics": "AP Microeconomics",
-  "ap-economics-combined": "AP Economics"
+  "ap-economics-combined": "AP Economics",
+  "ap-biology": "AP Biology",
+  "ap-chemistry": "AP Chemistry",
+  "ap-computer-science-principles": "AP Computer Science Principles",
+  "ap-french-language": "AP French Language and Culture",
+  "ap-music-theory": "AP Music Theory",
+  "ap-spanish-language": "AP Spanish Language and Culture",
+  "ap-spanish-literature": "AP Spanish Literature and Culture"
 };
 
 const FINAL_POOLS = {
@@ -117,6 +135,79 @@ const FINAL_POOLS = {
     ["Nash equilibrium", "Game outcome where no player gains by changing strategy alone."],
     ["Automatic stabilizers", "Fiscal features that change with the business cycle without new legislation."],
     ["Price discrimination", "Charging different buyers different prices for the same good."]
+  ],
+  // Wave 4 (May 16 2026) — domain-correct finals for new AP courses.
+  // Each entry is one canonical concept that resists answer-leak from
+  // its own clue and aligns with the College Board CED 2024+.
+  "ap-biology": [
+    ["Allosteric regulation", "Enzyme activity modulated by molecule binding outside the active site."],
+    ["Hardy-Weinberg equilibrium", "Population state where allele frequencies stay constant across generations."],
+    ["Chemiosmosis", "ATP synthesis driven by proton gradient across an inner membrane."],
+    ["Apoptosis", "Programmed cell death used in development, immunity, and tissue maintenance."],
+    ["Operon", "Bacterial gene cluster transcribed together under one promoter."],
+    ["Genetic drift", "Random change in allele frequency that has larger impact on small populations."],
+    ["Trophic efficiency", "Fraction of energy passed from one trophic level to the next."],
+    ["Endosymbiotic theory", "Hypothesis that mitochondria and chloroplasts originated as engulfed prokaryotes."]
+  ],
+  "ap-chemistry": [
+    ["Le Chatelier's principle", "Equilibrium response that opposes any imposed disturbance to a system."],
+    ["Activation energy", "Minimum energy barrier required for reactants to form products."],
+    ["Lattice energy", "Energy released when gaseous ions form one mole of solid ionic compound."],
+    ["Buffer capacity", "Amount of acid or base a buffer absorbs before its pH changes sharply."],
+    ["Standard reduction potential", "Voltage of a half-cell measured under standard conditions versus hydrogen."],
+    ["Gibbs free energy", "Thermodynamic value indicating whether a reaction is spontaneous at a given temperature."],
+    ["Photoelectron spectroscopy", "Technique that ionizes electrons to reveal atomic energy levels."],
+    ["Common ion effect", "Solubility reduction caused by adding a shared ion to a saturated solution."]
+  ],
+  "ap-computer-science-principles": [
+    ["Abstraction", "Process of hiding complexity by exposing only the necessary interface."],
+    ["Public key encryption", "Asymmetric cryptography using a public key to encrypt and a private key to decrypt."],
+    ["Heuristic", "Practical approach producing good-enough solutions when exact methods are too costly."],
+    ["Lossless compression", "Data reduction in which the original file can be perfectly reconstructed."],
+    ["Distributed computing", "Workload split across networked machines that cooperate to finish a task."],
+    ["Packet switching", "Network technique splitting messages into addressable, independently routed chunks."],
+    ["Procedural abstraction", "Encapsulation of repeated logic into a named, reusable procedure."],
+    ["Binary search", "Sorted-array lookup that halves the search space each step."]
+  ],
+  "ap-french-language": [
+    ["La francophonie", "Worldwide community of French-speaking nations, regions, and institutions."],
+    ["Subjonctif", "Mood expressing doubt, emotion, necessity, or hypothetical situations."],
+    ["Conditionnel", "Mood used for politeness, hypothesis, and reported future possibilities."],
+    ["Pronom complément d'objet direct", "Pronoun replacing a direct object inside a French sentence."],
+    ["Passé composé", "Compound past tense formed with avoir or être plus a past participle."],
+    ["Imparfait", "Past tense expressing ongoing, habitual, or descriptive background actions."],
+    ["Ecologie globale", "Theme connecting environmental issues across French-speaking contexts."],
+    ["Multiculturalisme", "AP French Theme exploring identity, immigration, and cultural exchange."]
+  ],
+  "ap-music-theory": [
+    ["Cadence", "Harmonic conclusion of a phrase, classified by chord motion at the end."],
+    ["Secondary dominant", "Chord that temporarily tonicizes a non-tonic scale degree."],
+    ["Counterpoint", "Compositional technique combining independent melodic lines into a single texture."],
+    ["Modulation", "Process of changing the established tonal center within a piece."],
+    ["Picardy third", "Major chord ending a phrase that was otherwise in a minor key."],
+    ["Neapolitan sixth", "Pre-dominant chord built on the lowered second scale degree, usually in first inversion."],
+    ["Sonata form", "Three-part design featuring exposition, development, and recapitulation."],
+    ["Voice leading", "Principles for moving individual voices smoothly within a harmonic progression."]
+  ],
+  "ap-spanish-language": [
+    ["Identidad personal", "AP Spanish theme exploring self-concept, traditions, and lived experience."],
+    ["Subjuntivo", "Spanish mood used for doubt, emotion, will, and hypothetical contexts."],
+    ["Ser vs estar", "Pair of Spanish verbs distinguishing inherent traits from temporary states."],
+    ["Pretérito vs imperfecto", "Spanish past tense contrast between completed events and ongoing background."],
+    ["Multiculturalismo hispano", "Theme exploring identity, migration, and pluralism in the Spanish-speaking world."],
+    ["Reflexivo", "Spanish verb construction in which the subject acts on itself."],
+    ["Por y para", "Spanish preposition pair contrasting cause/duration with destination/purpose."],
+    ["Mandato formal", "Spanish formal command form built from the present subjunctive."]
+  ],
+  "ap-spanish-literature": [
+    ["Sor Juana Inés de la Cruz", "Colonial Mexican poet whose Hombres necios anchors Period 2 of the AP reading list."],
+    ["Don Quijote de la Mancha", "Cervantes novel widely read as the first modern European novel."],
+    ["García Márquez", "Colombian author central to magical realism and AP Spanish Lit Period 6."],
+    ["Magia realismo", "Narrative mode blending realistic detail with matter-of-fact supernatural events."],
+    ["Modernismo", "Late-19th-century Latin American movement led by Rubén Darío."],
+    ["Generación del 98", "Spanish writers responding to the 1898 loss of empire, including Unamuno."],
+    ["Costumbrismo", "Realist tradition depicting regional customs, dress, and daily life."],
+    ["Greguerias", "Short metaphor-driven aphorisms developed by Ramón Gómez de la Serna."]
   ]
 };
 
@@ -199,6 +290,14 @@ function shortDisciplineForDir(dir) {
   if (dir.includes("geography")) return "geo";
   if (dir.includes("government")) return "gov";
   if (dir.includes("psychology")) return "psych";
+  // Wave 4 (May 16 2026)
+  if (dir.includes("biology")) return "bio";
+  if (dir.includes("chemistry")) return "chem";
+  if (dir.includes("computer-science")) return "csp";
+  if (dir.includes("french")) return "lang";
+  if (dir.includes("music")) return "music";
+  if (dir.includes("spanish-literature")) return "lit";
+  if (dir.includes("spanish")) return "lang";
   return "econ";
 }
 
@@ -209,7 +308,13 @@ function additionsFor(dir) {
     geo: ["used to explain spatial patterns across scale", "used to interpret regional outcomes"],
     gov: ["tied to institutions, rights, or policy outcomes", "used to connect rules and power"],
     psych: ["applied to behavior, research, or evidence", "used to analyze scenario-based behavior"],
-    econ: ["used to predict incentives, shifts, or welfare effects", "used to analyze graphs and policy effects"]
+    econ: ["used to predict incentives, shifts, or welfare effects", "used to analyze graphs and policy effects"],
+    bio: ["evidenced by lab data or mechanism", "tied to evolutionary or ecological context"],
+    chem: ["explained by reaction mechanism or thermodynamics", "predicted from periodic or kinetic patterns"],
+    csp: ["explained through algorithm efficiency or abstraction", "used to analyze impact of computing"],
+    lang: ["tied to AP theme and authentic source", "applied to grammar in context"],
+    music: ["analyzed through voice leading or harmonic function", "applied to score or aural analysis"],
+    lit: ["tied to required author or work", "analyzed through literary device or period context"]
   }[kind];
 }
 
@@ -338,6 +443,14 @@ function dirForCourse(course) {
   if (text.includes("Macroeconomics")) return "ap-macroeconomics";
   if (text.includes("Microeconomics")) return "ap-microeconomics";
   if (text.includes("Economics Combined")) return "ap-economics-combined";
+  // Wave 4 (May 16 2026)
+  if (text.includes("AP Biology")) return "ap-biology";
+  if (text.includes("AP Chemistry")) return "ap-chemistry";
+  if (text.includes("Computer Science Principles")) return "ap-computer-science-principles";
+  if (text.includes("French Language")) return "ap-french-language";
+  if (text.includes("Music Theory")) return "ap-music-theory";
+  if (text.includes("Spanish Literature")) return "ap-spanish-literature";
+  if (text.includes("Spanish Language")) return "ap-spanish-language";
   return "";
 }
 
