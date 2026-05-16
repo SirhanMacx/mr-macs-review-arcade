@@ -1,0 +1,2135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Unit 3 - Reading Informational - Main Idea Argument Evidence Review Game</title>
+<script id="MRMAC_PERF_LITE_BOOT">
+(function(){
+  try {
+    if (new URLSearchParams(location.search).get("fx") !== "full") document.documentElement.classList.add("perf-lite");
+  } catch (error) {
+    document.documentElement.classList.add("perf-lite");
+  }
+}());
+</script>
+<style>
+:root {
+  --bg0: #080a13;
+  --bg1: #111827;
+  --panel: rgba(12, 18, 33, .82);
+  --line: rgba(255,255,255,.16);
+  --text: #f8fbff;
+  --muted: #aebad1;
+  --accent: #ffd166;
+  --accent2: #2ec4b6;
+  --accent3: #ef476f;
+  --glow: rgba(255,209,102,.30);
+  --tile: #12315f;
+  --tile2: #4a1f56;
+  --danger: #ff5f65;
+  --ok: #36e6a4;
+  --arena: url("../../assets/jeopardy/arena.jpg");
+  --tile-art: url("../../assets/jeopardy/tile-art.jpg");
+  --panel-art: url("../../assets/jeopardy/panel-art.jpg");
+  --board-frame: url("../../assets/jeopardy/board-frame.jpg");
+  --daily-art: url("../../assets/jeopardy/daily-art.jpg");
+  --final-art: url("../../assets/jeopardy/final-art.jpg");
+  --clue-art: url("../../assets/jeopardy/clue-art.jpg");
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --spot-x: 50%;
+  --spot-y: 42%;
+  --scene-x: 0px;
+  --scene-y: 0px;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #050812;
+  overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
+}
+button, input, textarea { font: inherit; }
+button {
+  border: 0;
+  color: var(--text);
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: .62;
+}
+#arenaBg {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  background:
+    linear-gradient(180deg, rgba(4,8,18,.22), rgba(4,8,18,.58) 44%, rgba(4,8,18,.88)),
+    radial-gradient(circle at 50% 18%, rgba(255,209,102,.16), transparent 24%),
+    var(--arena) center / cover no-repeat;
+  filter: saturate(1.16) contrast(1.08);
+  transform: translate3d(var(--scene-x), var(--scene-y), 0) scale(1.032);
+  transition: transform 90ms linear;
+}
+#arenaBg::before,
+#arenaBg::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  pointer-events: none;
+}
+#arenaBg::before {
+  background:
+    conic-gradient(from 120deg at 50% 30%, transparent 0deg, rgba(255,209,102,.16) 18deg, transparent 42deg, transparent 112deg, rgba(0,212,255,.13) 135deg, transparent 164deg, transparent 360deg);
+  mix-blend-mode: screen;
+  animation: lightSweep 16s linear infinite;
+}
+#arenaBg::after {
+  background:
+    radial-gradient(circle at 50% 55%, transparent 0 20%, rgba(0,0,0,.26) 52%, rgba(0,0,0,.72) 100%),
+    linear-gradient(90deg, rgba(0,0,0,.6), transparent 22%, transparent 78%, rgba(0,0,0,.6));
+}
+@keyframes lightSweep {
+  from { transform: rotate(0deg) scale(1.1); }
+  to { transform: rotate(360deg) scale(1.1); }
+}
+#space {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+}
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.035), rgba(255,255,255,.035) 1px, transparent 1px, transparent 6px);
+  mix-blend-mode: overlay;
+  opacity: .4;
+}
+.app {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  padding: 20px clamp(12px, 2.5vw, 34px) 38px;
+  animation: appBoot .78s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes appBoot {
+  from { opacity: 0; transform: translateY(18px) scale(.985); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+.stage-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0 34%, rgba(255,255,255,.32) 46%, rgba(255,209,102,.36) 50%, rgba(0,212,255,.22) 55%, transparent 70%),
+    radial-gradient(circle at 50% 52%, rgba(255,255,255,.18), transparent 28%);
+  mix-blend-mode: screen;
+  animation: stageWipe 1.35s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes stageWipe {
+  0% { opacity: 0; transform: translateX(-60%) skewX(-10deg); }
+  18% { opacity: .85; }
+  100% { opacity: 0; transform: translateX(60%) skewX(-10deg); }
+}
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: start;
+  margin: 0 auto 16px;
+  max-width: 1480px;
+  animation: hudDrop .75s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes hudDrop {
+  from { opacity: 0; transform: translateY(-18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.titleblock {
+  position: relative;
+  min-height: 132px;
+  padding: 20px 22px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(12,17,29,.40), rgba(8,12,24,.76)),
+    radial-gradient(circle at 18% 0%, var(--glow), transparent 44%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 24px 70px rgba(0,0,0,.48), inset 0 0 90px rgba(255,255,255,.04), 0 0 0 1px rgba(255,255,255,.04);
+  backdrop-filter: blur(16px) saturate(1.3);
+  overflow: hidden;
+}
+.titleblock::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 0 32%, rgba(255,255,255,.22) 38%, transparent 45%),
+    repeating-linear-gradient(90deg, transparent 0 62px, rgba(255,255,255,.04) 63px, transparent 66px);
+  mix-blend-mode: screen;
+  opacity: .62;
+}
+.titleblock > * { position: relative; z-index: 1; }
+.kicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 8px 0 4px;
+  font-size: clamp(31px, 5.4vw, 82px);
+  line-height: .94;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px var(--glow), 0 10px 30px rgba(0,0,0,.62);
+}
+.subtitle {
+  color: var(--muted);
+  margin: 0;
+  font-size: clamp(14px, 1.7vw, 20px);
+  max-width: 920px;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  max-width: 520px;
+  position: relative;
+  z-index: 5;
+}
+.btn {
+  min-height: 46px;
+  padding: 11px 16px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.07)),
+    linear-gradient(135deg, rgba(8,14,28,.38), rgba(8,14,28,.78)),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 14px 28px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.22);
+  font-weight: 900;
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+}
+.btn:hover, .btn:focus-visible {
+  outline: 2px solid var(--accent);
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 18px 36px rgba(0,0,0,.42), 0 0 22px var(--glow), inset 0 1px 0 rgba(255,255,255,.24);
+}
+.btn:active { transform: translateY(1px) scale(.99); }
+.btn.primary {
+  color: #121212;
+  background: linear-gradient(135deg, var(--accent), #fff1a6 52%, #ffffff);
+  box-shadow: 0 15px 30px rgba(0,0,0,.36), 0 0 24px var(--glow), inset 0 1px 0 rgba(255,255,255,.52);
+}
+.btn.warn {
+  color: #191102;
+  background: linear-gradient(135deg, #ffbf69, var(--accent3));
+}
+.btn.ghost {
+  color: var(--muted);
+  background: rgba(255,255,255,.04);
+}
+.scorebar {
+  max-width: 1480px;
+  margin: 0 auto 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: stretch;
+  animation: hudRise .82s cubic-bezier(.16, 1, .3, 1) .12s both;
+}
+@keyframes hudRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.teams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+.team {
+  position: relative;
+  min-height: 92px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.11), rgba(5,9,18,.68)),
+    radial-gradient(circle at 82% 0%, var(--glow), transparent 34%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 16px 35px rgba(0,0,0,.36), inset 0 0 55px rgba(255,255,255,.035);
+  backdrop-filter: blur(13px) saturate(1.25);
+}
+.team.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 28px var(--glow), inset 0 0 50px rgba(255,255,255,.04);
+  animation: activePulse 1.9s ease-in-out infinite;
+}
+.team.solo {
+  border-color: var(--accent2);
+  box-shadow: 0 0 30px rgba(77,213,255,.22), inset 0 0 50px rgba(255,255,255,.04);
+}
+@keyframes activePulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.12); }
+}
+.team input {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 6px;
+  padding: 7px 9px;
+  color: var(--text);
+  background: rgba(255,255,255,.07);
+  font-weight: 800;
+}
+.score {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+}
+.score strong {
+  color: var(--accent);
+  font-size: 32px;
+  line-height: 1;
+  text-shadow: 0 0 16px var(--glow);
+}
+.score-actions {
+  display: flex;
+  gap: 6px;
+}
+.score-actions button {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.12);
+  font-weight: 900;
+}
+.soundbox {
+  width: 184px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.1), rgba(6,10,20,.74)),
+    var(--panel-art) center / cover no-repeat;
+  padding: 10px;
+  box-shadow: 0 16px 35px rgba(0,0,0,.34), inset 0 0 50px rgba(255,255,255,.03);
+  backdrop-filter: blur(13px);
+}
+.equalizer {
+  height: 42px;
+  display: flex;
+  align-items: end;
+  gap: 5px;
+  margin-top: 8px;
+}
+.equalizer span {
+  flex: 1;
+  min-width: 8px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  transform-origin: bottom;
+  animation: bars 900ms ease-in-out infinite;
+  animation-play-state: paused;
+}
+.music-on .equalizer span { animation-play-state: running; }
+.equalizer span:nth-child(2) { animation-delay: 120ms; }
+.equalizer span:nth-child(3) { animation-delay: 240ms; }
+.equalizer span:nth-child(4) { animation-delay: 80ms; }
+.equalizer span:nth-child(5) { animation-delay: 180ms; }
+@keyframes bars {
+  0%, 100% { height: 15%; }
+  45% { height: 95%; }
+}
+.board-wrap {
+  max-width: 1480px;
+  margin: 0 auto;
+  overflow-x: auto;
+  padding: clamp(38px, 5.2vw, 80px) clamp(28px, 6.4vw, 98px) clamp(48px, 6.4vw, 92px);
+  perspective: 1700px;
+  border-radius: 8px;
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.12), rgba(1,4,12,.44)),
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,255,255,.10), transparent 28%),
+    var(--board-frame) center / cover no-repeat;
+  border: 1px solid rgba(255,255,255,.11);
+  box-shadow: 0 34px 95px rgba(0,0,0,.64), 0 0 42px rgba(0,180,255,.12), inset 0 0 90px rgba(255,255,255,.03);
+  backdrop-filter: blur(8px);
+  animation: boardStageBoot 1.05s cubic-bezier(.16, 1, .3, 1) both, boardPower 6s ease-in-out 1.1s infinite;
+}
+.board-wrap::before,
+.board-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.board-wrap::before {
+  background:
+    linear-gradient(115deg, transparent 0 36%, rgba(255,255,255,.22) 45%, transparent 55%),
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,209,102,.18), transparent 24%);
+  mix-blend-mode: screen;
+  opacity: .78;
+  animation: boardSweep 4.6s ease-in-out infinite;
+}
+.board-wrap::after {
+  box-shadow: inset 0 0 70px rgba(0,0,0,.55), inset 0 0 34px rgba(255,209,102,.10);
+}
+@keyframes boardStageBoot {
+  from { opacity: 0; transform: perspective(1200px) rotateX(12deg) translateY(54px) scale(.94); filter: blur(10px) brightness(.82); }
+  to { opacity: 1; transform: perspective(1200px) rotateX(0deg) translateY(0) scale(1); filter: blur(0) brightness(1); }
+}
+@keyframes boardPower {
+  0%, 100% { box-shadow: 0 34px 95px rgba(0,0,0,.64), 0 0 38px rgba(0,180,255,.12), inset 0 0 90px rgba(255,255,255,.03); }
+  50% { box-shadow: 0 38px 110px rgba(0,0,0,.68), 0 0 58px rgba(255,209,102,.18), inset 0 0 105px rgba(255,255,255,.05); }
+}
+@keyframes boardSweep {
+  0%, 54%, 100% { transform: translateX(-45%); opacity: .18; }
+  70% { transform: translateX(42%); opacity: .82; }
+}
+.board {
+  width: 100%;
+  min-width: min(940px, 100%);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  transform: rotateX(calc(2.6deg + var(--tilt-y))) rotateY(var(--tilt-x)) translateZ(0);
+  transform-style: preserve-3d;
+  transform-origin: center top;
+  transition: transform 110ms linear;
+  will-change: transform;
+}
+.cat, .tile {
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.16);
+  text-align: center;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  opacity: 1;
+  will-change: transform, filter;
+}
+body:not(.game-booted) .cat,
+body:not(.game-booted) .tile {
+  opacity: 0;
+  animation: tileBoot .72s cubic-bezier(.16, 1, .3, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 34ms + 260ms);
+}
+body.game-booted .cat,
+body.game-booted .tile:not(.used) {
+  animation: tileLive calc(5.2s + var(--i, 0) * 70ms) ease-in-out infinite;
+}
+@keyframes tileBoot {
+  from { opacity: 0; transform: translateY(32px) rotateX(18deg) scale(.86); filter: blur(8px) brightness(.7); }
+  66% { opacity: 1; filter: blur(0) brightness(1.16); }
+  to { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); filter: blur(0) brightness(1); }
+}
+@keyframes tileLive {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.08) saturate(1.1); }
+}
+.cat {
+  min-height: 82px;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.24), rgba(4,10,26,.48)),
+    linear-gradient(135deg, color-mix(in srgb, var(--tile), transparent 12%), color-mix(in srgb, var(--tile2), transparent 20%)),
+    var(--tile-art) center / cover no-repeat;
+  text-transform: uppercase;
+  font-size: clamp(14px, 1.5vw, 20px);
+  font-weight: 950;
+  line-height: 1.08;
+  color: #fff8d8;
+  text-shadow: 0 2px 0 rgba(0,0,0,.35);
+  box-shadow: inset 0 0 28px rgba(255,255,255,.08), 0 12px 24px rgba(0,0,0,.32);
+}
+.tile {
+  min-height: 88px;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.04) 40%, rgba(0,0,0,.18)),
+    radial-gradient(circle at 50% 18%, rgba(255,255,255,.28), transparent 28%),
+    linear-gradient(145deg, color-mix(in srgb, var(--tile), transparent 40%), color-mix(in srgb, var(--tile2), transparent 52%)),
+    var(--tile-art) center / cover no-repeat;
+  color: var(--accent);
+  font-size: clamp(26px, 4.2vw, 48px);
+  font-weight: 1000;
+  text-shadow: 0 0 12px var(--glow), 0 2px 0 rgba(0,0,0,.55);
+  box-shadow: 0 14px 22px rgba(0,0,0,.32), inset 0 0 42px rgba(255,255,255,.045);
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+  isolation: isolate;
+}
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+  background:
+    linear-gradient(115deg, transparent 0 36%, rgba(255,255,255,.28) 43%, transparent 51%),
+    radial-gradient(circle at 50% 18%, rgba(255,255,255,.38), transparent 22%);
+  transform: translateX(-36%) rotate(8deg);
+  transition: transform 350ms ease;
+}
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(100deg, transparent 0 38%, rgba(255,255,255,.30) 48%, transparent 58%),
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.22), transparent 34%);
+  mix-blend-mode: screen;
+  opacity: .18;
+  transform: translateX(-110%);
+  animation: tileScan 3.7s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+@keyframes tileScan {
+  0%, 58%, 100% { transform: translateX(-115%); opacity: 0; }
+  68% { opacity: .45; }
+  86% { transform: translateX(115%); opacity: 0; }
+}
+.tile:hover {
+  transform: translateY(-4px) translateZ(34px) rotateX(-7deg);
+  filter: brightness(1.15);
+  box-shadow: 0 18px 34px rgba(0,0,0,.44), 0 0 30px var(--glow), inset 0 0 46px rgba(255,255,255,.07);
+}
+.tile:hover::before { transform: translateX(28%) rotate(8deg); }
+.tile.selected {
+  z-index: 5;
+  animation: tileSelect .38s cubic-bezier(.16, 1, .3, 1) both !important;
+}
+@keyframes tileSelect {
+  0% { transform: scale(1) translateZ(0); filter: brightness(1); }
+  42% { transform: scale(1.1) translateZ(80px) rotateX(-10deg); filter: brightness(1.45); box-shadow: 0 0 44px var(--glow), 0 20px 50px rgba(0,0,0,.5); }
+  100% { transform: scale(1.03) translateZ(16px); filter: brightness(1.2); }
+}
+.tile.used {
+  color: rgba(255,255,255,.24);
+  background:
+    linear-gradient(135deg, rgba(0,0,0,.72), rgba(255,255,255,.035)),
+    var(--tile-art) center / cover no-repeat;
+  transform: none;
+  box-shadow: inset 0 0 32px rgba(0,0,0,.35);
+  cursor: not-allowed;
+  animation: tileOff .42s ease-out both;
+}
+.tile.used::before { opacity: .08; }
+.tile.used::after { opacity: 0; animation: none; }
+@keyframes tileOff {
+  from { filter: brightness(1.6); }
+  to { filter: brightness(.72); }
+}
+.tile.daily::after {
+  content: "DD";
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  font-size: 12px;
+  color: #111;
+  background: var(--accent3);
+  border-radius: 4px;
+  padding: 2px 5px;
+  opacity: .9;
+}
+.statusline {
+  max-width: 1480px;
+  margin: 8px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.pill {
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  border-radius: 999px;
+  padding: 7px 10px;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,209,102,.1), transparent 34%),
+    rgba(2, 4, 10, .78);
+  backdrop-filter: blur(14px) saturate(1.2);
+}
+.modal.show { display: flex; }
+.dialog {
+  width: min(980px, 100%);
+  max-height: min(92vh, 880px);
+  overflow: auto;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 14% 6%, rgba(255,255,255,.14), transparent 24%),
+    linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,0) 32%),
+    linear-gradient(145deg, rgba(6,10,22,.82), rgba(11,13,27,.95)),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 34px 120px rgba(0,0,0,.72), 0 0 55px var(--glow), inset 0 1px 0 rgba(255,255,255,.12);
+  transform: perspective(1200px) rotateX(4deg);
+  animation: modalIn 220ms ease-out;
+}
+.modal[data-mode="daily"] .dialog {
+  background:
+    linear-gradient(180deg, rgba(6,9,18,.18), rgba(6,9,18,.58)),
+    var(--daily-art) center / cover no-repeat;
+}
+.modal[data-mode="final"] .dialog {
+  background:
+    linear-gradient(180deg, rgba(6,9,18,.16), rgba(6,9,18,.62)),
+    var(--final-art) center / cover no-repeat;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: perspective(1200px) rotateX(18deg) scale(.92); }
+  to { opacity: 1; transform: perspective(1200px) rotateX(4deg) scale(1); }
+}
+.dialog-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.13);
+}
+.dialog-head h2 {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 38px);
+  text-transform: uppercase;
+}
+.dialog-body { padding: 20px; }
+.clue-text {
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 38px);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 0%, var(--glow), transparent 42%),
+    linear-gradient(145deg, rgba(255,255,255,.14), rgba(2,7,20,.56)),
+    var(--clue-art) center / cover no-repeat;
+  font-size: clamp(23px, 4vw, 48px);
+  line-height: 1.08;
+  font-weight: 900;
+  text-align: center;
+  text-shadow: 0 0 18px rgba(255,255,255,.1);
+  box-shadow: inset 0 0 80px rgba(255,255,255,.04), 0 20px 45px rgba(0,0,0,.28);
+}
+.modal[data-mode="daily"] .clue-text {
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.42)),
+    var(--daily-art) center / cover no-repeat;
+  min-height: 260px;
+}
+.modal[data-mode="final"] .clue-text {
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.46)),
+    var(--final-art) center / cover no-repeat;
+  min-height: 280px;
+}
+.answer-box {
+  margin-top: 14px;
+  padding: 16px;
+  border-left: 4px solid var(--accent);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.09), rgba(5,9,20,.74)),
+    var(--panel-art) center / cover no-repeat;
+  border-radius: 8px;
+}
+.answer-box.good { border-left-color: var(--ok); }
+.answer-box.bad { border-left-color: var(--danger); }
+.answer-box.judge { border-left-color: var(--accent); }
+.answer-box h3 {
+  margin: 0 0 8px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.answer-box p { margin: 7px 0; color: #eef5ff; line-height: 1.45; }
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.wager-grid, .final-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.wager-card {
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  padding: 12px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.08), rgba(4,8,18,.70)),
+    var(--panel-art) center / cover no-repeat;
+}
+.wager-card label {
+  display: block;
+  color: var(--muted);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.wager-card input, .final-grid textarea, .quick-answer {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 7px;
+  color: var(--text);
+  background: rgba(0,0,0,.22);
+  padding: 10px;
+}
+.quick-answer {
+  min-height: 50px;
+  font-size: 18px;
+  box-shadow: inset 0 0 22px rgba(0,0,0,.25);
+}
+.quick-answer:focus, .wager-card input:focus, .final-grid textarea:focus, .team input:focus {
+  outline: 2px solid var(--accent);
+  border-color: var(--accent);
+}
+.final-grid textarea { min-height: 92px; resize: vertical; }
+.score-result {
+  display: grid;
+  grid-template-columns: minmax(120px, .8fr) minmax(180px, 1.2fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+.score-result strong { color: var(--accent); }
+.auto-meter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  margin: 12px 0 0;
+  color: var(--muted);
+}
+.meter-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.09);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.meter-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--danger), var(--accent), var(--ok));
+  box-shadow: 0 0 18px var(--glow);
+}
+.flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 45;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(255,255,255,.58), transparent 36%);
+}
+.flash.good { background: radial-gradient(circle at 50% 45%, rgba(54,230,164,.62), transparent 36%); }
+.flash.bad { background: radial-gradient(circle at 50% 45%, rgba(255,95,101,.58), transparent 36%); }
+.flash.final { background: radial-gradient(circle at 50% 45%, rgba(255,209,102,.68), transparent 40%); }
+.flash.play { animation: flashHit 480ms ease-out; }
+@keyframes flashHit {
+  0% { opacity: 0; transform: scale(.86); }
+  24% { opacity: .55; }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+.hidden { display: none !important; }
+.tiny { color: var(--muted); font-size: 13px; line-height: 1.35; }
+@media (max-width: 860px) {
+  .topbar, .scorebar { grid-template-columns: 1fr; }
+  .controls { justify-content: stretch; max-width: none; }
+  .btn { flex: 1 1 auto; }
+  .soundbox { width: auto; }
+  h1, .subtitle { max-width: none; }
+  .titleblock { min-height: auto; }
+  .board-wrap { padding: 16px 8px 20px; background-position: center; overflow-x: hidden; }
+  .board { min-width: 0; width: 100%; gap: clamp(5px, 1.2vw, 9px); }
+  .cat { min-height: 72px; padding: 7px 5px; font-size: clamp(10px, 2.35vw, 14px); line-height: 1.02; }
+  .tile { min-height: 76px; padding: 6px 4px; font-size: clamp(20px, 6vw, 34px); }
+  .app { padding-left: 10px; padding-right: 10px; }
+}
+
+/* MRMAC_JEOPARDY_POLISH_V2 */
+:root {
+  --panel: rgba(3, 8, 20, .88);
+  --line: rgba(255,255,255,.22);
+  --text: #fbfdff;
+  --muted: #d4e0f6;
+}
+body {
+  font-family: "Trebuchet MS", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #030712;
+}
+#arenaBg {
+  background:
+    linear-gradient(180deg, rgba(2,5,12,.08), rgba(2,5,12,.52) 48%, rgba(2,5,12,.9)),
+    radial-gradient(circle at 50% 22%, rgba(255,209,102,.14), transparent 28%),
+    var(--arena) center / cover no-repeat;
+  filter: saturate(1.18) contrast(1.11) brightness(.92);
+}
+.scanlines {
+  opacity: .26;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.025), rgba(255,255,255,.025) 1px, transparent 1px, transparent 5px);
+}
+.topbar {
+  gap: clamp(10px, 1.8vw, 18px);
+  margin-bottom: clamp(10px, 1.4vw, 16px);
+}
+.titleblock,
+.team,
+.soundbox,
+.dialog,
+.answer-box,
+.wager-card {
+  border-color: rgba(255,255,255,.22);
+  background-blend-mode: normal, screen, normal;
+}
+.titleblock {
+  min-height: 116px;
+  padding: clamp(15px, 2vw, 22px);
+  background:
+    linear-gradient(135deg, rgba(2,7,17,.78), rgba(3,8,22,.92)),
+    radial-gradient(circle at 18% 0%, rgba(255,209,102,.18), transparent 38%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 24px 72px rgba(0,0,0,.58), inset 0 0 90px rgba(255,255,255,.045), 0 0 0 1px rgba(255,255,255,.08);
+}
+.titleblock::before { opacity: .42; }
+.kicker {
+  letter-spacing: .06em;
+  color: #ffe59b;
+}
+h1 {
+  font-size: clamp(30px, 4.8vw, 70px);
+  line-height: 1.14;
+  text-wrap: balance;
+}
+.subtitle {
+  color: #d8e4fa;
+  line-height: 1.35;
+}
+.controls { gap: 9px; }
+.btn {
+  min-height: 44px;
+  border-radius: 7px;
+  color: #f9fcff;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.06)),
+    linear-gradient(135deg, rgba(5,12,28,.72), rgba(7,10,24,.92)),
+    var(--panel-art) center / cover no-repeat;
+}
+.btn.ghost { color: #dce7fa; background: rgba(255,255,255,.075); }
+.btn.primary { color: #101319; }
+.team {
+  min-height: 82px;
+  background:
+    linear-gradient(135deg, rgba(2,8,19,.82), rgba(3,7,18,.92)),
+    radial-gradient(circle at 82% 0%, rgba(255,209,102,.13), transparent 32%),
+    var(--panel-art) center / cover no-repeat;
+}
+.team input,
+.wager-card input,
+.final-grid textarea,
+.quick-answer {
+  color: #fbfdff;
+  background: rgba(0,0,0,.42);
+  border-color: rgba(255,255,255,.24);
+}
+.score strong { font-size: clamp(24px, 2.4vw, 34px); }
+.board-wrap {
+  padding: clamp(30px, 4.8vw, 72px) clamp(20px, 5.5vw, 86px) clamp(38px, 5.6vw, 82px);
+  border-color: rgba(255,255,255,.18);
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.10), rgba(1,4,12,.48)),
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,255,255,.11), transparent 25%),
+    var(--board-frame) center / cover no-repeat;
+  box-shadow: 0 34px 100px rgba(0,0,0,.70), 0 0 45px rgba(0,180,255,.14), inset 0 0 90px rgba(255,255,255,.035);
+  overflow-x: hidden;
+}
+.board { gap: clamp(7px, 1vw, 13px); }
+.cat,
+.tile {
+  border-color: rgba(255,255,255,.22);
+  border-radius: 7px;
+}
+.cat {
+  min-height: clamp(70px, 6.3vw, 92px);
+  padding: 9px 8px;
+  color: #fff4bf;
+  font-size: clamp(13px, 1.35vw, 19px);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.04) 46%, rgba(0,0,0,.34)),
+    linear-gradient(145deg, rgba(5,22,58,.86), rgba(20,12,58,.88)),
+    var(--tile-art) center / cover no-repeat;
+}
+.tile {
+  min-height: clamp(78px, 7.3vw, 106px);
+  color: #ffdc6a;
+  font-size: clamp(25px, 3.6vw, 46px);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.23), rgba(255,255,255,.035) 42%, rgba(0,0,0,.26)),
+    radial-gradient(circle at 50% 16%, rgba(255,255,255,.26), transparent 26%),
+    linear-gradient(145deg, rgba(6,32,84,.88), rgba(28,13,72,.90)),
+    var(--tile-art) center / cover no-repeat;
+  box-shadow: 0 14px 22px rgba(0,0,0,.38), inset 0 0 42px rgba(255,255,255,.05), inset 0 -14px 32px rgba(0,0,0,.20);
+}
+.tile:hover,
+.tile:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.statusline { color: #d7e3f7; }
+.pill { background: rgba(0,0,0,.34); border-color: rgba(255,255,255,.18); }
+.modal {
+  padding: clamp(10px, 2vw, 22px);
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,209,102,.12), transparent 34%),
+    rgba(0, 2, 8, .86);
+}
+.dialog {
+  width: min(1040px, calc(100vw - 22px));
+  max-height: min(94vh, 900px);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(4,8,18,.72), rgba(4,8,18,.94)),
+    radial-gradient(circle at 12% 6%, rgba(255,255,255,.10), transparent 22%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 34px 120px rgba(0,0,0,.78), 0 0 60px rgba(255,209,102,.20), inset 0 1px 0 rgba(255,255,255,.14);
+}
+.modal[data-mode="daily"] .dialog,
+.modal[data-mode="final"] .dialog {
+  background:
+    linear-gradient(180deg, rgba(3,6,16,.62), rgba(3,6,16,.94)),
+    var(--final-art) center / cover no-repeat;
+}
+.dialog-head {
+  padding: clamp(12px, 2vw, 18px) clamp(14px, 2.4vw, 22px);
+  align-items: center;
+}
+.dialog-head h2 {
+  font-size: clamp(19px, 2.5vw, 32px);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.dialog-body { padding: clamp(13px, 2.2vw, 22px); }
+.clue-text {
+  min-height: clamp(190px, 31vh, 315px);
+  border-color: rgba(255,255,255,.20);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(2,6,17,.50), rgba(2,6,17,.78)),
+    radial-gradient(circle at 50% 0%, rgba(255,209,102,.13), transparent 38%),
+    var(--clue-art) center / cover no-repeat;
+  color: #fbfdff;
+  font-size: clamp(22px, 3.1vw, 42px);
+  line-height: 1.16;
+  letter-spacing: 0;
+  text-wrap: balance;
+  text-shadow: 0 3px 14px rgba(0,0,0,.82), 0 0 20px rgba(255,255,255,.10);
+}
+.modal[data-mode="daily"] .clue-text,
+.modal[data-mode="final"] .clue-text {
+  min-height: clamp(210px, 35vh, 335px);
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.48), rgba(1,4,12,.82)),
+    var(--clue-art) center / cover no-repeat;
+}
+.answer-box,
+.wager-card {
+  background:
+    linear-gradient(135deg, rgba(3,8,19,.84), rgba(3,6,16,.95)),
+    var(--panel-art) center / cover no-repeat;
+}
+.answer-box p { color: #f1f7ff; }
+.wager-grid,
+.final-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.score-result {
+  grid-template-columns: minmax(120px, .75fr) minmax(220px, 1.4fr) auto auto;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  padding: 8px;
+  background: rgba(0,0,0,.24);
+}
+@media (max-width: 860px) {
+  .app { padding: 10px 7px 22px; }
+  .topbar, .scorebar { gap: 9px; margin-bottom: 9px; }
+  .titleblock { padding: 13px; min-height: auto; }
+  .kicker { font-size: 10px; gap: 6px; }
+  h1 { font-size: clamp(27px, 8.6vw, 43px); line-height: 1; }
+  .subtitle { font-size: 13px; }
+  .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .btn { min-height: 41px; padding: 8px 9px; font-size: 13px; }
+  .teams { grid-template-columns: repeat(auto-fit, minmax(142px, 1fr)); gap: 7px; }
+  .team { min-height: 70px; padding: 8px; }
+  .score strong { font-size: 24px; }
+  .score-actions button { width: 30px; height: 30px; }
+  .soundbox { display: none; }
+  .board-wrap {
+    padding: 12px 6px 16px;
+    border-radius: 10px;
+    overflow-x: hidden;
+  }
+  .board {
+    width: 100%;
+    min-width: 0;
+    gap: 7px;
+    transform: none;
+    scroll-snap-align: start;
+  }
+  .cat { min-height: 68px; padding: 7px 5px; font-size: 12px; line-height: 1.06; }
+  .tile { min-height: 72px; padding: 6px 3px; font-size: 29px; }
+  .tile.daily::after { right: 4px; top: 4px; font-size: 9px; padding: 1px 3px; }
+  .dialog { width: calc(100vw - 12px); max-height: 96vh; border-radius: 10px; }
+  .dialog-head { padding: 11px 12px; gap: 8px; }
+  .dialog-head h2 { font-size: clamp(18px, 5vw, 24px); }
+  .dialog-body { padding: 11px; }
+  .clue-text { min-height: 190px; padding: 16px 12px; font-size: clamp(19px, 5.4vw, 29px); line-height: 1.18; }
+  .modal[data-mode="daily"] .clue-text,
+  .modal[data-mode="final"] .clue-text { min-height: 205px; }
+  .wager-grid,
+  .final-grid { grid-template-columns: 1fr; }
+  .score-result { grid-template-columns: 1fr; align-items: stretch; }
+  .score-result .btn { width: 100%; }
+}
+@media (max-width: 430px) {
+  .board { width: 100%; min-width: 0; gap: 5px; }
+  .cat { min-height: 58px; font-size: 10px; }
+  .tile { min-height: 58px; font-size: 23px; }
+  .controls { grid-template-columns: 1fr 1fr; }
+}
+
+/* MRMAC_PERF_LITE_CSS */
+html.perf-lite #space,
+html.perf-lite .stage-wipe,
+html.perf-lite #arenaBg::before {
+  display: none !important;
+}
+html.perf-lite #arenaBg {
+  transform: none !important;
+  transition: none !important;
+  filter: saturate(1.03) contrast(1.01) !important;
+}
+html.perf-lite .scanlines { opacity: .16 !important; mix-blend-mode: normal !important; }
+html.perf-lite .board,
+html.perf-lite .board::before,
+html.perf-lite .tile:not(.selected):not(.revealed),
+html.perf-lite .tile::after,
+html.perf-lite .active,
+html.perf-lite .bars i {
+  animation: none !important;
+}
+html.perf-lite .titleblock,
+html.perf-lite .scoreboard,
+html.perf-lite .team-card,
+html.perf-lite .board,
+html.perf-lite .modal-card,
+html.perf-lite .final-card,
+html.perf-lite .control-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 16px 44px rgba(0,0,0,.38) !important;
+}
+/* MRMAC_DETAIL_PATCH_V1 */
+.answer-box .accepted-answers { margin: 8px 0 14px; color: var(--muted); font-size: 0.92em; line-height: 1.55; letter-spacing: 0.005em; }
+.answer-box .accepted-answers strong { color: var(--accent); font-weight: 600; }
+.answer-box .accepted-answers .alias-chip { display: inline-block; padding: 2px 9px; margin: 2px 4px 2px 0; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.04); color: var(--text); font-size: 0.92em; }
+.answer-box h3 + p strong { color: var(--accent); }
+
+
+
+/* ── MRMAC_POLISH_2026_05_09 — editorial polish layer ───────────────
+   Brings every standalone review board into the Mr. Mac's Arcade editorial
+   system: Fraunces / Inter / JetBrains Mono ladder, monoline icons via
+   .ic, tabular-nums on every live numeric, focus rings, ambient pulse on
+   the primary CTA only, ≥44px coarse-pointer touch targets, reduced-
+   motion respected. */
+.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.16em; flex-shrink: 0; color: currentColor; fill: none; }
+.ic path, .ic line, .ic polyline, .ic polygon, .ic rect, .ic circle, .ic ellipse { vector-effect: non-scaling-stroke; }
+.score, #score, .timer, #timer, .points, [data-points], #total, [data-stat], [data-numeric] { font-variant-numeric: tabular-nums; font-feature-settings: "tnum","lnum"; }
+button, select, input, .btn { font-family: "Inter", system-ui, sans-serif; }
+h1, h2, h3, .title, .heading, .display { font-family: "Fraunces", Georgia, serif; font-style: italic; }
+.eyebrow, .label, .meta, .pill, .chip, .tag { font-family: "JetBrains Mono", "SFMono-Regular", monospace; }
+button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid rgba(122, 240, 255, .65);
+  outline-offset: 2px;
+}
+@keyframes mrmacBreath {
+  0%, 100% { box-shadow: 0 14px 32px rgba(245,196,81,.18), 0 0 0 0 rgba(245,196,81,0); }
+  50%      { box-shadow: 0 18px 40px rgba(245,196,81,.30), 0 0 22px rgba(245,196,81,.20); }
+}
+.btn.primary:not(:disabled), button.primary:not(:disabled), [data-cta="primary"]:not(:disabled) {
+  animation: mrmacBreath 4.6s ease-in-out infinite;
+}
+.btn.primary:hover, button.primary:hover, [data-cta="primary"]:hover,
+.btn.primary:focus-visible, button.primary:focus-visible, [data-cta="primary"]:focus-visible {
+  animation: none;
+}
+@media (pointer: coarse) {
+  button, .btn, select, input, [role="button"] { min-height: 44px; }
+  .tile, .clue, .answer, .choice { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn.primary:not(:disabled), button.primary:not(:disabled), [data-cta="primary"]:not(:disabled) {
+    animation: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<div id="arenaBg" aria-hidden="true"></div>
+<div class="stage-wipe" aria-hidden="true"></div>
+<canvas id="space" aria-hidden="true"></canvas>
+<div class="scanlines" aria-hidden="true"></div>
+<div class="flash" id="flash" aria-hidden="true"></div>
+<main class="app">
+  <section class="topbar">
+    <div class="titleblock">
+      <div class="kicker"><span>Unit 1</span><span>NYS Global History Regents 2026 Review</span></div>
+      <h1>World in 1750</h1>
+      <p class="subtitle">A full Jeopardy-style practice game for Grade 10 Global History II, with auto scoring, explanations, Daily Double, and Final Wager.</p>
+    </div>
+    <div class="controls">
+      <button class="btn primary" id="finalBtn">Final Jeopardy</button>
+      <button class="btn" id="soloBtn">Solo Play</button>
+      <button class="btn" id="addTeamBtn">Add Team</button>
+      <button class="btn ghost" id="resetBtn">Reset</button>
+      <button class="btn" id="musicBtn">Sound On</button>
+    </div>
+  </section>
+  <section class="scorebar">
+    <div class="teams" id="teams"></div>
+    <aside class="soundbox" id="soundbox">
+      <div class="tiny">Audio-reactive review arena</div>
+      <div class="equalizer" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+    </aside>
+  </section>
+  <section class="board-wrap" aria-label="Review board">
+    <div class="board" id="board"></div>
+  </section>
+  <section class="statusline">
+    <span class="pill" id="activeStatus">Active team: Team 1</span>
+    <span class="pill" id="progressStatus">0 of 25 clues complete</span>
+    <span class="pill">Type a response and use Auto Score, with teacher override available.</span>
+  </section>
+</main>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="dialog">
+    <div class="dialog-head">
+      <div>
+        <h2 id="modalTitle">Clue</h2>
+        <div class="tiny" id="modalMeta"></div>
+      </div>
+      <button class="btn ghost" id="closeModal">Close</button>
+    </div>
+    <div class="dialog-body" id="modalBody"></div>
+  </div>
+</div>
+<script>
+const GAME = {"slug":"grade-10-ela-03-reading-informational-main-idea-argument-evidence","file":"03 - Reading Informational - Main Idea Argument Evidence Jeopardy Review.html","day":"Unit 3","title":"Reading Informational - Main Idea Argument Evidence","subtitle":"A full Jeopardy-style practice game for Grade 10 ELA, with auto scoring, explanations, Daily Double, and Final Wager.","exam":"Grade 10 ELA Review","palette":{"accent":"#2563eb","accent2":"#93c5fd","accent3":"#22d3ee","glow":"rgba(37,99,235,.30)","tile":"#0c1f4a","tile2":"#1e3a8a"},"assetSet":"global","standards":["NYS Next Generation ELA Standards / Common Core"],"tokens":["Theme","Argument","Voice"],"categories":[{"name":"Main Idea and Details","clues":[{"value":100,"clue":"The single most important point of an informational text is called this.","answer":"Main idea","aliases":["Main idea","Central idea","Thesis","Primary point","Controlling idea"],"explanation":"Main idea (central idea) is the overarching point of an informational text, supported by details, examples, and evidence. RI.9-10.2 explicitly asks students to determine a central idea and analyze its development. Regents Part 2 multiple-choice routinely tests with 'Which sentence best states the central idea?' Part 3 source-based argument essays require synthesizing central ideas across multiple texts. Distinct from a topic (one or two words); a main idea is a complete sentence asserting a position.","sourceClue":"The single most important point of an informational text is called this.","sourceExplanation":"Main idea: The single most important point of an informational text is called this.","rigor":{"value":100,"skill":"identify key content","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":200,"clue":"Specific facts, examples, statistics, and quotations that prove a main idea are called these.","answer":"Supporting details","aliases":["Supporting details","Evidence","Supporting evidence","Textual support","Details"],"explanation":"Supporting details are the specific facts, examples, anecdotes, statistics, and quotations that prove a main idea. RI.9-10.1 requires citing strong and thorough textual evidence; RI.9-10.2 analyzes how details develop central ideas. Regents Part 2 multiple-choice routinely tests detail-main-idea relationships. Part 3 source-based argument essays demand specific details, not paraphrased generalities. AP Lang argument and synthesis essays both rate evidence specificity heavily.","sourceClue":"Specific facts, examples, statistics, and quotations that prove a main idea are called these.","sourceExplanation":"Supporting details: Specific facts, examples, statistics, and quotations that prove a main idea are called these.","rigor":{"value":200,"skill":"match content to unit context","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":300,"clue":"Eyewitness testimony, original documents, and primary records are this kind of source.","answer":"Primary source","aliases":["Primary source","Original source","Firsthand source","Primary document"],"explanation":"Primary sources originate from the time and place of the event: diaries, letters, speeches, photographs, government records, interviews. Wiesel's Night functions as a primary source on the Holocaust. RI.9-10.1 requires citing strong textual evidence. Regents Part 3 source-based argument essays explicitly mix primary and secondary sources; identifying which is which unlocks evaluation. AP US History training also emphasizes this distinction. Common Core's research strand requires source-type awareness.","sourceClue":"Eyewitness testimony, original documents, and primary records are this kind of source.","sourceExplanation":"Primary source: Eyewitness testimony, original documents, and primary records are this kind of source.","rigor":{"value":300,"skill":"explain cause, effect, or turning point","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":400,"clue":"When a writer makes a sweeping claim based on a single example, this fallacy occurs.","answer":"Hasty generalization","aliases":["Hasty generalization","Sweeping generalization","Overgeneralization","Anecdotal fallacy"],"explanation":"Hasty generalization draws a broad conclusion from insufficient evidence. 'My uncle smoked his whole life and lived to 95, so smoking isn't dangerous.' RI.9-10.8 requires evaluating reasoning and evidence sufficiency. Regents Part 3 source-based argument essays test recognition. AP Lang argument essays penalize hasty generalization in student writing and reward identification in source analysis. One anecdote rarely supports a universal claim. Distinct from a representative example (which is calibrated).","sourceClue":"When a writer makes a sweeping claim based on a single example, this fallacy occurs.","sourceExplanation":"Hasty generalization: When a writer makes a sweeping claim based on a single example, this fallacy occurs.","rigor":{"value":400,"skill":"connect evidence to a larger context","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":500,"clue":"An argument is sound only if its evidence is relevant and this in quantity.","answer":"Sufficient","aliases":["Sufficient","Adequate","Enough","Sufficient quantity","Sufficiency"],"explanation":"Evidence sufficiency means enough evidence supports the claim. A single example may suffice for an existence claim ('there is at least one X') but fails for a universal claim ('all X are Y'). RI.9-10.8 explicitly requires evaluating whether reasoning is valid and evidence is relevant and sufficient. Regents Part 3 source-based argument essays evaluate evidence quality. AP Lang argument essays score sophistication partly through evidence proportion: enough specific examples to convince without overload.","sourceClue":"An argument is sound only if its evidence is relevant and this in quantity.","sourceExplanation":"Sufficient: An argument is sound only if its evidence is relevant and this in quantity.","rigor":{"value":500,"skill":"synthesize a high-value exam pattern","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}}]},{"name":"Claim Types","clues":[{"value":100,"clue":"The author's arguable, defensible main position is called this in argumentation.","answer":"Claim","aliases":["Claim","Thesis","Main claim","Central claim","Position","Argument"],"explanation":"A claim is the author's arguable position. RI.9-10.6 examines purpose; RI.9-10.8 analyzes claims. Stephen Toulmin's argument model (claim, data, warrant, backing, rebuttal, qualifier) underlies most claim analysis. Regents Part 3 source-based argument essays require identifying claims across sources and forming the student's own. AP Lang's argument essay rubric weighs claim quality heavily. Strong claims are debatable; mere facts and topics are not claims. Distinguishing claim from topic is foundational.","sourceClue":"The author's arguable, defensible main position is called this in argumentation.","sourceExplanation":"Claim: The author's arguable, defensible main position is called this in argumentation.","rigor":{"value":100,"skill":"identify key content","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":200,"clue":"A claim asserting 'X is harmful' or 'X is just' is this kind of claim.","answer":"Claim of value","aliases":["Claim of value","Value claim","Evaluative claim","Moral claim","Ethical claim"],"explanation":"A claim of value judges merit, ethics, or aesthetics. King's letter argues a claim of value: 'There are just and there are unjust laws.' RI.9-10.8 distinguishes claim types. Toulmin's framework and Aristotelian rhetoric both classify claims by type. Regents Part 3 source-based argument essays frequently pose value questions ('Is technology helping or harming teens?'). AP Lang argument essays often require defending value claims with evidence and reasoning. Distinct from fact claims (verifiable) and policy claims (actionable).","sourceClue":"A claim asserting 'X is harmful' or 'X is just' is this kind of claim.","sourceExplanation":"Claim of value: A claim asserting 'X is harmful' or 'X is just' is this kind of claim.","rigor":{"value":200,"skill":"match content to unit context","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":300,"clue":"A claim asserting that something 'should be done' is this kind of claim.","answer":"Claim of policy","aliases":["Claim of policy","Policy claim","Action claim","Prescriptive claim","Should claim"],"explanation":"A claim of policy advocates a specific action ('Schools should adopt later start times'). Policy claims build on fact claims (problem exists) and value claims (problem is bad) to recommend action. RI.9-10.8 covers argument. Regents Part 3 source-based argument essays often pose policy questions. AP Lang argument essays frequently require policy positions. The structure problem-cause-solution organizes most policy arguments. Strong policy claims address feasibility, not just desirability.","sourceClue":"A claim asserting that something 'should be done' is this kind of claim.","sourceExplanation":"Claim of policy: A claim asserting that something 'should be done' is this kind of claim.","rigor":{"value":300,"skill":"explain cause, effect, or turning point","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":400,"clue":"Asserting that X happened because of Y is this kind of claim.","answer":"Claim of cause","aliases":["Claim of cause","Causal claim","Cause-effect claim","Etiological claim"],"explanation":"A claim of cause asserts that X causes Y (or Y is the effect of X). Causal claims require evidence beyond correlation: temporal sequence, mechanism, ruling out alternatives. RI.9-10.8 evaluates reasoning. Post hoc ergo propter hoc (assuming sequence implies causation) is a common causal fallacy. Regents Part 3 source-based arguments often hinge on causal claims. AP Lang argument essays explicitly stamp out fallacious causation. Strong causal claims acknowledge complexity, multiple causes, and counterexamples.","sourceClue":"Asserting that X happened because of Y is this kind of claim.","sourceExplanation":"Claim of cause: Asserting that X happened because of Y is this kind of claim.","rigor":{"value":400,"skill":"connect evidence to a larger context","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":500,"clue":"Asserting 'X means Y' or 'X is best classified as Z' is this kind of claim.","answer":"Claim of definition","aliases":["Claim of definition","Definitional claim","Categorical claim","Classification claim"],"explanation":"A claim of definition asserts what something is or how to classify it ('Civil disobedience is not lawlessness'). Definitional claims often underlie larger arguments: define the contested term first. RI.9-10.4 covers determining meaning; RI.9-10.8 evaluates argument. Regents Part 3 source-based argument essays often hinge on contested definitions. AP Lang argument and rhetorical analysis essays require precise definitional work. Aristotle's classification logic underlies definitional argument.","sourceClue":"Asserting 'X means Y' or 'X is best classified as Z' is this kind of claim.","sourceExplanation":"Claim of definition: Asserting 'X means Y' or 'X is best classified as Z' is this kind of claim.","rigor":{"value":500,"skill":"synthesize a high-value exam pattern","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}}]},{"name":"Logos Pathos Ethos","clues":[{"value":100,"clue":"Aristotle's appeal to logic, reasoning, and evidence is called this.","answer":"Logos","aliases":["Logos","Logical appeal","Appeal to logic","Logical reasoning"],"explanation":"Logos is Aristotle's appeal to logic, supported by facts, statistics, examples, and valid inference. From Rhetoric (Book 1), Aristotle's three artistic proofs are ethos, pathos, and logos. RI.9-10.6 covers rhetoric. Regents Part 3 source-based argument essays and AP Lang rhetorical analysis essays demand precise identification of logos: was evidence empirical, was syllogism valid? Quantitative data, expert testimony, and historical precedent all serve logos.","sourceClue":"Aristotle's appeal to logic, reasoning, and evidence is called this.","sourceExplanation":"Logos: Aristotle's appeal to logic, reasoning, and evidence is called this.","rigor":{"value":100,"skill":"identify key content","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":200,"clue":"An argument appealing to readers' grief, anger, or fear draws on this Aristotelian appeal.","answer":"Pathos","aliases":["Pathos","Emotional appeal","Appeal to emotion","Emotional rhetoric"],"explanation":"Pathos is Aristotle's appeal to emotion, mobilizing pity, anger, fear, hope, or pride. Wiesel's Night uses pathos to make Holocaust history viscerally felt. King's Birmingham letter describes 'when you have seen vicious mobs lynch your mothers and fathers' to evoke moral outrage. RI.9-10.6 covers rhetorical analysis. Regents Part 3 and AP Lang rhetorical analysis essays demand precise emotion-naming, not just 'this is emotional.' Strong analysis names what emotion is evoked and how.","sourceClue":"An argument appealing to readers' grief, anger, or fear draws on this Aristotelian appeal.","sourceExplanation":"Pathos: An argument appealing to readers' grief, anger, or fear draws on this Aristotelian appeal.","rigor":{"value":200,"skill":"match content to unit context","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":300,"clue":"The speaker's authority and credibility, in Aristotle's framework, is called this.","answer":"Ethos","aliases":["Ethos","Ethical appeal","Appeal to credibility","Speaker's character","Author's authority"],"explanation":"Ethos is Aristotle's appeal based on speaker character and credibility. King establishes ethos through his pastoral signature, theological quotations, and lived experience of civil rights. Wiesel's ethos rests on Auschwitz survivorship. RI.9-10.6 covers rhetorical analysis. Regents Part 3 source-based argument essays and AP Lang rhetorical analysis essays both routinely test ethos identification and effect. Strong ethos: authority, expertise, character. Failed ethos: hypocrisy, vagueness, lack of credentials.","sourceClue":"The speaker's authority and credibility, in Aristotle's framework, is called this.","sourceExplanation":"Ethos: The speaker's authority and credibility, in Aristotle's framework, is called this.","rigor":{"value":300,"skill":"explain cause, effect, or turning point","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":400,"clue":"Arguing 'we've always done it this way' commits this fallacy of unexamined custom.","answer":"Appeal to tradition","aliases":["Appeal to tradition","Tradition fallacy","Argumentum ad antiquitatem","Custom fallacy","Argument from tradition"],"explanation":"Appeal to tradition (argumentum ad antiquitatem) assumes that because something has been done a certain way, it should continue. Shirley Jackson's 'The Lottery' literalizes this fallacy: Old Man Warner says 'Lottery in June, corn be heavy soon.' RI.9-10.8 covers fallacies. AP Lang argument essays explicitly score fallacy recognition. Regents Part 3 source-based argument essays may test this fallacy in source texts. Distinct from precedent (which is reasoned tradition with stated justification).","sourceClue":"Arguing 'we've always done it this way' commits this fallacy of unexamined custom.","sourceExplanation":"Appeal to tradition: Arguing 'we've always done it this way' commits this fallacy of unexamined custom.","rigor":{"value":400,"skill":"connect evidence to a larger context","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"},"daily":true},{"value":500,"clue":"Arguing 'this expert says X, so X must be true' may commit this fallacy when the expert is outside their field.","answer":"Appeal to false authority","aliases":["Appeal to false authority","False authority","Inappropriate authority","Misplaced authority","Argumentum ad verecundiam"],"explanation":"Appeal to false authority (or inappropriate authority) cites an expert outside their area of expertise. 'Einstein opposed the atomic bomb, so we shouldn't use nuclear energy.' RI.9-10.8 covers evaluating argument. Distinct from legitimate appeal to expertise (citing a relevant expert is sound). AP Lang argument essays explicitly score fallacy recognition. Regents Part 3 source-based argument essays may plant this fallacy for student detection. Critical thinking depends on expert-domain matching.","sourceClue":"Arguing 'this expert says X, so X must be true' may commit this fallacy when the expert is outside their field.","sourceExplanation":"Appeal to false authority: Arguing 'this expert says X, so X must be true' may commit this fallacy when the expert is outside their field.","rigor":{"value":500,"skill":"synthesize a high-value exam pattern","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}}]},{"name":"Source Credibility","clues":[{"value":100,"clue":"A scholar's analysis of MLK's speeches, written decades later, is this kind of source.","answer":"Secondary source","aliases":["Secondary source","Scholarly source","Analytical source","Secondary literature"],"explanation":"Secondary sources analyze, interpret, or report on primary sources after the fact: textbooks, scholarly articles, biographies. A historian writing about MLK uses primary speeches and creates secondary work. RI.9-10.6 covers point of view; RI.9-10.7 analyzes accounts across mediums. Regents Part 3 source-based argument essays mix source types; evaluation requires distinction. AP Lang argument essays require source-type awareness. Common Core's research strand emphasizes both types.","sourceClue":"A scholar's analysis of MLK's speeches, written decades later, is this kind of source.","sourceExplanation":"Secondary source: A scholar's analysis of MLK's speeches, written decades later, is this kind of source.","rigor":{"value":100,"skill":"identify key content","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":200,"clue":"A study about teen behavior from 1995 may suffer from this credibility weakness for current claims.","answer":"Outdated currency","aliases":["Outdated","Outdated currency","Stale evidence","Lack of currency","Old data","Dated source"],"explanation":"Currency is one of five CRAAP-test source-evaluation criteria (Currency, Relevance, Authority, Accuracy, Purpose). Outdated data on rapidly changing topics (technology, public health, social trends) misleads. RI.9-10.8 covers source evaluation. Regents Part 3 source-based argument essays may include outdated statistics. AP Lang demands source vetting. W.9-10.8 explicitly covers source evaluation. A 1995 teen study might still be relevant for some claims (basic development) but not others (social media).","sourceClue":"A study about teen behavior from 1995 may suffer from this credibility weakness for current claims.","sourceExplanation":"Outdated currency: A study about teen behavior from 1995 may suffer from this credibility weakness for current claims.","rigor":{"value":200,"skill":"match content to unit context","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":300,"clue":"A source whose unstated political agenda shapes its conclusions has this problem.","answer":"Bias","aliases":["Bias","Slant","Partisanship","Prejudice","Vested interest"],"explanation":"Bias is a source's unstated preference, shaped by funding, political affiliation, or personal investment. A tobacco-industry-funded smoking study has structural bias. RI.9-10.6 covers point of view; RI.9-10.8 evaluates argument. Regents Part 3 source-based argument essays sometimes pair biased and neutral sources. AP Lang argument and synthesis essays reward bias-aware source handling. Bias detection requires examining: who funded this, who published it, what perspective is missing?","sourceClue":"A source whose unstated political agenda shapes its conclusions has this problem.","sourceExplanation":"Bias: A source whose unstated political agenda shapes its conclusions has this problem.","rigor":{"value":300,"skill":"explain cause, effect, or turning point","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":400,"clue":"A peer-reviewed scientific journal article has this strength compared to a blog post.","answer":"Authority","aliases":["Authority","Peer review","Scholarly authority","Expert authority","Academic credibility"],"explanation":"Peer-reviewed scholarly sources have undergone expert evaluation before publication, providing authority that blog posts lack. RI.9-10.8 evaluates source authority. W.9-10.8 covers gathering credible sources. Regents Part 3 source-based argument essays sometimes mix scholarly and popular sources for student evaluation. AP Lang's synthesis essay (formerly part of the exam) explicitly required source-type evaluation. Not all peer review is equal: predatory journals exist. Scholarly authority is a starting point, not absolute.","sourceClue":"A peer-reviewed scientific journal article has this strength compared to a blog post.","sourceExplanation":"Authority: A peer-reviewed scientific journal article has this strength compared to a blog post.","rigor":{"value":400,"skill":"connect evidence to a larger context","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":500,"clue":"A source claiming 'studies show' without naming the studies commits this evidence weakness.","answer":"Unverifiable evidence","aliases":["Unverifiable evidence","Vague evidence","Unattributed evidence","Unsourced evidence"],"explanation":"Unverifiable evidence (vague attribution to 'studies' or 'experts' without naming them) prevents fact-checking. 'Studies show' is a red flag in argument analysis. RI.9-10.8 requires evaluating evidence. Regents Part 3 source-based argument essays may include sources guilty of this weakness. AP Lang rhetorical analysis trains students to flag unverifiable evidence as a rhetorical move. Strong writing names sources specifically; weak writing hides behind anonymous authority.","sourceClue":"A source claiming 'studies show' without naming the studies commits this evidence weakness.","sourceExplanation":"Unverifiable evidence: A source claiming 'studies show' without naming the studies commits this evidence weakness.","rigor":{"value":500,"skill":"synthesize a high-value exam pattern","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}}]},{"name":"Argument Structure","clues":[{"value":100,"clue":"The opposing view the writer must acknowledge in argumentative writing is this.","answer":"Counterclaim","aliases":["Counterclaim","Opposing claim","Counter-argument","Opposing argument","Other side"],"explanation":"A counterclaim is the opposing position a writer addresses to strengthen the main argument. W.9-10.1b explicitly requires developing 'claim(s) and counterclaims fairly.' Regents Part 3 source-based argument essays explicitly evaluate counterclaim acknowledgment. AP Lang argument essays heavily reward genuine counterclaim engagement. The strongest arguments concede something to the counterclaim before refuting it. Refusing to engage signals weak argument and ego-driven writing.","sourceClue":"The opposing view the writer must acknowledge in argumentative writing is this.","sourceExplanation":"Counterclaim: The opposing view the writer must acknowledge in argumentative writing is this.","rigor":{"value":100,"skill":"identify key content","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":200,"clue":"Briefly granting an opposing point's validity before refuting it is this rhetorical move.","answer":"Concession","aliases":["Concession","Concede","Granting a point","Acknowledgment","Strategic concession"],"explanation":"Concession acknowledges the opposing view's merit before reasserting the writer's position. King concedes in Birmingham letter that some laws should be obeyed but argues unjust laws must be resisted. W.9-10.1b requires fair counterclaim development. Regents Part 3 source-based argument essays reward strategic concession. AP Lang argument essays explicitly score concession-and-refutation as sophistication markers. Refusing concession signals weak rhetoric and damages ethos.","sourceClue":"Briefly granting an opposing point's validity before refuting it is this rhetorical move.","sourceExplanation":"Concession: Briefly granting an opposing point's validity before refuting it is this rhetorical move.","rigor":{"value":200,"skill":"match content to unit context","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":300,"clue":"Directly disproving an opposing view through evidence and reasoning is this argument move.","answer":"Refutation","aliases":["Refutation","Rebuttal","Counter-argument response","Disproof","Refutational argument"],"explanation":"Refutation disproves the opposing view through evidence, logical analysis, or fallacy exposure. King's letter refutes the clergy's 'unwise and untimely' charges by exposing false dichotomy between order and justice. W.9-10.1b covers counterclaim development. Regents Part 3 source-based argument essays explicitly reward refutation. AP Lang argument essays rate refutation quality. Effective refutation engages the opposing argument's strongest version, not a straw-man weakening of it.","sourceClue":"Directly disproving an opposing view through evidence and reasoning is this argument move.","sourceExplanation":"Refutation: Directly disproving an opposing view through evidence and reasoning is this argument move.","rigor":{"value":300,"skill":"explain cause, effect, or turning point","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":400,"clue":"Toulmin's argument model names the underlying reasoning connecting evidence to claim as this.","answer":"Warrant","aliases":["Warrant","Reasoning","Inference","Logical link","Toulmin warrant"],"explanation":"In Stephen Toulmin's argument model (The Uses of Argument, 1958), the warrant is the underlying assumption connecting data (evidence) to claim. If the claim is 'cars should be electric' and the data is 'electric cars emit less carbon,' the warrant is 'we should reduce carbon emissions.' RI.9-10.8 requires evaluating reasoning. Regents Part 3 source-based argument essays reward explicit warrants. AP Lang argument writing demands warrant articulation. Implicit warrants weaken arguments.","sourceClue":"Toulmin's argument model names the underlying reasoning connecting evidence to claim as this.","sourceExplanation":"Warrant: Toulmin's argument model names the underlying reasoning connecting evidence to claim as this.","rigor":{"value":400,"skill":"connect evidence to a larger context","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}},{"value":500,"clue":"Structuring an essay 'state position, address opposition, restate position' creates this organizational pattern.","answer":"Classical argument structure","aliases":["Classical argument structure","Classical structure","Classical argument","Aristotelian structure","Five-part argument"],"explanation":"Classical argument structure (from Aristotle and Cicero) has five parts: introduction (exordium), narration of facts (narratio), confirmation of claim (confirmatio), refutation of opposition (refutatio), conclusion (peroratio). W.9-10.1 covers argumentative writing. AP Lang argument essays accept classical structure; rhetorical analysis essays often analyze it in source speeches. Regents Part 3 source-based argument essays implicitly use this structure. Mastery of classical structure unlocks both analysis and writing.","sourceClue":"Structuring an essay 'state position, address opposition, restate position' creates this organizational pattern.","sourceExplanation":"Classical argument structure: Structuring an essay 'state position, address opposition, restate position' creates this organizational pattern.","rigor":{"value":500,"skill":"synthesize a high-value exam pattern","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","categoryQuality":"board-specific-category-v1"}}]}],"final":{"category":"Informational Reading Synthesis","clue":"This single term names central claim plus reasoning and evidence, distinct from theme or topic.","answer":"Argument","aliases":["Argument","Central argument","Main argument","Argumentative position"],"explanation":"Argument is central claim plus reasoning and evidence supporting it. Distinct from theme (recurring idea) or topic (subject), argument is what the writer wants the reader to do, believe, or accept. RI.9-10.8 explicitly requires students to delineate and evaluate the argument and specific claims in a text. Regents Part 3 source-based argument essays demand argument identification and evaluation. AP Lang's rhetorical analysis essay is built entirely on this skill. Mastering argument analysis unlocks both ELA reading and writing strands.","rigor":{"value":"Final","skill":"answer one difficult course concept with one correct response","alignment":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands"}},"alignment":{"course":"Grade 10 ELA","standardSet":"NYS Next Generation ELA Standards / Common Core","examTarget":"NY ELA Common Core Reading + Writing strands","shortCode":"ELA skill","finalFrame":"Answer one difficult English Language Arts concept clue with one correct response","hardeningVersion":"jeopardy-hardening-v4-natural-clues","boardShape":"5 categories x 5 clues, values 100-500, Final Jeopardy as one difficult concept-answer clue","difficultyLadder":{"100":"identify key content","200":"match content to unit context","300":"explain cause, effect, or turning point","400":"connect evidence to a larger context","500":"synthesize a high-value exam pattern"}},"hardeningVersion":"jeopardy-hardening-v4-natural-clues","categoryHardeningVersion":"board-specific-categories-v1"};
+const STORAGE_KEY = "curriculum_unit_review_game_" + GAME.slug;
+const values = [100, 200, 300, 400, 500];
+let state = loadState();
+let pending = null;
+let audio = { ctx: null, master: null, musicTimer: null, musicOn: false, step: 0 };
+let transitionLock = false;
+
+function defaultState(mode = "teams") {
+  const solo = mode === "solo";
+  return {
+    mode: solo ? "solo" : "teams",
+    names: solo ? ["Solo Player"] : ["Team 1", "Team 2"],
+    scores: solo ? [0] : [0, 0],
+    active: 0,
+    used: [],
+    finalPlayed: false
+  };
+}
+
+function loadState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (saved && Array.isArray(saved.names) && Array.isArray(saved.scores)) {
+      saved.mode = saved.mode || (saved.names.length === 1 ? "solo" : "teams");
+      if (!saved.names.length) saved.names = saved.mode === "solo" ? ["Solo Player"] : ["Team 1", "Team 2"];
+      while (saved.scores.length < saved.names.length) saved.scores.push(0);
+      saved.active = Math.min(Math.max(Number(saved.active) || 0, 0), saved.names.length - 1);
+      return saved;
+    }
+  } catch (error) {}
+  return defaultState();
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function clampNumber(value, min, max) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return min;
+  return Math.max(min, Math.min(max, Math.round(n)));
+}
+
+function normalizeText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/&/g, " and ")
+    .replace(/\b(vs\.?|v\.)\b/g, " v ")
+    .replace(/\bfirst\b/g, "1")
+    .replace(/\bsecond\b/g, "2")
+    .replace(/\bthird\b/g, "3")
+    .replace(/\bfourth\b/g, "4")
+    .replace(/\bfifth\b/g, "5")
+    .replace(/\bsixth\b/g, "6")
+    .replace(/\bseventh\b/g, "7")
+    .replace(/\beighth\b/g, "8")
+    .replace(/\bninth\b/g, "9")
+    .replace(/\btenth\b/g, "10")
+    .replace(/\beleventh\b/g, "11")
+    .replace(/\btwelfth\b/g, "12")
+    .replace(/\bthirteenth\b/g, "13")
+    .replace(/\bfourteenth\b/g, "14")
+    .replace(/\bfifteenth\b/g, "15")
+    .replace(/\bsixteenth\b/g, "16")
+    .replace(/\bseventeenth\b/g, "17")
+    .replace(/\beighteenth\b/g, "18")
+    .replace(/\bnineteenth\b/g, "19")
+    .replace(/\btwenty[- ]?fourth\b/g, "24")
+    .replace(/\btwenty[- ]?sixth\b/g, "26")
+    .replace(/\b(\d+)(st|nd|rd|th)\b/g, "$1")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\b(the|a|an|of|and|to|for|in|on|by|with|jr|sr)\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function compactText(value) {
+  return normalizeText(value).replace(/\s+/g, "");
+}
+
+function unique(values) {
+  return [...new Set(values.map(normalizeText).filter(Boolean))];
+}
+
+function answerVariants(answer, extra) {
+  const raw = String(answer || "");
+  const variants = [raw, ...(extra || [])];
+  raw.split(/\s*(?:->|\/|;)\s*/).forEach((part) => variants.push(part));
+  variants.push(raw.replace(/\bact\b/ig, ""));
+  variants.push(raw.replace(/\bamendment(s)?\b/ig, ""));
+  variants.push(raw.replace(/\bdoctrine\b/ig, ""));
+  variants.push(raw.replace(/\bmovement\b/ig, ""));
+  variants.push(raw.replace(/\bv\.?\b/ig, " versus "));
+  variants.push(raw.replace(/\bversus\b/ig, " v "));
+  if (/v\.?/i.test(raw)) {
+    const pieces = raw.split(/\bv\.?\b/i).map((part) => part.trim());
+    variants.push(...pieces);
+    variants.push(pieces.join(" "));
+  }
+  const n = normalizeText(raw);
+  if (n.includes("13") && n.includes("14") && n.includes("15")) variants.push("Reconstruction Amendments", "13 14 15");
+  if (n.includes("16") && n.includes("17") && n.includes("18") && n.includes("19")) variants.push("Progressive Amendments", "16 17 18 19");
+  if (n.includes("civil rights act") && n.includes("voting rights act")) variants.push("Civil Rights Act Voting Rights Act", "CRA VRA");
+  if (n.includes("declaration independence")) variants.push("Declaration");
+  if (n.includes("affordable care act")) variants.push("ACA", "Obamacare");
+  if (n.includes("district columbia heller")) variants.push("DC v Heller", "Heller");
+  if (n.includes("students fair admissions")) variants.push("SFFA", "SFFA v Harvard");
+  if (n.includes("letter birmingham jail")) variants.push("Birmingham Jail", "MLK Letter");
+  if (n.includes("emancipation proclamation")) variants.push("Emancipation");
+  if (n.includes("articles confederation")) variants.push("AOC");
+  if (n.includes("alien sedition")) variants.push("Sedition Act", "Alien Acts");
+  return unique(variants);
+}
+
+function tokenSet(value) {
+  return new Set(normalizeText(value).split(" ").filter((token) => token.length > 1));
+}
+
+function diceSimilarity(a, b) {
+  const aa = compactText(a);
+  const bb = compactText(b);
+  if (!aa || !bb) return 0;
+  if (aa === bb) return 1;
+  if (aa.length < 3 || bb.length < 3) return aa === bb ? 1 : 0;
+  const grams = (text) => {
+    const out = new Map();
+    for (let i = 0; i < text.length - 1; i++) {
+      const gram = text.slice(i, i + 2);
+      out.set(gram, (out.get(gram) || 0) + 1);
+    }
+    return out;
+  };
+  const left = grams(aa);
+  const right = grams(bb);
+  let overlap = 0;
+  left.forEach((count, gram) => {
+    overlap += Math.min(count, right.get(gram) || 0);
+  });
+  return (2 * overlap) / Math.max(1, aa.length + bb.length - 2);
+}
+
+function answerScore(response, clue) {
+  const typed = normalizeText(response);
+  if (!typed) return { score: 0, verdict: "blank", matched: "", confidence: "No answer typed." };
+  const variants = answerVariants(clue.answer, clue.aliases);
+  let best = { score: 0, matched: "" };
+  for (const variant of variants) {
+    const v = normalizeText(variant);
+    if (!v) continue;
+    const typedCompact = compactText(typed);
+    const variantCompact = compactText(v);
+    let score = diceSimilarity(typed, v);
+    if (typedCompact === variantCompact) score = 1;
+    if (typedCompact.length >= 4 && variantCompact.includes(typedCompact)) score = Math.max(score, .9);
+    if (variantCompact.length >= 4 && typedCompact.includes(variantCompact)) score = Math.max(score, .92);
+    const typedTokens = tokenSet(typed);
+    const answerTokens = tokenSet(v);
+    const overlap = [...answerTokens].filter((token) => typedTokens.has(token)).length;
+    const coverage = answerTokens.size ? overlap / answerTokens.size : 0;
+    if (coverage >= .8 && overlap >= 1) score = Math.max(score, .88);
+    if (coverage >= .6 && overlap >= 2) score = Math.max(score, .78);
+    if (score > best.score) best = { score, matched: variant };
+  }
+  let verdict = "manual";
+  if (best.score >= .78) verdict = "correct";
+  else if (best.score <= .38) verdict = "wrong";
+  return {
+    score: best.score,
+    verdict,
+    matched: best.matched,
+    confidence: Math.round(best.score * 100) + "% match"
+  };
+}
+
+function flashScreen(kind) {
+  const flash = document.getElementById("flash");
+  flash.className = "flash " + (kind || "");
+  void flash.offsetWidth;
+  flash.classList.add("play");
+}
+
+function teamName(index) {
+  return state.names[index] || ("Team " + (index + 1));
+}
+
+function isSoloMode() {
+  return state.mode === "solo" || state.names.length === 1;
+}
+
+function renderTeams() {
+  const root = document.getElementById("teams");
+  root.innerHTML = "";
+  state.names.forEach((name, index) => {
+    const card = document.createElement("div");
+    const solo = isSoloMode();
+    card.className = "team" + (index === state.active ? " active" : "") + (solo ? " solo" : "");
+    const activeButton = solo ? "" : '<button title="Make active team" data-active="' + index + '">A</button>';
+    card.innerHTML =
+      '<input aria-label="' + (solo ? "Player name" : "Team name") + '" value="' + escapeHtml(name) + '" data-name="' + index + '">' +
+      '<div class="score">' +
+      '<strong>$' + state.scores[index] + '</strong>' +
+      '<div class="score-actions">' +
+      activeButton +
+      '<button title="Add 100" data-bump="' + index + '" data-delta="100">+</button>' +
+      '<button title="Subtract 100" data-bump="' + index + '" data-delta="-100">-</button>' +
+      '</div></div>';
+    root.appendChild(card);
+  });
+  root.querySelectorAll("[data-name]").forEach((input) => {
+    input.addEventListener("input", (event) => {
+      const index = Number(event.target.dataset.name);
+      state.names[index] = event.target.value || (isSoloMode() ? "Solo Player" : ("Team " + (index + 1)));
+      saveState();
+      updateStatus();
+    });
+  });
+  root.querySelectorAll("[data-active]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.active = Number(button.dataset.active);
+      playSfx("select");
+      saveState();
+      renderAll();
+    });
+  });
+  root.querySelectorAll("[data-bump]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.bump);
+      const delta = Number(button.dataset.delta);
+      state.scores[index] += delta;
+      playSfx(delta > 0 ? "correct" : "wrong");
+      saveState();
+      renderAll();
+    });
+  });
+}
+
+function clueKey(catIndex, clueIndex) {
+  return catIndex + "-" + clueIndex;
+}
+
+function renderBoard() {
+  const board = document.getElementById("board");
+  board.innerHTML = "";
+  let index = 0;
+  GAME.categories.forEach((category) => {
+    const cell = document.createElement("div");
+    cell.className = "cat";
+    cell.style.setProperty("--i", index++);
+    cell.textContent = category.name;
+    board.appendChild(cell);
+  });
+  values.forEach((value, row) => {
+    GAME.categories.forEach((category, catIndex) => {
+      const clue = category.clues[row];
+      const key = clueKey(catIndex, row);
+      const tile = document.createElement("button");
+      tile.className = "tile" + (state.used.includes(key) ? " used" : "") + (clue.daily ? " daily" : "");
+      tile.textContent = state.used.includes(key) ? "" : "$" + clue.value;
+      const tileLabel = category.name + ", $" + clue.value + (clue.daily ? ", Daily Double" : "");
+      tile.setAttribute("aria-label", state.used.includes(key) ? tileLabel + ", completed" : tileLabel);
+      tile.disabled = state.used.includes(key);
+      tile.dataset.key = key;
+      tile.style.setProperty("--i", index++);
+      tile.addEventListener("click", () => openClue(catIndex, row));
+      board.appendChild(tile);
+    });
+  });
+}
+
+function updateStatus() {
+  const solo = isSoloMode();
+  document.getElementById("activeStatus").textContent = solo ? "Solo player: " + teamName(0) : "Active team: " + teamName(state.active);
+  document.getElementById("progressStatus").textContent = state.used.length + " of 25 clues complete";
+  document.getElementById("finalBtn").disabled = state.finalPlayed;
+  document.getElementById("finalBtn").textContent = state.finalPlayed ? "Final Played" : "Final Jeopardy";
+  document.getElementById("soloBtn").textContent = solo ? "Team Play" : "Solo Play";
+  document.getElementById("addTeamBtn").disabled = solo;
+}
+
+function renderAll() {
+  renderTeams();
+  renderBoard();
+  updateStatus();
+}
+
+function openModal(title, meta, bodyHtml, mode) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalMeta").textContent = meta;
+  document.getElementById("modalBody").innerHTML = bodyHtml;
+  document.getElementById("modal").dataset.mode = mode || "clue";
+  document.getElementById("modal").classList.add("show");
+  transitionLock = false;
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("show");
+  document.getElementById("modal").dataset.mode = "";
+  pending = null;
+  transitionLock = false;
+}
+
+function animateTileSelection(key) {
+  const tile = document.querySelector('[data-key="' + key + '"]');
+  if (!tile) return;
+  tile.classList.add("selected");
+  setTimeout(() => tile.classList.remove("selected"), 520);
+}
+
+function openClue(catIndex, clueIndex) {
+  if (transitionLock) return;
+  const clue = GAME.categories[catIndex].clues[clueIndex];
+  const key = clueKey(catIndex, clueIndex);
+  if (state.used.includes(key)) return;
+  transitionLock = true;
+  pending = {
+    type: "clue",
+    key,
+    catIndex,
+    clueIndex,
+    clue,
+    value: clue.value,
+    team: state.active
+  };
+  animateTileSelection(key);
+  if (clue.daily) {
+    playSfx("daily");
+    const max = Math.max(500, Math.abs(state.scores[state.active]));
+    setTimeout(() => {
+      openModal("Daily Double", GAME.categories[catIndex].name + " - " + teamName(state.active),
+        '<div class="clue-text">Daily Double. Enter a wager before the clue.</div>' +
+        '<div class="wager-grid"><div class="wager-card"><label>Wager for ' + escapeHtml(teamName(state.active)) + '</label>' +
+        '<input id="dailyWager" type="number" min="0" max="' + max + '" value="' + Math.min(max, clue.value) + '"></div></div>' +
+        '<div class="action-row"><button class="btn primary" id="startDaily">Reveal Clue</button></div>', "daily");
+      document.getElementById("startDaily").addEventListener("click", () => {
+        pending.value = clampNumber(document.getElementById("dailyWager").value, 0, max);
+        showClue();
+      });
+    }, 320);
+  } else {
+    playSfx("select");
+    setTimeout(showClue, 260);
+  }
+}
+
+function showClue() {
+  const clue = pending.clue;
+  openModal(GAME.categories[pending.catIndex].name, "$" + pending.value + " - " + teamName(pending.team),
+    '<div class="clue-text">' + escapeHtml(clue.clue) + '</div>' +
+    '<div style="margin-top:14px"><input class="quick-answer" id="studentAnswer" autocomplete="off" placeholder="Type the team response, then Auto Score"></div>' +
+    '<div class="auto-meter" id="liveMeter"><div class="meter-track"><div class="meter-fill" id="meterFill"></div></div><span id="meterText">Waiting for response</span></div>' +
+    '<div class="action-row">' +
+    '<button class="btn primary" id="autoScore">Auto Score</button>' +
+    '<button class="btn" id="revealAnswer">Reveal / Teacher Score</button>' +
+    '<button class="btn ghost" id="skipClue">No Score</button>' +
+    '</div>' +
+    '<div id="answerArea" class="hidden"></div>', "clue");
+  document.getElementById("autoScore").addEventListener("click", autoScoreClue);
+  document.getElementById("revealAnswer").addEventListener("click", revealAnswer);
+  document.getElementById("skipClue").addEventListener("click", () => finishClue(0));
+  document.getElementById("studentAnswer").addEventListener("input", previewScore);
+  document.getElementById("studentAnswer").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") autoScoreClue();
+  });
+  setTimeout(() => {
+    const input = document.getElementById("studentAnswer");
+    if (input) input.focus();
+  }, 60);
+}
+
+function previewScore() {
+  if (!pending || !pending.clue) return;
+  const input = document.getElementById("studentAnswer");
+  const fill = document.getElementById("meterFill");
+  const text = document.getElementById("meterText");
+  if (!input || !fill || !text) return;
+  const result = answerScore(input.value, pending.clue);
+  const pct = Math.round(result.score * 100);
+  fill.style.width = pct + "%";
+  text.textContent = result.verdict === "correct" ? "Likely correct" : result.verdict === "wrong" ? "Likely wrong" : result.verdict === "blank" ? "Waiting for response" : "Needs judge";
+}
+
+function autoScoreClue() {
+  if (!pending || !pending.clue) return;
+  const input = document.getElementById("studentAnswer");
+  const response = input ? input.value : "";
+  const result = answerScore(response, pending.clue);
+  if (result.verdict === "manual") {
+    showAnswerResult(0, "judge", result, response, false);
+    playSfx("judge");
+    return;
+  }
+  const delta = result.verdict === "correct" ? pending.value : -pending.value;
+  showAnswerResult(delta, result.verdict === "correct" ? "good" : "bad", result, response, true);
+  flashScreen(result.verdict === "correct" ? "good" : "bad");
+}
+
+function revealAnswer() {
+  playSfx("reveal");
+  const input = document.getElementById("studentAnswer");
+  const response = input ? input.value : "";
+  const result = answerScore(response, pending.clue);
+  showAnswerResult(0, "judge", result, response, false);
+}
+
+function showAnswerResult(delta, mode, result, response, autoApply) {
+  const clue = pending.clue;
+  const area = document.getElementById("answerArea");
+  area.className = "answer-box " + mode;
+  const verdictLabel = mode === "good" ? "Auto Scored Correct" : mode === "bad" ? "Auto Scored Wrong" : "Teacher Review";
+  const deltaText = delta > 0 ? "+" + delta : delta < 0 ? String(delta) : "0";
+  const responseLine = response ? '<p><strong>Typed response:</strong> ' + escapeHtml(response) + '</p>' : '<p><strong>Typed response:</strong> blank</p>';
+  const matchLine = result && result.matched ? '<p><strong>Closest match:</strong> ' + escapeHtml(result.matched) + ' · ' + escapeHtml(result.confidence) + '</p>' : '<p><strong>Auto confidence:</strong> ' + escapeHtml(result ? result.confidence : "not checked") + '</p>';
+  area.innerHTML =
+    '<h3>' + verdictLabel + '</h3>' +
+    '<p><strong>Score change:</strong> ' + deltaText + '</p>' +
+    responseLine +
+    matchLine +
+    '<h3>Correct Response</h3>' +
+    '<p><strong>' + escapeHtml(clue.answer) + '</strong></p>' +
+    '<h3>Why It Matters</h3>' +
+    '<p>' + escapeHtml(clue.explanation) + '</p>' +
+    ((clue.aliases && clue.aliases.length) ? '<div class="accepted-answers"><strong>Also accepted:</strong> ' + clue.aliases.map(function(a){return '<span class="alias-chip">' + escapeHtml(a) + '</span>';}).join('') + '</div>' : '') +
+    '<div class="action-row">' +
+    (autoApply ? '<button class="btn primary" id="keepAutoScore">Keep Score / Continue</button>' : '') +
+    '<button class="btn primary" id="markCorrect">Override Correct: +' + pending.value + '</button>' +
+    '<button class="btn warn" id="markWrong">Override Wrong: -' + pending.value + '</button>' +
+    '<button class="btn ghost" id="markNoScore">No Score</button>' +
+    '</div>';
+  if (autoApply) {
+    applyClueScore(delta);
+    document.getElementById("keepAutoScore").addEventListener("click", closeModal);
+    document.getElementById("markCorrect").addEventListener("click", () => adjustAppliedScore(pending.value));
+    document.getElementById("markWrong").addEventListener("click", () => adjustAppliedScore(-pending.value));
+    document.getElementById("markNoScore").addEventListener("click", () => adjustAppliedScore(0));
+  } else {
+    document.getElementById("markCorrect").addEventListener("click", () => finishClue(pending.value));
+    document.getElementById("markWrong").addEventListener("click", () => finishClue(-pending.value));
+    document.getElementById("markNoScore").addEventListener("click", () => finishClue(0));
+  }
+}
+
+function applyClueScore(delta) {
+  if (!pending) return;
+  if (pending.scored) return;
+  if (!state.used.includes(pending.key)) state.used.push(pending.key);
+  state.scores[pending.team] += delta;
+  pending.scored = true;
+  pending.appliedDelta = delta;
+  if (delta > 0) playSfx("correct");
+  if (delta < 0) playSfx("wrong");
+  if (state.names.length > 1) state.active = (pending.team + 1) % state.names.length;
+  saveState();
+  renderAll();
+}
+
+function adjustAppliedScore(newDelta) {
+  if (!pending || !pending.scored) return;
+  state.scores[pending.team] += newDelta - (pending.appliedDelta || 0);
+  pending.appliedDelta = newDelta;
+  if (newDelta > 0) playSfx("correct");
+  if (newDelta < 0) playSfx("wrong");
+  saveState();
+  closeModal();
+  renderAll();
+}
+
+function finishClue(delta) {
+  applyClueScore(delta);
+  closeModal();
+}
+
+function openFinal() {
+  if (state.finalPlayed) return;
+  playSfx("final");
+  const cards = state.names.map((name, index) => {
+    const cap = Math.max(500, state.scores[index]);
+    return '<div class="wager-card"><label>' + escapeHtml(name) + ' wager (max $' + cap + ')</label>' +
+      '<input type="number" min="0" max="' + cap + '" value="0" data-final-wager="' + index + '"></div>';
+  }).join("");
+  openModal("Final Jeopardy", GAME.final.category,
+    '<div class="clue-text">' + (isSoloMode() ? "Lock your wager. Then reveal the final clue." : "Lock each team wager. Then reveal the final clue.") + '</div>' +
+    '<div class="wager-grid">' + cards + '</div>' +
+    '<div class="action-row"><button class="btn primary" id="lockFinal">Reveal Final Clue</button></div>', "final");
+  document.getElementById("lockFinal").addEventListener("click", lockFinal);
+}
+
+function lockFinal() {
+  const wagers = [];
+  document.querySelectorAll("[data-final-wager]").forEach((input) => {
+    const index = Number(input.dataset.finalWager);
+    const cap = Math.max(500, state.scores[index]);
+    wagers[index] = clampNumber(input.value, 0, cap);
+  });
+  pending = { type: "final", wagers, marks: Array(state.names.length).fill(null) };
+  const answers = state.names.map((name, index) =>
+    '<div class="wager-card"><label>' + escapeHtml(name) + ' response</label><textarea data-final-answer="' + index + '"></textarea></div>'
+  ).join("");
+  openModal("Final Jeopardy", GAME.final.category,
+    '<div class="clue-text">' + escapeHtml(GAME.final.clue) + '</div>' +
+    '<div class="final-grid">' + answers + '</div>' +
+    '<div class="action-row"><button class="btn primary" id="revealFinalAnswer">Reveal Final Answer</button></div>' +
+    '<div id="finalAnswerArea" class="hidden"></div>', "final");
+  document.getElementById("revealFinalAnswer").addEventListener("click", revealFinalAnswer);
+}
+
+function revealFinalAnswer() {
+  playSfx("reveal");
+  const finalChecks = state.names.map((name, index) => {
+    const answerBox = document.querySelector('[data-final-answer="' + index + '"]');
+    const response = answerBox ? answerBox.value : "";
+    const result = answerScore(response, GAME.final);
+    pending.marks[index] = result.verdict === "correct" ? true : result.verdict === "wrong" ? false : null;
+    return { response, result };
+  });
+  const rows = state.names.map((name, index) => {
+    const check = finalChecks[index];
+    const guess = check.response ? escapeHtml(check.response) : "blank";
+    const auto = pending.marks[index] === true ? "auto: correct" : pending.marks[index] === false ? "auto: wrong" : "auto: needs judge";
+    return '<div class="score-result" data-final-row="' + index + '"><strong>' + escapeHtml(name) + '</strong><span class="tiny">' + auto + ' · ' + escapeHtml(check.result.confidence) + '<br>Response: ' + guess + '</span><button class="btn primary" data-final-mark="' + index + '" data-ok="1">Correct</button><button class="btn warn" data-final-mark="' + index + '" data-ok="0">Wrong</button></div>';
+  }).join("");
+  const area = document.getElementById("finalAnswerArea");
+  area.className = "answer-box";
+  area.innerHTML =
+    '<h3>Correct Response</h3><p><strong>' + escapeHtml(GAME.final.answer) + '</strong></p>' +
+    '<h3>Why It Matters</h3><p>' + escapeHtml(GAME.final.explanation) + '</p>' +
+    ((GAME.final.aliases && GAME.final.aliases.length) ? '<div class="accepted-answers"><strong>Also accepted:</strong> ' + GAME.final.aliases.map(function(a){return '<span class="alias-chip">' + escapeHtml(a) + '</span>';}).join('') + '</div>' : '') +
+    rows +
+    '<div class="action-row"><button class="btn primary" id="applyFinal">Apply Final Scores</button></div>';
+  area.querySelectorAll("[data-final-mark]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.finalMark);
+      pending.marks[index] = button.dataset.ok === "1";
+      button.parentElement.querySelectorAll("button").forEach((b) => b.style.outline = "none");
+      button.style.outline = "2px solid var(--accent)";
+      playSfx(button.dataset.ok === "1" ? "correct" : "wrong");
+    });
+    const index = Number(button.dataset.finalMark);
+    if ((pending.marks[index] === true && button.dataset.ok === "1") || (pending.marks[index] === false && button.dataset.ok === "0")) {
+      button.style.outline = "2px solid var(--accent)";
+    }
+  });
+  document.getElementById("applyFinal").addEventListener("click", applyFinal);
+}
+
+function applyFinal() {
+  if (!pending || pending.type !== "final") return;
+  state.names.forEach((name, index) => {
+    if (pending.marks[index] === true) state.scores[index] += pending.wagers[index] || 0;
+    if (pending.marks[index] === false) state.scores[index] -= pending.wagers[index] || 0;
+  });
+  state.finalPlayed = true;
+  playSfx("final");
+  saveState();
+  closeModal();
+  renderAll();
+}
+
+function addTeam() {
+  if (isSoloMode()) return;
+  if (state.names.length >= 4) return;
+  state.names.push("Team " + (state.names.length + 1));
+  state.scores.push(0);
+  saveState();
+  renderAll();
+}
+
+function toggleSoloMode() {
+  const nextMode = isSoloMode() ? "teams" : "solo";
+  const hasProgress = state.used.length || state.finalPlayed || state.scores.some((score) => score !== 0);
+  if (hasProgress && !confirm("Switch play modes and reset this game's board and scores?")) return;
+  state = defaultState(nextMode);
+  saveState();
+  playSfx("select");
+  renderAll();
+}
+
+function resetGame() {
+  if (!confirm("Reset this game's board and scores?")) return;
+  state = defaultState(isSoloMode() ? "solo" : "teams");
+  saveState();
+  playSfx("reset");
+  renderAll();
+}
+
+function ensureAudio() {
+  if (audio.ctx) return;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return;
+  audio.ctx = new Ctx();
+  audio.compressor = audio.ctx.createDynamicsCompressor();
+  audio.compressor.threshold.value = -20;
+  audio.compressor.knee.value = 18;
+  audio.compressor.ratio.value = 7;
+  audio.compressor.attack.value = .006;
+  audio.compressor.release.value = .2;
+  audio.master = audio.ctx.createGain();
+  audio.master.gain.value = .16;
+  audio.master.connect(audio.compressor);
+  audio.compressor.connect(audio.ctx.destination);
+}
+
+function tone(freq, duration, type, gainValue, delay, bendTo) {
+  ensureAudio();
+  if (!audio.ctx) return;
+  if (audio.ctx.state === "suspended") audio.ctx.resume();
+  const now = audio.ctx.currentTime + (delay || 0);
+  const osc = audio.ctx.createOscillator();
+  const gain = audio.ctx.createGain();
+  osc.type = type || "sine";
+  osc.frequency.setValueAtTime(freq, now);
+  if (bendTo) osc.frequency.exponentialRampToValueAtTime(Math.max(20, bendTo), now + duration);
+  gain.gain.setValueAtTime(.0001, now);
+  gain.gain.exponentialRampToValueAtTime(gainValue || .12, now + .012);
+  gain.gain.exponentialRampToValueAtTime(.0001, now + duration);
+  osc.connect(gain);
+  gain.connect(audio.master);
+  osc.start(now);
+  osc.stop(now + duration);
+}
+
+function pluck(freq, delay, gainValue, duration) {
+  ensureAudio();
+  if (!audio.ctx) return;
+  if (audio.ctx.state === "suspended") audio.ctx.resume();
+  const now = audio.ctx.currentTime + (delay || 0);
+  const end = now + (duration || .48);
+  const osc = audio.ctx.createOscillator();
+  const overtone = audio.ctx.createOscillator();
+  const filter = audio.ctx.createBiquadFilter();
+  const gain = audio.ctx.createGain();
+  osc.type = "triangle";
+  overtone.type = "sine";
+  osc.frequency.setValueAtTime(freq, now);
+  overtone.frequency.setValueAtTime(freq * 2.01, now);
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(2600, now);
+  filter.frequency.exponentialRampToValueAtTime(520, end);
+  gain.gain.setValueAtTime(.0001, now);
+  gain.gain.exponentialRampToValueAtTime(gainValue || .04, now + .012);
+  gain.gain.exponentialRampToValueAtTime(.0001, end);
+  osc.connect(filter);
+  overtone.connect(filter);
+  filter.connect(gain);
+  gain.connect(audio.master);
+  osc.start(now);
+  overtone.start(now);
+  osc.stop(end);
+  overtone.stop(end);
+}
+
+function sweep(from, to, duration, gainValue, delay, type) {
+  tone(from, duration, type || "sine", gainValue || .045, delay || 0, to);
+}
+
+function noise(duration, gainValue, delay, filterFreq, filterType) {
+  ensureAudio();
+  if (!audio.ctx) return;
+  if (audio.ctx.state === "suspended") audio.ctx.resume();
+  const now = audio.ctx.currentTime + (delay || 0);
+  const length = Math.max(1, Math.floor(audio.ctx.sampleRate * duration));
+  const buffer = audio.ctx.createBuffer(1, length, audio.ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 1.2);
+  const source = audio.ctx.createBufferSource();
+  const filter = audio.ctx.createBiquadFilter();
+  const gain = audio.ctx.createGain();
+  source.buffer = buffer;
+  filter.type = filterType || "bandpass";
+  filter.frequency.value = filterFreq || 900;
+  filter.Q.value = .9;
+  gain.gain.setValueAtTime(gainValue || .06, now);
+  gain.gain.exponentialRampToValueAtTime(.0001, now + duration);
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(audio.master);
+  source.start(now);
+  source.stop(now + duration);
+}
+
+function chord(notes, duration, type, gain, delay) {
+  notes.forEach((note, i) => tone(note, duration, type || "triangle", (gain || .05) / Math.max(1, notes.length * .7), (delay || 0) + i * .012));
+}
+
+function playSfx(kind) {
+  if (kind === "select") {
+    pluck(523.25, 0, .035, .18);
+    pluck(783.99, .045, .022, .18);
+  }
+  if (kind === "reveal") {
+    noise(.28, .034, 0, 2200, "highpass");
+    sweep(140, 520, .42, .04, 0, "sine");
+    chord([261.63, 392, 523.25, 659.25], .42, "triangle", .11, .15);
+  }
+  if (kind === "correct") {
+    [523.25, 659.25, 783.99, 1046.5].forEach((note, i) => pluck(note, i * .07, .052, .35));
+    chord([659.25, 783.99, 987.77, 1318.51], .36, "triangle", .14, .25);
+    noise(.16, .022, .04, 3200, "highpass");
+  }
+  if (kind === "wrong") {
+    sweep(220, 82, .48, .065, 0, "sawtooth");
+    tone(110, .44, "triangle", .035, .06, 74);
+    noise(.24, .035, .02, 220, "lowpass");
+  }
+  if (kind === "judge") {
+    pluck(349.23, 0, .035, .22);
+    pluck(466.16, .18, .032, .22);
+    tone(196, .46, "sine", .018, .04);
+  }
+  if (kind === "daily") {
+    noise(.42, .05, 0, 1700, "bandpass");
+    sweep(98, 784, .7, .05, 0, "sine");
+    [196, 293.66, 392, 587.33, 783.99, 1174.66].forEach((n, i) => pluck(n, i * .08, .048, .32));
+  }
+  if (kind === "final") {
+    noise(.5, .04, 0, 900, "bandpass");
+    sweep(73, 294, .85, .052, 0, "sine");
+    [196, 261.63, 329.63, 392, 523.25, 659.25, 783.99].forEach((n, i) => pluck(n, .1 + i * .105, .046, .44));
+  }
+  if (kind === "intro") {
+    noise(.34, .03, 0, 2300, "highpass");
+    [196, 246.94, 329.63, 392, 523.25].forEach((n, i) => pluck(n, .08 + i * .09, .038, .42));
+  }
+  if (kind === "reset") {
+    tone(180, .12, "sine", .045);
+    tone(120, .16, "sine", .04, .09);
+  }
+}
+
+function stopMusic() {
+  clearTimeout(audio.musicTimer);
+  audio.musicTimer = null;
+}
+
+function scheduleMusicPhrase(first) {
+  if (!audio.musicOn) return;
+  const motifs = [
+    [392, 523.25, 659.25, null, 587.33, 493.88, 440, null],
+    [329.63, 392, null, 523.25, 587.33, 523.25, 440, null],
+    [392, null, 493.88, 587.33, 659.25, null, 523.25, 392],
+    [293.66, 369.99, 440, null, 523.25, 493.88, 392, null]
+  ];
+  const motif = motifs[audio.step % motifs.length];
+  const startDelay = first ? .72 : .22;
+  motif.forEach((note, i) => {
+    if (!note) return;
+    const delay = startDelay + i * .42;
+    pluck(note, delay, .024, .5);
+    tone(note * 2, .16, "sine", .006, delay + .012);
+  });
+  const root = [98, 110, 130.81, 146.83][audio.step % 4];
+  tone(root, .9, "sine", .017, startDelay + .05);
+  tone(root * 1.5, .72, "triangle", .011, startDelay + 1.72);
+  audio.step += 1;
+  const pause = audio.step % 2 ? 2800 : 4300;
+  audio.musicTimer = setTimeout(() => scheduleMusicPhrase(false), startDelay * 1000 + motif.length * 420 + pause);
+}
+
+function toggleMusic() {
+  ensureAudio();
+  if (!audio.ctx) return;
+  if (audio.ctx.state === "suspended") audio.ctx.resume();
+  audio.musicOn = !audio.musicOn;
+  document.body.classList.toggle("music-on", audio.musicOn);
+  document.getElementById("musicBtn").textContent = audio.musicOn ? "Sound Off" : "Sound On";
+  if (audio.musicOn) {
+    stopMusic();
+    audio.step = 0;
+    playSfx("intro");
+    scheduleMusicPhrase(true);
+  } else {
+    stopMusic();
+  }
+}
+
+function initStageMotion() {
+  if (document.documentElement.classList.contains("perf-lite") || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const root = document.documentElement;
+  let tx = 0;
+  let ty = 0;
+  let cx = 0;
+  let cy = 0;
+  window.addEventListener("pointermove", (event) => {
+    if (window.innerWidth < 760) return;
+    tx = (event.clientX / window.innerWidth) - .5;
+    ty = (event.clientY / window.innerHeight) - .5;
+    root.style.setProperty("--spot-x", Math.round(event.clientX / window.innerWidth * 100) + "%");
+    root.style.setProperty("--spot-y", Math.round(event.clientY / window.innerHeight * 100) + "%");
+  }, { passive: true });
+  function tick() {
+    cx += (tx - cx) * .08;
+    cy += (ty - cy) * .08;
+    root.style.setProperty("--tilt-x", (cx * 2.4).toFixed(3) + "deg");
+    root.style.setProperty("--tilt-y", (cy * -1.2).toFixed(3) + "deg");
+    root.style.setProperty("--scene-x", (cx * -18).toFixed(2) + "px");
+    root.style.setProperty("--scene-y", (cy * -10).toFixed(2) + "px");
+    requestAnimationFrame(tick);
+  }
+  tick();
+}
+
+function initCanvas() {
+  if (document.documentElement.classList.contains("perf-lite") || window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerWidth < 900) {
+    const canvas = document.getElementById("space");
+    if (canvas) canvas.style.display = "none";
+    return;
+  }
+  const canvas = document.getElementById("space");
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+  let frameSkip = false;
+  function resize() {
+    const scale = Math.min(devicePixelRatio || 1, 1.25);
+    canvas.width = Math.floor(window.innerWidth * scale);
+    canvas.height = Math.floor(window.innerHeight * scale);
+    particles = Array.from({ length: Math.min(55, Math.floor(window.innerWidth / 28)) }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      z: .25 + Math.random() * 1.4,
+      r: .5 + Math.random() * 2.5,
+      hue: Math.random()
+    }));
+  }
+  function draw() {
+    frameSkip = !frameSkip;
+    if (frameSkip) {
+      requestAnimationFrame(draw);
+      return;
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const raw = performance.now();
+    const t = raw * .00018;
+    const dpr = Math.min(devicePixelRatio || 1, 1.25);
+    const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    grad.addColorStop(0, "rgba(255,255,255,.04)");
+    grad.addColorStop(.5, "rgba(0,212,255,.05)");
+    grad.addColorStop(1, "rgba(255,95,101,.05)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+    const beamAlpha = .07 + Math.sin(raw * .0012) * .025;
+    for (let b = 0; b < 3; b++) {
+      const anchor = canvas.width * (.12 + b * .19);
+      const sweep = Math.sin(raw * .00045 + b) * canvas.width * .08;
+      const beam = ctx.createLinearGradient(anchor, 0, canvas.width / 2 + sweep, canvas.height);
+      beam.addColorStop(0, "rgba(255,209,102," + beamAlpha + ")");
+      beam.addColorStop(.45, "rgba(0,212,255," + (beamAlpha * .45) + ")");
+      beam.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = beam;
+      ctx.beginPath();
+      ctx.moveTo(anchor - canvas.width * .025, 0);
+      ctx.lineTo(anchor + canvas.width * .025, 0);
+      ctx.lineTo(canvas.width / 2 + sweep + canvas.width * .18, canvas.height);
+      ctx.lineTo(canvas.width / 2 + sweep - canvas.width * .18, canvas.height);
+      ctx.closePath();
+      ctx.fill();
+    }
+    const horizon = canvas.height * .68;
+    ctx.strokeStyle = "rgba(0,212,255,.13)";
+    ctx.lineWidth = dpr;
+    for (let i = 0; i < 9; i++) {
+      const y = horizon + Math.pow(i / 8, 1.75) * canvas.height * .33;
+      ctx.beginPath();
+      ctx.moveTo(canvas.width * .08, y);
+      ctx.lineTo(canvas.width * .92, y);
+      ctx.stroke();
+    }
+    for (let i = -5; i <= 5; i++) {
+      const x = canvas.width / 2 + i * canvas.width * .09;
+      ctx.beginPath();
+      ctx.moveTo(canvas.width / 2, horizon);
+      ctx.lineTo(x, canvas.height);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = .55 + Math.sin(raw * .002) * .18;
+    ctx.strokeStyle = "rgba(255,209,102,.18)";
+    ctx.beginPath();
+    ctx.arc(canvas.width * .5, canvas.height * .49, canvas.width * .24, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+    particles.forEach((p, i) => {
+      p.y += p.z * dpr * .6;
+      p.x += Math.sin(t * 8 + i) * .16 * dpr;
+      if (p.y > canvas.height + 20) {
+        p.y = -20;
+        p.x = Math.random() * canvas.width;
+      }
+      ctx.beginPath();
+      ctx.fillStyle = p.hue > .66 ? "rgba(255,209,102,.85)" : p.hue > .33 ? "rgba(46,196,182,.72)" : "rgba(255,95,101,.66)";
+      ctx.arc(p.x, p.y, p.r * dpr, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < 3; i++) {
+      const y = canvas.height * (.16 + i * .16) + Math.sin(raw * .001 + i) * 18 * dpr;
+      const x0 = (Math.sin(raw * .0006 + i * 1.7) * .5 + .5) * canvas.width;
+      const len = canvas.width * (.12 + (i % 3) * .035);
+      const electric = i % 2 ? "rgba(0,212,255,.16)" : "rgba(255,209,102,.14)";
+      ctx.strokeStyle = electric;
+      ctx.lineWidth = (1.2 + (i % 3)) * dpr;
+      ctx.beginPath();
+      ctx.moveTo(x0 - len, y);
+      ctx.lineTo(x0 + len, y + Math.sin(i + raw * .002) * 10 * dpr);
+      ctx.stroke();
+    }
+    ctx.restore();
+    ctx.save();
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.rotate(t);
+    for (let ring = 0; ring < 4; ring++) {
+      ctx.beginPath();
+      ctx.strokeStyle = ring % 2 ? "rgba(255,209,102,.12)" : "rgba(0,212,255,.12)";
+      ctx.lineWidth = (1 + ring) * dpr;
+      ctx.ellipse(0, 0, (220 + ring * 90) * dpr, (70 + ring * 30) * dpr, ring * .4, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+  draw();
+}
+
+document.getElementById("closeModal").addEventListener("click", closeModal);
+document.getElementById("modal").addEventListener("click", (event) => {
+  if (event.target.id === "modal") closeModal();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeModal();
+});
+document.getElementById("addTeamBtn").addEventListener("click", addTeam);
+document.getElementById("soloBtn").addEventListener("click", toggleSoloMode);
+document.getElementById("resetBtn").addEventListener("click", resetGame);
+document.getElementById("finalBtn").addEventListener("click", openFinal);
+document.getElementById("musicBtn").addEventListener("click", toggleMusic);
+
+initStageMotion();
+initCanvas();
+renderAll();
+setTimeout(() => document.body.classList.add("game-booted"), 1600);
+</script>
+<script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
+</body>
+</html>
