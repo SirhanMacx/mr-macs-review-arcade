@@ -10266,24 +10266,34 @@ function applyLiveCounts() {
       );
     }
     // Update JSON-LD featureList in place if it's still hand-coded.
-    const ld = document.querySelector('script[type="application/ld+json"]');
-    if (ld) {
+    // Schema uses a top-level `@graph` array; rewrite featureList wherever
+    // it lives.
+    document.querySelectorAll('script[type="application/ld+json"]').forEach((ld) => {
       try {
         const data = JSON.parse(ld.textContent);
-        if (data && data.featureList && Array.isArray(data.featureList)) {
-          data.featureList = data.featureList.map((item) => {
-            if (/cataloged review entries/.test(item)) {
-              return counts["total-entries"] + " cataloged review entries and practice tools";
-            }
-            if (/generated unit Jeopardy boards/.test(item)) {
-              return counts["jeopardy-boards-number"] + " Jeopardy boards plus social studies flagship boards";
-            }
-            return item;
-          });
-          ld.textContent = JSON.stringify(data, null, 2);
+        function rewriteFeatureList(node) {
+          if (!node || typeof node !== "object") return;
+          if (Array.isArray(node)) {
+            node.forEach(rewriteFeatureList);
+            return;
+          }
+          if (Array.isArray(node.featureList)) {
+            node.featureList = node.featureList.map((item) => {
+              if (/cataloged review entries/.test(item)) {
+                return counts["total-entries"] + " cataloged review entries and practice tools";
+              }
+              if (/generated unit Jeopardy boards/.test(item) || /Jeopardy boards plus social studies/.test(item)) {
+                return counts["jeopardy-boards-number"] + " Jeopardy boards plus social studies flagship boards";
+              }
+              return item;
+            });
+          }
+          Object.values(node).forEach(rewriteFeatureList);
         }
+        rewriteFeatureList(data);
+        ld.textContent = JSON.stringify(data, null, 2);
       } catch (e) { /* malformed JSON-LD is fine to skip */ }
-    }
+    });
   } catch (e) {
     /* live counts are cosmetic — never block hub render. */
   }
@@ -11451,7 +11461,10 @@ function renderLaunchPaths() {
     },
     {
       id: "play-lane",
-      fallback: { id: "play-lane", title: "Arcade & Learning Games", subtitle: "Snake Pit, Brickoria, Chess Cabinet, Sokoban Scribe — 78 games that drill review through play.", kicker: "Game-first", meta: "78 games", accent: "#62e9ff", glyph: "PLAY" }
+      fallback: (function () {
+        var arcadeCount = (typeof computeLiveCounts === "function") ? computeLiveCounts()["arcade-games-number"] : "78";
+        return { id: "play-lane", title: "Arcade & Learning Games", subtitle: "Snake Pit, Brickoria, Chess Cabinet, Sokoban Scribe — " + arcadeCount + " games that drill review through play.", kicker: "Game-first", meta: arcadeCount + " games", accent: "#62e9ff", glyph: "PLAY" };
+      })()
     }
   ];
   const html = paths.map((path) => {
@@ -12244,7 +12257,9 @@ function initAttractCarousel() {
   var title = document.getElementById("acTitle");
   if (!el || !title) return;
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    title.textContent = "OPEN LIBRARY · 2967 GAMES READY";
+    var counts = (typeof computeLiveCounts === "function") ? computeLiveCounts() : null;
+    var totalLabel = counts ? counts["total-entries"] : "2967";
+    title.textContent = "OPEN LIBRARY · " + totalLabel + " GAMES READY";
     return;
   }
   // Curated rotation — flagship + crowd-pleasers + fresh course shells.
@@ -12559,6 +12574,11 @@ function initReveal() {
 async function boot() {
   try {
     await Promise.all([loadGamesManifest(), loadGeneratedJeopardyBlueprints(), loadGeneratedPracticeBlueprints()]);
+    // Refresh hero/cabinet/meta count copy from the just-loaded manifest
+    // BEFORE renderHeroConsole / initAttractCarousel / renderLaunchPaths
+    // so they all read accurate values (instead of the hand-coded numbers
+    // that drift every time a new course ships).
+    applyLiveCounts();
     // Apply enrolled-course default to library + jeopardy filters BEFORE
     // initFilters() so the course-aware default lands on first render.
     try {

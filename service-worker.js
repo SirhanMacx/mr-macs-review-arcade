@@ -1,4 +1,4 @@
-const CACHE_NAME = "mr-macs-arcade-v36-2026-05-16-content-depth";
+const CACHE_NAME = "mr-macs-arcade-v37-2026-05-16-live-counts-and-relink";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
