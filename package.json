@@ -2,12 +2,14 @@
   "name": "mr-macs-review-arcade",
   "version": "6.11.0",
   "private": true,
-  "description": "Mr. Mac's Review Arcade — 78 arcade games + 151 Jeopardy boards. AP, NY Regents, middle-school social studies review.",
+  "description": "Mr. Mac's Review Arcade — standards-aligned 5-12/AP review arcade with trivia, Jeopardy, and practice-exam systems.",
   "homepage": "https://sirhanmacx.github.io/mr-macs-review-arcade/",
   "scripts": {
     "test": "playwright test",
     "smoke": "playwright test --reporter=list",
     "bank": "node scripts/build-shared-question-bank.mjs",
+    "content:all-subjects": "node scripts/generate-all-subject-content.mjs && node scripts/build-shared-question-bank.mjs",
+    "validate:content": "node scripts/validate-all-subject-content.mjs",
     "serve": "python3 -m http.server 8090"
   },
   "devDependencies": {

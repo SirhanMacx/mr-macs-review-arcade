@@ -1,8 +1,8 @@
 # Mr. Mac's Review Arcade
 
-**219 social-studies review games and boards for AP, Regents, and middle-school prep — playable in the browser, no install required.**
+**219 review games and boards backed by a standards-aligned 5-12/AP question system — playable in the browser, no install required.**
 
-A student-facing arcade for grades 5-12, AP courses (Psychology, World, Euro, Human Geo, US Gov, Macro, Micro, USH), and full Regents exam simulators (Global II, U.S. History). Premium arcade flagships (History Hunters, Archive Quest, Cold War Invaders, Brickoria, Stellar Drift, Source Snake, Chronoblocks, Cascade, Chronohop, Step Pyramid, Citadel, Rumor Whack, and more) sit beside Jeopardy boards, source-reading labs, writing coaches, and full timed practice exams.
+A student-facing arcade for NYS grades 5-12 standards areas, all AP courses tracked in the AP Central course catalog, and full Regents/AP practice systems. Premium arcade flagships (History Hunters, Archive Quest, Cold War Invaders, Brickoria, Stellar Drift, Source Snake, Chronoblocks, Cascade, Chronohop, Step Pyramid, Citadel, Rumor Whack, and more) sit beside Jeopardy boards, source-reading labs, writing coaches, and full timed practice exams.
 
 ## Live site
 
@@ -17,7 +17,9 @@ https://sirhanmacx.github.io/mr-macs-review-arcade
 - **Persistent + offline-capable** — student profiles, rosters, answers, shards, achievements, sessions, and settings live in `localStorage`; no backend, no logins, no PII by default
 - **Optional global leaderboards** — teachers can configure a vetted HTTPS endpoint; public arcade handles are filtered client-side and server-side before any score is stored
 - **Generated arcade art** — every catalog entry has original WebP thumbnail, card, and marquee art produced by `scripts/generate_arcade_assets.py`
-- **4,529-prompt** shared review library powering full-library flagships
+- **7,146-prompt** shared review library across 99 course buckets, including 42 AP/AP Career Kickstart courses
+- **90-course all-subject taxonomy** aligned to NYSED P-12 standards areas plus College Board AP CED course structures
+- **664 generated unit Jeopardy blueprints** and **90 practice-exam blueprints** staged for the all-subject rollout
 
 ## Tech stack
 
@@ -66,7 +68,7 @@ Any static-file server works. The traffic counter detects `localhost` / `127.0.0
 │   ├── game-marquees/           # Generated 960x300 WebP marquees for every game
 │   └── generated-game-art-manifest.json
 ├── games/                       # 50+ game folders (each: index.html, game.js, styles.css)
-├── data/                        # Shared question banks (regents-gauntlet, chrono-defense, ...)
+├── data/                        # Shared question banks, released-source catalogs, all-subject blueprints
 ├── scripts/                     # Build/import/validation utilities (Python + .mjs)
 └── docs/
     ├── ARCADE-API.md            # Public JS API reference for all hub modules
@@ -94,6 +96,15 @@ Every flagship game wires into the same handful of globals:
 - **`MrMacsDocumentViewer`** — click-to-expand zoomable image viewer for stimulus documents.
 
 Full API reference: [`docs/ARCADE-API.md`](docs/ARCADE-API.md).
+
+## All-subject content pipeline
+
+```bash
+npm run content:all-subjects
+npm run validate:content
+```
+
+The all-subject pipeline generates NYSED standards-aligned arcade questions, unit Jeopardy blueprints, and practice-exam blueprints from `scripts/generate-all-subject-content.mjs`. Released NYSED Regents and Grades 3-8 test sources are tracked in `data/released-assessment-source-catalog.json`; exact released forms stay separated from general trivia and feed the dedicated practice-exam runners.
 
 ## How to add a new game
 

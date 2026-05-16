@@ -5,6 +5,21 @@ All notable changes to Mr. Mac's Review Arcade are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versions are date-based (YYYY-MM-DD) since the arcade ships continuously to GitHub Pages.
 
+## [2026-05-15] — All-Subject 5-12/AP Content System
+
+### Added
+- Canonical 90-course all-subject taxonomy covering NYSED grades 5-12 standards areas plus the full AP/AP Career Kickstart course set.
+- `scripts/generate-all-subject-content.mjs` to generate arcade bank fragments, unit Jeopardy blueprints, practice-exam blueprints, and released-source catalogs from the taxonomy.
+- 4,440 generated all-subject arcade questions, raising the compiled shared bank to 7,146 questions across 99 course buckets.
+- 664 generated unit Jeopardy blueprints and 90 practice-exam blueprints for the three-phase content rollout.
+- `scripts/validate-all-subject-content.mjs` and `npm run validate:content` to guard NYSED/AP coverage, question shape, source metadata, Jeopardy board shape, and practice-exam blueprint structure.
+
+### Changed
+- Hub diagnostics now load and merge the generated shared bank, so no-course students get broad general trivia across NYS subjects and AP courses.
+- Course selectors and mastery routing now include generated NYSED/AP course labels instead of stopping at the old social-studies/AP-social-science list.
+- The all-course quiz gauntlet now pulls from a balanced general-trivia pool.
+- Service worker cache version bumped for the all-subject content payload.
+
 ## [2026-05-12] — Generated Asset + Cabinet Overhaul
 
 ### Added

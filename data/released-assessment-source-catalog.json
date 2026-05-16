@@ -1,0 +1,739 @@
+{
+  "version": "20260515-all-subjects-v1",
+  "generatedAt": "2026-05-16T01:22:21.374Z",
+  "policy": "Released NYSED Regents and Grades 3-8 materials are authoritative practice-exam sources. Arcade questions may be original or released-pattern items, but exact released forms should stay source-tagged and separated from general trivia.",
+  "sources": {
+    "standardsAreas": {
+      "id": "nysed-p12-standards-content-areas",
+      "label": "NYS P-12 Learning Standards by Content Area",
+      "url": "https://www.nysed.gov/standards-instruction/nys-p-12-learning-standards-content-area"
+    },
+    "grades38": {
+      "id": "nysed-grades-3-8-released-tests",
+      "label": "NYSED Past Grades 3-8 Tests",
+      "url": "https://www.nysed.gov/state-assessment/past-grades-3-8-tests"
+    },
+    "algebraOne": {
+      "id": "nysed-regents-algebra-i",
+      "label": "Regents Examination in Algebra I",
+      "url": "https://www.nysedregents.org/algebraone/"
+    },
+    "geometry": {
+      "id": "nysed-regents-geometry",
+      "label": "Regents Examination in Geometry",
+      "url": "https://www.nysedregents.org/geometry/"
+    },
+    "algebraTwo": {
+      "id": "nysed-regents-algebra-ii",
+      "label": "Regents Examination in Algebra II",
+      "url": "https://www.nysedregents.org/algebratwo/"
+    },
+    "ela": {
+      "id": "nysed-regents-ela",
+      "label": "Regents Examination in English Language Arts",
+      "url": "https://www.nysedregents.org/hsela/"
+    },
+    "livingEnvironment": {
+      "id": "nysed-regents-living-environment",
+      "label": "Regents Examination in Living Environment",
+      "url": "https://www.nysedregents.org/LivingEnvironment/"
+    },
+    "earthScience": {
+      "id": "nysed-regents-earth-science",
+      "label": "Regents Examination in Physical Setting/Earth Science",
+      "url": "https://www.nysedregents.org/EarthScience/"
+    },
+    "chemistry": {
+      "id": "nysed-regents-chemistry",
+      "label": "Regents Examination in Physical Setting/Chemistry",
+      "url": "https://www.nysedregents.org/chemistry/"
+    },
+    "physics": {
+      "id": "nysed-regents-physics",
+      "label": "Regents Examination in Physical Setting/Physics",
+      "url": "https://www.nysedregents.org/physics/"
+    },
+    "globalHistory": {
+      "id": "nysed-regents-global-history-ii",
+      "label": "Regents Examination in Global History and Geography II",
+      "url": "https://www.nysedregents.org/ghg2/"
+    },
+    "usHistory": {
+      "id": "nysed-regents-us-history-government",
+      "label": "Regents Examination in United States History and Government",
+      "url": "https://www.nysedregents.org/ushg/"
+    },
+    "personalFinance": {
+      "id": "nysed-personal-finance",
+      "label": "NYSED Personal Finance Education",
+      "url": "https://www.nysed.gov/standards-instruction/personal-finance-education"
+    },
+    "apCentral": {
+      "id": "college-board-ap-courses",
+      "label": "College Board AP Courses and Exams",
+      "url": "https://apcentral.collegeboard.org/courses"
+    }
+  },
+  "courseSourceMap": {
+    "algebra-1": {
+      "courseLabel": "Algebra I",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-regents-algebra-i"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "algebra-2": {
+      "courseLabel": "Algebra II",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-regents-algebra-ii"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-2d-art-design": {
+      "courseLabel": "AP 2-D Art and Design",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-3d-art-design": {
+      "courseLabel": "AP 3-D Art and Design",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-african-american-studies": {
+      "courseLabel": "AP African American Studies",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-art-history": {
+      "courseLabel": "AP Art History",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-biology": {
+      "courseLabel": "AP Biology",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-business-personal-finance": {
+      "courseLabel": "AP Business with Personal Finance",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-calculus-ab": {
+      "courseLabel": "AP Calculus AB",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-calculus-bc": {
+      "courseLabel": "AP Calculus BC",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-chemistry": {
+      "courseLabel": "AP Chemistry",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-chinese-language": {
+      "courseLabel": "AP Chinese Language and Culture",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-comparative-government": {
+      "courseLabel": "AP Comparative Government and Politics",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-computer-science-a": {
+      "courseLabel": "AP Computer Science A",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-computer-science-principles": {
+      "courseLabel": "AP Computer Science Principles",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-cybersecurity": {
+      "courseLabel": "AP Cybersecurity",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-drawing": {
+      "courseLabel": "AP Drawing",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-english-language": {
+      "courseLabel": "AP English Language and Composition",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-english-literature": {
+      "courseLabel": "AP English Literature and Composition",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-environmental-science": {
+      "courseLabel": "AP Environmental Science",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-european-history": {
+      "courseLabel": "AP European History",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-french-language": {
+      "courseLabel": "AP French Language and Culture",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-german-language": {
+      "courseLabel": "AP German Language and Culture",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-human-geography": {
+      "courseLabel": "AP Human Geography",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-italian-language": {
+      "courseLabel": "AP Italian Language and Culture",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-japanese-language": {
+      "courseLabel": "AP Japanese Language and Culture",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-latin": {
+      "courseLabel": "AP Latin",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-macroeconomics": {
+      "courseLabel": "AP Macroeconomics",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-microeconomics": {
+      "courseLabel": "AP Microeconomics",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-music-theory": {
+      "courseLabel": "AP Music Theory",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-physics-1": {
+      "courseLabel": "AP Physics 1: Algebra-Based",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-physics-2": {
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-physics-c-electricity-magnetism": {
+      "courseLabel": "AP Physics C: Electricity and Magnetism",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-physics-c-mechanics": {
+      "courseLabel": "AP Physics C: Mechanics",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-precalculus": {
+      "courseLabel": "AP Precalculus",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-psychology": {
+      "courseLabel": "AP Psychology",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-research": {
+      "courseLabel": "AP Research",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-seminar": {
+      "courseLabel": "AP Seminar",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-spanish-language": {
+      "courseLabel": "AP Spanish Language and Culture",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-spanish-literature": {
+      "courseLabel": "AP Spanish Literature and Culture",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-statistics": {
+      "courseLabel": "AP Statistics",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-us-government": {
+      "courseLabel": "AP United States Government and Politics",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-us-history": {
+      "courseLabel": "AP United States History",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ap-world-history": {
+      "courseLabel": "AP World History: Modern",
+      "standardsSourceId": "college-board-ap-courses",
+      "assessmentSourceIds": [
+        "college-board-ap-courses"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "biology": {
+      "courseLabel": "Life Science: Biology",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-regents-living-environment"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "calculus": {
+      "courseLabel": "Calculus",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "career-readiness": {
+      "courseLabel": "Career Development and Occupational Studies",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "chemistry": {
+      "courseLabel": "Chemistry",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-regents-chemistry"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "computer-science": {
+      "courseLabel": "High School Computer Science and Digital Fluency",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "computer-science-5-8": {
+      "courseLabel": "Middle School Computer Science and Digital Fluency",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "dance": {
+      "courseLabel": "Dance",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "earth-science": {
+      "courseLabel": "Earth and Space Sciences",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-regents-earth-science"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ela-5": {
+      "courseLabel": "Grade 5 ELA",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-grades-3-8-released-tests"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ela-6": {
+      "courseLabel": "Grade 6 ELA",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-grades-3-8-released-tests"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ela-7": {
+      "courseLabel": "Grade 7 ELA",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-grades-3-8-released-tests"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "ela-8": {
+      "courseLabel": "Grade 8 ELA",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-grades-3-8-released-tests"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "english-10": {
+      "courseLabel": "English 10",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "english-11": {
+      "courseLabel": "English 11",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-regents-ela"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "english-12": {
+      "courseLabel": "English 12",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "english-9": {
+      "courseLabel": "English 9",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "environmental-science": {
+      "courseLabel": "Environmental Science",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "family-consumer-sciences": {
+      "courseLabel": "Family and Consumer Sciences",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "geometry": {
+      "courseLabel": "Geometry",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-regents-geometry"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "health": {
+      "courseLabel": "High School Health",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "health-5-8": {
+      "courseLabel": "Middle School Health",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "math-5": {
+      "courseLabel": "Grade 5 Mathematics",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-grades-3-8-released-tests"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "math-6": {
+      "courseLabel": "Grade 6 Mathematics",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-grades-3-8-released-tests"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "math-7": {
+      "courseLabel": "Grade 7 Mathematics",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-grades-3-8-released-tests"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "math-8": {
+      "courseLabel": "Grade 8 Mathematics",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-grades-3-8-released-tests"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "media-arts": {
+      "courseLabel": "Media Arts",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "media-literacy": {
+      "courseLabel": "Media Literacy and Digital Citizenship",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "music": {
+      "courseLabel": "High School Music",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "music-5-8": {
+      "courseLabel": "Middle School Music",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "personal-finance": {
+      "courseLabel": "Personal Finance",
+      "standardsSourceId": "nysed-personal-finance",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "physical-education": {
+      "courseLabel": "High School Physical Education",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "physical-education-5-8": {
+      "courseLabel": "Middle School Physical Education",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "physics": {
+      "courseLabel": "Physics",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-regents-physics"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "precalculus": {
+      "courseLabel": "Precalculus",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "science-5": {
+      "courseLabel": "Grade 5 Science",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-grades-3-8-released-tests"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "science-6": {
+      "courseLabel": "Grade 6 Science",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "science-7": {
+      "courseLabel": "Grade 7 Science",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "science-8": {
+      "courseLabel": "Grade 8 Science",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [
+        "nysed-grades-3-8-released-tests"
+      ],
+      "sourceMode": "released-backed-or-public-official"
+    },
+    "statistics": {
+      "courseLabel": "Statistics and Data Science",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "technology-education": {
+      "courseLabel": "Technology Education",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "theater": {
+      "courseLabel": "Theater",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "visual-arts": {
+      "courseLabel": "High School Visual Arts",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "visual-arts-5-8": {
+      "courseLabel": "Middle School Visual Arts",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "world-languages-checkpoint-a": {
+      "courseLabel": "World Languages Checkpoint A",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "world-languages-checkpoint-b": {
+      "courseLabel": "World Languages Checkpoint B",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    },
+    "world-languages-checkpoint-c": {
+      "courseLabel": "World Languages Checkpoint C",
+      "standardsSourceId": "nysed-p12-standards-content-areas",
+      "assessmentSourceIds": [],
+      "sourceMode": "standards-aligned-original"
+    }
+  }
+}

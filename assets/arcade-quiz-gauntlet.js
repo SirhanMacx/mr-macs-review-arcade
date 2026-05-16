@@ -69,7 +69,13 @@
       "us-history-units": "us-history",
       "us-regents-sprint": "us-history"
     };
-    return MAP[courseId] || courseId;
+    if (MAP[courseId]) return MAP[courseId];
+    var labels = root.DIAG_BANK_COURSE_LABELS || {};
+    var wanted = String(courseId || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    var byLabel = Object.keys(labels).find(function (id) {
+      return String(labels[id] || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim() === wanted;
+    });
+    return byLabel || courseId;
   }
 
   // For courses that map to multiple banks (e.g. boss-rush pulls
@@ -184,6 +190,9 @@
   }
 
   function getQuestions(courseId, n) {
+    if (!courseId || courseId === "all" || courseId === "boss-rush") {
+      return shuffle(root.DIAG_BANK_GENERAL_TRIVIA || root.DIAG_BANK_ALL || []).slice(0, n);
+    }
     var keys = resolveBankKeys(courseId);
     var all = [];
     keys.forEach(function (k) {

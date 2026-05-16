@@ -24,6 +24,15 @@ const ROOT = path.resolve(__dirname, "..");
 const FRAG_DIR = path.join(ROOT, "data", "bank-fragments");
 const OUT = path.join(ROOT, "assets", "shared-question-bank.js");
 
+function slug(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 72) || "question";
+}
+
 function main() {
   const files = fs.readdirSync(FRAG_DIR)
     .filter(f => f.endsWith(".json") && !f.startsWith("._"))
@@ -70,10 +79,19 @@ function main() {
       seenPromptsPerCourse[course].add(key);
       // Normalize shape
       bank[course].push({
+        id: q.id ? String(q.id).trim() : `${course}-${slug(q.prompt)}`,
         prompt: String(q.prompt).trim(),
         choices: q.choices.map(c => String(c).trim()),
         correctText: String(q.correctText).trim(),
         topic: q.topic ? String(q.topic).trim() : "General",
+        explanation: q.explanation ? String(q.explanation).trim() : "",
+        domain: q.domain ? String(q.domain).trim() : "",
+        gradeBand: q.gradeBand ? String(q.gradeBand).trim() : "",
+        subjectArea: q.subjectArea ? String(q.subjectArea).trim() : "",
+        standardRefs: Array.isArray(q.standardRefs) ? q.standardRefs.map(ref => String(ref).trim()).filter(Boolean) : [],
+        sourceAuthority: q.sourceAuthority ? String(q.sourceAuthority).trim() : "",
+        assessmentSourceId: q.assessmentSourceId ? String(q.assessmentSourceId).trim() : "",
+        itemMode: q.itemMode ? String(q.itemMode).trim() : "",
         course
       });
       added++;
@@ -126,6 +144,47 @@ function main() {
       w.DIAG_BANK_ALL = w.DIAG_BANK_ALL.concat(w.DIAG_BANK_BY_COURSE[c]);
     }
   }
+  function balancedGeneralPool(bank) {
+    var groups = {};
+    Object.keys(bank).forEach(function (courseId) {
+      var rows = bank[courseId] || [];
+      rows.forEach(function (q) {
+        var key = q.subjectArea || q.domain || courseId;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(q);
+      });
+    });
+    var keys = Object.keys(groups).sort();
+    var out = [];
+    var index = 0;
+    var added = true;
+    while (added) {
+      added = false;
+      keys.forEach(function (key) {
+        if (groups[key][index]) {
+          out.push(groups[key][index]);
+          added = true;
+        }
+      });
+      index += 1;
+    }
+    return out;
+  }
+  w.DIAG_BANK_GENERAL_TRIVIA = balancedGeneralPool(w.DIAG_BANK_BY_COURSE);
+  w.DIAG_BANK_AP_COURSES = Object.keys(w.DIAG_BANK_BY_COURSE)
+    .filter(function (courseId) { return courseId.indexOf("ap-") === 0; })
+    .sort();
+  w.DIAG_BANK_CORE_5_12_COURSES = Object.keys(w.DIAG_BANK_BY_COURSE)
+    .filter(function (courseId) {
+      return /^(ela|english|math|science)-|^(algebra|geometry|precalculus|calculus|statistics|earth-science|biology|chemistry|physics|environmental-science|computer-science|health|physical-education|visual-arts|music|world-languages|career-readiness|personal-finance|media-literacy)$/.test(courseId);
+    })
+    .sort();
+  w.DIAG_BANK_COVERAGE = {
+    courses: Object.keys(w.DIAG_BANK_BY_COURSE).length,
+    questions: w.DIAG_BANK_ALL.length,
+    apCourses: w.DIAG_BANK_AP_COURSES.length,
+    coreGeneralCourses: w.DIAG_BANK_CORE_5_12_COURSES.length
+  };
 })(typeof window !== "undefined" ? window : globalThis);
 `;
   fs.writeFileSync(OUT, header + body, "utf8");

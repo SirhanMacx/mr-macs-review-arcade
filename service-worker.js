@@ -1,4 +1,4 @@
-const CACHE_NAME = "mr-macs-arcade-v31-2026-05-14-a11y-menu";
+const CACHE_NAME = "mr-macs-arcade-v32-2026-05-15-all-subject-content";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -8,6 +8,10 @@ const CACHE_FILES = [
   "./index.html",
   "./manifest.json",
   "./games.json",
+  "./data/all-subject-course-taxonomy.json",
+  "./data/released-assessment-source-catalog.json",
+  "./data/generated-all-subject-jeopardy-blueprints.json",
+  "./data/generated-practice-exam-blueprints.json",
   // ALL 55 asset modules (auto-generated from assets/*.js + assets/*.css).
   // True offline-PWA: every feature works without network after first load.
   "./assets/arcade-a11y-quicktoggle.js",

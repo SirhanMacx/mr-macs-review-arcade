@@ -10158,6 +10158,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-heatmap.js?v=20260510-heatmap"></script>
 <script src="assets/arcade-a11y-quicktoggle.js?v=20260514-a11y-menu"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
+<script src="assets/shared-question-bank.js?v=20260515-all-subjects-v1"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
 let GAMES = [];
@@ -12530,6 +12531,18 @@ boot();
     "Civics and Participation in Government",
     "Economics"
   ];
+  if (window.DIAG_BANK_COURSE_LABELS) {
+    Object.keys(window.DIAG_BANK_COURSE_LABELS).forEach(function (courseId) {
+      var label = window.DIAG_BANK_COURSE_LABELS[courseId];
+      if (label && COURSE_OPTIONS.indexOf(label) === -1) COURSE_OPTIONS.push(label);
+    });
+    COURSE_OPTIONS.sort(function (a, b) {
+      var apA = /^AP\b/.test(a);
+      var apB = /^AP\b/.test(b);
+      if (apA !== apB) return apA ? 1 : -1;
+      return a.localeCompare(b, undefined, { numeric: true });
+    });
+  }
 
   function populateCourseSelect(sel, currentValue) {
     if (!sel) return;
@@ -15299,6 +15312,37 @@ boot();
     ]
   };
 
+  // Merge the generated all-subject shared bank into the hub diagnostic
+  // so a student with no selected course gets true general 5-12/AP trivia.
+  // Keep the older hand-curated labels intact and append by human label.
+  if (window.DIAG_BANK_BY_COURSE && window.DIAG_BANK_COURSE_LABELS) {
+    Object.keys(window.DIAG_BANK_BY_COURSE).forEach(function (courseId) {
+      var label = window.DIAG_BANK_COURSE_LABELS[courseId] || courseId;
+      if (!DIAG_BANK_BY_COURSE[label]) DIAG_BANK_BY_COURSE[label] = [];
+      var seen = {};
+      DIAG_BANK_BY_COURSE[label].forEach(function (q) {
+        seen[(q.id || q.prompt || "").toString().toLowerCase()] = true;
+      });
+      window.DIAG_BANK_BY_COURSE[courseId].forEach(function (q) {
+        var key = (q.id || q.prompt || "").toString().toLowerCase();
+        if (seen[key]) return;
+        seen[key] = true;
+        DIAG_BANK_BY_COURSE[label].push({
+          id: q.id || (courseId + "-" + DIAG_BANK_BY_COURSE[label].length),
+          set: q.topic || q.subjectArea || "General Review",
+          prompt: q.prompt,
+          choices: q.choices,
+          correctText: q.correctText,
+          explanation: q.explanation || "Review the source, standard, or skill connected to this question.",
+          courseId: courseId,
+          standardRefs: q.standardRefs || [],
+          subjectArea: q.subjectArea || "",
+          sourceAuthority: q.sourceAuthority || ""
+        });
+      });
+    });
+  }
+
   // Flatten the bank for easy iteration when no course is set, and so
   // the "no enrolled course" path still works on a fresh device.
   var DIAG_BANK_FLAT = [];
@@ -15336,6 +15380,30 @@ boot();
         var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
       }
       return a;
+    }
+    function balancedGeneral(arr) {
+      var groups = {};
+      arr.forEach(function (q) {
+        var key = q.subjectArea || q.course || "General";
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(q);
+      });
+      var keys = shuffle(Object.keys(groups));
+      Object.keys(groups).forEach(function (key) { groups[key] = shuffle(groups[key]); });
+      var out = [];
+      var index = 0;
+      var added = true;
+      while (added && out.length < arr.length) {
+        added = false;
+        keys.forEach(function (key) {
+          if (groups[key][index]) {
+            out.push(groups[key][index]);
+            added = true;
+          }
+        });
+        index++;
+      }
+      return out;
     }
 
     // Resolve the course's question pool, honoring aliases.
@@ -15379,8 +15447,8 @@ boot();
     var others = DIAG_BANK_FLAT.filter(function (q) {
       return !seenIds[q.id] && q.course !== enrolled;
     });
-    var othersFresh = shuffle(fresh(others));
-    if (!othersFresh.length) othersFresh = shuffle(others);
+    var othersFresh = enrolled ? shuffle(fresh(others)) : balancedGeneral(fresh(others));
+    if (!othersFresh.length) othersFresh = enrolled ? shuffle(others) : balancedGeneral(others);
     for (var k = 0; k < othersFresh.length && picks.length < QUESTIONS_PER_SESSION; k++) {
       picks.push(othersFresh[k]);
       seenIds[othersFresh[k].id] = true;

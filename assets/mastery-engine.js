@@ -101,16 +101,50 @@
   function courseProfile(course) {
     if (!course || course === "All Courses") return COURSES[5];
     var wanted = norm(course);
-    return COURSES.find(function (item) {
+    var found = COURSES.find(function (item) {
       return norm(item.label) === wanted || norm(item.short) === wanted || item.id === course;
     }) || COURSES.find(function (item) {
       return wanted.includes(norm(item.short)) || wanted.includes(norm(item.label));
-    }) || COURSES[5];
+    });
+    if (found) return found;
+    var labels = (typeof window !== "undefined" && window.DIAG_BANK_COURSE_LABELS) ? window.DIAG_BANK_COURSE_LABELS : {};
+    var matchedId = Object.keys(labels).find(function (id) {
+      return id === course || norm(labels[id]) === wanted;
+    });
+    if (matchedId) {
+      var label = labels[matchedId];
+      return {
+        id: matchedId,
+        label: label,
+        short: label.replace(/^AP\s+/, "AP ").replace(/\b(Grade|High School|Middle School)\b/g, "").trim().slice(0, 24) || label,
+        level: /^AP\b/.test(label) ? "AP" : /Grade\s+(\d+)/i.test(label) ? (label.match(/Grade\s+(\d+)/i) || [])[0] : "Course",
+        family: /^AP\b/.test(label) ? "AP" : "NYS",
+        exam: /^AP\b/.test(label) ? label : "NYS standards-aligned review",
+        writing: "Standards-aligned constructed response",
+        skills: ["vocabulary", "application", "evidence", "analysis"]
+      };
+    }
+    return COURSES[5];
   }
 
   function courseOptions() {
-    return COURSES.map(function (course) {
+    var options = COURSES.map(function (course) {
       return { value: course.label, label: course.short + " - " + course.exam };
+    });
+    var seen = {};
+    options.forEach(function (option) { seen[norm(option.value)] = true; });
+    var labels = (typeof window !== "undefined" && window.DIAG_BANK_COURSE_LABELS) ? window.DIAG_BANK_COURSE_LABELS : {};
+    Object.keys(labels).forEach(function (id) {
+      var label = labels[id];
+      if (!label || seen[norm(label)]) return;
+      seen[norm(label)] = true;
+      options.push({
+        value: label,
+        label: (/^AP\b/.test(label) ? "AP - " : "NYS - ") + label
+      });
+    });
+    return options.sort(function (a, b) {
+      return a.label.localeCompare(b.label, undefined, { numeric: true });
     });
   }
 
