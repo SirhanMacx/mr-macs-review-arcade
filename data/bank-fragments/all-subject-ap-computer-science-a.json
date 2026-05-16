@@ -2,7 +2,7 @@
   "course": "ap-computer-science-a",
   "courseLabel": "AP Computer Science A",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-computer-science-a-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science A, which concept is most central to the unit \"Primitive Types\"?",
+      "prompt": "AP Computer Science A - Primitive Types: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Primitive Types",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
-        "Iteration",
-        "Primitive Types"
+        "Primitive Types",
+        "algorithm",
+        "security",
+        "Iteration"
       ],
-      "explanation": "Primitive Types is a core idea in Primitive Types. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Primitive Types is the anchor concept for Primitive Types. In AP CED: Primitive Types, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-computer-science-a-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Primitive Types needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Computer Science A: Primitive Types needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain algorithm.",
+        "Guess from key words about abstraction.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Primitive Types only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-computer-science-a-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Primitive Types?",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science A: Primitive Types?",
       "correctText": "Connect Primitive Types to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Primitive Types to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Primitive Types, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Primitive Types, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Computer Science A: Primitive Types?",
-      "correctText": "Primitive Types matters because it helps explain disciplinary reasoning.",
+      "correctText": "Primitive Types matters because it helps explain algorithm.",
       "choices": [
+        "Primitive Types matters because it helps explain algorithm.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Primitive Types matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Primitive Types appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Primitive Types. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Primitive Types. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Primitive Types to the larger course skill?",
-      "correctText": "Primitive Types is useful when students apply a course concept.",
+      "correctText": "Primitive Types is useful when students trace algorithms.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Primitive Types is useful when students trace algorithms.",
         "making a claim without supporting evidence",
-        "Primitive Types is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Primitive Types only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Primitive Types, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Primitive Types, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Primitive Types, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Primitive Types?",
-      "correctText": "evidence-based explanation",
+      "correctText": "abstraction",
       "choices": [
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "Using Objects",
-        "Writing Classes"
+        "abstraction",
+        "describing a topic without explaining why it matters",
+        "data",
+        "Boolean Expressions and if Statements"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Primitive Types, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "abstraction is part of the concept cluster for Primitive Types, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-computer-science-a-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Primitive Types knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Primitive Types, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Primitive Types, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,151 +258,151 @@
       "id": "ap-computer-science-a-011",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Using Objects",
+      "topic": "Primitive Types",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Using Objects",
+        "AP CED: Primitive Types",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science A, which concept is most central to the unit \"Using Objects\"?",
-      "correctText": "Using Objects",
+      "prompt": "AP Computer Science A - Primitive Types: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Primitive Types connects to algorithm.",
       "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "Inheritance",
-        "using a rule from a different unit",
-        "Using Objects"
+        "Primitive Types connects to algorithm.",
+        "data replaces all evidence."
       ],
-      "explanation": "Using Objects is a core idea in Using Objects. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Primitive Types and algorithm belongs together in Primitive Types; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-computer-science-a-012",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Using Objects",
+      "topic": "Primitive Types",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Using Objects",
+        "AP CED: Primitive Types",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Using Objects needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science A question on Primitive Types?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Using Objects only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-computer-science-a-013",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Using Objects",
+      "topic": "Primitive Types",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Using Objects",
+        "AP CED: Primitive Types",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Using Objects?",
-      "correctText": "Connect Using Objects to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Primitive Types?",
+      "correctText": "Primitive Types can be explained with evidence from graph, table, or equation.",
       "choices": [
-        "Connect Using Objects to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Using Objects as always meaning the same thing."
+        "Primitive Types can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-computer-science-a-014",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Using Objects",
+      "topic": "Primitive Types",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Using Objects",
+        "AP CED: Primitive Types",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Using Objects, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Primitive Types. Which feedback would help most?",
+      "correctText": "Reread the task, identify Primitive Types, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Primitive Types, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-computer-science-a-015",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Using Objects",
+      "topic": "Primitive Types",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Using Objects",
+        "AP CED: Primitive Types",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Computer Science A: Using Objects?",
-      "correctText": "Using Objects matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Computer Science A: Primitive Types?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit.",
-        "Using Objects matters because it helps explain disciplinary reasoning."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Computer Science A means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-computer-science-a-016",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Using Objects",
+      "topic": "Primitive Types",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Using Objects",
+        "AP CED: Primitive Types",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Using Objects. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Primitive Types, which unit vocabulary word should be reviewed with Primitive Types?",
+      "correctText": "algorithm",
       "choices": [
-        "Answer from memory before reading the stimulus.",
         "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "algorithm",
+        "Primitive Types",
+        "security"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "algorithm belongs near Primitive Types in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-computer-science-a-017",
@@ -419,15 +419,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Using Objects to the larger course skill?",
-      "correctText": "Using Objects is useful when students use evidence accurately.",
+      "prompt": "AP Computer Science A - Using Objects: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Using Objects",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Using Objects is useful when students use evidence accurately.",
-        "Using Objects only matters for memorized definitions."
+        "algorithm",
+        "Using Objects",
+        "security",
+        "Writing Classes"
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "Using Objects is the anchor concept for Using Objects. In AP CED: Using Objects, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-computer-science-a-018",
@@ -444,15 +444,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Using Objects, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Using Objects, cites evidence, and explains the connection.",
+      "prompt": "A student reviewing AP Computer Science A: Using Objects needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
       "choices": [
+        "Repeat the definition of Using Objects only.",
+        "Use evidence to explain algorithm.",
         "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Using Objects, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-computer-science-a-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Using Objects?",
-      "correctText": "evidence-based explanation",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science A: Using Objects?",
+      "correctText": "Connect Using Objects to the prompt context before choosing.",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Recursion"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Using Objects to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Using Objects, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-computer-science-a-020",
@@ -494,93 +494,318 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Using Objects knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Using Objects, then justify the answer with evidence.",
+      "prompt": "In an AP CED-aligned exam task about Using Objects, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Match the new prompt to Using Objects, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-computer-science-a-021",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Boolean Expressions and if Statements",
+      "topic": "Using Objects",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Boolean Expressions and if Statements",
+        "AP CED: Using Objects",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science A, which concept is most central to the unit \"Boolean Expressions and if Statements\"?",
-      "correctText": "Boolean Expressions and if Statements",
+      "prompt": "Which review note would help most for AP Computer Science A: Using Objects?",
+      "correctText": "Using Objects matters because it helps explain algorithm.",
       "choices": [
-        "ArrayList",
-        "Boolean Expressions and if Statements",
-        "Iteration",
-        "model or source analysis"
+        "ignoring the source or data in the prompt",
+        "Using Objects matters because it helps explain algorithm.",
+        "abstraction is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Boolean Expressions and if Statements is a core idea in Boolean Expressions and if Statements. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-computer-science-a-022",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Boolean Expressions and if Statements",
+      "topic": "Using Objects",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Boolean Expressions and if Statements",
+        "AP CED: Using Objects",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Boolean Expressions and if Statements needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Using Objects. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Read the prompt, source, or data for the exact task."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
       "id": "ap-computer-science-a-023",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Boolean Expressions and if Statements",
+      "topic": "Using Objects",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Boolean Expressions and if Statements",
+        "AP CED: Using Objects",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Boolean Expressions and if Statements?",
-      "correctText": "Connect Boolean Expressions and if Statements to the prompt context before choosing.",
+      "prompt": "Which classroom explanation would best connect Using Objects to the larger course skill?",
+      "correctText": "Using Objects is useful when students trace algorithms.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Boolean Expressions and if Statements to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Using Objects only matters for memorized definitions.",
+        "Using Objects is useful when students trace algorithms.",
+        "ignoring the source or data in the prompt",
+        "algorithm should be ignored unless it appears in the title."
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
       "id": "ap-computer-science-a-024",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Using Objects",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Using Objects",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Using Objects, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Using Objects, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Using Objects, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-computer-science-a-025",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Using Objects",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Using Objects",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Using Objects?",
+      "correctText": "abstraction",
+      "choices": [
+        "using a rule from a different unit",
+        "abstraction",
+        "debugging",
+        "Boolean Expressions"
+      ],
+      "explanation": "abstraction is part of the concept cluster for Using Objects, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-computer-science-a-026",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Using Objects",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Using Objects",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Using Objects knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Using Objects, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Using Objects, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-computer-science-a-027",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Using Objects",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Using Objects",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - Using Objects: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Using Objects connects to algorithm.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Using Objects connects to algorithm.",
+        "data replaces all evidence."
+      ],
+      "explanation": "The pair Using Objects and algorithm belongs together in Using Objects; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-a-028",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Using Objects",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Using Objects",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science A question on Using Objects?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-computer-science-a-029",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Using Objects",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Using Objects",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Using Objects?",
+      "correctText": "Using Objects can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Using Objects can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-a-030",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Using Objects",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Using Objects",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Using Objects. Which feedback would help most?",
+      "correctText": "Reread the task, identify Using Objects, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Using Objects, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-a-031",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Using Objects",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Using Objects",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science A: Using Objects?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science A means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-032",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Using Objects",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Using Objects",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Using Objects, which unit vocabulary word should be reviewed with Using Objects?",
+      "correctText": "algorithm",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "algorithm",
+        "Primitive Types",
+        "security"
+      ],
+      "explanation": "algorithm belongs near Using Objects in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-a-033",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Boolean Expressions and if Statements",
@@ -594,18 +819,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Boolean Expressions and if Statements, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Computer Science A - Boolean Expressions and if Statements: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Boolean Expressions and if Statements",
       "choices": [
+        "abstraction",
+        "Using Objects",
+        "Boolean Expressions and if Statements",
+        "Arrays"
+      ],
+      "explanation": "Boolean Expressions and if Statements is the anchor concept for Boolean Expressions and if Statements. In AP CED: Boolean Expressions and if Statements, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-a-034",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Boolean Expressions and if Statements",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Boolean Expressions and if Statements",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science A: Boolean Expressions and if Statements needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Boolean Expressions.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Boolean Expressions.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Boolean Expressions; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-a-035",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Boolean Expressions and if Statements",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Boolean Expressions and if Statements",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science A: Boolean Expressions and if Statements?",
+      "correctText": "Connect Boolean Expressions and if Statements to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Boolean Expressions and if Statements to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-computer-science-a-036",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Boolean Expressions and if Statements",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Boolean Expressions and if Statements",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Boolean Expressions and if Statements, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about if Statements.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about if Statements.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-computer-science-a-025",
+      "id": "ap-computer-science-a-037",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Boolean Expressions and if Statements",
@@ -620,17 +920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Computer Science A: Boolean Expressions and if Statements?",
-      "correctText": "Boolean Expressions and if Statements matters because it helps explain disciplinary reasoning.",
+      "correctText": "Boolean Expressions and if Statements matters because it helps explain Boolean Expressions.",
       "choices": [
-        "Boolean Expressions and if Statements appears on tests, so no explanation is needed.",
-        "Boolean Expressions and if Statements matters because it helps explain disciplinary reasoning.",
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Boolean Expressions and if Statements matters because it helps explain Boolean Expressions.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-computer-science-a-026",
+      "id": "ap-computer-science-a-038",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Boolean Expressions and if Statements",
@@ -644,18 +944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Boolean Expressions and if Statements. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Boolean Expressions and if Statements. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-computer-science-a-027",
+      "id": "ap-computer-science-a-039",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Boolean Expressions and if Statements",
@@ -670,17 +970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Boolean Expressions and if Statements to the larger course skill?",
-      "correctText": "Boolean Expressions and if Statements is useful when students explain reasoning.",
+      "correctText": "Boolean Expressions and if Statements is useful when students trace algorithms.",
       "choices": [
-        "Boolean Expressions and if Statements is useful when students explain reasoning.",
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "Boolean Expressions should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Boolean Expressions and if Statements is useful when students trace algorithms.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-computer-science-a-028",
+      "id": "ap-computer-science-a-040",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Boolean Expressions and if Statements",
@@ -697,15 +997,15 @@
       "prompt": "For Boolean Expressions and if Statements, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Boolean Expressions and if Statements, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Boolean Expressions and if Statements, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-computer-science-a-029",
+      "id": "ap-computer-science-a-041",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Boolean Expressions and if Statements",
@@ -720,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Boolean Expressions and if Statements?",
-      "correctText": "evidence-based explanation",
+      "correctText": "if Statements",
       "choices": [
-        "2D Array",
-        "evidence-based explanation",
-        "Using Objects",
-        "Writing Classes"
+        "making a claim without supporting evidence",
+        "debugging",
+        "if Statements",
+        "Boolean Expressions"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Boolean Expressions and if Statements, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "if Statements is part of the concept cluster for Boolean Expressions and if Statements, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-computer-science-a-030",
+      "id": "ap-computer-science-a-042",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Boolean Expressions and if Statements",
@@ -747,40 +1047,165 @@
       "prompt": "A student wants to transfer Boolean Expressions and if Statements knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Boolean Expressions and if Statements, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Boolean Expressions and if Statements, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Boolean Expressions and if Statements, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-computer-science-a-031",
+      "id": "ap-computer-science-a-043",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Iteration",
+      "topic": "Boolean Expressions and if Statements",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Iteration",
+        "AP CED: Boolean Expressions and if Statements",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science A, which concept is most central to the unit \"Iteration\"?",
-      "correctText": "Iteration",
+      "prompt": "AP Computer Science A - Boolean Expressions and if Statements: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Boolean Expressions and if Statements connects to Boolean Expressions.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Boolean Expressions and if Statements connects to Boolean Expressions.",
+        "algorithm replaces all evidence."
+      ],
+      "explanation": "The pair Boolean Expressions and if Statements and Boolean Expressions belongs together in Boolean Expressions and if Statements; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-a-044",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Boolean Expressions and if Statements",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Boolean Expressions and if Statements",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science A question on Boolean Expressions and if Statements?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-computer-science-a-045",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Boolean Expressions and if Statements",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Boolean Expressions and if Statements",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Boolean Expressions and if Statements?",
+      "correctText": "Boolean Expressions and if Statements can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Boolean Expressions and if Statements can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Boolean Expressions does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-a-046",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Boolean Expressions and if Statements",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Boolean Expressions and if Statements",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Boolean Expressions and if Statements. Which feedback would help most?",
+      "correctText": "Reread the task, identify Boolean Expressions and if Statements, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Boolean Expressions and if Statements, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-a-047",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Boolean Expressions and if Statements",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Boolean Expressions and if Statements",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science A: Boolean Expressions and if Statements?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science A means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-048",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Boolean Expressions and if Statements",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Boolean Expressions and if Statements",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Boolean Expressions and if Statements, which unit vocabulary word should be reviewed with Boolean Expressions and if Statements?",
+      "correctText": "Boolean Expressions",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "Iteration",
-        "using a rule from a different unit"
+        "Boolean Expressions",
+        "Primitive Types",
+        "impact"
       ],
-      "explanation": "Iteration is a core idea in Iteration. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Boolean Expressions belongs near Boolean Expressions and if Statements in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
-      "id": "ap-computer-science-a-032",
+      "id": "ap-computer-science-a-049",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Iteration",
@@ -794,18 +1219,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Iteration needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "AP Computer Science A - Iteration: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Iteration",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "data",
+        "Boolean Expressions and if Statements",
+        "ArrayList",
+        "Iteration"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Iteration is the anchor concept for Iteration. In AP CED: Iteration, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-computer-science-a-033",
+      "id": "ap-computer-science-a-050",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Iteration",
@@ -819,18 +1244,43 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Iteration?",
+      "prompt": "A student reviewing AP Computer Science A: Iteration needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain algorithm."
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-a-051",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Iteration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Iteration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science A: Iteration?",
       "correctText": "Connect Iteration to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Iteration to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-computer-science-a-034",
+      "id": "ap-computer-science-a-052",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Iteration",
@@ -844,18 +1294,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Iteration, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Iteration, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-computer-science-a-035",
+      "id": "ap-computer-science-a-053",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Iteration",
@@ -870,17 +1320,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Computer Science A: Iteration?",
-      "correctText": "Iteration matters because it helps explain disciplinary reasoning.",
+      "correctText": "Iteration matters because it helps explain algorithm.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Iteration matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Iteration matters because it helps explain algorithm."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-computer-science-a-036",
+      "id": "ap-computer-science-a-054",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Iteration",
@@ -894,18 +1344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Iteration. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Iteration. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-computer-science-a-037",
+      "id": "ap-computer-science-a-055",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Iteration",
@@ -920,17 +1370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Iteration to the larger course skill?",
-      "correctText": "Iteration is useful when students apply a course concept.",
+      "correctText": "Iteration is useful when students trace algorithms.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Iteration is useful when students apply a course concept.",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Iteration is useful when students trace algorithms."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-computer-science-a-038",
+      "id": "ap-computer-science-a-056",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Iteration",
@@ -947,15 +1397,15 @@
       "prompt": "For Iteration, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Iteration, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Iteration, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-computer-science-a-039",
+      "id": "ap-computer-science-a-057",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Iteration",
@@ -970,17 +1420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Iteration?",
-      "correctText": "evidence-based explanation",
+      "correctText": "abstraction",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "model or source analysis"
+        "Primitive Types",
+        "security",
+        "Iteration",
+        "abstraction"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Iteration, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "abstraction is part of the concept cluster for Iteration, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-computer-science-a-040",
+      "id": "ap-computer-science-a-058",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Iteration",
@@ -997,65 +1447,165 @@
       "prompt": "A student wants to transfer Iteration knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Iteration, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Iteration, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-computer-science-a-041",
+      "id": "ap-computer-science-a-059",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Writing Classes",
+      "topic": "Iteration",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Writing Classes",
+        "AP CED: Iteration",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science A, which concept is most central to the unit \"Writing Classes\"?",
-      "correctText": "Writing Classes",
+      "prompt": "AP Computer Science A - Iteration: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Iteration connects to algorithm.",
       "choices": [
-        "ArrayList",
-        "Boolean Expressions and if Statements",
-        "Recursion",
-        "Writing Classes"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Iteration connects to algorithm.",
+        "data replaces all evidence."
       ],
-      "explanation": "Writing Classes is a core idea in Writing Classes. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Iteration and algorithm belongs together in Iteration; students should explain the relationship rather than memorize each term alone."
     },
     {
-      "id": "ap-computer-science-a-042",
+      "id": "ap-computer-science-a-060",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Writing Classes",
+      "topic": "Iteration",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Writing Classes",
+        "AP CED: Iteration",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Writing Classes needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science A question on Iteration?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-computer-science-a-061",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Iteration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Iteration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Iteration?",
+      "correctText": "Iteration can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Iteration can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-a-062",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Iteration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Iteration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Iteration. Which feedback would help most?",
+      "correctText": "Reread the task, identify Iteration, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Iteration, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-a-063",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Iteration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Iteration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science A: Iteration?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science A means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-064",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Iteration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Iteration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Iteration, which unit vocabulary word should be reviewed with Iteration?",
+      "correctText": "algorithm",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Writing Classes only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "algorithm",
+        "Primitive Types",
+        "security"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "algorithm belongs near Iteration in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
-      "id": "ap-computer-science-a-043",
+      "id": "ap-computer-science-a-065",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Writing Classes",
@@ -1069,18 +1619,68 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Writing Classes?",
+      "prompt": "AP Computer Science A - Writing Classes: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Writing Classes",
+      "choices": [
+        "Writing Classes",
+        "debugging",
+        "Boolean Expressions",
+        "2D Array"
+      ],
+      "explanation": "Writing Classes is the anchor concept for Writing Classes. In AP CED: Writing Classes, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-a-066",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Writing Classes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Writing Classes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science A: Writing Classes needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "Use evidence to explain algorithm.",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about abstraction.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-a-067",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Writing Classes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Writing Classes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science A: Writing Classes?",
       "correctText": "Connect Writing Classes to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Writing Classes to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Writing Classes as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-computer-science-a-044",
+      "id": "ap-computer-science-a-068",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Writing Classes",
@@ -1094,18 +1694,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Writing Classes, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Writing Classes, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-computer-science-a-045",
+      "id": "ap-computer-science-a-069",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Writing Classes",
@@ -1120,17 +1720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Computer Science A: Writing Classes?",
-      "correctText": "Writing Classes matters because it helps explain disciplinary reasoning.",
+      "correctText": "Writing Classes matters because it helps explain algorithm.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Writing Classes matters because it helps explain algorithm.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit.",
-        "Writing Classes matters because it helps explain disciplinary reasoning."
+        "choosing an answer because it uses familiar words",
+        "Writing Classes appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-computer-science-a-046",
+      "id": "ap-computer-science-a-070",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Writing Classes",
@@ -1144,18 +1744,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Writing Classes. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Writing Classes. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-computer-science-a-047",
+      "id": "ap-computer-science-a-071",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Writing Classes",
@@ -1170,17 +1770,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Writing Classes to the larger course skill?",
-      "correctText": "Writing Classes is useful when students use evidence accurately.",
+      "correctText": "Writing Classes is useful when students trace algorithms.",
       "choices": [
-        "describing a topic without explaining why it matters",
+        "Writing Classes is useful when students trace algorithms.",
         "memorizing an isolated fact without evidence",
-        "Writing Classes is useful when students use evidence accurately.",
-        "Writing Classes only matters for memorized definitions."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-computer-science-a-048",
+      "id": "ap-computer-science-a-072",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Writing Classes",
@@ -1197,15 +1797,15 @@
       "prompt": "For Writing Classes, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Writing Classes, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Writing Classes, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-computer-science-a-049",
+      "id": "ap-computer-science-a-073",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Writing Classes",
@@ -1220,17 +1820,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Writing Classes?",
-      "correctText": "evidence-based explanation",
+      "correctText": "abstraction",
       "choices": [
-        "2D Array",
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence",
+        "abstraction",
+        "algorithm",
+        "Using Objects",
         "Writing Classes"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Writing Classes, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "abstraction is part of the concept cluster for Writing Classes, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-computer-science-a-050",
+      "id": "ap-computer-science-a-074",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Writing Classes",
@@ -1247,90 +1847,240 @@
       "prompt": "A student wants to transfer Writing Classes knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Writing Classes, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Writing Classes, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Writing Classes, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-computer-science-a-051",
+      "id": "ap-computer-science-a-075",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Arrays",
+      "topic": "Writing Classes",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Arrays",
+        "AP CED: Writing Classes",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science A, which concept is most central to the unit \"Arrays\"?",
-      "correctText": "Arrays",
+      "prompt": "AP Computer Science A - Writing Classes: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Writing Classes connects to algorithm.",
       "choices": [
-        "Arrays",
-        "disciplinary reasoning",
-        "exam-style application",
-        "using a rule from a different unit"
-      ],
-      "explanation": "Arrays is a core idea in Arrays. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
-    },
-    {
-      "id": "ap-computer-science-a-052",
-      "course": "ap-computer-science-a",
-      "courseLabel": "AP Computer Science A",
-      "topic": "Arrays",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Arrays",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student reviewing Arrays needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
-      "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
         "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "choosing an answer because it uses familiar words",
+        "Writing Classes connects to algorithm.",
+        "data replaces all evidence."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The pair Writing Classes and algorithm belongs together in Writing Classes; students should explain the relationship rather than memorize each term alone."
     },
     {
-      "id": "ap-computer-science-a-053",
+      "id": "ap-computer-science-a-076",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
-      "topic": "Arrays",
+      "topic": "Writing Classes",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Arrays",
+        "AP CED: Writing Classes",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Arrays?",
-      "correctText": "Connect Arrays to the prompt context before choosing.",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science A question on Writing Classes?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-computer-science-a-077",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Writing Classes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Writing Classes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Writing Classes?",
+      "correctText": "Writing Classes can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Writing Classes can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-a-078",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Writing Classes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Writing Classes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Writing Classes. Which feedback would help most?",
+      "correctText": "Reread the task, identify Writing Classes, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Writing Classes, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-a-079",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Writing Classes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Writing Classes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science A: Writing Classes?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science A means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-080",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Writing Classes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Writing Classes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Writing Classes, which unit vocabulary word should be reviewed with Writing Classes?",
+      "correctText": "algorithm",
       "choices": [
         "choosing an answer because it uses familiar words",
+        "algorithm",
+        "Primitive Types",
+        "security"
+      ],
+      "explanation": "algorithm belongs near Writing Classes in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-a-081",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Arrays",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Arrays",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - Arrays: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Arrays",
+      "choices": [
+        "impact",
+        "Arrays",
+        "if Statements",
+        "Inheritance"
+      ],
+      "explanation": "Arrays is the anchor concept for Arrays. In AP CED: Arrays, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-a-082",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Arrays",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Arrays",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science A: Arrays needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use evidence to explain algorithm.",
+        "Repeat the definition of Arrays only.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-a-083",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Arrays",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Arrays",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science A: Arrays?",
+      "correctText": "Connect Arrays to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Arrays to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-computer-science-a-054",
+      "id": "ap-computer-science-a-084",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Arrays",
@@ -1344,18 +2094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Arrays, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Arrays, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about abstraction.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-computer-science-a-055",
+      "id": "ap-computer-science-a-085",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Arrays",
@@ -1370,17 +2120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Computer Science A: Arrays?",
-      "correctText": "Arrays matters because it helps explain disciplinary reasoning.",
+      "correctText": "Arrays matters because it helps explain algorithm.",
       "choices": [
         "Arrays appears on tests, so no explanation is needed.",
-        "Arrays matters because it helps explain disciplinary reasoning.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Arrays matters because it helps explain algorithm.",
+        "ignoring the source or data in the prompt",
+        "abstraction is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-computer-science-a-056",
+      "id": "ap-computer-science-a-086",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Arrays",
@@ -1394,18 +2144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Arrays. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Arrays. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-computer-science-a-057",
+      "id": "ap-computer-science-a-087",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Arrays",
@@ -1420,17 +2170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Arrays to the larger course skill?",
-      "correctText": "Arrays is useful when students explain reasoning.",
+      "correctText": "Arrays is useful when students trace algorithms.",
       "choices": [
-        "Arrays is useful when students explain reasoning.",
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "Arrays is useful when students trace algorithms.",
+        "Arrays only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-computer-science-a-058",
+      "id": "ap-computer-science-a-088",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Arrays",
@@ -1447,15 +2197,15 @@
       "prompt": "For Arrays, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Arrays, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Arrays, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-computer-science-a-059",
+      "id": "ap-computer-science-a-089",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Arrays",
@@ -1470,17 +2220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Arrays?",
-      "correctText": "evidence-based explanation",
+      "correctText": "abstraction",
       "choices": [
+        "data",
+        "abstraction",
         "Boolean Expressions and if Statements",
-        "evidence-based explanation",
-        "making a claim without supporting evidence",
-        "model or source analysis"
+        "Arrays"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Arrays, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "abstraction is part of the concept cluster for Arrays, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-computer-science-a-060",
+      "id": "ap-computer-science-a-090",
       "course": "ap-computer-science-a",
       "courseLabel": "AP Computer Science A",
       "topic": "Arrays",
@@ -1497,12 +2247,1762 @@
       "prompt": "A student wants to transfer Arrays knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Arrays, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Arrays, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Arrays, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-computer-science-a-091",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Arrays",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Arrays",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - Arrays: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Arrays connects to algorithm.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Arrays connects to algorithm.",
+        "data replaces all evidence."
+      ],
+      "explanation": "The pair Arrays and algorithm belongs together in Arrays; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-a-092",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Arrays",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Arrays",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science A question on Arrays?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-computer-science-a-093",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Arrays",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Arrays",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Arrays?",
+      "correctText": "Arrays can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Arrays can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-a-094",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Arrays",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Arrays",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Arrays. Which feedback would help most?",
+      "correctText": "Reread the task, identify Arrays, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Arrays, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-a-095",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Arrays",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Arrays",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science A: Arrays?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science A means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-096",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Arrays",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Arrays",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Arrays, which unit vocabulary word should be reviewed with Arrays?",
+      "correctText": "algorithm",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "algorithm",
+        "Primitive Types",
+        "security"
+      ],
+      "explanation": "algorithm belongs near Arrays in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-a-097",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - ArrayList: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "ArrayList",
+      "choices": [
+        "security",
+        "Iteration",
+        "ArrayList",
+        "Recursion"
+      ],
+      "explanation": "ArrayList is the anchor concept for ArrayList. In AP CED: ArrayList, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-a-098",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science A: ArrayList needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain algorithm.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-a-099",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science A: ArrayList?",
+      "correctText": "Connect ArrayList to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect ArrayList to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-computer-science-a-100",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about ArrayList, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-computer-science-a-101",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Computer Science A: ArrayList?",
+      "correctText": "ArrayList matters because it helps explain algorithm.",
+      "choices": [
+        "abstraction is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "ArrayList matters because it helps explain algorithm.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-computer-science-a-102",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for ArrayList. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-103",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect ArrayList to the larger course skill?",
+      "correctText": "ArrayList is useful when students trace algorithms.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "algorithm should be ignored unless it appears in the title.",
+        "ArrayList is useful when students trace algorithms.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-computer-science-a-104",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For ArrayList, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names ArrayList, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names ArrayList, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-computer-science-a-105",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in ArrayList?",
+      "correctText": "abstraction",
+      "choices": [
+        "debugging",
+        "Boolean Expressions",
+        "abstraction",
+        "ArrayList"
+      ],
+      "explanation": "abstraction is part of the concept cluster for ArrayList, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-computer-science-a-106",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer ArrayList knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to ArrayList, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to ArrayList, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-computer-science-a-107",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - ArrayList: which pair best shows how two ideas in the unit connect?",
+      "correctText": "ArrayList connects to algorithm.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "ArrayList connects to algorithm.",
+        "data replaces all evidence."
+      ],
+      "explanation": "The pair ArrayList and algorithm belongs together in ArrayList; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-a-108",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science A question on ArrayList?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-computer-science-a-109",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in ArrayList?",
+      "correctText": "ArrayList can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "ArrayList can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-a-110",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on ArrayList. Which feedback would help most?",
+      "correctText": "Reread the task, identify ArrayList, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify ArrayList, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-a-111",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science A: ArrayList?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science A means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-112",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "ArrayList",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: ArrayList",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For ArrayList, which unit vocabulary word should be reviewed with ArrayList?",
+      "correctText": "algorithm",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "algorithm",
+        "Primitive Types",
+        "security"
+      ],
+      "explanation": "algorithm belongs near ArrayList in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-a-113",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - 2D Array: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "2D Array",
+      "choices": [
+        "Using Objects",
+        "Writing Classes",
+        "memorizing an isolated fact without evidence",
+        "2D Array"
+      ],
+      "explanation": "2D Array is the anchor concept for 2D Array. In AP CED: 2D Array, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-a-114",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science A: 2D Array needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Use evidence to explain algorithm."
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-a-115",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science A: 2D Array?",
+      "correctText": "Connect 2D Array to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect 2D Array to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-computer-science-a-116",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about 2D Array, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-computer-science-a-117",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Computer Science A: 2D Array?",
+      "correctText": "2D Array matters because it helps explain algorithm.",
+      "choices": [
+        "Only the vocabulary list matters for this unit.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "2D Array matters because it helps explain algorithm."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-computer-science-a-118",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for 2D Array. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Read the prompt, source, or data for the exact task.",
+        "Pick the first familiar vocabulary word.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-119",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect 2D Array to the larger course skill?",
+      "correctText": "2D Array is useful when students trace algorithms.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "2D Array is useful when students trace algorithms."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-computer-science-a-120",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For 2D Array, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names 2D Array, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names 2D Array, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-computer-science-a-121",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in 2D Array?",
+      "correctText": "abstraction",
+      "choices": [
+        "impact",
+        "if Statements",
+        "2D Array",
+        "abstraction"
+      ],
+      "explanation": "abstraction is part of the concept cluster for 2D Array, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-computer-science-a-122",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer 2D Array knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to 2D Array, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to 2D Array, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-computer-science-a-123",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - 2D Array: which pair best shows how two ideas in the unit connect?",
+      "correctText": "2D Array connects to algorithm.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "2D Array connects to algorithm.",
+        "data replaces all evidence."
+      ],
+      "explanation": "The pair 2D Array and algorithm belongs together in 2D Array; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-a-124",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science A question on 2D Array?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-computer-science-a-125",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in 2D Array?",
+      "correctText": "2D Array can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "2D Array can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-a-126",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on 2D Array. Which feedback would help most?",
+      "correctText": "Reread the task, identify 2D Array, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify 2D Array, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-a-127",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science A: 2D Array?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science A means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-128",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "2D Array",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: 2D Array",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For 2D Array, which unit vocabulary word should be reviewed with 2D Array?",
+      "correctText": "algorithm",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "algorithm",
+        "Primitive Types",
+        "security"
+      ],
+      "explanation": "algorithm belongs near 2D Array in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-a-129",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - Inheritance: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Inheritance",
+      "choices": [
+        "Inheritance",
+        "Boolean Expressions and if Statements",
+        "Arrays",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Inheritance is the anchor concept for Inheritance. In AP CED: Inheritance, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-a-130",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science A: Inheritance needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "Use evidence to explain algorithm.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about abstraction."
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-a-131",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science A: Inheritance?",
+      "correctText": "Connect Inheritance to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Inheritance to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-computer-science-a-132",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Inheritance, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-computer-science-a-133",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Computer Science A: Inheritance?",
+      "correctText": "Inheritance matters because it helps explain algorithm.",
+      "choices": [
+        "Inheritance matters because it helps explain algorithm.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-computer-science-a-134",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Inheritance. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus.",
+        "Read the prompt, source, or data for the exact task.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-135",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Inheritance to the larger course skill?",
+      "correctText": "Inheritance is useful when students trace algorithms.",
+      "choices": [
+        "Inheritance is useful when students trace algorithms.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-computer-science-a-136",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Inheritance, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Inheritance, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Inheritance, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-computer-science-a-137",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Inheritance?",
+      "correctText": "abstraction",
+      "choices": [
+        "abstraction",
+        "security",
+        "Iteration",
+        "Inheritance"
+      ],
+      "explanation": "abstraction is part of the concept cluster for Inheritance, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-computer-science-a-138",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Inheritance knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Inheritance, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Inheritance, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-computer-science-a-139",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - Inheritance: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Inheritance connects to algorithm.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Inheritance connects to algorithm.",
+        "data replaces all evidence."
+      ],
+      "explanation": "The pair Inheritance and algorithm belongs together in Inheritance; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-a-140",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science A question on Inheritance?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-computer-science-a-141",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Inheritance?",
+      "correctText": "Inheritance can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Inheritance can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-a-142",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Inheritance. Which feedback would help most?",
+      "correctText": "Reread the task, identify Inheritance, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Inheritance, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-a-143",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science A: Inheritance?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science A means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-144",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Inheritance",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inheritance",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Inheritance, which unit vocabulary word should be reviewed with Inheritance?",
+      "correctText": "algorithm",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "algorithm",
+        "Primitive Types",
+        "security"
+      ],
+      "explanation": "algorithm belongs near Inheritance in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-a-145",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - Recursion: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Recursion",
+      "choices": [
+        "Boolean Expressions",
+        "Recursion",
+        "ArrayList",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Recursion is the anchor concept for Recursion. In AP CED: Recursion, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-a-146",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science A: Recursion needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "Guess from key words about abstraction.",
+        "Use evidence to explain algorithm.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Recursion only."
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-a-147",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science A: Recursion?",
+      "correctText": "Connect Recursion to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Recursion to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-computer-science-a-148",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Recursion, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-computer-science-a-149",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Computer Science A: Recursion?",
+      "correctText": "Recursion matters because it helps explain algorithm.",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Recursion matters because it helps explain algorithm.",
+        "Recursion appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-computer-science-a-150",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Recursion. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Eliminate every answer that sounds detailed.",
+        "using a rule from a different unit",
+        "Read the prompt, source, or data for the exact task."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-151",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Recursion to the larger course skill?",
+      "correctText": "Recursion is useful when students trace algorithms.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "Recursion is useful when students trace algorithms.",
+        "choosing an answer because it uses familiar words",
+        "Recursion only matters for memorized definitions."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-computer-science-a-152",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Recursion, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Recursion, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Recursion, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-computer-science-a-153",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Recursion?",
+      "correctText": "abstraction",
+      "choices": [
+        "Using Objects",
+        "abstraction",
+        "Writing Classes",
+        "Recursion"
+      ],
+      "explanation": "abstraction is part of the concept cluster for Recursion, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-computer-science-a-154",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Recursion knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Recursion, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Recursion, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-computer-science-a-155",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science A - Recursion: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Recursion connects to algorithm.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Recursion connects to algorithm.",
+        "data replaces all evidence."
+      ],
+      "explanation": "The pair Recursion and algorithm belongs together in Recursion; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-a-156",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science A question on Recursion?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-computer-science-a-157",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Recursion?",
+      "correctText": "Recursion can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Recursion can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-a-158",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Recursion. Which feedback would help most?",
+      "correctText": "Reread the task, identify Recursion, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Recursion, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-a-159",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science A: Recursion?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science A means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-a-160",
+      "course": "ap-computer-science-a",
+      "courseLabel": "AP Computer Science A",
+      "topic": "Recursion",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Recursion",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Recursion, which unit vocabulary word should be reviewed with Recursion?",
+      "correctText": "algorithm",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "algorithm",
+        "Primitive Types",
+        "security"
+      ],
+      "explanation": "algorithm belongs near Recursion in this unit's concept map. Reviewing them together helps students answer transfer questions."
     }
   ]
 }

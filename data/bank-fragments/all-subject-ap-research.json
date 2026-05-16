@@ -2,7 +2,7 @@
   "course": "ap-research",
   "courseLabel": "AP Research",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-research-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Research, which concept is most central to the unit \"Research Question\"?",
+      "prompt": "AP Research - Research Question: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Research Question",
       "choices": [
-        "Data and Evidence",
-        "disciplinary reasoning",
-        "exam-style application",
-        "Research Question"
+        "Research Question",
+        "research question",
+        "presentation",
+        "Evidence"
       ],
-      "explanation": "Research Question is a core idea in Research Question. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Research Question is the anchor concept for Research Question. In AP CED: Research Question, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-research-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Research Question needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Research: Research Question needs to show the skill \"align evidence to a research question.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain research question.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain research question.",
+        "Guess from key words about source credibility.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Research Question only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to research question; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-research-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Research Question?",
+      "prompt": "Which answer best avoids a common mistake about AP Research: Research Question?",
       "correctText": "Connect Research Question to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Research Question to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Research Question, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Research Question, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about source credibility.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about source credibility.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Research: Research Question?",
-      "correctText": "Research Question matters because it helps explain disciplinary reasoning.",
+      "correctText": "Research Question matters because it helps explain research question.",
       "choices": [
+        "Research Question matters because it helps explain research question.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Research Question matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Research Question appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Research Question. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Research Question. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Research Question to the larger course skill?",
-      "correctText": "Research Question is useful when students apply a course concept.",
+      "correctText": "Research Question is useful when students evaluate source credibility.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Research Question is useful when students evaluate source credibility.",
         "making a claim without supporting evidence",
-        "Research Question is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Research Question only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Research Question, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Research Question, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Research Question, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Research Question?",
-      "correctText": "evidence-based explanation",
+      "correctText": "source credibility",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "Methodology",
-        "Presentation and Oral Defense"
+        "source credibility",
+        "making a claim without supporting evidence",
+        "limitations",
+        "Data"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Research Question, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "source credibility is part of the concept cluster for Research Question, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-research-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Research Question knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Research Question, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Research Question, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,79 +258,254 @@
       "id": "ap-research-011",
       "course": "ap-research",
       "courseLabel": "AP Research",
-      "topic": "Literature Review",
+      "topic": "Research Question",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Literature Review",
+        "AP CED: Research Question",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Research, which concept is most central to the unit \"Literature Review\"?",
-      "correctText": "Literature Review",
+      "prompt": "AP Research - Research Question: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Research Question connects to research question.",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "Literature Review",
-        "making a claim without supporting evidence"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Research Question connects to research question.",
+        "methodology replaces all evidence."
       ],
-      "explanation": "Literature Review is a core idea in Literature Review. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Research Question and research question belongs together in Research Question; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-research-012",
       "course": "ap-research",
       "courseLabel": "AP Research",
-      "topic": "Literature Review",
+      "topic": "Research Question",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Literature Review",
+        "AP CED: Research Question",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Literature Review needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of text excerpt in a AP Research question on Research Question?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Literature Review only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-research-013",
       "course": "ap-research",
       "courseLabel": "AP Research",
-      "topic": "Literature Review",
+      "topic": "Research Question",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Literature Review",
+        "AP CED: Research Question",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Literature Review?",
-      "correctText": "Connect Literature Review to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Research Question?",
+      "correctText": "Research Question can be explained with evidence from text excerpt.",
       "choices": [
-        "Connect Literature Review to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Literature Review as always meaning the same thing."
+        "Research Question can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "research question does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-research-014",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Research Question",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Research Question",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Research Question. Which feedback would help most?",
+      "correctText": "Reread the task, identify Research Question, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Research Question, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-research-015",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Research Question",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Research Question",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Research: Research Question?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Research means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-research-016",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Research Question",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Research Question",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Research Question, which unit vocabulary word should be reviewed with Research Question?",
+      "correctText": "research question",
+      "choices": [
+        "making a claim without supporting evidence",
+        "research question",
+        "limitations",
+        "Data"
+      ],
+      "explanation": "research question belongs near Research Question in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-research-017",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Research Question",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Research Question",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Research Question?",
+      "correctText": "A response that names Research Question but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Research Question but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Research Question to research question."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-research-018",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Research Question",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Research Question",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Research: Research Question?",
+      "correctText": "How does Research Question help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Research Question help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-research-019",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Research Question",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Research Question",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Research Question\" for Research Question (spiral review pass 2)?",
+      "correctText": "Apply Research Question in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Research Question in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Research Question expects students to use knowledge and skill together. The correct answer applies Research Question and supports the reasoning."
+    },
+    {
+      "id": "ap-research-020",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Research Question",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Research Question",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Research Question (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Research Question",
+      "choices": [
+        "using a rule from a different unit",
+        "evidence",
+        "Data and Evidence",
+        "Research Question"
+      ],
+      "explanation": "Research Question is the anchor concept for Research Question. In AP CED: Research Question, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-research-021",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Literature Review",
@@ -344,18 +519,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Literature Review, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Research - Literature Review: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Literature Review",
       "choices": [
-        "A vague statement that the topic is important.",
+        "research question",
+        "Literature Review",
+        "presentation",
+        "Academic Paper"
+      ],
+      "explanation": "Literature Review is the anchor concept for Literature Review. In AP CED: Literature Review, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-research-022",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Research: Literature Review needs to show the skill \"align evidence to a research question.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain research question.",
+      "choices": [
+        "Repeat the definition of Literature Review only.",
+        "Use evidence to explain research question.",
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Ignore the context and pick the longest answer."
+      ],
+      "explanation": "The useful move is to connect evidence to research question; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-research-023",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Research: Literature Review?",
+      "correctText": "Connect Literature Review to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Literature Review to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-research-024",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Literature Review, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about source credibility.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about source credibility.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-research-015",
+      "id": "ap-research-025",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Literature Review",
@@ -370,17 +620,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Research: Literature Review?",
-      "correctText": "Literature Review matters because it helps explain disciplinary reasoning.",
+      "correctText": "Literature Review matters because it helps explain research question.",
       "choices": [
         "ignoring the source or data in the prompt",
-        "Literature Review matters because it helps explain disciplinary reasoning.",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "Literature Review matters because it helps explain research question.",
+        "source credibility is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-research-016",
+      "id": "ap-research-026",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Literature Review",
@@ -394,18 +644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Literature Review. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Literature Review. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-research-017",
+      "id": "ap-research-027",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Literature Review",
@@ -420,17 +670,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Literature Review to the larger course skill?",
-      "correctText": "Literature Review is useful when students use evidence accurately.",
+      "correctText": "Literature Review is useful when students evaluate source credibility.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Literature Review is useful when students use evidence accurately.",
         "Literature Review only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Literature Review is useful when students evaluate source credibility.",
+        "ignoring the source or data in the prompt",
+        "research question should be ignored unless it appears in the title."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-research-018",
+      "id": "ap-research-028",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Literature Review",
@@ -447,15 +697,15 @@
       "prompt": "For Literature Review, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Literature Review, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Literature Review, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-research-019",
+      "id": "ap-research-029",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Literature Review",
@@ -470,17 +720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Literature Review?",
-      "correctText": "evidence-based explanation",
+      "correctText": "source credibility",
       "choices": [
-        "Academic Paper",
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "Literature Review"
+        "Research Question",
+        "source credibility",
+        "presentation",
+        "Evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Literature Review, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "source credibility is part of the concept cluster for Literature Review, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-research-020",
+      "id": "ap-research-030",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Literature Review",
@@ -497,15 +747,265 @@
       "prompt": "A student wants to transfer Literature Review knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Literature Review, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Literature Review, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Literature Review, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-research-021",
+      "id": "ap-research-031",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Literature Review: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Literature Review connects to research question.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Literature Review connects to research question.",
+        "methodology replaces all evidence."
+      ],
+      "explanation": "The pair Literature Review and research question belongs together in Literature Review; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-research-032",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP Research question on Literature Review?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-research-033",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Literature Review?",
+      "correctText": "Literature Review can be explained with evidence from text excerpt.",
+      "choices": [
+        "Literature Review can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "research question does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-research-034",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Literature Review. Which feedback would help most?",
+      "correctText": "Reread the task, identify Literature Review, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Literature Review, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-research-035",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Research: Literature Review?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Research means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-research-036",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Literature Review, which unit vocabulary word should be reviewed with Literature Review?",
+      "correctText": "research question",
+      "choices": [
+        "making a claim without supporting evidence",
+        "research question",
+        "limitations",
+        "Data"
+      ],
+      "explanation": "research question belongs near Literature Review in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-research-037",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Literature Review?",
+      "correctText": "A response that names Literature Review but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Literature Review but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Literature Review to research question."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-research-038",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Research: Literature Review?",
+      "correctText": "How does Literature Review help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Literature Review help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-research-039",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Literature Review\" for Literature Review (spiral review pass 2)?",
+      "correctText": "Apply Literature Review in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Literature Review in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Literature Review expects students to use knowledge and skill together. The correct answer applies Literature Review and supports the reasoning."
+    },
+    {
+      "id": "ap-research-040",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Literature Review",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literature Review",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Literature Review (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Literature Review",
+      "choices": [
+        "Literature Review",
+        "making a claim without supporting evidence",
+        "evidence",
+        "Data"
+      ],
+      "explanation": "Literature Review is the anchor concept for Literature Review. In AP CED: Literature Review, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-research-041",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Methodology",
@@ -519,18 +1019,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Research, which concept is most central to the unit \"Methodology\"?",
+      "prompt": "AP Research - Methodology: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Methodology",
       "choices": [
-        "Academic Paper",
-        "choosing an answer because it uses familiar words",
+        "source credibility",
+        "Literature Review",
         "Methodology",
-        "using a rule from a different unit"
+        "Presentation and Oral Defense"
       ],
-      "explanation": "Methodology is a core idea in Methodology. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Methodology is the anchor concept for Methodology. In AP CED: Methodology, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-research-022",
+      "id": "ap-research-042",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Methodology",
@@ -544,18 +1044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Methodology needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Research: Methodology needs to show the skill \"align evidence to a research question.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain research question.",
       "choices": [
         "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "using a rule from a different unit",
+        "Use evidence to explain research question.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to research question; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-research-023",
+      "id": "ap-research-043",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Methodology",
@@ -569,18 +1069,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Methodology?",
+      "prompt": "Which answer best avoids a common mistake about AP Research: Methodology?",
       "correctText": "Connect Methodology to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Methodology to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-research-024",
+      "id": "ap-research-044",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Methodology",
@@ -594,18 +1094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Methodology, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Methodology, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about source credibility.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about source credibility.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-research-025",
+      "id": "ap-research-045",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Methodology",
@@ -620,17 +1120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Research: Methodology?",
-      "correctText": "Methodology matters because it helps explain disciplinary reasoning.",
+      "correctText": "Methodology matters because it helps explain research question.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Methodology appears on tests, so no explanation is needed.",
-        "Methodology matters because it helps explain disciplinary reasoning."
+        "Only the vocabulary list matters for this unit.",
+        "Methodology matters because it helps explain research question.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-research-026",
+      "id": "ap-research-046",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Methodology",
@@ -644,18 +1144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Methodology. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Methodology. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-research-027",
+      "id": "ap-research-047",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Methodology",
@@ -670,17 +1170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Methodology to the larger course skill?",
-      "correctText": "Methodology is useful when students explain reasoning.",
+      "correctText": "Methodology is useful when students evaluate source credibility.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Methodology is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "research question should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Methodology is useful when students evaluate source credibility.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-research-028",
+      "id": "ap-research-048",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Methodology",
@@ -697,15 +1197,15 @@
       "prompt": "For Methodology, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Methodology, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Methodology, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-research-029",
+      "id": "ap-research-049",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Methodology",
@@ -720,17 +1220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Methodology?",
-      "correctText": "evidence-based explanation",
+      "correctText": "source credibility",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "exam-style application",
-        "Research Question"
+        "research question",
+        "Literature Review",
+        "source credibility",
+        "Academic Paper"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Methodology, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "source credibility is part of the concept cluster for Methodology, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-research-030",
+      "id": "ap-research-050",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Methodology",
@@ -747,15 +1247,265 @@
       "prompt": "A student wants to transfer Methodology knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Methodology, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Methodology, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Methodology, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-research-031",
+      "id": "ap-research-051",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Methodology",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Methodology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Methodology: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Methodology connects to research question.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Methodology connects to research question.",
+        "methodology replaces all evidence."
+      ],
+      "explanation": "The pair Methodology and research question belongs together in Methodology; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-research-052",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Methodology",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Methodology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP Research question on Methodology?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-research-053",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Methodology",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Methodology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Methodology?",
+      "correctText": "Methodology can be explained with evidence from text excerpt.",
+      "choices": [
+        "Methodology can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "research question does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-research-054",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Methodology",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Methodology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Methodology. Which feedback would help most?",
+      "correctText": "Reread the task, identify Methodology, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Methodology, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-research-055",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Methodology",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Methodology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Research: Methodology?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Research means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-research-056",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Methodology",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Methodology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Methodology, which unit vocabulary word should be reviewed with Methodology?",
+      "correctText": "research question",
+      "choices": [
+        "making a claim without supporting evidence",
+        "research question",
+        "limitations",
+        "Data"
+      ],
+      "explanation": "research question belongs near Methodology in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-research-057",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Methodology",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Methodology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Methodology?",
+      "correctText": "A response that names Methodology but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Methodology but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Methodology to research question."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-research-058",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Methodology",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Methodology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Research: Methodology?",
+      "correctText": "How does Methodology help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Methodology help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-research-059",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Methodology",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Methodology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Methodology\" for Methodology (spiral review pass 2)?",
+      "correctText": "Apply Methodology in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Methodology in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Methodology expects students to use knowledge and skill together. The correct answer applies Methodology and supports the reasoning."
+    },
+    {
+      "id": "ap-research-060",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Methodology",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Methodology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Methodology (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Methodology",
+      "choices": [
+        "Research Question",
+        "Methodology",
+        "limitations",
+        "Evidence"
+      ],
+      "explanation": "Methodology is the anchor concept for Methodology. In AP CED: Methodology, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-research-061",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Data and Evidence",
@@ -769,18 +1519,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Research, which concept is most central to the unit \"Data and Evidence\"?",
+      "prompt": "AP Research - Data and Evidence: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Data and Evidence",
       "choices": [
-        "Data and Evidence",
-        "memorizing an isolated fact without evidence",
+        "methodology",
         "Methodology",
-        "model or source analysis"
+        "Presentation",
+        "Data and Evidence"
       ],
-      "explanation": "Data and Evidence is a core idea in Data and Evidence. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Data and Evidence is the anchor concept for Data and Evidence. In AP CED: Data and Evidence, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-research-032",
+      "id": "ap-research-062",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Data and Evidence",
@@ -794,18 +1544,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Data and Evidence needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Research: Data and Evidence needs to show the skill \"align evidence to a research question.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Data.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
         "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Data."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Data; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-research-033",
+      "id": "ap-research-063",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Data and Evidence",
@@ -819,18 +1569,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Data and Evidence?",
+      "prompt": "Which answer best avoids a common mistake about AP Research: Data and Evidence?",
       "correctText": "Connect Data and Evidence to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Data and Evidence to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-research-034",
+      "id": "ap-research-064",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Data and Evidence",
@@ -844,18 +1594,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Data and Evidence, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Data and Evidence, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Evidence.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-research-035",
+      "id": "ap-research-065",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Data and Evidence",
@@ -870,17 +1620,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Research: Data and Evidence?",
-      "correctText": "Data and Evidence matters because it helps explain disciplinary reasoning.",
+      "correctText": "Data and Evidence matters because it helps explain Data.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Data and Evidence matters because it helps explain disciplinary reasoning.",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Data and Evidence matters because it helps explain Data."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-research-036",
+      "id": "ap-research-066",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Data and Evidence",
@@ -894,18 +1644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Data and Evidence. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Data and Evidence. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-research-037",
+      "id": "ap-research-067",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Data and Evidence",
@@ -920,17 +1670,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Data and Evidence to the larger course skill?",
-      "correctText": "Data and Evidence is useful when students apply a course concept.",
+      "correctText": "Data and Evidence is useful when students evaluate source credibility.",
       "choices": [
-        "Data and Evidence is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Data and Evidence is useful when students evaluate source credibility."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-research-038",
+      "id": "ap-research-068",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Data and Evidence",
@@ -947,15 +1697,15 @@
       "prompt": "For Data and Evidence, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Data and Evidence, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Data and Evidence, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-research-039",
+      "id": "ap-research-069",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Data and Evidence",
@@ -970,17 +1720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Data and Evidence?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Evidence",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Presentation and Oral Defense"
+        "source credibility",
+        "Literature Review",
+        "Presentation and Oral Defense",
+        "Evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Data and Evidence, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Evidence is part of the concept cluster for Data and Evidence, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-research-040",
+      "id": "ap-research-070",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Data and Evidence",
@@ -997,15 +1747,265 @@
       "prompt": "A student wants to transfer Data and Evidence knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Data and Evidence, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Data and Evidence, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-research-041",
+      "id": "ap-research-071",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Data and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Data and Evidence: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Data and Evidence connects to Data.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Data and Evidence connects to Data.",
+        "research question replaces all evidence."
+      ],
+      "explanation": "The pair Data and Evidence and Data belongs together in Data and Evidence; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-research-072",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Data and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP Research question on Data and Evidence?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-research-073",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Data and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Data and Evidence?",
+      "correctText": "Data and Evidence can be explained with evidence from text excerpt.",
+      "choices": [
+        "Data and Evidence can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "Data does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-research-074",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Data and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Data and Evidence. Which feedback would help most?",
+      "correctText": "Reread the task, identify Data and Evidence, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Data and Evidence, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-research-075",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Data and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Research: Data and Evidence?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Research means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-research-076",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Data and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Data and Evidence, which unit vocabulary word should be reviewed with Data and Evidence?",
+      "correctText": "Data",
+      "choices": [
+        "making a claim without supporting evidence",
+        "Data",
+        "evidence",
+        "Data and Evidence"
+      ],
+      "explanation": "Data belongs near Data and Evidence in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-research-077",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Data and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Data and Evidence?",
+      "correctText": "A response that names Data and Evidence but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Data and Evidence but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Data and Evidence to Data."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-research-078",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Data and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Research: Data and Evidence?",
+      "correctText": "How does Data and Evidence help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Data and Evidence help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-research-079",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Data and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Data and Evidence\" for Data and Evidence (spiral review pass 2)?",
+      "correctText": "Apply Data and Evidence in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Data and Evidence in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Data and Evidence expects students to use knowledge and skill together. The correct answer applies Data and Evidence and supports the reasoning."
+    },
+    {
+      "id": "ap-research-080",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Data and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Data and Evidence (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Data and Evidence",
+      "choices": [
+        "research question",
+        "presentation",
+        "Data and Evidence",
+        "Academic Paper"
+      ],
+      "explanation": "Data and Evidence is the anchor concept for Data and Evidence. In AP CED: Data and Evidence, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-research-081",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Academic Paper",
@@ -1019,18 +2019,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Research, which concept is most central to the unit \"Academic Paper\"?",
+      "prompt": "AP Research - Academic Paper: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Academic Paper",
       "choices": [
         "Academic Paper",
-        "evidence-based explanation",
-        "Literature Review",
-        "making a claim without supporting evidence"
+        "evidence",
+        "Data and Evidence",
+        "Oral Defense"
       ],
-      "explanation": "Academic Paper is a core idea in Academic Paper. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Academic Paper is the anchor concept for Academic Paper. In AP CED: Academic Paper, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-research-042",
+      "id": "ap-research-082",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Academic Paper",
@@ -1044,18 +2044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Academic Paper needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Research: Academic Paper needs to show the skill \"align evidence to a research question.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain research question.",
       "choices": [
+        "Use evidence to explain research question.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Academic Paper only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Guess from key words about source credibility.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to research question; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-research-043",
+      "id": "ap-research-083",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Academic Paper",
@@ -1069,18 +2069,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Academic Paper?",
+      "prompt": "Which answer best avoids a common mistake about AP Research: Academic Paper?",
       "correctText": "Connect Academic Paper to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Academic Paper to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Academic Paper as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-research-044",
+      "id": "ap-research-084",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Academic Paper",
@@ -1094,18 +2094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Academic Paper, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Academic Paper, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about source credibility.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about source credibility.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-research-045",
+      "id": "ap-research-085",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Academic Paper",
@@ -1120,17 +2120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Research: Academic Paper?",
-      "correctText": "Academic Paper matters because it helps explain disciplinary reasoning.",
+      "correctText": "Academic Paper matters because it helps explain research question.",
       "choices": [
-        "Academic Paper matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
+        "Academic Paper matters because it helps explain research question.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "choosing an answer because it uses familiar words",
+        "Academic Paper appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-research-046",
+      "id": "ap-research-086",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Academic Paper",
@@ -1144,18 +2144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Academic Paper. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Academic Paper. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-research-047",
+      "id": "ap-research-087",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Academic Paper",
@@ -1170,17 +2170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Academic Paper to the larger course skill?",
-      "correctText": "Academic Paper is useful when students use evidence accurately.",
+      "correctText": "Academic Paper is useful when students evaluate source credibility.",
       "choices": [
-        "Academic Paper is useful when students use evidence accurately.",
-        "Academic Paper only matters for memorized definitions.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Academic Paper is useful when students evaluate source credibility.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-research-048",
+      "id": "ap-research-088",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Academic Paper",
@@ -1197,15 +2197,15 @@
       "prompt": "For Academic Paper, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Academic Paper, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Academic Paper, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-research-049",
+      "id": "ap-research-089",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Academic Paper",
@@ -1220,17 +2220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Academic Paper?",
-      "correctText": "evidence-based explanation",
+      "correctText": "source credibility",
       "choices": [
-        "Academic Paper",
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation",
-        "Literature Review"
+        "source credibility",
+        "evidence",
+        "Data and Evidence",
+        "Presentation"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Academic Paper, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "source credibility is part of the concept cluster for Academic Paper, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-research-050",
+      "id": "ap-research-090",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Academic Paper",
@@ -1247,15 +2247,265 @@
       "prompt": "A student wants to transfer Academic Paper knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Academic Paper, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Academic Paper, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Academic Paper, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-research-051",
+      "id": "ap-research-091",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Academic Paper",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Academic Paper",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Academic Paper: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Academic Paper connects to research question.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Academic Paper connects to research question.",
+        "methodology replaces all evidence."
+      ],
+      "explanation": "The pair Academic Paper and research question belongs together in Academic Paper; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-research-092",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Academic Paper",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Academic Paper",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP Research question on Academic Paper?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-research-093",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Academic Paper",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Academic Paper",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Academic Paper?",
+      "correctText": "Academic Paper can be explained with evidence from text excerpt.",
+      "choices": [
+        "Academic Paper can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "research question does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-research-094",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Academic Paper",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Academic Paper",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Academic Paper. Which feedback would help most?",
+      "correctText": "Reread the task, identify Academic Paper, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Academic Paper, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-research-095",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Academic Paper",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Academic Paper",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Research: Academic Paper?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Research means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-research-096",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Academic Paper",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Academic Paper",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Academic Paper, which unit vocabulary word should be reviewed with Academic Paper?",
+      "correctText": "research question",
+      "choices": [
+        "making a claim without supporting evidence",
+        "research question",
+        "limitations",
+        "Data"
+      ],
+      "explanation": "research question belongs near Academic Paper in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-research-097",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Academic Paper",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Academic Paper",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Academic Paper?",
+      "correctText": "A response that names Academic Paper but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Academic Paper but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Academic Paper to research question."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-research-098",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Academic Paper",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Academic Paper",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Research: Academic Paper?",
+      "correctText": "How does Academic Paper help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Academic Paper help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-research-099",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Academic Paper",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Academic Paper",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Academic Paper\" for Academic Paper (spiral review pass 2)?",
+      "correctText": "Apply Academic Paper in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Academic Paper in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Academic Paper expects students to use knowledge and skill together. The correct answer applies Academic Paper and supports the reasoning."
+    },
+    {
+      "id": "ap-research-100",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Academic Paper",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Academic Paper",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Academic Paper (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Academic Paper",
+      "choices": [
+        "source credibility",
+        "Literature Review",
+        "Presentation and Oral Defense",
+        "Academic Paper"
+      ],
+      "explanation": "Academic Paper is the anchor concept for Academic Paper. In AP CED: Academic Paper, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-research-101",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Presentation and Oral Defense",
@@ -1269,18 +2519,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Research, which concept is most central to the unit \"Presentation and Oral Defense\"?",
+      "prompt": "AP Research - Presentation and Oral Defense: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Presentation and Oral Defense",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
+        "limitations",
         "Presentation and Oral Defense",
-        "using a rule from a different unit"
+        "Data",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Presentation and Oral Defense is a core idea in Presentation and Oral Defense. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Presentation and Oral Defense is the anchor concept for Presentation and Oral Defense. In AP CED: Presentation and Oral Defense, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-research-052",
+      "id": "ap-research-102",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Presentation and Oral Defense",
@@ -1294,18 +2544,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Presentation and Oral Defense needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Research: Presentation and Oral Defense needs to show the skill \"align evidence to a research question.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Presentation.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain Presentation.",
+        "Repeat the definition of Presentation and Oral Defense only.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Presentation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-research-053",
+      "id": "ap-research-103",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Presentation and Oral Defense",
@@ -1319,18 +2569,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Presentation and Oral Defense?",
+      "prompt": "Which answer best avoids a common mistake about AP Research: Presentation and Oral Defense?",
       "correctText": "Connect Presentation and Oral Defense to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Presentation and Oral Defense to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-research-054",
+      "id": "ap-research-104",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Presentation and Oral Defense",
@@ -1344,18 +2594,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Presentation and Oral Defense, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Presentation and Oral Defense, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Oral Defense.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Oral Defense.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-research-055",
+      "id": "ap-research-105",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Presentation and Oral Defense",
@@ -1370,17 +2620,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Research: Presentation and Oral Defense?",
-      "correctText": "Presentation and Oral Defense matters because it helps explain disciplinary reasoning.",
+      "correctText": "Presentation and Oral Defense matters because it helps explain Presentation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Presentation and Oral Defense appears on tests, so no explanation is needed.",
-        "Presentation and Oral Defense matters because it helps explain disciplinary reasoning."
+        "Presentation and Oral Defense matters because it helps explain Presentation.",
+        "ignoring the source or data in the prompt",
+        "Oral Defense is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-research-056",
+      "id": "ap-research-106",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Presentation and Oral Defense",
@@ -1394,18 +2644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Presentation and Oral Defense. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Presentation and Oral Defense. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-research-057",
+      "id": "ap-research-107",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Presentation and Oral Defense",
@@ -1420,17 +2670,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Presentation and Oral Defense to the larger course skill?",
-      "correctText": "Presentation and Oral Defense is useful when students explain reasoning.",
+      "correctText": "Presentation and Oral Defense is useful when students evaluate source credibility.",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Presentation and Oral Defense is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Presentation and Oral Defense is useful when students evaluate source credibility.",
+        "Presentation and Oral Defense only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-research-058",
+      "id": "ap-research-108",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Presentation and Oral Defense",
@@ -1447,15 +2697,15 @@
       "prompt": "For Presentation and Oral Defense, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Presentation and Oral Defense, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Presentation and Oral Defense, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-research-059",
+      "id": "ap-research-109",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Presentation and Oral Defense",
@@ -1470,17 +2720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Presentation and Oral Defense?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Oral Defense",
       "choices": [
+        "evidence",
+        "Oral Defense",
         "Data and Evidence",
-        "evidence-based explanation",
-        "exam-style application",
-        "Research Question"
+        "Presentation"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Presentation and Oral Defense, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Oral Defense is part of the concept cluster for Presentation and Oral Defense, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-research-060",
+      "id": "ap-research-110",
       "course": "ap-research",
       "courseLabel": "AP Research",
       "topic": "Presentation and Oral Defense",
@@ -1497,12 +2747,262 @@
       "prompt": "A student wants to transfer Presentation and Oral Defense knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Presentation and Oral Defense, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Presentation and Oral Defense, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Presentation and Oral Defense, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-research-111",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Presentation and Oral Defense",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Presentation and Oral Defense",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Presentation and Oral Defense: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Presentation and Oral Defense connects to Presentation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Presentation and Oral Defense connects to Presentation.",
+        "research question replaces all evidence."
+      ],
+      "explanation": "The pair Presentation and Oral Defense and Presentation belongs together in Presentation and Oral Defense; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-research-112",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Presentation and Oral Defense",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Presentation and Oral Defense",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP Research question on Presentation and Oral Defense?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-research-113",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Presentation and Oral Defense",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Presentation and Oral Defense",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Presentation and Oral Defense?",
+      "correctText": "Presentation and Oral Defense can be explained with evidence from text excerpt.",
+      "choices": [
+        "Presentation and Oral Defense can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "Presentation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-research-114",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Presentation and Oral Defense",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Presentation and Oral Defense",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Presentation and Oral Defense. Which feedback would help most?",
+      "correctText": "Reread the task, identify Presentation and Oral Defense, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Presentation and Oral Defense, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-research-115",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Presentation and Oral Defense",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Presentation and Oral Defense",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Research: Presentation and Oral Defense?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Research means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-research-116",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Presentation and Oral Defense",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Presentation and Oral Defense",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Presentation and Oral Defense, which unit vocabulary word should be reviewed with Presentation and Oral Defense?",
+      "correctText": "Presentation",
+      "choices": [
+        "making a claim without supporting evidence",
+        "Presentation",
+        "evidence",
+        "Data and Evidence"
+      ],
+      "explanation": "Presentation belongs near Presentation and Oral Defense in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-research-117",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Presentation and Oral Defense",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Presentation and Oral Defense",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Presentation and Oral Defense?",
+      "correctText": "A response that names Presentation and Oral Defense but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Presentation and Oral Defense but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Presentation and Oral Defense to Presentation."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-research-118",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Presentation and Oral Defense",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Presentation and Oral Defense",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Research: Presentation and Oral Defense?",
+      "correctText": "How does Presentation and Oral Defense help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Presentation and Oral Defense help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-research-119",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Presentation and Oral Defense",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Presentation and Oral Defense",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Presentation and Oral Defense\" for Presentation and Oral Defense (spiral review pass 2)?",
+      "correctText": "Apply Presentation and Oral Defense in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Presentation and Oral Defense in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Presentation and Oral Defense expects students to use knowledge and skill together. The correct answer applies Presentation and Oral Defense and supports the reasoning."
+    },
+    {
+      "id": "ap-research-120",
+      "course": "ap-research",
+      "courseLabel": "AP Research",
+      "topic": "Presentation and Oral Defense",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Presentation and Oral Defense",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Research - Presentation and Oral Defense (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Presentation and Oral Defense",
+      "choices": [
+        "Presentation and Oral Defense",
+        "methodology",
+        "Methodology",
+        "Presentation"
+      ],
+      "explanation": "Presentation and Oral Defense is the anchor concept for Presentation and Oral Defense. In AP CED: Presentation and Oral Defense, students need to use that concept to reason through a task, not just recognize the word."
     }
   ]
 }

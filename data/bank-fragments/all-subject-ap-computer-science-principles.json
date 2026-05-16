@@ -2,7 +2,7 @@
   "course": "ap-computer-science-principles",
   "courseLabel": "AP Computer Science Principles",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-computer-science-principles-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science Principles, which concept is most central to the unit \"Creative Development\"?",
+      "prompt": "AP Computer Science Principles - Creative Development: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Creative Development",
       "choices": [
-        "Computer Systems and Networks",
         "Creative Development",
-        "disciplinary reasoning",
-        "exam-style application"
+        "algorithm",
+        "security",
+        "Computer Systems and Networks"
       ],
-      "explanation": "Creative Development is a core idea in Creative Development. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Creative Development is the anchor concept for Creative Development. In AP CED: Creative Development, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-computer-science-principles-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Creative Development needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Computer Science Principles: Creative Development needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain algorithm.",
+        "Guess from key words about abstraction.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Creative Development only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-computer-science-principles-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Creative Development?",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science Principles: Creative Development?",
       "correctText": "Connect Creative Development to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Creative Development to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Creative Development, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Creative Development, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Computer Science Principles: Creative Development?",
-      "correctText": "Creative Development matters because it helps explain disciplinary reasoning.",
+      "correctText": "Creative Development matters because it helps explain algorithm.",
       "choices": [
+        "Creative Development matters because it helps explain algorithm.",
         "choosing an answer because it uses familiar words",
-        "Creative Development matters because it helps explain disciplinary reasoning.",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "Creative Development appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Creative Development. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Creative Development. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Creative Development to the larger course skill?",
-      "correctText": "Creative Development is useful when students apply a course concept.",
+      "correctText": "Creative Development is useful when students trace algorithms.",
       "choices": [
-        "Creative Development is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
+        "Creative Development is useful when students trace algorithms.",
         "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Creative Development only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Creative Development, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Creative Development, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Creative Development, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Creative Development?",
-      "correctText": "evidence-based explanation",
+      "correctText": "abstraction",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Computer Systems and Networks",
-        "evidence-based explanation",
-        "using a rule from a different unit"
+        "abstraction",
+        "Creative Development",
+        "security",
+        "Computer Systems and Networks"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Creative Development, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "abstraction is part of the concept cluster for Creative Development, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-computer-science-principles-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Creative Development knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Creative Development, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Creative Development, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,79 +258,354 @@
       "id": "ap-computer-science-principles-011",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Data",
+      "topic": "Creative Development",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Data",
+        "AP CED: Creative Development",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science Principles, which concept is most central to the unit \"Data\"?",
-      "correctText": "Data",
+      "prompt": "AP Computer Science Principles - Creative Development: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Creative Development connects to algorithm.",
       "choices": [
-        "Creative Development",
-        "Data",
-        "describing a topic without explaining why it matters",
-        "model or source analysis"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Creative Development connects to algorithm.",
+        "data replaces all evidence."
       ],
-      "explanation": "Data is a core idea in Data. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Creative Development and algorithm belongs together in Creative Development; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-computer-science-principles-012",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Data",
+      "topic": "Creative Development",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Data",
+        "AP CED: Creative Development",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Data needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science Principles question on Creative Development?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Data only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-computer-science-principles-013",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Data",
+      "topic": "Creative Development",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Data",
+        "AP CED: Creative Development",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Data?",
-      "correctText": "Connect Data to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Creative Development?",
+      "correctText": "Creative Development can be explained with evidence from graph, table, or equation.",
       "choices": [
-        "Connect Data to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
+        "Creative Development can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-principles-014",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Creative Development. Which feedback would help most?",
+      "correctText": "Reread the task, identify Creative Development, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Creative Development, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-principles-015",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science Principles: Creative Development?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science Principles means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-principles-016",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Creative Development, which unit vocabulary word should be reviewed with Creative Development?",
+      "correctText": "algorithm",
+      "choices": [
+        "abstraction",
+        "algorithm",
+        "Data",
+        "Computer Systems"
+      ],
+      "explanation": "algorithm belongs near Creative Development in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-principles-017",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Creative Development?",
+      "correctText": "A response that names Creative Development but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Creative Development but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Creative Development to algorithm."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-computer-science-principles-018",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Computer Science Principles: Creative Development?",
+      "correctText": "How does Creative Development help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence",
-        "Treat Data as always meaning the same thing."
+        "How does Creative Development help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-computer-science-principles-019",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Creative Development\" for Creative Development (spiral review pass 2)?",
+      "correctText": "Apply Creative Development in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Creative Development in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Creative Development expects students to use knowledge and skill together. The correct answer applies Creative Development and supports the reasoning."
+    },
+    {
+      "id": "ap-computer-science-principles-020",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science Principles - Creative Development (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Creative Development",
+      "choices": [
+        "making a claim without supporting evidence",
+        "impact",
+        "Programming",
+        "Creative Development"
+      ],
+      "explanation": "Creative Development is the anchor concept for Creative Development. In AP CED: Creative Development, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-principles-021",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science Principles: Creative Development (spiral review pass 2) needs to show the skill \"debug logic.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "Use evidence to explain algorithm.",
+        "Guess from key words about abstraction.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Creative Development only."
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-principles-022",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science Principles: Creative Development (spiral review pass 2)?",
+      "correctText": "Connect Creative Development to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Creative Development to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-computer-science-principles-014",
+      "id": "ap-computer-science-principles-023",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Creative Development (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
+      "choices": [
+        "Specific evidence that proves a claim about abstraction.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-computer-science-principles-024",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Creative Development",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Creative Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Computer Science Principles: Creative Development (spiral review pass 2)?",
+      "correctText": "Creative Development matters because it helps explain algorithm.",
+      "choices": [
+        "Creative Development matters because it helps explain algorithm.",
+        "choosing an answer because it uses familiar words",
+        "Creative Development appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-computer-science-principles-025",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Data",
@@ -344,18 +619,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Data, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Computer Science Principles - Data: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Data",
       "choices": [
-        "A vague statement that the topic is important.",
+        "algorithm",
+        "Data",
+        "security",
+        "Computer Systems"
+      ],
+      "explanation": "Data is the anchor concept for Data. In AP CED: Data, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-principles-026",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science Principles: Data needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "Repeat the definition of Data only.",
+        "Use evidence to explain algorithm.",
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Ignore the context and pick the longest answer."
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-principles-027",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science Principles: Data?",
+      "correctText": "Connect Data to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Data to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-computer-science-principles-028",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Data, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-computer-science-principles-015",
+      "id": "ap-computer-science-principles-029",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Data",
@@ -370,17 +720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Computer Science Principles: Data?",
-      "correctText": "Data matters because it helps explain disciplinary reasoning.",
+      "correctText": "Data matters because it helps explain algorithm.",
       "choices": [
-        "Data matters because it helps explain disciplinary reasoning.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "Data matters because it helps explain algorithm.",
+        "abstraction is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-computer-science-principles-016",
+      "id": "ap-computer-science-principles-030",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Data",
@@ -394,18 +744,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Data. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Data. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-computer-science-principles-017",
+      "id": "ap-computer-science-principles-031",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Data",
@@ -420,17 +770,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Data to the larger course skill?",
-      "correctText": "Data is useful when students use evidence accurately.",
+      "correctText": "Data is useful when students trace algorithms.",
       "choices": [
-        "Data is useful when students use evidence accurately.",
         "Data only matters for memorized definitions.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Data is useful when students trace algorithms.",
+        "ignoring the source or data in the prompt",
+        "algorithm should be ignored unless it appears in the title."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-computer-science-principles-018",
+      "id": "ap-computer-science-principles-032",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Data",
@@ -447,15 +797,15 @@
       "prompt": "For Data, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Data, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Data, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-computer-science-principles-019",
+      "id": "ap-computer-science-principles-033",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Data",
@@ -470,17 +820,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Data?",
-      "correctText": "evidence-based explanation",
+      "correctText": "abstraction",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Computer Systems and Networks",
-        "evidence-based explanation",
-        "exam-style application"
+        "algorithm",
+        "abstraction",
+        "Data",
+        "Computer Systems"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Data, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "abstraction is part of the concept cluster for Data, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-computer-science-principles-020",
+      "id": "ap-computer-science-principles-034",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Data",
@@ -497,115 +847,465 @@
       "prompt": "A student wants to transfer Data knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Data, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Data, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Data, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-computer-science-principles-021",
+      "id": "ap-computer-science-principles-035",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Algorithms and Programming",
+      "topic": "Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Algorithms and Programming",
+        "AP CED: Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science Principles, which concept is most central to the unit \"Algorithms and Programming\"?",
-      "correctText": "Algorithms and Programming",
+      "prompt": "AP Computer Science Principles - Data: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Data connects to algorithm.",
       "choices": [
-        "Algorithms and Programming",
-        "Creative Development",
-        "describing a topic without explaining why it matters",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Data connects to algorithm.",
+        "data replaces all evidence."
+      ],
+      "explanation": "The pair Data and algorithm belongs together in Data; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-principles-036",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science Principles question on Data?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Algorithms and Programming is a core idea in Algorithms and Programming. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
-      "id": "ap-computer-science-principles-022",
+      "id": "ap-computer-science-principles-037",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Algorithms and Programming",
+      "topic": "Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Algorithms and Programming",
+        "AP CED: Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Algorithms and Programming needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which statement would be easiest to defend in Data?",
+      "correctText": "Data can be explained with evidence from graph, table, or equation.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
+        "Data can be explained with evidence from graph, table, or equation.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
-      "id": "ap-computer-science-principles-023",
+      "id": "ap-computer-science-principles-038",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Algorithms and Programming",
+      "topic": "Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Algorithms and Programming",
+        "AP CED: Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Algorithms and Programming?",
-      "correctText": "Connect Algorithms and Programming to the prompt context before choosing.",
+      "prompt": "A student misses a AP CED-aligned exam task on Data. Which feedback would help most?",
+      "correctText": "Reread the task, identify Data, and explain the evidence step by step.",
       "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "Connect Algorithms and Programming to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Data, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-principles-039",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science Principles: Data?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science Principles means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-principles-040",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Data, which unit vocabulary word should be reviewed with Data?",
+      "correctText": "algorithm",
+      "choices": [
+        "abstraction",
+        "algorithm",
+        "Data",
+        "Computer Systems"
+      ],
+      "explanation": "algorithm belongs near Data in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-principles-041",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Data?",
+      "correctText": "A response that names Data but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Data but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Data to algorithm."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-computer-science-principles-042",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Computer Science Principles: Data?",
+      "correctText": "How does Data help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Data help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-computer-science-principles-043",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Data\" for Data (spiral review pass 2)?",
+      "correctText": "Apply Data in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Data in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Data expects students to use knowledge and skill together. The correct answer applies Data and supports the reasoning."
+    },
+    {
+      "id": "ap-computer-science-principles-044",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science Principles - Data (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Data",
+      "choices": [
+        "Data",
+        "Creative Development",
+        "impact",
+        "Computer Systems and Networks"
+      ],
+      "explanation": "Data is the anchor concept for Data. In AP CED: Data, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-principles-045",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science Principles: Data (spiral review pass 2) needs to show the skill \"debug logic.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "Repeat the definition of Data only.",
+        "Use evidence to explain algorithm.",
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer."
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-principles-046",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science Principles: Data (spiral review pass 2)?",
+      "correctText": "Connect Data to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Data to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-computer-science-principles-024",
+      "id": "ap-computer-science-principles-047",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Algorithms and Programming",
+      "topic": "Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Algorithms and Programming",
+        "AP CED: Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Algorithms and Programming, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Data (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
       "choices": [
-        "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
+        "Specific evidence that proves a claim about abstraction.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
         "using a rule from a different unit"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-computer-science-principles-025",
+      "id": "ap-computer-science-principles-048",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Computer Science Principles: Data (spiral review pass 2)?",
+      "correctText": "Data matters because it helps explain algorithm.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Data matters because it helps explain algorithm.",
+        "abstraction is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-computer-science-principles-049",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science Principles - Algorithms and Programming: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Algorithms and Programming",
+      "choices": [
+        "abstraction",
+        "Data",
+        "Algorithms and Programming",
+        "Networks"
+      ],
+      "explanation": "Algorithms and Programming is the anchor concept for Algorithms and Programming. In AP CED: Algorithms and Programming, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-principles-050",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science Principles: Algorithms and Programming needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Algorithms.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Algorithms.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Algorithms; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-principles-051",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science Principles: Algorithms and Programming?",
+      "correctText": "Connect Algorithms and Programming to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Algorithms and Programming to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-computer-science-principles-052",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Algorithms and Programming, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Programming.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Programming.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-computer-science-principles-053",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Algorithms and Programming",
@@ -620,17 +1320,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Computer Science Principles: Algorithms and Programming?",
-      "correctText": "Algorithms and Programming matters because it helps explain disciplinary reasoning.",
+      "correctText": "Algorithms and Programming matters because it helps explain Algorithms.",
       "choices": [
-        "Algorithms and Programming appears on tests, so no explanation is needed.",
-        "Algorithms and Programming matters because it helps explain disciplinary reasoning.",
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Algorithms and Programming matters because it helps explain Algorithms.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-computer-science-principles-026",
+      "id": "ap-computer-science-principles-054",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Algorithms and Programming",
@@ -644,18 +1344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Algorithms and Programming. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Algorithms and Programming. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-computer-science-principles-027",
+      "id": "ap-computer-science-principles-055",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Algorithms and Programming",
@@ -670,17 +1370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Algorithms and Programming to the larger course skill?",
-      "correctText": "Algorithms and Programming is useful when students explain reasoning.",
+      "correctText": "Algorithms and Programming is useful when students trace algorithms.",
       "choices": [
-        "Algorithms and Programming is useful when students explain reasoning.",
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "Algorithms should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Algorithms and Programming is useful when students trace algorithms.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-computer-science-principles-028",
+      "id": "ap-computer-science-principles-056",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Algorithms and Programming",
@@ -697,15 +1397,15 @@
       "prompt": "For Algorithms and Programming, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Algorithms and Programming, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Algorithms and Programming, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-computer-science-principles-029",
+      "id": "ap-computer-science-principles-057",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Algorithms and Programming",
@@ -720,17 +1420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Algorithms and Programming?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Programming",
       "choices": [
-        "Computer Systems and Networks",
-        "Creative Development",
-        "evidence-based explanation",
-        "exam-style application"
+        "abstraction",
+        "Data",
+        "Programming",
+        "Networks"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Algorithms and Programming, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Programming is part of the concept cluster for Algorithms and Programming, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-computer-science-principles-030",
+      "id": "ap-computer-science-principles-058",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Algorithms and Programming",
@@ -747,90 +1447,365 @@
       "prompt": "A student wants to transfer Algorithms and Programming knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Algorithms and Programming, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Algorithms and Programming, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Algorithms and Programming, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-computer-science-principles-031",
+      "id": "ap-computer-science-principles-059",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Computer Systems and Networks",
+      "topic": "Algorithms and Programming",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Computer Systems and Networks",
+        "AP CED: Algorithms and Programming",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science Principles, which concept is most central to the unit \"Computer Systems and Networks\"?",
-      "correctText": "Computer Systems and Networks",
+      "prompt": "AP Computer Science Principles - Algorithms and Programming: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Algorithms and Programming connects to Algorithms.",
       "choices": [
-        "Computer Systems and Networks",
-        "Data",
-        "describing a topic without explaining why it matters",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Algorithms and Programming connects to Algorithms.",
+        "algorithm replaces all evidence."
+      ],
+      "explanation": "The pair Algorithms and Programming and Algorithms belongs together in Algorithms and Programming; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-principles-060",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science Principles question on Algorithms and Programming?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Computer Systems and Networks is a core idea in Computer Systems and Networks. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
-      "id": "ap-computer-science-principles-032",
+      "id": "ap-computer-science-principles-061",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Computer Systems and Networks",
+      "topic": "Algorithms and Programming",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Computer Systems and Networks",
+        "AP CED: Algorithms and Programming",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Computer Systems and Networks needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which statement would be easiest to defend in Algorithms and Programming?",
+      "correctText": "Algorithms and Programming can be explained with evidence from graph, table, or equation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
-      ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
-    },
-    {
-      "id": "ap-computer-science-principles-033",
-      "course": "ap-computer-science-principles",
-      "courseLabel": "AP Computer Science Principles",
-      "topic": "Computer Systems and Networks",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Computer Systems and Networks",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Computer Systems and Networks?",
-      "correctText": "Connect Computer Systems and Networks to the prompt context before choosing.",
-      "choices": [
-        "Choose an unrelated fact from another unit.",
-        "Connect Computer Systems and Networks to the prompt context before choosing.",
+        "Algorithms and Programming can be explained with evidence from graph, table, or equation.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "Algorithms does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-principles-062",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Algorithms and Programming. Which feedback would help most?",
+      "correctText": "Reread the task, identify Algorithms and Programming, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Algorithms and Programming, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-principles-063",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science Principles: Algorithms and Programming?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science Principles means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-principles-064",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Algorithms and Programming, which unit vocabulary word should be reviewed with Algorithms and Programming?",
+      "correctText": "Algorithms",
+      "choices": [
+        "algorithm",
+        "Algorithms",
+        "security",
+        "Computer Systems"
+      ],
+      "explanation": "Algorithms belongs near Algorithms and Programming in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-principles-065",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Algorithms and Programming?",
+      "correctText": "A response that names Algorithms and Programming but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Algorithms and Programming but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Algorithms and Programming to Algorithms."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-computer-science-principles-066",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Computer Science Principles: Algorithms and Programming?",
+      "correctText": "How does Algorithms and Programming help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Algorithms and Programming help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-computer-science-principles-067",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Algorithms and Programming\" for Algorithms and Programming (spiral review pass 2)?",
+      "correctText": "Apply Algorithms and Programming in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Algorithms and Programming in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Algorithms and Programming expects students to use knowledge and skill together. The correct answer applies Algorithms and Programming and supports the reasoning."
+    },
+    {
+      "id": "ap-computer-science-principles-068",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science Principles - Algorithms and Programming (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Algorithms and Programming",
+      "choices": [
+        "algorithm",
+        "Algorithms and Programming",
+        "security",
+        "Computer Systems"
+      ],
+      "explanation": "Algorithms and Programming is the anchor concept for Algorithms and Programming. In AP CED: Algorithms and Programming, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-principles-069",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science Principles: Algorithms and Programming (spiral review pass 2) needs to show the skill \"debug logic.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Algorithms.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Algorithms.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Algorithms; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-principles-070",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science Principles: Algorithms and Programming (spiral review pass 2)?",
+      "correctText": "Connect Algorithms and Programming to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Algorithms and Programming to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-computer-science-principles-034",
+      "id": "ap-computer-science-principles-071",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Algorithms and Programming (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Programming.",
+      "choices": [
+        "Specific evidence that proves a claim about Programming.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-computer-science-principles-072",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Algorithms and Programming",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Algorithms and Programming",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Computer Science Principles: Algorithms and Programming (spiral review pass 2)?",
+      "correctText": "Algorithms and Programming matters because it helps explain Algorithms.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Only the vocabulary list matters for this unit.",
+        "Algorithms and Programming matters because it helps explain Algorithms.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-computer-science-principles-073",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Computer Systems and Networks",
@@ -844,18 +1819,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Computer Systems and Networks, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Computer Science Principles - Computer Systems and Networks: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Computer Systems and Networks",
       "choices": [
-        "A personal opinion without support.",
-        "ignoring the source or data in the prompt",
+        "data",
+        "Algorithms and Programming",
+        "Impact of Computing",
+        "Computer Systems and Networks"
+      ],
+      "explanation": "Computer Systems and Networks is the anchor concept for Computer Systems and Networks. In AP CED: Computer Systems and Networks, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-principles-074",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science Principles: Computer Systems and Networks needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Computer Systems.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
         "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Computer Systems."
+      ],
+      "explanation": "The useful move is to connect evidence to Computer Systems; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-principles-075",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science Principles: Computer Systems and Networks?",
+      "correctText": "Connect Computer Systems and Networks to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Computer Systems and Networks to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-computer-science-principles-076",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Computer Systems and Networks, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Networks.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Networks.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-computer-science-principles-035",
+      "id": "ap-computer-science-principles-077",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Computer Systems and Networks",
@@ -870,17 +1920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Computer Science Principles: Computer Systems and Networks?",
-      "correctText": "Computer Systems and Networks matters because it helps explain disciplinary reasoning.",
+      "correctText": "Computer Systems and Networks matters because it helps explain Computer Systems.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Computer Systems and Networks matters because it helps explain disciplinary reasoning.",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Computer Systems and Networks matters because it helps explain Computer Systems."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-computer-science-principles-036",
+      "id": "ap-computer-science-principles-078",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Computer Systems and Networks",
@@ -894,18 +1944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Computer Systems and Networks. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Computer Systems and Networks. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-computer-science-principles-037",
+      "id": "ap-computer-science-principles-079",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Computer Systems and Networks",
@@ -920,17 +1970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Computer Systems and Networks to the larger course skill?",
-      "correctText": "Computer Systems and Networks is useful when students apply a course concept.",
+      "correctText": "Computer Systems and Networks is useful when students trace algorithms.",
       "choices": [
-        "Computer Systems and Networks is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Computer Systems and Networks is useful when students trace algorithms."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-computer-science-principles-038",
+      "id": "ap-computer-science-principles-080",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Computer Systems and Networks",
@@ -947,15 +1997,15 @@
       "prompt": "For Computer Systems and Networks, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Computer Systems and Networks, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Computer Systems and Networks, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-computer-science-principles-039",
+      "id": "ap-computer-science-principles-081",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Computer Systems and Networks",
@@ -970,17 +2020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Computer Systems and Networks?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Networks",
       "choices": [
-        "Creative Development",
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "exam-style application"
+        "data",
+        "Algorithms and Programming",
+        "Impact of Computing",
+        "Networks"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Computer Systems and Networks, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Networks is part of the concept cluster for Computer Systems and Networks, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-computer-science-principles-040",
+      "id": "ap-computer-science-principles-082",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Computer Systems and Networks",
@@ -997,90 +2047,365 @@
       "prompt": "A student wants to transfer Computer Systems and Networks knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Computer Systems and Networks, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Computer Systems and Networks, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-computer-science-principles-041",
+      "id": "ap-computer-science-principles-083",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Impact of Computing",
+      "topic": "Computer Systems and Networks",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Impact of Computing",
+        "AP CED: Computer Systems and Networks",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science Principles, which concept is most central to the unit \"Impact of Computing\"?",
-      "correctText": "Impact of Computing",
+      "prompt": "AP Computer Science Principles - Computer Systems and Networks: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Computer Systems and Networks connects to Computer Systems.",
       "choices": [
-        "Data",
-        "evidence-based explanation",
-        "Impact of Computing",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Computer Systems and Networks connects to Computer Systems.",
+        "algorithm replaces all evidence."
+      ],
+      "explanation": "The pair Computer Systems and Networks and Computer Systems belongs together in Computer Systems and Networks; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-principles-084",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science Principles question on Computer Systems and Networks?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Impact of Computing is a core idea in Impact of Computing. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
-      "id": "ap-computer-science-principles-042",
+      "id": "ap-computer-science-principles-085",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Impact of Computing",
+      "topic": "Computer Systems and Networks",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Impact of Computing",
+        "AP CED: Computer Systems and Networks",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Impact of Computing needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which statement would be easiest to defend in Computer Systems and Networks?",
+      "correctText": "Computer Systems and Networks can be explained with evidence from graph, table, or equation.",
       "choices": [
+        "Computer Systems and Networks can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Computer Systems does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-computer-science-principles-086",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Computer Systems and Networks. Which feedback would help most?",
+      "correctText": "Reread the task, identify Computer Systems and Networks, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Impact of Computing only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Computer Systems and Networks, and explain the evidence step by step."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
-      "id": "ap-computer-science-principles-043",
+      "id": "ap-computer-science-principles-087",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Impact of Computing",
+      "topic": "Computer Systems and Networks",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Impact of Computing",
+        "AP CED: Computer Systems and Networks",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Impact of Computing?",
-      "correctText": "Connect Impact of Computing to the prompt context before choosing.",
+      "prompt": "Which phrase best signals mastery of AP Computer Science Principles: Computer Systems and Networks?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
       "choices": [
-        "Connect Impact of Computing to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science Principles means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-principles-088",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Computer Systems and Networks, which unit vocabulary word should be reviewed with Computer Systems and Networks?",
+      "correctText": "Computer Systems",
+      "choices": [
+        "algorithm",
+        "Computer Systems",
+        "security",
+        "Computer Systems and Networks"
+      ],
+      "explanation": "Computer Systems belongs near Computer Systems and Networks in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-principles-089",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Computer Systems and Networks?",
+      "correctText": "A response that names Computer Systems and Networks but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Computer Systems and Networks but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Computer Systems and Networks to Computer Systems."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-computer-science-principles-090",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Computer Science Principles: Computer Systems and Networks?",
+      "correctText": "How does Computer Systems and Networks help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence",
-        "Treat Impact of Computing as always meaning the same thing."
+        "How does Computer Systems and Networks help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-computer-science-principles-091",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Computer Systems and Networks\" for Computer Systems and Networks (spiral review pass 2)?",
+      "correctText": "Apply Computer Systems and Networks in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Computer Systems and Networks in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Computer Systems and Networks expects students to use knowledge and skill together. The correct answer applies Computer Systems and Networks and supports the reasoning."
+    },
+    {
+      "id": "ap-computer-science-principles-092",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science Principles - Computer Systems and Networks (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Computer Systems and Networks",
+      "choices": [
+        "abstraction",
+        "Data",
+        "Computer Systems and Networks",
+        "Networks"
+      ],
+      "explanation": "Computer Systems and Networks is the anchor concept for Computer Systems and Networks. In AP CED: Computer Systems and Networks, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-principles-093",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science Principles: Computer Systems and Networks (spiral review pass 2) needs to show the skill \"debug logic.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Computer Systems.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Computer Systems."
+      ],
+      "explanation": "The useful move is to connect evidence to Computer Systems; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-principles-094",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science Principles: Computer Systems and Networks (spiral review pass 2)?",
+      "correctText": "Connect Computer Systems and Networks to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Computer Systems and Networks to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-computer-science-principles-044",
+      "id": "ap-computer-science-principles-095",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Computer Systems and Networks (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Networks.",
+      "choices": [
+        "Specific evidence that proves a claim about Networks.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-computer-science-principles-096",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Computer Systems and Networks",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Computer Systems and Networks",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Computer Science Principles: Computer Systems and Networks (spiral review pass 2)?",
+      "correctText": "Computer Systems and Networks matters because it helps explain Computer Systems.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Computer Systems and Networks matters because it helps explain Computer Systems."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-computer-science-principles-097",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Impact of Computing",
@@ -1094,18 +2419,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Impact of Computing, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Computer Science Principles - Impact of Computing: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Impact of Computing",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Impact of Computing",
+        "debugging",
+        "Algorithms",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Impact of Computing is the anchor concept for Impact of Computing. In AP CED: Impact of Computing, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-principles-098",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science Principles: Impact of Computing needs to show the skill \"evaluate impacts.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "Use evidence to explain algorithm.",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about abstraction.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-principles-099",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science Principles: Impact of Computing?",
+      "correctText": "Connect Impact of Computing to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Impact of Computing to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-computer-science-principles-100",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Impact of Computing, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about abstraction.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-computer-science-principles-045",
+      "id": "ap-computer-science-principles-101",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Impact of Computing",
@@ -1120,17 +2520,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Computer Science Principles: Impact of Computing?",
-      "correctText": "Impact of Computing matters because it helps explain disciplinary reasoning.",
+      "correctText": "Impact of Computing matters because it helps explain algorithm.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Impact of Computing matters because it helps explain disciplinary reasoning.",
+        "Impact of Computing matters because it helps explain algorithm.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "choosing an answer because it uses familiar words",
+        "Impact of Computing appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-computer-science-principles-046",
+      "id": "ap-computer-science-principles-102",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Impact of Computing",
@@ -1144,18 +2544,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Impact of Computing. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Impact of Computing. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-computer-science-principles-047",
+      "id": "ap-computer-science-principles-103",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Impact of Computing",
@@ -1170,17 +2570,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Impact of Computing to the larger course skill?",
-      "correctText": "Impact of Computing is useful when students use evidence accurately.",
+      "correctText": "Impact of Computing is useful when students trace algorithms.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Impact of Computing is useful when students use evidence accurately.",
-        "Impact of Computing only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Impact of Computing is useful when students trace algorithms.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-computer-science-principles-048",
+      "id": "ap-computer-science-principles-104",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Impact of Computing",
@@ -1197,15 +2597,15 @@
       "prompt": "For Impact of Computing, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Impact of Computing, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Impact of Computing, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-computer-science-principles-049",
+      "id": "ap-computer-science-principles-105",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Impact of Computing",
@@ -1220,17 +2620,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Impact of Computing?",
-      "correctText": "evidence-based explanation",
+      "correctText": "abstraction",
       "choices": [
-        "Creative Development",
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
+        "abstraction",
+        "impact",
+        "Programming",
         "memorizing an isolated fact without evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Impact of Computing, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "abstraction is part of the concept cluster for Impact of Computing, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-computer-science-principles-050",
+      "id": "ap-computer-science-principles-106",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
       "topic": "Impact of Computing",
@@ -1247,262 +2647,362 @@
       "prompt": "A student wants to transfer Impact of Computing knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Impact of Computing, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Impact of Computing, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Impact of Computing, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-computer-science-principles-051",
+      "id": "ap-computer-science-principles-107",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Creative Development",
+      "topic": "Impact of Computing",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Creative Development",
+        "AP CED: Impact of Computing",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Computer Science Principles, which concept is most central to the unit \"Creative Development\" during mixed review pass 2?",
-      "correctText": "Creative Development",
+      "prompt": "AP Computer Science Principles - Impact of Computing: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Impact of Computing connects to algorithm.",
       "choices": [
-        "Creative Development",
-        "describing a topic without explaining why it matters",
-        "disciplinary reasoning",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Impact of Computing connects to algorithm.",
+        "data replaces all evidence."
+      ],
+      "explanation": "The pair Impact of Computing and algorithm belongs together in Impact of Computing; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-computer-science-principles-108",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Computer Science Principles question on Impact of Computing?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Creative Development is a core idea in Creative Development. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
-      "id": "ap-computer-science-principles-052",
+      "id": "ap-computer-science-principles-109",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Creative Development",
+      "topic": "Impact of Computing",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Creative Development",
+        "AP CED: Impact of Computing",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Creative Development during mixed review pass 2 needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which statement would be easiest to defend in Impact of Computing?",
+      "correctText": "Impact of Computing can be explained with evidence from graph, table, or equation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Impact of Computing can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "algorithm does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
-      "id": "ap-computer-science-principles-053",
+      "id": "ap-computer-science-principles-110",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Creative Development",
+      "topic": "Impact of Computing",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Creative Development",
+        "AP CED: Impact of Computing",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Creative Development during mixed review pass 2?",
-      "correctText": "Connect Creative Development to the prompt context before choosing.",
+      "prompt": "A student misses a AP CED-aligned exam task on Impact of Computing. Which feedback would help most?",
+      "correctText": "Reread the task, identify Impact of Computing, and explain the evidence step by step.",
       "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "Connect Creative Development to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Impact of Computing, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-computer-science-principles-111",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Computer Science Principles: Impact of Computing?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Computer Science Principles means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-computer-science-principles-112",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Impact of Computing, which unit vocabulary word should be reviewed with Impact of Computing?",
+      "correctText": "algorithm",
+      "choices": [
+        "abstraction",
+        "algorithm",
+        "Data",
+        "Computer Systems"
+      ],
+      "explanation": "algorithm belongs near Impact of Computing in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-computer-science-principles-113",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Impact of Computing?",
+      "correctText": "A response that names Impact of Computing but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Impact of Computing but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Impact of Computing to algorithm."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-computer-science-principles-114",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Computer Science Principles: Impact of Computing?",
+      "correctText": "How does Impact of Computing help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Impact of Computing help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-computer-science-principles-115",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Impact of Computing\" for Impact of Computing (spiral review pass 2)?",
+      "correctText": "Apply Impact of Computing in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Impact of Computing in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Impact of Computing expects students to use knowledge and skill together. The correct answer applies Impact of Computing and supports the reasoning."
+    },
+    {
+      "id": "ap-computer-science-principles-116",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Computer Science Principles - Impact of Computing (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Impact of Computing",
+      "choices": [
+        "data",
+        "Algorithms and Programming",
+        "Networks",
+        "Impact of Computing"
+      ],
+      "explanation": "Impact of Computing is the anchor concept for Impact of Computing. In AP CED: Impact of Computing, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-computer-science-principles-117",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Computer Science Principles: Impact of Computing (spiral review pass 2) needs to show the skill \"debug logic.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain algorithm.",
+      "choices": [
+        "Use evidence to explain algorithm.",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about abstraction.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "The useful move is to connect evidence to algorithm; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-computer-science-principles-118",
+      "course": "ap-computer-science-principles",
+      "courseLabel": "AP Computer Science Principles",
+      "topic": "Impact of Computing",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Impact of Computing",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Computer Science Principles: Impact of Computing (spiral review pass 2)?",
+      "correctText": "Connect Impact of Computing to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Impact of Computing to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-computer-science-principles-054",
+      "id": "ap-computer-science-principles-119",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Creative Development",
+      "topic": "Impact of Computing",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Creative Development",
+        "AP CED: Impact of Computing",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Creative Development during mixed review pass 2, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Impact of Computing (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about abstraction.",
       "choices": [
-        "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
+        "Specific evidence that proves a claim about abstraction.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
         "using a rule from a different unit"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-computer-science-principles-055",
+      "id": "ap-computer-science-principles-120",
       "course": "ap-computer-science-principles",
       "courseLabel": "AP Computer Science Principles",
-      "topic": "Creative Development",
+      "topic": "Impact of Computing",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Creative Development",
+        "AP CED: Impact of Computing",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Computer Science Principles: Creative Development during mixed review pass 2?",
-      "correctText": "Creative Development matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which review note would help most for AP Computer Science Principles: Impact of Computing (spiral review pass 2)?",
+      "correctText": "Impact of Computing matters because it helps explain algorithm.",
       "choices": [
+        "Impact of Computing matters because it helps explain algorithm.",
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "Creative Development matters because it helps explain disciplinary reasoning.",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "Impact of Computing appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
-    },
-    {
-      "id": "ap-computer-science-principles-056",
-      "course": "ap-computer-science-principles",
-      "courseLabel": "AP Computer Science Principles",
-      "topic": "Creative Development",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Creative Development",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Creative Development during mixed review pass 2. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
-      "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
-      ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
-    },
-    {
-      "id": "ap-computer-science-principles-057",
-      "course": "ap-computer-science-principles",
-      "courseLabel": "AP Computer Science Principles",
-      "topic": "Creative Development",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Creative Development",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Creative Development to the larger course skill during mixed review pass 2?",
-      "correctText": "Creative Development is useful when students explain reasoning.",
-      "choices": [
-        "Creative Development is useful when students explain reasoning.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
-      ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
-    },
-    {
-      "id": "ap-computer-science-principles-058",
-      "course": "ap-computer-science-principles",
-      "courseLabel": "AP Computer Science Principles",
-      "topic": "Creative Development",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Creative Development",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "For Creative Development during mixed review pass 2, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Creative Development, cites evidence, and explains the connection.",
-      "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
-        "It names Creative Development, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
-      ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
-    },
-    {
-      "id": "ap-computer-science-principles-059",
-      "course": "ap-computer-science-principles",
-      "courseLabel": "AP Computer Science Principles",
-      "topic": "Creative Development",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Creative Development",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Creative Development during mixed review pass 2?",
-      "correctText": "evidence-based explanation",
-      "choices": [
-        "Computer Systems and Networks",
-        "Creative Development",
-        "evidence-based explanation",
-        "exam-style application"
-      ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Creative Development, so it belongs in this unit rather than in an unrelated review bucket."
-    },
-    {
-      "id": "ap-computer-science-principles-060",
-      "course": "ap-computer-science-principles",
-      "courseLabel": "AP Computer Science Principles",
-      "topic": "Creative Development",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Creative Development",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Creative Development knowledge to a new question during mixed review pass 2. What is the best strategy?",
-      "correctText": "Match the new prompt to Creative Development, then justify the answer with evidence.",
-      "choices": [
-        "choosing an answer because it uses familiar words",
-        "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Creative Development, then justify the answer with evidence.",
-        "using a rule from a different unit"
-      ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     }
   ]
 }

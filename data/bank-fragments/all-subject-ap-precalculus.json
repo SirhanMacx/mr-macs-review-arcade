@@ -2,7 +2,7 @@
   "course": "ap-precalculus",
   "courseLabel": "AP Precalculus",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-precalculus-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Precalculus, which concept is most central to the unit \"Polynomial and Rational Functions\"?",
+      "prompt": "AP Precalculus - Polynomial and Rational Functions: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Polynomial and Rational Functions",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
-        "Functions Involving Parameters, Vectors, and Matrices",
-        "Polynomial and Rational Functions"
+        "Polynomial and Rational Functions",
+        "Polynomial",
+        "model",
+        "Trigonometric and Polar Functions"
       ],
-      "explanation": "Polynomial and Rational Functions is a core idea in Polynomial and Rational Functions. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Polynomial and Rational Functions is the anchor concept for Polynomial and Rational Functions. In AP CED: Polynomial and Rational Functions, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-precalculus-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Polynomial and Rational Functions needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Precalculus: Polynomial and Rational Functions needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Polynomial.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain Polynomial.",
+        "Guess from key words about Rational Functions.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Polynomial and Rational Functions only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Polynomial; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-precalculus-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Polynomial and Rational Functions?",
+      "prompt": "Which answer best avoids a common mistake about AP Precalculus: Polynomial and Rational Functions?",
       "correctText": "Connect Polynomial and Rational Functions to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Polynomial and Rational Functions to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Polynomial and Rational Functions, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Polynomial and Rational Functions, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Rational Functions.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Rational Functions.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Precalculus: Polynomial and Rational Functions?",
-      "correctText": "Polynomial and Rational Functions matters because it helps explain disciplinary reasoning.",
+      "correctText": "Polynomial and Rational Functions matters because it helps explain Polynomial.",
       "choices": [
+        "Polynomial and Rational Functions matters because it helps explain Polynomial.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Polynomial and Rational Functions matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Polynomial and Rational Functions appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Polynomial and Rational Functions. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Polynomial and Rational Functions. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Polynomial and Rational Functions to the larger course skill?",
-      "correctText": "Polynomial and Rational Functions is useful when students apply a course concept.",
+      "correctText": "Polynomial and Rational Functions is useful when students represent relationships.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Polynomial and Rational Functions is useful when students represent relationships.",
         "making a claim without supporting evidence",
-        "Polynomial and Rational Functions is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Polynomial and Rational Functions only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Polynomial and Rational Functions, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Polynomial and Rational Functions, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Polynomial and Rational Functions, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Polynomial and Rational Functions?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Rational Functions",
       "choices": [
+        "Rational Functions",
         "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence",
-        "Polynomial and Rational Functions"
+        "function behavior",
+        "Exponential and Logarithmic Functions"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Polynomial and Rational Functions, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Rational Functions is part of the concept cluster for Polynomial and Rational Functions, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-precalculus-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Polynomial and Rational Functions knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Polynomial and Rational Functions, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Polynomial and Rational Functions, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,79 +258,504 @@
       "id": "ap-precalculus-011",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Exponential and Logarithmic Functions",
+      "topic": "Polynomial and Rational Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Exponential and Logarithmic Functions",
+        "AP CED: Polynomial and Rational Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Precalculus, which concept is most central to the unit \"Exponential and Logarithmic Functions\"?",
-      "correctText": "Exponential and Logarithmic Functions",
+      "prompt": "AP Precalculus - Polynomial and Rational Functions: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Polynomial and Rational Functions connects to Polynomial.",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
-        "Exponential and Logarithmic Functions",
-        "using a rule from a different unit"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Polynomial and Rational Functions connects to Polynomial.",
+        "function behavior replaces all evidence."
       ],
-      "explanation": "Exponential and Logarithmic Functions is a core idea in Exponential and Logarithmic Functions. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Polynomial and Rational Functions and Polynomial belongs together in Polynomial and Rational Functions; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-precalculus-012",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Exponential and Logarithmic Functions",
+      "topic": "Polynomial and Rational Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Exponential and Logarithmic Functions",
+        "AP CED: Polynomial and Rational Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Exponential and Logarithmic Functions needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Precalculus question on Polynomial and Rational Functions?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Exponential and Logarithmic Functions only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-precalculus-013",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Exponential and Logarithmic Functions",
+      "topic": "Polynomial and Rational Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Exponential and Logarithmic Functions",
+        "AP CED: Polynomial and Rational Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Exponential and Logarithmic Functions?",
-      "correctText": "Connect Exponential and Logarithmic Functions to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Polynomial and Rational Functions?",
+      "correctText": "Polynomial and Rational Functions can be explained with evidence from graph, table, or equation.",
       "choices": [
-        "Connect Exponential and Logarithmic Functions to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
+        "Polynomial and Rational Functions can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Polynomial does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-precalculus-014",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Polynomial and Rational Functions. Which feedback would help most?",
+      "correctText": "Reread the task, identify Polynomial and Rational Functions, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Polynomial and Rational Functions, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-precalculus-015",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Precalculus: Polynomial and Rational Functions?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Precalculus means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-precalculus-016",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Polynomial and Rational Functions, which unit vocabulary word should be reviewed with Polynomial and Rational Functions?",
+      "correctText": "Polynomial",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Polynomial",
+        "Polynomial and Rational Functions",
+        "model"
+      ],
+      "explanation": "Polynomial belongs near Polynomial and Rational Functions in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-precalculus-017",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Polynomial and Rational Functions?",
+      "correctText": "A response that names Polynomial and Rational Functions but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Polynomial and Rational Functions but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Polynomial and Rational Functions to Polynomial."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-precalculus-018",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Precalculus: Polynomial and Rational Functions?",
+      "correctText": "How does Polynomial and Rational Functions help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence",
-        "Treat Exponential and Logarithmic Functions as always meaning the same thing."
+        "How does Polynomial and Rational Functions help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-precalculus-019",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Polynomial and Rational Functions\" for Polynomial and Rational Functions (spiral review pass 2)?",
+      "correctText": "Apply Polynomial and Rational Functions in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Polynomial and Rational Functions in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Polynomial and Rational Functions expects students to use knowledge and skill together. The correct answer applies Polynomial and Rational Functions and supports the reasoning."
+    },
+    {
+      "id": "ap-precalculus-020",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Precalculus - Polynomial and Rational Functions (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Polynomial and Rational Functions",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Rational Functions",
+        "justification",
+        "Polynomial and Rational Functions"
+      ],
+      "explanation": "Polynomial and Rational Functions is the anchor concept for Polynomial and Rational Functions. In AP CED: Polynomial and Rational Functions, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-precalculus-021",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Precalculus: Polynomial and Rational Functions (spiral review pass 2) needs to show the skill \"interpret parameters.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Polynomial.",
+      "choices": [
+        "Use evidence to explain Polynomial.",
+        "Guess from key words about Rational Functions.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Polynomial and Rational Functions only."
+      ],
+      "explanation": "The useful move is to connect evidence to Polynomial; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-precalculus-022",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Precalculus: Polynomial and Rational Functions (spiral review pass 2)?",
+      "correctText": "Connect Polynomial and Rational Functions to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Polynomial and Rational Functions to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-precalculus-014",
+      "id": "ap-precalculus-023",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Polynomial and Rational Functions (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Rational Functions.",
+      "choices": [
+        "Specific evidence that proves a claim about Rational Functions.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-precalculus-024",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Precalculus: Polynomial and Rational Functions (spiral review pass 2)?",
+      "correctText": "Polynomial and Rational Functions matters because it helps explain Polynomial.",
+      "choices": [
+        "Polynomial and Rational Functions matters because it helps explain Polynomial.",
+        "choosing an answer because it uses familiar words",
+        "Polynomial and Rational Functions appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-precalculus-025",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Polynomial and Rational Functions (spiral review pass 2). What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-precalculus-026",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Polynomial and Rational Functions to the larger course skill (spiral review pass 2)?",
+      "correctText": "Polynomial and Rational Functions is useful when students justify procedures.",
+      "choices": [
+        "Polynomial and Rational Functions is useful when students justify procedures.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Polynomial and Rational Functions only matters for memorized definitions."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-precalculus-027",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Polynomial and Rational Functions (spiral review pass 2), which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Polynomial and Rational Functions, cites evidence, and explains the connection.",
+      "choices": [
+        "It names Polynomial and Rational Functions, cites evidence, and explains the connection.",
+        "It lists three vocabulary words without a claim.",
+        "ignoring the source or data in the prompt",
+        "It copies the question without adding evidence."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-precalculus-028",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Polynomial and Rational Functions (spiral review pass 2)?",
+      "correctText": "Rational Functions",
+      "choices": [
+        "Matrices",
+        "using a rule from a different unit",
+        "representation",
+        "Rational Functions"
+      ],
+      "explanation": "Rational Functions is part of the concept cluster for Polynomial and Rational Functions, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-precalculus-029",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Polynomial and Rational Functions knowledge to a new question (spiral review pass 2). What is the best strategy?",
+      "correctText": "Match the new prompt to Polynomial and Rational Functions, then justify the answer with evidence.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Choose the answer with the most academic vocabulary.",
+        "Match the new prompt to Polynomial and Rational Functions, then justify the answer with evidence.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-precalculus-030",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Polynomial and Rational Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Polynomial and Rational Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Precalculus - Polynomial and Rational Functions (spiral review pass 2): which pair best shows how two ideas in the unit connect?",
+      "correctText": "Polynomial and Rational Functions connects to Polynomial.",
+      "choices": [
+        "function behavior replaces all evidence.",
+        "Polynomial and Rational Functions connects to Polynomial.",
+        "ignoring the source or data in the prompt",
+        "representation belongs only in an unrelated course."
+      ],
+      "explanation": "The pair Polynomial and Rational Functions and Polynomial belongs together in Polynomial and Rational Functions; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-precalculus-031",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
       "topic": "Exponential and Logarithmic Functions",
@@ -344,18 +769,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Exponential and Logarithmic Functions, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Precalculus - Exponential and Logarithmic Functions: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Exponential and Logarithmic Functions",
       "choices": [
-        "A vague statement that the topic is important.",
+        "Polynomial",
+        "Exponential and Logarithmic Functions",
+        "model",
+        "Trigonometric"
+      ],
+      "explanation": "Exponential and Logarithmic Functions is the anchor concept for Exponential and Logarithmic Functions. In AP CED: Exponential and Logarithmic Functions, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-precalculus-032",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Exponential and Logarithmic Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exponential and Logarithmic Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Precalculus: Exponential and Logarithmic Functions needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Exponential.",
+      "choices": [
+        "Repeat the definition of Exponential and Logarithmic Functions only.",
+        "Use evidence to explain Exponential.",
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Ignore the context and pick the longest answer."
+      ],
+      "explanation": "The useful move is to connect evidence to Exponential; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-precalculus-033",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Exponential and Logarithmic Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exponential and Logarithmic Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Precalculus: Exponential and Logarithmic Functions?",
+      "correctText": "Connect Exponential and Logarithmic Functions to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Exponential and Logarithmic Functions to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-precalculus-034",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Exponential and Logarithmic Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exponential and Logarithmic Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Exponential and Logarithmic Functions, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Logarithmic Functions.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Logarithmic Functions.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-precalculus-015",
+      "id": "ap-precalculus-035",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
       "topic": "Exponential and Logarithmic Functions",
@@ -370,17 +870,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Precalculus: Exponential and Logarithmic Functions?",
-      "correctText": "Exponential and Logarithmic Functions matters because it helps explain disciplinary reasoning.",
+      "correctText": "Exponential and Logarithmic Functions matters because it helps explain Exponential.",
       "choices": [
-        "Exponential and Logarithmic Functions matters because it helps explain disciplinary reasoning.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "Exponential and Logarithmic Functions matters because it helps explain Exponential.",
+        "Logarithmic Functions is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-precalculus-016",
+      "id": "ap-precalculus-036",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
       "topic": "Exponential and Logarithmic Functions",
@@ -394,18 +894,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Exponential and Logarithmic Functions. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Exponential and Logarithmic Functions. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-precalculus-017",
+      "id": "ap-precalculus-037",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
       "topic": "Exponential and Logarithmic Functions",
@@ -420,17 +920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Exponential and Logarithmic Functions to the larger course skill?",
-      "correctText": "Exponential and Logarithmic Functions is useful when students use evidence accurately.",
+      "correctText": "Exponential and Logarithmic Functions is useful when students represent relationships.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Exponential and Logarithmic Functions is useful when students use evidence accurately.",
         "Exponential and Logarithmic Functions only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Exponential and Logarithmic Functions is useful when students represent relationships.",
+        "ignoring the source or data in the prompt",
+        "Exponential should be ignored unless it appears in the title."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-precalculus-018",
+      "id": "ap-precalculus-038",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
       "topic": "Exponential and Logarithmic Functions",
@@ -447,15 +947,15 @@
       "prompt": "For Exponential and Logarithmic Functions, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Exponential and Logarithmic Functions, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Exponential and Logarithmic Functions, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-precalculus-019",
+      "id": "ap-precalculus-039",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
       "topic": "Exponential and Logarithmic Functions",
@@ -470,17 +970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Exponential and Logarithmic Functions?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Logarithmic Functions",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation",
-        "Trigonometric and Polar Functions",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "Logarithmic Functions",
+        "function behavior",
+        "Exponential and Logarithmic Functions"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Exponential and Logarithmic Functions, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Logarithmic Functions is part of the concept cluster for Exponential and Logarithmic Functions, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-precalculus-020",
+      "id": "ap-precalculus-040",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
       "topic": "Exponential and Logarithmic Functions",
@@ -497,510 +997,10 @@
       "prompt": "A student wants to transfer Exponential and Logarithmic Functions knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Exponential and Logarithmic Functions, then justify the answer with evidence.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Match the new prompt to Exponential and Logarithmic Functions, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
-      ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
-    },
-    {
-      "id": "ap-precalculus-021",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Trigonometric and Polar Functions",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Trigonometric and Polar Functions",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "In AP Precalculus, which concept is most central to the unit \"Trigonometric and Polar Functions\"?",
-      "correctText": "Trigonometric and Polar Functions",
-      "choices": [
-        "evidence-based explanation",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Trigonometric and Polar Functions"
-      ],
-      "explanation": "Trigonometric and Polar Functions is a core idea in Trigonometric and Polar Functions. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
-    },
-    {
-      "id": "ap-precalculus-022",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Trigonometric and Polar Functions",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Trigonometric and Polar Functions",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student reviewing Trigonometric and Polar Functions needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
-      "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
-      ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
-    },
-    {
-      "id": "ap-precalculus-023",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Trigonometric and Polar Functions",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Trigonometric and Polar Functions",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Trigonometric and Polar Functions?",
-      "correctText": "Connect Trigonometric and Polar Functions to the prompt context before choosing.",
-      "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Trigonometric and Polar Functions to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
-      ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
-    },
-    {
-      "id": "ap-precalculus-024",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Trigonometric and Polar Functions",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Trigonometric and Polar Functions",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Trigonometric and Polar Functions, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
-      "choices": [
-        "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
-      ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
-    },
-    {
-      "id": "ap-precalculus-025",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Trigonometric and Polar Functions",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Trigonometric and Polar Functions",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Precalculus: Trigonometric and Polar Functions?",
-      "correctText": "Trigonometric and Polar Functions matters because it helps explain disciplinary reasoning.",
-      "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Trigonometric and Polar Functions appears on tests, so no explanation is needed.",
-        "Trigonometric and Polar Functions matters because it helps explain disciplinary reasoning."
-      ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
-    },
-    {
-      "id": "ap-precalculus-026",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Trigonometric and Polar Functions",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Trigonometric and Polar Functions",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Trigonometric and Polar Functions. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
-      "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
-      ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
-    },
-    {
-      "id": "ap-precalculus-027",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Trigonometric and Polar Functions",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Trigonometric and Polar Functions",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Trigonometric and Polar Functions to the larger course skill?",
-      "correctText": "Trigonometric and Polar Functions is useful when students explain reasoning.",
-      "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Trigonometric and Polar Functions is useful when students explain reasoning.",
-        "using a rule from a different unit"
-      ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
-    },
-    {
-      "id": "ap-precalculus-028",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Trigonometric and Polar Functions",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Trigonometric and Polar Functions",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "For Trigonometric and Polar Functions, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Trigonometric and Polar Functions, cites evidence, and explains the connection.",
-      "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
-        "It names Trigonometric and Polar Functions, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
-      ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
-    },
-    {
-      "id": "ap-precalculus-029",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Trigonometric and Polar Functions",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Trigonometric and Polar Functions",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Trigonometric and Polar Functions?",
-      "correctText": "evidence-based explanation",
-      "choices": [
-        "evidence-based explanation",
-        "exam-style application",
-        "Functions Involving Parameters, Vectors, and Matrices",
-        "ignoring the source or data in the prompt"
-      ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Trigonometric and Polar Functions, so it belongs in this unit rather than in an unrelated review bucket."
-    },
-    {
-      "id": "ap-precalculus-030",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Trigonometric and Polar Functions",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Trigonometric and Polar Functions",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Trigonometric and Polar Functions knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Trigonometric and Polar Functions, then justify the answer with evidence.",
-      "choices": [
-        "choosing an answer because it uses familiar words",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Trigonometric and Polar Functions, then justify the answer with evidence.",
-        "using a rule from a different unit"
-      ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
-    },
-    {
-      "id": "ap-precalculus-031",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Functions Involving Parameters, Vectors, and Matrices",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "In AP Precalculus, which concept is most central to the unit \"Functions Involving Parameters, Vectors, and Matrices\"?",
-      "correctText": "Functions Involving Parameters, Vectors, and Matrices",
-      "choices": [
         "describing a topic without explaining why it matters",
-        "Functions Involving Parameters, Vectors, and Matrices",
-        "memorizing an isolated fact without evidence",
-        "Polynomial and Rational Functions"
-      ],
-      "explanation": "Functions Involving Parameters, Vectors, and Matrices is a core idea in Functions Involving Parameters, Vectors, and Matrices. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
-    },
-    {
-      "id": "ap-precalculus-032",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Functions Involving Parameters, Vectors, and Matrices",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student reviewing Functions Involving Parameters, Vectors, and Matrices needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
-      "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
-      ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
-    },
-    {
-      "id": "ap-precalculus-033",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Functions Involving Parameters, Vectors, and Matrices",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Functions Involving Parameters, Vectors, and Matrices?",
-      "correctText": "Connect Functions Involving Parameters, Vectors, and Matrices to the prompt context before choosing.",
-      "choices": [
-        "Choose an unrelated fact from another unit.",
-        "Connect Functions Involving Parameters, Vectors, and Matrices to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
-      ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
-    },
-    {
-      "id": "ap-precalculus-034",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Functions Involving Parameters, Vectors, and Matrices",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Functions Involving Parameters, Vectors, and Matrices, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
-      "choices": [
-        "A personal opinion without support.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
-      ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
-    },
-    {
-      "id": "ap-precalculus-035",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Functions Involving Parameters, Vectors, and Matrices",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Precalculus: Functions Involving Parameters, Vectors, and Matrices?",
-      "correctText": "Functions Involving Parameters, Vectors, and Matrices matters because it helps explain disciplinary reasoning.",
-      "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Functions Involving Parameters, Vectors, and Matrices matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
-      ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
-    },
-    {
-      "id": "ap-precalculus-036",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Functions Involving Parameters, Vectors, and Matrices",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Functions Involving Parameters, Vectors, and Matrices. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
-      "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
-      ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
-    },
-    {
-      "id": "ap-precalculus-037",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Functions Involving Parameters, Vectors, and Matrices",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Functions Involving Parameters, Vectors, and Matrices to the larger course skill?",
-      "correctText": "Functions Involving Parameters, Vectors, and Matrices is useful when students apply a course concept.",
-      "choices": [
-        "Functions Involving Parameters, Vectors, and Matrices is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
-      ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
-    },
-    {
-      "id": "ap-precalculus-038",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Functions Involving Parameters, Vectors, and Matrices",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "For Functions Involving Parameters, Vectors, and Matrices, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Functions Involving Parameters, Vectors, and Matrices, cites evidence, and explains the connection.",
-      "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
-        "It names Functions Involving Parameters, Vectors, and Matrices, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
-      ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
-    },
-    {
-      "id": "ap-precalculus-039",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Functions Involving Parameters, Vectors, and Matrices",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Functions Involving Parameters, Vectors, and Matrices?",
-      "correctText": "evidence-based explanation",
-      "choices": [
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "Exponential and Logarithmic Functions",
-        "memorizing an isolated fact without evidence"
-      ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Functions Involving Parameters, Vectors, and Matrices, so it belongs in this unit rather than in an unrelated review bucket."
-    },
-    {
-      "id": "ap-precalculus-040",
-      "course": "ap-precalculus",
-      "courseLabel": "AP Precalculus",
-      "topic": "Functions Involving Parameters, Vectors, and Matrices",
-      "domain": "AP Math and Computer Science",
-      "subjectArea": "AP Math and Computer Science",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Functions Involving Parameters, Vectors, and Matrices knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Functions Involving Parameters, Vectors, and Matrices, then justify the answer with evidence.",
-      "choices": [
-        "Choose the answer with the most academic vocabulary.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Match the new prompt to Functions Involving Parameters, Vectors, and Matrices, then justify the answer with evidence."
+        "Match the new prompt to Exponential and Logarithmic Functions, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
@@ -1008,251 +1008,251 @@
       "id": "ap-precalculus-041",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Polynomial and Rational Functions",
+      "topic": "Exponential and Logarithmic Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Polynomial and Rational Functions",
+        "AP CED: Exponential and Logarithmic Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Precalculus, which concept is most central to the unit \"Polynomial and Rational Functions\" during mixed review pass 2?",
-      "correctText": "Polynomial and Rational Functions",
+      "prompt": "AP Precalculus - Exponential and Logarithmic Functions: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Exponential and Logarithmic Functions connects to Exponential.",
       "choices": [
-        "evidence-based explanation",
-        "Exponential and Logarithmic Functions",
-        "memorizing an isolated fact without evidence",
-        "Polynomial and Rational Functions"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Exponential and Logarithmic Functions connects to Exponential.",
+        "function behavior replaces all evidence."
       ],
-      "explanation": "Polynomial and Rational Functions is a core idea in Polynomial and Rational Functions. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Exponential and Logarithmic Functions and Exponential belongs together in Exponential and Logarithmic Functions; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-precalculus-042",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Polynomial and Rational Functions",
+      "topic": "Exponential and Logarithmic Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Polynomial and Rational Functions",
+        "AP CED: Exponential and Logarithmic Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Polynomial and Rational Functions during mixed review pass 2 needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Precalculus question on Exponential and Logarithmic Functions?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-precalculus-043",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Polynomial and Rational Functions",
+      "topic": "Exponential and Logarithmic Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Polynomial and Rational Functions",
+        "AP CED: Exponential and Logarithmic Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Polynomial and Rational Functions during mixed review pass 2?",
-      "correctText": "Connect Polynomial and Rational Functions to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Exponential and Logarithmic Functions?",
+      "correctText": "Exponential and Logarithmic Functions can be explained with evidence from graph, table, or equation.",
       "choices": [
-        "Connect Polynomial and Rational Functions to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Polynomial and Rational Functions as always meaning the same thing."
+        "Exponential and Logarithmic Functions can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Exponential does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-precalculus-044",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Polynomial and Rational Functions",
+      "topic": "Exponential and Logarithmic Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Polynomial and Rational Functions",
+        "AP CED: Exponential and Logarithmic Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Polynomial and Rational Functions during mixed review pass 2, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Exponential and Logarithmic Functions. Which feedback would help most?",
+      "correctText": "Reread the task, identify Exponential and Logarithmic Functions, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Exponential and Logarithmic Functions, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-precalculus-045",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Polynomial and Rational Functions",
+      "topic": "Exponential and Logarithmic Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Polynomial and Rational Functions",
+        "AP CED: Exponential and Logarithmic Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Precalculus: Polynomial and Rational Functions during mixed review pass 2?",
-      "correctText": "Polynomial and Rational Functions matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Precalculus: Exponential and Logarithmic Functions?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Polynomial and Rational Functions matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Precalculus means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-precalculus-046",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Polynomial and Rational Functions",
+      "topic": "Exponential and Logarithmic Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Polynomial and Rational Functions",
+        "AP CED: Exponential and Logarithmic Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Polynomial and Rational Functions during mixed review pass 2. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Exponential and Logarithmic Functions, which unit vocabulary word should be reviewed with Exponential and Logarithmic Functions?",
+      "correctText": "Exponential",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Exponential",
+        "Polynomial and Rational Functions",
+        "parameter"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "Exponential belongs near Exponential and Logarithmic Functions in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-precalculus-047",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Polynomial and Rational Functions",
+      "topic": "Exponential and Logarithmic Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Polynomial and Rational Functions",
+        "AP CED: Exponential and Logarithmic Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Polynomial and Rational Functions to the larger course skill during mixed review pass 2?",
-      "correctText": "Polynomial and Rational Functions is useful when students use evidence accurately.",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Exponential and Logarithmic Functions?",
+      "correctText": "A response that names Exponential and Logarithmic Functions but never explains how it fits the evidence.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "A response that names Exponential and Logarithmic Functions but never explains how it fits the evidence.",
         "making a claim without supporting evidence",
-        "Polynomial and Rational Functions is useful when students use evidence accurately.",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "A response that links Exponential and Logarithmic Functions to Exponential."
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
     },
     {
       "id": "ap-precalculus-048",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Polynomial and Rational Functions",
+      "topic": "Exponential and Logarithmic Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Polynomial and Rational Functions",
+        "AP CED: Exponential and Logarithmic Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Polynomial and Rational Functions during mixed review pass 2, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Polynomial and Rational Functions, cites evidence, and explains the connection.",
+      "prompt": "Which question should a student ask while reviewing AP Precalculus: Exponential and Logarithmic Functions?",
+      "correctText": "How does Exponential and Logarithmic Functions help explain the evidence or scenario?",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Polynomial and Rational Functions, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Exponential and Logarithmic Functions help explain the evidence or scenario?"
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
     },
     {
       "id": "ap-precalculus-049",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Polynomial and Rational Functions",
+      "topic": "Exponential and Logarithmic Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Polynomial and Rational Functions",
+        "AP CED: Exponential and Logarithmic Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Polynomial and Rational Functions during mixed review pass 2?",
-      "correctText": "evidence-based explanation",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Exponential and Logarithmic Functions\" for Exponential and Logarithmic Functions (spiral review pass 2)?",
+      "correctText": "Apply Exponential and Logarithmic Functions in a new task and support the reasoning.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "using a rule from a different unit"
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Exponential and Logarithmic Functions in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Polynomial and Rational Functions, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "AP CED: Exponential and Logarithmic Functions expects students to use knowledge and skill together. The correct answer applies Exponential and Logarithmic Functions and supports the reasoning."
     },
     {
       "id": "ap-precalculus-050",
       "course": "ap-precalculus",
       "courseLabel": "AP Precalculus",
-      "topic": "Polynomial and Rational Functions",
+      "topic": "Exponential and Logarithmic Functions",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Polynomial and Rational Functions",
+        "AP CED: Exponential and Logarithmic Functions",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Polynomial and Rational Functions knowledge to a new question during mixed review pass 2. What is the best strategy?",
-      "correctText": "Match the new prompt to Polynomial and Rational Functions, then justify the answer with evidence.",
+      "prompt": "AP Precalculus - Exponential and Logarithmic Functions (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Exponential and Logarithmic Functions",
       "choices": [
+        "Exponential and Logarithmic Functions",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Polynomial and Rational Functions, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Rational Functions",
+        "justification"
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "Exponential and Logarithmic Functions is the anchor concept for Exponential and Logarithmic Functions. In AP CED: Exponential and Logarithmic Functions, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-precalculus-051",
@@ -1269,15 +1269,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Precalculus, which concept is most central to the unit \"Exponential and Logarithmic Functions\" during mixed review pass 2?",
-      "correctText": "Exponential and Logarithmic Functions",
+      "prompt": "A student reviewing AP Precalculus: Exponential and Logarithmic Functions (spiral review pass 2) needs to show the skill \"interpret parameters.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Exponential.",
       "choices": [
-        "evidence-based explanation",
-        "Exponential and Logarithmic Functions",
-        "making a claim without supporting evidence",
-        "Trigonometric and Polar Functions"
+        "Repeat the definition of Exponential and Logarithmic Functions only.",
+        "Use evidence to explain Exponential.",
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Exponential and Logarithmic Functions is a core idea in Exponential and Logarithmic Functions. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The useful move is to connect evidence to Exponential; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-precalculus-052",
@@ -1294,15 +1294,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Exponential and Logarithmic Functions during mixed review pass 2 needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best avoids a common mistake about AP Precalculus: Exponential and Logarithmic Functions (spiral review pass 2)?",
+      "correctText": "Connect Exponential and Logarithmic Functions to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Exponential and Logarithmic Functions only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence",
+        "Connect Exponential and Logarithmic Functions to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-precalculus-053",
@@ -1319,15 +1319,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Exponential and Logarithmic Functions during mixed review pass 2?",
-      "correctText": "Connect Exponential and Logarithmic Functions to the prompt context before choosing.",
+      "prompt": "In an AP CED-aligned exam task about Exponential and Logarithmic Functions (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Logarithmic Functions.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Exponential and Logarithmic Functions to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
+        "Specific evidence that proves a claim about Logarithmic Functions.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
         "using a rule from a different unit"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-precalculus-054",
@@ -1344,15 +1344,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Exponential and Logarithmic Functions during mixed review pass 2, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "Which review note would help most for AP Precalculus: Exponential and Logarithmic Functions (spiral review pass 2)?",
+      "correctText": "Exponential and Logarithmic Functions matters because it helps explain Exponential.",
       "choices": [
-        "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "ignoring the source or data in the prompt",
+        "Exponential and Logarithmic Functions matters because it helps explain Exponential.",
+        "Logarithmic Functions is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-precalculus-055",
@@ -1369,15 +1369,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Precalculus: Exponential and Logarithmic Functions during mixed review pass 2?",
-      "correctText": "Exponential and Logarithmic Functions matters because it helps explain disciplinary reasoning.",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Exponential and Logarithmic Functions (spiral review pass 2). What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Exponential and Logarithmic Functions matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "Read the prompt, source, or data for the exact task."
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
       "id": "ap-precalculus-056",
@@ -1394,15 +1394,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Exponential and Logarithmic Functions during mixed review pass 2. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "Which classroom explanation would best connect Exponential and Logarithmic Functions to the larger course skill (spiral review pass 2)?",
+      "correctText": "Exponential and Logarithmic Functions is useful when students justify procedures.",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Exponential and Logarithmic Functions only matters for memorized definitions.",
+        "Exponential and Logarithmic Functions is useful when students justify procedures.",
+        "ignoring the source or data in the prompt",
+        "Exponential should be ignored unless it appears in the title."
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
       "id": "ap-precalculus-057",
@@ -1419,15 +1419,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Exponential and Logarithmic Functions to the larger course skill during mixed review pass 2?",
-      "correctText": "Exponential and Logarithmic Functions is useful when students explain reasoning.",
+      "prompt": "For Exponential and Logarithmic Functions (spiral review pass 2), which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Exponential and Logarithmic Functions, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Exponential and Logarithmic Functions is useful when students explain reasoning.",
-        "Exponential and Logarithmic Functions only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "It names Exponential and Logarithmic Functions, cites evidence, and explains the connection.",
+        "It lists three vocabulary words without a claim.",
+        "ignoring the source or data in the prompt",
+        "It copies the question without adding evidence."
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
       "id": "ap-precalculus-058",
@@ -1444,15 +1444,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Exponential and Logarithmic Functions during mixed review pass 2, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Exponential and Logarithmic Functions, cites evidence, and explains the connection.",
+      "prompt": "Which review target belongs most directly in Exponential and Logarithmic Functions (spiral review pass 2)?",
+      "correctText": "Logarithmic Functions",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
-        "It names Exponential and Logarithmic Functions, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "Logarithmic Functions",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "representation"
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "Logarithmic Functions is part of the concept cluster for Exponential and Logarithmic Functions, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-precalculus-059",
@@ -1469,15 +1469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Exponential and Logarithmic Functions during mixed review pass 2?",
-      "correctText": "evidence-based explanation",
+      "prompt": "A student wants to transfer Exponential and Logarithmic Functions knowledge to a new question (spiral review pass 2). What is the best strategy?",
+      "correctText": "Match the new prompt to Exponential and Logarithmic Functions, then justify the answer with evidence.",
       "choices": [
-        "evidence-based explanation",
-        "Functions Involving Parameters, Vectors, and Matrices",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "describing a topic without explaining why it matters",
+        "Choose the answer with the most academic vocabulary.",
+        "Match the new prompt to Exponential and Logarithmic Functions, then justify the answer with evidence.",
+        "using a rule from a different unit"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Exponential and Logarithmic Functions, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
       "id": "ap-precalculus-060",
@@ -1494,15 +1494,1515 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Exponential and Logarithmic Functions knowledge to a new question during mixed review pass 2. What is the best strategy?",
-      "correctText": "Match the new prompt to Exponential and Logarithmic Functions, then justify the answer with evidence.",
+      "prompt": "AP Precalculus - Exponential and Logarithmic Functions (spiral review pass 2): which pair best shows how two ideas in the unit connect?",
+      "correctText": "Exponential and Logarithmic Functions connects to Exponential.",
+      "choices": [
+        "function behavior replaces all evidence.",
+        "Exponential and Logarithmic Functions connects to Exponential.",
+        "ignoring the source or data in the prompt",
+        "representation belongs only in an unrelated course."
+      ],
+      "explanation": "The pair Exponential and Logarithmic Functions and Exponential belongs together in Exponential and Logarithmic Functions; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-precalculus-061",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Precalculus - Trigonometric and Polar Functions: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Trigonometric and Polar Functions",
+      "choices": [
+        "Rational Functions",
+        "justification",
+        "Trigonometric and Polar Functions",
+        "Polar Functions"
+      ],
+      "explanation": "Trigonometric and Polar Functions is the anchor concept for Trigonometric and Polar Functions. In AP CED: Trigonometric and Polar Functions, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-precalculus-062",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Precalculus: Trigonometric and Polar Functions needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Trigonometric.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Trigonometric.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Trigonometric; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-precalculus-063",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Precalculus: Trigonometric and Polar Functions?",
+      "correctText": "Connect Trigonometric and Polar Functions to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Trigonometric and Polar Functions to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-precalculus-064",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Trigonometric and Polar Functions, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Polar Functions.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Polar Functions.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-precalculus-065",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Precalculus: Trigonometric and Polar Functions?",
+      "correctText": "Trigonometric and Polar Functions matters because it helps explain Trigonometric.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Only the vocabulary list matters for this unit.",
+        "Trigonometric and Polar Functions matters because it helps explain Trigonometric.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-precalculus-066",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Trigonometric and Polar Functions. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-precalculus-067",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Trigonometric and Polar Functions to the larger course skill?",
+      "correctText": "Trigonometric and Polar Functions is useful when students represent relationships.",
+      "choices": [
+        "Trigonometric should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Trigonometric and Polar Functions is useful when students represent relationships.",
+        "The standard rewards guessing from familiar words."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-precalculus-068",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Trigonometric and Polar Functions, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Trigonometric and Polar Functions, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Trigonometric and Polar Functions, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-precalculus-069",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Trigonometric and Polar Functions?",
+      "correctText": "Polar Functions",
+      "choices": [
+        "making a claim without supporting evidence",
+        "representation",
+        "Polar Functions",
+        "Exponential"
+      ],
+      "explanation": "Polar Functions is part of the concept cluster for Trigonometric and Polar Functions, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-precalculus-070",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Trigonometric and Polar Functions knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Trigonometric and Polar Functions, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Trigonometric and Polar Functions, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-precalculus-071",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Precalculus - Trigonometric and Polar Functions: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Trigonometric and Polar Functions connects to Trigonometric.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Trigonometric and Polar Functions connects to Trigonometric.",
+        "function behavior replaces all evidence."
+      ],
+      "explanation": "The pair Trigonometric and Polar Functions and Trigonometric belongs together in Trigonometric and Polar Functions; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-precalculus-072",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Precalculus question on Trigonometric and Polar Functions?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-precalculus-073",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Trigonometric and Polar Functions?",
+      "correctText": "Trigonometric and Polar Functions can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Trigonometric and Polar Functions can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Trigonometric does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-precalculus-074",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Trigonometric and Polar Functions. Which feedback would help most?",
+      "correctText": "Reread the task, identify Trigonometric and Polar Functions, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Trigonometric and Polar Functions, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-precalculus-075",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Precalculus: Trigonometric and Polar Functions?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Precalculus means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-precalculus-076",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Trigonometric and Polar Functions, which unit vocabulary word should be reviewed with Trigonometric and Polar Functions?",
+      "correctText": "Trigonometric",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Exponential and Logarithmic Functions, then justify the answer with evidence.",
+        "Trigonometric",
+        "Polynomial and Rational Functions",
+        "parameter"
+      ],
+      "explanation": "Trigonometric belongs near Trigonometric and Polar Functions in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-precalculus-077",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Trigonometric and Polar Functions?",
+      "correctText": "A response that names Trigonometric and Polar Functions but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Trigonometric and Polar Functions but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Trigonometric and Polar Functions to Trigonometric."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-precalculus-078",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Precalculus: Trigonometric and Polar Functions?",
+      "correctText": "How does Trigonometric and Polar Functions help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Trigonometric and Polar Functions help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-precalculus-079",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Trigonometric and Polar Functions\" for Trigonometric and Polar Functions (spiral review pass 2)?",
+      "correctText": "Apply Trigonometric and Polar Functions in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Trigonometric and Polar Functions in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Trigonometric and Polar Functions expects students to use knowledge and skill together. The correct answer applies Trigonometric and Polar Functions and supports the reasoning."
+    },
+    {
+      "id": "ap-precalculus-080",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Precalculus - Trigonometric and Polar Functions (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Trigonometric and Polar Functions",
+      "choices": [
+        "using a rule from a different unit",
+        "Trigonometric and Polar Functions",
+        "function behavior",
+        "Exponential and Logarithmic Functions"
+      ],
+      "explanation": "Trigonometric and Polar Functions is the anchor concept for Trigonometric and Polar Functions. In AP CED: Trigonometric and Polar Functions, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-precalculus-081",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Precalculus: Trigonometric and Polar Functions (spiral review pass 2) needs to show the skill \"interpret parameters.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Trigonometric.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Trigonometric.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Trigonometric; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-precalculus-082",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Precalculus: Trigonometric and Polar Functions (spiral review pass 2)?",
+      "correctText": "Connect Trigonometric and Polar Functions to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Trigonometric and Polar Functions to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-precalculus-083",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Trigonometric and Polar Functions (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Polar Functions.",
+      "choices": [
+        "Specific evidence that proves a claim about Polar Functions.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-precalculus-084",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Precalculus: Trigonometric and Polar Functions (spiral review pass 2)?",
+      "correctText": "Trigonometric and Polar Functions matters because it helps explain Trigonometric.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Only the vocabulary list matters for this unit.",
+        "Trigonometric and Polar Functions matters because it helps explain Trigonometric.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-precalculus-085",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Trigonometric and Polar Functions (spiral review pass 2). What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-precalculus-086",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Trigonometric and Polar Functions to the larger course skill (spiral review pass 2)?",
+      "correctText": "Trigonometric and Polar Functions is useful when students justify procedures.",
+      "choices": [
+        "Trigonometric should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Trigonometric and Polar Functions is useful when students justify procedures.",
+        "The standard rewards guessing from familiar words."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-precalculus-087",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Trigonometric and Polar Functions (spiral review pass 2), which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Trigonometric and Polar Functions, cites evidence, and explains the connection.",
+      "choices": [
+        "It names Trigonometric and Polar Functions, cites evidence, and explains the connection.",
+        "It lists three vocabulary words without a claim.",
+        "ignoring the source or data in the prompt",
+        "It copies the question without adding evidence."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-precalculus-088",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Trigonometric and Polar Functions (spiral review pass 2)?",
+      "correctText": "Polar Functions",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Polar Functions",
+        "Polynomial and Rational Functions",
+        "parameter"
+      ],
+      "explanation": "Polar Functions is part of the concept cluster for Trigonometric and Polar Functions, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-precalculus-089",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Trigonometric and Polar Functions knowledge to a new question (spiral review pass 2). What is the best strategy?",
+      "correctText": "Match the new prompt to Trigonometric and Polar Functions, then justify the answer with evidence.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Choose the answer with the most academic vocabulary.",
+        "Match the new prompt to Trigonometric and Polar Functions, then justify the answer with evidence.",
         "using a rule from a different unit"
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-precalculus-090",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Trigonometric and Polar Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Trigonometric and Polar Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Precalculus - Trigonometric and Polar Functions (spiral review pass 2): which pair best shows how two ideas in the unit connect?",
+      "correctText": "Trigonometric and Polar Functions connects to Trigonometric.",
+      "choices": [
+        "function behavior replaces all evidence.",
+        "Trigonometric and Polar Functions connects to Trigonometric.",
+        "ignoring the source or data in the prompt",
+        "representation belongs only in an unrelated course."
+      ],
+      "explanation": "The pair Trigonometric and Polar Functions and Trigonometric belongs together in Trigonometric and Polar Functions; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-precalculus-091",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Precalculus - Functions Involving Parameters, Vectors, and Matrices: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Functions Involving Parameters, Vectors, and Matrices",
+      "choices": [
+        "function behavior",
+        "Exponential and Logarithmic Functions",
+        "Polar Functions",
+        "Functions Involving Parameters, Vectors, and Matrices"
+      ],
+      "explanation": "Functions Involving Parameters, Vectors, and Matrices is the anchor concept for Functions Involving Parameters, Vectors, and Matrices. In AP CED: Functions Involving Parameters, Vectors, and Matrices, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-precalculus-092",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Precalculus: Functions Involving Parameters, Vectors, and Matrices needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Functions Involving Parameters.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Functions Involving Parameters."
+      ],
+      "explanation": "The useful move is to connect evidence to Functions Involving Parameters; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-precalculus-093",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Precalculus: Functions Involving Parameters, Vectors, and Matrices?",
+      "correctText": "Connect Functions Involving Parameters, Vectors, and Matrices to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Functions Involving Parameters, Vectors, and Matrices to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-precalculus-094",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Functions Involving Parameters, Vectors, and Matrices, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Vectors.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Vectors.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-precalculus-095",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Precalculus: Functions Involving Parameters, Vectors, and Matrices?",
+      "correctText": "Functions Involving Parameters, Vectors, and Matrices matters because it helps explain Functions Involving Parameters.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Functions Involving Parameters, Vectors, and Matrices matters because it helps explain Functions Involving Parameters."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-precalculus-096",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Functions Involving Parameters, Vectors, and Matrices. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Pick the first familiar vocabulary word.",
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-precalculus-097",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Functions Involving Parameters, Vectors, and Matrices to the larger course skill?",
+      "correctText": "Functions Involving Parameters, Vectors, and Matrices is useful when students represent relationships.",
+      "choices": [
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Functions Involving Parameters, Vectors, and Matrices is useful when students represent relationships."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-precalculus-098",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Functions Involving Parameters, Vectors, and Matrices, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Functions Involving Parameters, Vectors, and Matrices, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Functions Involving Parameters, Vectors, and Matrices, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-precalculus-099",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Functions Involving Parameters, Vectors, and Matrices?",
+      "correctText": "Vectors",
+      "choices": [
+        "Polynomial and Rational Functions",
+        "parameter",
+        "Logarithmic Functions",
+        "Vectors"
+      ],
+      "explanation": "Vectors is part of the concept cluster for Functions Involving Parameters, Vectors, and Matrices, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-precalculus-100",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Functions Involving Parameters, Vectors, and Matrices knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Functions Involving Parameters, Vectors, and Matrices, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Functions Involving Parameters, Vectors, and Matrices, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-precalculus-101",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Precalculus - Functions Involving Parameters, Vectors, and Matrices: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Functions Involving Parameters, Vectors, and Matrices connects to Functions Involving Parameters.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Functions Involving Parameters, Vectors, and Matrices connects to Functions Involving Parameters.",
+        "Matrices replaces all evidence."
+      ],
+      "explanation": "The pair Functions Involving Parameters, Vectors, and Matrices and Functions Involving Parameters belongs together in Functions Involving Parameters, Vectors, and Matrices; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-precalculus-102",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Precalculus question on Functions Involving Parameters, Vectors, and Matrices?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-precalculus-103",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Functions Involving Parameters, Vectors, and Matrices?",
+      "correctText": "Functions Involving Parameters, Vectors, and Matrices can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Functions Involving Parameters, Vectors, and Matrices can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Functions Involving Parameters does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-precalculus-104",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Functions Involving Parameters, Vectors, and Matrices. Which feedback would help most?",
+      "correctText": "Reread the task, identify Functions Involving Parameters, Vectors, and Matrices, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Functions Involving Parameters, Vectors, and Matrices, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-precalculus-105",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Precalculus: Functions Involving Parameters, Vectors, and Matrices?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Precalculus means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-precalculus-106",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Functions Involving Parameters, Vectors, and Matrices, which unit vocabulary word should be reviewed with Functions Involving Parameters, Vectors, and Matrices?",
+      "correctText": "Functions Involving Parameters",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Functions Involving Parameters",
+        "Polynomial and Rational Functions",
+        "parameter"
+      ],
+      "explanation": "Functions Involving Parameters belongs near Functions Involving Parameters, Vectors, and Matrices in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-precalculus-107",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Functions Involving Parameters, Vectors, and Matrices?",
+      "correctText": "A response that names Functions Involving Parameters, Vectors, and Matrices but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Functions Involving Parameters, Vectors, and Matrices but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Functions Involving Parameters, Vectors, and Matrices to Functions Involving Parameters."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-precalculus-108",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Precalculus: Functions Involving Parameters, Vectors, and Matrices?",
+      "correctText": "How does Functions Involving Parameters, Vectors, and Matrices help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Functions Involving Parameters, Vectors, and Matrices help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-precalculus-109",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Functions Involving Parameters, Vectors, and Matrices\" for Functions Involving Parameters, Vectors, and Matrices (spiral review pass 2)?",
+      "correctText": "Apply Functions Involving Parameters, Vectors, and Matrices in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Functions Involving Parameters, Vectors, and Matrices in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Functions Involving Parameters, Vectors, and Matrices expects students to use knowledge and skill together. The correct answer applies Functions Involving Parameters, Vectors, and Matrices and supports the reasoning."
+    },
+    {
+      "id": "ap-precalculus-110",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Precalculus - Functions Involving Parameters, Vectors, and Matrices (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Functions Involving Parameters, Vectors, and Matrices",
+      "choices": [
+        "making a claim without supporting evidence",
+        "representation",
+        "Functions Involving Parameters, Vectors, and Matrices",
+        "Exponential"
+      ],
+      "explanation": "Functions Involving Parameters, Vectors, and Matrices is the anchor concept for Functions Involving Parameters, Vectors, and Matrices. In AP CED: Functions Involving Parameters, Vectors, and Matrices, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-precalculus-111",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Precalculus: Functions Involving Parameters, Vectors, and Matrices (spiral review pass 2) needs to show the skill \"interpret parameters.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Functions Involving Parameters.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Functions Involving Parameters."
+      ],
+      "explanation": "The useful move is to connect evidence to Functions Involving Parameters; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-precalculus-112",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Precalculus: Functions Involving Parameters, Vectors, and Matrices (spiral review pass 2)?",
+      "correctText": "Connect Functions Involving Parameters, Vectors, and Matrices to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Functions Involving Parameters, Vectors, and Matrices to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-precalculus-113",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Functions Involving Parameters, Vectors, and Matrices (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Vectors.",
+      "choices": [
+        "Specific evidence that proves a claim about Vectors.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-precalculus-114",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Precalculus: Functions Involving Parameters, Vectors, and Matrices (spiral review pass 2)?",
+      "correctText": "Functions Involving Parameters, Vectors, and Matrices matters because it helps explain Functions Involving Parameters.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Functions Involving Parameters, Vectors, and Matrices matters because it helps explain Functions Involving Parameters."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-precalculus-115",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Functions Involving Parameters, Vectors, and Matrices (spiral review pass 2). What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Pick the first familiar vocabulary word.",
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-precalculus-116",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Functions Involving Parameters, Vectors, and Matrices to the larger course skill (spiral review pass 2)?",
+      "correctText": "Functions Involving Parameters, Vectors, and Matrices is useful when students justify procedures.",
+      "choices": [
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Functions Involving Parameters, Vectors, and Matrices is useful when students justify procedures."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-precalculus-117",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Functions Involving Parameters, Vectors, and Matrices (spiral review pass 2), which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Functions Involving Parameters, Vectors, and Matrices, cites evidence, and explains the connection.",
+      "choices": [
+        "It names Functions Involving Parameters, Vectors, and Matrices, cites evidence, and explains the connection.",
+        "It lists three vocabulary words without a claim.",
+        "ignoring the source or data in the prompt",
+        "It copies the question without adding evidence."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-precalculus-118",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Functions Involving Parameters, Vectors, and Matrices (spiral review pass 2)?",
+      "correctText": "Vectors",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Polynomial",
+        "Vectors",
+        "model"
+      ],
+      "explanation": "Vectors is part of the concept cluster for Functions Involving Parameters, Vectors, and Matrices, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-precalculus-119",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Functions Involving Parameters, Vectors, and Matrices knowledge to a new question (spiral review pass 2). What is the best strategy?",
+      "correctText": "Match the new prompt to Functions Involving Parameters, Vectors, and Matrices, then justify the answer with evidence.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Choose the answer with the most academic vocabulary.",
+        "Match the new prompt to Functions Involving Parameters, Vectors, and Matrices, then justify the answer with evidence.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-precalculus-120",
+      "course": "ap-precalculus",
+      "courseLabel": "AP Precalculus",
+      "topic": "Functions Involving Parameters, Vectors, and Matrices",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Functions Involving Parameters, Vectors, and Matrices",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Precalculus - Functions Involving Parameters, Vectors, and Matrices (spiral review pass 2): which pair best shows how two ideas in the unit connect?",
+      "correctText": "Functions Involving Parameters, Vectors, and Matrices connects to Functions Involving Parameters.",
+      "choices": [
+        "Matrices replaces all evidence.",
+        "Functions Involving Parameters, Vectors, and Matrices connects to Functions Involving Parameters.",
+        "ignoring the source or data in the prompt",
+        "function behavior belongs only in an unrelated course."
+      ],
+      "explanation": "The pair Functions Involving Parameters, Vectors, and Matrices and Functions Involving Parameters belongs together in Functions Involving Parameters, Vectors, and Matrices; students should explain the relationship rather than memorize each term alone."
     }
   ]
 }

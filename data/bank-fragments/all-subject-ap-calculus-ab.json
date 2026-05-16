@@ -2,7 +2,7 @@
   "course": "ap-calculus-ab",
   "courseLabel": "AP Calculus AB",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-calculus-ab-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Calculus AB, which concept is most central to the unit \"Limits and Continuity\"?",
+      "prompt": "AP Calculus AB - Limits and Continuity: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Limits and Continuity",
       "choices": [
-        "Contextual Applications of Differentiation",
-        "disciplinary reasoning",
-        "exam-style application",
-        "Limits and Continuity"
+        "Limits and Continuity",
+        "Limits",
+        "model",
+        "Fundamental Properties"
       ],
-      "explanation": "Limits and Continuity is a core idea in Limits and Continuity. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Limits and Continuity is the anchor concept for Limits and Continuity. In AP CED: Limits and Continuity, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-calculus-ab-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Limits and Continuity needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Calculus AB: Limits and Continuity needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Limits.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain Limits.",
+        "Guess from key words about Continuity.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Limits and Continuity only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Limits; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-calculus-ab-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Limits and Continuity?",
+      "prompt": "Which answer best avoids a common mistake about AP Calculus AB: Limits and Continuity?",
       "correctText": "Connect Limits and Continuity to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Limits and Continuity to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Limits and Continuity, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Limits and Continuity, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Continuity.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Continuity.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Calculus AB: Limits and Continuity?",
-      "correctText": "Limits and Continuity matters because it helps explain disciplinary reasoning.",
+      "correctText": "Limits and Continuity matters because it helps explain Limits.",
       "choices": [
+        "Limits and Continuity matters because it helps explain Limits.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Limits and Continuity matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Limits and Continuity appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Limits and Continuity. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Limits and Continuity. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Limits and Continuity to the larger course skill?",
-      "correctText": "Limits and Continuity is useful when students apply a course concept.",
+      "correctText": "Limits and Continuity is useful when students represent relationships.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Limits and Continuity is useful when students apply a course concept.",
+        "Limits and Continuity is useful when students represent relationships.",
         "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Limits and Continuity only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Limits and Continuity, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Limits and Continuity, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Limits and Continuity, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Limits and Continuity?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Continuity",
       "choices": [
-        "Contextual Applications of Differentiation",
-        "Differential Equations",
-        "evidence-based explanation",
-        "exam-style application"
+        "Continuity",
+        "Accumulation of Change",
+        "ignoring the source or data in the prompt",
+        "Limits"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Limits and Continuity, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Continuity is part of the concept cluster for Limits and Continuity, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-calculus-ab-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Limits and Continuity knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Limits and Continuity, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Limits and Continuity, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,151 +258,151 @@
       "id": "ap-calculus-ab-011",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
-      "topic": "Differentiation: Definition and Fundamental Properties",
+      "topic": "Limits and Continuity",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "AP CED: Limits and Continuity",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Calculus AB, which concept is most central to the unit \"Differentiation: Definition and Fundamental Properties\"?",
-      "correctText": "Differentiation: Definition and Fundamental Properties",
+      "prompt": "AP Calculus AB - Limits and Continuity: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Limits and Continuity connects to Limits.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Differentiation: Definition and Fundamental Properties",
-        "Limits and Continuity",
-        "memorizing an isolated fact without evidence"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Limits and Continuity connects to Limits.",
+        "function behavior replaces all evidence."
       ],
-      "explanation": "Differentiation: Definition and Fundamental Properties is a core idea in Differentiation: Definition and Fundamental Properties. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Limits and Continuity and Limits belongs together in Limits and Continuity; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-calculus-ab-012",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
-      "topic": "Differentiation: Definition and Fundamental Properties",
+      "topic": "Limits and Continuity",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "AP CED: Limits and Continuity",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Differentiation: Definition and Fundamental Properties needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Calculus AB question on Limits and Continuity?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Differentiation: Definition and Fundamental Properties only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-calculus-ab-013",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
-      "topic": "Differentiation: Definition and Fundamental Properties",
+      "topic": "Limits and Continuity",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "AP CED: Limits and Continuity",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Differentiation: Definition and Fundamental Properties?",
-      "correctText": "Connect Differentiation: Definition and Fundamental Properties to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Limits and Continuity?",
+      "correctText": "Limits and Continuity can be explained with evidence from graph, table, or equation.",
       "choices": [
-        "Connect Differentiation: Definition and Fundamental Properties to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Differentiation: Definition and Fundamental Properties as always meaning the same thing."
+        "Limits and Continuity can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Limits does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-calculus-ab-014",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
-      "topic": "Differentiation: Definition and Fundamental Properties",
+      "topic": "Limits and Continuity",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "AP CED: Limits and Continuity",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Differentiation: Definition and Fundamental Properties, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Limits and Continuity. Which feedback would help most?",
+      "correctText": "Reread the task, identify Limits and Continuity, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Limits and Continuity, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-calculus-ab-015",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
-      "topic": "Differentiation: Definition and Fundamental Properties",
+      "topic": "Limits and Continuity",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "AP CED: Limits and Continuity",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Calculus AB: Differentiation: Definition and Fundamental Properties?",
-      "correctText": "Differentiation: Definition and Fundamental Properties matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Calculus AB: Limits and Continuity?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
       "choices": [
-        "Differentiation: Definition and Fundamental Properties matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Calculus AB means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-calculus-ab-016",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
-      "topic": "Differentiation: Definition and Fundamental Properties",
+      "topic": "Limits and Continuity",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "AP CED: Limits and Continuity",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Differentiation: Definition and Fundamental Properties. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Limits and Continuity, which unit vocabulary word should be reviewed with Limits and Continuity?",
+      "correctText": "Limits",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Composite",
+        "Limits",
+        "Analytical Applications of Differentiation",
+        "Applications of Integration"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "Limits belongs near Limits and Continuity in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-calculus-ab-017",
@@ -419,15 +419,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Differentiation: Definition and Fundamental Properties to the larger course skill?",
-      "correctText": "Differentiation: Definition and Fundamental Properties is useful when students use evidence accurately.",
+      "prompt": "AP Calculus AB - Differentiation: Definition and Fundamental Properties: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Differentiation: Definition and Fundamental Properties",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Differentiation: Definition and Fundamental Properties is useful when students use evidence accurately.",
-        "Differentiation: Definition and Fundamental Properties only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Limits",
+        "Differentiation: Definition and Fundamental Properties",
+        "model",
+        "Differentiation: Composite, Implicit, and Inverse Functions"
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "Differentiation: Definition and Fundamental Properties is the anchor concept for Differentiation: Definition and Fundamental Properties. In AP CED: Differentiation: Definition and Fundamental Properties, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-calculus-ab-018",
@@ -444,15 +444,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Differentiation: Definition and Fundamental Properties, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Differentiation: Definition and Fundamental Properties, cites evidence, and explains the connection.",
+      "prompt": "A student reviewing AP Calculus AB: Differentiation: Definition and Fundamental Properties needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Differentiation.",
       "choices": [
+        "Repeat the definition of Differentiation: Definition and Fundamental Properties only.",
+        "Use evidence to explain Differentiation.",
         "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Differentiation: Definition and Fundamental Properties, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The useful move is to connect evidence to Differentiation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-calculus-ab-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Differentiation: Definition and Fundamental Properties?",
-      "correctText": "evidence-based explanation",
+      "prompt": "Which answer best avoids a common mistake about AP Calculus AB: Differentiation: Definition and Fundamental Properties?",
+      "correctText": "Connect Differentiation: Definition and Fundamental Properties to the prompt context before choosing.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "exam-style application",
-        "Limits and Continuity"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Differentiation: Definition and Fundamental Properties to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Differentiation: Definition and Fundamental Properties, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-calculus-ab-020",
@@ -494,93 +494,318 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Differentiation: Definition and Fundamental Properties knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Differentiation: Definition and Fundamental Properties, then justify the answer with evidence.",
+      "prompt": "In an AP CED-aligned exam task about Differentiation: Definition and Fundamental Properties, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Definition.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Match the new prompt to Differentiation: Definition and Fundamental Properties, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Definition.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-calculus-ab-021",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
-      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "topic": "Differentiation: Definition and Fundamental Properties",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "AP CED: Differentiation: Definition and Fundamental Properties",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Calculus AB, which concept is most central to the unit \"Differentiation: Composite, Implicit, and Inverse Functions\"?",
-      "correctText": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "prompt": "Which review note would help most for AP Calculus AB: Differentiation: Definition and Fundamental Properties?",
+      "correctText": "Differentiation: Definition and Fundamental Properties matters because it helps explain Differentiation.",
       "choices": [
-        "Differentiation: Composite, Implicit, and Inverse Functions",
-        "Differentiation: Definition and Fundamental Properties",
-        "Integration and Accumulation of Change",
-        "memorizing an isolated fact without evidence"
+        "ignoring the source or data in the prompt",
+        "Differentiation: Definition and Fundamental Properties matters because it helps explain Differentiation.",
+        "Definition is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Differentiation: Composite, Implicit, and Inverse Functions is a core idea in Differentiation: Composite, Implicit, and Inverse Functions. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-calculus-ab-022",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
-      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "topic": "Differentiation: Definition and Fundamental Properties",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "AP CED: Differentiation: Definition and Fundamental Properties",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Differentiation: Composite, Implicit, and Inverse Functions needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Differentiation: Definition and Fundamental Properties. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Read the prompt, source, or data for the exact task."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
       "id": "ap-calculus-ab-023",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
-      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "topic": "Differentiation: Definition and Fundamental Properties",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "AP CED: Differentiation: Definition and Fundamental Properties",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Differentiation: Composite, Implicit, and Inverse Functions?",
-      "correctText": "Connect Differentiation: Composite, Implicit, and Inverse Functions to the prompt context before choosing.",
+      "prompt": "Which classroom explanation would best connect Differentiation: Definition and Fundamental Properties to the larger course skill?",
+      "correctText": "Differentiation: Definition and Fundamental Properties is useful when students represent relationships.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Differentiation: Composite, Implicit, and Inverse Functions to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Differentiation: Definition and Fundamental Properties only matters for memorized definitions.",
+        "Differentiation: Definition and Fundamental Properties is useful when students represent relationships.",
+        "ignoring the source or data in the prompt",
+        "Differentiation should be ignored unless it appears in the title."
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
       "id": "ap-calculus-ab-024",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Definition and Fundamental Properties",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Differentiation: Definition and Fundamental Properties, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Differentiation: Definition and Fundamental Properties, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Differentiation: Definition and Fundamental Properties, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-calculus-ab-025",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Definition and Fundamental Properties",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Differentiation: Definition and Fundamental Properties?",
+      "correctText": "Definition",
+      "choices": [
+        "Differential Equations",
+        "Definition",
+        "describing a topic without explaining why it matters",
+        "Continuity"
+      ],
+      "explanation": "Definition is part of the concept cluster for Differentiation: Definition and Fundamental Properties, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-calculus-ab-026",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Definition and Fundamental Properties",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Differentiation: Definition and Fundamental Properties knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Differentiation: Definition and Fundamental Properties, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Differentiation: Definition and Fundamental Properties, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-calculus-ab-027",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Definition and Fundamental Properties",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Calculus AB - Differentiation: Definition and Fundamental Properties: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Differentiation: Definition and Fundamental Properties connects to Differentiation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Differentiation: Definition and Fundamental Properties connects to Differentiation.",
+        "Fundamental Properties replaces all evidence."
+      ],
+      "explanation": "The pair Differentiation: Definition and Fundamental Properties and Differentiation belongs together in Differentiation: Definition and Fundamental Properties; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-calculus-ab-028",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Definition and Fundamental Properties",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Calculus AB question on Differentiation: Definition and Fundamental Properties?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-calculus-ab-029",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Definition and Fundamental Properties",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Differentiation: Definition and Fundamental Properties?",
+      "correctText": "Differentiation: Definition and Fundamental Properties can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Differentiation: Definition and Fundamental Properties can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Differentiation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-calculus-ab-030",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Definition and Fundamental Properties",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Differentiation: Definition and Fundamental Properties. Which feedback would help most?",
+      "correctText": "Reread the task, identify Differentiation: Definition and Fundamental Properties, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Differentiation: Definition and Fundamental Properties, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-calculus-ab-031",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Definition and Fundamental Properties",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Calculus AB: Differentiation: Definition and Fundamental Properties?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Calculus AB means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-calculus-ab-032",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Definition and Fundamental Properties",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Definition and Fundamental Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Differentiation: Definition and Fundamental Properties, which unit vocabulary word should be reviewed with Differentiation: Definition and Fundamental Properties?",
+      "correctText": "Differentiation",
+      "choices": [
+        "Composite",
+        "Differentiation",
+        "Analytical Applications of Differentiation",
+        "Applications of Integration"
+      ],
+      "explanation": "Differentiation belongs near Differentiation: Definition and Fundamental Properties in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-calculus-ab-033",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
@@ -594,18 +819,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Differentiation: Composite, Implicit, and Inverse Functions, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Calculus AB - Differentiation: Composite, Implicit, and Inverse Functions: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Differentiation: Composite, Implicit, and Inverse Functions",
       "choices": [
+        "Continuity",
+        "justification",
+        "Differentiation: Composite, Implicit, and Inverse Functions",
+        "Composite"
+      ],
+      "explanation": "Differentiation: Composite, Implicit, and Inverse Functions is the anchor concept for Differentiation: Composite, Implicit, and Inverse Functions. In AP CED: Differentiation: Composite, Implicit, and Inverse Functions, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-calculus-ab-034",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Calculus AB: Differentiation: Composite, Implicit, and Inverse Functions needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Differentiation.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Differentiation.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Differentiation; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-calculus-ab-035",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Calculus AB: Differentiation: Composite, Implicit, and Inverse Functions?",
+      "correctText": "Connect Differentiation: Composite, Implicit, and Inverse Functions to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Differentiation: Composite, Implicit, and Inverse Functions to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-calculus-ab-036",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Differentiation: Composite, Implicit, and Inverse Functions, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Composite.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Composite.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-calculus-ab-025",
+      "id": "ap-calculus-ab-037",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
@@ -620,17 +920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Calculus AB: Differentiation: Composite, Implicit, and Inverse Functions?",
-      "correctText": "Differentiation: Composite, Implicit, and Inverse Functions matters because it helps explain disciplinary reasoning.",
+      "correctText": "Differentiation: Composite, Implicit, and Inverse Functions matters because it helps explain Differentiation.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "Differentiation: Composite, Implicit, and Inverse Functions appears on tests, so no explanation is needed.",
-        "Differentiation: Composite, Implicit, and Inverse Functions matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Differentiation: Composite, Implicit, and Inverse Functions matters because it helps explain Differentiation.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-calculus-ab-026",
+      "id": "ap-calculus-ab-038",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
@@ -644,18 +944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Differentiation: Composite, Implicit, and Inverse Functions. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Differentiation: Composite, Implicit, and Inverse Functions. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-calculus-ab-027",
+      "id": "ap-calculus-ab-039",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
@@ -670,17 +970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Differentiation: Composite, Implicit, and Inverse Functions to the larger course skill?",
-      "correctText": "Differentiation: Composite, Implicit, and Inverse Functions is useful when students explain reasoning.",
+      "correctText": "Differentiation: Composite, Implicit, and Inverse Functions is useful when students represent relationships.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Differentiation: Composite, Implicit, and Inverse Functions is useful when students explain reasoning.",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "Differentiation should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Differentiation: Composite, Implicit, and Inverse Functions is useful when students represent relationships.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-calculus-ab-028",
+      "id": "ap-calculus-ab-040",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
@@ -697,15 +997,15 @@
       "prompt": "For Differentiation: Composite, Implicit, and Inverse Functions, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Differentiation: Composite, Implicit, and Inverse Functions, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Differentiation: Composite, Implicit, and Inverse Functions, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-calculus-ab-029",
+      "id": "ap-calculus-ab-041",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
@@ -720,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Differentiation: Composite, Implicit, and Inverse Functions?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Composite",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "Integration and Accumulation of Change",
-        "memorizing an isolated fact without evidence"
+        "Applications of Integration",
+        "using a rule from a different unit",
+        "Composite",
+        "function behavior"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Differentiation: Composite, Implicit, and Inverse Functions, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Composite is part of the concept cluster for Differentiation: Composite, Implicit, and Inverse Functions, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-calculus-ab-030",
+      "id": "ap-calculus-ab-042",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
@@ -747,15 +1047,165 @@
       "prompt": "A student wants to transfer Differentiation: Composite, Implicit, and Inverse Functions knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Differentiation: Composite, Implicit, and Inverse Functions, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Differentiation: Composite, Implicit, and Inverse Functions, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Differentiation: Composite, Implicit, and Inverse Functions, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-calculus-ab-031",
+      "id": "ap-calculus-ab-043",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Calculus AB - Differentiation: Composite, Implicit, and Inverse Functions: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Differentiation: Composite, Implicit, and Inverse Functions connects to Differentiation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Differentiation: Composite, Implicit, and Inverse Functions connects to Differentiation.",
+        "Implicit replaces all evidence."
+      ],
+      "explanation": "The pair Differentiation: Composite, Implicit, and Inverse Functions and Differentiation belongs together in Differentiation: Composite, Implicit, and Inverse Functions; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-calculus-ab-044",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Calculus AB question on Differentiation: Composite, Implicit, and Inverse Functions?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-calculus-ab-045",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Differentiation: Composite, Implicit, and Inverse Functions?",
+      "correctText": "Differentiation: Composite, Implicit, and Inverse Functions can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Differentiation: Composite, Implicit, and Inverse Functions can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Differentiation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-calculus-ab-046",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Differentiation: Composite, Implicit, and Inverse Functions. Which feedback would help most?",
+      "correctText": "Reread the task, identify Differentiation: Composite, Implicit, and Inverse Functions, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Differentiation: Composite, Implicit, and Inverse Functions, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-calculus-ab-047",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Calculus AB: Differentiation: Composite, Implicit, and Inverse Functions?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Calculus AB means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-calculus-ab-048",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differentiation: Composite, Implicit, and Inverse Functions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differentiation: Composite, Implicit, and Inverse Functions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Differentiation: Composite, Implicit, and Inverse Functions, which unit vocabulary word should be reviewed with Differentiation: Composite, Implicit, and Inverse Functions?",
+      "correctText": "Differentiation",
+      "choices": [
+        "Composite",
+        "Differentiation",
+        "Analytical Applications of Differentiation",
+        "Applications of Integration"
+      ],
+      "explanation": "Differentiation belongs near Differentiation: Composite, Implicit, and Inverse Functions in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-calculus-ab-049",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Contextual Applications of Differentiation",
@@ -769,18 +1219,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Calculus AB, which concept is most central to the unit \"Contextual Applications of Differentiation\"?",
+      "prompt": "AP Calculus AB - Contextual Applications of Differentiation: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Contextual Applications of Differentiation",
       "choices": [
-        "Contextual Applications of Differentiation",
+        "function behavior",
         "Differentiation: Definition and Fundamental Properties",
-        "evidence-based explanation",
-        "making a claim without supporting evidence"
+        "Composite",
+        "Contextual Applications of Differentiation"
       ],
-      "explanation": "Contextual Applications of Differentiation is a core idea in Contextual Applications of Differentiation. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Contextual Applications of Differentiation is the anchor concept for Contextual Applications of Differentiation. In AP CED: Contextual Applications of Differentiation, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-calculus-ab-032",
+      "id": "ap-calculus-ab-050",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Contextual Applications of Differentiation",
@@ -794,18 +1244,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Contextual Applications of Differentiation needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Calculus AB: Contextual Applications of Differentiation needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
         "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain function behavior."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-calculus-ab-033",
+      "id": "ap-calculus-ab-051",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Contextual Applications of Differentiation",
@@ -819,18 +1269,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Contextual Applications of Differentiation?",
+      "prompt": "Which answer best avoids a common mistake about AP Calculus AB: Contextual Applications of Differentiation?",
       "correctText": "Connect Contextual Applications of Differentiation to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Contextual Applications of Differentiation to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-calculus-ab-034",
+      "id": "ap-calculus-ab-052",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Contextual Applications of Differentiation",
@@ -844,18 +1294,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Contextual Applications of Differentiation, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Contextual Applications of Differentiation, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about representation.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-calculus-ab-035",
+      "id": "ap-calculus-ab-053",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Contextual Applications of Differentiation",
@@ -870,17 +1320,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Calculus AB: Contextual Applications of Differentiation?",
-      "correctText": "Contextual Applications of Differentiation matters because it helps explain disciplinary reasoning.",
+      "correctText": "Contextual Applications of Differentiation matters because it helps explain function behavior.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Contextual Applications of Differentiation matters because it helps explain disciplinary reasoning.",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Contextual Applications of Differentiation matters because it helps explain function behavior."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-calculus-ab-036",
+      "id": "ap-calculus-ab-054",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Contextual Applications of Differentiation",
@@ -894,18 +1344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Contextual Applications of Differentiation. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Contextual Applications of Differentiation. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-calculus-ab-037",
+      "id": "ap-calculus-ab-055",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Contextual Applications of Differentiation",
@@ -920,17 +1370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Contextual Applications of Differentiation to the larger course skill?",
-      "correctText": "Contextual Applications of Differentiation is useful when students apply a course concept.",
+      "correctText": "Contextual Applications of Differentiation is useful when students represent relationships.",
       "choices": [
-        "Contextual Applications of Differentiation is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Contextual Applications of Differentiation is useful when students represent relationships."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-calculus-ab-038",
+      "id": "ap-calculus-ab-056",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Contextual Applications of Differentiation",
@@ -947,15 +1397,15 @@
       "prompt": "For Contextual Applications of Differentiation, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Contextual Applications of Differentiation, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Contextual Applications of Differentiation, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-calculus-ab-039",
+      "id": "ap-calculus-ab-057",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Contextual Applications of Differentiation",
@@ -970,17 +1420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Contextual Applications of Differentiation?",
-      "correctText": "evidence-based explanation",
+      "correctText": "representation",
       "choices": [
-        "Differentiation: Composite, Implicit, and Inverse Functions",
-        "evidence-based explanation",
-        "Integration and Accumulation of Change",
-        "model or source analysis"
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "parameter",
+        "representation"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Contextual Applications of Differentiation, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "representation is part of the concept cluster for Contextual Applications of Differentiation, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-calculus-ab-040",
+      "id": "ap-calculus-ab-058",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Contextual Applications of Differentiation",
@@ -997,15 +1447,165 @@
       "prompt": "A student wants to transfer Contextual Applications of Differentiation knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Contextual Applications of Differentiation, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Contextual Applications of Differentiation, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-calculus-ab-041",
+      "id": "ap-calculus-ab-059",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Contextual Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Contextual Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Calculus AB - Contextual Applications of Differentiation: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Contextual Applications of Differentiation connects to function behavior.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Contextual Applications of Differentiation connects to function behavior.",
+        "parameter replaces all evidence."
+      ],
+      "explanation": "The pair Contextual Applications of Differentiation and function behavior belongs together in Contextual Applications of Differentiation; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-calculus-ab-060",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Contextual Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Contextual Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Calculus AB question on Contextual Applications of Differentiation?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-calculus-ab-061",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Contextual Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Contextual Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Contextual Applications of Differentiation?",
+      "correctText": "Contextual Applications of Differentiation can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Contextual Applications of Differentiation can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-calculus-ab-062",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Contextual Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Contextual Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Contextual Applications of Differentiation. Which feedback would help most?",
+      "correctText": "Reread the task, identify Contextual Applications of Differentiation, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Contextual Applications of Differentiation, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-calculus-ab-063",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Contextual Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Contextual Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Calculus AB: Contextual Applications of Differentiation?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Calculus AB means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-calculus-ab-064",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Contextual Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Contextual Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Contextual Applications of Differentiation, which unit vocabulary word should be reviewed with Contextual Applications of Differentiation?",
+      "correctText": "function behavior",
+      "choices": [
+        "Composite",
+        "function behavior",
+        "Analytical Applications of Differentiation",
+        "Applications of Integration"
+      ],
+      "explanation": "function behavior belongs near Contextual Applications of Differentiation in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-calculus-ab-065",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Analytical Applications of Differentiation",
@@ -1019,18 +1619,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Calculus AB, which concept is most central to the unit \"Analytical Applications of Differentiation\"?",
+      "prompt": "AP Calculus AB - Analytical Applications of Differentiation: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Analytical Applications of Differentiation",
       "choices": [
         "Analytical Applications of Differentiation",
-        "Applications of Integration",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "representation",
+        "Differentiation",
+        "Implicit"
       ],
-      "explanation": "Analytical Applications of Differentiation is a core idea in Analytical Applications of Differentiation. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Analytical Applications of Differentiation is the anchor concept for Analytical Applications of Differentiation. In AP CED: Analytical Applications of Differentiation, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-calculus-ab-042",
+      "id": "ap-calculus-ab-066",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Analytical Applications of Differentiation",
@@ -1044,18 +1644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Analytical Applications of Differentiation needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Calculus AB: Analytical Applications of Differentiation needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
       "choices": [
+        "Use evidence to explain function behavior.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Analytical Applications of Differentiation only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Guess from key words about representation.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-calculus-ab-043",
+      "id": "ap-calculus-ab-067",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Analytical Applications of Differentiation",
@@ -1069,18 +1669,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Analytical Applications of Differentiation?",
+      "prompt": "Which answer best avoids a common mistake about AP Calculus AB: Analytical Applications of Differentiation?",
       "correctText": "Connect Analytical Applications of Differentiation to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Analytical Applications of Differentiation to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Analytical Applications of Differentiation as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-calculus-ab-044",
+      "id": "ap-calculus-ab-068",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Analytical Applications of Differentiation",
@@ -1094,18 +1694,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Analytical Applications of Differentiation, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Analytical Applications of Differentiation, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about representation.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-calculus-ab-045",
+      "id": "ap-calculus-ab-069",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Analytical Applications of Differentiation",
@@ -1120,17 +1720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Calculus AB: Analytical Applications of Differentiation?",
-      "correctText": "Analytical Applications of Differentiation matters because it helps explain disciplinary reasoning.",
+      "correctText": "Analytical Applications of Differentiation matters because it helps explain function behavior.",
       "choices": [
-        "Analytical Applications of Differentiation matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
+        "Analytical Applications of Differentiation matters because it helps explain function behavior.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "choosing an answer because it uses familiar words",
+        "Analytical Applications of Differentiation appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-calculus-ab-046",
+      "id": "ap-calculus-ab-070",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Analytical Applications of Differentiation",
@@ -1144,18 +1744,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Analytical Applications of Differentiation. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Analytical Applications of Differentiation. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-calculus-ab-047",
+      "id": "ap-calculus-ab-071",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Analytical Applications of Differentiation",
@@ -1170,17 +1770,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Analytical Applications of Differentiation to the larger course skill?",
-      "correctText": "Analytical Applications of Differentiation is useful when students use evidence accurately.",
+      "correctText": "Analytical Applications of Differentiation is useful when students represent relationships.",
       "choices": [
-        "Analytical Applications of Differentiation is useful when students use evidence accurately.",
-        "Analytical Applications of Differentiation only matters for memorized definitions.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Analytical Applications of Differentiation is useful when students represent relationships.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-calculus-ab-048",
+      "id": "ap-calculus-ab-072",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Analytical Applications of Differentiation",
@@ -1197,15 +1797,15 @@
       "prompt": "For Analytical Applications of Differentiation, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Analytical Applications of Differentiation, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Analytical Applications of Differentiation, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-calculus-ab-049",
+      "id": "ap-calculus-ab-073",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Analytical Applications of Differentiation",
@@ -1220,17 +1820,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Analytical Applications of Differentiation?",
-      "correctText": "evidence-based explanation",
+      "correctText": "representation",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "model or source analysis"
+        "representation",
+        "choosing an answer because it uses familiar words",
+        "Limits and Continuity",
+        "model"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Analytical Applications of Differentiation, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "representation is part of the concept cluster for Analytical Applications of Differentiation, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-calculus-ab-050",
+      "id": "ap-calculus-ab-074",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Analytical Applications of Differentiation",
@@ -1247,15 +1847,165 @@
       "prompt": "A student wants to transfer Analytical Applications of Differentiation knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Analytical Applications of Differentiation, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Analytical Applications of Differentiation, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Analytical Applications of Differentiation, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-calculus-ab-051",
+      "id": "ap-calculus-ab-075",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Analytical Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Analytical Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Calculus AB - Analytical Applications of Differentiation: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Analytical Applications of Differentiation connects to function behavior.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Analytical Applications of Differentiation connects to function behavior.",
+        "parameter replaces all evidence."
+      ],
+      "explanation": "The pair Analytical Applications of Differentiation and function behavior belongs together in Analytical Applications of Differentiation; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-calculus-ab-076",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Analytical Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Analytical Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Calculus AB question on Analytical Applications of Differentiation?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-calculus-ab-077",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Analytical Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Analytical Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Analytical Applications of Differentiation?",
+      "correctText": "Analytical Applications of Differentiation can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Analytical Applications of Differentiation can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-calculus-ab-078",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Analytical Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Analytical Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Analytical Applications of Differentiation. Which feedback would help most?",
+      "correctText": "Reread the task, identify Analytical Applications of Differentiation, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Analytical Applications of Differentiation, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-calculus-ab-079",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Analytical Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Analytical Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Calculus AB: Analytical Applications of Differentiation?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Calculus AB means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-calculus-ab-080",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Analytical Applications of Differentiation",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Analytical Applications of Differentiation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Analytical Applications of Differentiation, which unit vocabulary word should be reviewed with Analytical Applications of Differentiation?",
+      "correctText": "function behavior",
+      "choices": [
+        "Composite",
+        "function behavior",
+        "Analytical Applications of Differentiation",
+        "Applications of Integration"
+      ],
+      "explanation": "function behavior belongs near Analytical Applications of Differentiation in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-calculus-ab-081",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Integration and Accumulation of Change",
@@ -1269,18 +2019,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Calculus AB, which concept is most central to the unit \"Integration and Accumulation of Change\"?",
+      "prompt": "AP Calculus AB - Integration and Accumulation of Change: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Integration and Accumulation of Change",
       "choices": [
-        "Applications of Integration",
-        "Contextual Applications of Differentiation",
-        "exam-style application",
-        "Integration and Accumulation of Change"
+        "parameter",
+        "Integration and Accumulation of Change",
+        "Definition",
+        "Inverse Functions"
       ],
-      "explanation": "Integration and Accumulation of Change is a core idea in Integration and Accumulation of Change. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Integration and Accumulation of Change is the anchor concept for Integration and Accumulation of Change. In AP CED: Integration and Accumulation of Change, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-calculus-ab-052",
+      "id": "ap-calculus-ab-082",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Integration and Accumulation of Change",
@@ -1294,18 +2044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Integration and Accumulation of Change needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Calculus AB: Integration and Accumulation of Change needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Integration.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain Integration.",
+        "Repeat the definition of Integration and Accumulation of Change only.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Integration; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-calculus-ab-053",
+      "id": "ap-calculus-ab-083",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Integration and Accumulation of Change",
@@ -1319,18 +2069,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Integration and Accumulation of Change?",
+      "prompt": "Which answer best avoids a common mistake about AP Calculus AB: Integration and Accumulation of Change?",
       "correctText": "Connect Integration and Accumulation of Change to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Integration and Accumulation of Change to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-calculus-ab-054",
+      "id": "ap-calculus-ab-084",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Integration and Accumulation of Change",
@@ -1344,18 +2094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Integration and Accumulation of Change, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Integration and Accumulation of Change, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Accumulation of Change.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Accumulation of Change.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-calculus-ab-055",
+      "id": "ap-calculus-ab-085",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Integration and Accumulation of Change",
@@ -1370,17 +2120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Calculus AB: Integration and Accumulation of Change?",
-      "correctText": "Integration and Accumulation of Change matters because it helps explain disciplinary reasoning.",
+      "correctText": "Integration and Accumulation of Change matters because it helps explain Integration.",
       "choices": [
-        "describing a topic without explaining why it matters",
         "Integration and Accumulation of Change appears on tests, so no explanation is needed.",
-        "Integration and Accumulation of Change matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Integration and Accumulation of Change matters because it helps explain Integration.",
+        "ignoring the source or data in the prompt",
+        "Accumulation of Change is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-calculus-ab-056",
+      "id": "ap-calculus-ab-086",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Integration and Accumulation of Change",
@@ -1394,18 +2144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Integration and Accumulation of Change. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Integration and Accumulation of Change. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-calculus-ab-057",
+      "id": "ap-calculus-ab-087",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Integration and Accumulation of Change",
@@ -1420,17 +2170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Integration and Accumulation of Change to the larger course skill?",
-      "correctText": "Integration and Accumulation of Change is useful when students explain reasoning.",
+      "correctText": "Integration and Accumulation of Change is useful when students represent relationships.",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Integration and Accumulation of Change is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Integration and Accumulation of Change is useful when students represent relationships.",
+        "Integration and Accumulation of Change only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-calculus-ab-058",
+      "id": "ap-calculus-ab-088",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Integration and Accumulation of Change",
@@ -1447,15 +2197,15 @@
       "prompt": "For Integration and Accumulation of Change, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Integration and Accumulation of Change, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Integration and Accumulation of Change, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-calculus-ab-059",
+      "id": "ap-calculus-ab-089",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Integration and Accumulation of Change",
@@ -1470,17 +2220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Integration and Accumulation of Change?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Accumulation of Change",
       "choices": [
-        "Analytical Applications of Differentiation",
-        "Applications of Integration",
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt"
+        "ignoring the source or data in the prompt",
+        "Accumulation of Change",
+        "Limits",
+        "model"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Integration and Accumulation of Change, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Accumulation of Change is part of the concept cluster for Integration and Accumulation of Change, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-calculus-ab-060",
+      "id": "ap-calculus-ab-090",
       "course": "ap-calculus-ab",
       "courseLabel": "AP Calculus AB",
       "topic": "Integration and Accumulation of Change",
@@ -1497,12 +2247,962 @@
       "prompt": "A student wants to transfer Integration and Accumulation of Change knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Integration and Accumulation of Change, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Integration and Accumulation of Change, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Integration and Accumulation of Change, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-calculus-ab-091",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Integration and Accumulation of Change",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Integration and Accumulation of Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Calculus AB - Integration and Accumulation of Change: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Integration and Accumulation of Change connects to Integration.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Integration and Accumulation of Change connects to Integration.",
+        "function behavior replaces all evidence."
+      ],
+      "explanation": "The pair Integration and Accumulation of Change and Integration belongs together in Integration and Accumulation of Change; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-calculus-ab-092",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Integration and Accumulation of Change",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Integration and Accumulation of Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Calculus AB question on Integration and Accumulation of Change?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-calculus-ab-093",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Integration and Accumulation of Change",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Integration and Accumulation of Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Integration and Accumulation of Change?",
+      "correctText": "Integration and Accumulation of Change can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Integration and Accumulation of Change can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Integration does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-calculus-ab-094",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Integration and Accumulation of Change",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Integration and Accumulation of Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Integration and Accumulation of Change. Which feedback would help most?",
+      "correctText": "Reread the task, identify Integration and Accumulation of Change, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Integration and Accumulation of Change, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-calculus-ab-095",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Integration and Accumulation of Change",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Integration and Accumulation of Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Calculus AB: Integration and Accumulation of Change?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Calculus AB means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-calculus-ab-096",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Integration and Accumulation of Change",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Integration and Accumulation of Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Integration and Accumulation of Change, which unit vocabulary word should be reviewed with Integration and Accumulation of Change?",
+      "correctText": "Integration",
+      "choices": [
+        "Differentiation: Composite, Implicit, and Inverse Functions",
+        "Integration",
+        "precision",
+        "Applications of Integration"
+      ],
+      "explanation": "Integration belongs near Integration and Accumulation of Change in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-calculus-ab-097",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Calculus AB - Differential Equations: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Differential Equations",
+      "choices": [
+        "model",
+        "Fundamental Properties",
+        "Differential Equations",
+        "Contextual Applications of Differentiation"
+      ],
+      "explanation": "Differential Equations is the anchor concept for Differential Equations. In AP CED: Differential Equations, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-calculus-ab-098",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Calculus AB: Differential Equations needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain function behavior.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-calculus-ab-099",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Calculus AB: Differential Equations?",
+      "correctText": "Connect Differential Equations to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Differential Equations to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-calculus-ab-100",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Differential Equations, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about representation.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-calculus-ab-101",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Calculus AB: Differential Equations?",
+      "correctText": "Differential Equations matters because it helps explain function behavior.",
+      "choices": [
+        "representation is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "Differential Equations matters because it helps explain function behavior.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-calculus-ab-102",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Differential Equations. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-calculus-ab-103",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Differential Equations to the larger course skill?",
+      "correctText": "Differential Equations is useful when students represent relationships.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "function behavior should be ignored unless it appears in the title.",
+        "Differential Equations is useful when students represent relationships.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-calculus-ab-104",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Differential Equations, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Differential Equations, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Differential Equations, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-calculus-ab-105",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Differential Equations?",
+      "correctText": "representation",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Continuity",
+        "representation",
+        "Differentiation: Definition and Fundamental Properties"
+      ],
+      "explanation": "representation is part of the concept cluster for Differential Equations, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-calculus-ab-106",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Differential Equations knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Differential Equations, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Differential Equations, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-calculus-ab-107",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Calculus AB - Differential Equations: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Differential Equations connects to function behavior.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Differential Equations connects to function behavior.",
+        "parameter replaces all evidence."
+      ],
+      "explanation": "The pair Differential Equations and function behavior belongs together in Differential Equations; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-calculus-ab-108",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Calculus AB question on Differential Equations?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-calculus-ab-109",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Differential Equations?",
+      "correctText": "Differential Equations can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Differential Equations can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-calculus-ab-110",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Differential Equations. Which feedback would help most?",
+      "correctText": "Reread the task, identify Differential Equations, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Differential Equations, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-calculus-ab-111",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Calculus AB: Differential Equations?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Calculus AB means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-calculus-ab-112",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Differential Equations",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Differential Equations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Differential Equations, which unit vocabulary word should be reviewed with Differential Equations?",
+      "correctText": "function behavior",
+      "choices": [
+        "Composite",
+        "function behavior",
+        "Analytical Applications of Differentiation",
+        "Applications of Integration"
+      ],
+      "explanation": "function behavior belongs near Differential Equations in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-calculus-ab-113",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Calculus AB - Applications of Integration: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Applications of Integration",
+      "choices": [
+        "justification",
+        "Differentiation: Composite, Implicit, and Inverse Functions",
+        "precision",
+        "Applications of Integration"
+      ],
+      "explanation": "Applications of Integration is the anchor concept for Applications of Integration. In AP CED: Applications of Integration, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-calculus-ab-114",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Calculus AB: Applications of Integration needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Use evidence to explain function behavior."
+      ],
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-calculus-ab-115",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Calculus AB: Applications of Integration?",
+      "correctText": "Connect Applications of Integration to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Applications of Integration to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-calculus-ab-116",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Applications of Integration, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about representation.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-calculus-ab-117",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Calculus AB: Applications of Integration?",
+      "correctText": "Applications of Integration matters because it helps explain function behavior.",
+      "choices": [
+        "Only the vocabulary list matters for this unit.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Applications of Integration matters because it helps explain function behavior."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-calculus-ab-118",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Applications of Integration. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Read the prompt, source, or data for the exact task.",
+        "Pick the first familiar vocabulary word.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-calculus-ab-119",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Applications of Integration to the larger course skill?",
+      "correctText": "Applications of Integration is useful when students represent relationships.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "Applications of Integration is useful when students represent relationships."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-calculus-ab-120",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Applications of Integration, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Applications of Integration, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Applications of Integration, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-calculus-ab-121",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Applications of Integration?",
+      "correctText": "representation",
+      "choices": [
+        "using a rule from a different unit",
+        "function behavior",
+        "Differentiation",
+        "representation"
+      ],
+      "explanation": "representation is part of the concept cluster for Applications of Integration, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-calculus-ab-122",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Applications of Integration knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Applications of Integration, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Applications of Integration, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-calculus-ab-123",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Calculus AB - Applications of Integration: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Applications of Integration connects to function behavior.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Applications of Integration connects to function behavior.",
+        "parameter replaces all evidence."
+      ],
+      "explanation": "The pair Applications of Integration and function behavior belongs together in Applications of Integration; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-calculus-ab-124",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Calculus AB question on Applications of Integration?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-calculus-ab-125",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Applications of Integration?",
+      "correctText": "Applications of Integration can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Applications of Integration can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-calculus-ab-126",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Applications of Integration. Which feedback would help most?",
+      "correctText": "Reread the task, identify Applications of Integration, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Applications of Integration, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-calculus-ab-127",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Calculus AB: Applications of Integration?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Calculus AB means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-calculus-ab-128",
+      "course": "ap-calculus-ab",
+      "courseLabel": "AP Calculus AB",
+      "topic": "Applications of Integration",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Integration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Applications of Integration, which unit vocabulary word should be reviewed with Applications of Integration?",
+      "correctText": "function behavior",
+      "choices": [
+        "Composite",
+        "function behavior",
+        "Analytical Applications of Differentiation",
+        "Applications of Integration"
+      ],
+      "explanation": "function behavior belongs near Applications of Integration in this unit's concept map. Reviewing them together helps students answer transfer questions."
     }
   ]
 }

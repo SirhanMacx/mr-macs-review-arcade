@@ -62,13 +62,29 @@ for (const course of courses) {
   const fragment = JSON.parse(fs.readFileSync(file, "utf8"));
   const questions = fragment.questions || [];
   assert(questions.length >= course.minQuestions, `${course.id} only has ${questions.length}/${course.minQuestions} questions`);
+  const topics = new Set(questions.map((question) => question.topic));
+  assert(topics.size === course.units.length, `${course.id}: question bank should cover every unit (${topics.size}/${course.units.length})`);
+  const byTopic = new Map();
+  for (const question of questions) byTopic.set(question.topic, (byTopic.get(question.topic) || 0) + 1);
+  for (const unit of course.units) {
+    assert((byTopic.get(unit.title) || 0) >= 12, `${course.id}: unit ${unit.title} has too few questions`);
+  }
+  const answerCounts = [0, 0, 0, 0];
+  let streak = 0;
+  let lastIndex = -1;
   for (const question of questions) {
     assert(question.course === course.id, `${course.id}: question ${question.id} has wrong course`);
     assert(Array.isArray(question.choices) && question.choices.length === 4, `${course.id}: ${question.id} choices shape`);
     assert(question.choices.includes(question.correctText), `${course.id}: ${question.id} correctText missing from choices`);
+    const correctIndex = question.choices.indexOf(question.correctText);
+    answerCounts[correctIndex] += 1;
+    streak = correctIndex === lastIndex ? streak + 1 : 1;
+    lastIndex = correctIndex;
+    assert(streak <= 3, `${course.id}: ${question.id} creates an obvious answer-letter streak`);
     assert((question.standardRefs || []).length > 0, `${course.id}: ${question.id} missing standardRefs`);
     assert(question.explanation && question.explanation.split(/\s+/).length >= 12, `${course.id}: ${question.id} explanation too thin`);
   }
+  assert(answerCounts.every((count) => count > 0), `${course.id}: answer letters should all appear ${answerCounts.join("/")}`);
 }
 
 const boardCourses = new Set((jeopardy.boards || []).map((board) => board.courseId));
@@ -80,6 +96,10 @@ for (const board of jeopardy.boards || []) {
   for (const category of board.categories || []) {
     assert((category.clues || []).length === 5, `${board.id}: ${category.name} expected 5 clues`);
     assert(JSON.stringify(category.clues.map((clue) => clue.value)) === JSON.stringify([100, 200, 300, 400, 500]), `${board.id}: ${category.name} values are not 100-500`);
+    for (const clue of category.clues) {
+      assert(!/This .* idea helps students handle/.test(clue.clue || ""), `${board.id}: ${category.name} has old generic clue copy`);
+      assert((clue.explanation || "").split(/\s+/).length >= 14, `${board.id}: ${category.name} ${clue.value} explanation too thin`);
+    }
   }
   assert(board.final?.answer, `${board.id}: missing final`);
 }
@@ -91,6 +111,10 @@ for (const course of courses) {
   if (!exam) continue;
   assert((exam.sectionPlan || []).length >= 2, `${course.id}: practice blueprint needs at least two sections`);
   assert((exam.units || []).length === course.units.length, `${course.id}: practice units mismatch`);
+  assert((exam.writtenTasks || []).length >= 3, `${course.id}: practice blueprint needs written tasks`);
+  for (const unit of exam.units || []) {
+    assert((unit.sampledQuestionIds || []).length >= 6, `${course.id}: ${unit.unit} needs more sampled questions for practice exams`);
+  }
   if ((course.assessmentSourceIds || []).length) {
     assert(exam.sourceMode !== "standards-aligned-original", `${course.id}: released-backed course lost source mode`);
   }
@@ -108,9 +132,12 @@ const context = { window: {}, globalThis: {} };
 context.globalThis = context.window;
 vm.runInNewContext(fs.readFileSync(path.join(root, "assets/shared-question-bank.js"), "utf8"), context, { filename: "assets/shared-question-bank.js" });
 const sharedBank = context.window.DIAG_BANK_BY_COURSE || {};
+let generatedQuestionTotal = 0;
 for (const course of courses) {
   assert((sharedBank[course.id] || []).length >= course.minQuestions, `shared bank missing ${course.id}`);
+  generatedQuestionTotal += (sharedBank[course.id] || []).length;
 }
+assert(generatedQuestionTotal >= 10000, `generated all-subject bank is too small: ${generatedQuestionTotal}`);
 assert(context.window.DIAG_BANK_COVERAGE?.apCourses >= 42, "shared bank AP coverage metadata too low");
 assert(context.window.DIAG_BANK_COVERAGE?.coreGeneralCourses >= 25, "shared bank core-general coverage metadata too low");
 

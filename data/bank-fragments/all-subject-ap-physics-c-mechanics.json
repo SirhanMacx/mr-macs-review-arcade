@@ -2,7 +2,7 @@
   "course": "ap-physics-c-mechanics",
   "courseLabel": "AP Physics C: Mechanics",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-physics-c-mechanics-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics C: Mechanics, which concept is most central to the unit \"Kinematics\"?",
+      "prompt": "AP Physics C: Mechanics - Kinematics: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Kinematics",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
         "Kinematics",
-        "Systems of Particles and Linear Momentum"
+        "model",
+        "scale",
+        "Power"
       ],
-      "explanation": "Kinematics is a core idea in Kinematics. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Kinematics is the anchor concept for Kinematics. In AP CED: Kinematics, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-physics-c-mechanics-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Kinematics needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Physics C: Mechanics: Kinematics needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain model.",
+        "Guess from key words about system.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Kinematics only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-physics-c-mechanics-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Kinematics?",
+      "prompt": "Which answer best avoids a common mistake about AP Physics C: Mechanics: Kinematics?",
       "correctText": "Connect Kinematics to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Kinematics to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Kinematics, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Kinematics, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Physics C: Mechanics: Kinematics?",
-      "correctText": "Kinematics matters because it helps explain disciplinary reasoning.",
+      "correctText": "Kinematics matters because it helps explain model.",
       "choices": [
+        "Kinematics matters because it helps explain model.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Kinematics matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Kinematics appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Kinematics. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Kinematics. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Kinematics to the larger course skill?",
-      "correctText": "Kinematics is useful when students apply a course concept.",
+      "correctText": "Kinematics is useful when students use models.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Kinematics is useful when students apply a course concept.",
+        "Kinematics is useful when students use models.",
         "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Kinematics only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Kinematics, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Kinematics, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Kinematics, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Kinematics?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence",
-        "Newton's Laws",
-        "Rotation"
+        "system",
+        "describing a topic without explaining why it matters",
+        "data pattern",
+        "Work, Energy, and Power"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Kinematics, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Kinematics, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-physics-c-mechanics-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Kinematics knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Kinematics, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Kinematics, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,201 +258,201 @@
       "id": "ap-physics-c-mechanics-011",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Newton's Laws",
+      "topic": "Kinematics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Newton's Laws",
+        "AP CED: Kinematics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics C: Mechanics, which concept is most central to the unit \"Newton's Laws\"?",
-      "correctText": "Newton's Laws",
+      "prompt": "AP Physics C: Mechanics - Kinematics: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Kinematics connects to model.",
       "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "Newton's Laws",
-        "using a rule from a different unit"
+        "Kinematics connects to model.",
+        "data pattern replaces all evidence."
       ],
-      "explanation": "Newton's Laws is a core idea in Newton's Laws. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Kinematics and model belongs together in Kinematics; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-physics-c-mechanics-012",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Newton's Laws",
+      "topic": "Kinematics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Newton's Laws",
+        "AP CED: Kinematics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Newton's Laws needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics C: Mechanics question on Kinematics?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Newton's Laws only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-physics-c-mechanics-013",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Newton's Laws",
+      "topic": "Kinematics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Newton's Laws",
+        "AP CED: Kinematics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Newton's Laws?",
-      "correctText": "Connect Newton's Laws to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Kinematics?",
+      "correctText": "Kinematics can be explained with evidence from data table, diagram, or model.",
       "choices": [
-        "Connect Newton's Laws to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Newton's Laws as always meaning the same thing."
+        "Kinematics can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-physics-c-mechanics-014",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Newton's Laws",
+      "topic": "Kinematics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Newton's Laws",
+        "AP CED: Kinematics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Newton's Laws, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Kinematics. Which feedback would help most?",
+      "correctText": "Reread the task, identify Kinematics, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Kinematics, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-physics-c-mechanics-015",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Newton's Laws",
+      "topic": "Kinematics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Newton's Laws",
+        "AP CED: Kinematics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Physics C: Mechanics: Newton's Laws?",
-      "correctText": "Newton's Laws matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Physics C: Mechanics: Kinematics?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Newton's Laws matters because it helps explain disciplinary reasoning.",
-        "Only the vocabulary list matters for this unit."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Physics C: Mechanics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-physics-c-mechanics-016",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Newton's Laws",
+      "topic": "Kinematics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Newton's Laws",
+        "AP CED: Kinematics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Newton's Laws. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Kinematics, which unit vocabulary word should be reviewed with Kinematics?",
+      "correctText": "model",
       "choices": [
-        "Answer from memory before reading the stimulus.",
         "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "model",
+        "Kinematics",
+        "scale"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "model belongs near Kinematics in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-physics-c-mechanics-017",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Newton's Laws",
+      "topic": "Kinematics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Newton's Laws",
+        "AP CED: Kinematics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Newton's Laws to the larger course skill?",
-      "correctText": "Newton's Laws is useful when students use evidence accurately.",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Kinematics?",
+      "correctText": "A response that names Kinematics but never explains how it fits the evidence.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Newton's Laws is useful when students use evidence accurately.",
-        "Newton's Laws only matters for memorized definitions."
+        "A response that names Kinematics but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Kinematics to model."
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
     },
     {
       "id": "ap-physics-c-mechanics-018",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Newton's Laws",
+      "topic": "Kinematics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Newton's Laws",
+        "AP CED: Kinematics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Newton's Laws, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Newton's Laws, cites evidence, and explains the connection.",
+      "prompt": "Which question should a student ask while reviewing AP Physics C: Mechanics: Kinematics?",
+      "correctText": "How does Kinematics help explain the evidence or scenario?",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Newton's Laws, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Kinematics help explain the evidence or scenario?"
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
     },
     {
       "id": "ap-physics-c-mechanics-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Newton's Laws?",
-      "correctText": "evidence-based explanation",
+      "prompt": "AP Physics C: Mechanics - Newton's Laws: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Newton's Laws",
       "choices": [
-        "evidence-based explanation",
-        "making a claim without supporting evidence",
-        "model or source analysis",
-        "Work, Energy, and Power"
+        "model",
+        "Newton's Laws",
+        "scale",
+        "Systems of Particles and Linear Momentum"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Newton's Laws, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Newton's Laws is the anchor concept for Newton's Laws. In AP CED: Newton's Laws, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-physics-c-mechanics-020",
@@ -494,93 +494,418 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Newton's Laws knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Newton's Laws, then justify the answer with evidence.",
+      "prompt": "A student reviewing AP Physics C: Mechanics: Newton's Laws needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
+        "Repeat the definition of Newton's Laws only.",
+        "Use evidence to explain model.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Newton's Laws, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-physics-c-mechanics-021",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Work, Energy, and Power",
+      "topic": "Newton's Laws",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Work, Energy, and Power",
+        "AP CED: Newton's Laws",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics C: Mechanics, which concept is most central to the unit \"Work, Energy, and Power\"?",
-      "correctText": "Work, Energy, and Power",
+      "prompt": "Which answer best avoids a common mistake about AP Physics C: Mechanics: Newton's Laws?",
+      "correctText": "Connect Newton's Laws to the prompt context before choosing.",
       "choices": [
-        "Gravitation",
-        "ignoring the source or data in the prompt",
-        "Systems of Particles and Linear Momentum",
-        "Work, Energy, and Power"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Newton's Laws to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Work, Energy, and Power is a core idea in Work, Energy, and Power. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-physics-c-mechanics-022",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Work, Energy, and Power",
+      "topic": "Newton's Laws",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Work, Energy, and Power",
+        "AP CED: Newton's Laws",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Work, Energy, and Power needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "In an AP CED-aligned exam task about Newton's Laws, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-physics-c-mechanics-023",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Work, Energy, and Power",
+      "topic": "Newton's Laws",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Work, Energy, and Power",
+        "AP CED: Newton's Laws",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Work, Energy, and Power?",
-      "correctText": "Connect Work, Energy, and Power to the prompt context before choosing.",
+      "prompt": "Which review note would help most for AP Physics C: Mechanics: Newton's Laws?",
+      "correctText": "Newton's Laws matters because it helps explain model.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Work, Energy, and Power to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "ignoring the source or data in the prompt",
+        "Newton's Laws matters because it helps explain model.",
+        "system is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-physics-c-mechanics-024",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Newton's Laws. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Read the prompt, source, or data for the exact task."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-physics-c-mechanics-025",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Newton's Laws to the larger course skill?",
+      "correctText": "Newton's Laws is useful when students use models.",
+      "choices": [
+        "Newton's Laws only matters for memorized definitions.",
+        "Newton's Laws is useful when students use models.",
+        "ignoring the source or data in the prompt",
+        "model should be ignored unless it appears in the title."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-physics-c-mechanics-026",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Newton's Laws, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Newton's Laws, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Newton's Laws, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-physics-c-mechanics-027",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Newton's Laws?",
+      "correctText": "system",
+      "choices": [
+        "using a rule from a different unit",
+        "system",
+        "cause and effect",
+        "Work"
+      ],
+      "explanation": "system is part of the concept cluster for Newton's Laws, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-physics-c-mechanics-028",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Newton's Laws knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Newton's Laws, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Newton's Laws, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-physics-c-mechanics-029",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics C: Mechanics - Newton's Laws: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Newton's Laws connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Newton's Laws connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Newton's Laws and model belongs together in Newton's Laws; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-physics-c-mechanics-030",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics C: Mechanics question on Newton's Laws?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-physics-c-mechanics-031",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Newton's Laws?",
+      "correctText": "Newton's Laws can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Newton's Laws can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-physics-c-mechanics-032",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Newton's Laws. Which feedback would help most?",
+      "correctText": "Reread the task, identify Newton's Laws, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Newton's Laws, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-physics-c-mechanics-033",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Physics C: Mechanics: Newton's Laws?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Physics C: Mechanics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-physics-c-mechanics-034",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Newton's Laws, which unit vocabulary word should be reviewed with Newton's Laws?",
+      "correctText": "model",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "model",
+        "Kinematics",
+        "scale"
+      ],
+      "explanation": "model belongs near Newton's Laws in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-physics-c-mechanics-035",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Newton's Laws?",
+      "correctText": "A response that names Newton's Laws but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Newton's Laws but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Newton's Laws to model."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-036",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Newton's Laws",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Newton's Laws",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Physics C: Mechanics: Newton's Laws?",
+      "correctText": "How does Newton's Laws help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Newton's Laws help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-037",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Work, Energy, and Power",
@@ -594,18 +919,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Work, Energy, and Power, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Physics C: Mechanics - Work, Energy, and Power: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Work, Energy, and Power",
       "choices": [
+        "system",
+        "Newton's Laws",
+        "Work, Energy, and Power",
+        "Systems of Particles"
+      ],
+      "explanation": "Work, Energy, and Power is the anchor concept for Work, Energy, and Power. In AP CED: Work, Energy, and Power, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-physics-c-mechanics-038",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Physics C: Mechanics: Work, Energy, and Power needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Work.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Work.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Work; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-physics-c-mechanics-039",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Physics C: Mechanics: Work, Energy, and Power?",
+      "correctText": "Connect Work, Energy, and Power to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Work, Energy, and Power to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-040",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Work, Energy, and Power, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Energy.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Energy.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-physics-c-mechanics-025",
+      "id": "ap-physics-c-mechanics-041",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Work, Energy, and Power",
@@ -620,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Physics C: Mechanics: Work, Energy, and Power?",
-      "correctText": "Work, Energy, and Power matters because it helps explain disciplinary reasoning.",
+      "correctText": "Work, Energy, and Power matters because it helps explain Work.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Work, Energy, and Power appears on tests, so no explanation is needed.",
-        "Work, Energy, and Power matters because it helps explain disciplinary reasoning."
+        "Only the vocabulary list matters for this unit.",
+        "Work, Energy, and Power matters because it helps explain Work.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-physics-c-mechanics-026",
+      "id": "ap-physics-c-mechanics-042",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Work, Energy, and Power",
@@ -644,18 +1044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Work, Energy, and Power. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Work, Energy, and Power. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-physics-c-mechanics-027",
+      "id": "ap-physics-c-mechanics-043",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Work, Energy, and Power",
@@ -670,17 +1070,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Work, Energy, and Power to the larger course skill?",
-      "correctText": "Work, Energy, and Power is useful when students explain reasoning.",
+      "correctText": "Work, Energy, and Power is useful when students use models.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit",
-        "Work, Energy, and Power is useful when students explain reasoning."
+        "Work should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Work, Energy, and Power is useful when students use models.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-physics-c-mechanics-028",
+      "id": "ap-physics-c-mechanics-044",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Work, Energy, and Power",
@@ -697,15 +1097,15 @@
       "prompt": "For Work, Energy, and Power, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Work, Energy, and Power, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Work, Energy, and Power, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-physics-c-mechanics-029",
+      "id": "ap-physics-c-mechanics-045",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Work, Energy, and Power",
@@ -720,17 +1120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Work, Energy, and Power?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Energy",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "Kinematics",
-        "memorizing an isolated fact without evidence"
+        "making a claim without supporting evidence",
+        "cause and effect",
+        "Energy",
+        "Work"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Work, Energy, and Power, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Energy is part of the concept cluster for Work, Energy, and Power, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-physics-c-mechanics-030",
+      "id": "ap-physics-c-mechanics-046",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Work, Energy, and Power",
@@ -747,15 +1147,215 @@
       "prompt": "A student wants to transfer Work, Energy, and Power knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Work, Energy, and Power, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Work, Energy, and Power, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Work, Energy, and Power, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-physics-c-mechanics-031",
+      "id": "ap-physics-c-mechanics-047",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics C: Mechanics - Work, Energy, and Power: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Work, Energy, and Power connects to Work.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Work, Energy, and Power connects to Work.",
+        "Power replaces all evidence."
+      ],
+      "explanation": "The pair Work, Energy, and Power and Work belongs together in Work, Energy, and Power; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-physics-c-mechanics-048",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics C: Mechanics question on Work, Energy, and Power?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-physics-c-mechanics-049",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Work, Energy, and Power?",
+      "correctText": "Work, Energy, and Power can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Work, Energy, and Power can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Work does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-physics-c-mechanics-050",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Work, Energy, and Power. Which feedback would help most?",
+      "correctText": "Reread the task, identify Work, Energy, and Power, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Work, Energy, and Power, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-physics-c-mechanics-051",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Physics C: Mechanics: Work, Energy, and Power?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Physics C: Mechanics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-physics-c-mechanics-052",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Work, Energy, and Power, which unit vocabulary word should be reviewed with Work, Energy, and Power?",
+      "correctText": "Work",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Work",
+        "Kinematics",
+        "experimental design"
+      ],
+      "explanation": "Work belongs near Work, Energy, and Power in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-physics-c-mechanics-053",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Work, Energy, and Power?",
+      "correctText": "A response that names Work, Energy, and Power but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Work, Energy, and Power but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Work, Energy, and Power to Work."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-054",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Work, Energy, and Power",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Work, Energy, and Power",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Physics C: Mechanics: Work, Energy, and Power?",
+      "correctText": "How does Work, Energy, and Power help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Work, Energy, and Power help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-055",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Systems of Particles and Linear Momentum",
@@ -769,18 +1369,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics C: Mechanics, which concept is most central to the unit \"Systems of Particles and Linear Momentum\"?",
+      "prompt": "AP Physics C: Mechanics - Systems of Particles and Linear Momentum: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Systems of Particles and Linear Momentum",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
-        "Rotation",
+        "data pattern",
+        "Work, Energy, and Power",
+        "Linear Momentum",
         "Systems of Particles and Linear Momentum"
       ],
-      "explanation": "Systems of Particles and Linear Momentum is a core idea in Systems of Particles and Linear Momentum. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Systems of Particles and Linear Momentum is the anchor concept for Systems of Particles and Linear Momentum. In AP CED: Systems of Particles and Linear Momentum, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-physics-c-mechanics-032",
+      "id": "ap-physics-c-mechanics-056",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Systems of Particles and Linear Momentum",
@@ -794,18 +1394,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Systems of Particles and Linear Momentum needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Physics C: Mechanics: Systems of Particles and Linear Momentum needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Systems of Particles.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
         "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Systems of Particles."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Systems of Particles; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-physics-c-mechanics-033",
+      "id": "ap-physics-c-mechanics-057",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Systems of Particles and Linear Momentum",
@@ -819,18 +1419,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Systems of Particles and Linear Momentum?",
+      "prompt": "Which answer best avoids a common mistake about AP Physics C: Mechanics: Systems of Particles and Linear Momentum?",
       "correctText": "Connect Systems of Particles and Linear Momentum to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Systems of Particles and Linear Momentum to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-physics-c-mechanics-034",
+      "id": "ap-physics-c-mechanics-058",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Systems of Particles and Linear Momentum",
@@ -844,18 +1444,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Systems of Particles and Linear Momentum, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Systems of Particles and Linear Momentum, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Linear Momentum.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Linear Momentum.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-physics-c-mechanics-035",
+      "id": "ap-physics-c-mechanics-059",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Systems of Particles and Linear Momentum",
@@ -870,17 +1470,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Physics C: Mechanics: Systems of Particles and Linear Momentum?",
-      "correctText": "Systems of Particles and Linear Momentum matters because it helps explain disciplinary reasoning.",
+      "correctText": "Systems of Particles and Linear Momentum matters because it helps explain Systems of Particles.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Systems of Particles and Linear Momentum matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Systems of Particles and Linear Momentum matters because it helps explain Systems of Particles."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-physics-c-mechanics-036",
+      "id": "ap-physics-c-mechanics-060",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Systems of Particles and Linear Momentum",
@@ -894,18 +1494,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Systems of Particles and Linear Momentum. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Systems of Particles and Linear Momentum. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-physics-c-mechanics-037",
+      "id": "ap-physics-c-mechanics-061",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Systems of Particles and Linear Momentum",
@@ -920,17 +1520,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Systems of Particles and Linear Momentum to the larger course skill?",
-      "correctText": "Systems of Particles and Linear Momentum is useful when students apply a course concept.",
+      "correctText": "Systems of Particles and Linear Momentum is useful when students use models.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Systems of Particles and Linear Momentum is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Systems of Particles and Linear Momentum is useful when students use models."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-physics-c-mechanics-038",
+      "id": "ap-physics-c-mechanics-062",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Systems of Particles and Linear Momentum",
@@ -947,15 +1547,15 @@
       "prompt": "For Systems of Particles and Linear Momentum, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Systems of Particles and Linear Momentum, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Systems of Particles and Linear Momentum, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-physics-c-mechanics-039",
+      "id": "ap-physics-c-mechanics-063",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Systems of Particles and Linear Momentum",
@@ -970,17 +1570,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Systems of Particles and Linear Momentum?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Linear Momentum",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation",
-        "Oscillations",
-        "Work, Energy, and Power"
+        "Kinematics",
+        "experimental design",
+        "Energy",
+        "Linear Momentum"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Systems of Particles and Linear Momentum, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Linear Momentum is part of the concept cluster for Systems of Particles and Linear Momentum, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-physics-c-mechanics-040",
+      "id": "ap-physics-c-mechanics-064",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Systems of Particles and Linear Momentum",
@@ -997,65 +1597,215 @@
       "prompt": "A student wants to transfer Systems of Particles and Linear Momentum knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Systems of Particles and Linear Momentum, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Systems of Particles and Linear Momentum, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-physics-c-mechanics-041",
+      "id": "ap-physics-c-mechanics-065",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Rotation",
+      "topic": "Systems of Particles and Linear Momentum",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Rotation",
+        "AP CED: Systems of Particles and Linear Momentum",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics C: Mechanics, which concept is most central to the unit \"Rotation\"?",
-      "correctText": "Rotation",
+      "prompt": "AP Physics C: Mechanics - Systems of Particles and Linear Momentum: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Systems of Particles and Linear Momentum connects to Systems of Particles.",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
         "making a claim without supporting evidence",
-        "Rotation"
+        "choosing an answer because it uses familiar words",
+        "Systems of Particles and Linear Momentum connects to Systems of Particles.",
+        "model replaces all evidence."
       ],
-      "explanation": "Rotation is a core idea in Rotation. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Systems of Particles and Linear Momentum and Systems of Particles belongs together in Systems of Particles and Linear Momentum; students should explain the relationship rather than memorize each term alone."
     },
     {
-      "id": "ap-physics-c-mechanics-042",
+      "id": "ap-physics-c-mechanics-066",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Rotation",
+      "topic": "Systems of Particles and Linear Momentum",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Rotation",
+        "AP CED: Systems of Particles and Linear Momentum",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Rotation needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics C: Mechanics question on Systems of Particles and Linear Momentum?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-physics-c-mechanics-067",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Systems of Particles and Linear Momentum",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Systems of Particles and Linear Momentum",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Systems of Particles and Linear Momentum?",
+      "correctText": "Systems of Particles and Linear Momentum can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Systems of Particles and Linear Momentum can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Systems of Particles does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-physics-c-mechanics-068",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Systems of Particles and Linear Momentum",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Systems of Particles and Linear Momentum",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Systems of Particles and Linear Momentum. Which feedback would help most?",
+      "correctText": "Reread the task, identify Systems of Particles and Linear Momentum, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Systems of Particles and Linear Momentum, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-physics-c-mechanics-069",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Systems of Particles and Linear Momentum",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Systems of Particles and Linear Momentum",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Physics C: Mechanics: Systems of Particles and Linear Momentum?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Physics C: Mechanics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-physics-c-mechanics-070",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Systems of Particles and Linear Momentum",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Systems of Particles and Linear Momentum",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Systems of Particles and Linear Momentum, which unit vocabulary word should be reviewed with Systems of Particles and Linear Momentum?",
+      "correctText": "Systems of Particles",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Rotation only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Systems of Particles",
+        "Kinematics",
+        "experimental design"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Systems of Particles belongs near Systems of Particles and Linear Momentum in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
-      "id": "ap-physics-c-mechanics-043",
+      "id": "ap-physics-c-mechanics-071",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Systems of Particles and Linear Momentum",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Systems of Particles and Linear Momentum",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Systems of Particles and Linear Momentum?",
+      "correctText": "A response that names Systems of Particles and Linear Momentum but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Systems of Particles and Linear Momentum but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Systems of Particles and Linear Momentum to Systems of Particles."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-072",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Systems of Particles and Linear Momentum",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Systems of Particles and Linear Momentum",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Physics C: Mechanics: Systems of Particles and Linear Momentum?",
+      "correctText": "How does Systems of Particles and Linear Momentum help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Systems of Particles and Linear Momentum help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-073",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Rotation",
@@ -1069,18 +1819,68 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Rotation?",
+      "prompt": "AP Physics C: Mechanics - Rotation: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Rotation",
+      "choices": [
+        "Rotation",
+        "cause and effect",
+        "Work",
+        "Linear Momentum"
+      ],
+      "explanation": "Rotation is the anchor concept for Rotation. In AP CED: Rotation, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-physics-c-mechanics-074",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Rotation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rotation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Physics C: Mechanics: Rotation needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "Use evidence to explain model.",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about system.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-physics-c-mechanics-075",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Rotation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rotation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Physics C: Mechanics: Rotation?",
       "correctText": "Connect Rotation to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Rotation to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Rotation as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-physics-c-mechanics-044",
+      "id": "ap-physics-c-mechanics-076",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Rotation",
@@ -1094,18 +1894,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Rotation, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Rotation, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-physics-c-mechanics-045",
+      "id": "ap-physics-c-mechanics-077",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Rotation",
@@ -1120,17 +1920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Physics C: Mechanics: Rotation?",
-      "correctText": "Rotation matters because it helps explain disciplinary reasoning.",
+      "correctText": "Rotation matters because it helps explain model.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Rotation matters because it helps explain model.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit.",
-        "Rotation matters because it helps explain disciplinary reasoning."
+        "choosing an answer because it uses familiar words",
+        "Rotation appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-physics-c-mechanics-046",
+      "id": "ap-physics-c-mechanics-078",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Rotation",
@@ -1144,18 +1944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Rotation. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Rotation. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-physics-c-mechanics-047",
+      "id": "ap-physics-c-mechanics-079",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Rotation",
@@ -1170,17 +1970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Rotation to the larger course skill?",
-      "correctText": "Rotation is useful when students use evidence accurately.",
+      "correctText": "Rotation is useful when students use models.",
       "choices": [
-        "describing a topic without explaining why it matters",
+        "Rotation is useful when students use models.",
         "memorizing an isolated fact without evidence",
-        "Rotation is useful when students use evidence accurately.",
-        "Rotation only matters for memorized definitions."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-physics-c-mechanics-048",
+      "id": "ap-physics-c-mechanics-080",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Rotation",
@@ -1197,15 +1997,15 @@
       "prompt": "For Rotation, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Rotation, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Rotation, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-physics-c-mechanics-049",
+      "id": "ap-physics-c-mechanics-081",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Rotation",
@@ -1220,17 +2020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Rotation?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "evidence-based explanation",
-        "exam-style application",
-        "Kinematics",
+        "system",
+        "model",
+        "Newton's Laws",
         "Systems of Particles and Linear Momentum"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Rotation, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Rotation, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-physics-c-mechanics-050",
+      "id": "ap-physics-c-mechanics-082",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Rotation",
@@ -1247,90 +2047,290 @@
       "prompt": "A student wants to transfer Rotation knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Rotation, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Rotation, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Rotation, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-physics-c-mechanics-051",
+      "id": "ap-physics-c-mechanics-083",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Oscillations",
+      "topic": "Rotation",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Oscillations",
+        "AP CED: Rotation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics C: Mechanics, which concept is most central to the unit \"Oscillations\"?",
-      "correctText": "Oscillations",
+      "prompt": "AP Physics C: Mechanics - Rotation: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Rotation connects to model.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Oscillations",
-        "Systems of Particles and Linear Momentum"
-      ],
-      "explanation": "Oscillations is a core idea in Oscillations. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
-    },
-    {
-      "id": "ap-physics-c-mechanics-052",
-      "course": "ap-physics-c-mechanics",
-      "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Oscillations",
-      "domain": "AP Sciences",
-      "subjectArea": "AP Sciences",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Oscillations",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student reviewing Oscillations needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
-      "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
         "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "choosing an answer because it uses familiar words",
+        "Rotation connects to model.",
+        "data pattern replaces all evidence."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The pair Rotation and model belongs together in Rotation; students should explain the relationship rather than memorize each term alone."
     },
     {
-      "id": "ap-physics-c-mechanics-053",
+      "id": "ap-physics-c-mechanics-084",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
-      "topic": "Oscillations",
+      "topic": "Rotation",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Oscillations",
+        "AP CED: Rotation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Oscillations?",
-      "correctText": "Connect Oscillations to the prompt context before choosing.",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics C: Mechanics question on Rotation?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-physics-c-mechanics-085",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Rotation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rotation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Rotation?",
+      "correctText": "Rotation can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Rotation can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-physics-c-mechanics-086",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Rotation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rotation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Rotation. Which feedback would help most?",
+      "correctText": "Reread the task, identify Rotation, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Rotation, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-physics-c-mechanics-087",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Rotation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rotation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Physics C: Mechanics: Rotation?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Physics C: Mechanics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-physics-c-mechanics-088",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Rotation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rotation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Rotation, which unit vocabulary word should be reviewed with Rotation?",
+      "correctText": "model",
       "choices": [
         "choosing an answer because it uses familiar words",
+        "model",
+        "Kinematics",
+        "scale"
+      ],
+      "explanation": "model belongs near Rotation in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-physics-c-mechanics-089",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Rotation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rotation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Rotation?",
+      "correctText": "A response that names Rotation but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Rotation but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Rotation to model."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-090",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Rotation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rotation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Physics C: Mechanics: Rotation?",
+      "correctText": "How does Rotation help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Rotation help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-091",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics C: Mechanics - Oscillations: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Oscillations",
+      "choices": [
+        "experimental design",
+        "Oscillations",
+        "Energy",
+        "Rotation"
+      ],
+      "explanation": "Oscillations is the anchor concept for Oscillations. In AP CED: Oscillations, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-physics-c-mechanics-092",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Physics C: Mechanics: Oscillations needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use evidence to explain model.",
+        "Repeat the definition of Oscillations only.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-physics-c-mechanics-093",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Physics C: Mechanics: Oscillations?",
+      "correctText": "Connect Oscillations to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Oscillations to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-physics-c-mechanics-054",
+      "id": "ap-physics-c-mechanics-094",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Oscillations",
@@ -1344,18 +2344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Oscillations, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Oscillations, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-physics-c-mechanics-055",
+      "id": "ap-physics-c-mechanics-095",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Oscillations",
@@ -1370,17 +2370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Physics C: Mechanics: Oscillations?",
-      "correctText": "Oscillations matters because it helps explain disciplinary reasoning.",
+      "correctText": "Oscillations matters because it helps explain model.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Oscillations appears on tests, so no explanation is needed.",
-        "Oscillations matters because it helps explain disciplinary reasoning."
+        "Oscillations matters because it helps explain model.",
+        "ignoring the source or data in the prompt",
+        "system is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-physics-c-mechanics-056",
+      "id": "ap-physics-c-mechanics-096",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Oscillations",
@@ -1394,18 +2394,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Oscillations. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Oscillations. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-physics-c-mechanics-057",
+      "id": "ap-physics-c-mechanics-097",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Oscillations",
@@ -1420,17 +2420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Oscillations to the larger course skill?",
-      "correctText": "Oscillations is useful when students explain reasoning.",
+      "correctText": "Oscillations is useful when students use models.",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Oscillations is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Oscillations is useful when students use models.",
+        "Oscillations only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-physics-c-mechanics-058",
+      "id": "ap-physics-c-mechanics-098",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Oscillations",
@@ -1447,15 +2447,15 @@
       "prompt": "For Oscillations, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Oscillations, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Oscillations, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-physics-c-mechanics-059",
+      "id": "ap-physics-c-mechanics-099",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Oscillations",
@@ -1470,17 +2470,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Oscillations?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "using a rule from a different unit"
+        "data pattern",
+        "system",
+        "Work, Energy, and Power",
+        "Systems of Particles"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Oscillations, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Oscillations, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-physics-c-mechanics-060",
+      "id": "ap-physics-c-mechanics-100",
       "course": "ap-physics-c-mechanics",
       "courseLabel": "AP Physics C: Mechanics",
       "topic": "Oscillations",
@@ -1497,12 +2497,512 @@
       "prompt": "A student wants to transfer Oscillations knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Oscillations, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Oscillations, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Oscillations, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-physics-c-mechanics-101",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics C: Mechanics - Oscillations: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Oscillations connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Oscillations connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Oscillations and model belongs together in Oscillations; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-physics-c-mechanics-102",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics C: Mechanics question on Oscillations?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-physics-c-mechanics-103",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Oscillations?",
+      "correctText": "Oscillations can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Oscillations can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-physics-c-mechanics-104",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Oscillations. Which feedback would help most?",
+      "correctText": "Reread the task, identify Oscillations, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Oscillations, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-physics-c-mechanics-105",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Physics C: Mechanics: Oscillations?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Physics C: Mechanics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-physics-c-mechanics-106",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Oscillations, which unit vocabulary word should be reviewed with Oscillations?",
+      "correctText": "model",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "model",
+        "Kinematics",
+        "scale"
+      ],
+      "explanation": "model belongs near Oscillations in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-physics-c-mechanics-107",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Oscillations?",
+      "correctText": "A response that names Oscillations but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Oscillations but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Oscillations to model."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-108",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Oscillations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Oscillations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Physics C: Mechanics: Oscillations?",
+      "correctText": "How does Oscillations help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Oscillations help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-109",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics C: Mechanics - Gravitation: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Gravitation",
+      "choices": [
+        "scale",
+        "Power",
+        "Gravitation",
+        "Oscillations"
+      ],
+      "explanation": "Gravitation is the anchor concept for Gravitation. In AP CED: Gravitation, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-physics-c-mechanics-110",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Physics C: Mechanics: Gravitation needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain model.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-physics-c-mechanics-111",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Physics C: Mechanics: Gravitation?",
+      "correctText": "Connect Gravitation to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Gravitation to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-physics-c-mechanics-112",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Gravitation, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-physics-c-mechanics-113",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Physics C: Mechanics: Gravitation?",
+      "correctText": "Gravitation matters because it helps explain model.",
+      "choices": [
+        "system is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "Gravitation matters because it helps explain model.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-physics-c-mechanics-114",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Gravitation. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-physics-c-mechanics-115",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Gravitation to the larger course skill?",
+      "correctText": "Gravitation is useful when students use models.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "model should be ignored unless it appears in the title.",
+        "Gravitation is useful when students use models.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-physics-c-mechanics-116",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Gravitation, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Gravitation, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Gravitation, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-physics-c-mechanics-117",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Gravitation?",
+      "correctText": "system",
+      "choices": [
+        "cause and effect",
+        "Work",
+        "system",
+        "Linear Momentum"
+      ],
+      "explanation": "system is part of the concept cluster for Gravitation, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-physics-c-mechanics-118",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Gravitation knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Gravitation, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Gravitation, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-physics-c-mechanics-119",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics C: Mechanics - Gravitation: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Gravitation connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Gravitation connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Gravitation and model belongs together in Gravitation; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-physics-c-mechanics-120",
+      "course": "ap-physics-c-mechanics",
+      "courseLabel": "AP Physics C: Mechanics",
+      "topic": "Gravitation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gravitation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics C: Mechanics question on Gravitation?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     }
   ]
 }

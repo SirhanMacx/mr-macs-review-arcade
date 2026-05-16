@@ -2,7 +2,7 @@
   "course": "ap-biology",
   "courseLabel": "AP Biology",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-biology-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Biology, which concept is most central to the unit \"Chemistry of Life\"?",
+      "prompt": "AP Biology - Chemistry of Life: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Chemistry of Life",
       "choices": [
-        "Cell Communication and Cell Cycle",
         "Chemistry of Life",
-        "disciplinary reasoning",
-        "exam-style application"
+        "model",
+        "scale",
+        "Cell Communication and Cell Cycle"
       ],
-      "explanation": "Chemistry of Life is a core idea in Chemistry of Life. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Chemistry of Life is the anchor concept for Chemistry of Life. In AP CED: Chemistry of Life, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-biology-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Chemistry of Life needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Biology: Chemistry of Life needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain model.",
+        "Guess from key words about system.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Chemistry of Life only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-biology-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Chemistry of Life?",
+      "prompt": "Which answer best avoids a common mistake about AP Biology: Chemistry of Life?",
       "correctText": "Connect Chemistry of Life to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Chemistry of Life to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Chemistry of Life, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Chemistry of Life, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Biology: Chemistry of Life?",
-      "correctText": "Chemistry of Life matters because it helps explain disciplinary reasoning.",
+      "correctText": "Chemistry of Life matters because it helps explain model.",
       "choices": [
-        "Chemistry of Life matters because it helps explain disciplinary reasoning.",
+        "Chemistry of Life matters because it helps explain model.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "Chemistry of Life appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Chemistry of Life. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Chemistry of Life. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Chemistry of Life to the larger course skill?",
-      "correctText": "Chemistry of Life is useful when students apply a course concept.",
+      "correctText": "Chemistry of Life is useful when students use models.",
       "choices": [
-        "Chemistry of Life is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
+        "Chemistry of Life is useful when students use models.",
         "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Chemistry of Life only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Chemistry of Life, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Chemistry of Life, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Chemistry of Life, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Chemistry of Life?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "Cell Communication and Cell Cycle",
-        "evidence-based explanation",
-        "exam-style application",
-        "Natural Selection"
+        "system",
+        "choosing an answer because it uses familiar words",
+        "Chemistry of Life",
+        "scale"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Chemistry of Life, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Chemistry of Life, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-biology-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Chemistry of Life knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Chemistry of Life, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Chemistry of Life, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,151 +258,151 @@
       "id": "ap-biology-011",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
-      "topic": "Cell Structure and Function",
+      "topic": "Chemistry of Life",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cell Structure and Function",
+        "AP CED: Chemistry of Life",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Biology, which concept is most central to the unit \"Cell Structure and Function\"?",
-      "correctText": "Cell Structure and Function",
+      "prompt": "AP Biology - Chemistry of Life: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Chemistry of Life connects to model.",
       "choices": [
-        "Cell Structure and Function",
-        "Chemistry of Life",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Chemistry of Life connects to model.",
+        "data pattern replaces all evidence."
       ],
-      "explanation": "Cell Structure and Function is a core idea in Cell Structure and Function. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Chemistry of Life and model belongs together in Chemistry of Life; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-biology-012",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
-      "topic": "Cell Structure and Function",
+      "topic": "Chemistry of Life",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cell Structure and Function",
+        "AP CED: Chemistry of Life",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Cell Structure and Function needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Biology question on Chemistry of Life?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Cell Structure and Function only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-biology-013",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
-      "topic": "Cell Structure and Function",
+      "topic": "Chemistry of Life",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cell Structure and Function",
+        "AP CED: Chemistry of Life",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Cell Structure and Function?",
-      "correctText": "Connect Cell Structure and Function to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Chemistry of Life?",
+      "correctText": "Chemistry of Life can be explained with evidence from data table, diagram, or model.",
       "choices": [
-        "Connect Cell Structure and Function to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Cell Structure and Function as always meaning the same thing."
+        "Chemistry of Life can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-biology-014",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
-      "topic": "Cell Structure and Function",
+      "topic": "Chemistry of Life",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cell Structure and Function",
+        "AP CED: Chemistry of Life",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Cell Structure and Function, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Chemistry of Life. Which feedback would help most?",
+      "correctText": "Reread the task, identify Chemistry of Life, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Chemistry of Life, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-biology-015",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
-      "topic": "Cell Structure and Function",
+      "topic": "Chemistry of Life",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cell Structure and Function",
+        "AP CED: Chemistry of Life",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Biology: Cell Structure and Function?",
-      "correctText": "Cell Structure and Function matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Biology: Chemistry of Life?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
       "choices": [
-        "Cell Structure and Function matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Biology means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-biology-016",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
-      "topic": "Cell Structure and Function",
+      "topic": "Chemistry of Life",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cell Structure and Function",
+        "AP CED: Chemistry of Life",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Cell Structure and Function. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Chemistry of Life, which unit vocabulary word should be reviewed with Chemistry of Life?",
+      "correctText": "model",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Regulation",
+        "model",
+        "ignoring the source or data in the prompt",
+        "system"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "model belongs near Chemistry of Life in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-biology-017",
@@ -419,15 +419,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Cell Structure and Function to the larger course skill?",
-      "correctText": "Cell Structure and Function is useful when students use evidence accurately.",
+      "prompt": "AP Biology - Cell Structure and Function: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Cell Structure and Function",
       "choices": [
-        "Cell Structure and Function is useful when students use evidence accurately.",
-        "Cell Structure and Function only matters for memorized definitions.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "model",
+        "Cell Structure and Function",
+        "scale",
+        "Cell Communication"
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "Cell Structure and Function is the anchor concept for Cell Structure and Function. In AP CED: Cell Structure and Function, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-biology-018",
@@ -444,15 +444,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Cell Structure and Function, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Cell Structure and Function, cites evidence, and explains the connection.",
+      "prompt": "A student reviewing AP Biology: Cell Structure and Function needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Cell Structure.",
       "choices": [
+        "Repeat the definition of Cell Structure and Function only.",
+        "Use evidence to explain Cell Structure.",
         "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Cell Structure and Function, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The useful move is to connect evidence to Cell Structure; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-biology-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Cell Structure and Function?",
-      "correctText": "evidence-based explanation",
+      "prompt": "Which answer best avoids a common mistake about AP Biology: Cell Structure and Function?",
+      "correctText": "Connect Cell Structure and Function to the prompt context before choosing.",
       "choices": [
-        "Chemistry of Life",
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "exam-style application"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Cell Structure and Function to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Cell Structure and Function, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-biology-020",
@@ -494,93 +494,318 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Cell Structure and Function knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Cell Structure and Function, then justify the answer with evidence.",
+      "prompt": "In an AP CED-aligned exam task about Cell Structure and Function, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Function.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Match the new prompt to Cell Structure and Function, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Function.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-biology-021",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
-      "topic": "Cellular Energetics",
+      "topic": "Cell Structure and Function",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cellular Energetics",
+        "AP CED: Cell Structure and Function",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Biology, which concept is most central to the unit \"Cellular Energetics\"?",
-      "correctText": "Cellular Energetics",
+      "prompt": "Which review note would help most for AP Biology: Cell Structure and Function?",
+      "correctText": "Cell Structure and Function matters because it helps explain Cell Structure.",
       "choices": [
-        "Cell Structure and Function",
-        "Cellular Energetics",
-        "Gene Expression and Regulation",
-        "memorizing an isolated fact without evidence"
+        "ignoring the source or data in the prompt",
+        "Cell Structure and Function matters because it helps explain Cell Structure.",
+        "Function is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Cellular Energetics is a core idea in Cellular Energetics. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-biology-022",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
-      "topic": "Cellular Energetics",
+      "topic": "Cell Structure and Function",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cellular Energetics",
+        "AP CED: Cell Structure and Function",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Cellular Energetics needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Cell Structure and Function. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Read the prompt, source, or data for the exact task."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
       "id": "ap-biology-023",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
-      "topic": "Cellular Energetics",
+      "topic": "Cell Structure and Function",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cellular Energetics",
+        "AP CED: Cell Structure and Function",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Cellular Energetics?",
-      "correctText": "Connect Cellular Energetics to the prompt context before choosing.",
+      "prompt": "Which classroom explanation would best connect Cell Structure and Function to the larger course skill?",
+      "correctText": "Cell Structure and Function is useful when students use models.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Cellular Energetics to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Cell Structure and Function only matters for memorized definitions.",
+        "Cell Structure and Function is useful when students use models.",
+        "ignoring the source or data in the prompt",
+        "Cell Structure should be ignored unless it appears in the title."
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
       "id": "ap-biology-024",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Structure and Function",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Structure and Function",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Cell Structure and Function, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Cell Structure and Function, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Cell Structure and Function, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-biology-025",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Structure and Function",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Structure and Function",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Cell Structure and Function?",
+      "correctText": "Function",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Function",
+        "model",
+        "scale"
+      ],
+      "explanation": "Function is part of the concept cluster for Cell Structure and Function, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-biology-026",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Structure and Function",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Structure and Function",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Cell Structure and Function knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Cell Structure and Function, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Cell Structure and Function, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-biology-027",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Structure and Function",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Structure and Function",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Biology - Cell Structure and Function: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Cell Structure and Function connects to Cell Structure.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Cell Structure and Function connects to Cell Structure.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Cell Structure and Function and Cell Structure belongs together in Cell Structure and Function; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-biology-028",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Structure and Function",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Structure and Function",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Biology question on Cell Structure and Function?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-biology-029",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Structure and Function",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Structure and Function",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Cell Structure and Function?",
+      "correctText": "Cell Structure and Function can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Cell Structure and Function can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Cell Structure does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-biology-030",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Structure and Function",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Structure and Function",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Cell Structure and Function. Which feedback would help most?",
+      "correctText": "Reread the task, identify Cell Structure and Function, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Cell Structure and Function, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-biology-031",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Structure and Function",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Structure and Function",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Biology: Cell Structure and Function?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Biology means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-biology-032",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Structure and Function",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Structure and Function",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Cell Structure and Function, which unit vocabulary word should be reviewed with Cell Structure and Function?",
+      "correctText": "Cell Structure",
+      "choices": [
+        "Regulation",
+        "Cell Structure",
+        "ignoring the source or data in the prompt",
+        "model"
+      ],
+      "explanation": "Cell Structure belongs near Cell Structure and Function in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-biology-033",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cellular Energetics",
@@ -594,18 +819,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Cellular Energetics, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Biology - Cellular Energetics: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Cellular Energetics",
       "choices": [
+        "system",
+        "Cell Structure and Function",
+        "Cellular Energetics",
+        "Cell Cycle"
+      ],
+      "explanation": "Cellular Energetics is the anchor concept for Cellular Energetics. In AP CED: Cellular Energetics, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-biology-034",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cellular Energetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cellular Energetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Biology: Cellular Energetics needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain model.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-biology-035",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cellular Energetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cellular Energetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Biology: Cellular Energetics?",
+      "correctText": "Connect Cellular Energetics to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Cellular Energetics to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-biology-036",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cellular Energetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cellular Energetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Cellular Energetics, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-biology-025",
+      "id": "ap-biology-037",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cellular Energetics",
@@ -620,17 +920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Biology: Cellular Energetics?",
-      "correctText": "Cellular Energetics matters because it helps explain disciplinary reasoning.",
+      "correctText": "Cellular Energetics matters because it helps explain model.",
       "choices": [
-        "Cellular Energetics appears on tests, so no explanation is needed.",
-        "Cellular Energetics matters because it helps explain disciplinary reasoning.",
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Cellular Energetics matters because it helps explain model.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-biology-026",
+      "id": "ap-biology-038",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cellular Energetics",
@@ -644,18 +944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Cellular Energetics. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Cellular Energetics. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-biology-027",
+      "id": "ap-biology-039",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cellular Energetics",
@@ -670,17 +970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Cellular Energetics to the larger course skill?",
-      "correctText": "Cellular Energetics is useful when students explain reasoning.",
+      "correctText": "Cellular Energetics is useful when students use models.",
       "choices": [
-        "Cellular Energetics is useful when students explain reasoning.",
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "model should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Cellular Energetics is useful when students use models.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-biology-028",
+      "id": "ap-biology-040",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cellular Energetics",
@@ -697,15 +997,15 @@
       "prompt": "For Cellular Energetics, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Cellular Energetics, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Cellular Energetics, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-biology-029",
+      "id": "ap-biology-041",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cellular Energetics",
@@ -720,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Cellular Energetics?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
         "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "Gene Expression and Regulation",
-        "memorizing an isolated fact without evidence"
+        "data pattern",
+        "system",
+        "Cell Structure"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Cellular Energetics, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Cellular Energetics, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-biology-030",
+      "id": "ap-biology-042",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cellular Energetics",
@@ -747,15 +1047,165 @@
       "prompt": "A student wants to transfer Cellular Energetics knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Cellular Energetics, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Cellular Energetics, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Cellular Energetics, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-biology-031",
+      "id": "ap-biology-043",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cellular Energetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cellular Energetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Biology - Cellular Energetics: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Cellular Energetics connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Cellular Energetics connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Cellular Energetics and model belongs together in Cellular Energetics; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-biology-044",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cellular Energetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cellular Energetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Biology question on Cellular Energetics?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-biology-045",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cellular Energetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cellular Energetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Cellular Energetics?",
+      "correctText": "Cellular Energetics can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Cellular Energetics can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-biology-046",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cellular Energetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cellular Energetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Cellular Energetics. Which feedback would help most?",
+      "correctText": "Reread the task, identify Cellular Energetics, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Cellular Energetics, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-biology-047",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cellular Energetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cellular Energetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Biology: Cellular Energetics?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Biology means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-biology-048",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cellular Energetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cellular Energetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Cellular Energetics, which unit vocabulary word should be reviewed with Cellular Energetics?",
+      "correctText": "model",
+      "choices": [
+        "Regulation",
+        "model",
+        "ignoring the source or data in the prompt",
+        "system"
+      ],
+      "explanation": "model belongs near Cellular Energetics in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-biology-049",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cell Communication and Cell Cycle",
@@ -769,18 +1219,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Biology, which concept is most central to the unit \"Cell Communication and Cell Cycle\"?",
+      "prompt": "AP Biology - Cell Communication and Cell Cycle: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Cell Communication and Cell Cycle",
       "choices": [
-        "Cell Communication and Cell Cycle",
-        "Cell Structure and Function",
-        "evidence-based explanation",
-        "making a claim without supporting evidence"
+        "data pattern",
+        "Cell Structure",
+        "Heredity",
+        "Cell Communication and Cell Cycle"
       ],
-      "explanation": "Cell Communication and Cell Cycle is a core idea in Cell Communication and Cell Cycle. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Cell Communication and Cell Cycle is the anchor concept for Cell Communication and Cell Cycle. In AP CED: Cell Communication and Cell Cycle, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-biology-032",
+      "id": "ap-biology-050",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cell Communication and Cell Cycle",
@@ -794,18 +1244,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Cell Communication and Cell Cycle needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Biology: Cell Communication and Cell Cycle needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Cell Communication.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
         "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Cell Communication."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Cell Communication; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-biology-033",
+      "id": "ap-biology-051",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cell Communication and Cell Cycle",
@@ -819,18 +1269,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Cell Communication and Cell Cycle?",
+      "prompt": "Which answer best avoids a common mistake about AP Biology: Cell Communication and Cell Cycle?",
       "correctText": "Connect Cell Communication and Cell Cycle to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Cell Communication and Cell Cycle to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-biology-034",
+      "id": "ap-biology-052",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cell Communication and Cell Cycle",
@@ -844,18 +1294,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Cell Communication and Cell Cycle, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Cell Communication and Cell Cycle, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Cell Cycle.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Cell Cycle.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-biology-035",
+      "id": "ap-biology-053",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cell Communication and Cell Cycle",
@@ -870,17 +1320,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Biology: Cell Communication and Cell Cycle?",
-      "correctText": "Cell Communication and Cell Cycle matters because it helps explain disciplinary reasoning.",
+      "correctText": "Cell Communication and Cell Cycle matters because it helps explain Cell Communication.",
       "choices": [
-        "Cell Communication and Cell Cycle matters because it helps explain disciplinary reasoning.",
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Cell Communication and Cell Cycle matters because it helps explain Cell Communication."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-biology-036",
+      "id": "ap-biology-054",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cell Communication and Cell Cycle",
@@ -894,18 +1344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Cell Communication and Cell Cycle. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Cell Communication and Cell Cycle. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-biology-037",
+      "id": "ap-biology-055",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cell Communication and Cell Cycle",
@@ -920,17 +1370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Cell Communication and Cell Cycle to the larger course skill?",
-      "correctText": "Cell Communication and Cell Cycle is useful when students apply a course concept.",
+      "correctText": "Cell Communication and Cell Cycle is useful when students use models.",
       "choices": [
-        "Cell Communication and Cell Cycle is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Cell Communication and Cell Cycle is useful when students use models."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-biology-038",
+      "id": "ap-biology-056",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cell Communication and Cell Cycle",
@@ -947,15 +1397,15 @@
       "prompt": "For Cell Communication and Cell Cycle, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Cell Communication and Cell Cycle, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Cell Communication and Cell Cycle, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-biology-039",
+      "id": "ap-biology-057",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cell Communication and Cell Cycle",
@@ -970,17 +1420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Cell Communication and Cell Cycle?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Cell Cycle",
       "choices": [
-        "Cellular Energetics",
-        "evidence-based explanation",
-        "Gene Expression and Regulation",
-        "model or source analysis"
+        "using a rule from a different unit",
+        "data pattern",
+        "Cell Structure",
+        "Cell Cycle"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Cell Communication and Cell Cycle, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Cell Cycle is part of the concept cluster for Cell Communication and Cell Cycle, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-biology-040",
+      "id": "ap-biology-058",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Cell Communication and Cell Cycle",
@@ -997,15 +1447,165 @@
       "prompt": "A student wants to transfer Cell Communication and Cell Cycle knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Cell Communication and Cell Cycle, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Cell Communication and Cell Cycle, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-biology-041",
+      "id": "ap-biology-059",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Communication and Cell Cycle",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Communication and Cell Cycle",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Biology - Cell Communication and Cell Cycle: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Cell Communication and Cell Cycle connects to Cell Communication.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Cell Communication and Cell Cycle connects to Cell Communication.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Cell Communication and Cell Cycle and Cell Communication belongs together in Cell Communication and Cell Cycle; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-biology-060",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Communication and Cell Cycle",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Communication and Cell Cycle",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Biology question on Cell Communication and Cell Cycle?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-biology-061",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Communication and Cell Cycle",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Communication and Cell Cycle",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Cell Communication and Cell Cycle?",
+      "correctText": "Cell Communication and Cell Cycle can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Cell Communication and Cell Cycle can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Cell Communication does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-biology-062",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Communication and Cell Cycle",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Communication and Cell Cycle",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Cell Communication and Cell Cycle. Which feedback would help most?",
+      "correctText": "Reread the task, identify Cell Communication and Cell Cycle, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Cell Communication and Cell Cycle, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-biology-063",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Communication and Cell Cycle",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Communication and Cell Cycle",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Biology: Cell Communication and Cell Cycle?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Biology means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-biology-064",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Cell Communication and Cell Cycle",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cell Communication and Cell Cycle",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Cell Communication and Cell Cycle, which unit vocabulary word should be reviewed with Cell Communication and Cell Cycle?",
+      "correctText": "Cell Communication",
+      "choices": [
+        "Regulation",
+        "Cell Communication",
+        "ignoring the source or data in the prompt",
+        "model"
+      ],
+      "explanation": "Cell Communication belongs near Cell Communication and Cell Cycle in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-biology-065",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Heredity",
@@ -1019,18 +1619,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Biology, which concept is most central to the unit \"Heredity\"?",
+      "prompt": "AP Biology - Heredity: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Heredity",
       "choices": [
-        "Ecology",
         "Heredity",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "cause and effect",
+        "Function",
+        "Gene Expression and Regulation"
       ],
-      "explanation": "Heredity is a core idea in Heredity. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Heredity is the anchor concept for Heredity. In AP CED: Heredity, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-biology-042",
+      "id": "ap-biology-066",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Heredity",
@@ -1044,18 +1644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Heredity needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Biology: Heredity needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
+        "Use evidence to explain model.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Heredity only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Guess from key words about system.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-biology-043",
+      "id": "ap-biology-067",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Heredity",
@@ -1069,18 +1669,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Heredity?",
+      "prompt": "Which answer best avoids a common mistake about AP Biology: Heredity?",
       "correctText": "Connect Heredity to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Heredity to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Heredity as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-biology-044",
+      "id": "ap-biology-068",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Heredity",
@@ -1094,18 +1694,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Heredity, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Heredity, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-biology-045",
+      "id": "ap-biology-069",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Heredity",
@@ -1120,17 +1720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Biology: Heredity?",
-      "correctText": "Heredity matters because it helps explain disciplinary reasoning.",
+      "correctText": "Heredity matters because it helps explain model.",
       "choices": [
-        "Heredity matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
+        "Heredity matters because it helps explain model.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "choosing an answer because it uses familiar words",
+        "Heredity appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-biology-046",
+      "id": "ap-biology-070",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Heredity",
@@ -1144,18 +1744,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Heredity. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Heredity. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-biology-047",
+      "id": "ap-biology-071",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Heredity",
@@ -1170,17 +1770,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Heredity to the larger course skill?",
-      "correctText": "Heredity is useful when students use evidence accurately.",
+      "correctText": "Heredity is useful when students use models.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Heredity is useful when students use evidence accurately.",
-        "Heredity only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Heredity is useful when students use models.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-biology-048",
+      "id": "ap-biology-072",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Heredity",
@@ -1197,15 +1797,15 @@
       "prompt": "For Heredity, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Heredity, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Heredity, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-biology-049",
+      "id": "ap-biology-073",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Heredity",
@@ -1220,17 +1820,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Heredity?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
+        "system",
         "making a claim without supporting evidence",
-        "model or source analysis"
+        "experimental design",
+        "Cellular Energetics"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Heredity, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Heredity, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-biology-050",
+      "id": "ap-biology-074",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Heredity",
@@ -1247,15 +1847,165 @@
       "prompt": "A student wants to transfer Heredity knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Heredity, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Heredity, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Heredity, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-biology-051",
+      "id": "ap-biology-075",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Heredity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Heredity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Biology - Heredity: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Heredity connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Heredity connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Heredity and model belongs together in Heredity; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-biology-076",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Heredity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Heredity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Biology question on Heredity?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-biology-077",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Heredity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Heredity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Heredity?",
+      "correctText": "Heredity can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Heredity can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-biology-078",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Heredity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Heredity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Heredity. Which feedback would help most?",
+      "correctText": "Reread the task, identify Heredity, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Heredity, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-biology-079",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Heredity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Heredity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Biology: Heredity?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Biology means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-biology-080",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Heredity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Heredity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Heredity, which unit vocabulary word should be reviewed with Heredity?",
+      "correctText": "model",
+      "choices": [
+        "Regulation",
+        "model",
+        "ignoring the source or data in the prompt",
+        "system"
+      ],
+      "explanation": "model belongs near Heredity in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-biology-081",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Gene Expression and Regulation",
@@ -1269,18 +2019,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Biology, which concept is most central to the unit \"Gene Expression and Regulation\"?",
+      "prompt": "AP Biology - Gene Expression and Regulation: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Gene Expression and Regulation",
       "choices": [
-        "Cell Communication and Cell Cycle",
-        "Ecology",
-        "exam-style application",
-        "Gene Expression and Regulation"
+        "experimental design",
+        "Gene Expression and Regulation",
+        "Cellular Energetics",
+        "Gene Expression"
       ],
-      "explanation": "Gene Expression and Regulation is a core idea in Gene Expression and Regulation. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Gene Expression and Regulation is the anchor concept for Gene Expression and Regulation. In AP CED: Gene Expression and Regulation, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-biology-052",
+      "id": "ap-biology-082",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Gene Expression and Regulation",
@@ -1294,18 +2044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Gene Expression and Regulation needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Biology: Gene Expression and Regulation needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Gene Expression.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain Gene Expression.",
+        "Repeat the definition of Gene Expression and Regulation only.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Gene Expression; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-biology-053",
+      "id": "ap-biology-083",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Gene Expression and Regulation",
@@ -1319,18 +2069,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Gene Expression and Regulation?",
+      "prompt": "Which answer best avoids a common mistake about AP Biology: Gene Expression and Regulation?",
       "correctText": "Connect Gene Expression and Regulation to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Gene Expression and Regulation to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-biology-054",
+      "id": "ap-biology-084",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Gene Expression and Regulation",
@@ -1344,18 +2094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Gene Expression and Regulation, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Gene Expression and Regulation, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Regulation.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Regulation.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-biology-055",
+      "id": "ap-biology-085",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Gene Expression and Regulation",
@@ -1370,17 +2120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Biology: Gene Expression and Regulation?",
-      "correctText": "Gene Expression and Regulation matters because it helps explain disciplinary reasoning.",
+      "correctText": "Gene Expression and Regulation matters because it helps explain Gene Expression.",
       "choices": [
-        "describing a topic without explaining why it matters",
         "Gene Expression and Regulation appears on tests, so no explanation is needed.",
-        "Gene Expression and Regulation matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Gene Expression and Regulation matters because it helps explain Gene Expression.",
+        "ignoring the source or data in the prompt",
+        "Regulation is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-biology-056",
+      "id": "ap-biology-086",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Gene Expression and Regulation",
@@ -1394,18 +2144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Gene Expression and Regulation. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Gene Expression and Regulation. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-biology-057",
+      "id": "ap-biology-087",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Gene Expression and Regulation",
@@ -1420,17 +2170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Gene Expression and Regulation to the larger course skill?",
-      "correctText": "Gene Expression and Regulation is useful when students explain reasoning.",
+      "correctText": "Gene Expression and Regulation is useful when students use models.",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Gene Expression and Regulation is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Gene Expression and Regulation is useful when students use models.",
+        "Gene Expression and Regulation only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-biology-058",
+      "id": "ap-biology-088",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Gene Expression and Regulation",
@@ -1447,15 +2197,15 @@
       "prompt": "For Gene Expression and Regulation, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Gene Expression and Regulation, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Gene Expression and Regulation, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-biology-059",
+      "id": "ap-biology-089",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Gene Expression and Regulation",
@@ -1470,17 +2220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Gene Expression and Regulation?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Regulation",
       "choices": [
-        "Ecology",
-        "evidence-based explanation",
-        "Heredity",
-        "ignoring the source or data in the prompt"
+        "Chemistry of Life",
+        "Regulation",
+        "experimental design",
+        "Cellular Energetics"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Gene Expression and Regulation, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Regulation is part of the concept cluster for Gene Expression and Regulation, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-biology-060",
+      "id": "ap-biology-090",
       "course": "ap-biology",
       "courseLabel": "AP Biology",
       "topic": "Gene Expression and Regulation",
@@ -1497,12 +2247,962 @@
       "prompt": "A student wants to transfer Gene Expression and Regulation knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Gene Expression and Regulation, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Gene Expression and Regulation, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Gene Expression and Regulation, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-biology-091",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Gene Expression and Regulation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gene Expression and Regulation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Biology - Gene Expression and Regulation: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Gene Expression and Regulation connects to Gene Expression.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Gene Expression and Regulation connects to Gene Expression.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Gene Expression and Regulation and Gene Expression belongs together in Gene Expression and Regulation; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-biology-092",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Gene Expression and Regulation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gene Expression and Regulation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Biology question on Gene Expression and Regulation?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-biology-093",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Gene Expression and Regulation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gene Expression and Regulation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Gene Expression and Regulation?",
+      "correctText": "Gene Expression and Regulation can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Gene Expression and Regulation can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Gene Expression does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-biology-094",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Gene Expression and Regulation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gene Expression and Regulation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Gene Expression and Regulation. Which feedback would help most?",
+      "correctText": "Reread the task, identify Gene Expression and Regulation, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Gene Expression and Regulation, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-biology-095",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Gene Expression and Regulation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gene Expression and Regulation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Biology: Gene Expression and Regulation?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Biology means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-biology-096",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Gene Expression and Regulation",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Gene Expression and Regulation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Gene Expression and Regulation, which unit vocabulary word should be reviewed with Gene Expression and Regulation?",
+      "correctText": "Gene Expression",
+      "choices": [
+        "Regulation",
+        "Gene Expression",
+        "ignoring the source or data in the prompt",
+        "model"
+      ],
+      "explanation": "Gene Expression belongs near Gene Expression and Regulation in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-biology-097",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Biology - Natural Selection: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Natural Selection",
+      "choices": [
+        "scale",
+        "Cell Communication and Cell Cycle",
+        "Natural Selection",
+        "Gene Expression"
+      ],
+      "explanation": "Natural Selection is the anchor concept for Natural Selection. In AP CED: Natural Selection, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-biology-098",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Biology: Natural Selection needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain model.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-biology-099",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Biology: Natural Selection?",
+      "correctText": "Connect Natural Selection to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Natural Selection to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-biology-100",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Natural Selection, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-biology-101",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Biology: Natural Selection?",
+      "correctText": "Natural Selection matters because it helps explain model.",
+      "choices": [
+        "system is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "Natural Selection matters because it helps explain model.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-biology-102",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Natural Selection. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-biology-103",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Natural Selection to the larger course skill?",
+      "correctText": "Natural Selection is useful when students use models.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "model should be ignored unless it appears in the title.",
+        "Natural Selection is useful when students use models.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-biology-104",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Natural Selection, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Natural Selection, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Natural Selection, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-biology-105",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Natural Selection?",
+      "correctText": "system",
+      "choices": [
+        "model",
+        "Cell Structure and Function",
+        "system",
+        "Cell Communication"
+      ],
+      "explanation": "system is part of the concept cluster for Natural Selection, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-biology-106",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Natural Selection knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Natural Selection, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Natural Selection, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-biology-107",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Biology - Natural Selection: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Natural Selection connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Natural Selection connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Natural Selection and model belongs together in Natural Selection; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-biology-108",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Biology question on Natural Selection?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-biology-109",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Natural Selection?",
+      "correctText": "Natural Selection can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Natural Selection can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-biology-110",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Natural Selection. Which feedback would help most?",
+      "correctText": "Reread the task, identify Natural Selection, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Natural Selection, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-biology-111",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Biology: Natural Selection?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Biology means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-biology-112",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Natural Selection",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Natural Selection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Natural Selection, which unit vocabulary word should be reviewed with Natural Selection?",
+      "correctText": "model",
+      "choices": [
+        "Regulation",
+        "model",
+        "ignoring the source or data in the prompt",
+        "system"
+      ],
+      "explanation": "model belongs near Natural Selection in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-biology-113",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Biology - Ecology: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Ecology",
+      "choices": [
+        "Cell Structure and Function",
+        "Cell Communication",
+        "Regulation",
+        "Ecology"
+      ],
+      "explanation": "Ecology is the anchor concept for Ecology. In AP CED: Ecology, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-biology-114",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Biology: Ecology needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Use evidence to explain model."
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-biology-115",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Biology: Ecology?",
+      "correctText": "Connect Ecology to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Ecology to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-biology-116",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Ecology, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-biology-117",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Biology: Ecology?",
+      "correctText": "Ecology matters because it helps explain model.",
+      "choices": [
+        "Only the vocabulary list matters for this unit.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Ecology matters because it helps explain model."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-biology-118",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Ecology. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Read the prompt, source, or data for the exact task.",
+        "Pick the first familiar vocabulary word.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-biology-119",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Ecology to the larger course skill?",
+      "correctText": "Ecology is useful when students use models.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "Ecology is useful when students use models."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-biology-120",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Ecology, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Ecology, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Ecology, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-biology-121",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Ecology?",
+      "correctText": "system",
+      "choices": [
+        "data pattern",
+        "Cell Structure",
+        "Cell Cycle",
+        "system"
+      ],
+      "explanation": "system is part of the concept cluster for Ecology, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-biology-122",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Ecology knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Ecology, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Ecology, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-biology-123",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Biology - Ecology: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Ecology connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Ecology connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Ecology and model belongs together in Ecology; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-biology-124",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Biology question on Ecology?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-biology-125",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Ecology?",
+      "correctText": "Ecology can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Ecology can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-biology-126",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Ecology. Which feedback would help most?",
+      "correctText": "Reread the task, identify Ecology, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Ecology, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-biology-127",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Biology: Ecology?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Biology means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-biology-128",
+      "course": "ap-biology",
+      "courseLabel": "AP Biology",
+      "topic": "Ecology",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ecology",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Ecology, which unit vocabulary word should be reviewed with Ecology?",
+      "correctText": "model",
+      "choices": [
+        "Regulation",
+        "model",
+        "ignoring the source or data in the prompt",
+        "system"
+      ],
+      "explanation": "model belongs near Ecology in this unit's concept map. Reviewing them together helps students answer transfer questions."
     }
   ]
 }

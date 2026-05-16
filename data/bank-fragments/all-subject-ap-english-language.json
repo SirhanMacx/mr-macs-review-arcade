@@ -2,7 +2,7 @@
   "course": "ap-english-language",
   "courseLabel": "AP English Language and Composition",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-english-language-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Language and Composition, which concept is most central to the unit \"Rhetorical Situation\"?",
+      "prompt": "AP English Language and Composition - Rhetorical Situation: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Rhetorical Situation",
       "choices": [
-        "authentic text",
-        "interpretive communication",
         "Rhetorical Situation",
-        "Style"
+        "claim",
+        "style",
+        "Reasoning"
       ],
-      "explanation": "Rhetorical Situation is a core idea in Rhetorical Situation. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Rhetorical Situation is the anchor concept for Rhetorical Situation. In AP CED: Rhetorical Situation, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-english-language-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Rhetorical Situation needs to show the skill \"communicate for purpose and audience.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain interpretive communication.",
+      "prompt": "A student reviewing AP English Language and Composition: Rhetorical Situation needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about cultural comparison.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain interpretive communication."
+        "Use evidence to explain claim.",
+        "Guess from key words about evidence.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Rhetorical Situation only."
       ],
-      "explanation": "The useful move is to connect evidence to interpretive communication; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-english-language-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Rhetorical Situation?",
+      "prompt": "Which answer best avoids a common mistake about AP English Language and Composition: Rhetorical Situation?",
       "correctText": "Connect Rhetorical Situation to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Rhetorical Situation to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Rhetorical Situation, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about cultural comparison.",
+      "prompt": "In an AP CED-aligned exam task about Rhetorical Situation, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about cultural comparison."
+        "Specific evidence that proves a claim about evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP English Language and Composition: Rhetorical Situation?",
-      "correctText": "Rhetorical Situation matters because it helps explain interpretive communication.",
+      "correctText": "Rhetorical Situation matters because it helps explain claim.",
       "choices": [
+        "Rhetorical Situation matters because it helps explain claim.",
         "choosing an answer because it uses familiar words",
-        "cultural comparison is unrelated to this unit.",
-        "Rhetorical Situation matters because it helps explain interpretive communication.",
-        "using a rule from a different unit"
+        "Rhetorical Situation appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Rhetorical Situation. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Rhetorical Situation. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Rhetorical Situation to the larger course skill?",
-      "correctText": "Rhetorical Situation is useful when students interpret authentic sources.",
+      "correctText": "Rhetorical Situation is useful when students analyze evidence.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Rhetorical Situation is useful when students analyze evidence.",
         "making a claim without supporting evidence",
-        "Rhetorical Situation is useful when students interpret authentic sources.",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Rhetorical Situation only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Rhetorical Situation, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Rhetorical Situation, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Rhetorical Situation, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Rhetorical Situation?",
-      "correctText": "cultural comparison",
+      "correctText": "evidence",
       "choices": [
-        "Claims and Evidence",
-        "cultural comparison",
-        "memorizing an isolated fact without evidence",
-        "Synthesis"
+        "evidence",
+        "using a rule from a different unit",
+        "rhetorical situation",
+        "Evidence"
       ],
-      "explanation": "cultural comparison is part of the concept cluster for Rhetorical Situation, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "evidence is part of the concept cluster for Rhetorical Situation, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-english-language-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Rhetorical Situation knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Rhetorical Situation, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Rhetorical Situation, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,201 +258,201 @@
       "id": "ap-english-language-011",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Claims and Evidence",
+      "topic": "Rhetorical Situation",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Claims and Evidence",
+        "AP CED: Rhetorical Situation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Language and Composition, which concept is most central to the unit \"Claims and Evidence\"?",
-      "correctText": "Claims and Evidence",
+      "prompt": "AP English Language and Composition - Rhetorical Situation: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Rhetorical Situation connects to claim.",
       "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "Claims and Evidence",
-        "interpretive communication",
-        "using a rule from a different unit"
+        "Rhetorical Situation connects to claim.",
+        "commentary replaces all evidence."
       ],
-      "explanation": "Claims and Evidence is a core idea in Claims and Evidence. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Rhetorical Situation and claim belongs together in Rhetorical Situation; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-english-language-012",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Claims and Evidence",
+      "topic": "Rhetorical Situation",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Claims and Evidence",
+        "AP CED: Rhetorical Situation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Claims and Evidence needs to show the skill \"compare cultural perspectives.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain interpretive communication.",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Language and Composition question on Rhetorical Situation?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Claims and Evidence only.",
-        "Use evidence to explain interpretive communication.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to interpretive communication; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-english-language-013",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Claims and Evidence",
+      "topic": "Rhetorical Situation",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Claims and Evidence",
+        "AP CED: Rhetorical Situation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Claims and Evidence?",
-      "correctText": "Connect Claims and Evidence to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Rhetorical Situation?",
+      "correctText": "Rhetorical Situation can be explained with evidence from text excerpt.",
       "choices": [
-        "Connect Claims and Evidence to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Claims and Evidence as always meaning the same thing."
+        "Rhetorical Situation can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "claim does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-english-language-014",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Claims and Evidence",
+      "topic": "Rhetorical Situation",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Claims and Evidence",
+        "AP CED: Rhetorical Situation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Claims and Evidence, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about cultural comparison.",
+      "prompt": "A student misses a AP CED-aligned exam task on Rhetorical Situation. Which feedback would help most?",
+      "correctText": "Reread the task, identify Rhetorical Situation, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about cultural comparison."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Rhetorical Situation, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-english-language-015",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Claims and Evidence",
+      "topic": "Rhetorical Situation",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Claims and Evidence",
+        "AP CED: Rhetorical Situation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP English Language and Composition: Claims and Evidence?",
-      "correctText": "Claims and Evidence matters because it helps explain interpretive communication.",
+      "prompt": "Which phrase best signals mastery of AP English Language and Composition: Rhetorical Situation?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
       "choices": [
-        "Claims and Evidence matters because it helps explain interpretive communication.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP English Language and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-english-language-016",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Claims and Evidence",
+      "topic": "Rhetorical Situation",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Claims and Evidence",
+        "AP CED: Rhetorical Situation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Claims and Evidence. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Rhetorical Situation, which unit vocabulary word should be reviewed with Rhetorical Situation?",
+      "correctText": "claim",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "claim",
+        "commentary",
+        "Claims"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "claim belongs near Rhetorical Situation in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-english-language-017",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Claims and Evidence",
+      "topic": "Rhetorical Situation",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Claims and Evidence",
+        "AP CED: Rhetorical Situation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Claims and Evidence to the larger course skill?",
-      "correctText": "Claims and Evidence is useful when students communicate for purpose and audience.",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Rhetorical Situation?",
+      "correctText": "A response that names Rhetorical Situation but never explains how it fits the evidence.",
       "choices": [
-        "Claims and Evidence is useful when students communicate for purpose and audience.",
-        "Claims and Evidence only matters for memorized definitions.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "A response that names Rhetorical Situation but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Rhetorical Situation to claim."
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
     },
     {
       "id": "ap-english-language-018",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Claims and Evidence",
+      "topic": "Rhetorical Situation",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Claims and Evidence",
+        "AP CED: Rhetorical Situation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Claims and Evidence, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Claims and Evidence, cites evidence, and explains the connection.",
+      "prompt": "Which question should a student ask while reviewing AP English Language and Composition: Rhetorical Situation?",
+      "correctText": "How does Rhetorical Situation help explain the evidence or scenario?",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Claims and Evidence, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Rhetorical Situation help explain the evidence or scenario?"
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
     },
     {
       "id": "ap-english-language-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Claims and Evidence?",
-      "correctText": "cultural comparison",
+      "prompt": "AP English Language and Composition - Claims and Evidence: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Claims and Evidence",
       "choices": [
-        "cultural comparison",
-        "making a claim without supporting evidence",
-        "presentational task",
-        "Reasoning and Organization"
+        "claim",
+        "Claims and Evidence",
+        "style",
+        "Organization"
       ],
-      "explanation": "cultural comparison is part of the concept cluster for Claims and Evidence, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Claims and Evidence is the anchor concept for Claims and Evidence. In AP CED: Claims and Evidence, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-english-language-020",
@@ -494,93 +494,418 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Claims and Evidence knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Claims and Evidence, then justify the answer with evidence.",
+      "prompt": "A student reviewing AP English Language and Composition: Claims and Evidence needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Claims.",
       "choices": [
+        "Repeat the definition of Claims and Evidence only.",
+        "Use evidence to explain Claims.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Claims and Evidence, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The useful move is to connect evidence to Claims; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-english-language-021",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Reasoning and Organization",
+      "topic": "Claims and Evidence",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Reasoning and Organization",
+        "AP CED: Claims and Evidence",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Language and Composition, which concept is most central to the unit \"Reasoning and Organization\"?",
-      "correctText": "Reasoning and Organization",
+      "prompt": "Which answer best avoids a common mistake about AP English Language and Composition: Claims and Evidence?",
+      "correctText": "Connect Claims and Evidence to the prompt context before choosing.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Reasoning and Organization",
-        "Rhetorical Analysis",
-        "Style"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Claims and Evidence to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Reasoning and Organization is a core idea in Reasoning and Organization. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-english-language-022",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Reasoning and Organization",
+      "topic": "Claims and Evidence",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Reasoning and Organization",
+        "AP CED: Claims and Evidence",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Reasoning and Organization needs to show the skill \"interpret authentic sources.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain interpretive communication.",
+      "prompt": "In an AP CED-aligned exam task about Claims and Evidence, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Evidence.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain interpretive communication."
+        "Specific evidence that proves a claim about Evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to interpretive communication; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-english-language-023",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Reasoning and Organization",
+      "topic": "Claims and Evidence",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Reasoning and Organization",
+        "AP CED: Claims and Evidence",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Reasoning and Organization?",
-      "correctText": "Connect Reasoning and Organization to the prompt context before choosing.",
+      "prompt": "Which review note would help most for AP English Language and Composition: Claims and Evidence?",
+      "correctText": "Claims and Evidence matters because it helps explain Claims.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Reasoning and Organization to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "ignoring the source or data in the prompt",
+        "Claims and Evidence matters because it helps explain Claims.",
+        "Evidence is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-english-language-024",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Claims and Evidence. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Read the prompt, source, or data for the exact task."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-english-language-025",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Claims and Evidence to the larger course skill?",
+      "correctText": "Claims and Evidence is useful when students analyze evidence.",
+      "choices": [
+        "Claims and Evidence only matters for memorized definitions.",
+        "Claims and Evidence is useful when students analyze evidence.",
+        "ignoring the source or data in the prompt",
+        "Claims should be ignored unless it appears in the title."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-english-language-026",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Claims and Evidence, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Claims and Evidence, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Claims and Evidence, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-english-language-027",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Claims and Evidence?",
+      "correctText": "Evidence",
+      "choices": [
+        "making a claim without supporting evidence",
+        "Evidence",
+        "rhetorical situation",
+        "Reasoning and Organization"
+      ],
+      "explanation": "Evidence is part of the concept cluster for Claims and Evidence, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-english-language-028",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Claims and Evidence knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Claims and Evidence, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Claims and Evidence, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-english-language-029",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP English Language and Composition - Claims and Evidence: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Claims and Evidence connects to Claims.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Claims and Evidence connects to Claims.",
+        "claim replaces all evidence."
+      ],
+      "explanation": "The pair Claims and Evidence and Claims belongs together in Claims and Evidence; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-language-030",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Language and Composition question on Claims and Evidence?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-english-language-031",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Claims and Evidence?",
+      "correctText": "Claims and Evidence can be explained with evidence from text excerpt.",
+      "choices": [
+        "Claims and Evidence can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "Claims does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-english-language-032",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Claims and Evidence. Which feedback would help most?",
+      "correctText": "Reread the task, identify Claims and Evidence, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Claims and Evidence, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-english-language-033",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP English Language and Composition: Claims and Evidence?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP English Language and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-english-language-034",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Claims and Evidence, which unit vocabulary word should be reviewed with Claims and Evidence?",
+      "correctText": "Claims",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Claims",
+        "evidence",
+        "Claims and Evidence"
+      ],
+      "explanation": "Claims belongs near Claims and Evidence in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-english-language-035",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Claims and Evidence?",
+      "correctText": "A response that names Claims and Evidence but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Claims and Evidence but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Claims and Evidence to Claims."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-english-language-036",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Claims and Evidence",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Claims and Evidence",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP English Language and Composition: Claims and Evidence?",
+      "correctText": "How does Claims and Evidence help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Claims and Evidence help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-english-language-037",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Reasoning and Organization",
@@ -594,18 +919,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Reasoning and Organization, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about cultural comparison.",
+      "prompt": "AP English Language and Composition - Reasoning and Organization: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Reasoning and Organization",
       "choices": [
+        "evidence",
+        "Claims and Evidence",
+        "Reasoning and Organization",
+        "Style"
+      ],
+      "explanation": "Reasoning and Organization is the anchor concept for Reasoning and Organization. In AP CED: Reasoning and Organization, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-english-language-038",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Reasoning and Organization",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Reasoning and Organization",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP English Language and Composition: Reasoning and Organization needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Reasoning.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Reasoning.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Reasoning; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-english-language-039",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Reasoning and Organization",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Reasoning and Organization",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP English Language and Composition: Reasoning and Organization?",
+      "correctText": "Connect Reasoning and Organization to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Reasoning and Organization to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-english-language-040",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Reasoning and Organization",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Reasoning and Organization",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Reasoning and Organization, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Organization.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Organization.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about cultural comparison.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-english-language-025",
+      "id": "ap-english-language-041",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Reasoning and Organization",
@@ -620,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP English Language and Composition: Reasoning and Organization?",
-      "correctText": "Reasoning and Organization matters because it helps explain interpretive communication.",
+      "correctText": "Reasoning and Organization matters because it helps explain Reasoning.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Reasoning and Organization appears on tests, so no explanation is needed.",
-        "Reasoning and Organization matters because it helps explain interpretive communication."
+        "Only the vocabulary list matters for this unit.",
+        "Reasoning and Organization matters because it helps explain Reasoning.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-english-language-026",
+      "id": "ap-english-language-042",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Reasoning and Organization",
@@ -644,18 +1044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Reasoning and Organization. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Reasoning and Organization. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-english-language-027",
+      "id": "ap-english-language-043",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Reasoning and Organization",
@@ -670,17 +1070,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Reasoning and Organization to the larger course skill?",
-      "correctText": "Reasoning and Organization is useful when students compare cultural perspectives.",
+      "correctText": "Reasoning and Organization is useful when students analyze evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "interpretive communication should be ignored unless it appears in the title.",
-        "Reasoning and Organization is useful when students compare cultural perspectives.",
-        "using a rule from a different unit"
+        "Reasoning should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Reasoning and Organization is useful when students analyze evidence.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-english-language-028",
+      "id": "ap-english-language-044",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Reasoning and Organization",
@@ -697,15 +1097,15 @@
       "prompt": "For Reasoning and Organization, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Reasoning and Organization, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Reasoning and Organization, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-english-language-029",
+      "id": "ap-english-language-045",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Reasoning and Organization",
@@ -720,17 +1120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Reasoning and Organization?",
-      "correctText": "cultural comparison",
+      "correctText": "Organization",
       "choices": [
-        "cultural comparison",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Rhetorical Situation"
+        "Rhetorical Situation",
+        "line of reasoning",
+        "Organization",
+        "Reasoning and Organization"
       ],
-      "explanation": "cultural comparison is part of the concept cluster for Reasoning and Organization, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Organization is part of the concept cluster for Reasoning and Organization, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-english-language-030",
+      "id": "ap-english-language-046",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Reasoning and Organization",
@@ -747,65 +1147,215 @@
       "prompt": "A student wants to transfer Reasoning and Organization knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Reasoning and Organization, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Reasoning and Organization, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Reasoning and Organization, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-english-language-031",
+      "id": "ap-english-language-047",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Style",
+      "topic": "Reasoning and Organization",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Style",
+        "AP CED: Reasoning and Organization",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Language and Composition, which concept is most central to the unit \"Style\"?",
-      "correctText": "Style",
+      "prompt": "AP English Language and Composition - Reasoning and Organization: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Reasoning and Organization connects to Reasoning.",
       "choices": [
-        "authentic text",
-        "interpretive communication",
-        "Style",
-        "Synthesis"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Reasoning and Organization connects to Reasoning.",
+        "claim replaces all evidence."
       ],
-      "explanation": "Style is a core idea in Style. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Reasoning and Organization and Reasoning belongs together in Reasoning and Organization; students should explain the relationship rather than memorize each term alone."
     },
     {
-      "id": "ap-english-language-032",
+      "id": "ap-english-language-048",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
-      "topic": "Style",
+      "topic": "Reasoning and Organization",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Style",
+        "AP CED: Reasoning and Organization",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Style needs to show the skill \"communicate for purpose and audience.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain interpretive communication.",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Language and Composition question on Reasoning and Organization?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-english-language-049",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Reasoning and Organization",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Reasoning and Organization",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Reasoning and Organization?",
+      "correctText": "Reasoning and Organization can be explained with evidence from text excerpt.",
+      "choices": [
+        "Reasoning and Organization can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "Reasoning does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-english-language-050",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Reasoning and Organization",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Reasoning and Organization",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Reasoning and Organization. Which feedback would help most?",
+      "correctText": "Reread the task, identify Reasoning and Organization, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Reasoning and Organization, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-english-language-051",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Reasoning and Organization",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Reasoning and Organization",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP English Language and Composition: Reasoning and Organization?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP English Language and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-english-language-052",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Reasoning and Organization",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Reasoning and Organization",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Reasoning and Organization, which unit vocabulary word should be reviewed with Reasoning and Organization?",
+      "correctText": "Reasoning",
       "choices": [
         "describing a topic without explaining why it matters",
-        "Guess from key words about cultural comparison.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain interpretive communication."
+        "Reasoning",
+        "evidence",
+        "Claims and Evidence"
       ],
-      "explanation": "The useful move is to connect evidence to interpretive communication; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Reasoning belongs near Reasoning and Organization in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
-      "id": "ap-english-language-033",
+      "id": "ap-english-language-053",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Reasoning and Organization",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Reasoning and Organization",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Reasoning and Organization?",
+      "correctText": "A response that names Reasoning and Organization but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Reasoning and Organization but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Reasoning and Organization to Reasoning."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-english-language-054",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Reasoning and Organization",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Reasoning and Organization",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP English Language and Composition: Reasoning and Organization?",
+      "correctText": "How does Reasoning and Organization help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Reasoning and Organization help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-english-language-055",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Style",
@@ -819,18 +1369,68 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Style?",
+      "prompt": "AP English Language and Composition - Style: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Style",
+      "choices": [
+        "commentary",
+        "Claims",
+        "Synthesis",
+        "Style"
+      ],
+      "explanation": "Style is the anchor concept for Style. In AP CED: Style, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-english-language-056",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Style",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Style",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP English Language and Composition: Style needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain claim."
+      ],
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-english-language-057",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Style",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Style",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP English Language and Composition: Style?",
       "correctText": "Connect Style to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Style to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-english-language-034",
+      "id": "ap-english-language-058",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Style",
@@ -844,18 +1444,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Style, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about cultural comparison.",
+      "prompt": "In an AP CED-aligned exam task about Style, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about cultural comparison."
+        "Specific evidence that proves a claim about evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-english-language-035",
+      "id": "ap-english-language-059",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Style",
@@ -870,17 +1470,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP English Language and Composition: Style?",
-      "correctText": "Style matters because it helps explain interpretive communication.",
+      "correctText": "Style matters because it helps explain claim.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "cultural comparison is unrelated to this unit.",
-        "Style matters because it helps explain interpretive communication.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Style matters because it helps explain claim."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-english-language-036",
+      "id": "ap-english-language-060",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Style",
@@ -894,18 +1494,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Style. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Style. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-english-language-037",
+      "id": "ap-english-language-061",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Style",
@@ -920,17 +1520,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Style to the larger course skill?",
-      "correctText": "Style is useful when students interpret authentic sources.",
+      "correctText": "Style is useful when students analyze evidence.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Style is useful when students interpret authentic sources.",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Style is useful when students analyze evidence."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-english-language-038",
+      "id": "ap-english-language-062",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Style",
@@ -947,15 +1547,15 @@
       "prompt": "For Style, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Style, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Style, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-english-language-039",
+      "id": "ap-english-language-063",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Style",
@@ -970,17 +1570,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Style?",
-      "correctText": "cultural comparison",
+      "correctText": "evidence",
       "choices": [
-        "Argument",
-        "choosing an answer because it uses familiar words",
-        "cultural comparison",
-        "Reasoning and Organization"
+        "claim",
+        "Claims and Evidence",
+        "Organization",
+        "evidence"
       ],
-      "explanation": "cultural comparison is part of the concept cluster for Style, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "evidence is part of the concept cluster for Style, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-english-language-040",
+      "id": "ap-english-language-064",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Style",
@@ -997,15 +1597,215 @@
       "prompt": "A student wants to transfer Style knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Style, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Style, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-english-language-041",
+      "id": "ap-english-language-065",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Style",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Style",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP English Language and Composition - Style: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Style connects to claim.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Style connects to claim.",
+        "commentary replaces all evidence."
+      ],
+      "explanation": "The pair Style and claim belongs together in Style; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-language-066",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Style",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Style",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Language and Composition question on Style?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-english-language-067",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Style",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Style",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Style?",
+      "correctText": "Style can be explained with evidence from text excerpt.",
+      "choices": [
+        "Style can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "claim does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-english-language-068",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Style",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Style",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Style. Which feedback would help most?",
+      "correctText": "Reread the task, identify Style, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Style, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-english-language-069",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Style",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Style",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP English Language and Composition: Style?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP English Language and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-english-language-070",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Style",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Style",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Style, which unit vocabulary word should be reviewed with Style?",
+      "correctText": "claim",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "claim",
+        "commentary",
+        "Claims"
+      ],
+      "explanation": "claim belongs near Style in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-english-language-071",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Style",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Style",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Style?",
+      "correctText": "A response that names Style but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Style but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Style to claim."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-english-language-072",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Style",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Style",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP English Language and Composition: Style?",
+      "correctText": "How does Style help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Style help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-english-language-073",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Synthesis",
@@ -1019,18 +1819,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Language and Composition, which concept is most central to the unit \"Synthesis\"?",
+      "prompt": "AP English Language and Composition - Synthesis: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Synthesis",
       "choices": [
-        "cultural comparison",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Synthesis"
+        "Synthesis",
+        "rhetorical situation",
+        "Evidence",
+        "Argument"
       ],
-      "explanation": "Synthesis is a core idea in Synthesis. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Synthesis is the anchor concept for Synthesis. In AP CED: Synthesis, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-english-language-042",
+      "id": "ap-english-language-074",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Synthesis",
@@ -1044,18 +1844,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Synthesis needs to show the skill \"compare cultural perspectives.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain interpretive communication.",
+      "prompt": "A student reviewing AP English Language and Composition: Synthesis needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
       "choices": [
+        "Use evidence to explain claim.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Synthesis only.",
-        "Use evidence to explain interpretive communication.",
-        "using a rule from a different unit"
+        "Guess from key words about evidence.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to interpretive communication; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-english-language-043",
+      "id": "ap-english-language-075",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Synthesis",
@@ -1069,18 +1869,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Synthesis?",
+      "prompt": "Which answer best avoids a common mistake about AP English Language and Composition: Synthesis?",
       "correctText": "Connect Synthesis to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Synthesis to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Synthesis as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-english-language-044",
+      "id": "ap-english-language-076",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Synthesis",
@@ -1094,18 +1894,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Synthesis, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about cultural comparison.",
+      "prompt": "In an AP CED-aligned exam task about Synthesis, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about cultural comparison."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-english-language-045",
+      "id": "ap-english-language-077",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Synthesis",
@@ -1120,17 +1920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP English Language and Composition: Synthesis?",
-      "correctText": "Synthesis matters because it helps explain interpretive communication.",
+      "correctText": "Synthesis matters because it helps explain claim.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Synthesis matters because it helps explain claim.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit.",
-        "Synthesis matters because it helps explain interpretive communication."
+        "choosing an answer because it uses familiar words",
+        "Synthesis appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-english-language-046",
+      "id": "ap-english-language-078",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Synthesis",
@@ -1144,18 +1944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Synthesis. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Synthesis. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-english-language-047",
+      "id": "ap-english-language-079",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Synthesis",
@@ -1170,17 +1970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Synthesis to the larger course skill?",
-      "correctText": "Synthesis is useful when students communicate for purpose and audience.",
+      "correctText": "Synthesis is useful when students analyze evidence.",
       "choices": [
-        "describing a topic without explaining why it matters",
+        "Synthesis is useful when students analyze evidence.",
         "memorizing an isolated fact without evidence",
-        "Synthesis is useful when students communicate for purpose and audience.",
-        "Synthesis only matters for memorized definitions."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-english-language-048",
+      "id": "ap-english-language-080",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Synthesis",
@@ -1197,15 +1997,15 @@
       "prompt": "For Synthesis, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Synthesis, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Synthesis, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-english-language-049",
+      "id": "ap-english-language-081",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Synthesis",
@@ -1220,17 +2020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Synthesis?",
-      "correctText": "cultural comparison",
+      "correctText": "evidence",
       "choices": [
-        "authentic text",
-        "cultural comparison",
-        "Rhetorical Situation",
+        "evidence",
+        "commentary",
+        "Claims",
         "Style"
       ],
-      "explanation": "cultural comparison is part of the concept cluster for Synthesis, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "evidence is part of the concept cluster for Synthesis, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-english-language-050",
+      "id": "ap-english-language-082",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Synthesis",
@@ -1247,15 +2047,215 @@
       "prompt": "A student wants to transfer Synthesis knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Synthesis, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Synthesis, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Synthesis, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-english-language-051",
+      "id": "ap-english-language-083",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Synthesis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Synthesis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP English Language and Composition - Synthesis: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Synthesis connects to claim.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Synthesis connects to claim.",
+        "commentary replaces all evidence."
+      ],
+      "explanation": "The pair Synthesis and claim belongs together in Synthesis; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-language-084",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Synthesis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Synthesis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Language and Composition question on Synthesis?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-english-language-085",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Synthesis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Synthesis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Synthesis?",
+      "correctText": "Synthesis can be explained with evidence from text excerpt.",
+      "choices": [
+        "Synthesis can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "claim does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-english-language-086",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Synthesis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Synthesis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Synthesis. Which feedback would help most?",
+      "correctText": "Reread the task, identify Synthesis, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Synthesis, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-english-language-087",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Synthesis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Synthesis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP English Language and Composition: Synthesis?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP English Language and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-english-language-088",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Synthesis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Synthesis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Synthesis, which unit vocabulary word should be reviewed with Synthesis?",
+      "correctText": "claim",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "claim",
+        "commentary",
+        "Claims"
+      ],
+      "explanation": "claim belongs near Synthesis in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-english-language-089",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Synthesis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Synthesis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Synthesis?",
+      "correctText": "A response that names Synthesis but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Synthesis but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Synthesis to claim."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-english-language-090",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Synthesis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Synthesis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP English Language and Composition: Synthesis?",
+      "correctText": "How does Synthesis help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Synthesis help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-english-language-091",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Argument",
@@ -1269,18 +2269,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Language and Composition, which concept is most central to the unit \"Argument\"?",
+      "prompt": "AP English Language and Composition - Argument: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Argument",
       "choices": [
+        "line of reasoning",
         "Argument",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Style"
+        "Reasoning and Organization",
+        "Rhetorical Analysis"
       ],
-      "explanation": "Argument is a core idea in Argument. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Argument is the anchor concept for Argument. In AP CED: Argument, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-english-language-052",
+      "id": "ap-english-language-092",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Argument",
@@ -1294,18 +2294,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Argument needs to show the skill \"interpret authentic sources.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain interpretive communication.",
+      "prompt": "A student reviewing AP English Language and Composition: Argument needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain interpretive communication."
+        "Use evidence to explain claim.",
+        "Repeat the definition of Argument only.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to interpretive communication; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-english-language-053",
+      "id": "ap-english-language-093",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Argument",
@@ -1319,18 +2319,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Argument?",
+      "prompt": "Which answer best avoids a common mistake about AP English Language and Composition: Argument?",
       "correctText": "Connect Argument to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Argument to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-english-language-054",
+      "id": "ap-english-language-094",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Argument",
@@ -1344,18 +2344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Argument, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about cultural comparison.",
+      "prompt": "In an AP CED-aligned exam task about Argument, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about evidence.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about cultural comparison.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-english-language-055",
+      "id": "ap-english-language-095",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Argument",
@@ -1370,17 +2370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP English Language and Composition: Argument?",
-      "correctText": "Argument matters because it helps explain interpretive communication.",
+      "correctText": "Argument matters because it helps explain claim.",
       "choices": [
         "Argument appears on tests, so no explanation is needed.",
-        "Argument matters because it helps explain interpretive communication.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Argument matters because it helps explain claim.",
+        "ignoring the source or data in the prompt",
+        "evidence is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-english-language-056",
+      "id": "ap-english-language-096",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Argument",
@@ -1394,18 +2394,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Argument. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Argument. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-english-language-057",
+      "id": "ap-english-language-097",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Argument",
@@ -1420,17 +2420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Argument to the larger course skill?",
-      "correctText": "Argument is useful when students compare cultural perspectives.",
+      "correctText": "Argument is useful when students analyze evidence.",
       "choices": [
-        "Argument is useful when students compare cultural perspectives.",
         "choosing an answer because it uses familiar words",
-        "interpretive communication should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "Argument is useful when students analyze evidence.",
+        "Argument only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-english-language-058",
+      "id": "ap-english-language-098",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Argument",
@@ -1447,15 +2447,15 @@
       "prompt": "For Argument, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Argument, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Argument, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-english-language-059",
+      "id": "ap-english-language-099",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Argument",
@@ -1470,17 +2470,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Argument?",
-      "correctText": "cultural comparison",
+      "correctText": "evidence",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "cultural comparison",
-        "interpretive communication",
-        "using a rule from a different unit"
+        "rhetorical situation",
+        "evidence",
+        "Evidence",
+        "Synthesis"
       ],
-      "explanation": "cultural comparison is part of the concept cluster for Argument, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "evidence is part of the concept cluster for Argument, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-english-language-060",
+      "id": "ap-english-language-100",
       "course": "ap-english-language",
       "courseLabel": "AP English Language and Composition",
       "topic": "Argument",
@@ -1497,12 +2497,512 @@
       "prompt": "A student wants to transfer Argument knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Argument, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Argument, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Argument, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-english-language-101",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP English Language and Composition - Argument: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Argument connects to claim.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Argument connects to claim.",
+        "commentary replaces all evidence."
+      ],
+      "explanation": "The pair Argument and claim belongs together in Argument; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-language-102",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Language and Composition question on Argument?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-english-language-103",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Argument?",
+      "correctText": "Argument can be explained with evidence from text excerpt.",
+      "choices": [
+        "Argument can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "claim does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-english-language-104",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Argument. Which feedback would help most?",
+      "correctText": "Reread the task, identify Argument, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Argument, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-english-language-105",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP English Language and Composition: Argument?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP English Language and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-english-language-106",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Argument, which unit vocabulary word should be reviewed with Argument?",
+      "correctText": "claim",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "claim",
+        "commentary",
+        "Claims"
+      ],
+      "explanation": "claim belongs near Argument in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-english-language-107",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Argument?",
+      "correctText": "A response that names Argument but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Argument but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Argument to claim."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-english-language-108",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP English Language and Composition: Argument?",
+      "correctText": "How does Argument help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Argument help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-english-language-109",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP English Language and Composition - Rhetorical Analysis: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Rhetorical Analysis",
+      "choices": [
+        "style",
+        "Reasoning",
+        "Rhetorical Analysis",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Rhetorical Analysis is the anchor concept for Rhetorical Analysis. In AP CED: Rhetorical Analysis, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-english-language-110",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP English Language and Composition: Rhetorical Analysis needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain claim.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-english-language-111",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP English Language and Composition: Rhetorical Analysis?",
+      "correctText": "Connect Rhetorical Analysis to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Rhetorical Analysis to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-english-language-112",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Rhetorical Analysis, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-english-language-113",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP English Language and Composition: Rhetorical Analysis?",
+      "correctText": "Rhetorical Analysis matters because it helps explain claim.",
+      "choices": [
+        "evidence is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "Rhetorical Analysis matters because it helps explain claim.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-english-language-114",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Rhetorical Analysis. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-english-language-115",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Rhetorical Analysis to the larger course skill?",
+      "correctText": "Rhetorical Analysis is useful when students analyze evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "claim should be ignored unless it appears in the title.",
+        "Rhetorical Analysis is useful when students analyze evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-english-language-116",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Rhetorical Analysis, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Rhetorical Analysis, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Rhetorical Analysis, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-english-language-117",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Rhetorical Analysis?",
+      "correctText": "evidence",
+      "choices": [
+        "line of reasoning",
+        "Reasoning and Organization",
+        "evidence",
+        "Argument"
+      ],
+      "explanation": "evidence is part of the concept cluster for Rhetorical Analysis, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-english-language-118",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Rhetorical Analysis knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Rhetorical Analysis, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Rhetorical Analysis, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-english-language-119",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP English Language and Composition - Rhetorical Analysis: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Rhetorical Analysis connects to claim.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Rhetorical Analysis connects to claim.",
+        "commentary replaces all evidence."
+      ],
+      "explanation": "The pair Rhetorical Analysis and claim belongs together in Rhetorical Analysis; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-language-120",
+      "course": "ap-english-language",
+      "courseLabel": "AP English Language and Composition",
+      "topic": "Rhetorical Analysis",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Rhetorical Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Language and Composition question on Rhetorical Analysis?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     }
   ]
 }

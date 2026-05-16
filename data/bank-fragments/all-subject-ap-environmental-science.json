@@ -2,7 +2,7 @@
   "course": "ap-environmental-science",
   "courseLabel": "AP Environmental Science",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-environmental-science-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Environmental Science, which concept is most central to the unit \"The Living World: Ecosystems\"?",
+      "prompt": "AP Environmental Science - The Living World: Ecosystems: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "The Living World: Ecosystems",
       "choices": [
-        "disciplinary reasoning",
-        "Earth Systems and Resources",
-        "exam-style application",
-        "The Living World: Ecosystems"
+        "The Living World: Ecosystems",
+        "The Living World",
+        "cause and effect",
+        "Earth Systems and Resources"
       ],
-      "explanation": "The Living World: Ecosystems is a core idea in The Living World: Ecosystems. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The Living World: Ecosystems is the anchor concept for The Living World: Ecosystems. In AP CED: The Living World: Ecosystems, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-environmental-science-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing The Living World: Ecosystems needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Environmental Science: The Living World: Ecosystems needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain The Living World.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain The Living World.",
+        "Guess from key words about Ecosystems.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of The Living World: Ecosystems only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to The Living World; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-environmental-science-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about The Living World: Ecosystems?",
+      "prompt": "Which answer best avoids a common mistake about AP Environmental Science: The Living World: Ecosystems?",
       "correctText": "Connect The Living World: Ecosystems to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect The Living World: Ecosystems to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about The Living World: Ecosystems, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about The Living World: Ecosystems, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Ecosystems.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Ecosystems.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Environmental Science: The Living World: Ecosystems?",
-      "correctText": "The Living World: Ecosystems matters because it helps explain disciplinary reasoning.",
+      "correctText": "The Living World: Ecosystems matters because it helps explain The Living World.",
       "choices": [
+        "The Living World: Ecosystems matters because it helps explain The Living World.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "The Living World: Ecosystems matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "The Living World: Ecosystems appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret The Living World: Ecosystems. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for The Living World: Ecosystems. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect The Living World: Ecosystems to the larger course skill?",
-      "correctText": "The Living World: Ecosystems is useful when students apply a course concept.",
+      "correctText": "The Living World: Ecosystems is useful when students use models.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "The Living World: Ecosystems is useful when students use models.",
         "making a claim without supporting evidence",
-        "The Living World: Ecosystems is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "The Living World: Ecosystems only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For The Living World: Ecosystems, which response sounds most like a high-quality constructed response?",
       "correctText": "It names The Living World: Ecosystems, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names The Living World: Ecosystems, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in The Living World: Ecosystems?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Ecosystems",
       "choices": [
-        "Energy Resources and Consumption",
-        "evidence-based explanation",
-        "model or source analysis",
-        "Populations"
+        "Ecosystems",
+        "Aquatic and Terrestrial Pollution",
+        "choosing an answer because it uses familiar words",
+        "The Living World: Ecosystems"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for The Living World: Ecosystems, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Ecosystems is part of the concept cluster for The Living World: Ecosystems, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-environmental-science-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer The Living World: Ecosystems knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to The Living World: Ecosystems, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to The Living World: Ecosystems, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,151 +258,151 @@
       "id": "ap-environmental-science-011",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
-      "topic": "Biodiversity",
+      "topic": "The Living World: Ecosystems",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Biodiversity",
+        "AP CED: The Living World: Ecosystems",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Environmental Science, which concept is most central to the unit \"Biodiversity\"?",
-      "correctText": "Biodiversity",
+      "prompt": "AP Environmental Science - The Living World: Ecosystems: which pair best shows how two ideas in the unit connect?",
+      "correctText": "The Living World: Ecosystems connects to The Living World.",
       "choices": [
-        "Biodiversity",
-        "Global Change",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "The Living World: Ecosystems connects to The Living World.",
+        "model replaces all evidence."
       ],
-      "explanation": "Biodiversity is a core idea in Biodiversity. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair The Living World: Ecosystems and The Living World belongs together in The Living World: Ecosystems; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-environmental-science-012",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
-      "topic": "Biodiversity",
+      "topic": "The Living World: Ecosystems",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Biodiversity",
+        "AP CED: The Living World: Ecosystems",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Biodiversity needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Environmental Science question on The Living World: Ecosystems?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Biodiversity only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-environmental-science-013",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
-      "topic": "Biodiversity",
+      "topic": "The Living World: Ecosystems",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Biodiversity",
+        "AP CED: The Living World: Ecosystems",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Biodiversity?",
-      "correctText": "Connect Biodiversity to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in The Living World: Ecosystems?",
+      "correctText": "The Living World: Ecosystems can be explained with evidence from data table, diagram, or model.",
       "choices": [
-        "Connect Biodiversity to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Biodiversity as always meaning the same thing."
+        "The Living World: Ecosystems can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "The Living World does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-environmental-science-014",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
-      "topic": "Biodiversity",
+      "topic": "The Living World: Ecosystems",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Biodiversity",
+        "AP CED: The Living World: Ecosystems",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Biodiversity, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on The Living World: Ecosystems. Which feedback would help most?",
+      "correctText": "Reread the task, identify The Living World: Ecosystems, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify The Living World: Ecosystems, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-environmental-science-015",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
-      "topic": "Biodiversity",
+      "topic": "The Living World: Ecosystems",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Biodiversity",
+        "AP CED: The Living World: Ecosystems",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Environmental Science: Biodiversity?",
-      "correctText": "Biodiversity matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Environmental Science: The Living World: Ecosystems?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
       "choices": [
-        "Biodiversity matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Environmental Science means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-environmental-science-016",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
-      "topic": "Biodiversity",
+      "topic": "The Living World: Ecosystems",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Biodiversity",
+        "AP CED: The Living World: Ecosystems",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Biodiversity. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For The Living World: Ecosystems, which unit vocabulary word should be reviewed with The Living World: Ecosystems?",
+      "correctText": "The Living World",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Earth Systems",
+        "The Living World",
+        "Energy Resources and Consumption",
+        "Aquatic"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "The Living World belongs near The Living World: Ecosystems in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-environmental-science-017",
@@ -419,15 +419,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Biodiversity to the larger course skill?",
-      "correctText": "Biodiversity is useful when students use evidence accurately.",
+      "prompt": "AP Environmental Science - Biodiversity: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Biodiversity",
       "choices": [
-        "Biodiversity is useful when students use evidence accurately.",
-        "Biodiversity only matters for memorized definitions.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "The Living World",
+        "Biodiversity",
+        "cause and effect",
+        "Earth Systems"
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "Biodiversity is the anchor concept for Biodiversity. In AP CED: Biodiversity, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-environmental-science-018",
@@ -444,15 +444,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Biodiversity, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Biodiversity, cites evidence, and explains the connection.",
+      "prompt": "A student reviewing AP Environmental Science: Biodiversity needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
+        "Repeat the definition of Biodiversity only.",
+        "Use evidence to explain model.",
         "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Biodiversity, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-environmental-science-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Biodiversity?",
-      "correctText": "evidence-based explanation",
+      "prompt": "Which answer best avoids a common mistake about AP Environmental Science: Biodiversity?",
+      "correctText": "Connect Biodiversity to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "using a rule from a different unit"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Biodiversity to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Biodiversity, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-environmental-science-020",
@@ -494,93 +494,318 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Biodiversity knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Biodiversity, then justify the answer with evidence.",
+      "prompt": "In an AP CED-aligned exam task about Biodiversity, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Match the new prompt to Biodiversity, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-environmental-science-021",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
-      "topic": "Populations",
+      "topic": "Biodiversity",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Populations",
+        "AP CED: Biodiversity",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Environmental Science, which concept is most central to the unit \"Populations\"?",
-      "correctText": "Populations",
+      "prompt": "Which review note would help most for AP Environmental Science: Biodiversity?",
+      "correctText": "Biodiversity matters because it helps explain model.",
       "choices": [
-        "Aquatic and Terrestrial Pollution",
-        "exam-style application",
-        "Land and Water Use",
-        "Populations"
+        "ignoring the source or data in the prompt",
+        "Biodiversity matters because it helps explain model.",
+        "system is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Populations is a core idea in Populations. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-environmental-science-022",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
-      "topic": "Populations",
+      "topic": "Biodiversity",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Populations",
+        "AP CED: Biodiversity",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Populations needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Biodiversity. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Read the prompt, source, or data for the exact task."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
       "id": "ap-environmental-science-023",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
-      "topic": "Populations",
+      "topic": "Biodiversity",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Populations",
+        "AP CED: Biodiversity",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Populations?",
-      "correctText": "Connect Populations to the prompt context before choosing.",
+      "prompt": "Which classroom explanation would best connect Biodiversity to the larger course skill?",
+      "correctText": "Biodiversity is useful when students use models.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Populations to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Biodiversity only matters for memorized definitions.",
+        "Biodiversity is useful when students use models.",
+        "ignoring the source or data in the prompt",
+        "model should be ignored unless it appears in the title."
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
       "id": "ap-environmental-science-024",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Biodiversity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Biodiversity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Biodiversity, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Biodiversity, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Biodiversity, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-environmental-science-025",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Biodiversity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Biodiversity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Biodiversity?",
+      "correctText": "system",
+      "choices": [
+        "Aquatic",
+        "system",
+        "ignoring the source or data in the prompt",
+        "The Living World"
+      ],
+      "explanation": "system is part of the concept cluster for Biodiversity, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-environmental-science-026",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Biodiversity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Biodiversity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Biodiversity knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Biodiversity, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Biodiversity, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-environmental-science-027",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Biodiversity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Biodiversity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Biodiversity: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Biodiversity connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Biodiversity connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Biodiversity and model belongs together in Biodiversity; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-environmental-science-028",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Biodiversity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Biodiversity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Environmental Science question on Biodiversity?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-environmental-science-029",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Biodiversity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Biodiversity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Biodiversity?",
+      "correctText": "Biodiversity can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Biodiversity can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-environmental-science-030",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Biodiversity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Biodiversity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Biodiversity. Which feedback would help most?",
+      "correctText": "Reread the task, identify Biodiversity, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Biodiversity, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-environmental-science-031",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Biodiversity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Biodiversity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Environmental Science: Biodiversity?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Environmental Science means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-environmental-science-032",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Biodiversity",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Biodiversity",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Biodiversity, which unit vocabulary word should be reviewed with Biodiversity?",
+      "correctText": "model",
+      "choices": [
+        "Earth Systems",
+        "model",
+        "Energy Resources and Consumption",
+        "Aquatic"
+      ],
+      "explanation": "model belongs near Biodiversity in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-environmental-science-033",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Populations",
@@ -594,18 +819,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Populations, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Environmental Science - Populations: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Populations",
       "choices": [
+        "Ecosystems",
+        "experimental design",
+        "Populations",
+        "Resources"
+      ],
+      "explanation": "Populations is the anchor concept for Populations. In AP CED: Populations, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-environmental-science-034",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Populations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Populations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Environmental Science: Populations needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain model.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-environmental-science-035",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Populations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Populations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Environmental Science: Populations?",
+      "correctText": "Connect Populations to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Populations to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-environmental-science-036",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Populations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Populations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Populations, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-environmental-science-025",
+      "id": "ap-environmental-science-037",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Populations",
@@ -620,17 +920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Environmental Science: Populations?",
-      "correctText": "Populations matters because it helps explain disciplinary reasoning.",
+      "correctText": "Populations matters because it helps explain model.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Populations appears on tests, so no explanation is needed.",
-        "Populations matters because it helps explain disciplinary reasoning."
+        "Only the vocabulary list matters for this unit.",
+        "Populations matters because it helps explain model.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-environmental-science-026",
+      "id": "ap-environmental-science-038",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Populations",
@@ -644,18 +944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Populations. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Populations. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-environmental-science-027",
+      "id": "ap-environmental-science-039",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Populations",
@@ -670,17 +970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Populations to the larger course skill?",
-      "correctText": "Populations is useful when students explain reasoning.",
+      "correctText": "Populations is useful when students use models.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Populations is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "model should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Populations is useful when students use models.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-environmental-science-028",
+      "id": "ap-environmental-science-040",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Populations",
@@ -697,15 +997,15 @@
       "prompt": "For Populations, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Populations, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Populations, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-environmental-science-029",
+      "id": "ap-environmental-science-041",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Populations",
@@ -720,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Populations?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "Atmospheric Pollution",
-        "Earth Systems and Resources",
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence"
+        "Terrestrial Pollution",
+        "describing a topic without explaining why it matters",
+        "system",
+        "Ecosystems"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Populations, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Populations, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-environmental-science-030",
+      "id": "ap-environmental-science-042",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Populations",
@@ -747,15 +1047,165 @@
       "prompt": "A student wants to transfer Populations knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Populations, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Populations, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Populations, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-environmental-science-031",
+      "id": "ap-environmental-science-043",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Populations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Populations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Populations: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Populations connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Populations connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Populations and model belongs together in Populations; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-environmental-science-044",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Populations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Populations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Environmental Science question on Populations?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-environmental-science-045",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Populations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Populations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Populations?",
+      "correctText": "Populations can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Populations can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-environmental-science-046",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Populations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Populations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Populations. Which feedback would help most?",
+      "correctText": "Reread the task, identify Populations, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Populations, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-environmental-science-047",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Populations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Populations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Environmental Science: Populations?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Environmental Science means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-environmental-science-048",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Populations",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Populations",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Populations, which unit vocabulary word should be reviewed with Populations?",
+      "correctText": "model",
+      "choices": [
+        "Earth Systems",
+        "model",
+        "Energy Resources and Consumption",
+        "Aquatic"
+      ],
+      "explanation": "model belongs near Populations in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-environmental-science-049",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Earth Systems and Resources",
@@ -769,18 +1219,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Environmental Science, which concept is most central to the unit \"Earth Systems and Resources\"?",
+      "prompt": "AP Environmental Science - Earth Systems and Resources: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Earth Systems and Resources",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Earth Systems and Resources",
-        "model or source analysis",
-        "The Living World: Ecosystems"
+        "model",
+        "Biodiversity",
+        "Land and Water Use",
+        "Earth Systems and Resources"
       ],
-      "explanation": "Earth Systems and Resources is a core idea in Earth Systems and Resources. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Earth Systems and Resources is the anchor concept for Earth Systems and Resources. In AP CED: Earth Systems and Resources, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-environmental-science-032",
+      "id": "ap-environmental-science-050",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Earth Systems and Resources",
@@ -794,18 +1244,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Earth Systems and Resources needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Environmental Science: Earth Systems and Resources needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Earth Systems.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
         "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Earth Systems."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Earth Systems; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-environmental-science-033",
+      "id": "ap-environmental-science-051",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Earth Systems and Resources",
@@ -819,18 +1269,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Earth Systems and Resources?",
+      "prompt": "Which answer best avoids a common mistake about AP Environmental Science: Earth Systems and Resources?",
       "correctText": "Connect Earth Systems and Resources to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Earth Systems and Resources to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-environmental-science-034",
+      "id": "ap-environmental-science-052",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Earth Systems and Resources",
@@ -844,18 +1294,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Earth Systems and Resources, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Earth Systems and Resources, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Resources.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Resources.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-environmental-science-035",
+      "id": "ap-environmental-science-053",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Earth Systems and Resources",
@@ -870,17 +1320,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Environmental Science: Earth Systems and Resources?",
-      "correctText": "Earth Systems and Resources matters because it helps explain disciplinary reasoning.",
+      "correctText": "Earth Systems and Resources matters because it helps explain Earth Systems.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Earth Systems and Resources matters because it helps explain disciplinary reasoning.",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Earth Systems and Resources matters because it helps explain Earth Systems."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-environmental-science-036",
+      "id": "ap-environmental-science-054",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Earth Systems and Resources",
@@ -894,18 +1344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Earth Systems and Resources. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Earth Systems and Resources. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-environmental-science-037",
+      "id": "ap-environmental-science-055",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Earth Systems and Resources",
@@ -920,17 +1370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Earth Systems and Resources to the larger course skill?",
-      "correctText": "Earth Systems and Resources is useful when students apply a course concept.",
+      "correctText": "Earth Systems and Resources is useful when students use models.",
       "choices": [
-        "Earth Systems and Resources is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Earth Systems and Resources is useful when students use models."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-environmental-science-038",
+      "id": "ap-environmental-science-056",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Earth Systems and Resources",
@@ -947,15 +1397,15 @@
       "prompt": "For Earth Systems and Resources, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Earth Systems and Resources, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Earth Systems and Resources, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-environmental-science-039",
+      "id": "ap-environmental-science-057",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Earth Systems and Resources",
@@ -970,17 +1420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Earth Systems and Resources?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Resources",
       "choices": [
-        "evidence-based explanation",
-        "making a claim without supporting evidence",
-        "model or source analysis",
-        "Populations"
+        "Global Change",
+        "using a rule from a different unit",
+        "model",
+        "Resources"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Earth Systems and Resources, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Resources is part of the concept cluster for Earth Systems and Resources, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-environmental-science-040",
+      "id": "ap-environmental-science-058",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Earth Systems and Resources",
@@ -997,15 +1447,165 @@
       "prompt": "A student wants to transfer Earth Systems and Resources knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Earth Systems and Resources, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Earth Systems and Resources, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-environmental-science-041",
+      "id": "ap-environmental-science-059",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Earth Systems and Resources",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Earth Systems and Resources",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Earth Systems and Resources: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Earth Systems and Resources connects to Earth Systems.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Earth Systems and Resources connects to Earth Systems.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Earth Systems and Resources and Earth Systems belongs together in Earth Systems and Resources; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-environmental-science-060",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Earth Systems and Resources",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Earth Systems and Resources",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Environmental Science question on Earth Systems and Resources?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-environmental-science-061",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Earth Systems and Resources",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Earth Systems and Resources",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Earth Systems and Resources?",
+      "correctText": "Earth Systems and Resources can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Earth Systems and Resources can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Earth Systems does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-environmental-science-062",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Earth Systems and Resources",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Earth Systems and Resources",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Earth Systems and Resources. Which feedback would help most?",
+      "correctText": "Reread the task, identify Earth Systems and Resources, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Earth Systems and Resources, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-environmental-science-063",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Earth Systems and Resources",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Earth Systems and Resources",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Environmental Science: Earth Systems and Resources?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Environmental Science means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-environmental-science-064",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Earth Systems and Resources",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Earth Systems and Resources",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Earth Systems and Resources, which unit vocabulary word should be reviewed with Earth Systems and Resources?",
+      "correctText": "Earth Systems",
+      "choices": [
+        "Earth Systems and Resources",
+        "Earth Systems",
+        "Energy Resources and Consumption",
+        "Aquatic"
+      ],
+      "explanation": "Earth Systems belongs near Earth Systems and Resources in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-environmental-science-065",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Land and Water Use",
@@ -1019,18 +1619,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Environmental Science, which concept is most central to the unit \"Land and Water Use\"?",
+      "prompt": "AP Environmental Science - Land and Water Use: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Land and Water Use",
       "choices": [
-        "Energy Resources and Consumption",
-        "Global Change",
-        "ignoring the source or data in the prompt",
-        "Land and Water Use"
+        "Land and Water Use",
+        "system",
+        "scale",
+        "Land"
       ],
-      "explanation": "Land and Water Use is a core idea in Land and Water Use. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Land and Water Use is the anchor concept for Land and Water Use. In AP CED: Land and Water Use, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-environmental-science-042",
+      "id": "ap-environmental-science-066",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Land and Water Use",
@@ -1044,18 +1644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Land and Water Use needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Environmental Science: Land and Water Use needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Land.",
       "choices": [
+        "Use evidence to explain Land.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Land and Water Use only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Guess from key words about Water Use.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Land; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-environmental-science-043",
+      "id": "ap-environmental-science-067",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Land and Water Use",
@@ -1069,18 +1669,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Land and Water Use?",
+      "prompt": "Which answer best avoids a common mistake about AP Environmental Science: Land and Water Use?",
       "correctText": "Connect Land and Water Use to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Land and Water Use to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Land and Water Use as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-environmental-science-044",
+      "id": "ap-environmental-science-068",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Land and Water Use",
@@ -1094,18 +1694,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Land and Water Use, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Land and Water Use, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Water Use.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Water Use.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-environmental-science-045",
+      "id": "ap-environmental-science-069",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Land and Water Use",
@@ -1120,17 +1720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Environmental Science: Land and Water Use?",
-      "correctText": "Land and Water Use matters because it helps explain disciplinary reasoning.",
+      "correctText": "Land and Water Use matters because it helps explain Land.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Land and Water Use matters because it helps explain disciplinary reasoning.",
+        "Land and Water Use matters because it helps explain Land.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "choosing an answer because it uses familiar words",
+        "Land and Water Use appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-environmental-science-046",
+      "id": "ap-environmental-science-070",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Land and Water Use",
@@ -1144,18 +1744,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Land and Water Use. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Land and Water Use. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-environmental-science-047",
+      "id": "ap-environmental-science-071",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Land and Water Use",
@@ -1170,17 +1770,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Land and Water Use to the larger course skill?",
-      "correctText": "Land and Water Use is useful when students use evidence accurately.",
+      "correctText": "Land and Water Use is useful when students use models.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Land and Water Use is useful when students use evidence accurately.",
-        "Land and Water Use only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Land and Water Use is useful when students use models.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-environmental-science-048",
+      "id": "ap-environmental-science-072",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Land and Water Use",
@@ -1197,15 +1797,15 @@
       "prompt": "For Land and Water Use, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Land and Water Use, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Land and Water Use, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-environmental-science-049",
+      "id": "ap-environmental-science-073",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Land and Water Use",
@@ -1220,17 +1820,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Land and Water Use?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Water Use",
       "choices": [
-        "Aquatic and Terrestrial Pollution",
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation",
-        "using a rule from a different unit"
+        "Water Use",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "system"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Land and Water Use, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Water Use is part of the concept cluster for Land and Water Use, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-environmental-science-050",
+      "id": "ap-environmental-science-074",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Land and Water Use",
@@ -1247,15 +1847,165 @@
       "prompt": "A student wants to transfer Land and Water Use knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Land and Water Use, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Land and Water Use, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Land and Water Use, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-environmental-science-051",
+      "id": "ap-environmental-science-075",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Land and Water Use",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Land and Water Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Land and Water Use: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Land and Water Use connects to Land.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Land and Water Use connects to Land.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Land and Water Use and Land belongs together in Land and Water Use; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-environmental-science-076",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Land and Water Use",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Land and Water Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Environmental Science question on Land and Water Use?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-environmental-science-077",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Land and Water Use",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Land and Water Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Land and Water Use?",
+      "correctText": "Land and Water Use can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Land and Water Use can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Land does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-environmental-science-078",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Land and Water Use",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Land and Water Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Land and Water Use. Which feedback would help most?",
+      "correctText": "Reread the task, identify Land and Water Use, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Land and Water Use, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-environmental-science-079",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Land and Water Use",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Land and Water Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Environmental Science: Land and Water Use?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Environmental Science means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-environmental-science-080",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Land and Water Use",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Land and Water Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Land and Water Use, which unit vocabulary word should be reviewed with Land and Water Use?",
+      "correctText": "Land",
+      "choices": [
+        "Earth Systems and Resources",
+        "Land",
+        "Energy Resources and Consumption",
+        "Aquatic"
+      ],
+      "explanation": "Land belongs near Land and Water Use in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-environmental-science-081",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Energy Resources and Consumption",
@@ -1269,18 +2019,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Environmental Science, which concept is most central to the unit \"Energy Resources and Consumption\"?",
+      "prompt": "AP Environmental Science - Energy Resources and Consumption: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Energy Resources and Consumption",
       "choices": [
-        "disciplinary reasoning",
-        "Earth Systems and Resources",
+        "data pattern",
         "Energy Resources and Consumption",
-        "exam-style application"
+        "Populations",
+        "Land"
       ],
-      "explanation": "Energy Resources and Consumption is a core idea in Energy Resources and Consumption. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Energy Resources and Consumption is the anchor concept for Energy Resources and Consumption. In AP CED: Energy Resources and Consumption, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-environmental-science-052",
+      "id": "ap-environmental-science-082",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Energy Resources and Consumption",
@@ -1294,18 +2044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Energy Resources and Consumption needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Environmental Science: Energy Resources and Consumption needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Energy Resources.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain Energy Resources.",
+        "Repeat the definition of Energy Resources and Consumption only.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Energy Resources; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-environmental-science-053",
+      "id": "ap-environmental-science-083",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Energy Resources and Consumption",
@@ -1319,18 +2069,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Energy Resources and Consumption?",
+      "prompt": "Which answer best avoids a common mistake about AP Environmental Science: Energy Resources and Consumption?",
       "correctText": "Connect Energy Resources and Consumption to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Energy Resources and Consumption to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-environmental-science-054",
+      "id": "ap-environmental-science-084",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Energy Resources and Consumption",
@@ -1344,18 +2094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Energy Resources and Consumption, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Energy Resources and Consumption, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Consumption.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Consumption.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-environmental-science-055",
+      "id": "ap-environmental-science-085",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Energy Resources and Consumption",
@@ -1370,17 +2120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Environmental Science: Energy Resources and Consumption?",
-      "correctText": "Energy Resources and Consumption matters because it helps explain disciplinary reasoning.",
+      "correctText": "Energy Resources and Consumption matters because it helps explain Energy Resources.",
       "choices": [
-        "describing a topic without explaining why it matters",
         "Energy Resources and Consumption appears on tests, so no explanation is needed.",
-        "Energy Resources and Consumption matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Energy Resources and Consumption matters because it helps explain Energy Resources.",
+        "ignoring the source or data in the prompt",
+        "Consumption is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-environmental-science-056",
+      "id": "ap-environmental-science-086",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Energy Resources and Consumption",
@@ -1394,18 +2144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Energy Resources and Consumption. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Energy Resources and Consumption. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-environmental-science-057",
+      "id": "ap-environmental-science-087",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Energy Resources and Consumption",
@@ -1420,17 +2170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Energy Resources and Consumption to the larger course skill?",
-      "correctText": "Energy Resources and Consumption is useful when students explain reasoning.",
+      "correctText": "Energy Resources and Consumption is useful when students use models.",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Energy Resources and Consumption is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Energy Resources and Consumption is useful when students use models.",
+        "Energy Resources and Consumption only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-environmental-science-058",
+      "id": "ap-environmental-science-088",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Energy Resources and Consumption",
@@ -1447,15 +2197,15 @@
       "prompt": "For Energy Resources and Consumption, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Energy Resources and Consumption, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Energy Resources and Consumption, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-environmental-science-059",
+      "id": "ap-environmental-science-089",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Energy Resources and Consumption",
@@ -1470,17 +2220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Energy Resources and Consumption?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Consumption",
       "choices": [
-        "Atmospheric Pollution",
-        "Earth Systems and Resources",
-        "evidence-based explanation",
-        "exam-style application"
+        "choosing an answer because it uses familiar words",
+        "Consumption",
+        "The Living World: Ecosystems",
+        "data pattern"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Energy Resources and Consumption, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Consumption is part of the concept cluster for Energy Resources and Consumption, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-environmental-science-060",
+      "id": "ap-environmental-science-090",
       "course": "ap-environmental-science",
       "courseLabel": "AP Environmental Science",
       "topic": "Energy Resources and Consumption",
@@ -1497,12 +2247,1362 @@
       "prompt": "A student wants to transfer Energy Resources and Consumption knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Energy Resources and Consumption, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Energy Resources and Consumption, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Energy Resources and Consumption, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-environmental-science-091",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Energy Resources and Consumption",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Energy Resources and Consumption",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Energy Resources and Consumption: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Energy Resources and Consumption connects to Energy Resources.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Energy Resources and Consumption connects to Energy Resources.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Energy Resources and Consumption and Energy Resources belongs together in Energy Resources and Consumption; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-environmental-science-092",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Energy Resources and Consumption",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Energy Resources and Consumption",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Environmental Science question on Energy Resources and Consumption?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-environmental-science-093",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Energy Resources and Consumption",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Energy Resources and Consumption",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Energy Resources and Consumption?",
+      "correctText": "Energy Resources and Consumption can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Energy Resources and Consumption can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Energy Resources does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-environmental-science-094",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Energy Resources and Consumption",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Energy Resources and Consumption",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Energy Resources and Consumption. Which feedback would help most?",
+      "correctText": "Reread the task, identify Energy Resources and Consumption, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Energy Resources and Consumption, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-environmental-science-095",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Energy Resources and Consumption",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Energy Resources and Consumption",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Environmental Science: Energy Resources and Consumption?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Environmental Science means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-environmental-science-096",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Energy Resources and Consumption",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Energy Resources and Consumption",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Energy Resources and Consumption, which unit vocabulary word should be reviewed with Energy Resources and Consumption?",
+      "correctText": "Energy Resources",
+      "choices": [
+        "Earth Systems and Resources",
+        "Energy Resources",
+        "Water Use",
+        "Aquatic"
+      ],
+      "explanation": "Energy Resources belongs near Energy Resources and Consumption in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-environmental-science-097",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Atmospheric Pollution: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Atmospheric Pollution",
+      "choices": [
+        "cause and effect",
+        "Earth Systems and Resources",
+        "Atmospheric Pollution",
+        "Water Use"
+      ],
+      "explanation": "Atmospheric Pollution is the anchor concept for Atmospheric Pollution. In AP CED: Atmospheric Pollution, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-environmental-science-098",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Environmental Science: Atmospheric Pollution needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain model.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-environmental-science-099",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Environmental Science: Atmospheric Pollution?",
+      "correctText": "Connect Atmospheric Pollution to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Atmospheric Pollution to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-environmental-science-100",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Atmospheric Pollution, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-environmental-science-101",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Environmental Science: Atmospheric Pollution?",
+      "correctText": "Atmospheric Pollution matters because it helps explain model.",
+      "choices": [
+        "system is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "Atmospheric Pollution matters because it helps explain model.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-environmental-science-102",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Atmospheric Pollution. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-environmental-science-103",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Atmospheric Pollution to the larger course skill?",
+      "correctText": "Atmospheric Pollution is useful when students use models.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "model should be ignored unless it appears in the title.",
+        "Atmospheric Pollution is useful when students use models.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-environmental-science-104",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Atmospheric Pollution, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Atmospheric Pollution, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Atmospheric Pollution, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-environmental-science-105",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Atmospheric Pollution?",
+      "correctText": "system",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "The Living World",
+        "system",
+        "experimental design"
+      ],
+      "explanation": "system is part of the concept cluster for Atmospheric Pollution, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-environmental-science-106",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Atmospheric Pollution knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Atmospheric Pollution, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Atmospheric Pollution, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-environmental-science-107",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Atmospheric Pollution: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Atmospheric Pollution connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Atmospheric Pollution connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Atmospheric Pollution and model belongs together in Atmospheric Pollution; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-environmental-science-108",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Environmental Science question on Atmospheric Pollution?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-environmental-science-109",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Atmospheric Pollution?",
+      "correctText": "Atmospheric Pollution can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Atmospheric Pollution can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-environmental-science-110",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Atmospheric Pollution. Which feedback would help most?",
+      "correctText": "Reread the task, identify Atmospheric Pollution, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Atmospheric Pollution, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-environmental-science-111",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Environmental Science: Atmospheric Pollution?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Environmental Science means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-environmental-science-112",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Atmospheric Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Atmospheric Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Atmospheric Pollution, which unit vocabulary word should be reviewed with Atmospheric Pollution?",
+      "correctText": "model",
+      "choices": [
+        "Earth Systems",
+        "model",
+        "Energy Resources and Consumption",
+        "Aquatic"
+      ],
+      "explanation": "model belongs near Atmospheric Pollution in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-environmental-science-113",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Aquatic and Terrestrial Pollution: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Aquatic and Terrestrial Pollution",
+      "choices": [
+        "experimental design",
+        "Earth Systems",
+        "Energy Resources and Consumption",
+        "Aquatic and Terrestrial Pollution"
+      ],
+      "explanation": "Aquatic and Terrestrial Pollution is the anchor concept for Aquatic and Terrestrial Pollution. In AP CED: Aquatic and Terrestrial Pollution, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-environmental-science-114",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Environmental Science: Aquatic and Terrestrial Pollution needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Aquatic.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Use evidence to explain Aquatic."
+      ],
+      "explanation": "The useful move is to connect evidence to Aquatic; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-environmental-science-115",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Environmental Science: Aquatic and Terrestrial Pollution?",
+      "correctText": "Connect Aquatic and Terrestrial Pollution to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Aquatic and Terrestrial Pollution to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-environmental-science-116",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Aquatic and Terrestrial Pollution, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Terrestrial Pollution.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Terrestrial Pollution.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-environmental-science-117",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Environmental Science: Aquatic and Terrestrial Pollution?",
+      "correctText": "Aquatic and Terrestrial Pollution matters because it helps explain Aquatic.",
+      "choices": [
+        "Only the vocabulary list matters for this unit.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Aquatic and Terrestrial Pollution matters because it helps explain Aquatic."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-environmental-science-118",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Aquatic and Terrestrial Pollution. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Read the prompt, source, or data for the exact task.",
+        "Pick the first familiar vocabulary word.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-environmental-science-119",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Aquatic and Terrestrial Pollution to the larger course skill?",
+      "correctText": "Aquatic and Terrestrial Pollution is useful when students use models.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "Aquatic and Terrestrial Pollution is useful when students use models."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-environmental-science-120",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Aquatic and Terrestrial Pollution, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Aquatic and Terrestrial Pollution, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Aquatic and Terrestrial Pollution, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-environmental-science-121",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Aquatic and Terrestrial Pollution?",
+      "correctText": "Terrestrial Pollution",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ecosystems",
+        "experimental design",
+        "Terrestrial Pollution"
+      ],
+      "explanation": "Terrestrial Pollution is part of the concept cluster for Aquatic and Terrestrial Pollution, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-environmental-science-122",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Aquatic and Terrestrial Pollution knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Aquatic and Terrestrial Pollution, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Aquatic and Terrestrial Pollution, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-environmental-science-123",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Aquatic and Terrestrial Pollution: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Aquatic and Terrestrial Pollution connects to Aquatic.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Aquatic and Terrestrial Pollution connects to Aquatic.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Aquatic and Terrestrial Pollution and Aquatic belongs together in Aquatic and Terrestrial Pollution; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-environmental-science-124",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Environmental Science question on Aquatic and Terrestrial Pollution?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-environmental-science-125",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Aquatic and Terrestrial Pollution?",
+      "correctText": "Aquatic and Terrestrial Pollution can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Aquatic and Terrestrial Pollution can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Aquatic does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-environmental-science-126",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Aquatic and Terrestrial Pollution. Which feedback would help most?",
+      "correctText": "Reread the task, identify Aquatic and Terrestrial Pollution, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Aquatic and Terrestrial Pollution, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-environmental-science-127",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Environmental Science: Aquatic and Terrestrial Pollution?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Environmental Science means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-environmental-science-128",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Aquatic and Terrestrial Pollution",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aquatic and Terrestrial Pollution",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Aquatic and Terrestrial Pollution, which unit vocabulary word should be reviewed with Aquatic and Terrestrial Pollution?",
+      "correctText": "Aquatic",
+      "choices": [
+        "Earth Systems and Resources",
+        "Aquatic",
+        "Water Use",
+        "Aquatic and Terrestrial Pollution"
+      ],
+      "explanation": "Aquatic belongs near Aquatic and Terrestrial Pollution in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-environmental-science-129",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Global Change: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Global Change",
+      "choices": [
+        "Global Change",
+        "Biodiversity",
+        "Resources",
+        "Energy Resources"
+      ],
+      "explanation": "Global Change is the anchor concept for Global Change. In AP CED: Global Change, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-environmental-science-130",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Environmental Science: Global Change needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "Use evidence to explain model.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about system."
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-environmental-science-131",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Environmental Science: Global Change?",
+      "correctText": "Connect Global Change to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Global Change to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-environmental-science-132",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Global Change, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-environmental-science-133",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Environmental Science: Global Change?",
+      "correctText": "Global Change matters because it helps explain model.",
+      "choices": [
+        "Global Change matters because it helps explain model.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-environmental-science-134",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Global Change. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus.",
+        "Read the prompt, source, or data for the exact task.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-environmental-science-135",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Global Change to the larger course skill?",
+      "correctText": "Global Change is useful when students use models.",
+      "choices": [
+        "Global Change is useful when students use models.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-environmental-science-136",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Global Change, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Global Change, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Global Change, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-environmental-science-137",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Global Change?",
+      "correctText": "system",
+      "choices": [
+        "system",
+        "using a rule from a different unit",
+        "model",
+        "scale"
+      ],
+      "explanation": "system is part of the concept cluster for Global Change, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-environmental-science-138",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Global Change knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Global Change, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Global Change, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-environmental-science-139",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Environmental Science - Global Change: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Global Change connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Global Change connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Global Change and model belongs together in Global Change; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-environmental-science-140",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Environmental Science question on Global Change?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-environmental-science-141",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Global Change?",
+      "correctText": "Global Change can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Global Change can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-environmental-science-142",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Global Change. Which feedback would help most?",
+      "correctText": "Reread the task, identify Global Change, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Global Change, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-environmental-science-143",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Environmental Science: Global Change?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Environmental Science means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-environmental-science-144",
+      "course": "ap-environmental-science",
+      "courseLabel": "AP Environmental Science",
+      "topic": "Global Change",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Change",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Global Change, which unit vocabulary word should be reviewed with Global Change?",
+      "correctText": "model",
+      "choices": [
+        "Earth Systems",
+        "model",
+        "Energy Resources and Consumption",
+        "Aquatic"
+      ],
+      "explanation": "model belongs near Global Change in this unit's concept map. Reviewing them together helps students answer transfer questions."
     }
   ]
 }

@@ -2,7 +2,7 @@
   "course": "ap-english-literature",
   "courseLabel": "AP English Literature and Composition",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-english-literature-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Literature and Composition, which concept is most central to the unit \"Short Fiction\"?",
+      "prompt": "AP English Literature and Composition - Short Fiction: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Short Fiction",
       "choices": [
-        "Character",
-        "disciplinary reasoning",
-        "exam-style application",
-        "Short Fiction"
+        "Short Fiction",
+        "claim",
+        "style",
+        "Character"
       ],
-      "explanation": "Short Fiction is a core idea in Short Fiction. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Short Fiction is the anchor concept for Short Fiction. In AP CED: Short Fiction, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-english-literature-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Short Fiction needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP English Literature and Composition: Short Fiction needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain claim.",
+        "Guess from key words about evidence.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Short Fiction only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-english-literature-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Short Fiction?",
+      "prompt": "Which answer best avoids a common mistake about AP English Literature and Composition: Short Fiction?",
       "correctText": "Connect Short Fiction to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Short Fiction to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Short Fiction, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Short Fiction, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP English Literature and Composition: Short Fiction?",
-      "correctText": "Short Fiction matters because it helps explain disciplinary reasoning.",
+      "correctText": "Short Fiction matters because it helps explain claim.",
       "choices": [
+        "Short Fiction matters because it helps explain claim.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Short Fiction matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Short Fiction appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Short Fiction. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Short Fiction. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Short Fiction to the larger course skill?",
-      "correctText": "Short Fiction is useful when students apply a course concept.",
+      "correctText": "Short Fiction is useful when students analyze evidence.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Short Fiction is useful when students analyze evidence.",
         "making a claim without supporting evidence",
-        "Short Fiction is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Short Fiction only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Short Fiction, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Short Fiction, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Short Fiction, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Short Fiction?",
-      "correctText": "evidence-based explanation",
+      "correctText": "evidence",
       "choices": [
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence",
-        "Poetry",
-        "Structure"
+        "evidence",
+        "Short Fiction",
+        "style",
+        "Character"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Short Fiction, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "evidence is part of the concept cluster for Short Fiction, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-english-literature-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Short Fiction knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Short Fiction, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Short Fiction, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,201 +258,201 @@
       "id": "ap-english-literature-011",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Poetry",
+      "topic": "Short Fiction",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Poetry",
+        "AP CED: Short Fiction",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Literature and Composition, which concept is most central to the unit \"Poetry\"?",
-      "correctText": "Poetry",
+      "prompt": "AP English Literature and Composition - Short Fiction: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Short Fiction connects to claim.",
       "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "Poetry",
-        "using a rule from a different unit"
+        "Short Fiction connects to claim.",
+        "commentary replaces all evidence."
       ],
-      "explanation": "Poetry is a core idea in Poetry. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Short Fiction and claim belongs together in Short Fiction; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-english-literature-012",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Poetry",
+      "topic": "Short Fiction",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Poetry",
+        "AP CED: Short Fiction",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Poetry needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Literature and Composition question on Short Fiction?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Poetry only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-english-literature-013",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Poetry",
+      "topic": "Short Fiction",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Poetry",
+        "AP CED: Short Fiction",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Poetry?",
-      "correctText": "Connect Poetry to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Short Fiction?",
+      "correctText": "Short Fiction can be explained with evidence from text excerpt.",
       "choices": [
-        "Connect Poetry to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Poetry as always meaning the same thing."
+        "Short Fiction can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "claim does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-english-literature-014",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Poetry",
+      "topic": "Short Fiction",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Poetry",
+        "AP CED: Short Fiction",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Poetry, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Short Fiction. Which feedback would help most?",
+      "correctText": "Reread the task, identify Short Fiction, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Short Fiction, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-english-literature-015",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Poetry",
+      "topic": "Short Fiction",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Poetry",
+        "AP CED: Short Fiction",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP English Literature and Composition: Poetry?",
-      "correctText": "Poetry matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP English Literature and Composition: Short Fiction?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit.",
-        "Poetry matters because it helps explain disciplinary reasoning."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP English Literature and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-english-literature-016",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Poetry",
+      "topic": "Short Fiction",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Poetry",
+        "AP CED: Short Fiction",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Poetry. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Short Fiction, which unit vocabulary word should be reviewed with Short Fiction?",
+      "correctText": "claim",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "evidence",
+        "claim",
+        "Poetry",
+        "Structure"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "claim belongs near Short Fiction in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-english-literature-017",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Poetry",
+      "topic": "Short Fiction",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Poetry",
+        "AP CED: Short Fiction",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Poetry to the larger course skill?",
-      "correctText": "Poetry is useful when students use evidence accurately.",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Short Fiction?",
+      "correctText": "A response that names Short Fiction but never explains how it fits the evidence.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Poetry is useful when students use evidence accurately.",
-        "Poetry only matters for memorized definitions."
+        "A response that names Short Fiction but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Short Fiction to claim."
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
     },
     {
       "id": "ap-english-literature-018",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Poetry",
+      "topic": "Short Fiction",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Poetry",
+        "AP CED: Short Fiction",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Poetry, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Poetry, cites evidence, and explains the connection.",
+      "prompt": "Which question should a student ask while reviewing AP English Literature and Composition: Short Fiction?",
+      "correctText": "How does Short Fiction help explain the evidence or scenario?",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Poetry, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Short Fiction help explain the evidence or scenario?"
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
     },
     {
       "id": "ap-english-literature-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Poetry?",
-      "correctText": "evidence-based explanation",
+      "prompt": "AP English Literature and Composition - Poetry: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Poetry",
       "choices": [
-        "evidence-based explanation",
-        "Longer Fiction or Drama",
-        "making a claim without supporting evidence",
-        "model or source analysis"
+        "claim",
+        "Poetry",
+        "style",
+        "Structure"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Poetry, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Poetry is the anchor concept for Poetry. In AP CED: Poetry, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-english-literature-020",
@@ -494,93 +494,418 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Poetry knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Poetry, then justify the answer with evidence.",
+      "prompt": "A student reviewing AP English Literature and Composition: Poetry needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
       "choices": [
+        "Repeat the definition of Poetry only.",
+        "Use evidence to explain claim.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Poetry, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-english-literature-021",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Longer Fiction or Drama",
+      "topic": "Poetry",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Longer Fiction or Drama",
+        "AP CED: Poetry",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Literature and Composition, which concept is most central to the unit \"Longer Fiction or Drama\"?",
-      "correctText": "Longer Fiction or Drama",
+      "prompt": "Which answer best avoids a common mistake about AP English Literature and Composition: Poetry?",
+      "correctText": "Connect Poetry to the prompt context before choosing.",
       "choices": [
-        "Character",
-        "ignoring the source or data in the prompt",
-        "Literary Argument",
-        "Longer Fiction or Drama"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Poetry to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Longer Fiction or Drama is a core idea in Longer Fiction or Drama. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-english-literature-022",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Longer Fiction or Drama",
+      "topic": "Poetry",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Longer Fiction or Drama",
+        "AP CED: Poetry",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Longer Fiction or Drama needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "In an AP CED-aligned exam task about Poetry, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Specific evidence that proves a claim about evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-english-literature-023",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Longer Fiction or Drama",
+      "topic": "Poetry",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Longer Fiction or Drama",
+        "AP CED: Poetry",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Longer Fiction or Drama?",
-      "correctText": "Connect Longer Fiction or Drama to the prompt context before choosing.",
+      "prompt": "Which review note would help most for AP English Literature and Composition: Poetry?",
+      "correctText": "Poetry matters because it helps explain claim.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Longer Fiction or Drama to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "ignoring the source or data in the prompt",
+        "Poetry matters because it helps explain claim.",
+        "evidence is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-english-literature-024",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Poetry. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Read the prompt, source, or data for the exact task."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-english-literature-025",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Poetry to the larger course skill?",
+      "correctText": "Poetry is useful when students analyze evidence.",
+      "choices": [
+        "Poetry only matters for memorized definitions.",
+        "Poetry is useful when students analyze evidence.",
+        "ignoring the source or data in the prompt",
+        "claim should be ignored unless it appears in the title."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-english-literature-026",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Poetry, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Poetry, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Poetry, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-english-literature-027",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Poetry?",
+      "correctText": "evidence",
+      "choices": [
+        "claim",
+        "evidence",
+        "Poetry",
+        "Structure"
+      ],
+      "explanation": "evidence is part of the concept cluster for Poetry, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-english-literature-028",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Poetry knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Poetry, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Poetry, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-english-literature-029",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP English Literature and Composition - Poetry: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Poetry connects to claim.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Poetry connects to claim.",
+        "commentary replaces all evidence."
+      ],
+      "explanation": "The pair Poetry and claim belongs together in Poetry; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-literature-030",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Literature and Composition question on Poetry?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-english-literature-031",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Poetry?",
+      "correctText": "Poetry can be explained with evidence from text excerpt.",
+      "choices": [
+        "Poetry can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "claim does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-english-literature-032",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Poetry. Which feedback would help most?",
+      "correctText": "Reread the task, identify Poetry, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Poetry, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-english-literature-033",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP English Literature and Composition: Poetry?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP English Literature and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-english-literature-034",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Poetry, which unit vocabulary word should be reviewed with Poetry?",
+      "correctText": "claim",
+      "choices": [
+        "evidence",
+        "claim",
+        "Poetry",
+        "Structure"
+      ],
+      "explanation": "claim belongs near Poetry in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-english-literature-035",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Poetry?",
+      "correctText": "A response that names Poetry but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Poetry but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Poetry to claim."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-english-literature-036",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Poetry",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Poetry",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP English Literature and Composition: Poetry?",
+      "correctText": "How does Poetry help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Poetry help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-english-literature-037",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Longer Fiction or Drama",
@@ -594,18 +919,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Longer Fiction or Drama, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP English Literature and Composition - Longer Fiction or Drama: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Longer Fiction or Drama",
       "choices": [
+        "evidence",
+        "Poetry",
+        "Longer Fiction or Drama",
+        "Figurative Language"
+      ],
+      "explanation": "Longer Fiction or Drama is the anchor concept for Longer Fiction or Drama. In AP CED: Longer Fiction or Drama, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-english-literature-038",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Longer Fiction or Drama",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Longer Fiction or Drama",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP English Literature and Composition: Longer Fiction or Drama needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Longer Fiction.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Longer Fiction.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Longer Fiction; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-english-literature-039",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Longer Fiction or Drama",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Longer Fiction or Drama",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP English Literature and Composition: Longer Fiction or Drama?",
+      "correctText": "Connect Longer Fiction or Drama to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Longer Fiction or Drama to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-english-literature-040",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Longer Fiction or Drama",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Longer Fiction or Drama",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Longer Fiction or Drama, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Drama.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Drama.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-english-literature-025",
+      "id": "ap-english-literature-041",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Longer Fiction or Drama",
@@ -620,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP English Literature and Composition: Longer Fiction or Drama?",
-      "correctText": "Longer Fiction or Drama matters because it helps explain disciplinary reasoning.",
+      "correctText": "Longer Fiction or Drama matters because it helps explain Longer Fiction.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "Longer Fiction or Drama appears on tests, so no explanation is needed.",
-        "Longer Fiction or Drama matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Longer Fiction or Drama matters because it helps explain Longer Fiction.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-english-literature-026",
+      "id": "ap-english-literature-042",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Longer Fiction or Drama",
@@ -644,18 +1044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Longer Fiction or Drama. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Longer Fiction or Drama. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-english-literature-027",
+      "id": "ap-english-literature-043",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Longer Fiction or Drama",
@@ -670,17 +1070,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Longer Fiction or Drama to the larger course skill?",
-      "correctText": "Longer Fiction or Drama is useful when students explain reasoning.",
+      "correctText": "Longer Fiction or Drama is useful when students analyze evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Longer Fiction or Drama is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Longer Fiction should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Longer Fiction or Drama is useful when students analyze evidence.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-english-literature-028",
+      "id": "ap-english-literature-044",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Longer Fiction or Drama",
@@ -697,15 +1097,15 @@
       "prompt": "For Longer Fiction or Drama, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Longer Fiction or Drama, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Longer Fiction or Drama, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-english-literature-029",
+      "id": "ap-english-literature-045",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Longer Fiction or Drama",
@@ -720,17 +1120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Longer Fiction or Drama?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Drama",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence",
-        "Short Fiction"
+        "evidence",
+        "Poetry",
+        "Drama",
+        "Figurative Language"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Longer Fiction or Drama, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Drama is part of the concept cluster for Longer Fiction or Drama, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-english-literature-030",
+      "id": "ap-english-literature-046",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Longer Fiction or Drama",
@@ -747,65 +1147,215 @@
       "prompt": "A student wants to transfer Longer Fiction or Drama knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Longer Fiction or Drama, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Longer Fiction or Drama, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Longer Fiction or Drama, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-english-literature-031",
+      "id": "ap-english-literature-047",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Character",
+      "topic": "Longer Fiction or Drama",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Character",
+        "AP CED: Longer Fiction or Drama",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Literature and Composition, which concept is most central to the unit \"Character\"?",
-      "correctText": "Character",
+      "prompt": "AP English Literature and Composition - Longer Fiction or Drama: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Longer Fiction or Drama connects to Longer Fiction.",
       "choices": [
-        "Character",
-        "disciplinary reasoning",
-        "exam-style application",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Longer Fiction or Drama connects to Longer Fiction.",
+        "claim replaces all evidence."
+      ],
+      "explanation": "The pair Longer Fiction or Drama and Longer Fiction belongs together in Longer Fiction or Drama; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-literature-048",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Longer Fiction or Drama",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Longer Fiction or Drama",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Literature and Composition question on Longer Fiction or Drama?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-english-literature-049",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Longer Fiction or Drama",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Longer Fiction or Drama",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Longer Fiction or Drama?",
+      "correctText": "Longer Fiction or Drama can be explained with evidence from text excerpt.",
+      "choices": [
+        "Longer Fiction or Drama can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "Longer Fiction does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-english-literature-050",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Longer Fiction or Drama",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Longer Fiction or Drama",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Longer Fiction or Drama. Which feedback would help most?",
+      "correctText": "Reread the task, identify Longer Fiction or Drama, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Longer Fiction or Drama, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-english-literature-051",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Longer Fiction or Drama",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Longer Fiction or Drama",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP English Literature and Composition: Longer Fiction or Drama?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP English Literature and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-english-literature-052",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Longer Fiction or Drama",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Longer Fiction or Drama",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Longer Fiction or Drama, which unit vocabulary word should be reviewed with Longer Fiction or Drama?",
+      "correctText": "Longer Fiction",
+      "choices": [
+        "claim",
+        "Longer Fiction",
+        "style",
         "Structure"
       ],
-      "explanation": "Character is a core idea in Character. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Longer Fiction belongs near Longer Fiction or Drama in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
-      "id": "ap-english-literature-032",
+      "id": "ap-english-literature-053",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Character",
+      "topic": "Longer Fiction or Drama",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Character",
+        "AP CED: Longer Fiction or Drama",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Character needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Longer Fiction or Drama?",
+      "correctText": "A response that names Longer Fiction or Drama but never explains how it fits the evidence.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "A response that names Longer Fiction or Drama but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Longer Fiction or Drama to Longer Fiction."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
     },
     {
-      "id": "ap-english-literature-033",
+      "id": "ap-english-literature-054",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Longer Fiction or Drama",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Longer Fiction or Drama",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP English Literature and Composition: Longer Fiction or Drama?",
+      "correctText": "How does Longer Fiction or Drama help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Longer Fiction or Drama help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-english-literature-055",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Character",
@@ -819,18 +1369,68 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Character?",
+      "prompt": "AP English Literature and Composition - Character: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Character",
+      "choices": [
+        "commentary",
+        "Longer Fiction or Drama",
+        "Literary Argument",
+        "Character"
+      ],
+      "explanation": "Character is the anchor concept for Character. In AP CED: Character, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-english-literature-056",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Character",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Character",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP English Literature and Composition: Character needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain claim."
+      ],
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-english-literature-057",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Character",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Character",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP English Literature and Composition: Character?",
       "correctText": "Connect Character to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Character to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-english-literature-034",
+      "id": "ap-english-literature-058",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Character",
@@ -844,18 +1444,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Character, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Character, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-english-literature-035",
+      "id": "ap-english-literature-059",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Character",
@@ -870,17 +1470,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP English Literature and Composition: Character?",
-      "correctText": "Character matters because it helps explain disciplinary reasoning.",
+      "correctText": "Character matters because it helps explain claim.",
       "choices": [
-        "Character matters because it helps explain disciplinary reasoning.",
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Character matters because it helps explain claim."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-english-literature-036",
+      "id": "ap-english-literature-060",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Character",
@@ -894,18 +1494,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Character. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Character. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-english-literature-037",
+      "id": "ap-english-literature-061",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Character",
@@ -920,17 +1520,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Character to the larger course skill?",
-      "correctText": "Character is useful when students apply a course concept.",
+      "correctText": "Character is useful when students analyze evidence.",
       "choices": [
-        "Character is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Character is useful when students analyze evidence."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-english-literature-038",
+      "id": "ap-english-literature-062",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Character",
@@ -947,15 +1547,15 @@
       "prompt": "For Character, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Character, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Character, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-english-literature-039",
+      "id": "ap-english-literature-063",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Character",
@@ -970,17 +1570,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Character?",
-      "correctText": "evidence-based explanation",
+      "correctText": "evidence",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation",
-        "Figurative Language",
-        "Longer Fiction or Drama"
+        "rhetorical situation",
+        "Longer Fiction",
+        "Literary Argument",
+        "evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Character, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "evidence is part of the concept cluster for Character, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-english-literature-040",
+      "id": "ap-english-literature-064",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Character",
@@ -997,65 +1597,215 @@
       "prompt": "A student wants to transfer Character knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Character, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Character, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-english-literature-041",
+      "id": "ap-english-literature-065",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Structure",
+      "topic": "Character",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Structure",
+        "AP CED: Character",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Literature and Composition, which concept is most central to the unit \"Structure\"?",
-      "correctText": "Structure",
+      "prompt": "AP English Literature and Composition - Character: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Character connects to claim.",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
         "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Character connects to claim.",
+        "commentary replaces all evidence."
+      ],
+      "explanation": "The pair Character and claim belongs together in Character; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-literature-066",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Character",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Character",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Literature and Composition question on Character?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-english-literature-067",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Character",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Character",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Character?",
+      "correctText": "Character can be explained with evidence from text excerpt.",
+      "choices": [
+        "Character can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "claim does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-english-literature-068",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Character",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Character",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Character. Which feedback would help most?",
+      "correctText": "Reread the task, identify Character, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Character, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-english-literature-069",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Character",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Character",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP English Literature and Composition: Character?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP English Literature and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-english-literature-070",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Character",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Character",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Character, which unit vocabulary word should be reviewed with Character?",
+      "correctText": "claim",
+      "choices": [
+        "evidence",
+        "claim",
+        "Poetry",
         "Structure"
       ],
-      "explanation": "Structure is a core idea in Structure. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "claim belongs near Character in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
-      "id": "ap-english-literature-042",
+      "id": "ap-english-literature-071",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Structure",
+      "topic": "Character",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Structure",
+        "AP CED: Character",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Structure needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Character?",
+      "correctText": "A response that names Character but never explains how it fits the evidence.",
       "choices": [
+        "A response that names Character but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Structure only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "A response that links Character to claim."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
     },
     {
-      "id": "ap-english-literature-043",
+      "id": "ap-english-literature-072",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Character",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Character",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP English Literature and Composition: Character?",
+      "correctText": "How does Character help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Character help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-english-literature-073",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Structure",
@@ -1069,18 +1819,68 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Structure?",
+      "prompt": "AP English Literature and Composition - Structure: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Structure",
+      "choices": [
+        "Structure",
+        "rhetorical situation",
+        "Longer Fiction",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Structure is the anchor concept for Structure. In AP CED: Structure, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-english-literature-074",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Structure",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP English Literature and Composition: Structure needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
+      "choices": [
+        "Use evidence to explain claim.",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about evidence.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-english-literature-075",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Structure",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP English Literature and Composition: Structure?",
       "correctText": "Connect Structure to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Structure to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Structure as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-english-literature-044",
+      "id": "ap-english-literature-076",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Structure",
@@ -1094,18 +1894,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Structure, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Structure, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-english-literature-045",
+      "id": "ap-english-literature-077",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Structure",
@@ -1120,17 +1920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP English Literature and Composition: Structure?",
-      "correctText": "Structure matters because it helps explain disciplinary reasoning.",
+      "correctText": "Structure matters because it helps explain claim.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Structure matters because it helps explain claim.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit.",
-        "Structure matters because it helps explain disciplinary reasoning."
+        "choosing an answer because it uses familiar words",
+        "Structure appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-english-literature-046",
+      "id": "ap-english-literature-078",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Structure",
@@ -1144,18 +1944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Structure. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Structure. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-english-literature-047",
+      "id": "ap-english-literature-079",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Structure",
@@ -1170,17 +1970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Structure to the larger course skill?",
-      "correctText": "Structure is useful when students use evidence accurately.",
+      "correctText": "Structure is useful when students analyze evidence.",
       "choices": [
-        "describing a topic without explaining why it matters",
+        "Structure is useful when students analyze evidence.",
         "memorizing an isolated fact without evidence",
-        "Structure is useful when students use evidence accurately.",
-        "Structure only matters for memorized definitions."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-english-literature-048",
+      "id": "ap-english-literature-080",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Structure",
@@ -1197,15 +1997,15 @@
       "prompt": "For Structure, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Structure, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Structure, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-english-literature-049",
+      "id": "ap-english-literature-081",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Structure",
@@ -1220,17 +2020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Structure?",
-      "correctText": "evidence-based explanation",
+      "correctText": "evidence",
       "choices": [
-        "Character",
-        "evidence-based explanation",
-        "exam-style application",
-        "Short Fiction"
+        "evidence",
+        "line of reasoning",
+        "Drama",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Structure, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "evidence is part of the concept cluster for Structure, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-english-literature-050",
+      "id": "ap-english-literature-082",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Structure",
@@ -1247,65 +2047,215 @@
       "prompt": "A student wants to transfer Structure knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Structure, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Structure, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Structure, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-english-literature-051",
+      "id": "ap-english-literature-083",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Figurative Language",
+      "topic": "Structure",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Figurative Language",
+        "AP CED: Structure",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP English Literature and Composition, which concept is most central to the unit \"Figurative Language\"?",
-      "correctText": "Figurative Language",
+      "prompt": "AP English Literature and Composition - Structure: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Structure connects to claim.",
       "choices": [
-        "Character",
-        "describing a topic without explaining why it matters",
-        "Figurative Language",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Structure connects to claim.",
+        "commentary replaces all evidence."
+      ],
+      "explanation": "The pair Structure and claim belongs together in Structure; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-literature-084",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Structure",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Literature and Composition question on Structure?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Figurative Language is a core idea in Figurative Language. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
-      "id": "ap-english-literature-052",
+      "id": "ap-english-literature-085",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
-      "topic": "Figurative Language",
+      "topic": "Structure",
       "domain": "AP English and Languages",
       "subjectArea": "AP English and Languages",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Figurative Language",
+        "AP CED: Structure",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Figurative Language needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which statement would be easiest to defend in Structure?",
+      "correctText": "Structure can be explained with evidence from text excerpt.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
+        "Structure can be explained with evidence from text excerpt.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "claim does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
-      "id": "ap-english-literature-053",
+      "id": "ap-english-literature-086",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Structure",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Structure. Which feedback would help most?",
+      "correctText": "Reread the task, identify Structure, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Structure, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-english-literature-087",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Structure",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP English Literature and Composition: Structure?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP English Literature and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-english-literature-088",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Structure",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Structure, which unit vocabulary word should be reviewed with Structure?",
+      "correctText": "claim",
+      "choices": [
+        "evidence",
+        "claim",
+        "Poetry",
+        "Structure"
+      ],
+      "explanation": "claim belongs near Structure in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-english-literature-089",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Structure",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Structure?",
+      "correctText": "A response that names Structure but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Structure but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Structure to claim."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-english-literature-090",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Structure",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP English Literature and Composition: Structure?",
+      "correctText": "How does Structure help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Structure help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-english-literature-091",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Figurative Language",
@@ -1319,18 +2269,68 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Figurative Language?",
+      "prompt": "AP English Literature and Composition - Figurative Language: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Figurative Language",
+      "choices": [
+        "line of reasoning",
+        "Figurative Language",
+        "Drama",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Figurative Language is the anchor concept for Figurative Language. In AP CED: Figurative Language, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-english-literature-092",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Figurative Language",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Figurative Language",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP English Literature and Composition: Figurative Language needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use evidence to explain claim.",
+        "Repeat the definition of Figurative Language only.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-english-literature-093",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Figurative Language",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Figurative Language",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP English Literature and Composition: Figurative Language?",
       "correctText": "Connect Figurative Language to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Figurative Language to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-english-literature-054",
+      "id": "ap-english-literature-094",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Figurative Language",
@@ -1344,18 +2344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Figurative Language, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Figurative Language, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about evidence.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-english-literature-055",
+      "id": "ap-english-literature-095",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Figurative Language",
@@ -1370,17 +2370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP English Literature and Composition: Figurative Language?",
-      "correctText": "Figurative Language matters because it helps explain disciplinary reasoning.",
+      "correctText": "Figurative Language matters because it helps explain claim.",
       "choices": [
-        "describing a topic without explaining why it matters",
         "Figurative Language appears on tests, so no explanation is needed.",
-        "Figurative Language matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Figurative Language matters because it helps explain claim.",
+        "ignoring the source or data in the prompt",
+        "evidence is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-english-literature-056",
+      "id": "ap-english-literature-096",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Figurative Language",
@@ -1394,18 +2394,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Figurative Language. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Figurative Language. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-english-literature-057",
+      "id": "ap-english-literature-097",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Figurative Language",
@@ -1420,17 +2420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Figurative Language to the larger course skill?",
-      "correctText": "Figurative Language is useful when students explain reasoning.",
+      "correctText": "Figurative Language is useful when students analyze evidence.",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Figurative Language is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Figurative Language is useful when students analyze evidence.",
+        "Figurative Language only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-english-literature-058",
+      "id": "ap-english-literature-098",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Figurative Language",
@@ -1447,15 +2447,15 @@
       "prompt": "For Figurative Language, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Figurative Language, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Figurative Language, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-english-literature-059",
+      "id": "ap-english-literature-099",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Figurative Language",
@@ -1470,17 +2470,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Figurative Language?",
-      "correctText": "evidence-based explanation",
+      "correctText": "evidence",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "using a rule from a different unit"
+        "style",
+        "evidence",
+        "Character",
+        "choosing an answer because it uses familiar words"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Figurative Language, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "evidence is part of the concept cluster for Figurative Language, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-english-literature-060",
+      "id": "ap-english-literature-100",
       "course": "ap-english-literature",
       "courseLabel": "AP English Literature and Composition",
       "topic": "Figurative Language",
@@ -1497,12 +2497,512 @@
       "prompt": "A student wants to transfer Figurative Language knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Figurative Language, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Figurative Language, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Figurative Language, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-english-literature-101",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Figurative Language",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Figurative Language",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP English Literature and Composition - Figurative Language: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Figurative Language connects to claim.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Figurative Language connects to claim.",
+        "commentary replaces all evidence."
+      ],
+      "explanation": "The pair Figurative Language and claim belongs together in Figurative Language; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-literature-102",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Figurative Language",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Figurative Language",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Literature and Composition question on Figurative Language?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-english-literature-103",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Figurative Language",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Figurative Language",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Figurative Language?",
+      "correctText": "Figurative Language can be explained with evidence from text excerpt.",
+      "choices": [
+        "Figurative Language can be explained with evidence from text excerpt.",
+        "ignoring the source or data in the prompt",
+        "claim does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-english-literature-104",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Figurative Language",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Figurative Language",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Figurative Language. Which feedback would help most?",
+      "correctText": "Reread the task, identify Figurative Language, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Figurative Language, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-english-literature-105",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Figurative Language",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Figurative Language",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP English Literature and Composition: Figurative Language?",
+      "correctText": "quote or paraphrase evidence and explain how it supports the claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "quote or paraphrase evidence and explain how it supports the claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP English Literature and Composition means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-english-literature-106",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Figurative Language",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Figurative Language",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Figurative Language, which unit vocabulary word should be reviewed with Figurative Language?",
+      "correctText": "claim",
+      "choices": [
+        "evidence",
+        "claim",
+        "Poetry",
+        "Structure"
+      ],
+      "explanation": "claim belongs near Figurative Language in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-english-literature-107",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Figurative Language",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Figurative Language",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Figurative Language?",
+      "correctText": "A response that names Figurative Language but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Figurative Language but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Figurative Language to claim."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-english-literature-108",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Figurative Language",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Figurative Language",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP English Literature and Composition: Figurative Language?",
+      "correctText": "How does Figurative Language help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Figurative Language help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-english-literature-109",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP English Literature and Composition - Literary Argument: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Literary Argument",
+      "choices": [
+        "style",
+        "Character",
+        "Literary Argument",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Literary Argument is the anchor concept for Literary Argument. In AP CED: Literary Argument, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-english-literature-110",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP English Literature and Composition: Literary Argument needs to show the skill \"build a line of reasoning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain claim.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain claim.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to claim; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-english-literature-111",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP English Literature and Composition: Literary Argument?",
+      "correctText": "Connect Literary Argument to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Literary Argument to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-english-literature-112",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Literary Argument, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about evidence.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-english-literature-113",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP English Literature and Composition: Literary Argument?",
+      "correctText": "Literary Argument matters because it helps explain claim.",
+      "choices": [
+        "evidence is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "Literary Argument matters because it helps explain claim.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-english-literature-114",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret text excerpt for Literary Argument. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-english-literature-115",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Literary Argument to the larger course skill?",
+      "correctText": "Literary Argument is useful when students analyze evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "claim should be ignored unless it appears in the title.",
+        "Literary Argument is useful when students analyze evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-english-literature-116",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Literary Argument, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Literary Argument, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Literary Argument, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-english-literature-117",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Literary Argument?",
+      "correctText": "evidence",
+      "choices": [
+        "Poetry",
+        "Structure",
+        "evidence",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "evidence is part of the concept cluster for Literary Argument, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-english-literature-118",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Literary Argument knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Literary Argument, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Literary Argument, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-english-literature-119",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP English Literature and Composition - Literary Argument: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Literary Argument connects to claim.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Literary Argument connects to claim.",
+        "commentary replaces all evidence."
+      ],
+      "explanation": "The pair Literary Argument and claim belongs together in Literary Argument; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-english-literature-120",
+      "course": "ap-english-literature",
+      "courseLabel": "AP English Literature and Composition",
+      "topic": "Literary Argument",
+      "domain": "AP English and Languages",
+      "subjectArea": "AP English and Languages",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Literary Argument",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of text excerpt in a AP English Literature and Composition question on Literary Argument?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The text excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     }
   ]
 }

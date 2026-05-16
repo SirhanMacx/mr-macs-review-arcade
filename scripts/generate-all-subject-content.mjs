@@ -18,7 +18,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const DATA_DIR = path.join(ROOT, "data");
 const FRAG_DIR = path.join(DATA_DIR, "bank-fragments");
-const VERSION = "20260515-all-subjects-v1";
+const VERSION = "20260516-course-depth-v2";
+const NON_AP_ITEMS_PER_UNIT = 14;
+const AP_ITEMS_PER_UNIT = 16;
 
 const NYSED_SOURCES = {
   standardsAreas: {
@@ -79,6 +81,11 @@ function unit(title, concepts, skills, standardRefs = []) {
 }
 
 function makeCourse({ id, label, subjectArea, gradeBand, standardsFramework, standardsSourceId, assessmentSourceIds = [], units, ap = false, nys = true, minQuestions }) {
+  const unitCount = Math.max(1, units.length);
+  const depthFloor = ap
+    ? Math.max(120, unitCount * AP_ITEMS_PER_UNIT)
+    : Math.max(96, unitCount * NON_AP_ITEMS_PER_UNIT);
+  const resolvedMinQuestions = Math.max(minQuestions || 0, depthFloor);
   return {
     id,
     label,
@@ -89,7 +96,8 @@ function makeCourse({ id, label, subjectArea, gradeBand, standardsFramework, sta
     assessmentSourceIds,
     ap,
     nys,
-    minQuestions: minQuestions || (ap ? 60 : 40),
+    minQuestions: resolvedMinQuestions,
+    questionsPerUnit: Math.ceil(resolvedMinQuestions / unitCount),
     units
   };
 }
@@ -126,6 +134,122 @@ const SCIENCE_UNITS = [
   unit("Science Practices", ["claim", "evidence", "reasoning", "variable", "data table"], ["plan investigations", "evaluate data", "argue from evidence"], ["NYS P-12 Science and Engineering Practices"]),
   unit("Released Test Strategy", ["stimulus", "graph", "data pattern", "lab setup", "scientific explanation"], ["read diagrams", "use units", "match evidence"], ["NYSED released Science items"])
 ];
+
+const HIGH_SCHOOL_MATH_UNITS = {
+  "algebra-1": [
+    unit("Linear Equations and Inequalities", ["solution set", "equivalent equation", "literal equation", "inequality", "constraint", "rate"], ["solve equations", "justify algebraic steps", "interpret constraints"], ["NYS Algebra I: Algebra"]),
+    unit("Linear Functions and Graphs", ["slope", "y-intercept", "rate of change", "linear model", "domain", "range"], ["graph linear functions", "compare representations", "interpret parameters"], ["NYS Algebra I: Functions"]),
+    unit("Systems of Equations", ["intersection", "substitution", "elimination", "no solution", "infinitely many solutions", "constraint system"], ["solve systems", "explain intersections", "model constraints"], ["NYS Algebra I: Systems"]),
+    unit("Exponents and Radicals", ["exponent law", "scientific notation", "radical", "rational exponent", "growth factor", "scale"], ["rewrite expressions", "estimate magnitude", "apply exponent rules"], ["NYS Algebra I: Number and Quantity"]),
+    unit("Polynomials and Factoring", ["polynomial", "factor", "zero product property", "quadratic expression", "standard form", "vertex"], ["factor expressions", "identify structure", "connect factors to zeros"], ["NYS Algebra I: Algebra"]),
+    unit("Quadratic Functions", ["parabola", "axis of symmetry", "vertex", "roots", "maximum", "minimum"], ["graph quadratics", "solve by factoring", "interpret features"], ["NYS Algebra I: Functions"]),
+    unit("Exponential Functions", ["initial value", "growth rate", "decay rate", "percent change", "asymptote", "recursive pattern"], ["model growth", "compare linear and exponential", "interpret base"], ["NYS Algebra I: Functions"]),
+    unit("Statistics and Residuals", ["scatterplot", "correlation", "line of best fit", "residual", "causation", "outlier"], ["interpret scatterplots", "fit models", "critique claims"], ["NYS Algebra I: Statistics"])
+  ],
+  geometry: [
+    unit("Transformations and Symmetry", ["translation", "rotation", "reflection", "dilation", "rigid motion", "image"], ["describe transformations", "prove congruence", "use coordinates"], ["NYS Geometry: Congruence"]),
+    unit("Congruence and Proof", ["congruence", "corresponding parts", "SSS", "SAS", "ASA", "proof statement"], ["write proofs", "justify triangle congruence", "use logical sequence"], ["NYS Geometry: Congruence"]),
+    unit("Similarity", ["scale factor", "similar triangle", "AA similarity", "proportional side", "indirect measurement", "dilation"], ["prove similarity", "solve proportions", "interpret scale"], ["NYS Geometry: Similarity"]),
+    unit("Right Triangles and Trigonometry", ["Pythagorean theorem", "sine", "cosine", "tangent", "special right triangle", "angle of elevation"], ["solve right triangles", "choose trig ratios", "model distances"], ["NYS Geometry: Right Triangle Trigonometry"]),
+    unit("Circles", ["central angle", "inscribed angle", "arc", "chord", "tangent", "sector"], ["use circle theorems", "find arc measures", "solve circle problems"], ["NYS Geometry: Circles"]),
+    unit("Coordinate Geometry", ["distance formula", "midpoint", "slope", "parallel lines", "perpendicular lines", "partition"], ["prove with coordinates", "calculate distance", "classify figures"], ["NYS Geometry: Coordinate Geometry"]),
+    unit("Measurement and Dimension", ["area", "surface area", "volume", "density", "cross-section", "composite figure"], ["use formulas", "reason with units", "solve design problems"], ["NYS Geometry: Measurement"]),
+    unit("Geometric Modeling", ["diagram", "assumption", "constraint", "precision", "construction", "locus"], ["model real situations", "critique diagrams", "defend assumptions"], ["NYS Geometry: Modeling"])
+  ],
+  "algebra-2": [
+    unit("Function Families", ["linear function", "quadratic function", "exponential function", "absolute value", "piecewise function", "transformation"], ["compare functions", "identify features", "model contexts"], ["NYS Algebra II: Functions"]),
+    unit("Polynomial Functions", ["degree", "leading coefficient", "zero", "multiplicity", "end behavior", "factor theorem"], ["analyze polynomial graphs", "find zeros", "use structure"], ["NYS Algebra II: Algebra"]),
+    unit("Rational and Radical Functions", ["asymptote", "extraneous solution", "radical equation", "rational expression", "domain restriction", "inverse operation"], ["solve rational equations", "check solutions", "interpret restrictions"], ["NYS Algebra II: Algebra"]),
+    unit("Exponential and Logarithmic Functions", ["logarithm", "base", "compound growth", "half-life", "inverse function", "e"], ["solve exponential equations", "interpret logs", "model growth"], ["NYS Algebra II: Functions"]),
+    unit("Trigonometric Functions", ["unit circle", "radian", "period", "amplitude", "phase shift", "sinusoidal model"], ["graph trig functions", "solve trig equations", "interpret periodicity"], ["NYS Algebra II: Functions"]),
+    unit("Sequences and Series", ["arithmetic sequence", "geometric sequence", "recursive rule", "explicit rule", "sigma notation", "series"], ["write formulas", "compare growth", "sum finite series"], ["NYS Algebra II: Number and Quantity"]),
+    unit("Probability and Statistics", ["normal distribution", "standard deviation", "conditional probability", "independence", "simulation", "margin of error"], ["interpret probability", "use distributions", "evaluate studies"], ["NYS Algebra II: Statistics"]),
+    unit("Modeling and Regents Strategy", ["parameter", "residual", "constraint", "technology output", "reasonableness", "multiple representation"], ["choose models", "justify answers", "read exam stimuli"], ["NYSED Regents Algebra II released items"])
+  ],
+  precalculus: [
+    unit("Advanced Function Analysis", ["domain", "range", "composition", "inverse", "transformation", "continuity"], ["analyze functions", "compose functions", "interpret inverse relationships"], ["NYS Mathematics: Functions"]),
+    unit("Polynomial and Rational Models", ["zero", "asymptote", "factor", "end behavior", "hole", "multiplicity"], ["sketch graphs", "solve equations", "connect algebra and graph features"], ["NYS Mathematics: Algebra"]),
+    unit("Exponential and Logarithmic Models", ["logarithm", "exponential model", "growth factor", "decay", "semi-log plot", "inverse"], ["model change", "solve with logs", "interpret parameters"], ["NYS Mathematics: Functions"]),
+    unit("Trigonometric and Circular Functions", ["unit circle", "radian", "period", "amplitude", "identity", "inverse trig"], ["evaluate trig", "prove identities", "solve periodic models"], ["NYS Mathematics: Trigonometry"]),
+    unit("Vectors and Parametric Equations", ["vector component", "magnitude", "direction", "parameter", "position", "velocity"], ["represent motion", "add vectors", "interpret parameters"], ["NYS Mathematics: Modeling"]),
+    unit("Polar and Complex Numbers", ["polar coordinate", "complex plane", "modulus", "argument", "De Moivre", "rotation"], ["convert forms", "graph polar equations", "interpret complex operations"], ["NYS Mathematics: Number and Quantity"]),
+    unit("Matrices and Systems", ["matrix", "determinant", "inverse matrix", "linear system", "row operation", "transformation matrix"], ["solve systems", "interpret matrices", "use technology"], ["NYS Mathematics: Algebra"]),
+    unit("Limits and Readiness for Calculus", ["limit", "average rate", "instantaneous rate", "secant line", "tangent line", "accumulation"], ["estimate limits", "connect rates", "prepare for derivatives"], ["NYS Mathematics: Calculus Readiness"])
+  ],
+  statistics: [
+    unit("One-Variable Data", ["distribution", "center", "spread", "outlier", "shape", "boxplot"], ["describe distributions", "compare data sets", "choose statistics"], ["NYS Statistics and Probability"]),
+    unit("Two-Variable Data", ["scatterplot", "correlation", "regression", "residual", "association", "lurking variable"], ["interpret association", "fit lines", "avoid causation errors"], ["NYS Statistics and Probability"]),
+    unit("Collecting Data", ["population", "sample", "random assignment", "bias", "control group", "survey design"], ["evaluate studies", "design samples", "identify bias"], ["NYS Statistics and Probability"]),
+    unit("Probability", ["sample space", "event", "conditional probability", "independence", "expected value", "simulation"], ["calculate probability", "use tree diagrams", "interpret independence"], ["NYS Statistics and Probability"]),
+    unit("Sampling Distributions", ["sample statistic", "parameter", "variability", "standard error", "central limit idea", "margin of error"], ["reason about samples", "interpret variability", "simulate distributions"], ["NYS Statistics and Probability"]),
+    unit("Inference for Proportions", ["confidence interval", "hypothesis test", "p-value", "null hypothesis", "alternative hypothesis", "significance"], ["test claims", "interpret intervals", "explain p-values"], ["NYS Statistics and Probability"]),
+    unit("Inference for Means", ["mean", "standard deviation", "t-distribution", "paired data", "confidence level", "degrees of freedom"], ["choose tests", "state conclusions", "check conditions"], ["NYS Statistics and Probability"]),
+    unit("Data Ethics and Communication", ["misleading graph", "privacy", "sampling frame", "practical significance", "replication", "uncertainty"], ["critique claims", "communicate uncertainty", "use ethical data"], ["NYS Statistics and Probability"])
+  ],
+  calculus: [
+    unit("Limits and Continuity", ["limit", "one-sided limit", "continuity", "asymptote", "piecewise function", "squeeze reasoning"], ["estimate limits", "justify continuity", "analyze graphs"], ["NYS Mathematics: Calculus"]),
+    unit("Derivative Concepts", ["derivative", "tangent line", "instantaneous rate", "difference quotient", "differentiability", "slope field"], ["compute derivatives", "interpret rates", "connect graphs"], ["NYS Mathematics: Calculus"]),
+    unit("Derivative Rules", ["product rule", "quotient rule", "chain rule", "implicit differentiation", "inverse derivative", "higher derivative"], ["apply rules", "differentiate efficiently", "check structure"], ["NYS Mathematics: Calculus"]),
+    unit("Applications of Derivatives", ["optimization", "related rates", "mean value theorem", "concavity", "inflection point", "linearization"], ["solve applications", "justify extrema", "analyze behavior"], ["NYS Mathematics: Calculus"]),
+    unit("Integration Concepts", ["antiderivative", "definite integral", "accumulation", "Riemann sum", "average value", "area under curve"], ["interpret integrals", "estimate accumulation", "connect area and rate"], ["NYS Mathematics: Calculus"]),
+    unit("Techniques of Integration", ["u-substitution", "integration by parts", "partial fractions", "trig substitution", "improper integral", "numeric integration"], ["choose techniques", "evaluate integrals", "check reasonableness"], ["NYS Mathematics: Calculus"]),
+    unit("Differential Equations", ["separable equation", "slope field", "initial condition", "exponential model", "logistic model", "Euler method"], ["solve differential equations", "interpret models", "match slope fields"], ["NYS Mathematics: Calculus"]),
+    unit("Series and Approximation", ["sequence", "series", "convergence", "Taylor polynomial", "radius of convergence", "error bound"], ["test convergence", "approximate functions", "bound error"], ["NYS Mathematics: Calculus"])
+  ]
+};
+
+const HIGH_SCHOOL_SCIENCE_UNITS = {
+  "earth-science": [
+    unit("Earth in Space", ["celestial motion", "seasons", "moon phase", "solar system model", "gravity", "spectral evidence"], ["interpret sky models", "explain seasons", "use evidence from observations"], ["NYS Earth and Space Sciences"]),
+    unit("Earth Materials", ["mineral property", "rock cycle", "igneous rock", "sedimentary rock", "metamorphic rock", "resource"], ["identify materials", "classify rocks", "connect properties to formation"], ["NYS Earth and Space Sciences"]),
+    unit("Plate Tectonics", ["plate boundary", "earthquake", "volcano", "mantle convection", "seafloor spreading", "subduction"], ["read tectonic maps", "explain hazards", "use geologic evidence"], ["NYS Earth and Space Sciences"]),
+    unit("Weathering and Landscapes", ["erosion", "deposition", "stream velocity", "glacier", "soil", "topographic map"], ["interpret landscapes", "read contour maps", "explain surface processes"], ["NYS Earth and Space Sciences"]),
+    unit("Atmosphere and Weather", ["air pressure", "front", "humidity", "storm track", "station model", "wind"], ["read weather maps", "predict weather", "explain air movement"], ["NYS Earth and Space Sciences"]),
+    unit("Climate Systems", ["greenhouse effect", "climate proxy", "ocean current", "latitude", "feedback", "human impact"], ["analyze climate data", "distinguish weather and climate", "evaluate evidence"], ["NYS Earth and Space Sciences"]),
+    unit("Geologic History", ["fossil", "relative dating", "absolute dating", "index fossil", "unconformity", "geologic time"], ["sequence events", "use fossil evidence", "interpret rock records"], ["NYS Earth and Space Sciences"]),
+    unit("Earth Science Lab and Models", ["model limitation", "map scale", "density", "data table", "variable", "measurement error"], ["use reference tables", "read diagrams", "argue from data"], ["NYSED Earth Science released items"])
+  ],
+  biology: [
+    unit("Cell Structure and Function", ["organelle", "cell membrane", "diffusion", "osmosis", "homeostasis", "microscope evidence"], ["model cells", "interpret diagrams", "explain transport"], ["NYS Life Science"]),
+    unit("Biochemistry and Energy", ["enzyme", "ATP", "photosynthesis", "cellular respiration", "macromolecule", "energy transfer"], ["trace matter and energy", "explain enzymes", "interpret lab data"], ["NYS Life Science"]),
+    unit("Genetics and Inheritance", ["DNA", "gene", "allele", "Punnett square", "mutation", "chromosome"], ["predict inheritance", "interpret pedigrees", "connect genes to traits"], ["NYS Life Science"]),
+    unit("Evolution", ["natural selection", "adaptation", "variation", "common ancestry", "fossil evidence", "speciation"], ["explain selection", "use evidence", "avoid purpose-based misconceptions"], ["NYS Life Science"]),
+    unit("Ecology", ["ecosystem", "food web", "population", "carrying capacity", "biodiversity", "invasive species"], ["model interactions", "analyze population data", "explain stability"], ["NYS Life Science"]),
+    unit("Human Body Systems", ["immune response", "nervous system", "endocrine system", "feedback loop", "respiration", "digestion"], ["connect systems", "explain regulation", "interpret body-system data"], ["NYS Life Science"]),
+    unit("Reproduction and Development", ["mitosis", "meiosis", "fertilization", "embryo", "differentiation", "asexual reproduction"], ["compare processes", "explain development", "interpret cell-cycle models"], ["NYS Life Science"]),
+    unit("Biology Lab and Regents Strategy", ["controlled variable", "dependent variable", "claim evidence reasoning", "graph trend", "experimental design", "valid conclusion"], ["design investigations", "evaluate data", "write scientific explanations"], ["NYSED Living Environment released items"])
+  ],
+  chemistry: [
+    unit("Atomic Structure", ["proton", "neutron", "electron", "isotope", "atomic mass", "electron configuration"], ["use periodic table data", "compare atoms", "explain isotopes"], ["NYS Chemistry"]),
+    unit("Periodic Trends", ["atomic radius", "ionization energy", "electronegativity", "metallic character", "valence electron", "group trend"], ["predict properties", "explain trends", "use table evidence"], ["NYS Chemistry"]),
+    unit("Bonding and Intermolecular Forces", ["ionic bond", "covalent bond", "polarity", "hydrogen bonding", "molecular geometry", "lattice"], ["classify bonds", "predict properties", "draw models"], ["NYS Chemistry"]),
+    unit("Moles and Stoichiometry", ["mole", "molar mass", "balanced equation", "limiting reactant", "percent yield", "empirical formula"], ["convert quantities", "balance equations", "solve stoichiometry"], ["NYS Chemistry"]),
+    unit("Solutions and Concentration", ["molarity", "solubility", "dilution", "saturated solution", "electrolyte", "colligative property"], ["calculate concentration", "interpret solubility", "compare solutions"], ["NYS Chemistry"]),
+    unit("Thermochemistry and Kinetics", ["enthalpy", "activation energy", "catalyst", "reaction rate", "collision theory", "energy diagram"], ["read energy diagrams", "explain rates", "analyze heat flow"], ["NYS Chemistry"]),
+    unit("Equilibrium, Acids, and Bases", ["Le Chatelier's principle", "equilibrium constant", "pH", "acid", "base", "titration"], ["predict shifts", "interpret pH", "solve acid-base problems"], ["NYS Chemistry"]),
+    unit("Redox and Lab Strategy", ["oxidation", "reduction", "half-reaction", "electrochemical cell", "indicator", "measurement uncertainty"], ["identify redox", "use lab evidence", "write scientific explanations"], ["NYSED Chemistry released items"])
+  ],
+  physics: [
+    unit("Motion in One and Two Dimensions", ["displacement", "velocity", "acceleration", "projectile motion", "vector component", "kinematic graph"], ["analyze motion graphs", "resolve vectors", "solve kinematics"], ["NYS Physics"]),
+    unit("Forces and Newton's Laws", ["net force", "mass", "free-body diagram", "friction", "normal force", "tension"], ["draw force diagrams", "apply Newton's laws", "explain acceleration"], ["NYS Physics"]),
+    unit("Energy", ["work", "kinetic energy", "potential energy", "conservation of energy", "power", "spring energy"], ["track energy", "solve conservation problems", "interpret energy diagrams"], ["NYS Physics"]),
+    unit("Momentum", ["impulse", "momentum", "collision", "conservation", "elastic collision", "inelastic collision"], ["analyze collisions", "use impulse-momentum", "interpret data"], ["NYS Physics"]),
+    unit("Circular Motion and Gravitation", ["centripetal force", "period", "frequency", "orbital motion", "gravitational field", "satellite"], ["model circular motion", "connect force and acceleration", "solve orbital contexts"], ["NYS Physics"]),
+    unit("Waves and Sound", ["wavelength", "frequency", "amplitude", "interference", "standing wave", "Doppler effect"], ["analyze wave diagrams", "calculate wave speed", "explain interference"], ["NYS Physics"]),
+    unit("Electricity and Magnetism", ["charge", "electric field", "potential difference", "current", "resistance", "magnetic field"], ["analyze circuits", "use Ohm's law", "explain fields"], ["NYS Physics"]),
+    unit("Modern Physics and Lab Strategy", ["photon", "nuclear reaction", "half-life", "model limitation", "graph slope", "experimental uncertainty"], ["interpret modern models", "analyze lab graphs", "argue from evidence"], ["NYSED Physics released items"])
+  ],
+  "environmental-science": [
+    unit("Ecosystems and Biodiversity", ["species richness", "food web", "ecosystem service", "habitat", "keystone species", "resilience"], ["analyze ecosystems", "explain biodiversity", "interpret field data"], ["NYS Science: Ecosystems"]),
+    unit("Population Dynamics", ["carrying capacity", "limiting factor", "growth curve", "age structure", "migration", "density"], ["model populations", "interpret graphs", "predict change"], ["NYS Science: Ecology"]),
+    unit("Earth Systems and Resources", ["watershed", "soil", "mineral resource", "renewable resource", "nonrenewable resource", "land use"], ["trace resources", "evaluate trade-offs", "read maps"], ["NYS Earth and Space Sciences"]),
+    unit("Energy Resources", ["fossil fuel", "renewable energy", "energy efficiency", "grid", "carbon footprint", "life-cycle cost"], ["compare resources", "calculate impacts", "evaluate claims"], ["NYS Science: Energy"]),
+    unit("Pollution", ["point source", "nonpoint source", "bioaccumulation", "eutrophication", "particulate matter", "waste stream"], ["trace pollutants", "interpret evidence", "propose mitigation"], ["NYS Science: Human Impacts"]),
+    unit("Climate Change", ["greenhouse gas", "feedback", "mitigation", "adaptation", "climate model", "sea-level rise"], ["analyze climate data", "weigh solutions", "distinguish evidence and opinion"], ["NYS Earth and Space Sciences"]),
+    unit("Environmental Policy", ["regulation", "cost-benefit analysis", "stakeholder", "environmental justice", "conservation", "risk assessment"], ["evaluate policy", "identify stakeholders", "justify trade-offs"], ["NYS Science: Human Impacts"]),
+    unit("Field Methods and Data", ["sampling method", "transect", "water-quality indicator", "biodiversity index", "error", "replication"], ["design investigations", "analyze field data", "write evidence-based conclusions"], ["NYS Science Practices"])
+  ]
+};
 
 const SOCIAL_UNITS = [
   unit("Geography and Human Systems", ["region", "migration", "environment", "settlement", "resources"], ["read maps", "explain movement", "connect place and culture"], ["NYS Social Studies Framework Geography"]),
@@ -196,7 +320,8 @@ const FINANCE_FACS_UNITS = [
 function withGrade(units, gradeLabel) {
   return units.map((u) => ({
     ...u,
-    title: `${gradeLabel}: ${u.title}`,
+    courseContext: gradeLabel,
+    title: u.title,
     concepts: u.concepts.map((concept) => `${concept}`),
     skills: u.skills.slice()
   }));
@@ -260,7 +385,7 @@ for (const grade of [9, 10, 11, 12]) {
   gradeBand: "High School",
   standardsFramework: "New York State Next Generation Mathematics Learning Standards",
   assessmentSourceIds,
-  units: withGrade(MATH_UNITS, label)
+  units: HIGH_SCHOOL_MATH_UNITS[id] || withGrade(MATH_UNITS, label)
 })));
 
 [
@@ -276,7 +401,7 @@ for (const grade of [9, 10, 11, 12]) {
   gradeBand: "High School",
   standardsFramework: "New York State P-12 Science Learning Standards",
   assessmentSourceIds,
-  units: withGrade(SCIENCE_UNITS, label)
+  units: HIGH_SCHOOL_SCIENCE_UNITS[id] || withGrade(SCIENCE_UNITS, label)
 })));
 
 [
@@ -401,9 +526,65 @@ const AP_LABELS = {
   "ap-cybersecurity": "AP Cybersecurity"
 };
 
+const AP_DOMAIN_CONCEPTS = {
+  arts: ["sustained investigation", "selected works", "intentional choices", "materials and processes", "portfolio evidence", "artist statement"],
+  english: ["claim", "evidence", "commentary", "rhetorical situation", "line of reasoning", "style"],
+  languages: ["interpretive communication", "presentational communication", "cultural comparison", "authentic source", "register", "audience"],
+  sciences: ["model", "system", "data pattern", "cause and effect", "experimental design", "scale"],
+  math: ["function behavior", "representation", "parameter", "model", "justification", "precision"],
+  computer: ["algorithm", "abstraction", "data", "debugging", "impact", "security"],
+  economics: ["marginal analysis", "market model", "incentive", "policy effect", "graph shift", "efficiency"],
+  history: ["contextualization", "comparison", "causation", "continuity and change", "source evidence", "argument"],
+  capstone: ["research question", "source credibility", "methodology", "evidence", "limitations", "presentation"]
+};
+
+function phraseConcepts(title) {
+  const clean = String(title || "")
+    .replace(/^Period\s+\d+:\s*/i, "")
+    .replace(/\([^)]*\)/g, "")
+    .trim();
+  const pieces = clean
+    .split(/\s*(?:,|:|;|\/|\band\b|\bor\b|\bto\b)\s*/i)
+    .map((part) => part.trim())
+    .filter((part) => part.length >= 4);
+  return uniq([clean, ...pieces]);
+}
+
+function apDomainKey(id) {
+  if (/2d|3d|drawing|art|music/.test(id)) return "arts";
+  if (/seminar|research/.test(id)) return "capstone";
+  if (/english|spanish-literature/.test(id)) return "english";
+  if (/language|latin/.test(id)) return "languages";
+  if (/biology|chemistry|environmental|physics/.test(id)) return "sciences";
+  if (/calculus|statistics|precalculus/.test(id)) return "math";
+  if (/computer|cybersecurity/.test(id)) return "computer";
+  if (/business|macro|micro/.test(id)) return "economics";
+  return "history";
+}
+
+function apConceptsFor(id, title) {
+  const domain = apDomainKey(id);
+  return uniq([...phraseConcepts(title), ...(AP_DOMAIN_CONCEPTS[domain] || AP_DOMAIN_CONCEPTS.history)]).slice(0, 8);
+}
+
+function apSkillsFor(id) {
+  const domain = apDomainKey(id);
+  const skills = {
+    arts: ["explain artistic intent", "connect materials to meaning", "evaluate revision choices"],
+    capstone: ["evaluate source credibility", "align evidence to a research question", "explain methodological limits"],
+    english: ["analyze evidence", "build a line of reasoning", "connect choices to meaning"],
+    languages: ["interpret authentic sources", "communicate for purpose and audience", "compare cultural perspectives"],
+    sciences: ["use models", "analyze data", "justify claims with evidence"],
+    math: ["represent relationships", "justify procedures", "interpret parameters"],
+    computer: ["trace algorithms", "evaluate impacts", "debug logic"],
+    economics: ["shift and interpret graphs", "explain incentives", "evaluate policy effects"],
+    history: ["contextualize evidence", "compare developments", "explain causation"]
+  };
+  return skills[domain] || skills.history;
+}
+
 for (const [id, label] of Object.entries(AP_LABELS)) {
   const titles = apUnits[id] || ["Course Concepts", "Evidence and Skills", "Applications", "Analysis", "Performance Tasks", "Exam Practice"];
-  const isLanguage = /language|latin|spanish-literature/.test(id);
   const subjectArea = /art|music|drawing/.test(id) ? "AP Arts" :
     /english|seminar|research|language|latin|spanish-literature/.test(id) ? "AP English and Languages" :
     /biology|chemistry|environmental|physics/.test(id) ? "AP Sciences" :
@@ -419,17 +600,7 @@ for (const [id, label] of Object.entries(AP_LABELS)) {
     assessmentSourceIds: ["college-board-ap-courses"],
     ap: true,
     nys: false,
-    units: titles.map((title) => unit(title, [
-      title,
-      isLanguage ? "interpretive communication" : "disciplinary reasoning",
-      isLanguage ? "cultural comparison" : "evidence-based explanation",
-      isLanguage ? "presentational task" : "model or source analysis",
-      isLanguage ? "authentic text" : "exam-style application"
-    ], [
-      isLanguage ? "interpret authentic sources" : "apply a course concept",
-      isLanguage ? "communicate for purpose and audience" : "use evidence accurately",
-      isLanguage ? "compare cultural perspectives" : "explain reasoning"
-    ], [`AP CED: ${title}`]))
+    units: titles.map((title) => unit(title, apConceptsFor(id, title), apSkillsFor(id), [`AP CED: ${title}`]))
   }));
 }
 
@@ -442,15 +613,58 @@ const fillerDistractors = [
   "making a claim without supporting evidence"
 ];
 
+function courseArtifact(course) {
+  const subject = course.subjectArea;
+  if (/ELA|English|Languages/.test(subject)) return "text excerpt";
+  if (/Math|Mathematics|Statistics|Calculus/.test(subject)) return "graph, table, or equation";
+  if (/Science|Physics|Chemistry|Biology|Environmental/.test(subject)) return "data table, diagram, or model";
+  if (/Arts/.test(subject)) return "work sample or performance excerpt";
+  if (/Computer|Technology/.test(subject)) return "algorithm, code trace, or system diagram";
+  if (/Health|Physical/.test(subject)) return "scenario or personal-wellness data";
+  if (/Finance|Family|CDOS|Business|Economics/.test(subject)) return "budget, case study, or market scenario";
+  return "source, scenario, or data set";
+}
+
+function reasoningMove(course) {
+  const subject = course.subjectArea;
+  if (/Math|Mathematics|Statistics|Calculus/.test(subject)) return "show a valid procedure and interpret the answer in context";
+  if (/Science|Physics|Chemistry|Biology|Environmental/.test(subject)) return "connect a model or data pattern to a scientific claim";
+  if (/ELA|English/.test(subject)) return "quote or paraphrase evidence and explain how it supports the claim";
+  if (/Languages/.test(subject)) return "communicate the message for the task, audience, and cultural context";
+  if (/Arts/.test(subject)) return "connect artistic choices to purpose, audience, and effect";
+  if (/Computer|Technology/.test(subject)) return "trace the system or algorithm and explain the consequence";
+  if (/Health|Physical/.test(subject)) return "choose a safe, evidence-based action and explain the health impact";
+  if (/Finance|Family|CDOS|Business|Economics/.test(subject)) return "weigh trade-offs and justify the decision with evidence";
+  return "use evidence to explain the answer in context";
+}
+
+function examTask(course) {
+  if (course.ap) return "AP CED-aligned exam task";
+  if ((course.assessmentSourceIds || []).some((id) => /regents/.test(id))) return "Regents-style item";
+  if ((course.assessmentSourceIds || []).some((id) => /grades-3-8/.test(id))) return "NYSED released state-test-style item";
+  return "NYS standards-aligned classroom task";
+}
+
+function articleFor(phrase) {
+  return /^[aeiou]/i.test(String(phrase || "").trim()) ? "an" : "a";
+}
+
+function compactStandard(course, unitSpec) {
+  return (unitSpec.standardRefs && unitSpec.standardRefs[0]) || course.standardsFramework || "course standard";
+}
+
 function choiceSet(correct, pool, seed) {
-  const choices = [correct];
+  const choices = new Array(4);
+  const target = Math.abs(seed) % 4;
+  choices[target] = correct;
   let i = seed;
-  const uniquePool = uniq(pool.filter((item) => item && item !== correct)).concat(fillerDistractors);
-  while (choices.length < 4 && uniquePool.length) {
-    choices.push(uniquePool[i % uniquePool.length]);
-    i += 3;
+  const uniquePool = uniq(pool.filter((item) => item && item !== correct).concat(fillerDistractors));
+  for (let slot = 0; slot < 4; slot++) {
+    if (choices[slot]) continue;
+    choices[slot] = uniquePool[Math.abs(i) % uniquePool.length];
+    i += 5;
   }
-  return choices.slice(0, 4).sort((a, b) => slug(a).localeCompare(slug(b)));
+  return choices;
 }
 
 function standardRefs(course, unitSpec) {
@@ -461,9 +675,15 @@ function questionTemplates(course, unitSpec, unitIndex, itemIndex, pool, round) 
   const c0 = unitSpec.concepts[0] || unitSpec.title;
   const c1 = unitSpec.concepts[1] || c0;
   const c2 = unitSpec.concepts[2] || c1;
+  const c3 = unitSpec.concepts[3] || c2;
+  const c4 = unitSpec.concepts[4] || c3;
   const skill = unitSpec.skills[itemIndex % unitSpec.skills.length] || "use evidence";
   const refs = standardRefs(course, unitSpec);
-  const pass = round > 0 ? ` during mixed review pass ${round + 1}` : "";
+  const pass = round > 0 ? ` (spiral review pass ${round + 1})` : "";
+  const artifact = courseArtifact(course);
+  const move = reasoningMove(course);
+  const task = examTask(course);
+  const standard = compactStandard(course, unitSpec);
   const base = {
     course: course.id,
     courseLabel: course.label,
@@ -478,25 +698,25 @@ function questionTemplates(course, unitSpec, unitIndex, itemIndex, pool, round) 
   };
   const variants = [
     {
-      prompt: `In ${course.label}, which concept is most central to the unit "${unitSpec.title}"${pass}?`,
+      prompt: `${course.label} - ${unitSpec.title}${pass}: which concept is the best anchor for ${articleFor(task)} ${task}?`,
       correctText: c0,
       choices: choiceSet(c0, pool, unitIndex + itemIndex),
-      explanation: `${c0} is a core idea in ${unitSpec.title}. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word.`
+      explanation: `${c0} is the anchor concept for ${unitSpec.title}. In ${standard}, students need to use that concept to reason through a task, not just recognize the word.`
     },
     {
-      prompt: `A student reviewing ${unitSpec.title}${pass} needs to show the skill "${skill}." Which action best fits that skill?`,
+      prompt: `A student reviewing ${course.label}: ${unitSpec.title}${pass} needs to show the skill "${skill}." Which action best fits that skill?`,
       correctText: `Use evidence to explain ${c1}.`,
       choices: choiceSet(`Use evidence to explain ${c1}.`, [`Guess from key words about ${c2}.`, `Repeat the definition of ${c0} only.`, `Ignore the context and pick the longest answer.`, `Use evidence to explain ${c1}.`], unitIndex),
       explanation: `The useful move is to connect evidence to ${c1}; this matches the standards/CED emphasis on reasoning and application.`
     },
     {
-      prompt: `Which answer best avoids a common mistake about ${unitSpec.title}${pass}?`,
+      prompt: `Which answer best avoids a common mistake about ${course.label}: ${unitSpec.title}${pass}?`,
       correctText: `Connect ${c0} to the prompt context before choosing.`,
       choices: choiceSet(`Connect ${c0} to the prompt context before choosing.`, [`Treat ${c0} as always meaning the same thing.`, `Skip the data or source because the topic is familiar.`, `Choose an unrelated fact from another unit.`, `Connect ${c0} to the prompt context before choosing.`], itemIndex),
       explanation: `Most missed review questions come from using familiar terms without matching them to the exact context.`
     },
     {
-      prompt: `In a standards-aligned question about ${unitSpec.title}${pass}, what kind of evidence would be strongest?`,
+      prompt: `In ${articleFor(task)} ${task} about ${unitSpec.title}${pass}, what kind of evidence would be strongest?`,
       correctText: `Specific evidence that proves a claim about ${c2}.`,
       choices: choiceSet(`Specific evidence that proves a claim about ${c2}.`, [`A vague statement that the topic is important.`, `A fact from a different course.`, `A personal opinion without support.`, `Specific evidence that proves a claim about ${c2}.`], itemIndex + 2),
       explanation: `The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall.`
@@ -508,7 +728,7 @@ function questionTemplates(course, unitSpec, unitIndex, itemIndex, pool, round) 
       explanation: `Strong review notes pair the concept with why it matters in the unit.`
     },
     {
-      prompt: `A released-test-style item asks students to interpret ${unitSpec.title}${pass}. What should they do first?`,
+      prompt: `${articleFor(task).toUpperCase()} ${task} asks students to interpret ${artifact} for ${unitSpec.title}${pass}. What should they do first?`,
       correctText: `Read the prompt, source, or data for the exact task.`,
       choices: choiceSet(`Read the prompt, source, or data for the exact task.`, [`Pick the first familiar vocabulary word.`, `Answer from memory before reading the stimulus.`, `Eliminate every answer that sounds detailed.`, `Read the prompt, source, or data for the exact task.`], unitIndex + 6),
       explanation: `Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario.`
@@ -536,6 +756,60 @@ function questionTemplates(course, unitSpec, unitIndex, itemIndex, pool, round) 
       correctText: `Match the new prompt to ${c0}, then justify the answer with evidence.`,
       choices: choiceSet(`Match the new prompt to ${c0}, then justify the answer with evidence.`, [`Use the exact answer from the last question.`, `Ignore unfamiliar data or wording.`, `Choose the answer with the most academic vocabulary.`, `Match the new prompt to ${c0}, then justify the answer with evidence.`], itemIndex + 14),
       explanation: `Transfer requires recognizing the underlying concept and then adapting it to the new prompt.`
+    },
+    {
+      prompt: `${course.label} - ${unitSpec.title}${pass}: which pair best shows how two ideas in the unit connect?`,
+      correctText: `${c0} connects to ${c1}.`,
+      choices: choiceSet(`${c0} connects to ${c1}.`, [`${c3} replaces all evidence.`, `${c4} belongs only in an unrelated course.`, `${c1} proves that context never matters.`, `${c0} connects to ${c1}.`], itemIndex + 16),
+      explanation: `The pair ${c0} and ${c1} belongs together in ${unitSpec.title}; students should explain the relationship rather than memorize each term alone.`
+    },
+    {
+      prompt: `Which answer best describes the role of ${artifact} in a ${course.label} question on ${unitSpec.title}${pass}?`,
+      correctText: `It provides evidence students must use before deciding.`,
+      choices: choiceSet(`It provides evidence students must use before deciding.`, [`It is decoration that can be skipped.`, `It always gives the answer without reasoning.`, `It only matters if it repeats the vocabulary word.`, `It provides evidence students must use before deciding.`], itemIndex + 18),
+      explanation: `The ${artifact} is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer.`
+    },
+    {
+      prompt: `Which statement would be easiest to defend in ${unitSpec.title}${pass}?`,
+      correctText: `${c0} can be explained with evidence from ${artifact}.`,
+      choices: choiceSet(`${c0} can be explained with evidence from ${artifact}.`, [`${c0} is true because it sounds familiar.`, `${c1} does not need evidence.`, `Any answer with a longer sentence is correct.`, `${c0} can be explained with evidence from ${artifact}.`], itemIndex + 20),
+      explanation: `Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions.`
+    },
+    {
+      prompt: `A student misses a ${task} on ${unitSpec.title}${pass}. Which feedback would help most?`,
+      correctText: `Reread the task, identify ${c0}, and explain the evidence step by step.`,
+      choices: choiceSet(`Reread the task, identify ${c0}, and explain the evidence step by step.`, [`Memorize more unrelated vocabulary before trying again.`, `Skip explanation and only copy the correct letter.`, `Ignore ${c1} because it is probably a trick.`, `Reread the task, identify ${c0}, and explain the evidence step by step.`], itemIndex + 22),
+      explanation: `Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence.`
+    },
+    {
+      prompt: `Which phrase best signals mastery of ${course.label}: ${unitSpec.title}${pass}?`,
+      correctText: `${move}.`,
+      choices: choiceSet(`${move}.`, [`pick the answer that looks longest`, `recall one disconnected definition`, `avoid using evidence because it slows the work`, `${move}.`], itemIndex + 24),
+      explanation: `Mastery in ${course.label} means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario.`
+    },
+    {
+      prompt: `For ${unitSpec.title}${pass}, which unit vocabulary word should be reviewed with ${c0}?`,
+      correctText: c1,
+      choices: choiceSet(c1, pool, itemIndex + 26),
+      explanation: `${c1} belongs near ${c0} in this unit's concept map. Reviewing them together helps students answer transfer questions.`
+    },
+    {
+      prompt: `Which response would lose credit on a ${task} about ${unitSpec.title}${pass}?`,
+      correctText: `A response that names ${c0} but never explains how it fits the evidence.`,
+      choices: choiceSet(`A response that names ${c0} but never explains how it fits the evidence.`, [`A response that links ${c0} to ${c1}.`, `A response that cites evidence from ${artifact}.`, `A response that explains the reasoning in context.`, `A response that names ${c0} but never explains how it fits the evidence.`], itemIndex + 28),
+      explanation: `A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context.`
+    },
+    {
+      prompt: `Which question should a student ask while reviewing ${course.label}: ${unitSpec.title}${pass}?`,
+      correctText: `How does ${c0} help explain the evidence or scenario?`,
+      choices: choiceSet(`How does ${c0} help explain the evidence or scenario?`, [`Which answer has the most familiar word?`, `Can I ignore the source because I studied last night?`, `Which option is written in the longest phrase?`, `How does ${c0} help explain the evidence or scenario?`], itemIndex + 30),
+      explanation: `The best review question forces students to connect the concept to evidence and context.`
+    },
+    {
+      prompt: `Which answer best fits the standard reference "${standard}" for ${unitSpec.title}${pass}?`,
+      correctText: `Apply ${c0} in a new task and support the reasoning.`,
+      choices: choiceSet(`Apply ${c0} in a new task and support the reasoning.`, [`Copy the unit title without explaining it.`, `Use a fact from a different course as the main proof.`, `Avoid the task because the standard is broad.`, `Apply ${c0} in a new task and support the reasoning.`], itemIndex + 32),
+      explanation: `${standard} expects students to use knowledge and skill together. The correct answer applies ${c0} and supports the reasoning.`
     }
   ];
   return variants[itemIndex % variants.length] ? { ...base, ...variants[itemIndex % variants.length] } : null;
@@ -544,38 +818,63 @@ function questionTemplates(course, unitSpec, unitIndex, itemIndex, pool, round) 
 function buildQuestions(course) {
   const conceptPool = course.units.flatMap((u) => u.concepts);
   const out = [];
-  let item = 0;
-  const variantsPerUnit = 10;
-  while (out.length < course.minQuestions) {
-    const unitIndex = Math.floor(item / variantsPerUnit) % course.units.length;
-    const round = Math.floor(item / (variantsPerUnit * course.units.length));
+  const questionsPerUnit = Math.ceil(course.minQuestions / Math.max(1, course.units.length));
+  for (let unitIndex = 0; unitIndex < course.units.length; unitIndex++) {
     const unitSpec = course.units[unitIndex];
-    const q = questionTemplates(course, unitSpec, unitIndex, item, conceptPool, round);
-    out.push({
-      id: `${course.id}-${String(out.length + 1).padStart(3, "0")}`,
-      ...q
-    });
-    item += 1;
+    for (let itemIndex = 0; itemIndex < questionsPerUnit; itemIndex++) {
+      const round = Math.floor(itemIndex / 18);
+      const q = questionTemplates(course, unitSpec, unitIndex, itemIndex, conceptPool, round);
+      out.push({
+        id: `${course.id}-${String(out.length + 1).padStart(3, "0")}`,
+        ...q
+      });
+    }
   }
-  return out;
+  return out.slice(0, course.minQuestions);
 }
 
 function buildJeopardyBoard(course, unitSpec, unitIndex) {
+  const artifact = courseArtifact(course);
+  const move = reasoningMove(course);
+  const standard = compactStandard(course, unitSpec);
+  const categorySpecs = [
+    ["Core Terms", unitSpec.concepts],
+    ["Reasoning Moves", unitSpec.skills],
+    ["Evidence or Models", [artifact, "data pattern", "source detail", "worked example", "task context"]],
+    ["Common Traps", ["familiar-word trap", "unsupported claim", "wrong-unit transfer", "ignored evidence", "overgeneralization"]],
+    ["Applications", ["new scenario", "constructed response", "performance task", "exam transfer", "real-world decision"]]
+  ];
+  const clueText = (categoryIndex, value, answer) => {
+    const stems = [
+      `In ${course.label}, this term is a key anchor for ${unitSpec.title}.`,
+      `A strong ${course.label} answer uses this move when working through ${unitSpec.title}.`,
+      `Students should read this kind of evidence before answering a ${unitSpec.title} item.`,
+      `This mistake causes students to miss ${unitSpec.title} questions even when they know the vocabulary.`,
+      `This transfer task asks students to apply ${unitSpec.title} beyond a memorized definition.`
+    ];
+    return `${stems[categoryIndex]} It is worth ${value} because the answer must connect to ${answer}.`;
+  };
+  const clueExplanation = (categoryIndex, answer) => {
+    const explanations = [
+      `${answer} belongs in the concept map for ${unitSpec.title}. Students should define it and explain how it functions in ${course.label}.`,
+      `${answer} is a skill move, not a trivia fact. A good response should show the reasoning and use evidence.`,
+      `${answer} matters because ${course.label} questions often hide the key information inside a ${artifact}.`,
+      `${answer} is a trap because it breaks the habit required by ${standard}: read the task, use evidence, and explain.`,
+      `${answer} checks transfer. The student should ${move} while staying inside the unit context.`
+    ];
+    return explanations[categoryIndex];
+  };
   const categories = [
-    ["Core Concepts", unitSpec.concepts],
-    ["Skills", unitSpec.skills],
-    ["Evidence", ["source evidence", "data pattern", "example", "counterexample", "context"]],
-    ["Common Traps", ["distractor", "misreading", "overgeneralization", "missing units", "unsupported claim"]],
-    ["Applications", ["scenario", "model", "performance task", "constructed response", "transfer"]]
+    ...categorySpecs
   ].map(([name, pool], categoryIndex) => ({
     name,
     clues: [100, 200, 300, 400, 500].map((value, valueIndex) => {
       const answer = pool[valueIndex % pool.length] || unitSpec.title;
       return {
         value,
-        clue: `This ${course.subjectArea.toLowerCase()} idea helps students handle ${unitSpec.title} at the ${value}-level.`,
+        clue: clueText(categoryIndex, value, answer),
         answer,
-        explanation: `${answer} belongs in ${unitSpec.title} for ${course.label}. A strong response should define it, connect it to the task, and use evidence or process language from the standards/CED.`
+        explanation: clueExplanation(categoryIndex, answer)
       };
     })
   }));
@@ -600,6 +899,8 @@ function buildJeopardyBoard(course, unitSpec, unitIndex) {
 function buildPracticeBlueprint(course) {
   const released = course.assessmentSourceIds.filter((id) => id.includes("nysed") || id.includes("regents"));
   const sourceMode = released.length ? "released-nys-source-backed" : course.ap ? "ap-ced-original-with-public-sample-links" : "standards-aligned-original";
+  const questionsPerUnit = Math.ceil(course.minQuestions / Math.max(1, course.units.length));
+  const sampleCount = Math.min(8, questionsPerUnit);
   return {
     id: `${course.id}-practice-blueprint`,
     courseId: course.id,
@@ -620,7 +921,13 @@ function buildPracticeBlueprint(course) {
     units: course.units.map((u) => ({
       unit: u.title,
       standardRefs: standardRefs(course, u),
-      sampledQuestionIds: Array.from({ length: 4 }, (_, i) => `${course.id}-${String((course.units.indexOf(u) * 4 + i + 1)).padStart(3, "0")}`)
+      sampledQuestionIds: Array.from({ length: sampleCount }, (_, i) => `${course.id}-${String((course.units.indexOf(u) * questionsPerUnit + i + 1)).padStart(3, "0")}`)
+    })),
+    writtenTasks: course.units.slice(0, 4).map((u, index) => ({
+      id: `${course.id}-written-${index + 1}`,
+      unit: u.title,
+      prompt: `Use the ${course.label} unit "${u.title}" to answer a constructed response. Make a claim, use a specific concept such as ${u.concepts[0]}, and explain the evidence or process in context.`,
+      scoringFocus: ["accurate course concept", "evidence or process", "clear explanation"]
     }))
   };
 }

@@ -17,10 +17,11 @@ https://sirhanmacx.github.io/mr-macs-review-arcade
 - **Persistent + offline-capable** — student profiles, rosters, answers, shards, achievements, sessions, and settings live in `localStorage`; no backend, no logins, no PII by default
 - **Optional global leaderboards** — teachers can configure a vetted HTTPS endpoint; public arcade handles are filtered client-side and server-side before any score is stored
 - **Generated arcade art** — every catalog entry has original WebP thumbnail, card, and marquee art produced by `scripts/generate_arcade_assets.py`
-- **7,146-prompt** shared review library across 99 course buckets, including 42 AP/AP Career Kickstart courses
+- **13,362-prompt** shared review library across 99 course buckets, including 42 AP/AP Career Kickstart courses
 - **90-course all-subject taxonomy** aligned to NYSED P-12 standards areas plus College Board AP CED course structures
 - **101 visible course labels** in the hub/course pickers after canonicalizing generated NYS/AP labels with existing social-studies labels
 - **664 generated unit Jeopardy blueprints** and **90 practice-exam blueprints** staged for the all-subject rollout, with generated Jeopardy boards playable through `games/generated-jeopardy/` and generated practice exams playable through `games/generated-practice-exam/`
+- **Course-depth guardrails** require every generated course to cover every unit, every generated unit to carry at least 12 arcade questions, every generated practice exam to sample each unit, and every generated board to use the 5x5 + Final Jeopardy shape.
 
 ## Tech stack
 

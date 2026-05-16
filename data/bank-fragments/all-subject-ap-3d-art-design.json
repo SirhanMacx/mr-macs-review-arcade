@@ -2,7 +2,7 @@
   "course": "ap-3d-art-design",
   "courseLabel": "AP 3-D Art and Design",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-3d-art-design-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP 3-D Art and Design, which concept is most central to the unit \"Sustained Investigation\"?",
+      "prompt": "AP 3-D Art and Design - Sustained Investigation: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Sustained Investigation",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
-        "Materials and Processes",
-        "Sustained Investigation"
+        "Sustained Investigation",
+        "sustained investigation",
+        "artist statement",
+        "Materials and Processes"
       ],
-      "explanation": "Sustained Investigation is a core idea in Sustained Investigation. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Sustained Investigation is the anchor concept for Sustained Investigation. In AP CED: Sustained Investigation, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-3d-art-design-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Sustained Investigation needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP 3-D Art and Design: Sustained Investigation needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain sustained investigation.",
+        "Guess from key words about selected works.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Sustained Investigation only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-3d-art-design-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Sustained Investigation?",
+      "prompt": "Which answer best avoids a common mistake about AP 3-D Art and Design: Sustained Investigation?",
       "correctText": "Connect Sustained Investigation to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Sustained Investigation to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Sustained Investigation, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Sustained Investigation, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about selected works.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP 3-D Art and Design: Sustained Investigation?",
-      "correctText": "Sustained Investigation matters because it helps explain disciplinary reasoning.",
+      "correctText": "Sustained Investigation matters because it helps explain sustained investigation.",
       "choices": [
+        "Sustained Investigation matters because it helps explain sustained investigation.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Sustained Investigation matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Sustained Investigation appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Sustained Investigation. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Sustained Investigation. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Sustained Investigation to the larger course skill?",
-      "correctText": "Sustained Investigation is useful when students apply a course concept.",
+      "correctText": "Sustained Investigation is useful when students explain artistic intent.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Sustained Investigation is useful when students explain artistic intent.",
         "making a claim without supporting evidence",
-        "Sustained Investigation is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Sustained Investigation only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Sustained Investigation, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Sustained Investigation, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Sustained Investigation, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Sustained Investigation?",
-      "correctText": "evidence-based explanation",
+      "correctText": "selected works",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation",
-        "Materials and Processes",
-        "using a rule from a different unit"
+        "selected works",
+        "Sustained Investigation",
+        "artist statement",
+        "Materials and Processes"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Sustained Investigation, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "selected works is part of the concept cluster for Sustained Investigation, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-3d-art-design-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Sustained Investigation knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Sustained Investigation, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Sustained Investigation, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,79 +258,354 @@
       "id": "ap-3d-art-design-011",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Selected Works",
+      "topic": "Sustained Investigation",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Selected Works",
+        "AP CED: Sustained Investigation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP 3-D Art and Design, which concept is most central to the unit \"Selected Works\"?",
-      "correctText": "Selected Works",
+      "prompt": "AP 3-D Art and Design - Sustained Investigation: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Sustained Investigation connects to sustained investigation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "model or source analysis",
-        "Selected Works",
-        "Sustained Investigation"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Sustained Investigation connects to sustained investigation.",
+        "intentional choices replaces all evidence."
       ],
-      "explanation": "Selected Works is a core idea in Selected Works. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Sustained Investigation and sustained investigation belongs together in Sustained Investigation; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-3d-art-design-012",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Selected Works",
+      "topic": "Sustained Investigation",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Selected Works",
+        "AP CED: Sustained Investigation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Selected Works needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP 3-D Art and Design question on Sustained Investigation?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Selected Works only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-3d-art-design-013",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Selected Works",
+      "topic": "Sustained Investigation",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Selected Works",
+        "AP CED: Sustained Investigation",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Selected Works?",
-      "correctText": "Connect Selected Works to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Sustained Investigation?",
+      "correctText": "Sustained Investigation can be explained with evidence from work sample or performance excerpt.",
       "choices": [
-        "Connect Selected Works to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
+        "Sustained Investigation can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-3d-art-design-014",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Sustained Investigation. Which feedback would help most?",
+      "correctText": "Reread the task, identify Sustained Investigation, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Sustained Investigation, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-3d-art-design-015",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP 3-D Art and Design: Sustained Investigation?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP 3-D Art and Design means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-3d-art-design-016",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Sustained Investigation, which unit vocabulary word should be reviewed with Sustained Investigation?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "selected works",
+        "sustained investigation",
+        "Selected Works",
+        "Materials"
+      ],
+      "explanation": "sustained investigation belongs near Sustained Investigation in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-3d-art-design-017",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Sustained Investigation?",
+      "correctText": "A response that names Sustained Investigation but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Sustained Investigation but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Sustained Investigation to sustained investigation."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-3d-art-design-018",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP 3-D Art and Design: Sustained Investigation?",
+      "correctText": "How does Sustained Investigation help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence",
-        "Treat Selected Works as always meaning the same thing."
+        "How does Sustained Investigation help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-3d-art-design-019",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Sustained Investigation\" for Sustained Investigation (spiral review pass 2)?",
+      "correctText": "Apply Sustained Investigation in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Sustained Investigation in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Sustained Investigation expects students to use knowledge and skill together. The correct answer applies Sustained Investigation and supports the reasoning."
+    },
+    {
+      "id": "ap-3d-art-design-020",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP 3-D Art and Design - Sustained Investigation (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Sustained Investigation",
+      "choices": [
+        "making a claim without supporting evidence",
+        "portfolio evidence",
+        "Space",
+        "Sustained Investigation"
+      ],
+      "explanation": "Sustained Investigation is the anchor concept for Sustained Investigation. In AP CED: Sustained Investigation, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-3d-art-design-021",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP 3-D Art and Design: Sustained Investigation (spiral review pass 2) needs to show the skill \"evaluate revision choices.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
+      "choices": [
+        "Use evidence to explain sustained investigation.",
+        "Guess from key words about selected works.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Sustained Investigation only."
+      ],
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-3d-art-design-022",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP 3-D Art and Design: Sustained Investigation (spiral review pass 2)?",
+      "correctText": "Connect Sustained Investigation to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Sustained Investigation to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-3d-art-design-014",
+      "id": "ap-3d-art-design-023",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Sustained Investigation (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
+      "choices": [
+        "Specific evidence that proves a claim about selected works.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-3d-art-design-024",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Sustained Investigation",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sustained Investigation",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP 3-D Art and Design: Sustained Investigation (spiral review pass 2)?",
+      "correctText": "Sustained Investigation matters because it helps explain sustained investigation.",
+      "choices": [
+        "Sustained Investigation matters because it helps explain sustained investigation.",
+        "choosing an answer because it uses familiar words",
+        "Sustained Investigation appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-3d-art-design-025",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Selected Works",
@@ -344,18 +619,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Selected Works, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP 3-D Art and Design - Selected Works: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Selected Works",
       "choices": [
-        "A vague statement that the topic is important.",
+        "sustained investigation",
+        "Selected Works",
+        "artist statement",
+        "Materials"
+      ],
+      "explanation": "Selected Works is the anchor concept for Selected Works. In AP CED: Selected Works, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-3d-art-design-026",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP 3-D Art and Design: Selected Works needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
+      "choices": [
+        "Repeat the definition of Selected Works only.",
+        "Use evidence to explain sustained investigation.",
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Ignore the context and pick the longest answer."
+      ],
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-3d-art-design-027",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP 3-D Art and Design: Selected Works?",
+      "correctText": "Connect Selected Works to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Selected Works to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-3d-art-design-028",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Selected Works, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about selected works.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-3d-art-design-015",
+      "id": "ap-3d-art-design-029",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Selected Works",
@@ -370,17 +720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP 3-D Art and Design: Selected Works?",
-      "correctText": "Selected Works matters because it helps explain disciplinary reasoning.",
+      "correctText": "Selected Works matters because it helps explain sustained investigation.",
       "choices": [
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit.",
-        "Selected Works matters because it helps explain disciplinary reasoning."
+        "Selected Works matters because it helps explain sustained investigation.",
+        "selected works is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-3d-art-design-016",
+      "id": "ap-3d-art-design-030",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Selected Works",
@@ -394,18 +744,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Selected Works. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Selected Works. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-3d-art-design-017",
+      "id": "ap-3d-art-design-031",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Selected Works",
@@ -420,17 +770,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Selected Works to the larger course skill?",
-      "correctText": "Selected Works is useful when students use evidence accurately.",
+      "correctText": "Selected Works is useful when students explain artistic intent.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Selected Works is useful when students use evidence accurately.",
-        "Selected Works only matters for memorized definitions."
+        "Selected Works only matters for memorized definitions.",
+        "Selected Works is useful when students explain artistic intent.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation should be ignored unless it appears in the title."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-3d-art-design-018",
+      "id": "ap-3d-art-design-032",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Selected Works",
@@ -447,15 +797,15 @@
       "prompt": "For Selected Works, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Selected Works, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Selected Works, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-3d-art-design-019",
+      "id": "ap-3d-art-design-033",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Selected Works",
@@ -470,17 +820,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Selected Works?",
-      "correctText": "evidence-based explanation",
+      "correctText": "selected works",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation",
-        "exam-style application",
-        "Materials and Processes"
+        "sustained investigation",
+        "selected works",
+        "Selected Works",
+        "Materials"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Selected Works, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "selected works is part of the concept cluster for Selected Works, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-3d-art-design-020",
+      "id": "ap-3d-art-design-034",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Selected Works",
@@ -497,115 +847,465 @@
       "prompt": "A student wants to transfer Selected Works knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Selected Works, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Selected Works, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Selected Works, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-3d-art-design-021",
+      "id": "ap-3d-art-design-035",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Form and Space",
+      "topic": "Selected Works",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Form and Space",
+        "AP CED: Selected Works",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP 3-D Art and Design, which concept is most central to the unit \"Form and Space\"?",
-      "correctText": "Form and Space",
+      "prompt": "AP 3-D Art and Design - Selected Works: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Selected Works connects to sustained investigation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Form and Space",
-        "memorizing an isolated fact without evidence",
-        "Sustained Investigation"
-      ],
-      "explanation": "Form and Space is a core idea in Form and Space. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
-    },
-    {
-      "id": "ap-3d-art-design-022",
-      "course": "ap-3d-art-design",
-      "courseLabel": "AP 3-D Art and Design",
-      "topic": "Form and Space",
-      "domain": "AP Arts",
-      "subjectArea": "AP Arts",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Form and Space",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student reviewing Form and Space needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
-      "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
         "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "choosing an answer because it uses familiar words",
+        "Selected Works connects to sustained investigation.",
+        "intentional choices replaces all evidence."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The pair Selected Works and sustained investigation belongs together in Selected Works; students should explain the relationship rather than memorize each term alone."
     },
     {
-      "id": "ap-3d-art-design-023",
+      "id": "ap-3d-art-design-036",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Form and Space",
+      "topic": "Selected Works",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Form and Space",
+        "AP CED: Selected Works",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Form and Space?",
-      "correctText": "Connect Form and Space to the prompt context before choosing.",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP 3-D Art and Design question on Selected Works?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-3d-art-design-037",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Selected Works?",
+      "correctText": "Selected Works can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Selected Works can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-3d-art-design-038",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Selected Works. Which feedback would help most?",
+      "correctText": "Reread the task, identify Selected Works, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "Connect Form and Space to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Selected Works, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-3d-art-design-039",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP 3-D Art and Design: Selected Works?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP 3-D Art and Design means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-3d-art-design-040",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Selected Works, which unit vocabulary word should be reviewed with Selected Works?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "selected works",
+        "sustained investigation",
+        "Selected Works",
+        "Materials"
+      ],
+      "explanation": "sustained investigation belongs near Selected Works in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-3d-art-design-041",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Selected Works?",
+      "correctText": "A response that names Selected Works but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Selected Works but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Selected Works to sustained investigation."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-3d-art-design-042",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP 3-D Art and Design: Selected Works?",
+      "correctText": "How does Selected Works help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Selected Works help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-3d-art-design-043",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Selected Works\" for Selected Works (spiral review pass 2)?",
+      "correctText": "Apply Selected Works in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Selected Works in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Selected Works expects students to use knowledge and skill together. The correct answer applies Selected Works and supports the reasoning."
+    },
+    {
+      "id": "ap-3d-art-design-044",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP 3-D Art and Design - Selected Works (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Selected Works",
+      "choices": [
+        "Selected Works",
+        "Sustained Investigation",
+        "portfolio evidence",
+        "Materials and Processes"
+      ],
+      "explanation": "Selected Works is the anchor concept for Selected Works. In AP CED: Selected Works, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-3d-art-design-045",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP 3-D Art and Design: Selected Works (spiral review pass 2) needs to show the skill \"evaluate revision choices.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
+      "choices": [
+        "Repeat the definition of Selected Works only.",
+        "Use evidence to explain sustained investigation.",
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer."
+      ],
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-3d-art-design-046",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP 3-D Art and Design: Selected Works (spiral review pass 2)?",
+      "correctText": "Connect Selected Works to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Selected Works to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-3d-art-design-024",
+      "id": "ap-3d-art-design-047",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Form and Space",
+      "topic": "Selected Works",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Form and Space",
+        "AP CED: Selected Works",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Form and Space, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Selected Works (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
-        "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
+        "Specific evidence that proves a claim about selected works.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
         "using a rule from a different unit"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-3d-art-design-025",
+      "id": "ap-3d-art-design-048",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Selected Works",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Selected Works",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP 3-D Art and Design: Selected Works (spiral review pass 2)?",
+      "correctText": "Selected Works matters because it helps explain sustained investigation.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Selected Works matters because it helps explain sustained investigation.",
+        "selected works is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-3d-art-design-049",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP 3-D Art and Design - Form and Space: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Form and Space",
+      "choices": [
+        "selected works",
+        "Selected Works",
+        "Form and Space",
+        "Processes"
+      ],
+      "explanation": "Form and Space is the anchor concept for Form and Space. In AP CED: Form and Space, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-3d-art-design-050",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP 3-D Art and Design: Form and Space needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Form.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Form.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Form; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-3d-art-design-051",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP 3-D Art and Design: Form and Space?",
+      "correctText": "Connect Form and Space to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Form and Space to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-3d-art-design-052",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Form and Space, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Space.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Space.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-3d-art-design-053",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Form and Space",
@@ -620,17 +1320,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP 3-D Art and Design: Form and Space?",
-      "correctText": "Form and Space matters because it helps explain disciplinary reasoning.",
+      "correctText": "Form and Space matters because it helps explain Form.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "Form and Space appears on tests, so no explanation is needed.",
-        "Form and Space matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Form and Space matters because it helps explain Form.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-3d-art-design-026",
+      "id": "ap-3d-art-design-054",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Form and Space",
@@ -644,18 +1344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Form and Space. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Form and Space. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-3d-art-design-027",
+      "id": "ap-3d-art-design-055",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Form and Space",
@@ -670,17 +1370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Form and Space to the larger course skill?",
-      "correctText": "Form and Space is useful when students explain reasoning.",
+      "correctText": "Form and Space is useful when students explain artistic intent.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Form and Space is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Form should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Form and Space is useful when students explain artistic intent.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-3d-art-design-028",
+      "id": "ap-3d-art-design-056",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Form and Space",
@@ -697,15 +1397,15 @@
       "prompt": "For Form and Space, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Form and Space, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Form and Space, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-3d-art-design-029",
+      "id": "ap-3d-art-design-057",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Form and Space",
@@ -720,17 +1420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Form and Space?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Space",
       "choices": [
-        "evidence-based explanation",
-        "exam-style application",
-        "Materials and Processes",
-        "Sustained Investigation"
+        "selected works",
+        "Selected Works",
+        "Space",
+        "Processes"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Form and Space, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Space is part of the concept cluster for Form and Space, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-3d-art-design-030",
+      "id": "ap-3d-art-design-058",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Form and Space",
@@ -747,90 +1447,365 @@
       "prompt": "A student wants to transfer Form and Space knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Form and Space, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Form and Space, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Form and Space, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-3d-art-design-031",
+      "id": "ap-3d-art-design-059",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Materials and Processes",
+      "topic": "Form and Space",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Materials and Processes",
+        "AP CED: Form and Space",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP 3-D Art and Design, which concept is most central to the unit \"Materials and Processes\"?",
-      "correctText": "Materials and Processes",
+      "prompt": "AP 3-D Art and Design - Form and Space: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Form and Space connects to Form.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Materials and Processes",
-        "memorizing an isolated fact without evidence",
-        "Selected Works"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Form and Space connects to Form.",
+        "sustained investigation replaces all evidence."
       ],
-      "explanation": "Materials and Processes is a core idea in Materials and Processes. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Form and Space and Form belongs together in Form and Space; students should explain the relationship rather than memorize each term alone."
     },
     {
-      "id": "ap-3d-art-design-032",
+      "id": "ap-3d-art-design-060",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Materials and Processes",
+      "topic": "Form and Space",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Materials and Processes",
+        "AP CED: Form and Space",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Materials and Processes needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP 3-D Art and Design question on Form and Space?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
-      "id": "ap-3d-art-design-033",
+      "id": "ap-3d-art-design-061",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Materials and Processes",
+      "topic": "Form and Space",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Materials and Processes",
+        "AP CED: Form and Space",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Materials and Processes?",
-      "correctText": "Connect Materials and Processes to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Form and Space?",
+      "correctText": "Form and Space can be explained with evidence from work sample or performance excerpt.",
       "choices": [
-        "Choose an unrelated fact from another unit.",
-        "Connect Materials and Processes to the prompt context before choosing.",
+        "Form and Space can be explained with evidence from work sample or performance excerpt.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "Form does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-3d-art-design-062",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Form and Space. Which feedback would help most?",
+      "correctText": "Reread the task, identify Form and Space, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Form and Space, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-3d-art-design-063",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP 3-D Art and Design: Form and Space?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP 3-D Art and Design means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-3d-art-design-064",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Form and Space, which unit vocabulary word should be reviewed with Form and Space?",
+      "correctText": "Form",
+      "choices": [
+        "sustained investigation",
+        "Form",
+        "artist statement",
+        "Materials"
+      ],
+      "explanation": "Form belongs near Form and Space in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-3d-art-design-065",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Form and Space?",
+      "correctText": "A response that names Form and Space but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Form and Space but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Form and Space to Form."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-3d-art-design-066",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP 3-D Art and Design: Form and Space?",
+      "correctText": "How does Form and Space help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Form and Space help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-3d-art-design-067",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Form and Space\" for Form and Space (spiral review pass 2)?",
+      "correctText": "Apply Form and Space in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Form and Space in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Form and Space expects students to use knowledge and skill together. The correct answer applies Form and Space and supports the reasoning."
+    },
+    {
+      "id": "ap-3d-art-design-068",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP 3-D Art and Design - Form and Space (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Form and Space",
+      "choices": [
+        "sustained investigation",
+        "Form and Space",
+        "artist statement",
+        "Materials"
+      ],
+      "explanation": "Form and Space is the anchor concept for Form and Space. In AP CED: Form and Space, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-3d-art-design-069",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP 3-D Art and Design: Form and Space (spiral review pass 2) needs to show the skill \"evaluate revision choices.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Form.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Form.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Form; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-3d-art-design-070",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP 3-D Art and Design: Form and Space (spiral review pass 2)?",
+      "correctText": "Connect Form and Space to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Form and Space to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-3d-art-design-034",
+      "id": "ap-3d-art-design-071",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Form and Space (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Space.",
+      "choices": [
+        "Specific evidence that proves a claim about Space.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-3d-art-design-072",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Form and Space",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Space",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP 3-D Art and Design: Form and Space (spiral review pass 2)?",
+      "correctText": "Form and Space matters because it helps explain Form.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Only the vocabulary list matters for this unit.",
+        "Form and Space matters because it helps explain Form.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-3d-art-design-073",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Materials and Processes",
@@ -844,18 +1819,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Materials and Processes, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP 3-D Art and Design - Materials and Processes: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Materials and Processes",
       "choices": [
-        "A personal opinion without support.",
-        "ignoring the source or data in the prompt",
+        "intentional choices",
+        "Form and Space",
+        "Portfolio Reflection",
+        "Materials and Processes"
+      ],
+      "explanation": "Materials and Processes is the anchor concept for Materials and Processes. In AP CED: Materials and Processes, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-3d-art-design-074",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP 3-D Art and Design: Materials and Processes needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Materials.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
         "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Materials."
+      ],
+      "explanation": "The useful move is to connect evidence to Materials; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-3d-art-design-075",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP 3-D Art and Design: Materials and Processes?",
+      "correctText": "Connect Materials and Processes to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Materials and Processes to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-3d-art-design-076",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Materials and Processes, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Processes.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Processes.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-3d-art-design-035",
+      "id": "ap-3d-art-design-077",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Materials and Processes",
@@ -870,17 +1920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP 3-D Art and Design: Materials and Processes?",
-      "correctText": "Materials and Processes matters because it helps explain disciplinary reasoning.",
+      "correctText": "Materials and Processes matters because it helps explain Materials.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Materials and Processes matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Materials and Processes matters because it helps explain Materials."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-3d-art-design-036",
+      "id": "ap-3d-art-design-078",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Materials and Processes",
@@ -894,18 +1944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Materials and Processes. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Materials and Processes. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-3d-art-design-037",
+      "id": "ap-3d-art-design-079",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Materials and Processes",
@@ -920,17 +1970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Materials and Processes to the larger course skill?",
-      "correctText": "Materials and Processes is useful when students apply a course concept.",
+      "correctText": "Materials and Processes is useful when students explain artistic intent.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Materials and Processes is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Materials and Processes is useful when students explain artistic intent."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-3d-art-design-038",
+      "id": "ap-3d-art-design-080",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Materials and Processes",
@@ -947,15 +1997,15 @@
       "prompt": "For Materials and Processes, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Materials and Processes, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Materials and Processes, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-3d-art-design-039",
+      "id": "ap-3d-art-design-081",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Materials and Processes",
@@ -970,17 +2020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Materials and Processes?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Processes",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "exam-style application",
-        "Sustained Investigation"
+        "intentional choices",
+        "Form and Space",
+        "Portfolio Reflection",
+        "Processes"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Materials and Processes, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Processes is part of the concept cluster for Materials and Processes, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-3d-art-design-040",
+      "id": "ap-3d-art-design-082",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Materials and Processes",
@@ -997,90 +2047,365 @@
       "prompt": "A student wants to transfer Materials and Processes knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Materials and Processes, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Materials and Processes, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-3d-art-design-041",
+      "id": "ap-3d-art-design-083",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Portfolio Reflection",
+      "topic": "Materials and Processes",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Portfolio Reflection",
+        "AP CED: Materials and Processes",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP 3-D Art and Design, which concept is most central to the unit \"Portfolio Reflection\"?",
-      "correctText": "Portfolio Reflection",
+      "prompt": "AP 3-D Art and Design - Materials and Processes: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Materials and Processes connects to Materials.",
       "choices": [
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence",
-        "Portfolio Reflection",
-        "Selected Works"
-      ],
-      "explanation": "Portfolio Reflection is a core idea in Portfolio Reflection. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
-    },
-    {
-      "id": "ap-3d-art-design-042",
-      "course": "ap-3d-art-design",
-      "courseLabel": "AP 3-D Art and Design",
-      "topic": "Portfolio Reflection",
-      "domain": "AP Arts",
-      "subjectArea": "AP Arts",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Portfolio Reflection",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student reviewing Portfolio Reflection needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
-      "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Portfolio Reflection only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Materials and Processes connects to Materials.",
+        "sustained investigation replaces all evidence."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The pair Materials and Processes and Materials belongs together in Materials and Processes; students should explain the relationship rather than memorize each term alone."
     },
     {
-      "id": "ap-3d-art-design-043",
+      "id": "ap-3d-art-design-084",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Portfolio Reflection",
+      "topic": "Materials and Processes",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Portfolio Reflection",
+        "AP CED: Materials and Processes",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Portfolio Reflection?",
-      "correctText": "Connect Portfolio Reflection to the prompt context before choosing.",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP 3-D Art and Design question on Materials and Processes?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "Connect Portfolio Reflection to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-3d-art-design-085",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Materials and Processes?",
+      "correctText": "Materials and Processes can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Materials and Processes can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "Materials does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-3d-art-design-086",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Materials and Processes. Which feedback would help most?",
+      "correctText": "Reread the task, identify Materials and Processes, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Materials and Processes, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-3d-art-design-087",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP 3-D Art and Design: Materials and Processes?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP 3-D Art and Design means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-3d-art-design-088",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Materials and Processes, which unit vocabulary word should be reviewed with Materials and Processes?",
+      "correctText": "Materials",
+      "choices": [
+        "sustained investigation",
+        "Materials",
+        "artist statement",
+        "Materials and Processes"
+      ],
+      "explanation": "Materials belongs near Materials and Processes in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-3d-art-design-089",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Materials and Processes?",
+      "correctText": "A response that names Materials and Processes but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Materials and Processes but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Materials and Processes to Materials."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-3d-art-design-090",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP 3-D Art and Design: Materials and Processes?",
+      "correctText": "How does Materials and Processes help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence",
-        "Treat Portfolio Reflection as always meaning the same thing."
+        "How does Materials and Processes help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-3d-art-design-091",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Materials and Processes\" for Materials and Processes (spiral review pass 2)?",
+      "correctText": "Apply Materials and Processes in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Materials and Processes in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Materials and Processes expects students to use knowledge and skill together. The correct answer applies Materials and Processes and supports the reasoning."
+    },
+    {
+      "id": "ap-3d-art-design-092",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP 3-D Art and Design - Materials and Processes (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Materials and Processes",
+      "choices": [
+        "selected works",
+        "Selected Works",
+        "Materials and Processes",
+        "Processes"
+      ],
+      "explanation": "Materials and Processes is the anchor concept for Materials and Processes. In AP CED: Materials and Processes, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-3d-art-design-093",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP 3-D Art and Design: Materials and Processes (spiral review pass 2) needs to show the skill \"evaluate revision choices.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Materials.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Materials."
+      ],
+      "explanation": "The useful move is to connect evidence to Materials; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-3d-art-design-094",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP 3-D Art and Design: Materials and Processes (spiral review pass 2)?",
+      "correctText": "Connect Materials and Processes to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Materials and Processes to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-3d-art-design-044",
+      "id": "ap-3d-art-design-095",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Materials and Processes (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Processes.",
+      "choices": [
+        "Specific evidence that proves a claim about Processes.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-3d-art-design-096",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Materials and Processes",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Materials and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP 3-D Art and Design: Materials and Processes (spiral review pass 2)?",
+      "correctText": "Materials and Processes matters because it helps explain Materials.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Materials and Processes matters because it helps explain Materials."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-3d-art-design-097",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Portfolio Reflection",
@@ -1094,18 +2419,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Portfolio Reflection, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP 3-D Art and Design - Portfolio Reflection: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Portfolio Reflection",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Portfolio Reflection",
+        "materials and processes",
+        "Form",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Portfolio Reflection is the anchor concept for Portfolio Reflection. In AP CED: Portfolio Reflection, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-3d-art-design-098",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP 3-D Art and Design: Portfolio Reflection needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
+      "choices": [
+        "Use evidence to explain sustained investigation.",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about selected works.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-3d-art-design-099",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP 3-D Art and Design: Portfolio Reflection?",
+      "correctText": "Connect Portfolio Reflection to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Portfolio Reflection to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-3d-art-design-100",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Portfolio Reflection, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about selected works.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-3d-art-design-045",
+      "id": "ap-3d-art-design-101",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Portfolio Reflection",
@@ -1120,17 +2520,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP 3-D Art and Design: Portfolio Reflection?",
-      "correctText": "Portfolio Reflection matters because it helps explain disciplinary reasoning.",
+      "correctText": "Portfolio Reflection matters because it helps explain sustained investigation.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Portfolio Reflection matters because it helps explain sustained investigation.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit.",
-        "Portfolio Reflection matters because it helps explain disciplinary reasoning."
+        "choosing an answer because it uses familiar words",
+        "Portfolio Reflection appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-3d-art-design-046",
+      "id": "ap-3d-art-design-102",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Portfolio Reflection",
@@ -1144,18 +2544,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Portfolio Reflection. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Portfolio Reflection. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-3d-art-design-047",
+      "id": "ap-3d-art-design-103",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Portfolio Reflection",
@@ -1170,17 +2570,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Portfolio Reflection to the larger course skill?",
-      "correctText": "Portfolio Reflection is useful when students use evidence accurately.",
+      "correctText": "Portfolio Reflection is useful when students explain artistic intent.",
       "choices": [
-        "describing a topic without explaining why it matters",
+        "Portfolio Reflection is useful when students explain artistic intent.",
         "memorizing an isolated fact without evidence",
-        "Portfolio Reflection is useful when students use evidence accurately.",
-        "Portfolio Reflection only matters for memorized definitions."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-3d-art-design-048",
+      "id": "ap-3d-art-design-104",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Portfolio Reflection",
@@ -1197,15 +2597,15 @@
       "prompt": "For Portfolio Reflection, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Portfolio Reflection, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Portfolio Reflection, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-3d-art-design-049",
+      "id": "ap-3d-art-design-105",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Portfolio Reflection",
@@ -1220,17 +2620,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Portfolio Reflection?",
-      "correctText": "evidence-based explanation",
+      "correctText": "selected works",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence",
-        "Sustained Investigation"
+        "selected works",
+        "portfolio evidence",
+        "Space",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Portfolio Reflection, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "selected works is part of the concept cluster for Portfolio Reflection, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-3d-art-design-050",
+      "id": "ap-3d-art-design-106",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
       "topic": "Portfolio Reflection",
@@ -1247,262 +2647,362 @@
       "prompt": "A student wants to transfer Portfolio Reflection knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Portfolio Reflection, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Portfolio Reflection, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Portfolio Reflection, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-3d-art-design-051",
+      "id": "ap-3d-art-design-107",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Sustained Investigation",
+      "topic": "Portfolio Reflection",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Sustained Investigation",
+        "AP CED: Portfolio Reflection",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP 3-D Art and Design, which concept is most central to the unit \"Sustained Investigation\" during mixed review pass 2?",
-      "correctText": "Sustained Investigation",
+      "prompt": "AP 3-D Art and Design - Portfolio Reflection: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Portfolio Reflection connects to sustained investigation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "disciplinary reasoning",
-        "memorizing an isolated fact without evidence",
-        "Sustained Investigation"
-      ],
-      "explanation": "Sustained Investigation is a core idea in Sustained Investigation. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
-    },
-    {
-      "id": "ap-3d-art-design-052",
-      "course": "ap-3d-art-design",
-      "courseLabel": "AP 3-D Art and Design",
-      "topic": "Sustained Investigation",
-      "domain": "AP Arts",
-      "subjectArea": "AP Arts",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Sustained Investigation",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student reviewing Sustained Investigation during mixed review pass 2 needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
-      "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
-      ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
-    },
-    {
-      "id": "ap-3d-art-design-053",
-      "course": "ap-3d-art-design",
-      "courseLabel": "AP 3-D Art and Design",
-      "topic": "Sustained Investigation",
-      "domain": "AP Arts",
-      "subjectArea": "AP Arts",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Sustained Investigation",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Sustained Investigation during mixed review pass 2?",
-      "correctText": "Connect Sustained Investigation to the prompt context before choosing.",
-      "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "Connect Sustained Investigation to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Portfolio Reflection connects to sustained investigation.",
+        "intentional choices replaces all evidence."
+      ],
+      "explanation": "The pair Portfolio Reflection and sustained investigation belongs together in Portfolio Reflection; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-3d-art-design-108",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP 3-D Art and Design question on Portfolio Reflection?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-3d-art-design-109",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Portfolio Reflection?",
+      "correctText": "Portfolio Reflection can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Portfolio Reflection can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-3d-art-design-110",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Portfolio Reflection. Which feedback would help most?",
+      "correctText": "Reread the task, identify Portfolio Reflection, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Portfolio Reflection, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-3d-art-design-111",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP 3-D Art and Design: Portfolio Reflection?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP 3-D Art and Design means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-3d-art-design-112",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Portfolio Reflection, which unit vocabulary word should be reviewed with Portfolio Reflection?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "selected works",
+        "sustained investigation",
+        "Selected Works",
+        "Materials"
+      ],
+      "explanation": "sustained investigation belongs near Portfolio Reflection in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-3d-art-design-113",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Portfolio Reflection?",
+      "correctText": "A response that names Portfolio Reflection but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Portfolio Reflection but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Portfolio Reflection to sustained investigation."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-3d-art-design-114",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP 3-D Art and Design: Portfolio Reflection?",
+      "correctText": "How does Portfolio Reflection help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Portfolio Reflection help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-3d-art-design-115",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Portfolio Reflection\" for Portfolio Reflection (spiral review pass 2)?",
+      "correctText": "Apply Portfolio Reflection in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Portfolio Reflection in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Portfolio Reflection expects students to use knowledge and skill together. The correct answer applies Portfolio Reflection and supports the reasoning."
+    },
+    {
+      "id": "ap-3d-art-design-116",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP 3-D Art and Design - Portfolio Reflection (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Portfolio Reflection",
+      "choices": [
+        "intentional choices",
+        "Form and Space",
+        "Processes",
+        "Portfolio Reflection"
+      ],
+      "explanation": "Portfolio Reflection is the anchor concept for Portfolio Reflection. In AP CED: Portfolio Reflection, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-3d-art-design-117",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP 3-D Art and Design: Portfolio Reflection (spiral review pass 2) needs to show the skill \"evaluate revision choices.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
+      "choices": [
+        "Use evidence to explain sustained investigation.",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about selected works.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-3d-art-design-118",
+      "course": "ap-3d-art-design",
+      "courseLabel": "AP 3-D Art and Design",
+      "topic": "Portfolio Reflection",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Portfolio Reflection",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP 3-D Art and Design: Portfolio Reflection (spiral review pass 2)?",
+      "correctText": "Connect Portfolio Reflection to the prompt context before choosing.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Connect Portfolio Reflection to the prompt context before choosing.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-3d-art-design-054",
+      "id": "ap-3d-art-design-119",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Sustained Investigation",
+      "topic": "Portfolio Reflection",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Sustained Investigation",
+        "AP CED: Portfolio Reflection",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Sustained Investigation during mixed review pass 2, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Portfolio Reflection (spiral review pass 2), what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
-        "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
+        "Specific evidence that proves a claim about selected works.",
+        "describing a topic without explaining why it matters",
+        "A personal opinion without support.",
         "using a rule from a different unit"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-3d-art-design-055",
+      "id": "ap-3d-art-design-120",
       "course": "ap-3d-art-design",
       "courseLabel": "AP 3-D Art and Design",
-      "topic": "Sustained Investigation",
+      "topic": "Portfolio Reflection",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Sustained Investigation",
+        "AP CED: Portfolio Reflection",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP 3-D Art and Design: Sustained Investigation during mixed review pass 2?",
-      "correctText": "Sustained Investigation matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which review note would help most for AP 3-D Art and Design: Portfolio Reflection (spiral review pass 2)?",
+      "correctText": "Portfolio Reflection matters because it helps explain sustained investigation.",
       "choices": [
+        "Portfolio Reflection matters because it helps explain sustained investigation.",
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Sustained Investigation matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Portfolio Reflection appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
-    },
-    {
-      "id": "ap-3d-art-design-056",
-      "course": "ap-3d-art-design",
-      "courseLabel": "AP 3-D Art and Design",
-      "topic": "Sustained Investigation",
-      "domain": "AP Arts",
-      "subjectArea": "AP Arts",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Sustained Investigation",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Sustained Investigation during mixed review pass 2. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
-      "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
-      ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
-    },
-    {
-      "id": "ap-3d-art-design-057",
-      "course": "ap-3d-art-design",
-      "courseLabel": "AP 3-D Art and Design",
-      "topic": "Sustained Investigation",
-      "domain": "AP Arts",
-      "subjectArea": "AP Arts",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Sustained Investigation",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Sustained Investigation to the larger course skill during mixed review pass 2?",
-      "correctText": "Sustained Investigation is useful when students explain reasoning.",
-      "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Sustained Investigation is useful when students explain reasoning.",
-        "The standard rewards guessing from familiar words."
-      ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
-    },
-    {
-      "id": "ap-3d-art-design-058",
-      "course": "ap-3d-art-design",
-      "courseLabel": "AP 3-D Art and Design",
-      "topic": "Sustained Investigation",
-      "domain": "AP Arts",
-      "subjectArea": "AP Arts",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Sustained Investigation",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "For Sustained Investigation during mixed review pass 2, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Sustained Investigation, cites evidence, and explains the connection.",
-      "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
-        "It names Sustained Investigation, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
-      ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
-    },
-    {
-      "id": "ap-3d-art-design-059",
-      "course": "ap-3d-art-design",
-      "courseLabel": "AP 3-D Art and Design",
-      "topic": "Sustained Investigation",
-      "domain": "AP Arts",
-      "subjectArea": "AP Arts",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Sustained Investigation",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Sustained Investigation during mixed review pass 2?",
-      "correctText": "evidence-based explanation",
-      "choices": [
-        "evidence-based explanation",
-        "exam-style application",
-        "Materials and Processes",
-        "Sustained Investigation"
-      ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Sustained Investigation, so it belongs in this unit rather than in an unrelated review bucket."
-    },
-    {
-      "id": "ap-3d-art-design-060",
-      "course": "ap-3d-art-design",
-      "courseLabel": "AP 3-D Art and Design",
-      "topic": "Sustained Investigation",
-      "domain": "AP Arts",
-      "subjectArea": "AP Arts",
-      "gradeBand": "AP",
-      "standardRefs": [
-        "AP CED: Sustained Investigation",
-        "College Board AP Course and Exam Description"
-      ],
-      "sourceAuthority": "college-board-ap-courses",
-      "assessmentSourceId": "college-board-ap-courses",
-      "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Sustained Investigation knowledge to a new question during mixed review pass 2. What is the best strategy?",
-      "correctText": "Match the new prompt to Sustained Investigation, then justify the answer with evidence.",
-      "choices": [
-        "choosing an answer because it uses familiar words",
-        "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Sustained Investigation, then justify the answer with evidence.",
-        "using a rule from a different unit"
-      ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     }
   ]
 }

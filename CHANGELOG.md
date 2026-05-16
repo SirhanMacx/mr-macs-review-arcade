@@ -5,6 +5,20 @@ All notable changes to Mr. Mac's Review Arcade are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versions are date-based (YYYY-MM-DD) since the arcade ships continuously to GitHub Pages.
 
+## [2026-05-16] — Course-Depth Expansion
+
+### Added
+- Expanded the generated all-subject arcade bank from 7,146 prompts to 13,362 prompts across 99 course buckets.
+- Raised every generated non-social-studies course to substantial unit coverage: generally 112+ questions per NYS course and 120+ per AP/AP Career Kickstart course.
+- Added course-specific high-school math and science unit maps for Algebra I, Geometry, Algebra II, Precalculus, Statistics, Calculus, Biology, Earth and Space Sciences, Chemistry, Physics, and Environmental Science.
+- Added written-response tasks to every generated practice-exam blueprint, with scoring focus metadata for concept accuracy, evidence/process, and explanation.
+
+### Changed
+- Generated Jeopardy blueprints now use course/unit-specific clue language instead of generic placeholder clue copy.
+- Generated practice exams now sample at least six questions from every course unit before filling from the wider bank.
+- Shared question-bank script references were cache-busted across game pages so arcade games pull the expanded bank immediately.
+- `npm run validate:content` now guards unit-level question depth, answer-letter distribution, old generic Jeopardy clue copy, practice-exam unit sampling, written tasks, and a 10,000+ generated-question floor.
+
 ## [2026-05-16] — Visible All-Subject Course UI
 
 ### Added
@@ -16,7 +30,7 @@ Versions are date-based (YYYY-MM-DD) since the arcade ships continuously to GitH
 - Smoke coverage that asserts AP Biology and other generated courses are visible and playable from the hub UI.
 
 ### Changed
-- Hub metrics and metadata now count the expanded visible course catalog, 221 catalog entries, and the 7,146-prompt shared bank instead of only the legacy social-studies `games.json` course list.
+- Hub metrics and metadata now count the expanded visible course catalog, 221 catalog entries, and the current 13,362-prompt shared bank instead of only the legacy social-studies `games.json` course list.
 - Service worker cache version bumped for the all-subject UI and generated-Jeopardy runner.
 
 ## [2026-05-15] — All-Subject 5-12/AP Content System

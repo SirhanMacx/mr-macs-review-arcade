@@ -2,7 +2,7 @@
   "course": "ap-art-history",
   "courseLabel": "AP Art History",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-art-history-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Art History, which concept is most central to the unit \"Global Prehistory\"?",
+      "prompt": "AP Art History - Global Prehistory: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Global Prehistory",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
         "Global Prehistory",
+        "sustained investigation",
+        "artist statement",
         "Later Europe and Americas"
       ],
-      "explanation": "Global Prehistory is a core idea in Global Prehistory. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Global Prehistory is the anchor concept for Global Prehistory. In AP CED: Global Prehistory, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-art-history-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Global Prehistory needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Art History: Global Prehistory needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain sustained investigation.",
+        "Guess from key words about selected works.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Global Prehistory only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-art-history-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Global Prehistory?",
+      "prompt": "Which answer best avoids a common mistake about AP Art History: Global Prehistory?",
       "correctText": "Connect Global Prehistory to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Global Prehistory to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Global Prehistory, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Global Prehistory, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about selected works.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Art History: Global Prehistory?",
-      "correctText": "Global Prehistory matters because it helps explain disciplinary reasoning.",
+      "correctText": "Global Prehistory matters because it helps explain sustained investigation.",
       "choices": [
+        "Global Prehistory matters because it helps explain sustained investigation.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Global Prehistory matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Global Prehistory appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Global Prehistory. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Global Prehistory. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Global Prehistory to the larger course skill?",
-      "correctText": "Global Prehistory is useful when students apply a course concept.",
+      "correctText": "Global Prehistory is useful when students explain artistic intent.",
       "choices": [
-        "Global Prehistory is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
+        "Global Prehistory is useful when students explain artistic intent.",
         "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Global Prehistory only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Global Prehistory, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Global Prehistory, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Global Prehistory, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Global Prehistory?",
-      "correctText": "evidence-based explanation",
+      "correctText": "selected works",
       "choices": [
-        "Ancient Mediterranean",
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "Indigenous Americas"
+        "selected works",
+        "East",
+        "choosing an answer because it uses familiar words",
+        "Global Prehistory"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Global Prehistory, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "selected works is part of the concept cluster for Global Prehistory, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-art-history-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Global Prehistory knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Global Prehistory, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Global Prehistory, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,151 +258,151 @@
       "id": "ap-art-history-011",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
-      "topic": "Ancient Mediterranean",
+      "topic": "Global Prehistory",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Ancient Mediterranean",
+        "AP CED: Global Prehistory",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Art History, which concept is most central to the unit \"Ancient Mediterranean\"?",
-      "correctText": "Ancient Mediterranean",
+      "prompt": "AP Art History - Global Prehistory: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Global Prehistory connects to sustained investigation.",
       "choices": [
-        "Ancient Mediterranean",
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "The Pacific",
-        "using a rule from a different unit"
+        "Global Prehistory connects to sustained investigation.",
+        "intentional choices replaces all evidence."
       ],
-      "explanation": "Ancient Mediterranean is a core idea in Ancient Mediterranean. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Global Prehistory and sustained investigation belongs together in Global Prehistory; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-art-history-012",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
-      "topic": "Ancient Mediterranean",
+      "topic": "Global Prehistory",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Ancient Mediterranean",
+        "AP CED: Global Prehistory",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Ancient Mediterranean needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Art History question on Global Prehistory?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Ancient Mediterranean only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-art-history-013",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
-      "topic": "Ancient Mediterranean",
+      "topic": "Global Prehistory",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Ancient Mediterranean",
+        "AP CED: Global Prehistory",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Ancient Mediterranean?",
-      "correctText": "Connect Ancient Mediterranean to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Global Prehistory?",
+      "correctText": "Global Prehistory can be explained with evidence from work sample or performance excerpt.",
       "choices": [
-        "Connect Ancient Mediterranean to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Ancient Mediterranean as always meaning the same thing."
+        "Global Prehistory can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-art-history-014",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
-      "topic": "Ancient Mediterranean",
+      "topic": "Global Prehistory",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Ancient Mediterranean",
+        "AP CED: Global Prehistory",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Ancient Mediterranean, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Global Prehistory. Which feedback would help most?",
+      "correctText": "Reread the task, identify Global Prehistory, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Global Prehistory, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-art-history-015",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
-      "topic": "Ancient Mediterranean",
+      "topic": "Global Prehistory",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Ancient Mediterranean",
+        "AP CED: Global Prehistory",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Art History: Ancient Mediterranean?",
-      "correctText": "Ancient Mediterranean matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Art History: Global Prehistory?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
       "choices": [
-        "Ancient Mediterranean matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Art History means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-art-history-016",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
-      "topic": "Ancient Mediterranean",
+      "topic": "Global Prehistory",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Ancient Mediterranean",
+        "AP CED: Global Prehistory",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Ancient Mediterranean. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Global Prehistory, which unit vocabulary word should be reviewed with Global Prehistory?",
+      "correctText": "sustained investigation",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Later Europe",
+        "sustained investigation",
+        "West",
+        "Southeast Asia"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "sustained investigation belongs near Global Prehistory in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-art-history-017",
@@ -419,15 +419,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Ancient Mediterranean to the larger course skill?",
-      "correctText": "Ancient Mediterranean is useful when students use evidence accurately.",
+      "prompt": "AP Art History - Ancient Mediterranean: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Ancient Mediterranean",
       "choices": [
-        "Ancient Mediterranean is useful when students use evidence accurately.",
-        "Ancient Mediterranean only matters for memorized definitions.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "sustained investigation",
+        "Ancient Mediterranean",
+        "artist statement",
+        "Later Europe"
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "Ancient Mediterranean is the anchor concept for Ancient Mediterranean. In AP CED: Ancient Mediterranean, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-art-history-018",
@@ -444,15 +444,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Ancient Mediterranean, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Ancient Mediterranean, cites evidence, and explains the connection.",
+      "prompt": "A student reviewing AP Art History: Ancient Mediterranean needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
       "choices": [
+        "Repeat the definition of Ancient Mediterranean only.",
+        "Use evidence to explain sustained investigation.",
         "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Ancient Mediterranean, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-art-history-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Ancient Mediterranean?",
-      "correctText": "evidence-based explanation",
+      "prompt": "Which answer best avoids a common mistake about AP Art History: Ancient Mediterranean?",
+      "correctText": "Connect Ancient Mediterranean to the prompt context before choosing.",
       "choices": [
-        "evidence-based explanation",
-        "Global Contemporary",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Ancient Mediterranean to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Ancient Mediterranean, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-art-history-020",
@@ -494,93 +494,318 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Ancient Mediterranean knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Ancient Mediterranean, then justify the answer with evidence.",
+      "prompt": "In an AP CED-aligned exam task about Ancient Mediterranean, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Match the new prompt to Ancient Mediterranean, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about selected works.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-art-history-021",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
-      "topic": "Early Europe and Colonial Americas",
+      "topic": "Ancient Mediterranean",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Early Europe and Colonial Americas",
+        "AP CED: Ancient Mediterranean",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Art History, which concept is most central to the unit \"Early Europe and Colonial Americas\"?",
-      "correctText": "Early Europe and Colonial Americas",
+      "prompt": "Which review note would help most for AP Art History: Ancient Mediterranean?",
+      "correctText": "Ancient Mediterranean matters because it helps explain sustained investigation.",
       "choices": [
-        "Early Europe and Colonial Americas",
-        "Later Europe and Americas",
-        "model or source analysis",
-        "West and Central Asia"
+        "ignoring the source or data in the prompt",
+        "Ancient Mediterranean matters because it helps explain sustained investigation.",
+        "selected works is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Early Europe and Colonial Americas is a core idea in Early Europe and Colonial Americas. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-art-history-022",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
-      "topic": "Early Europe and Colonial Americas",
+      "topic": "Ancient Mediterranean",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Early Europe and Colonial Americas",
+        "AP CED: Ancient Mediterranean",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Early Europe and Colonial Americas needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Ancient Mediterranean. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Read the prompt, source, or data for the exact task."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
       "id": "ap-art-history-023",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
-      "topic": "Early Europe and Colonial Americas",
+      "topic": "Ancient Mediterranean",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Early Europe and Colonial Americas",
+        "AP CED: Ancient Mediterranean",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Early Europe and Colonial Americas?",
-      "correctText": "Connect Early Europe and Colonial Americas to the prompt context before choosing.",
+      "prompt": "Which classroom explanation would best connect Ancient Mediterranean to the larger course skill?",
+      "correctText": "Ancient Mediterranean is useful when students explain artistic intent.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Early Europe and Colonial Americas to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Ancient Mediterranean only matters for memorized definitions.",
+        "Ancient Mediterranean is useful when students explain artistic intent.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation should be ignored unless it appears in the title."
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
       "id": "ap-art-history-024",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Ancient Mediterranean",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ancient Mediterranean",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Ancient Mediterranean, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Ancient Mediterranean, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Ancient Mediterranean, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-art-history-025",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Ancient Mediterranean",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ancient Mediterranean",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Ancient Mediterranean?",
+      "correctText": "selected works",
+      "choices": [
+        "Southeast Asia",
+        "selected works",
+        "ignoring the source or data in the prompt",
+        "sustained investigation"
+      ],
+      "explanation": "selected works is part of the concept cluster for Ancient Mediterranean, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-art-history-026",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Ancient Mediterranean",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ancient Mediterranean",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Ancient Mediterranean knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Ancient Mediterranean, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Ancient Mediterranean, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-art-history-027",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Ancient Mediterranean",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ancient Mediterranean",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - Ancient Mediterranean: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Ancient Mediterranean connects to sustained investigation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Ancient Mediterranean connects to sustained investigation.",
+        "intentional choices replaces all evidence."
+      ],
+      "explanation": "The pair Ancient Mediterranean and sustained investigation belongs together in Ancient Mediterranean; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-art-history-028",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Ancient Mediterranean",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ancient Mediterranean",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Art History question on Ancient Mediterranean?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-art-history-029",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Ancient Mediterranean",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ancient Mediterranean",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Ancient Mediterranean?",
+      "correctText": "Ancient Mediterranean can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Ancient Mediterranean can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-art-history-030",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Ancient Mediterranean",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ancient Mediterranean",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Ancient Mediterranean. Which feedback would help most?",
+      "correctText": "Reread the task, identify Ancient Mediterranean, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Ancient Mediterranean, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-art-history-031",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Ancient Mediterranean",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ancient Mediterranean",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Art History: Ancient Mediterranean?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Art History means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-art-history-032",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Ancient Mediterranean",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Ancient Mediterranean",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Ancient Mediterranean, which unit vocabulary word should be reviewed with Ancient Mediterranean?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "Later Europe",
+        "sustained investigation",
+        "West",
+        "Southeast Asia"
+      ],
+      "explanation": "sustained investigation belongs near Ancient Mediterranean in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-art-history-033",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Early Europe and Colonial Americas",
@@ -594,18 +819,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Early Europe and Colonial Americas, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Art History - Early Europe and Colonial Americas: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Early Europe and Colonial Americas",
       "choices": [
+        "selected works",
+        "Ancient Mediterranean",
+        "Early Europe and Colonial Americas",
+        "Americas"
+      ],
+      "explanation": "Early Europe and Colonial Americas is the anchor concept for Early Europe and Colonial Americas. In AP CED: Early Europe and Colonial Americas, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-art-history-034",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Early Europe and Colonial Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Early Europe and Colonial Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Art History: Early Europe and Colonial Americas needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Early Europe.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Early Europe.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Early Europe; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-art-history-035",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Early Europe and Colonial Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Early Europe and Colonial Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Art History: Early Europe and Colonial Americas?",
+      "correctText": "Connect Early Europe and Colonial Americas to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Early Europe and Colonial Americas to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-art-history-036",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Early Europe and Colonial Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Early Europe and Colonial Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Early Europe and Colonial Americas, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Colonial Americas.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Colonial Americas.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-art-history-025",
+      "id": "ap-art-history-037",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Early Europe and Colonial Americas",
@@ -620,17 +920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Art History: Early Europe and Colonial Americas?",
-      "correctText": "Early Europe and Colonial Americas matters because it helps explain disciplinary reasoning.",
+      "correctText": "Early Europe and Colonial Americas matters because it helps explain Early Europe.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "Early Europe and Colonial Americas appears on tests, so no explanation is needed.",
-        "Early Europe and Colonial Americas matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Early Europe and Colonial Americas matters because it helps explain Early Europe.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-art-history-026",
+      "id": "ap-art-history-038",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Early Europe and Colonial Americas",
@@ -644,18 +944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Early Europe and Colonial Americas. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Early Europe and Colonial Americas. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-art-history-027",
+      "id": "ap-art-history-039",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Early Europe and Colonial Americas",
@@ -670,17 +970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Early Europe and Colonial Americas to the larger course skill?",
-      "correctText": "Early Europe and Colonial Americas is useful when students explain reasoning.",
+      "correctText": "Early Europe and Colonial Americas is useful when students explain artistic intent.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Early Europe and Colonial Americas is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Early Europe should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Early Europe and Colonial Americas is useful when students explain artistic intent.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-art-history-028",
+      "id": "ap-art-history-040",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Early Europe and Colonial Americas",
@@ -697,15 +997,15 @@
       "prompt": "For Early Europe and Colonial Americas, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Early Europe and Colonial Americas, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Early Europe and Colonial Americas, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-art-history-029",
+      "id": "ap-art-history-041",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Early Europe and Colonial Americas",
@@ -720,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Early Europe and Colonial Americas?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Colonial Americas",
       "choices": [
-        "Ancient Mediterranean",
-        "evidence-based explanation",
-        "Indigenous Americas",
-        "South, East, and Southeast Asia"
+        "The Pacific",
+        "describing a topic without explaining why it matters",
+        "Colonial Americas",
+        "selected works"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Early Europe and Colonial Americas, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Colonial Americas is part of the concept cluster for Early Europe and Colonial Americas, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-art-history-030",
+      "id": "ap-art-history-042",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Early Europe and Colonial Americas",
@@ -747,15 +1047,165 @@
       "prompt": "A student wants to transfer Early Europe and Colonial Americas knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Early Europe and Colonial Americas, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Early Europe and Colonial Americas, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Early Europe and Colonial Americas, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-art-history-031",
+      "id": "ap-art-history-043",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Early Europe and Colonial Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Early Europe and Colonial Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - Early Europe and Colonial Americas: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Early Europe and Colonial Americas connects to Early Europe.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Early Europe and Colonial Americas connects to Early Europe.",
+        "sustained investigation replaces all evidence."
+      ],
+      "explanation": "The pair Early Europe and Colonial Americas and Early Europe belongs together in Early Europe and Colonial Americas; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-art-history-044",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Early Europe and Colonial Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Early Europe and Colonial Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Art History question on Early Europe and Colonial Americas?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-art-history-045",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Early Europe and Colonial Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Early Europe and Colonial Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Early Europe and Colonial Americas?",
+      "correctText": "Early Europe and Colonial Americas can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Early Europe and Colonial Americas can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "Early Europe does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-art-history-046",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Early Europe and Colonial Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Early Europe and Colonial Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Early Europe and Colonial Americas. Which feedback would help most?",
+      "correctText": "Reread the task, identify Early Europe and Colonial Americas, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Early Europe and Colonial Americas, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-art-history-047",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Early Europe and Colonial Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Early Europe and Colonial Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Art History: Early Europe and Colonial Americas?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Art History means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-art-history-048",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Early Europe and Colonial Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Early Europe and Colonial Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Early Europe and Colonial Americas, which unit vocabulary word should be reviewed with Early Europe and Colonial Americas?",
+      "correctText": "Early Europe",
+      "choices": [
+        "Later Europe",
+        "Early Europe",
+        "West",
+        "Southeast Asia"
+      ],
+      "explanation": "Early Europe belongs near Early Europe and Colonial Americas in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-art-history-049",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Later Europe and Americas",
@@ -769,18 +1219,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Art History, which concept is most central to the unit \"Later Europe and Americas\"?",
+      "prompt": "AP Art History - Later Europe and Americas: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Later Europe and Americas",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "Later Europe and Americas",
-        "using a rule from a different unit"
+        "intentional choices",
+        "Early Europe and Colonial Americas",
+        "Indigenous Americas",
+        "Later Europe and Americas"
       ],
-      "explanation": "Later Europe and Americas is a core idea in Later Europe and Americas. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Later Europe and Americas is the anchor concept for Later Europe and Americas. In AP CED: Later Europe and Americas, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-art-history-032",
+      "id": "ap-art-history-050",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Later Europe and Americas",
@@ -794,18 +1244,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Later Europe and Americas needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Art History: Later Europe and Americas needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Later Europe.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
         "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Later Europe."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Later Europe; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-art-history-033",
+      "id": "ap-art-history-051",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Later Europe and Americas",
@@ -819,18 +1269,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Later Europe and Americas?",
+      "prompt": "Which answer best avoids a common mistake about AP Art History: Later Europe and Americas?",
       "correctText": "Connect Later Europe and Americas to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Later Europe and Americas to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-art-history-034",
+      "id": "ap-art-history-052",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Later Europe and Americas",
@@ -844,18 +1294,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Later Europe and Americas, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Later Europe and Americas, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Americas.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Americas.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-art-history-035",
+      "id": "ap-art-history-053",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Later Europe and Americas",
@@ -870,17 +1320,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Art History: Later Europe and Americas?",
-      "correctText": "Later Europe and Americas matters because it helps explain disciplinary reasoning.",
+      "correctText": "Later Europe and Americas matters because it helps explain Later Europe.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Later Europe and Americas matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Later Europe and Americas matters because it helps explain Later Europe."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-art-history-036",
+      "id": "ap-art-history-054",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Later Europe and Americas",
@@ -894,18 +1344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Later Europe and Americas. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Later Europe and Americas. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-art-history-037",
+      "id": "ap-art-history-055",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Later Europe and Americas",
@@ -920,17 +1370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Later Europe and Americas to the larger course skill?",
-      "correctText": "Later Europe and Americas is useful when students apply a course concept.",
+      "correctText": "Later Europe and Americas is useful when students explain artistic intent.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Later Europe and Americas is useful when students apply a course concept.",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Later Europe and Americas is useful when students explain artistic intent."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-art-history-038",
+      "id": "ap-art-history-056",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Later Europe and Americas",
@@ -947,15 +1397,15 @@
       "prompt": "For Later Europe and Americas, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Later Europe and Americas, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Later Europe and Americas, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-art-history-039",
+      "id": "ap-art-history-057",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Later Europe and Americas",
@@ -970,17 +1420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Later Europe and Americas?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Americas",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "model or source analysis"
+        "Global Contemporary",
+        "using a rule from a different unit",
+        "intentional choices",
+        "Americas"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Later Europe and Americas, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Americas is part of the concept cluster for Later Europe and Americas, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-art-history-040",
+      "id": "ap-art-history-058",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Later Europe and Americas",
@@ -997,15 +1447,165 @@
       "prompt": "A student wants to transfer Later Europe and Americas knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Later Europe and Americas, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Later Europe and Americas, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-art-history-041",
+      "id": "ap-art-history-059",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Later Europe and Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Later Europe and Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - Later Europe and Americas: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Later Europe and Americas connects to Later Europe.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Later Europe and Americas connects to Later Europe.",
+        "sustained investigation replaces all evidence."
+      ],
+      "explanation": "The pair Later Europe and Americas and Later Europe belongs together in Later Europe and Americas; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-art-history-060",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Later Europe and Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Later Europe and Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Art History question on Later Europe and Americas?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-art-history-061",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Later Europe and Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Later Europe and Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Later Europe and Americas?",
+      "correctText": "Later Europe and Americas can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Later Europe and Americas can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "Later Europe does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-art-history-062",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Later Europe and Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Later Europe and Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Later Europe and Americas. Which feedback would help most?",
+      "correctText": "Reread the task, identify Later Europe and Americas, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Later Europe and Americas, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-art-history-063",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Later Europe and Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Later Europe and Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Art History: Later Europe and Americas?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Art History means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-art-history-064",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Later Europe and Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Later Europe and Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Later Europe and Americas, which unit vocabulary word should be reviewed with Later Europe and Americas?",
+      "correctText": "Later Europe",
+      "choices": [
+        "Later Europe and Americas",
+        "Later Europe",
+        "West",
+        "Southeast Asia"
+      ],
+      "explanation": "Later Europe belongs near Later Europe and Americas in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-art-history-065",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Indigenous Americas",
@@ -1019,18 +1619,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Art History, which concept is most central to the unit \"Indigenous Americas\"?",
+      "prompt": "AP Art History - Indigenous Americas: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Indigenous Americas",
       "choices": [
-        "Early Europe and Colonial Americas",
-        "Global Contemporary",
         "Indigenous Americas",
-        "West and Central Asia"
+        "materials and processes",
+        "Early Europe",
+        "Africa"
       ],
-      "explanation": "Indigenous Americas is a core idea in Indigenous Americas. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Indigenous Americas is the anchor concept for Indigenous Americas. In AP CED: Indigenous Americas, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-art-history-042",
+      "id": "ap-art-history-066",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Indigenous Americas",
@@ -1044,18 +1644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Indigenous Americas needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Art History: Indigenous Americas needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
       "choices": [
+        "Use evidence to explain sustained investigation.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Indigenous Americas only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Guess from key words about selected works.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-art-history-043",
+      "id": "ap-art-history-067",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Indigenous Americas",
@@ -1069,18 +1669,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Indigenous Americas?",
+      "prompt": "Which answer best avoids a common mistake about AP Art History: Indigenous Americas?",
       "correctText": "Connect Indigenous Americas to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Indigenous Americas to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Indigenous Americas as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-art-history-044",
+      "id": "ap-art-history-068",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Indigenous Americas",
@@ -1094,18 +1694,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Indigenous Americas, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Indigenous Americas, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about selected works.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-art-history-045",
+      "id": "ap-art-history-069",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Indigenous Americas",
@@ -1120,17 +1720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Art History: Indigenous Americas?",
-      "correctText": "Indigenous Americas matters because it helps explain disciplinary reasoning.",
+      "correctText": "Indigenous Americas matters because it helps explain sustained investigation.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Indigenous Americas matters because it helps explain disciplinary reasoning.",
+        "Indigenous Americas matters because it helps explain sustained investigation.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "choosing an answer because it uses familiar words",
+        "Indigenous Americas appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-art-history-046",
+      "id": "ap-art-history-070",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Indigenous Americas",
@@ -1144,18 +1744,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Indigenous Americas. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Indigenous Americas. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-art-history-047",
+      "id": "ap-art-history-071",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Indigenous Americas",
@@ -1170,17 +1770,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Indigenous Americas to the larger course skill?",
-      "correctText": "Indigenous Americas is useful when students use evidence accurately.",
+      "correctText": "Indigenous Americas is useful when students explain artistic intent.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Indigenous Americas is useful when students use evidence accurately.",
-        "Indigenous Americas only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Indigenous Americas is useful when students explain artistic intent.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-art-history-048",
+      "id": "ap-art-history-072",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Indigenous Americas",
@@ -1197,15 +1797,15 @@
       "prompt": "For Indigenous Americas, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Indigenous Americas, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Indigenous Americas, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-art-history-049",
+      "id": "ap-art-history-073",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Indigenous Americas",
@@ -1220,17 +1820,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Indigenous Americas?",
-      "correctText": "evidence-based explanation",
+      "correctText": "selected works",
       "choices": [
-        "evidence-based explanation",
-        "Indigenous Americas",
+        "selected works",
         "memorizing an isolated fact without evidence",
-        "South, East, and Southeast Asia"
+        "making a claim without supporting evidence",
+        "portfolio evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Indigenous Americas, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "selected works is part of the concept cluster for Indigenous Americas, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-art-history-050",
+      "id": "ap-art-history-074",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Indigenous Americas",
@@ -1247,15 +1847,165 @@
       "prompt": "A student wants to transfer Indigenous Americas knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Indigenous Americas, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Indigenous Americas, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Indigenous Americas, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-art-history-051",
+      "id": "ap-art-history-075",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Indigenous Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Indigenous Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - Indigenous Americas: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Indigenous Americas connects to sustained investigation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Indigenous Americas connects to sustained investigation.",
+        "intentional choices replaces all evidence."
+      ],
+      "explanation": "The pair Indigenous Americas and sustained investigation belongs together in Indigenous Americas; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-art-history-076",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Indigenous Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Indigenous Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Art History question on Indigenous Americas?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-art-history-077",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Indigenous Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Indigenous Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Indigenous Americas?",
+      "correctText": "Indigenous Americas can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Indigenous Americas can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-art-history-078",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Indigenous Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Indigenous Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Indigenous Americas. Which feedback would help most?",
+      "correctText": "Reread the task, identify Indigenous Americas, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Indigenous Americas, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-art-history-079",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Indigenous Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Indigenous Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Art History: Indigenous Americas?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Art History means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-art-history-080",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Indigenous Americas",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Indigenous Americas",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Indigenous Americas, which unit vocabulary word should be reviewed with Indigenous Americas?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "Later Europe",
+        "sustained investigation",
+        "West",
+        "Southeast Asia"
+      ],
+      "explanation": "sustained investigation belongs near Indigenous Americas in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-art-history-081",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Africa",
@@ -1269,18 +2019,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Art History, which concept is most central to the unit \"Africa\"?",
+      "prompt": "AP Art History - Africa: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Africa",
       "choices": [
+        "portfolio evidence",
         "Africa",
-        "disciplinary reasoning",
-        "exam-style application",
-        "using a rule from a different unit"
+        "Colonial Americas",
+        "West and Central Asia"
       ],
-      "explanation": "Africa is a core idea in Africa. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Africa is the anchor concept for Africa. In AP CED: Africa, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-art-history-052",
+      "id": "ap-art-history-082",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Africa",
@@ -1294,18 +2044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Africa needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Art History: Africa needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain sustained investigation.",
+        "Repeat the definition of Africa only.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-art-history-053",
+      "id": "ap-art-history-083",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Africa",
@@ -1319,18 +2069,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Africa?",
+      "prompt": "Which answer best avoids a common mistake about AP Art History: Africa?",
       "correctText": "Connect Africa to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Africa to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-art-history-054",
+      "id": "ap-art-history-084",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Africa",
@@ -1344,18 +2094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Africa, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Africa, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about selected works.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-art-history-055",
+      "id": "ap-art-history-085",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Africa",
@@ -1370,17 +2120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Art History: Africa?",
-      "correctText": "Africa matters because it helps explain disciplinary reasoning.",
+      "correctText": "Africa matters because it helps explain sustained investigation.",
       "choices": [
         "Africa appears on tests, so no explanation is needed.",
-        "Africa matters because it helps explain disciplinary reasoning.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Africa matters because it helps explain sustained investigation.",
+        "ignoring the source or data in the prompt",
+        "selected works is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-art-history-056",
+      "id": "ap-art-history-086",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Africa",
@@ -1394,18 +2144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Africa. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Africa. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-art-history-057",
+      "id": "ap-art-history-087",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Africa",
@@ -1420,17 +2170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Africa to the larger course skill?",
-      "correctText": "Africa is useful when students explain reasoning.",
+      "correctText": "Africa is useful when students explain artistic intent.",
       "choices": [
-        "Africa is useful when students explain reasoning.",
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "Africa is useful when students explain artistic intent.",
+        "Africa only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-art-history-058",
+      "id": "ap-art-history-088",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Africa",
@@ -1447,15 +2197,15 @@
       "prompt": "For Africa, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Africa, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Africa, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-art-history-059",
+      "id": "ap-art-history-089",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Africa",
@@ -1470,17 +2220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Africa?",
-      "correctText": "evidence-based explanation",
+      "correctText": "selected works",
       "choices": [
-        "Early Europe and Colonial Americas",
-        "evidence-based explanation",
-        "making a claim without supporting evidence",
-        "model or source analysis"
+        "choosing an answer because it uses familiar words",
+        "selected works",
+        "Global Prehistory",
+        "artist statement"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Africa, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "selected works is part of the concept cluster for Africa, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-art-history-060",
+      "id": "ap-art-history-090",
       "course": "ap-art-history",
       "courseLabel": "AP Art History",
       "topic": "Africa",
@@ -1497,12 +2247,1762 @@
       "prompt": "A student wants to transfer Africa knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Africa, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Africa, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Africa, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-art-history-091",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Africa",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Africa",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - Africa: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Africa connects to sustained investigation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Africa connects to sustained investigation.",
+        "intentional choices replaces all evidence."
+      ],
+      "explanation": "The pair Africa and sustained investigation belongs together in Africa; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-art-history-092",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Africa",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Africa",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Art History question on Africa?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-art-history-093",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Africa",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Africa",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Africa?",
+      "correctText": "Africa can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Africa can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-art-history-094",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Africa",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Africa",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Africa. Which feedback would help most?",
+      "correctText": "Reread the task, identify Africa, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Africa, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-art-history-095",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Africa",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Africa",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Art History: Africa?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Art History means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-art-history-096",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Africa",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Africa",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Africa, which unit vocabulary word should be reviewed with Africa?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "Later Europe",
+        "sustained investigation",
+        "West",
+        "Southeast Asia"
+      ],
+      "explanation": "sustained investigation belongs near Africa in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-art-history-097",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - West and Central Asia: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "West and Central Asia",
+      "choices": [
+        "artist statement",
+        "Later Europe and Americas",
+        "West and Central Asia",
+        "West"
+      ],
+      "explanation": "West and Central Asia is the anchor concept for West and Central Asia. In AP CED: West and Central Asia, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-art-history-098",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Art History: West and Central Asia needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain West.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain West.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to West; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-art-history-099",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Art History: West and Central Asia?",
+      "correctText": "Connect West and Central Asia to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect West and Central Asia to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-art-history-100",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about West and Central Asia, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Central Asia.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Central Asia.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-art-history-101",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Art History: West and Central Asia?",
+      "correctText": "West and Central Asia matters because it helps explain West.",
+      "choices": [
+        "Central Asia is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "West and Central Asia matters because it helps explain West.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-art-history-102",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for West and Central Asia. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-art-history-103",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect West and Central Asia to the larger course skill?",
+      "correctText": "West and Central Asia is useful when students explain artistic intent.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "West should be ignored unless it appears in the title.",
+        "West and Central Asia is useful when students explain artistic intent.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-art-history-104",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For West and Central Asia, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names West and Central Asia, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names West and Central Asia, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-art-history-105",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in West and Central Asia?",
+      "correctText": "Central Asia",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "sustained investigation",
+        "Central Asia",
+        "artist statement"
+      ],
+      "explanation": "Central Asia is part of the concept cluster for West and Central Asia, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-art-history-106",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer West and Central Asia knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to West and Central Asia, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to West and Central Asia, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-art-history-107",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - West and Central Asia: which pair best shows how two ideas in the unit connect?",
+      "correctText": "West and Central Asia connects to West.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "West and Central Asia connects to West.",
+        "sustained investigation replaces all evidence."
+      ],
+      "explanation": "The pair West and Central Asia and West belongs together in West and Central Asia; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-art-history-108",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Art History question on West and Central Asia?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-art-history-109",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in West and Central Asia?",
+      "correctText": "West and Central Asia can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "West and Central Asia can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "West does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-art-history-110",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on West and Central Asia. Which feedback would help most?",
+      "correctText": "Reread the task, identify West and Central Asia, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify West and Central Asia, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-art-history-111",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Art History: West and Central Asia?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Art History means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-art-history-112",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "West and Central Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: West and Central Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For West and Central Asia, which unit vocabulary word should be reviewed with West and Central Asia?",
+      "correctText": "West",
+      "choices": [
+        "Later Europe and Americas",
+        "West",
+        "West and Central Asia",
+        "Southeast Asia"
+      ],
+      "explanation": "West belongs near West and Central Asia in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-art-history-113",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - South, East, and Southeast Asia: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "South, East, and Southeast Asia",
+      "choices": [
+        "Ancient Mediterranean",
+        "Later Europe",
+        "West",
+        "South, East, and Southeast Asia"
+      ],
+      "explanation": "South, East, and Southeast Asia is the anchor concept for South, East, and Southeast Asia. In AP CED: South, East, and Southeast Asia, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-art-history-114",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Art History: South, East, and Southeast Asia needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain South.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Use evidence to explain South."
+      ],
+      "explanation": "The useful move is to connect evidence to South; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-art-history-115",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Art History: South, East, and Southeast Asia?",
+      "correctText": "Connect South, East, and Southeast Asia to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect South, East, and Southeast Asia to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-art-history-116",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about South, East, and Southeast Asia, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about East.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about East.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-art-history-117",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Art History: South, East, and Southeast Asia?",
+      "correctText": "South, East, and Southeast Asia matters because it helps explain South.",
+      "choices": [
+        "Only the vocabulary list matters for this unit.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "South, East, and Southeast Asia matters because it helps explain South."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-art-history-118",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for South, East, and Southeast Asia. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Read the prompt, source, or data for the exact task.",
+        "Pick the first familiar vocabulary word.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-art-history-119",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect South, East, and Southeast Asia to the larger course skill?",
+      "correctText": "South, East, and Southeast Asia is useful when students explain artistic intent.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "South, East, and Southeast Asia is useful when students explain artistic intent."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-art-history-120",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For South, East, and Southeast Asia, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names South, East, and Southeast Asia, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names South, East, and Southeast Asia, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-art-history-121",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in South, East, and Southeast Asia?",
+      "correctText": "East",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "selected works",
+        "Ancient Mediterranean",
+        "East"
+      ],
+      "explanation": "East is part of the concept cluster for South, East, and Southeast Asia, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-art-history-122",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer South, East, and Southeast Asia knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to South, East, and Southeast Asia, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to South, East, and Southeast Asia, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-art-history-123",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - South, East, and Southeast Asia: which pair best shows how two ideas in the unit connect?",
+      "correctText": "South, East, and Southeast Asia connects to South.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "South, East, and Southeast Asia connects to South.",
+        "Southeast Asia replaces all evidence."
+      ],
+      "explanation": "The pair South, East, and Southeast Asia and South belongs together in South, East, and Southeast Asia; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-art-history-124",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Art History question on South, East, and Southeast Asia?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-art-history-125",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in South, East, and Southeast Asia?",
+      "correctText": "South, East, and Southeast Asia can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "South, East, and Southeast Asia can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "South does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-art-history-126",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on South, East, and Southeast Asia. Which feedback would help most?",
+      "correctText": "Reread the task, identify South, East, and Southeast Asia, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify South, East, and Southeast Asia, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-art-history-127",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Art History: South, East, and Southeast Asia?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Art History means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-art-history-128",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "South, East, and Southeast Asia",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: South, East, and Southeast Asia",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For South, East, and Southeast Asia, which unit vocabulary word should be reviewed with South, East, and Southeast Asia?",
+      "correctText": "South",
+      "choices": [
+        "Later Europe and Americas",
+        "South",
+        "West and Central Asia",
+        "Southeast Asia"
+      ],
+      "explanation": "South belongs near South, East, and Southeast Asia in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-art-history-129",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - The Pacific: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "The Pacific",
+      "choices": [
+        "The Pacific",
+        "Early Europe and Colonial Americas",
+        "Americas",
+        "Central Asia"
+      ],
+      "explanation": "The Pacific is the anchor concept for The Pacific. In AP CED: The Pacific, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-art-history-130",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Art History: The Pacific needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
+      "choices": [
+        "Use evidence to explain sustained investigation.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about selected works."
+      ],
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-art-history-131",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Art History: The Pacific?",
+      "correctText": "Connect The Pacific to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect The Pacific to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-art-history-132",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about The Pacific, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about selected works.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-art-history-133",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Art History: The Pacific?",
+      "correctText": "The Pacific matters because it helps explain sustained investigation.",
+      "choices": [
+        "The Pacific matters because it helps explain sustained investigation.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-art-history-134",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for The Pacific. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus.",
+        "Read the prompt, source, or data for the exact task.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-art-history-135",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect The Pacific to the larger course skill?",
+      "correctText": "The Pacific is useful when students explain artistic intent.",
+      "choices": [
+        "The Pacific is useful when students explain artistic intent.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-art-history-136",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For The Pacific, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names The Pacific, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names The Pacific, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-art-history-137",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in The Pacific?",
+      "correctText": "selected works",
+      "choices": [
+        "selected works",
+        "using a rule from a different unit",
+        "materials and processes",
+        "Early Europe"
+      ],
+      "explanation": "selected works is part of the concept cluster for The Pacific, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-art-history-138",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer The Pacific knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to The Pacific, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to The Pacific, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-art-history-139",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - The Pacific: which pair best shows how two ideas in the unit connect?",
+      "correctText": "The Pacific connects to sustained investigation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "The Pacific connects to sustained investigation.",
+        "intentional choices replaces all evidence."
+      ],
+      "explanation": "The pair The Pacific and sustained investigation belongs together in The Pacific; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-art-history-140",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Art History question on The Pacific?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-art-history-141",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in The Pacific?",
+      "correctText": "The Pacific can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "The Pacific can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-art-history-142",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on The Pacific. Which feedback would help most?",
+      "correctText": "Reread the task, identify The Pacific, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify The Pacific, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-art-history-143",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Art History: The Pacific?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Art History means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-art-history-144",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "The Pacific",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: The Pacific",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For The Pacific, which unit vocabulary word should be reviewed with The Pacific?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "Later Europe",
+        "sustained investigation",
+        "West",
+        "Southeast Asia"
+      ],
+      "explanation": "sustained investigation belongs near The Pacific in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-art-history-145",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - Global Contemporary: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Global Contemporary",
+      "choices": [
+        "Early Europe",
+        "Global Contemporary",
+        "Indigenous Americas",
+        "South, East, and Southeast Asia"
+      ],
+      "explanation": "Global Contemporary is the anchor concept for Global Contemporary. In AP CED: Global Contemporary, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-art-history-146",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Art History: Global Contemporary needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
+      "choices": [
+        "Guess from key words about selected works.",
+        "Use evidence to explain sustained investigation.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Global Contemporary only."
+      ],
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-art-history-147",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Art History: Global Contemporary?",
+      "correctText": "Connect Global Contemporary to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Global Contemporary to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-art-history-148",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Global Contemporary, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about selected works.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-art-history-149",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Art History: Global Contemporary?",
+      "correctText": "Global Contemporary matters because it helps explain sustained investigation.",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Global Contemporary matters because it helps explain sustained investigation.",
+        "Global Contemporary appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-art-history-150",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Global Contemporary. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Eliminate every answer that sounds detailed.",
+        "using a rule from a different unit",
+        "Read the prompt, source, or data for the exact task."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-art-history-151",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Global Contemporary to the larger course skill?",
+      "correctText": "Global Contemporary is useful when students explain artistic intent.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "Global Contemporary is useful when students explain artistic intent.",
+        "choosing an answer because it uses familiar words",
+        "Global Contemporary only matters for memorized definitions."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-art-history-152",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Global Contemporary, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Global Contemporary, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Global Contemporary, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-art-history-153",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Global Contemporary?",
+      "correctText": "selected works",
+      "choices": [
+        "making a claim without supporting evidence",
+        "selected works",
+        "portfolio evidence",
+        "Colonial Americas"
+      ],
+      "explanation": "selected works is part of the concept cluster for Global Contemporary, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-art-history-154",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Global Contemporary knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Global Contemporary, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Global Contemporary, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-art-history-155",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Art History - Global Contemporary: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Global Contemporary connects to sustained investigation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Global Contemporary connects to sustained investigation.",
+        "intentional choices replaces all evidence."
+      ],
+      "explanation": "The pair Global Contemporary and sustained investigation belongs together in Global Contemporary; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-art-history-156",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Art History question on Global Contemporary?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-art-history-157",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Global Contemporary?",
+      "correctText": "Global Contemporary can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Global Contemporary can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-art-history-158",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Global Contemporary. Which feedback would help most?",
+      "correctText": "Reread the task, identify Global Contemporary, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Global Contemporary, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-art-history-159",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Art History: Global Contemporary?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Art History means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-art-history-160",
+      "course": "ap-art-history",
+      "courseLabel": "AP Art History",
+      "topic": "Global Contemporary",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Global Contemporary",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Global Contemporary, which unit vocabulary word should be reviewed with Global Contemporary?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "Later Europe",
+        "sustained investigation",
+        "West",
+        "Southeast Asia"
+      ],
+      "explanation": "sustained investigation belongs near Global Contemporary in this unit's concept map. Reviewing them together helps students answer transfer questions."
     }
   ]
 }

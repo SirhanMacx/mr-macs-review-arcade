@@ -212,7 +212,7 @@
       <p class="meta">Return to the arcade and regenerate the all-subject content system.</p>
     </section>
   </main>
-  <script src="../../assets/shared-question-bank.js?v=20260515-all-subjects-v1"></script>
+  <script src="../../assets/shared-question-bank.js?v=20260516-course-depth-v2"></script>
   <script>
     const params = new URLSearchParams(location.search);
     const requestedCourse = params.get("course") || "";
@@ -278,11 +278,18 @@
       }, q));
     }
     function renderWrittenPrompts() {
-      const units = (state.exam.units || []).slice(0, 3);
-      $("#writtenPrompts").innerHTML = units.map((unit, index) =>
+      const tasks = Array.isArray(state.exam.writtenTasks) && state.exam.writtenTasks.length
+        ? state.exam.writtenTasks.slice(0, 4)
+        : (state.exam.units || []).slice(0, 3).map((unit, index) => ({
+            unit: unit.unit,
+            prompt: 'Explain one important idea from ' + unit.unit + '. Use vocabulary, evidence, or process language from the course standards.',
+            scoringFocus: ['course concept', 'evidence', 'explanation']
+          }));
+      $("#writtenPrompts").innerHTML = tasks.map((task, index) =>
         '<div class="written-card">' +
-          '<p><strong>Part ' + (index + 1) + ':</strong> Explain one important idea from ' + esc(unit.unit) + '. Use vocabulary, evidence, or process language from the course standards.</p>' +
-          '<textarea aria-label="Written response for ' + esc(unit.unit) + '"></textarea>' +
+          '<p><strong>Part ' + (index + 1) + ':</strong> ' + esc(task.prompt) + '</p>' +
+          '<p><small>Scoring focus: ' + esc((task.scoringFocus || []).join(", ")) + '</small></p>' +
+          '<textarea aria-label="Written response for ' + esc(task.unit || ('Part ' + (index + 1))) + '"></textarea>' +
         '</div>'
       ).join("");
     }

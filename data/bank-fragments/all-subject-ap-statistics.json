@@ -2,7 +2,7 @@
   "course": "ap-statistics",
   "courseLabel": "AP Statistics",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-statistics-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Statistics, which concept is most central to the unit \"Exploring One-Variable Data\"?",
+      "prompt": "AP Statistics - Exploring One-Variable Data: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Exploring One-Variable Data",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
         "Exploring One-Variable Data",
-        "Probability, Random Variables, and Probability Distributions"
+        "function behavior",
+        "precision",
+        "Random Variables"
       ],
-      "explanation": "Exploring One-Variable Data is a core idea in Exploring One-Variable Data. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Exploring One-Variable Data is the anchor concept for Exploring One-Variable Data. In AP CED: Exploring One-Variable Data, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-statistics-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Exploring One-Variable Data needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Statistics: Exploring One-Variable Data needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain function behavior.",
+        "Guess from key words about representation.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Exploring One-Variable Data only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-statistics-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Exploring One-Variable Data?",
+      "prompt": "Which answer best avoids a common mistake about AP Statistics: Exploring One-Variable Data?",
       "correctText": "Connect Exploring One-Variable Data to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Exploring One-Variable Data to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Exploring One-Variable Data, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Exploring One-Variable Data, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about representation.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Statistics: Exploring One-Variable Data?",
-      "correctText": "Exploring One-Variable Data matters because it helps explain disciplinary reasoning.",
+      "correctText": "Exploring One-Variable Data matters because it helps explain function behavior.",
       "choices": [
+        "Exploring One-Variable Data matters because it helps explain function behavior.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Exploring One-Variable Data matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Exploring One-Variable Data appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Exploring One-Variable Data. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Exploring One-Variable Data. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Exploring One-Variable Data to the larger course skill?",
-      "correctText": "Exploring One-Variable Data is useful when students apply a course concept.",
+      "correctText": "Exploring One-Variable Data is useful when students represent relationships.",
       "choices": [
-        "Exploring One-Variable Data is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
+        "Exploring One-Variable Data is useful when students represent relationships.",
         "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Exploring One-Variable Data only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Exploring One-Variable Data, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Exploring One-Variable Data, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Exploring One-Variable Data, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Exploring One-Variable Data?",
-      "correctText": "evidence-based explanation",
+      "correctText": "representation",
       "choices": [
-        "evidence-based explanation",
-        "exam-style application",
-        "Inference for Quantitative Data",
+        "representation",
+        "using a rule from a different unit",
+        "model",
         "Probability, Random Variables, and Probability Distributions"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Exploring One-Variable Data, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "representation is part of the concept cluster for Exploring One-Variable Data, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-statistics-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Exploring One-Variable Data knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Exploring One-Variable Data, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Exploring One-Variable Data, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,151 +258,151 @@
       "id": "ap-statistics-011",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Exploring Two-Variable Data",
+      "topic": "Exploring One-Variable Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Exploring Two-Variable Data",
+        "AP CED: Exploring One-Variable Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Statistics, which concept is most central to the unit \"Exploring Two-Variable Data\"?",
-      "correctText": "Exploring Two-Variable Data",
+      "prompt": "AP Statistics - Exploring One-Variable Data: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Exploring One-Variable Data connects to function behavior.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Exploring One-Variable Data",
-        "Exploring Two-Variable Data",
-        "memorizing an isolated fact without evidence"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Exploring One-Variable Data connects to function behavior.",
+        "parameter replaces all evidence."
       ],
-      "explanation": "Exploring Two-Variable Data is a core idea in Exploring Two-Variable Data. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Exploring One-Variable Data and function behavior belongs together in Exploring One-Variable Data; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-statistics-012",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Exploring Two-Variable Data",
+      "topic": "Exploring One-Variable Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Exploring Two-Variable Data",
+        "AP CED: Exploring One-Variable Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Exploring Two-Variable Data needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Statistics question on Exploring One-Variable Data?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Exploring Two-Variable Data only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-statistics-013",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Exploring Two-Variable Data",
+      "topic": "Exploring One-Variable Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Exploring Two-Variable Data",
+        "AP CED: Exploring One-Variable Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Exploring Two-Variable Data?",
-      "correctText": "Connect Exploring Two-Variable Data to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Exploring One-Variable Data?",
+      "correctText": "Exploring One-Variable Data can be explained with evidence from graph, table, or equation.",
       "choices": [
-        "Connect Exploring Two-Variable Data to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Exploring Two-Variable Data as always meaning the same thing."
+        "Exploring One-Variable Data can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-statistics-014",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Exploring Two-Variable Data",
+      "topic": "Exploring One-Variable Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Exploring Two-Variable Data",
+        "AP CED: Exploring One-Variable Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Exploring Two-Variable Data, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Exploring One-Variable Data. Which feedback would help most?",
+      "correctText": "Reread the task, identify Exploring One-Variable Data, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Exploring One-Variable Data, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-statistics-015",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Exploring Two-Variable Data",
+      "topic": "Exploring One-Variable Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Exploring Two-Variable Data",
+        "AP CED: Exploring One-Variable Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Statistics: Exploring Two-Variable Data?",
-      "correctText": "Exploring Two-Variable Data matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Statistics: Exploring One-Variable Data?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
       "choices": [
-        "Exploring Two-Variable Data matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Statistics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-statistics-016",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Exploring Two-Variable Data",
+      "topic": "Exploring One-Variable Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Exploring Two-Variable Data",
+        "AP CED: Exploring One-Variable Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Exploring Two-Variable Data. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Exploring One-Variable Data, which unit vocabulary word should be reviewed with Exploring One-Variable Data?",
+      "correctText": "function behavior",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "function behavior",
+        "parameter",
+        "Collecting Data"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "function behavior belongs near Exploring One-Variable Data in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-statistics-017",
@@ -419,15 +419,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Exploring Two-Variable Data to the larger course skill?",
-      "correctText": "Exploring Two-Variable Data is useful when students use evidence accurately.",
+      "prompt": "AP Statistics - Exploring Two-Variable Data: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Exploring Two-Variable Data",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Exploring Two-Variable Data is useful when students use evidence accurately.",
-        "Exploring Two-Variable Data only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "function behavior",
+        "Exploring Two-Variable Data",
+        "precision",
+        "Probability Distributions"
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "Exploring Two-Variable Data is the anchor concept for Exploring Two-Variable Data. In AP CED: Exploring Two-Variable Data, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-statistics-018",
@@ -444,15 +444,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Exploring Two-Variable Data, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Exploring Two-Variable Data, cites evidence, and explains the connection.",
+      "prompt": "A student reviewing AP Statistics: Exploring Two-Variable Data needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
       "choices": [
+        "Repeat the definition of Exploring Two-Variable Data only.",
+        "Use evidence to explain function behavior.",
         "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Exploring Two-Variable Data, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-statistics-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Exploring Two-Variable Data?",
-      "correctText": "evidence-based explanation",
+      "prompt": "Which answer best avoids a common mistake about AP Statistics: Exploring Two-Variable Data?",
+      "correctText": "Connect Exploring Two-Variable Data to the prompt context before choosing.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "exam-style application",
-        "Exploring One-Variable Data"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Exploring Two-Variable Data to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Exploring Two-Variable Data, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-statistics-020",
@@ -494,93 +494,318 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Exploring Two-Variable Data knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Exploring Two-Variable Data, then justify the answer with evidence.",
+      "prompt": "In an AP CED-aligned exam task about Exploring Two-Variable Data, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Match the new prompt to Exploring Two-Variable Data, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about representation.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-statistics-021",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Collecting Data",
+      "topic": "Exploring Two-Variable Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Collecting Data",
+        "AP CED: Exploring Two-Variable Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Statistics, which concept is most central to the unit \"Collecting Data\"?",
-      "correctText": "Collecting Data",
+      "prompt": "Which review note would help most for AP Statistics: Exploring Two-Variable Data?",
+      "correctText": "Exploring Two-Variable Data matters because it helps explain function behavior.",
       "choices": [
-        "Collecting Data",
-        "Exploring Two-Variable Data",
-        "Inference for Categorical Data",
-        "memorizing an isolated fact without evidence"
+        "ignoring the source or data in the prompt",
+        "Exploring Two-Variable Data matters because it helps explain function behavior.",
+        "representation is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Collecting Data is a core idea in Collecting Data. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-statistics-022",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Collecting Data",
+      "topic": "Exploring Two-Variable Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Collecting Data",
+        "AP CED: Exploring Two-Variable Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Collecting Data needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Exploring Two-Variable Data. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Read the prompt, source, or data for the exact task."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
       "id": "ap-statistics-023",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Collecting Data",
+      "topic": "Exploring Two-Variable Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Collecting Data",
+        "AP CED: Exploring Two-Variable Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Collecting Data?",
-      "correctText": "Connect Collecting Data to the prompt context before choosing.",
+      "prompt": "Which classroom explanation would best connect Exploring Two-Variable Data to the larger course skill?",
+      "correctText": "Exploring Two-Variable Data is useful when students represent relationships.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Collecting Data to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Exploring Two-Variable Data only matters for memorized definitions.",
+        "Exploring Two-Variable Data is useful when students represent relationships.",
+        "ignoring the source or data in the prompt",
+        "function behavior should be ignored unless it appears in the title."
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
       "id": "ap-statistics-024",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Exploring Two-Variable Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exploring Two-Variable Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Exploring Two-Variable Data, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Exploring Two-Variable Data, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Exploring Two-Variable Data, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-statistics-025",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Exploring Two-Variable Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exploring Two-Variable Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Exploring Two-Variable Data?",
+      "correctText": "representation",
+      "choices": [
+        "making a claim without supporting evidence",
+        "representation",
+        "justification",
+        "Probability"
+      ],
+      "explanation": "representation is part of the concept cluster for Exploring Two-Variable Data, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-statistics-026",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Exploring Two-Variable Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exploring Two-Variable Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Exploring Two-Variable Data knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Exploring Two-Variable Data, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Exploring Two-Variable Data, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-statistics-027",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Exploring Two-Variable Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exploring Two-Variable Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Statistics - Exploring Two-Variable Data: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Exploring Two-Variable Data connects to function behavior.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Exploring Two-Variable Data connects to function behavior.",
+        "parameter replaces all evidence."
+      ],
+      "explanation": "The pair Exploring Two-Variable Data and function behavior belongs together in Exploring Two-Variable Data; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-statistics-028",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Exploring Two-Variable Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exploring Two-Variable Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Statistics question on Exploring Two-Variable Data?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-statistics-029",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Exploring Two-Variable Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exploring Two-Variable Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Exploring Two-Variable Data?",
+      "correctText": "Exploring Two-Variable Data can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Exploring Two-Variable Data can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-statistics-030",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Exploring Two-Variable Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exploring Two-Variable Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Exploring Two-Variable Data. Which feedback would help most?",
+      "correctText": "Reread the task, identify Exploring Two-Variable Data, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Exploring Two-Variable Data, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-statistics-031",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Exploring Two-Variable Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exploring Two-Variable Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Statistics: Exploring Two-Variable Data?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Statistics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-statistics-032",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Exploring Two-Variable Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Exploring Two-Variable Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Exploring Two-Variable Data, which unit vocabulary word should be reviewed with Exploring Two-Variable Data?",
+      "correctText": "function behavior",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "function behavior",
+        "parameter",
+        "Collecting Data"
+      ],
+      "explanation": "function behavior belongs near Exploring Two-Variable Data in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-statistics-033",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Collecting Data",
@@ -594,18 +819,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Collecting Data, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Statistics - Collecting Data: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Collecting Data",
       "choices": [
+        "representation",
+        "Exploring Two-Variable Data",
+        "Collecting Data",
+        "Sampling Distributions"
+      ],
+      "explanation": "Collecting Data is the anchor concept for Collecting Data. In AP CED: Collecting Data, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-statistics-034",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Collecting Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Collecting Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Statistics: Collecting Data needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain function behavior.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-statistics-035",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Collecting Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Collecting Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Statistics: Collecting Data?",
+      "correctText": "Connect Collecting Data to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Collecting Data to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-statistics-036",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Collecting Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Collecting Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Collecting Data, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about representation.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-statistics-025",
+      "id": "ap-statistics-037",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Collecting Data",
@@ -620,17 +920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Statistics: Collecting Data?",
-      "correctText": "Collecting Data matters because it helps explain disciplinary reasoning.",
+      "correctText": "Collecting Data matters because it helps explain function behavior.",
       "choices": [
-        "Collecting Data appears on tests, so no explanation is needed.",
-        "Collecting Data matters because it helps explain disciplinary reasoning.",
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Collecting Data matters because it helps explain function behavior.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-statistics-026",
+      "id": "ap-statistics-038",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Collecting Data",
@@ -644,18 +944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Collecting Data. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Collecting Data. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-statistics-027",
+      "id": "ap-statistics-039",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Collecting Data",
@@ -670,17 +970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Collecting Data to the larger course skill?",
-      "correctText": "Collecting Data is useful when students explain reasoning.",
+      "correctText": "Collecting Data is useful when students represent relationships.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Collecting Data is useful when students explain reasoning.",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "function behavior should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Collecting Data is useful when students represent relationships.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-statistics-028",
+      "id": "ap-statistics-040",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Collecting Data",
@@ -697,15 +997,15 @@
       "prompt": "For Collecting Data, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Collecting Data, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Collecting Data, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-statistics-029",
+      "id": "ap-statistics-041",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Collecting Data",
@@ -720,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Collecting Data?",
-      "correctText": "evidence-based explanation",
+      "correctText": "representation",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "Inference for Categorical Data",
-        "memorizing an isolated fact without evidence"
+        "Exploring One-Variable Data",
+        "precision",
+        "representation",
+        "Random Variables"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Collecting Data, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "representation is part of the concept cluster for Collecting Data, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-statistics-030",
+      "id": "ap-statistics-042",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Collecting Data",
@@ -747,65 +1047,165 @@
       "prompt": "A student wants to transfer Collecting Data knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Collecting Data, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Collecting Data, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Collecting Data, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-statistics-031",
+      "id": "ap-statistics-043",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Probability, Random Variables, and Probability Distributions",
+      "topic": "Collecting Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Probability, Random Variables, and Probability Distributions",
+        "AP CED: Collecting Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Statistics, which concept is most central to the unit \"Probability, Random Variables, and Probability Distributions\"?",
-      "correctText": "Probability, Random Variables, and Probability Distributions",
+      "prompt": "AP Statistics - Collecting Data: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Collecting Data connects to function behavior.",
       "choices": [
-        "evidence-based explanation",
-        "Exploring Two-Variable Data",
         "making a claim without supporting evidence",
-        "Probability, Random Variables, and Probability Distributions"
+        "choosing an answer because it uses familiar words",
+        "Collecting Data connects to function behavior.",
+        "parameter replaces all evidence."
       ],
-      "explanation": "Probability, Random Variables, and Probability Distributions is a core idea in Probability, Random Variables, and Probability Distributions. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Collecting Data and function behavior belongs together in Collecting Data; students should explain the relationship rather than memorize each term alone."
     },
     {
-      "id": "ap-statistics-032",
+      "id": "ap-statistics-044",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
-      "topic": "Probability, Random Variables, and Probability Distributions",
+      "topic": "Collecting Data",
       "domain": "AP Math and Computer Science",
       "subjectArea": "AP Math and Computer Science",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Probability, Random Variables, and Probability Distributions",
+        "AP CED: Collecting Data",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Probability, Random Variables, and Probability Distributions needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Statistics question on Collecting Data?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-statistics-045",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Collecting Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Collecting Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Collecting Data?",
+      "correctText": "Collecting Data can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Collecting Data can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-statistics-046",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Collecting Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Collecting Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Collecting Data. Which feedback would help most?",
+      "correctText": "Reread the task, identify Collecting Data, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Collecting Data, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-statistics-047",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Collecting Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Collecting Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Statistics: Collecting Data?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Statistics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-statistics-048",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Collecting Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Collecting Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Collecting Data, which unit vocabulary word should be reviewed with Collecting Data?",
+      "correctText": "function behavior",
       "choices": [
         "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "function behavior",
+        "parameter",
+        "Collecting Data"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "function behavior belongs near Collecting Data in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
-      "id": "ap-statistics-033",
+      "id": "ap-statistics-049",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Probability, Random Variables, and Probability Distributions",
@@ -819,18 +1219,68 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Probability, Random Variables, and Probability Distributions?",
+      "prompt": "AP Statistics - Probability, Random Variables, and Probability Distributions: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Probability, Random Variables, and Probability Distributions",
+      "choices": [
+        "parameter",
+        "Collecting Data",
+        "Inference for Categorical Data",
+        "Probability, Random Variables, and Probability Distributions"
+      ],
+      "explanation": "Probability, Random Variables, and Probability Distributions is the anchor concept for Probability, Random Variables, and Probability Distributions. In AP CED: Probability, Random Variables, and Probability Distributions, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-statistics-050",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Probability, Random Variables, and Probability Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Probability, Random Variables, and Probability Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Statistics: Probability, Random Variables, and Probability Distributions needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Probability.",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Probability."
+      ],
+      "explanation": "The useful move is to connect evidence to Probability; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-statistics-051",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Probability, Random Variables, and Probability Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Probability, Random Variables, and Probability Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Statistics: Probability, Random Variables, and Probability Distributions?",
       "correctText": "Connect Probability, Random Variables, and Probability Distributions to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Probability, Random Variables, and Probability Distributions to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-statistics-034",
+      "id": "ap-statistics-052",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Probability, Random Variables, and Probability Distributions",
@@ -844,18 +1294,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Probability, Random Variables, and Probability Distributions, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Probability, Random Variables, and Probability Distributions, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Random Variables.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Random Variables.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-statistics-035",
+      "id": "ap-statistics-053",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Probability, Random Variables, and Probability Distributions",
@@ -870,17 +1320,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Statistics: Probability, Random Variables, and Probability Distributions?",
-      "correctText": "Probability, Random Variables, and Probability Distributions matters because it helps explain disciplinary reasoning.",
+      "correctText": "Probability, Random Variables, and Probability Distributions matters because it helps explain Probability.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Probability, Random Variables, and Probability Distributions matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Probability, Random Variables, and Probability Distributions matters because it helps explain Probability."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-statistics-036",
+      "id": "ap-statistics-054",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Probability, Random Variables, and Probability Distributions",
@@ -894,18 +1344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Probability, Random Variables, and Probability Distributions. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Probability, Random Variables, and Probability Distributions. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-statistics-037",
+      "id": "ap-statistics-055",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Probability, Random Variables, and Probability Distributions",
@@ -920,17 +1370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Probability, Random Variables, and Probability Distributions to the larger course skill?",
-      "correctText": "Probability, Random Variables, and Probability Distributions is useful when students apply a course concept.",
+      "correctText": "Probability, Random Variables, and Probability Distributions is useful when students represent relationships.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Probability, Random Variables, and Probability Distributions is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Probability, Random Variables, and Probability Distributions is useful when students represent relationships."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-statistics-038",
+      "id": "ap-statistics-056",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Probability, Random Variables, and Probability Distributions",
@@ -947,15 +1397,15 @@
       "prompt": "For Probability, Random Variables, and Probability Distributions, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Probability, Random Variables, and Probability Distributions, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Probability, Random Variables, and Probability Distributions, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-statistics-039",
+      "id": "ap-statistics-057",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Probability, Random Variables, and Probability Distributions",
@@ -970,17 +1420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Probability, Random Variables, and Probability Distributions?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Random Variables",
       "choices": [
-        "Collecting Data",
-        "evidence-based explanation",
-        "Inference for Categorical Data",
-        "model or source analysis"
+        "function behavior",
+        "precision",
+        "Probability Distributions",
+        "Random Variables"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Probability, Random Variables, and Probability Distributions, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Random Variables is part of the concept cluster for Probability, Random Variables, and Probability Distributions, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-statistics-040",
+      "id": "ap-statistics-058",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Probability, Random Variables, and Probability Distributions",
@@ -997,15 +1447,165 @@
       "prompt": "A student wants to transfer Probability, Random Variables, and Probability Distributions knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Probability, Random Variables, and Probability Distributions, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Probability, Random Variables, and Probability Distributions, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-statistics-041",
+      "id": "ap-statistics-059",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Probability, Random Variables, and Probability Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Probability, Random Variables, and Probability Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Statistics - Probability, Random Variables, and Probability Distributions: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Probability, Random Variables, and Probability Distributions connects to Probability.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Probability, Random Variables, and Probability Distributions connects to Probability.",
+        "Probability Distributions replaces all evidence."
+      ],
+      "explanation": "The pair Probability, Random Variables, and Probability Distributions and Probability belongs together in Probability, Random Variables, and Probability Distributions; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-statistics-060",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Probability, Random Variables, and Probability Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Probability, Random Variables, and Probability Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Statistics question on Probability, Random Variables, and Probability Distributions?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-statistics-061",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Probability, Random Variables, and Probability Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Probability, Random Variables, and Probability Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Probability, Random Variables, and Probability Distributions?",
+      "correctText": "Probability, Random Variables, and Probability Distributions can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Probability, Random Variables, and Probability Distributions can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "Probability does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-statistics-062",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Probability, Random Variables, and Probability Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Probability, Random Variables, and Probability Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Probability, Random Variables, and Probability Distributions. Which feedback would help most?",
+      "correctText": "Reread the task, identify Probability, Random Variables, and Probability Distributions, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Probability, Random Variables, and Probability Distributions, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-statistics-063",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Probability, Random Variables, and Probability Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Probability, Random Variables, and Probability Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Statistics: Probability, Random Variables, and Probability Distributions?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Statistics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-statistics-064",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Probability, Random Variables, and Probability Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Probability, Random Variables, and Probability Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Probability, Random Variables, and Probability Distributions, which unit vocabulary word should be reviewed with Probability, Random Variables, and Probability Distributions?",
+      "correctText": "Probability",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Probability",
+        "representation",
+        "Exploring Two-Variable Data"
+      ],
+      "explanation": "Probability belongs near Probability, Random Variables, and Probability Distributions in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-statistics-065",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Sampling Distributions",
@@ -1019,18 +1619,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Statistics, which concept is most central to the unit \"Sampling Distributions\"?",
+      "prompt": "AP Statistics - Sampling Distributions: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Sampling Distributions",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Inference for Slopes",
-        "making a claim without supporting evidence",
-        "Sampling Distributions"
+        "Sampling Distributions",
+        "model",
+        "Probability, Random Variables, and Probability Distributions",
+        "Inference for Quantitative Data"
       ],
-      "explanation": "Sampling Distributions is a core idea in Sampling Distributions. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Sampling Distributions is the anchor concept for Sampling Distributions. In AP CED: Sampling Distributions, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-statistics-042",
+      "id": "ap-statistics-066",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Sampling Distributions",
@@ -1044,18 +1644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Sampling Distributions needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Statistics: Sampling Distributions needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
       "choices": [
+        "Use evidence to explain function behavior.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Sampling Distributions only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Guess from key words about representation.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-statistics-043",
+      "id": "ap-statistics-067",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Sampling Distributions",
@@ -1069,18 +1669,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Sampling Distributions?",
+      "prompt": "Which answer best avoids a common mistake about AP Statistics: Sampling Distributions?",
       "correctText": "Connect Sampling Distributions to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Sampling Distributions to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Sampling Distributions as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-statistics-044",
+      "id": "ap-statistics-068",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Sampling Distributions",
@@ -1094,18 +1694,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Sampling Distributions, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Sampling Distributions, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about representation.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-statistics-045",
+      "id": "ap-statistics-069",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Sampling Distributions",
@@ -1120,17 +1720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Statistics: Sampling Distributions?",
-      "correctText": "Sampling Distributions matters because it helps explain disciplinary reasoning.",
+      "correctText": "Sampling Distributions matters because it helps explain function behavior.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Sampling Distributions matters because it helps explain function behavior.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit.",
-        "Sampling Distributions matters because it helps explain disciplinary reasoning."
+        "choosing an answer because it uses familiar words",
+        "Sampling Distributions appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-statistics-046",
+      "id": "ap-statistics-070",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Sampling Distributions",
@@ -1144,18 +1744,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Sampling Distributions. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Sampling Distributions. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-statistics-047",
+      "id": "ap-statistics-071",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Sampling Distributions",
@@ -1170,17 +1770,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Sampling Distributions to the larger course skill?",
-      "correctText": "Sampling Distributions is useful when students use evidence accurately.",
+      "correctText": "Sampling Distributions is useful when students represent relationships.",
       "choices": [
-        "describing a topic without explaining why it matters",
+        "Sampling Distributions is useful when students represent relationships.",
         "memorizing an isolated fact without evidence",
-        "Sampling Distributions is useful when students use evidence accurately.",
-        "Sampling Distributions only matters for memorized definitions."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-statistics-048",
+      "id": "ap-statistics-072",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Sampling Distributions",
@@ -1197,15 +1797,15 @@
       "prompt": "For Sampling Distributions, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Sampling Distributions, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Sampling Distributions, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-statistics-049",
+      "id": "ap-statistics-073",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Sampling Distributions",
@@ -1220,17 +1820,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Sampling Distributions?",
-      "correctText": "evidence-based explanation",
+      "correctText": "representation",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "model or source analysis"
+        "representation",
+        "parameter",
+        "Collecting Data",
+        "Sampling Distributions"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Sampling Distributions, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "representation is part of the concept cluster for Sampling Distributions, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-statistics-050",
+      "id": "ap-statistics-074",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Sampling Distributions",
@@ -1247,15 +1847,165 @@
       "prompt": "A student wants to transfer Sampling Distributions knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Sampling Distributions, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Sampling Distributions, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Sampling Distributions, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-statistics-051",
+      "id": "ap-statistics-075",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Sampling Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sampling Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Statistics - Sampling Distributions: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Sampling Distributions connects to function behavior.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Sampling Distributions connects to function behavior.",
+        "parameter replaces all evidence."
+      ],
+      "explanation": "The pair Sampling Distributions and function behavior belongs together in Sampling Distributions; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-statistics-076",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Sampling Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sampling Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Statistics question on Sampling Distributions?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-statistics-077",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Sampling Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sampling Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Sampling Distributions?",
+      "correctText": "Sampling Distributions can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Sampling Distributions can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-statistics-078",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Sampling Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sampling Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Sampling Distributions. Which feedback would help most?",
+      "correctText": "Reread the task, identify Sampling Distributions, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Sampling Distributions, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-statistics-079",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Sampling Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sampling Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Statistics: Sampling Distributions?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Statistics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-statistics-080",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Sampling Distributions",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Sampling Distributions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Sampling Distributions, which unit vocabulary word should be reviewed with Sampling Distributions?",
+      "correctText": "function behavior",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "function behavior",
+        "parameter",
+        "Collecting Data"
+      ],
+      "explanation": "function behavior belongs near Sampling Distributions in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-statistics-081",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Inference for Categorical Data",
@@ -1269,18 +2019,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Statistics, which concept is most central to the unit \"Inference for Categorical Data\"?",
+      "prompt": "AP Statistics - Inference for Categorical Data: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Inference for Categorical Data",
       "choices": [
-        "exam-style application",
+        "justification",
         "Inference for Categorical Data",
-        "Inference for Slopes",
-        "Probability, Random Variables, and Probability Distributions"
+        "Probability",
+        "Inference for Slopes"
       ],
-      "explanation": "Inference for Categorical Data is a core idea in Inference for Categorical Data. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Inference for Categorical Data is the anchor concept for Inference for Categorical Data. In AP CED: Inference for Categorical Data, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-statistics-052",
+      "id": "ap-statistics-082",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Inference for Categorical Data",
@@ -1294,18 +2044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Inference for Categorical Data needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Statistics: Inference for Categorical Data needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain function behavior.",
+        "Repeat the definition of Inference for Categorical Data only.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-statistics-053",
+      "id": "ap-statistics-083",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Inference for Categorical Data",
@@ -1319,18 +2069,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Inference for Categorical Data?",
+      "prompt": "Which answer best avoids a common mistake about AP Statistics: Inference for Categorical Data?",
       "correctText": "Connect Inference for Categorical Data to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Inference for Categorical Data to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-statistics-054",
+      "id": "ap-statistics-084",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Inference for Categorical Data",
@@ -1344,18 +2094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Inference for Categorical Data, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Inference for Categorical Data, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about representation.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-statistics-055",
+      "id": "ap-statistics-085",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Inference for Categorical Data",
@@ -1370,17 +2120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Statistics: Inference for Categorical Data?",
-      "correctText": "Inference for Categorical Data matters because it helps explain disciplinary reasoning.",
+      "correctText": "Inference for Categorical Data matters because it helps explain function behavior.",
       "choices": [
-        "describing a topic without explaining why it matters",
         "Inference for Categorical Data appears on tests, so no explanation is needed.",
-        "Inference for Categorical Data matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Inference for Categorical Data matters because it helps explain function behavior.",
+        "ignoring the source or data in the prompt",
+        "representation is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-statistics-056",
+      "id": "ap-statistics-086",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Inference for Categorical Data",
@@ -1394,18 +2144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Inference for Categorical Data. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Inference for Categorical Data. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-statistics-057",
+      "id": "ap-statistics-087",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Inference for Categorical Data",
@@ -1420,17 +2170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Inference for Categorical Data to the larger course skill?",
-      "correctText": "Inference for Categorical Data is useful when students explain reasoning.",
+      "correctText": "Inference for Categorical Data is useful when students represent relationships.",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Inference for Categorical Data is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Inference for Categorical Data is useful when students represent relationships.",
+        "Inference for Categorical Data only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-statistics-058",
+      "id": "ap-statistics-088",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Inference for Categorical Data",
@@ -1447,15 +2197,15 @@
       "prompt": "For Inference for Categorical Data, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Inference for Categorical Data, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Inference for Categorical Data, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-statistics-059",
+      "id": "ap-statistics-089",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Inference for Categorical Data",
@@ -1470,17 +2220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Inference for Categorical Data?",
-      "correctText": "evidence-based explanation",
+      "correctText": "representation",
       "choices": [
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "Inference for Slopes",
-        "Sampling Distributions"
+        "model",
+        "representation",
+        "Probability, Random Variables, and Probability Distributions",
+        "Inference for Categorical Data"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Inference for Categorical Data, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "representation is part of the concept cluster for Inference for Categorical Data, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-statistics-060",
+      "id": "ap-statistics-090",
       "course": "ap-statistics",
       "courseLabel": "AP Statistics",
       "topic": "Inference for Categorical Data",
@@ -1497,12 +2247,962 @@
       "prompt": "A student wants to transfer Inference for Categorical Data knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Inference for Categorical Data, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Inference for Categorical Data, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Inference for Categorical Data, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-statistics-091",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Categorical Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Categorical Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Statistics - Inference for Categorical Data: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Inference for Categorical Data connects to function behavior.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Inference for Categorical Data connects to function behavior.",
+        "parameter replaces all evidence."
+      ],
+      "explanation": "The pair Inference for Categorical Data and function behavior belongs together in Inference for Categorical Data; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-statistics-092",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Categorical Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Categorical Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Statistics question on Inference for Categorical Data?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-statistics-093",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Categorical Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Categorical Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Inference for Categorical Data?",
+      "correctText": "Inference for Categorical Data can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Inference for Categorical Data can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-statistics-094",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Categorical Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Categorical Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Inference for Categorical Data. Which feedback would help most?",
+      "correctText": "Reread the task, identify Inference for Categorical Data, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Inference for Categorical Data, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-statistics-095",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Categorical Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Categorical Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Statistics: Inference for Categorical Data?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Statistics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-statistics-096",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Categorical Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Categorical Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Inference for Categorical Data, which unit vocabulary word should be reviewed with Inference for Categorical Data?",
+      "correctText": "function behavior",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "function behavior",
+        "parameter",
+        "Collecting Data"
+      ],
+      "explanation": "function behavior belongs near Inference for Categorical Data in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-statistics-097",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Statistics - Inference for Quantitative Data: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Inference for Quantitative Data",
+      "choices": [
+        "precision",
+        "Random Variables",
+        "Inference for Quantitative Data",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Inference for Quantitative Data is the anchor concept for Inference for Quantitative Data. In AP CED: Inference for Quantitative Data, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-statistics-098",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Statistics: Inference for Quantitative Data needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain function behavior.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-statistics-099",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Statistics: Inference for Quantitative Data?",
+      "correctText": "Connect Inference for Quantitative Data to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Inference for Quantitative Data to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-statistics-100",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Inference for Quantitative Data, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about representation.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-statistics-101",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Statistics: Inference for Quantitative Data?",
+      "correctText": "Inference for Quantitative Data matters because it helps explain function behavior.",
+      "choices": [
+        "representation is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "Inference for Quantitative Data matters because it helps explain function behavior.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-statistics-102",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Inference for Quantitative Data. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-statistics-103",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Inference for Quantitative Data to the larger course skill?",
+      "correctText": "Inference for Quantitative Data is useful when students represent relationships.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "function behavior should be ignored unless it appears in the title.",
+        "Inference for Quantitative Data is useful when students represent relationships.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-statistics-104",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Inference for Quantitative Data, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Inference for Quantitative Data, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Inference for Quantitative Data, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-statistics-105",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Inference for Quantitative Data?",
+      "correctText": "representation",
+      "choices": [
+        "justification",
+        "Probability",
+        "representation",
+        "Inference for Quantitative Data"
+      ],
+      "explanation": "representation is part of the concept cluster for Inference for Quantitative Data, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-statistics-106",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Inference for Quantitative Data knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Inference for Quantitative Data, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Inference for Quantitative Data, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-statistics-107",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Statistics - Inference for Quantitative Data: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Inference for Quantitative Data connects to function behavior.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Inference for Quantitative Data connects to function behavior.",
+        "parameter replaces all evidence."
+      ],
+      "explanation": "The pair Inference for Quantitative Data and function behavior belongs together in Inference for Quantitative Data; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-statistics-108",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Statistics question on Inference for Quantitative Data?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-statistics-109",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Inference for Quantitative Data?",
+      "correctText": "Inference for Quantitative Data can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Inference for Quantitative Data can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-statistics-110",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Inference for Quantitative Data. Which feedback would help most?",
+      "correctText": "Reread the task, identify Inference for Quantitative Data, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Inference for Quantitative Data, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-statistics-111",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Statistics: Inference for Quantitative Data?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Statistics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-statistics-112",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Quantitative Data",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Quantitative Data",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Inference for Quantitative Data, which unit vocabulary word should be reviewed with Inference for Quantitative Data?",
+      "correctText": "function behavior",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "function behavior",
+        "parameter",
+        "Collecting Data"
+      ],
+      "explanation": "function behavior belongs near Inference for Quantitative Data in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-statistics-113",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Statistics - Inference for Slopes: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Inference for Slopes",
+      "choices": [
+        "Exploring Two-Variable Data",
+        "Probability Distributions",
+        "choosing an answer because it uses familiar words",
+        "Inference for Slopes"
+      ],
+      "explanation": "Inference for Slopes is the anchor concept for Inference for Slopes. In AP CED: Inference for Slopes, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-statistics-114",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Statistics: Inference for Slopes needs to show the skill \"justify procedures.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain function behavior.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Use evidence to explain function behavior."
+      ],
+      "explanation": "The useful move is to connect evidence to function behavior; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-statistics-115",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Statistics: Inference for Slopes?",
+      "correctText": "Connect Inference for Slopes to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Inference for Slopes to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-statistics-116",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Inference for Slopes, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about representation.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about representation.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-statistics-117",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Statistics: Inference for Slopes?",
+      "correctText": "Inference for Slopes matters because it helps explain function behavior.",
+      "choices": [
+        "Only the vocabulary list matters for this unit.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Inference for Slopes matters because it helps explain function behavior."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-statistics-118",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret graph, table, or equation for Inference for Slopes. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Read the prompt, source, or data for the exact task.",
+        "Pick the first familiar vocabulary word.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-statistics-119",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Inference for Slopes to the larger course skill?",
+      "correctText": "Inference for Slopes is useful when students represent relationships.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "Inference for Slopes is useful when students represent relationships."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-statistics-120",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Inference for Slopes, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Inference for Slopes, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Inference for Slopes, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-statistics-121",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Inference for Slopes?",
+      "correctText": "representation",
+      "choices": [
+        "precision",
+        "Random Variables",
+        "Inference for Slopes",
+        "representation"
+      ],
+      "explanation": "representation is part of the concept cluster for Inference for Slopes, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-statistics-122",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Inference for Slopes knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Inference for Slopes, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Inference for Slopes, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-statistics-123",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Statistics - Inference for Slopes: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Inference for Slopes connects to function behavior.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Inference for Slopes connects to function behavior.",
+        "parameter replaces all evidence."
+      ],
+      "explanation": "The pair Inference for Slopes and function behavior belongs together in Inference for Slopes; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-statistics-124",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of graph, table, or equation in a AP Statistics question on Inference for Slopes?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The graph, table, or equation is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-statistics-125",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Inference for Slopes?",
+      "correctText": "Inference for Slopes can be explained with evidence from graph, table, or equation.",
+      "choices": [
+        "Inference for Slopes can be explained with evidence from graph, table, or equation.",
+        "ignoring the source or data in the prompt",
+        "function behavior does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-statistics-126",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Inference for Slopes. Which feedback would help most?",
+      "correctText": "Reread the task, identify Inference for Slopes, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Inference for Slopes, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-statistics-127",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Statistics: Inference for Slopes?",
+      "correctText": "show a valid procedure and interpret the answer in context.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "show a valid procedure and interpret the answer in context.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Statistics means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-statistics-128",
+      "course": "ap-statistics",
+      "courseLabel": "AP Statistics",
+      "topic": "Inference for Slopes",
+      "domain": "AP Math and Computer Science",
+      "subjectArea": "AP Math and Computer Science",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Inference for Slopes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Inference for Slopes, which unit vocabulary word should be reviewed with Inference for Slopes?",
+      "correctText": "function behavior",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "function behavior",
+        "parameter",
+        "Collecting Data"
+      ],
+      "explanation": "function behavior belongs near Inference for Slopes in this unit's concept map. Reviewing them together helps students answer transfer questions."
     }
   ]
 }

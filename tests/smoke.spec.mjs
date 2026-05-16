@@ -191,7 +191,8 @@ test("hub exposes expanded all-subject course catalog", async ({ page }) => {
       jeopardyCourseCount: jeopardyCourseFilter.length,
       jeopardyHasAPBiology: jeopardyCourseFilter.includes("AP Biology"),
       jeopardySummary: document.getElementById("jeopardySummary")?.textContent || "",
-      firstGeneratedJeopardy: document.querySelector("#jeopardyModes .focus-card")?.dataset.id || ""
+      firstGeneratedJeopardy: document.querySelector("#jeopardyModes .focus-card")?.dataset.id || "",
+      bankQuestions: window.DIAG_BANK_COVERAGE?.questions || 0
     };
   });
 
@@ -209,6 +210,7 @@ test("hub exposes expanded all-subject course catalog", async ({ page }) => {
   expect(state.jeopardyHasAPBiology).toBe(true);
   expect(state.jeopardySummary).toContain("AP Biology");
   expect(state.firstGeneratedJeopardy).toMatch(/^generated-jeopardy-/);
+  expect(state.bankQuestions).toBeGreaterThanOrEqual(13000);
 });
 
 test("generated all-subject Jeopardy runner loads a playable board", async ({ page }) => {
@@ -254,7 +256,7 @@ test("generated all-subject practice exam runner loads a playable course exam", 
   }));
   expect(examState.title).toContain("AP Biology");
   expect(examState.choices).toBe(4);
-  expect(examState.writtenPrompts).toBeGreaterThanOrEqual(1);
+  expect(examState.writtenPrompts).toBeGreaterThanOrEqual(3);
   expect(examState.setupHidden).toBe(true);
   expect(errs).toHaveLength(0);
 });

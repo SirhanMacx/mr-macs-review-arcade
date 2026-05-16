@@ -2,7 +2,7 @@
   "course": "ap-human-geography",
   "courseLabel": "AP Human Geography",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-human-geography-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Human Geography, which concept is most central to the unit \"Thinking Geographically\"?",
+      "prompt": "AP Human Geography - Thinking Geographically: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Thinking Geographically",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
-        "Political Patterns and Processes",
-        "Thinking Geographically"
+        "Thinking Geographically",
+        "contextualization",
+        "argument",
+        "Cultural Patterns"
       ],
-      "explanation": "Thinking Geographically is a core idea in Thinking Geographically. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Thinking Geographically is the anchor concept for Thinking Geographically. In AP CED: Thinking Geographically, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-human-geography-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Thinking Geographically needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Human Geography: Thinking Geographically needs to show the skill \"compare developments.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain contextualization.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain contextualization.",
+        "Guess from key words about comparison.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Thinking Geographically only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to contextualization; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-human-geography-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Thinking Geographically?",
+      "prompt": "Which answer best avoids a common mistake about AP Human Geography: Thinking Geographically?",
       "correctText": "Connect Thinking Geographically to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Thinking Geographically to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Thinking Geographically, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Thinking Geographically, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about comparison.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about comparison.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Human Geography: Thinking Geographically?",
-      "correctText": "Thinking Geographically matters because it helps explain disciplinary reasoning.",
+      "correctText": "Thinking Geographically matters because it helps explain contextualization.",
       "choices": [
+        "Thinking Geographically matters because it helps explain contextualization.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Thinking Geographically matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Thinking Geographically appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Thinking Geographically. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Thinking Geographically. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Thinking Geographically to the larger course skill?",
-      "correctText": "Thinking Geographically is useful when students apply a course concept.",
+      "correctText": "Thinking Geographically is useful when students contextualize evidence.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Thinking Geographically is useful when students contextualize evidence.",
         "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words.",
-        "Thinking Geographically is useful when students apply a course concept."
+        "choosing an answer because it uses familiar words",
+        "Thinking Geographically only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Thinking Geographically, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Thinking Geographically, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Thinking Geographically, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Thinking Geographically?",
-      "correctText": "evidence-based explanation",
+      "correctText": "comparison",
       "choices": [
-        "Agriculture and Rural Land-Use",
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence",
-        "Population and Migration"
+        "comparison",
+        "Industrial and Economic Development",
+        "ignoring the source or data in the prompt",
+        "contextualization"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Thinking Geographically, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "comparison is part of the concept cluster for Thinking Geographically, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-human-geography-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Thinking Geographically knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Thinking Geographically, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Thinking Geographically, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,201 +258,201 @@
       "id": "ap-human-geography-011",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Population and Migration",
+      "topic": "Thinking Geographically",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Population and Migration",
+        "AP CED: Thinking Geographically",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Human Geography, which concept is most central to the unit \"Population and Migration\"?",
-      "correctText": "Population and Migration",
+      "prompt": "AP Human Geography - Thinking Geographically: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Thinking Geographically connects to contextualization.",
       "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "Population and Migration",
-        "using a rule from a different unit"
+        "Thinking Geographically connects to contextualization.",
+        "causation replaces all evidence."
       ],
-      "explanation": "Population and Migration is a core idea in Population and Migration. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Thinking Geographically and contextualization belongs together in Thinking Geographically; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-human-geography-012",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Population and Migration",
+      "topic": "Thinking Geographically",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Population and Migration",
+        "AP CED: Thinking Geographically",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Population and Migration needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Human Geography question on Thinking Geographically?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Population and Migration only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-human-geography-013",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Population and Migration",
+      "topic": "Thinking Geographically",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Population and Migration",
+        "AP CED: Thinking Geographically",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Population and Migration?",
-      "correctText": "Connect Population and Migration to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Thinking Geographically?",
+      "correctText": "Thinking Geographically can be explained with evidence from data table, diagram, or model.",
       "choices": [
-        "Connect Population and Migration to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Population and Migration as always meaning the same thing."
+        "Thinking Geographically can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "contextualization does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-human-geography-014",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Population and Migration",
+      "topic": "Thinking Geographically",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Population and Migration",
+        "AP CED: Thinking Geographically",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Population and Migration, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Thinking Geographically. Which feedback would help most?",
+      "correctText": "Reread the task, identify Thinking Geographically, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Thinking Geographically, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-human-geography-015",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Population and Migration",
+      "topic": "Thinking Geographically",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Population and Migration",
+        "AP CED: Thinking Geographically",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Human Geography: Population and Migration?",
-      "correctText": "Population and Migration matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Human Geography: Thinking Geographically?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit.",
-        "Population and Migration matters because it helps explain disciplinary reasoning."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Human Geography means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-human-geography-016",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Population and Migration",
+      "topic": "Thinking Geographically",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Population and Migration",
+        "AP CED: Thinking Geographically",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Population and Migration. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Thinking Geographically, which unit vocabulary word should be reviewed with Thinking Geographically?",
+      "correctText": "contextualization",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Political Patterns and Processes",
+        "contextualization",
+        "Cities and Urban Land-Use",
+        "Economic Development"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "contextualization belongs near Thinking Geographically in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-human-geography-017",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Population and Migration",
+      "topic": "Thinking Geographically",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Population and Migration",
+        "AP CED: Thinking Geographically",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Population and Migration to the larger course skill?",
-      "correctText": "Population and Migration is useful when students use evidence accurately.",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Thinking Geographically?",
+      "correctText": "A response that names Thinking Geographically but never explains how it fits the evidence.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Population and Migration is useful when students use evidence accurately.",
-        "Population and Migration only matters for memorized definitions."
+        "A response that names Thinking Geographically but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Thinking Geographically to contextualization."
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
     },
     {
       "id": "ap-human-geography-018",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Population and Migration",
+      "topic": "Thinking Geographically",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Population and Migration",
+        "AP CED: Thinking Geographically",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Population and Migration, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Population and Migration, cites evidence, and explains the connection.",
+      "prompt": "Which question should a student ask while reviewing AP Human Geography: Thinking Geographically?",
+      "correctText": "How does Thinking Geographically help explain the evidence or scenario?",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Population and Migration, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Thinking Geographically help explain the evidence or scenario?"
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
     },
     {
       "id": "ap-human-geography-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Population and Migration?",
-      "correctText": "evidence-based explanation",
+      "prompt": "AP Human Geography - Population and Migration: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Population and Migration",
       "choices": [
-        "Cultural Patterns and Processes",
-        "evidence-based explanation",
-        "making a claim without supporting evidence",
-        "model or source analysis"
+        "contextualization",
+        "Population and Migration",
+        "argument",
+        "Processes"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Population and Migration, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Population and Migration is the anchor concept for Population and Migration. In AP CED: Population and Migration, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-human-geography-020",
@@ -494,93 +494,418 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Population and Migration knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Population and Migration, then justify the answer with evidence.",
+      "prompt": "A student reviewing AP Human Geography: Population and Migration needs to show the skill \"compare developments.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Population.",
       "choices": [
+        "Repeat the definition of Population and Migration only.",
+        "Use evidence to explain Population.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Population and Migration, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The useful move is to connect evidence to Population; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-human-geography-021",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Cultural Patterns and Processes",
+      "topic": "Population and Migration",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cultural Patterns and Processes",
+        "AP CED: Population and Migration",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Human Geography, which concept is most central to the unit \"Cultural Patterns and Processes\"?",
-      "correctText": "Cultural Patterns and Processes",
+      "prompt": "Which answer best avoids a common mistake about AP Human Geography: Population and Migration?",
+      "correctText": "Connect Population and Migration to the prompt context before choosing.",
       "choices": [
-        "Cultural Patterns and Processes",
-        "ignoring the source or data in the prompt",
-        "Industrial and Economic Development",
-        "Political Patterns and Processes"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Population and Migration to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Cultural Patterns and Processes is a core idea in Cultural Patterns and Processes. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-human-geography-022",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Cultural Patterns and Processes",
+      "topic": "Population and Migration",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cultural Patterns and Processes",
+        "AP CED: Population and Migration",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Cultural Patterns and Processes needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "In an AP CED-aligned exam task about Population and Migration, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Migration.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Specific evidence that proves a claim about Migration.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-human-geography-023",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
-      "topic": "Cultural Patterns and Processes",
+      "topic": "Population and Migration",
       "domain": "AP History and Social Sciences",
       "subjectArea": "AP History and Social Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Cultural Patterns and Processes",
+        "AP CED: Population and Migration",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Cultural Patterns and Processes?",
-      "correctText": "Connect Cultural Patterns and Processes to the prompt context before choosing.",
+      "prompt": "Which review note would help most for AP Human Geography: Population and Migration?",
+      "correctText": "Population and Migration matters because it helps explain Population.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Cultural Patterns and Processes to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "ignoring the source or data in the prompt",
+        "Population and Migration matters because it helps explain Population.",
+        "Migration is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-human-geography-024",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Population and Migration. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Read the prompt, source, or data for the exact task."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-human-geography-025",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Population and Migration to the larger course skill?",
+      "correctText": "Population and Migration is useful when students contextualize evidence.",
+      "choices": [
+        "Population and Migration only matters for memorized definitions.",
+        "Population and Migration is useful when students contextualize evidence.",
+        "ignoring the source or data in the prompt",
+        "Population should be ignored unless it appears in the title."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-human-geography-026",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Population and Migration, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Population and Migration, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Population and Migration, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-human-geography-027",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Population and Migration?",
+      "correctText": "Migration",
+      "choices": [
+        "Industrial",
+        "Migration",
+        "describing a topic without explaining why it matters",
+        "comparison"
+      ],
+      "explanation": "Migration is part of the concept cluster for Population and Migration, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-human-geography-028",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Population and Migration knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Population and Migration, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Population and Migration, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-human-geography-029",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Human Geography - Population and Migration: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Population and Migration connects to Population.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Population and Migration connects to Population.",
+        "contextualization replaces all evidence."
+      ],
+      "explanation": "The pair Population and Migration and Population belongs together in Population and Migration; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-human-geography-030",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Human Geography question on Population and Migration?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-human-geography-031",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Population and Migration?",
+      "correctText": "Population and Migration can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Population and Migration can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Population does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-human-geography-032",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Population and Migration. Which feedback would help most?",
+      "correctText": "Reread the task, identify Population and Migration, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Population and Migration, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-human-geography-033",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Human Geography: Population and Migration?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Human Geography means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-human-geography-034",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Population and Migration, which unit vocabulary word should be reviewed with Population and Migration?",
+      "correctText": "Population",
+      "choices": [
+        "Political Patterns and Processes",
+        "Population",
+        "Cities and Urban Land-Use",
+        "Economic Development"
+      ],
+      "explanation": "Population belongs near Population and Migration in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-human-geography-035",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Population and Migration?",
+      "correctText": "A response that names Population and Migration but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Population and Migration but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Population and Migration to Population."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-human-geography-036",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Population and Migration",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Population and Migration",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Human Geography: Population and Migration?",
+      "correctText": "How does Population and Migration help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Population and Migration help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-human-geography-037",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cultural Patterns and Processes",
@@ -594,18 +919,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Cultural Patterns and Processes, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Human Geography - Cultural Patterns and Processes: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Cultural Patterns and Processes",
       "choices": [
+        "comparison",
+        "Population and Migration",
+        "Cultural Patterns and Processes",
+        "Political Patterns and Processes"
+      ],
+      "explanation": "Cultural Patterns and Processes is the anchor concept for Cultural Patterns and Processes. In AP CED: Cultural Patterns and Processes, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-human-geography-038",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Human Geography: Cultural Patterns and Processes needs to show the skill \"compare developments.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Cultural Patterns.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Cultural Patterns.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Cultural Patterns; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-human-geography-039",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Human Geography: Cultural Patterns and Processes?",
+      "correctText": "Connect Cultural Patterns and Processes to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Cultural Patterns and Processes to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-human-geography-040",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Cultural Patterns and Processes, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Processes.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Processes.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-human-geography-025",
+      "id": "ap-human-geography-041",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cultural Patterns and Processes",
@@ -620,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Human Geography: Cultural Patterns and Processes?",
-      "correctText": "Cultural Patterns and Processes matters because it helps explain disciplinary reasoning.",
+      "correctText": "Cultural Patterns and Processes matters because it helps explain Cultural Patterns.",
       "choices": [
-        "Cultural Patterns and Processes appears on tests, so no explanation is needed.",
-        "Cultural Patterns and Processes matters because it helps explain disciplinary reasoning.",
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Cultural Patterns and Processes matters because it helps explain Cultural Patterns.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-human-geography-026",
+      "id": "ap-human-geography-042",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cultural Patterns and Processes",
@@ -644,18 +1044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Cultural Patterns and Processes. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Cultural Patterns and Processes. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-human-geography-027",
+      "id": "ap-human-geography-043",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cultural Patterns and Processes",
@@ -670,17 +1070,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Cultural Patterns and Processes to the larger course skill?",
-      "correctText": "Cultural Patterns and Processes is useful when students explain reasoning.",
+      "correctText": "Cultural Patterns and Processes is useful when students contextualize evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Cultural Patterns and Processes is useful when students explain reasoning.",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "Cultural Patterns should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Cultural Patterns and Processes is useful when students contextualize evidence.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-human-geography-028",
+      "id": "ap-human-geography-044",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cultural Patterns and Processes",
@@ -697,15 +1097,15 @@
       "prompt": "For Cultural Patterns and Processes, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Cultural Patterns and Processes, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Cultural Patterns and Processes, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-human-geography-029",
+      "id": "ap-human-geography-045",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cultural Patterns and Processes",
@@ -720,17 +1120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Cultural Patterns and Processes?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Processes",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence",
-        "Thinking Geographically"
+        "Economic Development",
+        "using a rule from a different unit",
+        "Processes",
+        "causation"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Cultural Patterns and Processes, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Processes is part of the concept cluster for Cultural Patterns and Processes, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-human-geography-030",
+      "id": "ap-human-geography-046",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cultural Patterns and Processes",
@@ -747,15 +1147,215 @@
       "prompt": "A student wants to transfer Cultural Patterns and Processes knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Cultural Patterns and Processes, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Cultural Patterns and Processes, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Cultural Patterns and Processes, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-human-geography-031",
+      "id": "ap-human-geography-047",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Human Geography - Cultural Patterns and Processes: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Cultural Patterns and Processes connects to Cultural Patterns.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Cultural Patterns and Processes connects to Cultural Patterns.",
+        "contextualization replaces all evidence."
+      ],
+      "explanation": "The pair Cultural Patterns and Processes and Cultural Patterns belongs together in Cultural Patterns and Processes; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-human-geography-048",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Human Geography question on Cultural Patterns and Processes?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-human-geography-049",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Cultural Patterns and Processes?",
+      "correctText": "Cultural Patterns and Processes can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Cultural Patterns and Processes can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Cultural Patterns does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-human-geography-050",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Cultural Patterns and Processes. Which feedback would help most?",
+      "correctText": "Reread the task, identify Cultural Patterns and Processes, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Cultural Patterns and Processes, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-human-geography-051",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Human Geography: Cultural Patterns and Processes?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Human Geography means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-human-geography-052",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Cultural Patterns and Processes, which unit vocabulary word should be reviewed with Cultural Patterns and Processes?",
+      "correctText": "Cultural Patterns",
+      "choices": [
+        "Political Patterns and Processes",
+        "Cultural Patterns",
+        "Cities and Urban Land-Use",
+        "Economic Development"
+      ],
+      "explanation": "Cultural Patterns belongs near Cultural Patterns and Processes in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-human-geography-053",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Cultural Patterns and Processes?",
+      "correctText": "A response that names Cultural Patterns and Processes but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Cultural Patterns and Processes but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Cultural Patterns and Processes to Cultural Patterns."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-human-geography-054",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cultural Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cultural Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Human Geography: Cultural Patterns and Processes?",
+      "correctText": "How does Cultural Patterns and Processes help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Cultural Patterns and Processes help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-human-geography-055",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Political Patterns and Processes",
@@ -769,18 +1369,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Human Geography, which concept is most central to the unit \"Political Patterns and Processes\"?",
+      "prompt": "AP Human Geography - Political Patterns and Processes: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Political Patterns and Processes",
       "choices": [
-        "Agriculture and Rural Land-Use",
-        "disciplinary reasoning",
-        "exam-style application",
+        "causation",
+        "Population",
+        "Political Patterns",
         "Political Patterns and Processes"
       ],
-      "explanation": "Political Patterns and Processes is a core idea in Political Patterns and Processes. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Political Patterns and Processes is the anchor concept for Political Patterns and Processes. In AP CED: Political Patterns and Processes, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-human-geography-032",
+      "id": "ap-human-geography-056",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Political Patterns and Processes",
@@ -794,18 +1394,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Political Patterns and Processes needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Human Geography: Political Patterns and Processes needs to show the skill \"compare developments.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Political Patterns.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
         "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain Political Patterns."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Political Patterns; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-human-geography-033",
+      "id": "ap-human-geography-057",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Political Patterns and Processes",
@@ -819,18 +1419,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Political Patterns and Processes?",
+      "prompt": "Which answer best avoids a common mistake about AP Human Geography: Political Patterns and Processes?",
       "correctText": "Connect Political Patterns and Processes to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Political Patterns and Processes to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-human-geography-034",
+      "id": "ap-human-geography-058",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Political Patterns and Processes",
@@ -844,18 +1444,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Political Patterns and Processes, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Political Patterns and Processes, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Processes.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Processes.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-human-geography-035",
+      "id": "ap-human-geography-059",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Political Patterns and Processes",
@@ -870,17 +1470,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Human Geography: Political Patterns and Processes?",
-      "correctText": "Political Patterns and Processes matters because it helps explain disciplinary reasoning.",
+      "correctText": "Political Patterns and Processes matters because it helps explain Political Patterns.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Political Patterns and Processes matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Political Patterns and Processes matters because it helps explain Political Patterns."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-human-geography-036",
+      "id": "ap-human-geography-060",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Political Patterns and Processes",
@@ -894,18 +1494,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Political Patterns and Processes. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Political Patterns and Processes. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-human-geography-037",
+      "id": "ap-human-geography-061",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Political Patterns and Processes",
@@ -920,17 +1520,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Political Patterns and Processes to the larger course skill?",
-      "correctText": "Political Patterns and Processes is useful when students apply a course concept.",
+      "correctText": "Political Patterns and Processes is useful when students contextualize evidence.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Political Patterns and Processes is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Political Patterns and Processes is useful when students contextualize evidence."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-human-geography-038",
+      "id": "ap-human-geography-062",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Political Patterns and Processes",
@@ -947,15 +1547,15 @@
       "prompt": "For Political Patterns and Processes, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Political Patterns and Processes, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Political Patterns and Processes, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-human-geography-039",
+      "id": "ap-human-geography-063",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Political Patterns and Processes",
@@ -970,17 +1570,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Political Patterns and Processes?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Processes",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Cities and Urban Land-Use",
-        "Cultural Patterns and Processes",
-        "evidence-based explanation"
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "continuity and change",
+        "Processes"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Political Patterns and Processes, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Processes is part of the concept cluster for Political Patterns and Processes, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-human-geography-040",
+      "id": "ap-human-geography-064",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Political Patterns and Processes",
@@ -997,15 +1597,215 @@
       "prompt": "A student wants to transfer Political Patterns and Processes knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Political Patterns and Processes, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Political Patterns and Processes, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-human-geography-041",
+      "id": "ap-human-geography-065",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Political Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Political Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Human Geography - Political Patterns and Processes: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Political Patterns and Processes connects to Political Patterns.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Political Patterns and Processes connects to Political Patterns.",
+        "contextualization replaces all evidence."
+      ],
+      "explanation": "The pair Political Patterns and Processes and Political Patterns belongs together in Political Patterns and Processes; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-human-geography-066",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Political Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Political Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Human Geography question on Political Patterns and Processes?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-human-geography-067",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Political Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Political Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Political Patterns and Processes?",
+      "correctText": "Political Patterns and Processes can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Political Patterns and Processes can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Political Patterns does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-human-geography-068",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Political Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Political Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Political Patterns and Processes. Which feedback would help most?",
+      "correctText": "Reread the task, identify Political Patterns and Processes, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Political Patterns and Processes, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-human-geography-069",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Political Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Political Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Human Geography: Political Patterns and Processes?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Human Geography means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-human-geography-070",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Political Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Political Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Political Patterns and Processes, which unit vocabulary word should be reviewed with Political Patterns and Processes?",
+      "correctText": "Political Patterns",
+      "choices": [
+        "Processes",
+        "Political Patterns",
+        "Cities and Urban Land-Use",
+        "Economic Development"
+      ],
+      "explanation": "Political Patterns belongs near Political Patterns and Processes in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-human-geography-071",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Political Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Political Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Political Patterns and Processes?",
+      "correctText": "A response that names Political Patterns and Processes but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Political Patterns and Processes but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Political Patterns and Processes to Political Patterns."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-human-geography-072",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Political Patterns and Processes",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Political Patterns and Processes",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Human Geography: Political Patterns and Processes?",
+      "correctText": "How does Political Patterns and Processes help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Political Patterns and Processes help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-human-geography-073",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Agriculture and Rural Land-Use",
@@ -1019,18 +1819,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Human Geography, which concept is most central to the unit \"Agriculture and Rural Land-Use\"?",
+      "prompt": "AP Human Geography - Agriculture and Rural Land-Use: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Agriculture and Rural Land-Use",
       "choices": [
         "Agriculture and Rural Land-Use",
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "continuity and change",
+        "Migration",
+        "Political Patterns"
       ],
-      "explanation": "Agriculture and Rural Land-Use is a core idea in Agriculture and Rural Land-Use. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Agriculture and Rural Land-Use is the anchor concept for Agriculture and Rural Land-Use. In AP CED: Agriculture and Rural Land-Use, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-human-geography-042",
+      "id": "ap-human-geography-074",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Agriculture and Rural Land-Use",
@@ -1044,18 +1844,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Agriculture and Rural Land-Use needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Human Geography: Agriculture and Rural Land-Use needs to show the skill \"compare developments.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Agriculture.",
       "choices": [
+        "Use evidence to explain Agriculture.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Agriculture and Rural Land-Use only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Guess from key words about Rural Land-Use.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Agriculture; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-human-geography-043",
+      "id": "ap-human-geography-075",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Agriculture and Rural Land-Use",
@@ -1069,18 +1869,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Agriculture and Rural Land-Use?",
+      "prompt": "Which answer best avoids a common mistake about AP Human Geography: Agriculture and Rural Land-Use?",
       "correctText": "Connect Agriculture and Rural Land-Use to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Agriculture and Rural Land-Use to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Agriculture and Rural Land-Use as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-human-geography-044",
+      "id": "ap-human-geography-076",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Agriculture and Rural Land-Use",
@@ -1094,18 +1894,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Agriculture and Rural Land-Use, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Agriculture and Rural Land-Use, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Rural Land-Use.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Rural Land-Use.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-human-geography-045",
+      "id": "ap-human-geography-077",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Agriculture and Rural Land-Use",
@@ -1120,17 +1920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Human Geography: Agriculture and Rural Land-Use?",
-      "correctText": "Agriculture and Rural Land-Use matters because it helps explain disciplinary reasoning.",
+      "correctText": "Agriculture and Rural Land-Use matters because it helps explain Agriculture.",
       "choices": [
-        "Agriculture and Rural Land-Use matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
+        "Agriculture and Rural Land-Use matters because it helps explain Agriculture.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "choosing an answer because it uses familiar words",
+        "Agriculture and Rural Land-Use appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-human-geography-046",
+      "id": "ap-human-geography-078",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Agriculture and Rural Land-Use",
@@ -1144,18 +1944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Agriculture and Rural Land-Use. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Agriculture and Rural Land-Use. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-human-geography-047",
+      "id": "ap-human-geography-079",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Agriculture and Rural Land-Use",
@@ -1170,17 +1970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Agriculture and Rural Land-Use to the larger course skill?",
-      "correctText": "Agriculture and Rural Land-Use is useful when students use evidence accurately.",
+      "correctText": "Agriculture and Rural Land-Use is useful when students contextualize evidence.",
       "choices": [
-        "Agriculture and Rural Land-Use is useful when students use evidence accurately.",
-        "Agriculture and Rural Land-Use only matters for memorized definitions.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Agriculture and Rural Land-Use is useful when students contextualize evidence.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-human-geography-048",
+      "id": "ap-human-geography-080",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Agriculture and Rural Land-Use",
@@ -1197,15 +1997,15 @@
       "prompt": "For Agriculture and Rural Land-Use, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Agriculture and Rural Land-Use, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Agriculture and Rural Land-Use, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-human-geography-049",
+      "id": "ap-human-geography-081",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Agriculture and Rural Land-Use",
@@ -1220,17 +2020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Agriculture and Rural Land-Use?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Rural Land-Use",
       "choices": [
-        "evidence-based explanation",
-        "exam-style application",
-        "Political Patterns and Processes",
-        "Thinking Geographically"
+        "Rural Land-Use",
+        "choosing an answer because it uses familiar words",
+        "Thinking Geographically",
+        "source evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Agriculture and Rural Land-Use, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Rural Land-Use is part of the concept cluster for Agriculture and Rural Land-Use, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-human-geography-050",
+      "id": "ap-human-geography-082",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Agriculture and Rural Land-Use",
@@ -1247,15 +2047,215 @@
       "prompt": "A student wants to transfer Agriculture and Rural Land-Use knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Agriculture and Rural Land-Use, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Agriculture and Rural Land-Use, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Agriculture and Rural Land-Use, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-human-geography-051",
+      "id": "ap-human-geography-083",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Agriculture and Rural Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Agriculture and Rural Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Human Geography - Agriculture and Rural Land-Use: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Agriculture and Rural Land-Use connects to Agriculture.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Agriculture and Rural Land-Use connects to Agriculture.",
+        "contextualization replaces all evidence."
+      ],
+      "explanation": "The pair Agriculture and Rural Land-Use and Agriculture belongs together in Agriculture and Rural Land-Use; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-human-geography-084",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Agriculture and Rural Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Agriculture and Rural Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Human Geography question on Agriculture and Rural Land-Use?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-human-geography-085",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Agriculture and Rural Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Agriculture and Rural Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Agriculture and Rural Land-Use?",
+      "correctText": "Agriculture and Rural Land-Use can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Agriculture and Rural Land-Use can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Agriculture does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-human-geography-086",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Agriculture and Rural Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Agriculture and Rural Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Agriculture and Rural Land-Use. Which feedback would help most?",
+      "correctText": "Reread the task, identify Agriculture and Rural Land-Use, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Agriculture and Rural Land-Use, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-human-geography-087",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Agriculture and Rural Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Agriculture and Rural Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Human Geography: Agriculture and Rural Land-Use?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Human Geography means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-human-geography-088",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Agriculture and Rural Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Agriculture and Rural Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Agriculture and Rural Land-Use, which unit vocabulary word should be reviewed with Agriculture and Rural Land-Use?",
+      "correctText": "Agriculture",
+      "choices": [
+        "Processes",
+        "Agriculture",
+        "Cities and Urban Land-Use",
+        "Economic Development"
+      ],
+      "explanation": "Agriculture belongs near Agriculture and Rural Land-Use in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-human-geography-089",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Agriculture and Rural Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Agriculture and Rural Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Agriculture and Rural Land-Use?",
+      "correctText": "A response that names Agriculture and Rural Land-Use but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Agriculture and Rural Land-Use but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Agriculture and Rural Land-Use to Agriculture."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-human-geography-090",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Agriculture and Rural Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Agriculture and Rural Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Human Geography: Agriculture and Rural Land-Use?",
+      "correctText": "How does Agriculture and Rural Land-Use help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Agriculture and Rural Land-Use help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-human-geography-091",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cities and Urban Land-Use",
@@ -1269,18 +2269,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Human Geography, which concept is most central to the unit \"Cities and Urban Land-Use\"?",
+      "prompt": "AP Human Geography - Cities and Urban Land-Use: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Cities and Urban Land-Use",
       "choices": [
+        "source evidence",
         "Cities and Urban Land-Use",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Political Patterns and Processes"
+        "Cultural Patterns and Processes",
+        "Agriculture and Rural Land-Use"
       ],
-      "explanation": "Cities and Urban Land-Use is a core idea in Cities and Urban Land-Use. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Cities and Urban Land-Use is the anchor concept for Cities and Urban Land-Use. In AP CED: Cities and Urban Land-Use, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-human-geography-052",
+      "id": "ap-human-geography-092",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cities and Urban Land-Use",
@@ -1294,18 +2294,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Cities and Urban Land-Use needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Human Geography: Cities and Urban Land-Use needs to show the skill \"compare developments.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Cities.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain Cities.",
+        "Repeat the definition of Cities and Urban Land-Use only.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Cities; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-human-geography-053",
+      "id": "ap-human-geography-093",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cities and Urban Land-Use",
@@ -1319,18 +2319,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Cities and Urban Land-Use?",
+      "prompt": "Which answer best avoids a common mistake about AP Human Geography: Cities and Urban Land-Use?",
       "correctText": "Connect Cities and Urban Land-Use to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Cities and Urban Land-Use to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-human-geography-054",
+      "id": "ap-human-geography-094",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cities and Urban Land-Use",
@@ -1344,18 +2344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Cities and Urban Land-Use, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Cities and Urban Land-Use, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Urban Land-Use.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Urban Land-Use.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-human-geography-055",
+      "id": "ap-human-geography-095",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cities and Urban Land-Use",
@@ -1370,17 +2370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Human Geography: Cities and Urban Land-Use?",
-      "correctText": "Cities and Urban Land-Use matters because it helps explain disciplinary reasoning.",
+      "correctText": "Cities and Urban Land-Use matters because it helps explain Cities.",
       "choices": [
         "Cities and Urban Land-Use appears on tests, so no explanation is needed.",
-        "Cities and Urban Land-Use matters because it helps explain disciplinary reasoning.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Cities and Urban Land-Use matters because it helps explain Cities.",
+        "ignoring the source or data in the prompt",
+        "Urban Land-Use is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-human-geography-056",
+      "id": "ap-human-geography-096",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cities and Urban Land-Use",
@@ -1394,18 +2394,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Cities and Urban Land-Use. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Cities and Urban Land-Use. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-human-geography-057",
+      "id": "ap-human-geography-097",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cities and Urban Land-Use",
@@ -1420,17 +2420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Cities and Urban Land-Use to the larger course skill?",
-      "correctText": "Cities and Urban Land-Use is useful when students explain reasoning.",
+      "correctText": "Cities and Urban Land-Use is useful when students contextualize evidence.",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "Cities and Urban Land-Use is useful when students explain reasoning.",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "Cities and Urban Land-Use is useful when students contextualize evidence.",
+        "Cities and Urban Land-Use only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-human-geography-058",
+      "id": "ap-human-geography-098",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cities and Urban Land-Use",
@@ -1447,15 +2447,15 @@
       "prompt": "For Cities and Urban Land-Use, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Cities and Urban Land-Use, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Cities and Urban Land-Use, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-human-geography-059",
+      "id": "ap-human-geography-099",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cities and Urban Land-Use",
@@ -1470,17 +2470,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Cities and Urban Land-Use?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Urban Land-Use",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "using a rule from a different unit"
+        "ignoring the source or data in the prompt",
+        "Urban Land-Use",
+        "contextualization",
+        "argument"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Cities and Urban Land-Use, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Urban Land-Use is part of the concept cluster for Cities and Urban Land-Use, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-human-geography-060",
+      "id": "ap-human-geography-100",
       "course": "ap-human-geography",
       "courseLabel": "AP Human Geography",
       "topic": "Cities and Urban Land-Use",
@@ -1497,12 +2497,512 @@
       "prompt": "A student wants to transfer Cities and Urban Land-Use knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Cities and Urban Land-Use, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Cities and Urban Land-Use, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Cities and Urban Land-Use, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-human-geography-101",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cities and Urban Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cities and Urban Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Human Geography - Cities and Urban Land-Use: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Cities and Urban Land-Use connects to Cities.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Cities and Urban Land-Use connects to Cities.",
+        "contextualization replaces all evidence."
+      ],
+      "explanation": "The pair Cities and Urban Land-Use and Cities belongs together in Cities and Urban Land-Use; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-human-geography-102",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cities and Urban Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cities and Urban Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Human Geography question on Cities and Urban Land-Use?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-human-geography-103",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cities and Urban Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cities and Urban Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Cities and Urban Land-Use?",
+      "correctText": "Cities and Urban Land-Use can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Cities and Urban Land-Use can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Cities does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-human-geography-104",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cities and Urban Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cities and Urban Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Cities and Urban Land-Use. Which feedback would help most?",
+      "correctText": "Reread the task, identify Cities and Urban Land-Use, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Cities and Urban Land-Use, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-human-geography-105",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cities and Urban Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cities and Urban Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Human Geography: Cities and Urban Land-Use?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Human Geography means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-human-geography-106",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cities and Urban Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cities and Urban Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Cities and Urban Land-Use, which unit vocabulary word should be reviewed with Cities and Urban Land-Use?",
+      "correctText": "Cities",
+      "choices": [
+        "Processes",
+        "Cities",
+        "Rural Land-Use",
+        "Economic Development"
+      ],
+      "explanation": "Cities belongs near Cities and Urban Land-Use in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-human-geography-107",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cities and Urban Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cities and Urban Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Cities and Urban Land-Use?",
+      "correctText": "A response that names Cities and Urban Land-Use but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Cities and Urban Land-Use but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Cities and Urban Land-Use to Cities."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-human-geography-108",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Cities and Urban Land-Use",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Cities and Urban Land-Use",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Human Geography: Cities and Urban Land-Use?",
+      "correctText": "How does Cities and Urban Land-Use help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Cities and Urban Land-Use help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-human-geography-109",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Human Geography - Industrial and Economic Development: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Industrial and Economic Development",
+      "choices": [
+        "argument",
+        "Cultural Patterns",
+        "Industrial and Economic Development",
+        "Agriculture"
+      ],
+      "explanation": "Industrial and Economic Development is the anchor concept for Industrial and Economic Development. In AP CED: Industrial and Economic Development, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-human-geography-110",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Human Geography: Industrial and Economic Development needs to show the skill \"compare developments.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Industrial.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain Industrial.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to Industrial; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-human-geography-111",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Human Geography: Industrial and Economic Development?",
+      "correctText": "Connect Industrial and Economic Development to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Industrial and Economic Development to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-human-geography-112",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Industrial and Economic Development, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Economic Development.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Economic Development.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-human-geography-113",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Human Geography: Industrial and Economic Development?",
+      "correctText": "Industrial and Economic Development matters because it helps explain Industrial.",
+      "choices": [
+        "Economic Development is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "Industrial and Economic Development matters because it helps explain Industrial.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-human-geography-114",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Industrial and Economic Development. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-human-geography-115",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Industrial and Economic Development to the larger course skill?",
+      "correctText": "Industrial and Economic Development is useful when students contextualize evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Industrial should be ignored unless it appears in the title.",
+        "Industrial and Economic Development is useful when students contextualize evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-human-geography-116",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Industrial and Economic Development, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Industrial and Economic Development, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Industrial and Economic Development, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-human-geography-117",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Industrial and Economic Development?",
+      "correctText": "Economic Development",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "comparison",
+        "Economic Development",
+        "Population and Migration"
+      ],
+      "explanation": "Economic Development is part of the concept cluster for Industrial and Economic Development, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-human-geography-118",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Industrial and Economic Development knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Industrial and Economic Development, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Industrial and Economic Development, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-human-geography-119",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Human Geography - Industrial and Economic Development: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Industrial and Economic Development connects to Industrial.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Industrial and Economic Development connects to Industrial.",
+        "contextualization replaces all evidence."
+      ],
+      "explanation": "The pair Industrial and Economic Development and Industrial belongs together in Industrial and Economic Development; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-human-geography-120",
+      "course": "ap-human-geography",
+      "courseLabel": "AP Human Geography",
+      "topic": "Industrial and Economic Development",
+      "domain": "AP History and Social Sciences",
+      "subjectArea": "AP History and Social Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Industrial and Economic Development",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Human Geography question on Industrial and Economic Development?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     }
   ]
 }

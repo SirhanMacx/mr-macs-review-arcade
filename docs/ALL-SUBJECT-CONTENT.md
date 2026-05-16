@@ -28,6 +28,15 @@ npm run validate:content
 
 V1 uses NYSED P-12 standards content areas for non-AP courses and the College Board AP Courses and Exams catalog for AP courses. This avoids inventing local district elective titles while still covering the subjects students are likely to encounter from grades 5-12.
 
+The current course-depth pass adds a stronger V2 floor:
+
+- 90 generated non-social-studies/NYS/AP course blueprints
+- 664 generated unit-by-unit Jeopardy boards
+- 90 generated practice-exam blueprints
+- 13,362 compiled arcade questions across 99 total course buckets after merging existing social-studies banks
+- At least 12 generated questions per unit for every generated course
+- Generally 112+ questions for NYS/non-AP courses and 120+ questions for AP/AP Career Kickstart courses
+
 ## Released Assessment Policy
 
 Released NYSED Regents and Grades 3-8 tests are authoritative sources for practice-exam structure and metadata. General arcade trivia may use released-test patterns, but exact released exam items and source images should stay separated in the dedicated practice-exam systems.
@@ -47,8 +56,9 @@ Current released-source lanes:
 - grade 5-8 ELA/math/science coverage
 - high-school ELA/math/science coverage
 - at least 42 AP/AP Career Kickstart course buckets
-- minimum question counts: 40 per NYS bucket, 60 per AP bucket
+- minimum question counts: 96+ per generated NYS bucket, 120+ per generated AP bucket, and at least 12 questions per generated unit
+- answer-letter distribution and no obvious answer-key streaks
 - answer shape and explanation quality
 - standards/source metadata on every generated question
-- Jeopardy blueprint shape: 5 categories x 5 clues + Final
-- practice blueprint sections, units, and released-source mode
+- Jeopardy blueprint shape: 5 categories x 5 clues + Final, with no old generic clue-copy fallback
+- practice blueprint sections, units, released-source mode, unit-level sampling, and written-response tasks

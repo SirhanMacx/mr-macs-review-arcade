@@ -2,7 +2,7 @@
   "course": "ap-music-theory",
   "courseLabel": "AP Music Theory",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-music-theory-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Music Theory, which concept is most central to the unit \"Music Fundamentals\"?",
+      "prompt": "AP Music Theory - Music Fundamentals: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Music Fundamentals",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
-        "Harmonic Progression",
-        "Music Fundamentals"
+        "Music Fundamentals",
+        "sustained investigation",
+        "artist statement",
+        "Harmonic Progression"
       ],
-      "explanation": "Music Fundamentals is a core idea in Music Fundamentals. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Music Fundamentals is the anchor concept for Music Fundamentals. In AP CED: Music Fundamentals, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-music-theory-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Music Fundamentals needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Music Theory: Music Fundamentals needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain sustained investigation.",
+        "Guess from key words about selected works.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Music Fundamentals only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-music-theory-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Music Fundamentals?",
+      "prompt": "Which answer best avoids a common mistake about AP Music Theory: Music Fundamentals?",
       "correctText": "Connect Music Fundamentals to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Music Fundamentals to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Music Fundamentals, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Music Fundamentals, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about selected works.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Music Theory: Music Fundamentals?",
-      "correctText": "Music Fundamentals matters because it helps explain disciplinary reasoning.",
+      "correctText": "Music Fundamentals matters because it helps explain sustained investigation.",
       "choices": [
+        "Music Fundamentals matters because it helps explain sustained investigation.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Music Fundamentals matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Music Fundamentals appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Music Fundamentals. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Music Fundamentals. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Music Fundamentals to the larger course skill?",
-      "correctText": "Music Fundamentals is useful when students apply a course concept.",
+      "correctText": "Music Fundamentals is useful when students explain artistic intent.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Music Fundamentals is useful when students explain artistic intent.",
         "making a claim without supporting evidence",
-        "Music Fundamentals is useful when students apply a course concept.",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Music Fundamentals only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Music Fundamentals, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Music Fundamentals, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Music Fundamentals, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Music Fundamentals?",
-      "correctText": "evidence-based explanation",
+      "correctText": "selected works",
       "choices": [
-        "Aural Skills",
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
+        "selected works",
+        "making a claim without supporting evidence",
+        "portfolio evidence",
         "Melodic Composition"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Music Fundamentals, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "selected works is part of the concept cluster for Music Fundamentals, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-music-theory-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Music Fundamentals knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Music Fundamentals, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Music Fundamentals, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,79 +258,254 @@
       "id": "ap-music-theory-011",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
-      "topic": "Harmony and Voice Leading",
+      "topic": "Music Fundamentals",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Harmony and Voice Leading",
+        "AP CED: Music Fundamentals",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Music Theory, which concept is most central to the unit \"Harmony and Voice Leading\"?",
-      "correctText": "Harmony and Voice Leading",
+      "prompt": "AP Music Theory - Music Fundamentals: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Music Fundamentals connects to sustained investigation.",
       "choices": [
-        "evidence-based explanation",
-        "Harmony and Voice Leading",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Music Fundamentals connects to sustained investigation.",
+        "intentional choices replaces all evidence."
       ],
-      "explanation": "Harmony and Voice Leading is a core idea in Harmony and Voice Leading. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Music Fundamentals and sustained investigation belongs together in Music Fundamentals; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-music-theory-012",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
-      "topic": "Harmony and Voice Leading",
+      "topic": "Music Fundamentals",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Harmony and Voice Leading",
+        "AP CED: Music Fundamentals",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Harmony and Voice Leading needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Music Theory question on Music Fundamentals?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Harmony and Voice Leading only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-music-theory-013",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
-      "topic": "Harmony and Voice Leading",
+      "topic": "Music Fundamentals",
       "domain": "AP Arts",
       "subjectArea": "AP Arts",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Harmony and Voice Leading",
+        "AP CED: Music Fundamentals",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Harmony and Voice Leading?",
-      "correctText": "Connect Harmony and Voice Leading to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Music Fundamentals?",
+      "correctText": "Music Fundamentals can be explained with evidence from work sample or performance excerpt.",
       "choices": [
-        "Connect Harmony and Voice Leading to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Harmony and Voice Leading as always meaning the same thing."
+        "Music Fundamentals can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-music-theory-014",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Music Fundamentals",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Music Fundamentals",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Music Fundamentals. Which feedback would help most?",
+      "correctText": "Reread the task, identify Music Fundamentals, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Music Fundamentals, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-music-theory-015",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Music Fundamentals",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Music Fundamentals",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Music Theory: Music Fundamentals?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Music Theory means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-music-theory-016",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Music Fundamentals",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Music Fundamentals",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Music Fundamentals, which unit vocabulary word should be reviewed with Music Fundamentals?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "making a claim without supporting evidence",
+        "sustained investigation",
+        "portfolio evidence",
+        "Melodic Composition"
+      ],
+      "explanation": "sustained investigation belongs near Music Fundamentals in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-music-theory-017",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Music Fundamentals",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Music Fundamentals",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Music Fundamentals?",
+      "correctText": "A response that names Music Fundamentals but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Music Fundamentals but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Music Fundamentals to sustained investigation."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-music-theory-018",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Music Fundamentals",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Music Fundamentals",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Music Theory: Music Fundamentals?",
+      "correctText": "How does Music Fundamentals help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Music Fundamentals help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-music-theory-019",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Music Fundamentals",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Music Fundamentals",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Music Fundamentals\" for Music Fundamentals (spiral review pass 2)?",
+      "correctText": "Apply Music Fundamentals in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Music Fundamentals in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Music Fundamentals expects students to use knowledge and skill together. The correct answer applies Music Fundamentals and supports the reasoning."
+    },
+    {
+      "id": "ap-music-theory-020",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Music Fundamentals",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Music Fundamentals",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Music Fundamentals (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Music Fundamentals",
+      "choices": [
+        "using a rule from a different unit",
+        "materials and processes",
+        "Voice Leading",
+        "Music Fundamentals"
+      ],
+      "explanation": "Music Fundamentals is the anchor concept for Music Fundamentals. In AP CED: Music Fundamentals, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-music-theory-021",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmony and Voice Leading",
@@ -344,18 +519,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Harmony and Voice Leading, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Music Theory - Harmony and Voice Leading: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Harmony and Voice Leading",
       "choices": [
-        "A vague statement that the topic is important.",
+        "sustained investigation",
+        "Harmony and Voice Leading",
+        "artist statement",
+        "Form and Analysis"
+      ],
+      "explanation": "Harmony and Voice Leading is the anchor concept for Harmony and Voice Leading. In AP CED: Harmony and Voice Leading, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-music-theory-022",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Music Theory: Harmony and Voice Leading needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Harmony.",
+      "choices": [
+        "Repeat the definition of Harmony and Voice Leading only.",
+        "Use evidence to explain Harmony.",
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Ignore the context and pick the longest answer."
+      ],
+      "explanation": "The useful move is to connect evidence to Harmony; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-music-theory-023",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Music Theory: Harmony and Voice Leading?",
+      "correctText": "Connect Harmony and Voice Leading to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Harmony and Voice Leading to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-music-theory-024",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Harmony and Voice Leading, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Voice Leading.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Voice Leading.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-music-theory-015",
+      "id": "ap-music-theory-025",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmony and Voice Leading",
@@ -370,17 +620,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Music Theory: Harmony and Voice Leading?",
-      "correctText": "Harmony and Voice Leading matters because it helps explain disciplinary reasoning.",
+      "correctText": "Harmony and Voice Leading matters because it helps explain Harmony.",
       "choices": [
-        "Harmony and Voice Leading matters because it helps explain disciplinary reasoning.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "Harmony and Voice Leading matters because it helps explain Harmony.",
+        "Voice Leading is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-music-theory-016",
+      "id": "ap-music-theory-026",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmony and Voice Leading",
@@ -394,18 +644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Harmony and Voice Leading. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Harmony and Voice Leading. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-music-theory-017",
+      "id": "ap-music-theory-027",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmony and Voice Leading",
@@ -420,17 +670,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Harmony and Voice Leading to the larger course skill?",
-      "correctText": "Harmony and Voice Leading is useful when students use evidence accurately.",
+      "correctText": "Harmony and Voice Leading is useful when students explain artistic intent.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Harmony and Voice Leading is useful when students use evidence accurately.",
         "Harmony and Voice Leading only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Harmony and Voice Leading is useful when students explain artistic intent.",
+        "ignoring the source or data in the prompt",
+        "Harmony should be ignored unless it appears in the title."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-music-theory-018",
+      "id": "ap-music-theory-028",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmony and Voice Leading",
@@ -447,15 +697,15 @@
       "prompt": "For Harmony and Voice Leading, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Harmony and Voice Leading, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Harmony and Voice Leading, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-music-theory-019",
+      "id": "ap-music-theory-029",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmony and Voice Leading",
@@ -470,17 +720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Harmony and Voice Leading?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Voice Leading",
       "choices": [
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "Form and Analysis",
-        "Harmony and Voice Leading"
+        "Music Fundamentals",
+        "Voice Leading",
+        "portfolio evidence",
+        "Harmonic Progression"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Harmony and Voice Leading, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Voice Leading is part of the concept cluster for Harmony and Voice Leading, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-music-theory-020",
+      "id": "ap-music-theory-030",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmony and Voice Leading",
@@ -497,15 +747,265 @@
       "prompt": "A student wants to transfer Harmony and Voice Leading knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Harmony and Voice Leading, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Harmony and Voice Leading, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Harmony and Voice Leading, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-music-theory-021",
+      "id": "ap-music-theory-031",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Harmony and Voice Leading: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Harmony and Voice Leading connects to Harmony.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Harmony and Voice Leading connects to Harmony.",
+        "sustained investigation replaces all evidence."
+      ],
+      "explanation": "The pair Harmony and Voice Leading and Harmony belongs together in Harmony and Voice Leading; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-music-theory-032",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Music Theory question on Harmony and Voice Leading?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-music-theory-033",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Harmony and Voice Leading?",
+      "correctText": "Harmony and Voice Leading can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Harmony and Voice Leading can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "Harmony does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-music-theory-034",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Harmony and Voice Leading. Which feedback would help most?",
+      "correctText": "Reread the task, identify Harmony and Voice Leading, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Harmony and Voice Leading, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-music-theory-035",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Music Theory: Harmony and Voice Leading?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Music Theory means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-music-theory-036",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Harmony and Voice Leading, which unit vocabulary word should be reviewed with Harmony and Voice Leading?",
+      "correctText": "Harmony",
+      "choices": [
+        "making a claim without supporting evidence",
+        "Harmony",
+        "materials and processes",
+        "Melodic Composition"
+      ],
+      "explanation": "Harmony belongs near Harmony and Voice Leading in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-music-theory-037",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Harmony and Voice Leading?",
+      "correctText": "A response that names Harmony and Voice Leading but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Harmony and Voice Leading but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Harmony and Voice Leading to Harmony."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-music-theory-038",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Music Theory: Harmony and Voice Leading?",
+      "correctText": "How does Harmony and Voice Leading help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Harmony and Voice Leading help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-music-theory-039",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Harmony and Voice Leading\" for Harmony and Voice Leading (spiral review pass 2)?",
+      "correctText": "Apply Harmony and Voice Leading in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Harmony and Voice Leading in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Harmony and Voice Leading expects students to use knowledge and skill together. The correct answer applies Harmony and Voice Leading and supports the reasoning."
+    },
+    {
+      "id": "ap-music-theory-040",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmony and Voice Leading",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmony and Voice Leading",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Harmony and Voice Leading (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Harmony and Voice Leading",
+      "choices": [
+        "Harmony and Voice Leading",
+        "making a claim without supporting evidence",
+        "materials and processes",
+        "Melodic Composition"
+      ],
+      "explanation": "Harmony and Voice Leading is the anchor concept for Harmony and Voice Leading. In AP CED: Harmony and Voice Leading, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-music-theory-041",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Melodic Composition",
@@ -519,18 +1019,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Music Theory, which concept is most central to the unit \"Melodic Composition\"?",
+      "prompt": "AP Music Theory - Melodic Composition: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Melodic Composition",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Form and Analysis",
+        "selected works",
+        "Harmony and Voice Leading",
         "Melodic Composition",
-        "using a rule from a different unit"
+        "Form"
       ],
-      "explanation": "Melodic Composition is a core idea in Melodic Composition. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Melodic Composition is the anchor concept for Melodic Composition. In AP CED: Melodic Composition, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-music-theory-022",
+      "id": "ap-music-theory-042",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Melodic Composition",
@@ -544,18 +1044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Melodic Composition needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Music Theory: Melodic Composition needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
       "choices": [
         "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "using a rule from a different unit",
+        "Use evidence to explain sustained investigation.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-music-theory-023",
+      "id": "ap-music-theory-043",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Melodic Composition",
@@ -569,18 +1069,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Melodic Composition?",
+      "prompt": "Which answer best avoids a common mistake about AP Music Theory: Melodic Composition?",
       "correctText": "Connect Melodic Composition to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Melodic Composition to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-music-theory-024",
+      "id": "ap-music-theory-044",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Melodic Composition",
@@ -594,18 +1094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Melodic Composition, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Melodic Composition, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about selected works.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-music-theory-025",
+      "id": "ap-music-theory-045",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Melodic Composition",
@@ -620,17 +1120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Music Theory: Melodic Composition?",
-      "correctText": "Melodic Composition matters because it helps explain disciplinary reasoning.",
+      "correctText": "Melodic Composition matters because it helps explain sustained investigation.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "Melodic Composition appears on tests, so no explanation is needed.",
-        "Melodic Composition matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Melodic Composition matters because it helps explain sustained investigation.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-music-theory-026",
+      "id": "ap-music-theory-046",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Melodic Composition",
@@ -644,18 +1144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Melodic Composition. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Melodic Composition. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-music-theory-027",
+      "id": "ap-music-theory-047",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Melodic Composition",
@@ -670,17 +1170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Melodic Composition to the larger course skill?",
-      "correctText": "Melodic Composition is useful when students explain reasoning.",
+      "correctText": "Melodic Composition is useful when students explain artistic intent.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Melodic Composition is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "sustained investigation should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Melodic Composition is useful when students explain artistic intent.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-music-theory-028",
+      "id": "ap-music-theory-048",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Melodic Composition",
@@ -697,15 +1197,15 @@
       "prompt": "For Melodic Composition, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Melodic Composition, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Melodic Composition, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-music-theory-029",
+      "id": "ap-music-theory-049",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Melodic Composition",
@@ -720,17 +1220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Melodic Composition?",
-      "correctText": "evidence-based explanation",
+      "correctText": "selected works",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "exam-style application",
-        "Music Fundamentals"
+        "sustained investigation",
+        "Harmony and Voice Leading",
+        "selected works",
+        "Form and Analysis"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Melodic Composition, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "selected works is part of the concept cluster for Melodic Composition, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-music-theory-030",
+      "id": "ap-music-theory-050",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Melodic Composition",
@@ -747,15 +1247,265 @@
       "prompt": "A student wants to transfer Melodic Composition knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Melodic Composition, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Melodic Composition, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Melodic Composition, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-music-theory-031",
+      "id": "ap-music-theory-051",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Melodic Composition",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Melodic Composition",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Melodic Composition: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Melodic Composition connects to sustained investigation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Melodic Composition connects to sustained investigation.",
+        "intentional choices replaces all evidence."
+      ],
+      "explanation": "The pair Melodic Composition and sustained investigation belongs together in Melodic Composition; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-music-theory-052",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Melodic Composition",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Melodic Composition",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Music Theory question on Melodic Composition?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-music-theory-053",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Melodic Composition",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Melodic Composition",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Melodic Composition?",
+      "correctText": "Melodic Composition can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Melodic Composition can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-music-theory-054",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Melodic Composition",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Melodic Composition",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Melodic Composition. Which feedback would help most?",
+      "correctText": "Reread the task, identify Melodic Composition, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Melodic Composition, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-music-theory-055",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Melodic Composition",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Melodic Composition",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Music Theory: Melodic Composition?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Music Theory means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-music-theory-056",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Melodic Composition",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Melodic Composition",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Melodic Composition, which unit vocabulary word should be reviewed with Melodic Composition?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "making a claim without supporting evidence",
+        "sustained investigation",
+        "portfolio evidence",
+        "Melodic Composition"
+      ],
+      "explanation": "sustained investigation belongs near Melodic Composition in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-music-theory-057",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Melodic Composition",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Melodic Composition",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Melodic Composition?",
+      "correctText": "A response that names Melodic Composition but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Melodic Composition but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Melodic Composition to sustained investigation."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-music-theory-058",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Melodic Composition",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Melodic Composition",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Music Theory: Melodic Composition?",
+      "correctText": "How does Melodic Composition help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Melodic Composition help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-music-theory-059",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Melodic Composition",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Melodic Composition",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Melodic Composition\" for Melodic Composition (spiral review pass 2)?",
+      "correctText": "Apply Melodic Composition in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Melodic Composition in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Melodic Composition expects students to use knowledge and skill together. The correct answer applies Melodic Composition and supports the reasoning."
+    },
+    {
+      "id": "ap-music-theory-060",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Melodic Composition",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Melodic Composition",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Melodic Composition (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Melodic Composition",
+      "choices": [
+        "Music Fundamentals",
+        "Melodic Composition",
+        "portfolio evidence",
+        "Harmonic Progression"
+      ],
+      "explanation": "Melodic Composition is the anchor concept for Melodic Composition. In AP CED: Melodic Composition, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-music-theory-061",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmonic Progression",
@@ -769,18 +1519,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Music Theory, which concept is most central to the unit \"Harmonic Progression\"?",
+      "prompt": "AP Music Theory - Harmonic Progression: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Harmonic Progression",
       "choices": [
-        "Harmonic Progression",
-        "Melodic Composition",
-        "memorizing an isolated fact without evidence",
-        "model or source analysis"
+        "intentional choices",
+        "Harmony",
+        "Analysis",
+        "Harmonic Progression"
       ],
-      "explanation": "Harmonic Progression is a core idea in Harmonic Progression. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Harmonic Progression is the anchor concept for Harmonic Progression. In AP CED: Harmonic Progression, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-music-theory-032",
+      "id": "ap-music-theory-062",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmonic Progression",
@@ -794,18 +1544,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Harmonic Progression needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Music Theory: Harmonic Progression needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
         "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain sustained investigation."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-music-theory-033",
+      "id": "ap-music-theory-063",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmonic Progression",
@@ -819,18 +1569,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Harmonic Progression?",
+      "prompt": "Which answer best avoids a common mistake about AP Music Theory: Harmonic Progression?",
       "correctText": "Connect Harmonic Progression to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Harmonic Progression to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-music-theory-034",
+      "id": "ap-music-theory-064",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmonic Progression",
@@ -844,18 +1594,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Harmonic Progression, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Harmonic Progression, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about selected works.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-music-theory-035",
+      "id": "ap-music-theory-065",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmonic Progression",
@@ -870,17 +1620,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Music Theory: Harmonic Progression?",
-      "correctText": "Harmonic Progression matters because it helps explain disciplinary reasoning.",
+      "correctText": "Harmonic Progression matters because it helps explain sustained investigation.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Harmonic Progression matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Harmonic Progression matters because it helps explain sustained investigation."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-music-theory-036",
+      "id": "ap-music-theory-066",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmonic Progression",
@@ -894,18 +1644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Harmonic Progression. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Harmonic Progression. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-music-theory-037",
+      "id": "ap-music-theory-067",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmonic Progression",
@@ -920,17 +1670,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Harmonic Progression to the larger course skill?",
-      "correctText": "Harmonic Progression is useful when students apply a course concept.",
+      "correctText": "Harmonic Progression is useful when students explain artistic intent.",
       "choices": [
-        "Harmonic Progression is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Harmonic Progression is useful when students explain artistic intent."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-music-theory-038",
+      "id": "ap-music-theory-068",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmonic Progression",
@@ -947,15 +1697,15 @@
       "prompt": "For Harmonic Progression, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Harmonic Progression, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Harmonic Progression, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-music-theory-039",
+      "id": "ap-music-theory-069",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmonic Progression",
@@ -970,17 +1720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Harmonic Progression?",
-      "correctText": "evidence-based explanation",
+      "correctText": "selected works",
       "choices": [
-        "Aural Skills",
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "intentional choices",
+        "Harmony",
+        "Form",
+        "selected works"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Harmonic Progression, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "selected works is part of the concept cluster for Harmonic Progression, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-music-theory-040",
+      "id": "ap-music-theory-070",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Harmonic Progression",
@@ -997,15 +1747,265 @@
       "prompt": "A student wants to transfer Harmonic Progression knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Harmonic Progression, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Harmonic Progression, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-music-theory-041",
+      "id": "ap-music-theory-071",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmonic Progression",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmonic Progression",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Harmonic Progression: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Harmonic Progression connects to sustained investigation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Harmonic Progression connects to sustained investigation.",
+        "intentional choices replaces all evidence."
+      ],
+      "explanation": "The pair Harmonic Progression and sustained investigation belongs together in Harmonic Progression; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-music-theory-072",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmonic Progression",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmonic Progression",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Music Theory question on Harmonic Progression?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-music-theory-073",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmonic Progression",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmonic Progression",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Harmonic Progression?",
+      "correctText": "Harmonic Progression can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Harmonic Progression can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-music-theory-074",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmonic Progression",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmonic Progression",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Harmonic Progression. Which feedback would help most?",
+      "correctText": "Reread the task, identify Harmonic Progression, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Harmonic Progression, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-music-theory-075",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmonic Progression",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmonic Progression",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Music Theory: Harmonic Progression?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Music Theory means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-music-theory-076",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmonic Progression",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmonic Progression",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Harmonic Progression, which unit vocabulary word should be reviewed with Harmonic Progression?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "making a claim without supporting evidence",
+        "sustained investigation",
+        "portfolio evidence",
+        "Melodic Composition"
+      ],
+      "explanation": "sustained investigation belongs near Harmonic Progression in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-music-theory-077",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmonic Progression",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmonic Progression",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Harmonic Progression?",
+      "correctText": "A response that names Harmonic Progression but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Harmonic Progression but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Harmonic Progression to sustained investigation."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-music-theory-078",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmonic Progression",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmonic Progression",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Music Theory: Harmonic Progression?",
+      "correctText": "How does Harmonic Progression help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Harmonic Progression help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-music-theory-079",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmonic Progression",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmonic Progression",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Harmonic Progression\" for Harmonic Progression (spiral review pass 2)?",
+      "correctText": "Apply Harmonic Progression in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Harmonic Progression in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Harmonic Progression expects students to use knowledge and skill together. The correct answer applies Harmonic Progression and supports the reasoning."
+    },
+    {
+      "id": "ap-music-theory-080",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Harmonic Progression",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Harmonic Progression",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Harmonic Progression (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Harmonic Progression",
+      "choices": [
+        "sustained investigation",
+        "artist statement",
+        "Harmonic Progression",
+        "Form and Analysis"
+      ],
+      "explanation": "Harmonic Progression is the anchor concept for Harmonic Progression. In AP CED: Harmonic Progression, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-music-theory-081",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Form and Analysis",
@@ -1019,18 +2019,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Music Theory, which concept is most central to the unit \"Form and Analysis\"?",
+      "prompt": "AP Music Theory - Form and Analysis: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Form and Analysis",
       "choices": [
-        "evidence-based explanation",
         "Form and Analysis",
-        "Harmony and Voice Leading",
-        "making a claim without supporting evidence"
+        "materials and processes",
+        "Voice Leading",
+        "Aural Skills"
       ],
-      "explanation": "Form and Analysis is a core idea in Form and Analysis. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Form and Analysis is the anchor concept for Form and Analysis. In AP CED: Form and Analysis, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-music-theory-042",
+      "id": "ap-music-theory-082",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Form and Analysis",
@@ -1044,18 +2044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Form and Analysis needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Music Theory: Form and Analysis needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Form.",
       "choices": [
+        "Use evidence to explain Form.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Form and Analysis only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Guess from key words about Analysis.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Form; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-music-theory-043",
+      "id": "ap-music-theory-083",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Form and Analysis",
@@ -1069,18 +2069,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Form and Analysis?",
+      "prompt": "Which answer best avoids a common mistake about AP Music Theory: Form and Analysis?",
       "correctText": "Connect Form and Analysis to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Form and Analysis to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Form and Analysis as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-music-theory-044",
+      "id": "ap-music-theory-084",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Form and Analysis",
@@ -1094,18 +2094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Form and Analysis, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Form and Analysis, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Analysis.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Analysis.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-music-theory-045",
+      "id": "ap-music-theory-085",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Form and Analysis",
@@ -1120,17 +2120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Music Theory: Form and Analysis?",
-      "correctText": "Form and Analysis matters because it helps explain disciplinary reasoning.",
+      "correctText": "Form and Analysis matters because it helps explain Form.",
       "choices": [
-        "Form and Analysis matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
+        "Form and Analysis matters because it helps explain Form.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "choosing an answer because it uses familiar words",
+        "Form and Analysis appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-music-theory-046",
+      "id": "ap-music-theory-086",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Form and Analysis",
@@ -1144,18 +2144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Form and Analysis. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Form and Analysis. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-music-theory-047",
+      "id": "ap-music-theory-087",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Form and Analysis",
@@ -1170,17 +2170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Form and Analysis to the larger course skill?",
-      "correctText": "Form and Analysis is useful when students use evidence accurately.",
+      "correctText": "Form and Analysis is useful when students explain artistic intent.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Form and Analysis is useful when students use evidence accurately.",
-        "Form and Analysis only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Form and Analysis is useful when students explain artistic intent.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-music-theory-048",
+      "id": "ap-music-theory-088",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Form and Analysis",
@@ -1197,15 +2197,15 @@
       "prompt": "For Form and Analysis, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Form and Analysis, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Form and Analysis, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-music-theory-049",
+      "id": "ap-music-theory-089",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Form and Analysis",
@@ -1220,17 +2220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Form and Analysis?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Analysis",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation",
-        "Form and Analysis",
-        "Harmony and Voice Leading"
+        "Analysis",
+        "intentional choices",
+        "Harmony",
+        "Form"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Form and Analysis, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Analysis is part of the concept cluster for Form and Analysis, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-music-theory-050",
+      "id": "ap-music-theory-090",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Form and Analysis",
@@ -1247,15 +2247,265 @@
       "prompt": "A student wants to transfer Form and Analysis knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Form and Analysis, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Form and Analysis, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Form and Analysis, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-music-theory-051",
+      "id": "ap-music-theory-091",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Form and Analysis",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Form and Analysis: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Form and Analysis connects to Form.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Form and Analysis connects to Form.",
+        "sustained investigation replaces all evidence."
+      ],
+      "explanation": "The pair Form and Analysis and Form belongs together in Form and Analysis; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-music-theory-092",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Form and Analysis",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Music Theory question on Form and Analysis?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-music-theory-093",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Form and Analysis",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Form and Analysis?",
+      "correctText": "Form and Analysis can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Form and Analysis can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "Form does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-music-theory-094",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Form and Analysis",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Form and Analysis. Which feedback would help most?",
+      "correctText": "Reread the task, identify Form and Analysis, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Form and Analysis, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-music-theory-095",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Form and Analysis",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Music Theory: Form and Analysis?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Music Theory means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-music-theory-096",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Form and Analysis",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Form and Analysis, which unit vocabulary word should be reviewed with Form and Analysis?",
+      "correctText": "Form",
+      "choices": [
+        "making a claim without supporting evidence",
+        "Form",
+        "materials and processes",
+        "Voice Leading"
+      ],
+      "explanation": "Form belongs near Form and Analysis in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-music-theory-097",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Form and Analysis",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Form and Analysis?",
+      "correctText": "A response that names Form and Analysis but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Form and Analysis but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Form and Analysis to Form."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-music-theory-098",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Form and Analysis",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Music Theory: Form and Analysis?",
+      "correctText": "How does Form and Analysis help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Form and Analysis help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-music-theory-099",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Form and Analysis",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Form and Analysis\" for Form and Analysis (spiral review pass 2)?",
+      "correctText": "Apply Form and Analysis in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Form and Analysis in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Form and Analysis expects students to use knowledge and skill together. The correct answer applies Form and Analysis and supports the reasoning."
+    },
+    {
+      "id": "ap-music-theory-100",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Form and Analysis",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Form and Analysis",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Form and Analysis (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Form and Analysis",
+      "choices": [
+        "selected works",
+        "Harmony and Voice Leading",
+        "Form",
+        "Form and Analysis"
+      ],
+      "explanation": "Form and Analysis is the anchor concept for Form and Analysis. In AP CED: Form and Analysis, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-music-theory-101",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Aural Skills",
@@ -1269,18 +2519,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Music Theory, which concept is most central to the unit \"Aural Skills\"?",
+      "prompt": "AP Music Theory - Aural Skills: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Aural Skills",
       "choices": [
+        "portfolio evidence",
         "Aural Skills",
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "using a rule from a different unit"
+        "Melodic Composition",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Aural Skills is a core idea in Aural Skills. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Aural Skills is the anchor concept for Aural Skills. In AP CED: Aural Skills, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-music-theory-052",
+      "id": "ap-music-theory-102",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Aural Skills",
@@ -1294,18 +2544,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Aural Skills needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Music Theory: Aural Skills needs to show the skill \"connect materials to meaning.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain sustained investigation.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain sustained investigation.",
+        "Repeat the definition of Aural Skills only.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to sustained investigation; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-music-theory-053",
+      "id": "ap-music-theory-103",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Aural Skills",
@@ -1319,18 +2569,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Aural Skills?",
+      "prompt": "Which answer best avoids a common mistake about AP Music Theory: Aural Skills?",
       "correctText": "Connect Aural Skills to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Aural Skills to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-music-theory-054",
+      "id": "ap-music-theory-104",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Aural Skills",
@@ -1344,18 +2594,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Aural Skills, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Aural Skills, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about selected works.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about selected works.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-music-theory-055",
+      "id": "ap-music-theory-105",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Aural Skills",
@@ -1370,17 +2620,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Music Theory: Aural Skills?",
-      "correctText": "Aural Skills matters because it helps explain disciplinary reasoning.",
+      "correctText": "Aural Skills matters because it helps explain sustained investigation.",
       "choices": [
         "Aural Skills appears on tests, so no explanation is needed.",
-        "Aural Skills matters because it helps explain disciplinary reasoning.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence"
+        "Aural Skills matters because it helps explain sustained investigation.",
+        "ignoring the source or data in the prompt",
+        "selected works is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-music-theory-056",
+      "id": "ap-music-theory-106",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Aural Skills",
@@ -1394,18 +2644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Aural Skills. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret work sample or performance excerpt for Aural Skills. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-music-theory-057",
+      "id": "ap-music-theory-107",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Aural Skills",
@@ -1420,17 +2670,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Aural Skills to the larger course skill?",
-      "correctText": "Aural Skills is useful when students explain reasoning.",
+      "correctText": "Aural Skills is useful when students explain artistic intent.",
       "choices": [
-        "Aural Skills is useful when students explain reasoning.",
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "using a rule from a different unit"
+        "Aural Skills is useful when students explain artistic intent.",
+        "Aural Skills only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-music-theory-058",
+      "id": "ap-music-theory-108",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Aural Skills",
@@ -1447,15 +2697,15 @@
       "prompt": "For Aural Skills, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Aural Skills, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Aural Skills, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-music-theory-059",
+      "id": "ap-music-theory-109",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Aural Skills",
@@ -1470,17 +2720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Aural Skills?",
-      "correctText": "evidence-based explanation",
+      "correctText": "selected works",
       "choices": [
-        "evidence-based explanation",
-        "exam-style application",
-        "Harmonic Progression",
-        "Music Fundamentals"
+        "portfolio evidence",
+        "selected works",
+        "Melodic Composition",
+        "Aural Skills"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Aural Skills, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "selected works is part of the concept cluster for Aural Skills, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-music-theory-060",
+      "id": "ap-music-theory-110",
       "course": "ap-music-theory",
       "courseLabel": "AP Music Theory",
       "topic": "Aural Skills",
@@ -1497,12 +2747,262 @@
       "prompt": "A student wants to transfer Aural Skills knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Aural Skills, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Aural Skills, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Aural Skills, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-music-theory-111",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Aural Skills",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aural Skills",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Aural Skills: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Aural Skills connects to sustained investigation.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Aural Skills connects to sustained investigation.",
+        "intentional choices replaces all evidence."
+      ],
+      "explanation": "The pair Aural Skills and sustained investigation belongs together in Aural Skills; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-music-theory-112",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Aural Skills",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aural Skills",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of work sample or performance excerpt in a AP Music Theory question on Aural Skills?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The work sample or performance excerpt is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-music-theory-113",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Aural Skills",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aural Skills",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Aural Skills?",
+      "correctText": "Aural Skills can be explained with evidence from work sample or performance excerpt.",
+      "choices": [
+        "Aural Skills can be explained with evidence from work sample or performance excerpt.",
+        "ignoring the source or data in the prompt",
+        "sustained investigation does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-music-theory-114",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Aural Skills",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aural Skills",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Aural Skills. Which feedback would help most?",
+      "correctText": "Reread the task, identify Aural Skills, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Aural Skills, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-music-theory-115",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Aural Skills",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aural Skills",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Music Theory: Aural Skills?",
+      "correctText": "connect artistic choices to purpose, audience, and effect.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect artistic choices to purpose, audience, and effect.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Music Theory means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-music-theory-116",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Aural Skills",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aural Skills",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Aural Skills, which unit vocabulary word should be reviewed with Aural Skills?",
+      "correctText": "sustained investigation",
+      "choices": [
+        "making a claim without supporting evidence",
+        "sustained investigation",
+        "portfolio evidence",
+        "Melodic Composition"
+      ],
+      "explanation": "sustained investigation belongs near Aural Skills in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-music-theory-117",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Aural Skills",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aural Skills",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Aural Skills?",
+      "correctText": "A response that names Aural Skills but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Aural Skills but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Aural Skills to sustained investigation."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-music-theory-118",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Aural Skills",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aural Skills",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Music Theory: Aural Skills?",
+      "correctText": "How does Aural Skills help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Aural Skills help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-music-theory-119",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Aural Skills",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aural Skills",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best fits the standard reference \"AP CED: Aural Skills\" for Aural Skills (spiral review pass 2)?",
+      "correctText": "Apply Aural Skills in a new task and support the reasoning.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use a fact from a different course as the main proof.",
+        "Apply Aural Skills in a new task and support the reasoning.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "AP CED: Aural Skills expects students to use knowledge and skill together. The correct answer applies Aural Skills and supports the reasoning."
+    },
+    {
+      "id": "ap-music-theory-120",
+      "course": "ap-music-theory",
+      "courseLabel": "AP Music Theory",
+      "topic": "Aural Skills",
+      "domain": "AP Arts",
+      "subjectArea": "AP Arts",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Aural Skills",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Music Theory - Aural Skills (spiral review pass 2): which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Aural Skills",
+      "choices": [
+        "Aural Skills",
+        "intentional choices",
+        "Harmony",
+        "Form"
+      ],
+      "explanation": "Aural Skills is the anchor concept for Aural Skills. In AP CED: Aural Skills, students need to use that concept to reason through a task, not just recognize the word."
     }
   ]
 }

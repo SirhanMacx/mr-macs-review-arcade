@@ -2,7 +2,7 @@
   "course": "ap-chemistry",
   "courseLabel": "AP Chemistry",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-chemistry-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Chemistry, which concept is most central to the unit \"Atomic Structure and Properties\"?",
+      "prompt": "AP Chemistry - Atomic Structure and Properties: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Atomic Structure and Properties",
       "choices": [
         "Atomic Structure and Properties",
-        "Chemical Reactions",
-        "disciplinary reasoning",
-        "exam-style application"
+        "Atomic Structure",
+        "cause and effect",
+        "Intermolecular Forces and Properties"
       ],
-      "explanation": "Atomic Structure and Properties is a core idea in Atomic Structure and Properties. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Atomic Structure and Properties is the anchor concept for Atomic Structure and Properties. In AP CED: Atomic Structure and Properties, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-chemistry-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Atomic Structure and Properties needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Chemistry: Atomic Structure and Properties needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Atomic Structure.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain Atomic Structure.",
+        "Guess from key words about Properties.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Atomic Structure and Properties only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to Atomic Structure; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-chemistry-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Atomic Structure and Properties?",
+      "prompt": "Which answer best avoids a common mistake about AP Chemistry: Atomic Structure and Properties?",
       "correctText": "Connect Atomic Structure and Properties to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Atomic Structure and Properties to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Atomic Structure and Properties, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Atomic Structure and Properties, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Properties.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about Properties.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Chemistry: Atomic Structure and Properties?",
-      "correctText": "Atomic Structure and Properties matters because it helps explain disciplinary reasoning.",
+      "correctText": "Atomic Structure and Properties matters because it helps explain Atomic Structure.",
       "choices": [
-        "Atomic Structure and Properties matters because it helps explain disciplinary reasoning.",
+        "Atomic Structure and Properties matters because it helps explain Atomic Structure.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "Atomic Structure and Properties appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Atomic Structure and Properties. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Atomic Structure and Properties. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Atomic Structure and Properties to the larger course skill?",
-      "correctText": "Atomic Structure and Properties is useful when students apply a course concept.",
+      "correctText": "Atomic Structure and Properties is useful when students use models.",
       "choices": [
-        "Atomic Structure and Properties is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
+        "Atomic Structure and Properties is useful when students use models.",
         "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "choosing an answer because it uses familiar words",
+        "Atomic Structure and Properties only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Atomic Structure and Properties, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Atomic Structure and Properties, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Atomic Structure and Properties, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Atomic Structure and Properties?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Properties",
       "choices": [
-        "evidence-based explanation",
-        "Intermolecular Forces and Properties",
-        "model or source analysis",
-        "Thermodynamics"
+        "Properties",
+        "Applications of Thermodynamics",
+        "using a rule from a different unit",
+        "system"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Atomic Structure and Properties, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Properties is part of the concept cluster for Atomic Structure and Properties, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-chemistry-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Atomic Structure and Properties knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Atomic Structure and Properties, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Atomic Structure and Properties, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,151 +258,151 @@
       "id": "ap-chemistry-011",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
-      "topic": "Molecular and Ionic Compound Structure",
+      "topic": "Atomic Structure and Properties",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Molecular and Ionic Compound Structure",
+        "AP CED: Atomic Structure and Properties",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Chemistry, which concept is most central to the unit \"Molecular and Ionic Compound Structure\"?",
-      "correctText": "Molecular and Ionic Compound Structure",
+      "prompt": "AP Chemistry - Atomic Structure and Properties: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Atomic Structure and Properties connects to Atomic Structure.",
       "choices": [
-        "Applications of Thermodynamics",
-        "ignoring the source or data in the prompt",
         "making a claim without supporting evidence",
-        "Molecular and Ionic Compound Structure"
+        "choosing an answer because it uses familiar words",
+        "Atomic Structure and Properties connects to Atomic Structure.",
+        "model replaces all evidence."
       ],
-      "explanation": "Molecular and Ionic Compound Structure is a core idea in Molecular and Ionic Compound Structure. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Atomic Structure and Properties and Atomic Structure belongs together in Atomic Structure and Properties; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-chemistry-012",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
-      "topic": "Molecular and Ionic Compound Structure",
+      "topic": "Atomic Structure and Properties",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Molecular and Ionic Compound Structure",
+        "AP CED: Atomic Structure and Properties",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Molecular and Ionic Compound Structure needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Chemistry question on Atomic Structure and Properties?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Molecular and Ionic Compound Structure only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-chemistry-013",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
-      "topic": "Molecular and Ionic Compound Structure",
+      "topic": "Atomic Structure and Properties",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Molecular and Ionic Compound Structure",
+        "AP CED: Atomic Structure and Properties",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Molecular and Ionic Compound Structure?",
-      "correctText": "Connect Molecular and Ionic Compound Structure to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Atomic Structure and Properties?",
+      "correctText": "Atomic Structure and Properties can be explained with evidence from data table, diagram, or model.",
       "choices": [
-        "Connect Molecular and Ionic Compound Structure to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Molecular and Ionic Compound Structure as always meaning the same thing."
+        "Atomic Structure and Properties can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Atomic Structure does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-chemistry-014",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
-      "topic": "Molecular and Ionic Compound Structure",
+      "topic": "Atomic Structure and Properties",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Molecular and Ionic Compound Structure",
+        "AP CED: Atomic Structure and Properties",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Molecular and Ionic Compound Structure, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Atomic Structure and Properties. Which feedback would help most?",
+      "correctText": "Reread the task, identify Atomic Structure and Properties, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Atomic Structure and Properties, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-chemistry-015",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
-      "topic": "Molecular and Ionic Compound Structure",
+      "topic": "Atomic Structure and Properties",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Molecular and Ionic Compound Structure",
+        "AP CED: Atomic Structure and Properties",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Chemistry: Molecular and Ionic Compound Structure?",
-      "correctText": "Molecular and Ionic Compound Structure matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Chemistry: Atomic Structure and Properties?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Molecular and Ionic Compound Structure matters because it helps explain disciplinary reasoning.",
-        "Only the vocabulary list matters for this unit."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Chemistry means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-chemistry-016",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
-      "topic": "Molecular and Ionic Compound Structure",
+      "topic": "Atomic Structure and Properties",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Molecular and Ionic Compound Structure",
+        "AP CED: Atomic Structure and Properties",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Molecular and Ionic Compound Structure. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Atomic Structure and Properties, which unit vocabulary word should be reviewed with Atomic Structure and Properties?",
+      "correctText": "Atomic Structure",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Kinetics",
+        "Atomic Structure",
+        "Bases",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "Atomic Structure belongs near Atomic Structure and Properties in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-chemistry-017",
@@ -419,15 +419,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Molecular and Ionic Compound Structure to the larger course skill?",
-      "correctText": "Molecular and Ionic Compound Structure is useful when students use evidence accurately.",
+      "prompt": "AP Chemistry - Molecular and Ionic Compound Structure: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Molecular and Ionic Compound Structure",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Molecular and Ionic Compound Structure is useful when students use evidence accurately.",
-        "Molecular and Ionic Compound Structure only matters for memorized definitions."
+        "Atomic Structure",
+        "Molecular and Ionic Compound Structure",
+        "cause and effect",
+        "Intermolecular Forces"
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "Molecular and Ionic Compound Structure is the anchor concept for Molecular and Ionic Compound Structure. In AP CED: Molecular and Ionic Compound Structure, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-chemistry-018",
@@ -444,15 +444,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Molecular and Ionic Compound Structure, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Molecular and Ionic Compound Structure, cites evidence, and explains the connection.",
+      "prompt": "A student reviewing AP Chemistry: Molecular and Ionic Compound Structure needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Molecular.",
       "choices": [
+        "Repeat the definition of Molecular and Ionic Compound Structure only.",
+        "Use evidence to explain Molecular.",
         "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Molecular and Ionic Compound Structure, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The useful move is to connect evidence to Molecular; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-chemistry-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Molecular and Ionic Compound Structure?",
-      "correctText": "evidence-based explanation",
+      "prompt": "Which answer best avoids a common mistake about AP Chemistry: Molecular and Ionic Compound Structure?",
+      "correctText": "Connect Molecular and Ionic Compound Structure to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "using a rule from a different unit"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Molecular and Ionic Compound Structure to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Molecular and Ionic Compound Structure, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-chemistry-020",
@@ -494,93 +494,318 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Molecular and Ionic Compound Structure knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Molecular and Ionic Compound Structure, then justify the answer with evidence.",
+      "prompt": "In an AP CED-aligned exam task about Molecular and Ionic Compound Structure, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Ionic Compound Structure.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Match the new prompt to Molecular and Ionic Compound Structure, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Ionic Compound Structure.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-chemistry-021",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
-      "topic": "Intermolecular Forces and Properties",
+      "topic": "Molecular and Ionic Compound Structure",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Intermolecular Forces and Properties",
+        "AP CED: Molecular and Ionic Compound Structure",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Chemistry, which concept is most central to the unit \"Intermolecular Forces and Properties\"?",
-      "correctText": "Intermolecular Forces and Properties",
+      "prompt": "Which review note would help most for AP Chemistry: Molecular and Ionic Compound Structure?",
+      "correctText": "Molecular and Ionic Compound Structure matters because it helps explain Molecular.",
       "choices": [
-        "Acids and Bases",
-        "exam-style application",
-        "Intermolecular Forces and Properties",
-        "Kinetics"
+        "ignoring the source or data in the prompt",
+        "Molecular and Ionic Compound Structure matters because it helps explain Molecular.",
+        "Ionic Compound Structure is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Intermolecular Forces and Properties is a core idea in Intermolecular Forces and Properties. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-chemistry-022",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
-      "topic": "Intermolecular Forces and Properties",
+      "topic": "Molecular and Ionic Compound Structure",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Intermolecular Forces and Properties",
+        "AP CED: Molecular and Ionic Compound Structure",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Intermolecular Forces and Properties needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Molecular and Ionic Compound Structure. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
-        "ignoring the source or data in the prompt",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Read the prompt, source, or data for the exact task."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
       "id": "ap-chemistry-023",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
-      "topic": "Intermolecular Forces and Properties",
+      "topic": "Molecular and Ionic Compound Structure",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Intermolecular Forces and Properties",
+        "AP CED: Molecular and Ionic Compound Structure",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Intermolecular Forces and Properties?",
-      "correctText": "Connect Intermolecular Forces and Properties to the prompt context before choosing.",
+      "prompt": "Which classroom explanation would best connect Molecular and Ionic Compound Structure to the larger course skill?",
+      "correctText": "Molecular and Ionic Compound Structure is useful when students use models.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Intermolecular Forces and Properties to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "Molecular and Ionic Compound Structure only matters for memorized definitions.",
+        "Molecular and Ionic Compound Structure is useful when students use models.",
+        "ignoring the source or data in the prompt",
+        "Molecular should be ignored unless it appears in the title."
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
       "id": "ap-chemistry-024",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Molecular and Ionic Compound Structure",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Molecular and Ionic Compound Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Molecular and Ionic Compound Structure, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Molecular and Ionic Compound Structure, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Molecular and Ionic Compound Structure, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-chemistry-025",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Molecular and Ionic Compound Structure",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Molecular and Ionic Compound Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Molecular and Ionic Compound Structure?",
+      "correctText": "Ionic Compound Structure",
+      "choices": [
+        "memorizing an isolated fact without evidence",
+        "Ionic Compound Structure",
+        "making a claim without supporting evidence",
+        "system"
+      ],
+      "explanation": "Ionic Compound Structure is part of the concept cluster for Molecular and Ionic Compound Structure, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-chemistry-026",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Molecular and Ionic Compound Structure",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Molecular and Ionic Compound Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Molecular and Ionic Compound Structure knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Molecular and Ionic Compound Structure, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Molecular and Ionic Compound Structure, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-chemistry-027",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Molecular and Ionic Compound Structure",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Molecular and Ionic Compound Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Molecular and Ionic Compound Structure: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Molecular and Ionic Compound Structure connects to Molecular.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Molecular and Ionic Compound Structure connects to Molecular.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Molecular and Ionic Compound Structure and Molecular belongs together in Molecular and Ionic Compound Structure; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-chemistry-028",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Molecular and Ionic Compound Structure",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Molecular and Ionic Compound Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Chemistry question on Molecular and Ionic Compound Structure?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-chemistry-029",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Molecular and Ionic Compound Structure",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Molecular and Ionic Compound Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Molecular and Ionic Compound Structure?",
+      "correctText": "Molecular and Ionic Compound Structure can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Molecular and Ionic Compound Structure can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Molecular does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-chemistry-030",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Molecular and Ionic Compound Structure",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Molecular and Ionic Compound Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Molecular and Ionic Compound Structure. Which feedback would help most?",
+      "correctText": "Reread the task, identify Molecular and Ionic Compound Structure, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Molecular and Ionic Compound Structure, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-chemistry-031",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Molecular and Ionic Compound Structure",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Molecular and Ionic Compound Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Chemistry: Molecular and Ionic Compound Structure?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Chemistry means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-chemistry-032",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Molecular and Ionic Compound Structure",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Molecular and Ionic Compound Structure",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Molecular and Ionic Compound Structure, which unit vocabulary word should be reviewed with Molecular and Ionic Compound Structure?",
+      "correctText": "Molecular",
+      "choices": [
+        "Kinetics",
+        "Molecular",
+        "Bases",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Molecular belongs near Molecular and Ionic Compound Structure in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-chemistry-033",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Intermolecular Forces and Properties",
@@ -594,18 +819,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Intermolecular Forces and Properties, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Chemistry - Intermolecular Forces and Properties: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Intermolecular Forces and Properties",
       "choices": [
+        "Properties",
+        "experimental design",
+        "Intermolecular Forces and Properties",
+        "Chemical Reactions"
+      ],
+      "explanation": "Intermolecular Forces and Properties is the anchor concept for Intermolecular Forces and Properties. In AP CED: Intermolecular Forces and Properties, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-chemistry-034",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Intermolecular Forces and Properties",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Intermolecular Forces and Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Chemistry: Intermolecular Forces and Properties needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Intermolecular Forces.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain Intermolecular Forces.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to Intermolecular Forces; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-chemistry-035",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Intermolecular Forces and Properties",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Intermolecular Forces and Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Chemistry: Intermolecular Forces and Properties?",
+      "correctText": "Connect Intermolecular Forces and Properties to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Intermolecular Forces and Properties to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-chemistry-036",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Intermolecular Forces and Properties",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Intermolecular Forces and Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Intermolecular Forces and Properties, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Properties.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Properties.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-chemistry-025",
+      "id": "ap-chemistry-037",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Intermolecular Forces and Properties",
@@ -620,17 +920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Chemistry: Intermolecular Forces and Properties?",
-      "correctText": "Intermolecular Forces and Properties matters because it helps explain disciplinary reasoning.",
+      "correctText": "Intermolecular Forces and Properties matters because it helps explain Intermolecular Forces.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "Intermolecular Forces and Properties appears on tests, so no explanation is needed.",
-        "Intermolecular Forces and Properties matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Intermolecular Forces and Properties matters because it helps explain Intermolecular Forces.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-chemistry-026",
+      "id": "ap-chemistry-038",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Intermolecular Forces and Properties",
@@ -644,18 +944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Intermolecular Forces and Properties. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Intermolecular Forces and Properties. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-chemistry-027",
+      "id": "ap-chemistry-039",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Intermolecular Forces and Properties",
@@ -670,17 +970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Intermolecular Forces and Properties to the larger course skill?",
-      "correctText": "Intermolecular Forces and Properties is useful when students explain reasoning.",
+      "correctText": "Intermolecular Forces and Properties is useful when students use models.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Intermolecular Forces and Properties is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Intermolecular Forces should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Intermolecular Forces and Properties is useful when students use models.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-chemistry-028",
+      "id": "ap-chemistry-040",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Intermolecular Forces and Properties",
@@ -697,15 +997,15 @@
       "prompt": "For Intermolecular Forces and Properties, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Intermolecular Forces and Properties, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Intermolecular Forces and Properties, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-chemistry-029",
+      "id": "ap-chemistry-041",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Intermolecular Forces and Properties",
@@ -720,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Intermolecular Forces and Properties?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Properties",
       "choices": [
-        "Chemical Reactions",
-        "Equilibrium",
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "Atomic Structure and Properties",
+        "Properties",
+        "cause and effect"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Intermolecular Forces and Properties, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Properties is part of the concept cluster for Intermolecular Forces and Properties, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-chemistry-030",
+      "id": "ap-chemistry-042",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Intermolecular Forces and Properties",
@@ -747,15 +1047,165 @@
       "prompt": "A student wants to transfer Intermolecular Forces and Properties knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Intermolecular Forces and Properties, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Intermolecular Forces and Properties, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Intermolecular Forces and Properties, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-chemistry-031",
+      "id": "ap-chemistry-043",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Intermolecular Forces and Properties",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Intermolecular Forces and Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Intermolecular Forces and Properties: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Intermolecular Forces and Properties connects to Intermolecular Forces.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Intermolecular Forces and Properties connects to Intermolecular Forces.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Intermolecular Forces and Properties and Intermolecular Forces belongs together in Intermolecular Forces and Properties; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-chemistry-044",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Intermolecular Forces and Properties",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Intermolecular Forces and Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Chemistry question on Intermolecular Forces and Properties?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-chemistry-045",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Intermolecular Forces and Properties",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Intermolecular Forces and Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Intermolecular Forces and Properties?",
+      "correctText": "Intermolecular Forces and Properties can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Intermolecular Forces and Properties can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Intermolecular Forces does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-chemistry-046",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Intermolecular Forces and Properties",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Intermolecular Forces and Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Intermolecular Forces and Properties. Which feedback would help most?",
+      "correctText": "Reread the task, identify Intermolecular Forces and Properties, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Intermolecular Forces and Properties, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-chemistry-047",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Intermolecular Forces and Properties",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Intermolecular Forces and Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Chemistry: Intermolecular Forces and Properties?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Chemistry means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-chemistry-048",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Intermolecular Forces and Properties",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Intermolecular Forces and Properties",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Intermolecular Forces and Properties, which unit vocabulary word should be reviewed with Intermolecular Forces and Properties?",
+      "correctText": "Intermolecular Forces",
+      "choices": [
+        "Kinetics",
+        "Intermolecular Forces",
+        "Bases",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Intermolecular Forces belongs near Intermolecular Forces and Properties in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-chemistry-049",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Chemical Reactions",
@@ -769,18 +1219,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Chemistry, which concept is most central to the unit \"Chemical Reactions\"?",
+      "prompt": "AP Chemistry - Chemical Reactions: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Chemical Reactions",
       "choices": [
-        "Atomic Structure and Properties",
-        "Chemical Reactions",
-        "describing a topic without explaining why it matters",
-        "model or source analysis"
+        "model",
+        "Molecular and Ionic Compound Structure",
+        "scale",
+        "Chemical Reactions"
       ],
-      "explanation": "Chemical Reactions is a core idea in Chemical Reactions. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Chemical Reactions is the anchor concept for Chemical Reactions. In AP CED: Chemical Reactions, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-chemistry-032",
+      "id": "ap-chemistry-050",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Chemical Reactions",
@@ -794,18 +1244,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Chemical Reactions needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Chemistry: Chemical Reactions needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
         "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain model."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-chemistry-033",
+      "id": "ap-chemistry-051",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Chemical Reactions",
@@ -819,18 +1269,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Chemical Reactions?",
+      "prompt": "Which answer best avoids a common mistake about AP Chemistry: Chemical Reactions?",
       "correctText": "Connect Chemical Reactions to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Chemical Reactions to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-chemistry-034",
+      "id": "ap-chemistry-052",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Chemical Reactions",
@@ -844,18 +1294,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Chemical Reactions, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Chemical Reactions, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-chemistry-035",
+      "id": "ap-chemistry-053",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Chemical Reactions",
@@ -870,17 +1320,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Chemistry: Chemical Reactions?",
-      "correctText": "Chemical Reactions matters because it helps explain disciplinary reasoning.",
+      "correctText": "Chemical Reactions matters because it helps explain model.",
       "choices": [
-        "Chemical Reactions matters because it helps explain disciplinary reasoning.",
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Chemical Reactions matters because it helps explain model."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-chemistry-036",
+      "id": "ap-chemistry-054",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Chemical Reactions",
@@ -894,18 +1344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Chemical Reactions. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Chemical Reactions. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-chemistry-037",
+      "id": "ap-chemistry-055",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Chemical Reactions",
@@ -920,17 +1370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Chemical Reactions to the larger course skill?",
-      "correctText": "Chemical Reactions is useful when students apply a course concept.",
+      "correctText": "Chemical Reactions is useful when students use models.",
       "choices": [
-        "Chemical Reactions is useful when students apply a course concept.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Chemical Reactions is useful when students use models."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-chemistry-038",
+      "id": "ap-chemistry-056",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Chemical Reactions",
@@ -947,15 +1397,15 @@
       "prompt": "For Chemical Reactions, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Chemical Reactions, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Chemical Reactions, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-chemistry-039",
+      "id": "ap-chemistry-057",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Chemical Reactions",
@@ -970,17 +1420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Chemical Reactions?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "evidence-based explanation",
-        "Intermolecular Forces and Properties",
-        "making a claim without supporting evidence",
-        "model or source analysis"
+        "ignoring the source or data in the prompt",
+        "Atomic Structure",
+        "experimental design",
+        "system"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Chemical Reactions, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Chemical Reactions, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-chemistry-040",
+      "id": "ap-chemistry-058",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Chemical Reactions",
@@ -997,15 +1447,165 @@
       "prompt": "A student wants to transfer Chemical Reactions knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Chemical Reactions, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Chemical Reactions, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-chemistry-041",
+      "id": "ap-chemistry-059",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Chemical Reactions",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Chemical Reactions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Chemical Reactions: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Chemical Reactions connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Chemical Reactions connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Chemical Reactions and model belongs together in Chemical Reactions; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-chemistry-060",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Chemical Reactions",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Chemical Reactions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Chemistry question on Chemical Reactions?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-chemistry-061",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Chemical Reactions",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Chemical Reactions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Chemical Reactions?",
+      "correctText": "Chemical Reactions can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Chemical Reactions can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-chemistry-062",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Chemical Reactions",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Chemical Reactions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Chemical Reactions. Which feedback would help most?",
+      "correctText": "Reread the task, identify Chemical Reactions, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Chemical Reactions, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-chemistry-063",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Chemical Reactions",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Chemical Reactions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Chemistry: Chemical Reactions?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Chemistry means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-chemistry-064",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Chemical Reactions",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Chemical Reactions",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Chemical Reactions, which unit vocabulary word should be reviewed with Chemical Reactions?",
+      "correctText": "model",
+      "choices": [
+        "Kinetics",
+        "model",
+        "Bases",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "model belongs near Chemical Reactions in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-chemistry-065",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Kinetics",
@@ -1019,18 +1619,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Chemistry, which concept is most central to the unit \"Kinetics\"?",
+      "prompt": "AP Chemistry - Kinetics: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Kinetics",
       "choices": [
-        "Applications of Thermodynamics",
-        "ignoring the source or data in the prompt",
         "Kinetics",
-        "Thermodynamics"
+        "system",
+        "Molecular",
+        "scale"
       ],
-      "explanation": "Kinetics is a core idea in Kinetics. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Kinetics is the anchor concept for Kinetics. In AP CED: Kinetics, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-chemistry-042",
+      "id": "ap-chemistry-066",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Kinetics",
@@ -1044,18 +1644,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Kinetics needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Chemistry: Kinetics needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
+        "Use evidence to explain model.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Kinetics only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Guess from key words about system.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-chemistry-043",
+      "id": "ap-chemistry-067",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Kinetics",
@@ -1069,18 +1669,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Kinetics?",
+      "prompt": "Which answer best avoids a common mistake about AP Chemistry: Kinetics?",
       "correctText": "Connect Kinetics to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Kinetics to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Kinetics as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-chemistry-044",
+      "id": "ap-chemistry-068",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Kinetics",
@@ -1094,18 +1694,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Kinetics, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Kinetics, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-chemistry-045",
+      "id": "ap-chemistry-069",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Kinetics",
@@ -1120,17 +1720,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Chemistry: Kinetics?",
-      "correctText": "Kinetics matters because it helps explain disciplinary reasoning.",
+      "correctText": "Kinetics matters because it helps explain model.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Kinetics matters because it helps explain disciplinary reasoning.",
+        "Kinetics matters because it helps explain model.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "choosing an answer because it uses familiar words",
+        "Kinetics appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-chemistry-046",
+      "id": "ap-chemistry-070",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Kinetics",
@@ -1144,18 +1744,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Kinetics. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Kinetics. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-chemistry-047",
+      "id": "ap-chemistry-071",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Kinetics",
@@ -1170,17 +1770,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Kinetics to the larger course skill?",
-      "correctText": "Kinetics is useful when students use evidence accurately.",
+      "correctText": "Kinetics is useful when students use models.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Kinetics is useful when students use evidence accurately.",
-        "Kinetics only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Kinetics is useful when students use models.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-chemistry-048",
+      "id": "ap-chemistry-072",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Kinetics",
@@ -1197,15 +1797,15 @@
       "prompt": "For Kinetics, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Kinetics, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Kinetics, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-chemistry-049",
+      "id": "ap-chemistry-073",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Kinetics",
@@ -1220,17 +1820,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Kinetics?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "Acids and Bases",
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation",
-        "using a rule from a different unit"
+        "system",
+        "describing a topic without explaining why it matters",
+        "Properties",
+        "Molecular and Ionic Compound Structure"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Kinetics, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Kinetics, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-chemistry-050",
+      "id": "ap-chemistry-074",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Kinetics",
@@ -1247,15 +1847,165 @@
       "prompt": "A student wants to transfer Kinetics knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Kinetics, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Kinetics, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Kinetics, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-chemistry-051",
+      "id": "ap-chemistry-075",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Kinetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Kinetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Kinetics: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Kinetics connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Kinetics connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Kinetics and model belongs together in Kinetics; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-chemistry-076",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Kinetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Kinetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Chemistry question on Kinetics?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-chemistry-077",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Kinetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Kinetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Kinetics?",
+      "correctText": "Kinetics can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Kinetics can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-chemistry-078",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Kinetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Kinetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Kinetics. Which feedback would help most?",
+      "correctText": "Reread the task, identify Kinetics, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Kinetics, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-chemistry-079",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Kinetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Kinetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Chemistry: Kinetics?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Chemistry means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-chemistry-080",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Kinetics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Kinetics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Kinetics, which unit vocabulary word should be reviewed with Kinetics?",
+      "correctText": "model",
+      "choices": [
+        "Kinetics",
+        "model",
+        "Bases",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "model belongs near Kinetics in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-chemistry-081",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Thermodynamics",
@@ -1269,18 +2019,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Chemistry, which concept is most central to the unit \"Thermodynamics\"?",
+      "prompt": "AP Chemistry - Thermodynamics: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Thermodynamics",
       "choices": [
-        "Chemical Reactions",
-        "disciplinary reasoning",
-        "exam-style application",
-        "Thermodynamics"
+        "data pattern",
+        "Thermodynamics",
+        "Ionic Compound Structure",
+        "Kinetics"
       ],
-      "explanation": "Thermodynamics is a core idea in Thermodynamics. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Thermodynamics is the anchor concept for Thermodynamics. In AP CED: Thermodynamics, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-chemistry-052",
+      "id": "ap-chemistry-082",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Thermodynamics",
@@ -1294,18 +2044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Thermodynamics needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Chemistry: Thermodynamics needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain model.",
+        "Repeat the definition of Thermodynamics only.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-chemistry-053",
+      "id": "ap-chemistry-083",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Thermodynamics",
@@ -1319,18 +2069,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Thermodynamics?",
+      "prompt": "Which answer best avoids a common mistake about AP Chemistry: Thermodynamics?",
       "correctText": "Connect Thermodynamics to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Thermodynamics to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-chemistry-054",
+      "id": "ap-chemistry-084",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Thermodynamics",
@@ -1344,18 +2094,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Thermodynamics, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Thermodynamics, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-chemistry-055",
+      "id": "ap-chemistry-085",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Thermodynamics",
@@ -1370,17 +2120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Chemistry: Thermodynamics?",
-      "correctText": "Thermodynamics matters because it helps explain disciplinary reasoning.",
+      "correctText": "Thermodynamics matters because it helps explain model.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Thermodynamics appears on tests, so no explanation is needed.",
-        "Thermodynamics matters because it helps explain disciplinary reasoning."
+        "Thermodynamics matters because it helps explain model.",
+        "ignoring the source or data in the prompt",
+        "system is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-chemistry-056",
+      "id": "ap-chemistry-086",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Thermodynamics",
@@ -1394,18 +2144,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Thermodynamics. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Thermodynamics. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-chemistry-057",
+      "id": "ap-chemistry-087",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Thermodynamics",
@@ -1420,17 +2170,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Thermodynamics to the larger course skill?",
-      "correctText": "Thermodynamics is useful when students explain reasoning.",
+      "correctText": "Thermodynamics is useful when students use models.",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Thermodynamics is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Thermodynamics is useful when students use models.",
+        "Thermodynamics only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-chemistry-058",
+      "id": "ap-chemistry-088",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Thermodynamics",
@@ -1447,15 +2197,15 @@
       "prompt": "For Thermodynamics, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Thermodynamics, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Thermodynamics, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-chemistry-059",
+      "id": "ap-chemistry-089",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Thermodynamics",
@@ -1470,17 +2220,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Thermodynamics?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "Chemical Reactions",
-        "Equilibrium",
-        "evidence-based explanation",
-        "exam-style application"
+        "using a rule from a different unit",
+        "system",
+        "model",
+        "Molecular"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Thermodynamics, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Thermodynamics, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-chemistry-060",
+      "id": "ap-chemistry-090",
       "course": "ap-chemistry",
       "courseLabel": "AP Chemistry",
       "topic": "Thermodynamics",
@@ -1497,12 +2247,1362 @@
       "prompt": "A student wants to transfer Thermodynamics knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Thermodynamics, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Thermodynamics, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Thermodynamics, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-chemistry-091",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Thermodynamics: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Thermodynamics connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Thermodynamics connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Thermodynamics and model belongs together in Thermodynamics; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-chemistry-092",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Chemistry question on Thermodynamics?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-chemistry-093",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Thermodynamics?",
+      "correctText": "Thermodynamics can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Thermodynamics can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-chemistry-094",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Thermodynamics. Which feedback would help most?",
+      "correctText": "Reread the task, identify Thermodynamics, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Thermodynamics, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-chemistry-095",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Chemistry: Thermodynamics?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Chemistry means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-chemistry-096",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Thermodynamics, which unit vocabulary word should be reviewed with Thermodynamics?",
+      "correctText": "model",
+      "choices": [
+        "Kinetics",
+        "model",
+        "Bases",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "model belongs near Thermodynamics in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-chemistry-097",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Equilibrium: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Equilibrium",
+      "choices": [
+        "cause and effect",
+        "Intermolecular Forces and Properties",
+        "Equilibrium",
+        "Thermodynamics"
+      ],
+      "explanation": "Equilibrium is the anchor concept for Equilibrium. In AP CED: Equilibrium, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-chemistry-098",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Chemistry: Equilibrium needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain model.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-chemistry-099",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Chemistry: Equilibrium?",
+      "correctText": "Connect Equilibrium to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Equilibrium to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-chemistry-100",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Equilibrium, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-chemistry-101",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Chemistry: Equilibrium?",
+      "correctText": "Equilibrium matters because it helps explain model.",
+      "choices": [
+        "system is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "Equilibrium matters because it helps explain model.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-chemistry-102",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Equilibrium. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-chemistry-103",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Equilibrium to the larger course skill?",
+      "correctText": "Equilibrium is useful when students use models.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "model should be ignored unless it appears in the title.",
+        "Equilibrium is useful when students use models.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-chemistry-104",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Equilibrium, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Equilibrium, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Equilibrium, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-chemistry-105",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Equilibrium?",
+      "correctText": "system",
+      "choices": [
+        "making a claim without supporting evidence",
+        "data pattern",
+        "system",
+        "Ionic Compound Structure"
+      ],
+      "explanation": "system is part of the concept cluster for Equilibrium, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-chemistry-106",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Equilibrium knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Equilibrium, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Equilibrium, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-chemistry-107",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Equilibrium: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Equilibrium connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Equilibrium connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Equilibrium and model belongs together in Equilibrium; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-chemistry-108",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Chemistry question on Equilibrium?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-chemistry-109",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Equilibrium?",
+      "correctText": "Equilibrium can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Equilibrium can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-chemistry-110",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Equilibrium. Which feedback would help most?",
+      "correctText": "Reread the task, identify Equilibrium, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Equilibrium, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-chemistry-111",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Chemistry: Equilibrium?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Chemistry means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-chemistry-112",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Equilibrium",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Equilibrium",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Equilibrium, which unit vocabulary word should be reviewed with Equilibrium?",
+      "correctText": "model",
+      "choices": [
+        "Kinetics",
+        "model",
+        "Bases",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "model belongs near Equilibrium in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-chemistry-113",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Acids and Bases: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Acids and Bases",
+      "choices": [
+        "experimental design",
+        "Intermolecular Forces",
+        "Equilibrium",
+        "Acids and Bases"
+      ],
+      "explanation": "Acids and Bases is the anchor concept for Acids and Bases. In AP CED: Acids and Bases, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-chemistry-114",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Chemistry: Acids and Bases needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Acids.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Use evidence to explain Acids."
+      ],
+      "explanation": "The useful move is to connect evidence to Acids; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-chemistry-115",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Chemistry: Acids and Bases?",
+      "correctText": "Connect Acids and Bases to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Acids and Bases to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-chemistry-116",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Acids and Bases, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Bases.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Bases.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-chemistry-117",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Chemistry: Acids and Bases?",
+      "correctText": "Acids and Bases matters because it helps explain Acids.",
+      "choices": [
+        "Only the vocabulary list matters for this unit.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Acids and Bases matters because it helps explain Acids."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-chemistry-118",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Acids and Bases. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Read the prompt, source, or data for the exact task.",
+        "Pick the first familiar vocabulary word.",
+        "ignoring the source or data in the prompt"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-chemistry-119",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Acids and Bases to the larger course skill?",
+      "correctText": "Acids and Bases is useful when students use models.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "Acids and Bases is useful when students use models."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-chemistry-120",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Acids and Bases, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Acids and Bases, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Acids and Bases, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-chemistry-121",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Acids and Bases?",
+      "correctText": "Bases",
+      "choices": [
+        "Atomic Structure and Properties",
+        "data pattern",
+        "Ionic Compound Structure",
+        "Bases"
+      ],
+      "explanation": "Bases is part of the concept cluster for Acids and Bases, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-chemistry-122",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Acids and Bases knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Acids and Bases, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Acids and Bases, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-chemistry-123",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Acids and Bases: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Acids and Bases connects to Acids.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Acids and Bases connects to Acids.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Acids and Bases and Acids belongs together in Acids and Bases; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-chemistry-124",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Chemistry question on Acids and Bases?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-chemistry-125",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Acids and Bases?",
+      "correctText": "Acids and Bases can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Acids and Bases can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Acids does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-chemistry-126",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Acids and Bases. Which feedback would help most?",
+      "correctText": "Reread the task, identify Acids and Bases, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Acids and Bases, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-chemistry-127",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Chemistry: Acids and Bases?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Chemistry means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-chemistry-128",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Acids and Bases",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Acids and Bases",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Acids and Bases, which unit vocabulary word should be reviewed with Acids and Bases?",
+      "correctText": "Acids",
+      "choices": [
+        "scale",
+        "Acids",
+        "Bases",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Acids belongs near Acids and Bases in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-chemistry-129",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Applications of Thermodynamics: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Applications of Thermodynamics",
+      "choices": [
+        "Applications of Thermodynamics",
+        "Molecular and Ionic Compound Structure",
+        "Chemical Reactions",
+        "Acids and Bases"
+      ],
+      "explanation": "Applications of Thermodynamics is the anchor concept for Applications of Thermodynamics. In AP CED: Applications of Thermodynamics, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-chemistry-130",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Chemistry: Applications of Thermodynamics needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "Use evidence to explain model.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Guess from key words about system."
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-chemistry-131",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Chemistry: Applications of Thermodynamics?",
+      "correctText": "Connect Applications of Thermodynamics to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Applications of Thermodynamics to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-chemistry-132",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Applications of Thermodynamics, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-chemistry-133",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Chemistry: Applications of Thermodynamics?",
+      "correctText": "Applications of Thermodynamics matters because it helps explain model.",
+      "choices": [
+        "Applications of Thermodynamics matters because it helps explain model.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-chemistry-134",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Applications of Thermodynamics. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus.",
+        "Read the prompt, source, or data for the exact task.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-chemistry-135",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Applications of Thermodynamics to the larger course skill?",
+      "correctText": "Applications of Thermodynamics is useful when students use models.",
+      "choices": [
+        "Applications of Thermodynamics is useful when students use models.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-chemistry-136",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Applications of Thermodynamics, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Applications of Thermodynamics, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Applications of Thermodynamics, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-chemistry-137",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Applications of Thermodynamics?",
+      "correctText": "system",
+      "choices": [
+        "system",
+        "Atomic Structure",
+        "experimental design",
+        "Intermolecular Forces"
+      ],
+      "explanation": "system is part of the concept cluster for Applications of Thermodynamics, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-chemistry-138",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Applications of Thermodynamics knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Applications of Thermodynamics, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Applications of Thermodynamics, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-chemistry-139",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Chemistry - Applications of Thermodynamics: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Applications of Thermodynamics connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Applications of Thermodynamics connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Applications of Thermodynamics and model belongs together in Applications of Thermodynamics; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-chemistry-140",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Chemistry question on Applications of Thermodynamics?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-chemistry-141",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Applications of Thermodynamics?",
+      "correctText": "Applications of Thermodynamics can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Applications of Thermodynamics can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-chemistry-142",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Applications of Thermodynamics. Which feedback would help most?",
+      "correctText": "Reread the task, identify Applications of Thermodynamics, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Applications of Thermodynamics, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-chemistry-143",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Chemistry: Applications of Thermodynamics?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Chemistry means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-chemistry-144",
+      "course": "ap-chemistry",
+      "courseLabel": "AP Chemistry",
+      "topic": "Applications of Thermodynamics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Applications of Thermodynamics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Applications of Thermodynamics, which unit vocabulary word should be reviewed with Applications of Thermodynamics?",
+      "correctText": "model",
+      "choices": [
+        "Kinetics",
+        "model",
+        "Bases",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "model belongs near Applications of Thermodynamics in this unit's concept map. Reviewing them together helps students answer transfer questions."
     }
   ]
 }

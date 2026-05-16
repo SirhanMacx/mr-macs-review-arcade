@@ -2,7 +2,7 @@
   "course": "ap-physics-2",
   "courseLabel": "AP Physics 2: Algebra-Based",
   "generatedBy": "scripts/generate-all-subject-content.mjs",
-  "version": "20260515-all-subjects-v1",
+  "version": "20260516-course-depth-v2",
   "questions": [
     {
       "id": "ap-physics-2-001",
@@ -19,15 +19,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics 2: Algebra-Based, which concept is most central to the unit \"Thermodynamics\"?",
+      "prompt": "AP Physics 2: Algebra-Based - Thermodynamics: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Thermodynamics",
       "choices": [
-        "disciplinary reasoning",
-        "exam-style application",
-        "Magnetism",
-        "Thermodynamics"
+        "Thermodynamics",
+        "model",
+        "scale",
+        "Electric Circuits"
       ],
-      "explanation": "Thermodynamics is a core idea in Thermodynamics. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Thermodynamics is the anchor concept for Thermodynamics. In AP CED: Thermodynamics, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-physics-2-002",
@@ -44,15 +44,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Thermodynamics needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Physics 2: Algebra-Based: Thermodynamics needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
-        "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Use evidence to explain model.",
+        "Guess from key words about system.",
+        "ignoring the source or data in the prompt",
+        "Repeat the definition of Thermodynamics only."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-physics-2-003",
@@ -69,13 +69,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Thermodynamics?",
+      "prompt": "Which answer best avoids a common mistake about AP Physics 2: Algebra-Based: Thermodynamics?",
       "correctText": "Connect Thermodynamics to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Thermodynamics to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
@@ -94,13 +94,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Thermodynamics, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Thermodynamics, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
@@ -120,12 +120,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Physics 2: Algebra-Based: Thermodynamics?",
-      "correctText": "Thermodynamics matters because it helps explain disciplinary reasoning.",
+      "correctText": "Thermodynamics matters because it helps explain model.",
       "choices": [
+        "Thermodynamics matters because it helps explain model.",
         "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Thermodynamics matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Thermodynamics appears on tests, so no explanation is needed.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
@@ -144,13 +144,13 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Thermodynamics. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Thermodynamics. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Eliminate every answer that sounds detailed.",
+        "Read the prompt, source, or data for the exact task.",
+        "using a rule from a different unit"
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
@@ -170,12 +170,12 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Thermodynamics to the larger course skill?",
-      "correctText": "Thermodynamics is useful when students apply a course concept.",
+      "correctText": "Thermodynamics is useful when students use models.",
       "choices": [
-        "ignoring the source or data in the prompt",
+        "Thermodynamics is useful when students use models.",
         "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words.",
-        "Thermodynamics is useful when students apply a course concept."
+        "choosing an answer because it uses familiar words",
+        "Thermodynamics only matters for memorized definitions."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
@@ -197,10 +197,10 @@
       "prompt": "For Thermodynamics, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Thermodynamics, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Thermodynamics, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
@@ -220,14 +220,14 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Thermodynamics?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "Electric Force, Field, and Potential",
-        "Electromagnetic Induction",
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence"
+        "system",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "experimental design"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Thermodynamics, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Thermodynamics, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
       "id": "ap-physics-2-010",
@@ -247,9 +247,9 @@
       "prompt": "A student wants to transfer Thermodynamics knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Thermodynamics, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Thermodynamics, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
@@ -258,201 +258,201 @@
       "id": "ap-physics-2-011",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Force, Field, and Potential",
+      "topic": "Thermodynamics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Force, Field, and Potential",
+        "AP CED: Thermodynamics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics 2: Algebra-Based, which concept is most central to the unit \"Electric Force, Field, and Potential\"?",
-      "correctText": "Electric Force, Field, and Potential",
+      "prompt": "AP Physics 2: Algebra-Based - Thermodynamics: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Thermodynamics connects to model.",
       "choices": [
+        "making a claim without supporting evidence",
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "Electric Force, Field, and Potential",
-        "using a rule from a different unit"
+        "Thermodynamics connects to model.",
+        "data pattern replaces all evidence."
       ],
-      "explanation": "Electric Force, Field, and Potential is a core idea in Electric Force, Field, and Potential. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The pair Thermodynamics and model belongs together in Thermodynamics; students should explain the relationship rather than memorize each term alone."
     },
     {
       "id": "ap-physics-2-012",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Force, Field, and Potential",
+      "topic": "Thermodynamics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Force, Field, and Potential",
+        "AP CED: Thermodynamics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Electric Force, Field, and Potential needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics 2: Algebra-Based question on Thermodynamics?",
+      "correctText": "It provides evidence students must use before deciding.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Repeat the definition of Electric Force, Field, and Potential only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
       "id": "ap-physics-2-013",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Force, Field, and Potential",
+      "topic": "Thermodynamics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Force, Field, and Potential",
+        "AP CED: Thermodynamics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Electric Force, Field, and Potential?",
-      "correctText": "Connect Electric Force, Field, and Potential to the prompt context before choosing.",
+      "prompt": "Which statement would be easiest to defend in Thermodynamics?",
+      "correctText": "Thermodynamics can be explained with evidence from data table, diagram, or model.",
       "choices": [
-        "Connect Electric Force, Field, and Potential to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Electric Force, Field, and Potential as always meaning the same thing."
+        "Thermodynamics can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
       "id": "ap-physics-2-014",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Force, Field, and Potential",
+      "topic": "Thermodynamics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Force, Field, and Potential",
+        "AP CED: Thermodynamics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Electric Force, Field, and Potential, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "A student misses a AP CED-aligned exam task on Thermodynamics. Which feedback would help most?",
+      "correctText": "Reread the task, identify Thermodynamics, and explain the evidence step by step.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Thermodynamics, and explain the evidence step by step."
       ],
-      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
     },
     {
       "id": "ap-physics-2-015",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Force, Field, and Potential",
+      "topic": "Thermodynamics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Force, Field, and Potential",
+        "AP CED: Thermodynamics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review note would help most for AP Physics 2: Algebra-Based: Electric Force, Field, and Potential?",
-      "correctText": "Electric Force, Field, and Potential matters because it helps explain disciplinary reasoning.",
+      "prompt": "Which phrase best signals mastery of AP Physics 2: Algebra-Based: Thermodynamics?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
       "choices": [
-        "Electric Force, Field, and Potential matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+      "explanation": "Mastery in AP Physics 2: Algebra-Based means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
     },
     {
       "id": "ap-physics-2-016",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Force, Field, and Potential",
+      "topic": "Thermodynamics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Force, Field, and Potential",
+        "AP CED: Thermodynamics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Electric Force, Field, and Potential. What should they do first?",
-      "correctText": "Read the prompt, source, or data for the exact task.",
+      "prompt": "For Thermodynamics, which unit vocabulary word should be reviewed with Thermodynamics?",
+      "correctText": "model",
       "choices": [
-        "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
-        "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Physical Optics",
+        "model",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence"
       ],
-      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+      "explanation": "model belongs near Thermodynamics in this unit's concept map. Reviewing them together helps students answer transfer questions."
     },
     {
       "id": "ap-physics-2-017",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Force, Field, and Potential",
+      "topic": "Thermodynamics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Force, Field, and Potential",
+        "AP CED: Thermodynamics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which classroom explanation would best connect Electric Force, Field, and Potential to the larger course skill?",
-      "correctText": "Electric Force, Field, and Potential is useful when students use evidence accurately.",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Thermodynamics?",
+      "correctText": "A response that names Thermodynamics but never explains how it fits the evidence.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Electric Force, Field, and Potential is useful when students use evidence accurately.",
-        "Electric Force, Field, and Potential only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "A response that names Thermodynamics but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Thermodynamics to model."
       ],
-      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
     },
     {
       "id": "ap-physics-2-018",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Force, Field, and Potential",
+      "topic": "Thermodynamics",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Force, Field, and Potential",
+        "AP CED: Thermodynamics",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "For Electric Force, Field, and Potential, which response sounds most like a high-quality constructed response?",
-      "correctText": "It names Electric Force, Field, and Potential, cites evidence, and explains the connection.",
+      "prompt": "Which question should a student ask while reviewing AP Physics 2: Algebra-Based: Thermodynamics?",
+      "correctText": "How does Thermodynamics help explain the evidence or scenario?",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
-        "It names Electric Force, Field, and Potential, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Thermodynamics help explain the evidence or scenario?"
       ],
-      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
     },
     {
       "id": "ap-physics-2-019",
@@ -469,15 +469,15 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which review target belongs most directly in Electric Force, Field, and Potential?",
-      "correctText": "evidence-based explanation",
+      "prompt": "AP Physics 2: Algebra-Based - Electric Force, Field, and Potential: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Electric Force, Field, and Potential",
       "choices": [
-        "Electric Circuits",
-        "evidence-based explanation",
-        "making a claim without supporting evidence",
-        "model or source analysis"
+        "model",
+        "Electric Force, Field, and Potential",
+        "scale",
+        "Magnetism"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Electric Force, Field, and Potential, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Electric Force, Field, and Potential is the anchor concept for Electric Force, Field, and Potential. In AP CED: Electric Force, Field, and Potential, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
       "id": "ap-physics-2-020",
@@ -494,93 +494,418 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student wants to transfer Electric Force, Field, and Potential knowledge to a new question. What is the best strategy?",
-      "correctText": "Match the new prompt to Electric Force, Field, and Potential, then justify the answer with evidence.",
+      "prompt": "A student reviewing AP Physics 2: Algebra-Based: Electric Force, Field, and Potential needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Electric Force.",
       "choices": [
+        "Repeat the definition of Electric Force, Field, and Potential only.",
+        "Use evidence to explain Electric Force.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Electric Force, Field, and Potential, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Ignore the context and pick the longest answer."
       ],
-      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+      "explanation": "The useful move is to connect evidence to Electric Force; this matches the standards/CED emphasis on reasoning and application."
     },
     {
       "id": "ap-physics-2-021",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Circuits",
+      "topic": "Electric Force, Field, and Potential",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Circuits",
+        "AP CED: Electric Force, Field, and Potential",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics 2: Algebra-Based, which concept is most central to the unit \"Electric Circuits\"?",
-      "correctText": "Electric Circuits",
+      "prompt": "Which answer best avoids a common mistake about AP Physics 2: Algebra-Based: Electric Force, Field, and Potential?",
+      "correctText": "Connect Electric Force, Field, and Potential to the prompt context before choosing.",
       "choices": [
-        "Electric Circuits",
-        "ignoring the source or data in the prompt",
-        "Magnetism",
-        "Quantum, Atomic, and Nuclear Physics"
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Electric Force, Field, and Potential to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Electric Circuits is a core idea in Electric Circuits. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
       "id": "ap-physics-2-022",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Circuits",
+      "topic": "Electric Force, Field, and Potential",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Circuits",
+        "AP CED: Electric Force, Field, and Potential",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Electric Circuits needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "In an AP CED-aligned exam task about Electric Force, Field, and Potential, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Field.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "Specific evidence that proves a claim about Field.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
       "id": "ap-physics-2-023",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Electric Circuits",
+      "topic": "Electric Force, Field, and Potential",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Electric Circuits",
+        "AP CED: Electric Force, Field, and Potential",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Electric Circuits?",
-      "correctText": "Connect Electric Circuits to the prompt context before choosing.",
+      "prompt": "Which review note would help most for AP Physics 2: Algebra-Based: Electric Force, Field, and Potential?",
+      "correctText": "Electric Force, Field, and Potential matters because it helps explain Electric Force.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Connect Electric Circuits to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "ignoring the source or data in the prompt",
+        "Electric Force, Field, and Potential matters because it helps explain Electric Force.",
+        "Field is unrelated to this unit.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
       "id": "ap-physics-2-024",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Electric Force, Field, and Potential. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Read the prompt, source, or data for the exact task."
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-physics-2-025",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Electric Force, Field, and Potential to the larger course skill?",
+      "correctText": "Electric Force, Field, and Potential is useful when students use models.",
+      "choices": [
+        "Electric Force, Field, and Potential only matters for memorized definitions.",
+        "Electric Force, Field, and Potential is useful when students use models.",
+        "ignoring the source or data in the prompt",
+        "Electric Force should be ignored unless it appears in the title."
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-physics-2-026",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Electric Force, Field, and Potential, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Electric Force, Field, and Potential, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Electric Force, Field, and Potential, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-physics-2-027",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Electric Force, Field, and Potential?",
+      "correctText": "Field",
+      "choices": [
+        "choosing an answer because it uses familiar words",
+        "Field",
+        "Thermodynamics",
+        "experimental design"
+      ],
+      "explanation": "Field is part of the concept cluster for Electric Force, Field, and Potential, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-physics-2-028",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Electric Force, Field, and Potential knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Electric Force, Field, and Potential, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Electric Force, Field, and Potential, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-physics-2-029",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics 2: Algebra-Based - Electric Force, Field, and Potential: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Electric Force, Field, and Potential connects to Electric Force.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Electric Force, Field, and Potential connects to Electric Force.",
+        "Potential replaces all evidence."
+      ],
+      "explanation": "The pair Electric Force, Field, and Potential and Electric Force belongs together in Electric Force, Field, and Potential; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-physics-2-030",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics 2: Algebra-Based question on Electric Force, Field, and Potential?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-physics-2-031",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Electric Force, Field, and Potential?",
+      "correctText": "Electric Force, Field, and Potential can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Electric Force, Field, and Potential can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Electric Force does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-physics-2-032",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Electric Force, Field, and Potential. Which feedback would help most?",
+      "correctText": "Reread the task, identify Electric Force, Field, and Potential, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Electric Force, Field, and Potential, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-physics-2-033",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Physics 2: Algebra-Based: Electric Force, Field, and Potential?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Physics 2: Algebra-Based means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-physics-2-034",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Electric Force, Field, and Potential, which unit vocabulary word should be reviewed with Electric Force, Field, and Potential?",
+      "correctText": "Electric Force",
+      "choices": [
+        "Physical Optics",
+        "Electric Force",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence"
+      ],
+      "explanation": "Electric Force belongs near Electric Force, Field, and Potential in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-physics-2-035",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Electric Force, Field, and Potential?",
+      "correctText": "A response that names Electric Force, Field, and Potential but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Electric Force, Field, and Potential but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Electric Force, Field, and Potential to Electric Force."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-physics-2-036",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Force, Field, and Potential",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Force, Field, and Potential",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Physics 2: Algebra-Based: Electric Force, Field, and Potential?",
+      "correctText": "How does Electric Force, Field, and Potential help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Electric Force, Field, and Potential help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-physics-2-037",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electric Circuits",
@@ -594,18 +919,93 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Electric Circuits, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "AP Physics 2: Algebra-Based - Electric Circuits: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Electric Circuits",
       "choices": [
+        "system",
+        "Electric Force, Field, and Potential",
+        "Electric Circuits",
+        "Electromagnetic Induction"
+      ],
+      "explanation": "Electric Circuits is the anchor concept for Electric Circuits. In AP CED: Electric Circuits, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-physics-2-038",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Physics 2: Algebra-Based: Electric Circuits needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
+      "choices": [
+        "Ignore the context and pick the longest answer.",
+        "using a rule from a different unit",
+        "Use evidence to explain model.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-physics-2-039",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Physics 2: Algebra-Based: Electric Circuits?",
+      "correctText": "Connect Electric Circuits to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Electric Circuits to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-physics-2-040",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Electric Circuits, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-physics-2-025",
+      "id": "ap-physics-2-041",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electric Circuits",
@@ -620,17 +1020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Physics 2: Algebra-Based: Electric Circuits?",
-      "correctText": "Electric Circuits matters because it helps explain disciplinary reasoning.",
+      "correctText": "Electric Circuits matters because it helps explain model.",
       "choices": [
         "describing a topic without explaining why it matters",
-        "Electric Circuits appears on tests, so no explanation is needed.",
-        "Electric Circuits matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Only the vocabulary list matters for this unit.",
+        "Electric Circuits matters because it helps explain model.",
+        "using a rule from a different unit"
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-physics-2-026",
+      "id": "ap-physics-2-042",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electric Circuits",
@@ -644,18 +1044,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Electric Circuits. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Electric Circuits. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
+        "Read the prompt, source, or data for the exact task.",
         "making a claim without supporting evidence",
-        "Read the prompt, source, or data for the exact task."
+        "choosing an answer because it uses familiar words",
+        "Pick the first familiar vocabulary word."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-physics-2-027",
+      "id": "ap-physics-2-043",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electric Circuits",
@@ -670,17 +1070,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Electric Circuits to the larger course skill?",
-      "correctText": "Electric Circuits is useful when students explain reasoning.",
+      "correctText": "Electric Circuits is useful when students use models.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Electric Circuits is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "model should be ignored unless it appears in the title.",
+        "describing a topic without explaining why it matters",
+        "Electric Circuits is useful when students use models.",
+        "The standard rewards guessing from familiar words."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-physics-2-028",
+      "id": "ap-physics-2-044",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electric Circuits",
@@ -697,15 +1097,15 @@
       "prompt": "For Electric Circuits, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Electric Circuits, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Electric Circuits, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-physics-2-029",
+      "id": "ap-physics-2-045",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electric Circuits",
@@ -720,17 +1120,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Electric Circuits?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "evidence-based explanation",
-        "memorizing an isolated fact without evidence",
-        "Thermodynamics"
+        "ignoring the source or data in the prompt",
+        "model",
+        "system",
+        "Electric Force, Field, and Potential"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Electric Circuits, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Electric Circuits, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-physics-2-030",
+      "id": "ap-physics-2-046",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electric Circuits",
@@ -747,15 +1147,215 @@
       "prompt": "A student wants to transfer Electric Circuits knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Electric Circuits, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Electric Circuits, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Electric Circuits, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-physics-2-031",
+      "id": "ap-physics-2-047",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics 2: Algebra-Based - Electric Circuits: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Electric Circuits connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Electric Circuits connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Electric Circuits and model belongs together in Electric Circuits; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-physics-2-048",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics 2: Algebra-Based question on Electric Circuits?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-physics-2-049",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Electric Circuits?",
+      "correctText": "Electric Circuits can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Electric Circuits can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-physics-2-050",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Electric Circuits. Which feedback would help most?",
+      "correctText": "Reread the task, identify Electric Circuits, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Electric Circuits, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-physics-2-051",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Physics 2: Algebra-Based: Electric Circuits?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Physics 2: Algebra-Based means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-physics-2-052",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Electric Circuits, which unit vocabulary word should be reviewed with Electric Circuits?",
+      "correctText": "model",
+      "choices": [
+        "Physical Optics",
+        "model",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence"
+      ],
+      "explanation": "model belongs near Electric Circuits in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-physics-2-053",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Electric Circuits?",
+      "correctText": "A response that names Electric Circuits but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Electric Circuits but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Electric Circuits to model."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-physics-2-054",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electric Circuits",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electric Circuits",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Physics 2: Algebra-Based: Electric Circuits?",
+      "correctText": "How does Electric Circuits help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Electric Circuits help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-physics-2-055",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Magnetism",
@@ -769,18 +1369,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics 2: Algebra-Based, which concept is most central to the unit \"Magnetism\"?",
+      "prompt": "AP Physics 2: Algebra-Based - Magnetism: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Magnetism",
       "choices": [
-        "disciplinary reasoning",
-        "Electromagnetic Induction",
-        "exam-style application",
+        "data pattern",
+        "Electric Force",
+        "Geometric and Physical Optics",
         "Magnetism"
       ],
-      "explanation": "Magnetism is a core idea in Magnetism. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Magnetism is the anchor concept for Magnetism. In AP CED: Magnetism, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-physics-2-032",
+      "id": "ap-physics-2-056",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Magnetism",
@@ -794,18 +1394,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Magnetism needs to show the skill \"use evidence accurately.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Physics 2: Algebra-Based: Magnetism needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Guess from key words about evidence-based explanation.",
         "memorizing an isolated fact without evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Use evidence to explain model."
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-physics-2-033",
+      "id": "ap-physics-2-057",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Magnetism",
@@ -819,18 +1419,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Magnetism?",
+      "prompt": "Which answer best avoids a common mistake about AP Physics 2: Algebra-Based: Magnetism?",
       "correctText": "Connect Magnetism to the prompt context before choosing.",
       "choices": [
         "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Magnetism to the prompt context before choosing.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-physics-2-034",
+      "id": "ap-physics-2-058",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Magnetism",
@@ -844,18 +1444,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Magnetism, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Magnetism, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "A personal opinion without support.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-physics-2-035",
+      "id": "ap-physics-2-059",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Magnetism",
@@ -870,17 +1470,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Physics 2: Algebra-Based: Magnetism?",
-      "correctText": "Magnetism matters because it helps explain disciplinary reasoning.",
+      "correctText": "Magnetism matters because it helps explain model.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "evidence-based explanation is unrelated to this unit.",
-        "Magnetism matters because it helps explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "Magnetism matters because it helps explain model."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-physics-2-036",
+      "id": "ap-physics-2-060",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Magnetism",
@@ -894,18 +1494,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Magnetism. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Magnetism. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
         "Pick the first familiar vocabulary word.",
-        "Read the prompt, source, or data for the exact task."
+        "Read the prompt, source, or data for the exact task.",
+        "ignoring the source or data in the prompt",
+        "Answer from memory before reading the stimulus."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-physics-2-037",
+      "id": "ap-physics-2-061",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Magnetism",
@@ -920,17 +1520,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Magnetism to the larger course skill?",
-      "correctText": "Magnetism is useful when students apply a course concept.",
+      "correctText": "Magnetism is useful when students use models.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "Magnetism is useful when students apply a course concept.",
-        "making a claim without supporting evidence",
-        "The standard rewards guessing from familiar words."
+        "The standard rewards guessing from familiar words.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "Magnetism is useful when students use models."
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-physics-2-038",
+      "id": "ap-physics-2-062",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Magnetism",
@@ -947,15 +1547,15 @@
       "prompt": "For Magnetism, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Magnetism, cites evidence, and explains the connection.",
       "choices": [
-        "ignoring the source or data in the prompt",
-        "It gives an opinion about the topic only.",
+        "making a claim without supporting evidence",
         "It names Magnetism, cites evidence, and explains the connection.",
-        "making a claim without supporting evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-physics-2-039",
+      "id": "ap-physics-2-063",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Magnetism",
@@ -970,17 +1570,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Magnetism?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "Electric Circuits",
-        "evidence-based explanation",
-        "Geometric and Physical Optics"
+        "describing a topic without explaining why it matters",
+        "data pattern",
+        "Electric Force",
+        "system"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Magnetism, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Magnetism, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-physics-2-040",
+      "id": "ap-physics-2-064",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Magnetism",
@@ -997,15 +1597,215 @@
       "prompt": "A student wants to transfer Magnetism knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Magnetism, then justify the answer with evidence.",
       "choices": [
-        "Choose the answer with the most academic vocabulary.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
         "Match the new prompt to Magnetism, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-physics-2-041",
+      "id": "ap-physics-2-065",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Magnetism",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Magnetism",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics 2: Algebra-Based - Magnetism: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Magnetism connects to model.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Magnetism connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Magnetism and model belongs together in Magnetism; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-physics-2-066",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Magnetism",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Magnetism",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics 2: Algebra-Based question on Magnetism?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-physics-2-067",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Magnetism",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Magnetism",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Magnetism?",
+      "correctText": "Magnetism can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Magnetism can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-physics-2-068",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Magnetism",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Magnetism",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Magnetism. Which feedback would help most?",
+      "correctText": "Reread the task, identify Magnetism, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Magnetism, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-physics-2-069",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Magnetism",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Magnetism",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Physics 2: Algebra-Based: Magnetism?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Physics 2: Algebra-Based means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-physics-2-070",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Magnetism",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Magnetism",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Magnetism, which unit vocabulary word should be reviewed with Magnetism?",
+      "correctText": "model",
+      "choices": [
+        "Physical Optics",
+        "model",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence"
+      ],
+      "explanation": "model belongs near Magnetism in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-physics-2-071",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Magnetism",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Magnetism",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Magnetism?",
+      "correctText": "A response that names Magnetism but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Magnetism but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Magnetism to model."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-physics-2-072",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Magnetism",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Magnetism",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Physics 2: Algebra-Based: Magnetism?",
+      "correctText": "How does Magnetism help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Magnetism help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-physics-2-073",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electromagnetic Induction",
@@ -1019,18 +1819,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics 2: Algebra-Based, which concept is most central to the unit \"Electromagnetic Induction\"?",
+      "prompt": "AP Physics 2: Algebra-Based - Electromagnetic Induction: which concept is the best anchor for an AP CED-aligned exam task?",
       "correctText": "Electromagnetic Induction",
       "choices": [
         "Electromagnetic Induction",
-        "evidence-based explanation",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence"
+        "cause and effect",
+        "Field",
+        "Geometric"
       ],
-      "explanation": "Electromagnetic Induction is a core idea in Electromagnetic Induction. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "Electromagnetic Induction is the anchor concept for Electromagnetic Induction. In AP CED: Electromagnetic Induction, students need to use that concept to reason through a task, not just recognize the word."
     },
     {
-      "id": "ap-physics-2-042",
+      "id": "ap-physics-2-074",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electromagnetic Induction",
@@ -1044,18 +1844,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Electromagnetic Induction needs to show the skill \"explain reasoning.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "A student reviewing AP Physics 2: Algebra-Based: Electromagnetic Induction needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain model.",
       "choices": [
+        "Use evidence to explain model.",
         "choosing an answer because it uses familiar words",
-        "Repeat the definition of Electromagnetic Induction only.",
-        "Use evidence to explain disciplinary reasoning.",
-        "using a rule from a different unit"
+        "Guess from key words about system.",
+        "ignoring the source or data in the prompt"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "The useful move is to connect evidence to model; this matches the standards/CED emphasis on reasoning and application."
     },
     {
-      "id": "ap-physics-2-043",
+      "id": "ap-physics-2-075",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electromagnetic Induction",
@@ -1069,18 +1869,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Electromagnetic Induction?",
+      "prompt": "Which answer best avoids a common mistake about AP Physics 2: Algebra-Based: Electromagnetic Induction?",
       "correctText": "Connect Electromagnetic Induction to the prompt context before choosing.",
       "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Electromagnetic Induction to the prompt context before choosing.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Treat Electromagnetic Induction as always meaning the same thing."
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-physics-2-044",
+      "id": "ap-physics-2-076",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electromagnetic Induction",
@@ -1094,18 +1894,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Electromagnetic Induction, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Electromagnetic Induction, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about system.",
       "choices": [
-        "A vague statement that the topic is important.",
-        "describing a topic without explaining why it matters",
-        "memorizing an isolated fact without evidence",
-        "Specific evidence that proves a claim about evidence-based explanation."
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about system.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-physics-2-045",
+      "id": "ap-physics-2-077",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electromagnetic Induction",
@@ -1120,17 +1920,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Physics 2: Algebra-Based: Electromagnetic Induction?",
-      "correctText": "Electromagnetic Induction matters because it helps explain disciplinary reasoning.",
+      "correctText": "Electromagnetic Induction matters because it helps explain model.",
       "choices": [
-        "Electromagnetic Induction matters because it helps explain disciplinary reasoning.",
-        "ignoring the source or data in the prompt",
+        "Electromagnetic Induction matters because it helps explain model.",
         "making a claim without supporting evidence",
-        "Only the vocabulary list matters for this unit."
+        "choosing an answer because it uses familiar words",
+        "Electromagnetic Induction appears on tests, so no explanation is needed."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-physics-2-046",
+      "id": "ap-physics-2-078",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electromagnetic Induction",
@@ -1144,18 +1944,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Electromagnetic Induction. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Electromagnetic Induction. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Answer from memory before reading the stimulus.",
-        "choosing an answer because it uses familiar words",
+        "describing a topic without explaining why it matters",
         "Read the prompt, source, or data for the exact task.",
-        "using a rule from a different unit"
+        "Eliminate every answer that sounds detailed."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-physics-2-047",
+      "id": "ap-physics-2-079",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electromagnetic Induction",
@@ -1170,17 +1970,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Electromagnetic Induction to the larger course skill?",
-      "correctText": "Electromagnetic Induction is useful when students use evidence accurately.",
+      "correctText": "Electromagnetic Induction is useful when students use models.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Electromagnetic Induction is useful when students use evidence accurately.",
-        "Electromagnetic Induction only matters for memorized definitions.",
-        "memorizing an isolated fact without evidence"
+        "Electromagnetic Induction is useful when students use models.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-physics-2-048",
+      "id": "ap-physics-2-080",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electromagnetic Induction",
@@ -1197,15 +1997,15 @@
       "prompt": "For Electromagnetic Induction, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Electromagnetic Induction, cites evidence, and explains the connection.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "It lists three vocabulary words without a claim.",
+        "making a claim without supporting evidence",
         "It names Electromagnetic Induction, cites evidence, and explains the connection.",
-        "memorizing an isolated fact without evidence"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-physics-2-049",
+      "id": "ap-physics-2-081",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electromagnetic Induction",
@@ -1220,17 +2020,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Electromagnetic Induction?",
-      "correctText": "evidence-based explanation",
+      "correctText": "system",
       "choices": [
-        "evidence-based explanation",
-        "exam-style application",
-        "Magnetism",
-        "Thermodynamics"
+        "system",
+        "using a rule from a different unit",
+        "cause and effect",
+        "Field"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Electromagnetic Induction, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "system is part of the concept cluster for Electromagnetic Induction, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-physics-2-050",
+      "id": "ap-physics-2-082",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Electromagnetic Induction",
@@ -1247,65 +2047,215 @@
       "prompt": "A student wants to transfer Electromagnetic Induction knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Electromagnetic Induction, then justify the answer with evidence.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
         "describing a topic without explaining why it matters",
-        "Match the new prompt to Electromagnetic Induction, then justify the answer with evidence.",
-        "memorizing an isolated fact without evidence",
-        "Use the exact answer from the last question."
+        "Match the new prompt to Electromagnetic Induction, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
     },
     {
-      "id": "ap-physics-2-051",
+      "id": "ap-physics-2-083",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Geometric and Physical Optics",
+      "topic": "Electromagnetic Induction",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Geometric and Physical Optics",
+        "AP CED: Electromagnetic Induction",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In AP Physics 2: Algebra-Based, which concept is most central to the unit \"Geometric and Physical Optics\"?",
-      "correctText": "Geometric and Physical Optics",
+      "prompt": "AP Physics 2: Algebra-Based - Electromagnetic Induction: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Electromagnetic Induction connects to model.",
       "choices": [
-        "describing a topic without explaining why it matters",
-        "Geometric and Physical Optics",
-        "Magnetism",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Electromagnetic Induction connects to model.",
+        "data pattern replaces all evidence."
+      ],
+      "explanation": "The pair Electromagnetic Induction and model belongs together in Electromagnetic Induction; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-physics-2-084",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electromagnetic Induction",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electromagnetic Induction",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics 2: Algebra-Based question on Electromagnetic Induction?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
         "memorizing an isolated fact without evidence"
       ],
-      "explanation": "Geometric and Physical Optics is a core idea in Geometric and Physical Optics. The related standard asks students to connect the concept to evidence, process, or application rather than treat it as a loose vocabulary word."
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     },
     {
-      "id": "ap-physics-2-052",
+      "id": "ap-physics-2-085",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
-      "topic": "Geometric and Physical Optics",
+      "topic": "Electromagnetic Induction",
       "domain": "AP Sciences",
       "subjectArea": "AP Sciences",
       "gradeBand": "AP",
       "standardRefs": [
-        "AP CED: Geometric and Physical Optics",
+        "AP CED: Electromagnetic Induction",
         "College Board AP Course and Exam Description"
       ],
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A student reviewing Geometric and Physical Optics needs to show the skill \"apply a course concept.\" Which action best fits that skill?",
-      "correctText": "Use evidence to explain disciplinary reasoning.",
+      "prompt": "Which statement would be easiest to defend in Electromagnetic Induction?",
+      "correctText": "Electromagnetic Induction can be explained with evidence from data table, diagram, or model.",
       "choices": [
-        "Ignore the context and pick the longest answer.",
+        "Electromagnetic Induction can be explained with evidence from data table, diagram, or model.",
         "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
-        "Use evidence to explain disciplinary reasoning."
+        "model does not need evidence.",
+        "describing a topic without explaining why it matters"
       ],
-      "explanation": "The useful move is to connect evidence to disciplinary reasoning; this matches the standards/CED emphasis on reasoning and application."
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
     },
     {
-      "id": "ap-physics-2-053",
+      "id": "ap-physics-2-086",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electromagnetic Induction",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electromagnetic Induction",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Electromagnetic Induction. Which feedback would help most?",
+      "correctText": "Reread the task, identify Electromagnetic Induction, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Electromagnetic Induction, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-physics-2-087",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electromagnetic Induction",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electromagnetic Induction",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Physics 2: Algebra-Based: Electromagnetic Induction?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Physics 2: Algebra-Based means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-physics-2-088",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electromagnetic Induction",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electromagnetic Induction",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Electromagnetic Induction, which unit vocabulary word should be reviewed with Electromagnetic Induction?",
+      "correctText": "model",
+      "choices": [
+        "Physical Optics",
+        "model",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence"
+      ],
+      "explanation": "model belongs near Electromagnetic Induction in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-physics-2-089",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electromagnetic Induction",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electromagnetic Induction",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Electromagnetic Induction?",
+      "correctText": "A response that names Electromagnetic Induction but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Electromagnetic Induction but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Electromagnetic Induction to model."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-physics-2-090",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Electromagnetic Induction",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Electromagnetic Induction",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Physics 2: Algebra-Based: Electromagnetic Induction?",
+      "correctText": "How does Electromagnetic Induction help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Electromagnetic Induction help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-physics-2-091",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Geometric and Physical Optics",
@@ -1319,18 +2269,68 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "Which answer best avoids a common mistake about Geometric and Physical Optics?",
+      "prompt": "AP Physics 2: Algebra-Based - Geometric and Physical Optics: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Geometric and Physical Optics",
+      "choices": [
+        "experimental design",
+        "Geometric and Physical Optics",
+        "Potential",
+        "Physical Optics"
+      ],
+      "explanation": "Geometric and Physical Optics is the anchor concept for Geometric and Physical Optics. In AP CED: Geometric and Physical Optics, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-physics-2-092",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Geometric and Physical Optics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Geometric and Physical Optics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Physics 2: Algebra-Based: Geometric and Physical Optics needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Geometric.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Use evidence to explain Geometric.",
+        "Repeat the definition of Geometric and Physical Optics only.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The useful move is to connect evidence to Geometric; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-physics-2-093",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Geometric and Physical Optics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Geometric and Physical Optics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Physics 2: Algebra-Based: Geometric and Physical Optics?",
       "correctText": "Connect Geometric and Physical Optics to the prompt context before choosing.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
         "Connect Geometric and Physical Optics to the prompt context before choosing.",
-        "Skip the data or source because the topic is familiar.",
-        "using a rule from a different unit"
+        "memorizing an isolated fact without evidence"
       ],
       "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
     },
     {
-      "id": "ap-physics-2-054",
+      "id": "ap-physics-2-094",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Geometric and Physical Optics",
@@ -1344,18 +2344,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "In a standards-aligned question about Geometric and Physical Optics, what kind of evidence would be strongest?",
-      "correctText": "Specific evidence that proves a claim about evidence-based explanation.",
+      "prompt": "In an AP CED-aligned exam task about Geometric and Physical Optics, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Physical Optics.",
       "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Physical Optics.",
         "A fact from a different course.",
-        "choosing an answer because it uses familiar words",
-        "Specific evidence that proves a claim about evidence-based explanation.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters"
       ],
       "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
     },
     {
-      "id": "ap-physics-2-055",
+      "id": "ap-physics-2-095",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Geometric and Physical Optics",
@@ -1370,17 +2370,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review note would help most for AP Physics 2: Algebra-Based: Geometric and Physical Optics?",
-      "correctText": "Geometric and Physical Optics matters because it helps explain disciplinary reasoning.",
+      "correctText": "Geometric and Physical Optics matters because it helps explain Geometric.",
       "choices": [
-        "describing a topic without explaining why it matters",
         "Geometric and Physical Optics appears on tests, so no explanation is needed.",
-        "Geometric and Physical Optics matters because it helps explain disciplinary reasoning.",
-        "memorizing an isolated fact without evidence"
+        "Geometric and Physical Optics matters because it helps explain Geometric.",
+        "ignoring the source or data in the prompt",
+        "Physical Optics is unrelated to this unit."
       ],
       "explanation": "Strong review notes pair the concept with why it matters in the unit."
     },
     {
-      "id": "ap-physics-2-056",
+      "id": "ap-physics-2-096",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Geometric and Physical Optics",
@@ -1394,18 +2394,18 @@
       "sourceAuthority": "college-board-ap-courses",
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
-      "prompt": "A released-test-style item asks students to interpret Geometric and Physical Optics. What should they do first?",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Geometric and Physical Optics. What should they do first?",
       "correctText": "Read the prompt, source, or data for the exact task.",
       "choices": [
         "Eliminate every answer that sounds detailed.",
-        "ignoring the source or data in the prompt",
-        "making a claim without supporting evidence",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
         "Read the prompt, source, or data for the exact task."
       ],
       "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
     },
     {
-      "id": "ap-physics-2-057",
+      "id": "ap-physics-2-097",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Geometric and Physical Optics",
@@ -1420,17 +2420,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which classroom explanation would best connect Geometric and Physical Optics to the larger course skill?",
-      "correctText": "Geometric and Physical Optics is useful when students explain reasoning.",
+      "correctText": "Geometric and Physical Optics is useful when students use models.",
       "choices": [
         "choosing an answer because it uses familiar words",
-        "disciplinary reasoning should be ignored unless it appears in the title.",
-        "Geometric and Physical Optics is useful when students explain reasoning.",
-        "using a rule from a different unit"
+        "Geometric and Physical Optics is useful when students use models.",
+        "Geometric and Physical Optics only matters for memorized definitions.",
+        "ignoring the source or data in the prompt"
       ],
       "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
     },
     {
-      "id": "ap-physics-2-058",
+      "id": "ap-physics-2-098",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Geometric and Physical Optics",
@@ -1447,15 +2447,15 @@
       "prompt": "For Geometric and Physical Optics, which response sounds most like a high-quality constructed response?",
       "correctText": "It names Geometric and Physical Optics, cites evidence, and explains the connection.",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "It copies the question without adding evidence.",
+        "making a claim without supporting evidence",
         "It names Geometric and Physical Optics, cites evidence, and explains the connection.",
-        "using a rule from a different unit"
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
       ],
       "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
     },
     {
-      "id": "ap-physics-2-059",
+      "id": "ap-physics-2-099",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Geometric and Physical Optics",
@@ -1470,17 +2470,17 @@
       "assessmentSourceId": "college-board-ap-courses",
       "itemMode": "released-pattern",
       "prompt": "Which review target belongs most directly in Geometric and Physical Optics?",
-      "correctText": "evidence-based explanation",
+      "correctText": "Physical Optics",
       "choices": [
-        "choosing an answer because it uses familiar words",
-        "disciplinary reasoning",
-        "evidence-based explanation",
-        "using a rule from a different unit"
+        "making a claim without supporting evidence",
+        "Physical Optics",
+        "cause and effect",
+        "Field"
       ],
-      "explanation": "evidence-based explanation is part of the concept cluster for Geometric and Physical Optics, so it belongs in this unit rather than in an unrelated review bucket."
+      "explanation": "Physical Optics is part of the concept cluster for Geometric and Physical Optics, so it belongs in this unit rather than in an unrelated review bucket."
     },
     {
-      "id": "ap-physics-2-060",
+      "id": "ap-physics-2-100",
       "course": "ap-physics-2",
       "courseLabel": "AP Physics 2: Algebra-Based",
       "topic": "Geometric and Physical Optics",
@@ -1497,12 +2497,512 @@
       "prompt": "A student wants to transfer Geometric and Physical Optics knowledge to a new question. What is the best strategy?",
       "correctText": "Match the new prompt to Geometric and Physical Optics, then justify the answer with evidence.",
       "choices": [
-        "choosing an answer because it uses familiar words",
+        "ignoring the source or data in the prompt",
         "Ignore unfamiliar data or wording.",
-        "Match the new prompt to Geometric and Physical Optics, then justify the answer with evidence.",
-        "using a rule from a different unit"
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Geometric and Physical Optics, then justify the answer with evidence."
       ],
       "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-physics-2-101",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Geometric and Physical Optics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Geometric and Physical Optics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics 2: Algebra-Based - Geometric and Physical Optics: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Geometric and Physical Optics connects to Geometric.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Geometric and Physical Optics connects to Geometric.",
+        "model replaces all evidence."
+      ],
+      "explanation": "The pair Geometric and Physical Optics and Geometric belongs together in Geometric and Physical Optics; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-physics-2-102",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Geometric and Physical Optics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Geometric and Physical Optics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics 2: Algebra-Based question on Geometric and Physical Optics?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
+    },
+    {
+      "id": "ap-physics-2-103",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Geometric and Physical Optics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Geometric and Physical Optics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which statement would be easiest to defend in Geometric and Physical Optics?",
+      "correctText": "Geometric and Physical Optics can be explained with evidence from data table, diagram, or model.",
+      "choices": [
+        "Geometric and Physical Optics can be explained with evidence from data table, diagram, or model.",
+        "ignoring the source or data in the prompt",
+        "Geometric does not need evidence.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "Defensible answers connect a course concept to evidence from the task. That is the common pattern behind NYS, AP, and classroom review questions."
+    },
+    {
+      "id": "ap-physics-2-104",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Geometric and Physical Optics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Geometric and Physical Optics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student misses a AP CED-aligned exam task on Geometric and Physical Optics. Which feedback would help most?",
+      "correctText": "Reread the task, identify Geometric and Physical Optics, and explain the evidence step by step.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Memorize more unrelated vocabulary before trying again.",
+        "Reread the task, identify Geometric and Physical Optics, and explain the evidence step by step."
+      ],
+      "explanation": "Useful feedback turns the missed item into a process: read the task, identify the concept, and explain evidence."
+    },
+    {
+      "id": "ap-physics-2-105",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Geometric and Physical Optics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Geometric and Physical Optics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which phrase best signals mastery of AP Physics 2: Algebra-Based: Geometric and Physical Optics?",
+      "correctText": "connect a model or data pattern to a scientific claim.",
+      "choices": [
+        "avoid using evidence because it slows the work",
+        "using a rule from a different unit",
+        "connect a model or data pattern to a scientific claim.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Mastery in AP Physics 2: Algebra-Based means applying the unit idea with a clear reasoning move, especially when the question uses a new source or scenario."
+    },
+    {
+      "id": "ap-physics-2-106",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Geometric and Physical Optics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Geometric and Physical Optics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Geometric and Physical Optics, which unit vocabulary word should be reviewed with Geometric and Physical Optics?",
+      "correctText": "Geometric",
+      "choices": [
+        "Physical Optics",
+        "Geometric",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence"
+      ],
+      "explanation": "Geometric belongs near Geometric and Physical Optics in this unit's concept map. Reviewing them together helps students answer transfer questions."
+    },
+    {
+      "id": "ap-physics-2-107",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Geometric and Physical Optics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Geometric and Physical Optics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which response would lose credit on a AP CED-aligned exam task about Geometric and Physical Optics?",
+      "correctText": "A response that names Geometric and Physical Optics but never explains how it fits the evidence.",
+      "choices": [
+        "A response that names Geometric and Physical Optics but never explains how it fits the evidence.",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "A response that links Geometric and Physical Optics to Geometric."
+      ],
+      "explanation": "A concept label without explanation is incomplete. Students need to connect the term to evidence, data, or task context."
+    },
+    {
+      "id": "ap-physics-2-108",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Geometric and Physical Optics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Geometric and Physical Optics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which question should a student ask while reviewing AP Physics 2: Algebra-Based: Geometric and Physical Optics?",
+      "correctText": "How does Geometric and Physical Optics help explain the evidence or scenario?",
+      "choices": [
+        "Which option is written in the longest phrase?",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence",
+        "How does Geometric and Physical Optics help explain the evidence or scenario?"
+      ],
+      "explanation": "The best review question forces students to connect the concept to evidence and context."
+    },
+    {
+      "id": "ap-physics-2-109",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics 2: Algebra-Based - Quantum, Atomic, and Nuclear Physics: which concept is the best anchor for an AP CED-aligned exam task?",
+      "correctText": "Quantum, Atomic, and Nuclear Physics",
+      "choices": [
+        "scale",
+        "Electric Circuits",
+        "Quantum, Atomic, and Nuclear Physics",
+        "Physical Optics"
+      ],
+      "explanation": "Quantum, Atomic, and Nuclear Physics is the anchor concept for Quantum, Atomic, and Nuclear Physics. In AP CED: Quantum, Atomic, and Nuclear Physics, students need to use that concept to reason through a task, not just recognize the word."
+    },
+    {
+      "id": "ap-physics-2-110",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student reviewing AP Physics 2: Algebra-Based: Quantum, Atomic, and Nuclear Physics needs to show the skill \"analyze data.\" Which action best fits that skill?",
+      "correctText": "Use evidence to explain Quantum.",
+      "choices": [
+        "describing a topic without explaining why it matters",
+        "Ignore the context and pick the longest answer.",
+        "Use evidence to explain Quantum.",
+        "using a rule from a different unit"
+      ],
+      "explanation": "The useful move is to connect evidence to Quantum; this matches the standards/CED emphasis on reasoning and application."
+    },
+    {
+      "id": "ap-physics-2-111",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best avoids a common mistake about AP Physics 2: Algebra-Based: Quantum, Atomic, and Nuclear Physics?",
+      "correctText": "Connect Quantum, Atomic, and Nuclear Physics to the prompt context before choosing.",
+      "choices": [
+        "Choose an unrelated fact from another unit.",
+        "using a rule from a different unit",
+        "Connect Quantum, Atomic, and Nuclear Physics to the prompt context before choosing.",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "Most missed review questions come from using familiar terms without matching them to the exact context."
+    },
+    {
+      "id": "ap-physics-2-112",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "In an AP CED-aligned exam task about Quantum, Atomic, and Nuclear Physics, what kind of evidence would be strongest?",
+      "correctText": "Specific evidence that proves a claim about Atomic.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Specific evidence that proves a claim about Atomic.",
+        "A fact from a different course.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "The standards across NYS courses and AP CEDs reward evidence used for a claim, not disconnected recall."
+    },
+    {
+      "id": "ap-physics-2-113",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review note would help most for AP Physics 2: Algebra-Based: Quantum, Atomic, and Nuclear Physics?",
+      "correctText": "Quantum, Atomic, and Nuclear Physics matters because it helps explain Quantum.",
+      "choices": [
+        "Atomic is unrelated to this unit.",
+        "describing a topic without explaining why it matters",
+        "Quantum, Atomic, and Nuclear Physics matters because it helps explain Quantum.",
+        "Only the vocabulary list matters for this unit."
+      ],
+      "explanation": "Strong review notes pair the concept with why it matters in the unit."
+    },
+    {
+      "id": "ap-physics-2-114",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AN AP CED-aligned exam task asks students to interpret data table, diagram, or model for Quantum, Atomic, and Nuclear Physics. What should they do first?",
+      "correctText": "Read the prompt, source, or data for the exact task.",
+      "choices": [
+        "Read the prompt, source, or data for the exact task.",
+        "memorizing an isolated fact without evidence",
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words"
+      ],
+      "explanation": "Released NYS tests and AP items often hinge on the exact task wording, source, graph, or scenario."
+    },
+    {
+      "id": "ap-physics-2-115",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which classroom explanation would best connect Quantum, Atomic, and Nuclear Physics to the larger course skill?",
+      "correctText": "Quantum, Atomic, and Nuclear Physics is useful when students use models.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Quantum should be ignored unless it appears in the title.",
+        "Quantum, Atomic, and Nuclear Physics is useful when students use models.",
+        "describing a topic without explaining why it matters"
+      ],
+      "explanation": "This answer connects a concept to a skill, which is the central move in standards-aligned review."
+    },
+    {
+      "id": "ap-physics-2-116",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "For Quantum, Atomic, and Nuclear Physics, which response sounds most like a high-quality constructed response?",
+      "correctText": "It names Quantum, Atomic, and Nuclear Physics, cites evidence, and explains the connection.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "It names Quantum, Atomic, and Nuclear Physics, cites evidence, and explains the connection.",
+        "choosing an answer because it uses familiar words",
+        "It lists three vocabulary words without a claim."
+      ],
+      "explanation": "Constructed responses need a claim, evidence, and explanation, whether the item is NYS, AP, or standards-aligned classroom practice."
+    },
+    {
+      "id": "ap-physics-2-117",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which review target belongs most directly in Quantum, Atomic, and Nuclear Physics?",
+      "correctText": "Atomic",
+      "choices": [
+        "Thermodynamics",
+        "experimental design",
+        "Atomic",
+        "Potential"
+      ],
+      "explanation": "Atomic is part of the concept cluster for Quantum, Atomic, and Nuclear Physics, so it belongs in this unit rather than in an unrelated review bucket."
+    },
+    {
+      "id": "ap-physics-2-118",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "A student wants to transfer Quantum, Atomic, and Nuclear Physics knowledge to a new question. What is the best strategy?",
+      "correctText": "Match the new prompt to Quantum, Atomic, and Nuclear Physics, then justify the answer with evidence.",
+      "choices": [
+        "ignoring the source or data in the prompt",
+        "Ignore unfamiliar data or wording.",
+        "describing a topic without explaining why it matters",
+        "Match the new prompt to Quantum, Atomic, and Nuclear Physics, then justify the answer with evidence."
+      ],
+      "explanation": "Transfer requires recognizing the underlying concept and then adapting it to the new prompt."
+    },
+    {
+      "id": "ap-physics-2-119",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "AP Physics 2: Algebra-Based - Quantum, Atomic, and Nuclear Physics: which pair best shows how two ideas in the unit connect?",
+      "correctText": "Quantum, Atomic, and Nuclear Physics connects to Quantum.",
+      "choices": [
+        "making a claim without supporting evidence",
+        "choosing an answer because it uses familiar words",
+        "Quantum, Atomic, and Nuclear Physics connects to Quantum.",
+        "Nuclear Physics replaces all evidence."
+      ],
+      "explanation": "The pair Quantum, Atomic, and Nuclear Physics and Quantum belongs together in Quantum, Atomic, and Nuclear Physics; students should explain the relationship rather than memorize each term alone."
+    },
+    {
+      "id": "ap-physics-2-120",
+      "course": "ap-physics-2",
+      "courseLabel": "AP Physics 2: Algebra-Based",
+      "topic": "Quantum, Atomic, and Nuclear Physics",
+      "domain": "AP Sciences",
+      "subjectArea": "AP Sciences",
+      "gradeBand": "AP",
+      "standardRefs": [
+        "AP CED: Quantum, Atomic, and Nuclear Physics",
+        "College Board AP Course and Exam Description"
+      ],
+      "sourceAuthority": "college-board-ap-courses",
+      "assessmentSourceId": "college-board-ap-courses",
+      "itemMode": "released-pattern",
+      "prompt": "Which answer best describes the role of data table, diagram, or model in a AP Physics 2: Algebra-Based question on Quantum, Atomic, and Nuclear Physics?",
+      "correctText": "It provides evidence students must use before deciding.",
+      "choices": [
+        "It only matters if it repeats the vocabulary word.",
+        "It provides evidence students must use before deciding.",
+        "using a rule from a different unit",
+        "memorizing an isolated fact without evidence"
+      ],
+      "explanation": "The data table, diagram, or model is part of the task. Students should read it for evidence, patterns, constraints, or context before selecting an answer."
     }
   ]
 }
