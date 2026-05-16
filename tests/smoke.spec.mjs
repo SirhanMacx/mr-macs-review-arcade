@@ -774,6 +774,92 @@ test("global leaderboard posts only safe public handles", async ({ page }) => {
   expect(posted.meta.studentName).toBeUndefined();
 });
 
+test("multiplayer modal reopen does not spawn duplicate host rooms", async ({ browser }) => {
+  // Closing the lobby modal mid-host then reopening it used to render a
+  // fresh "Start Hosting" button — clicking it spawned a second peer
+  // while the first was still alive (orphan room, signaling-server churn).
+  // Now the reopen path detects the live host room and rehydrates the
+  // host pane with the existing code, and Start-Hosting is a no-op while
+  // a host is already alive.
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.route("https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js", async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: `
+        window.__peerCount = 0;
+        window.Peer = function (id) {
+          window.__peerCount = (window.__peerCount || 0) + 1;
+          this.id = id;
+          this._h = {};
+          var self = this;
+          this.on = function (ev, cb) { (self._h[ev] = self._h[ev] || []).push(cb); };
+          setTimeout(function () { (self._h.open || []).forEach(function (h) { h(id); }); }, 5);
+          this.connect = function () {
+            return { open: true, on: function () {}, send: function () {}, close: function () {} };
+          };
+          this.destroy = function () {};
+        };
+      `
+    });
+  });
+  try {
+    await page.goto(`${BASE}/robots.txt`, { waitUntil: "commit", timeout: 15000 });
+    await page.setContent(`
+      <!doctype html>
+      <html>
+        <head><meta charset="utf-8"><title>Modal reopen harness</title></head>
+        <body>
+          <div class="topbar"><nav class="topnav"></nav></div>
+          <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+          <script src="/assets/arcade-name-safety.js?v=test-modal-reopen"></script>
+          <script src="/assets/arcade-leaderboards.js?v=test-modal-reopen"></script>
+          <script src="/assets/arcade-multiplayer.js?v=test-modal-reopen"></script>
+        </body>
+      </html>
+    `);
+    await page.waitForFunction(() => window.MrMacsMultiplayer && window.Peer, null, { timeout: 8000 });
+
+    // Open modal + start hosting
+    await page.evaluate(() => window.MrMacsMultiplayer.openLobbyModal());
+    await page.click("#mmpHostStart");
+    await page.waitForSelector(".mmp-code", { timeout: 5000 });
+    const firstCode = await page.$eval(".mmp-code", el => el.textContent.trim());
+    const peers1 = await page.evaluate(() => window.__peerCount);
+    expect(firstCode).toMatch(/^[A-Z0-9]{3}-[A-Z0-9]{3}$/);
+    expect(peers1).toBe(1);
+
+    // Close + reopen
+    await page.evaluate(() => window.MrMacsMultiplayer.closeLobbyModal());
+    await page.evaluate(() => window.MrMacsMultiplayer.openLobbyModal());
+    await page.waitForTimeout(100);
+    const codeAfter = await page.evaluate(() => {
+      const c = document.querySelector(".mmp-code");
+      return c ? c.textContent.trim() : null;
+    });
+    expect(codeAfter).toBe(firstCode);
+
+    // Start button should be hidden after rehydrate
+    const startVisible = await page.evaluate(() => {
+      const btn = document.getElementById("mmpHostStart");
+      return btn && btn.style.display !== "none";
+    });
+    expect(startVisible).toBe(false);
+
+    // Force-click Start anyway — must NOT spawn a second peer
+    await page.evaluate(() => {
+      const btn = document.getElementById("mmpHostStart");
+      if (btn) { btn.style.display = "block"; btn.click(); }
+    });
+    await page.waitForTimeout(50);
+    const peers2 = await page.evaluate(() => window.__peerCount);
+    expect(peers2).toBe(1);
+  } finally {
+    await context.close();
+  }
+});
+
 test("active multiplayer room restores score strip on game pages", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();

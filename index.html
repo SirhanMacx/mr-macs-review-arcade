@@ -9478,7 +9478,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <span class="cf-tab" aria-hidden="true"></span>
           <span class="cf-icon" aria-hidden="true">01</span>
           <span class="cf-label">Jeopardy Boards</span>
-          <span class="cf-meta">152 boards</span>
+          <span class="cf-meta" data-live-count="jeopardy-boards">152 boards</span>
         </button>
         <button class="cabinet-folder cabinet-folder-prac" type="button"
                 data-cabinet-folder="practice" role="menuitem">
@@ -9492,7 +9492,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
           <span class="cf-tab" aria-hidden="true"></span>
           <span class="cf-icon" aria-hidden="true">03</span>
           <span class="cf-label">Arcade Games</span>
-          <span class="cf-meta">68 games</span>
+          <span class="cf-meta" data-live-count="arcade-games">68 games</span>
         </button>
         <button class="cabinet-folder cabinet-folder-daily" type="button"
                 data-cabinet-folder="daily" role="menuitem">
@@ -10121,7 +10121,7 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
      Powers arcade-multiplayer.js room/peer creation. Loaded async +
      defer so it doesn't block initial paint. -->
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
-<script src="assets/arcade-multiplayer.js?v=20260516-hash-digits" defer></script>
+<script src="assets/arcade-multiplayer.js?v=20260516-modal-reopen" defer></script>
 <script src="assets/arcade-sessions.js?v=20260510-sessions"></script>
 <script src="assets/arcade-progress-extras.js?v=20260513-global-leaderboard"></script>
 <script src="assets/arcade-cram-mode.js?v=20260516-all-course-picker"></script>
@@ -10191,6 +10191,101 @@ async function loadGeneratedPracticeBlueprints() {
     GENERATED_PRACTICE_BLUEPRINTS = Array.isArray(payload.exams) ? payload.exams : [];
   } catch (e) {
     GENERATED_PRACTICE_BLUEPRINTS = [];
+  }
+}
+
+// ============== Live counts ==============
+// Single source of truth for every count surfaced in hero/cabinet/meta
+// copy. Pulls fresh totals from GAMES + GENERATED_JEOPARDY_BLUEPRINTS so
+// the hub never lies about how many boards / arcade games / total entries
+// exist on this build. Originally added May 16 2026 because new Wave 4a
+// courses landed without refreshing the hand-coded "152 boards" /
+// "68 games" / "2967 entries" copy.
+function computeLiveCounts() {
+  const games = Array.isArray(GAMES) ? GAMES : [];
+  const blueprints = Array.isArray(GENERATED_JEOPARDY_BLUEPRINTS) ? GENERATED_JEOPARDY_BLUEPRINTS : [];
+  function looksLikeJeopardy(game) {
+    const text = [game.title, game.originalFile, game.file, game.gameType].join(" ");
+    if (/jeopardy|unit\s+review/i.test(text)) return true;
+    const reviewTypes = new Set(["Unit Review", "Unit + AP Final", "Unit + Cumulative", "Unit + Final", "Regents Sprint"]);
+    return reviewTypes.has(game.gameType);
+  }
+  const arcadeTypes = new Set([
+    "Arcade", "Arcade Duel", "Boss Rush", "Kart Racer", "Maze Chase",
+    "Open-World RPG", "Pinball", "Platformer", "Runner", "Skill Lab",
+    "Space Invaders", "Strategy", "Survivors", "Tower Defense",
+    "Typing Drill", "Word Puzzle", "Chrono Pinball"
+  ]);
+  const jeopardyManifestCount = games.filter(looksLikeJeopardy).length;
+  // Runtime Jeopardy tiles include the generated boards that aren't
+  // already cataloged in games.json (per-course HTML stamps a
+  // generatedBoardId so the runtime version is filtered out — same logic
+  // as generatedJeopardyGames() above).
+  const cataloged = new Set(games.map((game) => game.generatedBoardId).filter(Boolean));
+  const runtimeOnlyGenerated = blueprints.filter((board) => !cataloged.has(board.id)).length;
+  const totalJeopardy = jeopardyManifestCount + runtimeOnlyGenerated;
+  const arcadeCount = games.filter((game) => arcadeTypes.has(game.gameType)).length;
+  const totalEntries = games.length + runtimeOnlyGenerated;
+  return {
+    "jeopardy-boards": totalJeopardy + " boards",
+    "jeopardy-boards-number": String(totalJeopardy),
+    "arcade-games": arcadeCount + " games",
+    "arcade-games-number": String(arcadeCount),
+    "more-games-label": String(arcadeCount),
+    "total-entries": String(totalEntries),
+    "total-entries-label": totalEntries + " GAMES READY"
+  };
+}
+
+function applyLiveCounts() {
+  try {
+    const counts = computeLiveCounts();
+    document.querySelectorAll("[data-live-count]").forEach((node) => {
+      const key = node.getAttribute("data-live-count");
+      if (counts[key]) node.textContent = counts[key];
+    });
+    // Attract-mode carousel title (reduced-motion fallback at boot time
+    // already substitutes 2967 — keep it in sync with the live total).
+    const attractTitle = document.getElementById("acTitle");
+    if (attractTitle && attractTitle.dataset.staticFallback === "1") {
+      attractTitle.textContent = "OPEN LIBRARY · " + counts["total-entries"] + " GAMES READY";
+    }
+    // Meta description + og/twitter copy. Use the runtime total so
+    // social-share crawlers (re-scraping after sw bump) see fresh copy.
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content",
+        "Mr. Mac's Review Arcade — " + counts["total-entries"] +
+        " arcade entries, practice tools, and Jeopardy boards covering grades 5-12, NY Regents, and AP courses. Free, no signup, plays offline."
+      );
+    }
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) {
+      ogTitle.setAttribute("content",
+        "Mr. Mac's Review Arcade — " + counts["total-entries"] + " grades 5-12/AP review entries"
+      );
+    }
+    // Update JSON-LD featureList in place if it's still hand-coded.
+    const ld = document.querySelector('script[type="application/ld+json"]');
+    if (ld) {
+      try {
+        const data = JSON.parse(ld.textContent);
+        if (data && data.featureList && Array.isArray(data.featureList)) {
+          data.featureList = data.featureList.map((item) => {
+            if (/cataloged review entries/.test(item)) {
+              return counts["total-entries"] + " cataloged review entries and practice tools";
+            }
+            if (/generated unit Jeopardy boards/.test(item)) {
+              return counts["jeopardy-boards-number"] + " Jeopardy boards plus social studies flagship boards";
+            }
+            return item;
+          });
+          ld.textContent = JSON.stringify(data, null, 2);
+        }
+      } catch (e) { /* malformed JSON-LD is fine to skip */ }
+    }
+  } catch (e) {
+    /* live counts are cosmetic — never block hub render. */
   }
 }
 

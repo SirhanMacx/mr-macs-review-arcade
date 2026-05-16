@@ -1423,7 +1423,7 @@
       (doc.head || doc.documentElement).appendChild(script);
     }
     loadScript(peerSrc, function () {
-      loadScript(base + "arcade-multiplayer.js?v=20260516-hash-digits", function () {
+      loadScript(base + "arcade-multiplayer.js?v=20260516-modal-reopen", function () {
         try {
           if (root.MrMacsMultiplayer && root.MrMacsMultiplayer.mountGameRoomStrip) {
             root.MrMacsMultiplayer.mountGameRoomStrip();

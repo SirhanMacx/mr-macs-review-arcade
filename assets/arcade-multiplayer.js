@@ -514,49 +514,82 @@
       document.getElementById("mmpPaneHost").classList.remove("is-active");
     });
 
+    // Render the "active host room" UI inside the host pane. Reused by
+    // both the Start-Hosting onReady path AND the modal-reopen path,
+    // so closing the modal mid-host then reopening it shows the live
+    // code + roster instead of a fresh Start button (which would have
+    // spawned a second orphaned room).
+    function renderActiveHostPane(r) {
+      _modalOpenRoom = r;
+      var statusEl = document.getElementById("mmpHostStatus");
+      if (!statusEl) return;
+      statusEl.innerHTML =
+        '<p class="mmp-hint">Share this code with your students:</p>' +
+        '<div class="mmp-code">' + escHtml(r.code) + '</div>' +
+        '<p class="mmp-hint">Players join by entering this code on the same arcade hub.</p>' +
+        '<div class="mmp-label">Players in room</div>' +
+        '<div class="mmp-roster" id="mmpHostRoster"></div>' +
+        '<button class="mmp-btn" id="mmpHostSaveClass" type="button" style="background:linear-gradient(135deg,#ffd060,#f5c451);color:#14100a;">📋 Save as Class</button>' +
+        '<button class="mmp-btn is-secondary" id="mmpHostClose" type="button">End Room</button>';
+      renderRoster(r, document.getElementById("mmpHostRoster"));
+      r.onPlayersChange(function () { renderRoster(r, document.getElementById("mmpHostRoster")); });
+      document.getElementById("mmpHostSaveClass").addEventListener("click", function () {
+        var name = window.prompt("Save this roster as a class. What's the class name? (e.g. 'Period 3 · AP Psych')");
+        if (!name) return;
+        var ok = saveRoomAsClass(r, name);
+        if (ok) {
+          alert("Saved \"" + name + "\" — " + r.players.length + " players. View saved classes in /teacher dashboard.");
+        } else {
+          alert("Save failed. localStorage may be full or disabled.");
+        }
+      });
+      document.getElementById("mmpHostClose").addEventListener("click", function () {
+        try { r.leave(); } catch (e) {}
+        _modalOpenRoom = null;
+        closeLobbyModal();
+      });
+      // Hide the "Start Hosting" button — we're already hosting
+      var startBtn = document.getElementById("mmpHostStart");
+      if (startBtn) startBtn.style.display = "none";
+      var hostHint = document.querySelector("#mmpPaneHost .mmp-hint");
+      if (hostHint) hostHint.style.display = "none";
+    }
+
     document.getElementById("mmpHostStart").addEventListener("click", function () {
       if (!available()) {
         document.getElementById("mmpHostStatus").innerHTML = '<div class="mmp-error">Multiplayer library not loaded. Check your internet connection and reload.</div>';
         return;
       }
+      // Defense: if a host room is already live for this tab, surface it
+      // instead of opening a second one.
+      if (_modalOpenRoom && _modalOpenRoom.role === "host" && !_modalOpenRoom._destroyed) {
+        renderActiveHostPane(_modalOpenRoom);
+        return;
+      }
       var statusEl = document.getElementById("mmpHostStatus");
       statusEl.innerHTML = '<p class="mmp-hint">Opening room…</p>';
+      // Disable the start button so a double-click can't spawn two rooms
+      var startBtn = document.getElementById("mmpHostStart");
+      if (startBtn) startBtn.disabled = true;
       var room = host({
         initials: "HST",
         onReady: function (r) {
-          _modalOpenRoom = r;
-          statusEl.innerHTML =
-            '<p class="mmp-hint">Share this code with your students:</p>' +
-            '<div class="mmp-code">' + r.code + '</div>' +
-            '<p class="mmp-hint">Players join by entering this code on the same arcade hub.</p>' +
-            '<div class="mmp-label">Players in room</div>' +
-            '<div class="mmp-roster" id="mmpHostRoster"></div>' +
-            '<button class="mmp-btn" id="mmpHostSaveClass" type="button" style="background:linear-gradient(135deg,#ffd060,#f5c451);color:#14100a;">📋 Save as Class</button>' +
-            '<button class="mmp-btn is-secondary" id="mmpHostClose" type="button">End Room</button>';
-          renderRoster(r, document.getElementById("mmpHostRoster"));
-          r.onPlayersChange(function () { renderRoster(r, document.getElementById("mmpHostRoster")); });
-          document.getElementById("mmpHostSaveClass").addEventListener("click", function () {
-            var name = window.prompt("Save this roster as a class. What's the class name? (e.g. 'Period 3 · AP Psych')");
-            if (!name) return;
-            var ok = saveRoomAsClass(r, name);
-            if (ok) {
-              alert("Saved \"" + name + "\" — " + r.players.length + " players. View saved classes in /teacher dashboard.");
-            } else {
-              alert("Save failed. localStorage may be full or disabled.");
-            }
-          });
-          document.getElementById("mmpHostClose").addEventListener("click", function () {
-            r.leave();
-            _modalOpenRoom = null;
-            closeLobbyModal();
-          });
+          renderActiveHostPane(r);
         },
         onError: function (err) {
+          if (startBtn) startBtn.disabled = false;
           statusEl.innerHTML = '<div class="mmp-error">Could not start room. ' +
             'Network signaling server unreachable. Try again in a moment.</div>';
         }
       });
     });
+
+    // If we already have a live host room (modal was closed mid-host
+    // and reopened), restore the host pane immediately rather than
+    // showing the fresh "Start Hosting" button.
+    if (_modalOpenRoom && _modalOpenRoom.role === "host" && !_modalOpenRoom._destroyed) {
+      renderActiveHostPane(_modalOpenRoom);
+    }
 
     document.getElementById("mmpJoinStart").addEventListener("click", function () {
       var code = document.getElementById("mmpJoinCode").value.toUpperCase().trim();
