@@ -110,8 +110,12 @@ for (const entry of survivors) {
   stampedEntries.push({ id: entry.id, generatedBoardId });
 }
 
-// Step 4: Persist. Preserve original \uXXXX escaping for non-ASCII so the
-// diff stays focused on intent rather than encoding churn.
+// Step 4: Persist. Match the existing file's non-ASCII convention so the
+// diff stays focused on intent. If the current file uses \uXXXX escapes,
+// preserve them; if it uses raw UTF-8 (Codex's preferred format), pass
+// through Node's default JSON.stringify output.
+const existingRaw = readFileSync(manifestFile, "utf8");
+const useEscaped = /\\u00[a-f0-9]{2}/.test(existingRaw);
 function escapeNonAscii(json) {
   let out = "";
   for (let i = 0; i < json.length; i++) {
@@ -124,7 +128,8 @@ function escapeNonAscii(json) {
   }
   return out;
 }
-const json = escapeNonAscii(JSON.stringify(survivors, null, 2));
+const stringified = JSON.stringify(survivors, null, 2);
+const json = useEscaped ? escapeNonAscii(stringified) : stringified;
 writeFileSync(manifestFile, json + "\n", "utf8");
 
 console.log("relink-per-course-jeopardy summary:");
