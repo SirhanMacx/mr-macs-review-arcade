@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04060f">
+  <title>Physics Regents &mdash; Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
+  <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260512-question-readability">
+  <style>
+    :root { --course-accent: #ffd15c; }
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at top, rgba(15,20,40,.85) 0%, rgba(4,6,15,1) 70%) #04060f;
+      color: #d8dceb;
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: max(40px, env(safe-area-inset-top, 40px)) 20px 60px;
+    }
+    .course-shell {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .course-back {
+      display: inline-block;
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1px solid rgba(245,196,81,.30);
+      border-radius: 8px;
+      transition: background 200ms, color 200ms, border-color 200ms;
+    }
+    .course-back:hover, .course-back:focus-visible {
+      background: rgba(245,196,81,.18);
+      color: #f5c451;
+      border-color: #f5c451;
+    }
+    .course-kicker {
+      display: inline-block;
+      margin: 28px 0 8px;
+      padding: 4px 12px;
+      border: 1px solid var(--course-accent);
+      border-radius: 6px;
+      color: var(--course-accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      box-shadow: 0 0 12px color-mix(in srgb, var(--course-accent) 30%, transparent);
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(34px, 6vw, 56px);
+      font-weight: 900;
+      color: #f0f5ff;
+      letter-spacing: -.02em;
+    }
+    .course-descr {
+      max-width: 64ch;
+      margin: 0 0 32px;
+      color: rgba(216, 220, 235, .82);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .course-unit-card {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 8px;
+      padding: 16px 16px 14px;
+      background: rgba(8, 12, 24, 0.78);
+      border: 1px solid rgba(245, 196, 81, .18);
+      border-radius: 14px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 160ms ease-out, background 200ms, border-color 200ms, box-shadow 200ms;
+      min-height: 130px;
+    }
+    .course-unit-card:hover, .course-unit-card:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(20, 24, 40, 0.88);
+      border-color: var(--course-accent);
+      box-shadow: 0 8px 24px rgba(0,0,0,.4), 0 0 18px color-mix(in srgb, var(--course-accent) 22%, transparent);
+      outline: none;
+    }
+    .course-unit-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      color: var(--course-accent);
+      text-transform: uppercase;
+    }
+    .course-unit-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      font-size: 18px;
+      font-weight: 700;
+      color: #f0f5ff;
+      line-height: 1.25;
+    }
+    .course-unit-cta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: rgba(216, 220, 235, .55);
+      text-transform: uppercase;
+    }
+    .course-unit-card:hover .course-unit-cta { color: var(--course-accent); }
+    @media (prefers-reduced-motion: reduce) {
+      .course-unit-card { transition: none; }
+      .course-unit-card:hover { transform: none; }
+    }
+  
+    .quiz-gauntlet-cta {
+      position: relative;
+      display: flex; align-items: center; gap: 16px;
+      margin: 20px 0 28px;
+      padding: 18px 24px;
+      background: linear-gradient(135deg, #f5c451 0%, #ffd884 50%, #ff8a38 100%);
+      color: #14100a;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 12px 32px rgba(245, 196, 81, 0.40), 0 4px 0 rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.5);
+      transition: transform 160ms, box-shadow 160ms;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .quiz-gauntlet-cta:hover, .quiz-gauntlet-cta:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 42px rgba(245, 196, 81, 0.55), 0 6px 0 rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.6);
+      outline: none;
+    }
+    .quiz-gauntlet-cta .qg-icon { font-size: 36px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
+    .quiz-gauntlet-cta .qg-text { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .quiz-gauntlet-cta .qg-text strong {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px; letter-spacing: 0.10em; line-height: 1;
+    }
+    .quiz-gauntlet-cta .qg-text small {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px; opacity: 0.78; line-height: 1.3;
+    }
+    .quiz-gauntlet-cta .qg-pulse {
+      position: absolute; right: 18px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #ff3858; box-shadow: 0 0 12px rgba(255, 56, 88, 0.8);
+      animation: qgPulse 1.4s ease-in-out infinite;
+    }
+    @keyframes qgPulse { 50% { opacity: 0.45; transform: scale(0.85); } }
+    @media (prefers-reduced-motion: reduce) {
+      .quiz-gauntlet-cta .qg-pulse { animation: none; }
+    }
+
+  </style>
+</head>
+<body data-game-page="1">
+<!-- Arcade cabinet marquee strip (decorative; auto-styled by arcade-retro-theme.css) -->
+<div class="game-marquee" role="presentation" aria-hidden="true">
+  <span>◀ ◀ ◀</span>
+  <span>MR. MAC'S REVIEW ARCADE · INSERT COIN</span>
+  <span>▶ ▶ ▶</span>
+</div>
+
+  <main class="course-shell">
+    <a class="course-back" href="../../index.html">&larr; Back to Arcade</a>
+    <div class="course-kicker">NY Regents Physics</div>
+    <h1>Physics Regents</h1>
+    <p class="course-descr">Physical Setting/Physics Regents Jeopardy boards for motion, forces, energy, momentum, circular motion, electricity, circuits, magnetism, waves, optics, and modern physics.</p>
+        <a class="quiz-gauntlet-cta" data-quiz-gauntlet-start
+       data-course="physics-regents" data-course-label="Physics"
+       data-rounds="15" data-game-id="physics-regents-gauntlet" role="button" tabindex="0"
+       href="#">
+      <span class="qg-icon" aria-hidden="true">▶</span>
+      <span class="qg-text">
+        <strong>START GAUNTLET</strong>
+        <small>15 random questions · score + leaderboard · +shards</small>
+      </span>
+      <span class="qg-pulse" aria-hidden="true"></span>
+    </a>
+    <div class="course-grid">
+        <a class="course-unit-card" href="01%20-%20Mechanics%20-%20Motion%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Unit 1</span>
+          <strong class="course-unit-title">Mechanics - Motion</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="course-unit-card" href="02%20-%20Mechanics%20-%20Forces%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Unit 2</span>
+          <strong class="course-unit-title">Mechanics - Forces</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="course-unit-card" href="03%20-%20Energy%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Unit 3</span>
+          <strong class="course-unit-title">Energy</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="course-unit-card" href="04%20-%20Momentum%20and%20Impulse%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Unit 4</span>
+          <strong class="course-unit-title">Momentum and Impulse</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="course-unit-card" href="05%20-%20Circular%20Motion%20and%20Gravity%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Unit 5</span>
+          <strong class="course-unit-title">Circular Motion and Gravity</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="course-unit-card" href="06%20-%20Electric%20Fields%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Unit 6</span>
+          <strong class="course-unit-title">Electric Fields</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="course-unit-card" href="07%20-%20Circuits%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Unit 7</span>
+          <strong class="course-unit-title">Circuits</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="course-unit-card" href="08%20-%20Magnetism%20and%20Electromagnetic%20Induction%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Unit 8</span>
+          <strong class="course-unit-title">Magnetism and Electromagnetic Induction</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="course-unit-card" href="09%20-%20Waves%20and%20Sound%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Unit 9</span>
+          <strong class="course-unit-title">Waves and Sound</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="course-unit-card" href="10%20-%20Optics%20and%20Modern%20Physics%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Unit 10</span>
+          <strong class="course-unit-title">Optics and Modern Physics</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="course-unit-card" href="99%20-%20Cumulative%20Yearlong%20Jeopardy%20Review.html">
+          <span class="course-unit-kicker">Final</span>
+          <strong class="course-unit-title">Cumulative Yearlong</strong>
+          <span class="course-unit-cta">Open board <span aria-hidden="true">&rarr;</span></span>
+        </a>
+    </div>
+  </main>
+<script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+<script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
+<script src="../../assets/shared-question-bank.js?v=20260516-course-depth-v2"></script>
+<script src="../../assets/arcade-quiz-gauntlet.js?v=20260511-gauntlet-v1" defer></script>
+</body>
+</html>

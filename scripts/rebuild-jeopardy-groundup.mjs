@@ -1292,8 +1292,15 @@ function main() {
   let manifestChanged = false;
   for (const meta of games.filter(isJeopardyManifestEntry)) {
     const file = resolve(root, decodePath(meta.file));
-    if (!existsSync(file)) throw new Error(`Missing board file: ${meta.file}`);
+    if (!existsSync(file)) {
+      console.warn(`skip: missing board file ${meta.file}`);
+      continue;
+    }
     const original = readFileSync(file, "utf8");
+    // Skip generated-jeopardy runner pages and any file without a GAME JSON block
+    if (!/const GAME = \{[\s\S]*?\};\s*(?:const|let|var)\s+STORAGE_KEY/.test(original)) {
+      continue;
+    }
     const game = extractGame(original, relative(root, file));
     boardCount += 1;
     const changed = rebuildBoard(game, meta);
