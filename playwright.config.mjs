@@ -13,6 +13,7 @@ export default defineConfig({
   expect: { timeout: 5_000 },
   reporter: process.env.CI ? "github" : "list",
   use: {
+    channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
     headless: true,
     viewport: { width: 1024, height: 768 },
     actionTimeout: 8_000

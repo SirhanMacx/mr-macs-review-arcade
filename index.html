@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#06080f">
 <title>Mr. Mac's Review Arcade — Grades 5-12, Regents & AP Review Games</title>
-<meta name="description" content="Mr. Mac's Review Arcade — 221 arcade entries, practice tools, and Jeopardy boards covering grades 5-12, NY Regents, and AP courses. Free, no signup, plays offline.">
+<meta name="description" content="Mr. Mac's Review Arcade — 2967 arcade entries, practice tools, and Jeopardy boards covering grades 5-12, NY Regents, and AP courses. Free, no signup, plays offline.">
 <meta name="keywords" content="Regents review, AP review, grades 5-12 review games, NYS standards games, Jeopardy boards, AP US History, AP World History, AP Psychology, Global Regents, US Regents, practice exams">
 <meta name="author" content="Mr. Mac">
 <link rel="canonical" href="https://sirhanmacx.github.io/mr-macs-review-arcade/">
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mr. Mac's Review Arcade">
 <meta property="og:url" content="https://sirhanmacx.github.io/mr-macs-review-arcade/">
-<meta property="og:title" content="Mr. Mac's Review Arcade — 221 grades 5-12/AP review entries">
+<meta property="og:title" content="Mr. Mac's Review Arcade — 2967 grades 5-12/AP review entries">
 <meta property="og:description" content="Free grades 5-12, AP, and Regents review games with arcade play, unit Jeopardy, course practice, and practice exams. No signup, works offline.">
 <meta property="og:image" content="https://sirhanmacx.github.io/mr-macs-review-arcade/assets/arcade-lobby-16bit-v4.webp">
 <meta property="og:image:width" content="1500">
@@ -55,10 +55,10 @@
       "operatingSystem": "Any (browser-based PWA)",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "featureList": [
-        "221 review entries and practice tools",
-        "152 catalog Jeopardy boards plus 664 generated unit-board blueprints",
-        "13362-question shared bank across 99 course buckets",
-        "90 generated course practice-exam blueprints",
+        "2967 cataloged review entries and practice tools",
+        "1992 generated unit Jeopardy boards plus social studies flagship boards",
+        "22042 shared-bank questions across 99 course buckets",
+        "90 generated course practice exams with zoomable source pages",
         "Live multiplayer rooms (40 players)",
         "Printable wrong-answer worksheets",
         "Offline play via Progressive Web App"
@@ -10174,7 +10174,7 @@ async function loadGamesManifest() {
 
 async function loadGeneratedJeopardyBlueprints() {
   try {
-    const response = await fetch("data/generated-all-subject-jeopardy-blueprints.json", { cache: "no-store" });
+    const response = await fetch("data/generated-jeopardy-index.json", { cache: "no-store" });
     if (!response.ok) return;
     const payload = await response.json();
     GENERATED_JEOPARDY_BLUEPRINTS = Array.isArray(payload.boards) ? payload.boards : [];
@@ -10472,21 +10472,25 @@ function allJeopardyCourseLabels() {
   return uniq(real.concat(generated)).sort(courseCompare);
 }
 function generatedJeopardyGames() {
+  const cataloged = new Set((GAMES || []).map((game) => game.generatedBoardId).filter(Boolean));
   return (GENERATED_JEOPARDY_BLUEPRINTS || []).map((board) => ({
     id: "generated-jeopardy-" + board.id,
     generatedBoardId: board.id,
     title: board.title || (board.courseLabel + " Jeopardy Review"),
-    subtitle: "Generated unit board from the all-subject NYS/AP blueprint set.",
+    subtitle: board.subtitle || "Generated unit board from the all-subject NYS/AP blueprint set.",
     course: displayCourseLabel(board.courseLabel),
     subject: board.subjectArea || board.standardsFramework || "Course Review",
-    grade: "",
+    grade: board.gradeBand || "",
+    file: "games/generated-jeopardy/index.html?board=" + encodeURIComponent(board.id),
     day: board.unit || "Unit Review",
     gameType: "Jeopardy",
     clueCount: 25,
     hasFinal: true,
     isGeneratedJeopardy: true,
+    cardArt: "assets/cabinet/category-tile-jeopardy.webp",
+    thumbnail: "assets/game-thumbnails/generated-jeopardy.webp",
     categories: (board.categories || []).map((cat) => cat.name).filter(Boolean)
-  }));
+  })).filter((game) => !cataloged.has(game.generatedBoardId));
 }
 function generatedJeopardyByRuntimeId(id) {
   const runtimeId = String(id || "");
@@ -10538,10 +10542,12 @@ function escapeHtml(value) {
 }
 function thumbnailFor(game) {
   if (!game) return "";
+  if (game.thumbnail) return game.thumbnail;
   return "assets/game-thumbnails/" + encodeURIComponent(game.id) + ".webp";
 }
 function cardArtFor(game) {
   if (!game) return "";
+  if (game.cardArt) return game.cardArt;
   return "assets/game-card-art/" + encodeURIComponent(game.id) + ".webp";
 }
 function cardArtFallbackFor(game) {
@@ -10567,6 +10573,7 @@ function categoryForGameArt(game) {
 }
 function marqueeFor(game) {
   if (!game) return "";
+  if (game.marquee) return game.marquee;
   return "assets/game-marquees/" + encodeURIComponent(game.id) + ".webp";
 }
 function assetHref(path) {
@@ -12142,7 +12149,7 @@ function initAttractCarousel() {
   var title = document.getElementById("acTitle");
   if (!el || !title) return;
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    title.textContent = "OPEN LIBRARY · 78 GAMES READY";
+    title.textContent = "OPEN LIBRARY · 2967 GAMES READY";
     return;
   }
   // Curated rotation — flagship + crowd-pleasers + fresh course shells.

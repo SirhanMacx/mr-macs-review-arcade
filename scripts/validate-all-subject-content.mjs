@@ -10,7 +10,9 @@ const root = path.resolve(__dirname, "..");
 const taxonomy = JSON.parse(fs.readFileSync(path.join(root, "data/all-subject-course-taxonomy.json"), "utf8"));
 const sourceCatalog = JSON.parse(fs.readFileSync(path.join(root, "data/released-assessment-source-catalog.json"), "utf8"));
 const jeopardy = JSON.parse(fs.readFileSync(path.join(root, "data/generated-all-subject-jeopardy-blueprints.json"), "utf8"));
+const jeopardyIndex = JSON.parse(fs.readFileSync(path.join(root, "data/generated-jeopardy-index.json"), "utf8"));
 const practice = JSON.parse(fs.readFileSync(path.join(root, "data/generated-practice-exam-blueprints.json"), "utf8"));
+const gamesManifest = JSON.parse(fs.readFileSync(path.join(root, "games.json"), "utf8"));
 
 const errors = [];
 const courses = taxonomy.courses || [];
@@ -67,7 +69,7 @@ for (const course of courses) {
   const byTopic = new Map();
   for (const question of questions) byTopic.set(question.topic, (byTopic.get(question.topic) || 0) + 1);
   for (const unit of course.units) {
-    assert((byTopic.get(unit.title) || 0) >= 12, `${course.id}: unit ${unit.title} has too few questions`);
+    assert((byTopic.get(unit.title) || 0) >= 18, `${course.id}: unit ${unit.title} has too few questions`);
   }
   const answerCounts = [0, 0, 0, 0];
   let streak = 0;
@@ -91,18 +93,35 @@ const boardCourses = new Set((jeopardy.boards || []).map((board) => board.course
 for (const course of courses) {
   assert(boardCourses.has(course.id), `Missing Jeopardy blueprint for ${course.id}`);
 }
+assert((jeopardy.boards || []).length >= 1900, `Expected thousands-scale generated Jeopardy catalog, found ${(jeopardy.boards || []).length}`);
+assert((jeopardyIndex.boards || []).length === (jeopardy.boards || []).length, `Generated Jeopardy index should match board count (${(jeopardyIndex.boards || []).length}/${(jeopardy.boards || []).length})`);
+for (const summary of (jeopardyIndex.boards || []).slice(0, 40)) {
+  assert(summary.shard && fs.existsSync(path.join(root, summary.shard)), `${summary.id}: missing generated Jeopardy shard ${summary.shard}`);
+  assert(!(summary.categories || []).some((category) => category.clues), `${summary.id}: lightweight index should not include full clue payload`);
+}
 for (const board of jeopardy.boards || []) {
   assert((board.categories || []).length === 5, `${board.id}: expected 5 categories`);
+  const dailyCount = (board.categories || []).flatMap((category) => category.clues || []).filter((clue) => clue.daily).length;
+  assert(dailyCount === 1, `${board.id}: expected exactly one Daily Double, found ${dailyCount}`);
   for (const category of board.categories || []) {
     assert((category.clues || []).length === 5, `${board.id}: ${category.name} expected 5 clues`);
     assert(JSON.stringify(category.clues.map((clue) => clue.value)) === JSON.stringify([100, 200, 300, 400, 500]), `${board.id}: ${category.name} values are not 100-500`);
     for (const clue of category.clues) {
       assert(!/This .* idea helps students handle/.test(clue.clue || ""), `${board.id}: ${category.name} has old generic clue copy`);
+      assert(!/answer must connect to/i.test(clue.clue || ""), `${board.id}: ${category.name} ${clue.value} has old answer-leaking clue frame`);
+      assert(!/^This .* idea anchors/i.test(clue.clue || ""), `${board.id}: ${category.name} ${clue.value} has generic anchor clue copy`);
+      assert(!/^This is the reasoning move/i.test(clue.clue || ""), `${board.id}: ${category.name} ${clue.value} has generic reasoning clue copy`);
+      assert(!/^This kind of evidence/i.test(clue.clue || ""), `${board.id}: ${category.name} ${clue.value} has generic evidence clue copy`);
+      assert((clue.aliases || []).length >= 1, `${board.id}: ${category.name} ${clue.value} missing answer aliases`);
       assert((clue.explanation || "").split(/\s+/).length >= 14, `${board.id}: ${category.name} ${clue.value} explanation too thin`);
     }
   }
   assert(board.final?.answer, `${board.id}: missing final`);
 }
+const boardById = new Map((jeopardy.boards || []).map((board) => [board.id, board]));
+const apBioCellCommunication = boardById.get("ap-biology-unit-04");
+assert(apBioCellCommunication && /signal transduction|receptor|cell cycle checkpoint/i.test(JSON.stringify(apBioCellCommunication)), "AP Biology Cell Communication board lost unit-specific AP terms");
+assert(apBioCellCommunication && JSON.stringify((apBioCellCommunication.categories || []).map((category) => category.name)) === JSON.stringify(["Signals + Receptors", "Cycle Control", "Pathway Evidence", "AP Traps", "AP Transfer"]), "AP Biology Cell Communication board lost curated category names");
 
 const practiceByCourse = new Map((practice.exams || []).map((exam) => [exam.courseId, exam]));
 for (const course of courses) {
@@ -110,13 +129,22 @@ for (const course of courses) {
   assert(exam, `Missing practice blueprint for ${course.id}`);
   if (!exam) continue;
   assert((exam.sectionPlan || []).length >= 2, `${course.id}: practice blueprint needs at least two sections`);
+  assert(exam.examFamily, `${course.id}: practice blueprint missing exam family`);
+  assert(exam.exactRunnerStatus, `${course.id}: practice blueprint missing exact runner status`);
+  assert((exam.officialPracticeLinks || []).length >= 1, `${course.id}: practice blueprint missing official source links`);
   assert((exam.units || []).length === course.units.length, `${course.id}: practice units mismatch`);
   assert((exam.writtenTasks || []).length >= 3, `${course.id}: practice blueprint needs written tasks`);
+  assert((exam.sourcePages || []).length >= 4, `${course.id}: practice blueprint needs zoomable source pages`);
+  for (const page of exam.sourcePages || []) {
+    assert(page.path && fs.existsSync(path.join(root, page.path)), `${course.id}: missing generated source page asset ${page.path}`);
+    assert(/assets\/generated-practice-pages\//.test(page.path), `${course.id}: generated page should live in generated-practice-pages`);
+  }
   for (const unit of exam.units || []) {
     assert((unit.sampledQuestionIds || []).length >= 6, `${course.id}: ${unit.unit} needs more sampled questions for practice exams`);
   }
   if ((course.assessmentSourceIds || []).length) {
     assert(exam.sourceMode !== "standards-aligned-original", `${course.id}: released-backed course lost source mode`);
+    assert((exam.officialPracticeLinks || []).some((link) => /^https?:\/\//.test(link.url || "")), `${course.id}: released/AP practice needs at least one official URL`);
   }
 }
 
@@ -132,14 +160,41 @@ const context = { window: {}, globalThis: {} };
 context.globalThis = context.window;
 vm.runInNewContext(fs.readFileSync(path.join(root, "assets/shared-question-bank.js"), "utf8"), context, { filename: "assets/shared-question-bank.js" });
 const sharedBank = context.window.DIAG_BANK_BY_COURSE || {};
-let generatedQuestionTotal = 0;
+let generatedCourseQuestionTotal = 0;
 for (const course of courses) {
   assert((sharedBank[course.id] || []).length >= course.minQuestions, `shared bank missing ${course.id}`);
-  generatedQuestionTotal += (sharedBank[course.id] || []).length;
+  generatedCourseQuestionTotal += (sharedBank[course.id] || []).length;
 }
-assert(generatedQuestionTotal >= 10000, `generated all-subject bank is too small: ${generatedQuestionTotal}`);
+const sharedQuestionTotal = context.window.DIAG_BANK_ALL?.length || generatedCourseQuestionTotal;
+assert(sharedQuestionTotal >= 22000, `shared arcade question bank is too small after expansion: ${sharedQuestionTotal}`);
 assert(context.window.DIAG_BANK_COVERAGE?.apCourses >= 42, "shared bank AP coverage metadata too low");
 assert(context.window.DIAG_BANK_COVERAGE?.coreGeneralCourses >= 25, "shared bank core-general coverage metadata too low");
+const derivedFragments = fs.readdirSync(fragmentDir).filter((file) => /^jeopardy-derived-.*\.json$/.test(file));
+const derivedQuestionTotal = derivedFragments.reduce((sum, file) => {
+  const fragment = JSON.parse(fs.readFileSync(path.join(fragmentDir, file), "utf8"));
+  return sum + (fragment.questions || []).length;
+}, 0);
+assert(derivedFragments.length >= 12, `expected social-studies Jeopardy-derived arcade bank fragments, found ${derivedFragments.length}`);
+assert(derivedQuestionTotal >= 3500, `social-studies Jeopardy-derived bank too small: ${derivedQuestionTotal}`);
+for (const courseId of ["global-9", "global-10", "us-history", "grade-5", "grade-6", "grade-7", "grade-8", "ap-us-history", "ap-world-history", "ap-psychology"]) {
+  assert((sharedBank[courseId] || []).some((question) => question.itemMode === "jeopardy-board-derived"), `${courseId}: missing Jeopardy-derived social-studies arcade questions`);
+}
+
+const generatedCatalogEntries = gamesManifest.filter((game) => game.generatedBy === "scripts/generate-all-subject-content.mjs");
+const generatedJeopardyEntries = gamesManifest.filter((game) => game.isGeneratedJeopardy && game.generatedBoardId);
+const generatedPracticeEntries = gamesManifest.filter((game) => /^generated-(?:practice-exam|unit-practice)-/.test(game.id || ""));
+assert(gamesManifest.length >= 2500, `games.json should expose thousands of cataloged surfaces, found ${gamesManifest.length}`);
+assert(generatedCatalogEntries.length >= 2500, `generated catalog entries too low: ${generatedCatalogEntries.length}`);
+assert(generatedJeopardyEntries.length === (jeopardy.boards || []).length, `generated Jeopardy entries should match board count (${generatedJeopardyEntries.length}/${(jeopardy.boards || []).length})`);
+assert(generatedPracticeEntries.length >= (practice.exams || []).length, `generated practice entries missing (${generatedPracticeEntries.length}/${(practice.exams || []).length})`);
+for (const game of generatedJeopardyEntries.slice(0, 20)) {
+  assert(game.file?.includes("games/generated-jeopardy/index.html?board="), `${game.id}: generated Jeopardy entry should deep-link to its board`);
+  assert(game.cardArt && game.thumbnail, `${game.id}: generated Jeopardy card needs nonblank art`);
+}
+for (const game of generatedPracticeEntries.slice(0, 20)) {
+  assert(game.file?.includes("games/generated-practice-exam/index.html?course="), `${game.id}: generated practice entry should deep-link to its course`);
+  assert(game.cardArt && game.thumbnail, `${game.id}: generated practice card needs nonblank art`);
+}
 
 if (errors.length) {
   console.error(`All-subject content validation failed (${errors.length} issues):`);
@@ -148,4 +203,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`All-subject content validation OK: ${courses.length} courses, ${apCourses.length} AP/Career AP courses, ${(jeopardy.boards || []).length} Jeopardy blueprints, ${(practice.exams || []).length} practice blueprints.`);
+console.log(`All-subject content validation OK: ${courses.length} courses, ${apCourses.length} AP/Career AP courses, ${(jeopardy.boards || []).length} Jeopardy boards, ${(practice.exams || []).length} practice exams, ${gamesManifest.length} catalog entries, ${sharedQuestionTotal} shared questions.`);

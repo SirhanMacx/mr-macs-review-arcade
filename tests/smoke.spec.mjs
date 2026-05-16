@@ -159,7 +159,9 @@ test("hub exposes expanded all-subject course catalog", async ({ page }) => {
     typeof allCourseLabels === "function" &&
     allCourseLabels().length >= 90 &&
     Array.isArray(GENERATED_JEOPARDY_BLUEPRINTS) &&
-    GENERATED_JEOPARDY_BLUEPRINTS.length >= 600
+    GENERATED_JEOPARDY_BLUEPRINTS.length >= 1900 &&
+    Array.isArray(GAMES) &&
+    GAMES.length >= 2500
   , { timeout: 15000 });
   await dismissWelcome(page);
   expect(errs).toHaveLength(0);
@@ -192,10 +194,16 @@ test("hub exposes expanded all-subject course catalog", async ({ page }) => {
       jeopardyHasAPBiology: jeopardyCourseFilter.includes("AP Biology"),
       jeopardySummary: document.getElementById("jeopardySummary")?.textContent || "",
       firstGeneratedJeopardy: document.querySelector("#jeopardyModes .focus-card")?.dataset.id || "",
-      bankQuestions: window.DIAG_BANK_COVERAGE?.questions || 0
+      bankQuestions: window.DIAG_BANK_COVERAGE?.questions || 0,
+      totalGames: GAMES.length,
+      generatedJeopardyCatalog: GAMES.filter(game => game.isGeneratedJeopardy && game.generatedBoardId).length,
+      generatedPracticeCatalog: GAMES.filter(game => /^generated-(?:practice-exam|unit-practice)-/.test(game.id || "")).length
     };
   });
 
+  expect(state.totalGames).toBeGreaterThanOrEqual(2500);
+  expect(state.generatedJeopardyCatalog).toBeGreaterThanOrEqual(1900);
+  expect(state.generatedPracticeCatalog).toBeGreaterThanOrEqual(700);
   expect(state.courseCount).toBeGreaterThanOrEqual(90);
   expect(state.hasAPBiology).toBe(true);
   expect(state.hasGrade5Math).toBe(true);
@@ -210,7 +218,7 @@ test("hub exposes expanded all-subject course catalog", async ({ page }) => {
   expect(state.jeopardyHasAPBiology).toBe(true);
   expect(state.jeopardySummary).toContain("AP Biology");
   expect(state.firstGeneratedJeopardy).toMatch(/^generated-jeopardy-/);
-  expect(state.bankQuestions).toBeGreaterThanOrEqual(13000);
+  expect(state.bankQuestions).toBeGreaterThanOrEqual(22000);
 });
 
 test("generated all-subject Jeopardy runner loads a playable board", async ({ page }) => {
@@ -222,14 +230,28 @@ test("generated all-subject Jeopardy runner loads a playable board", async ({ pa
   expect(errs).toHaveLength(0);
   const boardState = await page.evaluate(() => ({
     title: document.querySelector("h1")?.textContent.trim() || "",
+    categoryNames: Array.from(document.querySelectorAll(".cat")).map((el) => el.textContent.trim()),
     categories: document.querySelectorAll(".cat").length,
     tiles: document.querySelectorAll(".tile").length,
-    finalEnabled: !document.getElementById("finalBtn")?.disabled
+    dailyDoubles: document.querySelectorAll(".tile.daily").length,
+    finalEnabled: !document.getElementById("finalBtn")?.disabled,
+    hasTypedResponse: Boolean(document.getElementById("responseInput")),
+    hasJudge: Boolean(document.getElementById("judgeBtn"))
   }));
   expect(boardState.title).toContain("AP Biology");
+  expect(boardState.categoryNames).toEqual(["Signals + Receptors", "Cycle Control", "Pathway Evidence", "AP Traps", "AP Transfer"]);
   expect(boardState.categories).toBe(5);
   expect(boardState.tiles).toBe(25);
+  expect(boardState.dailyDoubles).toBe(1);
   expect(boardState.finalEnabled).toBe(true);
+  expect(boardState.hasTypedResponse).toBe(true);
+  expect(boardState.hasJudge).toBe(true);
+  await page.click("#board .tile:not(.daily)");
+  await expect(page.locator("#modal")).toHaveClass(/show/, { timeout: 5000 });
+  await page.fill("#responseInput", "data pattern");
+  await page.click("#judgeBtn");
+  await page.click("#revealAnswer");
+  await expect(page.locator("#answerArea")).toHaveClass(/show/, { timeout: 5000 });
 });
 
 test("generated all-subject practice exam runner loads a playable course exam", async ({ page }) => {
@@ -238,6 +260,7 @@ test("generated all-subject practice exam runner loads a playable course exam", 
   page.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
   await page.goto(`${BASE}/games/generated-practice-exam/?course=ap-biology`, { waitUntil: "domcontentloaded", timeout: 20000 });
   await page.waitForSelector("#courseSelect", { timeout: 10000 });
+  await page.waitForFunction(() => Boolean(document.querySelector('#courseSelect option[value="ap-biology"]')), null, { timeout: 10000 });
   const setup = await page.evaluate(() => ({
     selectedCourse: document.getElementById("courseSelect")?.value || "",
     sourceMeta: document.getElementById("sourceMeta")?.textContent || "",
@@ -248,16 +271,27 @@ test("generated all-subject practice exam runner loads a playable course exam", 
   expect(setup.courseOptions).toBeGreaterThanOrEqual(90);
   await page.click("#startBtn");
   await page.waitForSelector("#examScreen.show .choice", { timeout: 10000 });
+  await page.waitForFunction(() => (document.getElementById("sourcePageImg")?.naturalHeight || 0) > 0, null, { timeout: 10000 });
   const examState = await page.evaluate(() => ({
     title: document.getElementById("title")?.textContent || "",
     choices: document.querySelectorAll("#choices .choice").length,
     writtenPrompts: document.querySelectorAll("#writtenPrompts textarea").length,
-    setupHidden: !document.getElementById("setupScreen")?.classList.contains("show")
+    setupHidden: !document.getElementById("setupScreen")?.classList.contains("show"),
+    sourcePages: document.querySelectorAll("#sourceStrip .source-thumb").length,
+    sourceImage: document.getElementById("sourcePageImg")?.getAttribute("src") || "",
+    sourceNaturalHeight: document.getElementById("sourcePageImg")?.naturalHeight || 0,
+    hasViewerHook: Boolean(document.querySelector("[data-source-viewer] [data-source-page-img]")),
+    hasExpandSource: Boolean(document.getElementById("expandSourceBtn"))
   }));
   expect(examState.title).toContain("AP Biology");
   expect(examState.choices).toBe(4);
   expect(examState.writtenPrompts).toBeGreaterThanOrEqual(3);
   expect(examState.setupHidden).toBe(true);
+  expect(examState.sourcePages).toBeGreaterThanOrEqual(4);
+  expect(examState.sourceImage).toContain("assets/generated-practice-pages/ap-biology/page-");
+  expect(examState.sourceNaturalHeight).toBeGreaterThan(0);
+  expect(examState.hasViewerHook).toBe(true);
+  expect(examState.hasExpandSource).toBe(true);
   expect(errs).toHaveLength(0);
 });
 

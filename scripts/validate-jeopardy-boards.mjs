@@ -46,6 +46,7 @@ function decodePath(value) {
 }
 
 function isJeopardyManifestEntry(game) {
+  if (game.generatedBy === "scripts/generate-all-subject-content.mjs") return false;
   const text = [game.title, game.originalFile, game.file, game.gameType].join(" ").toLowerCase();
   return text.includes("jeopardy") || text.includes("unit review") || UNIT_REVIEW_TYPES.has(game.gameType);
 }

@@ -83,7 +83,7 @@
       font-size: 12px;
     }
     .btn.primary { background: rgba(255,209,92,.18); border-color: rgba(255,209,92,.55); color: var(--gold); }
-    .exam { display: none; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; }
+    .exam { display: none; grid-template-columns: minmax(0, 1fr) 380px; gap: 14px; }
     .exam.show { display: grid; }
     .question { padding: 18px; }
     .hud { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
@@ -133,9 +133,67 @@
     .missed-item { border: 1px solid rgba(255,255,255,.12); border-radius: 9px; padding: 12px; background: rgba(0,0,0,.2); }
     .missed-item p { margin: 6px 0 0; color: var(--muted); line-height: 1.4; }
     .empty { padding: 22px; text-align: center; }
+    .source-viewer {
+      padding: 14px;
+      overflow: hidden;
+    }
+    .source-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .source-toolbar .btn { min-height: 34px; padding: 8px 10px; }
+    .source-stage {
+      max-height: 52vh;
+      overflow: auto;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 9px;
+      background: #efe9d4;
+      padding: 8px;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.18);
+    }
+    .official-page-image {
+      width: 100%;
+      max-width: none;
+      border-radius: 4px;
+      box-shadow: 0 10px 34px rgba(0,0,0,.28);
+      transform-origin: top left;
+      transition: transform .16s ease;
+    }
+    .source-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 9px;
+    }
+    .source-thumb {
+      min-height: 42px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 7px;
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 11px;
+    }
+    .source-thumb.active {
+      border-color: rgba(255,209,92,.65);
+      color: var(--gold);
+      background: rgba(255,209,92,.14);
+    }
+    .source-note {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
     @media (max-width: 860px) {
       .form-grid, .exam.show { grid-template-columns: 1fr; }
       .topbar { align-items: stretch; flex-direction: column; }
+      .source-stage { max-height: 44vh; }
     }
   </style>
 </head>
@@ -153,7 +211,9 @@
     <section class="panel setup show" id="setupScreen">
       <div class="form-grid">
         <label>Course
-          <select id="courseSelect"></select>
+          <select id="courseSelect">
+            <option value="">Loading course exams...</option>
+          </select>
         </label>
         <label>Length
           <select id="lengthSelect">
@@ -170,7 +230,7 @@
         </label>
       </div>
       <p class="meta" id="sourceMeta"></p>
-      <button class="btn primary" id="startBtn" type="button">Start Practice Exam</button>
+      <button class="btn primary" id="startBtn" type="button" disabled>Start Practice Exam</button>
     </section>
     <section class="exam" id="examScreen">
       <article class="panel question">
@@ -190,6 +250,24 @@
         </div>
       </article>
       <aside class="side">
+        <section class="panel source-viewer" data-source-viewer>
+          <div class="source-toolbar">
+            <div>
+              <h2 style="margin:0">Source Pages</h2>
+              <p class="source-note" id="sourcePageLabel">Zoomable practice packet</p>
+            </div>
+            <div class="hud">
+              <button class="btn" id="prevSourceBtn" type="button">Prev</button>
+              <button class="btn" id="nextSourceBtn" type="button">Next</button>
+              <button class="btn primary" id="expandSourceBtn" type="button">Expand Source</button>
+            </div>
+          </div>
+          <div class="source-stage" id="sourceStage">
+            <img id="sourcePageImg" class="official-page-image" data-source-page-img alt="Practice source page">
+          </div>
+          <div class="source-strip" id="sourceStrip" aria-label="Practice source pages"></div>
+          <p class="source-note" id="sourcePageMeta"></p>
+        </section>
         <section class="panel written">
           <h2>Written Response</h2>
           <div id="writtenPrompts"></div>
@@ -213,10 +291,13 @@
     </section>
   </main>
   <script src="../../assets/shared-question-bank.js?v=20260516-course-depth-v2"></script>
+  <script src="../../assets/document-viewer.js?v=20260516-generated-practice-pages"></script>
   <script>
     const params = new URLSearchParams(location.search);
     const requestedCourse = params.get("course") || "";
-    const state = { exams: [], exam: null, items: [], index: 0, selected: "", correct: 0, answered: false, missed: [] };
+    const requestedUnit = params.get("unit") || "";
+    const shouldAutorun = params.get("autorun") === "1";
+    const state = { exams: [], exam: null, items: [], index: 0, selected: "", correct: 0, answered: false, missed: [], sourceIndex: 0, sourceZoom: 1 };
     const $ = (sel) => document.querySelector(sel);
     function esc(value) {
       return String(value == null ? "" : value)
@@ -249,7 +330,8 @@
       if (!exam) return;
       const sourceIds = (exam.officialSourceIds || []).join(", ") || "course bank";
       const sections = (exam.sectionPlan || []).map((s) => s.label + " (" + s.count + ")").join(" - ");
-      $("#sourceMeta").textContent = [exam.standardsFramework, sections, sourceIds].filter(Boolean).join(" - ");
+      const pages = exam.sourcePages?.length ? exam.sourcePages.length + " zoomable source pages" : "";
+      $("#sourceMeta").textContent = [exam.standardsFramework, sections, sourceIds, pages].filter(Boolean).join(" - ");
     }
     function populateCourses() {
       const options = state.exams.slice().sort((a, b) => a.courseLabel.localeCompare(b.courseLabel, undefined, { numeric: true }))
@@ -257,19 +339,27 @@
       $("#courseSelect").innerHTML = options;
       const requested = examByCourse(requestedCourse);
       if (requested) $("#courseSelect").value = requested.courseId;
+      $("#startBtn").disabled = !state.exams.length;
       updateSourceMeta();
+      if (shouldAutorun && requested) {
+        const length = Math.max(10, Math.min(20, (requested.units?.find((unit) => unit.unit === requestedUnit)?.sampledQuestionIds || []).length + 8));
+        $("#lengthSelect").value = String([10, 20, 30].reduce((best, value) => Math.abs(value - length) < Math.abs(best - length) ? value : best, 20));
+        setTimeout(startExam, 80);
+      }
     }
     function buildItems(exam, count) {
       const pool = bankFor(exam.courseId, exam.courseLabel);
       const byId = new Map(pool.map((q) => [q.id, q]));
       const wanted = [];
-      (exam.units || []).forEach((unit) => {
+      const units = requestedUnit ? (exam.units || []).filter((unit) => unit.unit === requestedUnit) : (exam.units || []);
+      units.forEach((unit) => {
         (unit.sampledQuestionIds || []).forEach((id) => {
           const q = byId.get(id);
           if (q && !wanted.includes(q)) wanted.push(Object.assign({ examUnit: unit.unit }, q));
         });
       });
       pool.forEach((q) => {
+        if (requestedUnit && q.topic !== requestedUnit) return;
         if (!wanted.find((item) => item.id === q.id)) wanted.push(q);
       });
       return wanted.slice(0, count).map((q, index) => Object.assign({
@@ -293,6 +383,41 @@
         '</div>'
       ).join("");
     }
+    function sourcePagesForExam() {
+      return Array.isArray(state.exam?.sourcePages) ? state.exam.sourcePages : [];
+    }
+    function pageForQuestion(q) {
+      const pages = sourcePagesForExam();
+      if (!pages.length) return 0;
+      if (requestedUnit) {
+        const unitMatch = pages.findIndex((page) => page.unit === requestedUnit);
+        if (unitMatch >= 0) return unitMatch;
+      }
+      const unit = q?.examUnit || q?.topic || "";
+      const unitMatch = pages.findIndex((page) => page.unit === unit);
+      if (unitMatch >= 0) return unitMatch;
+      if (/written|construct|response/i.test(q?.section || "")) return Math.min(2, pages.length - 1);
+      return Math.min(state.index % pages.length, pages.length - 1);
+    }
+    function renderSourcePages(index = state.sourceIndex) {
+      const pages = sourcePagesForExam();
+      const img = $("#sourcePageImg");
+      const strip = $("#sourceStrip");
+      if (!pages.length || !img || !strip) return;
+      state.sourceIndex = Math.max(0, Math.min(index, pages.length - 1));
+      const page = pages[state.sourceIndex];
+      img.src = "../../" + page.path;
+      img.alt = page.title || "Practice source page";
+      img.style.transform = "scale(" + state.sourceZoom + ")";
+      $("#sourcePageLabel").textContent = (page.title || "Source page") + " - Page " + page.page;
+      $("#sourcePageMeta").textContent = [page.kind, page.sourceLabel, (page.sourceIds || []).join(", ")].filter(Boolean).join(" - ");
+      strip.innerHTML = pages.map((p, i) =>
+        '<button class="source-thumb' + (i === state.sourceIndex ? ' active' : '') + '" type="button" data-page="' + i + '">P' + p.page + '<br>' + esc(p.kind || "Source") + '</button>'
+      ).join("");
+      strip.querySelectorAll("[data-page]").forEach((button) => {
+        button.addEventListener("click", () => renderSourcePages(Number(button.dataset.page)));
+      });
+    }
     function renderQuestion() {
       const q = currentQuestion();
       if (!q) return finishExam();
@@ -303,6 +428,7 @@
       $("#unitText").textContent = q.examUnit || q.topic || q.set || "Course Review";
       $("#sectionText").textContent = (state.exam.sectionPlan && state.exam.sectionPlan[0] && state.exam.sectionPlan[0].label) || "Multiple Choice";
       $("#promptText").textContent = q.prompt;
+      renderSourcePages(pageForQuestion(q));
       $("#explanation").classList.remove("show");
       $("#explanation").textContent = "";
       $("#submitBtn").disabled = false;
@@ -352,11 +478,12 @@
       state.correct = 0;
       state.missed = [];
       $("#title").textContent = state.exam.courseLabel + " Practice Exam";
-      $("#subtitle").textContent = state.exam.standardsFramework + " - " + (state.exam.sourceMode || "course blueprint");
+      $("#subtitle").textContent = state.exam.standardsFramework + " - " + (state.exam.sourceMode || "course blueprint") + (requestedUnit ? " - " + requestedUnit : "");
       $("#setupScreen").classList.remove("show");
       $("#finishScreen").classList.remove("show");
       $("#examScreen").classList.add("show");
       renderWrittenPrompts();
+      renderSourcePages(0);
       renderQuestion();
     }
     function finishExam() {
@@ -381,6 +508,7 @@
         populateCourses();
       } catch (e) {
         $("#setupScreen").classList.remove("show");
+        $("#startBtn").disabled = true;
         $("#emptyScreen").hidden = false;
       }
     }
@@ -392,6 +520,16 @@
     $("#retryBtn").addEventListener("click", () => {
       $("#finishScreen").classList.remove("show");
       $("#setupScreen").classList.add("show");
+    });
+    $("#prevSourceBtn").addEventListener("click", () => renderSourcePages(state.sourceIndex - 1));
+    $("#nextSourceBtn").addEventListener("click", () => renderSourcePages(state.sourceIndex + 1));
+    $("#expandSourceBtn").addEventListener("click", () => {
+      const img = $("#sourcePageImg");
+      if (window.MrMacsDocumentViewer?.openForImage && img) {
+        window.MrMacsDocumentViewer.openForImage(img);
+      } else if (img?.requestFullscreen) {
+        img.requestFullscreen();
+      }
     });
     load();
   </script>

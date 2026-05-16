@@ -16,13 +16,17 @@ def load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def strip_query(path: str) -> str:
+    return re.split(r"[?#]", path or "", maxsplit=1)[0]
+
+
 def check_games_manifest() -> list[str]:
     errors: list[str] = []
     games_path = ROOT / "games.json"
     games = load_json(games_path)
     for game in games:
         raw = game.get("file", "")
-        decoded = unquote(raw)
+        decoded = unquote(strip_query(raw))
         target = ROOT / decoded
         if not target.exists():
             errors.append(f"Missing game file: {game.get('id')} -> {raw} (decoded: {decoded})")
@@ -344,7 +348,7 @@ def check_game_thumbnails() -> list[str]:
         game_id = game.get("id")
         if not game_id:
             continue
-        thumb = ROOT / "assets" / "game-thumbnails" / f"{game_id}.webp"
+        thumb = ROOT / game.get("thumbnail") if game.get("thumbnail") else ROOT / "assets" / "game-thumbnails" / f"{game_id}.webp"
         if not thumb.exists():
             errors.append(f"Missing game thumbnail: {thumb.relative_to(ROOT)}")
         elif thumb.stat().st_size < 1024:
@@ -363,6 +367,16 @@ def check_generated_asset_manifest() -> list[str]:
     for game in games:
         game_id = game.get("id")
         if not game_id:
+            continue
+        if game.get("generatedBy") == "scripts/generate-all-subject-content.mjs":
+            for key in ["thumbnail", "cardArt"]:
+                rel = game.get(key)
+                if not rel:
+                    errors.append(f"Generated catalog entry missing shared {key}: {game_id}")
+                    continue
+                asset = ROOT / rel
+                if not asset.exists():
+                    errors.append(f"Generated catalog shared {key} missing: {game_id} -> {rel}")
             continue
         entry = entries.get(game_id)
         if not entry:

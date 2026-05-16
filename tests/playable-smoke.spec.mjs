@@ -77,6 +77,8 @@ const INPUTS_FP  = path.join(TESTS_DIR, "per-game-inputs.json");
 
 const BASE = process.env.ARCADE_BASE || "http://localhost:8765";
 const PLAY_MS = parseInt(process.env.ARCADE_PLAY_MS || "30000", 10);
+const CAPTURE_SCREENSHOTS = process.env.ARCADE_SKIP_SCREENSHOTS !== "1";
+const CHROMIUM_EXECUTABLE_PATH = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || "";
 
 const GAMES = [
   "step-pyramid",
@@ -96,12 +98,21 @@ const ARCADE_FONT_BAD  = /(Fraunces|Rajdhani|Inter|JetBrains Mono)/i;
 
 const INPUTS = JSON.parse(fs.readFileSync(INPUTS_FP, "utf8"));
 
-if (!fs.existsSync(SHOT_DIR)) fs.mkdirSync(SHOT_DIR, { recursive: true });
+if (CAPTURE_SCREENSHOTS && !fs.existsSync(SHOT_DIR)) fs.mkdirSync(SHOT_DIR, { recursive: true });
 
 // ---------- helpers ----------
 
 function relShot(game, state) {
   return path.join(SHOT_DIR, `${game}-${state}.png`);
+}
+
+async function maybeScreenshot(page, result, game, state) {
+  if (!CAPTURE_SCREENSHOTS) {
+    result.screenshots[state] = "skipped";
+    return;
+  }
+  result.screenshots[state] = relShot(game, state);
+  await page.screenshot({ path: result.screenshots[state], fullPage: false });
 }
 
 async function captureFonts(page) {
@@ -271,8 +282,7 @@ async function runGame(browser, game) {
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 15000 });
     await sleep(800); // settle for arcade-cabinet-fx boot etc.
     result.timings.loaded = Date.now() - tStart;
-    result.screenshots.setup = relShot(game, "setup");
-    await page.screenshot({ path: result.screenshots.setup, fullPage: false });
+    await maybeScreenshot(page, result, game, "setup");
 
     // 2. Fonts (assert arcade typography on initial setup screen)
     result.fonts = await captureFonts(page);
@@ -321,16 +331,13 @@ async function runGame(browser, game) {
     const slice3 = Math.max(PLAY_MS - slice1 - slice2, 0);
 
     await driveInput(page, game, slice1);
-    result.screenshots.play5s = relShot(game, "play-5s");
-    await page.screenshot({ path: result.screenshots.play5s, fullPage: false });
+    await maybeScreenshot(page, result, game, "play-5s");
 
     await driveInput(page, game, slice2);
-    result.screenshots.play15s = relShot(game, "play-15s");
-    await page.screenshot({ path: result.screenshots.play15s, fullPage: false });
+    await maybeScreenshot(page, result, game, "play-15s");
 
     await driveInput(page, game, slice3);
-    result.screenshots.end = relShot(game, "end");
-    await page.screenshot({ path: result.screenshots.end, fullPage: false });
+    await maybeScreenshot(page, result, game, "end");
 
     // 6. Toast overlap check (at the end, when toasts most likely to have fired)
     result.toast = await checkToastOverlap(page);
@@ -367,7 +374,12 @@ async function runGame(browser, game) {
 
 (async () => {
   console.log(`[playable-smoke] base=${BASE} games=${GAMES.length} play_ms=${PLAY_MS}`);
-  const browser = await chromium.launch({ headless: true });
+  if (!CAPTURE_SCREENSHOTS) {
+    console.log("[playable-smoke] screenshots disabled by ARCADE_SKIP_SCREENSHOTS=1");
+  }
+  const launchOptions = { headless: true };
+  if (CHROMIUM_EXECUTABLE_PATH) launchOptions.executablePath = CHROMIUM_EXECUTABLE_PATH;
+  const browser = await chromium.launch(launchOptions);
   const results = [];
   let passed = 0;
 
@@ -397,7 +409,7 @@ async function runGame(browser, game) {
   fs.writeFileSync(REPORT_FP, JSON.stringify(report, null, 2));
   console.log(`\n[playable-smoke] ${passed}/${GAMES.length} passed`);
   console.log(`[playable-smoke] report: ${REPORT_FP}`);
-  console.log(`[playable-smoke] screenshots: ${SHOT_DIR}`);
+  console.log(`[playable-smoke] screenshots: ${CAPTURE_SCREENSHOTS ? SHOT_DIR : "disabled"}`);
 
   process.exit(passed === GAMES.length ? 0 : 1);
 })();

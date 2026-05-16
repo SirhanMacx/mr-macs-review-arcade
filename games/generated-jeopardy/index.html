@@ -2,112 +2,193 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Course Jeopardy - Mr. Mac's Review Arcade</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #090806;
-      --panel: #15100b;
-      --ink: #fff5d7;
-      --muted: #cdbf96;
-      --gold: #ffd15c;
+      --bg: #050812;
+      --panel: rgba(12, 18, 33, .84);
+      --ink: #f8fbff;
+      --muted: #b8c4d8;
+      --gold: #ffd166;
       --cyan: #70e8ff;
       --pink: #ff7bcc;
       --green: #74f0aa;
-      --line: rgba(255, 209, 92, .28);
-      --shadow: 0 18px 60px rgba(0, 0, 0, .55);
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --red: #ff6d7a;
+      --line: rgba(255, 255, 255, .16);
+      --tile: #12315f;
+      --tile2: #4a1f56;
+      --arena: url("../../assets/jeopardy/arena.jpg");
+      --tile-art: url("../../assets/jeopardy/tile-art.jpg");
+      --panel-art: url("../../assets/jeopardy/panel-art.jpg");
+      --board-frame: url("../../assets/jeopardy/board-frame.jpg");
+      --daily-art: url("../../assets/jeopardy/daily-art.jpg");
+      --final-art: url("../../assets/jeopardy/final-art.jpg");
+      --clue-art: url("../../assets/jeopardy/clue-art.jpg");
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
     body {
-      min-height: 100vh;
       margin: 0;
       color: var(--ink);
       background:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 100% 4px,
-        radial-gradient(circle at 20% 0%, rgba(112,232,255,.18), transparent 28%),
-        radial-gradient(circle at 80% 10%, rgba(255,123,204,.15), transparent 30%),
-        linear-gradient(180deg, #16100b, #050403 60%);
+        linear-gradient(180deg, rgba(4,8,18,.28), rgba(4,8,18,.82)),
+        var(--arena) center / cover fixed no-repeat,
+        #050812;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 16%, rgba(255,209,102,.18), transparent 26%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.035), rgba(255,255,255,.035) 1px, transparent 1px, transparent 6px);
+      mix-blend-mode: screen;
+      opacity: .55;
+      z-index: -1;
     }
     a { color: inherit; }
-    button { font: inherit; color: inherit; }
-    .wrap { width: min(1180px, calc(100vw - 24px)); margin: 0 auto; padding: 18px 0 28px; }
+    button, input { font: inherit; color: inherit; }
+    button {
+      border: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button:disabled { cursor: not-allowed; opacity: .45; }
+    .wrap {
+      width: min(1480px, calc(100vw - 24px));
+      margin: 0 auto;
+      padding: 18px 0 34px;
+    }
     .topbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 14px;
     }
-    .back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 13px;
+    .titleblock, .scorebar, .board-wrap, .dialog {
       border: 1px solid var(--line);
-      border-radius: 7px;
-      background: rgba(0, 0, 0, .24);
-      text-decoration: none;
-      font-weight: 900;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      font-size: 12px;
+      background:
+        linear-gradient(135deg, rgba(12,17,29,.58), rgba(8,12,24,.88)),
+        var(--panel-art) center / cover no-repeat,
+        var(--panel);
+      box-shadow: 0 24px 70px rgba(0,0,0,.50), inset 0 0 90px rgba(255,255,255,.035);
+      backdrop-filter: blur(14px) saturate(1.22);
     }
-    .scores { display: flex; gap: 10px; flex-wrap: wrap; }
-    .score {
-      min-width: 124px;
-      padding: 10px 12px;
-      border: 1px solid rgba(112,232,255,.26);
+    .titleblock {
+      min-height: 132px;
+      padding: 20px 22px 18px;
       border-radius: 8px;
-      background: rgba(0, 0, 0, .24);
-    }
-    .score span { display: block; color: var(--muted); font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .12em; }
-    .score strong { font-size: 26px; color: var(--cyan); }
-    .hero {
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: linear-gradient(180deg, rgba(255,209,92,.12), rgba(0,0,0,.22)), var(--panel);
-      box-shadow: var(--shadow);
-      margin-bottom: 18px;
+      overflow: hidden;
     }
     .kicker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
       margin: 0 0 8px;
       color: var(--gold);
       font-size: 12px;
       font-weight: 900;
-      letter-spacing: .16em;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
     h1 {
-      margin: 0;
-      font-size: clamp(26px, 4vw, 48px);
-      line-height: 1.02;
+      margin: 0 0 5px;
+      font-size: clamp(30px, 5vw, 76px);
+      line-height: .95;
       letter-spacing: 0;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(255,209,102,.28), 0 10px 30px rgba(0,0,0,.62);
     }
-    .meta {
-      margin: 10px 0 0;
+    .subtitle {
+      margin: 0;
+      max-width: 960px;
       color: var(--muted);
-      line-height: 1.45;
-      max-width: 900px;
+      font-size: clamp(14px, 1.45vw, 19px);
+      line-height: 1.38;
+    }
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn, .back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 10px 13px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 7px;
+      background: rgba(0,0,0,.30);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .btn.primary { border-color: rgba(255,209,102,.56); background: rgba(255,209,102,.17); color: var(--gold); }
+    .btn.warn { border-color: rgba(255,109,122,.5); background: rgba(255,109,122,.14); color: #ffd7dc; }
+    .scorebar {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+      gap: 10px;
+      align-items: stretch;
+      padding: 10px;
+      border-radius: 9px;
+      margin-bottom: 14px;
+    }
+    .score {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      min-height: 58px;
+      padding: 10px 12px;
+      border: 1px solid rgba(112,232,255,.24);
+      border-radius: 7px;
+      background: rgba(0,0,0,.28);
+    }
+    .score span { display: block; color: var(--muted); font-size: 11px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .score strong { color: var(--cyan); font-size: clamp(25px, 3vw, 38px); line-height: 1; }
+    .score-actions { display: flex; gap: 5px; }
+    .score-actions button {
+      width: 30px;
+      height: 30px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 6px;
+      background: rgba(255,255,255,.06);
+      font-weight: 900;
+    }
+    .board-wrap {
+      position: relative;
+      padding: clamp(12px, 2vw, 28px);
+      border-radius: 12px;
+      background:
+        linear-gradient(180deg, rgba(5,8,18,.58), rgba(5,8,18,.86)),
+        var(--board-frame) center / cover no-repeat,
+        rgba(0,0,0,.40);
     }
     .board {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 8px;
-      padding: 10px;
-      border: 1px solid rgba(112,232,255,.2);
-      border-radius: 12px;
-      background: rgba(0, 0, 0, .34);
-      box-shadow: var(--shadow);
+      gap: clamp(6px, .9vw, 12px);
     }
     .cat, .tile {
-      min-height: 72px;
-      border: 1px solid rgba(255,255,255,.12);
+      min-height: 76px;
+      border: 1px solid rgba(255,255,255,.15);
       border-radius: 8px;
-      background: #14205a;
       text-align: center;
+      overflow: hidden;
     }
     .cat {
       display: flex;
@@ -115,267 +196,489 @@
       justify-content: center;
       padding: 10px;
       color: #fff8d7;
+      font-size: clamp(11px, 1.08vw, 16px);
       font-weight: 1000;
+      line-height: 1.12;
+      letter-spacing: .04em;
       text-transform: uppercase;
-      letter-spacing: .06em;
-      line-height: 1.2;
-      background: linear-gradient(180deg, #24348c, #101a57);
+      background:
+        linear-gradient(180deg, rgba(25,44,128,.76), rgba(12,24,80,.92)),
+        var(--tile-art) center / cover no-repeat;
+      text-shadow: 0 2px 10px rgba(0,0,0,.75);
     }
     .tile {
-      cursor: pointer;
+      position: relative;
+      min-height: clamp(72px, 8vw, 112px);
       color: var(--gold);
-      font-size: clamp(22px, 4vw, 38px);
+      font-size: clamp(24px, 4vw, 45px);
       font-weight: 1000;
-      text-shadow: 0 3px 0 rgba(0,0,0,.35);
-      transition: transform 120ms ease, filter 120ms ease, opacity 120ms ease;
+      background:
+        linear-gradient(145deg, rgba(18,49,95,.64), rgba(74,31,86,.62)),
+        var(--tile-art) center / cover no-repeat;
+      text-shadow: 0 3px 0 rgba(0,0,0,.38), 0 0 20px rgba(255,209,102,.20);
+      transition: transform .16s ease, filter .16s ease, opacity .16s ease;
     }
-    .tile:hover, .tile:focus-visible { transform: translateY(-2px); filter: brightness(1.12); outline: 2px solid var(--cyan); outline-offset: 2px; }
-    .tile.done { opacity: .28; cursor: default; }
-    .tools { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-    .tool {
-      padding: 11px 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 8px;
-      background: rgba(255,255,255,.06);
-      cursor: pointer;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .06em;
+    .tile:hover, .tile:focus-visible {
+      transform: translateY(-2px);
+      filter: brightness(1.14);
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+    .tile.used {
+      color: transparent;
+      opacity: .30;
+      filter: grayscale(.55);
+    }
+    .tile.daily::after {
+      content: "DD";
+      position: absolute;
+      right: 7px;
+      top: 7px;
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: rgba(255,209,102,.20);
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: .04em;
+    }
+    .progress {
+      margin-top: 10px;
+      color: var(--muted);
       font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
     }
-    .tool.primary { border-color: rgba(255,209,92,.55); background: rgba(255,209,92,.16); color: var(--gold); }
     .modal {
       position: fixed;
       inset: 0;
+      z-index: 50;
       display: none;
-      place-items: center;
+      align-items: center;
+      justify-content: center;
       padding: 18px;
       background: rgba(0,0,0,.78);
-      z-index: 20;
     }
-    .modal.show { display: grid; }
+    .modal.show { display: flex; }
     .dialog {
-      width: min(760px, 100%);
-      max-height: min(720px, 92vh);
+      width: min(900px, 100%);
+      max-height: min(820px, 92vh);
       overflow: auto;
-      border: 1px solid rgba(255,209,92,.36);
       border-radius: 12px;
-      background: linear-gradient(180deg, #19130d, #080605);
-      box-shadow: var(--shadow);
-      padding: 20px;
+      padding: clamp(17px, 3vw, 28px);
+      background:
+        linear-gradient(180deg, rgba(9,14,30,.74), rgba(7,10,20,.95)),
+        var(--clue-art) center / cover no-repeat,
+        #080d1a;
     }
-    .clue-text { font-size: clamp(20px, 3.2vw, 34px); line-height: 1.25; margin: 8px 0 16px; }
-    .answer {
+    .modal[data-mode="daily"] .dialog {
+      background:
+        linear-gradient(180deg, rgba(8,6,14,.50), rgba(8,6,14,.94)),
+        var(--daily-art) center / cover no-repeat,
+        #09070b;
+    }
+    .modal[data-mode="final"] .dialog {
+      background:
+        linear-gradient(180deg, rgba(6,8,18,.46), rgba(6,8,18,.95)),
+        var(--final-art) center / cover no-repeat,
+        #070914;
+    }
+    .clue-text {
+      min-height: 164px;
+      display: grid;
+      place-items: center;
+      margin: 10px 0 16px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 9px;
+      background: rgba(4,8,20,.58);
+      color: #fff8d7;
+      font-size: clamp(24px, 4vw, 42px);
+      line-height: 1.2;
+      text-align: center;
+      text-shadow: 0 3px 20px rgba(0,0,0,.72);
+    }
+    .response-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: end;
+      margin: 12px 0;
+    }
+    .response-grid label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .response-grid input, .wager-grid input {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 7px;
+      background: rgba(0,0,0,.44);
+      padding: 10px 12px;
+    }
+    .wager-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 10px 0 14px;
+    }
+    .answer-box {
       display: none;
       margin-top: 14px;
       padding: 14px;
       border: 1px solid rgba(112,232,255,.28);
       border-radius: 9px;
-      background: rgba(112,232,255,.08);
-      line-height: 1.45;
+      background: rgba(7,15,32,.76);
+      line-height: 1.48;
     }
-    .answer.show { display: block; }
-    .answer strong { color: var(--cyan); }
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-    .actions button {
-      padding: 11px 13px;
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 8px;
-      background: rgba(255,255,255,.06);
-      cursor: pointer;
-      font-weight: 900;
+    .answer-box.show { display: block; }
+    .answer-box strong { color: var(--cyan); }
+    .answer-box h3 { margin: 0 0 6px; color: var(--gold); }
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
     }
-    .actions .reveal { background: rgba(255,209,92,.18); color: var(--gold); border-color: rgba(255,209,92,.46); }
-    .actions .score-a { background: rgba(112,232,255,.14); border-color: rgba(112,232,255,.4); }
-    .actions .score-b { background: rgba(255,123,204,.13); border-color: rgba(255,123,204,.36); }
-    .status {
-      margin-top: 12px;
-      min-height: 20px;
+    .judge {
+      min-height: 28px;
+      margin-top: 8px;
       color: var(--green);
       font-weight: 900;
     }
     .empty {
+      width: min(680px, calc(100vw - 32px));
       margin: 20vh auto;
-      width: min(620px, calc(100vw - 32px));
       padding: 24px;
       border: 1px solid var(--line);
       border-radius: 12px;
       background: var(--panel);
       text-align: center;
     }
-    @media (max-width: 760px) {
-      .board { gap: 5px; padding: 6px; }
+    @media (max-width: 860px) {
+      .topbar, .scorebar, .response-grid, .wager-grid { grid-template-columns: 1fr; }
+      .controls { justify-content: flex-start; }
+      .board { gap: 5px; }
       .cat { min-height: 58px; padding: 6px; font-size: 10px; }
-      .tile { min-height: 58px; font-size: 20px; }
-      .topbar { align-items: stretch; flex-direction: column; }
+      .tile { min-height: 58px; font-size: 22px; }
+      .clue-text { min-height: 190px; }
     }
   </style>
 </head>
 <body>
   <main class="wrap">
     <div class="topbar">
-      <a class="back" href="../../index.html#jeopardy">Back to Arcade</a>
-      <div class="scores" aria-label="Team scores">
-        <div class="score"><span>Team A</span><strong id="scoreA">0</strong></div>
-        <div class="score"><span>Team B</span><strong id="scoreB">0</strong></div>
+      <section class="titleblock" id="hero" hidden>
+        <p class="kicker" id="kicker">Course Jeopardy</p>
+        <h1 id="title">Loading board...</h1>
+        <p class="subtitle" id="meta"></p>
+      </section>
+      <div class="controls">
+        <a class="back" href="../../index.html#jeopardy">Back to Arcade</a>
+        <button class="btn primary" id="finalBtn" type="button">Final Jeopardy</button>
+        <button class="btn" id="resetBtn" type="button">Reset Board</button>
       </div>
     </div>
-    <section class="hero" id="hero" hidden>
-      <p class="kicker" id="kicker">Course Jeopardy</p>
-      <h1 id="title">Loading board...</h1>
-      <p class="meta" id="meta"></p>
-      <div class="tools">
-        <button class="tool primary" id="finalBtn" type="button">Final Jeopardy</button>
-        <button class="tool" id="resetBtn" type="button">Reset Board</button>
-      </div>
+    <section class="scorebar" id="scorebar" hidden aria-label="Team scores"></section>
+    <section class="board-wrap" id="boardWrap" hidden aria-label="Review board">
+      <div class="board" id="board"></div>
+      <div class="progress" id="progressStatus">0 of 25 clues complete</div>
     </section>
-    <section class="board" id="board" aria-label="Jeopardy board" hidden></section>
     <section class="empty" id="empty" hidden>
       <h1>Board not found</h1>
-      <p class="meta">Return to the arcade and choose another course board.</p>
+      <p class="subtitle">Return to the arcade and choose another course board.</p>
       <p><a class="back" href="../../index.html#jeopardy">Back to Arcade</a></p>
     </section>
   </main>
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="dialog">
-      <p class="kicker" id="modalKicker"></p>
-      <h2 class="clue-text" id="modalTitle"></h2>
-      <div class="answer" id="answerBox">
-        <p><strong>Answer:</strong> <span id="answerText"></span></p>
+      <p class="kicker" id="modalMeta"></p>
+      <h2 class="clue-text" id="modalTitle">Clue</h2>
+      <div id="wagerPanel" class="wager-grid" hidden>
+        <label>Team A Wager
+          <input id="wagerA" type="number" min="0" step="100" value="500">
+        </label>
+        <label>Team B Wager
+          <input id="wagerB" type="number" min="0" step="100" value="500">
+        </label>
+      </div>
+      <div class="response-grid">
+        <label>Student Response
+          <input id="responseInput" type="text" autocomplete="off" placeholder="Type the response before revealing">
+        </label>
+        <button class="btn primary" id="judgeBtn" type="button">Check</button>
+      </div>
+      <div class="judge" id="judgeStatus" aria-live="polite"></div>
+      <div class="answer-box" id="answerArea">
+        <h3>Answer</h3>
+        <p><strong id="answerText"></strong></p>
+        <h3>Why It Matters</h3>
         <p id="explanationText"></p>
       </div>
-      <div class="actions">
-        <button class="reveal" id="revealBtn" type="button">Reveal Answer</button>
-        <button class="score-a" id="scoreABtn" type="button">Team A Correct</button>
-        <button class="score-b" id="scoreBBtn" type="button">Team B Correct</button>
-        <button id="missBtn" type="button">Mark Missed</button>
-        <button id="closeBtn" type="button">Close</button>
+      <div class="action-row">
+        <button class="btn primary" id="revealAnswer" type="button">Reveal Answer</button>
+        <button class="btn" id="scoreA" type="button">Team A Correct</button>
+        <button class="btn" id="scoreB" type="button">Team B Correct</button>
+        <button class="btn warn" id="missBtn" type="button">Missed</button>
+        <button class="btn" id="closeBtn" type="button">Close</button>
       </div>
-      <div class="status" id="status" aria-live="polite"></div>
     </div>
   </div>
   <script>
     const params = new URLSearchParams(location.search);
     const requestedBoard = params.get("board") || "";
-    const state = { board: null, active: null, scoreA: 0, scoreB: 0, completed: new Set() };
+    const state = {
+      board: null,
+      active: null,
+      used: [],
+      teams: ["Team A", "Team B"],
+      scores: [0, 0],
+      finalPlayed: false
+    };
     const $ = (sel) => document.querySelector(sel);
-    function esc(value) {
-      return String(value == null ? "" : value)
+    function escapeHtml(value) {
+      return String(value ?? "")
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
     }
-    function score(delta, team) {
-      if (team === "a") state.scoreA += delta;
-      if (team === "b") state.scoreB += delta;
-      $("#scoreA").textContent = state.scoreA;
-      $("#scoreB").textContent = state.scoreB;
+    function normalize(value) {
+      return String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
     }
-    function clueKey(categoryIndex, clueIndex) {
-      return categoryIndex + ":" + clueIndex;
+    function compact(value) {
+      return normalize(value).replace(/\s+/g, "");
+    }
+    function diceSimilarity(a, b) {
+      const left = compact(a);
+      const right = compact(b);
+      if (!left || !right) return 0;
+      if (left === right) return 1;
+      if (left.length < 2 || right.length < 2) return left[0] === right[0] ? .35 : 0;
+      const pairs = new Map();
+      for (let i = 0; i < left.length - 1; i++) pairs.set(left.slice(i, i + 2), (pairs.get(left.slice(i, i + 2)) || 0) + 1);
+      let overlap = 0;
+      for (let i = 0; i < right.length - 1; i++) {
+        const pair = right.slice(i, i + 2);
+        const count = pairs.get(pair) || 0;
+        if (count) {
+          pairs.set(pair, count - 1);
+          overlap++;
+        }
+      }
+      return (2 * overlap) / (left.length + right.length - 2);
+    }
+    function answerVariants(clue) {
+      return [clue.answer].concat(clue.aliases || []).filter(Boolean);
+    }
+    function checkAnswer(response, clue) {
+      const typed = normalize(response);
+      if (!typed) return { verdict: "blank", score: 0, message: "Type a response first." };
+      let best = { score: 0, variant: "" };
+      for (const variant of answerVariants(clue)) {
+        const score = diceSimilarity(typed, variant);
+        const typedCompact = compact(typed);
+        const variantCompact = compact(variant);
+        let adjusted = score;
+        if (typedCompact === variantCompact) adjusted = 1;
+        if (typedCompact.length >= 4 && variantCompact.includes(typedCompact)) adjusted = Math.max(adjusted, .9);
+        if (variantCompact.length >= 4 && typedCompact.includes(variantCompact)) adjusted = Math.max(adjusted, .92);
+        if (adjusted > best.score) best = { score: adjusted, variant };
+      }
+      const pct = Math.round(best.score * 100);
+      if (best.score >= .78) return { verdict: "correct", score: best.score, message: `Likely correct (${pct}% match).` };
+      if (best.score <= .38) return { verdict: "wrong", score: best.score, message: `Likely wrong (${pct}% match). Reveal and discuss.` };
+      return { verdict: "judge", score: best.score, message: `Needs judge (${pct}% match).` };
+    }
+    function clueKey(catIndex, clueIndex) {
+      return catIndex + ":" + clueIndex;
+    }
+    function activeValue() {
+      if (!state.active) return 0;
+      if (state.active.mode === "final") return 0;
+      const base = Number(state.active.clue.value || 0);
+      if (state.active.mode === "daily") {
+        const input = state.active.team === 0 ? $("#wagerA") : $("#wagerB");
+        return Math.max(0, Number(input?.value || base || 500));
+      }
+      return base;
+    }
+    function renderScores() {
+      $("#scorebar").hidden = false;
+      $("#scorebar").innerHTML = state.teams.map((name, index) =>
+        '<div class="score"><div><span>' + escapeHtml(name) + '</span><strong>$' + state.scores[index] + '</strong></div>' +
+        '<div class="score-actions"><button type="button" data-score="' + index + '" data-delta="100">+</button><button type="button" data-score="' + index + '" data-delta="-100">-</button></div></div>'
+      ).join("") + '<button class="btn" id="switchTeams" type="button">2 Teams</button>';
+      $("#scorebar").querySelectorAll("[data-score]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const i = Number(button.dataset.score);
+          state.scores[i] += Number(button.dataset.delta || 0);
+          renderScores();
+        });
+      });
     }
     function renderBoard() {
       const board = state.board;
       $("#hero").hidden = false;
-      $("#board").hidden = false;
+      $("#boardWrap").hidden = false;
       $("#empty").hidden = true;
       document.title = board.title + " - Mr. Mac's Review Arcade";
-      $("#kicker").textContent = board.courseLabel + " - " + board.unit;
+      $("#kicker").textContent = [board.courseLabel, board.variantLabel, board.unit].filter(Boolean).join(" - ");
       $("#title").textContent = board.title;
-      $("#meta").textContent = [board.standardsFramework, board.sourceAuthority].filter(Boolean).join(" - ");
+      $("#meta").textContent = [board.standardsFramework, board.sourceAuthority, board.variantFocus].filter(Boolean).join(" - ");
       const categories = (board.categories || []).slice(0, 5);
-      let html = categories.map((cat) => '<div class="cat">' + esc(cat.name) + '</div>').join("");
+      let html = categories.map((cat) => '<div class="cat">' + escapeHtml(cat.name) + '</div>').join("");
+      let tileIndex = 0;
       for (let row = 0; row < 5; row++) {
         categories.forEach((cat, col) => {
           const clue = (cat.clues || [])[row];
           if (!clue) {
-            html += '<button class="tile done" type="button" disabled></button>';
+            html += '<button class="tile used" type="button" disabled></button>';
             return;
           }
           const key = clueKey(col, row);
-          const done = state.completed.has(key);
-          html += '<button class="tile' + (done ? ' done' : '') + '" type="button" data-col="' + col + '" data-row="' + row + '"' + (done ? ' disabled' : '') + '>$' + esc(clue.value) + '</button>';
+          const used = state.used.includes(key);
+          html += '<button class="tile' + (used ? ' used' : '') + (clue.daily ? ' daily' : '') + '" type="button" data-col="' + col + '" data-row="' + row + '" style="--i:' + tileIndex++ + '"' + (used ? ' disabled' : '') + ' aria-label="' + escapeHtml(cat.name + ', $' + clue.value + (clue.daily ? ', Daily Double' : '')) + '">' + (used ? "" : "$" + escapeHtml(clue.value)) + '</button>';
         });
       }
       $("#board").innerHTML = html;
+      $("#progressStatus").textContent = state.used.length + " of 25 clues complete";
+      $("#finalBtn").textContent = state.finalPlayed ? "Final Played" : "Final Jeopardy";
+      $("#finalBtn").disabled = state.finalPlayed;
       document.querySelectorAll(".tile[data-col]").forEach((button) => {
         button.addEventListener("click", () => openClue(Number(button.dataset.col), Number(button.dataset.row)));
       });
     }
+    function openModal(mode) {
+      $("#modal").dataset.mode = mode || "clue";
+      $("#answerArea").classList.remove("show");
+      $("#judgeStatus").textContent = "";
+      $("#responseInput").value = "";
+      $("#wagerPanel").hidden = mode !== "daily" && mode !== "final";
+      $("#modal").classList.add("show");
+      setTimeout(() => $("#responseInput").focus(), 40);
+    }
+    function closeModal() {
+      $("#modal").classList.remove("show");
+      $("#modal").dataset.mode = "";
+    }
     function openClue(col, row) {
-      const cat = state.board.categories[col];
-      const clue = cat.clues[row];
-      state.active = { col, row, clue, category: cat.name };
-      $("#modalKicker").textContent = cat.name + " - $" + clue.value;
-      $("#modalTitle").textContent = clue.clue;
+      const category = state.board.categories[col];
+      const clue = category.clues[row];
+      const mode = clue.daily ? "daily" : "clue";
+      state.active = { mode, col, row, team: Math.max(0, state.used.length % 2), clue, category: category.name };
+      $("#modalMeta").textContent = (clue.daily ? "Daily Double - " : "") + category.name + " - $" + clue.value;
+      $("#modalTitle").textContent = clue.daily ? "Daily Double. Enter a wager, then answer: " + clue.clue : clue.clue;
       $("#answerText").textContent = clue.answer;
       $("#explanationText").textContent = clue.explanation || "";
-      $("#answerBox").classList.remove("show");
-      $("#status").textContent = "";
-      $("#modal").classList.add("show");
-      $("#revealBtn").focus();
+      $("#wagerA").value = Math.max(500, Math.abs(state.scores[0]) || clue.value);
+      $("#wagerB").value = Math.max(500, Math.abs(state.scores[1]) || clue.value);
+      openModal(mode);
     }
-    function completeActive(message) {
-      if (!state.active) return;
-      state.completed.add(clueKey(state.active.col, state.active.row));
-      $("#status").textContent = message || "Marked complete.";
+    function markUsed() {
+      if (!state.active || state.active.mode === "final") return;
+      const key = clueKey(state.active.col, state.active.row);
+      if (!state.used.includes(key)) state.used.push(key);
       renderBoard();
+    }
+    function applyScore(team, correct) {
+      if (!state.active) return;
+      const value = state.active.mode === "final"
+        ? Math.max(0, Number(team === 0 ? $("#wagerA").value : $("#wagerB").value) || 0)
+        : activeValue();
+      state.scores[team] += correct ? value : -value;
+      renderScores();
+      if (state.active.mode === "final") state.finalPlayed = true;
+      markUsed();
+      $("#judgeStatus").textContent = (correct ? state.teams[team] + " scored." : state.teams[team] + " missed.") + " Discuss the explanation before closing.";
     }
     function openFinal() {
       const final = state.board && state.board.final;
-      if (!final) return;
-      state.active = { col: "final", row: "final", clue: { value: 0, clue: final.clue, answer: final.answer, explanation: final.explanation }, category: final.category || "Final Jeopardy" };
-      $("#modalKicker").textContent = final.category || "Final Jeopardy";
+      if (!final || state.finalPlayed) return;
+      state.active = { mode: "final", col: "final", row: "final", team: 0, clue: final, category: final.category || "Final Jeopardy" };
+      $("#modalMeta").textContent = final.category || "Final Jeopardy";
       $("#modalTitle").textContent = final.clue;
       $("#answerText").textContent = final.answer;
       $("#explanationText").textContent = final.explanation || "";
-      $("#answerBox").classList.remove("show");
-      $("#status").textContent = "";
-      $("#modal").classList.add("show");
-      $("#revealBtn").focus();
+      $("#wagerA").value = Math.max(0, state.scores[0]);
+      $("#wagerB").value = Math.max(0, state.scores[1]);
+      openModal("final");
+    }
+    async function loadBoardPayload() {
+      const indexResponse = await fetch("../../data/generated-jeopardy-index.json", { cache: "no-store" });
+      if (indexResponse.ok) {
+        const indexPayload = await indexResponse.json();
+        const summaries = Array.isArray(indexPayload.boards) ? indexPayload.boards : [];
+        const selectedSummary = summaries.find((board) => board.id === requestedBoard) || summaries[0];
+        if (!selectedSummary) throw new Error("no board summaries");
+        const shardPath = selectedSummary.shard || ("data/generated-jeopardy-boards/" + selectedSummary.courseId + ".json");
+        const shardResponse = await fetch("../../" + shardPath.replace(/^\/+/, ""), { cache: "no-store" });
+        if (!shardResponse.ok) throw new Error("board shard unavailable");
+        const shardPayload = await shardResponse.json();
+        const boards = Array.isArray(shardPayload.boards) ? shardPayload.boards : [];
+        const board = boards.find((item) => item.id === selectedSummary.id);
+        if (board) return board;
+      }
+      const response = await fetch("../../data/generated-all-subject-jeopardy-blueprints.json", { cache: "no-store" });
+      if (!response.ok) throw new Error("board data unavailable");
+      const payload = await response.json();
+      const boards = Array.isArray(payload.boards) ? payload.boards : [];
+      return boards.find((board) => board.id === requestedBoard) || boards[0];
     }
     async function load() {
       try {
-        const response = await fetch("../../data/generated-all-subject-jeopardy-blueprints.json", { cache: "no-store" });
-        if (!response.ok) throw new Error("board data unavailable");
-        const payload = await response.json();
-        const boards = Array.isArray(payload.boards) ? payload.boards : [];
-        state.board = boards.find((board) => board.id === requestedBoard) || boards[0];
+        state.board = await loadBoardPayload();
         if (!state.board) throw new Error("no boards");
+        renderScores();
         renderBoard();
       } catch (error) {
         $("#hero").hidden = true;
-        $("#board").hidden = true;
+        $("#scorebar").hidden = true;
+        $("#boardWrap").hidden = true;
         $("#empty").hidden = false;
       }
     }
-    $("#revealBtn").addEventListener("click", () => $("#answerBox").classList.add("show"));
-    $("#scoreABtn").addEventListener("click", () => {
-      if (state.active && state.active.clue.value) score(Number(state.active.clue.value), "a");
-      completeActive("Team A scored.");
+    $("#judgeBtn").addEventListener("click", () => {
+      if (!state.active) return;
+      const result = checkAnswer($("#responseInput").value, state.active.clue);
+      $("#judgeStatus").textContent = result.message;
     });
-    $("#scoreBBtn").addEventListener("click", () => {
-      if (state.active && state.active.clue.value) score(Number(state.active.clue.value), "b");
-      completeActive("Team B scored.");
+    $("#revealAnswer").addEventListener("click", () => $("#answerArea").classList.add("show"));
+    $("#scoreA").addEventListener("click", () => applyScore(0, true));
+    $("#scoreB").addEventListener("click", () => applyScore(1, true));
+    $("#missBtn").addEventListener("click", () => {
+      if (state.active?.mode === "final") {
+        applyScore(0, false);
+        applyScore(1, false);
+      } else {
+        markUsed();
+        $("#judgeStatus").textContent = "Marked missed for review.";
+      }
     });
-    $("#missBtn").addEventListener("click", () => completeActive("Marked for review."));
-    $("#closeBtn").addEventListener("click", () => $("#modal").classList.remove("show"));
+    $("#closeBtn").addEventListener("click", closeModal);
     $("#modal").addEventListener("click", (event) => {
-      if (event.target.id === "modal") $("#modal").classList.remove("show");
+      if (event.target.id === "modal") closeModal();
+    });
+    $("#responseInput").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") $("#judgeBtn").click();
     });
     $("#finalBtn").addEventListener("click", openFinal);
     $("#resetBtn").addEventListener("click", () => {
-      state.completed = new Set();
-      state.scoreA = 0;
-      state.scoreB = 0;
-      $("#scoreA").textContent = "0";
-      $("#scoreB").textContent = "0";
+      state.used = [];
+      state.scores = [0, 0];
+      state.finalPlayed = false;
+      renderScores();
       renderBoard();
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") $("#modal").classList.remove("show");
+      if (event.key === "Escape") closeModal();
     });
     load();
   </script>

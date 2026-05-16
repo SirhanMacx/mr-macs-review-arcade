@@ -5,6 +5,24 @@ All notable changes to Mr. Mac's Review Arcade are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versions are date-based (YYYY-MM-DD) since the arcade ships continuously to GitHub Pages.
 
+## [2026-05-16] — Full All-Subject Catalog + Source Pages
+
+### Added
+- Expanded the generated Jeopardy layer from 664 hidden blueprints to 1,992 cataloged boards: Review, Challenge, and Final Sprint variants for every generated unit.
+- Added 2,746 generated `games.json` entries so all-subject Jeopardy boards, course practice exams, and unit practice forms appear as real arcade surfaces.
+- Generated 360 zoomable SVG practice source pages under `assets/generated-practice-pages/` and attached them to every generated practice-exam blueprint.
+- Expanded the shared arcade question bank to 22,042 prompts, including 3,926 social-studies prompts derived from the mature named Jeopardy boards.
+- Added official source-link and exam-family metadata to every generated state/AP practice blueprint.
+- Added validator coverage that blocks regression to a single hidden generated surface: the all-subject validator now checks thousands-scale catalog exposure, Daily Double count, source page assets, and generated-card art hooks.
+
+### Changed
+- Rebuilt the generated Jeopardy runner with cabinet arena art, typed responses, answer checking, explanations, one Daily Double per board, and Final Jeopardy.
+- Reworked generated board authoring so AP Biology, AP Chemistry, AP Physics, Regents-style math/science, ELA, and other generated courses use Jeopardy-style clue descriptions instead of generic "unit idea" placeholder frames.
+- Raised generated course question depth to 160+ prompts for NYS/non-AP courses and 180+ prompts for AP/AP Career Kickstart courses, with 18+ prompts per unit.
+- Rebuilt the generated practice exam runner with source-page strips, Expand Source, shared document-viewer hooks, and direct course/unit launch links.
+- Hub metadata and service worker cache version now reflect the full 2,967-entry catalog.
+- Generated Jeopardy now loads through a lightweight board index and course shards instead of forcing the 54 MB validation artifact into the first-load cache.
+
 ## [2026-05-16] — Course-Depth Expansion
 
 ### Added
@@ -17,7 +35,7 @@ Versions are date-based (YYYY-MM-DD) since the arcade ships continuously to GitH
 - Generated Jeopardy blueprints now use course/unit-specific clue language instead of generic placeholder clue copy.
 - Generated practice exams now sample at least six questions from every course unit before filling from the wider bank.
 - Shared question-bank script references were cache-busted across game pages so arcade games pull the expanded bank immediately.
-- `npm run validate:content` now guards unit-level question depth, answer-letter distribution, old generic Jeopardy clue copy, practice-exam unit sampling, written tasks, and a 10,000+ generated-question floor.
+- `npm run validate:content` now guards unit-level question depth, answer-letter distribution, old generic Jeopardy clue copy, practice-exam unit sampling, written tasks, and the generated-question floor.
 
 ## [2026-05-16] — Visible All-Subject Course UI
 
@@ -30,7 +48,7 @@ Versions are date-based (YYYY-MM-DD) since the arcade ships continuously to GitH
 - Smoke coverage that asserts AP Biology and other generated courses are visible and playable from the hub UI.
 
 ### Changed
-- Hub metrics and metadata now count the expanded visible course catalog, 221 catalog entries, and the current 13,362-prompt shared bank instead of only the legacy social-studies `games.json` course list.
+- Hub metrics and metadata now count the expanded visible course catalog, 221 catalog entries, and the current generated shared bank instead of only the legacy social-studies `games.json` course list.
 - Service worker cache version bumped for the all-subject UI and generated-Jeopardy runner.
 
 ## [2026-05-15] — All-Subject 5-12/AP Content System

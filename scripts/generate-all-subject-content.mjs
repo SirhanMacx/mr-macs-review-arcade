@@ -18,9 +18,31 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const DATA_DIR = path.join(ROOT, "data");
 const FRAG_DIR = path.join(DATA_DIR, "bank-fragments");
+const JEOPARDY_SHARD_DIR = path.join(DATA_DIR, "generated-jeopardy-boards");
+const PRACTICE_PAGE_DIR = path.join(ROOT, "assets", "generated-practice-pages");
 const VERSION = "20260516-course-depth-v2";
-const NON_AP_ITEMS_PER_UNIT = 14;
-const AP_ITEMS_PER_UNIT = 16;
+const NON_AP_ITEMS_PER_UNIT = 20;
+const AP_ITEMS_PER_UNIT = 22;
+const JEOPARDY_VARIANTS = [
+  {
+    id: "review",
+    label: "Review Board",
+    shortLabel: "Review",
+    focus: "core review, unit vocabulary, and first-pass exam reasoning"
+  },
+  {
+    id: "challenge",
+    label: "Challenge Board",
+    shortLabel: "Challenge",
+    focus: "harder transfer, error analysis, and evidence-based reasoning"
+  },
+  {
+    id: "sprint",
+    label: "Final Sprint Board",
+    shortLabel: "Final Sprint",
+    focus: "fast recall, common traps, and final exam readiness"
+  }
+];
 
 const NYSED_SOURCES = {
   standardsAreas: {
@@ -64,6 +86,10 @@ const SUBJECT_SOURCE = {
   AP: "college-board-ap-courses"
 };
 
+function sourceById(id) {
+  return NYSED_SOURCES[id] || Object.values(NYSED_SOURCES).find((source) => source.id === id) || null;
+}
+
 function slug(value) {
   return String(value || "")
     .toLowerCase()
@@ -83,8 +109,8 @@ function unit(title, concepts, skills, standardRefs = []) {
 function makeCourse({ id, label, subjectArea, gradeBand, standardsFramework, standardsSourceId, assessmentSourceIds = [], units, ap = false, nys = true, minQuestions }) {
   const unitCount = Math.max(1, units.length);
   const depthFloor = ap
-    ? Math.max(120, unitCount * AP_ITEMS_PER_UNIT)
-    : Math.max(96, unitCount * NON_AP_ITEMS_PER_UNIT);
+    ? Math.max(180, unitCount * AP_ITEMS_PER_UNIT)
+    : Math.max(144, unitCount * NON_AP_ITEMS_PER_UNIT);
   const resolvedMinQuestions = Math.max(minQuestions || 0, depthFloor);
   return {
     id,
@@ -538,6 +564,40 @@ const AP_DOMAIN_CONCEPTS = {
   capstone: ["research question", "source credibility", "methodology", "evidence", "limitations", "presentation"]
 };
 
+const AP_UNIT_CONCEPT_OVERRIDES = {
+  "ap-biology": {
+    "Chemistry of Life": ["water polarity", "hydrogen bonding", "carbon skeleton", "macromolecule", "dehydration synthesis", "hydrolysis", "enzyme shape", "structure and function"],
+    "Cell Structure and Function": ["organelle", "phospholipid bilayer", "selective permeability", "diffusion", "osmosis", "surface area-to-volume ratio", "compartmentalization", "membrane transport"],
+    "Cellular Energetics": ["ATP", "enzyme", "photosynthesis", "cellular respiration", "electron transport chain", "chemiosmosis", "energy coupling", "fermentation"],
+    "Cell Communication and Cell Cycle": ["signal transduction", "ligand", "receptor", "second messenger", "phosphorylation cascade", "cell cycle checkpoint", "mitosis", "apoptosis"],
+    "Heredity": ["meiosis", "chromosome", "allele", "segregation", "independent assortment", "crossing over", "genetic variation", "pedigree"],
+    "Gene Expression and Regulation": ["transcription", "translation", "gene regulation", "operon", "mutation", "RNA processing", "epigenetic change", "biotechnology"],
+    "Natural Selection": ["variation", "fitness", "selection pressure", "adaptation", "genetic drift", "gene flow", "speciation", "Hardy-Weinberg equilibrium"],
+    "Ecology": ["population", "community", "ecosystem", "food web", "energy flow", "biogeochemical cycle", "carrying capacity", "biodiversity"]
+  },
+  "ap-chemistry": {
+    "Atomic Structure and Properties": ["photoelectron spectrum", "coulombic attraction", "ionization energy", "atomic radius", "electron configuration", "periodic trend", "isotope", "valence electron"],
+    "Molecular and Ionic Compound Structure": ["ionic lattice", "covalent bond", "Lewis diagram", "formal charge", "resonance", "VSEPR geometry", "bond polarity", "hybridization"],
+    "Intermolecular Forces and Properties": ["London dispersion force", "dipole-dipole attraction", "hydrogen bonding", "vapor pressure", "boiling point", "solubility", "phase change", "particulate model"],
+    "Chemical Reactions": ["net ionic equation", "stoichiometry", "limiting reactant", "redox reaction", "precipitation reaction", "acid-base reaction", "mole ratio", "particle conservation"],
+    "Kinetics": ["reaction rate", "rate law", "activation energy", "catalyst", "collision model", "reaction mechanism", "rate-determining step", "energy profile"],
+    "Thermodynamics": ["enthalpy", "entropy", "Gibbs free energy", "calorimetry", "Hess's law", "bond energy", "spontaneity", "heat transfer"],
+    "Equilibrium": ["equilibrium constant", "reaction quotient", "Le Chatelier's principle", "ICE table", "equilibrium shift", "solubility product", "dynamic equilibrium", "stress"],
+    "Acids and Bases": ["pH", "pKa", "buffer", "titration curve", "equivalence point", "weak acid", "conjugate base", "Henderson-Hasselbalch relationship"],
+    "Applications of Thermodynamics": ["electrochemical cell", "cell potential", "free energy", "galvanic cell", "electrolysis", "oxidation", "reduction", "thermodynamic favorability"]
+  },
+  "ap-physics-1": {
+    "Kinematics": ["position", "velocity", "acceleration", "motion graph", "free fall", "projectile motion", "vector component", "constant acceleration"],
+    "Force and Translational Dynamics": ["net force", "free-body diagram", "friction", "normal force", "tension", "Newton's second law", "system schema", "force pair"],
+    "Work, Energy, and Power": ["work", "kinetic energy", "gravitational potential energy", "spring potential energy", "energy bar chart", "conservation of energy", "power", "dissipated energy"],
+    "Linear Momentum": ["momentum", "impulse", "collision", "conservation of momentum", "center of mass", "elastic collision", "inelastic collision", "momentum transfer"],
+    "Torque and Rotational Dynamics": ["torque", "rotational inertia", "angular acceleration", "lever arm", "rotational equilibrium", "angular velocity", "rolling motion", "rotational kinetic energy"],
+    "Energy and Momentum of Rotating Systems": ["angular momentum", "conservation of angular momentum", "rotational energy", "moment of inertia", "radius change", "rotational collision", "system boundary", "external torque"],
+    "Oscillations": ["simple harmonic motion", "period", "frequency", "amplitude", "restoring force", "spring constant", "pendulum", "energy exchange"],
+    "Fluids": ["density", "pressure", "buoyant force", "continuity equation", "flow rate", "Bernoulli's principle", "fluid column", "displacement volume"]
+  }
+};
+
 function phraseConcepts(title) {
   const clean = String(title || "")
     .replace(/^Period\s+\d+:\s*/i, "")
@@ -564,7 +624,8 @@ function apDomainKey(id) {
 
 function apConceptsFor(id, title) {
   const domain = apDomainKey(id);
-  return uniq([...phraseConcepts(title), ...(AP_DOMAIN_CONCEPTS[domain] || AP_DOMAIN_CONCEPTS.history)]).slice(0, 8);
+  const override = (AP_UNIT_CONCEPT_OVERRIDES[id] && AP_UNIT_CONCEPT_OVERRIDES[id][title]) || [];
+  return uniq([...override, ...phraseConcepts(title), ...(AP_DOMAIN_CONCEPTS[domain] || AP_DOMAIN_CONCEPTS.history)]).slice(0, 10);
 }
 
 function apSkillsFor(id) {
@@ -651,6 +712,286 @@ function articleFor(phrase) {
 
 function compactStandard(course, unitSpec) {
   return (unitSpec.standardRefs && unitSpec.standardRefs[0]) || course.standardsFramework || "course standard";
+}
+
+const CONCEPT_GLOSSES = {
+  "water-polarity": "explains why water forms attractions that shape biological reactions and transport",
+  "hydrogen-bonding": "describes the weak attractions that influence water behavior, DNA pairing, and protein shape",
+  "carbon-skeleton": "forms the chain-like framework that gives organic molecules their structure",
+  macromolecule: "names the large biological molecule built from smaller subunits",
+  "dehydration-synthesis": "builds a larger molecule by removing water",
+  hydrolysis: "breaks a larger molecule by adding water",
+  "enzyme-shape": "controls whether a substrate can fit and a reaction can be catalyzed",
+  organelle: "names a specialized cell structure with a particular job",
+  "phospholipid-bilayer": "forms the flexible double layer of a cell membrane",
+  "selective-permeability": "allows some materials through a membrane while restricting others",
+  diffusion: "moves particles from higher concentration toward lower concentration",
+  osmosis: "moves water across a membrane based on solute concentration",
+  "surface-area-to-volume-ratio": "affects how efficiently a cell can exchange materials",
+  compartmentalization: "separates cell processes into specialized spaces",
+  "membrane-transport": "moves substances across the boundary of a cell",
+  atp: "stores usable chemical energy for cellular work",
+  enzyme: "lowers activation energy so a reaction can happen more efficiently",
+  photosynthesis: "converts light energy into chemical energy stored in sugars",
+  "cellular-respiration": "releases usable energy from organic molecules",
+  "electron-transport-chain": "passes electrons through membrane proteins to help build a proton gradient",
+  chemiosmosis: "uses a proton gradient to drive ATP production",
+  "energy-coupling": "links an energy-releasing process to an energy-requiring process",
+  fermentation: "regenerates electron carriers when oxygen is limited",
+  "signal-transduction": "converts an outside signal into a chain of cellular responses",
+  ligand: "binds to a receptor to start a communication pathway",
+  receptor: "detects a signal and begins the response pathway",
+  "second-messenger": "carries a signal inside the cell after receptor activation",
+  "phosphorylation-cascade": "amplifies a signal through repeated phosphate transfers",
+  "cell-cycle-checkpoint": "halts division until key conditions are met",
+  mitosis: "separates duplicated chromosomes into two identical nuclei",
+  apoptosis: "triggers programmed cell death when cells need to be removed",
+  meiosis: "makes haploid gametes and increases genetic variation",
+  chromosome: "packages DNA into a structure that can be sorted during division",
+  allele: "represents one version of a gene",
+  segregation: "separates allele pairs during gamete formation",
+  "independent-assortment": "sorts chromosome pairs into gametes in different combinations",
+  "crossing-over": "exchanges DNA between homologous chromosomes",
+  "genetic-variation": "provides the differences that inheritance and selection act on",
+  pedigree: "tracks inheritance patterns across generations",
+  transcription: "copies DNA information into RNA",
+  translation: "uses RNA information to build a polypeptide",
+  "gene-regulation": "controls when, where, and how strongly genes are expressed",
+  operon: "coordinates bacterial gene expression through shared control sequences",
+  mutation: "changes genetic information and can alter a trait or protein",
+  "rna-processing": "modifies an RNA transcript before it is translated",
+  "epigenetic-change": "changes gene activity without changing the DNA sequence",
+  biotechnology: "uses biological tools to analyze or modify genetic information",
+  variation: "describes heritable differences among individuals in a population",
+  fitness: "measures reproductive success in a particular environment",
+  "selection-pressure": "makes some inherited traits more or less advantageous",
+  adaptation: "is an inherited trait that improves success in a specific environment",
+  "genetic-drift": "changes allele frequencies by chance, especially in small populations",
+  "gene-flow": "moves alleles between populations through migration",
+  speciation: "forms new species when populations become reproductively isolated",
+  "hardy-weinberg-equilibrium": "models allele frequencies when evolution is not occurring",
+  population: "groups organisms of the same species in the same area",
+  community: "includes interacting populations in an ecosystem",
+  ecosystem: "combines living communities with their physical environment",
+  "food-web": "maps feeding relationships and energy transfer among organisms",
+  "energy-flow": "tracks usable energy as it moves through trophic levels",
+  "biogeochemical-cycle": "moves matter through living systems and Earth reservoirs",
+  "carrying-capacity": "marks the population size an environment can sustain",
+  biodiversity: "captures the variety of life in an area or system",
+  slope: "measures the rate of change between two quantities",
+  "y-intercept": "marks the starting value when the input is zero",
+  "rate-of-change": "shows how one quantity changes compared with another",
+  "linear-model": "represents a constant rate relationship",
+  intersection: "shows where two relationships share the same solution",
+  substitution: "solves a system by replacing one expression with an equivalent one",
+  elimination: "combines equations to remove a variable",
+  parabola: "graphs a quadratic relationship with a turning point",
+  vertex: "marks the maximum or minimum point of a quadratic graph",
+  roots: "show where a function equals zero",
+  "growth-rate": "describes how fast a quantity increases over time",
+  scatterplot: "displays paired data to reveal a possible association",
+  correlation: "describes the direction and strength of an association",
+  residual: "measures how far a data point is from a model's prediction",
+  "claim": "states the argument or conclusion that evidence must support",
+  evidence: "provides details from text, data, source, or observation to support a claim",
+  reasoning: "explains why the evidence supports the claim",
+  "central-idea": "captures the main point developed across an informational text",
+  theme: "names a larger message developed through a literary work",
+  "point-of-view": "shows how a narrator or speaker's position shapes meaning",
+  "text-structure": "organizes information so readers can follow the author's thinking",
+  "author-purpose": "explains why a text was written and how choices serve that goal"
+};
+
+const SKILL_GLOSSES = {
+  "use-models": "represent a process or system so relationships can be tested",
+  "analyze-data": "look for patterns, units, limits, and outliers before making a claim",
+  "justify-claims-with-evidence": "pair a claim with evidence and reasoning",
+  "represent-relationships": "move between words, tables, graphs, symbols, and diagrams",
+  "justify-procedures": "explain why each step is valid, not just what step was used",
+  "interpret-parameters": "connect numbers or symbols to what they mean in context",
+  "cite-textual-evidence": "use exact details from a text to support an interpretation",
+  "infer-theme": "use details to identify a message that is not stated directly",
+  "trace-argument": "follow how claims, reasons, and evidence build a case",
+  "source-evidence": "use origin, purpose, audience, and context to read a document",
+  contextualize: "place evidence inside the broader time, place, or situation",
+  corroborate: "compare evidence across sources before accepting a claim",
+  "trace-algorithms": "step through instructions to predict output or locate an error",
+  "debug-logic": "find and correct the part of a process that breaks the intended result"
+};
+
+const EVIDENCE_GLOSSES = {
+  "data-table-diagram-or-model": "presents measurements, structures, or relationships students must interpret",
+  "graph-table-or-equation": "shows a relationship in a form that can be calculated or interpreted",
+  "text-excerpt": "contains language choices and details that must be cited",
+  "source-scenario-or-data-set": "gives the context or proof students need for the answer",
+  "claim-evidence-link": "connects a conclusion to the proof that supports it",
+  "model-limitation": "identifies what a representation leaves out or simplifies",
+  "context-clue": "uses surrounding information to figure out meaning",
+  "source-pattern": "shows a repeated detail, trend, or perspective across evidence"
+};
+
+const TRAP_GLOSSES = {
+  "familiar-word-trap": "picks an answer because it repeats vocabulary while ignoring the task",
+  "unsupported-claim": "states an answer without proof from the source, data, or model",
+  "wrong-unit-transfer": "uses a rule or fact from another unit where it does not fit",
+  "ignored-evidence": "answers from memory before reading the stimulus",
+  overgeneralization: "turns a limited pattern into a claim that is too broad",
+  "misread-task": "answers a different question from the one being asked",
+  "wrong-representation": "uses the wrong graph, diagram, model, or equation for the task",
+  "distractor-trap": "falls for an answer that sounds academic but does not match the evidence",
+  "unit-mix-up": "confuses two related concepts from different parts of the course",
+  "absolute-wording": "misses how words like always or never can make a claim too strong",
+  "partial-answer": "names one correct detail but leaves out the reasoning that earns full credit"
+};
+
+const APPLICATION_GLOSSES = {
+  "new-scenario": "asks students to apply the idea in an unfamiliar setting",
+  "multi-step-reasoning": "requires more than one linked decision before the answer is complete",
+  "constructed-response": "requires a claim, evidence, and explanation rather than a single choice",
+  "comparison-task": "asks students to explain similarities, differences, or trade-offs",
+  "real-world-application": "uses the course idea to make sense of a practical situation",
+  "performance-task": "asks students to produce, design, solve, or explain a complete response",
+  "exam-transfer": "checks whether a review idea works on a new released-style question",
+  "course-theme": "connects the unit to a larger idea that recurs across the course",
+  "unit-connection": "links two ideas so the answer is more than isolated vocabulary",
+  "student-explanation": "turns a correct answer into a clear reason someone else could follow",
+  "final-review-move": "summarizes the idea students should carry into the next assessment"
+};
+
+function extraDomainTerms(course) {
+  const subject = course.subjectArea;
+  if (/Math|Mathematics|Statistics|Calculus/.test(subject)) return ["graph", "table", "equation", "model", "constraint", "parameter"];
+  if (/Science|Physics|Chemistry|Biology|Environmental/.test(subject)) return ["data pattern", "model", "system", "variable", "evidence", "experimental design"];
+  if (/ELA|English/.test(subject)) return ["claim", "evidence", "inference", "author craft", "theme", "line of reasoning"];
+  if (/Languages/.test(subject)) return ["authentic source", "audience", "register", "cultural context", "message", "proficiency"];
+  if (/Arts/.test(subject)) return ["composition", "technique", "intent", "audience", "materials", "revision"];
+  if (/Computer|Technology/.test(subject)) return ["algorithm", "data", "system", "debugging", "security", "impact"];
+  if (/Health|Physical/.test(subject)) return ["scenario", "decision", "risk", "evidence", "wellness plan", "safety"];
+  if (/Finance|Family|CDOS|Business|Economics/.test(subject)) return ["trade-off", "incentive", "budget", "case study", "risk", "decision"];
+  return ["evidence", "context", "claim", "source", "comparison", "application"];
+}
+
+function glossaryKey(value) {
+  return slug(String(value || "").replace(/\./g, ""));
+}
+
+function domainFallbackGloss(course, unitSpec, kind) {
+  const subject = course.subjectArea;
+  if (kind === "skill") return "choose evidence, apply the right process, and explain the result";
+  if (kind === "evidence") return "gives students the proof or representation they need before answering";
+  if (kind === "trap") return "makes an answer look correct while breaking the task directions";
+  if (kind === "application") return "moves the unit idea into a new assessment context";
+  if (/Math|Mathematics|Statistics|Calculus/.test(subject)) return "describes the quantity, relationship, or representation needed to solve the problem";
+  if (/Science|Physics|Chemistry|Biology|Environmental/.test(subject)) return "describes the structure, process, or system evidence behind the observed pattern";
+  if (/ELA|English/.test(subject)) return "describes the reading or writing choice that connects evidence to meaning";
+  if (/Languages/.test(subject)) return "describes the communication choice that fits the message, audience, and culture";
+  if (/Arts/.test(subject)) return "describes the artistic choice that shapes meaning, technique, or audience response";
+  if (/Computer|Technology/.test(subject)) return "describes the system, data, or logic needed to predict the result";
+  if (/Health|Physical/.test(subject)) return "describes the safe and evidence-based choice in the scenario";
+  if (/Finance|Family|CDOS|Business|Economics/.test(subject)) return "describes the decision, trade-off, or incentive in the scenario";
+  return `describes the key idea students use to explain ${unitSpec.title}`;
+}
+
+function clueGloss(answer, kind, course, unitSpec) {
+  const key = glossaryKey(answer);
+  const tables = kind === "skill" ? [SKILL_GLOSSES, CONCEPT_GLOSSES]
+    : kind === "evidence" ? [EVIDENCE_GLOSSES, CONCEPT_GLOSSES]
+      : kind === "trap" ? [TRAP_GLOSSES]
+        : kind === "application" ? [APPLICATION_GLOSSES]
+          : [CONCEPT_GLOSSES, SKILL_GLOSSES];
+  for (const table of tables) {
+    if (table[key]) return table[key];
+  }
+  return domainFallbackGloss(course, unitSpec, kind);
+}
+
+function ensureFive(items, fallback) {
+  return uniq(items.concat(fallback)).slice(0, 5);
+}
+
+function unitProfile(course, unitSpec) {
+  const artifactKey = glossaryKey(courseArtifact(course));
+  const domain = course.ap ? apDomainKey(course.id) : "";
+  const domainConcepts = domain ? AP_DOMAIN_CONCEPTS[domain] || [] : [];
+  const terms = uniq(
+    unitSpec.concepts
+      .filter((concept) => slug(concept) !== slug(unitSpec.title))
+      .concat(extraDomainTerms(course), phraseConcepts(unitSpec.title), domainConcepts, unitSpec.concepts)
+  ).slice(0, 10);
+  while (terms.length < 5) terms.push(unitSpec.title);
+  const skills = ensureFive(unitSpec.skills, ["use evidence", "analyze data", "justify claims with evidence", "interpret context", "explain reasoning"]);
+  const evidence = ensureFive(
+    [courseArtifact(course), "claim-evidence link", "model limitation", "context clue", "source pattern"],
+    [artifactKey, "data pattern", "task context", "rubric language", "worked example"]
+  );
+  const traps = ensureFive(
+    ["familiar-word trap", "unsupported claim", "wrong-unit transfer", "ignored evidence", "overgeneralization"],
+    ["misread task", "wrong representation", "distractor trap", "unit mix-up", "partial answer"]
+  );
+  const applications = ensureFive(
+    ["new scenario", "multi-step reasoning", "constructed response", "comparison task", "real-world application"],
+    ["performance task", "exam transfer", "course theme", "unit connection", "student explanation"]
+  );
+  return { terms, skills, evidence, traps, applications };
+}
+
+function titleCaseCompact(value) {
+  const keepSmall = new Set(["and", "or", "of", "to", "for", "in", "the", "a", "an"]);
+  return String(value || "")
+    .replace(/[-_]+/g, " ")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 4)
+    .map((word, index) => {
+      const lower = word.toLowerCase();
+      if (index > 0 && keepSmall.has(lower)) return lower;
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(" ");
+}
+
+function categoryPairName(a, b, fallback) {
+  const first = titleCaseCompact(a);
+  const second = titleCaseCompact(b);
+  if (first && second && first !== second) return `${first} + ${second}`;
+  return first || second || fallback;
+}
+
+function boardCategoryNameOverrides(course, unitSpec) {
+  const byCourse = {
+    "ap-biology": {
+      "Chemistry of Life": ["Water + Bonds", "Macromolecules", "Lab Evidence", "Biochem Traps", "AP Transfer"],
+      "Cell Structure and Function": ["Membranes", "Organelles", "Cell Models", "Transport Traps", "AP Transfer"],
+      "Cellular Energetics": ["ATP + Enzymes", "Photosynthesis", "Respiration Data", "Energy Traps", "AP Transfer"],
+      "Cell Communication and Cell Cycle": ["Signals + Receptors", "Cycle Control", "Pathway Evidence", "AP Traps", "AP Transfer"],
+      "Heredity": ["Meiosis", "Inheritance Patterns", "Genetic Evidence", "Crossing Traps", "AP Transfer"],
+      "Gene Expression and Regulation": ["DNA to Protein", "Gene Control", "Biotech Evidence", "Expression Traps", "AP Transfer"],
+      "Natural Selection": ["Selection", "Population Genetics", "Evolution Evidence", "Adaptation Traps", "AP Transfer"],
+      "Ecology": ["Populations", "Ecosystems", "Ecology Data", "Food-Web Traps", "AP Transfer"]
+    },
+    "ap-chemistry": {
+      "Atomic Structure and Properties": ["Atoms + Spectra", "Periodic Trends", "Particle Evidence", "Trend Traps", "AP Transfer"],
+      "Molecular and Ionic Compound Structure": ["Bonding", "Molecular Shape", "Lewis Evidence", "Structure Traps", "AP Transfer"],
+      "Intermolecular Forces and Properties": ["Forces", "Properties", "Particulate Evidence", "IMF Traps", "AP Transfer"],
+      "Chemical Reactions": ["Reaction Types", "Stoichiometry", "Equation Evidence", "Reaction Traps", "AP Transfer"],
+      "Kinetics": ["Rate Laws", "Mechanisms", "Kinetics Data", "Rate Traps", "AP Transfer"],
+      "Thermodynamics": ["Energy", "Entropy", "Calorimetry Evidence", "Thermo Traps", "AP Transfer"],
+      "Equilibrium": ["Equilibrium", "Shifts", "ICE Evidence", "Equilibrium Traps", "AP Transfer"],
+      "Acids and Bases": ["pH + pKa", "Titrations", "Curve Evidence", "Acid-Base Traps", "AP Transfer"],
+      "Applications of Thermodynamics": ["Electrochemistry", "Free Energy", "Cell Evidence", "Redox Traps", "AP Transfer"]
+    },
+    "ap-physics-1": {
+      "Kinematics": ["Motion Graphs", "Vectors", "Graph Evidence", "Kinematics Traps", "AP Transfer"],
+      "Force and Translational Dynamics": ["Forces", "Diagrams", "System Evidence", "Newton Traps", "AP Transfer"],
+      "Work, Energy, and Power": ["Work + Energy", "Conservation", "Energy Evidence", "Energy Traps", "AP Transfer"],
+      "Linear Momentum": ["Impulse", "Collisions", "Momentum Evidence", "System Traps", "AP Transfer"],
+      "Torque and Rotational Dynamics": ["Torque", "Rotation", "Rotational Evidence", "Torque Traps", "AP Transfer"],
+      "Energy and Momentum of Rotating Systems": ["Angular Momentum", "Rotational Energy", "System Evidence", "Rotation Traps", "AP Transfer"],
+      "Oscillations": ["SHM", "Period + Frequency", "Oscillation Evidence", "SHM Traps", "AP Transfer"],
+      "Fluids": ["Pressure", "Flow", "Fluid Evidence", "Fluid Traps", "AP Transfer"]
+    }
+  };
+  return byCourse[course.id]?.[unitSpec.title] || null;
 }
 
 function choiceSet(correct, pool, seed) {
@@ -833,67 +1174,335 @@ function buildQuestions(course) {
   return out.slice(0, course.minQuestions);
 }
 
-function buildJeopardyBoard(course, unitSpec, unitIndex) {
-  const artifact = courseArtifact(course);
-  const move = reasoningMove(course);
-  const standard = compactStandard(course, unitSpec);
-  const categorySpecs = [
-    ["Core Terms", unitSpec.concepts],
-    ["Reasoning Moves", unitSpec.skills],
-    ["Evidence or Models", [artifact, "data pattern", "source detail", "worked example", "task context"]],
-    ["Common Traps", ["familiar-word trap", "unsupported claim", "wrong-unit transfer", "ignored evidence", "overgeneralization"]],
-    ["Applications", ["new scenario", "constructed response", "performance task", "exam transfer", "real-world decision"]]
+function answerAliases(answer) {
+  const base = String(answer || "").trim();
+  const variants = [
+    base,
+    base.toLowerCase(),
+    base.replace(/\band\b/gi, "&"),
+    base.replace(/&/g, "and"),
+    base.replace(/\bU\.S\.\b/g, "US"),
+    base.replace(/\bUnited States\b/g, "U.S."),
+    base.replace(/\s+/g, " ")
+  ].filter(Boolean);
+  return uniq(variants);
+}
+
+function valueSkill(value) {
+  if (value <= 100) return "identify the idea accurately";
+  if (value <= 200) return "match the idea to a course context";
+  if (value <= 300) return "explain the reasoning behind the idea";
+  if (value <= 400) return "use evidence, data, or text to defend the idea";
+  return "transfer the idea to a harder exam-style situation";
+}
+
+function boardCategorySpecs(course, unitSpec, variant) {
+  const profile = unitProfile(course, unitSpec);
+  const overrideNames = boardCategoryNameOverrides(course, unitSpec);
+  const termA = ensureFive(profile.terms.slice(0, 5), profile.terms);
+  const termB = ensureFive(profile.terms.slice(5), profile.terms.slice(1).concat(profile.terms));
+  const names = overrideNames || [
+    categoryPairName(termA[0], termA[1], `${titleCaseCompact(unitSpec.title)} Terms`),
+    categoryPairName(termB[0], termB[1], `${titleCaseCompact(unitSpec.title)} Connections`),
+    /Math|Mathematics|Statistics|Calculus/.test(course.subjectArea) ? "Representations" :
+      /Science|Physics|Chemistry|Biology|Environmental/.test(course.subjectArea) ? "Models + Data" :
+        /ELA|English|Languages/.test(course.subjectArea) ? "Texts + Evidence" :
+          /Arts/.test(course.subjectArea) ? "Works + Choices" :
+            /Computer|Technology/.test(course.subjectArea) ? "Systems + Data" : "Sources + Evidence",
+    /Math|Mathematics|Statistics|Calculus/.test(course.subjectArea) ? "Procedure Traps" :
+      /Science|Physics|Chemistry|Biology|Environmental/.test(course.subjectArea) ? "Reasoning Traps" :
+        /ELA|English|Languages/.test(course.subjectArea) ? "Reading Traps" : "Common Traps",
+    course.ap ? "AP Transfer" : (course.assessmentSourceIds || []).length ? "Exam Transfer" : "Applied Review"
   ];
-  const clueText = (categoryIndex, value, answer) => {
-    const stems = [
-      `In ${course.label}, this term is a key anchor for ${unitSpec.title}.`,
-      `A strong ${course.label} answer uses this move when working through ${unitSpec.title}.`,
-      `Students should read this kind of evidence before answering a ${unitSpec.title} item.`,
-      `This mistake causes students to miss ${unitSpec.title} questions even when they know the vocabulary.`,
-      `This transfer task asks students to apply ${unitSpec.title} beyond a memorized definition.`
+  const reviewCategories = [
+    { name: names[0], kind: "term", pool: termA },
+    { name: names[1], kind: "term", pool: termB },
+    { name: names[2], kind: "evidence", pool: profile.evidence },
+    { name: names[3], kind: "trap", pool: profile.traps },
+    { name: names[4], kind: "application", pool: profile.applications }
+  ];
+  if (variant.id === "challenge") {
+    return [
+      { name: names[0], kind: "term", pool: termA },
+      { name: "Evidence Moves", kind: "skill", pool: profile.skills },
+      { name: names[2], kind: "evidence", pool: profile.evidence },
+      { name: "Error Analysis", kind: "trap", pool: profile.traps },
+      { name: names[4], kind: "application", pool: profile.applications }
     ];
-    return `${stems[categoryIndex]} It is worth ${value} because the answer must connect to ${answer}.`;
-  };
-  const clueExplanation = (categoryIndex, answer) => {
-    const explanations = [
-      `${answer} belongs in the concept map for ${unitSpec.title}. Students should define it and explain how it functions in ${course.label}.`,
-      `${answer} is a skill move, not a trivia fact. A good response should show the reasoning and use evidence.`,
-      `${answer} matters because ${course.label} questions often hide the key information inside a ${artifact}.`,
-      `${answer} is a trap because it breaks the habit required by ${standard}: read the task, use evidence, and explain.`,
-      `${answer} checks transfer. The student should ${move} while staying inside the unit context.`
+  }
+  if (variant.id === "sprint") {
+    return [
+      { name: names[0], kind: "term", pool: termA },
+      { name: names[1], kind: "term", pool: termB },
+      { name: "Exam Signals", kind: "evidence", pool: profile.evidence },
+      { name: "Trap Door", kind: "trap", pool: profile.traps },
+      { name: "Big Picture", kind: "application", pool: profile.applications }
     ];
-    return explanations[categoryIndex];
-  };
-  const categories = [
-    ...categorySpecs
-  ].map(([name, pool], categoryIndex) => ({
-    name,
+  }
+  return reviewCategories;
+}
+
+function categoryKind(categoryIndex) {
+  return ["term", "skill", "evidence", "trap", "application"][categoryIndex] || "term";
+}
+
+function cluePrompt(course, unitSpec, categoryName, categoryIndex, value, answer, variant, kind = categoryKind(categoryIndex)) {
+  const task = examTask(course);
+  const standard = compactStandard(course, unitSpec);
+  const gloss = clueGloss(answer, kind, course, unitSpec);
+  const opener = value >= 500
+    ? `On a hard ${task} tied to ${standard},`
+    : value >= 300
+      ? `In ${course.label} ${unitSpec.title},`
+      : `For ${unitSpec.title},`;
+  if (kind === "term") return `${opener} this term ${gloss}.`;
+  if (kind === "skill") return `${opener} this reasoning move asks students to ${gloss}.`;
+  if (kind === "evidence") return `${opener} this is the evidence source that ${gloss}.`;
+  if (kind === "trap") return `${opener} this trap happens when a student ${gloss}.`;
+  return `${opener} this task type ${gloss}.`;
+}
+
+function richExplanation(course, unitSpec, categoryName, categoryIndex, value, answer, variant, kind = categoryKind(categoryIndex)) {
+  const standard = compactStandard(course, unitSpec);
+  const skill = valueSkill(value);
+  const frame = variant.id === "review" ? "review board" : variant.id === "challenge" ? "challenge board" : "final sprint board";
+  const gloss = clueGloss(answer, kind, course, unitSpec);
+  if (kind === "skill") {
+    return `${answer} is the right move for this ${frame}: students have to ${gloss}, then explain how the evidence or context supports the answer.`;
+  }
+  if (kind === "trap") {
+    return `${answer} is the mistake to watch for: a student ${gloss}. The fix is to reread the task, locate the evidence, and explain how the evidence supports the unit concept.`;
+  }
+  const explanations = [
+    `${answer} is the right term because it ${gloss}. A strong ${course.label} response then uses that idea to ${skill} and connects it to ${standard}.`,
+    `${answer} matters because it ${gloss}. Students should use it as evidence, not decoration, before making a claim about ${unitSpec.title}.`,
+    `${answer} is the transfer target because it ${gloss}. This is where students show they can apply ${unitSpec.title} beyond memorized vocabulary.`
+  ];
+  if (kind === "evidence") return explanations[1];
+  if (kind === "application") return explanations[2];
+  return explanations[0];
+}
+
+function buildJeopardyBoard(course, unitSpec, unitIndex, variant = JEOPARDY_VARIANTS[0]) {
+  const baseId = `${course.id}-unit-${String(unitIndex + 1).padStart(2, "0")}`;
+  const id = variant.id === "review" ? baseId : `${baseId}-${variant.id}`;
+  const categorySpecs = boardCategorySpecs(course, unitSpec, variant);
+  const categories = categorySpecs.map((spec, categoryIndex) => ({
+    name: spec.name,
     clues: [100, 200, 300, 400, 500].map((value, valueIndex) => {
+      const pool = spec.pool || [];
+      const kind = spec.kind || categoryKind(categoryIndex);
       const answer = pool[valueIndex % pool.length] || unitSpec.title;
       return {
         value,
-        clue: clueText(categoryIndex, value, answer),
+        clue: cluePrompt(course, unitSpec, spec.name, categoryIndex, value, answer, variant, kind),
         answer,
-        explanation: clueExplanation(categoryIndex, answer)
+        aliases: answerAliases(answer),
+        explanation: richExplanation(course, unitSpec, spec.name, categoryIndex, value, answer, variant, kind),
+        daily: categoryIndex === 3 && valueIndex === (unitIndex + (variant.id === "challenge" ? 1 : variant.id === "sprint" ? 2 : 0)) % 5,
+        rigor: {
+          value,
+          skill: valueSkill(value),
+          alignment: course.standardsFramework,
+          sourceAuthority: course.standardsSourceId,
+          boardVariant: variant.id,
+          categoryKind: kind
+        }
       };
     })
   }));
   return {
-    id: `${course.id}-unit-${String(unitIndex + 1).padStart(2, "0")}`,
+    id,
+    baseUnitBoardId: baseId,
+    variantId: variant.id,
+    variantLabel: variant.label,
+    variantFocus: variant.focus,
     courseId: course.id,
     courseLabel: course.label,
+    subjectArea: course.subjectArea,
+    gradeBand: course.gradeBand,
     unit: unitSpec.title,
-    title: `${course.label}: ${unitSpec.title} Jeopardy Review`,
+    title: `${course.label}: ${unitSpec.title} ${variant.shortLabel} Jeopardy`,
+    subtitle: `${variant.label} for ${course.label} ${unitSpec.title}.`,
     standardsFramework: course.standardsFramework,
     sourceAuthority: course.standardsSourceId,
+    assessmentSourceIds: course.assessmentSourceIds,
     categories,
     final: {
       category: "Synthesis",
-      clue: `This is the best one-sentence move for connecting ${unitSpec.title} to evidence.`,
+      clue: `This one-sentence response best explains how a student should connect ${unitSpec.title} to evidence in ${course.label}.`,
       answer: `Use evidence to explain the unit concept in context.`,
-      explanation: `The final clue checks whether students can move beyond recall and explain how ${unitSpec.title} works in a standards-aligned task.`
+      aliases: answerAliases("Use evidence to explain the unit concept in context."),
+      explanation: `Final Jeopardy checks whether students can move beyond recall. A strong response names the relevant ${unitSpec.title} idea, uses evidence from the prompt or source, and explains the connection in context. That is the common scoring habit across NYS standards-aligned tasks and AP CED-style review.`
+    },
+    alignment: {
+      course: course.label,
+      unit: unitSpec.title,
+      standardSet: course.standardsFramework,
+      sourceAuthority: course.standardsSourceId,
+      variant: variant.label,
+      boardShape: "5 categories x 5 clues, values 100-500, one Daily Double, Final Jeopardy",
+      difficultyLadder: {
+        100: "identify the idea accurately",
+        200: "match the idea to course context",
+        300: "explain reasoning",
+        400: "use evidence or data",
+        500: "transfer to a harder task"
+      }
     }
   };
+}
+
+function generatedPracticePages(course) {
+  const firstUnits = course.units.slice(0, 4);
+  const sourceIds = course.assessmentSourceIds.length ? course.assessmentSourceIds : [course.standardsSourceId];
+  const sourceLabels = sourceIds.map((id) => sourceById(id)?.label || id);
+  return [
+    {
+      id: `${course.id}-practice-page-1`,
+      page: 1,
+      title: `${course.label} Practice Source Packet`,
+      kind: "Course overview",
+      path: `assets/generated-practice-pages/${course.id}/page-001.svg`,
+      sourceLabel: course.ap ? "AP CED-aligned public practice packet" : "NYS standards-aligned practice packet",
+      sourceIds,
+      unit: "Course Review",
+      prompts: [
+        `Course: ${course.label}`,
+        `Framework: ${course.standardsFramework}`,
+        `Official source family: ${sourceLabels.join(", ")}`,
+        `Use this page like the front page of a practice form: check course, unit, and source authority before answering.`
+      ]
+    },
+    {
+      id: `${course.id}-practice-page-2`,
+      page: 2,
+      title: "Multiple-Choice Stimulus Set",
+      kind: "MCQ source page",
+      path: `assets/generated-practice-pages/${course.id}/page-002.svg`,
+      sourceLabel: "Released-form style stimulus page",
+      sourceIds,
+      unit: firstUnits[0]?.title || "Unit 1",
+      prompts: [
+        `Stimulus A: ${firstUnits[0]?.concepts?.slice(0, 3).join(", ") || course.label}`,
+        `Stimulus B: ${firstUnits[1]?.concepts?.slice(0, 3).join(", ") || firstUnits[0]?.title || course.label}`,
+        `Skill focus: read the source, graph, example, or scenario before choosing an answer.`,
+        `Question bank items should cite this packet when the task requires evidence from a source.`
+      ]
+    },
+    {
+      id: `${course.id}-practice-page-3`,
+      page: 3,
+      title: "Constructed Response Packet",
+      kind: "Writing source page",
+      path: `assets/generated-practice-pages/${course.id}/page-003.svg`,
+      sourceLabel: "Course writing task page",
+      sourceIds,
+      unit: firstUnits[2]?.title || firstUnits[0]?.title || "Written Response",
+      prompts: [
+        `Task: make a claim about ${firstUnits[2]?.title || firstUnits[0]?.title || course.label}.`,
+        `Evidence: use a named concept such as ${firstUnits[2]?.concepts?.[0] || firstUnits[0]?.concepts?.[0] || "course evidence"}.`,
+        `Reasoning: explain why the evidence proves the claim.`,
+        `Scoring: accurate concept, evidence or process, clear explanation.`
+      ]
+    },
+    {
+      id: `${course.id}-practice-page-4`,
+      page: 4,
+      title: "Rubric and Unit Coverage",
+      kind: "Rubric page",
+      path: `assets/generated-practice-pages/${course.id}/page-004.svg`,
+      sourceLabel: "Teacher review and scoring guide",
+      sourceIds,
+      unit: "Rubric",
+      prompts: [
+        `Units covered: ${course.units.slice(0, 8).map((u) => u.title).join("; ")}`,
+        `Multiple choice: answer from evidence, not just familiar wording.`,
+        `Written response: claim, evidence, reasoning, and course vocabulary.`,
+        `Teacher note: exact released Regents/AP forms stay in the dedicated official practice runners when digitized.`
+      ]
+    }
+  ];
+}
+
+function officialLinksForCourse(course) {
+  const ids = course.assessmentSourceIds.length ? course.assessmentSourceIds : [course.standardsSourceId];
+  return ids.map((id) => {
+    const source = sourceById(id) || { id, label: id, url: "" };
+    return { id: source.id || id, label: source.label || id, url: source.url || "" };
+  });
+}
+
+function practiceExamFamily(course) {
+  if (course.ap) return "AP course practice";
+  if ((course.assessmentSourceIds || []).some((id) => /regents/.test(id))) return "NYSED Regents practice";
+  if ((course.assessmentSourceIds || []).some((id) => /grades-3-8/.test(id))) return "NYSED Grades 3-8 released-test practice";
+  return "NYS standards course practice";
+}
+
+function exactRunnerStatus(course) {
+  const exactRegents = new Set(["global-10", "us-history"]);
+  const exactAp = new Set(["ap-us-history", "ap-world-history", "ap-european-history", "ap-psychology", "ap-macroeconomics", "ap-microeconomics"]);
+  if (exactRegents.has(course.id)) return "exact released-form runner registered";
+  if (exactAp.has(course.id)) return "public AP practice PDF runner registered";
+  if (course.ap) return "CED-aligned generated practice with official AP source links; full public MCQ PDF added when College Board publishes one";
+  if ((course.assessmentSourceIds || []).length) return "released-source companion practice with official NYSED source links; exact form can be digitized into the Regents runner";
+  return "standards-aligned generated practice";
+}
+
+function practiceSectionPlan(course) {
+  if (course.ap) {
+    if (/art|drawing/.test(course.id)) {
+      return [
+        { id: "portfolio-review", label: "Portfolio evidence review", count: 15, sourcePolicy: "original portfolio-choice items aligned to AP Art and Design portfolio requirements" },
+        { id: "written-evidence", label: "Sustained investigation written evidence", count: 4, sourcePolicy: "CED portfolio reflection rubric estimate" }
+      ];
+    }
+    if (/seminar|research/.test(course.id)) {
+      return [
+        { id: "source-analysis", label: "AP Capstone source analysis", count: 24, sourcePolicy: "original source-analysis items aligned to AP Capstone skills" },
+        { id: "performance-task", label: "Performance task writing", count: 4, sourcePolicy: "CED-style research and presentation rubric estimate" }
+      ];
+    }
+    if (/language|latin/.test(course.id)) {
+      return [
+        { id: "interpretive", label: "Interpretive communication", count: 30, sourcePolicy: "original AP-style authentic-source items aligned to themes and modes" },
+        { id: "presentational", label: "Presentational and interpersonal tasks", count: 4, sourcePolicy: "CED communication rubric estimate" }
+      ];
+    }
+    return [
+      { id: "mcq", label: "AP-style multiple choice", count: 30, sourcePolicy: "original AP-style items aligned to CED units unless a public College Board PDF is explicitly registered" },
+      { id: "frq", label: "Course-appropriate free response or performance task", count: 3, sourcePolicy: "CED skill rubric estimate" }
+    ];
+  }
+  if (/^ela-|^english-/.test(course.id)) {
+    return [
+      { id: "reading", label: "Reading comprehension and evidence", count: 24, sourcePolicy: "NYSED released ELA item pattern or exact form when digitized" },
+      { id: "writing", label: "Argument, informative, or text-analysis writing", count: 2, sourcePolicy: "NYSED writing-rubric shape" }
+    ];
+  }
+  if (/^math-|algebra|geometry|precalculus|calculus|statistics/.test(course.id)) {
+    return [
+      { id: "selected-response", label: "Selected response and short constructed response", count: 24, sourcePolicy: "NYSED mathematics released-test or Regents pattern" },
+      { id: "constructed-response", label: "Multi-step constructed response", count: 4, sourcePolicy: "NYSED mathematics process/rubric shape" }
+    ];
+  }
+  if (/^science-|earth-science|biology|chemistry|physics|environmental-science/.test(course.id)) {
+    return [
+      { id: "stimulus-mcq", label: "Stimulus-based science multiple choice", count: 28, sourcePolicy: "NYSED released science or Regents pattern" },
+      { id: "lab-constructed-response", label: "Lab, data, and constructed response", count: 4, sourcePolicy: "NYSED science practice/rubric shape" }
+    ];
+  }
+  if ((course.assessmentSourceIds || []).some((id) => /nysed|regents/.test(id))) {
+    return [
+      { id: "released-mcq", label: "Released NYS multiple choice", count: 28, sourcePolicy: "official released NYSED item pattern or exact released form when digitized" },
+      { id: "constructed-response", label: "Constructed response", count: 3, sourcePolicy: "released NYSED rubric shape where available" }
+    ];
+  }
+  return [
+    { id: "standards-mcq", label: "Standards-aligned multiple choice", count: 24, sourcePolicy: "original items aligned to NYSED standards" },
+    { id: "application", label: "Application or performance task", count: 3, sourcePolicy: "original standards-aligned rubric" }
+  ];
 }
 
 function buildPracticeBlueprint(course) {
@@ -901,23 +1510,29 @@ function buildPracticeBlueprint(course) {
   const sourceMode = released.length ? "released-nys-source-backed" : course.ap ? "ap-ced-original-with-public-sample-links" : "standards-aligned-original";
   const questionsPerUnit = Math.ceil(course.minQuestions / Math.max(1, course.units.length));
   const sampleCount = Math.min(8, questionsPerUnit);
+  const sourcePages = generatedPracticePages(course);
+  const officialPracticeLinks = officialLinksForCourse(course);
   return {
     id: `${course.id}-practice-blueprint`,
     courseId: course.id,
     courseLabel: course.label,
+    subjectArea: course.subjectArea,
+    gradeBand: course.gradeBand,
     sourceMode,
     standardsFramework: course.standardsFramework,
     officialSourceIds: course.assessmentSourceIds,
-    sectionPlan: course.ap ? [
-      { id: "mcq", label: "AP-style multiple choice", count: 30, sourcePolicy: "original AP-style items aligned to CED units unless a public College Board PDF is explicitly registered" },
-      { id: "frq", label: "Course-appropriate free response or performance task", count: 3, sourcePolicy: "CED skill rubric estimate" }
-    ] : released.length ? [
-      { id: "released-mcq", label: "Released NYS multiple choice", count: course.id.startsWith("ela-") || course.id.startsWith("math-") ? 20 : 28, sourcePolicy: "official released NYSED item pattern or exact released form when digitized" },
-      { id: "constructed-response", label: "Constructed response", count: 3, sourcePolicy: "released NYSED rubric shape where available" }
-    ] : [
-      { id: "standards-mcq", label: "Standards-aligned multiple choice", count: 20, sourcePolicy: "original items aligned to NYSED standards" },
-      { id: "application", label: "Application or performance task", count: 2, sourcePolicy: "original standards-aligned rubric" }
-    ],
+    officialPracticeLinks,
+    examFamily: practiceExamFamily(course),
+    exactRunnerStatus: exactRunnerStatus(course),
+    sourcePages,
+    sourcePacket: {
+      title: `${course.label} Practice Source Packet`,
+      mode: released.length ? "released-form companion packet" : course.ap ? "AP CED companion packet" : "NYS standards companion packet",
+      pageCount: sourcePages.length,
+      officialPracticeLinks,
+      viewerContract: "Uses assets/document-viewer.js with data-source-page-img, official-page-image, and Expand Source controls."
+    },
+    sectionPlan: practiceSectionPlan(course),
     units: course.units.map((u) => ({
       unit: u.title,
       standardRefs: standardRefs(course, u),
@@ -937,6 +1552,408 @@ function writeJson(file, data) {
   fs.writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
 
+function xmlEscape(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
+function wrapText(text, max = 74) {
+  const words = String(text || "").split(/\s+/).filter(Boolean);
+  const lines = [];
+  let line = "";
+  for (const word of words) {
+    if ((line + " " + word).trim().length > max) {
+      if (line) lines.push(line);
+      line = word;
+    } else {
+      line = (line + " " + word).trim();
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+function sourcePageSvg(course, page) {
+  const palette = course.ap ? ["#ff7bcc", "#7af0ff"] :
+    course.subjectArea === "Mathematics" ? ["#ffd15c", "#72e9ff"] :
+    course.subjectArea === "Science" ? ["#74f0aa", "#72e9ff"] :
+    course.subjectArea === "ELA" ? ["#b892ff", "#ffd15c"] :
+    ["#72e9ff", "#ffd15c"];
+  const promptLines = page.prompts.flatMap((prompt) => wrapText(prompt, 68));
+  const unitLines = course.units.slice(0, 8).map((u, index) => `${index + 1}. ${u.title}`);
+  const bodyLines = [
+    `${page.kind.toUpperCase()} - PAGE ${page.page}`,
+    "",
+    ...promptLines,
+    "",
+    "COURSE UNIT MAP",
+    ...unitLines
+  ].slice(0, 26);
+  const lineText = bodyLines.map((line, i) =>
+    `<text x="92" y="${286 + i * 30}" class="${line === "" ? "blank" : line === line.toUpperCase() && line.length < 38 ? "section" : "body"}">${xmlEscape(line || " ")}</text>`
+  ).join("\n");
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1500" viewBox="0 0 1120 1500" role="img" aria-label="${xmlEscape(page.title)}">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffdf4"/>
+      <stop offset=".55" stop-color="#f4f0df"/>
+      <stop offset="1" stop-color="#e7dfc4"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="${palette[0]}"/>
+      <stop offset="1" stop-color="${palette[1]}"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="20" stdDeviation="20" flood-color="#000" flood-opacity=".25"/>
+    </filter>
+  </defs>
+  <rect width="1120" height="1500" fill="#15100b"/>
+  <rect x="46" y="42" width="1028" height="1416" rx="22" fill="url(#paper)" filter="url(#shadow)"/>
+  <rect x="46" y="42" width="1028" height="18" rx="9" fill="url(#bar)"/>
+  <rect x="92" y="106" width="936" height="112" rx="14" fill="#12182b"/>
+  <text x="126" y="154" font-family="Arial Black, Impact, sans-serif" font-size="34" fill="#fff7d7">${xmlEscape(course.label)}</text>
+  <text x="126" y="194" font-family="Arial, sans-serif" font-size="20" fill="#cfe8ff">${xmlEscape(page.title)}</text>
+  <text x="864" y="180" font-family="Arial Black, Impact, sans-serif" font-size="44" text-anchor="middle" fill="${palette[0]}">P${page.page}</text>
+  <rect x="92" y="246" width="936" height="900" rx="14" fill="#fffaf0" stroke="#d0c5a6" stroke-width="2"/>
+  ${lineText}
+  <rect x="92" y="1190" width="936" height="156" rx="14" fill="#141a2d"/>
+  <text x="122" y="1234" font-family="Arial Black, Impact, sans-serif" font-size="25" fill="${palette[1]}">VIEWER CONTRACT</text>
+  <text x="122" y="1274" font-family="Arial, sans-serif" font-size="21" fill="#f8fbff">Zoomable practice page. Use Expand Source, +/- zoom, fit, keyboard shortcuts, and page strip.</text>
+  <text x="122" y="1314" font-family="Arial, sans-serif" font-size="20" fill="#d7e4ff">${xmlEscape(page.sourceLabel)}</text>
+  <text x="92" y="1408" font-family="Arial, sans-serif" font-size="18" fill="#70684f">Generated from NYS/AP course taxonomy for classroom practice. Exact public released forms remain in Regents/AP practice runners when registered.</text>
+  <style>
+    .section { font: 700 23px Arial, sans-serif; fill: #13192b; }
+    .body { font: 21px Arial, sans-serif; fill: #21242d; }
+    .blank { font: 10px Arial, sans-serif; fill: transparent; }
+  </style>
+</svg>
+`;
+}
+
+function writePracticePageAssets(courses) {
+  fs.rmSync(PRACTICE_PAGE_DIR, { recursive: true, force: true });
+  for (const course of courses) {
+    for (const page of generatedPracticePages(course)) {
+      const file = path.join(ROOT, page.path);
+      fs.mkdirSync(path.dirname(file), { recursive: true });
+      fs.writeFileSync(file, sourcePageSvg(course, page), "utf8");
+    }
+  }
+}
+
+function extractGamePayload(text, file) {
+  const match = text.match(/const GAME = (\{[\s\S]*?\});\s*(?:const|let|var)\s+STORAGE_KEY/);
+  if (!match) throw new Error(`Could not locate GAME payload in ${file}`);
+  return JSON.parse(match[1]);
+}
+
+function decodeManifestPath(value) {
+  try {
+    return decodeURIComponent(String(value || "").split("?")[0].split("#")[0]);
+  } catch {
+    return String(value || "").split("?")[0].split("#")[0];
+  }
+}
+
+function socialStudyCourseId(label, file = "") {
+  const text = `${label || ""} ${file || ""}`.toLowerCase();
+  if (text.includes("global-9") || text.includes("grade 9 global")) return "global-9";
+  if (text.includes("global-10") || text.includes("grade 10 global")) return "global-10";
+  if (text.includes("us-history") || text.includes("grade 11 u.s") || text.includes("grade 11 us")) return "us-history";
+  if (text.includes("grade-5") || text.includes("grade 5")) return "grade-5";
+  if (text.includes("grade-6") || text.includes("grade 6")) return "grade-6";
+  if (text.includes("grade-7") || text.includes("grade 7")) return "grade-7";
+  if (text.includes("grade-8") || text.includes("grade 8")) return "grade-8";
+  if (text.includes("apush") || text.includes("ap united states history")) return "ap-us-history";
+  if (text.includes("ap-world") || text.includes("ap world history")) return "ap-world-history";
+  if (text.includes("ap-european") || text.includes("ap european")) return "ap-european-history";
+  if (text.includes("ap-human") || text.includes("ap human geography")) return "ap-human-geography";
+  if (text.includes("ap-us-government") || text.includes("ap-government") || text.includes("ap united states government") || text.includes("ap u.s. government")) return "ap-us-government";
+  if (text.includes("ap-psychology") || text.includes("ap psychology")) return "ap-psychology";
+  if (text.includes("ap-macro")) return "ap-macroeconomics";
+  if (text.includes("ap-micro")) return "ap-microeconomics";
+  if (text.includes("economics")) return "economics";
+  if (text.includes("civics") || text.includes("government")) return "us-government";
+  return "";
+}
+
+function isStaticJeopardyBoard(game) {
+  if (game.generatedBy || game.isGeneratedJeopardy) return false;
+  const file = decodeManifestPath(game.file || "");
+  if (!file.endsWith(".html") || !/Jeopardy/i.test(file)) return false;
+  return fs.existsSync(path.join(ROOT, file));
+}
+
+function derivedChoices(correct, sameCategoryAnswers, boardAnswers, seed) {
+  const distractors = uniq(sameCategoryAnswers.concat(boardAnswers)).filter((answer) => slug(answer) !== slug(correct));
+  const filler = ["contextualization", "claim evidence reasoning", "representative government", "economic interdependence", "human rights"];
+  return choiceSet(correct, distractors.concat(filler), seed);
+}
+
+function boardDerivedQuestion(meta, game, category, clue, clueIndex, boardAnswers) {
+  const course = socialStudyCourseId(meta.course || game.exam || game.course || "", meta.file || "");
+  if (!course) return null;
+  const categoryAnswers = (category.clues || []).map((row) => row.answer).filter(Boolean);
+  const value = Number(clue.value || 0);
+  return {
+    id: `board-derived-${course}-${slug(game.slug || meta.id || game.title)}-${slug(category.name)}-${value || clueIndex + 1}`,
+    prompt: `${game.title} · ${category.name} · $${value || "Final"}: ${clue.clue}`,
+    choices: derivedChoices(clue.answer, categoryAnswers, boardAnswers, clueIndex + value),
+    correctText: String(clue.answer || "").trim(),
+    topic: `${game.title} · ${category.name}`,
+    explanation: String(clue.explanation || clue.sourceExplanation || `Review ${game.title} and connect the answer to the clue.`).trim(),
+    domain: "Social Studies",
+    subjectArea: meta.subject || "Social Studies",
+    gradeBand: meta.grade || "",
+    standardRefs: uniq([game.alignment?.standardSet, game.alignment?.examTarget, "NYS Social Studies Framework"]).filter(Boolean),
+    sourceAuthority: "existing-named-social-studies-jeopardy-board",
+    assessmentSourceId: (game.alignment?.examTarget || "").includes("Regents") ? "nysed-social-studies-regents-pattern" : "course-jeopardy-board",
+    itemMode: "jeopardy-board-derived",
+    course
+  };
+}
+
+function writeSocialStudiesBoardBank() {
+  for (const file of fs.readdirSync(FRAG_DIR)) {
+    if (/^jeopardy-derived-.*\.json$/.test(file)) fs.rmSync(path.join(FRAG_DIR, file), { force: true });
+  }
+  const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, "games.json"), "utf8"));
+  const byCourse = new Map();
+  for (const meta of manifest.filter(isStaticJeopardyBoard)) {
+    const file = decodeManifestPath(meta.file);
+    let game;
+    try {
+      game = extractGamePayload(fs.readFileSync(path.join(ROOT, file), "utf8"), file);
+    } catch {
+      continue;
+    }
+    const course = socialStudyCourseId(meta.course || game.exam || game.course || "", meta.file || "");
+    if (!course) continue;
+    const boardAnswers = (game.categories || []).flatMap((category) => (category.clues || []).map((clue) => clue.answer)).filter(Boolean);
+    const questions = [];
+    for (const category of game.categories || []) {
+      (category.clues || []).forEach((clue, index) => {
+        const question = boardDerivedQuestion(meta, game, category, clue, index, boardAnswers);
+        if (question) questions.push(question);
+      });
+    }
+    if (game.final?.answer && game.final?.clue) {
+      const finalQuestion = boardDerivedQuestion(meta, game, { name: game.final.category || "Final Jeopardy", clues: [game.final] }, { ...game.final, value: 700 }, 700, boardAnswers);
+      if (finalQuestion) questions.push(finalQuestion);
+    }
+    if (!byCourse.has(course)) byCourse.set(course, { course, courseLabel: meta.course || game.exam || course, questions: [] });
+    byCourse.get(course).questions.push(...questions);
+  }
+  for (const [course, fragment] of byCourse) {
+    fragment.questions = fragment.questions.slice(0, 1200);
+    writeJson(path.join(FRAG_DIR, `jeopardy-derived-${course}.json`), fragment);
+  }
+  return Array.from(byCourse.values()).reduce((sum, fragment) => sum + fragment.questions.length, 0);
+}
+
+function countFragmentQuestions() {
+  const seenByCourse = new Map();
+  let total = 0;
+  for (const file of fs.readdirSync(FRAG_DIR).filter((name) => name.endsWith(".json") && !name.startsWith("._")).sort()) {
+    try {
+      const fragment = JSON.parse(fs.readFileSync(path.join(FRAG_DIR, file), "utf8"));
+      if (!fragment.course || !Array.isArray(fragment.questions)) continue;
+      if (!seenByCourse.has(fragment.course)) seenByCourse.set(fragment.course, new Set());
+      const seen = seenByCourse.get(fragment.course);
+      for (const question of fragment.questions) {
+        if (!question?.prompt || !question?.correctText || !Array.isArray(question.choices) || question.choices.length !== 4 || !question.choices.includes(question.correctText)) continue;
+        const key = question.prompt.trim().toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        total += 1;
+      }
+    } catch {
+      continue;
+    }
+  }
+  return total;
+}
+
+function boardSummary(board) {
+  return {
+    id: board.id,
+    baseUnitBoardId: board.baseUnitBoardId,
+    variantId: board.variantId,
+    variantLabel: board.variantLabel,
+    variantFocus: board.variantFocus,
+    courseId: board.courseId,
+    courseLabel: board.courseLabel,
+    subjectArea: board.subjectArea,
+    gradeBand: board.gradeBand,
+    unit: board.unit,
+    title: board.title,
+    subtitle: board.subtitle,
+    standardsFramework: board.standardsFramework,
+    sourceAuthority: board.sourceAuthority,
+    categories: (board.categories || []).map((category) => ({ name: category.name })),
+    hasFinal: Boolean(board.final),
+    clueCount: (board.categories || []).reduce((sum, category) => sum + (category.clues || []).length, 0),
+    shard: `data/generated-jeopardy-boards/${board.courseId}.json`
+  };
+}
+
+function writeJeopardyShards(boards) {
+  fs.rmSync(JEOPARDY_SHARD_DIR, { recursive: true, force: true });
+  fs.mkdirSync(JEOPARDY_SHARD_DIR, { recursive: true });
+  const byCourse = new Map();
+  for (const board of boards) {
+    if (!byCourse.has(board.courseId)) byCourse.set(board.courseId, []);
+    byCourse.get(board.courseId).push(board);
+  }
+  for (const [courseId, courseBoards] of byCourse) {
+    writeJson(path.join(JEOPARDY_SHARD_DIR, `${courseId}.json`), {
+      version: VERSION,
+      generatedAt: new Date().toISOString(),
+      courseId,
+      boardCount: courseBoards.length,
+      boards: courseBoards
+    });
+  }
+  return {
+    version: VERSION,
+    generatedAt: new Date().toISOString(),
+    mode: "lightweight-board-index",
+    boardCount: boards.length,
+    shardCount: byCourse.size,
+    boards: boards.map(boardSummary)
+  };
+}
+
+function generatedCatalogEntries(boards, exams) {
+  const boardEntries = boards.map((board) => ({
+    id: `generated-jeopardy-${board.id}`,
+    title: board.title,
+    subtitle: `${board.variantLabel}: ${board.variantFocus}. Includes typed responses, answer explanations, one Daily Double, and Final Jeopardy.`,
+    day: board.unit,
+    course: board.courseLabel,
+    subject: board.subjectArea || board.standardsFramework,
+    grade: board.gradeBand || "",
+    gameType: "Jeopardy",
+    file: `games/generated-jeopardy/index.html?board=${encodeURIComponent(board.id)}`,
+    originalFile: `${board.title}.html`,
+    collection: "generated-jeopardy",
+    generatedBy: "scripts/generate-all-subject-content.mjs",
+    generatedBoardId: board.id,
+    isGeneratedJeopardy: true,
+    categories: (board.categories || []).map((category) => category.name),
+    clueCount: 25,
+    hasFinal: true,
+    cardArt: "assets/cabinet/category-tile-jeopardy.webp",
+    thumbnail: "assets/game-thumbnails/generated-jeopardy.webp",
+    tags: [
+      "all subjects",
+      "generated jeopardy",
+      "unit review",
+      board.variantId,
+      board.sourceAuthority,
+      board.standardsFramework,
+      board.courseLabel,
+      board.unit
+    ].filter(Boolean)
+  }));
+
+  const courseExamEntries = exams.map((exam) => ({
+    id: `generated-practice-exam-${exam.courseId}`,
+    title: `${exam.courseLabel} Practice Exam`,
+    subtitle: `Course-specific practice exam with MCQs, written response prompts, and ${exam.sourcePages?.length || 0} zoomable source pages using the shared document viewer.`,
+    day: "Practice Exam",
+    course: exam.courseLabel,
+    subject: exam.subjectArea || "Practice Exams",
+    grade: exam.gradeBand || "",
+    gameType: "Full Practice Exam",
+    file: `games/generated-practice-exam/index.html?course=${encodeURIComponent(exam.courseId)}`,
+    originalFile: `${exam.courseLabel} Practice Exam.html`,
+    collection: "generated-practice-exam",
+    generatedBy: "scripts/generate-all-subject-content.mjs",
+    generatedPracticeExamId: exam.id,
+    categories: ["Practice Exam", "Zoomable Sources", "Written Response", exam.sourceMode].filter(Boolean),
+    clueCount: (exam.sectionPlan || []).reduce((sum, section) => sum + Number(section.count || 0), 0),
+    hasFinal: false,
+    cardArt: "assets/cabinet/category-tile-practice.webp",
+    thumbnail: "assets/game-thumbnails/generated-practice-exam.webp",
+    tags: ["all subjects", "practice exam", "zoomable source pages", exam.courseLabel, exam.sourceMode].filter(Boolean)
+  }));
+
+  const unitExamEntries = exams.flatMap((exam) => (exam.units || []).map((unit, index) => ({
+    id: `generated-unit-practice-${exam.courseId}-unit-${String(index + 1).padStart(2, "0")}`,
+    title: `${exam.courseLabel}: ${unit.unit} Practice`,
+    subtitle: `Unit-focused practice set with source packet pages, MCQs, and a constructed-response task for ${unit.unit}.`,
+    day: unit.unit,
+    course: exam.courseLabel,
+    subject: exam.subjectArea || "Practice Exams",
+    grade: exam.gradeBand || "",
+    gameType: "Unit Practice Exam",
+    file: `games/generated-practice-exam/index.html?course=${encodeURIComponent(exam.courseId)}&unit=${encodeURIComponent(unit.unit)}&autorun=1`,
+    originalFile: `${exam.courseLabel} ${unit.unit} Practice.html`,
+    collection: "generated-practice-exam",
+    generatedBy: "scripts/generate-all-subject-content.mjs",
+    generatedPracticeExamId: exam.id,
+    generatedPracticeUnit: unit.unit,
+    categories: ["Unit Practice", "Zoomable Sources", "Constructed Response"].concat(unit.standardRefs || []),
+    clueCount: Math.max(10, Math.min(20, (unit.sampledQuestionIds || []).length + 8)),
+    hasFinal: false,
+    cardArt: "assets/cabinet/category-tile-practice.webp",
+    thumbnail: "assets/game-thumbnails/generated-practice-exam.webp",
+    tags: ["all subjects", "unit practice", "zoomable source pages", exam.courseLabel, unit.unit].filter(Boolean)
+  })));
+
+  return boardEntries.concat(courseExamEntries, unitExamEntries);
+}
+
+function expandGamesManifest(boards, exams, bankTotal) {
+  const manifestFile = path.join(ROOT, "games.json");
+  if (!fs.existsSync(manifestFile)) return [];
+  const base = JSON.parse(fs.readFileSync(manifestFile, "utf8"))
+    .filter((game) => !game.generatedBy && !/^generated-jeopardy-/.test(game.id || "") && !/^generated-practice-exam-/.test(game.id || "") && !/^generated-unit-practice-/.test(game.id || ""));
+  for (const game of base) {
+    if (game.id === "generated-jeopardy") {
+      game.subtitle = `${boards.length} generated unit Jeopardy boards across NYS grades 5-12 and AP courses, with 5x5 boards, Daily Doubles, Final Jeopardy, typed responses, and explanations.`;
+      game.clueCount = boards.length * 25;
+      game.tags = uniq([...(game.tags || []), "thousands-scale catalog", "daily double", "typed answers"]);
+    }
+    if (game.id === "generated-practice-exam") {
+      game.subtitle = `${exams.length} course practice exams and ${exams.reduce((sum, exam) => sum + (exam.units || []).length, 0)} unit practice forms with zoomable source packet pages and the shared document viewer.`;
+      game.clueCount = bankTotal;
+      game.tags = uniq([...(game.tags || []), "zoomable source pages", "document viewer", "course source packets"]);
+    }
+  }
+  const generated = generatedCatalogEntries(boards, exams);
+  const expanded = base.concat(generated);
+  writeJson(manifestFile, expanded);
+  return expanded;
+}
+
+function updateIndexCounts(totalGames, boards, exams, bankTotal) {
+  const file = path.join(ROOT, "index.html");
+  if (!fs.existsSync(file)) return;
+  let html = fs.readFileSync(file, "utf8");
+  const examCount = exams.length;
+  html = html
+    .replace(/content="Mr\. Mac's Review Arcade — \d+ arcade entries/g, `content="Mr. Mac's Review Arcade — ${totalGames} arcade entries`)
+    .replace(/content="Mr\. Mac's Review Arcade — \d+ grades 5-12\/AP review entries/g, `content="Mr. Mac's Review Arcade — ${totalGames} grades 5-12/AP review entries`)
+    .replace(/"featureList": \[[\s\S]*?\n      \]/, `"featureList": [
+        "${totalGames} cataloged review entries and practice tools",
+        "${boards.length} generated unit Jeopardy boards plus social studies flagship boards",
+        "${bankTotal} shared-bank questions across 99 course buckets",
+        "${examCount} generated course practice exams with zoomable source pages",
+        "Live multiplayer rooms (40 players)",
+        "Printable wrong-answer worksheets",
+        "Offline play via Progressive Web App"
+      ]`)
+    .replace(/\b221 live games\b/g, `${totalGames} live games`)
+    .replace(/title\.textContent = "OPEN LIBRARY · 78 GAMES READY";/g, `title.textContent = "OPEN LIBRARY · ${totalGames} GAMES READY";`);
+  fs.writeFileSync(file, html, "utf8");
+}
+
 function main() {
   const generatedPrefix = /^all-subject-/;
   for (const file of fs.readdirSync(FRAG_DIR)) {
@@ -944,8 +1961,11 @@ function main() {
   }
 
   const orderedCourses = courses.sort((a, b) => a.id.localeCompare(b.id));
+  writePracticePageAssets(orderedCourses);
+  let bankTotal = 0;
   for (const course of orderedCourses) {
     const questions = buildQuestions(course);
+    bankTotal += questions.length;
     writeJson(path.join(FRAG_DIR, `all-subject-${course.id}.json`), {
       course: course.id,
       courseLabel: course.label,
@@ -954,6 +1974,8 @@ function main() {
       questions
     });
   }
+  const socialDerivedQuestions = writeSocialStudiesBoardBank();
+  const sharedQuestionTotal = countFragmentQuestions();
 
   const taxonomy = {
     version: VERSION,
@@ -979,24 +2001,31 @@ function main() {
   const jeopardy = {
     version: VERSION,
     generatedAt: new Date().toISOString(),
-    mode: "unit-blueprints",
-    boardShape: "5 categories x 5 clues plus Final Jeopardy",
-    boards: orderedCourses.flatMap((course) => course.units.map((unitSpec, index) => buildJeopardyBoard(course, unitSpec, index)))
+    mode: "cataloged-unit-board-variants",
+    boardShape: "5 categories x 5 clues plus one Daily Double and Final Jeopardy",
+    variants: JEOPARDY_VARIANTS,
+    boards: orderedCourses.flatMap((course) => course.units.flatMap((unitSpec, index) =>
+      JEOPARDY_VARIANTS.map((variant) => buildJeopardyBoard(course, unitSpec, index, variant))
+    ))
   };
 
   const practice = {
     version: VERSION,
     generatedAt: new Date().toISOString(),
-    sourcePolicy: "Exact released forms remain separate from generated/original practice. Existing Regents/AP exact-form runners should consume registered official forms; this file fills the all-subject coverage map.",
+    sourcePolicy: "Exact released forms remain separate from generated/original practice. Existing Regents/AP exact-form runners consume registered official forms; this file fills the all-subject coverage map with zoomable companion source packets.",
     exams: orderedCourses.map(buildPracticeBlueprint)
   };
 
   writeJson(path.join(DATA_DIR, "all-subject-course-taxonomy.json"), taxonomy);
   writeJson(path.join(DATA_DIR, "released-assessment-source-catalog.json"), sourceCatalog);
   writeJson(path.join(DATA_DIR, "generated-all-subject-jeopardy-blueprints.json"), jeopardy);
+  const jeopardyIndex = writeJeopardyShards(jeopardy.boards);
+  writeJson(path.join(DATA_DIR, "generated-jeopardy-index.json"), jeopardyIndex);
   writeJson(path.join(DATA_DIR, "generated-practice-exam-blueprints.json"), practice);
+  const manifest = expandGamesManifest(jeopardy.boards, practice.exams, sharedQuestionTotal);
+  updateIndexCounts(manifest.length, jeopardy.boards, practice.exams, sharedQuestionTotal);
 
-  console.log(`Generated ${orderedCourses.length} course fragments, ${jeopardy.boards.length} Jeopardy unit blueprints, and ${practice.exams.length} practice exam blueprints.`);
+  console.log(`Generated ${orderedCourses.length} course fragments, ${jeopardy.boards.length} Jeopardy boards, ${practice.exams.length} practice exams, ${manifest.length} catalog entries, ${socialDerivedQuestions} social-studies board-derived bank questions, ${sharedQuestionTotal} shared-bank source questions, and ${orderedCourses.length * 4} zoomable practice pages.`);
 }
 
 main();
