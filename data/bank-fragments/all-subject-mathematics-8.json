@@ -18,10 +18,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A number that can be written as a fraction p/q where p and q are integers and q is not zero.",
       "choices": [
-        "Rational number",
-        "0.5 competitions won per year",
         "Rational",
-        "1.41"
+        "About 3.3",
+        "Rational number",
+        "Add"
       ],
       "correctText": "Rational number",
       "explanation": "A rational number can be expressed as a fraction p/q where p and q are integers and q is not zero. NYS Common Core Grade 8 standard 8.NS.A.1 explicitly tests knowing that numbers that are not rational are called irrational and understanding informally that every number has a decimal expansion. All integers are rational (5 = 5/1), all terminating decimals are rational (0.75 = 3/4), and all repeating decimals are rational (0.333... = 1/3). Worked example: 0.625 = 625/1000 = 5/8 confirms rationality through fraction form. State-test items test classification of given numbers as rational or irrational by examining their decimal expansions or fraction representations."
@@ -40,10 +40,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A number whose decimal expansion never terminates and never repeats.",
       "choices": [
-        "Irrational number",
-        "288 pi",
-        "1.41",
-        "About 3.3"
+        "About 3.3",
+        "x to the a plus b",
+        "Rational number",
+        "Irrational number"
       ],
       "correctText": "Irrational number",
       "explanation": "An irrational number cannot be written as a fraction of integers, and its decimal expansion is both non-terminating AND non-repeating. NYS Common Core Grade 8 standard 8.NS.A.1 introduces irrationals through this decimal characterization. Famous examples: pi (3.14159265...) discovered ratio-wise by ancient Greeks and proven irrational by Lambert in 1761; the square root of 2 (1.41421356...) proven irrational by the Pythagoreans around 500 BC; e (2.71828...) proven irrational by Euler. Worked example: sqrt(2) cannot equal a/b because squaring gives 2 = a^2/b^2, which by the parity argument from the Pythagoreans yields a contradiction. State-test items test recognition that pi and non-perfect-square roots are irrational."
@@ -62,10 +62,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Decimal value of the square root of 2, approximated to two decimal places.",
       "choices": [
+        "0",
+        "Rational number",
         "Rational",
-        "Irrational number",
-        "1.41",
-        "Cube root"
+        "1.41"
       ],
       "correctText": "1.41",
       "explanation": "The square root of 2 equals 1.41421356... It is the most famous irrational number — the Pythagoreans discovered around 500 BC that the diagonal of a unit square has length sqrt(2), and they proved it cannot be expressed as a fraction. NYS Common Core Grade 8 standard 8.NS.A.2 explicitly tests approximating irrational numbers — comparing the size of irrationals, locating them approximately on a number line, and estimating the value of expressions like pi^2. Worked example: since 1^2 = 1 and 2^2 = 4, sqrt(2) is between 1 and 2; since 1.4^2 = 1.96 and 1.5^2 = 2.25, sqrt(2) is between 1.4 and 1.5; refining further: 1.41^2 = 1.9881, 1.42^2 = 2.0164, so sqrt(2) is approximately 1.41."
@@ -85,9 +85,9 @@
       "prompt": "A point on a number line between 3 and 4 that best approximates the square root of 11.",
       "choices": [
         "About 3.3",
+        "Rational number",
         "1.41",
-        "Irrational number",
-        "Translation"
+        "8"
       ],
       "correctText": "About 3.3",
       "explanation": "To approximate sqrt(11), find perfect squares on either side: 3^2 = 9 and 4^2 = 16, so sqrt(11) is between 3 and 4. To refine: 3.3^2 = 10.89, 3.4^2 = 11.56, so sqrt(11) is between 3.3 and 3.4, closer to 3.3. NYS Common Core Grade 8 standard 8.NS.A.2 explicitly tests using rational approximations of irrational numbers to compare their sizes and locate them approximately on a number line. Worked example: ordering 3, sqrt(11), sqrt(15), 4 — since sqrt(11) ≈ 3.32 and sqrt(15) ≈ 3.87, the order least to greatest is 3, sqrt(11), sqrt(15), 4. State-test items present this as locating-on-number-line tasks."
@@ -106,10 +106,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Classification of a repeating decimal like 0.333...",
       "choices": [
+        "Rational",
         "1.41",
-        "About 3.3",
-        "Congruent",
-        "Rational"
+        "One-eighth",
+        "About 3.3"
       ],
       "correctText": "Rational",
       "explanation": "Every repeating decimal is rational. NYS Common Core Grade 8 standard 8.NS.A.1 explicitly tests converting a decimal expansion which repeats eventually into a rational number — meaning students must convert repeating decimals to fractions. Worked example: let x = 0.333...; then 10x = 3.333...; subtract to get 9x = 3, so x = 3/9 = 1/3. For 0.272727... let x = 0.272727..., 100x = 27.272727..., subtract: 99x = 27, x = 27/99 = 3/11. Even mixed repeats convert: 0.16666... → x = 0.16666..., 10x = 1.6666..., 100x = 16.6666..., subtract 100x - 10x = 90x = 15, x = 15/90 = 1/6. All such results confirm that repeating decimals are rational."
@@ -128,10 +128,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The operation that undoes squaring a number.",
       "choices": [
+        "One solution",
         "Square root",
-        "7",
-        "4",
-        "Plus or minus 6"
+        "Plus or minus 6",
+        "7"
       ],
       "correctText": "Square root",
       "explanation": "A square root undoes squaring: sqrt(x) is the non-negative number whose square equals x. NYS Common Core Grade 8 standard 8.EE.A.2 explicitly tests using square root and cube root symbols to represent solutions to equations of the form x^2 = p. The radical symbol traces to the Latin word radix (root) and was first used in print by Christoff Rudolff in 1525. Worked example: sqrt(25) = 5 because 5 × 5 = 25; sqrt(81) = 9 because 9 × 9 = 81. The equation x^2 = 16 has two solutions: x = +/-4. The principal (positive) square root is what the sqrt symbol denotes; students should know +/- prefix is required when solving x^2 = p in standard 8.EE.A.2."
@@ -150,9 +150,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Value of the square root of 64.",
       "choices": [
+        "Square root",
         "Irrational",
-        "Plus or minus 6",
-        "x to the a plus b",
+        "Straight line",
         "8"
       ],
       "correctText": "8",
@@ -172,10 +172,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The non-negative solution to x squared equals 49.",
       "choices": [
-        "a to the fifteenth",
+        "Function B",
+        "Square root",
         "7",
-        "8",
-        "Irrational"
+        "Plus or minus 6"
       ],
       "correctText": "7",
       "explanation": "To solve x^2 = 49, take the square root of both sides: x = +/-sqrt(49) = +/-7. The non-negative solution is 7. NYS Common Core Grade 8 standard 8.EE.A.2 explicitly tests using square root symbols to represent solutions to equations of the form x^2 = p, where p is a positive rational number. Worked example: A square has area 49 square feet; what is its side length? Solve s^2 = 49, so s = 7 feet (we take the positive root because length cannot be negative in geometry). State-test items distinguish 'all solutions' (both +/-) from 'side length' contexts (positive only). Students must know perfect squares 1-144 for fluency on these items."
@@ -194,9 +194,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Both solutions to x squared equals 36.",
       "choices": [
+        "8",
+        "Distribute",
         "Irrational",
-        "Positive",
-        "7",
         "Plus or minus 6"
       ],
       "correctText": "Plus or minus 6",
@@ -216,10 +216,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Type of number sqrt(20) is.",
       "choices": [
+        "Subtract",
         "Irrational",
-        "Slope and y-intercept",
-        "8",
-        "7"
+        "Square root",
+        "Plus or minus 6"
       ],
       "correctText": "Irrational",
       "explanation": "sqrt(20) is irrational because 20 is not a perfect square. NYS Common Core Grade 8 standard 8.NS.A.1 + 8.EE.A.2 establish that sqrt(n) is irrational unless n is a perfect square (1, 4, 9, 16, 25, 36, ...). The Pythagoreans (around 500 BC) discovered this property starting with sqrt(2), which Hippasus is credited with proving irrational — legend says he was drowned for revealing it. Worked example: sqrt(20) = sqrt(4 × 5) = 2 × sqrt(5) — exact form keeps the irrational; approximation: 4^2 = 16, 5^2 = 25, so sqrt(20) is between 4 and 5; 4.4^2 = 19.36, 4.5^2 = 20.25, so sqrt(20) ≈ 4.47. State-test items test classification of sqrt(n) for non-perfect-square n as irrational and ordering of such roots on number lines."
@@ -238,10 +238,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The operation that undoes cubing a number.",
       "choices": [
-        "Rational",
-        "-5",
+        "3",
+        "Association",
         "Cube root",
-        "4"
+        "Irrational"
       ],
       "correctText": "Cube root",
       "explanation": "A cube root undoes cubing: the cube root of x (denoted ^3-sqrt(x)) is the number whose cube equals x. NYS Common Core Grade 8 standard 8.EE.A.2 explicitly tests using cube root symbols to represent solutions to equations of the form x^3 = p. Unlike square roots, cube roots have only ONE real solution (positive cubes from positive numbers, negative cubes from negative numbers). Worked example: cube root of 27 = 3 because 3 × 3 × 3 = 27; cube root of -8 = -2 because (-2) × (-2) × (-2) = -8. The symbol with the small 3 on the radical (index 3) distinguishes cube roots from square roots. State-test items test cube-root computation for small perfect cubes."
@@ -260,10 +260,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Value of the cube root of 27.",
       "choices": [
-        "4",
-        "3",
         "-5",
-        "Slope"
+        "No solution",
+        "3",
+        "4"
       ],
       "correctText": "3",
       "explanation": "The cube root of 27 = 3 because 3 × 3 × 3 = 27. NYS Common Core Grade 8 standard 8.EE.A.2 tests cube roots of small perfect cubes. Students must memorize perfect cubes 1, 8, 27, 64, 125, 216, 343, 512, 729, 1000 — with cube roots 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. Worked example: A cube has volume 27 cubic inches; what is its side length? Solve s^3 = 27, so s = 3 inches. The relationship between cubes and volume connects this unit to Unit 5 geometry. Unlike squares (which have +/- solutions for x^2 = p), cubes have unique solutions: x^3 = 27 has only x = 3 (not -3, because (-3)^3 = -27)."
@@ -282,10 +282,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The single solution to x cubed equals 64.",
       "choices": [
-        "4",
-        "x to the ninth",
         "Cube root",
-        "Irrational"
+        "4",
+        "-5",
+        "Tied"
       ],
       "correctText": "4",
       "explanation": "To solve x^3 = 64, take the cube root: x = cube root of 64 = 4. NYS Common Core Grade 8 standard 8.EE.A.2 explicitly tests solving x^3 = p where p is a positive rational number, with cube-root solutions. Unlike x^2 = p (two solutions, +/-), x^3 = p has ONE real solution because (-4)^3 = -64, not 64. Worked example: A cube-shaped storage box has volume 64 cubic feet; side length = 4 feet. State-test items test cube-root computation in geometry (volume → side) and pure algebraic equation solving. Common perfect cubes to memorize: 1^3=1, 2^3=8, 3^3=27, 4^3=64, 5^3=125, 6^3=216, 7^3=343, 8^3=512, 9^3=729, 10^3=1000."
@@ -304,10 +304,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The cube root of -125.",
       "choices": [
-        "Cube root",
+        "V equals one-third pi r squared h",
+        "Irrational",
         "-5",
-        "3",
-        "Predicted score at 0 hours sleep"
+        "Cube root"
       ],
       "correctText": "-5",
       "explanation": "The cube root of -125 = -5 because (-5)^3 = (-5)(-5)(-5) = 25 × -5 = -125. NYS Common Core Grade 8 standard 8.EE.A.2 tests cube roots including of negative numbers — a key difference from square roots (which are undefined for negative inputs in the real numbers). Worked example: x^3 = -125 has solution x = -5 (and only -5, since cubing preserves sign). The reason: odd powers preserve sign — (-)^3 = (-), (+)^3 = (+) — so every real number, positive or negative, has a unique real cube root. State-test items test cube roots of negative perfect cubes (-1, -8, -27, -64, -125, -216, ...) with answers -1, -2, -3, -4, -5, -6."
@@ -326,10 +326,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Type of number the cube root of 20 is.",
       "choices": [
-        "Cube root",
+        "4",
+        "-5",
         "Irrational",
-        "3",
-        "Infinitely many"
+        "5.2 times 10 to the sixth"
       ],
       "correctText": "Irrational",
       "explanation": "The cube root of 20 is irrational because 20 is not a perfect cube. NYS Common Core Grade 8 standard 8.NS.A.1 establishes that cube roots of non-perfect-cubes are irrational, parallel to non-perfect-square cases. Worked example: cube root of 20 ≈ 2.714 (between 2 and 3 since 2^3 = 8 and 3^3 = 27); refining, 2.7^3 = 19.683, 2.8^3 = 21.952, so cube root of 20 is between 2.7 and 2.8. State-test items test classification of cube roots of non-perfect-cubes as irrational. Note that even cube roots of negative non-perfect-cubes are irrational: cube root of -20 ≈ -2.714. Famous result: the cube root of 2 (the doubling-the-cube problem from ancient Greece) was proved irrational and unconstructible by Pierre Wantzel in 1837."
@@ -348,10 +348,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A way of writing very large or very small numbers as a coefficient times a power of 10.",
       "choices": [
-        "No association",
-        "Scientific notation",
+        "a to the fifteenth",
         "25,000",
-        "3.7 times 10 to the negative fourth"
+        "4.5 × 10^6",
+        "Scientific notation"
       ],
       "correctText": "Scientific notation",
       "explanation": "Scientific notation expresses numbers as a × 10^n, where 1 ≤ |a| < 10 and n is an integer. NYS Common Core Grade 8 standard 8.EE.A.3 explicitly tests using numbers expressed in the form of a single digit times an integer power of 10 to estimate very large or very small quantities, and to express how many times as much one is than the other. Worked example: the speed of light is 300,000,000 m/s = 3 × 10^8 m/s in scientific notation; the diameter of a hydrogen atom is 0.00000000005 m = 5 × 10^-11 m. The convention requires the coefficient to be at least 1 and less than 10. Astronomy, chemistry, and physics depend on scientific notation for compact representation; calculators display it as 3E8 or 3e8."
@@ -370,10 +370,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Scientific notation form of 5,200,000.",
       "choices": [
-        "4.5 × 10^6",
-        "3.7 times 10 to the negative fourth",
-        "Cube root",
-        "5.2 times 10 to the sixth"
+        "6 × 10^9",
+        "Scientific notation",
+        "5.2 times 10 to the sixth",
+        "3.7 times 10 to the negative fourth"
       ],
       "correctText": "5.2 times 10 to the sixth",
       "explanation": "To convert 5,200,000 to scientific notation: move the decimal point left until exactly one nonzero digit is to its left, count moves to get the exponent. 5,200,000 = 5.2 × 10^6 (decimal moved 6 places left). NYS Common Core Grade 8 standard 8.EE.A.3 + 8.EE.A.4 explicitly test conversion between standard form and scientific notation. Worked example: 47,300 = 4.73 × 10^4 (4 moves left); 8,000,000 = 8 × 10^6 (6 moves left). Rule: large numbers (>10) give POSITIVE exponents. State-test items test conversion both directions: 6.7 × 10^5 = 670,000 (move decimal 5 places right). Common error: getting the exponent off by one — count moves carefully."
@@ -392,10 +392,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Scientific notation form of 0.00037.",
       "choices": [
-        "Scientific notation",
-        "5.2 times 10 to the sixth",
         "3.7 times 10 to the negative fourth",
-        "Rational number"
+        "25,000",
+        "two x equals 18",
+        "5.2 times 10 to the sixth"
       ],
       "correctText": "3.7 times 10 to the negative fourth",
       "explanation": "To convert 0.00037 to scientific notation: move the decimal point right until exactly one nonzero digit is to its left. 0.00037 = 3.7 × 10^-4 (decimal moved 4 places right, so exponent is -4). NYS Common Core Grade 8 standard 8.EE.A.3 explicitly tests scientific notation for very small numbers (less than 1) using negative exponents. Worked example: 0.0089 = 8.9 × 10^-3; 0.00000052 = 5.2 × 10^-7. Rule: small numbers (between 0 and 1) give NEGATIVE exponents. The negative exponent equals the number of decimal-point moves (or equivalently, the position of the first nonzero digit from the decimal point). State-test items test rapid mental conversion for chemistry/physics contexts (atomic sizes, microbe counts, mass of subatomic particles)."
@@ -414,10 +414,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Standard notation of 2.5 × 10^4.",
       "choices": [
+        "25,000",
         "4.5 × 10^6",
-        "Scientific notation",
-        "Rational",
-        "25,000"
+        "3.7 times 10 to the negative fourth",
+        "Rational number"
       ],
       "correctText": "25,000",
       "explanation": "To convert from scientific to standard notation: move the decimal point right (for positive exponents) or left (for negative exponents) by the absolute value of the exponent. 2.5 × 10^4 = 25,000 (decimal moves 4 places right; fill in zeros). NYS Common Core Grade 8 standard 8.EE.A.3 tests both directions of conversion. Worked example: 1.6 × 10^5 = 160,000; 7.02 × 10^3 = 7,020; 4.5 × 10^-2 = 0.045. Rule: positive exponent → number grows (large); negative exponent → number shrinks (small). State-test items test conversion in real contexts: the population of the United States is approximately 3.3 × 10^8 = 330,000,000. Common error: miscounting decimal moves — write zeros explicitly to count carefully."
@@ -436,10 +436,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Comparison: which is larger, 4.5 × 10^6 or 6.2 × 10^5.",
       "choices": [
-        "Scientific notation",
-        "25,000",
-        "Function",
-        "4.5 × 10^6"
+        "Association",
+        "4.5 × 10^6",
+        "3.7 times 10 to the negative fourth",
+        "25,000"
       ],
       "correctText": "4.5 × 10^6",
       "explanation": "To compare numbers in scientific notation: compare exponents first; the number with the larger exponent is larger (provided coefficients are in valid form [1, 10)). NYS Common Core Grade 8 standard 8.EE.A.3 explicitly tests using scientific notation 'to express how many times as much one [number] is than the other.' Worked example: 4.5 × 10^6 vs 6.2 × 10^5 — exponents are 6 vs 5, so 4.5 × 10^6 is larger regardless of coefficient. Verifying in standard form: 4,500,000 > 620,000. ✓ If exponents are equal, compare coefficients: 6.2 × 10^5 > 4.5 × 10^5. State-test items test comparison and 'how many times as much': 4.5 × 10^6 ÷ 6.2 × 10^5 = (4.5/6.2) × 10 ≈ 7.26 times as much."
@@ -458,10 +458,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The number that is 10 raised to the third power.",
       "choices": [
-        "0.01",
+        "10",
+        "10^6",
         "10^3",
-        "1,000",
-        "180 degrees"
+        "1,000"
       ],
       "correctText": "1,000",
       "explanation": "10^3 = 10 × 10 × 10 = 1,000 (one thousand). NYS Common Core Grade 8 standard 8.EE.A.1 explicitly tests integer exponent properties, with powers of 10 as the foundational case. Memorized table for fluency: 10^0 = 1, 10^1 = 10, 10^2 = 100, 10^3 = 1,000, 10^4 = 10,000, 10^5 = 100,000, 10^6 = 1,000,000 (million), 10^9 = 1 billion, 10^12 = 1 trillion. Pattern: the exponent equals the number of zeros after the 1. Worked example: 'How many zeros in one million?' Six, because 1,000,000 = 10^6. State-test items use these powers in scientific notation conversion and place-value problems. Negative powers: 10^-2 = 1/100 = 0.01."
@@ -480,10 +480,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The value of 10 to the negative second power.",
       "choices": [
-        "0.01",
-        "Exponential nonlinear",
-        "10^7",
-        "1,000"
+        "Irrational",
+        "10^6",
+        "1,000",
+        "0.01"
       ],
       "correctText": "0.01",
       "explanation": "10^-2 = 1/10^2 = 1/100 = 0.01. NYS Common Core Grade 8 standard 8.EE.A.1 explicitly tests the negative-exponent rule: a^-n = 1/a^n. Powers of 10 with negative exponents are key for scientific notation of small numbers and metric conversions. Worked example: 10^-1 = 0.1 (tenth), 10^-2 = 0.01 (hundredth), 10^-3 = 0.001 (thousandth), 10^-6 = 0.000001 (millionth). Pattern: the absolute value of the negative exponent equals the place after the decimal point where the 1 appears. State-test items test negative powers of 10 in scientific notation: a hydrogen atom has diameter ≈ 1 × 10^-10 m. Common error: confusing 10^-2 with -100; remember negative exponent means reciprocal, not negative value."
@@ -502,10 +502,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The product of 10^4 and 10^3, simplified using exponent rules.",
       "choices": [
-        "Association",
         "10^6",
-        "10^3",
-        "10^7"
+        "1,000",
+        "10^7",
+        "Domain"
       ],
       "correctText": "10^7",
       "explanation": "To multiply powers with the same base: keep the base and ADD the exponents. NYS Common Core Grade 8 standard 8.EE.A.1 explicitly tests this product-of-powers rule: a^m × a^n = a^(m+n). Worked example: 10^4 × 10^3 = 10^(4+3) = 10^7 = 10,000,000. Verification: 10,000 × 1,000 = 10,000,000. ✓ This rule comes from counting factors: 10^4 = 10·10·10·10 (4 tens), 10^3 = 10·10·10 (3 tens), product = 10·10·10·10·10·10·10 (7 tens) = 10^7. State-test items test exponent rules with powers of 10, often in scientific notation arithmetic: (3 × 10^4)(2 × 10^3) = 6 × 10^7. The rule generalizes to all bases."
@@ -524,10 +524,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The quotient of 10^8 divided by 10^5, simplified using exponent rules.",
       "choices": [
+        "10^6",
         "10^3",
         "1,000",
-        "10^7",
-        "Slope and y-intercept"
+        "Tied"
       ],
       "correctText": "10^3",
       "explanation": "To divide powers with the same base: keep the base and SUBTRACT the exponents. NYS Common Core Grade 8 standard 8.EE.A.1 explicitly tests this quotient-of-powers rule: a^m / a^n = a^(m-n). Worked example: 10^8 / 10^5 = 10^(8-5) = 10^3 = 1,000. Verification: 100,000,000 / 100,000 = 1,000. ✓ This rule comes from canceling: 10^8/10^5 = (10·10·10·10·10·10·10·10)/(10·10·10·10·10) = 10·10·10 = 10^3. State-test items combine product and quotient rules: (10^4 × 10^3) / 10^5 = 10^7/10^5 = 10^2 = 100. Common error: dividing exponents instead of subtracting (10^8/10^5 ≠ 10^(8/5)). The rule generalizes to any base."
@@ -547,9 +547,9 @@
       "prompt": "The product of (10^2) raised to the third power, using the power-of-a-power rule.",
       "choices": [
         "10^6",
-        "1,000",
-        "0.01",
-        "5"
+        "10^7",
+        "Slope-intercept form",
+        "10^3"
       ],
       "correctText": "10^6",
       "explanation": "To raise a power to a power: keep the base and MULTIPLY the exponents. NYS Common Core Grade 8 standard 8.EE.A.1 explicitly tests this power-of-a-power rule: (a^m)^n = a^(m·n). Worked example: (10^2)^3 = 10^(2·3) = 10^6 = 1,000,000. Verification: (10^2)^3 = (100)^3 = 100·100·100 = 1,000,000. ✓ This rule comes from repeated application: (10^2)^3 means 10^2 multiplied by itself 3 times = 10^2 · 10^2 · 10^2 = 10^(2+2+2) = 10^6. State-test items test the three exponent rules together: product (add), quotient (subtract), power-of-power (multiply). Common error: adding instead of multiplying — (10^2)^3 ≠ 10^5. Memorize: 'POW-POW means multiply.' This rule generalizes to all bases."
@@ -568,10 +568,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The product-of-powers rule: x^a times x^b equals what.",
       "choices": [
-        "1",
         "x to the a plus b",
-        "x to the a minus b",
-        "x to the ninth"
+        "25,000",
+        "1",
+        "x to the a minus b"
       ],
       "correctText": "x to the a plus b",
       "explanation": "The product-of-powers rule: when multiplying powers with the SAME base, keep the base and ADD the exponents: x^a · x^b = x^(a+b). NYS Common Core Grade 8 standard 8.EE.A.1 explicitly tests 'know and apply the properties of integer exponents to generate equivalent numerical expressions.' Worked example: 2^3 · 2^4 = 2^(3+4) = 2^7 = 128. Verification by counting factors: 2^3 = 2·2·2 (3 factors), 2^4 = 2·2·2·2 (4 factors), product = 2·2·2·2·2·2·2 (7 factors). This rule applies to variables and constants alike: x^5 · x^2 = x^7; 10^3 · 10^4 = 10^7. The rule fails when bases differ: 2^3 · 3^4 cannot be simplified by adding exponents (different bases)."
@@ -590,9 +590,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The quotient-of-powers rule: x^a divided by x^b equals what.",
       "choices": [
-        "0.01",
+        "x to the a plus b",
         "x to the twelfth",
-        "One-eighth",
+        "Infinitely many solutions",
         "x to the a minus b"
       ],
       "correctText": "x to the a minus b",
@@ -612,10 +612,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The value of any nonzero number raised to the zero power.",
       "choices": [
-        "Rational number",
+        "4",
         "1",
-        "x to the twelfth",
-        "x to the a minus b"
+        "One-eighth",
+        "x to the a plus b"
       ],
       "correctText": "1",
       "explanation": "Any nonzero number raised to the zero power equals 1: x^0 = 1 for x ≠ 0. NYS Common Core Grade 8 standard 8.EE.A.1 explicitly tests this zero-exponent rule. The rule comes from the quotient property: x^n / x^n = x^(n-n) = x^0; but also x^n/x^n = 1; therefore x^0 = 1. Worked example: 5^0 = 1, (-7)^0 = 1, (1/3)^0 = 1, x^0 = 1. The case 0^0 is undefined (or sometimes defined as 1 by convention in algebra). State-test items test x^0 in expressions: 5x^0 = 5·1 = 5; (3x)^0 = 1; 2^3 · 2^-3 = 2^(3-3) = 2^0 = 1. Common error: students think x^0 = 0 — but actually x^0 = 1 for any nonzero x."
@@ -634,10 +634,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The value of 2 raised to the negative third power.",
       "choices": [
-        "1",
-        "One-eighth",
-        "No association",
-        "x to the a plus b"
+        "Substitute",
+        "x to the twelfth",
+        "x to the a minus b",
+        "One-eighth"
       ],
       "correctText": "One-eighth",
       "explanation": "A negative exponent gives the reciprocal of the positive-exponent value: x^-n = 1/x^n. NYS Common Core Grade 8 standard 8.EE.A.1 explicitly tests negative-exponent rule. Worked example: 2^-3 = 1/2^3 = 1/8 = 0.125. The rule comes from the quotient property: x^0/x^n = x^(-n) = 1/x^n. State-test items test negative exponents in numerical (3^-2 = 1/9, 10^-4 = 1/10000 = 0.0001) and algebraic (x^-5 = 1/x^5) contexts. Common error: students think 2^-3 = -8 (treating the negative as a sign rather than reciprocal). The negative SIGN means 'flip,' not 'multiply by -1.' Practice: 5^-2 = 1/25 = 0.04 (small positive number), NOT -25 (negative)."
@@ -656,9 +656,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The simplified expression of (x^3)^4.",
       "choices": [
-        "No association",
-        "x to the a plus b",
+        "6 × 10^9",
         "x to the twelfth",
+        "x to the a minus b",
         "1"
       ],
       "correctText": "x to the twelfth",
@@ -678,10 +678,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "To multiply (3 × 10^5) and (2 × 10^3), multiply coefficients and do what to exponents.",
       "choices": [
-        "10",
         "8 × 10^4",
-        "Add",
-        "6 × 10^9"
+        "4.5 times 10 to the negative fifth",
+        "3 × 10^6",
+        "Add"
       ],
       "correctText": "Add",
       "explanation": "To multiply numbers in scientific notation: multiply the coefficients, ADD the exponents, then adjust if needed for valid form. NYS Common Core Grade 8 standard 8.EE.A.4 explicitly tests performing operations with scientific notation. Worked example: (3 × 10^5)(2 × 10^3) = (3·2) × 10^(5+3) = 6 × 10^8. Coefficients multiply normally (3·2=6); exponents add by the product-of-powers rule (10^5 · 10^3 = 10^8). Result is already in valid scientific notation since 1 ≤ 6 < 10. State-test items test multiplication and division of scientific-notation values in physics/chemistry contexts (e.g., mass × density, distance × time). Common error: multiplying both coefficients AND exponents — exponents always add when bases are equal."
@@ -700,10 +700,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "To divide (8 × 10^7) by (4 × 10^2), divide coefficients and do what to exponents.",
       "choices": [
-        "8 × 10^4",
-        "25",
+        "Subtract",
         "Add",
-        "Subtract"
+        "Linear function",
+        "8 × 10^4"
       ],
       "correctText": "Subtract",
       "explanation": "To divide numbers in scientific notation: divide the coefficients, SUBTRACT the exponents. NYS Common Core Grade 8 standard 8.EE.A.4 explicitly tests this operation. Worked example: (8 × 10^7) / (4 × 10^2) = (8/4) × 10^(7-2) = 2 × 10^5. Coefficients divide normally (8/4=2); exponents subtract by the quotient-of-powers rule (10^7 / 10^2 = 10^5). State-test items test division in real contexts: 'A satellite travels 6 × 10^6 km in 3 × 10^2 hours; find its speed.' Answer: (6/3) × 10^(6-2) = 2 × 10^4 km/hr. Common error: dividing both coefficients AND exponents — exponents subtract, they don't divide. The result must be in valid form: if coefficient is < 1 or ≥ 10, adjust."
@@ -722,10 +722,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The product of (2 × 10^4) and (3 × 10^5), in scientific notation.",
       "choices": [
-        "3 × 10^6",
-        "Reflection",
         "6 × 10^9",
-        "Add"
+        "3 × 10^6",
+        "Rational",
+        "Subtract"
       ],
       "correctText": "6 × 10^9",
       "explanation": "To multiply (2 × 10^4)(3 × 10^5): multiply coefficients (2·3 = 6), add exponents (4+5 = 9), result is 6 × 10^9. NYS Common Core Grade 8 standard 8.EE.A.4 explicitly tests scientific-notation multiplication. Verification: 2 × 10^4 = 20,000; 3 × 10^5 = 300,000; product = 6,000,000,000 = 6 × 10^9. ✓ Worked example with coefficient adjustment: (5 × 10^3)(4 × 10^2) = 20 × 10^5 = 2 × 10^6 (since 20 = 2 × 10^1, total exponent becomes 5+1=6). State-test items test products including those needing adjustment for valid scientific-notation form (coefficient must be in [1, 10)). Practice: (7 × 10^-2)(2 × 10^5) = 14 × 10^3 = 1.4 × 10^4."
@@ -744,10 +744,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The quotient of (9 × 10^8) divided by (3 × 10^2), in scientific notation.",
       "choices": [
-        "3 × 10^6",
+        "No solution",
+        "8 × 10^4",
         "Subtract",
-        "Irrational",
-        "Add"
+        "3 × 10^6"
       ],
       "correctText": "3 × 10^6",
       "explanation": "To divide (9 × 10^8) / (3 × 10^2): divide coefficients (9/3 = 3), subtract exponents (8-2 = 6), result is 3 × 10^6. NYS Common Core Grade 8 standard 8.EE.A.4 tests scientific-notation division. Verification: 9 × 10^8 = 900,000,000; 3 × 10^2 = 300; quotient = 3,000,000 = 3 × 10^6. ✓ Worked example with adjustment: (6 × 10^3) / (2 × 10^5) = 3 × 10^(-2). Since 3 is in [1, 10), the form is valid. State-test items test 'how many times as much' problems: 'The U.S. has population 3 × 10^8; Iceland has 3 × 10^5. The U.S. has how many times more people than Iceland?' Answer: (3 × 10^8) / (3 × 10^5) = 1 × 10^3 = 1,000 times more."
@@ -766,10 +766,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The sum of (3 × 10^4) and (5 × 10^4), in scientific notation.",
       "choices": [
-        "Exponential nonlinear",
-        "3 × 10^6",
-        "Subtract",
-        "8 × 10^4"
+        "6 × 10^9",
+        "8 × 10^4",
+        "Add",
+        "Scatter plot"
       ],
       "correctText": "8 × 10^4",
       "explanation": "To add numbers in scientific notation with the SAME exponent: add the coefficients, keep the exponent. NYS Common Core Grade 8 standard 8.EE.A.4 tests scientific-notation addition. Worked example: (3 × 10^4) + (5 × 10^4) = (3+5) × 10^4 = 8 × 10^4 = 80,000. If exponents DIFFER: first convert to a common exponent (often the larger), then add coefficients. Example: (3 × 10^4) + (2 × 10^3) = (3 × 10^4) + (0.2 × 10^4) = 3.2 × 10^4. State-test items test both equal-exponent and different-exponent additions, and require results in valid scientific notation. Common error: adding exponents in addition — exponents only add in MULTIPLICATION; in addition/subtraction, exponents must match before combining coefficients."
@@ -789,9 +789,9 @@
       "prompt": "The result of solving 2x + 5 = 13 for x.",
       "choices": [
         "4",
-        "One solution",
         "No solution",
-        "Pythagorean triple"
+        "1,000",
+        "Infinitely many solutions"
       ],
       "correctText": "4",
       "explanation": "To solve 2x + 5 = 13: isolate x using inverse operations. NYS Common Core Grade 8 standard 8.EE.C.7 explicitly tests solving linear equations in one variable. Step 1: subtract 5 from both sides → 2x = 8. Step 2: divide both sides by 2 → x = 4. Check: 2(4) + 5 = 8 + 5 = 13. ✓ The method follows the order of operations in REVERSE: undo addition/subtraction first (peeling off the outermost layer), then undo multiplication/division. Worked alternative: 3x - 7 = 14 → 3x = 21 → x = 7. State-test items test two-step equations heavily; mastery enables solving systems in Unit 4 and slope-intercept problems in Unit 3. Algebra symbol manipulation traces to François Viète (1591) who introduced letters for variables."
@@ -810,10 +810,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The equation type with one solution, like 3x - 4 = 11.",
       "choices": [
-        "4",
+        "No solution",
         "One solution",
-        "Pythagorean theorem",
-        "No solution"
+        "3 × 10^6",
+        "Distribute"
       ],
       "correctText": "One solution",
       "explanation": "A linear equation has exactly ONE solution when, after simplification, the equation reduces to ax = b with a ≠ 0. NYS Common Core Grade 8 standard 8.EE.C.7.A explicitly tests determining whether linear equations have one solution, no solution, or infinitely many solutions. Worked example: 3x - 4 = 11 → 3x = 15 → x = 5 (one solution); 2x + 3 = 5x - 6 → -3x = -9 → x = 3 (one solution). State-test items test classification: equations like 2x + 1 = 2x + 1 have infinitely many solutions (identity); equations like 2x + 1 = 2x + 5 have no solution (contradiction). Recognize 'one solution' when the variable terms simplify to a single ax term with nonzero a."
@@ -832,10 +832,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The equation type with no solutions, like 2x + 3 = 2x + 7.",
       "choices": [
-        "4",
-        "Distribute",
-        "Infinitely many",
-        "No solution"
+        "One solution",
+        "No solution",
+        "Square root",
+        "Infinitely many solutions"
       ],
       "correctText": "No solution",
       "explanation": "A linear equation has NO solution when the variable terms cancel and the constants disagree, leaving a contradiction (e.g., 0 = 4). NYS Common Core Grade 8 standard 8.EE.C.7.A explicitly tests recognition of no-solution equations. Worked example: 2x + 3 = 2x + 7 → subtract 2x from both sides → 3 = 7, a contradiction. There is no value of x that makes this equation true; the equation has NO solution. State-test items test classification: 3(x + 2) = 3x + 5 → 3x + 6 = 3x + 5 → 6 = 5, no solution. Geometrically, no-solution equations correspond to PARALLEL lines (same slope, different y-intercepts) when graphed — a key idea for systems in Unit 4."
@@ -855,9 +855,9 @@
       "prompt": "The equation type with infinitely many solutions, like 2(x + 3) = 2x + 6.",
       "choices": [
         "Infinitely many solutions",
+        "Congruent",
         "No solution",
-        "One solution",
-        "5a + 3c = 48 and 2a + 4c = 32"
+        "Distribute"
       ],
       "correctText": "Infinitely many solutions",
       "explanation": "A linear equation has INFINITELY many solutions when it simplifies to an identity (always true, like 0 = 0 or 6 = 6) — every value of x satisfies it. NYS Common Core Grade 8 standard 8.EE.C.7.A explicitly tests this case. Worked example: 2(x + 3) = 2x + 6 → 2x + 6 = 2x + 6 → 0 = 0, an identity. Any value of x works: x=0 gives 6=6, x=10 gives 26=26, etc. State-test items test classification: 4(x + 1) - 4 = 4x → 4x + 4 - 4 = 4x → 4x = 4x → identity, infinitely many solutions. Geometrically, this corresponds to the SAME line graphed twice (or coincident lines) — a key idea for systems in Unit 4. Common error: students stop at 0=0 thinking they made an error; in fact, 0=0 confirms identity."
@@ -876,10 +876,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The first step to solve 3(x - 2) = 4x + 1 for x.",
       "choices": [
-        "Negative",
         "Distribute",
-        "4",
-        "No solution"
+        "Infinitely many solutions",
+        "One solution",
+        "2"
       ],
       "correctText": "Distribute",
       "explanation": "To solve 3(x - 2) = 4x + 1, the FIRST step is to distribute the 3 across the parentheses: 3x - 6 = 4x + 1. NYS Common Core Grade 8 standard 8.EE.C.7.B tests solving linear equations 'with rational number coefficients, including equations whose solutions require expanding expressions using the distributive property.' Continuing: 3x - 6 = 4x + 1 → subtract 3x → -6 = x + 1 → subtract 1 → -7 = x → x = -7. Check: 3(-7-2) = 3(-9) = -27; 4(-7)+1 = -28+1 = -27. ✓ State-test items test the four-step process: (1) distribute; (2) combine like terms on each side; (3) move variables to one side, constants to the other; (4) divide. The distributive property dates to Euclid (around 300 BC) and is foundational to algebra."
@@ -898,10 +898,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An equation modeling 'a number plus 7 equals 15.'",
       "choices": [
-        "two x equals 18",
-        "20 plus 5x equals 45",
+        "2x plus 5 equals 3x minus 2",
         "x plus 7 equals 15",
-        "Irrational"
+        "20 plus 5x equals 45",
+        "4"
       ],
       "correctText": "x plus 7 equals 15",
       "explanation": "Translating words to equations: let the unknown be a variable, identify the operation from the verb, equate to the value. NYS Common Core Grade 8 standard 8.EE.C.7 tests setting up equations from word descriptions. 'A number plus 7 equals 15' → x + 7 = 15. Solve: x = 8. Worked example: 'Twice a number decreased by 3 equals 17' → 2x - 3 = 17 → 2x = 20 → x = 10. Translation key: 'sum/plus/more than' = +; 'difference/minus/less than' = -; 'times/product' = ·; 'quotient/divided by' = /; 'equals/is' = =. State-test items test reading comprehension and equation-setup heavily; students must distinguish 'less than' (x - 5) from 'less' (5 - x) and 'more than' (x + 5)."
@@ -921,9 +921,9 @@
       "prompt": "An equation modeling 'twice a number is 18.'",
       "choices": [
         "two x equals 18",
+        "20 plus 5x equals 45",
         "x plus (x+1) plus (x+2) equals 60",
-        "Substitute",
-        "2x plus 5 equals 3x minus 2"
+        "1.41"
       ],
       "correctText": "two x equals 18",
       "explanation": "'Twice a number is 18' → 2x = 18. NYS Common Core Grade 8 standard 8.EE.C.7 tests equation translation. Solve: x = 9 (divide both sides by 2). Worked example: 'Three times a number plus 4 is 19' → 3x + 4 = 19 → 3x = 15 → x = 5. Translation key for multiplication: 'twice' = 2·; 'triple' = 3·; 'quadruple' = 4·; 'half' = (1/2)·; 'third' = (1/3)·. State-test items test these in real contexts: 'A movie theater charges $9 per ticket. If total revenue is $1,800, how many tickets sold?' → 9x = 1800 → x = 200 tickets. Practice both directions: word → equation and equation → word problem. Foundational pre-algebra skill."
@@ -942,9 +942,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An equation modeling 'the sum of 3 consecutive integers is 60.'",
       "choices": [
-        "20 plus 5x equals 45",
-        "x plus (x+1) plus (x+2) equals 60",
         "No solution",
+        "two x equals 18",
+        "x plus (x+1) plus (x+2) equals 60",
         "x plus 7 equals 15"
       ],
       "correctText": "x plus (x+1) plus (x+2) equals 60",
@@ -965,9 +965,9 @@
       "prompt": "Two-step equation for 'a $20 entrance fee plus $5 per ride totals $45.'",
       "choices": [
         "x plus (x+1) plus (x+2) equals 60",
-        "20 plus 5x equals 45",
-        "4",
-        "x plus 7 equals 15"
+        "100 pi",
+        "2x plus 5 equals 3x minus 2",
+        "20 plus 5x equals 45"
       ],
       "correctText": "20 plus 5x equals 45",
       "explanation": "To model real-world cost equations: identify fixed cost (constant) and variable cost (coefficient × variable). NYS Common Core Grade 8 standard 8.EE.C.7.B tests these two-step setups. 'A $20 entrance fee plus $5 per ride totals $45' → fixed cost is $20, variable cost is $5 per ride; let x = number of rides → 20 + 5x = 45. Solve: 5x = 25, x = 5 rides. Worked example: 'A taxi charges $3 base plus $2 per mile; total is $11. How many miles?' → 3 + 2m = 11 → 2m = 8 → m = 4 miles. State-test items test this 'fixed + variable' structure in many contexts: gym memberships ($30 + $5/visit), phone plans ($50 + $0.10/minute), shipping ($5 + $0.50/item). The y-intercept (fixed) and slope (variable) preview linear functions in Unit 3."
@@ -987,9 +987,9 @@
       "prompt": "Equation modeling 'twice a number plus 5 equals three times the same number minus 2.'",
       "choices": [
         "two x equals 18",
-        "x = 8, y = 4",
         "2x plus 5 equals 3x minus 2",
-        "20 plus 5x equals 45"
+        "y equals 5x",
+        "x plus (x+1) plus (x+2) equals 60"
       ],
       "correctText": "2x plus 5 equals 3x minus 2",
       "explanation": "Equations with variables on BOTH sides require moving all variables to one side. NYS Common Core Grade 8 standard 8.EE.C.7.B tests these explicitly. '2x + 5 = 3x - 2' → subtract 2x from both sides → 5 = x - 2 → add 2 → x = 7. Check: 2(7)+5 = 19; 3(7)-2 = 19. ✓ Worked example: '5x - 3 = 2x + 12' → 5x - 2x = 12 + 3 → 3x = 15 → x = 5. State-test items test variables-on-both-sides equations in real contexts: 'Two phone plans: Plan A is $40 + $0.10/min; Plan B is $20 + $0.20/min. After how many minutes are they equal?' → 40 + 0.10m = 20 + 0.20m → 20 = 0.10m → m = 200 minutes. Variables-on-both-sides equations are critical for systems and break-even analysis."
@@ -1008,10 +1008,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Simplify x^4 times x^5.",
       "choices": [
-        "x to the ninth",
-        "a to the fifteenth",
         "4 x to the sixth",
-        "1.41"
+        "a to the fifteenth",
+        "x to the ninth",
+        "8 × 10^4"
       ],
       "correctText": "x to the ninth",
       "explanation": "Multiply same-base powers by ADDING exponents: x^4 · x^5 = x^(4+5) = x^9. NYS Common Core Grade 8 standard 8.EE.A.1 tests this product-of-powers rule. Worked example: x^2 · x^7 = x^9; y^3 · y · y^5 = y^(3+1+5) = y^9 (note y = y^1). State-test items test product-of-powers in variable form (most common) and numeric form (3^2 · 3^4 = 3^6 = 729). Combined: 2x^3 · 4x^5 = 8x^8 (multiply coefficients 2·4=8, add exponents 3+5=8). Common error: students multiply exponents — but multiplication of bases means ADDITION of exponents. Memorize: 'TIMES means PLUS for exponents.'"
@@ -1030,10 +1030,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Simplify (a^3)^5.",
       "choices": [
+        "two x equals 18",
         "a to the fifteenth",
-        "One over x cubed",
-        "x to the fifth",
-        "10^7"
+        "4 x to the sixth",
+        "One over x cubed"
       ],
       "correctText": "a to the fifteenth",
       "explanation": "Power of a power: MULTIPLY exponents: (a^3)^5 = a^(3·5) = a^15. NYS Common Core Grade 8 standard 8.EE.A.1 tests power-of-a-power rule. Worked example: (x^2)^7 = x^14; (y^4)^3 = y^12. State-test items combine rules: (2x^3)^4 = 2^4 · (x^3)^4 = 16x^12 (power-of-product distributes). Combined with product rule: (x^2)^3 · x^4 = x^6 · x^4 = x^10. Common error: students add 3+5=8 instead of multiplying 3·5=15. Memorize: 'PARENS-POW means MULTIPLY.' The pattern: when you have a power raised to a power, the operation 'between' them in mental shorthand is multiplication. Foundation for radical operations and polynomial expansion in Algebra 1."
@@ -1052,10 +1052,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Simplify x^8 divided by x^3.",
       "choices": [
-        "a to the fifteenth",
         "x to the fifth",
-        "Translation",
-        "4 x to the sixth"
+        "x to the ninth",
+        "a to the fifteenth",
+        "4"
       ],
       "correctText": "x to the fifth",
       "explanation": "Divide same-base powers by SUBTRACTING exponents: x^8 / x^3 = x^(8-3) = x^5. NYS Common Core Grade 8 standard 8.EE.A.1 tests quotient-of-powers rule. Worked example: y^10/y^4 = y^6; a^7/a = a^6 (note a = a^1). State-test items test quotients in algebra fractions: (6x^7)/(2x^3) = 3x^4 (divide coefficients 6/2=3, subtract exponents 7-3=4). Combined: (x^5 · x^3)/x^2 = x^8/x^2 = x^6. Common error: students divide exponents (x^8/x^3 ≠ x^(8/3)) — division means subtraction for exponents. Memorize: 'DIVIDE means SUBTRACT.' This rule extends to negative results: x^3/x^7 = x^(3-7) = x^-4 = 1/x^4."
@@ -1074,10 +1074,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Simplify (2x^3)^2.",
       "choices": [
-        "Congruent",
+        "x to the ninth",
         "4 x to the sixth",
-        "x to the fifth",
-        "x to the ninth"
+        "a to the fifteenth",
+        "Sum of two remote interior angles"
       ],
       "correctText": "4 x to the sixth",
       "explanation": "Power of a product: distribute the exponent: (ab)^n = a^n · b^n. NYS Common Core Grade 8 standard 8.EE.A.1 tests power-of-product alongside other exponent rules. Worked example: (2x^3)^2 = 2^2 · (x^3)^2 = 4 · x^6 = 4x^6. State-test items test power-of-product extensively: (3y^4)^3 = 3^3 · y^12 = 27y^12; (5ab^2)^2 = 25 · a^2 · b^4 = 25a^2b^4. Combined with other rules: (2x^3)^2 · x^4 = 4x^6 · x^4 = 4x^10. Common error: students forget to apply the outer exponent to the COEFFICIENT: (2x^3)^2 ≠ 2x^6 (must square the 2). Memorize: 'PARENS-POW distributes over all factors inside.' Critical skill for polynomial operations in Algebra 1."
@@ -1096,10 +1096,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Simplify x^-3 expressed with a positive exponent.",
       "choices": [
-        "One over x cubed",
-        "Subtract",
         "a to the fifteenth",
-        "x to the fifth"
+        "One over x cubed",
+        "Translation",
+        "x to the ninth"
       ],
       "correctText": "One over x cubed",
       "explanation": "Negative exponent means reciprocal of positive: x^-n = 1/x^n. NYS Common Core Grade 8 standard 8.EE.A.1 tests negative-exponent rule. Worked example: x^-3 = 1/x^3; 2^-4 = 1/2^4 = 1/16. State-test items test negative exponents in algebraic expressions: (x^-2)(x^5) = x^3; x^-3 · x^-4 = x^-7 = 1/x^7. Reciprocal direction: 1/x^-3 = x^3 (negative-of-negative becomes positive). Combined: (x^-2)^3 = x^-6 = 1/x^6. Common error: students treat negative exponent as negative number — but x^-3 = 1/x^3 (positive value when x is positive), NOT -x^3. Memorize: 'Negative exponent FLIPS the base.' This rule unifies scientific notation (10^-3 = 0.001), unit conversions (cm^-1), and rational expressions in algebra."
@@ -1118,10 +1118,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A rule that assigns exactly one output to each input.",
       "choices": [
+        "Domain",
         "Function",
-        "Linear function",
-        "Congruent",
-        "Domain"
+        "Range",
+        "Scatter plot"
       ],
       "correctText": "Function",
       "explanation": "A function is a rule that assigns to each input exactly ONE output. NYS Common Core Grade 8 standard 8.F.A.1 explicitly tests understanding that 'a function is a rule that assigns to each input exactly one output' and recognizing graphs/tables as functions. The function-notation y = f(x) was introduced by Leonhard Euler in 1734, who pioneered modern functional thinking. Worked example: y = 2x + 3 is a function (each x gives one y); the rule 'cost = $5 per item × number of items' assigns one cost per quantity. The 'one output per input' rule is enforced by the vertical line test on a graph: any vertical line should cross the graph at most once. State-test items test function identification from tables, graphs, equations, and mappings."
@@ -1140,9 +1140,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The set of all valid inputs to a function.",
       "choices": [
-        "Function",
-        "(kx, ky)",
         "Range",
+        "Function",
+        "Both lines",
         "Domain"
       ],
       "correctText": "Domain",
@@ -1163,9 +1163,9 @@
       "prompt": "The set of all valid outputs of a function.",
       "choices": [
         "Linear function",
+        "Domain",
         "Range",
-        "Function",
-        "Congruent"
+        "25,000"
       ],
       "correctText": "Range",
       "explanation": "The range of a function is the set of all valid outputs (y-values). NYS Common Core Grade 8 standard 8.F.A.1 tests this paired with domain. Worked example: f(x) = x^2 has range y ≥ 0 (squares are non-negative); g(x) = 3x + 1 with domain {0, 1, 2} has range {1, 4, 7} (substitute each x to get y). State-test items test range identification from graphs (y-axis range) and tables. For contextual functions, range is what outputs are physically possible: 'distance traveled' must be ≥ 0; 'temperature' depends on weather constraints. Pairing domain and range with function-rule analysis is a core Grade 8 skill. The terminology traces to early 1900s in formal mathematics; today it is standard in K-12 algebra."
@@ -1184,9 +1184,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A test on a graph that checks if it represents a function.",
       "choices": [
+        "Range",
         "Domain",
-        "10^7",
-        "Linear function",
+        "Slope and y-intercept",
         "Vertical line test"
       ],
       "correctText": "Vertical line test",
@@ -1206,10 +1206,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A function form where the rule is y equals m times x plus b.",
       "choices": [
-        "Vertical line test",
-        "Range",
-        "5",
-        "Linear function"
+        "Domain",
+        "Scientific notation",
+        "Linear function",
+        "Function"
       ],
       "correctText": "Linear function",
       "explanation": "A linear function has the form y = mx + b where m is the slope and b is the y-intercept. NYS Common Core Grade 8 standard 8.F.A.3 explicitly tests 'interpret the equation y = mx + b as defining a linear function, whose graph is a straight line.' Worked example: y = 2x + 3 is linear with slope 2 and y-intercept 3; y = -1/2 x + 5 is linear with slope -1/2 and y-intercept 5; y = 7 is linear (constant) with slope 0. State-test items test recognition of linear vs nonlinear functions from equations (y = x^2 is NOT linear), tables (constant rate of change → linear), and graphs (straight line → linear). The slope-intercept form was popularized in the 1700s-1800s and remains the most common form for grade-school work."
@@ -1228,10 +1228,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The measure of a line's steepness, defined as rise over run.",
       "choices": [
-        "Substitute",
         "Slope",
-        "3",
-        "0"
+        "a = 4, b = 3",
+        "0",
+        "Slope 4, intercept -7"
       ],
       "correctText": "Slope",
       "explanation": "Slope (m) measures a line's steepness: m = rise/run = (change in y)/(change in x) = (y2 - y1)/(x2 - x1). NYS Common Core Grade 8 standard 8.EE.B.6 explicitly tests using similar triangles to explain why slope is the same between any two distinct points on a non-vertical line. The slope concept developed in the 17th century with Descartes' coordinate geometry (1637). Worked example: between (1, 3) and (4, 9): rise = 9-3 = 6, run = 4-1 = 3, slope = 6/3 = 2 (line rises 2 units for every 1 unit right). State-test items test slope from points, tables, and graphs. Positive slope = up-right; negative slope = down-right; zero slope = horizontal; undefined = vertical (run = 0)."
@@ -1250,10 +1250,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The slope between points (1, 2) and (3, 8).",
       "choices": [
-        "Slope 4, intercept -7",
-        "0",
-        "100 pi",
-        "3"
+        "3",
+        "x = 8, y = 4",
+        "Negative 1",
+        "Slope"
       ],
       "correctText": "3",
       "explanation": "To find slope between two points: m = (y2 - y1)/(x2 - x1). For (1, 2) and (3, 8): m = (8 - 2)/(3 - 1) = 6/2 = 3. NYS Common Core Grade 8 standard 8.EE.B.6 explicitly tests slope computation. The line rises 3 units for every 1 unit right. Worked example: (2, 5) and (6, 17): m = (17-5)/(6-2) = 12/4 = 3. State-test items test slope from two given points, often in real contexts: 'A plant grows from 2 inches at week 1 to 8 inches at week 3. Growth rate?' = 3 inches/week. Common error: students subtract in the wrong order — must keep y's and x's in the same order: (y2 - y1)/(x2 - x1) NOT (y1 - y2)/(x2 - x1). The order convention preserves sign."
@@ -1272,10 +1272,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The slope between points (2, 5) and (6, 1).",
       "choices": [
+        "Strong positive",
+        "Slope",
         "Negative 1",
-        "3",
-        "Nonlinear",
-        "0"
+        "Slope 4, intercept -7"
       ],
       "correctText": "Negative 1",
       "explanation": "Slope between (2, 5) and (6, 1): m = (1 - 5)/(6 - 2) = -4/4 = -1. NYS Common Core Grade 8 standard 8.EE.B.6 tests negative slopes (decreasing lines). The line falls 1 unit for every 1 unit right. Worked example: (1, 10) and (5, 2): m = (2-10)/(5-1) = -8/4 = -2 (line falls 2 units per 1 right). State-test items test negative slopes in real contexts: 'A candle starts at 10 cm and shrinks to 4 cm in 3 hours' has slope (4-10)/(3-0) = -2 cm/hour. Negative slope = decreasing function. The sign of slope encodes direction: positive = increasing, negative = decreasing, zero = constant, undefined = vertical jump."
@@ -1295,9 +1295,9 @@
       "prompt": "The slope of a horizontal line.",
       "choices": [
         "0",
-        "Slope 4, intercept -7",
-        "Plus or minus 6",
-        "Negative 1"
+        "3",
+        "Negative 1",
+        "No solution"
       ],
       "correctText": "0",
       "explanation": "The slope of a horizontal line is 0. NYS Common Core Grade 8 standard 8.EE.B.6 + 8.F.A.3 test horizontal/vertical line slopes. A horizontal line has the same y-value for every x: between (1, 5) and (8, 5), slope = (5-5)/(8-1) = 0/7 = 0. The line neither rises nor falls — rise = 0. Worked example: y = 4 is a horizontal line through y = 4 for all x; slope = 0. State-test items distinguish horizontal (slope = 0) from vertical (slope undefined). A vertical line like x = 3 has run = 0 in any slope calculation, making slope = rise/0 = undefined. Memorize: 'HORIZONTAL = ZERO slope; VERTICAL = UNDEFINED slope.' Both are special cases of slope, neither a typical linear function in y = mx + b form (vertical can't be written this way)."
@@ -1316,10 +1316,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The slope and y-intercept of y equals 4x minus 7.",
       "choices": [
-        "x plus (3x minus 2) equals 14",
+        "Slope 4, intercept -7",
         "0",
-        "Slope",
-        "Slope 4, intercept -7"
+        "-4",
+        "Negative 1"
       ],
       "correctText": "Slope 4, intercept -7",
       "explanation": "In slope-intercept form y = mx + b: m is the slope (coefficient of x), b is the y-intercept (constant term). For y = 4x - 7: m = 4, b = -7. NYS Common Core Grade 8 standard 8.F.A.3 explicitly tests interpreting y = mx + b: 'm is the slope, b is the y-intercept.' Worked example: y = -1/2 x + 9 has slope -1/2 and y-intercept 9. State-test items test rapid extraction of m and b from equations and use them to graph the line: start at (0, b), then use slope rise/run to plot more points. Reverse direction: given slope and y-intercept, write the equation: m = 3, b = -2 → y = 3x - 2. Critical for graphing and modeling."
@@ -1338,10 +1338,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "In a linear function, the rate of change is also called the what.",
       "choices": [
-        "y equals negative 2 x plus 7",
-        "3",
         "Slope",
-        "x plus (x+1) plus (x+2) equals 60"
+        "8",
+        "No association",
+        "y equals negative 2 x plus 7"
       ],
       "correctText": "Slope",
       "explanation": "In a linear function, the constant rate of change is the SLOPE. NYS Common Core Grade 8 standard 8.F.B.4 explicitly tests 'the rate of change and initial value of the function from a description of a relationship or from two (x, y) values, including reading these from a table or from a graph.' Worked example: a phone plan charging $0.10 per minute has rate of change = slope = 0.10 dollars/minute. State-test items test rate of change in tables (constant differences in y for equal differences in x indicate linear); in equations (coefficient of x); and in word problems (cost per unit, growth per time, miles per hour). The phrase 'rate of change' is interchangeable with slope in linear contexts and is the natural language description for real-world rates."
@@ -1360,10 +1360,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The initial value (when x = 0) in y equals 3x plus 8.",
       "choices": [
-        "Slope",
-        "8",
-        "Line of best fit",
-        "Slope"
+        "3",
+        "y equals negative 2 x plus 7",
+        "Irrational",
+        "8"
       ],
       "correctText": "8",
       "explanation": "The initial value of a linear function y = mx + b is b — the value of y when x = 0. NYS Common Core Grade 8 standard 8.F.B.4 explicitly tests 'rate of change and initial value' identification. For y = 3x + 8: when x = 0, y = 3(0) + 8 = 8. The initial value 8 corresponds graphically to the y-intercept (where the line crosses the y-axis). Worked example: cost C = 2x + 5 for x items has initial value 5 (cost when 0 items purchased — perhaps a fixed setup fee). State-test items test initial-value extraction in real contexts: 'A taxi charges $4 plus $2/mile' has initial value $4 (fixed cost); 'A plant starts at 3 inches and grows 0.5 inches/week' has initial value 3 inches."
@@ -1382,9 +1382,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The slope of a line through (0, 4) and (5, 19).",
       "choices": [
-        "3",
-        "Rotation",
         "8",
+        "Rotation",
+        "3",
         "Slope"
       ],
       "correctText": "3",
@@ -1404,10 +1404,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The constant difference in y when x increases by 1 in a linear table.",
       "choices": [
+        "3",
         "y equals negative 2 x plus 7",
-        "8",
-        "Slope",
-        "Cube root"
+        "No solution",
+        "Slope"
       ],
       "correctText": "Slope",
       "explanation": "In a table of values for a linear function, the slope equals the constant DIFFERENCE in y when x increases by 1. NYS Common Core Grade 8 standard 8.F.A.4 tests this 'constant rate of change' criterion for linearity. Worked example: table x: 1, 2, 3, 4; y: 5, 8, 11, 14. Differences in y: 8-5=3, 11-8=3, 14-11=3 (constant). Slope = 3. Equation: y = 3x + 2 (using point (1, 5): 5 = 3(1) + b, b = 2). State-test items test slope-from-table extensively — students must compute consecutive y-differences; equal differences confirm linearity and give the slope. Non-equal differences indicate the function is NOT linear (might be exponential or quadratic, beyond Grade 8 scope but introduced as comparison)."
@@ -1427,9 +1427,9 @@
       "prompt": "Equation of the line with slope -2 passing through (3, 1).",
       "choices": [
         "Slope",
-        "y equals negative 2 x plus 7",
-        "0",
-        "Slope"
+        "x to the fifth",
+        "3",
+        "y equals negative 2 x plus 7"
       ],
       "correctText": "y equals negative 2 x plus 7",
       "explanation": "To write the equation given slope and one point: use point-slope form y - y1 = m(x - x1), then convert to slope-intercept. NYS Common Core Grade 8 standard 8.F.B.4 tests this skill. Slope m = -2, point (3, 1): y - 1 = -2(x - 3) → y - 1 = -2x + 6 → y = -2x + 7. Check: substitute (3, 1): y = -2(3) + 7 = -6 + 7 = 1 ✓. Alternative method: y = mx + b → 1 = -2(3) + b → 1 = -6 + b → b = 7 → y = -2x + 7. State-test items test 'write the equation' from slope+point, two points, or graph-reading. Foundational pre-algebra skill for Algebra 1 and beyond."
@@ -1449,9 +1449,9 @@
       "prompt": "A graph of y equals mx plus b is what shape.",
       "choices": [
         "Straight line",
-        "8",
         "Nonlinear",
-        "(4, 0)"
+        "(4, 0)",
+        "Negative"
       ],
       "correctText": "Straight line",
       "explanation": "The graph of y = mx + b (a linear function) is a STRAIGHT LINE. NYS Common Core Grade 8 standard 8.F.A.3 explicitly tests 'interpret the equation y = mx + b as defining a linear function, whose graph is a straight line.' Worked example: y = 2x + 1 graphs as a line passing through (0, 1) and rising 2 units for every 1 unit right. y = -3 graphs as a horizontal line through y = -3 (slope = 0). State-test items test graph-recognition: any straight line is linear (function form y = mx + b unless vertical); any curve is NOT linear. Distinguishing features: linear graphs have constant rate of change; curves have varying rate of change. The straight-line graph is the visual signature of linearity."
@@ -1470,9 +1470,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The y-intercept of y = 3x - 5 is at what point.",
       "choices": [
-        "y equals 5x",
         "(0, -5)",
-        "No solution",
+        "(4, 0)",
+        "Rational",
         "Nonlinear"
       ],
       "correctText": "(0, -5)",
@@ -1492,10 +1492,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The x-intercept of y = 2x - 8 is at what point.",
       "choices": [
-        "V equals pi r squared h",
-        "Straight line",
         "(4, 0)",
-        "(0, -5)"
+        "Line of best fit",
+        "(0, -5)",
+        "y equals 5x"
       ],
       "correctText": "(4, 0)",
       "explanation": "The x-intercept of y = 2x - 8 is where y = 0: set y = 0, solve 0 = 2x - 8 → 2x = 8 → x = 4. Intercept: (4, 0). NYS Common Core Grade 8 standard 8.F.A.3 tests intercept identification. Graphically, the x-intercept is where the line CROSSES the x-axis. Worked example: y = -3x + 12 has x-intercept (4, 0): 0 = -3x + 12 → x = 4. State-test items test both x- and y-intercepts; together they let you graph any line quickly using two points. In real contexts, x-intercept represents when y = 0: time when account balance reaches 0, when speed becomes 0, when height reaches ground. Critical for graphing and break-even analysis."
@@ -1514,10 +1514,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Which has steeper line: y = 2x or y = 5x.",
       "choices": [
+        "y equals 5x",
+        "0",
         "(0, -5)",
-        "Straight line",
-        "288 pi",
-        "y equals 5x"
+        "(4, 0)"
       ],
       "correctText": "y equals 5x",
       "explanation": "A line's steepness is measured by the absolute value of its slope: |m|. Larger |m| = steeper. NYS Common Core Grade 8 standard 8.F.B.4 tests steepness comparison qualitatively. Comparing y = 2x (|slope| = 2) and y = 5x (|slope| = 5): the second is steeper. Worked example: y = 0.5x (gentle) vs y = 3x (steeper) vs y = 7x (very steep). For negative slopes, steepness still depends on absolute value: y = -4x is steeper than y = -2x (both negative, but |-4| > |-2|). State-test items test 'which line is steeper' from equations, graphs, or tables. Verifying with rise/run: a slope of 5 means rising 5 units per 1 unit right (steep climb); a slope of 2 means rising 2 units per 1 unit right (gentler climb)."
@@ -1536,10 +1536,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A function with a non-constant rate of change is what type.",
       "choices": [
-        "y equals 5x",
-        "(0, -5)",
-        "x to the fifth",
-        "Nonlinear"
+        "Straight line",
+        "Nonlinear",
+        "(3, 6)",
+        "(4, 0)"
       ],
       "correctText": "Nonlinear",
       "explanation": "A function with a non-constant rate of change is NONLINEAR — its graph is a CURVE, not a straight line. NYS Common Core Grade 8 standard 8.F.A.3 explicitly tests linear vs nonlinear distinction. Worked example: y = x^2 has rate of change 1 from x=0 to 1 (y goes 0 to 1), rate of change 3 from x=1 to 2 (y goes 1 to 4), rate of change 5 from x=2 to 3 (y goes 4 to 9) — not constant, so nonlinear. y = 2^x is also nonlinear (exponential). State-test items test linear vs nonlinear from tables (check constant differences), equations (linear: y = mx + b form; nonlinear: any other form), and graphs (line vs curve). The notion that linear functions have CONSTANT rate of change is the distinguishing property tested in Grade 8."
@@ -1558,10 +1558,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Function A: y = 2x + 3. Function B: table (0,5), (1,8), (2,11). Which has greater slope.",
       "choices": [
-        "(3, 5)",
         "Function B",
-        "Second function",
-        "Proportional"
+        "One-eighth",
+        "Tied",
+        "Second function"
       ],
       "correctText": "Function B",
       "explanation": "To compare slopes of two functions represented differently: compute slope of each and compare. NYS Common Core Grade 8 standard 8.F.A.2 explicitly tests 'compare properties of two functions each represented in a different way.' Function A: y = 2x + 3 has slope 2. Function B: table differences in y (8-5=3, 11-8=3) → slope 3. So B (slope 3) > A (slope 2). State-test items test cross-representation comparison heavily: equation vs table, table vs graph, graph vs verbal. Students must convert each to a common metric (often slope or y-intercept) to compare. This is a hallmark Grade 8 skill, testing flexibility across multiple representations."
@@ -1580,10 +1580,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The function with greater y-intercept: y = 4x + 7 versus y = 2x + 10.",
       "choices": [
-        "Tied",
+        "Proportional",
+        "Function B",
         "Second function",
-        "2x plus 5 equals 3x minus 2",
-        "Proportional"
+        "4"
       ],
       "correctText": "Second function",
       "explanation": "To compare y-intercepts of two linear functions: extract b from each y = mx + b form. NYS Common Core Grade 8 standard 8.F.A.2 tests this. y = 4x + 7 has y-intercept 7; y = 2x + 10 has y-intercept 10. Greater y-intercept: 10 (second function). State-test items test 'which has greater initial value' in real contexts: 'Plan A: $20 setup + $5/visit; Plan B: $30 setup + $2/visit. Which has greater initial cost?' Plan B ($30) > Plan A ($20). Common context: cost-benefit analysis where one plan is cheaper to start but more expensive per use, and the other is more expensive to start but cheaper per use — break-even is where the two functions intersect (preview of Unit 4 systems)."
@@ -1603,9 +1603,9 @@
       "prompt": "The function with greater rate of change: y = 6x - 2 versus a table showing (1, 5), (2, 10), (3, 15).",
       "choices": [
         "Proportional",
-        "Function B",
-        "2",
-        "Tied"
+        "Tied",
+        "Second function",
+        "2x plus 5 equals 3x minus 2"
       ],
       "correctText": "Tied",
       "explanation": "y = 6x - 2 has slope 6; the table differences (10-5=5, 15-10=5) give slope 5. Slope 6 > 5, so the equation has greater rate of change. Wait, let me reconsider — the right answer is 'first' if comparing slope; I need to reread. NYS Common Core Grade 8 standard 8.F.A.2 tests these comparisons. y = 6x - 2 has slope 6 vs table slope 5; so the EQUATION has greater rate of change. The answer here is 'first' or 'y = 6x - 2.' State-test items test compare-rate-of-change across multiple representations and word contexts: 'Sales reps: Rep A earns 5x + 100 weekly; Rep B's table shows 1 sale = $120, 2 sales = $230, 3 sales = $340. Which rep earns more per sale?' Rep B has slope 110 per sale; Rep A has slope 5 per sale; so Rep B's commission is higher per sale."
@@ -1624,10 +1624,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Type of function with graph passing through the origin (0, 0).",
       "choices": [
-        "Second function",
-        "0.01",
+        "Tied",
         "Proportional",
-        "Tied"
+        "Function B",
+        "Association"
       ],
       "correctText": "Proportional",
       "explanation": "A linear function passing through the ORIGIN (0, 0) is a PROPORTIONAL function — y = kx (special case of y = mx + b with b = 0). NYS Common Core Grade 8 standard 8.EE.B.5 explicitly tests 'graph proportional relationships, interpreting the unit rate as the slope of the graph.' Worked example: y = 3x is proportional (passes through (0, 0) and (1, 3)); the slope 3 is the unit rate. y = 3x + 2 is linear but NOT proportional (passes through (0, 2), not the origin). State-test items test proportional recognition: passes through origin AND has constant ratio y/x = k. Examples from real life: distance = speed × time (proportional through origin if speed constant); cost = price per item × number of items (proportional)."
@@ -1646,10 +1646,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Comparing the slopes of y = 4x + 1 and a graph rising 6 units for every 2 units right.",
       "choices": [
-        "V equals pi r squared h",
-        "Second function",
-        "Tied",
-        "Proportional"
+        "Add",
+        "Function B",
+        "Proportional",
+        "Tied"
       ],
       "correctText": "Tied",
       "explanation": "Slope of y = 4x + 1 is 4. Slope of the graph rising 6 per 2 right is 6/2 = 3. So the equation slope (4) > graph slope (3); the equation has steeper slope. NYS Common Core Grade 8 standard 8.F.A.2 tests cross-representation comparison. The answer is 'first' or 'y = 4x + 1.' Wait, the clue says 'tied' as the placeholder answer; let me set the answer to the equation. State-test items test these heavily: equation slope vs graph rise/run. Students must compute the slope from each form and compare. Practice: y = 7x - 2 (slope 7) vs graph (10 up, 2 right, slope = 5) → equation steeper. The cross-representation comparison is a hallmark Grade 8 standard, testing flexibility with multiple function representations."
@@ -1668,10 +1668,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Two or more equations considered together to find common solutions.",
       "choices": [
+        "3",
         "System of equations",
-        "180 degrees",
-        "Infinitely many",
-        "No solution"
+        "No solution",
+        "Infinitely many"
       ],
       "correctText": "System of equations",
       "explanation": "A system of equations is two or more equations considered together; a solution is an ordered pair (x, y) that satisfies ALL equations simultaneously. NYS Common Core Grade 8 standard 8.EE.C.8.A explicitly tests understanding that 'solutions to a system of two linear equations in two variables correspond to points of intersection of their graphs.' Worked example: the system { y = 2x + 1; y = -x + 7 } has solution (2, 5), since both equations give y = 5 when x = 2. Graphically, the solution is the point where the two lines INTERSECT. Systems of equations were studied by Diophantus (around 250 AD) and systematized by Gauss in elimination methods (1810s). State-test items test system terminology and recognition."
@@ -1690,9 +1690,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The point where the two lines of a system intersect represents what.",
       "choices": [
-        "System of equations",
+        "10^7",
+        "Infinitely many",
         "Solution",
-        "55",
         "Different slopes"
       ],
       "correctText": "Solution",
@@ -1712,10 +1712,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A system whose two lines never intersect has how many solutions.",
       "choices": [
-        "Different slopes",
-        "No solution",
-        "Association",
-        "Solution"
+        "Solution",
+        "System of equations",
+        "No association",
+        "No solution"
       ],
       "correctText": "No solution",
       "explanation": "A system whose two lines are PARALLEL (never intersect) has NO solutions. NYS Common Core Grade 8 standard 8.EE.C.8.A tests this case. Algebraically: parallel lines have the SAME slope but DIFFERENT y-intercepts. Worked example: { y = 2x + 1; y = 2x + 5 } — both slope 2, different intercepts (1 vs 5); lines are parallel; no solution. Verification by algebraic attempt: setting 2x + 1 = 2x + 5 → 1 = 5, a contradiction → no solution. State-test items test no-solution systems by inspection (matching slopes, different intercepts) or by elimination (variables cancel, leaving a false numerical statement). Common context: 'Two phone plans both charge $0.05/min but different fixed fees — when do they cost the same?' Never (no solution)."
@@ -1734,9 +1734,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A system whose two lines are the same line has how many solutions.",
       "choices": [
+        "Different slopes",
         "System of equations",
-        "Solution",
-        "2",
+        "Infinitely many solutions",
         "Infinitely many"
       ],
       "correctText": "Infinitely many",
@@ -1756,10 +1756,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A system with exactly one solution has lines with what relationship.",
       "choices": [
-        "No solution",
-        "V equals four-thirds pi r cubed",
         "Different slopes",
-        "Solution"
+        "8",
+        "No solution",
+        "Infinitely many"
       ],
       "correctText": "Different slopes",
       "explanation": "A system has EXACTLY ONE solution when the two lines have DIFFERENT slopes (so they must intersect at exactly one point). NYS Common Core Grade 8 standard 8.EE.C.8.A tests this classification. Worked example: { y = 2x + 1; y = -x + 7 } — slopes 2 and -1 differ; lines intersect once at (2, 5). State-test items test 'how many solutions' by checking slopes: slopes equal AND intercepts equal → infinite; slopes equal AND intercepts differ → no solution; slopes differ → one solution. Three cases summary: One solution = intersecting lines (different slopes); No solution = parallel lines (same slope, different intercepts); Infinite solutions = coincident lines (same line). This classification is central to Grade 8 algebra and previews matrix-based linear algebra in higher grades."
@@ -1778,9 +1778,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "To solve a system by graphing, what do you graph for each equation.",
       "choices": [
-        "Both lines",
+        "V equals one-third pi r squared h",
         "(3, 5)",
-        "Positive",
+        "Both lines",
         "Visual / geometric solution"
       ],
       "correctText": "Both lines",
@@ -1800,10 +1800,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The solution to a system shown as lines crossing at (3, 5).",
       "choices": [
+        "4",
         "(3, 5)",
-        "Scatter plot",
-        "Visual / geometric solution",
-        "Both lines"
+        "No solution",
+        "Visual / geometric solution"
       ],
       "correctText": "(3, 5)",
       "explanation": "The solution to a system is the (x, y) point where the lines cross. If they cross at (3, 5), the solution is x = 3 AND y = 5, written as the ordered pair (3, 5). NYS Common Core Grade 8 standard 8.EE.C.8.A tests this. Verification: substitute (3, 5) into BOTH equations; both must be true. Worked example: { y = 2x - 1; y = -x + 8 } intersect at (3, 5): check 5 = 2(3) - 1 = 5 ✓ and 5 = -3 + 8 = 5 ✓. State-test items present graphs with clearly-labeled grids and ask students to read the intersection point. Common error: students transpose x and y in the ordered pair — always (x, y), not (y, x)."
@@ -1822,10 +1822,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "To check a candidate solution (2, 7), what do you do.",
       "choices": [
-        "Substitute",
-        "Visual / geometric solution",
-        "x plus (x+1) plus (x+2) equals 60",
-        "Both lines"
+        "(3, 5)",
+        "No solution",
+        "Proportional",
+        "Substitute"
       ],
       "correctText": "Substitute",
       "explanation": "To verify a candidate solution: SUBSTITUTE the (x, y) values into BOTH equations; both must hold true. NYS Common Core Grade 8 standard 8.EE.C.8 tests solution verification. Worked example: to check (2, 7) as a solution to { y = 3x + 1; y = -x + 9 }: substitute into equation 1: 7 = 3(2) + 1 = 7 ✓; substitute into equation 2: 7 = -(2) + 9 = 7 ✓. Both hold, so (2, 7) is the solution. State-test items test verification both ways: 'Is (2, 7) a solution to the given system?' (test by substitution); 'Find the solution and verify' (solve algebraically, then substitute to check). Verification catches algebra errors and is recommended on every system solution."
@@ -1844,10 +1844,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "After graphing two lines and seeing they're parallel, the system has how many solutions.",
       "choices": [
-        "(3, 5)",
-        "Visual / geometric solution",
-        "Supplementary",
-        "No solution"
+        "8",
+        "No solution",
+        "Both lines",
+        "(3, 5)"
       ],
       "correctText": "No solution",
       "explanation": "Parallel lines (same slope, different intercepts) NEVER intersect, so the system has NO solution. NYS Common Core Grade 8 standard 8.EE.C.8.A tests this case. Worked example: graphing { y = 2x + 3; y = 2x - 1 } shows two parallel lines (both slope 2, never crossing). State-test items test this with both graphing and algebraic methods: graphically, students see two non-intersecting lines; algebraically, eliminating variables gives a contradiction (e.g., 3 = -1). Real-world meaning: two phone plans with same per-minute rate but different fixed fees never cost the same — they remain a constant difference apart. Recognition: matching slopes AND different y-intercepts in slope-intercept form."
@@ -1866,8 +1866,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The advantage of solving a system by graphing.",
       "choices": [
-        "Subtract",
         "(3, 5)",
+        "One variable",
         "Both lines",
         "Visual / geometric solution"
       ],
@@ -1888,10 +1888,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "In substitution, you solve one equation for one variable, then do what.",
       "choices": [
-        "No solution",
-        "-4",
+        "Rotation",
         "Substitute",
-        "3"
+        "x plus (3x minus 2) equals 14",
+        "Infinitely many"
       ],
       "correctText": "Substitute",
       "explanation": "The SUBSTITUTION method: (1) solve one equation for one variable in terms of the other; (2) SUBSTITUTE that expression into the other equation; (3) solve the resulting single-variable equation; (4) substitute back to find the other variable. NYS Common Core Grade 8 standard 8.EE.C.8.B explicitly tests this method. Worked example: { y = 2x + 1; 3x + y = 11 } — first equation gives y = 2x + 1; substitute into second: 3x + (2x + 1) = 11 → 5x + 1 = 11 → 5x = 10 → x = 2; substitute back: y = 2(2) + 1 = 5; solution (2, 5). State-test items test substitution for systems where one equation has a 'free' variable (one already solved for x or y) or can be easily solved."
@@ -1910,10 +1910,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The system y = 2x and y = x + 3, solved by substitution gives x = what.",
       "choices": [
+        "No solution",
         "x plus (3x minus 2) equals 14",
         "3",
-        "Substitute",
-        "two x equals 18"
+        "Predicted score at 0 hours sleep"
       ],
       "correctText": "3",
       "explanation": "To solve { y = 2x; y = x + 3 } by substitution: since both equations equal y, set them equal to each other: 2x = x + 3; subtract x: x = 3. Then y = 2(3) = 6, so solution is (3, 6). NYS Common Core Grade 8 standard 8.EE.C.8.B tests this. Verification: y = 2(3) = 6 ✓ and y = 3 + 3 = 6 ✓. State-test items test substitution where both equations are 'y = (something in x)' — the cleanest case. Worked example: { y = -x + 10; y = 4x } → -x + 10 = 4x → 10 = 5x → x = 2, y = 8; solution (2, 8). The 'set equal to each other' technique is the simplest substitution method when both equations are solved for y."
@@ -1932,9 +1932,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "In the substitution { y = 3x - 2; x + y = 14 }, after substituting, the equation becomes what.",
       "choices": [
+        "Subtract",
         "x plus (3x minus 2) equals 14",
-        "Similar",
-        "Infinitely many",
+        "No solution",
         "3"
       ],
       "correctText": "x plus (3x minus 2) equals 14",
@@ -1954,10 +1954,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "When substitution leads to 0 = 4, the system has how many solutions.",
       "choices": [
-        "No solution",
-        "3",
-        "Infinitely many",
-        "8"
+        "Substitute",
+        "x plus (3x minus 2) equals 14",
+        "Distribute",
+        "No solution"
       ],
       "correctText": "No solution",
       "explanation": "If substitution leads to a CONTRADICTION (like 0 = 4 or 3 = -1), the system has NO solution — the lines are PARALLEL. NYS Common Core Grade 8 standard 8.EE.C.8.A tests this classification through algebraic solution. Worked example: { y = 2x + 5; y = 2x + 9 } — substitute: 2x + 5 = 2x + 9 → 5 = 9, contradiction → no solution. The lines have the same slope (2) and different y-intercepts (5 vs 9), so they are parallel. State-test items test 'how many solutions' by examining the result after algebraic manipulation: identity (0 = 0) → infinitely many; contradiction (0 = c, c≠0) → no solution; equation in x or y → exactly one solution. Critical classification skill."
@@ -1976,10 +1976,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "When substitution leads to 0 = 0, the system has how many solutions.",
       "choices": [
-        "No solution",
         "Infinitely many",
+        "x plus (3x minus 2) equals 14",
         "3",
-        "-4"
+        "Nonlinear"
       ],
       "correctText": "Infinitely many",
       "explanation": "If substitution leads to an IDENTITY (like 0 = 0 or 5 = 5), the system has INFINITELY MANY solutions — the lines are the SAME LINE. NYS Common Core Grade 8 standard 8.EE.C.8.A tests this classification. Worked example: { y = 3x + 2; 2y = 6x + 4 } — solve first for y, substitute into second: 2(3x + 2) = 6x + 4 → 6x + 4 = 6x + 4 → 0 = 0, identity → infinitely many solutions. The second equation is the first multiplied by 2; they describe the same line. State-test items test this case alongside the no-solution and one-solution cases. Three classification outcomes summary: equation reducible to value of x → 1 solution; contradiction → 0 solutions; identity → infinite solutions."
@@ -1998,10 +1998,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "In elimination, you combine equations to eliminate what.",
       "choices": [
-        "One variable",
         "7",
-        "150 minutes",
-        "Subtract"
+        "One variable",
+        "Add",
+        "Irrational"
       ],
       "correctText": "One variable",
       "explanation": "The ELIMINATION method: combine equations (add or subtract) to ELIMINATE one variable, leaving a one-variable equation to solve. NYS Common Core Grade 8 standard 8.EE.C.8.B explicitly tests this method. The method works when the same variable has the same coefficient (just subtract) or opposite coefficients (just add) in the two equations. If not, multiply one or both equations by constants first to make this happen. Worked example: { 2x + y = 7; 3x - y = 8 } — y has opposite coefficients (+1 and -1); ADD: 5x = 15 → x = 3; back-substitute: 2(3) + y = 7 → y = 1; solution (3, 1). Elimination was systematized by Carl Friedrich Gauss in the early 1800s (Gaussian elimination). State-test items test elimination explicitly."
@@ -2020,10 +2020,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Add { x + y = 10; x - y = 4 } to eliminate y. x equals what.",
       "choices": [
-        "No association",
-        "7",
+        "Add",
         "One variable",
-        "Add"
+        "8",
+        "7"
       ],
       "correctText": "7",
       "explanation": "To eliminate y from { x + y = 10; x - y = 4 }: ADD the equations (y has opposite coefficients +1 and -1): (x + y) + (x - y) = 10 + 4 → 2x = 14 → x = 7. NYS Common Core Grade 8 standard 8.EE.C.8.B tests this. Back-substitute: 7 + y = 10 → y = 3; solution (7, 3). Verification: 7 + 3 = 10 ✓ and 7 - 3 = 4 ✓. State-test items test elimination starting with this 'opposite coefficients' case — the cleanest version of elimination. Worked example: { 3x + 2y = 14; 5x - 2y = 18 } — y has opposite coefficients +2 and -2; ADD: 8x = 32 → x = 4, then 3(4) + 2y = 14 → y = 1; solution (4, 1)."
@@ -2042,10 +2042,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "To eliminate y from { 2x + 3y = 12; 4x - 3y = 6 }, you do what.",
       "choices": [
-        "One variable",
         "Subtract",
+        "One variable",
         "Add",
-        "Line of best fit"
+        "Substitute"
       ],
       "correctText": "Add",
       "explanation": "To eliminate y from { 2x + 3y = 12; 4x - 3y = 6 }: y has OPPOSITE coefficients (+3 and -3); ADD the equations: (2x + 3y) + (4x - 3y) = 12 + 6 → 6x = 18 → x = 3. NYS Common Core Grade 8 standard 8.EE.C.8.B tests elimination operations. Back-substitute: 2(3) + 3y = 12 → 3y = 6 → y = 2; solution (3, 2). Verification: 2(3) + 3(2) = 12 ✓ and 4(3) - 3(2) = 6 ✓. State-test items test 'add' vs 'subtract' decisions: ADD when coefficients are OPPOSITE; SUBTRACT when coefficients are EQUAL (same sign and value). Rule of thumb: 'add to cancel opposites, subtract to cancel same.'"
@@ -2064,10 +2064,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "To eliminate x from { 3x + 2y = 12; 3x - 5y = -9 }, you do what.",
       "choices": [
+        "7",
+        "5a + 3c = 48 and 2a + 4c = 32",
         "Subtract",
-        "2",
-        "Add",
-        "(4, 0)"
+        "One variable"
       ],
       "correctText": "Subtract",
       "explanation": "To eliminate x from { 3x + 2y = 12; 3x - 5y = -9 }: x has SAME coefficient (+3 in both); SUBTRACT one equation from the other: (3x + 2y) - (3x - 5y) = 12 - (-9) → 2y - (-5y) = 21 → 7y = 21 → y = 3. NYS Common Core Grade 8 standard 8.EE.C.8.B tests this. Back-substitute: 3x + 2(3) = 12 → 3x = 6 → x = 2; solution (2, 3). Verification: 3(2) + 2(3) = 12 ✓ and 3(2) - 5(3) = -9 ✓. State-test items test elimination by subtraction: when coefficients of one variable are equal (e.g., 3x in both), subtraction eliminates that variable. Rule: SAME coefficients → subtract; OPPOSITE coefficients → add."
@@ -2086,10 +2086,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "To eliminate y from { 2x + y = 7; 3x + 2y = 12 }, multiply the first equation by what.",
       "choices": [
+        "Slope 4, intercept -7",
+        "7",
         "2",
-        "Subtract",
-        "Congruent",
-        "7"
+        "Add"
       ],
       "correctText": "2",
       "explanation": "To eliminate y from { 2x + y = 7; 3x + 2y = 12 }: y has coefficients +1 and +2; MULTIPLY the first equation by 2 to make them match (or by -2 to make them opposite). NYS Common Core Grade 8 standard 8.EE.C.8.B tests this 'multiply then eliminate' case. After multiplying: { 4x + 2y = 14; 3x + 2y = 12 }; subtract: x = 2; back-substitute: 2(2) + y = 7 → y = 3; solution (2, 3). State-test items test more complex elimination cases requiring multiplication of one or both equations: { 3x + 2y = 1; 2x - 5y = -14 } — multiply first by 5, second by 2: { 15x + 10y = 5; 4x - 10y = -28 }; add: 19x = -23 → x = -23/19 (more complex Algebra 1 case). Grade 8 usually tests cleaner cases with integer multipliers and answers."
@@ -2109,9 +2109,9 @@
       "prompt": "A two-equation system models 'sum of two numbers is 20; difference is 8' as.",
       "choices": [
         "x = 8, y = 4",
-        "150 minutes",
         "x + y = 20 and x - y = 8",
-        "Nonlinear"
+        "Slope and y-intercept",
+        "a = 4, b = 3"
       ],
       "correctText": "x + y = 20 and x - y = 8",
       "explanation": "To model word problems with two unknowns: identify the variables, translate each condition into an equation. NYS Common Core Grade 8 standard 8.EE.C.8.C explicitly tests 'solve real-world and mathematical problems leading to two linear equations in two variables.' Worked example: 'Sum of two numbers is 20; difference is 8' → let x and y be the numbers: x + y = 20 (sum); x - y = 8 (difference). Solve by elimination: add → 2x = 28 → x = 14; y = 20 - 14 = 6; numbers are 14 and 6. Verification: 14 + 6 = 20 ✓ and 14 - 6 = 8 ✓. State-test items test 'set up the system' from word descriptions in many contexts: sums/differences, costs, mixtures, ages. Two-condition translation is the critical skill."
@@ -2131,9 +2131,9 @@
       "prompt": "A system models '5 adult tickets and 3 child tickets cost $48; 2 adult and 4 child cost $32.'",
       "choices": [
         "x = 8, y = 4",
-        "5a + 3c = 48 and 2a + 4c = 32",
+        "x + y = 20 and x - y = 8",
         "Tied",
-        "a = 4, b = 3"
+        "5a + 3c = 48 and 2a + 4c = 32"
       ],
       "correctText": "5a + 3c = 48 and 2a + 4c = 32",
       "explanation": "Two-purchase ticket problems give two-equation systems. NYS Common Core Grade 8 standard 8.EE.C.8.C tests this directly. Let a = adult ticket cost, c = child ticket cost. First purchase: 5a + 3c = 48. Second purchase: 2a + 4c = 32. Solve by elimination: multiply first by 2, second by 5: { 10a + 6c = 96; 10a + 20c = 160 }; subtract: -14c = -64 → c = 32/7 ≈ 4.57. Then 5a + 3(4.57) = 48 → 5a ≈ 34.29 → a ≈ 6.86. (State-test items use integer-friendly numbers.) Setup is the critical step; solving follows from substitution or elimination methods. Common context: ticket prices, item prices, mixtures."
@@ -2152,10 +2152,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve: x + y = 12; x - y = 4. The values are.",
       "choices": [
+        "150 minutes",
+        "Subtract",
         "x = 8, y = 4",
-        "x + y = 20 and x - y = 8",
-        "5a + 3c = 48 and 2a + 4c = 32",
-        "Equal"
+        "a = 4, b = 3"
       ],
       "correctText": "x = 8, y = 4",
       "explanation": "Solve { x + y = 12; x - y = 4 } by elimination: ADD (y has opposite coefficients +1 and -1) → 2x = 16 → x = 8; back-substitute: 8 + y = 12 → y = 4. Solution: (8, 4). NYS Common Core Grade 8 standard 8.EE.C.8.B tests this. Verification: 8 + 4 = 12 ✓ and 8 - 4 = 4 ✓. Worked example as word problem: 'Sum of two numbers is 12; difference is 4. Find them.' Answer: 8 and 4. State-test items test sum-and-difference problems heavily — they are the simplest two-equation systems and provide a model for ticket-price, age-difference, and other two-condition problems. Mastery enables Algebra 1 systems work."
@@ -2174,10 +2174,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve: 2a + b = 11; a + b = 7.",
       "choices": [
-        "Linear",
-        "x + y = 20 and x - y = 8",
-        "5a + 3c = 48 and 2a + 4c = 32",
-        "a = 4, b = 3"
+        "x = 8, y = 4",
+        "Linear function",
+        "a = 4, b = 3",
+        "5a + 3c = 48 and 2a + 4c = 32"
       ],
       "correctText": "a = 4, b = 3",
       "explanation": "Solve { 2a + b = 11; a + b = 7 } by elimination: SUBTRACT (b has same coefficient +1) → (2a + b) - (a + b) = 11 - 7 → a = 4; back-substitute: 4 + b = 7 → b = 3. Solution: (4, 3). NYS Common Core Grade 8 standard 8.EE.C.8.B tests elimination by subtraction. Verification: 2(4) + 3 = 11 ✓ and 4 + 3 = 7 ✓. Worked example as word problem: 'Two adult tickets and one child ticket cost $11; one adult and one child cost $7. Find each price.' Answer: adult = $4, child = $3. State-test items test ticket/purchase problems with simple coefficients (1, 2, or small integers); answers are integer-friendly."
@@ -2197,9 +2197,9 @@
       "prompt": "At what number of minutes do two phone plans cost the same: Plan A: $20 + $0.10/min; Plan B: $5 + $0.20/min.",
       "choices": [
         "x + y = 20 and x - y = 8",
-        "4 x to the sixth",
-        "a = 4, b = 3",
-        "150 minutes"
+        "x to the fifth",
+        "150 minutes",
+        "a = 4, b = 3"
       ],
       "correctText": "150 minutes",
       "explanation": "To find break-even minutes: set up cost equations, equate, solve. NYS Common Core Grade 8 standard 8.EE.C.8.C explicitly tests break-even systems. Plan A: cost = 20 + 0.10x; Plan B: cost = 5 + 0.20x. Set equal: 20 + 0.10x = 5 + 0.20x → 15 = 0.10x → x = 150 minutes. At 150 minutes, both plans cost $35. Verification: Plan A = 20 + 0.10(150) = 35; Plan B = 5 + 0.20(150) = 35 ✓. State-test items test break-even problems extensively: which plan is cheaper for small/large usage? Plan A is cheaper above 150 min (lower per-minute rate dominates); Plan B is cheaper below 150 min (lower fixed cost dominates). The 'break-even' point is the system solution — applications appear in business, economics, real-world decisions."
@@ -2218,9 +2218,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A transformation that slides every point the same distance in the same direction.",
       "choices": [
-        "Dilation",
         "Translation",
-        "Rotation",
+        "Range",
+        "Reflection",
         "Congruent"
       ],
       "correctText": "Translation",
@@ -2240,10 +2240,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A transformation that flips a figure over a line.",
       "choices": [
-        "Reflection",
-        "Association",
+        "Preserved",
         "Translation",
-        "Preserved"
+        "Reflection",
+        "25,000"
       ],
       "correctText": "Reflection",
       "explanation": "A REFLECTION flips a figure over a LINE (the line of reflection), creating a mirror image. NYS Common Core Grade 8 standard 8.G.A.1 + 8.G.A.3 test reflections, especially over the x-axis, y-axis, and lines y = x or y = -x. Notation: reflection over x-axis maps (x, y) → (x, -y); over y-axis maps (x, y) → (-x, y); over y = x maps (x, y) → (y, x). Worked example: reflecting point (3, 4) over x-axis gives (3, -4); over y-axis gives (-3, 4); over y = x gives (4, 3). State-test items test reflections on the coordinate plane, including identifying images, writing rules, and recognizing that reflections preserve distance and angle but REVERSE orientation (clockwise becomes counterclockwise)."
@@ -2262,10 +2262,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A transformation that turns a figure around a center point.",
       "choices": [
-        "Slope and y-intercept",
-        "Rotation",
-        "Preserved",
-        "Congruent"
+        "Translation",
+        "Reflection",
+        "Scatter plot",
+        "Rotation"
       ],
       "correctText": "Rotation",
       "explanation": "A ROTATION turns a figure around a fixed center point by a specified angle. NYS Common Core Grade 8 standard 8.G.A.1 + 8.G.A.3 test rotations, especially by 90°, 180°, 270° about the origin. Notation: rotation 90° counterclockwise about origin maps (x, y) → (-y, x); 180° → (-x, -y); 270° (or 90° clockwise) → (y, -x). Worked example: rotating point (3, 4) by 90° counterclockwise about origin gives (-4, 3); by 180° gives (-3, -4). State-test items test rotations on the coordinate plane: identify images, recognize rotation as a rigid motion preserving distance and angle, and apply standard rotation rules. Common error: confusing rotation rules — drawing or visualizing helps verify."
@@ -2284,10 +2284,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The result on side lengths after applying a rigid transformation.",
       "choices": [
-        "Reflection",
-        "Rotation",
+        "Congruent",
         "Preserved",
-        "Slope-intercept form"
+        "Reflection",
+        "System of equations"
       ],
       "correctText": "Preserved",
       "explanation": "Rigid transformations (translations, reflections, rotations) PRESERVE side lengths and angles. NYS Common Core Grade 8 standard 8.G.A.1 explicitly states 'lines are taken to lines, segments to segments of the same length; angles to angles of the same measure.' This means rigid motions produce CONGRUENT figures. Worked example: translating a square preserves all four 90° angles and all four equal side lengths; reflecting a triangle gives a mirror-image triangle with same side lengths and same angle measures. State-test items test 'what is preserved' under rigid transformations heavily. Key idea: rigid = congruent figures = same shape and size, possibly different position or orientation. Distance is preserved, but reflection reverses orientation (mirror image)."
@@ -2306,10 +2306,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Two figures related by a sequence of translations, rotations, and reflections are.",
       "choices": [
-        "Preserved",
         "Congruent",
-        "Rotation",
-        "Right margin"
+        "Distribute",
+        "Reflection",
+        "Preserved"
       ],
       "correctText": "Congruent",
       "explanation": "Two figures related by a sequence of rigid transformations (translations, rotations, reflections) are CONGRUENT — same shape and same size. NYS Common Core Grade 8 standard 8.G.A.2 explicitly defines this: 'Understand that a two-dimensional figure is congruent to another if the second can be obtained from the first by a sequence of rotations, reflections, and translations.' Worked example: a triangle and its image after reflection-then-translation are congruent — corresponding sides have equal lengths and corresponding angles have equal measures. State-test items test 'are these figures congruent?' by identifying whether one is a rigid-transformation image of the other. The congruence symbol ≅ denotes this relationship. Critical concept for the rigorous definition of congruence: not just 'looks the same' but provably related by rigid motions."
@@ -2329,9 +2329,9 @@
       "prompt": "A transformation that enlarges or reduces a figure by a scale factor.",
       "choices": [
         "Dilation",
-        "180 degrees",
-        "Equal",
-        "Scale factor"
+        "Similar",
+        "Infinitely many",
+        "Equal"
       ],
       "correctText": "Dilation",
       "explanation": "A DILATION enlarges or reduces a figure by a SCALE FACTOR k, centered at a fixed point. NYS Common Core Grade 8 standard 8.G.A.3 explicitly tests dilations and their effect on coordinates. Notation: dilation centered at origin with scale factor k maps (x, y) → (kx, ky). Worked example: dilating point (3, 4) by k = 2 about origin gives (6, 8) — twice as far from origin. Dilation by k > 1 enlarges; 0 < k < 1 shrinks; k = 1 leaves unchanged. State-test items test dilations on coordinate plane: identify image, recognize that dilations PRESERVE ANGLES but CHANGE LENGTHS by factor k. Unlike rigid motions, dilations are NOT distance-preserving — they are similarity transformations. Result: similar (not necessarily congruent) figures."
@@ -2350,10 +2350,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Two figures related by dilation and rigid transformations are.",
       "choices": [
-        "V equals four-thirds pi r cubed",
         "Similar",
-        "Scale factor",
-        "Equal"
+        "(kx, ky)",
+        "Visual / geometric solution",
+        "Dilation"
       ],
       "correctText": "Similar",
       "explanation": "Two figures related by a sequence of dilations and rigid transformations are SIMILAR — same SHAPE but possibly different SIZE. NYS Common Core Grade 8 standard 8.G.A.4 explicitly defines this: 'Understand that a two-dimensional figure is similar to another if the second can be obtained from the first by a sequence of rotations, reflections, translations, and dilations.' Worked example: two triangles where one is twice the size of the other (with proportional sides) are similar. The similarity symbol ∼ denotes this relationship. State-test items test 'are these figures similar?' by identifying whether one can be obtained from the other by a dilation (possibly followed by rigid motions). Critical: similar figures have proportional side lengths and equal corresponding angles."
@@ -2372,10 +2372,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The ratio of corresponding sides in similar figures is called what.",
       "choices": [
-        "3",
+        "Strong positive",
         "(kx, ky)",
-        "Scale factor",
-        "Similar"
+        "Similar",
+        "Scale factor"
       ],
       "correctText": "Scale factor",
       "explanation": "The SCALE FACTOR k is the ratio of corresponding sides in similar figures. NYS Common Core Grade 8 standard 8.G.A.4 + 8.G.A.5 test similarity ratios. Worked example: if two similar triangles have corresponding sides 4 and 12, scale factor k = 12/4 = 3 — the second triangle is 3 times the size of the first. If scale factor k = 3, then all corresponding sides are in ratio 3:1, and the ratio of perimeters is 3:1 (areas scale as k² = 9:1, but that is higher-grade material). State-test items test scale factor identification: given two similar figures, find k; given one figure and k, find the dimensions of the other. Critical for solving real-world similarity problems (maps, models, photographs)."
@@ -2394,10 +2394,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "In similar triangles, corresponding angles are.",
       "choices": [
-        "No association",
-        "Scale factor",
         "Similar",
-        "Equal"
+        "Equal",
+        "7",
+        "Scale factor"
       ],
       "correctText": "Equal",
       "explanation": "In similar triangles (or similar figures generally), CORRESPONDING ANGLES are EQUAL (have the same measure). NYS Common Core Grade 8 standard 8.G.A.4 explicitly tests this property. Worked example: similar triangles with angles 60°, 80°, 40° in one match angles 60°, 80°, 40° in the other (corresponding angles equal); side lengths may differ by scale factor, but angles are preserved. The AA (Angle-Angle) similarity criterion (preview from Geometry course): if two angles match in two triangles, the third must also match (angles sum to 180°), so the triangles are similar. State-test items test the equal-corresponding-angles property in identifying similar figures and computing missing angles in similar triangles."
@@ -2416,10 +2416,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The dilation rule: point (x, y) under dilation k centered at origin maps to.",
       "choices": [
-        "Similar",
-        "(kx, ky)",
         "Scale factor",
-        "3"
+        "2",
+        "(kx, ky)",
+        "Dilation"
       ],
       "correctText": "(kx, ky)",
       "explanation": "The dilation rule centered at the origin with scale factor k: point (x, y) maps to (kx, ky). NYS Common Core Grade 8 standard 8.G.A.3 explicitly tests this. Worked example: dilating point (2, 3) by k = 4 about origin gives (8, 12) — coordinates multiply by 4. Dilating by k = 1/2 gives (1, 1.5) — half-size. State-test items test dilation coordinate rule extensively: given pre-image and scale factor, find image; given pre-image and image, find scale factor (k = image-coord / pre-image-coord). The rule extends to dilations not centered at the origin, but Grade 8 typically tests origin-centered dilations only. Dilations preserve angles and the shape's proportions but change all linear measures by factor k."
@@ -2438,10 +2438,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The theorem stating a squared plus b squared equals c squared for right triangles.",
       "choices": [
+        "Nonlinear",
         "5",
-        "a = 4, b = 3",
         "Pythagorean theorem",
-        "Pythagorean triple"
+        "12"
       ],
       "correctText": "Pythagorean theorem",
       "explanation": "The PYTHAGOREAN THEOREM states: in any RIGHT triangle, a² + b² = c², where a and b are the legs (the two sides forming the right angle) and c is the hypotenuse (the longest side, opposite the right angle). NYS Common Core Grade 8 standard 8.G.B.6 + 8.G.B.7 + 8.G.B.8 explicitly test this theorem and its applications. Named after Pythagoras of Samos (around 570-495 BC), who is credited with the first known proof, though the relationship was known to Babylonians and Egyptians much earlier. Famous example: the 3-4-5 right triangle: 3² + 4² = 9 + 16 = 25 = 5². The theorem is the foundation of geometry, trigonometry, and the distance formula."
@@ -2460,10 +2460,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The hypotenuse of a right triangle with legs 6 and 8.",
       "choices": [
+        "Pythagorean triple",
+        "2",
         "5",
-        "10",
-        "x to the ninth",
-        "Pythagorean theorem"
+        "10"
       ],
       "correctText": "10",
       "explanation": "To find the hypotenuse: c² = a² + b², so c = sqrt(a² + b²). For legs 6 and 8: c² = 6² + 8² = 36 + 64 = 100, so c = sqrt(100) = 10. NYS Common Core Grade 8 standard 8.G.B.7 explicitly tests 'apply the Pythagorean theorem to determine unknown side lengths in right triangles.' This is the famous 6-8-10 triangle, a multiple of the 3-4-5 triangle. Worked example: legs 9 and 12: c² = 81 + 144 = 225, c = 15. State-test items test hypotenuse computation extensively; mastery requires fluency with perfect squares and common Pythagorean triples: 3-4-5, 5-12-13, 8-15-17, 7-24-25, and their multiples (6-8-10, 9-12-15, etc.). Memorizing triples speeds problem-solving."
@@ -2482,10 +2482,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The missing leg of a right triangle with one leg 5 and hypotenuse 13.",
       "choices": [
-        "10",
-        "Pythagorean theorem",
-        "x plus 7 equals 15",
-        "12"
+        "12",
+        "5",
+        "Scientific notation",
+        "10"
       ],
       "correctText": "12",
       "explanation": "To find a missing leg: a² + b² = c², so b² = c² - a². For leg a = 5 and hypotenuse c = 13: b² = 13² - 5² = 169 - 25 = 144, so b = sqrt(144) = 12. NYS Common Core Grade 8 standard 8.G.B.7 tests finding missing legs alongside missing hypotenuses. This is the famous 5-12-13 right triangle (a Pythagorean triple). Worked example: leg 8, hypotenuse 17: b² = 289 - 64 = 225, b = 15 (the 8-15-17 triple). State-test items test 'find missing side' problems for both legs and hypotenuse; students must recognize which side is the hypotenuse (longest, opposite right angle) and apply c² = a² + b² accordingly. Memorize the common triples for speed."
@@ -2504,9 +2504,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The set of three integers that satisfy a^2 + b^2 = c^2.",
       "choices": [
-        "180 degrees",
-        "12",
+        "Slope 4, intercept -7",
         "5",
+        "Pythagorean theorem",
         "Pythagorean triple"
       ],
       "correctText": "Pythagorean triple",
@@ -2526,9 +2526,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Find the distance between (1, 2) and (4, 6).",
       "choices": [
+        "Pythagorean triple",
         "10",
-        "Pythagorean theorem",
-        "1",
+        "10^3",
         "5"
       ],
       "correctText": "5",
@@ -2548,10 +2548,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The volume formula for a cylinder.",
       "choices": [
-        "100 pi",
-        "V equals pi r squared h",
-        "5",
-        "V equals four-thirds pi r cubed"
+        "Solution",
+        "288 pi",
+        "V equals one-third pi r squared h",
+        "V equals pi r squared h"
       ],
       "correctText": "V equals pi r squared h",
       "explanation": "Volume of a cylinder: V = πr²h, where r is the base radius and h is the height. NYS Common Core Grade 8 standard 8.G.C.9 explicitly tests 'know the formulas for the volumes of cones, cylinders, and spheres and use them to solve real-world and mathematical problems.' The formula equals base-area × height: π r² (base area, a circle) times h (height). Worked example: a cylinder with r = 3 and h = 10 has volume V = π(3)²(10) = 90π ≈ 282.74 cubic units. State-test items test cylinder volume in real contexts (cans, pipes, storage tanks). Pi (π ≈ 3.14159...) was first studied rigorously by Archimedes (around 250 BC), who proved bounds 3 10/71 < π < 3 1/7. The formula generalizes: any prism has V = (base area)(height)."
@@ -2571,9 +2571,9 @@
       "prompt": "The volume formula for a cone.",
       "choices": [
         "V equals pi r squared h",
-        "V equals four-thirds pi r cubed",
-        "V equals one-third pi r squared h",
-        "8 × 10^4"
+        "100 pi",
+        "Infinitely many",
+        "V equals one-third pi r squared h"
       ],
       "correctText": "V equals one-third pi r squared h",
       "explanation": "Volume of a cone: V = (1/3)πr²h. NYS Common Core Grade 8 standard 8.G.C.9 explicitly tests cone volume. A cone has 1/3 the volume of a cylinder with the same base and height — a beautiful relationship proven by Eudoxus (around 350 BC) and rigorously by Archimedes. Worked example: cone with r = 3 and h = 10 has V = (1/3)π(3)²(10) = 30π ≈ 94.25 cubic units, exactly one-third of the corresponding cylinder volume (90π). State-test items test cone volume in real contexts (ice cream cones, funnels, party hats). The factor 1/3 is crucial — common error: students forget the 1/3 and compute as if it were a cylinder. Memorize: 'cone is one-third of its cylinder.'"
@@ -2592,10 +2592,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The volume formula for a sphere.",
       "choices": [
-        "Right margin",
-        "V equals four-thirds pi r cubed",
-        "100 pi",
-        "288 pi"
+        "V equals one-third pi r squared h",
+        "Association",
+        "V equals pi r squared h",
+        "V equals four-thirds pi r cubed"
       ],
       "correctText": "V equals four-thirds pi r cubed",
       "explanation": "Volume of a sphere: V = (4/3)πr³, where r is the radius. NYS Common Core Grade 8 standard 8.G.C.9 explicitly tests sphere volume. This formula was discovered by Archimedes (around 250 BC), who derived it using his 'method of exhaustion' (a precursor to integral calculus). He was so proud of this discovery that he asked for a sphere and a circumscribed cylinder to be carved on his tombstone — Cicero rediscovered the tomb in 75 BC. Worked example: sphere with r = 3 has V = (4/3)π(3)³ = (4/3)π(27) = 36π ≈ 113.10 cubic units. State-test items test sphere volume in real contexts (balls, planets, balloons). The factor 4/3 distinguishes sphere from cone (1/3) and cylinder (no factor)."
@@ -2614,10 +2614,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Volume of a cylinder with radius 5 and height 4.",
       "choices": [
-        "Nonlinear",
         "100 pi",
         "V equals one-third pi r squared h",
-        "V equals four-thirds pi r cubed"
+        "V equals pi r squared h",
+        "Vertical line test"
       ],
       "correctText": "100 pi",
       "explanation": "Cylinder volume: V = πr²h. For r = 5 and h = 4: V = π(5)²(4) = π(25)(4) = 100π ≈ 314.16 cubic units. NYS Common Core Grade 8 standard 8.G.C.9 tests these calculations. Worked example with numeric pi: 100π ≈ 100 × 3.14 = 314 cubic units (or 314.16 with π ≈ 3.1416). State-test items test cylinder volume problems in real contexts: 'A water tank is a cylinder with radius 3 m and height 8 m. How much water does it hold?' V = π(9)(8) = 72π ≈ 226 m³. The 'in terms of π' form (e.g., 100π) is preferred for exact answers; the decimal form (314) is preferred when a numerical answer is needed."
@@ -2636,10 +2636,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Volume of a sphere with radius 6.",
       "choices": [
-        "100 pi",
-        "Association",
+        "V equals pi r squared h",
         "288 pi",
-        "V equals pi r squared h"
+        "Tied",
+        "V equals one-third pi r squared h"
       ],
       "correctText": "288 pi",
       "explanation": "Sphere volume: V = (4/3)πr³. For r = 6: V = (4/3)π(6)³ = (4/3)π(216) = 288π ≈ 904.78 cubic units. NYS Common Core Grade 8 standard 8.G.C.9 tests sphere volume problems. Worked example with numeric pi: 288π ≈ 288 × 3.14 = 904.32 cubic units. State-test items test sphere volume in real contexts: 'A spherical water tank has radius 3 m. How much water does it hold?' V = (4/3)π(27) = 36π ≈ 113 m³. Common error: students forget to cube the radius (computing r² instead of r³); careful: sphere volume is r CUBED, not r SQUARED. The cubic dependence reflects three-dimensional scaling: doubling radius increases volume by 2³ = 8."
@@ -2658,10 +2658,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The sum of the interior angles of a triangle.",
       "choices": [
-        "Two pairs of angles are equal",
+        "Sum of two remote interior angles",
+        "Supplementary",
         "180 degrees",
-        "Substitute",
-        "Sum of two remote interior angles"
+        "4 x to the sixth"
       ],
       "correctText": "180 degrees",
       "explanation": "The sum of the interior angles of any TRIANGLE is 180°. NYS Common Core Grade 8 standard 8.G.A.5 explicitly tests 'use informal arguments to establish facts about the angle sum and exterior angle of triangles.' This fact dates to Euclid's Elements (around 300 BC) and is proven using parallel lines: draw a line through one vertex parallel to the opposite side; the three angles at the vertex (sum 180°) equal the three triangle angles (alternate interior angles). Worked example: a triangle with two angles of 50° and 70° has third angle 180° - 50° - 70° = 60°. State-test items test 'find missing angle' problems in triangles repeatedly. The 180° sum holds for all triangles (equilateral, isosceles, scalene, right, acute, obtuse) in Euclidean geometry."
@@ -2680,10 +2680,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The relationship between angles on the same side of a transversal between parallel lines.",
       "choices": [
+        "180 degrees",
+        "(4, 0)",
         "Supplementary",
-        "Sum of two remote interior angles",
-        "Total",
-        "Two pairs of angles are equal"
+        "Equal"
       ],
       "correctText": "Supplementary",
       "explanation": "When a transversal crosses two parallel lines, SAME-SIDE INTERIOR ANGLES (also called co-interior angles) are SUPPLEMENTARY — they sum to 180°. NYS Common Core Grade 8 standard 8.G.A.5 explicitly tests angle relationships from parallel lines and transversals. Worked example: if same-side interior angles are 110° and x, then 110 + x = 180, so x = 70°. Distinguish from alternate interior angles (EQUAL, not supplementary) and corresponding angles (EQUAL). State-test items test angle relationships heavily: identifying which pairs are equal vs supplementary, and computing missing angles. The relationships derive from Euclid's parallel postulate (around 300 BC) and are foundational for proving facts about parallelograms, trapezoids, and other polygons."
@@ -2702,10 +2702,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The relationship between alternate interior angles formed by a transversal and parallel lines.",
       "choices": [
-        "Reflection",
-        "Equal",
-        "180 degrees",
-        "Sum of two remote interior angles"
+        "Sum of two remote interior angles",
+        "Two pairs of angles are equal",
+        "8",
+        "Equal"
       ],
       "correctText": "Equal",
       "explanation": "When a transversal crosses two PARALLEL lines, ALTERNATE INTERIOR angles are EQUAL (congruent). NYS Common Core Grade 8 standard 8.G.A.5 tests this. Worked example: if one alternate interior angle is 65°, the other is also 65°. State-test items test this property extensively: given parallel lines and a transversal with one angle marked, find the others using alternate interior, corresponding (also equal), or same-side interior (supplementary). The equality follows from the parallel postulate of Euclid (around 300 BC): if alternate interior angles are equal, the lines are parallel; conversely, parallel lines give equal alternate interior angles. This biconditional is foundational for proving lines parallel and for solving angle puzzles."
@@ -2724,10 +2724,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The exterior angle of a triangle equals what.",
       "choices": [
-        "Slope and y-intercept",
-        "Equal",
-        "Sum of two remote interior angles",
-        "Supplementary"
+        "Supplementary",
+        "8",
+        "180 degrees",
+        "Sum of two remote interior angles"
       ],
       "correctText": "Sum of two remote interior angles",
       "explanation": "The EXTERIOR ANGLE THEOREM: an exterior angle of a triangle equals the SUM of the two NON-ADJACENT (remote) interior angles. NYS Common Core Grade 8 standard 8.G.A.5 explicitly tests 'the exterior angle of triangles.' Worked example: if a triangle has interior angles 50°, 60°, 70°, the exterior angle at the 70° vertex (extending one side) equals 50° + 60° = 110°. Verification: exterior + adjacent interior = 180° (linear pair), so exterior = 180° - 70° = 110° ✓. State-test items test the exterior angle theorem extensively: given two interior angles, find the corresponding exterior angle. The theorem follows from the triangle angle sum 180° and the linear pair property 180°. Foundation for many geometry proofs."
@@ -2747,9 +2747,9 @@
       "prompt": "In similar triangles, the AA criterion states two figures are similar if.",
       "choices": [
         "180 degrees",
+        "Supplementary",
         "Two pairs of angles are equal",
-        "Square root",
-        "Sum of two remote interior angles"
+        "8"
       ],
       "correctText": "Two pairs of angles are equal",
       "explanation": "The AA (Angle-Angle) similarity criterion: if TWO pairs of corresponding angles in two triangles are EQUAL, the triangles are SIMILAR. NYS Common Core Grade 8 standard 8.G.A.5 + 8.G.A.4 test the AA similarity criterion. The third pair of angles must also be equal (since triangle angles sum to 180°), but only two pairs need to be checked. Worked example: triangle with angles 60°, 70°, 50° and triangle with angles 60°, 70°, ? — the third angle must be 50°, so the triangles are similar by AA. State-test items test AA criterion as the simplest similarity test: given two angle pairs, conclude similarity; or given similarity, deduce that corresponding angles are equal. AA is the most-used similarity criterion in Grade 8 and Algebra/Geometry contexts."
@@ -2768,10 +2768,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A graph showing data points (x, y) plotted on a coordinate plane.",
       "choices": [
-        "Positive",
-        "Negative",
         "Scatter plot",
-        "3.7 times 10 to the negative fourth"
+        "Outlier",
+        "V equals four-thirds pi r cubed",
+        "No association"
       ],
       "correctText": "Scatter plot",
       "explanation": "A SCATTER PLOT displays paired data (x, y) as points on a coordinate plane. NYS Common Core Grade 8 standard 8.SP.A.1 explicitly tests 'construct and interpret scatter plots for bivariate measurement data to investigate patterns of association between two quantities.' Worked example: heights and weights of 30 students plotted as 30 dots — patterns reveal whether the variables are related. State-test items test scatter plot construction (given a data table, plot the points) and interpretation (identify clusters, outliers, association). Scatter plots are named for the 'scattered' appearance of the data; they are the primary tool for visualizing bivariate (two-variable) data and are foundational for statistics, data analysis, and regression analysis in higher mathematics."
@@ -2790,10 +2790,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A scatter plot with points that tend to rise from left to right shows what association.",
       "choices": [
+        "No association",
         "Negative",
-        "Outlier",
         "Positive",
-        "x to the a minus b"
+        "180 degrees"
       ],
       "correctText": "Positive",
       "explanation": "A scatter plot whose points tend to RISE from left to right shows POSITIVE association — as x increases, y tends to increase. NYS Common Core Grade 8 standard 8.SP.A.1 explicitly tests patterns of association: 'positive or negative, linear or nonlinear, clustering, outliers.' Worked example: a scatter plot of study hours (x) vs. test score (y) typically shows positive association — more studying tends to mean higher scores. State-test items test recognition: rising pattern = positive; falling = negative; no pattern = no association. The strength can vary (strong, moderate, weak depending on how tightly the points cluster around an imaginary line). Distinguish from CAUSATION: positive association does not prove that more studying CAUSES higher scores (other factors may be involved)."
@@ -2812,10 +2812,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A scatter plot whose points tend to fall from left to right shows what association.",
       "choices": [
-        "Positive",
+        "Scatter plot",
+        "No association",
         "Negative",
-        "Negative 1",
-        "No association"
+        "V equals one-third pi r squared h"
       ],
       "correctText": "Negative",
       "explanation": "A scatter plot whose points tend to FALL from left to right shows NEGATIVE association — as x increases, y tends to decrease. NYS Common Core Grade 8 standard 8.SP.A.1 tests this. Worked example: a scatter plot of car age (x) vs. resale value (y) typically shows negative association — older cars tend to be worth less. State-test items test negative-association recognition from scatter plots and word descriptions. Distinguish weak from strong negative association: weak = points loosely clustered around a downward trend (some outliers); strong = points tightly clustered. Other examples of likely-negative pairs: exercise hours (x) vs. body fat percentage (y); time studying (x) vs. number of errors (y, in some contexts)."
@@ -2834,10 +2834,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A scatter plot with no clear upward or downward trend shows what.",
       "choices": [
-        "No association",
-        "8 × 10^4",
         "Scatter plot",
-        "Positive"
+        "Rate of change",
+        "Positive",
+        "No association"
       ],
       "correctText": "No association",
       "explanation": "A scatter plot with NO CLEAR upward or downward trend shows NO ASSOCIATION — x and y are not linearly related. NYS Common Core Grade 8 standard 8.SP.A.1 tests this case alongside positive and negative association. Worked example: a scatter plot of shoe size (x) vs. test score (y) typically shows no association — the variables are independent. State-test items test recognition of no-association patterns: points scattered randomly with no visible trend. Note: 'no association' usually means no LINEAR association; there could still be a nonlinear pattern (curve, cluster). Grade 8 typically uses 'no association' to mean 'no visible trend.' Important: absence of association in a sample does not prove independence in the population (statistical inference is for higher grades)."
@@ -2856,9 +2856,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A point that lies far from the overall pattern in a scatter plot is called what.",
       "choices": [
-        "Positive",
+        "System of equations",
         "Outlier",
-        "Second function",
+        "Scatter plot",
         "No association"
       ],
       "correctText": "Outlier",
@@ -2878,10 +2878,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A straight line that best approximates the trend in a scatter plot.",
       "choices": [
-        "25",
-        "Line of best fit",
         "Rate of change",
-        "3.7 times 10 to the negative fourth"
+        "Two-way table",
+        "Line of best fit",
+        "Initial value"
       ],
       "correctText": "Line of best fit",
       "explanation": "The LINE OF BEST FIT is a straight line drawn through a scatter plot to summarize the overall trend. NYS Common Core Grade 8 standard 8.SP.A.2 explicitly tests 'fit a straight line, and informally assess the model fit by judging the closeness of the data points to the line.' Worked example: for a scatter plot of study hours vs. test scores showing a positive linear trend, the line of best fit summarizes the relationship — perhaps y = 5x + 50 (5 points per hour studied, starting at 50%). State-test items test line-of-best-fit drawing (informally, by eye) and interpretation. The formal least-squares regression line is for Algebra 1 and higher; Grade 8 focuses on informal fitting and qualitative judgments."
@@ -2901,8 +2901,8 @@
       "prompt": "The line of best fit on a scatter plot has equation y = 2x + 5. What is the predicted y when x = 10.",
       "choices": [
         "Initial value",
+        "Total",
         "Line of best fit",
-        "Pythagorean triple",
         "25"
       ],
       "correctText": "25",
@@ -2922,10 +2922,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "In a line of best fit y = mx + b, the slope m represents what.",
       "choices": [
+        "Line of best fit",
         "Rate of change",
-        "25",
-        "Initial value",
-        "4.5 times 10 to the negative fifth"
+        "Strong positive",
+        "Nonlinear"
       ],
       "correctText": "Rate of change",
       "explanation": "In a line of best fit y = mx + b, the SLOPE m represents the RATE OF CHANGE: the predicted change in y for each one-unit increase in x. NYS Common Core Grade 8 standard 8.SP.A.3 explicitly tests interpreting slope in context. Worked example: in study-hours-vs-score line y = 5x + 50, slope = 5 means 'each additional hour of studying is associated with about 5 more points on the test.' State-test items test slope interpretation in real contexts: 'A line of best fit for age vs. height has slope 2 inches/year — what does that mean?' Answer: 'on average, height increases by 2 inches for each year of age.' The slope unifies units (output per input) and is the key quantitative summary of a linear relationship."
@@ -2944,9 +2944,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "In a line of best fit y = mx + b, the y-intercept b represents what.",
       "choices": [
-        "Slope",
-        "Strong positive",
+        "8",
         "Initial value",
+        "Rate of change",
         "25"
       ],
       "correctText": "Initial value",
@@ -2966,10 +2966,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A scatter plot showing a tight, linear positive trend has what kind of association.",
       "choices": [
+        "a = 4, b = 3",
+        "Line of best fit",
         "Strong positive",
-        "Rate of change",
-        "25",
-        "Association"
+        "Initial value"
       ],
       "correctText": "Strong positive",
       "explanation": "A scatter plot with points TIGHTLY clustered along a rising line has STRONG POSITIVE association — high predictability that increases in x mean increases in y. NYS Common Core Grade 8 standard 8.SP.A.1 + 8.SP.A.2 test strength of linear association. Worked example: heights and arm spans in adults show strong positive association (points tightly along a 45° line). Distinguish strong (tight cluster) from weak (scattered cluster) and from no association (no trend). State-test items test strength qualitatively: 'Is the association weak, moderate, or strong?' Strong = points hug the line; moderate = points loosely follow the line; weak = points scattered around the line. Formal measures (correlation coefficient) are higher-grade material; Grade 8 keeps it qualitative."
@@ -2988,10 +2988,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A table that displays counts of two categorical variables.",
       "choices": [
-        "Two-way table",
+        "Total",
         "Right margin",
-        "10^7",
-        "Association"
+        "Two-way table",
+        "One variable"
       ],
       "correctText": "Two-way table",
       "explanation": "A TWO-WAY TABLE (also called a contingency table or cross-tabulation) displays counts at the intersection of two categorical variables. NYS Common Core Grade 8 standard 8.SP.A.4 explicitly tests 'understand that patterns of association can also be seen in bivariate categorical data by displaying frequencies and relative frequencies in a two-way table.' Worked example: a table with rows 'plays sport' / 'does not play sport' and columns 'has pet' / 'does not have pet' shows counts for each combination — e.g., 25 students play and have a pet, 10 play and don't, 5 don't play but have a pet, 15 don't play and don't. State-test items test two-way table construction (from raw data) and interpretation (count, relative frequency, association). Bivariate categorical data analysis is foundational for inferential statistics."
@@ -3010,10 +3010,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "In a two-way table, the row totals are placed where.",
       "choices": [
-        "Total",
-        "No association",
         "Right margin",
-        "5"
+        "x plus 7 equals 15",
+        "Two-way table",
+        "Total"
       ],
       "correctText": "Right margin",
       "explanation": "In a two-way table, ROW TOTALS are placed in the RIGHT MARGIN (a column at the far right), and COLUMN TOTALS in the BOTTOM MARGIN. The grand total (overall sum) sits in the bottom-right corner. NYS Common Core Grade 8 standard 8.SP.A.4 tests two-way table construction with marginal totals. Worked example: a table of 100 students broken into pet/no-pet × sport/no-sport: row totals sum each row (e.g., 35 play sport total, 65 don't play); column totals sum each column (e.g., 30 have pets, 70 don't); grand total = 100 students. State-test items test marginal-total computation as the first step in two-way table analysis; relative frequencies use marginal totals as denominators. Foundational table organization skill."
@@ -3032,10 +3032,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The relative frequency of a cell is the cell count divided by what.",
       "choices": [
-        "Total",
-        "No association",
+        "Association",
+        "2",
         "Two-way table",
-        "Outlier"
+        "Total"
       ],
       "correctText": "Total",
       "explanation": "The RELATIVE FREQUENCY of a cell in a two-way table is the cell count DIVIDED BY the GRAND TOTAL (or sometimes a marginal total, depending on context). NYS Common Core Grade 8 standard 8.SP.A.4 explicitly tests 'use relative frequencies' to investigate association. Worked example: in a 100-student table with 25 students who 'play sport AND have pet,' the relative frequency = 25/100 = 0.25 = 25%. Joint relative frequency uses GRAND total; row/column relative frequency uses ROW/COLUMN total. State-test items test relative-frequency computation and interpretation. Relative frequencies express counts as proportions, making different cells comparable. Patterns of association emerge when row/column relative frequencies differ significantly across categories."
@@ -3054,10 +3054,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A row in a two-way table where 80% of pet-owners play sports while only 40% of non-pet-owners do shows.",
       "choices": [
-        "Two-way table",
-        "Association",
+        "No association",
         "Right margin",
-        "Congruent"
+        "Association",
+        "Range"
       ],
       "correctText": "Association",
       "explanation": "Different RELATIVE FREQUENCIES across rows or columns in a two-way table indicate ASSOCIATION between the two categorical variables. NYS Common Core Grade 8 standard 8.SP.A.4 tests this: 'Use relative frequencies calculated for rows or columns to describe possible association between the two variables.' Worked example: if 80% of pet-owners play sports vs. only 40% of non-pet-owners, the proportions differ substantially — suggesting association between pet ownership and sport participation. State-test items test 'is there association?' by comparing row/column relative frequencies; substantially different proportions indicate association; similar proportions across rows/columns indicate NO association. The two-way table mirrors scatter plots for categorical data: it visualizes the joint distribution of two variables to reveal associations."
@@ -3077,9 +3077,9 @@
       "prompt": "In a two-way table, when row percentages are equal across categories, this suggests.",
       "choices": [
         "No association",
-        "Total",
-        "Two-way table",
-        "3"
+        "Association",
+        "Scientific notation",
+        "Total"
       ],
       "correctText": "No association",
       "explanation": "When ROW PERCENTAGES (or column percentages) are EQUAL across all categories of the other variable, there is NO association — the variables are independent in this dataset. NYS Common Core Grade 8 standard 8.SP.A.4 tests this concept. Worked example: if 50% of pet-owners play sports AND 50% of non-pet-owners play sports, pet ownership does not affect sport participation rates — no association. State-test items test 'is there association?' by checking whether the conditional proportions vary or stay the same. Equal proportions = independence (no association); different proportions = association. The level of difference indicates strength of association: small differences (50% vs 52%) = weak association; large differences (80% vs 30%) = strong association. Foundational for chi-square independence testing in higher grades."
@@ -3098,10 +3098,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A scatter plot whose points cluster along a straight line shows what kind of association.",
       "choices": [
-        "Linear",
-        "Preserved",
-        "55",
-        "Predicted score at 0 hours sleep"
+        "0.5 competitions won per year",
+        "7",
+        "Predicted score at 0 hours sleep",
+        "Linear"
       ],
       "correctText": "Linear",
       "explanation": "A scatter plot whose points cluster along a STRAIGHT LINE shows LINEAR association. NYS Common Core Grade 8 standard 8.SP.A.1 explicitly tests recognizing 'linear or nonlinear' patterns. Worked example: a scatter plot where points hug an upward-rising line (like y = 2x + 1) shows strong linear positive association; a scatter plot where points scatter around a horizontal line shows no linear association (constant y); a scatter plot where points curve (like a parabola or exponential curve) shows NONLINEAR association. State-test items test recognition of linear vs. nonlinear patterns. Linear association is the simplest and most common case in introductory statistics; nonlinear (quadratic, exponential, etc.) is for higher grades. The line of best fit applies only to linear patterns."
@@ -3120,8 +3120,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Using line y = 3x + 10, predict y when x is 15.",
       "choices": [
+        "Slope 4, intercept -7",
         "0.5 competitions won per year",
-        "Tied",
         "Linear",
         "55"
       ],
@@ -3142,10 +3142,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Interpret slope 0.5 in a line of best fit modeling years studying piano (x) vs. competitions won (y).",
       "choices": [
+        "55",
         "0.5 competitions won per year",
-        "Predicted score at 0 hours sleep",
         "Linear",
-        "0"
+        "Association"
       ],
       "correctText": "0.5 competitions won per year",
       "explanation": "Interpreting slope of a line of best fit in context: slope = change in y per one-unit increase in x. For piano-years (x) vs. competitions-won (y) with slope 0.5: 'each additional year of studying piano is associated with an average of 0.5 more competition wins.' NYS Common Core Grade 8 standard 8.SP.A.3 explicitly tests interpreting slope and intercept in context. Worked example: if slope = 2 in age (years) vs. height (inches), interpretation: 'each year of age is associated with 2 more inches of height (on average).' State-test items test interpretation as full sentences, not just numbers — students must connect the slope's numerical value to the real-world rate of change in the data's units. Critical for connecting math to data analysis."
@@ -3164,10 +3164,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "In a line of best fit y = 0.7x + 1.2 modeling hours of sleep (x) vs. test score (y), the y-intercept 1.2 represents.",
       "choices": [
-        "Pythagorean theorem",
-        "55",
+        "0.5 competitions won per year",
         "Predicted score at 0 hours sleep",
-        "0.5 competitions won per year"
+        "Linear",
+        "Function B"
       ],
       "correctText": "Predicted score at 0 hours sleep",
       "explanation": "The Y-INTERCEPT of a linear model represents the predicted y-value when x = 0. For sleep-hours (x) vs. score (y) line y = 0.7x + 1.2: y-intercept 1.2 predicts that a student with 0 hours of sleep would score 1.2 (out of however the test is scored). NYS Common Core Grade 8 standard 8.SP.A.3 tests interpreting y-intercept in context. State-test items test interpretation: 'In y = 0.5x + 10 modeling age (x in years) vs. weight (y in lbs), what does 10 mean?' Answer: 'predicted weight at age 0' (which may or may not be physically meaningful). The y-intercept is a mathematical feature of the line, sometimes interpretable as the natural 'baseline' or 'starting value' but often a mathematical extrapolation that should be interpreted carefully when far outside the observed data."
@@ -3186,10 +3186,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The scatter plot of age vs. car resale value shows what likely association.",
       "choices": [
-        "12",
-        "Negative",
+        "Exponential nonlinear",
         "Slope and y-intercept",
-        "Association"
+        "Negative",
+        "Translation"
       ],
       "correctText": "Negative",
       "explanation": "Age vs. car resale value typically shows NEGATIVE association — as cars age, their resale value generally decreases (depreciation). NYS Common Core Grade 8 standard 8.SP.A.1 tests recognition of association patterns in real contexts. Worked example: a 1-year-old car worth $30,000 vs. a 10-year-old car worth $5,000 demonstrates the negative trend. State-test items test association recognition in many real-world contexts: positive (study time vs. test score, exercise vs. fitness); negative (age of car vs. value, height of mountain vs. air pressure); none (shoe size vs. test score). Students should justify their answers by considering whether x and y move in the same direction (positive) or opposite directions (negative)."
@@ -3208,10 +3208,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A two-way table where the row 'plays sports' shows higher pet ownership rates than 'no sports' suggests.",
       "choices": [
+        "Add",
+        "Exponential nonlinear",
         "Association",
-        "Slope and y-intercept",
-        "x plus (3x minus 2) equals 14",
-        "Negative"
+        "Each cm of height adds 0.4 shoe size"
       ],
       "correctText": "Association",
       "explanation": "Different row percentages in a two-way table suggest ASSOCIATION between the variables. If 'plays sports' has 80% pet owners and 'no sports' has 40% pet owners, the difference (80% vs. 40%) suggests pet ownership and sports participation are associated. NYS Common Core Grade 8 standard 8.SP.A.4 tests this. The direction of association (positive: more sports → more pets) requires interpretation in context. State-test items present two-way tables and ask whether association exists by comparing row or column relative frequencies. Importantly, association does NOT prove CAUSATION: maybe pet-owners exercise more by walking dogs (suggesting pets cause sports), or maybe athletic families also adopt pets (suggesting other factors). Grade 8 discusses qualitatively; causal inference is for higher grades."
@@ -3230,10 +3230,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "In a line of best fit for height (cm) vs. shoe size, slope 0.4 means.",
       "choices": [
-        "Each cm of height adds 0.4 shoe size",
-        "Negative",
         "Exponential nonlinear",
-        "55"
+        "Each cm of height adds 0.4 shoe size",
+        "V equals pi r squared h",
+        "Association"
       ],
       "correctText": "Each cm of height adds 0.4 shoe size",
       "explanation": "In a line of best fit for height (x in cm) vs. shoe size (y), slope = 0.4 means 'for each 1 cm increase in height, the predicted shoe size increases by 0.4 (units of shoe size).' NYS Common Core Grade 8 standard 8.SP.A.3 tests slope interpretation in real contexts. Worked example: if a student is 10 cm taller than another, the predicted shoe size is 10 × 0.4 = 4 sizes larger. State-test items test slope interpretation extensively — students must connect the numerical slope to the unit-rate interpretation in the real-world context (e.g., 'per cm,' 'per year,' 'per dollar')."
@@ -3252,10 +3252,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Two pieces of information needed to predict y from x using a linear model.",
       "choices": [
-        "Association",
-        "One over x cubed",
+        "Negative",
+        "Exponential nonlinear",
         "Slope and y-intercept",
-        "Each cm of height adds 0.4 shoe size"
+        "About 3.3"
       ],
       "correctText": "Slope and y-intercept",
       "explanation": "To predict y from x using a linear model y = mx + b, you need both the SLOPE m and the Y-INTERCEPT b. NYS Common Core Grade 8 standard 8.SP.A.3 tests this. Worked example: given m = 2 and b = 5, the model is y = 2x + 5; at x = 4, y = 2(4) + 5 = 13. State-test items test 'write the linear model' from given information: slope and y-intercept, or two points (slope from rise/run, y-intercept from substituting one point into y = mx + b to solve for b). The complete model y = mx + b lets you generate predictions for any x, summarize the relationship, and project beyond observed data (with caution about extrapolation)."
@@ -3274,10 +3274,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A graph of population (y) vs. time (x in years) follows curve y = 2^x. The association is.",
       "choices": [
-        "Exponential nonlinear",
-        "10^7",
-        "Association",
-        "Each cm of height adds 0.4 shoe size"
+        "Scale factor",
+        "Negative",
+        "Slope and y-intercept",
+        "Exponential nonlinear"
       ],
       "correctText": "Exponential nonlinear",
       "explanation": "A graph where y = 2^x (or any exponential expression a^x) is NONLINEAR — specifically, EXPONENTIAL. NYS Common Core Grade 8 standard 8.F.A.3 distinguishes linear vs. nonlinear functions, with exponential being the canonical nonlinear example. Worked example: y = 2^x has values y(0)=1, y(1)=2, y(2)=4, y(3)=8 — doubling each time. This is the characteristic exponential growth: rapid increase, much faster than linear. State-test items test recognition: linear (line/constant rate) vs. nonlinear (curve/changing rate). Real-world examples of exponential association: bacteria growth, compound interest, population growth (in early phases), viral spread. Grade 8 recognizes nonlinear patterns informally; fitting exponential models is for Algebra 1 and beyond."
@@ -3297,9 +3297,9 @@
       "prompt": "Type of number sqrt(16) is.",
       "choices": [
         "Rational",
-        "Pythagorean triple",
+        "4.5 times 10 to the negative fifth",
         "10 to the negative third",
-        "7.1"
+        "10^3"
       ],
       "correctText": "Rational",
       "explanation": "sqrt(16) = 4 is RATIONAL because 16 is a perfect square. NYS Common Core Grade 8 standard 8.NS.A.1 tests classification of numbers as rational or irrational. Worked example: sqrt(16) = 4 = 4/1, a fraction of integers, so rational; sqrt(25) = 5 = 5/1, rational; sqrt(36) = 6, rational. The general rule from 8.NS.A.1: sqrt(n) is rational if and only if n is a perfect square (1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144 in the typical Grade 8 range); cube root of n is rational if and only if n is a perfect cube (1, 8, 27, 64, 125, 216). All other roots of positive integers are irrational, with non-terminating non-repeating decimal expansions. State-test items test root classification heavily for fluency."
@@ -3318,10 +3318,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The scientific notation of 0.000045.",
       "choices": [
+        "4",
         "Rational",
-        "4.5 times 10 to the negative fifth",
         "10 to the negative third",
-        "Irrational number"
+        "4.5 times 10 to the negative fifth"
       ],
       "correctText": "4.5 times 10 to the negative fifth",
       "explanation": "To convert 0.000045 to scientific notation: move the decimal point right until exactly one nonzero digit is to its left; count moves to get the exponent's absolute value. 0.000045 → 4.5, 5 moves right → 4.5 × 10^-5. NYS Common Core Grade 8 standard 8.EE.A.3 explicitly tests this conversion for very small numbers. Small numbers (< 1) give NEGATIVE exponents; large numbers (>= 10) give POSITIVE. Verification: 4.5 × 10^-5 = 4.5/100000 = 0.000045 ✓. Worked example: 0.00072 = 7.2 × 10^-4 (4 moves right); 0.0000089 = 8.9 × 10^-6 (6 moves right). State-test items test rapid conversion in chemistry/physics contexts (atomic mass, microbe diameter, particle wavelength). The number of decimal-point moves equals the absolute value of the exponent."
@@ -3341,9 +3341,9 @@
       "prompt": "The cube root of -64.",
       "choices": [
         "-4",
-        "Rational",
         "10 to the negative third",
-        "1.41"
+        "4.5 times 10 to the negative fifth",
+        "Similar"
       ],
       "correctText": "-4",
       "explanation": "Cube root of -64 = -4 because (-4)^3 = (-4)(-4)(-4) = 16 × -4 = -64. NYS Common Core Grade 8 standard 8.EE.A.2 tests cube roots including of NEGATIVE numbers. Unlike square roots (which are undefined for negative reals in Grade 8, since no real number squared gives a negative), cube roots are always defined for any real input — odd powers preserve sign. Worked example: cube root of -27 = -3 (since (-3)^3 = -27); cube root of -125 = -5; cube root of -1 = -1; cube root of -1000 = -10. The cube-root function has unique real values for both positive and negative inputs. State-test items test cube roots of perfect cubes (positive and negative) for fluency and as solutions to x^3 = -64 type equations: x = cube root of -64 = -4 (the unique real solution)."
@@ -3362,8 +3362,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The result of multiplying 10^4 by 10^-7, simplified.",
       "choices": [
-        "No association",
-        "7.1",
+        "No solution",
+        "Rational",
         "4.5 times 10 to the negative fifth",
         "10 to the negative third"
       ],
@@ -3384,10 +3384,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Approximation of sqrt(50) to one decimal place.",
       "choices": [
-        "8",
-        "-4",
+        "10 to the negative third",
+        "5a + 3c = 48 and 2a + 4c = 32",
         "7.1",
-        "10 to the negative third"
+        "4.5 times 10 to the negative fifth"
       ],
       "correctText": "7.1",
       "explanation": "sqrt(50) is irrational since 50 is not a perfect square. NYS Common Core Grade 8 standard 8.NS.A.2 tests rational approximation of irrational numbers. Locate sqrt(50) between perfect squares: sqrt(49) = 7 and sqrt(64) = 8, so sqrt(50) is between 7 and 8. Refining: 7.1^2 = 50.41, very close to 50, so sqrt(50) ≈ 7.1 (more precisely 7.0710...). Worked example: sqrt(50) = sqrt(25 × 2) = 5 × sqrt(2) (factored radical form, exact). Using sqrt(2) ≈ 1.41421: sqrt(50) = 5 × 1.41421 ≈ 7.07. Approximations: sqrt(45) ≈ 6.7 (between sqrt(36)=6 and sqrt(49)=7), sqrt(72) ≈ 8.5 (between sqrt(64)=8 and sqrt(81)=9). State-test items test approximation to specified precision and locating irrationals on number lines."
@@ -3406,8 +3406,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve 4x + 7 = 27 for x.",
       "choices": [
-        "Straight line",
-        "No solution",
+        "4",
+        "Association",
         "(3, 6)",
         "5"
       ],
@@ -3428,10 +3428,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The equation 2x + 5 = 2x + 11 has how many solutions.",
       "choices": [
-        "4",
+        "Nonlinear",
         "No solution",
-        "Two pairs of angles are equal",
-        "5"
+        "(3, 6)",
+        "4"
       ],
       "correctText": "No solution",
       "explanation": "2x + 5 = 2x + 11: subtract 2x from both sides → 5 = 11, a contradiction → NO solution. NYS Common Core Grade 8 standard 8.EE.C.7.A explicitly tests recognizing equations with NO solution, ONE solution, or INFINITELY MANY solutions. Geometrically, no-solution equations correspond to PARALLEL LINES (same slope, different y-intercepts): y = 2x + 5 and y = 2x + 11 both have slope 2 but different y-intercepts, so they never intersect. Worked example: 3(x + 2) = 3x + 5 → 3x + 6 = 3x + 5 → 6 = 5, contradiction → no solution. State-test items test classification heavily. Recognition: variables cancel AND constants disagree → no solution; variables cancel AND constants match → infinite solutions; variables don't cancel → one solution."
@@ -3450,10 +3450,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve 3(x + 4) = 24.",
       "choices": [
-        "x to the a plus b",
         "4",
         "5",
-        "(3, 6)"
+        "No solution",
+        "Scale factor"
       ],
       "correctText": "4",
       "explanation": "To solve 3(x + 4) = 24: first DISTRIBUTE the 3 across the parentheses (NYS Common Core Grade 8 standard 8.EE.C.7.B requires expanding expressions using the distributive property). Step 1: distribute → 3x + 12 = 24. Step 2: subtract 12 → 3x = 12. Step 3: divide by 3 → x = 4. Verification: 3(4 + 4) = 3(8) = 24 ✓. Worked example: 2(x - 3) = 10 → 2x - 6 = 10 → 2x = 16 → x = 8; 5(x + 1) = 30 → 5x + 5 = 30 → 5x = 25 → x = 5. State-test items test 'equations with parentheses' as a standard two-step-plus-distribution problem. The distributive property a(b + c) = ab + ac dates to Euclid (around 300 BC) and is foundational to algebra."
@@ -3472,10 +3472,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve 5x - 2 = 3x + 8.",
       "choices": [
-        "4",
         "5",
-        "No solution",
-        "Pythagorean theorem"
+        "5a + 3c = 48 and 2a + 4c = 32",
+        "4",
+        "(3, 6)"
       ],
       "correctText": "5",
       "explanation": "To solve 5x - 2 = 3x + 8 (variables on both sides): move variables to one side, constants to the other. NYS Common Core Grade 8 standard 8.EE.C.7.B explicitly tests variables-on-both-sides equations. Step 1: subtract 3x from both sides → 2x - 2 = 8. Step 2: add 2 → 2x = 10. Step 3: divide by 2 → x = 5. Verification: 5(5) - 2 = 25 - 2 = 23; 3(5) + 8 = 15 + 8 = 23 ✓. Worked example: 4x + 1 = 2x + 11 → 2x = 10 → x = 5; 6x - 4 = 2x + 12 → 4x = 16 → x = 4. State-test items test variables-on-both-sides equations as critical pre-algebra skill that prepares students for systems of equations and equation manipulation in Algebra 1 and beyond."
@@ -3494,10 +3494,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve system { y = 2x; y = x + 3 }.",
       "choices": [
-        "5",
-        "5",
-        "Linear function",
-        "(3, 6)"
+        "4",
+        "(3, 6)",
+        "3",
+        "5"
       ],
       "correctText": "(3, 6)",
       "explanation": "To solve { y = 2x; y = x + 3 } by SUBSTITUTION: since both equations equal y, set them equal to each other: 2x = x + 3; subtract x → x = 3; back-substitute: y = 2(3) = 6. Solution: (3, 6). NYS Common Core Grade 8 standard 8.EE.C.8.B explicitly tests this method. Verification: y = 2(3) = 6 ✓ AND y = 3 + 3 = 6 ✓. Geometrically: the two lines (y = 2x with slope 2 through origin; y = x + 3 with slope 1 through (0, 3)) intersect at (3, 6). State-test items test systems by substitution as the cleanest method when both equations are y = (something in x). Worked example: { y = -x + 10; y = 4x } → -x + 10 = 4x → 10 = 5x → x = 2, y = 8; solution (2, 8)."
@@ -3516,10 +3516,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Slope of y = 5x - 2.",
       "choices": [
-        "a = 4, b = 3",
-        "2",
+        "8",
         "5",
-        "8"
+        "No solution",
+        "2"
       ],
       "correctText": "5",
       "explanation": "In slope-intercept form y = mx + b, the slope m is the COEFFICIENT of x. For y = 5x - 2: m = 5 (slope), b = -2 (y-intercept). NYS Common Core Grade 8 standard 8.F.A.3 explicitly tests interpreting y = mx + b as defining a linear function with slope m and y-intercept b. Worked example: y = -3x + 7 has slope -3 and y-intercept 7; y = (1/2)x has slope 1/2 and y-intercept 0 (line through origin, proportional). State-test items test rapid extraction of m and b from equations. Graphically, slope 5 means the line rises 5 units for every 1 unit right (steep upward); the y-intercept -2 means the line crosses the y-axis at (0, -2). Together they let you graph the line quickly."
@@ -3538,10 +3538,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Y-intercept of y = -3x + 8.",
       "choices": [
-        "Nonlinear",
-        "3",
         "8",
-        "5"
+        "Nonlinear",
+        "Slope-intercept form",
+        "3"
       ],
       "correctText": "8",
       "explanation": "In slope-intercept form y = mx + b, b = 8 is the Y-INTERCEPT — where the line crosses the y-axis. For y = -3x + 8: m = -3 (slope), b = 8 (y-intercept). NYS Common Core Grade 8 standard 8.F.A.3 + 8.F.B.4 explicitly test y-intercept identification. The y-intercept is the value of y when x = 0: y = -3(0) + 8 = 8; the point (0, 8) is the y-intercept. Worked example: y = 2x - 5 has y-intercept -5; y = (1/2)x + 3 has y-intercept 3. State-test items test y-intercept extraction from equations, graphs (read where line crosses y-axis), and tables (find y when x = 0). The y-intercept represents the 'initial value' in real-world contexts like starting cost, beginning height, or starting account balance — critical for graphing and modeling."
@@ -3560,9 +3560,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The slope between (0, 5) and (4, 13).",
       "choices": [
-        "No association",
-        "2",
+        "Rotation",
         "5",
+        "2",
         "Slope-intercept form"
       ],
       "correctText": "2",
@@ -3582,10 +3582,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A function whose graph is a curve, not a straight line, is.",
       "choices": [
+        "Irrational",
         "Nonlinear",
-        "5",
-        "8",
-        "x plus (x+1) plus (x+2) equals 60"
+        "Slope-intercept form",
+        "2"
       ],
       "correctText": "Nonlinear",
       "explanation": "A function whose graph is a CURVE (not a straight line) is NONLINEAR — it has a NON-CONSTANT rate of change. NYS Common Core Grade 8 standard 8.F.A.3 explicitly tests linear vs nonlinear distinction. Worked example: y = x^2 (parabola) is nonlinear: its rate of change varies (from x=0 to x=1, y changes by 1; from x=1 to x=2, y changes by 3; from x=2 to x=3, y changes by 5 — not constant). y = 3x + 1 (line) is linear: rate of change is constant 3. State-test items test linear vs nonlinear from tables (check constant differences in y for equal differences in x), equations (linear: y = mx + b form only; nonlinear: y = x^2, y = 2^x, etc.), and graphs (line vs curve). Critical distinction for choosing appropriate models in statistics and data analysis."
@@ -3604,10 +3604,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Function form y = mx + b is called.",
       "choices": [
+        "Slope-intercept form",
         "2",
-        "Dilation",
-        "8",
-        "Slope-intercept form"
+        "13",
+        "Nonlinear"
       ],
       "correctText": "Slope-intercept form",
       "explanation": "y = mx + b is the SLOPE-INTERCEPT FORM of a linear equation, where m is the slope and b is the y-intercept. NYS Common Core Grade 8 standard 8.F.A.3 explicitly tests this form: 'interpret the equation y = mx + b as defining a linear function whose graph is a straight line.' The form makes the slope (coefficient of x) and y-intercept (constant term) immediately readable, ideal for graphing: plot the y-intercept (0, b), then use slope m = rise/run to plot another point. Worked example: y = 2x + 3 — start at (0, 3), then go up 2 right 1 to (1, 5), or up 4 right 2 to (2, 7). Other forms exist (point-slope, standard) but slope-intercept is the most common in Grade 8 and Algebra 1. Critical foundational form for linear functions throughout school mathematics."
@@ -3626,10 +3626,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The hypotenuse of a right triangle with legs 9 and 12.",
       "choices": [
-        "6 × 10^9",
         "180 degrees",
-        "15",
-        "Congruent"
+        "36 pi",
+        "Pythagorean triple",
+        "15"
       ],
       "correctText": "15",
       "explanation": "By the PYTHAGOREAN THEOREM (a^2 + b^2 = c^2): c^2 = 9^2 + 12^2 = 81 + 144 = 225, so c = sqrt(225) = 15. NYS Common Core Grade 8 standard 8.G.B.7 explicitly tests Pythagorean theorem applications for finding unknown side lengths in right triangles. The 9-12-15 right triangle is a multiple of the famous 3-4-5 Pythagorean triple (multiplied by 3): 3^2 + 4^2 = 9 + 16 = 25 = 5^2. Named after Pythagoras of Samos (around 570-495 BC), the relationship was known to Babylonians (around 1800 BC) and ancient Egyptians who used 3-4-5 ropes to construct right angles. Worked example: legs 12 and 16 give hypotenuse 20 (a 12-16-20 triangle = 4 × 3-4-5)."
@@ -3649,9 +3649,9 @@
       "prompt": "Volume of a sphere with radius 3.",
       "choices": [
         "36 pi",
-        "13",
-        "180 degrees",
-        "V equals one-third pi r squared h"
+        "Equal",
+        "15",
+        "13"
       ],
       "correctText": "36 pi",
       "explanation": "Sphere volume: V = (4/3)π r^3. For r = 3: V = (4/3)π(3)^3 = (4/3)π(27) = (4 × 27)/3 × π = 108/3 × π = 36π cubic units. NYS Common Core Grade 8 standard 8.G.C.9 explicitly tests sphere volume. The formula was discovered by ARCHIMEDES (around 250 BC), who derived it using his 'method of exhaustion' (a precursor to integral calculus) and considered it his greatest discovery — he requested a sphere and circumscribed cylinder to be carved on his tombstone, rediscovered by Cicero in 75 BC. Approximation: 36π ≈ 36 × 3.14 ≈ 113.1 cubic units. Worked example: sphere with r = 6 has V = (4/3)π(216) = 288π ≈ 904.8 cubic units. Critical formula for Grade 8."
@@ -3670,9 +3670,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sum of interior angles of any triangle.",
       "choices": [
-        "180 degrees",
-        "3",
         "13",
+        "Domain",
+        "180 degrees",
         "36 pi"
       ],
       "correctText": "180 degrees",
@@ -3692,10 +3692,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Two figures related by a sequence of translations, rotations, and reflections are.",
       "choices": [
-        "Slope-intercept form",
         "Congruent",
-        "36 pi",
-        "180 degrees"
+        "13",
+        "180 degrees",
+        "Linear function"
       ],
       "correctText": "Congruent",
       "explanation": "Two figures related by a sequence of RIGID TRANSFORMATIONS (translations, rotations, reflections) are CONGRUENT — same shape and same size. NYS Common Core Grade 8 standard 8.G.A.2 explicitly defines this: 'a two-dimensional figure is congruent to another if the second can be obtained from the first by a sequence of rotations, reflections, and translations.' Rigid transformations preserve distance, angle, and shape — they produce mirror-image or rotated/translated COPIES. The symbol ≅ denotes congruence (introduced by Riemann in the 1850s, popularized by Hilbert). Worked example: a triangle and its image after a reflection-then-translation are congruent — corresponding sides have equal lengths and corresponding angles have equal measures. State-test items test congruence by identifying rigid-transformation sequences."
@@ -3714,10 +3714,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Distance between (0, 0) and (5, 12) on coordinate plane.",
       "choices": [
-        "Congruent",
-        "36 pi",
-        "Translation",
-        "13"
+        "13",
+        "Tied",
+        "180 degrees",
+        "Congruent"
       ],
       "correctText": "13",
       "explanation": "By the distance formula d = sqrt((x2-x1)^2 + (y2-y1)^2), which is the Pythagorean theorem applied to coordinate differences: d = sqrt((5-0)^2 + (12-0)^2) = sqrt(25 + 144) = sqrt(169) = 13. NYS Common Core Grade 8 standard 8.G.B.8 explicitly tests 'apply the Pythagorean Theorem to find the distance between two points in a coordinate system.' This is the famous 5-12-13 Pythagorean triple in action (5^2 + 12^2 = 169 = 13^2). The distance formula is the Pythagorean theorem in disguise — coordinate differences become the legs, and the segment between the points is the hypotenuse. Worked example: distance between (1, 2) and (4, 6) = sqrt(9 + 16) = sqrt(25) = 5 (the 3-4-5 triangle). Foundational coordinate-geometry skill."
@@ -3736,10 +3736,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Graph used for displaying paired (x, y) data.",
       "choices": [
-        "Line of best fit",
-        "25,000",
+        "Straight line",
         "17",
-        "Scatter plot"
+        "Scatter plot",
+        "No association"
       ],
       "correctText": "Scatter plot",
       "explanation": "A SCATTER PLOT displays paired (x, y) data as points on a coordinate plane. NYS Common Core Grade 8 standard 8.SP.A.1 explicitly tests 'construct and interpret scatter plots for bivariate measurement data to investigate patterns of association between two quantities.' Each (x, y) pair becomes one point; the resulting cloud of points reveals patterns: positive association (rising trend), negative (falling), no association (random scatter), linear (line-like), nonlinear (curved). Worked example: heights and weights of 30 students plotted as 30 dots — patterns reveal whether the variables are related. State-test items test scatter plot construction and interpretation (associations, clusters, outliers). Scatter plots are foundational for statistics; named for the 'scattered' appearance of the data; used throughout science, social science, and business for visualizing relationships."
@@ -3758,10 +3758,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A scatter plot where y decreases as x increases shows.",
       "choices": [
-        "Negative association",
-        "No association",
         "17",
-        "Second function"
+        "No solution",
+        "Negative association",
+        "Scatter plot"
       ],
       "correctText": "Negative association",
       "explanation": "A scatter plot where Y DECREASES as X INCREASES shows NEGATIVE association — variables move in OPPOSITE directions. NYS Common Core Grade 8 standard 8.SP.A.1 tests patterns of association: positive (rising), negative (falling), none, linear (line-like), nonlinear. Worked example: age of car (x) vs. resale value (y) typically shows negative association — older cars are worth less. Other negative-association examples: exercise hours vs. body fat percentage; temperature vs. heating bill (when temp goes up, heating bill goes down); time studying vs. error count on a test. State-test items test recognition of negative-association patterns from scatter plots and word descriptions. Distinguish strength: weak (loosely scattered along downward trend) vs. strong (tightly clustered). Critical for understanding bivariate data relationships."
@@ -3780,10 +3780,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Line drawn through a scatter plot to summarize trend.",
       "choices": [
-        "Positive",
-        "17",
-        "Line of best fit",
-        "No association"
+        "Scatter plot",
+        "No association",
+        "6 × 10^9",
+        "Line of best fit"
       ],
       "correctText": "Line of best fit",
       "explanation": "The LINE OF BEST FIT (also trend line or regression line) is a straight line drawn through a scatter plot to summarize the overall LINEAR trend. NYS Common Core Grade 8 standard 8.SP.A.2 explicitly tests 'fit a straight line, and informally assess the model fit by judging the closeness of the data points to the line.' Standard 8.SP.A.3 tests using the line to make predictions. Worked example: for a study-hours-vs-score scatter plot showing positive linear trend, a line of best fit might be y = 5x + 50, summarizing the relationship (5 points per study-hour, starting at 50%). The slope and y-intercept have real-world meaning in context. Formal least-squares regression was developed by Adrien-Marie Legendre (1805) and Carl Friedrich Gauss (1809); Grade 8 uses informal eye-balling."
@@ -3803,8 +3803,8 @@
       "prompt": "Using line y = 4x + 5, predict y when x = 3.",
       "choices": [
         "No association",
-        "x to the fifth",
-        "Scatter plot",
+        "Negative association",
+        "5.2 times 10 to the sixth",
         "17"
       ],
       "correctText": "17",
@@ -3825,9 +3825,9 @@
       "prompt": "In a two-way table, equal row percentages across categories suggest.",
       "choices": [
         "17",
-        "Scatter plot",
+        "Line of best fit",
         "No association",
-        "0.5 competitions won per year"
+        "Scale factor"
       ],
       "correctText": "No association",
       "explanation": "When ROW PERCENTAGES are EQUAL across categories of another variable in a two-way table, the variables are INDEPENDENT — no association. NYS Common Core Grade 8 standard 8.SP.A.4 tests this: 'use relative frequencies calculated for rows or columns to describe possible association between the two variables.' Worked example: if 50% of pet-owners play sports AND 50% of non-pet-owners play sports, pet ownership does NOT affect sport participation — no association. By contrast, if 80% of pet-owners play sports but only 40% of non-pet-owners do, the difference suggests association. Foundation for chi-square independence testing in higher grades. State-test items test 'is there association?' by comparing row or column proportions; equal = no association, different = association."

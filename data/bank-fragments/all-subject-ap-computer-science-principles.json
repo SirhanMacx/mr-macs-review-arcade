@@ -18,10 +18,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Step-by-step plan that turns a real-world problem into a software solution.",
       "choices": [
-        "Collaboration",
+        "Iteration cycle",
         "Program design process",
-        "Nested conditional",
-        "Iteration cycle"
+        "Iterative development",
+        "Packet"
       ],
       "correctText": "Program design process",
       "explanation": "The program design process moves through investigation (user needs, requirements), design (pseudocode, diagrams), prototyping, testing, and refinement. AP CSP Big Idea 1 emphasizes this as iterative — not waterfall. Pioneers like Margaret Hamilton (Apollo flight software, 1960s) and Grace Hopper (COBOL, FLOW-MATIC compiler 1952) established design discipline. The AP Create Performance Task explicitly requires students to document their design decisions, making this exam-critical for the written response portion."
@@ -40,10 +40,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cycle of refining a program by repeating planning, coding, and testing steps.",
       "choices": [
-        "Program design process",
-        "Accessibility",
+        "Pseudocode",
         "Iteration cycle",
-        "Iterative development"
+        "Iterative development",
+        "Misinformation"
       ],
       "correctText": "Iteration cycle",
       "explanation": "An iteration cycle in AP CSP includes investigate, design, build, test, learn — then repeat. Unlike linear waterfall (Royce 1970), iteration assumes initial requirements are incomplete. The Create Performance Task rubric requires students to document at least one iteration with a concrete improvement. Tom Gilb's 'Evolutionary Project Management' (1988) formalized iteration in business software. Exam questions show a development scenario and ask 'what is the next step?' — the answer is almost always 'test what you just built before adding more.'."
@@ -62,10 +62,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Plain-English outline of an algorithm that uses no specific programming language syntax.",
       "choices": [
-        "Iterative development",
+        "Run-length encoding",
+        "Collaboration",
         "Pseudocode",
-        "Encryption",
-        "Iteration cycle"
+        "Program design process"
       ],
       "correctText": "Pseudocode",
       "explanation": "Pseudocode is the AP CSP reference language — College Board publishes an official 'AP CSP Exam Reference Sheet' with DISPLAY, INPUT, PROCEDURE, and FOR EACH constructs. Pseudocode lets developers reason about logic without fighting syntax errors. Donald Knuth's three-volume 'The Art of Computer Programming' (1968-onwards) elevated pseudocode as a precise tool for algorithm analysis. On the multiple-choice exam, ~30% of questions show pseudocode you must trace or debug — mastering the reference sheet syntax is mandatory."
@@ -84,10 +84,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Repeated cycle of planning, coding, testing, and refining a program until it meets goals.",
       "choices": [
-        "Program design process",
-        "Misinformation",
         "Iteration cycle",
-        "Iterative development"
+        "Iterative development",
+        "Program design process",
+        "Privacy"
       ],
       "correctText": "Iterative development",
       "explanation": "Iterative development (popularized by agile manifesto, 2001, Snowbird Utah) replaces 'big design up front' with short cycles that build, test, and adjust. AP CSP Big Idea 1.4 treats iteration as foundational: students cannot complete the Create Performance Task without showing two distinct iterations with documented changes. The model traces to Walter Shewhart's PDCA (Plan-Do-Check-Act, 1939) and W. Edwards Deming's quality-improvement loops. Exam questions ask you to identify the next step in an iteration scenario."
@@ -107,9 +107,9 @@
       "prompt": "When two or more programmers work together on a project, sharing knowledge and review.",
       "choices": [
         "Iteration cycle",
-        "Computational artifact",
-        "Iterative development",
-        "Collaboration"
+        "Packet switching",
+        "Collaboration",
+        "Pseudocode"
       ],
       "correctText": "Collaboration",
       "explanation": "Collaboration on AP CSP includes pair programming (Kent Beck's Extreme Programming, 1999), code review, and shared version control (Git, Linus Torvalds 2005). Diverse teams produce more robust software — research by Anita Williams Woolley (CMU, 2010) shows collective intelligence rises with team diversity. The Explore Performance Task once required collaboration documentation; the redesigned 2020-21 CED keeps it as a knowledge-tested practice. Expect questions on benefits (catching bugs, multiple perspectives) and challenges (merge conflicts, communication overhead)."
@@ -128,10 +128,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Notes inside source code that the computer ignores but humans read for clarity.",
       "choices": [
-        "Comments",
+        "Version control",
         "Procedure",
-        "Library or API",
-        "Variable"
+        "Latency",
+        "Comments"
       ],
       "correctText": "Comments",
       "explanation": "Comments are non-executable annotations (// in Java/JavaScript, # in Python) that explain WHY code does what it does — not what it does. The AP CSP reference sheet uses '<-- comment -->' style. Brian Kernighan and Dennis Ritchie's 'The C Programming Language' (1978) set conventions still used today. The Create Performance Task scoring requires comments on key algorithm sections; un-commented submissions lose rubric points. On the MC exam, expect questions distinguishing useful comments (explain intent) from useless ones (paraphrase the code line)."
@@ -150,10 +150,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Named block of code that performs a specific task and can be called many times.",
       "choices": [
-        "Procedure",
         "Library or API",
-        "Version control",
-        "ASCII"
+        "Debugging",
+        "Procedure",
+        "DNS"
       ],
       "correctText": "Procedure",
       "explanation": "A procedure (PROCEDURE name(parameters) in AP CSP reference) packages reusable logic. Grace Hopper's A-0 compiler (1952) and later FORTRAN II (John Backus, IBM 1958) introduced subroutines. The Create Performance Task explicitly requires a student-developed procedure with a parameter that affects functionality — without it, students automatically lose 2 of 6 rubric points. The big idea: write once, call many times. MC questions show a procedure definition and ask what value it returns for given inputs."
@@ -172,8 +172,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Systematic process of finding and removing defects from code.",
       "choices": [
-        "Comments",
-        "Data bias",
+        "Procedure",
+        "IF statement",
         "Debugging",
         "Version control"
       ],
@@ -194,10 +194,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Tool that records every change to source code so old versions can be restored.",
       "choices": [
-        "Version control",
-        "Lossless compression",
-        "Procedure",
-        "Debugging"
+        "CSV",
+        "Debugging",
+        "Comments",
+        "Version control"
       ],
       "correctText": "Version control",
       "explanation": "Version control systems (Git, Subversion, Mercurial) track every commit with author, timestamp, and diff. Linus Torvalds built Git in two weeks in April 2005 after BitKeeper revoked Linux kernel access. GitHub (2008) and GitLab (2011) made Git collaboration mainstream. AP CSP teaches version control as a collaboration tool — branches let team members work in parallel, merge combines work, and rollback recovers from broken commits. While not heavily tested on MC, version control underpins the digital portfolio submission for Create Task."
@@ -216,10 +216,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Pre-written collection of procedures and data — like the AP CSP RANDOM function.",
       "choices": [
+        "Comments",
         "Procedure",
         "Library or API",
-        "Comments",
-        "Creative Commons"
+        "Return value"
       ],
       "correctText": "Library or API",
       "explanation": "Libraries provide tested procedures so you do not write everything from scratch — Python's NumPy (Travis Oliphant, 2006) does linear algebra in optimized C. AP CSP Big Idea 3.16 calls them 'libraries' and stresses reading documentation to use one. APIs (Application Programming Interfaces) describe the procedures a library exposes — what parameters they need, what they return. Roy Fielding's 2000 dissertation defined REST APIs, the backbone of modern web services. Exam questions test whether students can read API docs and pick the right procedure call."
@@ -239,9 +239,9 @@
       "prompt": "Anything created using a computer — programs, audio files, images, videos, or visualizations.",
       "choices": [
         "Random simulation",
+        "Debugging",
         "Computational artifact",
-        "Parameter",
-        "Nested conditional"
+        "Simulation"
       ],
       "correctText": "Computational artifact",
       "explanation": "The AP CSP CED defines computational artifacts broadly — your Create Task program is one, but so are infographics, animations, audio files, and interactive simulations. Big Idea 1.1 emphasizes that computing is creative expression, not just business logic. Ada Lovelace's 1843 'Notes on the Analytical Engine' is arguably the first computational artifact — she imagined music composition by Babbage's machine. Exam questions ask students to identify what counts (a Snapchat filter, yes; a hand-drawn sketch on paper, no). Beneficial vs harmful effects are also tested under Big Idea 5."
@@ -260,10 +260,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Variable inside a procedure that receives a value when the procedure is called.",
       "choices": [
-        "Internet",
-        "Simulation",
-        "Pattern recognition",
-        "Parameter"
+        "Parameter",
+        "Random simulation",
+        "Computational artifact",
+        "Parallel computing"
       ],
       "correctText": "Parameter",
       "explanation": "Parameters let one procedure handle many inputs — squareRoot(4), squareRoot(16), squareRoot(81) all use the same code. AP CSP CED Big Idea 3.13 distinguishes parameter (in definition) from argument (in call). Pioneer Maurice Wilkes (EDSAC, Cambridge 1949) wrote one of the first papers on subroutine parameters. Exam scoring for the Create Performance Task awards a point for using a parameter that 'affects functionality' — a dummy parameter that never gets used loses the point. Expect MC questions that trace what happens when different arguments are passed."
@@ -282,10 +282,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Spotting similarities across different problems so the same solution applies to many cases.",
       "choices": [
-        "Simulation",
-        "IP address",
+        "Pattern recognition",
+        "Procedure",
         "Parameter",
-        "Pattern recognition"
+        "Simulation"
       ],
       "correctText": "Pattern recognition",
       "explanation": "Pattern recognition lets programmers reuse algorithms — sorting works the same on names, numbers, or dates. Jeannette Wing (CMU, 2006) identified pattern recognition as core to computational thinking. In AP CSP, students recognize that a loop over a list of names handles 1, 10, or 10,000 names identically. The 2022 AP MC exam asked students to recognize that two different word problems both reduced to the same array traversal pattern — these comparison questions appear annually."
@@ -304,10 +304,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Type of program that imitates a real-world process — like weather or traffic flow.",
       "choices": [
-        "Computational artifact",
-        "Procedure",
-        "Simulation",
-        "Parameter"
+        "Random simulation",
+        "REPEAT UNTIL",
+        "Pattern recognition",
+        "Simulation"
       ],
       "correctText": "Simulation",
       "explanation": "Simulations let scientists explore systems too expensive, slow, or dangerous to test physically — weather forecasting (Lorenz 1963), epidemic modeling (Kermack-McKendrick 1927, used by Imperial College for COVID-19 in 2020), and climate. Big Idea 3.6 in AP CSP CED examines benefits and limits: simulations contain assumptions (model is not reality) and use randomness. Pioneer Stanislaw Ulam invented the Monte Carlo method in 1946 at Los Alamos. Expect exam questions on what a simulation cannot tell you (e.g., precise individual outcomes, only aggregates)."
@@ -326,10 +326,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Random-number-based technique used inside simulations to model unpredictable events.",
       "choices": [
-        "Random simulation",
-        "Computational artifact",
         "Pattern recognition",
-        "Plagiarism"
+        "Decomposition",
+        "Random simulation",
+        "Simulation"
       ],
       "correctText": "Random simulation",
       "explanation": "The AP CSP reference sheet has RANDOM(a, b) returning a random integer in [a, b]. Random simulations model events like coin flips (50/50), dice rolls, customer arrivals, or disease spread. Monte Carlo methods — Stanislaw Ulam, John von Neumann, Nicholas Metropolis at Los Alamos 1946 — use randomness to solve deterministic problems too. The 'Buffon's needle' experiment estimates pi by random drops. AP exam questions test whether students can predict the long-run distribution of a RANDOM-based simulation (e.g., probability of getting heads exactly 3 times in 10 flips)."
@@ -348,9 +348,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Software practice of testing each small unit of a program separately.",
       "choices": [
+        "Definite loop",
+        "Wi-Fi",
         "Unit testing",
-        "Selection statement",
-        "Simulation",
         "Nested loops"
       ],
       "correctText": "Unit testing",
@@ -370,10 +370,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Programming structure that repeats a block of code while a condition is true.",
       "choices": [
-        "Unit testing",
-        "Open source",
+        "Run-length encoding",
+        "Definite loop",
         "While loop",
-        "Definite loop"
+        "Unit testing"
       ],
       "correctText": "While loop",
       "explanation": "The AP CSP reference sheet uses REPEAT UNTIL (condition) — equivalent to while-NOT in most languages. While loops are 'indefinite' because the number of iterations depends on runtime state. Edsger Dijkstra's 1968 letter 'Go To Statement Considered Harmful' established structured loops as superior to GOTO. The single biggest source of bugs on the Create Performance Task is infinite loops — students who forget to update the loop variable lose points. MC exam often shows a REPEAT UNTIL block and asks how many times it runs."
@@ -392,10 +392,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Programming structure that runs a fixed number of times — like REPEAT 10 TIMES.",
       "choices": [
-        "While loop",
+        "Packet",
         "Definite loop",
-        "Unit testing",
-        "Bit"
+        "Selection statement",
+        "Nested loops"
       ],
       "correctText": "Definite loop",
       "explanation": "Definite loops run a known number of times — REPEAT 10 TIMES in AP CSP pseudocode, or 'for i in range(10)' in Python. The AP CSP reference sheet uses REPEAT n TIMES. Definite loops are safer than while loops for tasks like 'process every item in a list of 50.' Pioneer Tony Hoare's CSP (Communicating Sequential Processes, 1978) formalized loop semantics. Exam questions test whether students can convert between REPEAT n TIMES and a counter-based REPEAT UNTIL — they should produce identical output."
@@ -414,10 +414,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop inside another loop — used for grids, tables, and 2D data structures.",
       "choices": [
-        "Unit testing",
-        "Analog-to-digital conversion",
+        "Nested loops",
         "Selection statement",
-        "Nested loops"
+        "While loop",
+        "Iterative development"
       ],
       "correctText": "Nested loops",
       "explanation": "Nested loops let programmers traverse 2D structures — a table with rows and columns needs an outer loop over rows and an inner loop over columns. If the outer loop runs n times and the inner runs m times, total iterations = n × m. AP CSP Big Idea 3.10 covers nested iteration in lists. Exam questions show a 4×4 grid being processed by nested REPEAT loops and ask the total number of operations — students must multiply. Performance implications (n² scaling) connect to Big Idea 3.18 efficiency analysis."
@@ -437,9 +437,9 @@
       "prompt": "Decision-making construct that runs different code depending on a true/false test.",
       "choices": [
         "Selection statement",
-        "Definite loop",
-        "Unit testing",
-        "Computational artifact"
+        "While loop",
+        "Simulation",
+        "Nested loops"
       ],
       "correctText": "Selection statement",
       "explanation": "Selection (IF/ELSE in AP CSP reference sheet) lets a program respond to data — different action when input is empty, valid, or out of range. Boolean algebra (George Boole, 1854) is the mathematical foundation. AP CSP Big Idea 3.8 includes nested conditionals and compound Boolean expressions with AND, OR, NOT. The Create Performance Task rubric rewards programs that handle multiple cases gracefully — pure-linear programs without conditionals are rarely meaningful. Expect MC questions on De Morgan's laws applied to IF conditions."
@@ -458,10 +458,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Mental tool that breaks a complex problem into smaller, more manageable parts.",
       "choices": [
-        "Maintainability",
+        "Abstraction",
+        "Identity theft",
         "Decomposition",
-        "Procedural abstraction",
-        "Lossless compression"
+        "Procedural abstraction"
       ],
       "correctText": "Decomposition",
       "explanation": "Decomposition is one of the four pillars of computational thinking (Jeannette Wing, CACM 2006), alongside pattern recognition, abstraction, and algorithms. Breaking a big problem into procedures with single responsibilities makes code testable and reusable. The Create Performance Task literally requires a 'student-developed procedure' — that procedure is decomposition in action. Niklaus Wirth's 'Algorithms + Data Structures = Programs' (1976) made decomposition a textbook discipline. AP MC questions ask which decomposition is best for a given scenario."
@@ -480,10 +480,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Value sent back to the caller when a procedure finishes its work.",
       "choices": [
-        "Iteration cycle",
-        "Return value",
         "Procedural abstraction",
-        "Maintainability"
+        "Abstraction",
+        "Information entropy",
+        "Return value"
       ],
       "correctText": "Return value",
       "explanation": "RETURN in AP CSP reference sheet sends a value back so the caller can use it: SUM <- add(3, 4) stores the returned 7. Procedures can return numbers, strings, lists, or even other procedures (functional programming, Alonzo Church's lambda calculus 1936). Without RETURN, a procedure must produce side effects (DISPLAY, modify a global) to be useful. AP MC questions test whether students predict the value returned by nested procedure calls — RETURN add(2, multiply(3, 4)) returns 14."
@@ -502,10 +502,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Practice of writing software in a way that allows easy reuse and modification later.",
       "choices": [
-        "Procedure",
-        "Maintainability",
-        "Return value",
-        "Abstraction"
+        "Right to be forgotten",
+        "Procedural abstraction",
+        "Decomposition",
+        "Maintainability"
       ],
       "correctText": "Maintainability",
       "explanation": "Maintainability comes from clear naming, modular structure (procedures with single responsibilities), and documentation. The Software Engineering Body of Knowledge (SWEBOK, IEEE 2014) treats maintenance as ~60-80% of total software lifecycle cost. Robert C. Martin's 'Clean Code' (2008) is the canonical text. AP CSP MC questions often ask which of four code samples is more maintainable — typically the one using procedures with descriptive names. Magic numbers and 200-line monolithic procedures are red-flag distractor choices."
@@ -525,9 +525,9 @@
       "prompt": "Hiding the inner workings of a procedure so users only see inputs and outputs.",
       "choices": [
         "Procedural abstraction",
-        "Maintainability",
-        "DNS",
-        "Decomposition"
+        "Metadata",
+        "Decomposition",
+        "Return value"
       ],
       "correctText": "Procedural abstraction",
       "explanation": "Procedural abstraction lets you USE squareRoot(81) without knowing the algorithm — Newton's method, lookup table, or hardware FPU. Barbara Liskov's CLU language (MIT 1974, Turing Award 2008) formalized this. AP CSP Big Idea 3.14 is built entirely around this concept, and the Create Performance Task rubric rewards procedures that 'manage complexity.' On the MC exam, students see two solutions to the same problem — one with a procedure, one without — and must explain how the procedure manages complexity. Always: it eliminates duplicated code."
@@ -546,10 +546,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Hiding complexity by exposing only what a user or other code needs to know.",
       "choices": [
-        "Abstraction",
         "Decomposition",
-        "Multi-factor authentication",
-        "Return value"
+        "Version control",
+        "Abstraction",
+        "Procedural abstraction"
       ],
       "correctText": "Abstraction",
       "explanation": "Abstraction is the single most-tested concept on AP CSP — Big Idea 3 lists procedural abstraction (procedures/functions hiding implementation) and data abstraction (lists, dictionaries hiding storage). Edsger Dijkstra's 'On the Role of Scientific Thought' (1974) and Barbara Liskov's CLU language (1974, Turing Award 2008) formalized abstraction. The Create Performance Task scoring rubric awards points specifically for using a 'student-developed procedure with a parameter that affects functionality' — that's abstraction made testable. Roughly 1 in 5 MC questions test abstraction concepts."
@@ -568,10 +568,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Base-2 number system using only 0s and 1s — how computers store everything.",
       "choices": [
-        "Crowdsourcing",
+        "Distributed computing",
+        "ASCII",
         "Binary",
-        "RGB color model",
-        "ASCII"
+        "Bit"
       ],
       "correctText": "Binary",
       "explanation": "Binary (base-2) underpins all digital computing — every transistor is on (1) or off (0). Gottfried Leibniz formalized binary arithmetic in 1703 ('Explication de l'Arithmétique Binaire'). Claude Shannon's 1937 MIT thesis showed Boolean algebra (1854 George Boole) could implement digital logic. AP CSP Big Idea 2.1 tests whether students can convert decimal-binary (5 = 101, 13 = 1101). Exam questions also test the implications: with n bits you represent 2^n distinct values — 8 bits = 256 values, 16 bits = 65,536. Roughly 1 in 8 MC questions involve binary conversion."
@@ -590,10 +590,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Single binary digit — the smallest unit of digital information.",
       "choices": [
-        "Bit",
-        "RGB color model",
         "Huffman coding",
-        "Run-length encoding"
+        "ASCII",
+        "Bit",
+        "REPEAT n TIMES"
       ],
       "correctText": "Bit",
       "explanation": "John Tukey coined 'bit' (Bell Labs 1947) as a portmanteau of binary digit. Claude Shannon's 'A Mathematical Theory of Communication' (Bell System Technical Journal, 1948) established the bit as the fundamental measure of information — also called the 'Magna Carta of the Information Age.' AP CSP Big Idea 2.1.1 stresses that bits combine into bytes (8 bits = 1 byte) and that a fixed number of bits limits the range of values. Exam questions ask: 'How many bits needed to represent 1000 distinct items?' — 10 bits = 1024, so 10 is the answer."
@@ -612,10 +612,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Standard 7-bit code that maps numbers like 65 to letters like A.",
       "choices": [
-        "XML",
-        "Binary",
         "Bit",
-        "ASCII"
+        "Binary",
+        "ASCII",
+        "Creative Commons"
       ],
       "correctText": "ASCII",
       "explanation": "ASCII (1963, ANSI X3.4) encodes 128 characters in 7 bits — letters, digits, punctuation, control codes. 'A' = 65, 'a' = 97, '0' = 48. The 1968 revision added lowercase. ASCII could not handle non-English scripts, so Unicode (1991) was invented — UTF-8 (Ken Thompson and Rob Pike 1992) encodes 1.1 million characters using 1-4 bytes. AP CSP Big Idea 2.1.5 covers character encoding. Exam questions ask 'what binary string represents A?' (01000001 = 65) or compare ASCII storage (1 byte/char) to UTF-32 (4 bytes/char)."
@@ -634,10 +634,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Way of representing colors using three numbers for red, green, and blue intensity.",
       "choices": [
-        "Efficient algorithm",
-        "Binary",
-        "ASCII",
-        "RGB color model"
+        "Huffman coding",
+        "Bit",
+        "RGB color model",
+        "Creative Commons"
       ],
       "correctText": "RGB color model",
       "explanation": "RGB uses 8 bits per channel (0-255) for 24-bit color = 16.7 million combinations. Thomas Young (1802) and Hermann von Helmholtz (1850s) proposed trichromatic vision; modern displays exploit this. RGB(255,0,0) = pure red, RGB(0,0,0) = black, RGB(255,255,255) = white. AP CSP Big Idea 2.1 covers RGB; questions ask what color is RGB(0,255,0) (green) or how many bits store a single pixel (24 in 8-bit-per-channel). The HSL/HSV alternatives (Alvy Ray Smith 1978) appear less often. Important corollary: a 1080p image is 1920 × 1080 × 3 bytes = ~6 MB uncompressed."
@@ -656,10 +656,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Compression algorithm that assigns shorter binary codes to more frequent symbols.",
       "choices": [
-        "Huffman coding",
-        "Binary",
+        "Job displacement",
         "ASCII",
-        "GDPR"
+        "RGB color model",
+        "Huffman coding"
       ],
       "correctText": "Huffman coding",
       "explanation": "Huffman coding (David Huffman, MIT 1952) builds a binary tree where frequent symbols get short codes (1 or 2 bits) and rare symbols get long codes. It is provably optimal among prefix-free codes. Used in ZIP, JPEG, PNG, MP3, and many compressors. AP CSP doesn't require students to build Huffman trees but expects them to understand the principle: skew the distribution toward common symbols. Exam questions show a frequency table and ask which encoding wastes the least space. Claude Shannon's 1948 information theory paper proved a lower bound that Huffman codes approach asymptotically."
@@ -680,8 +680,8 @@
       "choices": [
         "Lossy compression",
         "Lossless compression",
-        "Wi-Fi",
-        "Information entropy"
+        "Information entropy",
+        "DDoS attack"
       ],
       "correctText": "Lossless compression",
       "explanation": "Lossless compression (ZIP, PNG, FLAC) reduces file size while letting you recover the original byte-for-byte. AP CSP Big Idea 2.1 contrasts lossless (used when every bit matters: source code, medical records, executables) with lossy. Abraham Lempel and Jacob Ziv published the LZ77 algorithm in 1977 — it underpins gzip, PNG, and ZIP. David Huffman's coding (1952, while an MIT grad student) assigns shorter codes to more frequent symbols. Exam questions ask students to identify when lossless is required (legal documents, executables — anywhere data loss is unacceptable)."
@@ -700,10 +700,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Compression style used by JPEG and MP3 that discards information to save more space.",
       "choices": [
-        "Machine learning",
         "Run-length encoding",
+        "Lossless compression",
         "Lossy compression",
-        "Information entropy"
+        "Simulation"
       ],
       "correctText": "Lossy compression",
       "explanation": "Lossy compression (JPEG, MP3, MPEG) achieves much higher compression by throwing away data humans perceive less — JPEG drops high-frequency color detail; MP3 drops sounds masked by louder ones. JPEG (Joint Photographic Experts Group, 1992) and MP3 (Fraunhofer Society, Karlheinz Brandenburg 1989) are foundational. AP CSP Big Idea 2.1 stresses tradeoff: lossy is fine for photos/music but wrong for source code or medical scans. Exam questions force students to choose: 'compress a heart-rate monitor log' → lossless; 'compress a vacation photo' → lossy."
@@ -722,10 +722,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Compression technique that replaces repeated bytes with a count and one copy.",
       "choices": [
-        "FOR EACH",
+        "Lossless compression",
         "Run-length encoding",
-        "Lossy compression",
-        "Lossless compression"
+        "Parameter",
+        "Lossy compression"
       ],
       "correctText": "Run-length encoding",
       "explanation": "Run-length encoding compresses long runs — 'AAAAAA' becomes '6A.' RLE works brilliantly on solid-color regions of images (icons, fax documents) but poorly on photos. Used in CompuServe's GIF format (1987) and TIFF Group 4 fax compression. AP CSP doesn't name RLE in the CED, but exam questions show a string and ask students to compute the compressed size by hand. Pioneer Solomon Golomb (Caltech, 1966) generalized RLE to Golomb codes. The big idea: compression exploits redundancy — when data is highly repetitive, compression ratios can exceed 10:1."
@@ -744,10 +744,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Approximate digital storage of continuous signals using finite samples and bits.",
       "choices": [
-        "Run-length encoding",
-        "Heuristic",
-        "Information entropy",
-        "Analog-to-digital conversion"
+        "Analog-to-digital conversion",
+        "NOT operator",
+        "Lossy compression",
+        "Run-length encoding"
       ],
       "correctText": "Analog-to-digital conversion",
       "explanation": "ADC converts continuous analog signals (sound waves, light intensity) into discrete digital samples. The Nyquist-Shannon sampling theorem (Harry Nyquist 1928, Claude Shannon 1949) states sample rate must be 2× the highest frequency — CDs sample at 44.1 kHz to capture sounds up to 22 kHz (human hearing). AP CSP Big Idea 2.1.6 covers digital approximation: more samples and more bits per sample = better fidelity but bigger file. Exam questions test the tradeoffs: doubling bit depth doubles file size but halves quantization noise. Pioneer Bell Labs engineers built the first ADCs in 1937."
@@ -767,9 +767,9 @@
       "prompt": "Smallest theoretical number of bits needed to represent a given source of data.",
       "choices": [
         "Analog-to-digital conversion",
-        "Run-length encoding",
-        "Iterative development",
-        "Information entropy"
+        "Information entropy",
+        "Crowdsourcing",
+        "Lossy compression"
       ],
       "correctText": "Information entropy",
       "explanation": "Claude Shannon's 1948 entropy H = -Σ p_i log2(p_i) measures the minimum bits/symbol required by any lossless encoding. A coin flip has 1 bit of entropy; English text has ~1.5 bits per character (Shannon's experiments at Bell Labs). Compressors approach but never beat entropy without losing data. AP CSP Big Idea 2.1.7 covers limits of compression — random data cannot be compressed below entropy. Exam questions ask why ZIP-of-ZIP doesn't shrink files: after compression, residual data is near entropy, so further compression adds nothing. Modern compressors (LZMA, Zstandard) get within 10% of entropy."
@@ -788,10 +788,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Information about other information — like the date a photo was taken or its GPS location.",
       "choices": [
-        "Sampling bias",
-        "Big data",
-        "Crowdsourcing",
-        "Metadata"
+        "Computer ethics",
+        "Data aggregation",
+        "Metadata",
+        "Sampling bias"
       ],
       "correctText": "Metadata",
       "explanation": "Metadata describes other data — a photo's metadata includes EXIF tags (camera model, ISO, GPS coords, timestamp). The term traces to Philip Bagley's 1968 paper on extensible computer programs. AP CSP Big Idea 2.2.1 stresses metadata's two-edged nature: it enables organization (search 'all photos from 2023') but also leaks privacy (GPS coordinates reveal home addresses). The 2012 location of John McAfee's hideout was leaked by EXIF on a Vice photo. Exam questions ask students to distinguish metadata (when, where, who) from primary data (the image content itself)."
@@ -810,10 +810,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Personal information collected and stored by companies that users may not be aware of.",
       "choices": [
+        "Amdahl's Law",
+        "Big data",
         "Personally identifiable information",
-        "Metadata",
-        "Crowdsourcing",
-        "Big data"
+        "Sampling bias"
       ],
       "correctText": "Personally identifiable information",
       "explanation": "PII includes name, SSN, address, biometrics, IP address, and increasingly fingerprintable data like browser configuration. AP CSP Big Idea 5.6.1 stresses PII as a privacy concern — its leak enables identity theft. The 2017 Equifax breach exposed PII of 147 million Americans (SSNs, birth dates). GDPR (EU 2018) requires explicit consent for PII collection; CCPA (California 2020) gives 'right to delete.' HIPAA (1996) governs medical PII. Exam questions ask students to identify which data points are PII (yes: SSN; no: a city of 1 million people) and the risks of aggregation."
@@ -832,10 +832,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Massive sets of information so large they require special tools to store and analyze.",
       "choices": [
-        "Data aggregation",
+        "Selection",
+        "Sampling bias",
         "Big data",
-        "Personally identifiable information",
-        "Distributed computing"
+        "Metadata"
       ],
       "correctText": "Big data",
       "explanation": "Big Data is characterized by 3Vs (Doug Laney, Gartner 2001): Volume (petabytes), Velocity (streaming), Variety (text, image, video). Google's MapReduce paper (Jeffrey Dean, Sanjay Ghemawat 2004) and Hadoop (Doug Cutting 2006) made petabyte-scale processing affordable. AP CSP Big Idea 2.2.5 stresses that big data enables new insights (CERN's 1 PB/s LHC data leading to Higgs boson 2012) but also raises privacy and bias concerns. Exam questions distinguish big data (medical records of millions) from a single spreadsheet (not big data)."
@@ -854,10 +854,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Skewed pattern in data that comes from how it was collected — like sampling only smartphone users.",
       "choices": [
-        "Metadata",
-        "Data aggregation",
+        "Parallel computing",
+        "Big data",
         "Sampling bias",
-        "DNS"
+        "Personally identifiable information"
       ],
       "correctText": "Sampling bias",
       "explanation": "Sampling bias arises when collected data does not represent the population — the 1936 Literary Digest poll predicted Landon to beat FDR because it sampled phone owners (wealthy, Republican-leaning). AP CSP Big Idea 5.5 covers algorithmic bias: biased data trains biased models. Joy Buolamwini's MIT thesis (Gender Shades, 2018) found facial-recognition systems were ~35% less accurate on dark-skinned women due to training-set bias. Exam questions describe a data-collection method and ask whether the sample is representative."
@@ -876,9 +876,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Finding meaningful patterns by combining or grouping large amounts of data.",
       "choices": [
-        "Internet",
+        "ASCII",
+        "Personally identifiable information",
         "Big data",
-        "Sampling bias",
         "Data aggregation"
       ],
       "correctText": "Data aggregation",
@@ -898,10 +898,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Graphical display of information — bar chart, pie chart, scatterplot, heat map.",
       "choices": [
-        "Algorithmic bias",
-        "CSV",
-        "Copyright",
-        "Data visualization"
+        "XML",
+        "Data visualization",
+        "Data cleaning",
+        "Boolean"
       ],
       "correctText": "Data visualization",
       "explanation": "Visualization translates numbers into pictures the eye can decode quickly — Edward Tufte's 'The Visual Display of Quantitative Information' (1983) is the canonical text. John Snow's 1854 cholera map of Broad Street pinpointed a contaminated water pump, founding epidemiology. AP CSP Big Idea 2.3 covers visualization tradeoffs: chart type must match data type (time series → line graph, distribution → histogram). Exam questions ask which chart best shows the relationship between two variables (scatterplot). Visualization can also lie — truncated y-axes, 3D pie charts — and the CED covers detecting these tricks."
@@ -920,10 +920,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Hierarchical, machine-readable text format that uses tags like <name>...</name>.",
       "choices": [
+        "Data visualization",
         "XML",
-        "Data cleaning",
-        "CSV",
-        "Accessibility"
+        "Nested iteration",
+        "Algorithmic bias"
       ],
       "correctText": "XML",
       "explanation": "XML (Extensible Markup Language, W3C 1998) is a self-describing text format with hierarchical tags. SOAP web services, RSS feeds, and Microsoft Office.docx files use XML. Tim Bray and Jon Bosak chaired the W3C XML working group. AP CSP touches on data formats: XML is verbose (lots of angle brackets) but human-readable. JSON (Douglas Crockford 2001) replaced XML for many APIs because it is more compact. Exam questions ask students to read a small XML snippet and identify the value of a tagged field. The 'cleaning data' phase often involves parsing XML or JSON."
@@ -942,9 +942,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Simple text-based data format using rows and commas — Excel exports it by default.",
       "choices": [
-        "Simulation",
         "XML",
-        "Data cleaning",
+        "Algorithmic bias",
+        "Ransomware",
         "CSV"
       ],
       "correctText": "CSV",
@@ -964,10 +964,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Process of finding and fixing errors, duplicates, and missing values in a dataset.",
       "choices": [
+        "Data cleaning",
         "Data visualization",
-        "Sampling bias",
-        "CSV",
-        "Data cleaning"
+        "Right to be forgotten",
+        "Algorithmic bias"
       ],
       "correctText": "Data cleaning",
       "explanation": "Data cleaning is ~60-80% of any data-science workflow (Forbes 2016 survey). Tasks include removing duplicates, fixing typos ('NewYork' vs 'New York'), handling missing values (drop? impute?), and converting types ('100' string vs 100 number). AP CSP Big Idea 2.3.3 lists cleaning as a step before analysis. Pioneer Hadley Wickham (RStudio, 2014) formalized 'tidy data.' Exam questions show messy data (inconsistent caps, empty cells, wrong types) and ask which records would be problematic. The Create PT scoring sometimes hinges on whether students handle empty or invalid inputs gracefully."
@@ -986,10 +986,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Algorithm-driven decisions that systematically advantage or disadvantage groups of people.",
       "choices": [
-        "Algorithmic bias",
-        "CSV",
         "Data visualization",
-        "Distributed computing"
+        "XML",
+        "Algorithmic bias",
+        "Differential privacy"
       ],
       "correctText": "Algorithmic bias",
       "explanation": "Algorithmic bias appears when training data, model design, or deployment context produces unfair outcomes. COMPAS (criminal risk score, ProPublica 2016) was twice as likely to flag Black defendants as future criminals; Amazon's 2018 recruiting AI penalized resumes containing 'women's' (chess club, etc.) because training data underrepresented women. AP CSP Big Idea 5.5 makes algorithmic bias central to social impact analysis. Joy Buolamwini and Timnit Gebru's audits of facial recognition (2018-2019) prompted IBM, Microsoft, and Amazon to suspend police sales. Expect 2-3 MC questions on bias."
@@ -1009,9 +1009,9 @@
       "prompt": "Small file a website stores in your browser to remember preferences or track activity.",
       "choices": [
         "Privacy",
-        "Cookie",
-        "TCP/IP",
-        "Encryption"
+        "Data breach",
+        "OR operator",
+        "Cookie"
       ],
       "correctText": "Cookie",
       "explanation": "Cookies (Lou Montulli, Netscape 1994) were invented to remember shopping cart contents across page loads. First-party cookies serve the site you visit; third-party cookies (ad networks) follow you across sites. The 2002 ePrivacy Directive and 2018 GDPR forced cookie-consent banners across Europe. AP CSP Big Idea 5.6.2 covers tracking. Google Chrome announced third-party cookie deprecation for 2024 in favor of Privacy Sandbox. Exam questions ask why HTTPS protects cookie contents but not their existence, or why clearing cookies logs you out."
@@ -1030,10 +1030,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Unauthorized access to a database or computer system — often exposing user data.",
       "choices": [
-        "Cookie",
         "Encryption",
         "Data breach",
-        "RANDOM(a, b)"
+        "Machine learning",
+        "Differential privacy"
       ],
       "correctText": "Data breach",
       "explanation": "Data breaches expose PII, credentials, or trade secrets. Major examples: Yahoo (3B accounts, 2013-2014), Equifax (147M, 2017), Marriott (500M, 2018), SolarWinds (2020), MOVEit (2023). The verb 'breach' covers external attack (SQL injection, phishing), insider theft, or accidental exposure (open S3 buckets). AP CSP Big Idea 5.6.3 covers breaches as a privacy risk. Have I Been Pwned (Troy Hunt 2013) tracks 12B+ breached accounts. Exam questions ask which security control (encryption, access control, monitoring) would have prevented a specific breach."
@@ -1053,9 +1053,9 @@
       "prompt": "Encoding information so only those with a key can read it — protects data privacy.",
       "choices": [
         "Cookie",
-        "Privacy",
-        "Unreasonable algorithm",
-        "Encryption"
+        "Encryption",
+        "Plagiarism",
+        "Privacy"
       ],
       "correctText": "Encryption",
       "explanation": "Encryption transforms plaintext into ciphertext using a key. Symmetric (AES, used in HTTPS bulk traffic) shares one secret; asymmetric (RSA 1977 by Rivest, Shamir, Adleman) uses a public-private key pair. TLS handshakes use asymmetric to agree on a symmetric session key. AP CSP Big Idea 5.6 tests the social impact: weighing privacy/security versus law-enforcement access (Apple vs FBI, 2016 San Bernardino case). The 1976 Diffie-Hellman key exchange and 1991 PGP (Phil Zimmermann) democratized cryptography. Exam: distinguish symmetric vs asymmetric, recognize HTTPS as encrypted."
@@ -1074,10 +1074,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Right to control what personal information about you is collected, shared, or stored.",
       "choices": [
-        "Data breach",
-        "Packet switching",
         "Cookie",
-        "Privacy"
+        "Privacy",
+        "REPEAT UNTIL",
+        "Encryption"
       ],
       "correctText": "Privacy",
       "explanation": "Privacy as a 'right to be let alone' was articulated by Samuel Warren and Louis Brandeis (Harvard Law Review 1890). AP CSP Big Idea 5.6 makes privacy a recurring exam topic — students weigh privacy vs convenience (location services), privacy vs security (encryption backdoors), and privacy vs free service (ad-supported business models). GDPR (2018) introduced 'data minimization' (collect only what is needed) and 'right to erasure.' Exam questions present a scenario and ask which choice maximizes privacy (e.g., 'use a VPN' vs 'turn off Wi-Fi entirely')."
@@ -1096,10 +1096,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method that adds statistical noise to query results to hide individual data points.",
       "choices": [
-        "Encryption",
-        "Phishing",
         "Differential privacy",
-        "Cookie"
+        "Cyberbullying",
+        "Cookie",
+        "Encryption"
       ],
       "correctText": "Differential privacy",
       "explanation": "Differential privacy (Cynthia Dwork et al., Microsoft Research 2006) adds calibrated random noise so aggregate statistics are accurate but individual contributions cannot be reverse-engineered. Apple uses local differential privacy in iOS 10+ (2016) to learn aggregate usage patterns without seeing individual data. The US Census Bureau deployed differential privacy for the 2020 census (controversial — accuracy in small areas). AP CSP doesn't require the math but the 2024 CED revision mentions privacy-preserving analytics. Expect questions on the privacy-vs-utility tradeoff."
@@ -1118,10 +1118,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Named storage location whose value can change while a program runs.",
       "choices": [
-        "FOR EACH",
+        "Creative Commons",
+        "String",
         "Variable",
-        "ASCII",
-        "String"
+        "List"
       ],
       "correctText": "Variable",
       "explanation": "Variables associate a name with a value — score, userName, isLoggedIn. AP CSP reference sheet uses 'name <- value' for assignment (left arrow). John von Neumann's 1945 EDVAC report introduced the stored-program concept where variables live in memory. Variables come in scopes: global (whole program) and local (within a procedure). The Create Performance Task scoring rubric requires use of a list (a kind of variable) but also encourages descriptive variable names. MC exam questions trace variable values through a sequence of assignments — students who confuse a <- b with b <- a get them wrong."
@@ -1140,10 +1140,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Ordered collection of values accessed by index — index 1 is the first item in AP CSP.",
       "choices": [
-        "Fault tolerance",
         "List",
-        "String",
-        "Local variable"
+        "Local variable",
+        "Fiber optic",
+        "FOR EACH"
       ],
       "correctText": "List",
       "explanation": "Lists in AP CSP are 1-indexed — list[1] is the first element, list[LENGTH(list)] is the last. (Most languages use 0-indexing, but the AP reference sheet uses 1.) The Create Performance Task rubric requires use of a list — without one, students automatically lose 1 of 6 points. Reference-sheet operations: APPEND, INSERT, REMOVE, FOR EACH item IN list. Pioneer John McCarthy's LISP (1958) made lists a first-class data type. Exam questions test trace: 'after APPEND(L, 7), what is L?' or 'what does L[3] return after these operations?'."
@@ -1162,10 +1162,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop that processes every element of a list, one at a time.",
       "choices": [
-        "Local variable",
+        "Parallel computing",
         "FOR EACH",
-        "Program design process",
-        "List"
+        "Variable",
+        "String"
       ],
       "correctText": "FOR EACH",
       "explanation": "FOR EACH item IN list (AP CSP reference) traverses a list assigning each element to 'item' in order. Cleaner than REPEAT n TIMES because the body uses 'item' directly without indexing. AP CSP Big Idea 3.10 covers list traversal. Pioneer Smalltalk-80 (Adele Goldberg, Alan Kay, Xerox PARC 1980) popularized 'do:' iterator blocks. The Create Performance Task often uses FOR EACH to filter or count items. Exam questions show a FOR EACH that builds a new list and ask what the new list contains. Distinguishing FOR EACH (auto-traverses) from REPEAT UNTIL (manual condition) is exam-critical."
@@ -1184,10 +1184,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Variable accessible only inside the procedure where it was created.",
       "choices": [
-        "Run-length encoding",
-        "FOR EACH",
         "Local variable",
-        "List"
+        "String",
+        "Variable",
+        "Abstraction"
       ],
       "correctText": "Local variable",
       "explanation": "Local variables exist only inside their defining procedure — they are created on call and destroyed on return. This contrasts with global variables (visible everywhere). Local scope prevents naming conflicts and unwanted side effects: two procedures can both use 'i' as a loop counter without interfering. AP CSP Big Idea 3.13 covers variable scope. Pioneer Algol 60 (Peter Naur et al.) introduced block-structured scope. Exam questions show a procedure that creates a local variable and ask whether that variable is accessible from elsewhere (no). Variable scope mistakes cause many Create PT bugs."
@@ -1206,10 +1206,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sequence of characters — like 'hello' or 'apcs2026' — treated as text data.",
       "choices": [
-        "Variable",
-        "Local variable",
-        "Unreasonable algorithm",
-        "String"
+        "While loop",
+        "List",
+        "String",
+        "Variable"
       ],
       "correctText": "String",
       "explanation": "Strings store text. AP CSP reference sheet uses double-quoted strings: 'AP CSP'. Common operations: concatenation (a + b joins), length (LENGTH(s)), indexing (s[1] gets first character). Brian Kernighan and Dennis Ritchie's C (1972) used null-terminated character arrays; modern languages (Python, Java) use length-prefixed strings. Strings can be compared (== for exact match) and split. The Create Performance Task often uses strings for usernames, messages, or word puzzles. Exam questions test string concatenation order — 'Hello' + ', ' + 'World' = 'Hello, World' (the comma matters)."
@@ -1228,10 +1228,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Looping structure in AP CSP pseudocode that runs code a known number of times.",
       "choices": [
+        "Procedure",
+        "REPEAT n TIMES",
         "REPEAT UNTIL",
-        "Nested iteration",
-        "Data breach",
-        "REPEAT n TIMES"
+        "Algorithm"
       ],
       "correctText": "REPEAT n TIMES",
       "explanation": "REPEAT n TIMES in AP CSP reference sheet runs a block exactly n times. Equivalent to 'for i in range(n)' in Python or 'for(int i=0; i<n; i++)' in Java. The loop counter is implicit — students don't access it inside the body. AP CSP Big Idea 3.9 introduces iteration; the Create PT scoring rubric (Row 5) awards points for selection or iteration used in algorithm. Exam questions ask: 'After this REPEAT 5 TIMES block, what is the value of count?' Students must track variable changes across iterations."
@@ -1250,10 +1250,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Step-by-step finite procedure that solves a class of problems.",
       "choices": [
-        "REPEAT UNTIL",
+        "REPEAT n TIMES",
+        "Debugging",
         "Infinite loop",
-        "Algorithm",
-        "Bandwidth"
+        "Algorithm"
       ],
       "correctText": "Algorithm",
       "explanation": "Algorithms predate computers — al-Khwarizmi's 9th-century Arabic algebra book gave us the word 'algorithm.' Donald Knuth's 'The Art of Computer Programming' (3 volumes, 1968-1973) is the canonical reference. Alan Turing's 1936 paper 'On Computable Numbers' formalized algorithms via Turing machines. AP CSP Big Idea 3.5 covers algorithms broadly — selection, iteration, sequencing are the three building blocks (Böhm-Jacopini theorem, 1966). The Create Performance Task rubric Row 5 requires a 'student-developed algorithm' with sequencing, selection, and iteration. Roughly 25-30% of MC questions trace or compare algorithms."
@@ -1272,10 +1272,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop construct that runs while a condition stays true — stops when condition becomes false.",
       "choices": [
-        "REPEAT UNTIL",
-        "Algorithm",
         "IP address",
-        "REPEAT n TIMES"
+        "Nested iteration",
+        "REPEAT n TIMES",
+        "REPEAT UNTIL"
       ],
       "correctText": "REPEAT UNTIL",
       "explanation": "REPEAT UNTIL (condition) in AP CSP reference sheet runs until the condition becomes true (note: opposite of 'while' in most languages — while runs WHILE true; REPEAT UNTIL runs UNTIL true). The condition is checked at the top, so the body might run 0 times. Useful for unknown-count iteration: 'repeat until user enters Q.' Big Idea 3.9.2 covers REPEAT UNTIL. The biggest bug source is infinite loops — students forget to update the loop variable. Exam questions trace REPEAT UNTIL execution and detect off-by-one errors."
@@ -1294,9 +1294,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Mistake where a loop never ends because the stopping condition never becomes true.",
       "choices": [
-        "String",
         "REPEAT UNTIL",
         "Infinite loop",
+        "Algorithmic bias",
         "REPEAT n TIMES"
       ],
       "correctText": "Infinite loop",
@@ -1316,10 +1316,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop inside another loop — used to traverse rows and columns of a 2D structure.",
       "choices": [
-        "Nested iteration",
-        "Creative Commons",
         "Algorithm",
-        "REPEAT UNTIL"
+        "Nested iteration",
+        "Infinite loop",
+        "Version control"
       ],
       "correctText": "Nested iteration",
       "explanation": "Nested iteration uses an outer loop to step through one dimension and an inner loop through another. If outer runs n times and inner runs m, total operations = n × m. AP CSP Big Idea 3.10 covers 2D structures conceptually (without 2D-list syntax). Exam questions: 'A REPEAT 5 TIMES contains a REPEAT 4 TIMES — how many times does the inner statement execute?' (20). Nested loops scale O(n²) — fine for small n but unreasonable for n=10,000. Joseph-Louis Lagrange's 1788 'Mécanique analytique' shows nested sums underpin physics — the iteration pattern is ancient."
@@ -1339,9 +1339,9 @@
       "prompt": "Variable whose value is either true or false — used in if-statements.",
       "choices": [
         "Undecidable problem",
+        "Simulation limitations",
         "Boolean",
-        "Efficient algorithm",
-        "Cyberbullying"
+        "Efficient algorithm"
       ],
       "correctText": "Boolean",
       "explanation": "Boolean values (named for George Boole's 1854 'Laws of Thought') are true/false used in conditionals. AP CSP CED Big Idea 3.8 covers Boolean expressions and operators (AND, OR, NOT). Compound expressions: (age >= 13 AND age < 20) tests teenager. De Morgan's laws (Augustus De Morgan, 1847) let you transform NOT(A AND B) into (NOT A) OR (NOT B). Exam questions test whether students can evaluate compound Booleans for given variable values, or simplify them using De Morgan. Short-circuit evaluation (AND stops on first false; OR stops on first true) appears as an efficiency optimization."
@@ -1360,10 +1360,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solution that always finds the correct answer in a reasonable number of steps.",
       "choices": [
-        "Undecidable problem",
-        "Cryptocurrency",
+        "Unreasonable algorithm",
+        "Boolean",
         "Efficient algorithm",
-        "Unreasonable algorithm"
+        "Algorithmic bias"
       ],
       "correctText": "Efficient algorithm",
       "explanation": "AP CSP Big Idea 3.17 distinguishes 'reasonable' (polynomial time — runs in n, n², n³ steps for input size n) from 'unreasonable' (exponential — 2^n grows so fast that n=100 takes longer than the age of the universe). Pioneer Alan Cobham (1965) and Jack Edmonds (1965) defined 'tractable' as polynomial time. The famous P vs NP problem (Stephen Cook 1971, Leonid Levin 1973) asks if every efficiently checkable problem is also efficiently solvable. Clay Mathematics offers $1M for a solution. Exam questions compare algorithm efficiency and ask which is reasonable."
@@ -1382,10 +1382,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Algorithm whose runtime grows exponentially — usually impractical for large inputs.",
       "choices": [
-        "Cryptocurrency",
+        "Algorithmic bias",
+        "Efficient algorithm",
         "Unreasonable algorithm",
-        "Boolean",
-        "Efficient algorithm"
+        "Heuristic"
       ],
       "correctText": "Unreasonable algorithm",
       "explanation": "AP CSP Big Idea 3.17.2 names algorithms that scale exponentially (2^n, n!) as 'unreasonable.' The Traveling Salesman Problem (TSP) by brute force is O(n!) — 20 cities = 2.4 × 10^18 paths. Heuristics (nearest neighbor, simulated annealing) approximate. Cryptography exploits asymmetric hardness: factoring large integers is unreasonable (currently), which is why RSA is secure. Quantum computers (Peter Shor's 1994 algorithm) could break this. Exam questions show two algorithms and ask which scales unreasonably."
@@ -1404,10 +1404,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Approximation method that finds a 'good enough' answer when exact solution is too slow.",
       "choices": [
-        "Unreasonable algorithm",
-        "Lossy compression",
-        "Efficient algorithm",
-        "Heuristic"
+        "Undecidable problem",
+        "Boolean",
+        "Heuristic",
+        "Unit testing"
       ],
       "correctText": "Heuristic",
       "explanation": "Heuristics trade optimality for speed — Google Maps uses A* (Hart, Nilsson, Raphael 1968) heuristic, not the slower exact Dijkstra (1959). Other examples: greedy algorithms (gas station problem), simulated annealing (Kirkpatrick et al. 1983, inspired by physics), genetic algorithms (John Holland 1975). AP CSP Big Idea 3.18 covers heuristics as a practical response to unreasonable algorithms. The trade-off: heuristics may produce a wrong or sub-optimal answer in rare cases. Exam questions present an unreasonable problem and ask why a heuristic is acceptable."
@@ -1426,10 +1426,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Problems for which no algorithm — efficient or not — can guarantee an answer.",
       "choices": [
-        "Ransomware",
         "Undecidable problem",
+        "Efficient algorithm",
         "Boolean",
-        "Unreasonable algorithm"
+        "While loop"
       ],
       "correctText": "Undecidable problem",
       "explanation": "Alan Turing proved (1936) that the Halting Problem — 'will this program ever stop?' — is undecidable: no algorithm can answer for every (program, input) pair. Kurt Gödel's 1931 incompleteness theorems established related limits in math. AP CSP Big Idea 3.18.4 introduces undecidability as a fundamental limit of computing. Practical impact: there is no perfect virus scanner, no perfect deadlock detector. Some problems are decidable but exponential; others, like the Halting Problem, are flat-out unsolvable. Exam questions distinguish 'no efficient algorithm' from 'no algorithm at all.'."
@@ -1448,10 +1448,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Construct that runs different code depending on whether a Boolean expression is true.",
       "choices": [
+        "Software vulnerability exploit",
         "IF statement",
-        "Variable",
-        "Nested conditional",
-        "OR operator"
+        "OR operator",
+        "AND operator"
       ],
       "correctText": "IF statement",
       "explanation": "IF (condition) {... } ELSE {... } in AP CSP reference sheet. Selection lets programs respond to data — different action for empty input vs valid input. Big Idea 3.8 covers conditionals. The Create Performance Task scoring rubric (Row 5) requires either selection or iteration in the algorithm. Nested IFs and ELSE IF chains handle multiple cases. Pioneer ALGOL 60 (Peter Naur, 1960) introduced modern IF-THEN-ELSE syntax. Exam questions trace IF/ELSE branches for given inputs and check that students don't fall through to the wrong block."
@@ -1470,10 +1470,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Logical operator that is true only when both operands are true.",
       "choices": [
-        "Analog-to-digital conversion",
         "AND operator",
+        "IF statement",
         "NOT operator",
-        "IF statement"
+        "Distributed computing"
       ],
       "correctText": "AND operator",
       "explanation": "AND (logical conjunction) produces true only if both operands are true. Truth table: T-T=T, T-F=F, F-T=F, F-F=F. AP CSP uses AND in Boolean expressions: (age >= 13 AND age <= 19). George Boole's 'An Investigation of the Laws of Thought' (1854) founded Boolean algebra. Claude Shannon's 1937 thesis applied Boolean algebra to electrical switching. Short-circuit evaluation (most languages) stops on the first false. Exam questions test De Morgan's laws — NOT(A AND B) = (NOT A) OR (NOT B). Roughly 1 in 5 MC questions involve Boolean logic evaluation."
@@ -1492,9 +1492,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Logical operator that is true when at least one operand is true.",
       "choices": [
-        "Nested conditional",
-        "Lossy compression",
+        "NOT operator",
         "OR operator",
+        "XML",
         "AND operator"
       ],
       "correctText": "OR operator",
@@ -1516,8 +1516,8 @@
       "choices": [
         "NOT operator",
         "AND operator",
-        "IF statement",
-        "REPEAT UNTIL"
+        "Metadata",
+        "OR operator"
       ],
       "correctText": "NOT operator",
       "explanation": "NOT (logical negation) inverts: NOT true = false, NOT false = true. AP CSP uses NOT for inversion: IF (NOT done) { keep working }. Augustus De Morgan's 1847 laws: NOT(A AND B) = (NOT A) OR (NOT B); NOT(A OR B) = (NOT A) AND (NOT B). These simplify many Boolean expressions. The Create Performance Task often uses NOT in input validation: 'while NOT valid_input.' Exam questions apply De Morgan to simplify nested Booleans — students who miss the law lose easy points. Double-negation NOT(NOT A) = A is also tested."
@@ -1536,10 +1536,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Form of selection where one branch lives inside another — checks multiple conditions in order.",
       "choices": [
-        "MapReduce",
+        "NOT operator",
         "Nested conditional",
-        "OR operator",
-        "AND operator"
+        "Fault tolerance",
+        "IF statement"
       ],
       "correctText": "Nested conditional",
       "explanation": "Nested conditionals chain decisions — IF (age < 13) {child} ELSE IF (age < 20) {teen} ELSE {adult}. The order matters: each condition is evaluated only if all previous were false. AP CSP Big Idea 3.8.4 covers nested conditionals as more powerful than a flat sequence of IFs. Pioneer ALGOL 60 (Peter Naur 1960) introduced block-structured nesting. The Create Performance Task rubric does not require nesting but it helps satisfy 'algorithm uses selection.' Exam questions show a nested IF and ask which branch executes for given input — students must trace each condition top-to-bottom."
@@ -1558,10 +1558,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Program that mimics a real-world system to study its behavior — like weather or epidemics.",
       "choices": [
-        "Latency",
         "Simulation",
-        "Simulation limitations",
-        "RANDOM(a, b)"
+        "Parallel computing",
+        "Big data",
+        "Simulation limitations"
       ],
       "correctText": "Simulation",
       "explanation": "Simulations let scientists experiment without real-world cost or risk — climate models, epidemic spread (Imperial College COVID-19 March 2020 model), nuclear stockpile stewardship. Edward Lorenz's 1963 weather model accidentally discovered chaos theory. AP CSP Big Idea 3.6 covers simulation benefits and limits. The model is not reality — assumptions baked in (population is uniform; weather is deterministic) may fail. Exam questions test what a simulation CAN and CANNOT predict (aggregate trends yes; individual outcomes no). Pioneer Stanislaw Ulam's Monte Carlo method (1946 Los Alamos) launched random-based simulation."
@@ -1581,9 +1581,9 @@
       "prompt": "Function in AP CSP pseudocode that returns a random integer between two bounds.",
       "choices": [
         "Simulation",
+        "Simulation limitations",
         "RANDOM(a, b)",
-        "Open source",
-        "Simulation limitations"
+        "Data aggregation"
       ],
       "correctText": "RANDOM(a, b)",
       "explanation": "RANDOM(a, b) in AP CSP reference sheet returns a random integer in [a, b] inclusive. Used in simulations (coin flip: RANDOM(0,1)), games (dice: RANDOM(1,6)), and statistical sampling. Most language implementations are pseudo-random — deterministic from a seed. John von Neumann's 1949 middle-square method was the first PRNG. Modern PRNGs (Mersenne Twister, Makoto Matsumoto 1997) have huge periods. The Create Performance Task scoring rubric mentions randomness as a useful tool for variety. Exam questions ask the probability of specific RANDOM outcomes or whether two RANDOM calls are independent."
@@ -1602,10 +1602,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Simulation approach that uses repeated random sampling to estimate numerical answers.",
       "choices": [
-        "Monte Carlo method",
+        "Parallel computing",
+        "Algorithmic bias",
         "RANDOM(a, b)",
-        "Simulation limitations",
-        "Job displacement"
+        "Monte Carlo method"
       ],
       "correctText": "Monte Carlo method",
       "explanation": "Monte Carlo (named for the Monaco casino) uses random sampling to solve deterministic problems. Invented at Los Alamos 1946 by Stanislaw Ulam (after a card-game probability he couldn't solve analytically) with John von Neumann and Nicholas Metropolis to model nuclear reactions. Buffon's needle (Comte de Buffon 1733) estimates pi by random drops. AP CSP Big Idea 3.6 covers simulation generally; Monte Carlo is the canonical method. Exam questions show a Monte Carlo procedure and ask what value it estimates (a probability, an area, an expected value)."
@@ -1624,10 +1624,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Why simulation results differ from reality — assumptions, missing details, randomness.",
       "choices": [
-        "Parallel computing",
         "Simulation limitations",
+        "Simulation",
         "RANDOM(a, b)",
-        "Data privacy"
+        "Iterative development"
       ],
       "correctText": "Simulation limitations",
       "explanation": "Simulations are abstractions — they omit details to be tractable. The 2020 IHME COVID-19 forecasts were criticized for over-confidence; the model didn't account for behavior change. George Box's 1976 dictum: 'All models are wrong, but some are useful.' AP CSP Big Idea 3.6.3 stresses that students must identify what a simulation does NOT capture. Pioneer Norbert Wiener's 1948 'Cybernetics' first formalized model-vs-system distinction. Exam questions present a simulation result and ask students to identify a real-world factor the simulation missed (weather, individual decisions, rare events)."
@@ -1646,10 +1646,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Computing approach where multiple processors work simultaneously on different parts of a problem.",
       "choices": [
-        "Huffman coding",
-        "Simulation",
-        "Simulation limitations",
-        "Parallel computing"
+        "Monte Carlo method",
+        "Data privacy",
+        "Parallel computing",
+        "RANDOM(a, b)"
       ],
       "correctText": "Parallel computing",
       "explanation": "Parallel computing splits work across cores or machines — a 4-core CPU can run 4 streams simultaneously. Gene Amdahl's 1967 law: maximum speedup = 1/(s + (1-s)/n) where s is the serial fraction. Even with 1000 cores, a 10%-serial program speeds up at most 10x. AP CSP Big Idea 4.2 covers parallel and distributed computing. The Create Performance Task does not require parallelism (sequential is fine) but exam questions ask which tasks parallelize well (image processing, search) vs poorly (sequential dependencies, Fibonacci by recursion). MapReduce (Google 2004) made parallelism mainstream."
@@ -1668,10 +1668,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Global network of networks that uses standard protocols to connect billions of devices.",
       "choices": [
+        "Scalability",
         "Internet",
-        "DNS",
-        "Protocol",
-        "Abstraction"
+        "Fiber optic",
+        "Return value"
       ],
       "correctText": "Internet",
       "explanation": "The Internet evolved from ARPANET (1969, Bob Taylor at DARPA, first node UCLA Oct 29, 1969). TCP/IP (Vint Cerf and Bob Kahn, 1974) became the universal protocol when NSF mandated it for the NSFNET 1983. Today's Internet uses TCP/IP, has ~5.4B users (2024), and runs on millions of routers/servers. AP CSP Big Idea 4 covers Internet structure: hierarchical, redundant, decentralized. Cerf and Kahn received the 2004 Turing Award. Exam questions distinguish Internet (the global network) from World Wide Web (one service on the Internet, invented by Tim Berners-Lee 1989 at CERN)."
@@ -1690,10 +1690,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Set of agreed-upon rules that lets different computers communicate over a network.",
       "choices": [
-        "Distributed computing",
         "Fiber optic",
-        "Protocol",
-        "Scalability"
+        "Scalability",
+        "Copyright",
+        "Protocol"
       ],
       "correctText": "Protocol",
       "explanation": "Protocols are conventions: TCP/IP, HTTP, HTTPS, FTP, SMTP. They specify packet format, sequence, error handling. AP CSP Big Idea 4.1 covers protocols as the reason different vendors' devices interoperate. Vint Cerf and Bob Kahn's 1974 TCP/IP paper unified divergent networks. IETF (Internet Engineering Task Force) publishes RFCs defining protocols. Exam questions ask which protocol handles a specific task: HTTP for web, SMTP for sending mail, DNS for name resolution, TCP for reliable transport, UDP for fast lossy transport (video). Without protocols, the Internet wouldn't exist."
@@ -1712,10 +1712,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Wired data connection that transmits at extremely high speeds using pulses of light.",
       "choices": [
-        "Library or API",
+        "Protocol",
         "Fiber optic",
-        "Internet",
-        "Scalability"
+        "Selection statement",
+        "Internet"
       ],
       "correctText": "Fiber optic",
       "explanation": "Fiber-optic cables transmit light through glass strands — modern long-haul fiber carries multiple wavelengths each at 100+ Gbps. Charles Kao's 1966 paper on low-loss glass won the 2009 Nobel Prize in Physics. The first transatlantic fiber (TAT-8, 1988) had 280 Mbps; modern transatlantic cables carry 100+ Tbps. AP CSP Big Idea 4 covers transmission media. Fiber is immune to electromagnetic interference, has low signal loss over distance, and is the backbone of the Internet (subsea cables carry 99% of intercontinental data). Exam questions compare fiber (fastest, longest) to copper (cheaper, shorter) and wireless (mobile, lower bandwidth)."
@@ -1734,10 +1734,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Service that translates human-readable domain names like google.com into IP addresses.",
       "choices": [
-        "Scalability",
-        "DNS",
-        "Privacy",
-        "Internet"
+        "Fiber optic",
+        "Protocol",
+        "Identity theft",
+        "DNS"
       ],
       "correctText": "DNS",
       "explanation": "DNS (Paul Mockapetris, USC ISI 1983; RFC 1034/1035) is the Internet's phonebook — translates google.com to 142.250.80.100. Hierarchical: root → TLD (.com,.org) → authoritative servers. Recursive resolvers cache results. AP CSP Big Idea 4.1.3 covers DNS as critical infrastructure. DNS hijacking and cache poisoning are major security concerns (Kaminsky 2008 vulnerability). DNSSEC adds cryptographic signing. Exam questions trace a DNS lookup: client → recursive resolver → root → TLD → authoritative. Without DNS, users would memorize IP addresses."
@@ -1756,10 +1756,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Property of an Internet design that lets it accommodate billions of new users and devices.",
       "choices": [
-        "Nested loops",
-        "Scalability",
+        "String",
+        "Internet",
         "Fiber optic",
-        "Protocol"
+        "Scalability"
       ],
       "correctText": "Scalability",
       "explanation": "The Internet scales because it is hierarchical (root DNS → TLD → authoritative; backbone → regional → local ISP) and uses decentralized routing. AP CSP Big Idea 4.1.6 covers scaling. From 4 nodes (1969 ARPANET) to ~50 billion devices (IoT 2024), the architecture didn't fundamentally change. Key scaling decisions: 128-bit IPv6 addresses, BGP route aggregation, CDN edge caching. Exam questions identify what makes the Internet scalable: open standards (anyone can build), decentralized control (no single approval), redundant paths. CDNs (Akamai, Cloudflare) scale popular content."
@@ -1778,10 +1778,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method of sending data by breaking it into pieces that travel independent paths to a destination.",
       "choices": [
-        "Router",
-        "Packet switching",
-        "Privacy",
-        "Packet"
+        "Decomposition",
+        "Packet",
+        "TCP/IP",
+        "Packet switching"
       ],
       "correctText": "Packet switching",
       "explanation": "Packet switching breaks a message into packets; each is routed independently through the network. Designed (Paul Baran RAND 1962, Donald Davies NPL 1965) to be nuclear-survivable: lose a node, packets reroute. Contrast circuit switching (traditional phone) which reserves a dedicated path. The Internet uses packet switching exclusively. AP CSP Big Idea 4.1.4 covers this. Exam questions describe a network with a failed link and ask whether messages still arrive (yes — packets find another path). The order of arrival is not guaranteed; TCP handles reassembly."
@@ -1800,10 +1800,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Network device that forwards packets toward their destination by reading their addresses.",
       "choices": [
-        "Packet switching",
+        "Data bias",
         "Fault tolerance",
-        "Digital divide",
-        "Router"
+        "Router",
+        "Packet"
       ],
       "correctText": "Router",
       "explanation": "Routers connect networks — they read each packet's destination IP and forward it via the best next hop (using routing tables and protocols like BGP, OSPF). The first IMP (Interface Message Processor, ARPANET 1969) was a router. Modern Internet has ~70,000 autonomous systems exchanging BGP routes. AP CSP Big Idea 4.1.5 covers routers as the Internet's traffic directors. Exam questions ask what a router does (forwards packets) vs a switch (forwards Ethernet frames within a LAN) vs a hub (broadcasts to all). Routers fail and packets find alternate paths — the redundancy that gives the Internet its fault tolerance."
@@ -1822,10 +1822,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Network's ability to keep working even when some parts fail or are taken offline.",
       "choices": [
-        "Packet switching",
-        "TCP/IP",
-        "Simulation",
-        "Fault tolerance"
+        "Fault tolerance",
+        "Packet",
+        "Router",
+        "RGB color model"
       ],
       "correctText": "Fault tolerance",
       "explanation": "Fault tolerance comes from redundancy — many paths between any two nodes. Paul Baran's 1962 RAND paper imagined a 'distributed network' that could survive nuclear attack: no single point of failure. AP CSP Big Idea 4.1.5 stresses fault tolerance as a core Internet design goal. Real-world: when AWS US-East-1 fails, services with multi-region failover keep working. The Internet's hierarchical structure (Tier 1, 2, 3 ISPs) provides multiple peering paths. Exam questions ask why packet switching is more fault-tolerant than circuit switching (rerouting around failures vs reserved path going dead)."
@@ -1844,10 +1844,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Unit of data sent across the Internet — each contains source, destination, and a chunk of the message.",
       "choices": [
-        "TCP/IP",
         "Packet",
-        "Multi-factor authentication",
-        "Packet switching"
+        "Packet switching",
+        "Heuristic",
+        "Fault tolerance"
       ],
       "correctText": "Packet",
       "explanation": "Packets split messages into fixed-size chunks (typically 1500 bytes MTU for Ethernet). Each packet has headers (source IP, destination IP, sequence number, checksum) and payload. AP CSP Big Idea 4.1.4 covers packet switching: routers forward each packet independently, and packets may take different paths and arrive out of order. TCP reassembles them. Pioneer Paul Baran (RAND 1962) and Donald Davies (NPL 1965) independently invented packet switching as a nuclear-survivable alternative to circuit switching. Exam questions distinguish packet switching from old phone-style circuit switching."
@@ -1866,10 +1866,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Protocol pair that handles reliable delivery and addressing for most Internet traffic.",
       "choices": [
-        "Multi-factor authentication",
-        "Fault tolerance",
-        "TCP/IP",
-        "Packet switching"
+        "Simulation",
+        "Packet",
+        "Router",
+        "TCP/IP"
       ],
       "correctText": "TCP/IP",
       "explanation": "TCP/IP (Vint Cerf and Bob Kahn 1974) is the Internet's protocol suite. IP (Internet Protocol) handles addressing and routing of packets. TCP (Transmission Control Protocol) adds reliable, ordered delivery: 3-way handshake (SYN-SYN/ACK-ACK), sequence numbers, retransmission of lost packets, congestion control (Van Jacobson 1988). Together they handle 90%+ of Internet traffic. AP CSP Big Idea 4.1.7 covers TCP/IP. Cerf and Kahn received the 2004 Turing Award. UDP (User Datagram Protocol) is the lighter alternative used for streaming and DNS — no retransmission, lower latency."
@@ -1888,10 +1888,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Computation that splits a problem across multiple connected computers to finish faster.",
       "choices": [
-        "Ransomware",
-        "Debugging",
-        "Distributed computing",
-        "Cloud computing"
+        "Digital divide",
+        "Cloud computing",
+        "MapReduce",
+        "Distributed computing"
       ],
       "correctText": "Distributed computing",
       "explanation": "Distributed computing uses many networked machines to tackle problems too big for one. SETI@home (1999 Berkeley, retired 2020) used 5M volunteers' computers to search radio signals. Folding@home (Stanford 2000) modeled protein folding for COVID-19 in 2020 — peak 2.5 exaflops, faster than top supercomputers. AP CSP Big Idea 4.2 covers distributed computing. Pioneer Leslie Lamport's 1978 'Time, Clocks, and the Ordering of Events' formalized logical clocks for distributed systems (Turing Award 2013). Exam questions distinguish parallel (one machine, many cores) from distributed (many machines)."
@@ -1910,10 +1910,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Internet-based delivery of computing resources — like storage and processing — as a service.",
       "choices": [
-        "Crowdsourcing",
-        "Distributed computing",
-        "Cloud computing",
-        "DDoS attack"
+        "DDoS attack",
+        "Ransomware",
+        "FOR EACH",
+        "Cloud computing"
       ],
       "correctText": "Cloud computing",
       "explanation": "Cloud computing rents computing resources on demand — AWS (launched 2006), Azure (2010), GCP (2008). Tiers: IaaS (rent VMs, like EC2), PaaS (rent app platform, like Heroku), SaaS (rent application, like Gmail). AP CSP Big Idea 4.2.4 covers cloud benefits (elasticity, no capital outlay) and risks (vendor lock-in, data sovereignty). Pioneer J.C.R. Licklider's 1963 'Intergalactic Computer Network' memo envisioned cloud-style time-sharing. Exam questions ask the benefits (pay per use, scales instantly) and risks (data leaves your control, dependency on provider uptime)."
@@ -1933,9 +1933,9 @@
       "prompt": "Malicious software that holds data hostage by encrypting it until a payment is made.",
       "choices": [
         "Distributed computing",
-        "DDoS attack",
-        "Ransomware",
-        "Sampling bias"
+        "Cloud computing",
+        "Undecidable problem",
+        "Ransomware"
       ],
       "correctText": "Ransomware",
       "explanation": "Ransomware encrypts files and demands payment (usually cryptocurrency) for the decryption key. Major attacks: WannaCry (May 2017, 200K+ machines in 150 countries, NHS hospitals), NotPetya (June 2017, ~$10B damages), Colonial Pipeline (May 2021, $4.4M paid, gas shortages on US East Coast). The first ransomware was the AIDS Trojan (1989, 5.25-inch floppy distributed at a WHO conference). AP CSP Big Idea 5.6 covers ransomware. Defenses: backups (offline/immutable), patching, network segmentation, MFA. Bitcoin made payments traceable but anonymous enough to fuel the industry."
@@ -1954,9 +1954,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Brute attack that floods a server with so many requests that legitimate users can't connect.",
       "choices": [
-        "Cloud computing",
-        "Distributed computing",
-        "Program design process",
+        "Infinite loop",
+        "MapReduce",
+        "Ransomware",
         "DDoS attack"
       ],
       "correctText": "DDoS attack",
@@ -1976,10 +1976,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Computing model where data and processing are spread across many cooperating machines.",
       "choices": [
-        "Fault tolerance",
-        "MapReduce",
+        "Cookie",
+        "DDoS attack",
         "Cloud computing",
-        "DDoS attack"
+        "MapReduce"
       ],
       "correctText": "MapReduce",
       "explanation": "MapReduce (Jeffrey Dean and Sanjay Ghemawat, Google 2004) splits computation into Map (apply function to each item) and Reduce (combine results) phases — perfect for embarrassingly parallel data. Hadoop (Doug Cutting 2006) made it open source; AWS EMR runs Hadoop on cloud. AP CSP doesn't name MapReduce but Big Idea 4.2 covers the conceptual underpinning. Real-world: Google indexed the web with MapReduce; Facebook ran analytics on Hadoop. The 2010s 'big data' boom was MapReduce + cheap storage. Exam questions test which problems parallelize well (independent operations on data items) vs poorly (sequential, e.g., a chain of transformations)."
@@ -1999,9 +1999,9 @@
       "prompt": "Attack that tricks users into giving up passwords by impersonating a trusted entity.",
       "choices": [
         "Phishing",
-        "Parallel speedup",
+        "Multi-factor authentication",
         "Software vulnerability exploit",
-        "Big data"
+        "Hacking"
       ],
       "correctText": "Phishing",
       "explanation": "Phishing uses fake emails, websites, or messages to steal credentials. The term originated on AOL hacking forums (1996) — fishing for passwords with a 'ph' for phone-phreak history. Spear phishing targets a specific person; whaling targets executives. Phishing causes ~90% of data breaches (Verizon DBIR). The 2016 Podesta email leak that affected the US election started with a phishing email. AP CSP Big Idea 5.6.4 covers phishing as a major threat. Defenses: multi-factor authentication (MFA), email filtering, user training, hover-to-preview URLs. Exam questions identify phishing indicators (urgent tone, suspicious URLs, mismatched sender)."
@@ -2021,9 +2021,9 @@
       "prompt": "Limit on speedup that parallelism can achieve when some part of the work must run serially.",
       "choices": [
         "Amdahl's Law",
-        "Multi-factor authentication",
         "Phishing",
-        "Nested conditional"
+        "Plagiarism",
+        "Multi-factor authentication"
       ],
       "correctText": "Amdahl's Law",
       "explanation": "Gene Amdahl (1967, IBM): maximum speedup = 1 / (s + (1-s)/n) where s is serial fraction. Even with infinite cores, a 10% serial program speeds up at most 10×. The implication: parallelization has steeply diminishing returns. AP CSP Big Idea 4.2.3 covers parallel limits without naming Amdahl explicitly. John Gustafson (1988) refined for weak scaling — larger problems benefit more from parallelism. Exam questions present a parallel scenario and ask the maximum speedup. Real-world: GPU-trained AI (e.g., GPT) parallelizes well because most ops are matrix multiply, but loading data is serial."
@@ -2042,10 +2042,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Speedup obtained by dividing work — equal to time on one machine divided by time on n machines.",
       "choices": [
+        "DDoS attack",
+        "Amdahl's Law",
         "Parallel speedup",
-        "Software vulnerability exploit",
-        "Abstraction",
-        "Amdahl's Law"
+        "Software vulnerability exploit"
       ],
       "correctText": "Parallel speedup",
       "explanation": "Speedup = T_sequential / T_parallel. A perfect speedup is n (run on n machines, finishes n times faster). In practice, communication overhead and serial sections limit it. AP CSP Big Idea 4.2.3 covers speedup. The Create Performance Task does not require parallelism, but exam questions ask: 'A task takes 60 seconds sequentially. Split into 6 parallel parts of 10s each plus 5s of serial setup. What is the speedup?' (60 / 15 = 4×). Pioneer Cleve Moler (MATLAB founder, 1984) popularized parallel benchmarks."
@@ -2064,10 +2064,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Login security extra step beyond a password — like a phone code or a hardware key.",
       "choices": [
+        "Software vulnerability exploit",
         "Phishing",
         "Multi-factor authentication",
-        "Amdahl's Law",
-        "Return value"
+        "Protocol"
       ],
       "correctText": "Multi-factor authentication",
       "explanation": "MFA combines two or more of: something you know (password), something you have (phone, hardware key), something you are (fingerprint, FaceID). Reduces phishing-related account takeovers by 99%+ (Microsoft 2019). FIDO2/WebAuthn (FIDO Alliance 2018) uses public-key cryptography for phishing-resistant logins. YubiKey (Stina Ehrensvärd, Yubico 2008) made hardware tokens mainstream. AP CSP Big Idea 5.6 emphasizes MFA as the single biggest security improvement. The 2020 Twitter Bitcoin hack exploited employees without strong MFA. Exam questions ask which factor combinations qualify as 'multi-factor.'."
@@ -2087,9 +2087,9 @@
       "prompt": "Form of attack that exploits flaws in software — like buffer overflows or SQL injection.",
       "choices": [
         "Software vulnerability exploit",
+        "Simulation",
         "Phishing",
-        "Multi-factor authentication",
-        "Job displacement"
+        "Multi-factor authentication"
       ],
       "correctText": "Software vulnerability exploit",
       "explanation": "Vulnerabilities are bugs an attacker can leverage — buffer overflow (Aleph One's 1996 'Smashing the Stack for Fun and Profit'), SQL injection (Jeff Forristal 1998), cross-site scripting. Common Vulnerabilities and Exposures (CVE) catalogs ~250K known issues. Stuxnet (2010) used 4 zero-days to attack Iranian centrifuges. The 2021 Log4Shell (CVE-2021-44228) in Apache Log4j let attackers run arbitrary code via log lines. AP CSP Big Idea 5.6 covers software flaws as a threat. Defenses: timely patching, input validation, secure coding, fuzz testing. The OWASP Top 10 lists the most critical web vulnerabilities."
@@ -2108,10 +2108,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Wireless network using radio waves to connect devices to a router within a small area.",
       "choices": [
+        "Bandwidth",
+        "Definite loop",
         "Wi-Fi",
-        "Latency",
-        "Abstraction",
-        "Gateway router"
+        "Latency"
       ],
       "correctText": "Wi-Fi",
       "explanation": "Wi-Fi (IEEE 802.11, first standardized 1997) uses 2.4 GHz and 5 GHz radio bands. Vic Hayes ('father of Wi-Fi') chaired the original IEEE working group. Wi-Fi 6 (802.11ax, 2019) handles dense environments; Wi-Fi 7 (2024) supports 6 GHz. AP CSP Big Idea 4 covers wireless. Wi-Fi is shared medium — many devices share air time. Encryption: WEP (broken 2001), WPA (2003), WPA2 (2004, broken 2017 KRACK), WPA3 (2018). Exam questions distinguish Wi-Fi (short-range, license-free) from cellular (long-range, licensed spectrum). Wi-Fi requires line-of-sight or weak walls."
@@ -2130,10 +2130,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Unique numerical label assigned to each device on the Internet — like 142.250.80.100.",
       "choices": [
-        "IP address",
+        "ASCII",
         "Latency",
-        "Gateway router",
-        "Multi-factor authentication"
+        "IP address",
+        "Gateway router"
       ],
       "correctText": "IP address",
       "explanation": "An IP address identifies a device on the Internet. IPv4 (1983 RFC 791) uses 32 bits = ~4.3B addresses; we ran out by 2011 (IANA exhausted). IPv6 (1998 RFC 2460) uses 128 bits = 3.4 × 10^38 addresses — more than atoms in the Earth. AP CSP Big Idea 4.1.2 covers IP addressing. Network Address Translation (NAT, RFC 1631 1994) lets many devices share one public IPv4. Exam questions ask why we needed IPv6 (IPv4 exhaustion) and what IP addresses look like (dotted decimal IPv4, colon-hex IPv6 like 2001:db8::1)."
@@ -2152,10 +2152,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Maximum amount of data a connection can transmit per second — measured in bits/second.",
       "choices": [
-        "Latency",
-        "Bandwidth",
         "Gateway router",
-        "Procedure"
+        "Unit testing",
+        "Bandwidth",
+        "Latency"
       ],
       "correctText": "Bandwidth",
       "explanation": "Bandwidth is capacity — typically measured in Mbps (megabits/second) or Gbps. Claude Shannon's 1948 channel capacity theorem set the theoretical limit: C = B log2(1 + S/N), where B is bandwidth in Hz and S/N is signal-to-noise ratio. AP CSP Big Idea 4.1 covers bandwidth as a performance constraint. Latency (round-trip time) is a separate metric — high bandwidth doesn't mean low latency. Streaming Netflix at 4K needs ~25 Mbps; phone calls need <100 kbps. Exam questions ask which application is bandwidth-bound (video) vs latency-bound (gaming, video calls). Bandwidth determines wait time for large transfers."
@@ -2174,10 +2174,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Delay between when a packet is sent and when it arrives at the destination.",
       "choices": [
-        "Simulation",
+        "Bandwidth",
         "Latency",
         "Wi-Fi",
-        "Bandwidth"
+        "Multi-factor authentication"
       ],
       "correctText": "Latency",
       "explanation": "Latency is the round-trip delay — typically 20-100 ms for terrestrial links, 600+ ms for geostationary satellite. Speed of light is the floor: NYC to London (5,500 km fiber) takes ~50 ms one-way minimum. AP CSP Big Idea 4.1 distinguishes latency from bandwidth. Gaming and video calls are latency-sensitive; downloads are bandwidth-sensitive. 5G targets <10ms latency for real-world responsiveness. Exam questions ask which improvement helps a video call — lower latency, not higher bandwidth (assuming bandwidth is already sufficient). Latency optimization explains CDN edge caching: bring content close to users."
@@ -2196,10 +2196,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Device that connects a local network to the larger Internet — usually at the edge of a home or office.",
       "choices": [
-        "Wi-Fi",
-        "Gateway router",
-        "Multi-factor authentication",
-        "IP address"
+        "Latency",
+        "Machine learning",
+        "IP address",
+        "Gateway router"
       ],
       "correctText": "Gateway router",
       "explanation": "A gateway router connects your local network (LAN) to your ISP and the Internet. It performs Network Address Translation (NAT, RFC 1631 1994) so many devices share one public IP. Modern home gateways combine: router (layer 3), switch (layer 2), Wi-Fi access point, firewall, DHCP server, sometimes DNS resolver. AP CSP Big Idea 4 covers networking hardware. Exam questions trace a packet from a home device → gateway → ISP → backbone → destination. The gateway is the single point where home traffic enters the wider Internet — it's also the security boundary."
@@ -2218,10 +2218,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Gap between people who have reliable Internet access and those who do not.",
       "choices": [
+        "Monte Carlo method",
+        "Deepfake",
         "Cyberbullying",
-        "Pair programming",
-        "Digital divide",
-        "Deepfake"
+        "Digital divide"
       ],
       "correctText": "Digital divide",
       "explanation": "The digital divide separates broadband haves and have-nots. The term traces to a 1995 NTIA report 'Falling Through the Net.' In 2024 ~5.4B humans are online but ~2.5B are not. Rural areas, low-income households, elderly, and developing nations face access gaps. AP CSP Big Idea 5.3 covers the digital divide and its widening of existing inequities (education, healthcare, jobs). The 2020 COVID school closures exposed it: students without home broadband fell behind. Pioneer Robert Kahn's 1990s policy advocacy framed it. Exam questions ask the consequences (limited online learning, telehealth) and policy responses (rural broadband subsidies, public Wi-Fi, school hotspots)."
@@ -2240,10 +2240,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Hostile or harassing online behavior using digital platforms — often targeting individuals.",
       "choices": [
-        "Identity theft",
-        "Creative Commons",
-        "Deepfake",
-        "Cyberbullying"
+        "Cyberbullying",
+        "Digital divide",
+        "Cryptocurrency",
+        "Multi-factor authentication"
       ],
       "correctText": "Cyberbullying",
       "explanation": "Cyberbullying uses digital channels to harass — repeated abuse via DMs, comments, doxxing, exposure of private info. CDC 2021 YRBS: ~16% of US high-school students were cyberbullied. Megan Meier (2006 MySpace suicide) and Amanda Todd (2012 YouTube vigil) drew international attention. AP CSP Big Idea 5.2 covers cyberbullying as a harmful effect. Platform responses: blocking, reporting flows, anti-bullying AI filters. Laws: Megan's Law, varying state legislation. Exam questions distinguish cyberbullying from in-person bullying (anonymity, 24/7 reach, permanent record) and ask which design features help mitigate it (verification, slowed propagation, moderation)."
@@ -2262,10 +2262,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Manipulated images, audio, or video — often using AI — that look authentic but are fabricated.",
       "choices": [
-        "Digital divide",
-        "Cryptocurrency",
-        "Packet switching",
-        "Deepfake"
+        "Creative Commons",
+        "Deepfake",
+        "XML",
+        "Cyberbullying"
       ],
       "correctText": "Deepfake",
       "explanation": "Deepfakes use generative AI (GANs by Ian Goodfellow 2014; diffusion models 2020+) to synthesize realistic but fake images, audio, video. The term comes from a 2017 Reddit user 'deepfakes' producing face-swap videos. Threats: revenge porn (95% of deepfakes target women), political disinfo (Zelensky surrender deepfake Mar 2022), CEO voice clones used for fraud (US$25M Hong Kong heist 2024). AP CSP Big Idea 5.5 covers AI-generated content as a major harm. Detection: digital provenance (C2PA standard 2021), watermarking (DeepMind SynthID 2023), forensic analysis. Exam questions ask which technical or policy responses might help (provenance, regulation, media literacy)."
@@ -2284,10 +2284,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Currency that exists only digitally and uses cryptography for security and transactions.",
       "choices": [
-        "Abstraction",
-        "Deepfake",
-        "Cyberbullying",
-        "Cryptocurrency"
+        "Cryptocurrency",
+        "Digital divide",
+        "Creative Commons",
+        "Procedure"
       ],
       "correctText": "Cryptocurrency",
       "explanation": "Cryptocurrencies use cryptography and decentralized ledgers (blockchain) — no central bank. Bitcoin (Satoshi Nakamoto's 2008 white paper, launched Jan 3, 2009 genesis block) was first. Ethereum (Vitalik Buterin 2015) added smart contracts. Market cap peaked ~$3T in Nov 2021. AP CSP Big Idea 5.2 covers crypto's mixed impact: financial inclusion (~1.4B unbanked adults) and innovation vs energy use (Bitcoin uses ~150 TWh/year — more than Argentina), scams (FTX 2022 $8B fraud), money laundering. Exam questions ask the tradeoffs: decentralization vs energy; pseudonymity vs criminal misuse; volatility vs traditional finance access."
@@ -2306,10 +2306,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Permission system letting creators specify how others may share, adapt, or use their work.",
       "choices": [
-        "Cyberbullying",
         "Creative Commons",
-        "Wi-Fi",
-        "Deepfake"
+        "Cyberbullying",
+        "Cryptocurrency",
+        "IP address"
       ],
       "correctText": "Creative Commons",
       "explanation": "Creative Commons (Lawrence Lessig, Hal Abelson, Eric Eldred — Stanford 2001) provides 6 standardized licenses ranging from CC0 (public domain) to CC BY-NC-ND (most restrictive). The licenses let creators share work with explicit reuse permissions, bypassing 'all rights reserved' default. ~2B works are CC-licensed; Wikipedia, Flickr, MIT OpenCourseWare all use CC. AP CSP Big Idea 5.4 covers CC as a tool for digital sharing. Exam questions test which CC license allows commercial use (any without -NC), modification (any without -ND), and which requires attribution (all except CC0)."
@@ -2328,10 +2328,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Computing project where many volunteers contribute small efforts via the web.",
       "choices": [
-        "Plagiarism",
-        "Open source",
+        "Job displacement",
+        "Packet",
         "Crowdsourcing",
-        "Boolean"
+        "Plagiarism"
       ],
       "correctText": "Crowdsourcing",
       "explanation": "Crowdsourcing (Jeff Howe, Wired 2006) collects many small contributions to build something big. Examples: Wikipedia (Jimmy Wales, Larry Sanger 2001 — 7M articles), reCAPTCHA (Luis von Ahn 2007 — digitizing books while solving CAPTCHAs), Galaxy Zoo (2007 — astronomers classified ~1M galaxies), Foldit (2008 — game players solved HIV protease puzzle in 10 days). AP CSP Big Idea 5.4 covers crowdsourcing's benefits (scale, diversity) and concerns (quality control, exploitation). Exam questions distinguish crowdsourcing (many people, small contributions) from open source (collaborative software) and citizen science."
@@ -2350,10 +2350,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Software whose source code is publicly available for anyone to read, modify, or share.",
       "choices": [
+        "Deepfake",
+        "Crowdsourcing",
         "Open source",
-        "Phishing",
-        "Plagiarism",
-        "Copyright"
+        "Plagiarism"
       ],
       "correctText": "Open source",
       "explanation": "Open source software (OSS) is freely available and modifiable. Richard Stallman's GNU Project (1983) and the GPL license (1989) launched the 'free software' movement. The OSI (1998) defined 'Open Source' more permissively. Major projects: Linux (Linus Torvalds 1991), Apache web server (Brian Behlendorf 1995, runs ~30% of web), Python (Guido van Rossum 1991), Mozilla Firefox (2002), Kubernetes (Google 2014, donated to CNCF). AP CSP Big Idea 5.4 covers open source as collaborative computing. Eric Raymond's 'The Cathedral and the Bazaar' (1999) explained the development model. Exam questions ask the benefits (transparency, no vendor lock-in) and challenges (no formal support)."
@@ -2372,10 +2372,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Legal protection for original creative work — software code, music, art, books.",
       "choices": [
-        "FOR EACH",
-        "Open source",
-        "Plagiarism",
-        "Copyright"
+        "Crowdsourcing",
+        "Job displacement",
+        "Copyright",
+        "Data breach"
       ],
       "correctText": "Copyright",
       "explanation": "Copyright (US Copyright Act 1976, Berne Convention 1886) gives creators exclusive rights to copy, distribute, and adapt their work. Software is copyrightable (Computer Software Copyright Act 1980). Duration: author's life + 70 years (Mickey Mouse Protection Act 1998). AP CSP Big Idea 5.4 covers IP. Fair Use (Section 107) allows limited copying for criticism, education, parody (Campbell v. Acuff-Rose, 1994). Creative Commons (Lawrence Lessig 2001) provides standardized licenses. Exam questions distinguish copyright (original work) from patent (invention) from trademark (brand). Open source uses copyright (the GPL is enforced via copyright)."
@@ -2394,10 +2394,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loss of jobs or roles caused by automation, AI, or other computing advances.",
       "choices": [
-        "Copyright",
-        "Job displacement",
-        "Algorithmic bias",
-        "Crowdsourcing"
+        "Data cleaning",
+        "Crowdsourcing",
+        "Plagiarism",
+        "Job displacement"
       ],
       "correctText": "Job displacement",
       "explanation": "Job displacement by automation has historical precedent — Luddites (1811-1816) smashed textile machines; ATMs cut bank-teller employment (though created more total banking jobs); self-checkout reduced cashier jobs. Frey and Osborne (Oxford 2013) estimated 47% of US jobs at risk of automation within 20 years. AP CSP Big Idea 5.2 covers the workforce impact of computing. Generative AI (ChatGPT Nov 2022) brought attention to white-collar displacement (legal research, customer service, copywriting). Exam questions weigh job loss in displaced sectors against new job creation in expanding sectors, and ask which policy responses might help (retraining, universal basic income, education)."
@@ -2416,9 +2416,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Practice of using someone else's work as if it were your own — a form of plagiarism in computing.",
       "choices": [
-        "Pair programming",
-        "Open source",
+        "Fault tolerance",
         "Job displacement",
+        "Crowdsourcing",
         "Plagiarism"
       ],
       "correctText": "Plagiarism",
@@ -2438,8 +2438,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Field exploring whether and how computing professionals should weigh societal consequences.",
       "choices": [
-        "Machine learning",
-        "Encryption",
+        "Bit",
+        "Accessibility",
         "Internet of Things",
         "Computer ethics"
       ],
@@ -2460,10 +2460,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Use of computing to remove barriers for people with disabilities — like screen readers and captions.",
       "choices": [
-        "Computational artifact",
         "Accessibility",
         "Machine learning",
-        "Health informatics"
+        "Computer ethics",
+        "Algorithm"
       ],
       "correctText": "Accessibility",
       "explanation": "Accessibility lets people with disabilities use technology. WCAG (Web Content Accessibility Guidelines, W3C 1999, current 2.2 in 2023) defines standards for web content. Examples: screen readers (JAWS 1989, VoiceOver 2005 iOS), live captioning (Otter.ai, YouTube auto-captions), high-contrast modes. AP CSP Big Idea 5.2 covers beneficial computing effects including accessibility. Pioneer Vint Cerf is hard of hearing and led the development of TCP/IP messaging that became email — accessibility-driven design. The ADA (1990) and Section 508 (1998) require federal websites to be accessible. Exam questions ask which design choices improve accessibility (alt text, keyboard navigation, color contrast)."
@@ -2482,10 +2482,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Use of automated systems and data analysis to improve diagnosis and treatment.",
       "choices": [
-        "Machine learning",
+        "Internet of Things",
         "Health informatics",
         "Computer ethics",
-        "Data aggregation"
+        "Lossy compression"
       ],
       "correctText": "Health informatics",
       "explanation": "Health informatics applies computing to medicine: electronic health records (EHRs, mandated by HITECH Act 2009), telehealth (exploded during COVID-19), wearables (Apple Watch ECG detected AFib in 2019 Apple Heart Study). AI in radiology: Google's 2020 Nature paper on breast-cancer mammography matched radiologists. AP CSP Big Idea 5.2 covers beneficial uses of computing in healthcare. Concerns: privacy (HIPAA 1996), bias in training data (algorithmic equity in healthcare, Obermeyer et al. Science 2019 showed a major US algorithm under-referred Black patients). Exam questions weigh benefits (faster diagnosis, rural access) against risks (data breach, bias)."
@@ -2504,10 +2504,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Connection of physical objects — appliances, vehicles, sensors — to the Internet.",
       "choices": [
-        "String",
-        "Machine learning",
-        "Internet of Things",
-        "Computer ethics"
+        "Health informatics",
+        "Procedural abstraction",
+        "Computer ethics",
+        "Internet of Things"
       ],
       "correctText": "Internet of Things",
       "explanation": "IoT (term coined by Kevin Ashton, MIT 1999) embeds Internet connectivity in physical objects: smart thermostats (Nest 2011), connected cars, industrial sensors, medical implants. By 2024 there are ~50B IoT devices. Benefits: remote monitoring, automation, predictive maintenance. Risks: weak security (default passwords, no updates) — the 2016 Mirai botnet recruited millions of IP cameras to launch the largest DDoS attack at that time. AP CSP Big Idea 5.2 covers IoT's beneficial and harmful effects. Exam questions ask which IoT scenarios improve life (smart traffic lights reducing emissions) and which raise privacy concerns (always-on microphones)."
@@ -2526,10 +2526,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Subset of AI that learns from data to make predictions without being explicitly programmed.",
       "choices": [
-        "Multi-factor authentication",
+        "Internet of Things",
         "Accessibility",
         "Machine learning",
-        "Computer ethics"
+        "Copyright"
       ],
       "correctText": "Machine learning",
       "explanation": "Machine learning (Arthur Samuel, IBM 1959 — checkers-playing program) gives computers ability to learn from data. Modern boom: AlexNet (Krizhevsky et al. 2012 — won ImageNet with deep CNNs), ResNet (He et al. 2015), Transformers (Vaswani et al. 'Attention Is All You Need' 2017 — underpins GPT, BERT), Generative AI (ChatGPT Nov 2022). AP CSP Big Idea 5.2 and 5.5 cover ML's beneficial (medical diagnosis, accessibility) and harmful (bias, deepfakes, job displacement) effects. Exam questions present an ML scenario and ask students to identify benefits (scale, pattern detection) and risks (bias, opacity, manipulation)."
@@ -2548,10 +2548,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "False or misleading information spread online with intent to deceive.",
       "choices": [
-        "Metadata",
+        "Digital divide",
         "Data privacy",
-        "Algorithmic bias",
-        "Misinformation"
+        "Misinformation",
+        "Right to be forgotten"
       ],
       "correctText": "Misinformation",
       "explanation": "Misinformation (unintentional false info) and disinformation (intentional) spread faster than truth on social media (Vosoughi et al. Science 2018 — falsehoods spread 6× faster than truth on Twitter). Examples: 2016 election (Russian IRA, McFaul testimony), COVID-19 (5G conspiracy, ivermectin), 2021 Capitol attack mobilized by online claims. AP CSP Big Idea 5.5 covers misinformation as a harmful effect of computing. Defenses: fact-checkers (Snopes 1994, PolitiFact 2007), platform moderation, media literacy. Exam questions ask why social media accelerates misinformation (algorithmic amplification of engagement, low cost of distribution, echo chambers)."
@@ -2570,10 +2570,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Unequal accuracy of AI systems across demographic groups — like facial recognition working worse on darker skin.",
       "choices": [
+        "Right to be forgotten",
+        "Echo chamber",
         "Algorithmic bias",
-        "Data privacy",
-        "Misinformation",
-        "Health informatics"
+        "Identity theft"
       ],
       "correctText": "Algorithmic bias",
       "explanation": "Algorithmic bias is unfair outcome that comes from training data, model design, or deployment context. Joy Buolamwini's MIT thesis 'Gender Shades' (2018) found IBM, Microsoft, and Megvii face APIs were 35% less accurate on dark-skinned women. ProPublica's 2016 COMPAS audit found it twice as likely to flag Black defendants as future criminals. Amazon's 2018 recruiting AI penalized 'women's' resumes. AP CSP Big Idea 5.5 makes bias a central exam topic — expect 2-3 MC questions. Mitigation: diverse training data, fairness audits (AIF360 IBM, Fairlearn Microsoft), disparate-impact testing."
@@ -2592,10 +2592,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Right of individuals to know how their personal data is collected, stored, and used.",
       "choices": [
+        "Right to be forgotten",
         "Data privacy",
-        "Echo chamber",
-        "Procedure",
-        "Misinformation"
+        "Misinformation",
+        "Random simulation"
       ],
       "correctText": "Data privacy",
       "explanation": "Data privacy gives individuals control over their personal information. Samuel Warren and Louis Brandeis' 1890 Harvard Law Review article 'The Right to Privacy' established the modern concept. GDPR (EU 2018) introduced 'right to be forgotten,' data portability, breach notification within 72 hours; CCPA (California 2020) gave US consumers similar rights. AP CSP Big Idea 5.6 covers data privacy. The 2018 Cambridge Analytica scandal (87M Facebook profiles harvested without consent) accelerated regulation. Exam questions present a data practice and ask whether it respects privacy (asking opt-in consent) or violates it (default-on tracking, dark patterns)."
@@ -2614,10 +2614,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Right to remove embarrassing or harmful content about yourself from search engine results.",
       "choices": [
+        "Right to be forgotten",
         "Algorithmic bias",
         "Echo chamber",
-        "Right to be forgotten",
-        "Algorithm"
+        "Multi-factor authentication"
       ],
       "correctText": "Right to be forgotten",
       "explanation": "Right to be forgotten (RTBF) was established by EU Court of Justice in Google Spain v AEPD (May 2014) and codified in GDPR Article 17 (2018). Users may request search engines de-list outdated or irrelevant results about them; Google has processed ~5M URL removal requests. Tension: balancing privacy against freedom of expression, public interest, and historical record. US largely rejects RTBF on First Amendment grounds. AP CSP Big Idea 5.6 covers this evolving right. Exam questions present a takedown scenario (job applicant with old news article) and ask which privacy framework supports the request."
@@ -2636,10 +2636,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Practice of users sealing themselves into communities where they only hear views they already hold.",
       "choices": [
-        "Data privacy",
+        "Echo chamber",
         "Misinformation",
-        "Boolean",
-        "Echo chamber"
+        "Algorithmic bias",
+        "Crowdsourcing"
       ],
       "correctText": "Echo chamber",
       "explanation": "Echo chambers result from algorithmic personalization (Facebook News Feed 2006, YouTube recommender 2010s) showing users content similar to what they engage with. Eli Pariser's 2011 'The Filter Bubble' coined the related term. Cass Sunstein's 2001 'Republic.com' warned of group polarization. Research is mixed: Bakshy et al. (Science 2015) found Facebook's algorithm contributes less to echo chambers than self-selected friendships. AP CSP Big Idea 5.5 covers echo chambers as a harm of recommender systems. Exam questions distinguish algorithmic causes (personalization, engagement optimization) from human ones (selective exposure) and ask which interventions could reduce polarization."
@@ -2658,9 +2658,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Set of behaviors and responsibilities expected of users in digital spaces.",
       "choices": [
+        "Single sign-on",
         "GDPR",
-        "Identity theft",
-        "Lossy compression",
+        "Monte Carlo method",
         "Digital citizenship"
       ],
       "correctText": "Digital citizenship",
@@ -2680,10 +2680,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "European Union law that gives users rights over their personal data — passed in 2018.",
       "choices": [
-        "Digital citizenship",
+        "Single sign-on",
         "Hacking",
-        "GDPR",
-        "Decomposition"
+        "Multi-factor authentication",
+        "GDPR"
       ],
       "correctText": "GDPR",
       "explanation": "GDPR (General Data Protection Regulation, EU 2018) gives users right to know, access, correct, delete, and port their personal data. Companies must obtain explicit consent, notify breaches within 72 hours, and appoint Data Protection Officers. Fines: up to 4% of global revenue or €20M (Meta fined €1.2B in May 2023). GDPR extraterritoriality: applies to any company processing EU residents' data. AP CSP Big Idea 5.6 covers GDPR as a major privacy framework. The California CCPA (2020) and Virginia VCDPA (2023) mirror many GDPR concepts. Exam questions identify which rights GDPR grants (right to erasure, portability)."
@@ -2702,10 +2702,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Practice of breaching computer systems for malicious purposes — illegal under federal law.",
       "choices": [
-        "Hacking",
+        "GDPR",
         "Identity theft",
-        "Digital citizenship",
-        "Cookie"
+        "Digital divide",
+        "Hacking"
       ],
       "correctText": "Hacking",
       "explanation": "Hacking (malicious sense) is unauthorized system access. The US Computer Fraud and Abuse Act (CFAA, 1986) is the foundational anti-hacking law. Famous cases: Kevin Mitnick (1995 arrest after FBI pursuit), Aaron Swartz (2011 JSTOR case, suicide 2013 sparked CFAA reform debate), the 2014 Sony Pictures hack (attributed to North Korea), 2020 SolarWinds (Russia). 'White hat' hackers do authorized testing; the bug bounty industry (HackerOne 2012) pays them. AP CSP Big Idea 5.6 covers hacking as a major threat. Exam questions distinguish ethical hacking (with permission) from criminal hacking."
@@ -2725,8 +2725,8 @@
       "prompt": "Crime of using someone else's personal information to commit fraud — like opening accounts in their name.",
       "choices": [
         "GDPR",
-        "Digital citizenship",
         "Machine learning",
+        "Digital citizenship",
         "Identity theft"
       ],
       "correctText": "Identity theft",
@@ -2746,10 +2746,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Authentication standard that lets you sign in to many apps using one account — like Google Sign-In.",
       "choices": [
-        "Hacking",
+        "GDPR",
         "Identity theft",
         "Single sign-on",
-        "Version control"
+        "Parallel computing"
       ],
       "correctText": "Single sign-on",
       "explanation": "SSO (single sign-on) lets one identity provider authenticate users across many apps. OAuth 2.0 (Eran Hammer, IETF RFC 6749, 2012) and OpenID Connect (OIDC, 2014) are the modern standards. SAML (2001) is the enterprise predecessor. Examples: 'Sign in with Google,' 'Sign in with Apple' (privacy-focused 2019), Microsoft Azure AD, Okta (founded 2009). AP CSP Big Idea 5.6 covers SSO as both convenience (one strong password + MFA) and risk (one compromise = many accounts). Exam questions ask the trade-offs: SSO simplifies UX and centralizes security, but creates a single point of failure. MFA is critical with SSO."
@@ -2768,10 +2768,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Iterative four-step practice that produces working software through repeated refinement.",
       "choices": [
-        "Program design process",
-        "Abstraction",
-        "Packet switching",
-        "Procedure"
+        "Procedure",
+        "OR operator",
+        "Pair programming",
+        "Program design process"
       ],
       "correctText": "Program design process",
       "explanation": "The program design process — investigate, design, prototype, test, refine — is at the heart of AP CSP Big Idea 1. Margaret Hamilton (Apollo flight software lead, 1960s) and Grace Hopper (FLOW-MATIC compiler 1955) helped institutionalize iteration. The Create Performance Task scoring rubric explicitly requires students to document at least one iteration of program development. Exam MC questions ask 'what is the next step?' in a design scenario — almost always: test what you just built."
@@ -2790,10 +2790,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reusable named block of code with parameters — required in every Create Performance Task.",
       "choices": [
+        "Debugging",
+        "Program design process",
         "Procedure",
-        "Simulation",
-        "Pair programming",
-        "Decomposition"
+        "Abstraction"
       ],
       "correctText": "Procedure",
       "explanation": "Procedures are essential — the Create PT rubric awards a point specifically for 'student-developed procedure with a parameter that affects functionality.' AP CSP reference sheet uses PROCEDURE name(parameters) { body }. Pioneer Maurice Wilkes (EDSAC, Cambridge 1949) wrote one of the first papers on subroutines and the call stack. Without a working parameterized procedure, students cannot pass the Create PT. The procedure's parameter must actually change behavior — a dummy unused parameter loses the point."
@@ -2812,10 +2812,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Strategy of breaking a big problem into smaller, manageable subproblems.",
       "choices": [
-        "Program design process",
+        "Pair programming",
+        "Gateway router",
         "Decomposition",
-        "Lossy compression",
-        "Abstraction"
+        "Procedure"
       ],
       "correctText": "Decomposition",
       "explanation": "Decomposition is one of Jeannette Wing's four pillars of computational thinking (CACM 2006). Breaking 'build a Snake game' into smaller procedures (move snake, detect collision, draw board, handle keyboard) makes the problem tractable. Niklaus Wirth's 'Algorithms + Data Structures = Programs' (1976) made decomposition a core CS discipline. The Create PT scoring rewards decomposition that produces meaningful procedures — students who write one 200-line procedure lose points."
@@ -2834,10 +2834,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Hiding implementation behind a clean interface — the second of Jeannette Wing's CT pillars.",
       "choices": [
-        "Program design process",
+        "Pair programming",
         "Abstraction",
-        "Decomposition",
-        "Pseudocode"
+        "Version control",
+        "Procedure"
       ],
       "correctText": "Abstraction",
       "explanation": "Abstraction is the most-tested concept on AP CSP — Big Idea 3 covers procedural abstraction (procedures hide implementation) and data abstraction (lists hide storage). Edsger Dijkstra ('On the Role of Scientific Thought,' 1974) and Barbara Liskov (CLU language, Turing Award 2008) formalized it. The Create PT rubric awards a point for procedural abstraction that 'manages complexity.' Roughly 1 in 5 MC exam questions test abstraction concepts."
@@ -2856,10 +2856,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Practice where two programmers work together at one workstation, sharing knowledge.",
       "choices": [
-        "Pair programming",
-        "Decomposition",
+        "Run-length encoding",
         "Procedure",
-        "Software vulnerability exploit"
+        "Abstraction",
+        "Pair programming"
       ],
       "correctText": "Pair programming",
       "explanation": "Pair programming (formalized by Kent Beck in Extreme Programming, 1999) has one programmer 'driving' (typing) while the other 'navigates' (reviewing, planning). Studies show modest cost increase (~15% more programmer time) but significantly fewer defects. AP CSP Big Idea 1.3 covers collaboration. Pair programming benefits include knowledge transfer (junior learning from senior), reduced bus-factor risk, and immediate code review. Exam questions ask which collaboration style is described (pair programming, code review, async via Git)."
@@ -2878,10 +2878,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Base-2 representation — the foundation of all digital data.",
       "choices": [
-        "Metadata",
         "Data bias",
-        "REPEAT UNTIL",
-        "Binary"
+        "Binary",
+        "Nested loops",
+        "Metadata"
       ],
       "correctText": "Binary",
       "explanation": "Binary (base-2) is fundamental — every transistor in a CPU is on (1) or off (0). Gottfried Leibniz formalized binary in 1703. Claude Shannon's 1937 MIT thesis bridged Boolean algebra and digital logic. AP CSP Big Idea 2.1 tests decimal-binary conversion (5 = 101) and the relationship n bits = 2^n values. With 8 bits you represent 256 values; 16 bits = 65,536; 32 bits = 4.3 billion. Exam questions ask the minimum bits needed for N values — round up log2(N)."
@@ -2900,9 +2900,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Compression style used by JPEG and MP3 that throws away some data.",
       "choices": [
+        "Binary",
+        "Algorithmic bias",
         "Lossy compression",
-        "ASCII",
-        "Plagiarism",
         "Metadata"
       ],
       "correctText": "Lossy compression",
@@ -2922,10 +2922,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Information about other information — like a photo's date, GPS coordinates, and camera model.",
       "choices": [
-        "Lossy compression",
-        "Data bias",
+        "ASCII",
         "Metadata",
-        "Parameter"
+        "Binary",
+        "Analog-to-digital conversion"
       ],
       "correctText": "Metadata",
       "explanation": "Metadata describes other data. A photo's EXIF metadata includes timestamp, GPS coordinates, camera model, ISO, shutter speed. AP CSP Big Idea 2.2.1 stresses that metadata enables organization (search 'photos from 2023') but also leaks privacy (GPS in EXIF revealed John McAfee's hideout in 2012). Email headers, MP3 ID3 tags, Word document author info — all metadata. Exam questions ask students to identify metadata (when/where/who, not what)."
@@ -2944,10 +2944,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Encoding standard that maps numbers 0-127 to common English characters like A=65.",
       "choices": [
-        "Definite loop",
-        "ASCII",
+        "Data bias",
         "Lossy compression",
-        "Binary"
+        "Information entropy",
+        "ASCII"
       ],
       "correctText": "ASCII",
       "explanation": "ASCII (1963 ANSI X3.4) encodes 128 characters in 7 bits. 'A' = 65 (01000001), 'a' = 97, '0' = 48, ' ' (space) = 32. Bob Bemer ('father of ASCII') led the standardization. ASCII could not handle non-English scripts, so Unicode (1991) and UTF-8 (Ken Thompson 1992) followed — UTF-8 represents 1.1M Unicode code points using 1-4 bytes. AP CSP Big Idea 2.1.5 covers character encoding. Exam questions: 'how many bits does ASCII use?' (7); 'what value represents A?' (65)."
@@ -2966,10 +2966,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Skewed pattern in data that comes from how it was collected — can lead to biased AI predictions.",
       "choices": [
-        "ASCII",
+        "Packet switching",
+        "Data bias",
         "Lossy compression",
-        "Selection",
-        "Data bias"
+        "ASCII"
       ],
       "correctText": "Data bias",
       "explanation": "Data bias arises when training data does not represent the deployment population. The 1936 Literary Digest poll predicted Landon over FDR because it sampled phone owners (wealthy, Republican). Joy Buolamwini's 'Gender Shades' (MIT 2018) showed facial recognition was 35% less accurate on dark-skinned women due to under-representation in training data. AP CSP Big Idea 5.5 covers algorithmic bias — biased data trains biased models. Exam questions describe a sampling method and ask whether the sample is representative."
@@ -2988,10 +2988,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Step-by-step finite procedure for solving a problem — named after the 9th-century mathematician al-Khwarizmi.",
       "choices": [
-        "Router",
-        "Heuristic",
-        "REPEAT UNTIL",
-        "Algorithm"
+        "Unreasonable algorithm",
+        "Selection",
+        "Algorithm",
+        "Analog-to-digital conversion"
       ],
       "correctText": "Algorithm",
       "explanation": "The word 'algorithm' comes from al-Khwarizmi (Persian mathematician, ~825 CE) whose Latin name became 'algoritmi.' Donald Knuth's 'The Art of Computer Programming' (3 vol, 1968-onwards) is the canonical reference. Alan Turing's 1936 paper 'On Computable Numbers' formalized algorithms via Turing machines. AP CSP Big Idea 3.5 covers algorithm fundamentals — built from sequencing, selection, iteration (Böhm-Jacopini theorem 1966). About 25-30% of MC exam questions trace or analyze algorithms."
@@ -3010,10 +3010,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "AP CSP reference-sheet construct that loops UNTIL a condition becomes true.",
       "choices": [
-        "Unreasonable algorithm",
-        "Creative Commons",
         "REPEAT UNTIL",
-        "Algorithm"
+        "Algorithm",
+        "Run-length encoding",
+        "Selection"
       ],
       "correctText": "REPEAT UNTIL",
       "explanation": "REPEAT UNTIL (condition) in AP CSP reference sheet — the condition is checked at the top, so the loop body might run 0 times. Opposite of 'while' in most languages (while loops while-true; REPEAT UNTIL loops while-NOT-true). AP CSP Big Idea 3.9 covers iteration. The biggest bug source is infinite loops — forgetting to update the loop variable. Exam questions show a REPEAT UNTIL block and ask how many times it runs for given initial values."
@@ -3032,10 +3032,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Algorithm that scales as n!, 2^n, or worse — impractical for large inputs.",
       "choices": [
-        "Heuristic",
-        "Unreasonable algorithm",
         "Algorithm",
-        "DDoS attack"
+        "REPEAT UNTIL",
+        "Unreasonable algorithm",
+        "Data privacy"
       ],
       "correctText": "Unreasonable algorithm",
       "explanation": "AP CSP Big Idea 3.17.2 names algorithms that scale exponentially (2^n, n!) as 'unreasonable.' Brute-force Traveling Salesman is O(n!) — 20 cities = 2.4 × 10^18 paths. P vs NP (Stephen Cook 1971) is the famous open question of whether every efficiently-checkable problem is also efficiently solvable. Cryptography exploits hard problems: factoring large integers is currently unreasonable, which makes RSA secure. Exam questions compare algorithm efficiency and identify which scales unreasonably."
@@ -3054,10 +3054,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Programming construct that performs different actions depending on a Boolean expression.",
       "choices": [
-        "REPEAT UNTIL",
-        "Algorithmic bias",
+        "Heuristic",
         "Selection",
-        "Algorithm"
+        "Unreasonable algorithm",
+        "REPEAT n TIMES"
       ],
       "correctText": "Selection",
       "explanation": "Selection (IF/ELSE in AP CSP reference) lets a program respond to data — different action for empty input vs valid. Boolean algebra (George Boole 1854) is the math foundation. AP CSP Big Idea 3.8 covers conditionals including nested IFs and compound Boolean expressions (AND, OR, NOT). The Create PT rubric Row 5 requires either selection or iteration in the student-developed algorithm. Exam questions test De Morgan's laws applied to nested IF conditions."
@@ -3076,10 +3076,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Practical 'good enough' solution used when the exact algorithm is too slow — like Google Maps' route finder.",
       "choices": [
-        "Algorithm",
-        "Algorithmic bias",
         "Selection",
-        "Heuristic"
+        "Cloud computing",
+        "Heuristic",
+        "Algorithm"
       ],
       "correctText": "Heuristic",
       "explanation": "Heuristics trade optimality for speed. Google Maps uses A* (Hart, Nilsson, Raphael 1968), not exact Dijkstra (1959). Simulated annealing (Kirkpatrick et al. 1983) and genetic algorithms (John Holland 1975) are heuristic frameworks. AP CSP Big Idea 3.18 covers heuristics as a response to unreasonable algorithms. Trade-off: heuristics may produce wrong or sub-optimal answers in rare cases. Exam questions ask why a heuristic is acceptable when an exact algorithm would take centuries."
@@ -3099,9 +3099,9 @@
       "prompt": "Set of rules letting different devices communicate — like TCP/IP and HTTP.",
       "choices": [
         "Protocol",
-        "Distributed computing",
         "Packet switching",
-        "IP address"
+        "Digital citizenship",
+        "Distributed computing"
       ],
       "correctText": "Protocol",
       "explanation": "Protocols are agreed-upon conventions: TCP/IP, HTTP, HTTPS, FTP, SMTP, DNS. They make heterogeneous networks interoperable. Vint Cerf and Bob Kahn's 1974 TCP/IP paper unified divergent networks. IETF (Internet Engineering Task Force) publishes RFCs defining Internet protocols. AP CSP Big Idea 4.1 covers protocols. Exam questions match protocol to purpose: HTTP→web, SMTP→sending mail, DNS→name resolution, TCP→reliable transport. Without protocols, the Internet wouldn't exist."
@@ -3120,10 +3120,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Internet's phonebook — translates google.com to an IP address.",
       "choices": [
-        "Decomposition",
+        "DNS",
+        "Distributed computing",
         "Protocol",
-        "Packet switching",
-        "DNS"
+        "GDPR"
       ],
       "correctText": "DNS",
       "explanation": "DNS (Paul Mockapetris, USC ISI 1983) is hierarchical: root → TLD (.com) → authoritative. Recursive resolvers cache results. AP CSP Big Idea 4.1.3 covers DNS as critical infrastructure. DNS hijacking and cache poisoning are major threats (Kaminsky 2008 vulnerability). DNSSEC adds cryptographic signing. Exam questions trace a DNS lookup or ask why DNS is needed (we'd memorize IP addresses without it)."
@@ -3142,10 +3142,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Network design where messages split into independent chunks that route around failures.",
       "choices": [
-        "Protocol",
         "Distributed computing",
-        "Packet switching",
-        "Privacy"
+        "DNS",
+        "RGB color model",
+        "Packet switching"
       ],
       "correctText": "Packet switching",
       "explanation": "Packet switching breaks messages into independently-routed packets. Designed by Paul Baran (RAND 1962) and Donald Davies (NPL 1965) to be nuclear-survivable: lose a node, packets reroute. ARPANET (1969) implemented it. Today's Internet is end-to-end packet-switched. AP CSP Big Idea 4.1.4 covers this. Compared to circuit switching (1880s phone, dedicated path), packet switching is fault-tolerant, scales better, and uses bandwidth efficiently."
@@ -3165,9 +3165,9 @@
       "prompt": "Internet's resilience to component failure thanks to redundant paths and decentralization.",
       "choices": [
         "Fault tolerance",
+        "DNS",
         "Protocol",
-        "Single sign-on",
-        "DNS"
+        "Huffman coding"
       ],
       "correctText": "Fault tolerance",
       "explanation": "Fault tolerance comes from redundancy — many paths between any two nodes. Paul Baran's 1962 RAND paper imagined a network that could survive nuclear attack. AP CSP Big Idea 4.1.5 stresses fault tolerance as core Internet design. Real-world: when AWS US-East-1 fails, services with multi-region failover keep working. Hierarchical Internet structure (Tier 1, 2, 3 ISPs) provides multiple peering paths. Exam questions ask why packet switching is more fault-tolerant than circuit switching."
@@ -3186,10 +3186,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Computing model where work splits across many networked machines that cooperate.",
       "choices": [
-        "Distributed computing",
         "DNS",
-        "Protocol",
-        "Machine learning"
+        "Iteration cycle",
+        "Distributed computing",
+        "Protocol"
       ],
       "correctText": "Distributed computing",
       "explanation": "Distributed computing uses many networked machines for tasks too big for one. Folding@home (Stanford 2000) modeled COVID-19 proteins on volunteer computers at 2.5 exaflops in 2020 — faster than any single supercomputer. MapReduce (Google 2004) indexed the web. AP CSP Big Idea 4.2 covers distributed computing. Pioneer Leslie Lamport's 1978 'Time, Clocks, and the Ordering of Events' formalized distributed-system theory (Turing Award 2013)."
@@ -3208,10 +3208,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Gap between people with reliable Internet access and those without — affects education and healthcare.",
       "choices": [
-        "Crowdsourcing",
-        "Creative Commons",
         "Digital divide",
-        "Pseudocode"
+        "Algorithmic bias",
+        "Creative Commons",
+        "Variable"
       ],
       "correctText": "Digital divide",
       "explanation": "The digital divide separates broadband haves and have-nots. Term traces to NTIA's 1995 'Falling Through the Net' report. ~2.5B humans remain offline in 2024. Rural areas, low-income households, elderly, and developing nations face the largest gaps. The 2020 COVID school closures exposed this — students without home broadband fell behind. AP CSP Big Idea 5.3 covers the divide; policy responses include rural broadband subsidies (BEAD Act 2021 $42B), public Wi-Fi, school hotspots."
@@ -3230,10 +3230,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Massive volunteer projects like Wikipedia and Galaxy Zoo that aggregate small contributions.",
       "choices": [
-        "Creative Commons",
-        "Digital divide",
+        "Algorithmic bias",
+        "NOT operator",
         "Crowdsourcing",
-        "Packet"
+        "Digital divide"
       ],
       "correctText": "Crowdsourcing",
       "explanation": "Crowdsourcing (Jeff Howe, Wired 2006) collects many small contributions. Wikipedia (Jimmy Wales 2001, 7M articles), reCAPTCHA (Luis von Ahn 2007 — book digitization), Galaxy Zoo (~1M galaxies classified). AP CSP Big Idea 5.4 covers crowdsourcing's benefits (scale, diversity) and concerns (quality control, exploitation of unpaid labor). Exam questions distinguish crowdsourcing (many people, small contributions) from open source (collaborative software development)."
@@ -3252,10 +3252,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "License framework that lets creators share work with explicit reuse permissions.",
       "choices": [
-        "Algorithmic bias",
-        "Protocol",
-        "Crowdsourcing",
-        "Creative Commons"
+        "Packet switching",
+        "Multi-factor authentication",
+        "Creative Commons",
+        "Algorithmic bias"
       ],
       "correctText": "Creative Commons",
       "explanation": "Creative Commons (Lawrence Lessig, Hal Abelson, Eric Eldred — Stanford 2001) provides 6 standardized licenses. ~2B works are CC-licensed (Wikipedia, Flickr, MIT OpenCourseWare). The CC suite ranges from CC0 (public domain) to CC BY-NC-ND (most restrictive). AP CSP Big Idea 5.4 covers CC as a tool for digital sharing. Exam questions test which CC license allows commercial use (any without -NC), modification (any without -ND), and what requires attribution (all except CC0)."
@@ -3274,10 +3274,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Unfair AI outcomes that come from skewed training data or model design.",
       "choices": [
-        "Crowdsourcing",
+        "Digital divide",
         "Algorithmic bias",
-        "Internet",
-        "Digital divide"
+        "Cookie",
+        "Crowdsourcing"
       ],
       "correctText": "Algorithmic bias",
       "explanation": "Algorithmic bias is unfair outcome that comes from data, design, or deployment. Joy Buolamwini's 'Gender Shades' (MIT 2018, with Timnit Gebru) found commercial face APIs were 35% less accurate on dark-skinned women. ProPublica's 2016 COMPAS audit found it twice as likely to flag Black defendants as future criminals. Amazon's 2018 recruiting AI penalized 'women's' resumes. AP CSP Big Idea 5.5 makes bias central. Mitigations: diverse training data, fairness audits (IBM AIF360, Microsoft Fairlearn), regulatory oversight (EU AI Act 2024)."
@@ -3296,9 +3296,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Login security adding factors like phone codes or hardware keys beyond a password.",
       "choices": [
+        "DNS",
         "Algorithmic bias",
-        "Creative Commons",
-        "Cyberbullying",
+        "Digital divide",
         "Multi-factor authentication"
       ],
       "correctText": "Multi-factor authentication",

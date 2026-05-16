@@ -18,10 +18,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Adding a constant outside the function: f(x) + k.",
       "choices": [
-        "x >= 3",
         "Vertical shift",
-        "x = 3i and x = -3i",
-        "Zeros of the denominator"
+        "x >= 3",
+        "f(x) approaches L as x approaches a",
+        "Range"
       ],
       "correctText": "Vertical shift",
       "explanation": "Vertical shift: f(x)+k shifts the graph up k units if k>0, down |k| units if k<0. The transformation acts on the output (y-value). Example: g(x)=x^2+4 is f(x)=x^2 shifted up 4. Domain unchanged; range shifts by k. Distinct from horizontal shifts which act on input. Mnemonic: 'outside affects up/down as expected.' This is foundational for PreCalc Regents graphing items and crucial for AP Calc when sketching antiderivatives where +C represents the family of vertical shifts."
@@ -41,9 +41,9 @@
       "prompt": "The set of all output values that a function actually produces.",
       "choices": [
         "Range",
-        "1",
         "[1, 5]",
-        "x >= 3"
+        "y = 0",
+        "Zeros of the denominator"
       ],
       "correctText": "Range",
       "explanation": "Range: The set of all y-values produced by f(x). For f(x)=x^2 the range is [0, inf) since squares are non-negative. For f(x)=sin(x) the range is [-1, 1]. For f(x)=e^x the range is (0, inf) since exponentials are strictly positive. On PreCalc exams you find range by analyzing extrema, asymptotes, and end behavior. Range is often harder to determine than domain because it depends on the function's full output behavior, not just where it is defined."
@@ -62,10 +62,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "These x-values must be excluded from the domain of a rational function.",
       "choices": [
+        "Vertical shift",
         "Zeros of the denominator",
         "x >= 3",
-        "[1, 5]",
-        "sin x / cos x"
+        "(1, 2)"
       ],
       "correctText": "Zeros of the denominator",
       "explanation": "Zeros of denominator: For f(x)=p(x)/q(x), the domain excludes any x making q(x)=0. Example: f(x)=(x+2)/(x^2-9) has domain restrictions at x=3 and x=-3 since x^2-9=(x-3)(x+3). If a factor cancels with the numerator (removable), you get a hole; otherwise a vertical asymptote. AP Calc limit problems hinge on this: lim x->3 of (x^2-9)/(x-3) = 6 because (x-3) cancels, giving a removable discontinuity at x=3."
@@ -84,10 +84,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Domain restriction for sqrt(2x-6).",
       "choices": [
+        "Vertical shift",
         "[1, 5]",
-        "Zeros of the denominator",
-        "x >= 3",
-        "1 + tan^2 x = sec^2 x"
+        "Circle of radius a centered at origin",
+        "x >= 3"
       ],
       "correctText": "x >= 3",
       "explanation": "Domain of sqrt(2x-6): The radicand must be non-negative for a real-valued square root, so 2x-6>=0, giving x>=3 or interval [3, inf). For even-index radicals like sqrt or fourth-root, set the inside >=0. For odd-index radicals like cube root, all reals are permitted. For logarithmic functions like ln(2x-6), the argument must be strictly positive: 2x-6>0, giving x>3 (open at 3). This distinction between >= for roots and > for logs is a common PreCalc Regents trap."
@@ -106,10 +106,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Range of f(x) = 3 - 2cos(x).",
       "choices": [
-        "Vertical shift",
+        "2 * 3^9 = 39366",
+        "x >= 3",
         "[1, 5]",
-        "The exponent such that b^y = x",
-        "x >= 3"
+        "Range"
       ],
       "correctText": "[1, 5]",
       "explanation": "Range of 3-2cos(x): cos(x) has range [-1,1]. Multiply by -2 to flip and stretch: -2cos(x) has range [-2, 2]. Add 3: range becomes [1, 5]. Maximum occurs when cos(x)=-1 (x=pi), giving 3-(-2)=5. Minimum when cos(x)=1 (x=0), giving 3-2=1. This is sinusoidal transformation analysis used in PreCalc Regents for finding amplitude (|A|=2), midline (y=3), max=midline+amp=5, min=midline-amp=1. AP Calc uses identical reasoning for bounded trig integrals."
@@ -128,10 +128,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Replacing x with x-h causes the graph to shift this way.",
       "choices": [
-        "Horizontal shift right by h",
-        "5/2",
         "5",
-        "Shift left 3, vertical stretch by 2 with reflection over x-axis, shift down 1"
+        "Horizontal shift right by h",
+        "Reflection over the line y = x",
+        "x = pi/6, 5pi/6, 3pi/2"
       ],
       "correctText": "Horizontal shift right by h",
       "explanation": "Horizontal shift: f(x-h) shifts the graph RIGHT by h units (counterintuitive). Example: g(x)=(x-3)^2 is f(x)=x^2 shifted right 3 units, vertex now at (3,0). Replacing x by x+h shifts LEFT. Reason: to get the same output value, x must be h larger. PreCalc Regents tests this with vertex form (x-h)^2 and sinusoidal phase shift sin(x-pi/4). Common error: students shift the wrong way. AP Calc uses this for u-substitution intuition and shifted-interval integration."
@@ -150,10 +150,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Geometric transformation that maps f to f^-1 in the xy-plane.",
       "choices": [
-        "(2, 4pi/3)",
-        "Reflection over the y-axis",
-        "5",
-        "Reflection over the line y = x"
+        "y -> infinity",
+        "Horizontal shift right by h",
+        "Reflection over the line y = x",
+        "Reflection over the y-axis"
       ],
       "correctText": "Reflection over the line y = x",
       "explanation": "Graphical inverse: The graph of f^-1 is the reflection of f across the line y=x. This is because (a,b) on f means f(a)=b, which means f^-1(b)=a, so (b,a) is on f^-1. Swapping coordinates is geometrically equivalent to reflection over y=x. Example: f(x)=e^x and f^-1(x)=ln(x) are reflections of each other. PreCalc Regents includes 'sketch the inverse' problems. AP Calc uses this for inverse trig graphs and for inverse function derivatives where slopes are reciprocals at reflected points."
@@ -172,10 +172,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Transformation produced by f(-x).",
       "choices": [
-        "7",
         "Reflection over the y-axis",
+        "Reflection over the line y = x",
         "Shift left 3, vertical stretch by 2 with reflection over x-axis, shift down 1",
-        "Reflection over the line y = x"
+        "θ = pi/4 (or θ = pi/4 + pi)"
       ],
       "correctText": "Reflection over the y-axis",
       "explanation": "Reflection y-axis: f(-x) reflects the graph across the y-axis. Example: g(x)=(-x)^3+(-x)=-x^3-x is f(x)=x^3+x reflected across y-axis. Even functions like f(x)=x^2 satisfy f(-x)=f(x), so they are unchanged (symmetric about y-axis). Odd functions like sin(x) satisfy f(-x)=-f(x). Distinct from -f(x) which reflects over the x-axis. Tested on PreCalc Regents 'is this function even, odd, or neither' questions, foundational for Fourier series later."
@@ -194,10 +194,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Vertical stretch factor in g(x) = 5f(x).",
       "choices": [
-        "5",
-        "y -> infinity (slowly)",
+        "y = (x+2)^2 + 3",
+        "Horizontal shift right by h",
         "Reflection over the y-axis",
-        "Reflection over the line y = x"
+        "5"
       ],
       "correctText": "5",
       "explanation": "Vertical stretch: af(x) with |a|>1 stretches the graph vertically by factor |a|. Here a=5: every y-value is multiplied by 5. Example: g(x)=5sin(x) has amplitude 5 (range [-5,5]). If 0<|a|<1, it is a vertical compression. Negative a also reflects over x-axis. Order of transformations matters: y=5f(x-2)+1 means shift right 2, stretch 5 (around x-axis), then shift up 1. PreCalc Regents asks 'identify a, h, k' for transformations: a=stretch, h=horiz shift, k=vert shift."
@@ -216,10 +216,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Transformation order to apply to g(x) = -2f(x+3) - 1 starting from f(x).",
       "choices": [
-        "Reflection over the line y = x",
-        "f must be continuous on the closed interval [a,b]",
+        "Shift left 3, vertical stretch by 2 with reflection over x-axis, shift down 1",
         "5",
-        "Shift left 3, vertical stretch by 2 with reflection over x-axis, shift down 1"
+        "3, 5, 7",
+        "Reflection over the line y = x"
       ],
       "correctText": "Shift left 3, vertical stretch by 2 with reflection over x-axis, shift down 1",
       "explanation": "Transformation order: For g(x)=af(x-h)+k, apply inside transformations first (horizontal: shift then stretch), then outside (vertical stretch/reflect then shift). For -2f(x+3)-1: (1) x+3 means shift LEFT 3; (2) coefficient -2 means stretch by 2 AND reflect over x-axis; (3) -1 means shift DOWN 1. PreCalc Regents grading distinguishes correct order. Note: horizontal stretches reverse intuition - f(2x) is a COMPRESSION by 1/2, not a stretch by 2, because input is doubled."
@@ -238,10 +238,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Notation for 'f composed with g' applied to x.",
       "choices": [
-        "x must be in domain of g and g(x) must be in domain of f",
-        "19",
+        "x = pi/6, 5pi/6, 3pi/2",
         "f(g(x))",
-        "(-pi/2, pi/2)"
+        "19",
+        "x^2 - 4"
       ],
       "correctText": "f(g(x))",
       "explanation": "Composition f(g(x)): Apply g first, then apply f to the result. Written (f o g)(x) or f(g(x)). Example: if f(x)=x^2 and g(x)=x+1, then (f o g)(x)=f(x+1)=(x+1)^2. In general f(g(x)) does NOT equal g(f(x)). For (g o f)(x)=(x^2)+1=x^2+1. Composition is the inverse of decomposition. AP Calc chain rule d/dx[f(g(x))]=f'(g(x))*g'(x) requires recognizing compositions. PreCalc Regents tests evaluation, simplification, and domain of compositions."
@@ -260,10 +260,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "If f(x) = 2x+1 and g(x) = x^2, this equals (f o g)(3).",
       "choices": [
-        "x^2 - 4",
+        "x = pi/2 + n*pi",
         "f(x) = x^4, g(x) = 3x+1",
-        "19",
-        "x = pi/6 and 5pi/6"
+        "x^2 - 4",
+        "19"
       ],
       "correctText": "19",
       "explanation": "Composition value: (f o g)(3)=f(g(3)). First compute g(3)=3^2=9. Then f(9)=2(9)+1=18+1=19. Order matters: (g o f)(3)=g(f(3))=g(7)=49, which differs. PreCalc Regents tests this with tables, graphs, and formulas. Mistake to avoid: computing f first instead of g (the inner function). Composition values appear on AP Calc multiple choice for chain rule applications and integration by substitution where recognizing the outer/inner function structure is essential."
@@ -283,9 +283,9 @@
       "prompt": "Domain restriction when forming (f o g)(x) where f and g have separate domains.",
       "choices": [
         "f(x) = x^4, g(x) = 3x+1",
+        "t = ln(2)/0.05 ≈ 13.86 years",
         "x must be in domain of g and g(x) must be in domain of f",
-        "<-5, 1, 1>",
-        "19"
+        "f(g(x))"
       ],
       "correctText": "x must be in domain of g and g(x) must be in domain of f",
       "explanation": "Composition domain: For (f o g)(x), x must lie in g's domain AND g(x) must lie in f's domain. Example: f(x)=sqrt(x) (dom x>=0), g(x)=x-5 (dom all reals). Composition: f(g(x))=sqrt(x-5). x must be in dom(g) (all reals OK) AND g(x)=x-5 must be in dom(f), so x-5>=0, giving x>=5. Final domain: x>=5. Common Regents trap: students forget the second condition. AP Calc uses this when analyzing continuity of composite functions."
@@ -304,10 +304,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "If f(x) = sqrt(x) and (f o g)(x) = sqrt(x^2-4), then g(x) equals this.",
       "choices": [
-        "x = 2 +/- 3i",
-        "x must be in domain of g and g(x) must be in domain of f",
-        "19",
-        "x^2 - 4"
+        "(x+7)/3",
+        "f(x) = x^4, g(x) = 3x+1",
+        "x^2 - 4",
+        "x must be in domain of g and g(x) must be in domain of f"
       ],
       "correctText": "x^2 - 4",
       "explanation": "Decomposition: Given (f o g)(x)=sqrt(x^2-4) and f(x)=sqrt(x), find g. Since f takes input and square-roots it, the argument inside the sqrt must be g(x). So g(x)=x^2-4. Verify: f(g(x))=f(x^2-4)=sqrt(x^2-4). Domain: x^2-4>=0 means x>=2 or x<=-2. AP Calc heavily relies on decomposition for chain rule: if y=sqrt(x^2-4), let u=x^2-4 (inner), then y=sqrt(u) (outer). dy/dx = (1/(2sqrt(u)))*(2x)=x/sqrt(x^2-4)."
@@ -326,10 +326,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "If h(x) = (3x+1)^4, decompose into outer f and inner g.",
       "choices": [
-        "f(x) approaches L as x approaches a",
-        "x^2 - 4",
-        "19",
-        "f(x) = x^4, g(x) = 3x+1"
+        "x = pi/3, 5pi/3",
+        "f(g(x))",
+        "f(x) = x^4, g(x) = 3x+1",
+        "19"
       ],
       "correctText": "f(x) = x^4, g(x) = 3x+1",
       "explanation": "Decomposition for chain rule: h(x)=(3x+1)^4. Outer operation: raising to the 4th power, so f(x)=x^4. Inner: the linear expression being raised, so g(x)=3x+1. Verify: f(g(x))=f(3x+1)=(3x+1)^4. AP Calc chain rule: h'(x)=f'(g(x))*g'(x)=4(3x+1)^3 * 3 = 12(3x+1)^3. PreCalc builds this skill so AB students can immediately apply the chain rule. Other valid decompositions exist (f(x)=x^2 and g(x)=(3x+1)^2) but the simplest is preferred."
@@ -349,9 +349,9 @@
       "prompt": "The set of all permissible input values for a function.",
       "choices": [
         "(x+7)/3",
-        "x >= 0",
+        "Circle of radius a centered at origin",
         "Domain",
-        "t = ln(2)/0.05 ≈ 13.86 years"
+        "Horizontal line test"
       ],
       "correctText": "Domain",
       "explanation": "Domain: The set of all x-values for which f(x) is defined. For f(x)=1/(x-3) the domain excludes x=3 since division by zero is undefined. For g(x)=sqrt(x-2) the domain is x>=2 since the radicand must be non-negative. On the AP Calc and PreCalc Regents you must always state domain restrictions when finding inverses, compositions, or limits. Domain notation can be inequality, set-builder {x | x!= 3}, or interval (-inf, 3) U (3, inf)."
@@ -370,10 +370,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Notation for the inverse of function f.",
       "choices": [
+        "Continuous everywhere",
+        "x >= 0",
         "f-inverse of x",
-        "Domain",
-        "<6, -3>",
-        "Horizontal line test"
+        "(x+7)/3"
       ],
       "correctText": "f-inverse of x",
       "explanation": "Inverse f^-1(x): Function that reverses f, satisfying f^-1(f(x))=x and f(f^-1(x))=x. NOTE: f^-1 is NOT 1/f. Example: f(x)=2x+3 has f^-1(x)=(x-3)/2. Graphically, f and f^-1 are reflections across the line y=x. A function has an inverse iff it is one-to-one (passes the horizontal line test). PreCalc Regents constructs inverses by swapping x and y then solving. AP Calc uses inverses for logarithms (inverse of exp), inverse trig, and the inverse function theorem (f^-1)'(b)=1/f'(a) where b=f(a)."
@@ -392,10 +392,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Test that determines whether f has an inverse function.",
       "choices": [
-        "x >= 0",
-        "(x+7)/3",
+        "Domain",
         "Horizontal line test",
-        "x = pi/6, 5pi/6, 3pi/2"
+        "Continuous everywhere",
+        "x >= 0"
       ],
       "correctText": "Horizontal line test",
       "explanation": "Horizontal Line Test: If every horizontal line crosses the graph of f at most once, f is one-to-one (injective) and has an inverse function. Example: f(x)=x^2 fails HLT on all reals (line y=4 crosses twice at x=2 and x=-2), so we restrict to x>=0 to define sqrt as its inverse. f(x)=x^3 passes HLT (strictly increasing), so its inverse is x^(1/3). The vertical line test (VLT) checks if it's a function; HLT checks if it's invertible. AP Calc applies this when restricting domains of cos, sin to define arccos, arcsin."
@@ -414,10 +414,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "If f(x) = 3x - 7, then f^-1(x) equals this.",
       "choices": [
-        "x >= 0",
-        "A = P e^(rt)",
-        "Horizontal line test",
-        "(x+7)/3"
+        "Domain",
+        "(x+7)/3",
+        "Reflection over the line y = x",
+        "f-inverse of x"
       ],
       "correctText": "(x+7)/3",
       "explanation": "Finding inverse algebraically: f(x)=3x-7. Step 1: Write y=3x-7. Step 2: Swap x and y: x=3y-7. Step 3: Solve for y: x+7=3y, so y=(x+7)/3. Therefore f^-1(x)=(x+7)/3. Verify: f(f^-1(x))=3((x+7)/3)-7=(x+7)-7=x (checks). For linear f(x)=mx+b, inverse is f^-1(x)=(x-b)/m. AP Calc: derivative of f is 3, derivative of f^-1 is 1/3, illustrating (f^-1)'(b)=1/f'(a)."
@@ -436,10 +436,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Domain restriction needed to invert f(x) = x^2.",
       "choices": [
+        "1",
+        "(x+7)/3",
         "x >= 0",
-        "f(g(x))",
-        "Domain",
-        "(x+7)/3"
+        "Domain"
       ],
       "correctText": "x >= 0",
       "explanation": "Inverting x^2: f(x)=x^2 fails HLT on all reals since both x=2 and x=-2 map to 4. Restrict to x>=0, then f is one-to-one with inverse f^-1(x)=sqrt(x). If we restrict to x<=0 instead, the inverse would be -sqrt(x). The principal square root convention chooses the non-negative branch. AP Calc applies analogous restriction to define arctan (restrict tan to (-pi/2, pi/2)), arcsin (restrict sin to [-pi/2, pi/2]), and arccos (restrict cos to [0, pi]) to make those one-to-one."
@@ -458,10 +458,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Property f(-x) = f(x) describes a function with this symmetry.",
       "choices": [
-        "Neither even nor odd",
+        "Even function (y-axis symmetric)",
+        "(x+7)/3",
         "Even",
-        "[0, pi]",
-        "Even function (y-axis symmetric)"
+        "sin, tan, csc, cot"
       ],
       "correctText": "Even function (y-axis symmetric)",
       "explanation": "Even function: f(-x)=f(x) for all x in domain; graph is symmetric about the y-axis. Examples: f(x)=x^2, f(x)=cos(x), f(x)=|x|, f(x)=x^4-3x^2+5. Polynomial test: all powers of x are even. AP Calc: even functions have integral(-a to a) f(x)dx = 2*integral(0 to a) f(x)dx, simplifying definite integrals over symmetric intervals. Fourier series of an even function on a symmetric interval contains only cosines (since cos is even, sin is odd)."
@@ -480,10 +480,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Property f(-x) = -f(x) describes a function with this symmetry.",
       "choices": [
-        "5 (at most five)",
         "Even",
-        "Even function (y-axis symmetric)",
-        "Odd function (origin symmetric)"
+        "Odd function (origin symmetric)",
+        "24/25",
+        "sin, tan, csc, cot"
       ],
       "correctText": "Odd function (origin symmetric)",
       "explanation": "Odd function: f(-x)=-f(x) for all x in domain; graph has 180-degree rotational symmetry about the origin. Examples: f(x)=x^3, f(x)=sin(x), f(x)=tan(x), f(x)=x. Polynomial test: all powers of x are odd (no constant term unless 0). AP Calc: odd functions satisfy integral(-a to a) f(x)dx = 0, eliminating half of many integrals. f(x)=x^5-2x^3+x is odd; integrate from -1 to 1 gives 0 instantly. f(0)=0 always for odd functions defined at 0."
@@ -502,10 +502,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Test f(x) = x^4 - 3x^2: even, odd, or neither.",
       "choices": [
-        "Odd function (origin symmetric)",
-        "Neither even nor odd",
         "Even",
-        "Circle of diameter a passing through origin"
+        "Sum_{n=1}^{5} n^2",
+        "sin, tan, csc, cot",
+        "Even function (y-axis symmetric)"
       ],
       "correctText": "Even",
       "explanation": "Even test: f(-x)=(-x)^4 - 3(-x)^2 = x^4 - 3x^2 = f(x). Since f(-x)=f(x), the function is even. All powers of x are even (4 and 2), confirming evenness. Graph is y-axis symmetric. Contrast: f(x)=x^4-3x^2+x is neither because the linear term x breaks evenness without making it odd. Quick rule: polynomial is even iff all terms have even powers; odd iff all powers are odd and there is no constant. PreCalc Regents tests this routinely; AP Calc uses it to simplify integrals over symmetric intervals."
@@ -524,10 +524,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sum of an even and an odd function is generally this.",
       "choices": [
-        "<3, 2>",
-        "Even function (y-axis symmetric)",
         "Neither even nor odd",
-        "Odd function (origin symmetric)"
+        "Even function (y-axis symmetric)",
+        "[0, pi]",
+        "Even"
       ],
       "correctText": "Neither even nor odd",
       "explanation": "Sum even+odd: If f is even and g is odd, then h(x)=f(x)+g(x) is generally neither. Test: h(-x)=f(-x)+g(-x)=f(x)+(-g(x))=f(x)-g(x), which equals neither h(x) nor -h(x) in general. Example: f(x)=x^2 (even) + g(x)=x^3 (odd) = h(x)=x^2+x^3. h(-1)=1-1=0, h(1)=2. Not even, not odd. Any function on a symmetric domain decomposes uniquely as even part [f(x)+f(-x)]/2 plus odd part [f(x)-f(-x)]/2. Used in physics and AP Calc Fourier-style decomposition."
@@ -546,10 +546,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Trig functions that are odd, listed.",
       "choices": [
-        "Even",
-        "Odd function (origin symmetric)",
         "sin, tan, csc, cot",
-        "Sine equals Opposite over Hypotenuse"
+        "5",
+        "Even",
+        "Neither even nor odd"
       ],
       "correctText": "sin, tan, csc, cot",
       "explanation": "Odd trig functions: sin(-x)=-sin(x), tan(-x)=-tan(x), csc(-x)=-csc(x), cot(-x)=-cot(x) - four functions are odd. Cos and sec are EVEN: cos(-x)=cos(x), sec(-x)=sec(x). Mnemonic: sin/tan/csc/cot are odd (4), cos/sec are even (2). PreCalc Regents tests this on identity simplification and AP Calc uses it for integrals like integral(-pi to pi) sin(x)dx = 0. Geometric reason: cosine is the x-coordinate on unit circle (symmetric under reflection), while sine is the y-coordinate (anti-symmetric)."
@@ -568,10 +568,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "X-values where the graph of a polynomial crosses or touches the x-axis.",
       "choices": [
-        "p(0)=6 positive, p(3)=0 (root exactly at 3)",
-        "At least one root in (0,1)",
         "Zeros (roots)",
-        "(x-2)(x^2-2x+2)"
+        "Multiplicity",
+        "(x-2)(x^2-2x+2)",
+        "(dy/dt) / (dx/dt)"
       ],
       "correctText": "Zeros (roots)",
       "explanation": "Zeros (roots): x-values where p(x)=0; equivalently x-intercepts. The Fundamental Theorem of Algebra (Gauss, 1799) states a degree-n polynomial has exactly n complex roots counting multiplicity. For p(x)=x^3-7x+6, roots are 1, 2, -3 (verify: (x-1)(x-2)(x+3)=x^3-7x+6). PreCalc Regents requires finding rational roots via Rational Root Theorem, then dividing. AP Calc uses zeros for sign analysis (where f>0 vs f<0) to identify intervals of increase, concavity, and extrema."
@@ -590,10 +590,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Theorem giving candidate rational roots p/q of a polynomial.",
       "choices": [
-        "Horizontal line test",
-        "Rational Root Theorem",
+        "-10",
+        "(x-2)(x^2-2x+2)",
         "Multiplicity",
-        "Zeros (roots)"
+        "Rational Root Theorem"
       ],
       "correctText": "Rational Root Theorem",
       "explanation": "Rational Root Theorem: For polynomial a_n x^n +... + a_0 with integer coefficients, any rational root p/q (in lowest terms) has p dividing a_0 and q dividing a_n. Example: for 2x^3-3x^2-3x+2, candidates are +/-1, +/-2, +/-1/2. Test x=2: 2(8)-3(4)-6+2=16-12-6+2=0, so x=2 is a root. Then synthetic divide to get a quadratic. Regents Algebra 2 and PreCalc apply this routinely; AP Calc uses it to factor before applying L'Hopital or partial fractions."
@@ -612,10 +612,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "When (x-r)^k divides p(x) but (x-r)^(k+1) does not, k is this property of root r.",
       "choices": [
-        "Multiplicity",
-        "<5, 4>",
-        "At least one root in (0,1)",
-        "(x-2)(x^2-2x+2)"
+        "[1, 5]",
+        "(x-2)(x^2-2x+2)",
+        "Rational Root Theorem",
+        "Multiplicity"
       ],
       "correctText": "Multiplicity",
       "explanation": "Multiplicity: For p(x)=(x-r)^k * q(x) with q(r)!=0, root r has multiplicity k. Geometrically: if k is odd, graph CROSSES x-axis at r; if k is even, graph TOUCHES and bounces. Example: p(x)=(x-1)^2(x+3)^3 has root 1 (mult 2, bounces) and root -3 (mult 3, crosses with inflection). Total degree = 2+3=5. AP Calc connects multiplicity to derivative behavior: at a root of mult k, p(x), p'(x),..., p^(k-1)(x) all vanish. PreCalc Regents tests bouncing vs crossing graphically."
@@ -634,10 +634,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Number of real roots IVT guarantees for p(x) = x^5 - 4x + 1 given p(0) = 1 and p(1) = -2.",
       "choices": [
-        "Slant (oblique) asymptote",
+        "Zeros (roots)",
+        "sin x",
         "At least one root in (0,1)",
-        "Rational Root Theorem",
-        "(x-2)(x^2-2x+2)"
+        "Multiplicity"
       ],
       "correctText": "At least one root in (0,1)",
       "explanation": "IVT application: p(x)=x^5-4x+1 is a polynomial (continuous everywhere). p(0)=1>0, p(1)=1-4+1=-2<0. Opposite signs on continuous function => at least one root in (0,1) by IVT. IVT only guarantees AT LEAST ONE; there could be 3 (degree 5 polynomial can have up to 5 real roots). Indeed, p(2)=32-8+1=25>0 means another sign change in (1,2). So at least 2 real roots. PreCalc Regents tests IVT existence claims; AP Calc BC tests subtle versions like 'how many guaranteed roots?'."
@@ -656,10 +656,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Polynomial of lowest degree with real coefficients having roots 2 and 1+i.",
       "choices": [
-        "Rational Root Theorem",
         "(x-2)(x^2-2x+2)",
-        "Zeros (roots)",
-        "16x^12"
+        "1 / sin x",
+        "At least one root in (0,1)",
+        "Multiplicity"
       ],
       "correctText": "(x-2)(x^2-2x+2)",
       "explanation": "Build polynomial: Real coefficients require conjugate of 1+i, so 1-i is also a root. Three roots: 2, 1+i, 1-i. Polynomial: (x-2)(x-(1+i))(x-(1-i)). Multiply conjugate factors: (x-(1+i))(x-(1-i)) = x^2 - x(1-i) - x(1+i) + (1+i)(1-i) = x^2 - 2x + (1-i^2) = x^2 - 2x + 2. Then (x-2)(x^2-2x+2) = x^3 - 2x^2 + 2x - 2x^2 + 4x - 4 = x^3 - 4x^2 + 6x - 4. Degree 3 minimum; lower degree would violate conjugate theorem. AP-style problem."
@@ -678,10 +678,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Vertical line x = a is this when f(x) approaches infinity as x approaches a.",
       "choices": [
-        "f must be continuous on the closed interval [a,b]",
-        "1/2",
-        "Vertical asymptote",
-        "Negative infinity"
+        "x-intercepts at x=1 and x=-3; vertical asymptote at x=2; slant asymptote y=x+2",
+        "y = 3/2",
+        "y -> infinity",
+        "Vertical asymptote"
       ],
       "correctText": "Vertical asymptote",
       "explanation": "Vertical asymptote: x=a is a VA if lim x->a^+ or x->a^- of f(x) is +/-inf. For rational f=p/q, VA occurs where q(a)=0 and p(a)!=0 (otherwise removable hole). Example: f(x)=(x+2)/(x^2-9) has VAs at x=3 and x=-3 since x^2-9=(x-3)(x+3) and numerator doesn't vanish. f(x)=(x-3)/(x^2-9)=1/(x+3) has VA at x=-3 only; hole at x=3. AP Calc: VAs correspond to one-sided limits being infinite, key for sketching graphs and identifying integrals that diverge."
@@ -700,10 +700,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Horizontal asymptote of f(x) = (3x^2 + 5)/(2x^2 - 7).",
       "choices": [
+        "Zeros of the denominator",
         "x-intercepts at x=1 and x=-3; vertical asymptote at x=2; slant asymptote y=x+2",
-        "Zeros (roots)",
-        "Vertical asymptote",
-        "y = 3/2"
+        "y = 3/2",
+        "f must be continuous on the closed interval [a,b]"
       ],
       "correctText": "y = 3/2",
       "explanation": "Horizontal asymptote: For rational f=p/q, compare degrees. Here both numerator and denominator have degree 2 (equal), so HA = ratio of leading coefficients = 3/2. Rules: if deg(p)<deg(q), HA is y=0; if deg(p)=deg(q), HA is ratio of leading coefficients; if deg(p)>deg(q), no HA (slant or higher asymptote). Verify by limit: lim x->inf of (3x^2+5)/(2x^2-7) = lim 3/2 = 3/2 (divide num/denom by x^2). AP Calc heavily uses this for limits at infinity."
@@ -722,10 +722,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Continuity requirement that the IVT needs.",
       "choices": [
-        "Vertical asymptote",
-        "3",
+        "f must be continuous on the closed interval [a,b]",
+        "Domain",
         "y = 3/2",
-        "f must be continuous on the closed interval [a,b]"
+        "Negative infinity"
       ],
       "correctText": "f must be continuous on the closed interval [a,b]",
       "explanation": "Continuity for IVT: The function must be continuous on the entire closed interval [a,b], not just at endpoints. Counter-example: f(x)=1/x on [-1, 1] is undefined at x=0 (not continuous), and although f(-1)=-1<0 and f(1)=1>0, there is no root in (-1,1). The discontinuity 'jumps over' the value 0. PreCalc Regents tests recognizing where continuity fails (rational, piecewise, removable holes). AP Calc emphasizes hypothesis-checking for IVT, MVT, EVT - missing hypothesis is a common AP free-response trap."
@@ -744,10 +744,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "End behavior of p(x) = -3x^4 + 7x^2 - x + 2 as x approaches positive infinity.",
       "choices": [
-        "x = pi/2 + n*pi",
-        "x-intercepts at x=1 and x=-3; vertical asymptote at x=2; slant asymptote y=x+2",
+        "y = 3/2",
+        "Vertical asymptote",
         "Negative infinity",
-        "y = 3/2"
+        "x = 3i and x = -3i"
       ],
       "correctText": "Negative infinity",
       "explanation": "End behavior: For polynomial a_n x^n + lower terms, as |x|->inf the dominant term is a_n x^n. Here a_n=-3, n=4 (even). As x->+inf, x^4->+inf, multiplied by -3 gives -inf. As x->-inf, x^4 still ->+inf (even power), times -3 gives -inf. Both ends down: a negative even-degree polynomial. Mnemonic: leading coefficient sign and degree parity determine end behavior. AP Calc uses end behavior for horizontal asymptotes of rational functions and dominant-term analysis in limits at infinity."
@@ -766,8 +766,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "X-intercepts and asymptotes of f(x) = (x-1)(x+3)/(x-2).",
       "choices": [
-        "f must be continuous on the closed interval [a,b]",
         "x-intercepts at x=1 and x=-3; vertical asymptote at x=2; slant asymptote y=x+2",
+        "f must be continuous on the closed interval [a,b]",
         "r sin theta",
         "y = 3/2"
       ],
@@ -788,10 +788,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Shortcut method for dividing a polynomial by a linear divisor x-c.",
       "choices": [
-        "2x^2 + 3x - 2",
+        "1",
         "Synthetic division",
         "Remainder Theorem",
-        "x = 2 +/- 3i"
+        "Slant (oblique) asymptote"
       ],
       "correctText": "Synthetic division",
       "explanation": "Synthetic division: A streamlined algorithm for dividing polynomial p(x) by linear factor (x-c). Write only the coefficients; bring down leading coefficient, multiply by c, add to next, repeat. Example: divide x^3-4x^2+5x-2 by (x-1). Write 1 | 1 -4 5 -2. Bring down 1, multiply by 1=1, add: -4+1=-3, multiply: -3, add: 5-3=2, multiply: 2, add: -2+2=0 remainder. Quotient: x^2-3x+2, remainder 0, so x=1 is a root. AP Calc uses it for factoring before applying limits or partial fractions."
@@ -810,9 +810,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Theorem stating p(c) equals the remainder when p(x) is divided by x-c.",
       "choices": [
-        "pi/4",
         "Slant (oblique) asymptote",
-        "At most 2 (less than 3)",
+        "Synthetic division",
+        "sin x",
         "Remainder Theorem"
       ],
       "correctText": "Remainder Theorem",
@@ -832,10 +832,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Type of asymptote f(x) = (x^2+1)/x has at infinity.",
       "choices": [
-        "4 hours",
-        "2x^2 + 3x - 2",
+        "2pi/3",
         "Synthetic division",
-        "Slant (oblique) asymptote"
+        "Slant (oblique) asymptote",
+        "At most 2 (less than 3)"
       ],
       "correctText": "Slant (oblique) asymptote",
       "explanation": "Slant asymptote: When degree of numerator is exactly 1 more than degree of denominator, f has a slant (oblique) asymptote. Long-divide: (x^2+1)/x = x + 1/x. As x->+/-inf, the 1/x term vanishes, so slant asymptote is y=x. General method: polynomial-divide p(x) by q(x), and the quotient is the asymptotic form. If deg(p)=deg(q)+2, get a parabolic asymptote (rare in PreCalc). AP Calc applies this in curve sketching for rational functions with mismatched degrees."
@@ -854,10 +854,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Quotient when (2x^3 + x^2 - 5x + 2) is divided by (x - 1).",
       "choices": [
+        "y = ln(x)",
+        "Synthetic division",
         "2x^2 + 3x - 2",
-        "Intermediate Value Theorem",
-        "At most 2 (less than 3)",
-        "Slant (oblique) asymptote"
+        "Remainder Theorem"
       ],
       "correctText": "2x^2 + 3x - 2",
       "explanation": "Synthetic division by (x-1): coefficients 2, 1, -5, 2 with c=1. Bring down 2; *1+1=3; *1+(-5)=-2; *1+2=0. Quotient coefficients 2, 3, -2 (degree 2). So 2x^2+3x-2 with remainder 0, confirming x=1 is a root. Verify: (x-1)(2x^2+3x-2)=2x^3+3x^2-2x-2x^2-3x+2=2x^3+x^2-5x+2. PreCalc Regents tests synthetic division setup, especially with missing terms (use 0 for missing powers). AP Calc connects to limit identities like (x^n-1)/(x-1)."
@@ -876,10 +876,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Degree of remainder when dividing polynomial p(x) by divisor of degree 3.",
       "choices": [
-        "Slant (oblique) asymptote",
-        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)",
         "At most 2 (less than 3)",
-        "Synthetic division"
+        "Synthetic division",
+        "Slant (oblique) asymptote",
+        "The exponent such that b^y = x"
       ],
       "correctText": "At most 2 (less than 3)",
       "explanation": "Polynomial Division Algorithm: For polynomials p(x) and d(x) with deg(d)>=1, there exist unique polynomials q(x) (quotient) and r(x) (remainder) with p(x)=q(x)*d(x)+r(x) and deg(r)<deg(d) (or r=0). Here deg(d)=3, so deg(r)<3, meaning deg(r) is 0, 1, or 2. Example: divide x^5+1 by x^3-1: quotient x^2, remainder x^2+1 (degree 2 < 3). AP Calc: partial fraction decomposition relies on this: numerator degree must be less than denominator degree, requiring long division first if not."
@@ -898,10 +898,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Imaginary unit defined by i^2 = -1.",
       "choices": [
-        "Conjugate pairs",
+        "7",
         "i",
-        "pi/2",
-        "7"
+        "x = pi/3 and 5pi/3",
+        "Conjugate pairs"
       ],
       "correctText": "i",
       "explanation": "Imaginary unit i: Defined by i^2=-1, equivalently i=sqrt(-1). Powers cycle: i^1=i, i^2=-1, i^3=-i, i^4=1, then repeat with period 4. So i^17=i^(4*4+1)=i. Complex number z=a+bi has real part a and imaginary part b. Algebra 2 introduces; PreCalc extends to roots of polynomials. Quadratic ax^2+bx+c has complex roots when discriminant b^2-4ac<0: roots are (-b +/- i*sqrt(4ac-b^2))/(2a). AP Calc avoids complex (real analysis), but they reappear in differential equations with characteristic equation r^2+1=0 giving sin/cos solutions."
@@ -920,10 +920,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Theorem: complex roots of polynomials with real coefficients come in this kind of pair.",
       "choices": [
+        "Vertical shift",
         "Conjugate pairs",
-        "p(0)=6 positive, p(3)=0 (root exactly at 3)",
-        "7",
-        "The exponent such that b^y = x"
+        "i",
+        "7"
       ],
       "correctText": "Conjugate pairs",
       "explanation": "Conjugate Root Theorem: If p(x) has real coefficients and a+bi is a root (b!=0), then a-bi is also a root. The two roots are complex conjugates. Example: p(x)=x^2-4x+13 has roots from quadratic formula x=(4 +/- sqrt(16-52))/2 = (4 +/- 6i)/2 = 2+/-3i. They are conjugates. Consequence: odd-degree real polynomials must have at least one REAL root (complex roots pair off; an odd number cannot all pair). PreCalc Regents tests building polynomials given complex roots; you must include the conjugate."
@@ -942,10 +942,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sign of p(x) = x^3 - 2x^2 - 5x + 6 at x = 0 and x = 3, telling you about a root.",
       "choices": [
-        "7",
-        "T = ln(2) / |k|",
         "p(0)=6 positive, p(3)=0 (root exactly at 3)",
-        "i"
+        "i",
+        "7",
+        "+infinity"
       ],
       "correctText": "p(0)=6 positive, p(3)=0 (root exactly at 3)",
       "explanation": "Evaluate: p(0)=0-0-0+6=6>0. p(3)=27-18-15+6=0, so x=3 IS a root (no need for IVT; direct factor (x-3)). After dividing: p(x)=(x-3)(x^2+x-2)=(x-3)(x+2)(x-1). Roots: 1, 3, -2. PreCalc Regents combines IVT (sign change) with synthetic division to find rational roots. Pedagogically: try integer factors of constant term (here +/-1, +/-2, +/-3, +/-6); test signs to localize; then factor. AP Calc: sign analysis of derivatives uses IVT to identify intervals of monotonicity."
@@ -964,10 +964,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Total roots (real + complex) of a degree-7 polynomial, counting multiplicity.",
       "choices": [
-        "Cardioid",
         "Conjugate pairs",
-        "x = 3i and x = -3i",
-        "7"
+        "A_0 * e^(kt) (k > 0)",
+        "7",
+        "i"
       ],
       "correctText": "7",
       "explanation": "Fundamental Theorem of Algebra (Gauss, 1799): Every degree-n polynomial with complex coefficients has exactly n roots in C, counting multiplicity. Here degree 7 means exactly 7 roots. They might split as 7 real, or 5 real + 1 conjugate pair, or 3 real + 2 conjugate pairs, or 1 real + 3 conjugate pairs (since complex roots come in pairs for real-coefficient polynomials). The 1799 doctoral thesis of Gauss proved this; previous proofs had gaps. PreCalc Regents and AP Calc tacitly use this when factoring fully."
@@ -986,10 +986,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Complex roots of x^2 + 9 = 0.",
       "choices": [
+        "i",
         "x = 3i and x = -3i",
-        "Conjugate pairs",
-        "p(0)=6 positive, p(3)=0 (root exactly at 3)",
-        "(1 - cos 2x)/2"
+        "y^2 = x^3 (semicubical parabola)",
+        "p(0)=6 positive, p(3)=0 (root exactly at 3)"
       ],
       "correctText": "x = 3i and x = -3i",
       "explanation": "Solve x^2+9=0: x^2=-9, x=+/-sqrt(-9)=+/-sqrt(9)*sqrt(-1)=+/-3i. The two roots are complex conjugates 3i and -3i (a=0, b=+/-3). Equivalently, x^2+9 factors over C as (x-3i)(x+3i). Over R, this polynomial is IRREDUCIBLE (no real factorization beyond itself). Quadratics with negative discriminant are irreducible over R. PreCalc Regents tests evaluating sqrt(negative) and writing complex roots in a+bi form. AP Calc: when computing real definite integrals, complex roots in denominators give arctan-style antiderivatives."
@@ -1008,10 +1008,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Theorem: continuous f on [a,b] taking values f(a) and f(b) of opposite signs has a root in (a,b).",
       "choices": [
-        "y = (x+2)^2 + 3",
+        "2pi",
+        "Intermediate Value Theorem",
         "Factor Theorem",
-        "Hole (removable discontinuity)",
-        "Intermediate Value Theorem"
+        "5 (at most five)"
       ],
       "correctText": "Intermediate Value Theorem",
       "explanation": "Intermediate Value Theorem (IVT): If f is continuous on [a,b] and N is between f(a) and f(b), there exists c in (a,b) with f(c)=N. Special case (Bolzano): if f(a) and f(b) have opposite signs, there's a root in (a,b). Continuity is essential: f(x)=1/x on [-1,1] is not continuous and changes sign without a root. Example: p(x)=x^3-x-1 is continuous, p(1)=-1<0, p(2)=5>0, so a root exists in (1,2). PreCalc Regents and AP Calc list IVT as core - the BC exam tests it explicitly with continuous function tables."
@@ -1030,10 +1030,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Maximum number of real zeros for polynomial of degree 5.",
       "choices": [
-        "Slant (oblique) asymptote",
-        "5 (at most five)",
         "Intermediate Value Theorem",
-        "Factor Theorem"
+        "Hole (removable discontinuity)",
+        "5 (at most five)",
+        "13"
       ],
       "correctText": "5 (at most five)",
       "explanation": "Maximum zeros: A degree-n polynomial has at most n real zeros (Fundamental Theorem of Algebra: exactly n complex roots, of which real ones are a subset). Example: p(x)=x^5-5x^3+4x = x(x^2-1)(x^2-4) = x(x-1)(x+1)(x-2)(x+2) has 5 real zeros. But p(x)=x^5+1 has only 1 real zero (x=-1) and 4 complex zeros (conjugate pairs). Odd-degree polynomials always have at least 1 real zero by Intermediate Value Theorem since end behavior gives values of opposite signs."
@@ -1052,9 +1052,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Behavior of f(x) = (x^2-4)/(x-2) at x = 2.",
       "choices": [
-        "(sqrt(2), pi/4)",
-        "Factor Theorem",
         "5 (at most five)",
+        "16x^12",
+        "Intermediate Value Theorem",
         "Hole (removable discontinuity)"
       ],
       "correctText": "Hole (removable discontinuity)",
@@ -1074,10 +1074,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Statement that (x - c) is a factor of p(x) if and only if p(c) = 0.",
       "choices": [
-        "Intermediate Value Theorem",
+        "1",
         "Factor Theorem",
-        "Hole (removable discontinuity)",
-        "Horizontal shift right by h"
+        "Intermediate Value Theorem",
+        "Intermediate Value Theorem"
       ],
       "correctText": "Factor Theorem",
       "explanation": "Factor Theorem: (x-c) divides p(x) iff p(c)=0. This is a direct consequence of the Remainder Theorem: if p(c)=remainder=0 then division is exact. Used to verify and find factors. Example: For p(x)=x^4-5x^2+4, p(1)=1-5+4=0 and p(-1)=1-5+4=0 and p(2)=16-20+4=0 and p(-2)=16-20+4=0. So (x-1), (x+1), (x-2), (x+2) all factor: p(x)=(x-1)(x+1)(x-2)(x+2)=(x^2-1)(x^2-4). AP Calc uses Factor Theorem to factor before applying L'Hopital's Rule on 0/0 forms."
@@ -1096,10 +1096,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Bisection method's underlying theorem for finding roots numerically.",
       "choices": [
-        "Intermediate Value Theorem",
-        "Hole (removable discontinuity)",
+        "3",
         "5 (at most five)",
-        "y = 0"
+        "Intermediate Value Theorem",
+        "Factor Theorem"
       ],
       "correctText": "Intermediate Value Theorem",
       "explanation": "Bisection method: Given continuous f with f(a)f(b)<0, repeatedly bisect [a,b]: compute m=(a+b)/2. If f(m)=0 done; else f(m) has opposite sign to one endpoint, so root lies in the half-interval where signs differ. Repeat. Each iteration halves the bracket: after n steps, root is within (b-a)/2^n of the midpoint. Underlying theorem: IVT guarantees the root exists in each bracketed sub-interval. PreCalc Regents introduces the algorithm; AP Calc uses it conceptually before Newton's Method (faster, quadratic convergence)."
@@ -1118,10 +1118,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Law: a^m * a^n equals this.",
       "choices": [
-        "a^(m+n)",
-        "1",
-        "x = 2",
-        "y approaches infinity (slowly)"
+        "y approaches infinity (slowly)",
+        "16x^12",
+        "y -> 2 (horizontal asymptote y=2)",
+        "a^(m+n)"
       ],
       "correctText": "a^(m+n)",
       "explanation": "Product of powers (same base): a^m * a^n = a^(m+n). Example: 2^3 * 2^4 = 2^7 = 128. Verify: 8 * 16 = 128. Generalizes from counting: a^3 means a*a*a (3 a's) and a^4 means a*a*a*a (4 a's), so their product has 3+4=7 a's. Extended to negative and rational exponents by consistency. PreCalc Regents drills this constantly. AP Calc uses it in derivatives: d/dx[e^x * e^(2x)] = d/dx[e^(3x)] = 3e^(3x), and integrals where combining exponentials first simplifies."
@@ -1140,10 +1140,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Equivalent of a^0 for a!= 0.",
       "choices": [
-        "y approaches infinity (slowly)",
-        "(0, 1)",
-        "x >= 3",
-        "1"
+        "r = sqrt(x^2 + y^2)",
+        "a^(m+n)",
+        "1",
+        "16x^12"
       ],
       "correctText": "1",
       "explanation": "Zero exponent: a^0=1 for any a!=0. Reason from quotient rule: a^n/a^n=a^(n-n)=a^0; but a^n/a^n=1 (nonzero). So a^0=1. Note 0^0 is INDETERMINATE - it depends on context (combinatorics often takes 0^0=1, analysis often leaves undefined). Generalizes to a^(-n)=1/a^n via a^0/a^n=a^(-n). PreCalc Regents tests this in simplifying expressions like (x^3*y^0)/(x^2)=x. AP Calc: limits like lim x->0^+ of x^x = 1 reveal the 0^0 ambiguity via L'Hopital."
@@ -1162,10 +1162,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Y-intercept of f(x) = e^x.",
       "choices": [
-        "(0, 1)",
+        "a^(m+n)",
         "16x^12",
-        "r = d/(cos(θ - α)) or similar",
-        "a^(m+n)"
+        "(0, 1)",
+        "Remainder Theorem"
       ],
       "correctText": "(0, 1)",
       "explanation": "Y-intercept of e^x: f(0)=e^0=1, so y-intercept is (0,1). All exponentials f(x)=a*b^x pass through (0, a). For f(x)=e^x specifically: (0,1). For f(x)=3*2^x: passes through (0, 3). For shifted: f(x)=e^x+2 passes through (0, 3). Inverse log f(x)=ln x has x-intercept (1, 0) because ln(1)=0 (note: x and y swapped vs. exponential). PreCalc Regents always asks for intercepts when analyzing transformed functions. AP Calc uses initial values to determine constants C in indefinite integrals."
@@ -1184,9 +1184,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Simplified form of (2x^3)^4.",
       "choices": [
-        "x = pi/6, 5pi/6, 3pi/2",
         "16x^12",
-        "a^(m+n)",
+        "y approaches infinity (slowly)",
+        "<6, -3>",
         "(0, 1)"
       ],
       "correctText": "16x^12",
@@ -1207,9 +1207,9 @@
       "prompt": "End behavior of f(x) = log_2(x) as x approaches infinity.",
       "choices": [
         "1",
+        "(1, 0)",
         "y approaches infinity (slowly)",
-        "16x^12",
-        "y^2 = x^3 (semicubical parabola)"
+        "a^(m+n)"
       ],
       "correctText": "y approaches infinity (slowly)",
       "explanation": "End behavior of log: log_b(x) for b>1 increases without bound as x->inf, but very slowly. log_10(10) = 1, log_10(100) = 2, log_10(10^6) = 6. The function ln(x) grows slower than any positive power x^p for p>0: lim x->inf of ln x / x^p = 0 for any p>0 (provable by L'Hopital). Conversely, exponentials e^x grow faster than any polynomial. PreCalc Regents tests this in comparing growth rates: 2^x will eventually exceed x^100 for sufficient x. AP Calc uses for limits at infinity and comparison tests for improper integrals."
@@ -1228,10 +1228,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Notation log_b(x) asks for this value y.",
       "choices": [
-        "(0, 1)",
-        "x = 1",
+        "a^(mn)",
         "The exponent such that b^y = x",
-        "a^(mn)"
+        "p * log_b(M)",
+        "lim_(n -> infinity) (1 + 1/n)^n"
       ],
       "correctText": "The exponent such that b^y = x",
       "explanation": "Logarithm definition: log_b(x) = y means b^y = x. Logarithm is the inverse of exponential. Example: log_2(8) = 3 because 2^3 = 8; log_10(1000) = 3 because 10^3=1000; log_e(e^2)=2. Domain: x>0 (cannot take log of zero or negative). Base b: b>0, b!=1. Common: log_10 written log (Algebra 2 default); log_e written ln (natural log, AP Calc default). PreCalc Regents tests evaluation, equation solving, and laws. AP Calc: derivative d/dx[ln x] = 1/x is foundational."
@@ -1250,10 +1250,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Logarithm law: log_b(MN) equals this sum.",
       "choices": [
-        "The exponent such that b^y = x",
-        "p * log_b(M)",
+        "a^(mn)",
         "log_b(M) + log_b(N)",
-        "lim_(n -> infinity) (1 + 1/n)^n"
+        "x -> infinity: y -> infinity; x -> -infinity: y -> -infinity",
+        "The exponent such that b^y = x"
       ],
       "correctText": "log_b(M) + log_b(N)",
       "explanation": "Product law: log_b(MN) = log_b(M) + log_b(N). Comes from exponential product law: if M=b^m and N=b^n then MN=b^(m+n), so log_b(MN)=m+n=log_b(M)+log_b(N). Example: log_2(8*16) = log_2(128) = 7 = log_2(8)+log_2(16) = 3+4 = 7. PreCalc Regents tests expanding and condensing log expressions. AP Calc applies in logarithmic differentiation: ln(f(x)g(x)) = ln f + ln g simplifies derivative of products into a sum of fractions f'/f + g'/g, often easier than direct product rule."
@@ -1272,10 +1272,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Power-of-a-power rule: (a^m)^n equals this.",
       "choices": [
-        "p * log_b(M)",
-        "2",
         "a^(mn)",
-        "x = 1"
+        "y = 3",
+        "log_b(M) + log_b(N)",
+        "The exponent such that b^y = x"
       ],
       "correctText": "a^(mn)",
       "explanation": "Power of a power: (a^m)^n = a^(mn). Example: (2^3)^4 = 2^12 = 4096. Verify: 8^4 = 8*8*8*8 = 4096. From repeated application of product rule: (a^m)^n = a^m * a^m *... * a^m (n times) = a^(m+m+...+m) = a^(mn). NOT to be confused with a^(m^n) which is right-associative and entirely different. PreCalc Regents tests order of operations carefully. AP Calc applies this in logarithmic differentiation and in simplifying derivatives of composite exponentials like d/dx[e^(x^2)]."
@@ -1294,10 +1294,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Logarithm law: log_b(M^p) equals this.",
       "choices": [
+        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)",
         "p * log_b(M)",
-        "The exponent such that b^y = x",
-        "x = 1",
-        "x = pi/6, 5pi/6, 3pi/2"
+        "a^(mn)",
+        "x = 1"
       ],
       "correctText": "p * log_b(M)",
       "explanation": "Power law: log_b(M^p) = p * log_b(M). The exponent becomes a coefficient. Example: log(10^5) = 5 log(10) = 5*1 = 5; ln(e^7) = 7 ln(e) = 7*1 = 7. Derives from product law applied p times. PreCalc Regents tests solving equations like 2^x = 7 by taking log: x log 2 = log 7, so x = log 7 / log 2. AP Calc uses this in logarithmic differentiation: y = x^x => ln y = x ln x, then differentiate implicitly. Also in compound interest and population growth derivations."
@@ -1317,9 +1317,9 @@
       "prompt": "Solve 3^(2x+1) = 27.",
       "choices": [
         "a^(mn)",
-        "pi/4",
-        "The exponent such that b^y = x",
-        "x = 1"
+        "log_b(M) + log_b(N)",
+        "x = 1",
+        "Zeros of the denominator"
       ],
       "correctText": "x = 1",
       "explanation": "Solve 3^(2x+1) = 27: Rewrite 27 = 3^3, so 3^(2x+1) = 3^3. Equate exponents: 2x+1 = 3, giving 2x = 2, x = 1. Verify: 3^(2*1+1) = 3^3 = 27. Common base method works because 27 is a power of 3. PreCalc Regents always provides clean common-base scenarios for technique testing. When bases differ (like 2^x = 7), one must use logarithms. AP Calc: foundation for understanding differential equation y' = ky has solution y = y_0 e^(kt), found by separating variables and exponentiating."
@@ -1338,10 +1338,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method: solve 2^x = 16 by writing both sides as powers of 2.",
       "choices": [
-        "p(0)=6 positive, p(3)=0 (root exactly at 3)",
-        "A_0 * e^(kt) (k > 0)",
-        "Common base method",
-        "2^(4x-2)"
+        "2^(4x-2)",
+        "Rational Root Theorem",
+        "x = ln(7)",
+        "Common base method"
       ],
       "correctText": "Common base method",
       "explanation": "Common base: To solve a^M = a^N, set M=N. Example: 2^x = 16 = 2^4, so x=4. Solve 8^x = 32: write 8=2^3 and 32=2^5, so (2^3)^x = 2^5, giving 2^(3x) = 2^5, then 3x=5, x=5/3. Works whenever both sides convertible to same base. PreCalc Regents tests this; AP Calc uses similar logic for solving differential equations where general solution is C*e^(kt) and initial conditions match. Common base is preferred over log when bases are obvious powers."
@@ -1361,9 +1361,9 @@
       "prompt": "General formula for exponential growth: A(t) =.",
       "choices": [
         "A_0 * e^(kt) (k > 0)",
-        "2^(4x-2)",
-        "c = -2",
-        "Common base method"
+        "lim f'/g'",
+        "k = ln(2)/5 ≈ 0.1386",
+        "x = ln(7)"
       ],
       "correctText": "A_0 * e^(kt) (k > 0)",
       "explanation": "Continuous exponential growth: A(t) = A_0 * e^(kt) where A_0 is initial amount and k>0 is continuous growth rate. Equivalent to dA/dt = kA (population, compounded interest, radioactive). Discrete version: A_n = A_0 * (1+r)^n with r per-period rate. For continuous, e^k - 1 = effective annual rate when k is continuous rate. Example: bacteria with A_0=100, doubling every hour means k=ln 2 ≈ 0.693, so A(t)=100*e^(0.693 t). PreCalc Regents covers both discrete and continuous; AP Calc proves the formula from separable ODE dy/dt = ky."
@@ -1383,9 +1383,9 @@
       "prompt": "Solving e^x = 7 algorithmically.",
       "choices": [
         "Common base method",
-        "A_0 * e^(kt) (k > 0)",
-        "Vector",
-        "x = ln(7)"
+        "x = ln(7)",
+        "5",
+        "2^(4x-2)"
       ],
       "correctText": "x = ln(7)",
       "explanation": "Solve e^x = 7: Take natural log of both sides: ln(e^x) = ln 7. Left side: ln(e^x) = x ln e = x*1 = x. So x = ln 7 ≈ 1.9459. Natural log is the inverse of e^x specifically because base matches. PreCalc Regents tests this for continuous compound interest (A=Pe^(rt) solved for t). AP Calc: d/dx[e^x] = e^x is the unique exponential equal to its own derivative; defining property of e. Used everywhere in calculus (Maclaurin series, ODEs, probability distributions)."
@@ -1404,10 +1404,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Constant k for exponential growth that doubles every 5 years.",
       "choices": [
-        "(r, theta) - distance and angle",
+        "A_0 * e^(kt) (k > 0)",
         "k = ln(2)/5 ≈ 0.1386",
         "2^(4x-2)",
-        "Common base method"
+        "pi/3 to the right"
       ],
       "correctText": "k = ln(2)/5 ≈ 0.1386",
       "explanation": "Doubling time: If A(t)=A_0 e^(kt) doubles every T years, 2A_0 = A_0 e^(kT), 2 = e^(kT), ln 2 = kT, k = ln(2)/T. Here T=5: k = ln 2 / 5 ≈ 0.6931/5 ≈ 0.1386 (about 13.86% per year continuous, equivalent to about 14.87% effective annual). Rule of 70 approximation: T ≈ 70/(100k) = 70/(13.86) ≈ 5. PreCalc Regents tests this with populations, investments. AP Calc derives this from separable equation dP/dt = kP via integration."
@@ -1426,10 +1426,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Express 4^(2x-1) as a power of 2.",
       "choices": [
-        "(r, theta) - distance and angle",
+        "x = ln(7)",
         "2^(4x-2)",
-        "Common base method",
-        "A_0 * e^(kt) (k > 0)"
+        "Reflection over the y-axis",
+        "k = ln(2)/5 ≈ 0.1386"
       ],
       "correctText": "2^(4x-2)",
       "explanation": "Convert 4^(2x-1) to base 2: Since 4 = 2^2, rewrite: 4^(2x-1) = (2^2)^(2x-1) = 2^(2(2x-1)) = 2^(4x-2). Equating bases is the standard PreCalc method for solving exponential equations. Example: solve 4^(2x-1) = 8: write as 2^(4x-2) = 2^3, so 4x-2=3, x=5/4. PreCalc Regents heavily tests this 'common base' technique. AP Calc uses base-conversion (typically to base e) for derivatives: d/dx[4^x] = 4^x * ln(4) via 4^x = e^(x ln 4)."
@@ -1448,10 +1448,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Vertical asymptote of f(x) = ln(x).",
       "choices": [
-        "y = ln(x)",
-        "+infinity",
-        "x = 3",
-        "x = 0 (the y-axis)"
+        "ln(x) / ln(b)",
+        "x = 0 (the y-axis)",
+        "x = ln(2) / ln(5/2)",
+        "Conjugate pairs"
       ],
       "correctText": "x = 0 (the y-axis)",
       "explanation": "Asymptote of ln x: f(x)=ln x has vertical asymptote x=0 as x->0+ (ln x -> -inf). Domain: (0, inf). Range: all reals. f(1)=0, f(e)=1. Strictly increasing, concave down. Inverse is e^x. Reflects e^x across y=x (their graphs are mirror images). PreCalc Regents: shift ln(x-3) has VA at x=3; ln(x)+5 has same VA x=0 but shifted up. AP Calc: integral of 1/x = ln|x|+C; d/dx[ln x]=1/x. Indefinite integrals of rational functions with linear factors produce sums of ln expressions via partial fractions."
@@ -1470,10 +1470,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Change of base formula: log_b(x) equals this in terms of natural log.",
       "choices": [
-        "x = 3",
         "ln(x) / ln(b)",
-        "Domain",
-        "x = 0 (the y-axis)"
+        "x = 3",
+        "x = ln(2) / ln(5/2)",
+        "(tan A + tan B) / (1 - tan A tan B)"
       ],
       "correctText": "ln(x) / ln(b)",
       "explanation": "Change of base: log_b(x) = log_c(x)/log_c(b) for any valid base c. Most common: log_b(x) = ln(x)/ln(b) (using natural log) or log_b(x) = log(x)/log(b) (using common log). Lets calculator evaluate any log. Example: log_2(7) = ln 7 / ln 2 ≈ 1.9459/0.6931 ≈ 2.807. Verify: 2^2.807 ≈ 7. Critical for PreCalc Regents word problems and graphing calculators only have ln and log buttons. AP Calc: d/dx[log_b(x)] = 1/(x ln b), derived from change of base."
@@ -1492,10 +1492,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve log_3(x) + log_3(x-2) = 1.",
       "choices": [
-        "13",
-        "x = 3",
         "ln(x) / ln(b)",
-        "x = ln(2) / ln(5/2)"
+        "x = 3",
+        "sec^2 x",
+        "y = ln(x)"
       ],
       "correctText": "x = 3",
       "explanation": "Solve log equation: Combine using product law: log_3(x(x-2)) = 1, so x(x-2) = 3^1 = 3. Expand: x^2 - 2x - 3 = 0. Factor: (x-3)(x+1)=0. Candidates: x=3, x=-1. CHECK domain: original logs require x>0 AND x-2>0, so x>2. Therefore x=-1 is extraneous (would make log negative argument), only x=3 is valid. PreCalc Regents requires checking extraneous solutions whenever combining logs. AP Calc handles similar domain caveats with composite functions involving ln."
@@ -1514,10 +1514,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Quantity for 5^x = 2^(x+1) solved.",
       "choices": [
-        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)",
-        "x = 0 (the y-axis)",
         "x = 3",
-        "x = ln(2) / ln(5/2)"
+        "x = ln(2) / ln(5/2)",
+        "x = 0 (the y-axis)",
+        "A = P e^(rt)"
       ],
       "correctText": "x = ln(2) / ln(5/2)",
       "explanation": "Solve 5^x = 2^(x+1) with different bases: Take ln of both sides: x ln 5 = (x+1) ln 2 = x ln 2 + ln 2. Move x terms together: x ln 5 - x ln 2 = ln 2, x(ln 5 - ln 2) = ln 2, x = ln 2 / (ln 5 - ln 2) = ln 2 / ln(5/2). Verify ≈ 0.6931/0.9163 ≈ 0.7565. Check: 5^0.7565 ≈ 3.41, 2^1.7565 ≈ 3.41. PreCalc Regents top-tier item. AP Calc uses the same technique for finding intersection points needed in volume-of-revolution problems."
@@ -1536,10 +1536,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reflection of y = e^x across the line y = x.",
       "choices": [
-        "x = 0 (the y-axis)",
         "y = ln(x)",
-        "pi/3",
-        "x = ln(2) / ln(5/2)"
+        "x = 0 (the y-axis)",
+        "1 - 2 sin^2 x",
+        "ln(x) / ln(b)"
       ],
       "correctText": "y = ln(x)",
       "explanation": "Reflection across y=x: The graph of y=ln(x) is the reflection of y=e^x across the line y=x because ln and e^x are inverses. Geometric inverse mapping: (a,b) on f means (b,a) on f^-1. Examples: e^x passes through (0,1), (1,e), (-1, 1/e); ln x passes through (1,0), (e,1), (1/e, -1). PreCalc Regents tests this in graphing inverse functions. AP Calc uses this symmetry for inverse-function derivative: at corresponding points, slope of e^x is e^a and slope of ln x is 1/e^a, reciprocal as expected by (f^-1)'(b)=1/f'(a)."
@@ -1558,10 +1558,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Horizontal asymptote of f(x) = e^x.",
       "choices": [
+        "x = pi/3 and 5pi/3",
         "T = ln(2) / |k|",
-        "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)",
-        "y = 0",
-        "Zeros (roots)"
+        "t = ln(2)/0.05 ≈ 13.86 years",
+        "y = 0"
       ],
       "correctText": "y = 0",
       "explanation": "Asymptote of e^x: f(x)=e^x has horizontal asymptote y=0 as x->-inf (e^x -> 0+, approaches but never touches). As x->+inf, e^x -> +inf (no asymptote). Domain: all reals. Range: (0, inf). f(0)=1, f(1)=e≈2.718. Strictly increasing, concave up. Inverse is ln(x). PreCalc Regents tests transformations like 2e^(x-3)+1: HA shifts to y=1 (vertical shift), reflection if coefficient negative. AP Calc: e^x is the unique nontrivial function equal to its own derivative; appears in all exponential growth/decay solutions."
@@ -1580,10 +1580,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Half-life formula relating decay constant k to half-life T.",
       "choices": [
-        "y = 0",
+        "4 hours",
+        "t = ln(2)/0.05 ≈ 13.86 years",
         "T = ln(2) / |k|",
-        "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)",
-        "A_0 * e^(kt) (k > 0)"
+        "Recursive sequence"
       ],
       "correctText": "T = ln(2) / |k|",
       "explanation": "Half-life: For exponential decay A(t)=A_0 e^(-kt) (k>0 decay rate), half-life T satisfies A_0/2 = A_0 e^(-kT), so 1/2 = e^(-kT), -ln 2 = -kT, T = ln(2)/k. Example: Carbon-14 has half-life 5730 years; k = ln(2)/5730 ≈ 1.21*10^-4 per year, used in radiocarbon dating. PreCalc Regents covers radioactive decay, drug elimination from bloodstream, cooling (Newton's Law T(t)=T_room + (T_0-T_room)e^(-kt)). AP Calc derives Newton's Law of Cooling from dT/dt = -k(T-T_room)."
@@ -1602,10 +1602,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Time t for $1000 invested at 5% continuous interest to double.",
       "choices": [
-        "3",
-        "t = ln(2)/0.05 ≈ 13.86 years",
+        "2pi",
         "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)",
-        "T = ln(2) / |k|"
+        "y = 0",
+        "t = ln(2)/0.05 ≈ 13.86 years"
       ],
       "correctText": "t = ln(2)/0.05 ≈ 13.86 years",
       "explanation": "Continuous compound interest: A = P*e^(rt). Doubling: 2P = P*e^(0.05*t), so 2 = e^(0.05t), ln 2 = 0.05t, t = ln(2)/0.05 ≈ 0.6931/0.05 ≈ 13.86 years. Rule of 70: doubling time ≈ 70/(rate as %) ≈ 70/5 = 14 years (close, since ln 2 ≈ 0.6931 and 0.6931/0.05 = 13.86). PreCalc Regents financial applications standard. AP Calc connects to exponential growth dy/dt = ky: doubling time T = ln(2)/k regardless of initial amount. Half-life: T = ln(2)/|k| for decay."
@@ -1624,10 +1624,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Newton's Law of Cooling formula for temperature.",
       "choices": [
-        "[1, 5]",
-        "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)",
         "4 hours",
-        "y = 0"
+        "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)",
+        "T = ln(2) / |k|",
+        "cos A cos B + sin A sin B"
       ],
       "correctText": "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)",
       "explanation": "Newton's Law of Cooling: T(t) = T_amb + (T_0 - T_amb)*e^(-kt), where T_amb is ambient temperature, T_0 initial temperature, k>0 cooling rate. Derives from dT/dt = -k(T - T_amb) (rate proportional to temperature difference). As t->inf, T->T_amb (the body equilibrates). PreCalc Regents application: coffee cooling from 180F to 100F in 10 min, find k. AP Calc derives via separable ODE and shows it on free-response. Forensic application: time of death estimation from body temperature."
@@ -1647,9 +1647,9 @@
       "prompt": "Radioactive isotope decays from 800 mg to 100 mg in 12 hours - find its half-life.",
       "choices": [
         "4 hours",
-        "T = ln(2) / |k|",
-        "t = ln(2)/0.05 ≈ 13.86 years",
-        "(dy/dt) / (dx/dt)"
+        "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)",
+        "y = 0",
+        "<3/5, 4/5>"
       ],
       "correctText": "4 hours",
       "explanation": "Find half-life from data: A(t)=A_0 e^(-kt) with A_0=800, A(12)=100. So 100 = 800 e^(-12k), giving 1/8 = e^(-12k), ln(1/8) = -12k, -3 ln 2 = -12k, k = ln(2)/4. Half-life T = ln(2)/k = ln(2)/(ln(2)/4) = 4 hours. Alternative: 800 mg -> 400 (1 hl) -> 200 (2 hl) -> 100 (3 hl). 12 hours = 3 half-lives, so 1 half-life = 4 hours. Quick check beats algebra. PreCalc Regents and AP Calc style applied problem - mass times count of half-lives needed."
@@ -1668,10 +1668,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Radius of the unit circle.",
       "choices": [
-        "p(0)=6 positive, p(3)=0 (root exactly at 3)",
-        "1",
         "pi radians",
-        "0"
+        "[0, pi]",
+        "1",
+        "5"
       ],
       "correctText": "1",
       "explanation": "Unit circle: A circle of radius 1 centered at the origin (0,0). Equation: x^2 + y^2 = 1. Any point on it has coordinates (cos θ, sin θ) where θ is the angle measured counterclockwise from positive x-axis. This is the foundational construction for trigonometry. Reason for radius 1: arc length on unit circle equals angle in radians (s = rθ, with r=1). PreCalc Regents tests memorization of key angles. AP Calc: arc-length formula, parametric equations x=cos t, y=sin t, derivative dy/dx=-cos/sin all begin with unit circle."
@@ -1690,10 +1690,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Coordinates of the point at angle 0 on the unit circle.",
       "choices": [
-        "0",
+        "2 sin x cos x",
         "(1, 0)",
-        "1",
-        "Parabola y = x^2"
+        "[0, pi]",
+        "0"
       ],
       "correctText": "(1, 0)",
       "explanation": "Angle 0 on unit circle: cos(0)=1, sin(0)=0, so point is (1, 0). Standard angle zero is the positive x-axis. Key reference angles: (1,0) at 0; (sqrt(3)/2, 1/2) at 30° (pi/6); (sqrt(2)/2, sqrt(2)/2) at 45° (pi/4); (1/2, sqrt(3)/2) at 60° (pi/3); (0,1) at 90° (pi/2). Memorization is mandatory for PreCalc Regents. AP Calc and BC use these for exact trig limits like lim x->0 sin x/x = 1 and Maclaurin series."
@@ -1712,10 +1712,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Range of arccos.",
       "choices": [
-        "[0, pi]",
-        "(sqrt(6) - sqrt(2))/4",
         "(1, 0)",
-        "0"
+        "pi radians",
+        "[0, pi]",
+        "y = 6 sin((pi/2)(x-1)) - 1"
       ],
       "correctText": "[0, pi]",
       "explanation": "Range of arccos: To invert cos one-to-one, restrict domain to [0, pi] (where cos is strictly decreasing). Then arccos has domain [-1, 1], range [0, pi]. arccos(1)=0, arccos(0)=pi/2, arccos(-1)=pi, arccos(1/2)=pi/3. Note range [0,pi] differs from arcsin's [-pi/2, pi/2] - critical to distinguish. arccos is decreasing; arcsin is increasing. PreCalc Regents tests both. AP Calc: d/dx[arccos x] = -1/sqrt(1-x^2), negative of arcsin derivative."
@@ -1734,10 +1734,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conversion: 180 degrees in radians.",
       "choices": [
-        "y = (x+2)^2 + 3",
-        "[0, pi]",
+        "(x-2)^2/16 + (y+1)^2/4 = 1",
+        "1",
         "pi radians",
-        "1"
+        "[0, pi]"
       ],
       "correctText": "pi radians",
       "explanation": "Degree-radian conversion: 180° = pi radians (half a revolution). Full circle: 360° = 2*pi rad. Conversion factor: deg * (pi/180) = rad; rad * (180/pi) = deg. Examples: 90° = pi/2; 45° = pi/4; 30° = pi/6; 60° = pi/3. Radians are dimensionless (arc-length / radius), preferred in calculus because derivative formulas like d/dx[sin x] = cos x ONLY hold in radians. PreCalc Regents tests both units; AP Calc uses radians almost exclusively. Common confusion: leaving calculator in DEG mode."
@@ -1756,10 +1756,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cot(pi/2) value.",
       "choices": [
-        "0",
-        "[1, 5]",
+        "[0, pi]",
         "pi radians",
-        "(1, 0)"
+        "0",
+        "3"
       ],
       "correctText": "0",
       "explanation": "Cot(pi/2) = cos(pi/2)/sin(pi/2) = 0/1 = 0. Reciprocal of tan(pi/2) which is undefined (pi/2 is vertical asymptote of tan). At pi/2: sin=1, cos=0, tan=undefined, csc=1, sec=undefined, cot=0. Memorize this special case: tan and cot have opposite zeros and asymptotes. tan(pi/2) undefined, cot(pi/2)=0. cot graph has vertical asymptotes where tan has zeros (pi, 2pi, etc.) and zeros where tan has asymptotes (pi/2, 3pi/2). PreCalc Regents fundamental; AP Calc uses for limit lim x->pi/2 tan x = +/- inf."
@@ -1779,9 +1779,9 @@
       "prompt": "Period of sin(x).",
       "choices": [
         "2pi",
-        "1",
-        "y -> infinity (slowly)",
-        "pi/3 to the right"
+        "y = A sin(B(x-C)) + D",
+        "3",
+        "f must be continuous on the closed interval [a,b]"
       ],
       "correctText": "2pi",
       "explanation": "Period of sin: sin(x+2pi) = sin(x) for all x; the smallest positive period is 2pi. Same for cos. For tan/cot, period is pi. Period = horizontal length of one complete cycle. For sin(Bx): period = 2pi/|B|. Example: sin(2x) has period 2pi/2 = pi (twice as fast). For tan(Bx): period = pi/|B|. PreCalc Regents asks for period given equation and vice versa. AP Calc uses period in evaluating definite integrals of periodic functions: integral over n full periods = n * integral over one period (often zero for sin/cos)."
@@ -1800,8 +1800,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Formula for the general sinusoidal function.",
       "choices": [
-        "3",
-        "5",
+        "Negative infinity",
+        "pi/3 to the right",
         "1",
         "y = A sin(B(x-C)) + D"
       ],
@@ -1823,9 +1823,9 @@
       "prompt": "Amplitude of f(x) = -3sin(2x) + 4.",
       "choices": [
         "2pi",
-        "T = ln(2) / |k|",
-        "y = A sin(B(x-C)) + D",
-        "3"
+        "1",
+        "3",
+        "e > 1"
       ],
       "correctText": "3",
       "explanation": "Amplitude of A*sin(Bx+C)+D: |A|. Here A=-3, so amplitude is 3 (sign doesn't affect amplitude; negative reflects across midline). Period = 2pi/|B| = 2pi/2 = pi. Phase shift = -C/B (here 0 since no horizontal shift). Vertical shift / midline = D = 4. Range: [midline - amp, midline + amp] = [4-3, 4+3] = [1, 7]. Maximum y=7, minimum y=1. PreCalc Regents tests amplitude/period/phase/midline systematically. AP Calc uses these for problems with simple harmonic motion: x(t) = A cos(omega*t + phi)."
@@ -1844,10 +1844,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Maximum of f(x) = 2sin(x) - 1.",
       "choices": [
-        "1",
-        "3, 5, 7",
+        "3",
         "2pi",
-        "y = A sin(B(x-C)) + D"
+        "Rational Root Theorem",
+        "1"
       ],
       "correctText": "1",
       "explanation": "Maximum of 2sin(x)-1: sin(x) max = 1, so 2*1-1 = 1. Minimum: 2*(-1)-1 = -3. Amplitude 2, midline y=-1, range [-3, 1]. General A*sin(Bx+C)+D: max = D+|A|, min = D-|A|. PreCalc Regents commonly asks for max/min, range from formula. AP Calc applications include modeling tides (height = midline + amp*sin(omega*(t - phase)) ), pendulum, alternating current voltage V(t) = V_max*cos(omega*t). Bounded outputs make these convenient for definite integration."
@@ -1866,10 +1866,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Phase shift of g(x) = sin(x - pi/3).",
       "choices": [
-        "y = A sin(B(x-C)) + D",
         "pi/3 to the right",
         "2pi",
-        "t = ln(2)/0.05 ≈ 13.86 years"
+        "3",
+        "1/sqrt(1+x^2)"
       ],
       "correctText": "pi/3 to the right",
       "explanation": "Phase shift: g(x) = sin(x - C) shifts sin LEFT by -C (or RIGHT by C if C positive). Here x - pi/3 means RIGHT by pi/3. Set inside = 0 for the 'starting' x-value: x - pi/3 = 0 gives x = pi/3 (where one cycle begins). For sin(Bx - C): phase shift = C/B. Example: sin(2x - pi/2) has phase shift = (pi/2)/2 = pi/4 right. PreCalc Regents drills this; common error is forgetting to divide by B. AP Calc applies in solving ODEs with sinusoidal forcing, where solution has phase lag relative to input."
@@ -1888,10 +1888,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Range of arcsin (sin inverse).",
       "choices": [
-        "(-pi/2, pi/2)",
-        "Quadrant III",
-        "(+/- 4, 0)",
-        "[-pi/2, pi/2]"
+        "[-pi/2, pi/2]",
+        "arctan(2) ≈ 63.4°",
+        "y -> infinity (slowly)",
+        "Quadrant III"
       ],
       "correctText": "[-pi/2, pi/2]",
       "explanation": "Range of arcsin: To make sin one-to-one for inverse, restrict its domain to [-pi/2, pi/2] (where sin is strictly increasing). Then arcsin has domain [-1, 1] (sin's range) and range [-pi/2, pi/2]. arcsin(1)=pi/2, arcsin(0)=0, arcsin(-1)=-pi/2, arcsin(1/2)=pi/6. Notation: arcsin(x) or sin^(-1)(x). Note sin^(-1)(x) is NOT 1/sin(x). PreCalc Regents drills exact values; AP Calc uses arcsin in trig substitution for integrals with sqrt(a^2-x^2) and as antiderivative of 1/sqrt(1-x^2)."
@@ -1911,9 +1911,9 @@
       "prompt": "Range of arctan.",
       "choices": [
         "(-pi/2, pi/2)",
-        "pi/3",
-        "Reflection over the line y = x",
-        "Quadrant III"
+        "[-pi/2, pi/2]",
+        "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)",
+        "arctan(2) ≈ 63.4°"
       ],
       "correctText": "(-pi/2, pi/2)",
       "explanation": "Range of arctan: To invert tan one-to-one, restrict tan to (-pi/2, pi/2) (open because tan has VAs at endpoints). arctan domain: all reals (tan's range). arctan range: (-pi/2, pi/2). HAs: as x->+inf, arctan x -> pi/2; as x->-inf, arctan x -> -pi/2. arctan(0)=0, arctan(1)=pi/4, arctan(sqrt 3)=pi/3. PreCalc Regents and AP Calc: arctan is integral of 1/(1+x^2); appears in trig substitution. Probability: Cauchy distribution CDF is (1/pi)arctan(x) + 1/2."
@@ -1932,9 +1932,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Quadrant where both sin and cos are negative.",
       "choices": [
+        "y approaches infinity (slowly)",
+        "(-pi/2, pi/2)",
         "pi/3",
-        "r cos theta",
-        "[-pi/2, pi/2]",
         "Quadrant III"
       ],
       "correctText": "Quadrant III",
@@ -1954,10 +1954,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Value of arcsin(sqrt(3)/2).",
       "choices": [
-        "[-pi/2, pi/2]",
+        "[1, 5]",
         "pi/3",
-        "T = ln(2) / |k|",
-        "(-pi/2, pi/2)"
+        "[-pi/2, pi/2]",
+        "Quadrant III"
       ],
       "correctText": "pi/3",
       "explanation": "Arcsin(sqrt(3)/2): Find angle θ in [-pi/2, pi/2] with sin θ = sqrt(3)/2. From unit circle: sin(pi/3) = sqrt(3)/2 and pi/3 is in range, so arcsin(sqrt(3)/2) = pi/3 (60°). Note that sin(2pi/3) = sqrt(3)/2 also, but 2pi/3 is OUTSIDE arcsin's range, so it's not the answer. PreCalc Regents requires choosing the unique angle in the principal range. AP Calc applies this for derivative evaluation and trig substitution: if x = a sin θ then θ = arcsin(x/a) in [-pi/2, pi/2]."
@@ -1976,10 +1976,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Angle of elevation for ladder reaching 20 ft up a wall with base 10 ft away.",
       "choices": [
-        "arctan(2) ≈ 63.4°",
-        "[-pi/2, pi/2]",
-        "k = ln(2)/5 ≈ 0.1386",
-        "Quadrant III"
+        "1/sqrt(1+x^2)",
+        "Quadrant III",
+        "pi/3",
+        "arctan(2) ≈ 63.4°"
       ],
       "correctText": "arctan(2) ≈ 63.4°",
       "explanation": "Angle of elevation: tan θ = opposite/adjacent = 20/10 = 2 (height over distance). θ = arctan(2) ≈ 63.43° ≈ 1.107 rad. Angle of elevation is measured up from horizontal; angle of depression is measured down from horizontal (these are equal by alternate interior angles when looking back). PreCalc Regents and AP Calc related rates: dθ/dt for moving observer or moving object. Example: 'Ladder slides down wall at 2 ft/s; how fast is angle changing when ladder is 6 ft up?'."
@@ -1998,9 +1998,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Period of f(x) = 2 cos(3x).",
       "choices": [
-        "At most 2 (less than 3)",
+        "2 sin x cos x",
         "x = pi/2 + n*pi",
-        "y = 6 sin((pi/2)(x-1)) - 1",
+        "y = 3",
         "2pi/3"
       ],
       "correctText": "2pi/3",
@@ -2020,9 +2020,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Equation of midline for f(x) = 4 sin(x) + 3.",
       "choices": [
-        "x = pi/2 + n*pi",
-        "Neither even nor odd",
         "y = 6 sin((pi/2)(x-1)) - 1",
+        "csc^2 x",
+        "2pi/3",
         "y = 3"
       ],
       "correctText": "y = 3",
@@ -2044,8 +2044,8 @@
       "choices": [
         "x = pi/2 + n*pi",
         "y = 6 sin((pi/2)(x-1)) - 1",
-        "2pi/3",
-        "1"
+        "y^2 = x^3 (semicubical parabola)",
+        "y = 3"
       ],
       "correctText": "x = pi/2 + n*pi",
       "explanation": "Sec asymptotes: sec(x) = 1/cos(x) has vertical asymptotes where cos(x) = 0, namely x = pi/2 + n*pi. Same locations as tan asymptotes. Range of sec: (-inf, -1] union [1, inf) (never between -1 and 1). Period 2pi. Sec(0)=1; sec(pi)=-1; sec(pi/2) undefined. Csc(x) = 1/sin(x) has VAs where sin(x)=0, i.e., x = n*pi. PreCalc Regents tests recognizing sec/csc/cot graphs. AP Calc: sec appears in trig substitutions for sqrt(x^2 - a^2) form integrals, with integral of sec x dx = ln|sec x + tan x| + C."
@@ -2064,10 +2064,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Vertical asymptotes of f(x) = tan(x).",
       "choices": [
-        "y = 3",
-        "y = 6 sin((pi/2)(x-1)) - 1",
+        "5",
         "x = pi/2 + n*pi",
-        "Vector"
+        "2pi/3",
+        "y = 6 sin((pi/2)(x-1)) - 1"
       ],
       "correctText": "x = pi/2 + n*pi",
       "explanation": "Tan asymptotes: tan(x) = sin(x)/cos(x) has VA where cos(x)=0, i.e., x = pi/2, 3pi/2, 5pi/2,... in general x = pi/2 + n*pi for integer n. Period of tan is pi (not 2pi), with one full cycle from -pi/2 to pi/2 between consecutive asymptotes. Tan is odd, increasing on each branch, range all reals. PreCalc Regents tests asymptote locations after transformations: tan(2x) has VA at x = pi/4 + n*pi/2. AP Calc: tan x near pi/2 has lim x->pi/2- = +inf and lim x->pi/2+ = -inf (sign change typical for VAs)."
@@ -2086,10 +2086,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Write a sinusoidal function with amplitude 6, period 4, midline y = -1, and right phase shift 1.",
       "choices": [
-        "y = 6 sin((pi/2)(x-1)) - 1",
-        "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)",
+        "Factor Theorem",
+        "2pi/3",
         "x = pi/2 + n*pi",
-        "2pi/3"
+        "y = 6 sin((pi/2)(x-1)) - 1"
       ],
       "correctText": "y = 6 sin((pi/2)(x-1)) - 1",
       "explanation": "Build sinusoid: Amplitude 6 means A=6. Period 4 means 2pi/|B| = 4, so B = pi/2. Midline y=-1 means D=-1. Right phase shift 1 means C=1. Plug into y = A sin(B(x-C)) + D: y = 6 sin((pi/2)(x-1)) - 1. Verify: at x=1, sin(0)=0, y=-1 (midline). At x=2, sin(pi/2)=1, y = 6-1 = 5 (max, quarter period after midline crossing going up). PreCalc Regents and AP Calc style modeling problem, often with real-world contexts like daily tides."
@@ -2108,10 +2108,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "SOH stands for this trig relationship.",
       "choices": [
-        "Zeros (roots)",
-        "c^2 = a^2 + b^2 - 2ab cos(C)",
-        "1/2",
-        "Sine equals Opposite over Hypotenuse"
+        "y = +/- (4/3) x",
+        "1/sqrt(1+x^2)",
+        "Sine equals Opposite over Hypotenuse",
+        "13"
       ],
       "correctText": "Sine equals Opposite over Hypotenuse",
       "explanation": "SOH (Sine-Opp-Hyp): sin θ = opposite/hypotenuse in right triangle. Mnemonic SOH-CAH-TOA: cos = adj/hyp (CAH), tan = opp/adj (TOA). Reciprocals: csc=hyp/opp, sec=hyp/adj, cot=adj/opp. Example: 3-4-5 right triangle with θ opposite the side of length 3 (so opp=3, hyp=5): sin θ = 3/5, cos θ = 4/5, tan θ = 3/4. PreCalc Regents foundation; AP Calc uses extensively in related rates problems with sloped ladders, observers watching planes, etc."
@@ -2130,10 +2130,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Hypotenuse value if legs are 5 and 12 in a right triangle.",
       "choices": [
-        "c^2 = a^2 + b^2 - 2ab cos(C)",
-        "Common base method",
+        "1/sqrt(1+x^2)",
+        "Neither even nor odd",
         "13",
-        "1/sqrt(1+x^2)"
+        "Sine equals Opposite over Hypotenuse"
       ],
       "correctText": "13",
       "explanation": "Pythagorean theorem: a^2 + b^2 = c^2 where c is hypotenuse. Here 5^2 + 12^2 = 25 + 144 = 169 = 13^2, so c=13. Famous Pythagorean triple: (5, 12, 13). Other common triples: (3,4,5), (8, 15, 17), (7, 24, 25), and multiples like (6, 8, 10). PreCalc Regents and AP Calc use these to avoid calculator dependence for exact values. Tan θ for the angle opposite side 5: 5/12; cos = 12/13; sin = 5/13. Distance formula in coordinate geometry is literally Pythagorean theorem."
@@ -2152,10 +2152,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sin(30 degrees) exact value.",
       "choices": [
-        "1/2",
-        "x >= 0",
-        "13",
-        "c^2 = a^2 + b^2 - 2ab cos(C)"
+        "Sine equals Opposite over Hypotenuse",
+        "r cos theta",
+        "c^2 = a^2 + b^2 - 2ab cos(C)",
+        "1/2"
       ],
       "correctText": "1/2",
       "explanation": "Sin 30° = 1/2: From 30-60-90 triangle with sides 1: sqrt(3): 2. Sin(30°) = opposite/hyp = 1/2. Cos(30°) = sqrt(3)/2. Tan(30°) = 1/sqrt(3) = sqrt(3)/3. Sin(60°) = sqrt(3)/2 (note: sin 60° = cos 30° because complementary angles). Sin(45°) = sqrt(2)/2 from 45-45-90 triangle (1:1:sqrt(2)). These are the 'special angle' values memorized for PreCalc Regents and AP Calc - calculators not permitted on certain free-response problems. Equivalent in radians: sin(pi/6)=1/2."
@@ -2174,10 +2174,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Composition: cos(arctan(x)) simplified for x > 0.",
       "choices": [
-        "1/2",
+        "5",
         "1/sqrt(1+x^2)",
-        "0 <= e < 1",
-        "Sine equals Opposite over Hypotenuse"
+        "1/2",
+        "c^2 = a^2 + b^2 - 2ab cos(C)"
       ],
       "correctText": "1/sqrt(1+x^2)",
       "explanation": "Simplify cos(arctan x): Let θ = arctan(x), so tan θ = x = x/1 = opp/adj. Right triangle: opp=x, adj=1, hyp=sqrt(x^2+1). Then cos θ = adj/hyp = 1/sqrt(1+x^2). For all x (not just x>0), since arctan range is (-pi/2, pi/2) where cos is positive. Common technique: 'draw the triangle.' AP Calc uses this for trig substitution and integration: integral of 1/(1+x^2)^(3/2) becomes integral involving cos^3 after substitution x=tan θ. PreCalc Regents and AP Calc both test this composition pattern."
@@ -2196,10 +2196,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Law of Cosines formula for side c opposite angle C.",
       "choices": [
-        "Sine equals Opposite over Hypotenuse",
-        "c^2 = a^2 + b^2 - 2ab cos(C)",
-        "Zeros of the denominator",
-        "1/2"
+        "13",
+        "4",
+        "1/sqrt(1+x^2)",
+        "c^2 = a^2 + b^2 - 2ab cos(C)"
       ],
       "correctText": "c^2 = a^2 + b^2 - 2ab cos(C)",
       "explanation": "Law of Cosines: c^2 = a^2 + b^2 - 2ab cos(C), where C is angle between sides a and b, opposite side c. Generalizes Pythagorean theorem: when C = 90°, cos(C) = 0, giving c^2 = a^2 + b^2. Used to solve SSS triangles (find angles given all sides) and SAS triangles (find third side given two sides and included angle). Law of Sines (sin A / a = sin B / b) is alternative for ASA, AAS, SSA. PreCalc Regents and AP Calc use these for surveying, navigation, and vector resolution problems."
@@ -2218,10 +2218,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Fundamental Pythagorean identity.",
       "choices": [
-        "sin^2 x + cos^2 x = 1",
-        "cos x",
-        "5 (at most five)",
-        "24/25"
+        "Arithmetic sequence",
+        "24/25",
+        "sin x",
+        "sin^2 x + cos^2 x = 1"
       ],
       "correctText": "sin^2 x + cos^2 x = 1",
       "explanation": "Fundamental Pythagorean identity: sin^2(x) + cos^2(x) = 1 for all x. Derives from unit circle: any point is (cos x, sin x), and x^2 + y^2 = 1 (radius^2 = 1). Two derived identities: dividing by cos^2 gives tan^2 + 1 = sec^2; dividing by sin^2 gives 1 + cot^2 = csc^2. PreCalc Regents uses to simplify (sin^2 + cos^2 = 1 substitution) and to verify identities. AP Calc applies in trig substitution for integrals: with x = sin θ, 1-x^2 = cos^2 θ; with x = tan θ, 1+x^2 = sec^2 θ."
@@ -2240,10 +2240,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Quotient identity for tan x.",
       "choices": [
+        "At most 2 (less than 3)",
         "sin x / cos x",
-        "24/25",
         "cos x",
-        "x = pi/2 + n*pi"
+        "sin^2 x + cos^2 x = 1"
       ],
       "correctText": "sin x / cos x",
       "explanation": "Quotient identity: tan x = sin x / cos x. Derives from unit circle: at point (cos x, sin x), tan is slope of line from origin = y/x = sin x/cos x. Reciprocal identities: sec x = 1/cos x, csc x = 1/sin x, cot x = cos x/sin x = 1/tan x. PreCalc Regents foundational; AP Calc uses to express all derivatives in terms of sin and cos (which have clean derivative rules), then convert back. Identity proof technique: convert everything to sin and cos, simplify, then convert back if needed."
@@ -2263,9 +2263,9 @@
       "prompt": "Simplify (1 - cos^2 x) / sin x.",
       "choices": [
         "sin^2 x + cos^2 x = 1",
-        "Circle of radius a centered at origin",
         "24/25",
-        "sin x"
+        "sin x",
+        "1/2"
       ],
       "correctText": "sin x",
       "explanation": "Simplify: (1 - cos^2 x)/sin x = sin^2 x / sin x = sin x. First step uses Pythagorean identity: sin^2 + cos^2 = 1, so sin^2 = 1 - cos^2. Cancel one sin to leave sin x. Domain consideration: need sin x ≠ 0 (so x ≠ multiples of pi). PreCalc Regents tests these simplifications; AP Calc uses them to convert integrals into recognizable antiderivatives. Common trick: multiply by conjugate or convert all to sin and cos before simplifying. Powers of sin and cos appear in Wallis' product formula and beta function."
@@ -2284,10 +2284,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Simplify sin(x + pi/2).",
       "choices": [
-        "sin^2 x + cos^2 x = 1",
         "sin x",
+        "sin^2 x + cos^2 x = 1",
         "cos x",
-        "x -> infinity: y -> infinity; x -> -infinity: y -> -infinity"
+        "Circle of radius a centered at origin"
       ],
       "correctText": "cos x",
       "explanation": "Sin(x + pi/2): Apply sum formula: sin x cos(pi/2) + cos x sin(pi/2) = sin x * 0 + cos x * 1 = cos x. Useful identity: sin(x + pi/2) = cos x. Equivalent: cos x and sin x are 'pi/2 out of phase' (cosine is sine shifted left by pi/2). Other co-function identities: cos(pi/2 - x) = sin x; tan(pi/2 - x) = cot x; sec(pi/2 - x) = csc x. PreCalc Regents tests; AP Calc applies in phase analysis of oscillating systems, where 'lead' or 'lag' by 90° is sin <-> cos conversion."
@@ -2306,9 +2306,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "If sin x = 3/5 in Q1, find sin(2x).",
       "choices": [
+        "Vertical asymptote",
         "24/25",
-        "Common base method",
-        "sin^2 x + cos^2 x = 1",
+        "sin x / cos x",
         "sin x"
       ],
       "correctText": "24/25",
@@ -2328,9 +2328,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Formula for sin(A + B).",
       "choices": [
-        "(2, 4pi/3)",
-        "(sqrt(6) - sqrt(2))/4",
         "(tan A + tan B) / (1 - tan A tan B)",
+        "(x-2)(x^2-2x+2)",
+        "(sqrt(6) - sqrt(2))/4",
         "sin A cos B + cos A sin B"
       ],
       "correctText": "sin A cos B + cos A sin B",
@@ -2350,10 +2350,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "All solutions to sin x = 1/2 in [0, 2pi).",
       "choices": [
-        "x = pi/6 and 5pi/6",
-        "(sqrt(6) - sqrt(2))/4",
-        "1/2",
-        "(tan A + tan B) / (1 - tan A tan B)"
+        "sin A cos B + cos A sin B",
+        "cos A cos B + sin A sin B",
+        "y = ln(x)",
+        "x = pi/6 and 5pi/6"
       ],
       "correctText": "x = pi/6 and 5pi/6",
       "explanation": "Solve sin x = 1/2 in [0, 2pi): Principal solution arcsin(1/2) = pi/6 (Q1). Sin is also 1/2 in Q2 at x = pi - pi/6 = 5pi/6. General solutions: x = pi/6 + 2pi n or x = 5pi/6 + 2pi n for integer n. PreCalc Regents requires both solutions in interval; common mistake is giving only one. AP Calc applies in finding where sinusoidal motion equals specific value (e.g., 'when is pendulum at height 1/2 of amplitude?'). Method: find principal angle, then use symmetry (sin is positive in Q1, Q2)."
@@ -2372,10 +2372,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Formula for cos(A - B).",
       "choices": [
+        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)",
+        "x = pi/6 and 5pi/6",
         "cos A cos B + sin A sin B",
-        "(tan A + tan B) / (1 - tan A tan B)",
-        "Domain",
-        "x = pi/6 and 5pi/6"
+        "sin A cos B + cos A sin B"
       ],
       "correctText": "cos A cos B + sin A sin B",
       "explanation": "Difference formula for cosine: cos(A-B) = cos A cos B + sin A sin B. Sum: cos(A+B) = cos A cos B - sin A sin B. Note: cosine pattern has SAME function products with opposite sign rule compared to argument operation; sine pattern has DIFFERENT function products with same sign rule. Memorize four formulas (sin+, sin-, cos+, cos-). Tan sum: tan(A+B) = (tan A + tan B)/(1 - tan A tan B). PreCalc Regents tests; AP Calc derives Euler's formula e^(iθ) = cos θ + i sin θ from these."
@@ -2394,10 +2394,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Exact value of cos(75 degrees) using sum/difference.",
       "choices": [
-        "3",
         "(sqrt(6) - sqrt(2))/4",
-        "x = pi/6 and 5pi/6",
-        "(tan A + tan B) / (1 - tan A tan B)"
+        "y = ln(x)",
+        "sin A cos B + cos A sin B",
+        "cos A cos B + sin A sin B"
       ],
       "correctText": "(sqrt(6) - sqrt(2))/4",
       "explanation": "Cos(75°): Write as cos(45° + 30°) = cos 45 cos 30 - sin 45 sin 30 = (sqrt(2)/2)(sqrt(3)/2) - (sqrt(2)/2)(1/2) = sqrt(6)/4 - sqrt(2)/4 = (sqrt 6 - sqrt 2)/4 ≈ 0.2588. Check: cos 75° ≈ 0.2588 on calculator. PreCalc Regents constructs angles like 15° = 45°-30°, 75° = 45°+30°, 105° = 60°+45° from special angles. AP Calc uses these exact values for integrals over special intervals like 0 to pi/12 where boundaries don't match standard angles."
@@ -2416,10 +2416,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Express tan(A + B).",
       "choices": [
-        "cos A cos B + sin A sin B",
-        "y = 0",
-        "(sqrt(6) - sqrt(2))/4",
-        "(tan A + tan B) / (1 - tan A tan B)"
+        "sin A cos B + cos A sin B",
+        "(+/- 4, 0)",
+        "(tan A + tan B) / (1 - tan A tan B)",
+        "(sqrt(6) - sqrt(2))/4"
       ],
       "correctText": "(tan A + tan B) / (1 - tan A tan B)",
       "explanation": "Tan sum: tan(A+B) = (tan A + tan B)/(1 - tan A tan B). Derived from sin/cos sum formulas: tan(A+B) = sin(A+B)/cos(A+B) = (sin A cos B + cos A sin B)/(cos A cos B - sin A sin B), then divide top and bottom by cos A cos B. Difference: tan(A-B) = (tan A - tan B)/(1 + tan A tan B). Undefined when 1 - tan A tan B = 0 (which gives A+B = pi/2 + n pi, where tan undefined). AP Calc uses for angle-between-lines formula: tan θ = |m1 - m2|/(1 + m1 m2) where m1, m2 are slopes."
@@ -2438,10 +2438,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sin(2x) double angle formula.",
       "choices": [
-        "2 (at x = pi/2 and 3pi/2)",
         "1 - 2 sin^2 x",
         "2 sin x cos x",
-        "cos A cos B + sin A sin B"
+        "True - apply sum and double-angle identities",
+        "x = pi/6, 5pi/6, 3pi/2"
       ],
       "correctText": "2 sin x cos x",
       "explanation": "Sin(2x) = 2 sin x cos x: Derives from sum formula sin(x+x) = sin x cos x + cos x sin x = 2 sin x cos x. PreCalc Regents drills this; used to express products of sin/cos as single trig functions and vice versa. Application: integral of sin x cos x dx = (1/2) integral sin(2x) dx = -(1/4)cos(2x) + C. AP Calc: simple harmonic motion analysis where sin(2 omega t) emerges from squared amplitude. Also used in deriving area formulas: area of triangle = (1/2)ab sin C."
@@ -2460,10 +2460,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cos(2x) formula using only sin.",
       "choices": [
-        "y = +/- (4/3) x",
+        "2 (at x = pi/2 and 3pi/2)",
+        "1 - 2 sin^2 x",
         "2 sin x cos x",
-        "2 tan x / (1 - tan^2 x)",
-        "1 - 2 sin^2 x"
+        "Even function (y-axis symmetric)"
       ],
       "correctText": "1 - 2 sin^2 x",
       "explanation": "Cos(2x) has three equivalent forms: cos^2 x - sin^2 x, 2 cos^2 x - 1, and 1 - 2 sin^2 x. All derive from sum: cos(x+x) = cos^2 x - sin^2 x; then substitute sin^2 = 1-cos^2 to get 2cos^2 x - 1, or cos^2 = 1-sin^2 to get 1-2sin^2 x. Form choice depends on what you want left after simplifying. PreCalc Regents tests recognizing which form. AP Calc power-reduction: sin^2 x = (1-cos 2x)/2 and cos^2 x = (1+cos 2x)/2 are critical for integrating sin^2 and cos^2."
@@ -2482,10 +2482,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Number of solutions to cos x = 0 in [0, 2pi).",
       "choices": [
+        "lim_(n -> infinity) (1 + 1/n)^n",
         "2 (at x = pi/2 and 3pi/2)",
-        "2 tan x / (1 - tan^2 x)",
-        "(+/- 5, 0)",
-        "2 sin x cos x"
+        "2 sin x cos x",
+        "1 - 2 sin^2 x"
       ],
       "correctText": "2 (at x = pi/2 and 3pi/2)",
       "explanation": "Solve cos x = 0 in [0, 2pi): cos = 0 at angles where x-coordinate on unit circle is zero: x = pi/2 (90°) and x = 3pi/2 (270°). General: x = pi/2 + n pi. These are also exactly where tan and sec have vertical asymptotes (since they have cos in denominator). PreCalc Regents: 'how many solutions in given interval' problems require counting carefully. AP Calc: critical points of sin x are where cos x = 0 (since derivative of sin is cos): x = pi/2 (max) and 3pi/2 (min) on [0, 2pi]."
@@ -2504,10 +2504,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Tan(2x) double angle formula.",
       "choices": [
-        "log_b(M) + log_b(N)",
-        "1 - 2 sin^2 x",
         "2 tan x / (1 - tan^2 x)",
-        "2 (at x = pi/2 and 3pi/2)"
+        "True - apply sum and double-angle identities",
+        "2 (at x = pi/2 and 3pi/2)",
+        "x^2/a^2 - y^2/b^2 = 1"
       ],
       "correctText": "2 tan x / (1 - tan^2 x)",
       "explanation": "Tan(2x) = 2 tan x / (1 - tan^2 x): Derives from sum formula tan(x+x) with A=B=x. Undefined when 1 - tan^2 x = 0, i.e., tan x = +/-1, equivalently x = pi/4 + n pi/2 (where 2x = pi/2 + n pi, exactly where tan(2x) has VA). PreCalc Regents tests evaluation and identity manipulation. AP Calc uses in problems involving rate of angle change. Half-angle versions: tan(x/2) = (1 - cos x)/sin x = sin x/(1 + cos x), used in Weierstrass substitution u = tan(x/2) to convert trig integrals to rational functions."
@@ -2527,8 +2527,8 @@
       "prompt": "Verify sin(3x) = 3 sin x - 4 sin^3 x.",
       "choices": [
         "1 - 2 sin^2 x",
-        "Horizontal shift right by h",
-        "2 sin x cos x",
+        "<1,2>.<2,-1> = 0, so YES perpendicular",
+        "2 (at x = pi/2 and 3pi/2)",
         "True - apply sum and double-angle identities"
       ],
       "correctText": "True - apply sum and double-angle identities",
@@ -2549,9 +2549,9 @@
       "prompt": "Identity equivalent to tan^2 x + 1.",
       "choices": [
         "sec^2 x",
-        "<3, 2>",
-        "(1 - cos 2x)/2",
-        "x = pi/3 and 5pi/3"
+        "x = pi/3 and 5pi/3",
+        "Velocity vector",
+        "x = pi/6, 5pi/6, 3pi/2"
       ],
       "correctText": "sec^2 x",
       "explanation": "Tan^2 + 1 = sec^2: Divide fundamental identity by cos^2: (sin^2/cos^2) + 1 = 1/cos^2, giving tan^2 + 1 = sec^2. Equivalently sec^2 - tan^2 = 1. Used in AP Calc trig substitution for integrals containing sqrt(a^2 + x^2): let x = a tan θ so a^2 + x^2 = a^2(1 + tan^2 θ) = a^2 sec^2 θ. Also direct integral: integral sec^2 x dx = tan x + C. PreCalc Regents tests deriving and applying. Sec is positive in Q1, Q4 (where cos>0) and negative in Q2, Q3."
@@ -2570,10 +2570,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solutions to 2 cos x - 1 = 0 in [0, 2pi).",
       "choices": [
-        "x = pi/6, 5pi/6, 3pi/2",
-        "x = pi/6, 5pi/6, 3pi/2",
         "x = pi/3 and 5pi/3",
-        "1"
+        "(+/- 4, 0)",
+        "x = pi/6, 5pi/6, 3pi/2",
+        "x = pi/6, 5pi/6, 3pi/2"
       ],
       "correctText": "x = pi/3 and 5pi/3",
       "explanation": "Solve 2 cos x - 1 = 0: cos x = 1/2. Principal angle arccos(1/2) = pi/3 (Q1, 60°). Cos is also positive in Q4 at x = 2pi - pi/3 = 5pi/3. Solutions: pi/3 and 5pi/3. General: x = +/- pi/3 + 2pi n. PreCalc Regents tests these multi-step equations. AP Calc: 'find x in [0, 2pi] where f'(x) = 0' often reduces to a trig equation. Strategy: isolate trig function, find reference angle, then determine all quadrants based on sign."
@@ -2592,10 +2592,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Power reduction: sin^2 x equals this.",
       "choices": [
-        "Circle of diameter a passing through origin",
         "(1 - cos 2x)/2",
+        "x = pi/3 and 5pi/3",
         "x = pi/6, 5pi/6, 3pi/2",
-        "sec^2 x"
+        "sin A cos B + cos A sin B"
       ],
       "correctText": "(1 - cos 2x)/2",
       "explanation": "Power reduction: sin^2 x = (1 - cos 2x)/2. Derives from cos(2x) = 1 - 2 sin^2 x, solving for sin^2 x. Similarly cos^2 x = (1 + cos 2x)/2. Critical for AP Calc: integral of sin^2 x dx = integral (1-cos 2x)/2 dx = x/2 - sin(2x)/4 + C. Without this identity, sin^2 cannot be antidifferentiated by elementary means. PreCalc Regents introduces; AP Calc uses constantly. Also: tan^2 x = (1 - cos 2x)/(1 + cos 2x). Powers higher than 2 reduce iteratively."
@@ -2614,10 +2614,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve 2 sin^2 x + sin x - 1 = 0 in [0, 2pi).",
       "choices": [
-        "x = pi/6, 5pi/6, 3pi/2",
-        "sec^2 x",
+        "Jump discontinuity",
         "x = pi/3 and 5pi/3",
-        "x = 3"
+        "sec^2 x",
+        "x = pi/6, 5pi/6, 3pi/2"
       ],
       "correctText": "x = pi/6, 5pi/6, 3pi/2",
       "explanation": "Factor as quadratic in sin x: 2 sin^2 x + sin x - 1 = (2 sin x - 1)(sin x + 1) = 0. So sin x = 1/2 (giving x = pi/6, 5pi/6) or sin x = -1 (giving x = 3pi/2 only - just one solution since sin = -1 has unique solution per period). Total: 3 solutions in [0, 2pi). PreCalc Regents tests factorable quadratic-in-trig equations. AP Calc free-response: critical points of f involving products of trig functions reduce to this kind of factoring."
@@ -2637,9 +2637,9 @@
       "prompt": "Solve cos(2x) = sin x in [0, 2pi).",
       "choices": [
         "x = pi/6, 5pi/6, 3pi/2",
-        "(1 - cos 2x)/2",
-        "x = pi/3 and 5pi/3",
-        "cos x"
+        "y = A sin(B(x-C)) + D",
+        "sec^2 x",
+        "(1 - cos 2x)/2"
       ],
       "correctText": "x = pi/6, 5pi/6, 3pi/2",
       "explanation": "Solve cos(2x) = sin x: Use double-angle cos(2x) = 1 - 2sin^2 x: 1 - 2 sin^2 x = sin x, giving 2 sin^2 x + sin x - 1 = 0. Factor (2 sin x - 1)(sin x + 1) = 0: sin x = 1/2 (x = pi/6, 5pi/6) or sin x = -1 (x = 3pi/2). PreCalc Regents and AP Calc test conversion of multi-frequency trig equations to single frequency via double-angle. Key technique: identify common variable (sin x here) and substitute identity to eliminate the other frequency."
@@ -2658,10 +2658,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reciprocal identity for csc x.",
       "choices": [
-        "y = A sin(B(x-C)) + D",
-        "1 / sin x",
         "csc^2 x",
-        "True - both equal sin^2 x"
+        "Yes: combine to (sin^2+cos^2)/(sin x cos x) = 1/(sin x cos x) = sec x csc x",
+        "<6, -3>",
+        "1 / sin x"
       ],
       "correctText": "1 / sin x",
       "explanation": "Reciprocal identity: csc x = 1 / sin x. Reciprocals: sec = 1/cos, csc = 1/sin, cot = 1/tan = cos/sin. These create symmetric algebra: anywhere sin appears, 1/csc could substitute. csc undefined where sin = 0 (multiples of pi). Range of csc: (-inf, -1] union [1, inf) (never strictly between -1 and 1, since |sin| <= 1 means |csc| >= 1). PreCalc Regents includes evaluating reciprocal functions; AP Calc uses them in integrals of products like sin^n cos^m via reciprocal-substitution."
@@ -2680,10 +2680,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Identity equivalent to 1 + cot^2 x.",
       "choices": [
-        "csc^2 x",
-        "x = 3",
+        "Absolute difference of distances to two foci is constant",
         "1 / sin x",
-        "True - both equal sin^2 x"
+        "Yes: combine to (sin^2+cos^2)/(sin x cos x) = 1/(sin x cos x) = sec x csc x",
+        "csc^2 x"
       ],
       "correctText": "csc^2 x",
       "explanation": "1 + cot^2 = csc^2: Divide fundamental identity sin^2 + cos^2 = 1 by sin^2: 1 + (cos^2/sin^2) = 1/sin^2, giving 1 + cot^2 = csc^2. Equivalently csc^2 - cot^2 = 1. AP Calc integral: integral csc^2 x dx = -cot x + C. Less commonly used than the sec form but appears in trig substitution and identity verification. PreCalc Regents asks you to verify or simplify with this. Mnemonic: tan and sec go together (Q1, Q4 sign agreement); cot and csc go together (Q1, Q2 sign agreement)."
@@ -2702,10 +2702,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Co-function identity sin(pi/2 - x) equals.",
       "choices": [
+        "True - both equal sin^2 x",
+        "(+/- 4, 0)",
         "cos x",
-        "csc^2 x",
-        "1 / sin x",
-        "k = ln(2)/5 ≈ 0.1386"
+        "Yes: combine to (sin^2+cos^2)/(sin x cos x) = 1/(sin x cos x) = sec x csc x"
       ],
       "correctText": "cos x",
       "explanation": "Co-function identity: sin(pi/2 - x) = cos x. Sin and cos are complementary: at any angle, the sin of an angle equals the cos of its complement (and vice versa). Similarly cos(pi/2 - x) = sin x, tan(pi/2 - x) = cot x, sec(pi/2 - x) = csc x. The 'co-' prefix in cosine, cotangent, cosecant means 'complement.' PreCalc Regents tests these in right-triangle problems where complementary angles A + B = 90°. AP Calc uses to convert between sin and cos integrals (substitution u = pi/2 - x)."
@@ -2724,10 +2724,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Prove: tan x + cot x = sec x csc x.",
       "choices": [
-        "True - both equal sin^2 x",
         "Yes: combine to (sin^2+cos^2)/(sin x cos x) = 1/(sin x cos x) = sec x csc x",
-        "f(x) approaches L as x approaches a",
-        "cos x"
+        "csc^2 x",
+        "1 / sin x",
+        "(1, 0)"
       ],
       "correctText": "Yes: combine to (sin^2+cos^2)/(sin x cos x) = 1/(sin x cos x) = sec x csc x",
       "explanation": "Prove tan + cot = sec csc: LHS = sin x/cos x + cos x/sin x. Common denominator sin x cos x: = (sin^2 x + cos^2 x)/(sin x cos x) = 1/(sin x cos x) (Pythagorean). RHS = sec x csc x = (1/cos x)(1/sin x) = 1/(sin x cos x). LHS = RHS verified. PreCalc Regents and AP Calc identity proofs: strategy is convert all to sin and cos, combine fractions, simplify with Pythagorean. Always work one side at a time in formal proof."
@@ -2746,10 +2746,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Verify: (sec^2 x - 1) / sec^2 x = sin^2 x.",
       "choices": [
-        "Continuous everywhere",
+        "pi radians",
         "True - both equal sin^2 x",
-        "cos x",
-        "1 / sin x"
+        "1 / sin x",
+        "Yes: combine to (sin^2+cos^2)/(sin x cos x) = 1/(sin x cos x) = sec x csc x"
       ],
       "correctText": "True - both equal sin^2 x",
       "explanation": "Verify identity: LHS = (sec^2 - 1)/sec^2 = sec^2/sec^2 - 1/sec^2 = 1 - cos^2 x (since 1/sec = cos). Pythagorean: 1 - cos^2 x = sin^2 x = RHS. Verified. Alternative: sec^2 - 1 = tan^2 (from tan^2 + 1 = sec^2). So LHS = tan^2/sec^2 = (sin^2/cos^2)/(1/cos^2) = sin^2. PreCalc Regents and AP Calc tests verification: 'Show LHS=RHS by manipulating ONE side until it matches the other.' Working both sides simultaneously is not allowed in formal proofs."
@@ -2768,10 +2768,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Magnitude of vector v = <3, 4>.",
       "choices": [
-        "5",
+        "<5, 4>",
         "Circle of radius 3 centered at origin",
-        "3",
-        "<5, 4>"
+        "0",
+        "5"
       ],
       "correctText": "5",
       "explanation": "Magnitude: |v| = sqrt(a^2 + b^2). Here v = <3, 4>: |v| = sqrt(9+16) = sqrt(25) = 5. This is Pythagorean theorem (vector from origin to (3,4) has length 5). In 3D: |<a,b,c>| = sqrt(a^2+b^2+c^2). Generalizes to n dimensions. Unit vector: v/|v| has magnitude 1, same direction as v. Unit vector for <3,4> is <3/5, 4/5>. PreCalc Regents and AP Calc BC test computing magnitudes routinely. Speed = |velocity vector|; distance traveled = integral of speed."
@@ -2790,10 +2790,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sum: <2, -1> + <3, 5>.",
       "choices": [
-        "Circle of radius 3 centered at origin",
-        "x = 1 + 3t, y = 2 + 4t",
-        "45 degrees (pi/4)",
-        "<5, 4>"
+        "x = t - sin t, y = 1 - cos t",
+        "<5, 4>",
+        "-10",
+        "Circle of radius 3 centered at origin"
       ],
       "correctText": "<5, 4>",
       "explanation": "Vector addition: Add components: <2,-1> + <3,5> = <2+3, -1+5> = <5, 4>. Geometric interpretation: tip-to-tail or parallelogram rule. Commutative: v + w = w + v. Associative. Scalar multiplication: k<a,b> = <ka, kb> scales magnitude by |k| and reverses direction if k<0. Linear combination: a v + b w generates all vectors in the plane (if v, w are non-parallel). PreCalc Regents and AP Calc BC: net force = sum of forces, velocity decomposition into horizontal/vertical components, navigation with wind."
@@ -2812,10 +2812,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Curve traced by x = 3 cos t, y = 3 sin t for t in [0, 2pi].",
       "choices": [
-        "Circle of radius 3 centered at origin",
         "<5, 4>",
-        "45 degrees (pi/4)",
-        "y = 0"
+        "5",
+        "Circle of radius 3 centered at origin",
+        "(x-2)(x^2-2x+2)"
       ],
       "correctText": "Circle of radius 3 centered at origin",
       "explanation": "Eliminate parameter: x = 3 cos t, y = 3 sin t. So x/3 = cos t, y/3 = sin t. Use sin^2 + cos^2 = 1: (x/3)^2 + (y/3)^2 = 1, giving x^2 + y^2 = 9 (circle radius 3, center origin). For ellipses: x = a cos t, y = b sin t gives x^2/a^2 + y^2/b^2 = 1 (ellipse). PreCalc Regents key parametrization. AP Calc BC: arc length of full circle = integral 0 to 2pi of sqrt(9 sin^2 + 9 cos^2) dt = 6 pi (matches 2 pi r = 6 pi)."
@@ -2834,10 +2834,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Dot product of <2, 3> and <1, -4>.",
       "choices": [
-        "5",
-        "Absolute difference of distances to two foci is constant",
-        "45 degrees (pi/4)",
-        "-10"
+        "-10",
+        "Circle of radius 3 centered at origin",
+        "<5, 4>",
+        "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)"
       ],
       "correctText": "-10",
       "explanation": "Dot product: <a,b>. <c,d> = ac + bd. Here <2,3>.<1,-4> = 2*1 + 3*(-4) = 2 - 12 = -10. Geometric interpretation: u.v = |u||v| cos θ where θ is angle between vectors. If u.v=0, vectors are PERPENDICULAR. If u.v > 0, acute angle; < 0, obtuse. Used to find angles, project vectors, test orthogonality. PreCalc Regents introduces; AP Calc BC and Calc III use heavily. Work done by constant force: W = F. d. Vector projection: proj_u(v) = ((u.v)/|u|^2) u."
@@ -2856,10 +2856,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Angle between vectors <1, 0> and <1, 1>.",
       "choices": [
+        "(sqrt(6) - sqrt(2))/4",
         "Circle of radius 3 centered at origin",
-        "<5, 4>",
-        "θ = 0",
-        "45 degrees (pi/4)"
+        "45 degrees (pi/4)",
+        "-10"
       ],
       "correctText": "45 degrees (pi/4)",
       "explanation": "Angle from dot product: cos θ = (u.v)/(|u||v|). Here u=<1,0>, v=<1,1>: u.v = 1*1 + 0*1 = 1. |u|=1, |v|=sqrt(2). cos θ = 1/(1*sqrt(2)) = sqrt(2)/2. θ = arccos(sqrt(2)/2) = pi/4 = 45°. PreCalc Regents tests; AP Calc BC uses for parametric curve analysis (angle between velocity vectors at intersections, angle at which curve crosses an axis). Linear algebra extends to n dimensions with same formula."
@@ -2878,10 +2878,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Scalar multiplication: 3 * <2, -1>.",
       "choices": [
-        "<-5, 1, 1>",
         "<6, -3>",
-        "3",
-        "<1,2>.<2,-1> = 0, so YES perpendicular"
+        "<3, 2>",
+        "<-5, 1, 1>",
+        "(3, -1)"
       ],
       "correctText": "<6, -3>",
       "explanation": "Scalar multiplication: k<a,b> = <ka, kb>. Here 3*<2,-1> = <6,-3>. Effect: scales magnitude by |k| (here |3|=3, so 3x longer), direction unchanged if k>0, reversed if k<0. Magnitude scales: |k v| = |k| |v|. PreCalc Regents and AP Calc BC use scalar mult in physics applications: doubling force, halving velocity. Linear combinations a v + b w form vector spaces. Critical for parameterizing lines: r(t) = r_0 + t*d where d is direction vector and t is scalar parameter."
@@ -2900,10 +2900,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Speed of particle with x(t) = 3t, y(t) = 4t at any time t.",
       "choices": [
-        "5",
+        "x = ln(7)",
+        "<3, 2>",
         "<6, -3>",
-        "lim_(n -> infinity) (1 + 1/n)^n",
-        "<-5, 1, 1>"
+        "5"
       ],
       "correctText": "5",
       "explanation": "Speed = |velocity| = sqrt((dx/dt)^2 + (dy/dt)^2) = sqrt(9 + 16) = sqrt(25) = 5. Constant speed (since x and y components are linear, the velocity is constant). Direction is <3, 4>/5 = <3/5, 4/5> (unit vector). Path is straight line from origin with slope 4/3, moving in direction of <3,4>. PreCalc Regents introduces; AP Calc BC standard problem. For variable speed like x = t^2, y = t^3: speed = sqrt(4t^2 + 9t^4) which depends on t."
@@ -2922,10 +2922,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Perpendicular pair: which of <1,2> is perpendicular to <2,-1>?",
       "choices": [
+        "<6, -3>",
         "<1,2>.<2,-1> = 0, so YES perpendicular",
-        "x^2 + y^2 = 16",
         "<-5, 1, 1>",
-        "<6, -3>"
+        "1"
       ],
       "correctText": "<1,2>.<2,-1> = 0, so YES perpendicular",
       "explanation": "Test perpendicularity: u.v = 0 iff u perpendicular to v. <1,2>.<2,-1> = 1*2 + 2*(-1) = 2 - 2 = 0. Yes, perpendicular. To find a perpendicular vector to <a,b>, swap and negate one: <-b, a> or <b, -a>. Both are perpendicular to <a,b>. PreCalc Regents tests perpendicularity. AP Calc BC: normal vector to a curve at point. Calc III: gradient is perpendicular to level curves. Linear algebra: orthogonal complement of subspace."
@@ -2944,10 +2944,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cross product of <1, 2, 3> and <0, 1, -1> in 3D.",
       "choices": [
+        "pi/3 to the right",
         "<-5, 1, 1>",
-        "Intermediate Value Theorem",
-        "<6, -3>",
-        "<3, 2>"
+        "<1,2>.<2,-1> = 0, so YES perpendicular",
+        "<6, -3>"
       ],
       "correctText": "<-5, 1, 1>",
       "explanation": "Cross product (3D only): <a1,a2,a3> x <b1,b2,b3> = <a2 b3 - a3 b2, a3 b1 - a1 b3, a1 b2 - a2 b1>. Here: <1,2,3> x <0,1,-1> = <2*(-1)-3*1, 3*0-1*(-1), 1*1-2*0> = <-5, 1, 1>. Geometric: u x v is perpendicular to BOTH u and v, with magnitude |u||v|sin θ. Right-hand rule for direction. Used in physics for torque, angular momentum. PreCalc Regents may introduce; AP Calc BC mostly 2D, but Calc III uses extensively. Area of parallelogram = |u x v|."
@@ -2967,9 +2967,9 @@
       "prompt": "A particle has v(t) = <3, 4t>. Find position at t = 1 if r(0) = <0, 0>.",
       "choices": [
         "<3, 2>",
-        "5",
-        "<6, -3>",
-        "Neither even nor odd"
+        "<-5, 1, 1>",
+        "<1,2>.<2,-1> = 0, so YES perpendicular",
+        "θ = pi/4 (or θ = pi/4 + pi)"
       ],
       "correctText": "<3, 2>",
       "explanation": "Integrate velocity to get position: r(t) = r(0) + integral_0^t v(s) ds. Here v(t) = <3, 4t>. Integrate component-wise from 0 to 1: integral_0^1 3 ds = 3; integral_0^1 4s ds = 2. So r(1) = <0,0> + <3, 2> = <3, 2>. PreCalc Regents and AP Calc BC: 'Given velocity and initial position, find position at later time.' Reverse: given position, differentiate to get velocity. Also acceleration -> velocity -> position via successive integration with initial conditions."
@@ -2988,10 +2988,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Parametric equations express x and y in terms of this auxiliary variable.",
       "choices": [
-        "x = t - sin t, y = 1 - cos t",
-        "Continuous everywhere",
         "integral from a to b of sqrt((dx/dt)^2 + (dy/dt)^2) dt",
-        "Parameter t"
+        "x = 0 (the y-axis)",
+        "Parameter t",
+        "Parabola y = x^2"
       ],
       "correctText": "Parameter t",
       "explanation": "X = f(t), y = g(t) define a curve as t varies. The parameter t often represents time. Example: x = cos t, y = sin t traces unit circle as t goes from 0 to 2pi. To convert to Cartesian: eliminate t by solving one equation for t and substituting (or use identity like sin^2+cos^2=1). PreCalc Regents introduces; AP Calc BC requires fluency. Speed = sqrt((dx/dt)^2 + (dy/dt)^2). Arc length = integral of speed. Tangent slope dy/dx = (dy/dt)/(dx/dt)."
@@ -3010,10 +3010,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Parametric equations x = t, y = t^2 trace this curve.",
       "choices": [
-        "Parabola y = x^2",
-        "x = t - sin t, y = 1 - cos t",
-        "Sine equals Opposite over Hypotenuse",
-        "Parameter t"
+        "Parameter t",
+        "Arithmetic sequence",
+        "integral from a to b of sqrt((dx/dt)^2 + (dy/dt)^2) dt",
+        "Parabola y = x^2"
       ],
       "correctText": "Parabola y = x^2",
       "explanation": "Eliminate parameter: x = t, y = t^2. Substitute t = x into y = t^2: y = x^2. Cartesian: parabola y = x^2 (vertex at origin, opens up). Parametric form preserves direction information: as t increases, motion is left-to-right (since x=t). PreCalc Regents introduces conversion both ways. AP Calc BC: parametric derivative dy/dx = (dy/dt)/(dx/dt) = 2t/1 = 2t = 2x (matches direct differentiation). Useful when y=f(x) is hard to express but parametric form is natural (cycloid, etc.)."
@@ -3032,10 +3032,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Tangent slope dy/dx for parametric x(t), y(t).",
       "choices": [
-        "pi/3",
         "x = t - sin t, y = 1 - cos t",
+        "lim f'/g'",
         "(dy/dt) / (dx/dt)",
-        "Parabola y = x^2"
+        "Parameter t"
       ],
       "correctText": "(dy/dt) / (dx/dt)",
       "explanation": "Parametric derivative: dy/dx = (dy/dt)/(dx/dt) where both top and bottom are derivatives with respect to t. Comes from chain rule: dy/dt = (dy/dx)(dx/dt), solving for dy/dx. Undefined when dx/dt = 0 (vertical tangent). Example: x = cos t, y = sin t: dy/dx = cos t / (-sin t) = -cot t. AP Calc BC: 'Find tangent line to parametric curve at t = pi/4.' Compute x'(pi/4), y'(pi/4), use point-slope form. Also: second derivative d²y/dx² = (d/dt[dy/dx])/(dx/dt), tricky chain rule."
@@ -3054,10 +3054,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Arc length formula for parametric curve from t=a to t=b.",
       "choices": [
-        "integral from a to b of sqrt((dx/dt)^2 + (dy/dt)^2) dt",
         "Parameter t",
-        "(dy/dt) / (dx/dt)",
-        "4"
+        "Parabola y = x^2",
+        "x must be in domain of g and g(x) must be in domain of f",
+        "integral from a to b of sqrt((dx/dt)^2 + (dy/dt)^2) dt"
       ],
       "correctText": "integral from a to b of sqrt((dx/dt)^2 + (dy/dt)^2) dt",
       "explanation": "Arc length: L = integral_a^b sqrt((dx/dt)^2 + (dy/dt)^2) dt = integral_a^b |v(t)| dt = integral of speed. Same as distance traveled by particle from t=a to t=b. For curve given as y = f(x): L = integral sqrt(1 + (dy/dx)^2) dx (special case where parameter is x itself). AP Calc BC core formula. Example: arc length of x = cos t, y = sin t from 0 to 2pi: integral sqrt(sin^2 t + cos^2 t) dt = integral 1 dt = 2pi (matches circumference of unit circle)."
@@ -3076,10 +3076,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Parametrize cycloid traced by point on circle of radius 1 rolling along x-axis.",
       "choices": [
-        "Parameter t",
+        "(dy/dt) / (dx/dt)",
+        "Set of points equidistant from focus and directrix",
         "x = t - sin t, y = 1 - cos t",
-        "A_0 * e^(kt) (k > 0)",
-        "Parabola y = x^2"
+        "integral from a to b of sqrt((dx/dt)^2 + (dy/dt)^2) dt"
       ],
       "correctText": "x = t - sin t, y = 1 - cos t",
       "explanation": "Cycloid: curve traced by point on rim of rolling wheel. For unit circle rolling along x-axis starting with point at origin, after circle rotates by angle t, center has moved to (t, 1), and tracked point relative to center is (-sin t, -cos t). Absolute position: (t - sin t, 1 - cos t). Period 2pi. Famous brachistochrone curve: cycloid solves the 'fastest descent under gravity' problem (Bernoulli, 1696). PreCalc Regents and AP Calc BC: classic parametric curve example. Arc length per arch = 8."
@@ -3099,9 +3099,9 @@
       "prompt": "Quantity with both magnitude and direction.",
       "choices": [
         "Vector",
-        "x = 1 + 3t, y = 2 + 4t",
-        "Velocity vector",
-        "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)"
+        "<3/5, 4/5>",
+        "T(t) = T_amb + (T_0 - T_amb) * e^(-kt)",
+        "Velocity vector"
       ],
       "correctText": "Vector",
       "explanation": "Vector: A quantity with both magnitude (size) and direction. Contrast with scalar (magnitude only, e.g., temperature, mass). Notation: bold v or v with arrow on top. Components: v = <a, b> in 2D or <a, b, c> in 3D. Examples: velocity, force, displacement, acceleration. PreCalc Regents introduces vectors via component form and graphical addition. AP Calc BC and Calculus III use them extensively for parametric curves, motion in space, dot/cross products. The position vector r(t) = <x(t), y(t)> describes parametric motion."
@@ -3121,9 +3121,9 @@
       "prompt": "Vector representing motion of a particle = position derivative.",
       "choices": [
         "Velocity vector",
-        "<4, 0>",
-        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)",
-        "x = 1 + 3t, y = 2 + 4t"
+        "f(x) = x^4, g(x) = 3x+1",
+        "<3/5, 4/5>",
+        "Vector"
       ],
       "correctText": "Velocity vector",
       "explanation": "Velocity vector v(t) = r'(t) = <x'(t), y'(t)>. Direction is tangent to path; magnitude is speed. AP Calc BC: 'A particle moves along curve x(t)=..., y(t)=... Find velocity at t=2.' Compute x'(t), y'(t), evaluate at t=2. Speed = |v(t)| = sqrt(x'^2 + y'^2). Acceleration vector a(t) = v'(t) = <x''(t), y''(t)>. PreCalc Regents introduces; AP Calc BC heavily tests parametric motion problems. Distance traveled = integral of speed dt, NOT integral of velocity (which is displacement)."
@@ -3143,9 +3143,9 @@
       "prompt": "Unit vector in direction of <3, 4>.",
       "choices": [
         "<3/5, 4/5>",
-        "<4, 0>",
-        "Vector",
-        "5"
+        "x = 1 + 3t, y = 2 + 4t",
+        "1",
+        "<4, 0>"
       ],
       "correctText": "<3/5, 4/5>",
       "explanation": "Unit vector: u_hat = v/|v|. For v=<3,4>: |v|=5, so unit vector = <3/5, 4/5>. Magnitude of unit vector is 1 by construction: sqrt((3/5)^2+(4/5)^2) = sqrt(25/25) = 1. Standard unit vectors in 2D: i = <1,0>, j = <0,1>. Any vector <a,b> = a*i + b*j. PreCalc Regents tests unit vector construction. AP Calc BC parametric: unit tangent T(t) = r'(t)/|r'(t)| measures direction of motion. Calc III: principal unit normal N(t) for curvature."
@@ -3164,9 +3164,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Parametric equations for line through (1, 2) with direction <3, 4>.",
       "choices": [
+        "16",
         "<3/5, 4/5>",
         "Vector",
-        "x-intercepts at x=1 and x=-3; vertical asymptote at x=2; slant asymptote y=x+2",
         "x = 1 + 3t, y = 2 + 4t"
       ],
       "correctText": "x = 1 + 3t, y = 2 + 4t",
@@ -3186,10 +3186,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Vector projection of <4, 1> onto <2, 0>.",
       "choices": [
-        "x = 3",
+        "Continuous everywhere",
+        "<3/5, 4/5>",
         "<4, 0>",
-        "Vector",
-        "<3/5, 4/5>"
+        "x = 1 + 3t, y = 2 + 4t"
       ],
       "correctText": "<4, 0>",
       "explanation": "Vector projection: proj_u(v) = ((u.v)/|u|^2) u. Here u=<2,0>, v=<4,1>: u.v = 4*2 + 1*0 = 8. |u|^2 = 4. Scalar coefficient = 8/4 = 2. proj = 2*<2,0> = <4,0>. Geometric: 'shadow' of v cast onto direction of u. Used in physics (work = F.d projection), computer graphics, statistics (least squares regression). PreCalc Regents and AP Calc BC: motion problems where velocity vector decomposes into components along and across a road/river. Calc III: gradient projection onto direction = directional derivative."
@@ -3208,10 +3208,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "X in polar form (r, theta).",
       "choices": [
-        "x^2 + y^2 = 16",
-        "(sqrt(2), pi/4)",
         "r cos theta",
-        "cos x"
+        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)",
+        "2pi",
+        "(sqrt(2), pi/4)"
       ],
       "correctText": "r cos theta",
       "explanation": "X = r cos θ, y = r sin θ. r is distance from origin, θ is angle from positive x-axis. Reverse: r = sqrt(x^2 + y^2), tan θ = y/x (with quadrant check). Polar (1, pi/2): x = 1*0 = 0, y = 1*1 = 1, point (0,1). Polar (2, pi): point (-2, 0). PreCalc Regents introduces conversion. AP Calc BC tests polar curves like r = 1 + cos θ (cardioid) and r = 2 cos(3θ) (rose). Polar form is convenient for circular and radial symmetry, even when Cartesian form is awkward."
@@ -3230,10 +3230,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Y in polar form (r, theta).",
       "choices": [
-        "Factor Theorem",
+        "r cos theta",
         "(sqrt(2), pi/4)",
-        "r sin theta",
-        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)"
+        "integral from a to b of sqrt((dx/dt)^2 + (dy/dt)^2) dt",
+        "r sin theta"
       ],
       "correctText": "r sin theta",
       "explanation": "Polar y-coordinate: y = r sin θ. Combined with x = r cos θ: any point (r, θ) in polar maps to (r cos θ, r sin θ) in Cartesian. Distance from origin: sqrt(x^2 + y^2) = sqrt(r^2 cos^2 + r^2 sin^2) = sqrt(r^2(cos^2 + sin^2)) = |r|. Identity recovers r. Polar form (r, θ) allows r<0 with convention: (-r, θ) = (r, θ + pi). PreCalc Regents tests; AP Calc BC: polar area A = (1/2) integral r^2 dθ (compare with parametric arc length and Cartesian area to integrate)."
@@ -3252,10 +3252,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Convert Cartesian (1, 1) to polar with r > 0 and θ in [0, 2pi).",
       "choices": [
-        "x^2 + y^2 = 16",
+        "r cos theta",
         "(sqrt(2), pi/4)",
-        "r sin theta",
-        "2 sin x cos x"
+        "f must be continuous on the closed interval [a,b]",
+        "r sin theta"
       ],
       "correctText": "(sqrt(2), pi/4)",
       "explanation": "Cartesian to polar: r = sqrt(x^2 + y^2) = sqrt(1+1) = sqrt(2). θ = arctan(y/x) = arctan(1) = pi/4, with quadrant check: point (1,1) is in Q1, so pi/4 is correct (no adjustment needed). Polar: (sqrt(2), pi/4). Quadrant matters: arctan returns values in (-pi/2, pi/2), so for Q2 add pi, Q3 add pi, Q4 add 2pi (or subtract). For (-1, 1) in Q2: arctan(-1) = -pi/4, but actual angle is 3pi/4 (add pi). PreCalc Regents conversion item; AP Calc BC core fluency."
@@ -3274,10 +3274,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Polar equation r = 4 in Cartesian.",
       "choices": [
-        "(+/- sqrt(7), 0)",
-        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)",
         "(sqrt(2), pi/4)",
-        "x^2 + y^2 = 16"
+        "x^2 + y^2 = 16",
+        "x = pi/6, 5pi/6, 3pi/2",
+        "r sin theta"
       ],
       "correctText": "x^2 + y^2 = 16",
       "explanation": "Convert r = 4: square both sides (since r >= 0): r^2 = 16. Use r^2 = x^2 + y^2: x^2 + y^2 = 16. This is a circle of radius 4 centered at origin. Polar makes circles centered at origin trivially expressible. Polar r = a (constant) is always such a circle. r = a sin θ or r = a cos θ are circles NOT centered at origin (they pass through origin). PreCalc Regents tests conversion. AP Calc BC: area of region in polar = (1/2) integral r^2 dθ from theta_1 to theta_2 - elegant for radial regions."
@@ -3296,10 +3296,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Polar equation r = 2 + 2cos θ in Cartesian.",
       "choices": [
-        "Reflection over the line y = x",
         "x^2 + y^2 = 16",
-        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)",
-        "r sin theta"
+        "(sqrt(2), pi/4)",
+        "y = 3",
+        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)"
       ],
       "correctText": "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)",
       "explanation": "Cardioid: r = 2 + 2cos θ. Multiply both sides by r: r^2 = 2r + 2r cos θ. Substitute r^2 = x^2+y^2 and r cos θ = x: x^2 + y^2 = 2r + 2x. Move 2x: x^2 + y^2 - 2x = 2r. Square: (x^2+y^2-2x)^2 = 4r^2 = 4(x^2+y^2). Messy 4th-degree equation, but polar form r=2+2cos θ is clean. This curve is a heart-shaped cardioid (named for Greek 'kardia' = heart). PreCalc Regents introduces; AP Calc BC tests area inside cardioid: A = (1/2) integral_0^(2pi) (2+2cos θ)^2 dθ = 6 pi."
@@ -3318,10 +3318,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Equation form for parabola opening up with vertex (h, k).",
       "choices": [
-        "y^2 = x^3 (semicubical parabola)",
-        "(x-h)^2 = 4p(y-k)",
+        "y = (x+2)^2 + 3",
         "(0, 2)",
-        "(3, -1)"
+        "(x-h)^2 = 4p(y-k)",
+        "x = pi/6, 5pi/6, 3pi/2"
       ],
       "correctText": "(x-h)^2 = 4p(y-k)",
       "explanation": "Parabola standard form: (x-h)^2 = 4p(y-k) opens UP if p>0, DOWN if p<0. Vertex (h,k). Focus at (h, k+p). Directrix y = k-p. Coefficient 4p controls how 'wide' the parabola is. Reflection property: rays parallel to axis reflect through focus (used in satellite dishes, headlights). For horizontal: (y-k)^2 = 4p(x-h) opens right if p>0. PreCalc Regents and AP Calc test identifying h, k, p from given equation. AP Calc applies in optics, parabolic trajectories, and parametric equations of falling objects."
@@ -3340,10 +3340,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Locus definition of parabola.",
       "choices": [
-        "(3, -1)",
+        "(0, 2)",
         "Set of points equidistant from focus and directrix",
         "(x-h)^2 = 4p(y-k)",
-        "Common base method"
+        "5 (at most five)"
       ],
       "correctText": "Set of points equidistant from focus and directrix",
       "explanation": "Parabola locus: Set of all points P such that distance from P to focus F equals distance from P to directrix d (a line). Equivalent to algebraic definition via standard form. Distance to focus is to a POINT; distance to directrix is perpendicular distance to a LINE. Application: reflective property comes from this geometric definition (light from focus reflects parallel to axis, and vice versa). PreCalc Regents introduces conics by locus definitions. AP Calc uses parabolas in projectile motion and integration applications (areas under arches, volume of revolution)."
@@ -3362,10 +3362,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Focus of x^2 = 8y.",
       "choices": [
-        "(0, 2)",
-        "(3, -1)",
+        "a^(m+n)",
         "Set of points equidistant from focus and directrix",
-        "(+/- 4, 0)"
+        "(x-h)^2 = 4p(y-k)",
+        "(0, 2)"
       ],
       "correctText": "(0, 2)",
       "explanation": "Find focus: x^2 = 8y is in form x^2 = 4py with 4p = 8, so p = 2. Vertex at (0,0) (since h=k=0). Parabola opens up (p>0). Focus at (h, k+p) = (0, 0+2) = (0, 2). Directrix y = k-p = -2. PreCalc Regents tests extracting p from coefficient. AP Calc uses focal property: optical and audio applications focus rays via parabolic reflectors. The point (4, 2) is on the parabola: 4^2 = 16 = 8*2, and is equidistant from F=(0,2) (distance 4) and directrix y=-2 (distance 4). Verified."
@@ -3385,9 +3385,9 @@
       "prompt": "Vertex of (x-3)^2 = -4(y+1).",
       "choices": [
         "(x-h)^2 = 4p(y-k)",
-        "cos x",
-        "(3, -1)",
-        "(0, 2)"
+        "y = (x+2)^2 + 3",
+        "Absolute difference of distances to two foci is constant",
+        "(3, -1)"
       ],
       "correctText": "(3, -1)",
       "explanation": "Vertex from standard form: (x-h)^2 = 4p(y-k) has vertex (h, k). Here (x-3)^2 = -4(y+1) = -4(y-(-1)), so h=3, k=-1. Vertex (3, -1). Coefficient 4p = -4 means p = -1 (negative), so parabola opens DOWN. Focus: (h, k+p) = (3, -2). Directrix: y = k-p = 0 (the x-axis). PreCalc Regents standard problem. AP Calc: shifted parabolas appear in projectile motion (vertex = peak of trajectory) and in completing the square problems for area-under-curve integrals."
@@ -3406,10 +3406,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Convert y = x^2 + 4x + 7 to vertex form.",
       "choices": [
-        "y = (x+2)^2 + 3",
-        "f-inverse of x",
         "Set of points equidistant from focus and directrix",
-        "(3, -1)"
+        "y = (x+2)^2 + 3",
+        "(0, 2)",
+        "1"
       ],
       "correctText": "y = (x+2)^2 + 3",
       "explanation": "Complete the square: y = x^2 + 4x + 7 = (x^2 + 4x + 4) + 7 - 4 = (x+2)^2 + 3. Add and subtract (b/2)^2 = (4/2)^2 = 4. Vertex form: y - 3 = (x+2)^2, so vertex (-2, 3). Comparison with (x-h)^2 = 4p(y-k): rewrite as (x+2)^2 = 1*(y-3), so 4p = 1, p = 1/4. Focus (-2, 3.25); directrix y = 2.75. PreCalc Regents: completing the square essential for identifying vertex and analyzing conics. AP Calc: same technique for integrating 1/(x^2+4x+13) via completing square inside arctan integral."
@@ -3428,10 +3428,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Standard form for ellipse centered at origin.",
       "choices": [
-        "f must be continuous on the closed interval [a,b]",
         "x^2/a^2 + y^2/b^2 = 1",
-        "(x-2)^2/16 + (y+1)^2/4 = 1",
-        "(+/- 4, 0)"
+        "(+/- 4, 0)",
+        "<-5, 1, 1>",
+        "(x-2)^2/16 + (y+1)^2/4 = 1"
       ],
       "correctText": "x^2/a^2 + y^2/b^2 = 1",
       "explanation": "Ellipse standard form: x^2/a^2 + y^2/b^2 = 1 (center origin). a, b are semi-axes. If a > b: major axis horizontal, vertices at (+/-a, 0), minor axis vertices at (0, +/-b). If b > a: major axis vertical. Foci: at (+/-c, 0) where c^2 = a^2 - b^2 (with a > b). Eccentricity e = c/a, between 0 (circle) and 1 (parabola). PreCalc Regents identifies a, b, c from equation. AP Calc: area of ellipse = pi*a*b (generalizes pi*r^2 circle). Kepler's first law: planets orbit Sun in ellipses with Sun at focus."
@@ -3450,10 +3450,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Eccentricity range for ellipse.",
       "choices": [
-        "<-5, 1, 1>",
-        "0 <= e < 1",
+        "Vertical asymptote",
         "x^2/a^2 + y^2/b^2 = 1",
-        "(x-2)^2/16 + (y+1)^2/4 = 1"
+        "0 <= e < 1",
+        "Sum of distances to two foci is constant"
       ],
       "correctText": "0 <= e < 1",
       "explanation": "Eccentricity of ellipse: e = c/a where c = sqrt(a^2 - b^2), a is semi-major axis. Range: 0 <= e < 1. e=0 is a circle (foci coincide at center). e approaching 1 means ellipse becomes elongated (foci far apart relative to a). Parabola has e=1 exactly. Hyperbola has e>1. PreCalc Regents and AP Calc: eccentricity classifies conics. Earth's orbital eccentricity ≈ 0.017 (nearly circular); Mars ≈ 0.093; comets often e > 0.9 (very elongated). Kepler's first law: orbits are ellipses with Sun at one focus."
@@ -3472,10 +3472,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Foci of ellipse x^2/25 + y^2/9 = 1.",
       "choices": [
-        "cos A cos B + sin A sin B",
-        "x^2/a^2 + y^2/b^2 = 1",
-        "(x-2)^2/16 + (y+1)^2/4 = 1",
-        "(+/- 4, 0)"
+        "y = 6 sin((pi/2)(x-1)) - 1",
+        "(+/- 4, 0)",
+        "Sum of distances to two foci is constant",
+        "x^2/a^2 + y^2/b^2 = 1"
       ],
       "correctText": "(+/- 4, 0)",
       "explanation": "Foci of horizontal ellipse: a^2 = 25 (so a=5), b^2 = 9 (so b=3). c^2 = a^2 - b^2 = 25 - 9 = 16, c=4. Major axis is x-axis (since a > b). Foci at (+/- c, 0) = (+/- 4, 0). Vertices: (+/- 5, 0). Minor axis vertices: (0, +/- 3). PreCalc Regents and AP Calc tests foci computation. Focus-directrix property: for any point P on ellipse, |PF_1| + |PF_2| = 2a (constant sum). This is the locus definition of ellipse - 'two tacks and a string' geometric construction."
@@ -3494,10 +3494,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Locus definition of ellipse.",
       "choices": [
-        "x = ln(2) / ln(5/2)",
-        "(+/- 4, 0)",
+        "True - both equal sin^2 x",
         "Sum of distances to two foci is constant",
-        "(x-2)^2/16 + (y+1)^2/4 = 1"
+        "(x-2)^2/16 + (y+1)^2/4 = 1",
+        "(+/- 4, 0)"
       ],
       "correctText": "Sum of distances to two foci is constant",
       "explanation": "Ellipse locus: |PF_1| + |PF_2| = 2a for any point P on the ellipse, where F_1 and F_2 are the foci and 2a is the major axis length. Geometric construction: drive two thumbtacks (foci), loop a string around them, trace with pencil keeping string taut - traces an ellipse. PreCalc Regents and AP Calc apply: orbital mechanics, whispering galleries (sound from one focus reflects to other). NASA mission planning uses ellipse properties. Reflection property: rays from one focus reflect through the other (used in lithotripsy to break kidney stones)."
@@ -3516,9 +3516,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Standard form of ellipse with center (2, -1), a=4 horizontal, b=2.",
       "choices": [
-        "x = pi/6 and 5pi/6",
-        "x^2/a^2 + y^2/b^2 = 1",
+        "Sum of distances to two foci is constant",
         "(x-2)^2/16 + (y+1)^2/4 = 1",
+        "5",
         "0 <= e < 1"
       ],
       "correctText": "(x-2)^2/16 + (y+1)^2/4 = 1",
@@ -3538,10 +3538,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Standard form for horizontal hyperbola centered at origin.",
       "choices": [
-        "x^2/a^2 - y^2/b^2 = 1",
-        "log_b(M) + log_b(N)",
+        "y = +/- (4/3) x",
+        "x = pi/6, 5pi/6, 3pi/2",
         "e > 1",
-        "(+/- 5, 0)"
+        "x^2/a^2 - y^2/b^2 = 1"
       ],
       "correctText": "x^2/a^2 - y^2/b^2 = 1",
       "explanation": "Horizontal hyperbola: x^2/a^2 - y^2/b^2 = 1 (center origin). Vertices at (+/-a, 0). Foci at (+/-c, 0) where c^2 = a^2 + b^2 (note PLUS for hyperbola, MINUS for ellipse). Asymptotes: y = +/-(b/a)x. The conjugate hyperbola (vertical) is y^2/b^2 - x^2/a^2 = 1 with vertices (0, +/-b). PreCalc Regents tests differences from ellipse: subtraction sign, c^2 formula, foci farther than vertices. AP Calc: hyperbolic functions cosh(t) = (e^t+e^(-t))/2 and sinh(t) parameterize hyperbola: x = cosh t, y = sinh t traces x^2 - y^2 = 1."
@@ -3561,8 +3561,8 @@
       "prompt": "Eccentricity range for hyperbola.",
       "choices": [
         "Absolute difference of distances to two foci is constant",
-        "(-3, 5pi/4)",
-        "x^2/a^2 - y^2/b^2 = 1",
+        "y = +/- (4/3) x",
+        "(dy/dt) / (dx/dt)",
         "e > 1"
       ],
       "correctText": "e > 1",
@@ -3582,10 +3582,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Asymptotes of x^2/9 - y^2/16 = 1.",
       "choices": [
-        "y = +/- (4/3) x",
-        "r cos theta",
-        "Absolute difference of distances to two foci is constant",
-        "x^2/a^2 - y^2/b^2 = 1"
+        "x^2/a^2 - y^2/b^2 = 1",
+        "2",
+        "(+/- 5, 0)",
+        "y = +/- (4/3) x"
       ],
       "correctText": "y = +/- (4/3) x",
       "explanation": "Hyperbola asymptotes: For x^2/a^2 - y^2/b^2 = 1, asymptotes are y = +/- (b/a)x. Here a^2 = 9 (a=3), b^2 = 16 (b=4), so asymptotes y = +/- (4/3)x. Comes from large-x analysis: as x->inf, (x/3)^2 dominates 1, so y^2 ≈ (16/9)x^2 (b^2/a^2 * x^2), giving y ≈ +/- (b/a)x. Method to graph: draw vertices, draw asymptote lines, sketch curves approaching asymptotes. PreCalc Regents and AP Calc tests this. End behavior of hyperbola matches asymptote behavior, similar to rational function slant asymptotes."
@@ -3605,9 +3605,9 @@
       "prompt": "Foci of x^2/9 - y^2/16 = 1.",
       "choices": [
         "e > 1",
-        "y = +/- (4/3) x",
-        "x = 3i and x = -3i",
-        "(+/- 5, 0)"
+        "ln(x)",
+        "(+/- 5, 0)",
+        "Absolute difference of distances to two foci is constant"
       ],
       "correctText": "(+/- 5, 0)",
       "explanation": "Foci: c^2 = a^2 + b^2 = 9 + 16 = 25, c = 5. Foci at (+/- c, 0) = (+/- 5, 0). Note for hyperbola c > a (foci OUTSIDE vertices) which differs from ellipse where c < a (foci INSIDE vertices). Vertices at (+/- 3, 0). PreCalc Regents distinguishes hyperbola vs ellipse formulas. AP Calc uses hyperbolas for inverse square laws (Coulomb, gravitation force as function of distance). Locus definition: |PF_1 - PF_2| = 2a (constant DIFFERENCE) for hyperbola, contrasted with constant SUM for ellipse."
@@ -3626,10 +3626,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Locus definition of hyperbola.",
       "choices": [
-        "r = d/(cos(θ - α)) or similar",
-        "x^2/a^2 - y^2/b^2 = 1",
-        "Absolute difference of distances to two foci is constant",
-        "e > 1"
+        "e > 1",
+        "y = +/- (4/3) x",
+        "x > 0",
+        "Absolute difference of distances to two foci is constant"
       ],
       "correctText": "Absolute difference of distances to two foci is constant",
       "explanation": "Hyperbola locus: ||PF_1| - |PF_2|| = 2a (constant) for any point on the hyperbola. Two branches: closer-to-F_1 branch has |PF_1| - |PF_2| = -2a; closer-to-F_2 branch has |PF_1| - |PF_2| = 2a. Together, absolute difference = 2a. Application: LORAN (radio navigation) - measure time difference between two signals to determine hyperbola you're on. PreCalc Regents introduces; AP Calc tests recognizing locus definitions of all conics. Reflection property: rays from one focus reflect AWAY from other focus (used in Cassegrain telescopes)."
@@ -3648,10 +3648,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Polar curve r = a (constant).",
       "choices": [
+        "Circle of radius a centered at origin",
         "Four-petaled rose",
-        "Cardioid",
-        "2^(4x-2)",
-        "Circle of radius a centered at origin"
+        "1 - 2 sin^2 x",
+        "(-3, 5pi/4)"
       ],
       "correctText": "Circle of radius a centered at origin",
       "explanation": "Polar circle: r = a (constant) is a circle of radius |a| centered at the origin. All points have same distance r from origin, so they form a circle. In Cartesian: x^2 + y^2 = a^2. Polar form is elegantly simple for radial symmetry. PreCalc Regents and AP Calc BC use polar for problems where Cartesian is awkward. Example: r = 5 is x^2+y^2=25; r=2 is x^2+y^2=4. AP Calc BC: area inside r=a circle = (1/2) integral_0^(2pi) a^2 dθ = pi*a^2 (matches familiar formula)."
@@ -3670,10 +3670,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Polar curve r = a sin θ (a > 0).",
       "choices": [
-        "Four-petaled rose",
-        "(1, 2)",
         "(-3, 5pi/4)",
-        "Circle of diameter a passing through origin"
+        "Circle of diameter a passing through origin",
+        "Cardioid",
+        "At least one root in (0,1)"
       ],
       "correctText": "Circle of diameter a passing through origin",
       "explanation": "Polar r = a sin θ: Multiply by r: r^2 = a r sin θ = a y (using r sin θ = y). Substitute r^2 = x^2+y^2: x^2 + y^2 = a y, completing square: x^2 + (y - a/2)^2 = (a/2)^2. Circle of radius a/2 centered at (0, a/2), passing through origin (tangent to x-axis at origin). Similarly r = a cos θ is a circle through origin tangent to y-axis. PreCalc Regents and AP Calc BC: tracing polar curves over [0, 2pi] when a > 0 traces circle TWICE (once for r>0, once for r<0)."
@@ -3692,10 +3692,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Polar curve r = 1 + cos θ.",
       "choices": [
-        "1 + tan^2 x = sec^2 x",
         "Cardioid",
-        "(-3, 5pi/4)",
-        "Circle of radius a centered at origin"
+        "Four-petaled rose",
+        "Circle of diameter a passing through origin",
+        "Horizontal line test"
       ],
       "correctText": "Cardioid",
       "explanation": "Cardioid: r = 1 + cos θ (or any r = a(1 + cos θ) variant). Heart-shaped curve. Symmetric about x-axis (since replacing θ with -θ gives same r). r ranges from 0 (at θ = pi) to 2 (at θ = 0). Special case of limaçon r = a + b cos θ when |a| = |b|. AP Calc BC: area inside cardioid = (1/2) integral_0^(2pi) (1+cos θ)^2 dθ = 3 pi/2. PreCalc Regents introduces; AP Calc BC tests area calculations. Cardioid appears in microphone directional patterns ('cardioid mic' picks up sound from one direction only)."
@@ -3714,10 +3714,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Polar curve r = 2 cos(2θ).",
       "choices": [
-        "y = 6 sin((pi/2)(x-1)) - 1",
-        "(-3, 5pi/4)",
-        "Circle of diameter a passing through origin",
-        "Four-petaled rose"
+        "<-5, 1, 1>",
+        "Four-petaled rose",
+        "Circle of radius a centered at origin",
+        "Circle of diameter a passing through origin"
       ],
       "correctText": "Four-petaled rose",
       "explanation": "Rose curves: r = a cos(nθ) or r = a sin(nθ). Number of petals: n if n is odd, 2n if n is even. Here n=2 (even), so 2*2 = 4 petals. Each petal traced as θ varies over interval where r >= 0. Length of each petal = |a|. PreCalc Regents and AP Calc BC: identify petal count and area. AP Calc BC area of one petal of r = a cos(nθ) (n even, n petals total within [0, 2pi]): A = (1/2) integral (over interval where cos >= 0) of a^2 cos^2(nθ) dθ = pi*a^2/(4n) per petal."
@@ -3736,10 +3736,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Identify the polar point equivalent to (3, pi/4) with r negative.",
       "choices": [
-        "<5, 4>",
-        "(-3, 5pi/4)",
         "Cardioid",
-        "Circle of radius a centered at origin"
+        "(-3, 5pi/4)",
+        "Circle of radius a centered at origin",
+        "x = 1"
       ],
       "correctText": "(-3, 5pi/4)",
       "explanation": "Polar equivalence: (r, θ) = (-r, θ + pi). So (3, pi/4) = (-3, pi/4 + pi) = (-3, 5pi/4). Verify: -3 cos(5pi/4) = -3*(-sqrt(2)/2) = 3sqrt(2)/2; -3 sin(5pi/4) = -3*(-sqrt(2)/2) = 3sqrt(2)/2. Same as 3 cos(pi/4) = 3sqrt(2)/2 and 3 sin(pi/4) = 3sqrt(2)/2. Both give Cartesian (3sqrt(2)/2, 3sqrt(2)/2). PreCalc Regents tests this less commonly; AP Calc BC: matters when tracing polar curves where r changes sign (r = 1 - 2cos θ has loops because r goes negative)."
@@ -3758,10 +3758,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Polar coordinates of a point.",
       "choices": [
+        "e > 1",
         "r = d/(cos(θ - α)) or similar",
-        "7",
-        "(r, theta) - distance and angle",
-        "(2, 4pi/3)"
+        "θ = pi/4 (or θ = pi/4 + pi)",
+        "(r, theta) - distance and angle"
       ],
       "correctText": "(r, theta) - distance and angle",
       "explanation": "(r, θ) where r is distance from origin (the 'pole') and θ is angle from positive x-axis (the 'polar axis'). Convention: θ measured counterclockwise. Multiple representations: (r, θ) = (r, θ + 2pi n) for any integer n; also (-r, θ) = (r, θ + pi) using negative r convention. Origin has any θ (special case). PreCalc Regents and AP Calc BC: many problems begin 'convert (r, θ) =... to Cartesian.' Polar excels for radial symmetry, rotation problems, spirals. Calc III extends to cylindrical and spherical coordinates."
@@ -3781,9 +3781,9 @@
       "prompt": "Cartesian formula for r given (x, y).",
       "choices": [
         "r = sqrt(x^2 + y^2)",
-        "(r, theta) - distance and angle",
-        "1",
-        "(2, 4pi/3)"
+        "y = 0",
+        "(2, 4pi/3)",
+        "(r, theta) - distance and angle"
       ],
       "correctText": "r = sqrt(x^2 + y^2)",
       "explanation": "Find r: r = sqrt(x^2 + y^2). Distance formula from origin. Always non-negative. Examples: point (3,4): r = sqrt(9+16) = 5. Point (-1, 1): r = sqrt(1+1) = sqrt(2). Note r is uniquely positive in standard polar; θ may have multiple representations modulo 2pi. PreCalc Regents tests conversion. AP Calc BC and Calc III use polar substitution for integrals over circular regions: x = r cos θ, y = r sin θ, dx dy = r dr dθ (Jacobian gives extra factor of r). Integral over disk x^2+y^2 <= R^2 becomes 0 to R for r, 0 to 2pi for θ."
@@ -3802,10 +3802,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Express line y = x in polar form.",
       "choices": [
-        "θ = pi/4 (or θ = pi/4 + pi)",
+        "(2, 4pi/3)",
         "r = d/(cos(θ - α)) or similar",
-        "x = pi/2 + n*pi",
-        "r = sqrt(x^2 + y^2)"
+        "Hole (removable discontinuity)",
+        "θ = pi/4 (or θ = pi/4 + pi)"
       ],
       "correctText": "θ = pi/4 (or θ = pi/4 + pi)",
       "explanation": "Polar line through origin: y = x means tan θ = y/x = 1, so θ = pi/4 (in Q1) or θ = pi/4 + pi = 5pi/4 (in Q3, when r > 0 still gives points on line). Polar equation: θ = pi/4 (with r varying over all reals, including negatives, traces the whole line) or use both θ values with r >= 0. PreCalc Regents tests; AP Calc BC: line through origin in polar is θ = constant. Generalizes to y = mx as θ = arctan(m). For lines NOT through origin, polar form is r = d sec(θ - α) as in the previous category."
@@ -3824,10 +3824,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Polar equation of a line that does NOT pass through origin.",
       "choices": [
+        "(r, theta) - distance and angle",
+        "lim f'/g'",
         "r = d/(cos(θ - α)) or similar",
-        "(2, 4pi/3)",
-        "2x^2 + 3x - 2",
-        "(r, theta) - distance and angle"
+        "r = sqrt(x^2 + y^2)"
       ],
       "correctText": "r = d/(cos(θ - α)) or similar",
       "explanation": "Polar line: A line at perpendicular distance d from origin, with the perpendicular making angle α with x-axis, has polar equation r cos(θ - α) = d, equivalently r = d/cos(θ - α) = d sec(θ - α). The foot of perpendicular is at (d cos α, d sin α). Vertical line x = c is r cos θ = c, so r = c sec θ. Horizontal line y = c is r sin θ = c, so r = c csc θ. PreCalc Regents and AP Calc BC: polar equation of common geometric figures. Lines through origin: θ = α (constant, just rotate radially)."
@@ -3846,10 +3846,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Polar coordinates of Cartesian (-1, -sqrt(3)) with r > 0 and θ in [0, 2pi).",
       "choices": [
-        "θ = pi/4 (or θ = pi/4 + pi)",
-        "r = sqrt(x^2 + y^2)",
         "(2, 4pi/3)",
-        "Cardioid"
+        "r = d/(cos(θ - α)) or similar",
+        "r = sqrt(x^2 + y^2)",
+        "ln(x)"
       ],
       "correctText": "(2, 4pi/3)",
       "explanation": "Cartesian to polar: (-1, -sqrt(3)). r = sqrt(1 + 3) = sqrt(4) = 2. arctan(y/x) = arctan(-sqrt(3)/(-1)) = arctan(sqrt(3)) = pi/3. But this is the REFERENCE angle; quadrant is Q3 (both x and y negative). In Q3, θ = pi + pi/3 = 4pi/3. Verify: 2 cos(4pi/3) = 2*(-1/2) = -1; 2 sin(4pi/3) = 2*(-sqrt(3)/2) = -sqrt(3). PreCalc Regents tests quadrant-aware conversion. AP Calc BC: critical for setting up polar integrals where bounds depend on starting angle."
@@ -3868,10 +3868,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Limit notation: lim_(x->a) f(x) = L means.",
       "choices": [
-        "Arithmetic sequence",
         "f(x) approaches L as x approaches a",
-        "f must be continuous on the closed interval [a,b]",
-        "Sum_{n=1}^{5} n^2"
+        "2 * 3^9 = 39366",
+        "lim f'/g'",
+        "Recursive sequence"
       ],
       "correctText": "f(x) approaches L as x approaches a",
       "explanation": "Limit definition (informal): lim x->a f(x) = L means that f(x) can be made arbitrarily close to L by taking x sufficiently close to a (but not equal to a). Formal epsilon-delta: for every epsilon > 0, exists delta > 0 such that 0 < |x - a| < delta implies |f(x) - L| < epsilon (Cauchy 1820s, refined by Weierstrass). PreCalc Regents introduces conceptually; AP Calc BC works at level of intuition and direct computation. Critical: x APPROACHES a, doesn't EQUAL a; so f(a) need not exist for the limit to exist."
@@ -3890,10 +3890,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Type of sequence with common difference between consecutive terms.",
       "choices": [
-        "Vertical shift",
+        "2 * 3^9 = 39366",
         "Arithmetic sequence",
-        "lim f'/g'",
-        "2 * 3^9 = 39366"
+        "Zeros of the denominator",
+        "lim f'/g'"
       ],
       "correctText": "Arithmetic sequence",
       "explanation": "Arithmetic sequence: a_n = a_1 + (n-1)d where d is the common difference. Each term differs from previous by exactly d. Examples: 5, 8, 11, 14,... (d=3). nth term formula essential for finding any term without listing all. Sum of first n terms: S_n = n(a_1 + a_n)/2 = n[2a_1 + (n-1)d]/2. PreCalc Regents and Algebra 2 Regents standard. AP Calc BC: arithmetic series diverge (unless d=0 and a_1=0), since terms don't approach 0. Gauss as a child famously computed 1+2+...+100 = 5050 = 100*101/2."
@@ -3912,10 +3912,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "10th term of geometric sequence 2, 6, 18,....",
       "choices": [
-        "f(x) approaches L as x approaches a",
-        "Sum_{n=1}^{5} n^2",
-        "A = P e^(rt)",
-        "2 * 3^9 = 39366"
+        "lim f'/g'",
+        "2 * 3^9 = 39366",
+        "Zeros of the denominator",
+        "Arithmetic sequence"
       ],
       "correctText": "2 * 3^9 = 39366",
       "explanation": "Geometric sequence: a_n = a_1 * r^(n-1). Common ratio r = 6/2 = 3. First term a_1 = 2. a_10 = 2 * 3^(10-1) = 2 * 3^9 = 2 * 19683 = 39366. PreCalc Regents and Algebra 2 tests this formula. Geometric sequences grow exponentially - much faster than arithmetic. AP Calc BC: geometric SERIES (sum) converges iff |r| < 1, with sum a/(1-r). Famous geometric series: 1/2 + 1/4 + 1/8 +... = 1 (Zeno's paradox resolved)."
@@ -3934,10 +3934,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sigma notation for 1 + 4 + 9 + 16 + 25.",
       "choices": [
-        "Arithmetic sequence",
-        "Sum_{n=1}^{5} n^2",
-        "ln(x) / ln(b)",
-        "lim f'/g'"
+        "2 * 3^9 = 39366",
+        "x^2/a^2 - y^2/b^2 = 1",
+        "f(x) approaches L as x approaches a",
+        "Sum_{n=1}^{5} n^2"
       ],
       "correctText": "Sum_{n=1}^{5} n^2",
       "explanation": "Sigma notation: Σ from n=1 to 5 of n^2 = 1 + 4 + 9 + 16 + 25 = 55. n is dummy index; can be i, k, j etc. Bounds 1 to 5 inclusive. Useful closed forms: Σ_{i=1}^n 1 = n; Σ_{i=1}^n i = n(n+1)/2; Σ_{i=1}^n i^2 = n(n+1)(2n+1)/6; Σ_{i=1}^n i^3 = [n(n+1)/2]^2. PreCalc Regents introduces sigma notation. AP Calc BC: definite integral defined as limit of Riemann sums in sigma notation: integral_a^b f(x) dx = lim n->inf Σ f(x_i)Δx."
@@ -3956,10 +3956,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "L'Hopital's Rule says lim f/g when 0/0 form equals.",
       "choices": [
-        "Sum_{n=1}^{5} n^2",
-        "f(x) approaches L as x approaches a",
-        "y = +/- (4/3) x",
-        "lim f'/g'"
+        "Arithmetic sequence",
+        "[1, 5]",
+        "lim f'/g'",
+        "f(x) approaches L as x approaches a"
       ],
       "correctText": "lim f'/g'",
       "explanation": "L'Hopital's Rule: For 0/0 or inf/inf indeterminate forms, lim x->a f(x)/g(x) = lim x->a f'(x)/g'(x) (if RHS limit exists). Iterate if still indeterminate. Bernoulli 1696 (published by L'Hopital). Examples: lim x->0 sin x/x: f'=cos x, g'=1, ratio at 0 is 1/1 = 1. lim x->inf x/e^x: ratio x/e^x is inf/inf, derivatives 1/e^x -> 0 as x -> inf. AP Calc BC heavily tests L'Hopital. NOTE: only applies to 0/0 and inf/inf; other indeterminate forms (0*inf, inf-inf, 0^0, 1^inf, inf^0) require algebraic manipulation first."
@@ -3978,10 +3978,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sum 1+2+3+...+100.",
       "choices": [
-        "2",
-        "pi/4",
-        "sin A cos B + cos A sin B",
-        "5050"
+        "Recursive sequence",
+        "5050",
+        "sec^2 x",
+        "pi/4"
       ],
       "correctText": "5050",
       "explanation": "Sum 1 to n: 1 + 2 +... + n = n(n+1)/2 (Gauss's formula, allegedly derived as a child). For n=100: 100*101/2 = 5050. Pairing trick: 1+100 = 101, 2+99 = 101,..., 50+51 = 101; 50 pairs of 101 = 5050. General arithmetic series: S = n(first + last)/2. PreCalc Regents and AP Calc BC use closed-form summations to evaluate Riemann sums in calculus (sum of i, i^2, i^3 over i=1 to n have known formulas critical for FTC proof)."
@@ -4000,10 +4000,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sum of geometric series 1 + 1/2 + 1/4 + 1/8 +....",
       "choices": [
-        "Zeros (roots)",
-        "5050",
+        "Diverges (sum -> infinity)",
         "2",
-        "Recursive sequence"
+        "c = -2",
+        "5050"
       ],
       "correctText": "2",
       "explanation": "Infinite geometric series: 1 + 1/2 + 1/4 +... = a/(1-r) where a is first term and r is common ratio. Here a=1, r=1/2: sum = 1/(1-1/2) = 1/(1/2) = 2. Converges iff |r| < 1; here |1/2| < 1, OK. Famous resolves Zeno's paradox: infinite distances add to finite total. AP Calc BC heavily tests geometric series, often with r in terms of x: sum x^n = 1/(1-x) for |x|<1 (geometric series in disguise). Derivative and integral give Taylor series of ln(1-x) and 1/(1-x)^2."
@@ -4023,8 +4023,8 @@
       "prompt": "Type of sequence each term defined using previous term(s).",
       "choices": [
         "Recursive sequence",
-        "pi/4",
-        "Arithmetic sequence",
+        "c^2 = a^2 + b^2 - 2ab cos(C)",
+        "Diverges (sum -> infinity)",
         "5050"
       ],
       "correctText": "Recursive sequence",
@@ -4044,10 +4044,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "First term that diverges: harmonic series sum 1/n.",
       "choices": [
-        "<4, 0>",
-        "Diverges (sum -> infinity)",
-        "Recursive sequence",
-        "pi/4"
+        "x = 2",
+        "5050",
+        "2",
+        "Diverges (sum -> infinity)"
       ],
       "correctText": "Diverges (sum -> infinity)",
       "explanation": "Harmonic series: Σ 1/n = 1 + 1/2 + 1/3 + 1/4 +... DIVERGES, even though terms approach 0. Proof (Oresme, 1350): group as 1 + (1/2) + (1/3+1/4) + (1/5+1/6+1/7+1/8) +... where each group sums to >= 1/2; infinitely many groups means sum diverges. Famous counterexample showing 'terms going to 0' is necessary but NOT sufficient for convergence. PreCalc Regents introduces; AP Calc BC: harmonic series is borderline divergent; Σ 1/n^p converges iff p > 1 (p-series test). Σ 1/n^2 = pi^2/6 (Basel problem, Euler)."
@@ -4066,10 +4066,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sum 1 - 1/3 + 1/5 - 1/7 + 1/9 -....",
       "choices": [
-        "Diverges (sum -> infinity)",
-        "<5, 4>",
+        "Recursive sequence",
+        "θ = pi/4 (or θ = pi/4 + pi)",
         "pi/4",
-        "Recursive sequence"
+        "2"
       ],
       "correctText": "pi/4",
       "explanation": "Leibniz series: 1 - 1/3 + 1/5 - 1/7 +... = pi/4 (Leibniz 1676; James Gregory had it earlier). Derives from Taylor series arctan(x) = x - x^3/3 + x^5/5 -... evaluated at x=1. Converges to pi/4 but VERY slowly (millions of terms needed for 6 decimal places of pi). AP Calc BC: Maclaurin series for arctan, derive Leibniz formula at x=1. Faster convergence: Machin's formula pi/4 = 4 arctan(1/5) - arctan(1/239) used for computing pi to many decimal places before computers."
@@ -4088,10 +4088,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Compute lim_(x->0^+) 1/x.",
       "choices": [
-        "1",
-        "True - apply sum and double-angle identities",
-        "5/2",
-        "+infinity"
+        "0",
+        "+infinity",
+        "2 tan x / (1 - tan^2 x)",
+        "1"
       ],
       "correctText": "+infinity",
       "explanation": "One-sided limit at vertical asymptote: lim x->0^+ 1/x = +inf. As x approaches 0 from the right (positive small numbers), 1/x grows without bound positively. From the left: lim x->0^- 1/x = -inf. Two-sided limit doesn't exist. Vertical asymptote x=0. PreCalc Regents and AP Calc BC: one-sided limits at VAs reveal whether function approaches +inf or -inf, important for graphing and improper integrals. Improper integral integral_0^1 1/x dx is integral with infinite value at x=0, requiring lim approach."
@@ -4110,10 +4110,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Compute lim_(x->infinity) (5x^2 + 3)/(2x^2 - 7).",
       "choices": [
+        "+infinity",
         "1",
-        "e > 1",
         "5/2",
-        "+infinity"
+        "(tan A + tan B) / (1 - tan A tan B)"
       ],
       "correctText": "5/2",
       "explanation": "Limit at infinity for rational: same degree numerator and denominator, ratio of leading coefficients. Here 5/2 = 2.5. Verify: divide num and denom by x^2: (5 + 3/x^2)/(2 - 7/x^2) -> 5/2 as x -> inf. PreCalc Regents: horizontal asymptote of rational functions. AP Calc BC: limits at infinity for rational functions of x have horizontal asymptotes corresponding to these ratios. End behavior of polynomials: lim x->inf of ax^n + lower order = sign(a)*inf if n>0. Rational comparison: degree determines limit."
@@ -4132,10 +4132,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Limit lim_(h->0) (sin h)/h equals.",
       "choices": [
-        "0",
-        "csc^2 x",
+        "x = ln(2) / ln(5/2)",
         "1",
-        "+infinity"
+        "5/2",
+        "3"
       ],
       "correctText": "1",
       "explanation": "Famous limit: lim h->0 (sin h)/h = 1 (h in radians). Foundation for derivative of sin: d/dx[sin x] = cos x derived from this limit. Geometric proof: sandwich theorem with cos h < (sin h)/h < 1 for small positive h, both bounds approach 1. WARNING: only works in radians; degrees give limit pi/180. Related: lim h->0 (1 - cos h)/h = 0; lim h->0 (1 - cos h)/h^2 = 1/2. PreCalc Regents introduces; AP Calc proves rigorously. L'Hopital's rule shortcut: 0/0 form, derivative of top is cos h, of bottom is 1; ratio at h=0 is 1."
@@ -4154,10 +4154,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Limit of a_n = (3n+1)/(n+2) as n approaches infinity.",
       "choices": [
-        "5/2",
-        "3",
-        "Jump discontinuity",
-        "+infinity"
+        "+infinity",
+        "16",
+        "1",
+        "3"
       ],
       "correctText": "3",
       "explanation": "Limit of rational sequence: a_n = (3n+1)/(n+2). Divide num/denom by n: a_n = (3 + 1/n)/(1 + 2/n). As n -> inf: numerator -> 3+0=3, denominator -> 1+0=1, so a_n -> 3. Rule: limit of rational expression in n equals ratio of leading coefficients when num/denom degrees match. PreCalc Regents introduces; AP Calc fundamental for limits at infinity. Convergent sequence: limit exists and is finite. Divergent sequence: limit doesn't exist or is infinite. AP Calc BC uses limits to determine series convergence."
@@ -4176,10 +4176,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Determine lim_(x->infinity) (x^3 + 2x)/(e^x).",
       "choices": [
-        "y -> infinity (slowly)",
         "0",
-        "+infinity",
-        "1"
+        "3",
+        "k = ln(2)/5 ≈ 0.1386",
+        "5/2"
       ],
       "correctText": "0",
       "explanation": "Polynomial vs exponential: lim x->inf (x^3+2x)/e^x. e^x grows faster than any polynomial, so limit is 0. Verify via L'Hopital (3 times): (x^3+2x)/e^x -> (3x^2+2)/e^x -> 6x/e^x -> 6/e^x -> 0. Each iteration uses inf/inf form. Hierarchy: ln(x) < x^p < e^x < x^x as x -> inf. PreCalc Regents introduces; AP Calc BC tests these limits routinely. Application: probability density functions like Gaussian e^(-x^2) decay faster than any polynomial - moments E[X^n] all finite."
@@ -4200,8 +4200,8 @@
       "choices": [
         "3, 5, 7",
         "y -> infinity",
-        "The exponent such that b^y = x",
-        "y -> 2 (horizontal asymptote y=2)"
+        "y -> infinity (slowly)",
+        "y approaches infinity (slowly)"
       ],
       "correctText": "3, 5, 7",
       "explanation": "Evaluate sequence: a_n = 2n+1 (assume index starts at n=1). a_1 = 2(1)+1 = 3; a_2 = 2(2)+1 = 5; a_3 = 2(3)+1 = 7. Pattern: odd numbers starting at 3, common difference 2. This is an arithmetic sequence. Notation varies: some start at n=0 (giving 1, 3, 5,...). PreCalc Regents and AP Calc BC test sequence evaluation. AP Calc BC: series sum_n a_n where a_n is the nth term; convergence depends on behavior of a_n as n -> infinity."
@@ -4221,9 +4221,9 @@
       "prompt": "End behavior of f(x) = x^3.",
       "choices": [
         "x -> infinity: y -> infinity; x -> -infinity: y -> -infinity",
-        "y -> infinity",
+        "ln(x) / ln(b)",
         "y -> 2 (horizontal asymptote y=2)",
-        "x = ln(7)"
+        "y -> infinity (slowly)"
       ],
       "correctText": "x -> infinity: y -> infinity; x -> -infinity: y -> -infinity",
       "explanation": "End behavior of x^3: As x -> +inf, x^3 -> +inf. As x -> -inf, x^3 -> -inf. Cubic function: odd-degree, positive leading coefficient, so behavior is 'down on left, up on right' (opposite ends). PreCalc Regents: leading term determines end behavior. General: a_n x^n with n odd and a_n > 0: down-up; n odd, a_n < 0: up-down; n even, a_n > 0: up-up; n even, a_n < 0: down-down. AP Calc uses end behavior for horizontal asymptotes and for determining whether integrals converge at infinity (improper integrals)."
@@ -4242,10 +4242,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "End behavior of e^x as x -> infinity.",
       "choices": [
-        "y -> infinity",
-        "p * log_b(M)",
-        "3, 5, 7",
-        "x -> infinity: y -> infinity; x -> -infinity: y -> -infinity"
+        "x -> infinity: y -> infinity; x -> -infinity: y -> -infinity",
+        "Even function (y-axis symmetric)",
+        "y -> 2 (horizontal asymptote y=2)",
+        "y -> infinity"
       ],
       "correctText": "y -> infinity",
       "explanation": "Exponential growth: lim x->inf e^x = +inf. Grows faster than any polynomial: lim x->inf x^n/e^x = 0 for any positive n (provable by L'Hopital n times). As x -> -inf, e^x -> 0+ (horizontal asymptote y=0 from above). PreCalc Regents and AP Calc test this. Comparison: exponentials beat polynomials (long-term); polynomials beat logarithms (long-term). Hierarchy: ln x < x^p (for any p > 0) < e^x as x -> inf. AP Calc BC: series convergence comparisons use this hierarchy heavily."
@@ -4265,8 +4265,8 @@
       "prompt": "End behavior of ln(x) as x -> infinity.",
       "choices": [
         "y -> infinity (slowly)",
-        "1 / sin x",
-        "y -> 2 (horizontal asymptote y=2)",
+        "At most 2 (less than 3)",
+        "x -> infinity: y -> infinity; x -> -infinity: y -> -infinity",
         "y -> infinity"
       ],
       "correctText": "y -> infinity (slowly)",
@@ -4286,10 +4286,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "End behavior of f(x) = (2x+3)/(x-1) as x -> infinity.",
       "choices": [
-        "y -> infinity (slowly)",
-        "45 degrees (pi/4)",
-        "x -> infinity: y -> infinity; x -> -infinity: y -> -infinity",
-        "y -> 2 (horizontal asymptote y=2)"
+        "y -> infinity",
+        "3, 5, 7",
+        "y -> 2 (horizontal asymptote y=2)",
+        "Range"
       ],
       "correctText": "y -> 2 (horizontal asymptote y=2)",
       "explanation": "Limit at infinity for rational: same degree (both linear), so limit = ratio of leading coefficients = 2/1 = 2. Horizontal asymptote y = 2 (both as x -> +inf and x -> -inf). PreCalc Regents and AP Calc: identify HA from rational function. Verify: divide num and denom by x: (2 + 3/x)/(1 - 1/x) -> 2/1 = 2. AP Calc BC: limits at infinity for rational functions tested constantly; combine with one-sided limits to fully characterize a rational function's graph."
@@ -4308,10 +4308,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Notation for left-hand limit.",
       "choices": [
-        "lim_(x -> a^-) f(x)",
-        "True - both equal sin^2 x",
-        "Jump discontinuity",
-        "4"
+        "c = -2",
+        "f(a) defined, lim exists, lim = f(a)",
+        "5",
+        "lim_(x -> a^-) f(x)"
       ],
       "correctText": "lim_(x -> a^-) f(x)",
       "explanation": "Left-hand limit: lim x->a^- f(x), x approaching a from values less than a (the left side). Symbol: minus sign in superscript. Right-hand limit: lim x->a^+ f(x) (plus sign), approaching from above. Two-sided limit exists iff both one-sided limits exist AND are equal. Example: f(x) = |x|/x has lim x->0^- = -1 and lim x->0^+ = 1, so two-sided limit doesn't exist (jump discontinuity). PreCalc Regents introduces; AP Calc BC tests one-sided limits at piecewise function junctions and at vertical asymptotes."
@@ -4330,10 +4330,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Compute lim_(x->2) (x^2 - 4)/(x - 2).",
       "choices": [
-        "lim_(x -> a^-) f(x)",
-        "4",
         "Jump discontinuity",
-        "1"
+        "4",
+        "f(a) defined, lim exists, lim = f(a)",
+        "p * log_b(M)"
       ],
       "correctText": "4",
       "explanation": "Indeterminate 0/0: Direct substitution gives 0/0. Factor: (x^2-4)/(x-2) = (x-2)(x+2)/(x-2) = x+2 for x ≠ 2. Limit as x->2: 2+2 = 4. Removable discontinuity (hole at x=2, value 4). PreCalc Regents and AP Calc fundamental technique: algebraic simplification before substitution. AP Calc BC: this anticipates derivative definition f'(a) = lim h->0 (f(a+h)-f(a))/h, which is always a 0/0 indeterminate that requires algebra (or L'Hopital) to evaluate."
@@ -4352,9 +4352,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "F is continuous at x = a if these three conditions hold.",
       "choices": [
-        "lim_(x -> a^-) f(x)",
-        "<-5, 1, 1>",
         "f(a) defined, lim exists, lim = f(a)",
+        "f-inverse of x",
+        "lim_(x -> a^-) f(x)",
         "c = -2"
       ],
       "correctText": "f(a) defined, lim exists, lim = f(a)",
@@ -4374,10 +4374,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Type of discontinuity at x=0 for f(x) = |x|/x.",
       "choices": [
-        "f(a) defined, lim exists, lim = f(a)",
-        "4",
-        "pi radians",
-        "Jump discontinuity"
+        "e",
+        "c = -2",
+        "Jump discontinuity",
+        "lim_(x -> a^-) f(x)"
       ],
       "correctText": "Jump discontinuity",
       "explanation": "Jump discontinuity: One-sided limits exist but are different. f(x) = |x|/x = -1 for x<0, +1 for x>0; lim x->0^- = -1, lim x->0^+ = +1. The function 'jumps' between -1 and +1 at x=0. Not removable - can't fix by redefining f(0). Other discontinuity types: removable (lim exists, just f(a) wrong), infinite (one-sided limit -> +/-inf, e.g., 1/x at x=0), oscillating (e.g., sin(1/x) at x=0). PreCalc Regents and AP Calc BC: classification of discontinuities is foundational, with each type behaving differently in IVT and FTC applications."
@@ -4397,9 +4397,9 @@
       "prompt": "Find c so f piecewise (x^2 for x<2; 3x+c for x>=2) is continuous at x=2.",
       "choices": [
         "f(a) defined, lim exists, lim = f(a)",
-        "c = -2",
-        "lim_(x -> a^-) f(x)",
-        "Vector"
+        "<-5, 1, 1>",
+        "4",
+        "c = -2"
       ],
       "correctText": "c = -2",
       "explanation": "Find c for continuity: f(x) = x^2 for x<2 has lim x->2^- = 2^2 = 4. f(x) = 3x+c for x>=2 has value at x=2: 3*2+c = 6+c. For continuity, need 6+c = 4, so c = -2. PreCalc Regents and AP Calc BC: piecewise continuity problems. Also matches limit from right: lim x->2^+ (3x+c) = 6+c = 4 by continuity. So function is continuous if c=-2. AP Calc BC extends to differentiability: requiring same DERIVATIVE at junction adds another condition. f differentiable => continuous (contrapositive: discontinuous => not differentiable)."
@@ -4418,9 +4418,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Inverse of f(x) = e^x.",
       "choices": [
-        "x = pi/3, 5pi/3",
         "4",
-        "y -> infinity",
+        "integral from a to b of sqrt((dx/dt)^2 + (dy/dt)^2) dt",
+        "x = pi/3, 5pi/3",
         "ln(x)"
       ],
       "correctText": "ln(x)",
@@ -4440,10 +4440,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Maximum number of real roots of a degree 4 polynomial.",
       "choices": [
+        "x = pi/3, 5pi/3",
+        "4",
         "3",
-        "Continuous everywhere",
-        "(x^2+y^2 - 2x)^2 = 4(x^2+y^2)",
-        "4"
+        "f-inverse of x"
       ],
       "correctText": "4",
       "explanation": "Degree 4 polynomial has exactly 4 complex roots (Fundamental Theorem of Algebra), of which at most 4 are real (with 0, 1, 2, 3, or 4 real depending on discriminant and structure). Possible splittings: 4 real; 2 real + 1 conjugate pair; 0 real + 2 conjugate pairs. Example: x^4 - 10 x^2 + 9 = (x^2-1)(x^2-9) has 4 real roots +/-1, +/-3. x^4+1 has 0 real roots, 2 conjugate pairs. PreCalc Regents tests this. AP Calc: end behavior of degree 4 (even, positive leading) is up-up; bisection method finds real roots one at a time using IVT."
@@ -4462,10 +4462,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Continuity of f(x) = sin(x) for all x.",
       "choices": [
-        "ln(x)",
+        "Parameter t",
         "3",
-        "Continuous everywhere",
-        "c = -2"
+        "x = pi/3, 5pi/3",
+        "Continuous everywhere"
       ],
       "correctText": "Continuous everywhere",
       "explanation": "Sin x is continuous everywhere: defined for all real x, limit exists at every point and equals function value. Same for cos x. Tan x is NOT continuous everywhere - has VAs at pi/2 + n*pi (where cos=0). PreCalc Regents and AP Calc: sin and cos are 'nice' (continuous, differentiable, bounded, periodic). AP Calc: continuous functions on closed intervals have absolute max/min (Extreme Value Theorem). sin and cos are integrable on any interval. d/dx[sin x] = cos x; integral of sin x dx = -cos x + C."
@@ -4484,10 +4484,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve 2 cos x = 1 in [0, 2pi).",
       "choices": [
-        "Continuous everywhere",
-        "4",
         "x = pi/3, 5pi/3",
-        "2"
+        "<6, -3>",
+        "ln(x)",
+        "Continuous everywhere"
       ],
       "correctText": "x = pi/3, 5pi/3",
       "explanation": "Solve 2 cos x = 1: cos x = 1/2. Reference angle arccos(1/2) = pi/3 (60°). Cosine is positive in Q1 and Q4: solutions pi/3 (Q1) and 2pi - pi/3 = 5pi/3 (Q4). Verify: cos(pi/3) = 1/2 OK; cos(5pi/3) = cos(-pi/3) = 1/2 OK. PreCalc Regents standard. AP Calc: similar trig equations arise in finding critical points of trig functions, e.g., critical points of f(x) = x - sin x have f'(x) = 1 - cos x = 0, so cos x = 1, giving x = 2k pi."
@@ -4506,10 +4506,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Lim_(x -> 0) (sin 3x)/x value.",
       "choices": [
-        "4",
-        "3",
+        "y = 0",
+        "Continuous everywhere",
         "ln(x)",
-        "Intermediate Value Theorem"
+        "3"
       ],
       "correctText": "3",
       "explanation": "Use famous limit: lim x->0 sin(x)/x = 1. Rewrite: lim x->0 sin(3x)/x = lim x->0 3 * sin(3x)/(3x) = 3 * 1 = 3. Or L'Hopital: derivative of sin(3x) is 3 cos(3x), derivative of x is 1, ratio at x=0 is 3*1/1 = 3. General pattern: lim x->0 sin(kx)/x = k. PreCalc Regents introduces; AP Calc tests routinely. Variants: lim x->0 tan(kx)/x = k; lim x->0 (1-cos kx)/x^2 = k^2/2. All foundational for derivative formulas of trig functions."
@@ -4528,10 +4528,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Pythagorean identity equivalent for sec.",
       "choices": [
-        "2 sin x cos x",
+        "7",
         "1 + tan^2 x = sec^2 x",
         "pi/2",
-        "Vector"
+        "x = 2"
       ],
       "correctText": "1 + tan^2 x = sec^2 x",
       "explanation": "Pythagorean identity: 1 + tan^2 x = sec^2 x. Derives from sin^2+cos^2=1 divided by cos^2. AP Calc BC trig substitution: integral with sqrt(a^2 + x^2) form -> let x = a tan θ, then a^2 + x^2 = a^2 sec^2 θ, and dx = a sec^2 θ dθ; simplifies to sec^3 θ or other integrable forms. PreCalc Regents: applies in identity proofs and simplifications. Memorize all three Pythagorean: sin^2+cos^2=1, tan^2+1=sec^2, 1+cot^2=csc^2."
@@ -4550,9 +4550,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Period of f(x) = tan(2x).",
       "choices": [
+        "x = 2 +/- 3i",
         "x = 2",
-        "1 + tan^2 x = sec^2 x",
-        "y -> infinity (slowly)",
+        "y = +/- (4/3) x",
         "pi/2"
       ],
       "correctText": "pi/2",
@@ -4573,9 +4573,9 @@
       "prompt": "X-coordinate of vertex of parabola y = 3x^2 - 12x + 7.",
       "choices": [
         "pi/2",
-        "2 sin x cos x",
+        "y = +/- (4/3) x",
         "x = 2",
-        "<6, -3>"
+        "x = 2 +/- 3i"
       ],
       "correctText": "x = 2",
       "explanation": "Vertex of parabola y = ax^2 + bx + c: x = -b/(2a). Here a=3, b=-12: x = 12/6 = 2. Then y = 3(4) - 24 + 7 = -5. Vertex at (2, -5). Alternative: complete the square y = 3(x^2 - 4x) + 7 = 3(x-2)^2 - 12 + 7 = 3(x-2)^2 - 5. Same answer. PreCalc Regents and AP Calc test vertex location and optimization. AP Calc: vertex is critical point where derivative = 0: dy/dx = 6x - 12 = 0 at x = 2 (same answer)."
@@ -4594,10 +4594,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve x^2 - 4x + 13 = 0.",
       "choices": [
-        "Zeros of the denominator",
-        "1 + tan^2 x = sec^2 x",
-        "x = 2 +/- 3i",
-        "pi/2"
+        "x = 2",
+        "(1, 0)",
+        "pi/2",
+        "x = 2 +/- 3i"
       ],
       "correctText": "x = 2 +/- 3i",
       "explanation": "Quadratic formula: x = (-b +/- sqrt(b^2-4ac))/(2a) = (4 +/- sqrt(16-52))/2 = (4 +/- sqrt(-36))/2 = (4 +/- 6i)/2 = 2 +/- 3i. Discriminant b^2-4ac = -36 < 0, so complex conjugate pair of roots. PreCalc Regents and Algebra 2 test complex roots. AP Calc: avoids complex numbers in undergraduate calculus, but they reappear in differential equations (characteristic equation r^2 - 4r + 13 = 0 has roots 2+/-3i, giving solutions y = e^(2x)(cos 3x + i sin 3x) which expand to real form e^(2x)cos(3x), e^(2x)sin(3x))."
@@ -4616,9 +4616,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Express sin(2x) using double-angle formula.",
       "choices": [
-        "Vertical shift",
         "x = 2 +/- 3i",
-        "x = 2",
+        "13",
+        "1 + tan^2 x = sec^2 x",
         "2 sin x cos x"
       ],
       "correctText": "2 sin x cos x",
@@ -4638,10 +4638,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Magnitude of vector <6, 8>.",
       "choices": [
-        "(+/- sqrt(7), 0)",
-        "True - both equal sin^2 x",
         "10",
-        "y^2 = x^3 (semicubical parabola)"
+        "1 + tan^2 x = sec^2 x",
+        "(+/- sqrt(7), 0)",
+        "θ = 0"
       ],
       "correctText": "10",
       "explanation": "Magnitude: sqrt(36+64) = sqrt(100) = 10. Pythagorean triple (6, 8, 10) - scaled (3, 4, 5). Unit vector: <6/10, 8/10> = <0.6, 0.8>. PreCalc Regents and AP Calc BC: |v| applies in physics (speed = |velocity|, distance traveled from displacement |Δr|) and geometry (length of arrow). Calc III extends to 3D: |<a, b, c>| = sqrt(a^2+b^2+c^2). |v + w| <= |v| + |w| (triangle inequality). Vector dot product u. v = |u||v| cos θ relates magnitudes and angle."
@@ -4660,10 +4660,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Standard form for ellipse x^2/16 + y^2/9 = 1 - find foci.",
       "choices": [
-        "0",
-        "θ = 0",
-        "(1, 2)",
-        "(+/- sqrt(7), 0)"
+        "10",
+        "(+/- sqrt(7), 0)",
+        "r cos theta",
+        "(1, 2)"
       ],
       "correctText": "(+/- sqrt(7), 0)",
       "explanation": "Foci of ellipse: a^2=16 (a=4), b^2=9 (b=3), c^2 = a^2 - b^2 = 16-9 = 7, c = sqrt(7). Major axis horizontal (a>b). Foci at (+/- c, 0) = (+/- sqrt(7), 0). PreCalc Regents standard problem. Verify: |PF_1| + |PF_2| = 2a = 8 for any point P on ellipse. Eccentricity e = c/a = sqrt(7)/4 ≈ 0.661. AP Calc BC: parametric form x = 4 cos t, y = 3 sin t parameterizes ellipse for arc length and area integrals."
@@ -4682,9 +4682,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cardioid r = 1 + cos θ has maximum r at this angle.",
       "choices": [
+        "y = 6 sin((pi/2)(x-1)) - 1",
         "y^2 = x^3 (semicubical parabola)",
-        "x -> infinity: y -> infinity; x -> -infinity: y -> -infinity",
-        "10",
+        "(1, 2)",
         "θ = 0"
       ],
       "correctText": "θ = 0",
@@ -4704,10 +4704,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Vertex of (y-2)^2 = 8(x-1).",
       "choices": [
-        "(+/- sqrt(7), 0)",
-        "10",
-        "4",
-        "(1, 2)"
+        "(1, 2)",
+        "θ = 0",
+        "p * log_b(M)",
+        "10"
       ],
       "correctText": "(1, 2)",
       "explanation": "Sideways parabola: (y-k)^2 = 4p(x-h) has vertex (h,k). Here (y-2)^2 = 8(x-1) so vertex (1, 2). 4p = 8 means p = 2. Parabola opens RIGHT (p>0). Focus at (h+p, k) = (3, 2). Directrix x = h-p = -1. PreCalc Regents identifies vertex and orientation. AP Calc: dy/dx for sideways parabola requires implicit differentiation: 2(y-2)(dy/dx) = 8, so dy/dx = 4/(y-2) (undefined at vertex y=2, where vertical tangent)."
@@ -4726,10 +4726,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Parametric equations x = t^2, y = t^3 in Cartesian.",
       "choices": [
+        "(1, 2)",
         "y^2 = x^3 (semicubical parabola)",
-        "(+/- sqrt(7), 0)",
-        "y -> 2 (horizontal asymptote y=2)",
-        "10"
+        "θ = 0",
+        "y = (x+2)^2 + 3"
       ],
       "correctText": "y^2 = x^3 (semicubical parabola)",
       "explanation": "Eliminate t: x = t^2 means t = +/- sqrt(x) (for x >= 0). y = t^3 = (+/- sqrt(x))^3 = +/- x^(3/2). Square: y^2 = x^3. Semicubical parabola (Neil's parabola), the first algebraic curve to have its arc length computed (Neil, 1657). Cusp at origin (where parametric path has dx/dt = 2t = 0 and dy/dt = 3t^2 = 0). PreCalc Regents introduces parametric elimination; AP Calc BC: arc length integral integral sqrt(4t^2 + 9t^4) dt = integral t sqrt(4 + 9 t^2) dt (using t > 0)."
@@ -4748,10 +4748,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sin(pi/2) value.",
       "choices": [
-        "1 / sin x",
-        "1",
+        "lim_(n -> infinity) (1 + 1/n)^n",
         "7",
-        "e"
+        "1",
+        "+infinity"
       ],
       "correctText": "1",
       "explanation": "Sin(pi/2) = 1: At pi/2 (90°), the y-coordinate on the unit circle is at its maximum, 1. Recall unit circle points: (cos x, sin x). At pi/2: (0, 1). So sin(pi/2) = 1, cos(pi/2) = 0. Period 2pi. Maximum of sin: 1. Minimum: -1. PreCalc Regents foundational. AP Calc uses for evaluating definite integrals and as boundary value in trigonometric series. sin(pi/2 - x) = cos(x) (cofunction identity). sin(pi/2 + x) = cos(x) also (using sum formula sin(pi/2)cos(x) + cos(pi/2)sin(x) = cos x)."
@@ -4770,10 +4770,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "E^(ln 7) equals.",
       "choices": [
-        "7",
-        "y = 6 sin((pi/2)(x-1)) - 1",
         "16",
-        "lim_(n -> infinity) (1 + 1/n)^n"
+        "sin x",
+        "1",
+        "7"
       ],
       "correctText": "7",
       "explanation": "Inverse operations: e^(ln x) = x for x > 0; ln(e^x) = x for all x. Mutually inverse. So e^(ln 7) = 7 directly. PreCalc Regents and AP Calc fundamental. Applications: solve exponential and log equations using these inverses. d/dx[e^(f(x))] = e^(f(x)) * f'(x) (chain rule). Integral of e^x dx = e^x + C. Integral of 1/x dx = ln|x| + C - one of the most-used antiderivatives in AP Calc."
@@ -4792,10 +4792,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sum of infinite geometric series with a=8 and r=1/2.",
       "choices": [
-        "sin A cos B + cos A sin B",
+        "e",
         "16",
-        "1",
-        "e"
+        "At most 2 (less than 3)",
+        "lim_(n -> infinity) (1 + 1/n)^n"
       ],
       "correctText": "16",
       "explanation": "Infinite geometric sum: S = a/(1-r) for |r|<1. Here a=8, r=1/2: S = 8/(1-1/2) = 8/(1/2) = 16. Verify partial sums: 8 + 4 + 2 + 1 + 0.5 +... approaches 16. PreCalc Regents and AP Calc BC use geometric series for compound interest, Zeno-style problems, and as building block for Taylor series. Power series Σ x^n = 1/(1-x) for |x|<1 is geometric series with r=x. Derivatives and integrals of this series generate Taylor series for related functions."
@@ -4814,10 +4814,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sum from n=0 to infinity of 1/n! equals.",
       "choices": [
-        "arctan(2) ≈ 63.4°",
-        "16",
         "7",
-        "e"
+        "e",
+        "16",
+        "0 <= e < 1"
       ],
       "correctText": "e",
       "explanation": "Famous series: Σ_(n=0)^inf 1/n! = e = 2.71828182... (e^1 with Maclaurin series). General: e^x = Σ x^n/n! for all real x. AP Calc BC: this is the Taylor series for e^x centered at 0; converges for all x. Used to compute e to many decimals very efficiently (since n! grows fast). 1 + 1 + 1/2 + 1/6 + 1/24 + 1/120 + 1/720 = 2.71806 ≈ e. PreCalc Regents introduces e via continuous compounding; AP Calc BC derives via Taylor series."
@@ -4836,10 +4836,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Constant e defined by which limit involving (1+1/n)^n.",
       "choices": [
-        "(0, 1)",
-        "lim_(n -> infinity) (1 + 1/n)^n",
+        "(2, 4pi/3)",
+        "1",
         "e",
-        "16"
+        "lim_(n -> infinity) (1 + 1/n)^n"
       ],
       "correctText": "lim_(n -> infinity) (1 + 1/n)^n",
       "explanation": "Definition of e: e = lim n->inf (1 + 1/n)^n ≈ 2.71828... (Euler, 1727). Generalization: lim n->inf (1 + x/n)^n = e^x. Application: continuous compound interest A = lim n->inf P(1 + r/n)^(nt) = P e^(rt). PreCalc Regents introduces e; AP Calc proves equivalence to series definition Σ 1/n!. Both definitions yield same value. e is also defined as unique base where d/dx[e^x] = e^x. Three equivalent definitions of e: limit, series, and derivative property."
@@ -4858,9 +4858,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Domain of f(x) = ln(x).",
       "choices": [
+        "sin, tan, csc, cot",
+        "10",
         "x > 0",
-        "1",
-        "<3, 2>",
         "x = 7"
       ],
       "correctText": "x > 0",
@@ -4881,8 +4881,8 @@
       "prompt": "Lim_(x -> 5) (x^2 - 25)/(x - 5) value.",
       "choices": [
         "1",
-        "x = 7",
-        "θ = pi/4 (or θ = pi/4 + pi)",
+        "x > 0",
+        "5/2",
         "10"
       ],
       "correctText": "10",
@@ -4902,10 +4902,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Lim_(x -> infinity) (x+1)/x.",
       "choices": [
-        "True - apply sum and double-angle identities",
+        "x > 0",
         "1",
-        "x = 7",
-        "x > 0"
+        "10",
+        "pi/3 to the right"
       ],
       "correctText": "1",
       "explanation": "Limit at infinity: (x+1)/x = 1 + 1/x -> 1 + 0 = 1 as x -> inf. Same as ratio of leading coefficients (both linear with coefficient 1). Horizontal asymptote y=1. PreCalc Regents and AP Calc: horizontal asymptotes of rational functions. Generalizes: lim x->inf (ax+b)/(cx+d) = a/c (when c ≠ 0). AP Calc BC: limits like this appear in convergence analysis of series; e.g., ratio test lim |a_(n+1)/a_n| has rational forms."
@@ -4924,10 +4924,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solve log_2(x+1) = 3.",
       "choices": [
+        "3",
         "x = 7",
-        "i",
         "x > 0",
-        "10"
+        "1"
       ],
       "correctText": "x = 7",
       "explanation": "Solve log equation: log_2(x+1) = 3 means 2^3 = x+1, so x+1 = 8, x = 7. Check domain: x+1 = 8 > 0 OK. PreCalc Regents standard. AP Calc: similar log equations from differential equation solutions where ln(y) = expression in x. e^(ln expression) is taken to solve for y. Example: separable ODE dy/dx = y gives ln|y| = x + C, then |y| = e^(x+C) = A e^x, so y = +/- A e^x = C e^x (after absorbing sign and constant)."
@@ -4946,9 +4946,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Continuous compound interest formula.",
       "choices": [
-        "1",
-        "Even",
+        "y = A sin(B(x-C)) + D",
         "10",
+        "x > 0",
         "A = P e^(rt)"
       ],
       "correctText": "A = P e^(rt)",
