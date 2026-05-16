@@ -121,7 +121,11 @@ function verify() {
     }
     if (ids.has(game.id)) errors.push(`Duplicate game id: ${game.id}`);
     ids.add(game.id);
-    const rawFile = String(game.file);
+    const rawFile = normalizeRef(game.file);
+    if (!rawFile) {
+      errors.push(`Bad manifest entry (invalid file ref): ${game.id} -> ${game.file}`);
+      continue;
+    }
     const target = resolve(root, rawFile.includes("%") ? decodeSegments(rawFile) : rawFile);
     if (!isInsideRoot(target)) {
       errors.push(`Game file escapes root: ${game.id} -> ${game.file}`);
